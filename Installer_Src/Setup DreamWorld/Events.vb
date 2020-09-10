@@ -45,9 +45,10 @@ Module Events
 
                 End Using ' client
             End Using ' osconnection
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
 

@@ -159,23 +159,31 @@ Public Class RegionList
     Private Sub SetScreen()
 
         Me.Show()
-        ScreenPosition = New ScreenPos(MyBase.Name)
-        AddHandler ResizeEnd, Handler
-        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-        Me.Left = xy.Item(0)
-        Me.Top = xy.Item(1)
-        Dim hw As List(Of Integer) = ScreenPosition.GetHW()
-        '1106, 460
-        If hw.Item(0) = 0 Then
+        Try
+            ScreenPosition = New ScreenPos(MyBase.Name)
+            AddHandler ResizeEnd, Handler
+            Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+            Me.Left = xy.Item(0)
+            Me.Top = xy.Item(1)
+            Dim hw As List(Of Integer) = ScreenPosition.GetHW()
+            '1106, 460
+            If hw.Item(0) = 0 Then
+                Me.Height = 460
+            Else
+                Me.Height = hw.Item(0)
+            End If
+            If hw.Item(1) = 0 Then
+                Me.Width = 1106
+            Else
+                Me.Width = hw.Item(1)
+            End If
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
             Me.Height = 460
-        Else
-            Me.Height = hw.Item(0)
-        End If
-        If hw.Item(1) = 0 Then
             Me.Width = 1106
-        Else
-            Me.Width = hw.Item(1)
-        End If
+            Me.Left = 100
+            Me.Top = 100
+        End Try
 
     End Sub
 
@@ -546,9 +554,10 @@ Public Class RegionList
                             Dim component1 As Process = Process.GetProcessById(PID)
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                             item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
-#Disable Warning CA1031
-                        Catch
-#Enable Warning CA1031
+
+                        Catch ex As Exception
+
+                            BreakPoint.Show(ex.Message)
                             item1.SubItems.Add("0".ToUpperInvariant)
                         End Try
                     Else
@@ -685,12 +694,13 @@ Public Class RegionList
                         If Status = RegionMaker.SIMSTATUSENUM.Booted Then
                             Dim img As String = "http://127.0.0.1:" + Form1.PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + Form1.PropRegionClass.UUID(RegionUUID).Replace("-".ToUpperInvariant, "")
                             Dim bmp As Image = Nothing
-#Disable Warning CA1031
+
                             Try
                                 bmp = LoadImage(img)
-                            Catch
+                            Catch ex As Exception
+                                BreakPoint.Show(ex.Message)
                             End Try
-#Enable Warning CA1031
+
                             If bmp Is Nothing Then
                                 ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
                             Else
@@ -732,14 +742,16 @@ Public Class RegionList
 
                 Me.ListView1.TabIndex = 0
 
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
                 Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
             End Try
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
@@ -778,13 +790,14 @@ Public Class RegionList
             Dim RegionName = item.SubItems(1).Text
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
+                '!!!
                 Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
 
+                Catch ex As Exception
+
+                    BreakPoint.Show(ex.Message)
                 End Try
             End If
         Next
@@ -837,9 +850,10 @@ Public Class RegionList
         Dim Item As ListViewItem = Nothing
         Try
             Item = ListView1.Items.Item(e.Index)
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
         If Item.Text.Length = 0 Then Return
 
@@ -939,10 +953,10 @@ Public Class RegionList
             AvatarView.Visible = True
             ViewBusy = False
             PropUpdateView() = False
-#Disable Warning CA1031
-        Catch ex As Exception
-#Enable Warning CA1031
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
@@ -960,19 +974,19 @@ Public Class RegionList
         Dim response As System.Net.WebResponse = Nothing
         Try
             response = request.GetResponse()
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
 
         Dim responseStream As System.IO.Stream = Nothing
         Try
             responseStream = response.GetResponseStream()
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
 
         If responseStream IsNot Nothing Then
@@ -1108,10 +1122,10 @@ Public Class RegionList
             Dim link = "secondlife://http|!!" & Settings.PublicIP & "|" & Settings.HttpPort & "+" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
+#Disable Warning CA103
+            Catch ex As Exception
 
+                BreakPoint.Show(ex.Message)
             End Try
 
         End If
@@ -1134,9 +1148,10 @@ Public Class RegionList
         Try
             ' Read the chosen GROUP name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             chosen = ""
         End Try
 
@@ -1368,18 +1383,18 @@ Public Class RegionList
 
                     If dirpathname.Length = 0 Then dirpathname = filename
 
-                    Dim NewFilepath = Form1.PropOpensimBinPath & "Regions\" + dirpathname + "\Region\"
+                    Dim NewFilepath = Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\"
                     If Not Directory.Exists(NewFilepath) Then
                         Try
-                            Directory.CreateDirectory(Form1.PropOpensimBinPath & "Regions\" + dirpathname + "\Region")
-#Disable Warning CA1031
-                        Catch
-#Enable Warning CA1031
+                            Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
 
+                        Catch ex As Exception
+
+                            BreakPoint.Show(ex.Message)
                         End Try
                     End If
 
-                    File.Copy(ofd.FileName, Form1.PropOpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                    File.Copy(ofd.FileName, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
                 Else
                     Form1.Print(My.Resources.Unrecognized & " " & extension & ". ")
                 End If
@@ -1407,9 +1422,10 @@ Public Class RegionList
         Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+
 
         End Try
 

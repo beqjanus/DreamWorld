@@ -117,9 +117,10 @@ Public Class Gloebits
         Dim webAddress As String = "https://sandbox.gloebit.com/signup/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -127,9 +128,10 @@ Public Class Gloebits
         Dim webAddress As String = "https://sandbox.gloebit.com/merchant-signup/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -137,9 +139,10 @@ Public Class Gloebits
         Dim webAddress As String = "https://www.gloebit.com"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -183,9 +186,10 @@ Public Class Gloebits
         Dim webAddress As String = "https://www.gloebit.com/merchant-tools/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -193,9 +197,10 @@ Public Class Gloebits
         Dim webAddress As String = "https://www.gloebit.com/signup/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -203,9 +208,10 @@ Public Class Gloebits
         Dim webAddress As String = "https://www.gloebit.com/merchant-signup/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -241,9 +247,10 @@ Public Class Gloebits
         Dim webAddress As String = "http://dev.gloebit.com/opensim/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -252,9 +259,10 @@ Public Class Gloebits
         Dim webAddress As String = "http://dev.gloebit.com/opensim/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub
@@ -263,9 +271,10 @@ Public Class Gloebits
         Dim webAddress As String = "http://dev.gloebit.com/monetize/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 

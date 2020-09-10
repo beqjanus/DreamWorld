@@ -94,7 +94,7 @@ Public Class FormBackupCheckboxes
         Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Dest As String
         If Settings.BackupFolder = "AutoBackup" Then
-            Dest = Settings.Myfolder + "\OutworldzFiles\AutoBackup\" + Foldername
+            Dest = Settings.CurrentDirectory + "\OutworldzFiles\AutoBackup\" + Foldername
         Else
             Dest = Settings.BackupFolder + "\" + Foldername
         End If
@@ -103,13 +103,13 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
             End Try
 
             PrintStatus(My.Resources.Backup_Regions)
-            FileStuff.CopyFolder(Settings.Myfolder + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
+            FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
             Application.DoEvents()
         End If
 
@@ -117,12 +117,13 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             PrintStatus(My.Resources.Backup_MySQL_Phrase)
-            FileStuff.CopyFolder(Settings.Myfolder + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
+            FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
             Application.DoEvents()
         End If
 
@@ -130,9 +131,10 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\FSAssets")
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
 
             Dim folder As String = "./fsassets"
@@ -152,19 +154,20 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             PrintStatus("Backing up Wifi Folders")
-            FileStuff.CopyFolder(Settings.Myfolder + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
-            FileStuff.CopyFolder(Settings.Myfolder + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
+            FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
+            FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
             Application.DoEvents()
         End If
 
         If SettingsBox.Checked Then
             PrintStatus(My.Resources.Backing_up_Settings_word)
-            FileStuff.CopyFile(Settings.Myfolder + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
+            FileStuff.CopyFile(Settings.CurrentDirectory + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
         End If
         PrintStatus(My.Resources.Finished_with_backup_word & Dest)
         DialogResult = DialogResult.OK

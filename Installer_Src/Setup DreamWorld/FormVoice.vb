@@ -81,9 +81,10 @@ Public Class FormVoice
         Dim webAddress As String = "https://opensim.vivox.com/opensim/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 

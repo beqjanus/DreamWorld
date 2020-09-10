@@ -47,9 +47,9 @@ Public Module MysqlInterface
         Using ClientSocket As New TcpClient
             Try
                 ClientSocket.Connect(ServerAddress, iPort)
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
                 Return False
             End Try
 
@@ -71,9 +71,9 @@ Public Module MysqlInterface
                 Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
                     cmd.ExecuteScalar()
                 End Using
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
                 Debug.Print("Failed to Connect to OsSearch")
                 Return
             End Try
@@ -89,9 +89,9 @@ Public Module MysqlInterface
                 Using cmd As New MySqlCommand(stm, osconnection)
                     cmd.ExecuteScalar()
                 End Using
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
                 Debug.Print("Failed to Connect to OsSearch")
                 Return
             End Try
@@ -142,9 +142,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             End Using
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
             Console.WriteLine("Error: " & ex.ToString())
             Return ""
         End Try
@@ -164,9 +164,9 @@ Public Module MysqlInterface
                     End Using
                 End Using
             End Using
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
             Console.WriteLine("Error: " & ex.ToString())
             Return ""
         Finally
@@ -196,9 +196,9 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
         End Using
@@ -244,9 +244,9 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
         End Using
@@ -284,9 +284,9 @@ Public Module MysqlInterface
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
                 Return v
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
                 Debug.Print(ex.Message)
             End Try
         End Using
@@ -314,9 +314,9 @@ Public Module MysqlInterface
                     End If
                 End Using
             End Using
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
             Console.WriteLine("Error: " & ex.ToString())
         Finally
             MysqlConn.Close()

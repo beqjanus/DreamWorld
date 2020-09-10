@@ -79,7 +79,6 @@ Public Class FormApache
         ApachePort.Text = CType(Settings.ApachePort, String)
         ApacheServiceCheckBox.Checked = Settings.ApacheService
 
-
         '''' set the other bvox and the radios for Different CMS systems.
         ''' This is used to redirect all access to apache / to the folder listed below
         '''
@@ -112,9 +111,10 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
@@ -122,9 +122,10 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
@@ -132,8 +133,6 @@ Public Class FormApache
         End Using
 
     End Sub
-
-
 
     Private Sub ApacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheCheckbox.CheckedChanged
 
@@ -207,7 +206,6 @@ Public Class FormApache
 
     End Sub
 
-
     Private Sub Other_TextChanged(sender As Object, e As EventArgs) Handles Other.TextChanged
 
         If Not initted Then Return
@@ -231,14 +229,15 @@ Public Class FormApache
         InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
         '
         ' all of them
-        InstallProcess.StartInfo.FileName = Form1.PropMyFolder & "\MSFT_Runtimes\Visual C++ Redist Installer V56.exe"
+        InstallProcess.StartInfo.FileName = Settings.CurrentDirectory & "\MSFT_Runtimes\Visual C++ Redist Installer V56.exe"
 
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Try
             InstallProcess.Start()
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
 
         InstallProcess.WaitForExit()

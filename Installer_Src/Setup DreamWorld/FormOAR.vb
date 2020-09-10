@@ -205,6 +205,7 @@ Public Class FormOAR
                 column += 1
             End While
         Catch ex As Exception
+            BreakPoint.Show(ex.Message)
         End Try
 
         DataGridView.PerformLayout()
@@ -225,9 +226,10 @@ Public Class FormOAR
             ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
                 Form1.LoadIARContent(File)
             End If
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
 
         End Try
 
@@ -246,10 +248,10 @@ Public Class FormOAR
                     Return New Bitmap(System.Drawing.Image.FromStream(stream))
                 End Using
             End Using
-#Disable Warning CA1031
-        Catch ex As Exception
-#Enable Warning CA1031
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Form1.Log("Warn", ex.Message)
         End Try
 
@@ -263,10 +265,10 @@ Public Class FormOAR
             Using client As WebClient = New WebClient()
                 Return client.DownloadString(url)
             End Using
-#Disable Warning CA1031
-        Catch ex As Exception
-#Enable Warning CA1031
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Form1.Log("Warn", ex.Message)
         End Try
         Return ""
@@ -281,10 +283,10 @@ Public Class FormOAR
             Else
                 DataGridView.Rows(row).Cells(col).Value = NoImage(item)
             End If
-#Disable Warning CA1031
-        Catch ex As Exception
-#Enable Warning CA1031
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Form1.Log("Error", ex.Message)
         End Try
 
@@ -402,10 +404,10 @@ Public Class FormOAR
 
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
-#Disable Warning CA1031
-        Catch ex As Exception
-#Enable Warning CA1031
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Form1.Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
@@ -423,20 +425,20 @@ Public Class FormOAR
             Try
                 Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
-#Disable Warning CA1031
-            Catch ex As Exception
-#Enable Warning CA1031
 
+            Catch ex As Exception
+
+                BreakPoint.Show(ex.Message)
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return Nothing
             End Try
         End Using
         Try
             json = JsonConvert.DeserializeObject(Of JSONresult())(result)
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Return Nothing
         End Try
         Return json
@@ -480,9 +482,10 @@ Public Class FormOAR
             gr.DrawImageUnscaled(bmp, 0, 0)
             gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
 
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
 
         Return newImage
@@ -524,9 +527,10 @@ Public Class FormOAR
                         Using g As Graphics = Graphics.FromImage(bmp)
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
-#Disable Warning CA1031
-                    Catch
-#Enable Warning CA1031
+
+                    Catch ex As Exception
+
+                        BreakPoint.Show(ex.Message)
                     End Try
                     img.Dispose()
 

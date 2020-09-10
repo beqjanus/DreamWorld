@@ -99,11 +99,11 @@ Public Class FormPublicity
         GDPRCheckBox.Checked = Settings.GDPR()
 
         Try
-            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+            PictureBox9.Image = Bitmap.FromFile(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png")
 
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             PictureBox9.Image = My.Resources.ClicktoInsertPhoto
         End Try
         Dim tmp = Settings.Description
@@ -165,13 +165,14 @@ Public Class FormPublicity
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
 
-                    FileStuff.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
+                    FileStuff.DeleteFile(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png")
                     Dim newBitmap = New Bitmap(PictureBox9.Image)
-                    newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                    newBitmap.Save(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
                     newBitmap.Dispose()
-#Disable Warning CA1031
+
                 Catch ex As Exception
-#Enable Warning CA1031
+
+                    BreakPoint.Show(ex.Message)
                     Form1.ErrorLog("Save Photo " & ex.Message)
                     Return
                 End Try

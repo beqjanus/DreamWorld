@@ -164,10 +164,9 @@ Public Class RegionMaker
 
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
-#Disable Warning CA1031
                 Catch ex As Exception
-#Enable Warning CA1031
 
+                    BreakPoint.Show(ex.Message)
                     Debug.Print(ex.Message)
                     Form1.Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
                     Continue While
@@ -201,9 +200,9 @@ Public Class RegionMaker
                     If Debugger.IsAttached = True Then
                         Try
                             '! debug TeleportAvatarDict.Add("Test", "Test User")
-#Disable Warning CA1031
-                        Catch
-#Enable Warning CA1031
+                        Catch ex As Exception
+
+                            BreakPoint.Show(ex.Message)
                         End Try
                     End If
 
@@ -222,9 +221,9 @@ Public Class RegionMaker
                                     Form1.ConsoleCommand(UUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
                                         Removelist.Add(Keypair.Key)
-#Disable Warning CA1031
-                                    Catch
-#Enable Warning CA1031
+                                    Catch ex As Exception
+
+                                        BreakPoint.Show(ex.Message)
                                     End Try
                                 End If
 
@@ -236,10 +235,9 @@ Public Class RegionMaker
                     For Each Name In Removelist
                         Try
                             TeleportAvatarDict.Remove(Name)
-#Disable Warning CA1031
-                        Catch
-#Enable Warning CA1031
+                        Catch ex As Exception
 
+                            BreakPoint.Show(ex.Message)
                         End Try
                     Next
 
@@ -268,10 +266,9 @@ Public Class RegionMaker
                     Form1.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
                     Continue While
                 End If
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
 
+                BreakPoint.Show(ex.Message)
                 Debug.Print(ex.Message)
             End Try
 
@@ -367,7 +364,7 @@ Public Class RegionMaker
             Dim folders() As String
             Dim regionfolders() As String
             Dim RegionUUID As String = ""
-            folders = Directory.GetDirectories(Form1.PropOpensimBinPath + "\Regions")
+            folders = Directory.GetDirectories(Settings.OpensimBinPath + "\Regions")
             For Each FolderName As String In folders
 
                 regionfolders = Directory.GetDirectories(FolderName)
@@ -378,10 +375,9 @@ Public Class RegionMaker
                         Dim inis = Nothing
                         Try
                             inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
-#Disable Warning CA1031
-                        Catch
-#Enable Warning CA1031
+                        Catch ex As Exception
 
+                            BreakPoint.Show(ex.Message)
                         End Try
 
                         For Each ini As String In inis
@@ -477,10 +473,9 @@ Public Class RegionMaker
 
                             Application.DoEvents()
                         Next
-#Disable Warning CA1031
                     Catch ex As Exception
-#Enable Warning CA1031
 
+                        BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, My.Resources.Error_word)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
@@ -488,10 +483,9 @@ Public Class RegionMaker
             Next
 
             _RegionListIsInititalized = True
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
 
+            BreakPoint.Show(ex.Message)
             Debug.Print(ex.Message)
         End Try
         Return RegionList.Count
@@ -510,10 +504,9 @@ Public Class RegionMaker
                 If pair.Value._RegionPort > MaxNum Then
                     MaxNum = pair.Value._RegionPort
                 End If
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
+            Catch ex As Exception
 
+                BreakPoint.Show(ex.Message)
             End Try
         Next
 
@@ -564,10 +557,9 @@ Public Class RegionMaker
         For Each pair In RegionList
             Try
                 Portlist.Add(pair.Value._RegionPort, pair.Value._RegionName)
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
+            Catch ex As Exception
 
+                BreakPoint.Show(ex.Message)
             End Try
         Next
 
@@ -597,15 +589,14 @@ Public Class RegionMaker
         Dim fname As String = RegionList(RegionUUID)._FolderPath
 
         If (fname.Length = 0) Then
-            Dim pathtoWelcome As String = Form1.PropOpensimBinPath + "\Regions\" + name + "\Region\"
+            Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + name + "\Region\"
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
                 Try
                     Directory.CreateDirectory(pathtoWelcome)
-#Disable Warning CA1031
-                Catch
-#Enable Warning CA1031
+                Catch ex As Exception
 
+                    BreakPoint.Show(ex.Message)
                 End Try
             End If
         Else
@@ -659,10 +650,9 @@ Public Class RegionMaker
             Using outputFile As New StreamWriter(fname, True)
                 outputFile.WriteLine(proto)
             End Using
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+        Catch ex As Exception
 
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub
@@ -1391,8 +1381,7 @@ Public Class RegionMaker
 
     Public Sub RegionDump()
 
-        If Not Form1.PropDebug Then Return
-
+        If Not Debugger.IsAttached Then Return
         Dim pair As KeyValuePair(Of String, Region_data)
         For Each pair In RegionList
             DebugRegions(pair.Value._UUID)
@@ -1598,10 +1587,9 @@ Public Class RegionMaker
                         Status(RegionUUID) = SIMSTATUSENUM.Resume
                         Try
                             TeleportAvatarDict.Remove(RegionName(RegionUUID))
-#Disable Warning CA1031
-                        Catch
-#Enable Warning CA1031
+                        Catch ex As Exception
 
+                            BreakPoint.Show(ex.Message)
                         End Try
 
                         TeleportAvatarDict.Add(AgentUUID, RegionName(RegionUUID))
@@ -1666,10 +1654,8 @@ Public Class RegionMaker
                 Else
                     Return "<html><head></head><body>Test Passed</html>"
                 End If
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
-
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
                 Return "<html><head></head><body>Error</html>"
             End Try
 
@@ -1728,10 +1714,9 @@ Public Class RegionMaker
                             myCommand1.ExecuteScalar()
                             myConnection.Close()
                         End Using
-#Disable Warning CA1031
                     Catch ex As Exception
-#Enable Warning CA1031
 
+                        BreakPoint.Show(ex.Message)
                         Debug.Print(ex.Message)
                     End Try
 
@@ -1795,10 +1780,9 @@ Public Class RegionMaker
 
         Try
             My.Computer.FileSystem.CopyFile(Form1.GetOpensimProto(), pathname & "Opensim.ini", True)
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+        Catch ex As Exception
 
+            BreakPoint.Show(ex.Message)
         End Try
 
         Return False
@@ -1808,7 +1792,7 @@ Public Class RegionMaker
     Public Shared Function SetOpensimIni(RegionName As String, RegionUUID As String) As Boolean
 
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Form1.PropOpensimBinPath & "Regions\" & Form1.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
+        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & Form1.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
             Return True
         End If
 

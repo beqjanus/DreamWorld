@@ -88,22 +88,23 @@ Public Module Firewall
     Private Sub Write(cmd As String)
 
         Try
-            Dim ns As StreamWriter = New StreamWriter(Form1.PropMyFolder & "\fw.bat", False)
+            Dim ns As StreamWriter = New StreamWriter(Settings.CurrentDirectory & "\fw.bat", False)
             ns.WriteLine(cmd)
             'If Debugger.IsAttached Then
             'ns.WriteLine("@pause")
             'End If
             ns.Close()
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
         Dim Windowstyle As ProcessWindowStyle
         Windowstyle = ProcessWindowStyle.Hidden
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",
-            .FileName = Form1.PropMyFolder & "\fw.bat",
+            .FileName = Settings.CurrentDirectory & "\fw.bat",
             .WindowStyle = Windowstyle,
             .Verb = "runas"
         }
@@ -113,9 +114,10 @@ Public Module Firewall
 
             Try
                 ProcessFirewall.Start()
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
                 Form1.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try
 

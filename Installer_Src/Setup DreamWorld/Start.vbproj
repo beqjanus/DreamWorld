@@ -276,6 +276,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BreakPoint.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Dump.vb" />
     <Compile Include="Events.vb" />
