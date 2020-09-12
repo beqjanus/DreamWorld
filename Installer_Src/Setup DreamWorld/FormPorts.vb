@@ -77,11 +77,11 @@ Public Class FormPorts
 
         RegionMaker.UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = My.Resources.Highest_Used_word & " " & Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
 
-        MaxX.Text = My.Resources.Highest_Used_word & " " & Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         uPnPEnabled.Checked = Settings.UPnPEnabled
 
@@ -156,10 +156,10 @@ Public Class FormPorts
 
         RegionMaker.UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = My.Resources.Highest_Used_word & " " & +Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & +Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
-        MaxX.Text = My.Resources.Highest_Used_word & " " & +Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & +Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
@@ -199,10 +199,10 @@ Public Class FormPorts
 
         RegionMaker.UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = My.Resources.Highest_Used_word & " " & Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & Form1.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
-        MaxX.Text = My.Resources.Highest_Used_word & " " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " + Form1.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 

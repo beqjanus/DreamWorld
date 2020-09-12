@@ -90,7 +90,7 @@ Partial Class FormInitialSetup
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(57, 13)
         Me.Label1.TabIndex = 5
-        Me.Label1.Text =  My.Resources.First_name_word
+        Me.Label1.Text =  Global.Outworldz.My.Resources.First_name_word
         '
         'Password2TextBox
         '
@@ -118,7 +118,7 @@ Partial Class FormInitialSetup
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(58, 13)
         Me.Label2.TabIndex = 8
-        Me.Label2.Text = My.Resources.Last_Name_Word
+        Me.Label2.Text = Global.Outworldz.My.Resources.Last_Name_Word
         '
         'Label3
         '
@@ -128,7 +128,7 @@ Partial Class FormInitialSetup
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(53, 13)
         Me.Label3.TabIndex = 9
-        Me.Label3.Text = My.Resources.Password_word
+        Me.Label3.Text = Global.Outworldz.My.Resources.Password_word
         '
         'Label5
         '
@@ -138,7 +138,7 @@ Partial Class FormInitialSetup
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(91, 13)
         Me.Label5.TabIndex = 11
-        Me.Label5.Text = My.Resources.Repeat_Password_word
+        Me.Label5.Text = Global.Outworldz.My.Resources.Repeat_Password_word
         '
         'Label6
         '
@@ -148,7 +148,7 @@ Partial Class FormInitialSetup
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(32, 13)
         Me.Label6.TabIndex = 12
-        Me.Label6.Text = My.Resources.Email_word
+        Me.Label6.Text = Global.Outworldz.My.Resources.Email_word
         '
         'GroupBox1
         '
@@ -171,7 +171,7 @@ Partial Class FormInitialSetup
         Me.GroupBox1.Size = New System.Drawing.Size(303, 185)
         Me.GroupBox1.TabIndex = 13
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Enter_the_Grid_Owner_Information_word
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Enter_the_Grid_Owner_Information_word
         '
         'FormInitialSetup
         '

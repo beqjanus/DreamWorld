@@ -92,7 +92,7 @@ Public Class AdvancedForm
         SetScreen()
 
         Me.Visible = True
-        Me.ToolTip1.SetToolTip(Me.TOSButton, My.Resources.Setup_TOS)
+        Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
 
     End Sub
 

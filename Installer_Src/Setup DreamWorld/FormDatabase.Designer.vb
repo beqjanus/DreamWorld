@@ -255,7 +255,7 @@ Partial Class FormDatabase
         Me.Dbnameindex.Name = "Dbnameindex"
         Me.Dbnameindex.Size = New System.Drawing.Size(35, 13)
         Me.Dbnameindex.TabIndex = 35
-        Me.Dbnameindex.Text = My.Resources.DBName_word
+        Me.Dbnameindex.Text = Global.Outworldz.My.Resources.DBName_word
         '
         'Label9
         '
@@ -326,7 +326,7 @@ Partial Class FormDatabase
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(633, 26)
         Me.MenuStrip2.TabIndex = 1885
-        Me.MenuStrip2.Text = My.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '

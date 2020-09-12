@@ -52,7 +52,7 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Size = New System.Drawing.Size(601, 203)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Backup_word
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Backup_word
         '
         'TextBox1
         '
@@ -170,7 +170,7 @@ Partial Class FormBackupCheckboxes
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormBackupCheckboxes"
-        Me.Text = My.Resources.System_Backup_word
+        Me.Text = Global.Outworldz.My.Resources.System_Backup_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

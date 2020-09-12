@@ -116,19 +116,19 @@ Public Class FormMaps
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
         If Settings.MapType = "None" Then
             MapNone.Checked = True
-            MapPicture.Image = My.Resources.blankbox
+            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
         ElseIf Settings.MapType = "Simple" Then
             MapSimple.Checked = True
-            MapPicture.Image = My.Resources.Simple
+            MapPicture.Image = Global.Outworldz.My.Resources.Simple
         ElseIf Settings.MapType = "Good" Then
             MapGood.Checked = True
-            MapPicture.Image = My.Resources.Good
+            MapPicture.Image = Global.Outworldz.My.Resources.Good
         ElseIf Settings.MapType = "Better" Then
             MapBetter.Checked = True
-            MapPicture.Image = My.Resources.Better
+            MapPicture.Image = Global.Outworldz.My.Resources.Better
         ElseIf Settings.MapType = "Best" Then
             MapBest.Checked = True
-            MapPicture.Image = My.Resources.Best
+            MapPicture.Image = Global.Outworldz.My.Resources.Best
         End If
 
         If Form1.PropOpensimIsRunning Then
@@ -162,14 +162,14 @@ Public Class FormMaps
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
         Settings.MapType = "Best"
-        MapPicture.Image = My.Resources.Best
+        MapPicture.Image = Global.Outworldz.My.Resources.Best
 
     End Sub
 
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
         Settings.MapType = "Better"
-        MapPicture.Image = My.Resources.Better
+        MapPicture.Image = Global.Outworldz.My.Resources.Better
 
     End Sub
 
@@ -177,7 +177,7 @@ Public Class FormMaps
 
         Settings.MapType = "Good"
 
-        MapPicture.Image = My.Resources.Good
+        MapPicture.Image = Global.Outworldz.My.Resources.Good
 
     End Sub
 
@@ -190,14 +190,14 @@ Public Class FormMaps
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
         Settings.MapType = "None"
-        MapPicture.Image = My.Resources.blankbox
+        MapPicture.Image = Global.Outworldz.My.Resources.blankbox
 
     End Sub
 
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
         Settings.MapType = "Simple"
-        MapPicture.Image = My.Resources.Simple
+        MapPicture.Image = Global.Outworldz.My.Resources.Simple
 
     End Sub
 

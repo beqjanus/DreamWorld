@@ -12,7 +12,6 @@ Module FileStuff
 
         Try
             My.Computer.FileSystem.CopyFile(Source, Dest, overwrite)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -28,7 +27,6 @@ Module FileStuff
         If Not System.IO.Directory.Exists(destinationPath) Then
             Try
                 System.IO.Directory.CreateDirectory(destinationPath)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -54,7 +52,6 @@ Module FileStuff
 
                 Try
                     CopyFile(fileSystemInfo.FullName, destinationFileName, True)
-
                 Catch ex As Exception
 
                     BreakPoint.Show(ex.Message)
@@ -64,7 +61,6 @@ Module FileStuff
                 If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
                     Try
                         System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
-
                     Catch ex As Exception
 
                         BreakPoint.Show(ex.Message)
@@ -78,20 +74,23 @@ Module FileStuff
     End Sub
 
     Sub DeleteDirectory(folder As String, param As FileIO.DeleteDirectoryOption)
+
         Try
             My.Computer.FileSystem.DeleteDirectory(folder, param)
-
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
     Sub DeleteFile(file As String)
 
-        If My.Computer.FileSystem.FileExists(file) Then
-            My.Computer.FileSystem.DeleteFile(file)
-        End If
+        Try
+            If My.Computer.FileSystem.FileExists(file) Then
+                My.Computer.FileSystem.DeleteFile(file)
+            End If
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
     End Sub
 

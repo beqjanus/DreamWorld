@@ -58,7 +58,7 @@ Partial Class FormVoice
         Me.GroupBox1.Size = New System.Drawing.Size(486, 202)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Setup_Voice_Service
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Setup_Voice_Service
         '
         'RunOnBoot
         '
@@ -88,7 +88,7 @@ Partial Class FormVoice
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(78, 20)
         Me.Label2.TabIndex = 5
-        Me.Label2.Text = My.Resources.Password_word
+        Me.Label2.Text = Global.Outworldz.My.Resources.Password_word
         '
         'Label1
         '
@@ -98,7 +98,7 @@ Partial Class FormVoice
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(64, 20)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = My.Resources.User_ID_word
+        Me.Label1.Text = Global.Outworldz.My.Resources.User_ID_word
         '
         'VivoxEnable
         '
@@ -137,7 +137,7 @@ Partial Class FormVoice
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Size = New System.Drawing.Size(486, 33)
         Me.MenuStrip2.TabIndex = 1888
-        Me.MenuStrip2.Text = My.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '

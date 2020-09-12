@@ -177,7 +177,7 @@ Public Class FormOAR
         Dim rowcounter = 0
         If json IsNot Nothing Then
             Dim cnt = json.Length
-            Me.Text = CStr(cnt) & " " & My.Resources.Items_word
+            Me.Text = CStr(cnt) & " " & Global.Outworldz.My.Resources.Items_word
 
             For Each item In json
                 Application.DoEvents()
@@ -195,13 +195,13 @@ Public Class FormOAR
         Else
             DataGridView.Rows.Add()
             While column < NumColumns
-                DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.NoImage
+                DataGridView.Rows(rowcounter).Cells(column).Value = Global.Outworldz.My.Resources.NoImage
                 column += 1
             End While
         End If
         Try
             While column < NumColumns And column > 0
-                DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.Blank256
+                DataGridView.Rows(rowcounter).Cells(column).Value = Global.Outworldz.My.Resources.Blank256
                 column += 1
             End While
         Catch ex As Exception
@@ -226,7 +226,6 @@ Public Class FormOAR
             ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
                 Form1.LoadIARContent(File)
             End If
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -248,7 +247,6 @@ Public Class FormOAR
                     Return New Bitmap(System.Drawing.Image.FromStream(stream))
                 End Using
             End Using
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -265,7 +263,6 @@ Public Class FormOAR
             Using client As WebClient = New WebClient()
                 Return client.DownloadString(url)
             End Using
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -283,9 +280,7 @@ Public Class FormOAR
             Else
                 DataGridView.Rows(row).Cells(col).Value = NoImage(item)
             End If
-
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Form1.Log("Error", ex.Message)
         End Try
@@ -404,7 +399,6 @@ Public Class FormOAR
 
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -425,7 +419,6 @@ Public Class FormOAR
             Try
                 Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -435,7 +428,6 @@ Public Class FormOAR
         End Using
         Try
             json = JsonConvert.DeserializeObject(Of JSONresult())(result)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -473,7 +465,7 @@ Public Class FormOAR
 
     Private Shared Function NoImage(item As JSONresult) As Image
 
-        Dim bmp = My.Resources.Blank256
+        Dim bmp = Global.Outworldz.My.Resources.Blank256
         Dim drawFont As Font = New Font("Arial", 12)
 
         Dim newImage = New Bitmap(256, 256)
@@ -481,8 +473,6 @@ Public Class FormOAR
             Dim gr = Graphics.FromImage(newImage)
             gr.DrawImageUnscaled(bmp, 0, 0)
             gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
-
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -527,7 +517,6 @@ Public Class FormOAR
                         Using g As Graphics = Graphics.FromImage(bmp)
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
-
                     Catch ex As Exception
 
                         BreakPoint.Show(ex.Message)

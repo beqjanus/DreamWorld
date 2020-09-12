@@ -156,7 +156,7 @@ Public Class FormCaches
         End If
 
         If Not IO.Directory.Exists(tmp) Then
-            MsgBox(My.Resources.No_Locate_FSassets & tmp & My.Resources.Reset_To_Default, vbInformation)
+            MsgBox(My.Resources.No_Locate_FSassets & tmp & Global.Outworldz.My.Resources.Reset_To_Default, vbInformation)
             CacheFolder.Text = ".\assetcache"
         End If
 
@@ -180,7 +180,7 @@ Public Class FormCaches
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = My.Resources.Choose_a_Folder_word
+            .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
         openFileDialog1.Dispose()

@@ -213,9 +213,9 @@ Public Class FormBanList
             'Create column.
             Dim column1 As DataColumn = New DataColumn With {
                 .DataType = System.Type.GetType("System.String"),
-                .ColumnName = My.Resources.Banned_word,
+                .ColumnName = Global.Outworldz.My.Resources.Banned_word,
                 .AutoIncrement = False,
-                .Caption = My.Resources.Banned_word,
+                .Caption = Global.Outworldz.My.Resources.Banned_word,
                 .ReadOnly = False,
                 .Unique = False
             }
@@ -224,9 +224,9 @@ Public Class FormBanList
 
             Dim column2 As DataColumn = New DataColumn With {
                 .DataType = System.Type.GetType("System.String"),
-                .ColumnName = My.Resources.Comment_or_Notes_Word,
+                .ColumnName = Global.Outworldz.My.Resources.Comment_or_Notes_Word,
                 .AutoIncrement = False,
-                .Caption = My.Resources.Comment_or_Notes_Word,
+                .Caption = Global.Outworldz.My.Resources.Comment_or_Notes_Word,
                 .ReadOnly = False,
                 .Unique = False
             }

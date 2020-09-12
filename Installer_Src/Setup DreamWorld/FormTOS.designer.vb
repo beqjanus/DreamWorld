@@ -80,7 +80,7 @@ Partial Class TosForm
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(317, 13)
         Me.Label1.TabIndex = 4
-        Me.Label1.Text = My.Resources.TOS
+        Me.Label1.Text = Global.Outworldz.My.Resources.TOS
         '
         'Button1
         '
@@ -88,7 +88,7 @@ Partial Class TosForm
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(121, 23)
         Me.Button1.TabIndex = 5
-        Me.Button1.Text = My.Resources.Preview_in_Browser
+        Me.Button1.Text = Global.Outworldz.My.Resources.Preview_in_Browser
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Button2
@@ -122,7 +122,7 @@ Partial Class TosForm
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 8
-        Me.SaveButton.Text = My.Resources.Ok
+        Me.SaveButton.Text = Global.Outworldz.My.Resources.Ok
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'ApplyButton
@@ -131,7 +131,7 @@ Partial Class TosForm
         Me.ApplyButton.Name = "ApplyButton"
         Me.ApplyButton.Size = New System.Drawing.Size(75, 23)
         Me.ApplyButton.TabIndex = 9
-        Me.ApplyButton.Text = My.Resources.Apply_word
+        Me.ApplyButton.Text = Global.Outworldz.My.Resources.Apply_word
         Me.ApplyButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -150,14 +150,14 @@ Partial Class TosForm
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = My.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
         Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = My.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'TosForm
         '
@@ -177,7 +177,7 @@ Partial Class TosForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "TosForm"
-        Me.Text = My.Resources.Terms_of_Service
+        Me.Text = Global.Outworldz.My.Resources.Terms_of_Service
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)

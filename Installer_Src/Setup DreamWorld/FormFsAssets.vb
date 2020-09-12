@@ -141,7 +141,7 @@ Public Class FormFsAssets
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = My.Resources.Choose_a_Folder_word
+            .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
         openFileDialog1.Dispose()

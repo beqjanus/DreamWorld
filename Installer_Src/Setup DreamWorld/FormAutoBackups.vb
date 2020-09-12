@@ -186,7 +186,7 @@ Public Class FormAutoBackups
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = My.Resources.Choose_folder_for_backups
+            .Description = Global.Outworldz.My.Resources.Choose_folder_for_backups
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
         openFileDialog1.Dispose()

@@ -54,7 +54,7 @@ Partial Class FormRegionPopup
         Me.GroupBox1.Size = New System.Drawing.Size(236, 456)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Region_Controls
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Region_Controls
         '
         'ShowConsoleButton
         '

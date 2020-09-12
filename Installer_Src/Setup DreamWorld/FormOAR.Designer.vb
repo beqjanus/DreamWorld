@@ -65,7 +65,7 @@ Partial Class FormOAR
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(8, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(1124, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = My.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '
@@ -97,7 +97,7 @@ Partial Class FormOAR
         Me.RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.refresh
         Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
         Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(90, 24)
-        Me.RefreshToolStripMenuItem.Text = My.Resources.Refresh_word
+        Me.RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Refresh_word
         '
         'FormOAR
         '

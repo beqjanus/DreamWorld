@@ -171,7 +171,7 @@ Public Class FormRegion
         If Name.Length = 0 Then
             IsNew1 = True
             Gods_Use_Default.Checked = True
-            RegionName.Text = My.Resources.Name_of_Region_Word
+            RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word
             UUID.Text = Guid.NewGuid().ToString
 
             CoordX.Text = (Form1.PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
@@ -193,7 +193,7 @@ Public Class FormRegion
             RegionUUID = Form1.PropRegionClass.FindRegionByName(Name)
             Oldname1 = Form1.PropRegionClass.RegionName(RegionUUID) ' backup in case of rename
             EnabledCheckBox.Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
-            Me.Text = Name & " " & My.Resources.Region_word ' on screen
+            Me.Text = Name & " " & Global.Outworldz.My.Resources.Region_word ' on screen
             RegionName.Text = Name
             UUID.Text = RegionUUID
             NonphysicalPrimMax.Text = CStr(Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID))
@@ -320,19 +320,19 @@ Public Class FormRegion
             Maps_Use_Default.Checked = True
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "None" Then
             MapNone.Checked = True
-            MapPicture.Image = My.Resources.blankbox
+            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Simple" Then
             MapSimple.Checked = True
-            MapPicture.Image = My.Resources.Simple
+            MapPicture.Image = Global.Outworldz.My.Resources.Simple
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Good" Then
             MapGood.Checked = True
-            MapPicture.Image = My.Resources.Good
+            MapPicture.Image = Global.Outworldz.My.Resources.Good
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Better" Then
             MapBetter.Checked = True
-            MapPicture.Image = My.Resources.Better
+            MapPicture.Image = Global.Outworldz.My.Resources.Better
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Best" Then
             MapBest.Checked = True
-            MapPicture.Image = My.Resources.Best
+            MapPicture.Image = Global.Outworldz.My.Resources.Best
         End If
 
         Select Case Form1.PropRegionClass.Physics(RegionUUID)
@@ -492,7 +492,7 @@ Public Class FormRegion
 
         Dim message = RegionValidate()
         If Len(message) > 0 Then
-            Dim v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info_word)
+            Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, vbYesNo, Global.Outworldz.My.Resources.Info_word)
             If v = vbYes Then
                 Me.Close()
             End If
@@ -574,7 +574,7 @@ Public Class FormRegion
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
-        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, My.Resources.Info_word)
+        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
             FileStuff.DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
@@ -611,11 +611,11 @@ Public Class FormRegion
 
         If Changed1 Then
             Form1.PropViewedSettings = True
-            Dim v = MsgBox(My.Resources.Save_changes_word, vbYesNo, My.Resources.Save_changes_word)
+            Dim v = MsgBox(My.Resources.Save_changes_word, vbYesNo, Global.Outworldz.My.Resources.Save_changes_word)
             If v = vbYes Then
                 Dim message = RegionValidate()
                 If Len(message) > 0 Then
-                    v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info_word)
+                    v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, vbYesNo, Global.Outworldz.My.Resources.Info_word)
                     If v = vbYes Then
                         Me.Close()
                     End If
@@ -644,7 +644,7 @@ Public Class FormRegion
 
         If MapBest.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Best")
-            MapPicture.Image = My.Resources.Best
+            MapPicture.Image = Global.Outworldz.My.Resources.Best
         End If
         If Initted1 Then Changed1 = True
 
@@ -655,7 +655,7 @@ Public Class FormRegion
 
         If MapBetter.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Better")
-            MapPicture.Image = My.Resources.Better
+            MapPicture.Image = Global.Outworldz.My.Resources.Better
         End If
         If Initted1 Then Changed1 = True
 
@@ -666,7 +666,7 @@ Public Class FormRegion
 
         If MapGood.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Good")
-            MapPicture.Image = My.Resources.Good
+            MapPicture.Image = Global.Outworldz.My.Resources.Good
         End If
         If Initted1 Then Changed1 = True
 
@@ -683,7 +683,7 @@ Public Class FormRegion
 
         If MapNone.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to None")
-            MapPicture.Image = My.Resources.blankbox
+            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
         End If
         If Initted1 Then Changed1 = True
 
@@ -701,13 +701,13 @@ Public Class FormRegion
             MapBest.Checked = False
 
             If Settings.MapType = "None" Then
-                MapPicture.Image = My.Resources.blankbox
+                MapPicture.Image = Global.Outworldz.My.Resources.blankbox
             ElseIf Settings.MapType = "Simple" Then
-                MapPicture.Image = My.Resources.Simple
+                MapPicture.Image = Global.Outworldz.My.Resources.Simple
             ElseIf Settings.MapType = "Good" Then
-                MapPicture.Image = My.Resources.Good
+                MapPicture.Image = Global.Outworldz.My.Resources.Good
             ElseIf Settings.MapType = "Better" Then
-                MapPicture.Image = My.Resources.Better
+                MapPicture.Image = Global.Outworldz.My.Resources.Better
             ElseIf Settings.MapType = "Best" Then
                 Settings.MapType = "Best"
             End If
@@ -722,7 +722,7 @@ Public Class FormRegion
 
         If MapSimple.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Simple")
-            MapPicture.Image = My.Resources.Simple
+            MapPicture.Image = Global.Outworldz.My.Resources.Simple
         End If
         If Initted1 Then Changed1 = True
 
@@ -822,88 +822,88 @@ Public Class FormRegion
         Dim Message As String
 
         If Len(RegionName.Text) = 0 Then
-            Message = My.Resources.Region_name_must_not_be_blank_word
+            Message = Global.Outworldz.My.Resources.Region_name_must_not_be_blank_word
             Return Message
         End If
 
         ' UUID
         Dim result As Guid
         If Not Guid.TryParse(UUID.Text, result) Then
-            Message = My.Resources.Region_UUID_Is_invalid_word & " " & +UUID.Text
+            Message = Global.Outworldz.My.Resources.Region_UUID_Is_invalid_word & " " & +UUID.Text
             Return Message
         End If
 
         ' global coords
         If Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then
-            Message = My.Resources.Region_Coordinate_X_cannot_be_less_than_0_word
+            Message = Global.Outworldz.My.Resources.Region_Coordinate_X_cannot_be_less_than_0_word
             Return Message
         ElseIf Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
-            Message = My.Resources.Region_Coordinate_X_is_too_large
+            Message = Global.Outworldz.My.Resources.Region_Coordinate_X_is_too_large
             Return Message
         End If
 
         If Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
-            Message = My.Resources.Region_Coordinate_Y_cannot_be_less_than_32
+            Message = Global.Outworldz.My.Resources.Region_Coordinate_Y_cannot_be_less_than_32
             Return Message
         ElseIf Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
-            Message = My.Resources.Region_Coordinate_Y_Is_too_large
+            Message = Global.Outworldz.My.Resources.Region_Coordinate_Y_Is_too_large
             Return Message
         End If
 
         Dim aresult As Guid
         If Not Guid.TryParse(UUID.Text, aresult) Then
-            Message = My.Resources.UUID0
+            Message = Global.Outworldz.My.Resources.UUID0
             Return Message
         End If
 
         Try
             If (NonphysicalPrimMax.Text.Length = 0) Or (CType(NonphysicalPrimMax.Text, Integer) <= 0) Then
-                Message = My.Resources.NVNonPhysPrim
+                Message = Global.Outworldz.My.Resources.NVNonPhysPrim
                 Return Message
             End If
 
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Message = My.Resources.NVNonPhysPrim
+            Message = Global.Outworldz.My.Resources.NVNonPhysPrim
             Return Message
         End Try
 
         Try
             If (PhysicalPrimMax.Text.Length = 0) Or (CType(PhysicalPrimMax.Text, Integer) <= 0) Then
-                Message = My.Resources.NVPhysPrim
+                Message = Global.Outworldz.My.Resources.NVPhysPrim
                 Return Message
             End If
 
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Message = My.Resources.NVPhysPrim
+            Message = Global.Outworldz.My.Resources.NVPhysPrim
             Return Message
         End Try
 
         Try
             If (MaxPrims.Text.Length = 0) Or (CType(MaxPrims.Text, Integer) <= 0) Then
-                Message = My.Resources.NVMaxPrim
+                Message = Global.Outworldz.My.Resources.NVMaxPrim
                 Return Message
             End If
 
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Message = My.Resources.NVMaxPrim
+            Message = Global.Outworldz.My.Resources.NVMaxPrim
             Return Message
         End Try
         Try
             If (MaxAgents.Text.Length = 0) Or (CType(MaxAgents.Text, Integer) <= 0) Then
-                Message = My.Resources.NVMaxAgents
+                Message = Global.Outworldz.My.Resources.NVMaxAgents
                 Return Message
             End If
 
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Message = My.Resources.NVMaxAgents
+            Message = Global.Outworldz.My.Resources.NVMaxAgents
             Return Message
         End Try
         Return ""
@@ -916,7 +916,7 @@ Public Class FormRegion
     Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
         If Len(RegionName.Text) > 0 And Initted1 Then
             If Not FilenameIsOK(RegionName.Text) Then
-                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, My.Resources.Info_word)
+                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, Global.Outworldz.My.Resources.Info_word)
                 Return
             End If
 
@@ -989,13 +989,13 @@ Public Class FormRegion
     Private Sub UUID_LostFocus(sender As Object, e As EventArgs) Handles UUID.LostFocus
 
         If UUID.Text <> UUID.Text And Initted1 Then
-            Dim resp = MsgBox(My.Resources.Change_UUID, vbYesNo, My.Resources.Info_word)
+            Dim resp = MsgBox(My.Resources.Change_UUID, vbYesNo, Global.Outworldz.My.Resources.Info_word)
             If resp = vbYes Then
                 Changed1 = True
                 Dim result As Guid
                 If Guid.TryParse(UUID.Text, result) Then
                 Else
-                    Dim ok = MsgBox(My.Resources.NotValidUUID, vbOKCancel, My.Resources.Info_word)
+                    Dim ok = MsgBox(My.Resources.NotValidUUID, vbOKCancel, Global.Outworldz.My.Resources.Info_word)
                     If ok = vbOK Then
                         UUID.Text = System.Guid.NewGuid.ToString
                     End If

@@ -76,7 +76,7 @@ Partial Class FormFlotsamCache
         Me.GroupBox1.Size = New System.Drawing.Size(320, 181)
         Me.GroupBox1.TabIndex = 1860
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Asset_Cache_word
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Asset_Cache_word
         '
         'Button1
         '
@@ -119,7 +119,7 @@ Partial Class FormFlotsamCache
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(103, 13)
         Me.Label6.TabIndex = 1866
-        Me.Label6.Text = My.Resources.Current_Size '"Current Size on Disk"
+        Me.Label6.Text = Global.Outworldz.My.Resources.Current_Size '"Current Size on Disk"
         '
         'Label5
         '
@@ -128,7 +128,7 @@ Partial Class FormFlotsamCache
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(85, 13)
         Me.Label5.TabIndex = 1865
-        Me.Label5.Text = My.Resources.Timeout_in_hours_word
+        Me.Label5.Text = Global.Outworldz.My.Resources.Timeout_in_hours_word
         '
         'Label4
         '
@@ -137,7 +137,7 @@ Partial Class FormFlotsamCache
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 13)
         Me.Label4.TabIndex = 1864
-        Me.Label4.Text = My.Resources.Cache_Enabled_word
+        Me.Label4.Text = Global.Outworldz.My.Resources.Cache_Enabled_word
         '
         'Label2
         '
@@ -146,7 +146,7 @@ Partial Class FormFlotsamCache
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(54, 13)
         Me.Label2.TabIndex = 1863
-        Me.Label2.Text = My.Resources.Log_Level
+        Me.Label2.Text = Global.Outworldz.My.Resources.Log_Level
         '
         'CacheFolder
         '
@@ -162,7 +162,7 @@ Partial Class FormFlotsamCache
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(83, 13)
         Me.Label1.TabIndex = 1861
-        Me.Label1.Text = My.Resources.Cache_Directory_word
+        Me.Label1.Text = Global.Outworldz.My.Resources.Cache_Directory_word
         '
         'LogLevelBox
         '
@@ -182,7 +182,7 @@ Partial Class FormFlotsamCache
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(345, 26)
         Me.MenuStrip2.TabIndex = 1889
-        Me.MenuStrip2.Text = My.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '
@@ -207,7 +207,7 @@ Partial Class FormFlotsamCache
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormFlotsamCache"
-        Me.Text = My.Resources.Asset_Cache_word
+        Me.Text = Global.Outworldz.My.Resources.Asset_Cache_word
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
