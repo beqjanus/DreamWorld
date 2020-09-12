@@ -89,7 +89,7 @@ Partial Class FormLogging
         Me.RadioOff.Size = New System.Drawing.Size(39, 17)
         Me.RadioOff.TabIndex = 0
         Me.RadioOff.TabStop = True
-        Me.RadioOff.Text = My.Resources.Off
+        Me.RadioOff.Text = Global.Outworldz.My.Resources.Off
         Me.RadioOff.UseVisualStyleBackColor = True
         '
         'RadioDebug

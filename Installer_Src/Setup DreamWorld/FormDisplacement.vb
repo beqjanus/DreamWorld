@@ -195,7 +195,7 @@ Public Class FormDisplacement
 
         Catch ex As Exception
 
-            Pic = My.Resources.water
+            Pic = Global.Outworldz.My.Resources.water
         End Try
 
         Return Pic
@@ -242,7 +242,7 @@ Public Class FormDisplacement
                 PictureBox.TabStop = False
 
                 Me.Controls.Add(PictureBox)
-                ToolTip1.SetToolTip(PictureBox, My.Resources.Click_To_Load_Here)
+                ToolTip1.SetToolTip(PictureBox, Global.Outworldz.My.Resources.Click_To_Load_Here)
                 AddHandler PictureBox.Click, PicClick
 
                 OffsetX += 256

@@ -67,7 +67,7 @@ Public Class FormDNSName
 
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         SetScreen()
-        Me.Text = My.Resources.Dynamic_DNS_word
+        Me.Text = Global.Outworldz.My.Resources.Dynamic_DNS_word
         DNSNameBox.Text = Settings.DNSName
         UniqueId.Text = Settings.MachineID()
         EnableHypergrid.Checked = Settings.EnableHypergrid
@@ -113,13 +113,13 @@ Public Class FormDNSName
 
     Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click
 
-        NextNameButton.Text = My.Resources.Busy_word
+        NextNameButton.Text = Global.Outworldz.My.Resources.Busy_word
         DNSNameBox.Text = String.Empty
         Application.DoEvents()
         Dim newname = Form1.GetNewDnsName()
-        NextNameButton.Text = My.Resources.Next1
+        NextNameButton.Text = Global.Outworldz.My.Resources.Next1
         If newname.Length = 0 Then
-            MsgBox(My.Resources.Please_enter, vbInformation, My.Resources.Info_word)
+            MsgBox(My.Resources.Please_enter, vbInformation, Global.Outworldz.My.Resources.Info_word)
             NextNameButton.Enabled = False
         Else
             NextNameButton.Enabled = True
@@ -132,7 +132,7 @@ Public Class FormDNSName
 
     Private Sub SaveAll()
 
-        NextNameButton.Text = My.Resources.Saving_word
+        NextNameButton.Text = Global.Outworldz.My.Resources.Saving_word
         Dim address As System.Net.IPAddress = Nothing
 
         If DNSNameBox.Text.Length = 0 Then
@@ -177,7 +177,7 @@ Public Class FormDNSName
 
     Private Sub TestButton1_Click(sender As Object, e As EventArgs) Handles TestButton1.Click
 
-        NextNameButton.Text = My.Resources.Busy_word
+        NextNameButton.Text = Global.Outworldz.My.Resources.Busy_word
         Form1.RegisterName(DNSNameBox.Text)
 
         Dim address As System.Net.IPAddress = Nothing
@@ -186,13 +186,13 @@ Public Class FormDNSName
         Else
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
-                    MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " & IP(), vbInformation, My.Resources.Info_word)
+                    MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP(), vbInformation, Global.Outworldz.My.Resources.Info_word)
                 Else
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
-                        MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, My.Resources.Error_word)
+                        MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, Global.Outworldz.My.Resources.Error_word)
                     Else
-                        MsgBox(DNSNameBox.Text + " " & My.Resources.resolved & " " & IP, vbInformation, My.Resources.Info_word)
+                        MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, vbInformation, Global.Outworldz.My.Resources.Info_word)
                     End If
                 End If
             Catch ex As Exception
@@ -200,7 +200,7 @@ Public Class FormDNSName
             End Try
         End If
 
-        NextNameButton.Text = My.Resources.Next1
+        NextNameButton.Text = Global.Outworldz.My.Resources.Next1
 
     End Sub
 

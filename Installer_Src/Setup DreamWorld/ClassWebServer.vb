@@ -66,7 +66,7 @@ Public Class NetServer
 
         If running Then Return
 
-        Log(My.Resources.Info_word, My.Resources.Starting_DiagPort_Webserver)
+        Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Starting_DiagPort_Webserver)
         WebThread = New Thread(AddressOf Looper)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
@@ -83,7 +83,7 @@ Public Class NetServer
 
     Public Sub StopWebServer()
 
-        Log(My.Resources.Info_word, My.Resources.Stopping_Webserver)
+        Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Stopping_Webserver)
         listen = False
 
         WebThread.Abort()
@@ -136,7 +136,6 @@ Public Class NetServer
 
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub

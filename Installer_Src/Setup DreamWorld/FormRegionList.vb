@@ -52,6 +52,15 @@ Public Class RegionList
 
 #Region "Properties"
 
+    Public Shared Property FormExists1 As Boolean
+        Get
+            Return _FormExists
+        End Get
+        Set(value As Boolean)
+            _FormExists = value
+        End Set
+    End Property
+
     ' property exposing FormExists
     Public Shared ReadOnly Property InstanceExists() As Boolean
         Get
@@ -120,15 +129,6 @@ Public Class RegionList
         End Get
         Set(value As Boolean)
             ViewNotBusy = value
-        End Set
-    End Property
-
-    Public Shared Property FormExists1 As Boolean
-        Get
-            Return _FormExists
-        End Get
-        Set(value As Boolean)
-            _FormExists = value
         End Set
     End Property
 
@@ -281,7 +281,7 @@ Public Class RegionList
         Settings.SaveSettings()
 
         Me.Name = "Region List"
-        Me.Text = My.Resources.Region_List
+        Me.Text = Global.Outworldz.My.Resources.Region_List
         AvatarView.Hide()
         AvatarView.CheckBoxes = False
 
@@ -554,7 +554,6 @@ Public Class RegionList
                             Dim component1 As Process = Process.GetProcessById(PID)
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                             item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
-
                         Catch ex As Exception
 
                             BreakPoint.Show(ex.Message)
@@ -741,14 +740,11 @@ Public Class RegionList
                 ListView1.SmallImageList = ImageListSmall1
 
                 Me.ListView1.TabIndex = 0
-
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
                 Form1.Log(My.Resources.Error_word, " RegionList " & ex.Message)
             End Try
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -794,7 +790,6 @@ Public Class RegionList
                 Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
-
                 Catch ex As Exception
 
                     BreakPoint.Show(ex.Message)
@@ -850,7 +845,6 @@ Public Class RegionList
         Dim Item As ListViewItem = Nothing
         Try
             Item = ListView1.Items.Item(e.Index)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -953,7 +947,6 @@ Public Class RegionList
             AvatarView.Visible = True
             ViewBusy = False
             PropUpdateView() = False
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -974,7 +967,6 @@ Public Class RegionList
         Dim response As System.Net.WebResponse = Nothing
         Try
             response = request.GetResponse()
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -983,7 +975,6 @@ Public Class RegionList
         Dim responseStream As System.IO.Stream = Nothing
         Try
             responseStream = response.GetResponseStream()
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -1042,9 +1033,9 @@ Public Class RegionList
                 If Form1.PropRegionClass.AvatarCount(num) > 0 Then
                     Dim response As MsgBoxResult
                     If Form1.PropRegionClass.AvatarCount(num) = 1 Then
-                        response = MsgBox(My.Resources.OneAvatar & " " & Form1.PropRegionClass.RegionName(num) & " " & My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
+                        response = MsgBox(My.Resources.OneAvatar & " " & Form1.PropRegionClass.RegionName(num) & " " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
                     Else
-                        response = MsgBox(Form1.PropRegionClass.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & My.Resources.people_are_in & " " + Form1.PropRegionClass.RegionName(num) + ". " & My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
+                        response = MsgBox(Form1.PropRegionClass.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & Global.Outworldz.My.Resources.people_are_in & " " + Form1.PropRegionClass.RegionName(num) + ". " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, vbYesNo)
                     End If
                     If response = vbNo Then
                         StopIt = False
@@ -1064,7 +1055,7 @@ Public Class RegionList
                         Form1.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
                     Next
 
-                    Form1.Print(My.Resources.Not_Running & " " & My.Resources.Stopping_word)
+                    Form1.Print(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
                     Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 Else
                     ' shut down all regions in the DOS box
@@ -1148,7 +1139,6 @@ Public Class RegionList
         Try
             ' Read the chosen GROUP name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -1217,7 +1207,7 @@ Public Class RegionList
                 Dim hwnd = Form1.GetHwnd(GroupName)
                 Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWRESTORE)
                 Form1.SequentialPause()
-                Form1.Print(My.Resources.Not_Running & " " & My.Resources.Restarting_word)
+                Form1.Print(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Restarting_word)
                 Form1.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
 
                 If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
@@ -1342,7 +1332,7 @@ Public Class RegionList
 
         Dim ofd As New OpenFileDialog With {
             .InitialDirectory = "c:\",
-            .Filter = My.Resources.INI_Filter,
+            .Filter = Global.Outworldz.My.Resources.INI_Filter,
             .FilterIndex = 2,
             .RestoreDirectory = True
         }
@@ -1376,7 +1366,7 @@ Public Class RegionList
                     Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(filename)
 
                     If RegionUUID.Length > 0 Then
-                        MsgBox(My.Resources.Region_Already_Exists, vbInformation, My.Resources.Info_word)
+                        MsgBox(My.Resources.Region_Already_Exists, vbInformation, Global.Outworldz.My.Resources.Info_word)
                         ofd.Dispose()
                         Return
                     End If
@@ -1387,7 +1377,6 @@ Public Class RegionList
                     If Not Directory.Exists(NewFilepath) Then
                         Try
                             Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
-
                         Catch ex As Exception
 
                             BreakPoint.Show(ex.Message)
@@ -1422,10 +1411,8 @@ Public Class RegionList
         Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-
 
         End Try
 

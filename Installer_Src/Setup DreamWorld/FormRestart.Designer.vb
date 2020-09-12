@@ -57,7 +57,7 @@ Partial Class FormRestart
         Me.AutoStart.Size = New System.Drawing.Size(261, 178)
         Me.AutoStart.TabIndex = 45
         Me.AutoStart.TabStop = False
-        Me.AutoStart.Text = My.Resources.Auto_Startup_word
+        Me.AutoStart.Text = Global.Outworldz.My.Resources.Auto_Startup_word
         '
         'RestartOnCrash
         '
@@ -99,7 +99,7 @@ Partial Class FormRestart
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(130, 13)
         Me.Label25.TabIndex = 1862
-        Me.Label25.Text = My.Resources.Restart_Interval
+        Me.Label25.Text = Global.Outworldz.My.Resources.Restart_Interval
         '
         'AutoRestartBox
         '
@@ -146,7 +146,7 @@ Partial Class FormRestart
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(292, 26)
         Me.MenuStrip2.TabIndex = 1889
-        Me.MenuStrip2.Text = My.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '
@@ -173,7 +173,7 @@ Partial Class FormRestart
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormRestart"
-        Me.Text = My.Resources.Restart_word
+        Me.Text = Global.Outworldz.My.Resources.Restart_word
         Me.AutoStart.ResumeLayout(False)
         Me.AutoStart.PerformLayout()
         CType(Me.RunOnBoot, System.ComponentModel.ISupportInitialize).EndInit()

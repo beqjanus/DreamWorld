@@ -250,7 +250,7 @@ Public Class RegionMaker
 
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
 
-                    Form1.Print(json.region_name & " " & My.Resources.Stopped_word)
+                    Form1.Print(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
                     Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(json.region_name)
                     Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
                     If Not Form1.PropExitList.ContainsKey(GName) Then
@@ -476,7 +476,7 @@ Public Class RegionMaker
                     Catch ex As Exception
 
                         BreakPoint.Show(ex.Message)
-                        MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, My.Resources.Error_word)
+                        MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
                 Next
@@ -582,7 +582,7 @@ Public Class RegionMaker
 
         Dim RegionUUID As String = FindRegionByName(name)
         If RegionUUID.Length = 0 Then
-            MsgBox(My.Resources.Cannot_find_region_word & " " & name, vbInformation, My.Resources.Error_word)
+            MsgBox(My.Resources.Cannot_find_region_word & " " & name, vbInformation, Global.Outworldz.My.Resources.Error_word)
             Return
         End If
 

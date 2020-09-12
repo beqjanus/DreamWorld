@@ -135,7 +135,7 @@ Partial Class FormRegions
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(169, 20)
         Me.Label2.TabIndex = 1861
-        Me.Label2.Text = My.Resources.New_User_Home
+        Me.Label2.Text = Global.Outworldz.My.Resources.New_User_Home
         '
         'Label1
         '
@@ -229,7 +229,7 @@ Partial Class FormRegions
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Size = New System.Drawing.Size(369, 33)
         Me.MenuStrip2.TabIndex = 1887
-        Me.MenuStrip2.Text = My.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '

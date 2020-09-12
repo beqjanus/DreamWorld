@@ -80,7 +80,7 @@ Public Class Choice
         DataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         DataGridView.MultiSelect = False
 
-        DataGridView.Text = My.Resources.Select_word
+        DataGridView.Text = Global.Outworldz.My.Resources.Select_word
         Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
 
         Dim L As New List(Of String)
@@ -126,7 +126,7 @@ Public Class Choice
 
         Dim selectedRowCount = DataGridView.Rows.GetRowCount(DataGridViewElementStates.Selected)
         If selectedRowCount > 1 Then
-            MsgBox(My.Resources.Please_select_only_one_row, vbInformation, My.Resources.Info_word)
+            MsgBox(My.Resources.Please_select_only_one_row, vbInformation, Global.Outworldz.My.Resources.Info_word)
         End If
         If selectedRowCount = 1 Then
             DialogResult = DialogResult.OK

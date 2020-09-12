@@ -45,7 +45,7 @@ Partial Class FormScripts
         Me.GroupBox1.Size = New System.Drawing.Size(255, 92)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = My.Resources.Script_Engine_word '"Script Engine"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Script_Engine_word '"Script Engine"
         '
         'YengineButton
         '
@@ -55,7 +55,7 @@ Partial Class FormScripts
         Me.YengineButton.Size = New System.Drawing.Size(65, 17)
         Me.YengineButton.TabIndex = 1
         Me.YengineButton.TabStop = True
-        Me.YengineButton.Text = My.Resources.Y_Engine_word
+        Me.YengineButton.Text = Global.Outworldz.My.Resources.Y_Engine_word
         Me.YengineButton.UseVisualStyleBackColor = True
         '
         'XengineButton
@@ -66,7 +66,7 @@ Partial Class FormScripts
         Me.XengineButton.Size = New System.Drawing.Size(65, 17)
         Me.XengineButton.TabIndex = 0
         Me.XengineButton.TabStop = True
-        Me.XengineButton.Text = My.Resources.X_Engine_word
+        Me.XengineButton.Text = Global.Outworldz.My.Resources.X_Engine_word
         Me.XengineButton.UseVisualStyleBackColor = True
         '
         'GroupBox8
@@ -77,7 +77,7 @@ Partial Class FormScripts
         Me.GroupBox8.Size = New System.Drawing.Size(255, 48)
         Me.GroupBox8.TabIndex = 1863
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = My.Resources.Allow_LSL
+        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Allow_LSL
         '
         'LSLCheckbox
         '
@@ -98,7 +98,7 @@ Partial Class FormScripts
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(279, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = My.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '

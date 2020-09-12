@@ -207,7 +207,7 @@ Partial Class FormMaps
         Me.GroupBox2.Size = New System.Drawing.Size(184, 294)
         Me.GroupBox2.TabIndex = 1869
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = My.Resources.Maps_word
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Maps_word
         '
         'Label5
         '
@@ -266,7 +266,7 @@ Partial Class FormMaps
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(14, 13)
         Me.Label3.TabIndex = 1870
-        Me.Label3.Text = My.Resources.Y
+        Me.Label3.Text = Global.Outworldz.My.Resources.Y
         '
         'Label2
         '
@@ -275,7 +275,7 @@ Partial Class FormMaps
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(14, 13)
         Me.Label2.TabIndex = 1869
-        Me.Label2.Text = My.Resources.X
+        Me.Label2.Text = Global.Outworldz.My.Resources.X
         '
         'Label1
         '
@@ -295,7 +295,7 @@ Partial Class FormMaps
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(400, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = My.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '

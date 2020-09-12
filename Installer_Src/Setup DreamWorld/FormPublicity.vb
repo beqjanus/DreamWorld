@@ -104,7 +104,7 @@ Public Class FormPublicity
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+            PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto
         End Try
         Dim tmp = Settings.Description
         tmp = tmp.Replace("<br>", vbCrLf)
@@ -147,7 +147,7 @@ Public Class FormPublicity
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = My.Resources.picfilter,
+            .Filter = Global.Outworldz.My.Resources.picfilter,
             .FilterIndex = 1,
             .Multiselect = False
         }
