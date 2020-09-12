@@ -39,7 +39,7 @@ Public Class Form1
 
     Private ReadOnly _MyVersion As String = "3.68"
     Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
-    Private ReadOnly _SimVersion As String = "#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08	try reduce number of this webrequest"
+    Private ReadOnly _SimVersion As String = "#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08	fix silly bugs on osReplaceRegionEnvironment()"
 
 #End Region
 
@@ -188,9 +188,6 @@ Public Class Form1
 
     ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
     Public Sub Startup()
-
-        Print(My.Resources.Version_word & " " & PropMyVersion)
-        Print(My.Resources.Version_word & " " & _SimVersion)
 
         Buttons(BusyButton)
 
@@ -855,7 +852,6 @@ Public Class Form1
             My.Computer.FileSystem.CopyDirectory(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\WifiPages-" & Page, Settings.CurrentDirectory & "\Outworldzfiles\Opensim\WifiPages", True)
             My.Computer.FileSystem.CopyDirectory(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\bin\WifiPages-" & Page, Settings.CurrentDirectory & "\Outworldzfiles\Opensim\bin\WifiPages", True)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -2601,8 +2597,8 @@ Public Class Form1
         Dim DesktopFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
         MyShortcut = CType(WshShell.CreateShortcut(DesktopFolder & "\Outworldz.lnk"), IWshShortcut)
         MyShortcut.TargetPath = sTargetPath
-        MyShortcut.IconLocation = WshShell.ExpandEnvironmentStrings(Settings.CurrentDirectory & "\Start.exe")
-        MyShortcut.WorkingDirectory = Settings.CurrentDirectory
+        MyShortcut.IconLocation = WshShell.ExpandEnvironmentStrings(CurDir() & "\Start.exe")
+        MyShortcut.WorkingDirectory = CurDir()
         MyShortcut.Save()
 
     End Sub
@@ -2840,6 +2836,9 @@ Public Class Form1
 
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
+
+        Print(My.Resources.Version_word & " " & PropMyVersion)
+        Print(My.Resources.Version_word & " " & _SimVersion)
 
         If Settings.Autostart Then
             Print(My.Resources.Auto_Startup_word)

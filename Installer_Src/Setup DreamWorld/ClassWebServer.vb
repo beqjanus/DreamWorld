@@ -71,7 +71,6 @@ Public Class NetServer
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Log(My.Resources.Error_word, ex.Message)
         End Try
@@ -85,7 +84,6 @@ Public Class NetServer
 
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Stopping_Webserver)
         listen = False
-
         WebThread.Abort()
 
     End Sub
@@ -136,7 +134,7 @@ Public Class NetServer
 
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+
         End Try
     End Sub
 
@@ -230,7 +228,6 @@ Public Class NetServer
             Try
                 listener.Start() ' Throws Exception
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Log(My.Resources.Error_word, ex.Message)
                 Return

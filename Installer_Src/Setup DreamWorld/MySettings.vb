@@ -51,9 +51,11 @@ Public Class MySettings
 
     Public Sub Init(Folder As String)
         gFolder = Folder
+
         myINI = Folder + "\OutworldzFiles\Settings.ini"
         If File.Exists(myINI) Then
             LoadSettingsIni()
+            Settings.CurrentDirectory = Folder
         Else
             myINI = Folder + "\OutworldzFiles\Settings.ini"
             Dim contents = "[Data]" + vbCrLf
@@ -61,14 +63,13 @@ Public Class MySettings
                 Using outputFile As New StreamWriter(myINI, False)
                     outputFile.WriteLine(contents)
                 End Using
-
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
 
             LoadSettingsIni()
 
+            Settings.CurrentDirectory = Folder
             AdminFirst() = My.Settings.AdminFirst
             AdminLast() = My.Settings.AdminLast
             AdminEmail() = My.Settings.AdminEmail
@@ -193,7 +194,6 @@ Public Class MySettings
         parser.Parser.Configuration.CommentString = comment ' Opensim uses semicolons
         Try
             Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -215,7 +215,6 @@ Public Class MySettings
 
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -234,7 +233,6 @@ Public Class MySettings
         ' "] " + key + "=" + value)
         Try
             Data(section)(key) = value ' replace it
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -250,7 +248,6 @@ Public Class MySettings
         ' sets values into any INI file
         Try
             MyData(section)(key) = value ' replace it
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -311,7 +308,6 @@ Public Class MySettings
 #Disable Warning CA1062 ' Validate arguments of public methods
             Return value.ToString(Globalization.CultureInfo.InvariantCulture)
 #Enable Warning CA1062 ' Validate arguments of public methods
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -327,7 +323,6 @@ Public Class MySettings
         Form1.Log(My.Resources.Info_word, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, encoding)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -343,7 +338,6 @@ Public Class MySettings
         Form1.Log(My.Resources.Info_word, "Save Settings " & myINI)
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -358,8 +352,6 @@ Public Class MySettings
 #Disable Warning CA1062
             SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 #Enable Warning CA1062
-
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -525,7 +517,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -554,7 +545,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -588,7 +578,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -606,7 +595,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -624,7 +612,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -651,7 +638,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -684,7 +670,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -845,7 +830,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("Density", "0.5"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -1173,7 +1157,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -1390,7 +1373,6 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("RenderMaxHeight", "4096"), Globalization.CultureInfo.InvariantCulture)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -1875,7 +1857,6 @@ Public Class MySettings
 
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
