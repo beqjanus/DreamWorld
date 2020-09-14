@@ -4,7 +4,6 @@ Imports MySql.Data.MySqlClient
 
 Module Events
 
-
     Public Sub GetEvents()
 
         If Not Settings.EventTimerEnabled Then Return
@@ -46,16 +45,16 @@ Module Events
 
                 End Using ' client
             End Using ' osconnection
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
 
     End Sub
 
-
-
+    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
 
         If D Is Nothing Then Return

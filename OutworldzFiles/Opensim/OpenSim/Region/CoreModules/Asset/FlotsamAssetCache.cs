@@ -87,7 +87,7 @@ namespace OpenSim.Region.CoreModules.Asset
 
         private bool m_FileCacheEnabled = true;
 
-        private ExpiringCache<string, AssetBase> m_MemoryCache;
+        private ExpiringCacheOS<string, AssetBase> m_MemoryCache;
         private bool m_MemoryCacheEnabled = false;
 
         private ExpiringKey<string> m_negativeCache;
@@ -143,7 +143,6 @@ namespace OpenSim.Region.CoreModules.Asset
 
                 if (name == Name)
                 {
-                    m_MemoryCache = new ExpiringCache<string, AssetBase>();
                     m_negativeCache = new ExpiringKey<string>(2000);
                     m_Enabled = true;
 
@@ -184,6 +183,9 @@ namespace OpenSim.Region.CoreModules.Asset
 
                         m_CacheWarnAt = assetConfig.GetInt("CacheWarnAt", m_CacheWarnAt);
                     }
+
+                    if(m_MemoryCacheEnabled)
+                        m_MemoryCache = new ExpiringCacheOS<string, AssetBase>((int)m_MemoryExpiration * 500);
 
                     m_log.InfoFormat("[FLOTSAM ASSET CACHE]: Cache Directory {0}", m_CacheDirectory);
 
@@ -352,7 +354,6 @@ namespace OpenSim.Region.CoreModules.Asset
 
         private void UpdateMemoryCache(string key, AssetBase asset)
         {
-            // NOTE DO NOT USE SLIDEEXPIRE option on current libomv
             m_MemoryCache.AddOrUpdate(key, asset, m_MemoryExpiration);
         }
 
@@ -545,19 +546,9 @@ namespace OpenSim.Region.CoreModules.Asset
 
         private bool CheckFromFileCache(string id)
         {
-            string filename = GetFileName(id);
             try
             {
-                var fileinfo = new FileInfo(id);
-                if(fileinfo.Exists)
-                {
-                    if(fileinfo.Length == 0)
-                    {
-                        fileinfo.Delete();
-                        return false;
-                    }
-                    return true;
-                }
+                return File.Exists(GetFileName(id));
             }
             catch
             {
@@ -686,11 +677,17 @@ namespace OpenSim.Region.CoreModules.Asset
             }
 
             if (m_MemoryCacheEnabled)
-                m_MemoryCache = new ExpiringCache<string, AssetBase>();
+            {
+                m_MemoryCache.Dispose();
+                m_MemoryCache = new ExpiringCacheOS<string, AssetBase>((int)m_MemoryExpiration * 500);
+            }
             if (m_negativeCacheEnabled)
+            {
+                m_negativeCache.Dispose();
                 m_negativeCache = new ExpiringKey<string>(2000);
+            }
 
-            lock(weakAssetReferencesLock)
+            lock (weakAssetReferencesLock)
                 weakAssetReferences = new Dictionary<string, WeakReference>();
         }
 
@@ -712,7 +709,7 @@ namespace OpenSim.Region.CoreModules.Asset
             long heap = 0;
             //if (m_LogLevel >= 2)
             {
-                m_log.InfoFormat("[FLOTSAM ASSET CACHE]: Start background expiring files older then {0}.", purgeLine);
+                m_log.InfoFormat("[FLOTSAM ASSET CACHE]: Start background expiring files older than {0}.", purgeLine);
                 heap = GC.GetTotalMemory(false);
             }
 
@@ -1459,7 +1456,7 @@ namespace OpenSim.Region.CoreModules.Asset
             else if (cmdparams.Length == 1)
             {
                 con.Output("fcache assets - Attempt a deep cache of all assets in all scenes");
-                con.Output("fcache expire <datetime> - Purge assets older then the specified date & time");
+                con.Output("fcache expire <datetime> - Purge assets older than the specified date & time");
                 con.Output("fcache clear [file] [memory] - Remove cached assets");
                 con.Output("fcache status - Display cache status");
                 con.Output("fcache cachedefaultassets - loads default assets to cache replacing existent ones, this may override grid assets. Use with care");

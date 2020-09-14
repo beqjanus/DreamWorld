@@ -51,9 +51,11 @@ Public Class MySettings
 
     Public Sub Init(Folder As String)
         gFolder = Folder
+
         myINI = Folder + "\OutworldzFiles\Settings.ini"
         If File.Exists(myINI) Then
             LoadSettingsIni()
+            Settings.CurrentDirectory = Folder
         Else
             myINI = Folder + "\OutworldzFiles\Settings.ini"
             Dim contents = "[Data]" + vbCrLf
@@ -61,13 +63,13 @@ Public Class MySettings
                 Using outputFile As New StreamWriter(myINI, False)
                     outputFile.WriteLine(contents)
                 End Using
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
             End Try
 
             LoadSettingsIni()
 
+            Settings.CurrentDirectory = Folder
             AdminFirst() = My.Settings.AdminFirst
             AdminLast() = My.Settings.AdminLast
             AdminEmail() = My.Settings.AdminEmail
@@ -110,7 +112,6 @@ Public Class MySettings
             LoopBackDiag() = My.Settings.LoopBackDiag
 
             MapType() = My.Settings.MapType
-            Myfolder() = Folder
             MyX() = My.Settings.MyX
             MyY() = My.Settings.MyY
 
@@ -183,6 +184,7 @@ Public Class MySettings
 
 #Region "Functions And Subs"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Function LoadIni(arg As String, comment As String) As Boolean
 
         Form1.Log(My.Resources.Info_word, "Loading INI " & arg)
@@ -192,9 +194,9 @@ Public Class MySettings
         parser.Parser.Configuration.CommentString = comment ' Opensim uses semicolons
         Try
             Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             MsgBox(ex.Message)
             Form1.Log("Warn", ex.Message)
             Return True
@@ -210,13 +212,12 @@ Public Class MySettings
         Myparser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        Form1.Log(My.Resources.Info_word, My.Resources.Loading_Settings)
+
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
-            Form1.ErrorLog(My.Resources.Failed_to_load_Settings_INI_word)
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub
@@ -232,9 +233,9 @@ Public Class MySettings
         ' "] " + key + "=" + value)
         Try
             Data(section)(key) = value ' replace it
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
 
@@ -247,9 +248,9 @@ Public Class MySettings
         ' sets values into any INI file
         Try
             MyData(section)(key) = value ' replace it
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
 
@@ -299,50 +300,47 @@ Public Class MySettings
 
     End Function
 
-    Public Function GetMyIni(section As String, key As String, Optional D As String = "") As String
-
-        Dim R = Stripqq(MyData(section)(key))
-        If R = Nothing Then R = D
-        Return R
-
-    End Function
-
     Public Function GetMySetting(key As String, Optional D As String = "") As String
 
         Try
-            Dim value = GetMyIni("Data", key, D)
+            Dim value = Stripqq(MyData("Data")(key))
+            If value = Nothing Then value = D
 #Disable Warning CA1062 ' Validate arguments of public methods
             Return value.ToString(Globalization.CultureInfo.InvariantCulture)
 #Enable Warning CA1062 ' Validate arguments of public methods
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Return D
         End Try
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Sub SaveINI(encoding As System.Text.Encoding)
 
         Form1.Log(My.Resources.Info_word, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, encoding)
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Sub SaveSettings()
 
         Form1.Log(My.Resources.Info_word, "Save Settings " & myINI)
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             MsgBox(My.Resources.Unable_2_Save + myINI)
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
@@ -354,11 +352,9 @@ Public Class MySettings
 #Disable Warning CA1062
             SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 #Enable Warning CA1062
-
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
 
+            BreakPoint.Show(ex.Message)
             Form1.Logger("Error", ex.Message, "Error")
         End Try
 
@@ -469,15 +465,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property FirstXMLRegionPort() As Integer
-        Get
-            Return Val("0".ToUpperInvariant & GetMySetting("XMLRegionStartPort", ""))
-        End Get
-        Set
-            SetMySetting("XMLRegionStartPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property AutoRestartInterval() As Integer
         Get
             Return Val("0".ToUpperInvariant & GetMySetting("AutoRestartInterval", "0".ToUpperInvariant))
@@ -530,9 +517,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
+            Catch ex As Exception
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 25
         End Get
@@ -558,9 +545,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
+            Catch ex As Exception
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 5
         End Get
@@ -591,9 +578,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 0.2
         End Get
@@ -608,9 +595,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 25
         End Get
@@ -625,9 +612,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 1.0
         End Get
@@ -651,9 +638,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 25
         End Get
@@ -683,9 +670,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 25
         End Get
@@ -757,6 +744,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CMS() As String
+        Get
+            Return CType(GetMySetting("CMS", "DreamGrid"), String)
+        End Get
+        Set
+            SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property ConsolePass() As String
         Get
             Return CType(GetMySetting("ConsolePass"), String)
@@ -802,6 +798,16 @@ Public Class MySettings
         End Set
     End Property
 
+    ' more stuff
+    Public Property CurrentDirectory() As String
+        Get
+            Return GetMySetting("Myfolder") ' no default
+        End Get
+        Set
+            SetMySetting("Myfolder", Value)
+        End Set
+    End Property
+
     Public Property CycleTime() As Integer
         Get
             Return Val(0 + GetMySetting("CycleTime", "900"))
@@ -824,9 +830,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("Density", "0.5"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 0.5
         End Get
@@ -904,6 +910,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("FirstRegionPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property FirstXMLRegionPort() As Integer
+        Get
+            Return Val("0".ToUpperInvariant & GetMySetting("XMLRegionStartPort", ""))
+        End Get
+        Set
+            SetMySetting("XMLRegionStartPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1142,24 +1157,14 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 0.2
         End Get
         Set
             SetMySetting("MinTimerInterval", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    ' more stuff
-    Public Property Myfolder() As String
-        Get
-            Return GetMySetting("Myfolder") ' no default
-        End Get
-        Set
-            SetMySetting("Myfolder", Value)
         End Set
     End Property
 
@@ -1294,7 +1299,7 @@ Public Class MySettings
 
     Public Property RegionDBName() As String
         Get
-            Return GetMySetting("RegionDBName")
+            Return GetMySetting("RegionDBName", "opensim")
         End Get
         Set
             SetMySetting("RegionDBName", Value)
@@ -1303,7 +1308,7 @@ Public Class MySettings
 
     Public Property RegionDbPassword() As String
         Get
-            Return GetMySetting("RegionDbPassword")
+            Return GetMySetting("RegionDbPassword", "opensimpassword")
         End Get
         Set
             SetMySetting("RegionDbPassword", Value)
@@ -1312,7 +1317,7 @@ Public Class MySettings
 
     Public Property RegionDBUsername() As String
         Get
-            Return GetMySetting("RegionDBUsername")
+            Return GetMySetting("RegionDBUsername", "opensimuser")
         End Get
         Set
             SetMySetting("RegionDBUsername", Value)
@@ -1368,9 +1373,9 @@ Public Class MySettings
         Get
             Try
                 Return Convert.ToDouble(GetMySetting("RenderMaxHeight", "4096"), Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
             Return 4096
 
@@ -1395,15 +1400,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("RestartOnCrash", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property CMS() As String
-        Get
-            Return CType(GetMySetting("CMS", "DreamGrid"), String)
-        End Get
-        Set
-            SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1524,15 +1520,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SearchLocal() As Boolean
-        Get
-            Return CType(GetMySetting("SearchLocal", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("SearchLocal", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property SearchMigration() As Integer
         Get
             Return CType(GetMySetting("SearchMigration", "0".ToUpperInvariant), Integer)
@@ -1612,6 +1599,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("SizeY", Value)
+        End Set
+    End Property
+
+    Public Property SkipUpdateCheck() As Single
+        Get
+            Return CType(GetMySetting("SkipUpdateCheck", 0), Single)
+        End Get
+        Set
+            SetMySetting("SkipUpdateCheck", CStr(Value))
         End Set
     End Property
 
@@ -1772,19 +1768,10 @@ Public Class MySettings
 
     Public Property UPnPEnabled() As Boolean
         Get
-            Return CType(GetMySetting("UPnPEnabled", "False"), Boolean)
+            Return CType(GetMySetting("UPnPEnabled", "True"), Boolean)
         End Get
         Set
             SetMySetting("UPnPEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property SkipUpdateCheck() As Single
-        Get
-            Return CType(GetMySetting("SkipUpdateCheck", 0), Single)
-        End Get
-        Set
-            SetMySetting("SkipUpdateCheck", CStr(Value))
         End Set
     End Property
 
@@ -1870,9 +1857,9 @@ Public Class MySettings
 
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
 
         FileStuff.DeleteFile(ini)

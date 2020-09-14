@@ -20,14 +20,13 @@
 
 #End Region
 
-Imports System.Net
 Imports System.Text.RegularExpressions
 
 Public Class FormPublicity
 
 #Region "GLobals"
 
-    Private initted As Boolean = False
+    Private initted As Boolean
 
 #End Region
 
@@ -100,12 +99,12 @@ Public Class FormPublicity
         GDPRCheckBox.Checked = Settings.GDPR()
 
         Try
-            PictureBox9.Image = Bitmap.FromFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+            PictureBox9.Image = Bitmap.FromFile(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png")
 
-            PictureBox9.Image = My.Resources.ClicktoInsertPhoto
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
+            PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto
         End Try
         Dim tmp = Settings.Description
         tmp = tmp.Replace("<br>", vbCrLf)
@@ -145,9 +144,10 @@ Public Class FormPublicity
         Form1.Help("Publicity")
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
         Dim ofd As New OpenFileDialog With {
-            .Filter = My.Resources.picfilter,
+            .Filter = Global.Outworldz.My.Resources.picfilter,
             .FilterIndex = 1,
             .Multiselect = False
         }
@@ -165,13 +165,14 @@ Public Class FormPublicity
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
 
-                    FileStuff.DeleteFile(Form1.PropMyFolder & "\OutworldzFiles\Photo.png")
+                    FileStuff.DeleteFile(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png")
                     Dim newBitmap = New Bitmap(PictureBox9.Image)
-                    newBitmap.Save(Form1.PropMyFolder & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                    newBitmap.Save(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
                     newBitmap.Dispose()
-#Disable Warning CA1031
+
                 Catch ex As Exception
-#Enable Warning CA1031
+
+                    BreakPoint.Show(ex.Message)
                     Form1.ErrorLog("Save Photo " & ex.Message)
                     Return
                 End Try

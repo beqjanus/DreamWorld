@@ -20,7 +20,8 @@ Partial Class FormPorts
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolTip.SetToolTip(System.Windows.Forms.Control,System.String)")>
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPorts))
@@ -73,7 +74,7 @@ Partial Class FormPorts
         Me.GroupBox2.Size = New System.Drawing.Size(270, 286)
         Me.GroupBox2.TabIndex = 45
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Ports"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Ports
         '
         'MaxX
         '
@@ -82,7 +83,7 @@ Partial Class FormPorts
         Me.MaxX.Name = "MaxX"
         Me.MaxX.Size = New System.Drawing.Size(105, 13)
         Me.MaxX.TabIndex = 1867
-        Me.MaxX.Text = "Highest used: 20001"
+        Me.MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word
         '
         'MaxXLabel
         '
@@ -91,7 +92,7 @@ Partial Class FormPorts
         Me.MaxXLabel.Name = "MaxXLabel"
         Me.MaxXLabel.Size = New System.Drawing.Size(108, 13)
         Me.MaxXLabel.TabIndex = 1866
-        Me.MaxXLabel.Text = "XMLRPC Port Start #"
+        Me.MaxXLabel.Text = Global.Outworldz.My.Resources.XMLRP_start '"XMLRPC Port Start #"
         '
         'FirstXMLRegionPort
         '
@@ -108,7 +109,7 @@ Partial Class FormPorts
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(192, 13)
         Me.Label1.TabIndex = 1864
-        Me.Label1.Text = "External HostName For Region Servers"
+        Me.Label1.Text = Global.Outworldz.My.Resources.External
         Me.ToolTip1.SetToolTip(Me.Label1, Global.Outworldz.My.Resources.External_text)
         '
         'ExternalHostName
@@ -126,7 +127,7 @@ Partial Class FormPorts
         Me.MaxP.Name = "MaxP"
         Me.MaxP.Size = New System.Drawing.Size(99, 13)
         Me.MaxP.TabIndex = 1862
-        Me.MaxP.Text = "Highest used: 8004"
+        Me.MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word
         '
         'Label26
         '
@@ -135,7 +136,7 @@ Partial Class FormPorts
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(98, 13)
         Me.Label26.TabIndex = 1861
-        Me.Label26.Text = "Region Port Start #"
+        Me.Label26.Text = Global.Outworldz.My.Resources.Region_Port_Start
         '
         'FirstRegionPort
         '
@@ -172,7 +173,7 @@ Partial Class FormPorts
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(62, 13)
         Me.Label7.TabIndex = 38
-        Me.Label7.Text = "Private Port"
+        Me.Label7.Text = Global.Outworldz.My.Resources.Private_Port_Word
         '
         'Label5
         '
@@ -181,7 +182,7 @@ Partial Class FormPorts
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(83, 13)
         Me.Label5.TabIndex = 33
-        Me.Label5.Text = "Diagnostics port"
+        Me.Label5.Text = Global.Outworldz.My.Resources.Diag_Port_word
         '
         'HTTPPort
         '
@@ -214,7 +215,7 @@ Partial Class FormPorts
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(49, 13)
         Me.Label4.TabIndex = 32
-        Me.Label4.Text = "Http Port"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Http_Port_word
         '
         'MenuStrip2
         '
@@ -225,7 +226,7 @@ Partial Class FormPorts
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(309, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '
@@ -251,7 +252,7 @@ Partial Class FormPorts
         Me.Controls.Add(Me.GroupBox2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormPorts"
-        Me.Text = "Region Port"
+        Me.Text = Global.Outworldz.My.Resources.Region_Ports_word
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.Upnp, System.ComponentModel.ISupportInitialize).EndInit()

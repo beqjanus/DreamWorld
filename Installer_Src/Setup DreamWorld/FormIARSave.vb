@@ -34,6 +34,7 @@ Public Class FormIARSave
 
 #Region "Public Constructors"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.TextBox.set_Text(System.String)")>
     Public Sub New()
 
         ' This call is required by the designer.

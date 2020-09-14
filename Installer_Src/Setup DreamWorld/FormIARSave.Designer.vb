@@ -20,7 +20,9 @@ Partial Class FormIARSave
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolTip.SetToolTip(System.Windows.Forms.Control,System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.TextBox.set_Text(System.String)")>
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -87,7 +89,7 @@ Partial Class FormIARSave
         Me.GroupBox1.Size = New System.Drawing.Size(369, 198)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Save Inventory IAR"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word '"Save Inventory IAR"
         '
         'Button2
         '
@@ -123,7 +125,7 @@ Partial Class FormIARSave
         Me.Pwd.Name = "Pwd"
         Me.Pwd.Size = New System.Drawing.Size(53, 13)
         Me.Pwd.TabIndex = 19
-        Me.Pwd.Text = "Password"
+        Me.Pwd.Text = Global.Outworldz.My.Resources.Password_word
         '
         'Label3
         '
@@ -132,7 +134,7 @@ Partial Class FormIARSave
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(69, 13)
         Me.Label3.TabIndex = 18
-        Me.Label3.Text = "Avatar Name"
+        Me.Label3.Text = Global.Outworldz.My.Resources.Avatar_Name_word
         '
         'Label2
         '
@@ -141,7 +143,7 @@ Partial Class FormIARSave
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 13)
         Me.Label2.TabIndex = 17
-        Me.Label2.Text = "Backup Name"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Backup_Name
         '
         'Label1
         '
@@ -150,7 +152,7 @@ Partial Class FormIARSave
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(113, 13)
         Me.Label1.TabIndex = 16
-        Me.Label1.Text = "Object Path and name"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Object_Path_and_name
         '
         'Password
         '
@@ -170,7 +172,7 @@ Partial Class FormIARSave
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(393, 30)
         Me.MenuStrip1.TabIndex = 18599
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '
@@ -195,7 +197,7 @@ Partial Class FormIARSave
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormIARSave"
-        Me.Text = "Save Inventory IAR"
+        Me.Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

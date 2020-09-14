@@ -24,8 +24,8 @@ Public Class FormFsAssets
 
 #Region "Declarations"
 
-    Dim _changed As Boolean = False
-    Dim initted As Boolean = False
+    Dim _changed As Boolean
+    Dim initted As Boolean
 
 #End Region
 
@@ -141,7 +141,7 @@ Public Class FormFsAssets
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = My.Resources.Choose_a_Folder_word
+            .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
         openFileDialog1.Dispose()
@@ -155,7 +155,6 @@ Public Class FormFsAssets
                 Changed = True
             End If
         End If
-
 
     End Sub
 

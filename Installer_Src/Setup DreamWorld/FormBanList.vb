@@ -4,7 +4,7 @@ Imports System.Text.RegularExpressions
 
 Public Class FormBanList
 
-    Dim Saveneeded As Boolean = False
+    Dim Saveneeded As Boolean
 
 #Region "ScreenSize"
 
@@ -56,6 +56,17 @@ Public Class FormBanList
 
 #Region "Start Stop"
 
+    Public Sub LoadCollectionData() Handles Me.Load
+
+        SetScreen()
+        GetData()
+        BringToFront()
+
+        Form1.HelpOnce("BanList")
+
+    End Sub
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub Q() Handles Me.Closing
 
         If Saveneeded = False Then Return
@@ -63,7 +74,7 @@ Public Class FormBanList
         Dim MACString As String = ""
         Dim ViewerString As String = ""
         Dim GridString As String = ""
-        Dim fname = My.Computer.FileSystem.OpenTextFileWriter(Form1.PropMyFolder & "/Outworldzfiles/BanList.txt", False)
+        Dim fname = My.Computer.FileSystem.OpenTextFileWriter(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt", False)
         Try
 
             For Each row As DataGridViewRow In DataGridView1.Rows
@@ -119,7 +130,7 @@ Public Class FormBanList
 
             If Settings.ServerType = "Robust" Then
                 ' Robust Process only
-                If Settings.LoadIni(Form1.PropOpensimBinPath & "bin\Robust.HG.ini.proto", ";") Then
+                If Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini.proto", ";") Then
                     MsgBox(My.Resources.Error_word)
                     Return
                 End If
@@ -145,9 +156,10 @@ Public Class FormBanList
                     Form1.PropAborting = False
                 End If
             End If
-#Disable Warning CA1031 ' Do not catch general exception types
+ ' Do not catch general exception types
         Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+ ' Do not catch general exception types
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog("Ban List:" & ex.Message)
         Finally
             fname.Close()
@@ -157,26 +169,40 @@ Public Class FormBanList
 
     End Sub
 
-    Public Sub LoadCollectionData() Handles Me.Load
-
-        SetScreen()
-        GetData()
-        BringToFront()
-
-        Form1.HelpOnce("BanList")
-
-    End Sub
-
 #End Region
 
 #Region "Private Subs"
 
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+    Private Sub DataGridView1_CellContentAdded(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserAddedRow
 
-        Form1.Help("BanList")
+        Saveneeded = True
 
     End Sub
 
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEndEdit
+
+        Saveneeded = True
+
+    End Sub
+
+    Private Sub DataGridView1_ColumnWidthChanged(sender As Object, e As DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
+
+        Dim w As String = e.Column.Width.ToString(Globalization.CultureInfo.InvariantCulture)
+        Dim name As String = e.Column.Name.ToString(Globalization.CultureInfo.CurrentCulture)
+
+        colsize.PutSize(name, w)
+        Diagnostics.Debug.Print(name & " " & w.ToString(Globalization.CultureInfo.InvariantCulture))
+        colsize.SaveFormSettings()
+
+    End Sub
+
+    Private Sub DataGridView1_Delrow(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserDeletedRow
+
+        Saveneeded = True
+
+    End Sub
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub GetData()
 
         Try
@@ -185,23 +211,25 @@ Public Class FormBanList
             Dim table As DataTable = New DataTable
 
             'Create column.
-            Dim column1 As DataColumn = New DataColumn()
-            column1.DataType = System.Type.GetType("System.String")
-            column1.ColumnName = My.Resources.Banned_word
-            column1.AutoIncrement = False
-            column1.Caption = My.Resources.Banned_word
-            column1.ReadOnly = False
-            column1.Unique = False
+            Dim column1 As DataColumn = New DataColumn With {
+                .DataType = System.Type.GetType("System.String"),
+                .ColumnName = Global.Outworldz.My.Resources.Banned_word,
+                .AutoIncrement = False,
+                .Caption = Global.Outworldz.My.Resources.Banned_word,
+                .ReadOnly = False,
+                .Unique = False
+            }
             ' Add the column to the table.
             table.Columns.Add(column1)
 
-            Dim column2 As DataColumn = New DataColumn()
-            column2.DataType = System.Type.GetType("System.String")
-            column2.ColumnName = My.Resources.Comment_or_Notes_Word
-            column2.AutoIncrement = False
-            column2.Caption = My.Resources.Comment_or_Notes_Word
-            column2.ReadOnly = False
-            column2.Unique = False
+            Dim column2 As DataColumn = New DataColumn With {
+                .DataType = System.Type.GetType("System.String"),
+                .ColumnName = Global.Outworldz.My.Resources.Comment_or_Notes_Word,
+                .AutoIncrement = False,
+                .Caption = Global.Outworldz.My.Resources.Comment_or_Notes_Word,
+                .ReadOnly = False,
+                .Unique = False
+            }
             ' Add the column to the table.
             table.Columns.Add(column2)
 
@@ -210,10 +238,10 @@ Public Class FormBanList
             table.Locale = CultureInfo.InvariantCulture
 
             Dim filename As String
-            If System.IO.File.Exists(Form1.PropMyFolder & "/Outworldzfiles/BanList.txt") Then
-                filename = Form1.PropMyFolder & "/Outworldzfiles/BanList.txt"
+            If System.IO.File.Exists(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt") Then
+                filename = Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt"
             Else
-                filename = Form1.PropMyFolder & "/Outworldzfiles/Opensim/BanListProto.txt"
+                filename = Settings.CurrentDirectory & "/Outworldzfiles/Opensim/BanListProto.txt"
             End If
 
             Dim line As String
@@ -237,40 +265,18 @@ Public Class FormBanList
 
             DataGridView1.Columns(0).Width = colsize.ColumnWidth(My.Resources.Banned_word, 240)
             DataGridView1.Columns(1).Width = colsize.ColumnWidth(My.Resources.Comment_or_Notes_Word, 500)
-#Disable Warning CA1031 ' Do not catch general exception types
+ ' Do not catch general exception types
         Catch ex As Exception
-#Enable Warning CA1031 ' Do not catch general exception types
+ ' Do not catch general exception types
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog("Banlist:" & ex.Message)
         End Try
 
     End Sub
 
-    Private Sub DataGridView1_ColumnWidthChanged(sender As Object, e As DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
-        Dim w As String = e.Column.Width.ToString(Globalization.CultureInfo.InvariantCulture)
-        Dim name As String = e.Column.Name.ToString(Globalization.CultureInfo.CurrentCulture)
-
-        colsize.putSize(name, w)
-        Diagnostics.Debug.Print(name & " " & w.ToString(Globalization.CultureInfo.InvariantCulture))
-        colsize.SaveFormSettings()
-
-    End Sub
-
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellEndEdit
-
-        Saveneeded = True
-
-    End Sub
-
-    Private Sub DataGridView1_CellContentAdded(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserAddedRow
-
-        Saveneeded = True
-
-    End Sub
-
-    Private Sub DataGridView1_Delrow(sender As Object, e As DataGridViewRowEventArgs) Handles DataGridView1.UserDeletedRow
-
-        Saveneeded = True
+        Form1.Help("BanList")
 
     End Sub
 

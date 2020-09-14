@@ -52,10 +52,10 @@ Partial Class Choice
         'Group
         '
         Me.Group.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Group.HeaderText = "Group"
+        Me.Group.HeaderText = Global.Outworldz.My.Resources.Group_word
         Me.Group.MaxInputLength = 50
         Me.Group.MinimumWidth = 8
-        Me.Group.Name = "Group"
+        Me.Group.Name = Global.Outworldz.My.Resources.Group_word
         Me.Group.ReadOnly = True
         Me.Group.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
         Me.Group.ToolTipText = Global.Outworldz.My.Resources.Click_2_Choose
@@ -92,7 +92,7 @@ Partial Class Choice
         Me.Controls.Add(Me.DataGridView)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Choice"
-        Me.Text = "Choose Region"
+        Me.Text = Global.Outworldz.My.Resources.Choose_Region_word
         Me.TopMost = True
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

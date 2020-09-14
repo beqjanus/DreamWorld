@@ -81,7 +81,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_OSSL_Functions.osGetCurrentSunHour();
         }
 
-        public double osGetSunParam(string param)
+        public LSL_Float osGetSunParam(LSL_String param)
         {
             return m_OSSL_Functions.osGetSunParam(param);
         }
@@ -459,11 +459,6 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         public vector osGetDrawStringSize(string contentType, string text, string fontName, int fontSize)
         {
             return m_OSSL_Functions.osGetDrawStringSize(contentType, text, fontName, fontSize);
-        }
-
-        public void osSetStateEvents(int events)
-        {
-            m_OSSL_Functions.osSetStateEvents(events);
         }
 
         public string osGetScriptEngineName()

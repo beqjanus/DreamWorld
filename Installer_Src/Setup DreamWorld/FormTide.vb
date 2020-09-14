@@ -24,8 +24,8 @@ Public Class Tides
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get

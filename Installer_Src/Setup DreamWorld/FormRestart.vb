@@ -26,9 +26,9 @@ Public Class FormRestart
 
 #Region "Private Fields"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
-    Dim initted As Boolean = False
+    Dim initted As Boolean
 
 #End Region
 
@@ -53,9 +53,10 @@ Public Class FormRestart
         Settings.Autostart = AutoStartCheckbox.Checked
         Try
             Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
             Settings.AutoRestartInterval = 0
         End Try
 

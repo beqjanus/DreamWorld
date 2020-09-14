@@ -20,6 +20,9 @@ Partial Class FormDatabase
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolTip.SetToolTip(System.Windows.Forms.Control,System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.GroupBox.set_Text(System.String)")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Label.set_Text(System.String)")>
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
@@ -142,7 +145,7 @@ Partial Class FormDatabase
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(35, 13)
         Me.Label20.TabIndex = 13
-        Me.Label20.Text = Outworldz.My.Resources.About_word
+        Me.Label20.Text = Outworldz.My.Resources.Region_Database
 
         '
         'RegionDbName
@@ -252,7 +255,7 @@ Partial Class FormDatabase
         Me.Dbnameindex.Name = "Dbnameindex"
         Me.Dbnameindex.Size = New System.Drawing.Size(35, 13)
         Me.Dbnameindex.TabIndex = 35
-        Me.Dbnameindex.Text = My.Resources.DBName_word
+        Me.Dbnameindex.Text = Global.Outworldz.My.Resources.DBName_word
         '
         'Label9
         '
@@ -323,7 +326,7 @@ Partial Class FormDatabase
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(633, 26)
         Me.MenuStrip2.TabIndex = 1885
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '

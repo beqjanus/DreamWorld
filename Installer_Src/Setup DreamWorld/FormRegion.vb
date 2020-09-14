@@ -31,10 +31,10 @@ Public Class FormRegion
     Dim _RegionUUID As String = ""
     Dim BoxSize As Integer = 256
     Dim changed As Boolean
-    Dim initted As Boolean = False
+    Dim initted As Boolean
 
     ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save a form
-    Dim isNew As Boolean = False
+    Dim isNew As Boolean
 
     Dim oldname As String = ""
     Dim RName As String
@@ -112,9 +112,11 @@ Public Class FormRegion
         Dim value As Boolean = False
         Try
             value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex.Message)
         End Try
 
         Return value
@@ -137,9 +139,10 @@ Public Class FormRegion
             If chosen = "! Add New Name" Then
                 chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             chosen = ""
         End Try
 
@@ -148,6 +151,7 @@ Public Class FormRegion
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Public Sub Init(Name As String)
 
         '!!! remove for production
@@ -167,7 +171,7 @@ Public Class FormRegion
         If Name.Length = 0 Then
             IsNew1 = True
             Gods_Use_Default.Checked = True
-            RegionName.Text = My.Resources.Name_of_Region_Word
+            RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word
             UUID.Text = Guid.NewGuid().ToString
 
             CoordX.Text = (Form1.PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
@@ -189,7 +193,7 @@ Public Class FormRegion
             RegionUUID = Form1.PropRegionClass.FindRegionByName(Name)
             Oldname1 = Form1.PropRegionClass.RegionName(RegionUUID) ' backup in case of rename
             EnabledCheckBox.Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
-            Me.Text = Name & " Region" ' on screen
+            Me.Text = Name & " " & Global.Outworldz.My.Resources.Region_word ' on screen
             RegionName.Text = Name
             UUID.Text = RegionUUID
             NonphysicalPrimMax.Text = CStr(Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID))
@@ -316,19 +320,19 @@ Public Class FormRegion
             Maps_Use_Default.Checked = True
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "None" Then
             MapNone.Checked = True
-            MapPicture.Image = My.Resources.blankbox
+            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Simple" Then
             MapSimple.Checked = True
-            MapPicture.Image = My.Resources.Simple
+            MapPicture.Image = Global.Outworldz.My.Resources.Simple
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Good" Then
             MapGood.Checked = True
-            MapPicture.Image = My.Resources.Good
+            MapPicture.Image = Global.Outworldz.My.Resources.Good
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Better" Then
             MapBetter.Checked = True
-            MapPicture.Image = My.Resources.Better
+            MapPicture.Image = Global.Outworldz.My.Resources.Better
         ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Best" Then
             MapBest.Checked = True
-            MapPicture.Image = My.Resources.Best
+            MapPicture.Image = Global.Outworldz.My.Resources.Best
         End If
 
         Select Case Form1.PropRegionClass.Physics(RegionUUID)
@@ -384,9 +388,9 @@ Public Class FormRegion
 
             ' if none selected, turn default on. This updates old code to new GodDefault global
 
-            If Form1.PropRegionClass.AllowGods(RegionUUID) = "" And
-                 Form1.PropRegionClass.RegionGod(RegionUUID) = "" And
-                Form1.PropRegionClass.ManagerGod(RegionUUID) = "" Then
+            If Form1.PropRegionClass.AllowGods(RegionUUID).Length = 0 And
+                 Form1.PropRegionClass.RegionGod(RegionUUID).Length = 0 And
+                Form1.PropRegionClass.ManagerGod(RegionUUID).Length = 0 Then
                 Gods_Use_Default.Checked = True
             End If
         End If
@@ -466,13 +470,15 @@ Public Class FormRegion
 
             Initted1 = True
             Form1.HelpOnce("Region")
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
         If BirdsCheckBox.Checked Then
@@ -486,7 +492,7 @@ Public Class FormRegion
 
         Dim message = RegionValidate()
         If Len(message) > 0 Then
-            Dim v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info_word)
+            Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, vbYesNo, Global.Outworldz.My.Resources.Info_word)
             If v = vbYes Then
                 Me.Close()
             End If
@@ -568,14 +574,15 @@ Public Class FormRegion
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
-        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, My.Resources.Info_word)
+        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
-            FileStuff.DeleteFile(Form1.PropOpensimBinPath & "bin\Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
+            FileStuff.DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
                 My.Computer.FileSystem.RenameFile(Form1.PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
         End If
 
@@ -604,11 +611,11 @@ Public Class FormRegion
 
         If Changed1 Then
             Form1.PropViewedSettings = True
-            Dim v = MsgBox(My.Resources.Save_changes_word, vbYesNo, My.Resources.Save_changes_word)
+            Dim v = MsgBox(My.Resources.Save_changes_word, vbYesNo, Global.Outworldz.My.Resources.Save_changes_word)
             If v = vbYes Then
                 Dim message = RegionValidate()
                 If Len(message) > 0 Then
-                    v = MsgBox(message + vbCrLf + My.Resources.Discard_Exit, vbYesNo, My.Resources.Info_word)
+                    v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, vbYesNo, Global.Outworldz.My.Resources.Info_word)
                     If v = vbYes Then
                         Me.Close()
                     End If
@@ -632,31 +639,34 @@ Public Class FormRegion
         Form1.Help("Permissions")
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
 
         If MapBest.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Best")
-            MapPicture.Image = My.Resources.Best
+            MapPicture.Image = Global.Outworldz.My.Resources.Best
         End If
         If Initted1 Then Changed1 = True
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
 
         If MapBetter.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Better")
-            MapPicture.Image = My.Resources.Better
+            MapPicture.Image = Global.Outworldz.My.Resources.Better
         End If
         If Initted1 Then Changed1 = True
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
         If MapGood.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Good")
-            MapPicture.Image = My.Resources.Good
+            MapPicture.Image = Global.Outworldz.My.Resources.Good
         End If
         If Initted1 Then Changed1 = True
 
@@ -668,16 +678,18 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
         If MapNone.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to None")
-            MapPicture.Image = My.Resources.blankbox
+            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
         End If
         If Initted1 Then Changed1 = True
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub Maps_Use_Default_changed(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
 
         If Maps_Use_Default.Checked Then
@@ -689,13 +701,13 @@ Public Class FormRegion
             MapBest.Checked = False
 
             If Settings.MapType = "None" Then
-                MapPicture.Image = My.Resources.blankbox
+                MapPicture.Image = Global.Outworldz.My.Resources.blankbox
             ElseIf Settings.MapType = "Simple" Then
-                MapPicture.Image = My.Resources.Simple
+                MapPicture.Image = Global.Outworldz.My.Resources.Simple
             ElseIf Settings.MapType = "Good" Then
-                MapPicture.Image = My.Resources.Good
+                MapPicture.Image = Global.Outworldz.My.Resources.Good
             ElseIf Settings.MapType = "Better" Then
-                MapPicture.Image = My.Resources.Better
+                MapPicture.Image = Global.Outworldz.My.Resources.Better
             ElseIf Settings.MapType = "Best" Then
                 Settings.MapType = "Best"
             End If
@@ -705,11 +717,12 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
 
         If MapSimple.Checked Then
             Form1.Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Simple")
-            MapPicture.Image = My.Resources.Simple
+            MapPicture.Image = Global.Outworldz.My.Resources.Simple
         End If
         If Initted1 Then Changed1 = True
 
@@ -731,6 +744,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub NoPublish_CheckedChanged(sender As Object, e As EventArgs) Handles NoPublish.CheckedChanged
 
         If NoPublish.Checked Then
@@ -748,6 +762,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
@@ -760,6 +775,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
 
         If PhysicsSeparate.Checked Then
@@ -769,6 +785,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsubODE.CheckedChanged
 
         If PhysicsubODE.Checked Then
@@ -778,6 +795,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 
         If Publish.Checked Then
@@ -789,6 +807,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub PublishDefault_CheckedChanged(sender As Object, e As EventArgs) Handles PublishDefault.CheckedChanged
 
         If PublishDefault.Checked Then
@@ -803,84 +822,88 @@ Public Class FormRegion
         Dim Message As String
 
         If Len(RegionName.Text) = 0 Then
-            Message = My.Resources.Region_name_must_not_be_blank_word
+            Message = Global.Outworldz.My.Resources.Region_name_must_not_be_blank_word
             Return Message
         End If
 
         ' UUID
         Dim result As Guid
         If Not Guid.TryParse(UUID.Text, result) Then
-            Message = My.Resources.Region_UUID_Is_invalid_word & " " & +UUID.Text
+            Message = Global.Outworldz.My.Resources.Region_UUID_Is_invalid_word & " " & +UUID.Text
             Return Message
         End If
 
         ' global coords
         If Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then
-            Message = My.Resources.Region_Coordinate_X_cannot_be_less_than_0_word
+            Message = Global.Outworldz.My.Resources.Region_Coordinate_X_cannot_be_less_than_0_word
             Return Message
         ElseIf Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
-            Message = My.Resources.Region_Coordinate_X_is_too_large
+            Message = Global.Outworldz.My.Resources.Region_Coordinate_X_is_too_large
             Return Message
         End If
 
         If Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
-            Message = My.Resources.Region_Coordinate_Y_cannot_be_less_than_32
+            Message = Global.Outworldz.My.Resources.Region_Coordinate_Y_cannot_be_less_than_32
             Return Message
         ElseIf Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
-            Message = My.Resources.Region_Coordinate_Y_Is_too_large
+            Message = Global.Outworldz.My.Resources.Region_Coordinate_Y_Is_too_large
             Return Message
         End If
 
         Dim aresult As Guid
         If Not Guid.TryParse(UUID.Text, aresult) Then
-            Message = My.Resources.UUID0
+            Message = Global.Outworldz.My.Resources.UUID0
             Return Message
         End If
 
         Try
             If (NonphysicalPrimMax.Text.Length = 0) Or (CType(NonphysicalPrimMax.Text, Integer) <= 0) Then
-                Message = My.Resources.NVNonPhysPrim
+                Message = Global.Outworldz.My.Resources.NVNonPhysPrim
                 Return Message
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
-            Message = My.Resources.NVNonPhysPrim
+
+            BreakPoint.Show(ex.Message)
+            Message = Global.Outworldz.My.Resources.NVNonPhysPrim
             Return Message
         End Try
 
         Try
             If (PhysicalPrimMax.Text.Length = 0) Or (CType(PhysicalPrimMax.Text, Integer) <= 0) Then
-                Message = My.Resources.NVPhysPrim
+                Message = Global.Outworldz.My.Resources.NVPhysPrim
                 Return Message
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
-            Message = My.Resources.NVPhysPrim
+
+            BreakPoint.Show(ex.Message)
+            Message = Global.Outworldz.My.Resources.NVPhysPrim
             Return Message
         End Try
 
         Try
             If (MaxPrims.Text.Length = 0) Or (CType(MaxPrims.Text, Integer) <= 0) Then
-                Message = My.Resources.NVMaxPrim
+                Message = Global.Outworldz.My.Resources.NVMaxPrim
                 Return Message
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
-            Message = My.Resources.NVMaxPrim
+
+            BreakPoint.Show(ex.Message)
+            Message = Global.Outworldz.My.Resources.NVMaxPrim
             Return Message
         End Try
         Try
             If (MaxAgents.Text.Length = 0) Or (CType(MaxAgents.Text, Integer) <= 0) Then
-                Message = My.Resources.NVMaxAgaents
+                Message = Global.Outworldz.My.Resources.NVMaxAgents
                 Return Message
             End If
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
-            Message = My.Resources.NVMaxAgaents
+
+            BreakPoint.Show(ex.Message)
+            Message = Global.Outworldz.My.Resources.NVMaxAgents
             Return Message
         End Try
         Return ""
@@ -893,7 +916,7 @@ Public Class FormRegion
     Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
         If Len(RegionName.Text) > 0 And Initted1 Then
             If Not FilenameIsOK(RegionName.Text) Then
-                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, My.Resources.Info_word)
+                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, Global.Outworldz.My.Resources.Info_word)
                 Return
             End If
 
@@ -915,6 +938,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
 
         If SmartStartCheckBox.Checked Then
@@ -936,6 +960,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub TidesCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TidesCheckbox.CheckedChanged
 
         If TidesCheckbox.Checked Then
@@ -951,6 +976,7 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
 
         If TPCheckBox1.Checked Then
@@ -963,13 +989,13 @@ Public Class FormRegion
     Private Sub UUID_LostFocus(sender As Object, e As EventArgs) Handles UUID.LostFocus
 
         If UUID.Text <> UUID.Text And Initted1 Then
-            Dim resp = MsgBox(My.Resources.Change_UUID, vbYesNo, My.Resources.Info_word)
+            Dim resp = MsgBox(My.Resources.Change_UUID, vbYesNo, Global.Outworldz.My.Resources.Info_word)
             If resp = vbYes Then
                 Changed1 = True
                 Dim result As Guid
                 If Guid.TryParse(UUID.Text, result) Then
                 Else
-                    Dim ok = MsgBox(My.Resources.NotValidUUID, vbOKCancel, My.Resources.Info_word)
+                    Dim ok = MsgBox(My.Resources.NotValidUUID, vbOKCancel, Global.Outworldz.My.Resources.Info_word)
                     If ok = vbOK Then
                         UUID.Text = System.Guid.NewGuid.ToString
                     End If
@@ -996,9 +1022,10 @@ Public Class FormRegion
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
                 Form1.Print(My.Resources.Aborted_word)
                 Return
             End Try
@@ -1021,18 +1048,19 @@ Public Class FormRegion
 
             If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
                 Try
-                    Directory.CreateDirectory(Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region")
-#Disable Warning CA1031
+                    Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
+
                 Catch ex As Exception
-#Enable Warning CA1031
+
+                    BreakPoint.Show(ex.Message)
                     Form1.Print(My.Resources.Aborted_word)
                     Return
                 End Try
             End If
 
-            Form1.PropRegionClass.RegionPath(RegionUUID) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            Filepath = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            Form1.PropRegionClass.FolderPath(RegionUUID) = Form1.PropOpensimBinPath & "bin\Regions\" + NewGroup
+            Form1.PropRegionClass.RegionPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            Filepath = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            Form1.PropRegionClass.FolderPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup
 
         End If
 
@@ -1211,9 +1239,10 @@ Public Class FormRegion
             Using outputFile As New StreamWriter(Filepath, False)
                 outputFile.Write(Region)
             End Using
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         End Try
 
@@ -1376,19 +1405,7 @@ Public Class FormRegion
 
 #Region "Gods"
 
-    Private Sub RegionGod_CheckedChanged(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
-
-        If RegionGod.Checked Then
-            Gods_Use_Default.Checked = False
-            Form1.Log(My.Resources.Info_word, "Region " + Name + " is allowing Region Gods")
-        Else
-            Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
-        End If
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
 
         If AllowGods.Checked Then
@@ -1402,6 +1419,24 @@ Public Class FormRegion
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
+    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
+
+        If Gods_Use_Default.Checked Then
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is set to default for Gods")
+            AllowGods.Checked = False
+            RegionGod.Checked = False
+            ManagerGod.Checked = False
+            Gods_Use_Default.Checked = True
+        Else
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
+        End If
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub ManagerGod_CheckedChanged(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
 
         If ManagerGod.Checked Then
@@ -1414,14 +1449,12 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
+    Private Sub RegionGod_CheckedChanged(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
 
-        If Gods_Use_Default.Checked Then
-            Form1.Log(My.Resources.Info_word, "Region " + Name + " Is set to default for Gods")
-            AllowGods.Checked = False
-            RegionGod.Checked = False
-            ManagerGod.Checked = False
-            Gods_Use_Default.Checked = True
+        If RegionGod.Checked Then
+            Gods_Use_Default.Checked = False
+            Form1.Log(My.Resources.Info_word, "Region " + Name + " is allowing Region Gods")
         Else
             Form1.Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
         End If

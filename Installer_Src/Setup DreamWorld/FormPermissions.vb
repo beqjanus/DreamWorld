@@ -26,7 +26,7 @@ Public Class FormPermissions
 
     Private _screenPosition As ScreenPos
     Private Handler As New EventHandler(AddressOf Resize_page)
-    Dim initted As Boolean = False
+    Dim initted As Boolean
 
 #End Region
 
@@ -114,10 +114,6 @@ Public Class FormPermissions
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        Form1.Help("Permissions")
-    End Sub
-
     Private Sub DomainUpDown1_SelectedItemChanged(sender As Object, e As EventArgs) Handles DomainUpDown1.SelectedItemChanged
 
         If initted Then
@@ -172,6 +168,10 @@ Public Class FormPermissions
         Settings.RegionOwnerIsGod = RegionGod.Checked
         Settings.SaveSettings()
 
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        Form1.Help("Permissions")
     End Sub
 
 #End Region

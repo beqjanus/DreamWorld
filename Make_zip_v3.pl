@@ -1,16 +1,31 @@
 use strict;
+use IO::All;
 use warnings;
 use 5.010;
 
 use File::Copy;
 use File::Path;
 
-my $v = "3.62";
+
+
+my $contents = io->file('C:/Opensim/Outworldz_Dreamgrid/Installer_Src/Setup DreamWorld/FormSetup.vb')->slurp;
+$contents =~ s/\n//;
+$contents =~ /_MyVersion As String = "(.*?)"/;
+my $v = $1;
+if (! $v)
+{
+	say ('no version!');
+	exit;
+}
+
+
 my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
 
 say ("DreamGrid$type.zip");
+
+
 
 
 
@@ -141,12 +156,12 @@ use IO::All;
 sign($dir);
 
 #
-say("Mysql");
-chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
-print `mysqladmin.exe --port 3306 -u root shutdown`;
+#say("Mysql");
+#chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
+#print `mysqladmin.exe --port 3306 -u root shutdown`;
 
-chdir ($dir);
-DeleteandKeep("$dir/OutworldzFiles/mysql/data");
+#chdir ($dir);
+#DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
 
 print "Processing Main Zip\n";
@@ -240,7 +255,7 @@ copy:
 	if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
 	
 	if (!copy ('outworldzfiles\\Help\\Dreamgrid Manual.pdf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))  {die $!;}
-
+	$v > io("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");  	
 }
 
 if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
@@ -407,7 +422,7 @@ sub sign
 			};
 			
 			
-			my $f = qq!../Certs/DigiCertUtil.exe sign /noInput /sha1 "d7ea8e5f8e6d27b138ecd93811daa6b02b0ba333" "$name"!;
+			my $f = qq!../Certs/digicertutil.exe sign /noInput /sha1 "d7ea8e5f8e6d27b138ecd93811daa6b02b0ba333" "$name"!;
 			print $f;
 			my $result = `$f`;
 			print $result. "\n";

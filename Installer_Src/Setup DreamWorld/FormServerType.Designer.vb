@@ -116,7 +116,7 @@ Partial Class FormServerType
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(372, 35)
         Me.MenuStrip1.TabIndex = 1886
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '

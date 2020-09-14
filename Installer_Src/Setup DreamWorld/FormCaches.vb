@@ -26,7 +26,7 @@ Public Class FormCaches
 
 #Region "Private Fields"
 
-    Private gInitted As Boolean = False
+    Private gInitted As Boolean
 
 #End Region
 
@@ -120,6 +120,7 @@ Public Class FormCaches
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.TextBox.set_Text(System.String)")>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         SetScreen()
@@ -149,11 +150,14 @@ Public Class FormCaches
         CacheTimeout.Text = Settings.CacheTimeout
         LogLevelBox.SelectedIndex = CType(Settings.CacheLogLevel, Integer)
 
-        Dim folder As String
-        If CacheFolder.Text = ".\assetcache" Then
-            folder = Settings.OpensimBinPath & "bin/assetcache"
-        Else
-            folder = CacheFolder.Text
+        Dim tmp = CacheFolder.Text
+        If tmp = ".\assetcache" Then
+            tmp = Settings.OpensimBinPath & "assetcache"
+        End If
+
+        If Not IO.Directory.Exists(tmp) Then
+            MsgBox(My.Resources.No_Locate_FSassets & tmp & Global.Outworldz.My.Resources.Reset_To_Default, vbInformation)
+            CacheFolder.Text = ".\assetcache"
         End If
 
         ViewerCacheCheckbox.Checked = Settings.SupportViewerObjectsCache
@@ -176,7 +180,7 @@ Public Class FormCaches
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = My.Resources.Choose_a_Folder_word
+            .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
         openFileDialog1.Dispose()
@@ -190,7 +194,6 @@ Public Class FormCaches
                 Form1.PropViewedSettings = True
             End If
         End If
-
 
     End Sub
 
@@ -206,8 +209,6 @@ Public Class FormCaches
         Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
     End Sub
-
-
 
 #End Region
 

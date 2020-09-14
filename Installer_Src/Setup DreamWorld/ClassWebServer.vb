@@ -33,9 +33,9 @@ Public Class NetServer
     Private Shared singleWebserver As NetServer
     Dim listen As Boolean = True
     Private MyPort As String
-    Private PropMyFolder As String
+
     Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
-    Private running As Boolean = False
+    Private running As Boolean
     Dim Setting As MySettings
     Private WebThread As Thread
 
@@ -62,17 +62,16 @@ Public Class NetServer
         ' stash some globs
         Setting = Settings
         MyPort = CStr(Settings.DiagnosticPort)
-        PropMyFolder = pathinfo
+        Settings.CurrentDirectory = pathinfo
 
         If running Then Return
 
-        Log(My.Resources.Info_word, My.Resources.Starting_DiagPort_Webserver)
+        Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Starting_DiagPort_Webserver)
         WebThread = New Thread(AddressOf Looper)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+            BreakPoint.Show(ex.Message)
             Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
@@ -83,9 +82,8 @@ Public Class NetServer
 
     Public Sub StopWebServer()
 
-        Log(My.Resources.Info_word, My.Resources.Stopping_Webserver)
+        Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Stopping_Webserver)
         listen = False
-
         WebThread.Abort()
 
     End Sub
@@ -135,9 +133,8 @@ Public Class NetServer
                 End Using
 
             End Using
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+        Catch ex As Exception
+
         End Try
     End Sub
 
@@ -161,6 +158,17 @@ Public Class NetServer
 
 #Region "Private Methods"
 
+    Private Shared Sub Log(category As String, message As String)
+        Debug.Print(message)
+        Try
+            Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\Outworldzfiles\Http.log", True)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
+            End Using
+        Catch ex As Exception
+            ' none to prevent looping
+        End Try
+    End Sub
+
     Private Shared Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
 
         'redirect from http://localhost:8002/bin/data/teleports.htm
@@ -177,9 +185,9 @@ Public Class NetServer
             Dim UserStmt = "SELECT regionName from REGIONS"
             Try
                 NewSQLConn.Open()
-#Disable Warning CA1031
-            Catch
-#Enable Warning CA1031
+            Catch ex As Exception
+
+                BreakPoint.Show(ex.Message)
                 Return HTML
             End Try
 
@@ -209,18 +217,6 @@ Public Class NetServer
 
     End Function
 
-    Private Sub Log(category As String, message As String)
-        Debug.Print(message)
-        Try
-            Using outputFile As New StreamWriter(PropMyFolder & "\Outworldzfiles\Http.log", True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
-            End Using
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
-        End Try
-    End Sub
-
     Private Sub Looper()
 
         listen = True
@@ -231,9 +227,8 @@ Public Class NetServer
 
             Try
                 listener.Start() ' Throws Exception
-#Disable Warning CA1031
-            Catch ex As exception
-#Enable Warning CA1031
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
                 Log(My.Resources.Error_word, ex.Message)
                 Return
             End Try

@@ -19,6 +19,7 @@ ru
 sv
 zh-cn
 zh-tw
+.build
 OutworldzFiles/AutoBackup/*
 baretail.udm
 *.pid
@@ -74,24 +75,21 @@ Thumbs.db
 **/obj/*
 **/Release/*
 **/Debug/*
+**/addin-db-002/*
+**/bin/Regions/
+**/config.php
+/OutworldzFiles/PHP7/databaseinfo.php
 
 
 # Ignore .user and .suo files as these are user preference specific
 # http://stackoverflow.com/questions/72298/should-i-add-the-visual-studio-suo-and-user-files-to-source-control
+
 *.suo
-*.VisualState.xml
-*/*/obj
-*/*/*/obj
-*/*/*/*/obj
-*/*/*/*/*/obj
-*/*/*/*/*/*/obj
-*/*/*/*/*/*/*/obj
-*/*/*.pdb
-*/*/*/*.pdb
-*/*/*/*/*.pdb
-*/*/*/*/*/*.pdb
-*/*/*/*/*/*/*.pdb
-*/*/*/*/*/*/*/*.pdb
+*.pdb
+*.build
+*.obj
+*.csproj
+*.csproj
 
 .vs/
 
@@ -108,12 +106,6 @@ Thumbs.db
 *.dll.build
 *.dll
 *.VisualState.xml
-*/*/obj
-*/*/*/obj
-*/*/*/*/obj
-*/*/*/*/*/obj
-*/*/*/*/*/*/obj
-*/*/*/*/*/*/*/obj
 bin/Debug/*.dll
 bin/*.dll.mdb
 bin/*.db

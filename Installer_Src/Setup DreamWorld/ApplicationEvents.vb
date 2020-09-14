@@ -30,8 +30,6 @@ Namespace My
     ' NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
     Partial Friend Class MyApplication
 
-
-
 #Region "Private Methods"
 
         Private Sub MyApplication_UnhandledException(

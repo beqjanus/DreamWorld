@@ -796,7 +796,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 //TODO update existing dynamic textures
             }
 
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public string osSetDynamicTextureURLBlend(string dynamicID, string contentType, string url, string extraParams,
@@ -817,7 +817,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 //TODO update existing dynamic textures
             }
 
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public string osSetDynamicTextureURLBlendFace(string dynamicID, string contentType, string url, string extraParams,
@@ -838,7 +838,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 //TODO update existing dynamic textures
             }
 
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public string osSetDynamicTextureData(string dynamicID, string contentType, string data, string extraParams,
@@ -873,7 +873,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 //TODO update existing dynamic textures
             }
 
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public string osSetDynamicTextureDataBlend(string dynamicID, string contentType, string data, string extraParams,
@@ -901,7 +901,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 //TODO update existing dynamic textures
             }
 
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public string osSetDynamicTextureDataBlendFace(string dynamicID, string contentType, string data, string extraParams,
@@ -929,7 +929,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 //TODO update existing dynamic textures
             }
 
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public bool osConsoleCommand(string command)
@@ -1485,18 +1485,6 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             return vec;
         }
 
-        public void osSetStateEvents(int events)
-        {
-            // This function is a hack. There is no reason for it's existence
-            // anymore, since state events now work properly.
-            // It was probably added as a crutch or debugging aid, and
-            // should be removed
-            //
-            CheckThreatLevel(ThreatLevel.High, "osSetStateEvents");
-
-            m_host.SetScriptEvents(m_item.ItemID, events);
-        }
-
         public void osSetRegionWaterHeight(double height)
         {
             CheckThreatLevel(ThreatLevel.High, "osSetRegionWaterHeight");
@@ -1650,7 +1638,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             return GetSunParam(param);
         }
 
-        public double osGetSunParam(string param)
+        public LSL_Float osGetSunParam(LSL_String param)
         {
             CheckThreatLevel();
             return GetSunParam(param);
@@ -1658,15 +1646,25 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
         private double GetSunParam(string param)
         {
-            double value = 0.0;
-
-            ISunModule module = World.RequestModuleInterface<ISunModule>();
-            if (module != null)
+            param = param.ToLower();
+            switch(param)
             {
-                value = module.GetSunParameter(param);
+                case "day_length":
+                    if (m_envModule == null)
+                        return 14400;
+                    return m_envModule.GetDayLength(m_host.AbsolutePosition);
+                case "year_length":
+                    return 365;
+                case "day_night_offset":
+                    return 0;
+                case "update_interval":
+                    return 0.1;
+                case "day_time_sun_hour_scale":
+                    return 1;
+                default:
+                    break;
             }
-
-            return value;
+            return 0;
         }
 
         public void osSunSetParam(string param, double value)
@@ -2504,7 +2502,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 }
             }
 
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public string osKey2Name(string id)
@@ -2933,7 +2931,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             // have to get the npc module also here to set the default Not Owned
             INPCModule module = World.RequestModuleInterface<INPCModule>();
             if(module == null)
-                return new LSL_Key(UUID.Zero.ToString());
+                return new LSL_Key(ScriptBaseClass.NULL_KEY);
 
             bool owned = (module.NPCOptionFlags & NPCOptionsFlags.AllowNotOwned) == 0;
 
@@ -2957,14 +2955,14 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             if (!World.Permissions.CanRezObject(1, m_host.OwnerID, new Vector3((float)position.x, (float)position.y, (float)position.z)))
             {
                 OSSLError("no permission to rez NPC at requested location");
-                return new LSL_Key(UUID.Zero.ToString());
+                return new LSL_Key(ScriptBaseClass.NULL_KEY);
             }
 
             INPCModule module = World.RequestModuleInterface<INPCModule>();
             if(module == null)
             {
                 OSSLError("NPC module not enabled");
-                return new LSL_Key(UUID.Zero.ToString());
+                return new LSL_Key(ScriptBaseClass.NULL_KEY);
             }
 
             string groupTitle = String.Empty;
@@ -2996,7 +2994,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                     if (member == null)
                     {
                         OSSLError(string.Format("osNpcCreate: the object owner is not member of the object group"));
-                        return new LSL_Key(UUID.Zero.ToString());
+                        return new LSL_Key(ScriptBaseClass.NULL_KEY);
                     }
 
                     groupID = m_host.GroupID;
@@ -3037,7 +3035,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                     if (appearanceSerialized == null)
                     {
                         OSSLError(string.Format("osNpcCreate: Notecard '{0}' not found.", notecard));
-                        return new LSL_Key(UUID.Zero.ToString());
+                        return new LSL_Key(ScriptBaseClass.NULL_KEY);
                     }
 
                     try
@@ -3049,7 +3047,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                     catch
                     {
                         OSSLError(string.Format("osNpcCreate: Error processing notecard '{0}'", notecard));
-                        return new LSL_Key(UUID.Zero.ToString());
+                        return new LSL_Key(ScriptBaseClass.NULL_KEY);
                     }
                 }
             }
@@ -3101,15 +3099,15 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             if (npcModule != null)
             {
                 if (!UUID.TryParse(npc.m_string, out UUID npcId))
-                    return new LSL_Key(UUID.Zero.ToString());
+                    return new LSL_Key(ScriptBaseClass.NULL_KEY);
 
                 if (!npcModule.CheckPermissions(npcId, m_host.OwnerID))
-                    return new LSL_Key(UUID.Zero.ToString());
+                    return new LSL_Key(ScriptBaseClass.NULL_KEY);
 
                 return SaveAppearanceToNotecard(npcId, notecard, NoHUds);
             }
 
-            return new LSL_Key(UUID.Zero.ToString());
+            return new LSL_Key(ScriptBaseClass.NULL_KEY);
         }
 
         public void osNpcLoadAppearance(LSL_Key npc, string notecard)
@@ -3159,7 +3157,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 }
             }
 
-            return new LSL_Key(UUID.Zero.ToString());
+            return new LSL_Key(ScriptBaseClass.NULL_KEY);
         }
 
         public LSL_Vector osNpcGetPos(LSL_Key npc)
@@ -3595,7 +3593,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             CheckThreatLevel(ThreatLevel.VeryHigh, "osAgentSaveAppearance");
 
             if (!UUID.TryParse(avatarKey, out UUID avatarId))
-                return new LSL_Key(UUID.Zero.ToString());
+                return new LSL_Key(ScriptBaseClass.NULL_KEY);
 
             return SaveAppearanceToNotecard(avatarId, notecard, false);
         }
@@ -3605,7 +3603,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             CheckThreatLevel(ThreatLevel.VeryHigh, "osAgentSaveAppearance");
 
             if (!UUID.TryParse(avatarKey, out UUID avatarId))
-                return new LSL_Key(UUID.Zero.ToString());
+                return new LSL_Key(ScriptBaseClass.NULL_KEY);
 
             return SaveAppearanceToNotecard(avatarId, notecard, includeHuds == 0);
         }
@@ -3614,7 +3612,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
         {
             ScenePresence sp = World.GetScenePresence(avatarId);
             if (sp == null || sp.IsChildAgent)
-                return new LSL_Key(UUID.Zero.ToString());
+                return new LSL_Key(ScriptBaseClass.NULL_KEY);
 
             return SaveAppearanceToNotecard(sp, notecard, NoHuds);
         }
@@ -3635,7 +3633,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             }
             else
             {
-                return new LSL_Key(UUID.Zero.ToString());
+                return new LSL_Key(ScriptBaseClass.NULL_KEY);
             }
         }
 
@@ -4016,7 +4014,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             CheckThreatLevel(ThreatLevel.High, "osSetProjectionParams");
 
             SceneObjectPart obj = null;
-            if (prim == UUID.Zero.ToString())
+            if (prim == ScriptBaseClass.NULL_KEY)
             {
                 obj = m_host;
             }
@@ -4478,7 +4476,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
             UUID rezID = m_host.ParentGroup.RezzerID;
             if(rezID == UUID.Zero || m_host.ParentGroup.Scene.GetScenePresence(rezID) != null)
-                return new LSL_Key(UUID.Zero.ToString());
+                return new LSL_Key(ScriptBaseClass.NULL_KEY);
             return new LSL_Key(rezID.ToString());
         }
 
@@ -4651,7 +4649,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
             if (m_UrlModule != null)
                 return m_UrlModule.RequestURL(m_ScriptEngine.ScriptModule, m_host, m_item.ItemID, opts).ToString();
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public LSL_String osRequestSecureURL(LSL_List options)
@@ -4668,7 +4666,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
             if (m_UrlModule != null)
                 return m_UrlModule.RequestSecureURL(m_ScriptEngine.ScriptModule, m_host, m_item.ItemID, opts).ToString();
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public void osCollisionSound(string impact_sound, double impact_volume)
@@ -5587,7 +5585,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 item = m_host.Inventory.GetInventoryItem(itemNameorid);
 
             if (item == null)
-                return UUID.Zero.ToString();
+                return ScriptBaseClass.NULL_KEY;
 
             UUID id = item.LastOwnerID;
             if(id == UUID.Zero)
@@ -5602,7 +5600,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             TaskInventoryItem item = m_host.Inventory.GetInventoryItem(name);
 
             if (item == null)
-                return UUID.Zero.ToString();
+                return ScriptBaseClass.NULL_KEY;
 
             if ((item.CurrentPermissions
                  & (uint)(PermissionMask.Copy | PermissionMask.Transfer | PermissionMask.Modify))
@@ -5611,7 +5609,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 return item.ItemID.ToString();
             }
 
-            return UUID.Zero.ToString();
+            return ScriptBaseClass.NULL_KEY;
         }
 
         public LSL_String osGetInventoryName(LSL_Key itemId)
@@ -5840,7 +5838,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             if(sp == null || sp.IsChildAgent || sp.IsNPC || sp.IsInTransit)
                 return -4;
 
-            if(string.IsNullOrEmpty(daycycle) || daycycle == UUID.Zero.ToString())
+            if(string.IsNullOrEmpty(daycycle) || daycycle == ScriptBaseClass.NULL_KEY)
             {
                 sp.Environment = null;
                 m_envModule.WindlightRefreshForced(sp, transition);
@@ -5894,7 +5892,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 VEnv = parcel.LandData.Environment;
 
             bool changed = false;
-            if (!string.IsNullOrEmpty(daycycle) || !(daycycle == UUID.Zero.ToString()))
+            if (!string.IsNullOrEmpty(daycycle) && (daycycle != ScriptBaseClass.NULL_KEY))
             {
 
                 UUID envID = ScriptUtils.GetAssetIdFromKeyOrItemName(m_host, daycycle);
@@ -5939,7 +5937,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             ViewerEnvironment VEnv = m_envModule.GetRegionEnvironment().Clone();
 
             bool changed = false;
-            if (!string.IsNullOrEmpty(daycycle) || !(daycycle == UUID.Zero.ToString()))
+            if (!string.IsNullOrEmpty(daycycle) && (daycycle != ScriptBaseClass.NULL_KEY))
             {
 
                 UUID envID = ScriptUtils.GetAssetIdFromKeyOrItemName(m_host, daycycle);
@@ -5967,7 +5965,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             {
                 int ll = VEnv.DayLength;
                 VEnv.DayLength = (int)(daylen * 3600f);
-                changed = ll != VEnv.DayLength;
+                changed |= ll != VEnv.DayLength;
             }
 
             if (dayoffset >= -11.5 && dayoffset <= 11.5)
@@ -5975,8 +5973,8 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 int lo = VEnv.DayLength;
                 if (dayoffset <= 0)
                     dayoffset+= 24;
-                VEnv.DayLength = (int)(dayoffset * 3600f);
-                changed = lo != VEnv.DayOffset;
+                VEnv.DayOffset = (int)(dayoffset * 3600f);
+                changed |= lo != VEnv.DayOffset;
             }
 
             bool needSort = false;

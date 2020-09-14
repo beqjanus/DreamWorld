@@ -55,7 +55,7 @@ Partial Class FormPhysics
         Me.GroupBox1.Size = New System.Drawing.Size(323, 226)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Physics Engine"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Physics_Engine
         '
         'PhysicsHybrid
         '
@@ -66,7 +66,7 @@ Partial Class FormPhysics
         Me.PhysicsHybrid.Size = New System.Drawing.Size(151, 24)
         Me.PhysicsHybrid.TabIndex = 1859
         Me.PhysicsHybrid.TabStop = True
-        Me.PhysicsHybrid.Text = "Ubit ODE+Bullet"
+        Me.PhysicsHybrid.Text = Global.Outworldz.My.Resources.ubODE_Hybrid_word 'Ubit ODE+Bullet"
         Me.PhysicsHybrid.UseVisualStyleBackColor = True
         '
         'GodHelp
@@ -112,7 +112,7 @@ Partial Class FormPhysics
         Me.PhysicsubODE.Size = New System.Drawing.Size(225, 24)
         Me.PhysicsubODE.TabIndex = 11
         Me.PhysicsubODE.TabStop = True
-        Me.PhysicsubODE.Text = "Ubit Open Dynamic Engine"
+        Me.PhysicsubODE.Text = Global.Outworldz.My.Resources.UBODE_words
         Me.PhysicsubODE.UseVisualStyleBackColor = True
         '
         'PhysicsBullet
@@ -148,7 +148,7 @@ Partial Class FormPhysics
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Size = New System.Drawing.Size(354, 35)
         Me.MenuStrip2.TabIndex = 1891
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '

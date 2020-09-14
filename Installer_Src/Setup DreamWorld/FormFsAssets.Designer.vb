@@ -138,7 +138,7 @@ Partial Class FormFsAssets
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(460, 35)
         Me.MenuStrip1.TabIndex = 18601
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '

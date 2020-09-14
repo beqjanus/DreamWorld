@@ -26,9 +26,9 @@ Public Class FormDatabase
 
 #Region "Private Fields"
 
-    Dim changed As Boolean = False
+    Dim changed As Boolean
     Dim DNSName As String = ""
-    Dim initted As Boolean = False
+    Dim initted As Boolean
 
 #End Region
 
@@ -131,7 +131,6 @@ Public Class FormDatabase
     End Sub
 
     Private Sub SaveAll()
-
 
         Form1.PropViewedSettings = True
         Settings.SaveSettings()

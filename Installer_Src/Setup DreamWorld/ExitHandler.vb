@@ -52,8 +52,7 @@ Public Class Handler
     Private Sub OpensimProcess_Exited(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyProcess.Exited
         ' Handle any process that exits by adding it to a dictionary. DoExitHandlerPoll will clean up.
 
-        Dim pid = 0
-        pid = CType(sender.Id, Integer)
+        Dim pid = CType(sender.Id, Integer)
 
         Try
             Dim name = RegionHandles1.Item(pid)
@@ -63,9 +62,9 @@ Public Class Handler
                 End If
             End If
             RegionHandles1.Remove(pid)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
         End Try
 
     End Sub

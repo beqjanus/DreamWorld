@@ -28,6 +28,7 @@ Public Class AdvancedForm
 #Disable Warning CA2213
 
     Private Backups As New FormAutoBackups
+    Dim Banlist As New FormBanList
     Private Bird As New BirdForm
     Dim FormApache As New FormApache
     Dim FormCache As New FormCaches
@@ -49,16 +50,14 @@ Public Class AdvancedForm
     Dim Tide As New Tides
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
-    Dim Banlist As New FormBanList
-
 #Enable Warning CA2213
 
 #End Region
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -93,7 +92,7 @@ Public Class AdvancedForm
         SetScreen()
 
         Me.Visible = True
-        Me.ToolTip1.SetToolTip(Me.TOSButton, My.Resources.Setup_TOS)
+        Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
 
     End Sub
 
@@ -106,9 +105,10 @@ Public Class AdvancedForm
         Dim webAddress As String = Form1.PropDomain + "/Outworldz_installer/technical.htm#Regions"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+            BreakPoint.Show(ex.Message)
+
         End Try
 
     End Sub
@@ -176,6 +176,24 @@ Public Class AdvancedForm
         Backups.Visible = True
         Backups.Select()
         Backups.BringToFront()
+
+    End Sub
+
+    Private Sub BanListButton_Click(sender As Object, e As EventArgs) Handles BanListButton.Click
+
+        If Settings.ServerType = "Robust" Then
+            Banlist.Close()
+            Banlist.Dispose()
+            Banlist = New FormBanList
+
+            Banlist.Activate()
+            Banlist.Visible = True
+            Banlist.Select()
+            Banlist.BringToFront()
+        Else
+            Banlist.Close()
+            Banlist.Dispose()
+        End If
 
     End Sub
 
@@ -417,24 +435,6 @@ Public Class AdvancedForm
         Voice.Visible = True
         Voice.Select()
         Voice.BringToFront()
-
-    End Sub
-
-    Private Sub BanListButton_Click(sender As Object, e As EventArgs) Handles BanListButton.Click
-
-        If Settings.ServerType = "Robust" Then
-            Banlist.Close()
-            Banlist.Dispose()
-            Banlist = New FormBanList
-
-            Banlist.Activate()
-            Banlist.Visible = True
-            Banlist.Select()
-            Banlist.BringToFront()
-        Else
-            Banlist.Close()
-            Banlist.Dispose()
-        End If
 
     End Sub
 

@@ -68,7 +68,7 @@ Public Class FormVoice
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-        Me.Text = My.Resources.Voice_Settings_Word
+        Me.Text = Global.Outworldz.My.Resources.Voice_Settings_Word
         VivoxEnable.Checked = Settings.VivoxEnabled
         VivoxPassword.Text = Settings.VivoxPassword
         VivoxUserName.Text = Settings.VivoxUserName
@@ -81,9 +81,10 @@ Public Class FormVoice
         Dim webAddress As String = "https://opensim.vivox.com/opensim/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 

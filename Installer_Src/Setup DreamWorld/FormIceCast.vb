@@ -26,8 +26,8 @@ Public Class Icecast
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -89,9 +89,10 @@ Public Class Icecast
             Form1.Print(My.Resources.Icecast_Desc & " " + webAddress)
             Try
                 Process.Start(webAddress)
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
         ElseIf Settings.SCEnable = False Then
             Form1.Print(My.Resources.IceCast_disabled)

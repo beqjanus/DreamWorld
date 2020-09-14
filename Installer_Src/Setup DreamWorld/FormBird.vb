@@ -24,12 +24,10 @@ Imports System.Text.RegularExpressions
 
 Public Class BirdForm
 
-
-
 #Region "Private Fields"
 
-    Dim changed As Boolean = False
-    Dim initted As Boolean = False
+    Dim changed As Boolean
+    Dim initted As Boolean
 
 #End Region
 
@@ -63,8 +61,6 @@ Public Class BirdForm
     End Sub
 
 #End Region
-
-
 
 #Region "Private Methods"
 
@@ -139,7 +135,7 @@ Public Class BirdForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim thing As String = Form1.PropMyFolder + "/Outworldzfiles/IAR/OpenSimBirds.iar"
+        Dim thing As String = Settings.CurrentDirectory + "/Outworldzfiles/IAR/OpenSimBirds.iar"
         Form1.LoadIARContent(thing)
 
     End Sub

@@ -178,7 +178,7 @@
     <value>Ολα</value>
   </data>
   <data name="AlphaNum" xml:space="preserve">
-    <value>Αλφαριθμητικό σύμβολο συν-πλην (χωρίς κενά ή ειδικούς χαρακτήρες)</value>
+    <value>Αλφαριθμητικό σύμβολο συν-πλην χώρο και το χαρακτήρα</value>
   </data>
   <data name="Another_Region" xml:space="preserve">
     <value>Αυτό θα επιτρέψει σε μια άλλη περιοχή που θα τοποθετηθεί σε αυτό το σημείο. Να συνεχίσει?</value>
@@ -230,6 +230,9 @@
   </data>
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
     <value>Είστε σίγουροι ότι θέλετε να διαγράψετε αυτήν την περιοχή;</value>
+  </data>
+  <data name="Assets_as_Files_word" xml:space="preserve">
+    <value>Περιουσιακά στοιχεία όπως αρχεία</value>
   </data>
   <data name="Asset_Cache_word" xml:space="preserve">
     <value>Asset Cache</value>
@@ -297,11 +300,17 @@
   <data name="Backup_Mysql" xml:space="preserve">
     <value>Φάκελο αντιγράφων ασφαλείας Mysql Data</value>
   </data>
+  <data name="Backup_MySQL_Phrase" xml:space="preserve">
+    <value>Δημιουργία αντιγράφων ασφαλείας MySql \ Data φακέλου. Παρακαλώ περιμένετε. Στην οθόνη θα εμφανιστεί κατεψυγμένα.</value>
+  </data>
   <data name="Backup_Name" xml:space="preserve">
     <value>Δημιουργία αντιγράφων ασφαλείας Όνομα</value>
   </data>
   <data name="Backup_Region" xml:space="preserve">
     <value>Δημιουργία αντιγράφων ασφαλείας των αρχείων Περιφέρεια INI</value>
+  </data>
+  <data name="Backup_Regions" xml:space="preserve">
+    <value>Δημιουργία αντιγράφων ασφαλείας Περιφερειών φακέλου</value>
   </data>
   <data name="Backup_Schedule" xml:space="preserve">
     <value>Κάντε κλικ για να δημιουργήσει αντιγράφων ασφαλείας Χρονοδιάγραμμα σας</value>
@@ -311,6 +320,18 @@
   </data>
   <data name="Backup_word" xml:space="preserve">
     <value>Αντιγράφων ασφαλείας</value>
+  </data>
+  <data name="BanList_string" xml:space="preserve">
+    <value>Κάντε κλικ για να δημιουργήσει δίκτυο, τη διεύθυνση MAC και απαγορεύσεις IP</value>
+  </data>
+  <data name="Banned_word" xml:space="preserve">
+    <value>Αποκλεισμένο</value>
+  </data>
+  <data name="Ban_List_word" xml:space="preserve">
+    <value>Μπαν Λίστα</value>
+  </data>
+  <data name="Basque_word" xml:space="preserve">
+    <value>Βάσκων</value>
   </data>
   <data name="Best_Prims" xml:space="preserve">
     <value>Καλύτερο (PRIMS + Mesh, πολύ αργά)</value>
@@ -402,6 +423,9 @@
   <data name="Cannot_save_region_word" xml:space="preserve">
     <value>δεν μπορεί να σώσει την περιοχή:</value>
   </data>
+  <data name="Catalan" xml:space="preserve">
+    <value>Καταλανικά</value>
+  </data>
   <data name="Category_word" xml:space="preserve">
     <value>Κατηγορία</value>
   </data>
@@ -447,7 +471,16 @@
   <data name="Check_for_Updates_word" xml:space="preserve">
     <value>Ελεγχος για ενημερώσεις</value>
   </data>
+  <data name="Chinese_Simplifed" xml:space="preserve">
+    <value>κινεζική simplifed</value>
+  </data>
+  <data name="Chinese_Traditional" xml:space="preserve">
+    <value>Παραδοσιακά κινέζικα</value>
+  </data>
   <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>Επιλέξτε ένα φάκελο</value>
+  </data>
+  <data name="Choose_a_Folder_word1" xml:space="preserve">
     <value>Επιλέξτε ένα φάκελο</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
@@ -525,6 +558,9 @@
   <data name="Click_Database" xml:space="preserve">
     <value>Κάντε κλικ για να δημιουργήσει τη βάση δεδομένων</value>
   </data>
+  <data name="Click_for_God_Mode" xml:space="preserve">
+    <value>Κάντε κλικ για να ρυθμίσετε τη λειτουργία του Θεού και άλλα δικαιώματα</value>
+  </data>
   <data name="Click_For_Help" xml:space="preserve">
     <value>Πατήστε για βοήθεια</value>
   </data>
@@ -588,6 +624,12 @@
   <data name="Clouds_word" xml:space="preserve">
     <value>σύννεφα</value>
   </data>
+  <data name="CMS" xml:space="preserve">
+    <value>Διαχείριση Περιεχομένου</value>
+  </data>
+  <data name="Comment_or_Notes_Word" xml:space="preserve">
+    <value>Σχόλιο ή σημειώσεις</value>
+  </data>
   <data name="Common_Settings_word" xml:space="preserve">
     <value>Κοινές ρυθμίσεις</value>
   </data>
@@ -611,6 +653,9 @@
   </data>
   <data name="Contact_Name_word" xml:space="preserve">
     <value>όνομα επαφής</value>
+  </data>
+  <data name="Content_Manager_Word" xml:space="preserve">
+    <value>Διαχείριση Περιεχομένου</value>
   </data>
   <data name="Content_word" xml:space="preserve">
     <value>Περιεχόμενο</value>
@@ -642,6 +687,9 @@
   <data name="CSOD" xml:space="preserve">
     <value>Τρέχουσα Μέγεθος στο δίσκο</value>
   </data>
+  <data name="Current_Size" xml:space="preserve">
+    <value>Τρέχουσα Μέγεθος στο δίσκο</value>
+  </data>
   <data name="Custom_word" xml:space="preserve">
     <value>Εθιμο</value>
   </data>
@@ -650,6 +698,9 @@
   </data>
   <data name="Cycle_time_text" xml:space="preserve">
     <value>Πόσο καιρό σε δευτερόλεπτα για μια πλήρη χρόνο του κύκλου. χαμηλής&gt; υψηλής&gt; χαμηλή</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>Τσέχος</value>
   </data>
   <data name="Database_Help_word" xml:space="preserve">
     <value>Βάση Δεδομένων Βοήθεια</value>
@@ -714,6 +765,9 @@
   <data name="Description_word" xml:space="preserve">
     <value>Περιγραφή</value>
   </data>
+  <data name="Desired_Separation_word" xml:space="preserve">
+    <value>Επιθυμητός διαχωρισμός (προεπιλογή = 5,0)</value>
+  </data>
   <data name="Details_word" xml:space="preserve">
     <value>Λεπτομέριες</value>
   </data>
@@ -724,7 +778,7 @@
     <value>Διαγνωστικά απέτυχε. Θέλετε να δείτε το αρχείο καταγραφής;</value>
   </data>
   <data name="Diag_Broken" xml:space="preserve">
-    <value>Αυτή η θύρα δεν λειτουργεί. DreamGrid δεν λειτουργεί σε αρκετά υψηλό επίπεδο ασφάλειας, ή αποκλειστεί από το τείχος προστασίας ή την καταπολέμηση του ιού, έτσι ώστε τα εικονίδια περιοχή είναι άτομα με ειδικές ανάγκες.</value>
+    <value>Αυτή η θύρα δεν λειτουργεί. DreamGrid εμποδίζεται από το τείχος προστασίας ή την καταπολέμηση του ιού, έτσι ώστε τα εικονίδια περιοχή είναι άτομα με ειδικές ανάγκες.</value>
   </data>
   <data name="Diag_Port_word" xml:space="preserve">
     <value>θύρα Diagnostics</value>
@@ -739,19 +793,19 @@
     <value>Απενεργοποίηση Εξωτερικών Επισκέπτες</value>
   </data>
   <data name="Disable_Gloebits_text" xml:space="preserve">
-    <value>Οι παγκόσμιες Gloebits δεν θα ισχύουν για την περιοχή αυτή, εάν το σύνολο.</value>
+    <value>Οι παγκόσμιες Gloebits saetting δεν θα ισχύουν για την περιοχή αυτή, αν ελέγχονται.</value>
   </data>
   <data name="Disable_Gloebits_word" xml:space="preserve">
-    <value>Απενεργοποίηση Gloebits</value>
+    <value>Απενεργοποίηση όλων Gloebits</value>
   </data>
   <data name="Disable_Residents" xml:space="preserve">
-    <value>Απενεργοποίηση Κάτοικοι</value>
+    <value>Απενεργοποίηση όλων των κατοίκων</value>
   </data>
   <data name="Disable_Suitcase_txt" xml:space="preserve">
     <value>Αυτό θα είναι λιγότερο ασφαλής Εάν απενεργοποιήσετε τη βαλίτσα, αλλά θα είναι πιο εύκολο να τα αντικείμενα Rez σε ξένα δίκτυα</value>
   </data>
   <data name="Disabling_Suitcase" xml:space="preserve">
-    <value>Η απενεργοποίηση της απογραφής βαλίτσα εκθέτει όλα τα αποθέματά σας σε άλλα δίκτυα. Αλλά είναι εύκολο να δοθεί αντικείμενα από οποιαδήποτε τοποθεσία.</value>
+    <value>Η απενεργοποίηση της απογραφής βαλίτσα εκθέτει όλα τα αποθέματά σας σε άλλα δίκτυα. Αλλά είναι εύκολο να αντικείμενα δώσει.</value>
   </data>
   <data name="Discard_Exit" xml:space="preserve">
     <value>Απορρίψτε όλες τις αλλαγές και Έξοδος;</value>
@@ -786,6 +840,9 @@
   <data name="DreamGrid_word" xml:space="preserve">
     <value>DreamGrid</value>
   </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>Ολλανδός</value>
+  </data>
   <data name="Dynamic_DNS_word" xml:space="preserve">
     <value>Dynamic DNS</value>
   </data>
@@ -804,6 +861,9 @@
   <data name="Email_word" xml:space="preserve">
     <value>ΗΛΕΚΤΡΟΝΙΚΗ ΔΙΕΥΘΥΝΣΗ</value>
   </data>
+  <data name="Email_word1" xml:space="preserve">
+    <value>ΗΛΕΚΤΡΟΝΙΚΗ ΔΙΕΥΘΥΝΣΗ</value>
+  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Estate Manager είναι ο Θεός - διαχειριστές ακινήτων μπορούν να γίνουν θεοί, αλλά ακριβώς γι 'αυτό το κτήμα</value>
   </data>
@@ -815,6 +875,9 @@
   </data>
   <data name="EnableOneClickStart_word" xml:space="preserve">
     <value>Ενεργοποίηση με ένα κλικ Έναρξη</value>
+  </data>
+  <data name="EnableOther_Word" xml:space="preserve">
+    <value>Ενεργοποίηση Άλλα</value>
   </data>
   <data name="Enable_Birds_word" xml:space="preserve">
     <value>Ενεργοποίηση μονάδας Πουλί</value>
@@ -831,6 +894,9 @@
   <data name="Enable_word" xml:space="preserve">
     <value>επιτρέπω</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>Αγγλικά</value>
+  </data>
   <data name="EnterName" xml:space="preserve">
     <value>Πληκτρολογήστε ένα όνομα για το αντίγραφο ασφαλείας</value>
   </data>
@@ -846,17 +912,20 @@
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
     <value>Πληκτρολογήστε το Grid Πληροφορίες Ιδιοκτήτη</value>
   </data>
+  <data name="Enter_the_Grid_Owner_Information_word1" xml:space="preserve">
+    <value>Πληκτρολογήστε το Grid Πληροφορίες Ιδιοκτήτη</value>
+  </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Σφάλμα: Δεν ήταν δυνατή η εκκίνηση DreamGridInstaller.exe.</value>
   </data>
   <data name="ErrorLevel0" xml:space="preserve">
-    <value>0 - (Error) Λάθη μόνο</value>
+    <value>0 - (Error) μόνο Λάθη, απαιτείται επανεκκίνηση</value>
   </data>
   <data name="ErrorLevel1" xml:space="preserve">
-    <value>1 - (Πληροφορίες) ποσοστό επιτυχίας Στατιστικά</value>
+    <value>1 - (Πληροφορίες) ποσοστό επιτυχίας Στατιστικά, απαιτείται επανεκκίνηση</value>
   </data>
   <data name="ErrorLevel2" xml:space="preserve">
-    <value>2 - (Debug) Cache Δραστηριότητα</value>
+    <value>2 - (Debug) Cache Δραστηριότητα, απαιτείται επανεκκίνηση</value>
   </data>
   <data name="ErrorRegion" xml:space="preserve">
     <value>Σφάλμα: Αποτυχία ορισμού της Opensim.ini για την περιοχή</value>
@@ -912,6 +981,9 @@
   <data name="Finished_with_backup_word" xml:space="preserve">
     <value>Ολοκληρώθηκε με αντίγραφο ασφαλείας:</value>
   </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>φινλανδικός</value>
+  </data>
   <data name="First_name_word" xml:space="preserve">
     <value>Ονομα</value>
   </data>
@@ -939,8 +1011,11 @@
   <data name="Free_DLC_word" xml:space="preserve">
     <value>Κάντε κλικ για να πάρετε μια δωρεάν Gloebits Λογαριασμό ώστε να μπορείτε να αγοράζουν και να πωλούν</value>
   </data>
-  <data name="Friendly" xml:space="preserve">
+  <data name="French" xml:space="preserve">
     <value>Αποκτήστε ένα δωρεάν DYN DNS Name</value>
+  </data>
+  <data name="Friendly" xml:space="preserve">
+    <value>γαλλική γλώσσα</value>
   </data>
   <data name="FRText" xml:space="preserve">
     <value>Αυτό το πλέγμα του προς τους ομοφυλόφιλους Όνομα</value>
@@ -957,11 +1032,17 @@
   <data name="GBoids" xml:space="preserve">
     <value>FsAssets διακομιστή</value>
   </data>
+  <data name="German" xml:space="preserve">
+    <value>Γερμανός</value>
+  </data>
   <data name="Getting_regions_word" xml:space="preserve">
     <value>Οι γενικές ρυθμίσεις των πτηνών θα ισχύουν για αυτή την περιοχή</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
     <value>Καθολικές ρυθμίσεις Tide</value>
+  </data>
+  <data name="Global_Settings_word" xml:space="preserve">
+    <value>Γενικές ρυθμίσεις</value>
   </data>
   <data name="Global_Tide_Settings_word" xml:space="preserve">
     <value>Να πάρει τις περιφέρειες</value>
@@ -972,23 +1053,29 @@
   <data name="Good_Warp3D_word" xml:space="preserve">
     <value>Gloebits νομίσματος</value>
   </data>
-  <data name="Grid_address" xml:space="preserve">
-    <value>Καλή (Warp3D)</value>
+  <data name="Greek" xml:space="preserve">
+    <value>Ελληνικά</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>διεύθυνση Πλέγμα</value>
+    <value>Καλή (Warp3D)</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
-    <value>η διεύθυνση του δικτύου είναι</value>
-  </data>
-  <data name="Grid_Server_With_Robust" xml:space="preserve">
     <value>Μπορείτε να δώσετε αυτή τη διεύθυνση στους ανθρώπους και μπορούν να επισκεφθούν δικτύου σας</value>
   </data>
-  <data name="Grid_TCP_is_set" xml:space="preserve">
+  <data name="Grid_address_word" xml:space="preserve">
+    <value>διεύθυνση Πλέγμα</value>
+  </data>
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
+    <value>Μπορείτε να δώσετε αυτή τη διεύθυνση στους ανθρώπους και μπορούν να επισκεφθούν δικτύου σας</value>
+  </data>
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
     <value>Πλέγμα Server με Στιβαρή</value>
   </data>
-  <data name="Grid_UDP_is_set" xml:space="preserve">
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
     <value>Πλέγμα TCP Port είναι σύνολο</value>
+  </data>
+  <data name="Group_word" xml:space="preserve">
+    <value>Ομάδα</value>
   </data>
   <data name="GTide" xml:space="preserve">
     <value>Πλέγμα UDP Port είναι σύνολο</value>
@@ -996,8 +1083,8 @@
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Update είναι διαθέσιμο. Θέλετε να βγείτε DreamGrid και να εγκαταστήσετε την ενημέρωση;</value>
   </data>
-  <data name="Help" xml:space="preserve">
-    <value>Βοήθεια</value>
+  <data name="Hebrew" xml:space="preserve">
+    <value>Εβραϊκά</value>
   </data>
   <data name="Help_Console" xml:space="preserve">
     <value>Βοήθεια στην κονσόλα εντολών</value>
@@ -1014,19 +1101,13 @@
   <data name="Help_Godmodes" xml:space="preserve">
     <value>Κάντε κλικ για βοήθεια από τον Θεό Λειτουργίες</value>
   </data>
-  <data name="Help_IARS" xml:space="preserve">
-    <value>Βοήθεια Στο ΑΣΕ</value>
-  </data>
   <data name="Help_IARS_text" xml:space="preserve">
     <value>Wiki Page On IAR του</value>
-  </data>
-  <data name="Help_LoopBack" xml:space="preserve">
-    <value>Βοήθεια Στο loopback</value>
   </data>
   <data name="Help_Loopback_Text" xml:space="preserve">
     <value>Πώς να διορθώσετε Loopback Σε Windows</value>
   </data>
-  <data name="Help_Manuals" xml:space="preserve">
+  <data name="Help_Manuals_word" xml:space="preserve">
     <value>Βοήθεια Εγχειρίδια</value>
   </data>
   <data name="Help_OARS" xml:space="preserve">
@@ -1034,6 +1115,12 @@
   </data>
   <data name="Help_OARS_text" xml:space="preserve">
     <value>Wiki σελίδα στο κουπιών</value>
+  </data>
+  <data name="Help_On_IARS_word" xml:space="preserve">
+    <value>Βοήθεια Στο ΑΣΕ</value>
+  </data>
+  <data name="Help_On_LoopBack_word" xml:space="preserve">
+    <value>Βοήθεια Στο loopback</value>
   </data>
   <data name="Help_Startup" xml:space="preserve">
     <value>Βοήθεια για Εκκίνηση για πρώτη φορά</value>
@@ -1044,14 +1131,14 @@
   <data name="Help_Technical_text" xml:space="preserve">
     <value>Τεχνική Μάμπο Jumbo για το πώς να ρυθμίσετε τα πράγματα</value>
   </data>
-  <data name="Help_Troubleshooting" xml:space="preserve">
+  <data name="Help_Troubleshooting_word" xml:space="preserve">
     <value>Βοήθεια Αντιμετώπιση προβλημάτων</value>
+  </data>
+  <data name="Help_word" xml:space="preserve">
+    <value>Βοήθεια</value>
   </data>
   <data name="HG_Failed" xml:space="preserve">
     <value>Hypergrid Διαγνωστικά απέτυχε. Αυτά μπορεί να είναι εκ νέου τρέχουν ανά πάσα στιγμή. Δείτε Βοήθεια-&gt; Network Diagnostics', 'Loopback', και 'Port Εμπρός'</value>
-  </data>
-  <data name="HG_word_NT" xml:space="preserve">
-    <value>Hypergrid</value>
   </data>
   <data name="HG_Works" xml:space="preserve">
     <value>Hypergrid θα πρέπει να λειτουργεί.</value>
@@ -1062,8 +1149,8 @@
   <data name="Hide_Allways_word" xml:space="preserve">
     <value>Πάντα Απόκρυψη Περιφερειών</value>
   </data>
-  <data name="Highest_Used" xml:space="preserve">
-    <value>Υψηλότερη χρησιμοποιούνται: 8004</value>
+  <data name="Highest_Used_word" xml:space="preserve">
+    <value>Υψηλότερη χρησιμοποιούνται:</value>
   </data>
   <data name="High_Water_Level" xml:space="preserve">
     <value>Υψηλού επιπέδου νερού</value>
@@ -1071,8 +1158,11 @@
   <data name="High_Water_Level_text" xml:space="preserve">
     <value>Υψηλή βαθμολογία νερού σε μέτρα</value>
   </data>
-  <data name="HomeText" xml:space="preserve">
+  <data name="Home_word" xml:space="preserve">
     <value>Σπίτι</value>
+  </data>
+  <data name="Hours_word" xml:space="preserve">
+    <value>Ωρες</value>
   </data>
   <data name="How_Close" xml:space="preserve">
     <value>Πόσο κοντά στις άκρες των πραγμάτων να παίρνουμε χωρίς να ανησυχούν;</value>
@@ -1095,20 +1185,17 @@
   <data name="How_Many_Avatars" xml:space="preserve">
     <value>Πόσες Avatars + NPC μπορεί να είναι σε μια περιοχή, πριν η περιοχή εμφανίζεται ως πλήρης. Η πραγματική αξία βρίσκεται στις Ρυθμίσεις Estate στο θεατή.</value>
   </data>
-  <data name="Http_Port" xml:space="preserve">
+  <data name="Http_Port_word" xml:space="preserve">
     <value>θύρα HTTP</value>
   </data>
   <data name="Hypergrid" xml:space="preserve">
     <value>Hypergrid DNS Name</value>
   </data>
-  <data name="IAR_Load_and_Save" xml:space="preserve">
+  <data name="Hypergrid_word" xml:space="preserve">
+    <value>Hypergrid</value>
+  </data>
+  <data name="IAR_Load_and_Save_word" xml:space="preserve">
     <value>IAR Φόρτωση και Αποθήκευση</value>
-  </data>
-  <data name="Icecast" xml:space="preserve">
-    <value>Icecast</value>
-  </data>
-  <data name="iceCastServer" xml:space="preserve">
-    <value>Icecast διακομιστή</value>
   </data>
   <data name="Icecast_Desc" xml:space="preserve">
     <value>Icecast σας επιτρέπει να κάνετε streaming μουσικής σε sim σας. Μουσική διεύθυνση:</value>
@@ -1128,50 +1215,56 @@
   <data name="Icecast_is_Set" xml:space="preserve">
     <value>Icecast λιμάνι έχει οριστεί</value>
   </data>
-  <data name="Icecast_Started" xml:space="preserve">
+  <data name="IceCast_Server_word" xml:space="preserve">
+    <value>Icecast διακομιστή</value>
+  </data>
+  <data name="Icecast_Started_word" xml:space="preserve">
     <value>Icecast Ξεκίνησε</value>
   </data>
   <data name="Icecast_starting" xml:space="preserve">
     <value>ξεκινώντας Icecast</value>
   </data>
-  <data name="Icons" xml:space="preserve">
+  <data name="Icecast_word" xml:space="preserve">
+    <value>Icecast</value>
+  </data>
+  <data name="Icelandic" xml:space="preserve">
+    <value>ισλανδικός</value>
+  </data>
+  <data name="Icons_word" xml:space="preserve">
     <value>εικόνες</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
     <value>εικόνες</value>
   </data>
-  <data name="Ignore_Parcel" xml:space="preserve">
+  <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>Αγνοήστε Αγροτεμάχιο</value>
   </data>
-  <data name="Ignore_Terrain" xml:space="preserve">
+  <data name="Ignore_Terrain_word" xml:space="preserve">
     <value>Αγνοήστε εδάφους</value>
   </data>
-  <data name="Image_Cache" xml:space="preserve">
+  <data name="Image_Cache_word" xml:space="preserve">
     <value>Cache εικόνα</value>
-  </data>
-  <data name="Import" xml:space="preserve">
-    <value>Εισαγωγή</value>
   </data>
   <data name="Importtext" xml:space="preserve">
     <value>Εισαγωγή αρχείων Περιφέρεια INI</value>
   </data>
+  <data name="Import_word" xml:space="preserve">
+    <value>Εισαγωγή</value>
+  </data>
   <data name="Incoming_Works" xml:space="preserve">
     <value>Εισερχόμενη Hypergrid είναι εργάσιμη</value>
   </data>
-  <data name="Increasing_time" xml:space="preserve">
+  <data name="Increasing_time_to_word" xml:space="preserve">
     <value>Αύξηση Ώρα να</value>
   </data>
-  <data name="Info" xml:space="preserve">
+  <data name="Information_word" xml:space="preserve">
     <value>Πληροφορίες</value>
   </data>
-  <data name="Information" xml:space="preserve">
+  <data name="Info_word" xml:space="preserve">
     <value>Πληροφορίες</value>
   </data>
   <data name="INI_Filter" xml:space="preserve">
     <value>ini αρχεία (* .ini) | * .ini | Όλα τα αρχεία (*. *) | *. *</value>
-  </data>
-  <data name="Install" xml:space="preserve">
-    <value>Εγκαθιστώ</value>
   </data>
   <data name="InstallRuntime" xml:space="preserve">
     <value>Εγκατάσταση C ++ Runtimes</value>
@@ -1179,11 +1272,20 @@
   <data name="Install_Icon" xml:space="preserve">
     <value>Εγκατάσταση εικονίδιο Desktop</value>
   </data>
+  <data name="Install_word" xml:space="preserve">
+    <value>Εγκαθιστώ</value>
+  </data>
   <data name="Internet_address" xml:space="preserve">
     <value>διεύθυνση στο Διαδίκτυο</value>
   </data>
-  <data name="Interval" xml:space="preserve">
+  <data name="Interval_word" xml:space="preserve">
     <value>Διάστημα</value>
+  </data>
+  <data name="IPV4_Address_word" xml:space="preserve">
+    <value>Διεύθυνση IPv4</value>
+  </data>
+  <data name="Irish" xml:space="preserve">
+    <value>ιρλανδικός</value>
   </data>
   <data name="isLoading" xml:space="preserve">
     <value>Opensim φορτώνει το στοιχείο σας. Θα το βρείτε στο</value>
@@ -1194,19 +1296,22 @@
   <data name="is_already_running_word" xml:space="preserve">
     <value>είναι ήδη σε λειτουργία</value>
   </data>
-  <data name="is_Off" xml:space="preserve">
+  <data name="is_Off_word" xml:space="preserve">
     <value>είναι κλειστό</value>
   </data>
   <data name="Is_Shown" xml:space="preserve">
     <value>Η κονσόλα OpenSimulator θα εμφανιστεί όταν Opensim βρίσκεται σε λειτουργία.</value>
   </data>
-  <data name="JobEngine" xml:space="preserve">
+  <data name="Items_word" xml:space="preserve">
+    <value>Είδη</value>
+  </data>
+  <data name="JobEngine_word" xml:space="preserve">
     <value>μηχανή εργασίας</value>
   </data>
-  <data name="Just_one_region" xml:space="preserve">
+  <data name="Just_one_region_word" xml:space="preserve">
     <value>Μόλις μία περιοχή</value>
   </data>
-  <data name="Keep_for_Days" xml:space="preserve">
+  <data name="Keep_for_Days_word" xml:space="preserve">
     <value>Κρατήστε για ημέρες</value>
   </data>
   <data name="Language" xml:space="preserve">
@@ -1218,10 +1323,10 @@
   <data name="LargeMap" xml:space="preserve">
     <value>Μεγάλος χάρτης του μετρό</value>
   </data>
-  <data name="Last_Name" xml:space="preserve">
+  <data name="Last_Name_Word" xml:space="preserve">
     <value>Επίθετο</value>
   </data>
-  <data name="Last_Name_word" xml:space="preserve">
+  <data name="Last_Name_word1" xml:space="preserve">
     <value>Επίθετο</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1281,6 +1386,9 @@
   <data name="Local_Search" xml:space="preserve">
     <value>Τοπική αναζήτηση</value>
   </data>
+  <data name="Logging_word" xml:space="preserve">
+    <value>Ξύλευση</value>
+  </data>
   <data name="Log_Level" xml:space="preserve">
     <value>Επίπεδο καταγραφής</value>
   </data>
@@ -1301,6 +1409,9 @@
   </data>
   <data name="LSL_Allow" xml:space="preserve">
     <value>σενάρια LSL δεν μπορούν να φθάσουν σε άλλα LAN υπολογιστές. Αν το ενεργοποιήσετε, μπορούν να έχουν πρόσβαση σε θύρες στο τοπικό σας δίκτυο σε οποιοδήποτε PC. Αυτό είναι επικίνδυνο!</value>
+  </data>
+  <data name="MAC_Address_word" xml:space="preserve">
+    <value>Διεύθυνση MAC</value>
   </data>
   <data name="Make_a_backup_word" xml:space="preserve">
     <value>Δημιουργήστε ένα αντίγραφο ασφαλείας;</value>
@@ -1324,10 +1435,13 @@
     <value>Κατ 'ανώτατο όριο 4096</value>
   </data>
   <data name="Max_Accel" xml:space="preserve">
-    <value>Η μέγιστη επιτάχυνση που επιτρέπει την τρέχουσα ταχύτητα του πουλιού</value>
+    <value>Η μέγιστη επιτάχυνση που επιτρέπει με την τρέχουσα ταχύτητα του πουλιού</value>
   </data>
   <data name="Max_Agents" xml:space="preserve">
     <value>Πόσες Avatars + NPC μπορεί να είναι σε μια περιοχή, πριν η περιοχή εμφανίζεται ως πλήρης. Η πραγματική αξία βρίσκεται στις Ρυθμίσεις Estate στο θεατή.</value>
+  </data>
+  <data name="Max_Avatars" xml:space="preserve">
+    <value>Μέγιστος αριθμός Avatars + NPCs</value>
   </data>
   <data name="Max_Dist" xml:space="preserve">
     <value>Μέγιστη απόσταση για άλλα πτηνά που πρέπει να εξεταστούν στο ίδιο κοπάδι</value>
@@ -1365,19 +1479,19 @@
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Πλέγμα Cache</value>
   </data>
-  <data name="Message_sent" xml:space="preserve">
+  <data name="Message_sent_word" xml:space="preserve">
     <value>Το μήνυμα στάλθηκε</value>
   </data>
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Περιφέρεια διακομιστή</value>
   </data>
-  <data name="Minutes" xml:space="preserve">
+  <data name="Minutes_word" xml:space="preserve">
     <value>Λεπτά</value>
   </data>
-  <data name="Mode" xml:space="preserve">
+  <data name="Mode_word" xml:space="preserve">
     <value>Τρόπος</value>
   </data>
-  <data name="Modules" xml:space="preserve">
+  <data name="Modules_word" xml:space="preserve">
     <value>ενότητες</value>
   </data>
   <data name="More_Free_Islands" xml:space="preserve">
@@ -1404,7 +1518,7 @@
   <data name="Must_PNG" xml:space="preserve">
     <value>Πρέπει να είναι ένα αρχείο PNG</value>
   </data>
-  <data name="MySqlPort" xml:space="preserve">
+  <data name="MySqlPort_word" xml:space="preserve">
     <value>Port MySQL</value>
   </data>
   <data name="MySql_Exited" xml:space="preserve">
@@ -1482,6 +1596,9 @@
   <data name="Normal_Prim" xml:space="preserve">
     <value>Δεν μπορείτε να κάνετε μια κανονική prim μεγαλύτερο από αυτό.</value>
   </data>
+  <data name="Norwegian" xml:space="preserve">
+    <value>Νορβηγός</value>
+  </data>
   <data name="Notify_Email" xml:space="preserve">
     <value>Ειδοποίηση E-mail</value>
   </data>
@@ -1512,6 +1629,9 @@
   <data name="No_HG" xml:space="preserve">
     <value>οι επισκέπτες δεν Hypergrid θα επιτρέπεται σε αυτήν την περιοχή</value>
   </data>
+  <data name="No_Locate_FSassets" xml:space="preserve">
+    <value>Δεν μπορείτε να εντοπίσετε το φάκελο FSasset:</value>
+  </data>
   <data name="No_Publish_Items" xml:space="preserve">
     <value>Μην δημοσιεύει αυτή την περιοχή</value>
   </data>
@@ -1524,7 +1644,7 @@
   <data name="Num_Birds" xml:space="preserve">
     <value>Ο αριθμός των πουλιών να συρρέουν</value>
   </data>
-  <data name="NVMaxAgaents" xml:space="preserve">
+  <data name="NVMaxAgents" xml:space="preserve">
     <value>Δεν είναι ένα έγκυρο αριθμό Maximujm των Πράκτορες Αξίας. Πρέπει να είναι μεγαλύτερη από 0.</value>
   </data>
   <data name="NVMaxPrim" xml:space="preserve">
@@ -1641,11 +1761,17 @@
   <data name="Please_type" xml:space="preserve">
     <value>Παρακαλούμε πληκτρολογήστε το όνομα avatar του Grid ιδιοκτήτη στο Στιβαρή παράθυρο. Πατήστε &lt;enter&gt; για UUID και το μοντέλο όνομα. Στη συνέχεια πατήστε το πλήκτρο OK</value>
   </data>
+  <data name="Polish" xml:space="preserve">
+    <value>Στίλβωση</value>
+  </data>
   <data name="Port1" xml:space="preserve">
     <value>Θύρα 1</value>
   </data>
   <data name="port2" xml:space="preserve">
     <value>Θύρα 2</value>
+  </data>
+  <data name="Portguese" xml:space="preserve">
+    <value>Portguese</value>
   </data>
   <data name="Ports" xml:space="preserve">
     <value>λιμάνια</value>
@@ -1713,20 +1839,17 @@
   <data name="Recycle1" xml:space="preserve">
     <value>Ανακυκλωνω</value>
   </data>
-  <data name="Refresh1" xml:space="preserve">
-    <value>Φρεσκάρω</value>
-  </data>
   <data name="RefreshingIAR" xml:space="preserve">
     <value>Αναζωογονητικό Δωρεάν περιεχόμενο (IAR)</value>
   </data>
   <data name="RefreshingOAR" xml:space="preserve">
     <value>Αναζωογονητικό Δωρεάν περιεχόμενο (OAR)</value>
   </data>
+  <data name="Refresh_word" xml:space="preserve">
+    <value>Φρεσκάρω</value>
+  </data>
   <data name="Regen_Map" xml:space="preserve">
     <value>Εάν διαγράψετε όλους τους χάρτες, θα πρέπει να αναγεννηθούν χάρτες με την επανεκκίνηση με ρύθμιση χάρτη</value>
-  </data>
-  <data name="Region" xml:space="preserve">
-    <value>Περιοχή</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
     <value>Περιοχή UUID είναι άκυρο</value>
@@ -1800,7 +1923,7 @@
   <data name="Region_Server_word" xml:space="preserve">
     <value>Περιφέρεια διακομιστή</value>
   </data>
-  <data name="Region_Specific_Settings" xml:space="preserve">
+  <data name="Region_Specific_Settings_word" xml:space="preserve">
     <value>Περιοχή Ειδικές Ρυθμίσεις</value>
   </data>
   <data name="Region_Stats" xml:space="preserve">
@@ -1808,6 +1931,9 @@
   </data>
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
     <value>Περιοχή UUID είναι άκυρο</value>
+  </data>
+  <data name="Region_word" xml:space="preserve">
+    <value>Περιοχή</value>
   </data>
   <data name="Reload" xml:space="preserve">
     <value>Ανανέωση του πλέγματος</value>
@@ -1821,11 +1947,17 @@
   <data name="Repeat_Password_word" xml:space="preserve">
     <value>Επαναλάβετε τον κωδικό</value>
   </data>
+  <data name="Repeat_Password_word1" xml:space="preserve">
+    <value>Επαναλάβετε τον κωδικό</value>
+  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Ζητήστε App Δημιουργία</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
     <value>Ζητήστε App Δημιουργία</value>
+  </data>
+  <data name="Reset_To_Default" xml:space="preserve">
+    <value>. Επαναφορά στο προκαθορισμένο</value>
   </data>
   <data name="resolved" xml:space="preserve">
     <value>επιλυθεί</value>
@@ -1911,20 +2043,29 @@
   <data name="Row" xml:space="preserve">
     <value>Κάντε κλικ σε μια ενεργοποιημένη γραμμή για να αρχίσει ή να σταματήσει την περιοχή. Κάντε κλικ σε μια γραμμή με ειδικές ανάγκες για να επεξεργαστείτε την περιοχή.</value>
   </data>
-  <data name="Running" xml:space="preserve">
-    <value>Λειτουργεί ως υπηρεσία</value>
-  </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
+    <value>Τρέξιμο ως Περιφέρεια διακομιστή</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word1" xml:space="preserve">
     <value>Τρέξιμο ως Περιφέρεια διακομιστή</value>
   </data>
   <data name="Running_Network" xml:space="preserve">
     <value>Εκτέλεση διαγνωστικών δικτύου</value>
+  </data>
+  <data name="Running_Network1" xml:space="preserve">
+    <value>Εκτέλεση διαγνωστικών δικτύου</value>
+  </data>
+  <data name="Running_word" xml:space="preserve">
+    <value>Τρέξιμο ως Περιφέρεια διακομιστή</value>
   </data>
   <data name="Run_All_word" xml:space="preserve">
     <value>Εκτέλεση Όλα</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
     <value>Εκτέλεση Όλα</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Ρωσική</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>Λειτουργία Sandbox</value>
@@ -1967,6 +2108,9 @@
   </data>
   <data name="Script_cache_word" xml:space="preserve">
     <value>Προσωρινή μνήμη σεναρίου</value>
+  </data>
+  <data name="Script_Engine_word" xml:space="preserve">
+    <value>script Engine</value>
   </data>
   <data name="Script_Rate_word" xml:space="preserve">
     <value>σενάριο Τιμή</value>
@@ -2052,6 +2196,9 @@
   <data name="Setup_word" xml:space="preserve">
     <value>Ρύθμιση</value>
   </data>
+  <data name="Setup_Wordpress" xml:space="preserve">
+    <value>Ρύθμιση βάσης δεδομένων WordPress</value>
+  </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>Ρύθμιση επιπέδου εντοπισμού σφαλμάτων</value>
   </data>
@@ -2059,7 +2206,7 @@
     <value>Ρύθμιση επιπέδου εντοπισμού σφαλμάτων</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
-    <value>Shoutcast δεν είναι ενεργοποιημένη.</value>
+    <value>Icecast δεν είναι ενεργοποιημένη.</value>
   </data>
   <data name="Show_Grid_Address" xml:space="preserve">
     <value>Εμφάνιση πλέγματος Διεύθυνση</value>
@@ -2129,6 +2276,9 @@
   </data>
   <data name="Source_Code_word" xml:space="preserve">
     <value>πηγαίου κώδικα</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Ισπανικά</value>
   </data>
   <data name="Splash" xml:space="preserve">
     <value>Viewer Splash URL οθόνης:</value>
@@ -2211,6 +2361,9 @@
   <data name="Suspending_word" xml:space="preserve">
     <value>Ανασταλτικός</value>
   </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>Σουηδικά</value>
+  </data>
   <data name="System_Backup_word" xml:space="preserve">
     <value>Backup System</value>
   </data>
@@ -2225,6 +2378,9 @@
   </data>
   <data name="Teleporting_word" xml:space="preserve">
     <value>τηλεμεταφορά</value>
+  </data>
+  <data name="Teleport_Tooltip" xml:space="preserve">
+    <value>Στέλνει αυτήν την κατάσταση την περιοχή με τα σημάδια Outworldz Teleport</value>
   </data>
   <data name="Teleport_word" xml:space="preserve">
     <value>teleport</value>
@@ -2274,6 +2430,9 @@
   <data name="Tolerance" xml:space="preserve">
     <value>Timeout σε ώρες</value>
   </data>
+  <data name="TOS" xml:space="preserve">
+    <value>Η μονάδα ΟΠΥ δείχνει χρηστών ή / και τους επισκέπτες σας αυτό το κείμενο HTML.</value>
+  </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Αντιμετώπιση προβλημάτων</value>
   </data>
@@ -2288,6 +2447,9 @@
   </data>
   <data name="ubODE_word" xml:space="preserve">
     <value>ubODE</value>
+  </data>
+  <data name="UBODE_words" xml:space="preserve">
+    <value>Ubit Δυναμική Μηχανή Open</value>
   </data>
   <data name="Unable_2_Save" xml:space="preserve">
     <value>Δεν είναι δυνατή η αποθήκευση των ρυθμίσεων:</value>
@@ -2358,6 +2520,9 @@
   <data name="View_as_Icons" xml:space="preserve">
     <value>Προβολή ως εικονίδια</value>
   </data>
+  <data name="View_Console_word" xml:space="preserve">
+    <value>Δείτε Console</value>
+  </data>
   <data name="View_Details" xml:space="preserve">
     <value>Δείτε Περιφέρεια Λεπτομέρειες</value>
   </data>
@@ -2367,11 +2532,20 @@
   <data name="View_Logs" xml:space="preserve">
     <value>Προβολή αρχείων καταγραφής</value>
   </data>
+  <data name="View_Log_word" xml:space="preserve">
+    <value>Προβολή αρχείου καταγραφής</value>
+  </data>
   <data name="View_Maps" xml:space="preserve">
     <value>Προβολή Περιοχή Χάρτες</value>
   </data>
+  <data name="View_Map_word" xml:space="preserve">
+    <value>Δες τον χάρτη</value>
+  </data>
   <data name="View_Simulator_Stats" xml:space="preserve">
     <value>Δείτε Simulator Στατιστικά</value>
+  </data>
+  <data name="View_Statistics_Word" xml:space="preserve">
+    <value>Προβολή των Στατιστικών</value>
   </data>
   <data name="View_Stats" xml:space="preserve">
     <value>Δείτε μια ιστοσελίδα που δείχνει στατιστικά στοιχεία για κάθε περιοχή</value>
@@ -2406,6 +2580,9 @@
   <data name="WebServerPanel" xml:space="preserve">
     <value>Πίνακας Web Server</value>
   </data>
+  <data name="webserver_Search_map" xml:space="preserve">
+    <value>Webserver + Αναζήτηση και Χάρτης</value>
+  </data>
   <data name="Web_Download_Link_Word" xml:space="preserve">
     <value>Λήψη Web Σύνδεσμος</value>
   </data>
@@ -2425,7 +2602,7 @@
     <value>Ποιο κανάλι τα πουλιά ακούσει για εντολές στον κόσμο. Οι αρνητικοί αριθμοί δεν μπορεί να χρησιμοποιηθεί από τον άνθρωπο</value>
   </data>
   <data name="White_word" xml:space="preserve">
-    <value>λευκό</value>
+    <value>άσπρο</value>
   </data>
   <data name="WifiMap" xml:space="preserve">
     <value>Αυτό είναι το πρότυπο Wi-Fi Χάρτης σελίδας</value>
@@ -2439,8 +2616,20 @@
   <data name="Wrong" xml:space="preserve">
     <value>Κάτι δεν πάει καλά με το Διαδίκτυο</value>
   </data>
-  <data name="XEngine_word" xml:space="preserve">
-    <value>XEngine</value>
+  <data name="X" xml:space="preserve">
+    <value>Χ</value>
+  </data>
+  <data name="XMLRPC" xml:space="preserve">
+    <value>XMLRPC</value>
+  </data>
+  <data name="XMLRP_start" xml:space="preserve">
+    <value>XMLRPC Port Start #</value>
+  </data>
+  <data name="X_Engine_word" xml:space="preserve">
+    <value>X κινητήρα</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Y</value>
   </data>
   <data name="YEngine_word" xml:space="preserve">
     <value>YEngine</value>

@@ -4,8 +4,8 @@ Imports Newtonsoft.Json
 
 Public Class FormOAR
 
+    Dim TimerBusy As Boolean
     Dim WebThread As Thread
-    Dim TimerBusy As Boolean = False
 
 #Region "JSON"
 
@@ -106,8 +106,8 @@ Public Class FormOAR
 
 #Region "Private Fields"
 
-    Private _initted As Boolean = False
-    Private _type As String = Nothing
+    Private _initted As Boolean
+    Private _type As String
 
     Private imgSize As Integer = 256
     Private initSize As Integer = 512
@@ -125,9 +125,8 @@ Public Class FormOAR
 
 #Region "Draw"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Public Sub Redraw(json As JSONresult())
-
-        Dim gdTextColumn As New DataGridViewTextBoxColumn
 
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
@@ -178,7 +177,7 @@ Public Class FormOAR
         Dim rowcounter = 0
         If json IsNot Nothing Then
             Dim cnt = json.Length
-            Me.Text = CStr(cnt) & " Items"
+            Me.Text = CStr(cnt) & " " & Global.Outworldz.My.Resources.Items_word
 
             For Each item In json
                 Application.DoEvents()
@@ -196,15 +195,18 @@ Public Class FormOAR
         Else
             DataGridView.Rows.Add()
             While column < NumColumns
-                DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.NoImage
+                DataGridView.Rows(rowcounter).Cells(column).Value = Global.Outworldz.My.Resources.NoImage
                 column += 1
             End While
         End If
-
-        While column < NumColumns And column > 0
-            DataGridView.Rows(rowcounter).Cells(column).Value = My.Resources.Blank256
-            column += 1
-        End While
+        Try
+            While column < NumColumns And column > 0
+                DataGridView.Rows(rowcounter).Cells(column).Value = Global.Outworldz.My.Resources.Blank256
+                column += 1
+            End While
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
         DataGridView.PerformLayout()
         DataGridView.Show()
@@ -224,9 +226,9 @@ Public Class FormOAR
             ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
                 Form1.LoadIARContent(File)
             End If
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
 
         End Try
 
@@ -245,10 +247,9 @@ Public Class FormOAR
                     Return New Bitmap(System.Drawing.Image.FromStream(stream))
                 End Using
             End Using
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
 
+            BreakPoint.Show(ex.Message)
             Form1.Log("Warn", ex.Message)
         End Try
 
@@ -256,17 +257,15 @@ Public Class FormOAR
 
     End Function
 
-    Private Function GetTextFromURL(ByVal url As Uri) As String
+    Private Shared Function GetTextFromURL(ByVal url As Uri) As String
 
-        Dim retVal As String = Nothing
         Try
             Using client As WebClient = New WebClient()
                 Return client.DownloadString(url)
             End Using
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
 
+            BreakPoint.Show(ex.Message)
             Form1.Log("Warn", ex.Message)
         End Try
         Return ""
@@ -281,10 +280,8 @@ Public Class FormOAR
             Else
                 DataGridView.Rows(row).Cells(col).Value = NoImage(item)
             End If
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
-
+            BreakPoint.Show(ex.Message)
             Form1.Log("Error", ex.Message)
         End Try
 
@@ -402,10 +399,9 @@ Public Class FormOAR
 
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
 
+            BreakPoint.Show(ex.Message)
             Form1.Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
@@ -423,20 +419,18 @@ Public Class FormOAR
             Try
                 Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
 
+                BreakPoint.Show(ex.Message)
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return Nothing
             End Try
         End Using
         Try
             json = JsonConvert.DeserializeObject(Of JSONresult())(result)
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+        Catch ex As Exception
 
+            BreakPoint.Show(ex.Message)
             Return Nothing
         End Try
         Return json
@@ -471,7 +465,7 @@ Public Class FormOAR
 
     Private Shared Function NoImage(item As JSONresult) As Image
 
-        Dim bmp = My.Resources.Blank256
+        Dim bmp = Global.Outworldz.My.Resources.Blank256
         Dim drawFont As Font = New Font("Arial", 12)
 
         Dim newImage = New Bitmap(256, 256)
@@ -479,10 +473,9 @@ Public Class FormOAR
             Dim gr = Graphics.FromImage(newImage)
             gr.DrawImageUnscaled(bmp, 0, 0)
             gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
+        Catch ex As Exception
 
-#Disable Warning CA1031
-        Catch
-#Enable Warning CA1031
+            BreakPoint.Show(ex.Message)
         End Try
 
         Return newImage
@@ -524,9 +517,9 @@ Public Class FormOAR
                         Using g As Graphics = Graphics.FromImage(bmp)
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
-#Disable Warning CA1031
-                    Catch
-#Enable Warning CA1031
+                    Catch ex As Exception
+
+                        BreakPoint.Show(ex.Message)
                     End Try
                     img.Dispose()
 
@@ -553,9 +546,10 @@ Public Class FormOAR
 
     End Sub
 
-    Private Sub tbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyUp
+    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
-        Search()
+        Timer1.Interval = 1
+        Timer1.Start()
 
     End Sub
 
@@ -582,10 +576,9 @@ Public Class FormOAR
         End If
     End Sub
 
-    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
+    Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyUp
 
-        Timer1.Interval = 1
-        Timer1.Start()
+        Search()
 
     End Sub
 

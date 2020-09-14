@@ -12,9 +12,9 @@ Module FileStuff
 
         Try
             My.Computer.FileSystem.CopyFile(Source, Dest, overwrite)
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub
@@ -27,9 +27,9 @@ Module FileStuff
         If Not System.IO.Directory.Exists(destinationPath) Then
             Try
                 System.IO.Directory.CreateDirectory(destinationPath)
-#Disable Warning CA1031
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
         End If
 
@@ -51,19 +51,19 @@ Module FileStuff
                 End If
 
                 Try
-                        CopyFile(fileSystemInfo.FullName, destinationFileName, True)
-#Disable Warning CA1031
+                    CopyFile(fileSystemInfo.FullName, destinationFileName, True)
                 Catch ex As Exception
-#Enable Warning CA1031
+
+                    BreakPoint.Show(ex.Message)
                 End Try
-                Else
-                    ' Recursively call the method to copy all the nested folders
-                    If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
+            Else
+                ' Recursively call the method to copy all the nested folders
+                If Not System.IO.Directory.Exists(fileSystemInfo.FullName) Then
                     Try
                         System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
-#Disable Warning CA1031
                     Catch ex As Exception
-#Enable Warning CA1031
+
+                        BreakPoint.Show(ex.Message)
                     End Try
                 End If
                 CopyFolder(fileSystemInfo.FullName, destinationFileName)
@@ -74,21 +74,22 @@ Module FileStuff
     End Sub
 
     Sub DeleteDirectory(folder As String, param As FileIO.DeleteDirectoryOption)
+
         Try
             My.Computer.FileSystem.DeleteDirectory(folder, param)
-#Disable Warning CA1031
         Catch ex As Exception
-#Enable Warning CA1031
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
     Sub DeleteFile(file As String)
 
         Try
-            My.Computer.FileSystem.DeleteFile(file)
-#Disable Warning CA1031
+            If My.Computer.FileSystem.FileExists(file) Then
+                My.Computer.FileSystem.DeleteFile(file)
+            End If
         Catch ex As Exception
-#Enable Warning CA1031
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub

@@ -79,11 +79,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             if (!disposed)
             {
                 disposed = true;
-                if(m_bannedRegionCache != null)
-                {
-                    m_bannedRegionCache.Dispose();
-                    m_bannedRegionCache = null;
-                }
+                m_bannedRegionCache?.Dispose();
+                m_bannedRegionCache = null;
             }
         }
 
@@ -567,7 +564,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             foreach (SceneObjectGroup grp in sp.GetAttachments())
             {
-                sp.Scene.EventManager.TriggerOnScriptChangedEvent(grp.LocalId, (uint)Changed.TELEPORT);
+                if ((grp.ScriptEvents & scriptEvents.changed) != 0)
+                    sp.Scene.EventManager.TriggerOnScriptChangedEvent(grp.LocalId, (uint)Changed.TELEPORT);
             }
 
             m_entityTransferStateMachine.UpdateInTransit(sp.UUID, AgentTransferState.CleaningUp);
@@ -1202,7 +1200,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             agent.SenderWantsToWaitForRoot = true;
 
-            if(!sp.IsInLocalTransit || sp.RegionViewDistance == 0)
+            if(OutSideViewRange)
                 SetNewCallbackURL(agent, sp.Scene.RegionInfo);
 
             // Reset the do not close flag.  This must be done before the destination opens child connections (here
@@ -2659,7 +2657,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             if (newAgent)
             {
                 // we may already had lost this sp
-                if(sp == null || sp.IsDeleted || sp.ClientView == null) // something bad already happened
+                if(sp == null || sp.IsDeleted || sp.ControllingClient == null) // something bad already happened
                    return;
 
                 Scene scene = sp.Scene;
@@ -2682,7 +2680,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
                     if (m_eqModule != null)
                     {
-                        if(sp == null || sp.IsDeleted || sp.ClientView == null) // something bad already happened
+                        if(sp == null || sp.IsDeleted || sp.ControllingClient == null) // something bad already happened
                             return;
 
                         m_log.DebugFormat("{0} {1} is sending {2} EnableSimulator for neighbour region {3}(loc=<{4},{5}>,siz=<{6},{7}>) " +

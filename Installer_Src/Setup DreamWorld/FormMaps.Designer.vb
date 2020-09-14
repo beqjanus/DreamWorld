@@ -20,7 +20,8 @@ Partial Class FormMaps
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolTip.SetToolTip(System.Windows.Forms.Control,System.String)")>
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMaps))
@@ -206,7 +207,7 @@ Partial Class FormMaps
         Me.GroupBox2.Size = New System.Drawing.Size(184, 294)
         Me.GroupBox2.TabIndex = 1869
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Maps"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Maps_word
         '
         'Label5
         '
@@ -265,7 +266,7 @@ Partial Class FormMaps
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(14, 13)
         Me.Label3.TabIndex = 1870
-        Me.Label3.Text = "Y"
+        Me.Label3.Text = Global.Outworldz.My.Resources.Y
         '
         'Label2
         '
@@ -274,7 +275,7 @@ Partial Class FormMaps
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(14, 13)
         Me.Label2.TabIndex = 1869
-        Me.Label2.Text = "X"
+        Me.Label2.Text = Global.Outworldz.My.Resources.X
         '
         'Label1
         '
@@ -294,7 +295,7 @@ Partial Class FormMaps
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(400, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '

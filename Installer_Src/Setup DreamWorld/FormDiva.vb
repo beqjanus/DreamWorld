@@ -26,8 +26,8 @@ Public Class FormDiva
 
 #Region "Private Fields"
 
-    Dim initted As Boolean = False
-    Dim setpassword As Boolean = False
+    Dim initted As Boolean
+    Dim setpassword As Boolean
 
 #End Region
 

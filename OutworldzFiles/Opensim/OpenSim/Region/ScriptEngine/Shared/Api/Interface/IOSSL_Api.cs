@@ -245,13 +245,12 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
         string osSetPenCap(string drawList, string direction, string type);
         string osDrawImage(string drawList, int width, int height, string imageUrl);
         vector osGetDrawStringSize(string contentType, string text, string fontName, int fontSize);
-        void osSetStateEvents(int events);
 
         void osSetRegionWaterHeight(double height);
         void osSetRegionSunSettings(bool useEstateSun, bool sunFixed, double sunHour);
         void osSetEstateSunSettings(bool sunFixed, double sunHour);
         LSL_Float osGetCurrentSunHour();
-        double osGetSunParam(string param);
+        LSL_Float osGetSunParam(LSL_String param);
         double osSunGetParam(string param); // Deprecated
         void osSetSunParam(string param, double value);
         void osSunSetParam(string param, double value); // Deprecated

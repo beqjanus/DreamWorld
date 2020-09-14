@@ -26,8 +26,8 @@ Public Class FormAutoBackups
 
 #Region "FormPos"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -161,7 +161,7 @@ Public Class FormAutoBackups
             MsgBox(My.Resources.Must_be_A_Number, vbInformation)
             Settings.SaveSettings()
         End If
-        ' TODO:  Implement PropViewedSettings as a dictionary
+        ' TODO:  Implement PropViewedSettings as a dictionary in a module we can prompt for restart with
         Form1.PropViewedSettings = True
     End Sub
 
@@ -186,7 +186,7 @@ Public Class FormAutoBackups
         'Create an instance of the open file dialog box.
         Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = My.Resources.Choose_folder_for_backups
+            .Description = Global.Outworldz.My.Resources.Choose_folder_for_backups
         }
         Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
         openFileDialog1.Dispose()

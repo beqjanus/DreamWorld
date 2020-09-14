@@ -6,9 +6,9 @@
         Dim client As New System.Net.WebClient ' downloadclient for web page
         Try
             ipaddress = client.DownloadString("http://api.ipify.org/?r=" + RandomNumber.Random())
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
         Finally
             client.Dispose()
         End Try

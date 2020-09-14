@@ -46,16 +46,18 @@ Public Class FormHelp
 
 #Region "Public Methods"
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Sub Init(Webpage As String)
 
         SetScreen(Webpage)
 
         Try
-            Dim Page As String = Form1.PropMyFolder + "\Outworldzfiles\Help\" + Webpage + ".rtf"
+            Dim Page As String = Settings.CurrentDirectory + "\Outworldzfiles\Help\" + Webpage + ".rtf"
             RichTextBox1.LoadFile(Page)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             MsgBox(My.Resources.Sorry_No_Help, vbInformation)
             Form1.ErrorLog("Error:" + ex.Message)
             Me.Close()
@@ -71,9 +73,10 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Rebuilding_from_a_blank_database.htm"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -81,9 +84,10 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -95,9 +99,10 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -105,9 +110,10 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Loopback.htm"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -115,23 +121,25 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
     Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
-        Dim info = New ProcessStartInfo(Form1.PropMyFolder + "\Outworldzfiles\Help\" + Document + ".rtf") With {
+        Dim info = New ProcessStartInfo(Settings.CurrentDirectory + "\Outworldzfiles\Help\" + Document + ".rtf") With {
             .Verb = "Print",
             .CreateNoWindow = True,
             .WindowStyle = ProcessWindowStyle.Hidden
         }
         Try
             Process.Start(info)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -142,6 +150,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub SetScreen(Webpage As String)
+
         Me.Show()
         Document = Webpage
         Me.Name = Webpage
@@ -150,25 +159,30 @@ Public Class FormHelp
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0) + 25
         Me.Top = xy.Item(1) + 25
+
     End Sub
 
     Private Sub SourceCodeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SourceCodeToolStripMenuItem.Click
+
         Dim webAddress As String = "https://github.com/Outworldz/DreamWorld"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
+
     End Sub
 
     Private Sub StepbyStepInstallationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StepbyStepInstallationToolStripMenuItem.Click
+
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Startup.htm"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
         End Try
     End Sub
 
@@ -176,19 +190,22 @@ Public Class FormHelp
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/technical.htm"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
+
     End Sub
 
     Private Sub TroubleshootingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TroubleshootingToolStripMenuItem.Click
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
         Try
             Process.Start(webAddress)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 

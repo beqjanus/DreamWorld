@@ -279,8 +279,8 @@ Partial Class AdvancedForm
         Me.BanListButton.Name = "BanListButton"
         Me.BanListButton.Size = New System.Drawing.Size(145, 23)
         Me.BanListButton.TabIndex = 24
-        Me.BanListButton.Text = My.Resources.Ban_List_word
-        Me.ToolTip1.SetToolTip(Me.BanListButton, My.Resources.BanList_string)
+        Me.BanListButton.Text = Global.Outworldz.My.Resources.Ban_List_word
+        Me.ToolTip1.SetToolTip(Me.BanListButton, Global.Outworldz.My.Resources.BanList_string)
         Me.BanListButton.UseVisualStyleBackColor = True
         '
         'GroupBox8
@@ -313,7 +313,7 @@ Partial Class AdvancedForm
         Me.GroupBox8.Size = New System.Drawing.Size(340, 380)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = My.Resources.Global_Settings_word
+        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Global_Settings_word
         '
         'AdvancedForm
         '
@@ -326,7 +326,7 @@ Partial Class AdvancedForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "AdvancedForm"
-        Me.Text = My.Resources.Settings_word
+        Me.Text = Global.Outworldz.My.Resources.Settings_word
         Me.GroupBox8.ResumeLayout(False)
         Me.ResumeLayout(False)
 

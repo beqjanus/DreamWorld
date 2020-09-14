@@ -55,7 +55,7 @@ Public Class FormDisplacement
 
 #Region "Public Methods"
 
-
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Public Sub Init(Size As Double, RegionUUID As String, Optional map As Boolean = True)
 
         If map Then
@@ -179,22 +179,6 @@ Public Class FormDisplacement
 
 #End Region
 
-    Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
-
-        Return photo
-        '
-        'Dim bmp = photo
-        Dim newImage As New Bitmap(256, 256)
-        Using drawFont As Font = New Font("Arial", 12)
-            Using gr As Graphics = Graphics.FromImage(newImage)
-                gr.DrawImageUnscaled(photo, 0, 0, photo.Width, photo.Height)
-                gr.DrawString(item, drawFont, Brushes.White, 10, 20)
-            End Using
-        End Using
-
-        Return newImage
-    End Function
-
     Private Shared Function MakePhotoOfRegion(regionUUID As String, X As Integer, Y As Integer) As Image
 
         'map-1-1000-1000-objects
@@ -202,16 +186,16 @@ Public Class FormDisplacement
         Dim Ycoord = Form1.PropRegionClass.CoordY(regionUUID) + Y
 
         Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
-        Dim RegionPhoto = Form1.PropOpensimBinPath & "bin\maptiles\00000000-0000-0000-0000-000000000000\" & place
+        Dim RegionPhoto = Settings.OpensimBinPath & "maptiles\00000000-0000-0000-0000-000000000000\" & place
         Debug.Print(RegionPhoto)
         'RegionPhoto = "E:\Outworldz Dreamgrid\OutworldzFiles\Opensim\bin\maptiles\00000000-0000-0000-0000-000000000000\Anthony-ward-grid.jpg"
         Dim Pic As Image
         Try
             Pic = Bitmap.FromFile(RegionPhoto)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
-            Pic = My.Resources.water
+
+            Pic = Global.Outworldz.My.Resources.water
         End Try
 
         Return Pic
@@ -227,8 +211,9 @@ Public Class FormDisplacement
                 Dim OffsetX = 20
 
                 Dim Name = "PictureBox" & CStr(X) & CStr(Y)
-                Dim PictureBox As New PictureBox()
-                PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+                Dim PictureBox As New PictureBox With {
+                    .BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+                }
                 If map Then
                     PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
                 Else
@@ -241,12 +226,11 @@ Public Class FormDisplacement
                 If map Then
                     ' make an image of the region with X,Y text on it.
                     Dim str = CStr(X * 256) & "," & CStr(Y * 256)
-                    PictureBox.Image = DrawTextOnImage(str, MakePhotoOfRegion(RegionUUID, X, Y))
+                    PictureBox.Image = MakePhotoOfRegion(RegionUUID, X, Y)
                     PictureBox.Tag = "<" & str & ",0>"
                 Else
                     PictureBox.Image = MakePhotoOfRegion(RegionUUID, X, Y)
                 End If
-
 
                 Dim X1 = OffsetX + (X * 256)
                 Dim Y1 = OffsetY + StartAt - (Y * 256)
@@ -258,7 +242,7 @@ Public Class FormDisplacement
                 PictureBox.TabStop = False
 
                 Me.Controls.Add(PictureBox)
-                ToolTip1.SetToolTip(PictureBox, My.Resources.Click_To_Load_Here)
+                ToolTip1.SetToolTip(PictureBox, Global.Outworldz.My.Resources.Click_To_Load_Here)
                 AddHandler PictureBox.Click, PicClick
 
                 OffsetX += 256
@@ -267,6 +251,5 @@ Public Class FormDisplacement
         Next
 
     End Sub
-
 
 End Class

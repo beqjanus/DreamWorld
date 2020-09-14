@@ -28,11 +28,10 @@ Public Class ScreenPos
 
 #Region "Private Fields"
 
+    ReadOnly parser As FileIniDataParser
     Dim Data As IniParser.Model.IniData
     Dim gName As String
     Dim myINI As String
-
-    Dim parser As FileIniDataParser
 
 #End Region
 
@@ -47,7 +46,7 @@ Public Class ScreenPos
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        MyINI1 = Form1.PropMyFolder + "\OutworldzFiles\XYSettings.ini"
+        MyINI1 = Settings.CurrentDirectory + "\OutworldzFiles\XYSettings.ini"
 
         If File.Exists(MyINI1) Then
             LoadXYIni()
@@ -57,9 +56,10 @@ Public Class ScreenPos
                 Using outputFile As New StreamWriter(MyINI1, True)
                     outputFile.WriteLine(contents)
                 End Using
-#Disable Warning CA1031
+
             Catch ex As Exception
-#Enable Warning CA1031
+
+                BreakPoint.Show(ex.Message)
             End Try
 
             LoadXYIni()
@@ -99,12 +99,17 @@ Public Class ScreenPos
         SaveFormSettings()
         If Value = 0 Then Return False
         Return True
+
     End Function
 
     Public Function GetHW() As List(Of Integer)
 
         If Data Is Nothing Then
-            Return New List(Of Integer)
+            Dim array = New List(Of Integer) From {
+                100,
+                100
+            }
+            Return array
         End If
         Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_H"), Integer)
         Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_W"), Integer)
@@ -122,7 +127,11 @@ Public Class ScreenPos
     Public Function GetXY() As List(Of Integer)
 
         If Data Is Nothing Then
-            Return New List(Of Integer)
+            Dim array = New List(Of Integer) From {
+                100,
+                100
+            }
+            Return array
         End If
         Try
             Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
@@ -147,13 +156,13 @@ Public Class ScreenPos
             Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
             Form1.Logger("Resize", ex.Message, "Error")
+            BreakPoint.Show(ex.Message)
         End Try
         Return New List(Of Integer) From {100, 100}
-
 
     End Function
 
@@ -161,15 +170,16 @@ Public Class ScreenPos
 
         Try
             Data = parser.ReadFile(MyINI1, System.Text.Encoding.UTF8)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Diagnostics.Debug.Print("Error:" & ex.Message)
         End Try
 
     End Sub
 
-    Public Sub putSize(name As String, size As Integer)
+    Public Sub PutSize(name As String, size As Integer)
 
         If name Is Nothing Then Return
         name = name.Replace("\n", "")
@@ -183,14 +193,16 @@ Public Class ScreenPos
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Sub SaveFormSettings()
 
         If Data Is Nothing Then Return
         Try
             parser.WriteFile(MyINI1, Data, System.Text.Encoding.UTF8)
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog("Error:" + ex.Message)
         End Try
 
@@ -227,9 +239,10 @@ Public Class ScreenPos
         ' sets values into any INI file
         Try
             Data(section)(key) = value ' replace it
-#Disable Warning CA1031
+
         Catch ex As Exception
-#Enable Warning CA1031
+
+            BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
 
@@ -289,6 +302,5 @@ Public Class ScreenPos
     End Property
 
 #End Region
-
 
 End Class
