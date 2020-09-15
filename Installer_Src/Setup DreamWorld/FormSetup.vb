@@ -5197,7 +5197,6 @@ Public Class Form1
         End If
 
         _RobustIsStarting = True
-
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
 
@@ -6579,34 +6578,7 @@ Public Class Form1
 
 #Region "Timer"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    Private Shared Sub RunDataSnapshot()
 
-        If Not Settings.SearchEnabled Then Return
-        Diagnostics.Debug.Print("Scanning Data snapshot")
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-
-        FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory & "\Outworldzfiles\Apache\htdocs\Search"
-        pi.FileName = "Run_parser.bat"
-        pi.UseShellExecute = False  ' needed to make window hidden
-        pi.WindowStyle = ProcessWindowStyle.Hidden
-        Dim ProcessPHP As Process = New Process With {
-            .StartInfo = pi
-        }
-        ProcessPHP.StartInfo.CreateNoWindow = True
-        Using ProcessPHP
-            Try
-                ProcessPHP.Start()
-                ProcessPHP.WaitForExit()
-            Catch ex As Exception
-
-                BreakPoint.Show(ex.Message)
-                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                ErrorLog("Error ProcessPHP failed to launch: " & ex.Message)
-            End Try
-        End Using
-
-    End Sub
 
     '' makes a list of teleports for the prims to use
     Private Sub RegionListHTML()
@@ -6791,7 +6763,6 @@ Public Class Form1
 
         ' hourly
         If PropDNSSTimer > 0 And PropDNSSTimer Mod 3600 = 0 Or PropDNSSTimer = 120 Then
-            RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 

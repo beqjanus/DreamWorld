@@ -270,7 +270,7 @@ Partial Class AdvancedForm
         Me.LoggingButton.Size = New System.Drawing.Size(143, 23)
         Me.LoggingButton.TabIndex = 23
         Me.LoggingButton.Text = Global.Outworldz.My.Resources.Logging_word
-        Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Click_Icecast)
+        Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Log_Level)
         Me.LoggingButton.UseVisualStyleBackColor = True
         '
         'BanListButton
