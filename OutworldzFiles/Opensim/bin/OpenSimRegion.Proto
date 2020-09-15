@@ -44,7 +44,7 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=7001
+http_listener_port=8004
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
@@ -59,7 +59,7 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
-PublicPort=9000
+PublicPort=8002
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivatePort} {} {PrivatePort} {8003} "8003"
@@ -318,7 +318,7 @@ ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;# economy module
 economymodule=BetaGridLikeMoneyModule
-DefaultScriptEngine=XEngine
+DefaultScriptEngine=YEngine
 FrameTime=0.0909090909090909
 
 [RegionReady]
@@ -969,7 +969,7 @@ DeleteScriptsOnStartup=False
 ;# {KillTimedOutScripts} {} {Kill script in case of event time overruns?} {true false} false
 ;; If a script overruns it's event limit, kill the script?
 KillTimedOutScripts=true
-Enabled=True
+Enabled=False
 MinTimerInterval=0.2
 
 ;# {ScriptDelayFactor} {} {Multiplier for scripting delays} {} 1.0
@@ -1337,5 +1337,5 @@ LandServices="RemoteLandServicesConnector"
 LandServiceConnector="True"
 
 [YEngine]
-Enabled=False
+Enabled=True
 MinTimerInterval=0.2
