@@ -39,7 +39,7 @@ Public Class Form1
 
     Private ReadOnly _MyVersion As String = "3.68"
     Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
-    Private ReadOnly _SimVersion As String = "#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08	try reduce number of this webrequest"
+    Private ReadOnly _SimVersion As String = "#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08	fix silly bugs on osReplaceRegionEnvironment()"
 
 #End Region
 
@@ -188,9 +188,6 @@ Public Class Form1
 
     ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
     Public Sub Startup()
-
-        Print(My.Resources.Version_word & " " & PropMyVersion)
-        Print(My.Resources.Version_word & " " & _SimVersion)
 
         Buttons(BusyButton)
 
@@ -855,7 +852,6 @@ Public Class Form1
             My.Computer.FileSystem.CopyDirectory(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\WifiPages-" & Page, Settings.CurrentDirectory & "\Outworldzfiles\Opensim\WifiPages", True)
             My.Computer.FileSystem.CopyDirectory(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\bin\WifiPages-" & Page, Settings.CurrentDirectory & "\Outworldzfiles\Opensim\bin\WifiPages", True)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -2601,8 +2597,8 @@ Public Class Form1
         Dim DesktopFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
         MyShortcut = CType(WshShell.CreateShortcut(DesktopFolder & "\Outworldz.lnk"), IWshShortcut)
         MyShortcut.TargetPath = sTargetPath
-        MyShortcut.IconLocation = WshShell.ExpandEnvironmentStrings(Settings.CurrentDirectory & "\Start.exe")
-        MyShortcut.WorkingDirectory = Settings.CurrentDirectory
+        MyShortcut.IconLocation = WshShell.ExpandEnvironmentStrings(CurDir() & "\Start.exe")
+        MyShortcut.WorkingDirectory = CurDir()
         MyShortcut.Save()
 
     End Sub
@@ -2840,6 +2836,9 @@ Public Class Form1
 
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
+
+        Print(My.Resources.Version_word & " " & PropMyVersion)
+        Print(My.Resources.Version_word & " " & _SimVersion)
 
         If Settings.Autostart Then
             Print(My.Resources.Auto_Startup_word)
@@ -5198,7 +5197,6 @@ Public Class Form1
         End If
 
         _RobustIsStarting = True
-
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
 
@@ -6580,34 +6578,7 @@ Public Class Form1
 
 #Region "Timer"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    Private Shared Sub RunDataSnapshot()
 
-        If Not Settings.SearchEnabled Then Return
-        Diagnostics.Debug.Print("Scanning Data snapshot")
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-
-        FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory & "\Outworldzfiles\Apache\htdocs\Search"
-        pi.FileName = "Run_parser.bat"
-        pi.UseShellExecute = False  ' needed to make window hidden
-        pi.WindowStyle = ProcessWindowStyle.Hidden
-        Dim ProcessPHP As Process = New Process With {
-            .StartInfo = pi
-        }
-        ProcessPHP.StartInfo.CreateNoWindow = True
-        Using ProcessPHP
-            Try
-                ProcessPHP.Start()
-                ProcessPHP.WaitForExit()
-            Catch ex As Exception
-
-                BreakPoint.Show(ex.Message)
-                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                ErrorLog("Error ProcessPHP failed to launch: " & ex.Message)
-            End Try
-        End Using
-
-    End Sub
 
     '' makes a list of teleports for the prims to use
     Private Sub RegionListHTML()
@@ -6792,7 +6763,6 @@ Public Class Form1
 
         ' hourly
         If PropDNSSTimer > 0 And PropDNSSTimer Mod 3600 = 0 Or PropDNSSTimer = 120 Then
-            RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
