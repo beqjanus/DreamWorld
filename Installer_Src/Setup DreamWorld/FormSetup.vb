@@ -37,9 +37,9 @@ Public Class Form1
 
 #Region "Version"
 
-    Private ReadOnly _MyVersion As String = "3.68"
+    Private ReadOnly _MyVersion As String = "3.69"
     Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
-    Private ReadOnly _SimVersion As String = "#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08	fix silly bugs on osReplaceRegionEnvironment()"
+    Private ReadOnly _SimVersion As String = "#d0606d5d5b937 0.9.2.dev 2020-09-17 22:16:44"
 
 #End Region
 
@@ -1236,7 +1236,7 @@ Public Class Form1
                             ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
                     End Select
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    'BreakPoint.Show(ex.Message)
                     Return False
                 End Try
             End If
@@ -3600,6 +3600,13 @@ Public Class Form1
                 BreakPoint.Show(ex.Message)
             End Try
         Else
+            Try
+                If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.bak") Then
+                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.dll", Settings.OpensimBinPath & "OpenSimBirds.Module.bak")
+                End If
+            Catch
+            End Try
+
             FileStuff.DeleteFile(Settings.OpensimBinPath & "\OpenSimBirds.Module.dll")
         End If
 

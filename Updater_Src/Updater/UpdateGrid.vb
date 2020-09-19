@@ -38,7 +38,10 @@ Public Class UpdateGrid
         Application.DoEvents()
         MyFolder = My.Application.Info.DirectoryPath
         If Debugger.IsAttached = True Then
-            MyFolder = "D:\Opensim\Dreamgrid"
+            MyFolder = "D:\Opensim\TestDreamgrid"
+            If Not IO.Directory.Exists(MyFolder) Then
+                IO.Directory.CreateDirectory(MyFolder)
+            End If
             ' for testing, as the compiler buries itself in ../../../debug
         End If
 
@@ -48,7 +51,7 @@ Public Class UpdateGrid
         If args.Length = 2 Then
             Filename = args(1)
         Else
-            MsgBox("Syntax: DreamGridSetup.exe Dreamgrid-VX.Y.zip")
+            MsgBox("Syntax: DreamGridSetup.exe Dreamgrid-V(version).zip")
         End If
 
         If Filename.StartsWith("DreamGrid-V") Then
@@ -113,7 +116,7 @@ Public Class UpdateGrid
     Private Sub StopApache()
 
         Using ApacheProcess As New Process()
-            ApacheProcess.StartInfo.FileName = "sc"
+            ApacheProcess.StartInfo.FileName = "net"
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             ApacheProcess.Start()
             Application.DoEvents()

@@ -260,7 +260,7 @@ Partial Class AdvancedForm
         Me.ScriptButton.Size = New System.Drawing.Size(145, 23)
         Me.ScriptButton.TabIndex = 22
         Me.ScriptButton.Text = Global.Outworldz.My.Resources.Scripts_word
-        Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Click_Server)
+        Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Click_to_View_this_word)
         Me.ScriptButton.UseVisualStyleBackColor = True
         '
         'LoggingButton

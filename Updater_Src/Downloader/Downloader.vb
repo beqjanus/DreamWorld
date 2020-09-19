@@ -7,19 +7,16 @@ Imports System.Threading
 ' Redistribution and use in binary and source form is permitted provided
 ' that ALL the licenses in the text files are followed and included in all copies
 
-' Command line args:
-'     '-debug' forces this to use the a different folder for testing
-
 Public Class Downloader
 
 #Region "Private Fields"
 
     Dim Cancelled As Boolean = False
-    Dim debugfolder = "C:\tmp\Testing" ''-debug' forces this to use the a different folder for testing
+    Dim debugfolder = "D:\Opensim\TestDreamgrid\"
     Dim gCurDir = Nothing
 
     ' Holds the current folder that we are running in
-    Dim gFileName As String = "http://www.outworldz.com/Outworldz_installer/Grid/DreamGrid.zip"
+    Dim gFileName As String = "https://www.outworldz.com/Outworldz_installer/Grid/DreamGrid.zip"
 
     Dim Type As String = "Downloader"
     Dim whereToSave As String = Nothing
@@ -75,10 +72,12 @@ Public Class Downloader
     Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         MyFolder = My.Application.Info.DirectoryPath
-        ' I would like to buy an argument
-        Dim arguments As String() = Environment.GetCommandLineArgs()
+
         If Debugger.IsAttached = True Then
             MyFolder = debugfolder ' for testing, as the compiler buries itself in ../../../debug
+            If Not IO.Directory.Exists(MyFolder) Then
+                IO.Directory.CreateDirectory(MyFolder)
+            End If
             ChDir(MyFolder)
         End If
 
