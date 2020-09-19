@@ -121,7 +121,7 @@ namespace Diva.AddinExample
 
         private void LoadConfiguration(IConfigSource config)
         {
-            string configPath = string.Empty;
+            string configPath;
             bool created;
             if (!Util.MergeConfigurationFile(config, "AddinExample.ini", Path.Combine(AssemblyDirectory, "AddinExample.ini"), out configPath, out created))
             {
@@ -163,7 +163,7 @@ namespace Diva.AddinExample
         protected override byte[] ProcessRequest(string path, Stream requestData,
                 IOSHttpRequest httpRequest, IOSHttpResponse httpResponse)
         {
-            string result = string.Empty;
+            // string result = string.Empty;
             string resource = GetParam(path);
 
             string html = string.Empty;

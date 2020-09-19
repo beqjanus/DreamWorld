@@ -11,3 +11,4 @@ C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\DreamGridSetup.exe
 C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\DreamGridSetup.pdb
 C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\bin\Debug\Ionic.Zip.dll
 C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\Updater.vbproj.CopyComplete
+C:\Opensim\Outworldz_Dreamgrid\Updater_Src\Updater\obj\Debug\Updater.vbproj.CoreCompileInputs.cache
