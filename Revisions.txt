@@ -2,11 +2,13 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-Add new Icons for Opensim and Robust windows
-Opensim updated to "#d0606d5d5b937 0.9.2.dev 2020-09-17 22:16:44” add option to only store map image asset on local cache. 
-Main reason for this is to fix the Unknown User that appears on some avatars and NPCs
-Compiled with Dot Net 4.8 
+V3.69 Post Fixes
 
+Add new Icons for Opensim and Robust windows
+Opensim updated to #d2e7c711b4188106a  0.9.2.dev 2020-09-21 20:40:24 actually make yExceptionMessage and yExceptionTypeName avaiable"
+Some NPCs from Satyr Farm would crash a region hard.
+Fix the Unknown User that appears on some avatars and NPCs
+Still Dot net 4.6
 
 V3.68 Post fixes (Beta Bleeding edge)
 Opensim updated to "#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08	fix silly bugs on osReplaceRegionEnvironment()
