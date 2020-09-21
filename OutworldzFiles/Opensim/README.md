@@ -17,7 +17,7 @@ need to build OpenSim before running it.
 
 # Running OpenSim on Windows
 
-You will need .NET 4.0 for versions up to 0.9.0.1 and .NET 4.8 for others.
+You will need .NET 4.0 for versions up to 0.9.0.1 and .NET 4.6 for others.
 
 We recommend that you run OpenSim from a command prompt on Windows in order
 to capture any errors.
