@@ -39,7 +39,7 @@ Public Class Form1
 
     Private ReadOnly _MyVersion As String = "3.69"
     Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
-    Private ReadOnly _SimVersion As String = "#d0606d5d5b937 0.9.2.dev 2020-09-17 22:16:44"
+    Private ReadOnly _SimVersion As String = "#d2e7c711b4188106a  0.9.2.dev 2020-09-21 20:40:24"
 
 #End Region
 
