@@ -180,6 +180,8 @@ Public Class NetServer
         HTML = "Welcome to |" & Settings.SimName & "||" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & ":" & Settings.WelcomeRegion & "||" & vbCrLf
         Dim ToSort As New List(Of String)
 
+        ' TODO: COnvert to Structure !!!
+
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Diagnostics.Debug.Print("Conn:" & Settings.RobustMysqlConnection)
             Dim UserStmt = "SELECT regionName from REGIONS"

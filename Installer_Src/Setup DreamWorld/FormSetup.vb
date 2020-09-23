@@ -6645,7 +6645,7 @@ Public Class Form1
                 A.Add("Ferd Frederix", "SandBox")
                 B.Add("Nyira Machabelli", "SandBox")
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                ' BreakPoint.Show(ex.Message)
             End Try
         End If
 
