@@ -140,3 +140,4 @@
 \Outworldzfiles\opensim\bin\lib64\ode.dll
 \Outworldzfiles\opensim\bin\lib64\sqlite3.dll
 \Outworldzfiles\opensim\bin\pt\Diva.Wifi.resources.dll
+\Outworldzfiles\opensim\bin\WhoGotWhat.dll
