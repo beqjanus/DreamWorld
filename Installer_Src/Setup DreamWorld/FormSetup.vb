@@ -32,12 +32,13 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports Ionic.Zip
 Imports IWshRuntimeLibrary
+Imports System.Globalization
 
 Public Class Form1
 
 #Region "Version"
 
-    Private ReadOnly _MyVersion As String = "3.69"
+    Private ReadOnly _MyVersion As String = "3.691"
     Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
     Private ReadOnly _SimVersion As String = "#d2e7c711b4188106a  0.9.2.dev 2020-09-21 20:40:24"
 
@@ -1305,8 +1306,8 @@ Public Class Form1
 
         Dim data As String = "&MachineID=" & Settings.MachineID() _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
-        & "&V=" & WebUtility.UrlEncode(CStr(PropMyVersion)) _
-        & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
+        & "&V=" & WebUtility.UrlEncode(PropMyVersion) _
+        & "&OV=" & WebUtility.UrlEncode(PropSimVersion) _
         & "&Type=" & CStr(Grid) _
         & "&isPublic=" & CStr(Settings.GDPR()) _
         & "&r=" & RandomNumber.Random()
@@ -6477,6 +6478,11 @@ Public Class Form1
 
 #Region "Languages"
 
+    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ArabicToolStripMenuItem.Click
+        Settings.Language = "ar-IQ"
+        Language(sender, e)
+    End Sub
+
     Private Sub BasqueToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BasqueToolStripMenuItem.Click
         Settings.Language = "eu"
         Language(sender, e)
@@ -6549,6 +6555,17 @@ Public Class Form1
 
     Private Sub Language(sender As Object, e As EventArgs)
         Settings.SaveSettings()
+
+        For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
+            Diagnostics.Debug.Print("")
+            Diagnostics.Debug.Print(ci.Name)
+            Diagnostics.Debug.Print(ci.TwoLetterISOLanguageName)
+            Diagnostics.Debug.Print(ci.ThreeLetterISOLanguageName)
+            Diagnostics.Debug.Print(ci.ThreeLetterWindowsLanguageName)
+            Diagnostics.Debug.Print(ci.DisplayName)
+            Diagnostics.Debug.Print(ci.EnglishName)
+        Next
+
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
         Me.Controls.Clear() 'removes all the controls on the form
@@ -6580,12 +6597,16 @@ Public Class Form1
         Settings.Language = "sv"
         Language(sender, e)
     End Sub
+    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarsiToolStripMenuItem.Click
+        Settings.Language = "fa-IR"
+        Language(sender, e)
+    End Sub
+
+
 
 #End Region
 
 #Region "Timer"
-
-
 
     '' makes a list of teleports for the prims to use
     Private Sub RegionListHTML()
@@ -6797,35 +6818,28 @@ Public Class Form1
             End Try
         End Using
 
-        ' Update Error checks
-
+        ' Update Error check
         ' could be nothing
         If Update_version.Length = 0 Then Update_version = PropMyVersion
 
-        ' Could be "FALSE"
         Try
-            If Settings.SkipUpdateCheck = 0 Then Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
-        End Try
-
-        Dim uv As Single = 0
-        Try
+            Dim uv As Single = 0
             uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)
-        Catch ex As Exception
+            Dim ToVersion = Convert.ToSingle(Settings.SkipUpdateCheck, Globalization.CultureInfo.InvariantCulture)
+            ' could be the same or later version already
+            If uv <= ToVersion Then
+                Return
+            End If
+            If uv <= Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture) Then
+                Return
+            End If
 
+        Catch ex As Exception
             BreakPoint.Show(ex.Message)
+            Return
         End Try
 
-        ' could be the same or later version already
-        If uv <= Settings.SkipUpdateCheck Then
-            Return
-        End If
 
-        If uv <= Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture) Then
-            Return
-        End If
 
         ' may need to get the new file
         If System.IO.File.Exists(Settings.CurrentDirectory & "\DreamGrid-V" & Update_version & ".zip") Then

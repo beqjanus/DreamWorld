@@ -3045,6 +3045,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property flag_iran() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_iran", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property flag_ireland() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_ireland", resourceCulture)
@@ -3128,6 +3138,16 @@ Namespace My.Resources
         Friend ReadOnly Property flag_saudi_arabia() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_saudi_arabia", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property flag_saudi_arabia1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_saudi_arabia1", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

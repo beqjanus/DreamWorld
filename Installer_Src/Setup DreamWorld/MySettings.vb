@@ -1611,9 +1611,9 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SkipUpdateCheck() As Single
+    Public Property SkipUpdateCheck() As String
         Get
-            Return CType(GetMySetting("SkipUpdateCheck", 0), Single)
+            Return CType(GetMySetting("SkipUpdateCheck", "0"), String)
         End Get
         Set
             SetMySetting("SkipUpdateCheck", CStr(Value))
