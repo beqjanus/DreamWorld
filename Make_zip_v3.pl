@@ -156,12 +156,12 @@ use IO::All;
 sign($dir);
 
 #
-#say("Mysql");
-#chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
-#print `mysqladmin.exe --port 3306 -u root shutdown`;
+say("Mysql");
+chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
+print `mysqladmin.exe --port 3306 -u root shutdown`;
 
-#chdir ($dir);
-#DeleteandKeep("$dir/OutworldzFiles/mysql/data");
+chdir ($dir);
+DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
 
 print "Processing Main Zip\n";
