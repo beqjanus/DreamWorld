@@ -99,13 +99,12 @@ Public Module Firewall
 
             BreakPoint.Show(ex.Message)
         End Try
-        Dim Windowstyle As ProcessWindowStyle
-        Windowstyle = ProcessWindowStyle.Hidden
+
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",
             .FileName = Settings.CurrentDirectory & "\fw.bat",
-            .WindowStyle = Windowstyle,
+            .WindowStyle = ProcessWindowStyle.Hidden,
             .Verb = "runas"
         }
         Using ProcessFirewall As Process = New Process With {
