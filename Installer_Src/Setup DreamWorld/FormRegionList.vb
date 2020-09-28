@@ -1061,7 +1061,7 @@ Public Class RegionList
                     ' shut down all regions in the DOS box
                     For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
                         Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                        Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' already shutting down
+                        Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                     Next
                 End If
 
