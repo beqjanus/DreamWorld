@@ -121,7 +121,6 @@
 \Outworldzfiles\opensim\bin\OpenSim.Tests.Performance.dll
 \Outworldzfiles\opensim\bin\OpenSim.Tests.Permissions.dll
 \Outworldzfiles\opensim\bin\OpenSim.Tests.Stress.dll
-\Outworldzfiles\opensim\bin\OpenSimBirds.Module.dll
 \Outworldzfiles\opensim\bin\OpenSimSearch.Modules.dll
 \Outworldzfiles\opensim\bin\OpenSimTide.Module.dll
 \Outworldzfiles\opensim\bin\PrimMesher.dll

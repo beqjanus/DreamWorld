@@ -230,7 +230,7 @@ my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zi
 sleep(1);
 
 
-if ($publish)
+if ($publish) 
 {
 	
 if ($publish eq 'p')
