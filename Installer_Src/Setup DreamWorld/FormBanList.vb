@@ -86,26 +86,26 @@ Public Class FormBanList
                 If IsDBNull(row.Cells(0).Value) Or row.Cells(0).Value Is Nothing Then
                     s = ""
                 Else
-                    s = row.Cells(0).Value
+                    s = row.Cells(0).Value.trim
                 End If
                 If IsDBNull(row.Cells(1).Value) Or row.Cells(1).Value Is Nothing Then
                     t = ""
                 Else
-                    t = row.Cells(1).Value
+                    t = row.Cells(1).Value.trim
                 End If
 
                 ' save back to Ban List
-                BanListString += s & "=" & t & "|"
+                If s.Length Or t.Length Then BanListString += s & "=" & t & "|"
+                Debug.Print(s)
 
                 ' ban grid Addresses
-                Dim pattern2 As Regex = New Regex("^http\:\/\/.*?\:\d+$")
+                Dim pattern2 As Regex = New Regex("^https?\:\/\/.*?\:\d+$")
                 Dim match2 As Match = pattern2.Match(s)
                 If match2.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
-                    GridString += s & ""   ' delimiter is a comma for grids
+                    GridString += s & ","   ' delimiter is a comma for grids
                     Continue For
                 End If
 
-                Debug.Print(s)
                 ' Ban IP's
                 Dim I As System.Net.IPAddress = Nothing
                 If IPAddress.TryParse(s, I) Then
@@ -114,10 +114,10 @@ Public Class FormBanList
                 End If
 
                 ' ban MAC Addresses with and without caps and :
-                Dim pattern1 As Regex = New Regex("^[a-f0-9A-F:0]+")
+                Dim pattern1 As Regex = New Regex("^[a-f0-9A-F][a-f0-9A-F][-:]+")
                 Dim match1 As Match = pattern1.Match(s)
                 If match1.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
-                    MACString += s & " " ' delimiter is a space for Macs
+                    MACString += s & " " ' delimiter is a " " and  not a pipe
                     Continue For
                 End If
 
@@ -136,15 +136,27 @@ Public Class FormBanList
                 End If
 
                 ' Ban grids
-
+                If GridString.Length Then
+                    GridString = Mid(GridString, 1, GridString.Length - 1)
+                End If
                 Settings.SetIni("GatekeeperService", "AllowExcept", GridString)
-                Settings.SetIni("UserAgentService", "AllowExcept_Level_200", GridString)
 
                 ' Ban Macs
+                If MACString.Length Then
+                    MACString = Mid(MACString, 1, MACString.Length - 1)
+                End If
                 Settings.SetIni("LoginService", "DeniedMacs", MACString)
                 Settings.SetIni("GatekeeperService", "DeniedMacs", MACString)
 
                 'Ban Viewers
+                If ViewerString.Length Then
+                    ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
+                End If
+                If ViewerString.Length Then
+                    ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
+                End If
+
+
                 Settings.SetIni("AccessControl", "DeniedClients", ViewerString)
 
                 Settings.SaveINI(System.Text.Encoding.UTF8)
@@ -161,7 +173,7 @@ Public Class FormBanList
         Catch ex As Exception
             ' Do not catch general exception types
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog("Ban List:" & ex.Message)
+            '
         Finally
             Settings.BanList = BanListString
             Settings.SaveSettings()

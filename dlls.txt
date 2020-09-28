@@ -1,10 +1,13 @@
 \Outworldzfiles\opensim\bin\BulletXNA.dll
 \Outworldzfiles\opensim\bin\C5.dll
 \Outworldzfiles\opensim\bin\CSJ2K.dll
+\Outworldzfiles\opensim\bin\CsvHelper.dll
+\Outworldzfiles\opensim\bin\Diva.AddinExample.dll
 \Outworldzfiles\opensim\bin\Diva.Data.dll
 \Outworldzfiles\opensim\bin\Diva.Data.MySQL.dll
 \Outworldzfiles\opensim\bin\Diva.Data.SQLite.dll
 \Outworldzfiles\opensim\bin\Diva.Interfaces.dll
+\Outworldzfiles\opensim\bin\Diva.OnLook.dll
 \Outworldzfiles\opensim\bin\Diva.OpenSimServices.dll
 \Outworldzfiles\opensim\bin\Diva.Utils.dll
 \Outworldzfiles\opensim\bin\Diva.Wifi.dll
@@ -126,6 +129,7 @@
 \Outworldzfiles\opensim\bin\SmartThreadPool.dll
 \Outworldzfiles\opensim\bin\Tools.dll
 \Outworldzfiles\opensim\bin\Warp3D.dll
+\Outworldzfiles\opensim\bin\WhoGotWhat.dll
 \Outworldzfiles\opensim\bin\XMLRPC.dll
 \Outworldzfiles\opensim\bin\zlib.net.dll
 \Outworldzfiles\opensim\bin\de\Diva.Wifi.resources.dll
@@ -140,4 +144,3 @@
 \Outworldzfiles\opensim\bin\lib64\ode.dll
 \Outworldzfiles\opensim\bin\lib64\sqlite3.dll
 \Outworldzfiles\opensim\bin\pt\Diva.Wifi.resources.dll
-\Outworldzfiles\opensim\bin\WhoGotWhat.dll
