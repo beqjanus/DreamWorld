@@ -1011,10 +1011,7 @@ Public Class RegionList
             Form1.StartRobust()
             Form1.Log("Starting", Form1.PropRegionClass.RegionName(RegionUUID))
 
-            ' Allow these to change w/o rebooting
-            Form1.DoOpensimINI()
-            Form1.DoGloebits()
-            Form1.DoBirds()
+            Form1.PropAborting = False
 
             Form1.Boot(Form1.PropRegionClass, Form1.PropRegionClass.RegionName(RegionUUID))
             Application.DoEvents()

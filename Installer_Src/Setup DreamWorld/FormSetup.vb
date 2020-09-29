@@ -2352,8 +2352,6 @@ Public Class Form1
         ' Allow these to change w/o rebooting
         DoOpensimINI()
         DoGloebits()
-        DoBirds()
-        DoTides()
 
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
