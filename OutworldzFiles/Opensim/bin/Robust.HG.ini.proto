@@ -214,6 +214,12 @@ ExternalHostNameForLSL="${Const|BaseURL}:${Const|PublicPort}"
 ;; Set by Dreamgrid
 HomeURI="${Const|BaseURL}:${Const|PublicPort}"
 
+;# {HomeURIAlias} {Hypergrid} {Old hostnames, FQDN or ips of the gatekeeper of this world} {}
+;; comma separated list, and port (default 80 or 443)
+;; in case there was for example a dns change, etc but it is still same grid
+; HomeURIAlias = myoldname.something.org, 127.0.0.1,127.0.1:8043
+
+
 ;
 ;# {GatekeeperURI} {Hypergrid} {The URL of the gatekeeper of this world} {}
 ;; This is the address of the external robust server
@@ -222,6 +228,11 @@ HomeURI="${Const|BaseURL}:${Const|PublicPort}"
 ;; This is a default that can be overwritten in some sections.
 ;; Set by Dreamgrid
 GatekeeperURI="${Const|BaseURL}:${Const|PublicPort}"
+
+# {GatekeeperURIAlias} {Hypergrid} {Old hostnames, FQDN or ips of the gatekeeper of this world} {}
+;; comma separated list, and port (default 80 or 443)
+;; in case there was for example a dns change, etc
+; GatekeeperURIAlias = myoldname.something.org, 127.0.0.1,127.0.1:8043
 
 ;
 [AccessControl]
@@ -657,7 +668,10 @@ password=${Const|BaseURL}/${Const|PublicPort}/wifi/forgotpassword
 ; this is the entry point for all user-related HG services
 ; uas = ${Const|BaseURL}:${Const|PublicPort}/
 [GatekeeperService]
+
+; Set by DreamGrid
 AutoLoadTeleport=True
+
 LocalServiceModule="OpenSim.Services.HypergridService.dll:GatekeeperService"
 
 ;; for the service
