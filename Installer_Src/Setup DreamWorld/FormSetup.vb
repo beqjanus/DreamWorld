@@ -38,7 +38,7 @@ Public Class Form1
 
 #Region "Version"
 
-    Private ReadOnly _MyVersion As String = "3.7"
+    Private ReadOnly _MyVersion As String = "3.695"
     Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
     Private ReadOnly _SimVersion As String = "#d2e7c711b4188106a  0.9.2.dev 2020-09-21 20:40:24"
 
@@ -1387,7 +1387,7 @@ Public Class Form1
                     ConsoleCommand(RegionUUID, "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then
                         ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                        ConsoleCommand(RegionUUID, "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(RegionUUID, "save oar " & BackupPath() & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                     End If
                     ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
@@ -5976,7 +5976,7 @@ Public Class Form1
                             ConsoleCommand(UUID, "change region " & chosen & "{ENTER}" & vbCrLf)
                             If backMeUp = vbYes Then
                                 ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & chosen & "_" &  & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                             End If
                             ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
