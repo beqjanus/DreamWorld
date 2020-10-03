@@ -1097,7 +1097,7 @@ Public Class MySettings
 
     Public Property LogLevel() As String
         Get
-            Return CType(GetMySetting("LogLevel", "info"), String)
+            Return CType(GetMySetting("LogLevel", "INFO"), String)
         End Get
         Set
             SetMySetting("LogLevel", Value)

@@ -137,14 +137,17 @@ Public Class FormDNSName
 
         If DNSNameBox.Text.Length = 0 Then
             Settings.PublicIP = IP()
+            Settings.DNSName = ""
         Else
+            Settings.DNSName = DNSNameBox.Text
+            Form1.RegisterName(True)
+
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
                     Settings.PublicIP = IP()
                 Else
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
                 End If
-                Settings.DNSName = DNSNameBox.Text
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -178,12 +181,15 @@ Public Class FormDNSName
     Private Sub TestButton1_Click(sender As Object, e As EventArgs) Handles TestButton1.Click
 
         NextNameButton.Text = Global.Outworldz.My.Resources.Busy_word
-        Form1.RegisterName(DNSNameBox.Text)
+
 
         Dim address As System.Net.IPAddress = Nothing
         If DNSNameBox.Text.Length = 0 Then
             Settings.PublicIP = IP()
         Else
+            Settings.PublicIP = DNSNameBox.Text
+            Form1.RegisterName(True)    ' force it to register
+
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
                     MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP(), vbInformation, Global.Outworldz.My.Resources.Info_word)
@@ -215,6 +221,7 @@ Public Class FormDNSName
 
             Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
             DNSNameBox.Text = rgx.Replace(DNSNameBox.Text, "")
+            DNSNameBox.Text = DNSNameBox.Text.ToLower
 
         End If
 
