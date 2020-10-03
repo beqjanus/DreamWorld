@@ -4,15 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-
 using OpenSim.Framework;
 using OpenSim.Framework.Servers;
 using OpenSim.Framework.Servers.HttpServer;
-using OpenSim.Region.Framework;
 using OpenSim.Region.Framework.Interfaces;
 using OpenSim.Region.Framework.Scenes;
 using OpenSim.Server.Base;
-
 using Mono.Addins;
 using log4net;
 using Nini.Config;
@@ -22,124 +19,6 @@ using CsvHelper;
 
 namespace WhoGotWhat
 {
-    [Extension(Path = "/OpenSim/RegionModules", NodeName = "RegionModule", Id = "WhoGotWhatExampleModule")]
-    public class WhoGotWhatExampleModule : ISharedRegionModule
-    {
-        #region Class and Instance Members
-
-        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private bool m_Enabled;
-        private string m_Password;
-
-        private static string AssemblyDirectory
-        {
-            get
-            {
-                string location = Assembly.GetExecutingAssembly().Location;
-                return Path.GetDirectoryName(location);
-            }
-        }
-
-        #endregion Class and Instance Members
-
-        #region ISharedRegionModule
-
-        public string Name
-        {
-            get { return "WhoGotWhat"; }
-        }
-
-        public Type ReplaceableInterface
-        {
-            get { return null; }
-        }
-
-        public void AddRegion(Scene scene)
-        {
-        }
-
-        public void Close()
-        {
-        }
-
-        public void Initialise(IConfigSource config)
-        {
-            // We only load the configuration file if the main config doesn't know about this module already
-            IConfig cnf = config.Configs["WhoGotWhatExample"];
-            if (cnf == null)
-            {
-                LoadConfiguration(config);
-                cnf = config.Configs["WhoGotWhat"];
-                if (cnf == null)
-                {
-                    m_log.WarnFormat("[WhoGotWhat]: Configuration section WhoGotWhat not found. Unable to proceed.");
-                    return;
-                }
-            }
-
-            m_Enabled = cnf.GetBoolean("enabled", m_Enabled);
-            m_Password = cnf.GetString("password", m_Password);
-
-            if (m_Enabled)
-            {
-                string pathToCsvFile = Path.Combine(AssemblyDirectory, "WhoGotWhat.csv");
-                string pathToHtmlFile = Path.Combine(AssemblyDirectory, "WhoGotWhat.html");
-                m_log.InfoFormat("[WhoGotWhat]: WhoGotWhat is on. File is {0}", pathToCsvFile);
-
-                if (!File.Exists(pathToCsvFile))
-                {
-                    using (var tr = new StreamWriter(pathToCsvFile))
-                    using (var writer = new CsvWriter(tr, CultureInfo.InvariantCulture))
-                    {
-                        writer.WriteField("Date");
-                        writer.WriteField("Name");
-                        writer.WriteField("Region");
-                        writer.WriteField("ProductName");
-                        writer.NextRecord();
-                    }
-                }
-
-                MainServer.Instance.AddStreamHandler(new FormUploadGetHandler(pathToHtmlFile));
-                MainServer.Instance.AddStreamHandler(new FormUploadPostHandler(pathToCsvFile));
-            }
-        }
-
-        public void PostInitialise()
-        {
-        }
-
-        public void RegionLoaded(Scene scene)
-        {
-        }
-
-        public void RemoveRegion(Scene scene)
-        {
-        }
-
-        #endregion ISharedRegionModule
-
-        #region Private Methods
-
-        private void LoadConfiguration(IConfigSource config)
-        {
-            string configPath;
-            bool created;
-            if (!Util.MergeConfigurationFile(config, "AddinExample.ini", Path.Combine(AssemblyDirectory, "WhoGotWhatv.ini"), out configPath, out created))
-            {
-                m_log.WarnFormat("[WhoGotWhat]: Configuration file not merged");
-                return;
-            }
-
-            if (created)
-            {
-                m_log.ErrorFormat("[WhoGotWhat]: PLEASE EDIT {0} BEFORE RUNNING THIS ADDIN", configPath);
-                throw new Exception("Addin must be configured prior to running");
-            }
-        }
-
-        #endregion Private Methods
-    }
-
     public class FormUploadGetHandler : BaseStreamHandler
     {
         #region Private Fields
@@ -207,6 +86,7 @@ namespace WhoGotWhat
             string body = sr.ReadToEnd();
             sr.Close();
             body = body.Trim();
+            string theirpassword;
 
             // Here the data on the stream is transformed into a nice dictionary of keys & values
             Dictionary<string, object> postdata = ServerUtils.ParseQueryString(body);
@@ -218,6 +98,8 @@ namespace WhoGotWhat
                 regionname = postdata["region"].ToString();
             if (postdata.ContainsKey("primname") && !string.IsNullOrEmpty(postdata["primname"].ToString()))
                 primname = postdata["primname"].ToString();
+            if (postdata.ContainsKey("password") && !string.IsNullOrEmpty(postdata["password"].ToString()))
+                theirpassword = postdata["password"].ToString();
 
             AddToCSVFile(avatarname, regionname, primname);
 
@@ -243,6 +125,125 @@ namespace WhoGotWhat
                 writer.WriteField(region);
                 writer.WriteField(primname);
                 writer.NextRecord();
+            }
+        }
+
+        #endregion Private Methods
+    }
+
+    [Extension(Path = "/OpenSim/RegionModules", NodeName = "RegionModule", Id = "WhoGotWhatModule")]
+    public class WhoGotWhatModule : ISharedRegionModule
+    {
+        #region Class and Instance Members
+
+        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private bool m_Enabled;
+        private string m_Password;
+
+        private static string AssemblyDirectory
+        {
+            get
+            {
+                string location = Assembly.GetExecutingAssembly().Location;
+                return Path.GetDirectoryName(location);
+            }
+        }
+
+        #endregion Class and Instance Members
+
+        #region ISharedRegionModule
+
+        public string Name
+        {
+            get { return "WhoGotWhat"; }
+        }
+
+        public Type ReplaceableInterface
+        {
+            get { return null; }
+        }
+
+        public void AddRegion(Scene scene)
+        {
+        }
+
+        public void Close()
+        {
+        }
+
+        public void Initialise(IConfigSource config)
+        {
+            // We only load the configuration file if the main config doesn't know about this module already
+            IConfig cnf = config.Configs["WhoGotWhat"];
+            if (cnf == null)
+            {
+                LoadConfiguration(config);
+                cnf = config.Configs["WhoGotWhat"];
+                if (cnf == null)
+                {
+                    m_log.WarnFormat("[WhoGotWhat]: Configuration section WhoGotWhat not found. Unable to proceed.");
+                    return;
+                }
+            }
+
+            m_Enabled = cnf.GetBoolean("Enabled", m_Enabled);
+            m_Password = cnf.GetString("MachineID", m_Password);
+
+            if (m_Enabled)
+            {
+                string pathToCsvFile = Path.Combine(AssemblyDirectory, "WhoGotWhat.csv");
+                string pathToHtmlFile = Path.Combine(AssemblyDirectory, "WhoGotWhat.html");
+                m_log.InfoFormat("[WhoGotWhat]: WhoGotWhat is on. File is {0}", pathToCsvFile);
+
+                if (!File.Exists(pathToCsvFile))
+                {
+                    m_log.WarnFormat("[WhoGotWhat]: Creating WhoGotWhat.csv");
+                    using (var tr = new StreamWriter(pathToCsvFile))
+                    using (var writer = new CsvWriter(tr))
+                    {
+                        writer.WriteField("Date");
+                        writer.WriteField("Name");
+                        writer.WriteField("Region");
+                        writer.WriteField("ProductName");
+                        writer.NextRecord();
+                    }
+                }
+
+                MainServer.Instance.AddStreamHandler(new FormUploadGetHandler(pathToHtmlFile));
+                MainServer.Instance.AddStreamHandler(new FormUploadPostHandler(pathToCsvFile));
+            }
+        }
+
+        public void PostInitialise()
+        {
+        }
+
+        public void RegionLoaded(Scene scene)
+        {
+        }
+
+        public void RemoveRegion(Scene scene)
+        {
+        }
+
+        #endregion ISharedRegionModule
+
+        #region Private Methods
+
+        private void LoadConfiguration(IConfigSource config)
+        {
+            string configPath;
+            bool created;
+            if (!Util.MergeConfigurationFile(config, "WhoGotWhat.ini", Path.Combine(AssemblyDirectory, "WhoGotWhat.ini"), out configPath, out created))
+            {
+                m_log.WarnFormat("[WhoGotWhat]: Configuration file not merged");
+                return;
+            }
+
+            if (created)
+            {
+                m_log.ErrorFormat("[WhoGotWhat]: PLEASE EDIT {0} BEFORE RUNNING THIS ADDIN", configPath);
+                throw new Exception("Addin must be configured prior to running");
             }
         }
 
