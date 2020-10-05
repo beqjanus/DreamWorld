@@ -1640,12 +1640,12 @@ Public Class Form1
                 Settings.PublicIP = Settings.DNSName()
                 Settings.SaveSettings()
                 Print(My.Resources.Setup_Network)
-                Dim ret = RegisterDNS(False)
+                Dim ret = RegisterName(False)
                 Return ret
             Else
                 Settings.PublicIP = PropMyUPnpMap.LocalIP
                 Print(My.Resources.Setup_Network)
-                Dim ret = RegisterDNS(False)
+                Dim ret = RegisterName(False)
                 Settings.SaveSettings()
                 Return ret
             End If
@@ -1664,14 +1664,14 @@ Public Class Form1
                 Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
 
-            If RegisterDNS(False) Then
+            If RegisterName(False) Then
                 Return True
             End If
 
         End If
 
         If Settings.PublicIP = "localhost" Or Settings.PublicIP = "127.0.0.1" Then
-            RegisterDNS(False)
+            RegisterName(False)
             Return True
         End If
 
@@ -5974,7 +5974,7 @@ Public Class Form1
                             ConsoleCommand(UUID, "change region " & chosen & "{ENTER}" & vbCrLf)
                             If backMeUp = vbYes Then
                                 ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & chosen & "_" &  & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                             End If
                             ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
@@ -6784,7 +6784,7 @@ Public Class Form1
 
         'hourly for DNS
         If PropDNSSTimer Mod 3600 = 0 Then
-            RegisterDNS(True)
+            RegisterName(True)
         End If
 
         ' hourly
@@ -7010,7 +7010,6 @@ Public Class Form1
             Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-
             ErrorLog("Error:Cannot get new name:" & ex.Message)
             client.Dispose()
             Return ""
@@ -7020,8 +7019,14 @@ Public Class Form1
 
     End Function
 
+
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    Public Function RegisterDNS(force As Boolean) As Boolean
+    Public Function RegisterName(force As Boolean) As Boolean
+
+        Dim Checkname As String = String.Empty
+        If Settings.ServerType <> "Robust" Then
+            Return True
+        End If
 
         If Settings.DNSName.Length = 0 Then
             Return True
@@ -7032,52 +7037,31 @@ Public Class Form1
         End If
 
         If _DNS_is_registered And Not force Then Return True
-        _DNS_is_registered = True
 
-        Dim client As New WebClient
-        Dim Checkname As String
 
-        Try
-            Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
-        Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
-            ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
-            Return False
-        Finally
-            client.Dispose()
-        End Try
-
-        If Checkname.Contains("UPDATE") Then Return True
-        Return False
-
-    End Function
-
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    Public Function RegisterName(name As String) As String
-
-        Dim Checkname As String = String.Empty
-        If Settings.ServerType <> "Robust" Then
-            Return name
-        End If
         Dim client As New WebClient ' download client for web pages
         Try
-            Checkname = client.DownloadString("http://outworldz.net/dns.plx/?GridName=" & name & GetPostData())
+            Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
-            ErrorLog("Warn: Cannot register the DNS Name " & ex.Message)
-            Return ""
+            Try
+                Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
+            Catch
+                ErrorLog("Warn: Cannot register this DNS Name " & ex.Message)
+                Return False
+            End Try
         Finally
             client.Dispose()
         End Try
-        If Checkname = "UPDATED" Then
-            Return name
+
+        If Checkname = "UPDATE" Then
+            _DNS_is_registered = True
+            Return True
         End If
         If Checkname = "NAK" Then
             MsgBox(My.Resources.DDNS_In_Use)
         End If
-        Return ""
+        Return False
 
     End Function
 
@@ -7086,8 +7070,7 @@ Public Class Form1
         If Settings.DNSName.Length = 0 And Settings.EnableHypergrid Then
             Dim newname = GetNewDnsName()
             If newname.Length >= 0 Then
-                If RegisterName(newname).Length >= 0 Then
-
+                If RegisterName(newname) Then
                     Settings.DNSName = newname
                     Settings.PublicIP = newname
                     Settings.SaveSettings()
