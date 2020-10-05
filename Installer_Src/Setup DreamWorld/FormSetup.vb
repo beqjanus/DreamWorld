@@ -3883,54 +3883,52 @@ Public Class Form1
     Private Function DoRobust() As Boolean
 
         Print("->Set Robust")
-        If Settings.ServerType = "Robust" Then
-            ' Robust Process
-            If Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";") Then
-                Return True
-            End If
 
-            Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
-            Settings.SetIni("Const", "GridName", Settings.SimName)
-            Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
-            Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
-            Settings.SetIni("Const", "PublicPort", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture)) ' 8002
-            Settings.SetIni("Const", "PrivatePort", Convert.ToString(Settings.PrivatePort, Globalization.CultureInfo.InvariantCulture))
-            Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture))
-            Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
-
-            If Settings.Suitcase() Then
-                Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
-            Else
-                Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
-            End If
-
-            ' LSL emails
-            Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
-            Settings.SetIni("SMTP", "SMTP_SERVER_PORT", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
-            Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
-            Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
-
-            Settings.SetIni("LoginService", "SearchURL", "https://hyperica.com/Search/query.php")
-            Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
-
-            'FSASSETS
-            If Settings.FsAssetsEnabled Then
-                Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
-                Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
-            Else
-                Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
-                Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
-            End If
-
-            Settings.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
-            Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
-            Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
-
-            Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
-
-            Settings.SaveINI(System.Text.Encoding.UTF8)
-
+        ' Robust Process
+        If Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";") Then
+            Return True
         End If
+
+        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
+        Settings.SetIni("Const", "GridName", Settings.SimName)
+        Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
+        Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
+        Settings.SetIni("Const", "PublicPort", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture)) ' 8002
+        Settings.SetIni("Const", "PrivatePort", Convert.ToString(Settings.PrivatePort, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
+
+        If Settings.Suitcase() Then
+            Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
+        Else
+            Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
+        End If
+
+        ' LSL emails
+        Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
+        Settings.SetIni("SMTP", "SMTP_SERVER_PORT", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
+        Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
+
+        Settings.SetIni("LoginService", "SearchURL", "https://hyperica.com/Search/query.php")
+        Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
+
+        'FSASSETS
+        If Settings.FsAssetsEnabled Then
+            Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+            Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
+        Else
+            Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+            Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
+        End If
+
+        Settings.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
+        Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
+        Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
+
+        Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
+
+        Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Return False
     End Function
