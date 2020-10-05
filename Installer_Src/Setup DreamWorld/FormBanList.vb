@@ -74,7 +74,7 @@ Public Class FormBanList
         Dim MACString As String = ""
         Dim ViewerString As String = ""
         Dim GridString As String = ""
-        Dim fname = My.Computer.FileSystem.OpenTextFileWriter(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt", False)
+        Dim BanListString As String = ""
         Try
 
             For Each row As DataGridViewRow In DataGridView1.Rows
@@ -86,17 +86,25 @@ Public Class FormBanList
                 If IsDBNull(row.Cells(0).Value) Or row.Cells(0).Value Is Nothing Then
                     s = ""
                 Else
-                    s = row.Cells(0).Value
+                    s = row.Cells(0).Value.trim
                 End If
                 If IsDBNull(row.Cells(1).Value) Or row.Cells(1).Value Is Nothing Then
                     t = ""
                 Else
-                    t = row.Cells(1).Value
+                    t = row.Cells(1).Value.trim
                 End If
 
-                Debug.Print("BanList Add " & s)
-                ' save to Ban List
-                fname.WriteLine(s & "|" & t)
+                ' save back to Ban List
+                If s.Length Or t.Length Then BanListString += s & "=" & t & "|"
+                Debug.Print(s)
+
+                ' ban grid Addresses
+                Dim pattern2 As Regex = New Regex("^https?\:\/\/.*?\:\d+$")
+                Dim match2 As Match = pattern2.Match(s)
+                If match2.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
+                    GridString += s & ","   ' delimiter is a comma for grids
+                    Continue For
+                End If
 
                 ' Ban IP's
                 Dim I As System.Net.IPAddress = Nothing
@@ -106,23 +114,15 @@ Public Class FormBanList
                 End If
 
                 ' ban MAC Addresses with and without caps and :
-                Dim pattern1 As Regex = New Regex("[0-9a-zA-Z:]")
+                Dim pattern1 As Regex = New Regex("^[a-f0-9A-F][a-f0-9A-F][-:]+")
                 Dim match1 As Match = pattern1.Match(s)
-                If match1.Success And s.Length = 32 And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
-                    MACString += s & " "
+                If match1.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
+                    MACString += s & " " ' delimiter is a " " and  not a pipe
                     Continue For
                 End If
 
-                ' ban grid Addresses
-                Dim pattern2 As Regex = New Regex("^http:\/\/\w+:\d+$")
-                Dim match2 As Match = pattern2.Match(s)
-                If match2.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
-                    GridString += s & " "   ' delimiter is a space
-                    Continue For
-                End If
-
-                ' none of the above, must be a viewer
-                If s.Length > 0 And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
+                ' none of the above
+                If s.Length And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
                     ViewerString += s & "|"
                 End If
 
@@ -136,14 +136,27 @@ Public Class FormBanList
                 End If
 
                 ' Ban grids
-                Settings.SetIni("LoginService", "AllowExcept", GridString)
-                Settings.SetIni("UserAgentService", "AllowExcept_Level_200", GridString)
+                If GridString.Length Then
+                    GridString = Mid(GridString, 1, GridString.Length - 1)
+                End If
+                Settings.SetIni("GatekeeperService", "AllowExcept", GridString)
 
                 ' Ban Macs
+                If MACString.Length Then
+                    MACString = Mid(MACString, 1, MACString.Length - 1)
+                End If
                 Settings.SetIni("LoginService", "DeniedMacs", MACString)
                 Settings.SetIni("GatekeeperService", "DeniedMacs", MACString)
 
                 'Ban Viewers
+                If ViewerString.Length Then
+                    ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
+                End If
+                If ViewerString.Length Then
+                    ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
+                End If
+
+
                 Settings.SetIni("AccessControl", "DeniedClients", ViewerString)
 
                 Settings.SaveINI(System.Text.Encoding.UTF8)
@@ -156,13 +169,14 @@ Public Class FormBanList
                     Form1.PropAborting = False
                 End If
             End If
- ' Do not catch general exception types
+            ' Do not catch general exception types
         Catch ex As Exception
- ' Do not catch general exception types
+            ' Do not catch general exception types
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog("Ban List:" & ex.Message)
+            '
         Finally
-            fname.Close()
+            Settings.BanList = BanListString
+            Settings.SaveSettings()
         End Try
 
         Application.DoEvents()
@@ -237,32 +251,58 @@ Public Class FormBanList
 
             table.Locale = CultureInfo.InvariantCulture
 
-            Dim filename As String
+            Dim filename As String = ""
+
             If System.IO.File.Exists(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt") Then
                 filename = Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt"
+                Saveneeded = True
+            ElseIf Settings.BanList.Length Then
+
+                Dim words() = Settings.BanList.Split("|")
+
+                For index As Integer = 0 To words.Length - 1
+                    Dim elems() As String = words(index).Split("="c)
+                    If elems.Length = 1 Then
+                        table.Rows.Add(elems(0).Trim, "")
+                    ElseIf elems.Length = 2 Then
+                        table.Rows.Add(elems(0).Trim, elems(1).Trim)
+                    End If
+                    ' remove all IPs from firewall as they are read - new ones or edited ones will be saved back on clode
+                    Dim I As System.Net.IPAddress = Nothing
+                    If IPAddress.TryParse(elems(0).Trim, I) Then
+                        Firewall.ReleaseIp(elems(0).Trim)
+                        Saveneeded = True
+                    End If
+                Next
             Else
                 filename = Settings.CurrentDirectory & "/Outworldzfiles/Opensim/BanListProto.txt"
             End If
 
-            Dim line As String
-            Using reader As IO.StreamReader = System.IO.File.OpenText(filename)
-                'now loop through each line
-                While reader.Peek <> -1
-                    line = reader.ReadLine()
-                    If line.Length > 1 Then
-                        Dim words() = line.Split("|")
-                        table.Rows.Add(words(0), words(1))
+            If filename.Length Then
+                Dim line As String
+                Using reader As IO.StreamReader = System.IO.File.OpenText(filename)
+                    'now loop through each line
+                    While reader.Peek <> -1
+                        line = reader.ReadLine()
+                        If line.Length > 1 Then
+                            Dim words() = line.Split("|")
+                            table.Rows.Add(words(0), words(1))
 
-                        ' remove all IPs from firewall as they are read - new ones or edited ones will be saved back on clode
-                        Dim I As System.Net.IPAddress = Nothing
-                        If IPAddress.TryParse(words(0), I) Then Firewall.ReleaseIp(words(0))
+                            ' remove all IPs from firewall as they are read - new ones or edited ones will be saved back on clode
+                            Dim I As System.Net.IPAddress = Nothing
+                            If IPAddress.TryParse(words(0), I) Then Firewall.ReleaseIp(words(0))
 
-                    End If
-                End While
-            End Using
+                        End If
+                    End While
+                End Using
+            End If
+
+            ' kill the old file, we store in Settings.ini now.
+            If System.IO.File.Exists(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt") Then
+                My.Computer.FileSystem.DeleteFile(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt")
+            End If
 
             DataGridView1.DataSource = table
-
             DataGridView1.Columns(0).Width = colsize.ColumnWidth(My.Resources.Banned_word, 240)
             DataGridView1.Columns(1).Width = colsize.ColumnWidth(My.Resources.Comment_or_Notes_Word, 500)
  ' Do not catch general exception types

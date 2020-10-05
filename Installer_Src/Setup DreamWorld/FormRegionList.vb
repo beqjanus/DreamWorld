@@ -786,7 +786,7 @@ Public Class RegionList
             Dim RegionName = item.SubItems(1).Text
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                '!!!
+                ' TODO: Needs to be HGV3
                 Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
@@ -1011,10 +1011,7 @@ Public Class RegionList
             Form1.StartRobust()
             Form1.Log("Starting", Form1.PropRegionClass.RegionName(RegionUUID))
 
-            ' Allow these to change w/o rebooting
-            Form1.DoOpensimINI()
-            Form1.DoGloebits()
-            Form1.DoBirds()
+            Form1.PropAborting = False
 
             Form1.Boot(Form1.PropRegionClass, Form1.PropRegionClass.RegionName(RegionUUID))
             Application.DoEvents()
@@ -1061,7 +1058,7 @@ Public Class RegionList
                     ' shut down all regions in the DOS box
                     For Each UUID As String In Form1.PropRegionClass.RegionUUIDListByName(Form1.PropRegionClass.GroupName(RegionUUID))
                         Form1.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                        Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' already shutting down
+                        Form1.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                     Next
                 End If
 

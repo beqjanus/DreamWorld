@@ -81,7 +81,7 @@ namespace UPnPPortForwardManager
             }
             else if (!(protocol.ToLower() == "udp" || protocol.ToLower() == "tcp"))
             {
-                throw new ArgumentException("Invalid Protocol. Accepted values are UPD or TCP.", "protocol");
+                throw new ArgumentException("Invalid Protocol. Accepted values are UDP or TCP.", "protocol");
             }
 
             if (string.IsNullOrEmpty(internalClient))

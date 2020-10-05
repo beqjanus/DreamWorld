@@ -1,0 +1,2640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Aborted_word" xml:space="preserve">
+    <value>سقط</value>
+  </data>
+  <data name="About_word" xml:space="preserve">
+    <value>در باره</value>
+  </data>
+  <data name="Add_Region_word" xml:space="preserve">
+    <value>اضافه کردن منطقه</value>
+  </data>
+  <data name="Add_User_word" xml:space="preserve">
+    <value>اضافه کردن کاربر</value>
+  </data>
+  <data name="Add_word" xml:space="preserve">
+    <value>اضافه کردن</value>
+  </data>
+  <data name="Admin_Password_word" xml:space="preserve">
+    <value>کلمه عبور کاربر admin</value>
+  </data>
+  <data name="Admin_Web_Page_word" xml:space="preserve">
+    <value>محیط مدیریت وب سایت صفحه</value>
+  </data>
+  <data name="Agents_word" xml:space="preserve">
+    <value>عوامل</value>
+  </data>
+  <data name="AllNone_word" xml:space="preserve">
+    <value>همه / هیچ</value>
+  </data>
+  <data name="AllowGodsTooltip" xml:space="preserve">
+    <value>اگر این کادر علامت در تنظیمات&gt; ویرایش، هر کاربری با سطح&gt; = 100 در پانل وب می تواند تبدیل به یک خدا، هر جا. این می تواند مجموعه ای برای مناطق منحصر به فرد اگر به طور پیش فرض در دسترسی است سازمان ملل بررسی می شود، و شما آن را نادیده گرفتن در پانل منطقه با ** اجازه خدایان در این منطقه **. این تنظیم هیچ ربطی به با دو تنظیمات دیگر.</value>
+  </data>
+  <data name="Allow_cloud" xml:space="preserve">
+    <value>ابرها اصلی زندگی دوم</value>
+  </data>
+  <data name="Allow_Items_to_leave_word" xml:space="preserve">
+    <value>اجازه به موارد به ترک</value>
+  </data>
+  <data name="Allow_LSL" xml:space="preserve">
+    <value>اجازه LSL ارتباط با سرور</value>
+  </data>
+  <data name="Allow_objects" xml:space="preserve">
+    <value>اشیاء را می توان از شبکه خود را از طریق Hypergrid گرفته</value>
+  </data>
+  <data name="Allow_Or_Disallow_Gods_word" xml:space="preserve">
+    <value>اجازه خدایان بر اساس سطح</value>
+  </data>
+  <data name="Allow_Region_Owner_Gods_word" xml:space="preserve">
+    <value>اجازه خدایان صاحب منطقه</value>
+  </data>
+  <data name="All_Caches_Cleared_word" xml:space="preserve">
+    <value>همه انبارها پاک</value>
+  </data>
+  <data name="All_Global_Settings_word" xml:space="preserve">
+    <value>همه تنظیمات جهانی</value>
+  </data>
+  <data name="All_Users_All_Sims_word" xml:space="preserve">
+    <value>همه کاربران، همه سیمز</value>
+  </data>
+  <data name="All_word" xml:space="preserve">
+    <value>همه</value>
+  </data>
+  <data name="AlphaNum" xml:space="preserve">
+    <value>آلفا عددی به علاوه علامت منفی و کاراکتر فاصله</value>
+  </data>
+  <data name="Another_Region" xml:space="preserve">
+    <value>این اجازه خواهد داد یک منطقه دیگر در این نقطه قرار می گیرد. ادامه هید؟</value>
+  </data>
+  <data name="ApacheFailed" xml:space="preserve">
+    <value>خدمات موفق به نصب</value>
+  </data>
+  <data name="ApacheNot_Stopping" xml:space="preserve">
+    <value>وب سرور را متوقف نمی کند</value>
+  </data>
+  <data name="ApacheWebServer" xml:space="preserve">
+    <value>سرور وب + جستجو و نقشه</value>
+  </data>
+  <data name="Apache_Disabled" xml:space="preserve">
+    <value>وب سرور فعال نیست</value>
+  </data>
+  <data name="Apache_Exited" xml:space="preserve">
+    <value>آپاچی خارج می شود. آیا شما می خواهید برای دیدن فایل ورود به خطا؟</value>
+  </data>
+  <data name="Apache_Failed" xml:space="preserve">
+    <value>وب سرور قادر به شروع</value>
+  </data>
+  <data name="Apache_has_been_removed" xml:space="preserve">
+    <value>آپاچی به عنوان یک سرویس حذف شده است</value>
+  </data>
+  <data name="Apache_is_Set" xml:space="preserve">
+    <value>وب سرور بندر مجموعه ای است</value>
+  </data>
+  <data name="Apache_running" xml:space="preserve">
+    <value>وب سرور در حال اجرا است</value>
+  </data>
+  <data name="Apache_starting" xml:space="preserve">
+    <value>شروع وب سایت و سرور</value>
+  </data>
+  <data name="Apache_Webserver" xml:space="preserve">
+    <value>وب سرور آپاچی</value>
+  </data>
+  <data name="Apache_word" xml:space="preserve">
+    <value>دزد</value>
+  </data>
+  <data name="Appexception" xml:space="preserve">
+    <value>یک استثنا برنامه رخ داده است. آیا شما می خواهید به تلاش برای ادامه یا لغو / خروج؟</value>
+  </data>
+  <data name="Apply_word" xml:space="preserve">
+    <value>درخواست دادن</value>
+  </data>
+  <data name="Are_You_Sure" xml:space="preserve">
+    <value>مطمئنی؟ پایگاه داده شما از نسخه پشتیبان تهیه rloaded و تمام محتوای موجود جایگزین شده است. آواتار ها، سیمز، موجودی، همه چیز خواهد شد بیش از نوشته شده است.</value>
+  </data>
+  <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
+    <value>آیا شما مطمئن هستید که میخواهید حذف این منطقه؟</value>
+  </data>
+  <data name="Assets_as_Files_word" xml:space="preserve">
+    <value>دارایی ها به عنوان فایل</value>
+  </data>
+  <data name="Asset_Cache_word" xml:space="preserve">
+    <value>دارایی کش</value>
+  </data>
+  <data name="Autobackup_cannot_be_located" xml:space="preserve">
+    <value>پوشه AutoBackup می نمی تواند واقع شود، به طوری که پوشه ای به مقدار پیشفرض بازنشانی بوده است.</value>
+  </data>
+  <data name="Automatic_restart_word" xml:space="preserve">
+    <value>راه اندازی مجدد به صورت خودکار</value>
+  </data>
+  <data name="AutorestartBox" xml:space="preserve">
+    <value>0 - خاموش. چند دقیقه تا زمانی که راه اندازی مجدد خودکار رخ می دهد؟</value>
+  </data>
+  <data name="AutorestartTime" xml:space="preserve">
+    <value>افزایش خودرو راه اندازی مجدد زمان به اجازه پایان پشتیبان گیری از طریق 30 دقیقه پس از راه اندازی مجدد با فاصله</value>
+  </data>
+  <data name="Auto_Backup_word" xml:space="preserve">
+    <value>پشتیبان گیری خودکار</value>
+  </data>
+  <data name="Auto_Restart_word" xml:space="preserve">
+    <value>خودرو راه اندازی مجدد</value>
+  </data>
+  <data name="Auto_Startup_word" xml:space="preserve">
+    <value>راه اندازی به صورت خودکار</value>
+  </data>
+  <data name="Avatars_in_World" xml:space="preserve">
+    <value>آواتار ها در جهان هستند! آیا شما واقعا مایل به ترک؟</value>
+  </data>
+  <data name="Avatars_word" xml:space="preserve">
+    <value>آواتار ها</value>
+  </data>
+  <data name="Avatarview" xml:space="preserve">
+    <value>برای دیدن آواتار را کلیک کنید</value>
+  </data>
+  <data name="Avatar_Bakes_Cache_word" xml:space="preserve">
+    <value>BAKES کش آواتار</value>
+  </data>
+  <data name="Avatar_First_and_Last_Name_word" xml:space="preserve">
+    <value>آواتار و نام خانوادگی</value>
+  </data>
+  <data name="Avatar_Name_word" xml:space="preserve">
+    <value>نام آواتار</value>
+  </data>
+  <data name="Avatar_Password_word" xml:space="preserve">
+    <value>آواتار رمز عبور</value>
+  </data>
+  <data name="Backing_up_Settings_word" xml:space="preserve">
+    <value>تهیه نسخه پشتیبان از تنظیمات</value>
+  </data>
+  <data name="Backup_Custom" xml:space="preserve">
+    <value>پشتیبان گیری سفارشی صفحات وب</value>
+  </data>
+  <data name="Backup_Databases" xml:space="preserve">
+    <value>پایگاه داده پشتیبان گیری</value>
+  </data>
+  <data name="Backup_Data_Files_word" xml:space="preserve">
+    <value>پشتیبان گیری داده ها فایلها</value>
+  </data>
+  <data name="Backup_Folder" xml:space="preserve">
+    <value>پوشه پشتیبان گیری</value>
+  </data>
+  <data name="Backup_FSAssets" xml:space="preserve">
+    <value>پوشه FSAssets پشتیبان گیری</value>
+  </data>
+  <data name="Backup_Mysql" xml:space="preserve">
+    <value>پشتیبان گیری پوشه خروجی زیر داده</value>
+  </data>
+  <data name="Backup_MySQL_Phrase" xml:space="preserve">
+    <value>تهیه نسخه پشتیبان از خروجی \ پوشه داده. لطفا صبر کنید. صفحه نمایش منجمد ظاهر خواهد شد.</value>
+  </data>
+  <data name="Backup_Name" xml:space="preserve">
+    <value>نام پشتیبان گیری</value>
+  </data>
+  <data name="Backup_Region" xml:space="preserve">
+    <value>پشتیبان گیری فایل INI منطقه</value>
+  </data>
+  <data name="Backup_Regions" xml:space="preserve">
+    <value>تهیه نسخه پشتیبان از مناطق پوشه</value>
+  </data>
+  <data name="Backup_Schedule" xml:space="preserve">
+    <value>برای راه اندازی برنامه پشتیبان گیری خود را کلیک کنید</value>
+  </data>
+  <data name="Backup_Settings_word" xml:space="preserve">
+    <value>تنظیمات پشتیبان گیری</value>
+  </data>
+  <data name="Backup_word" xml:space="preserve">
+    <value>پشتیبان گیری</value>
+  </data>
+  <data name="BanList_string" xml:space="preserve">
+    <value>برای راه اندازی شبکه، آدرس MAC و IP ممنوعیت کلیک کنید</value>
+  </data>
+  <data name="Banned_word" xml:space="preserve">
+    <value>ممنوع</value>
+  </data>
+  <data name="Ban_List_word" xml:space="preserve">
+    <value>فهرست بان</value>
+  </data>
+  <data name="Basque_word" xml:space="preserve">
+    <value>باسک</value>
+  </data>
+  <data name="Best_Prims" xml:space="preserve">
+    <value>بهترین (Prims + مش، بسیار کند)</value>
+  </data>
+  <data name="Better_Prims" xml:space="preserve">
+    <value>بهتر (Prims، آهسته)</value>
+  </data>
+  <data name="Birds_word" xml:space="preserve">
+    <value>پرنده ها</value>
+  </data>
+  <data name="Bird_Flock_Size_word" xml:space="preserve">
+    <value>پرنده اندازه گله</value>
+  </data>
+  <data name="Bird_help" xml:space="preserve">
+    <value>برای کمک در پرندگان را کلیک کنید</value>
+  </data>
+  <data name="Bird_Module_word" xml:space="preserve">
+    <value>پرنده ماژول</value>
+  </data>
+  <data name="Bird_Settings_word" xml:space="preserve">
+    <value>تنظیمات پرنده</value>
+  </data>
+  <data name="Black_word" xml:space="preserve">
+    <value>سیاه</value>
+  </data>
+  <data name="Border_Size" xml:space="preserve">
+    <value>اندازه مرز (به طور پیش فرض = 25.0)</value>
+  </data>
+  <data name="BP" xml:space="preserve">
+    <value>فیزیک گلوله در تاپیک جداگانه</value>
+  </data>
+  <data name="Broadcast_Tide_Chat" xml:space="preserve">
+    <value>چت اطلاعات جزر و مد به منطقه تا اسکریپت می توانید با جزر و مد حرکت می کند؟</value>
+  </data>
+  <data name="Broadcast_Tide_Info" xml:space="preserve">
+    <value>پخش جزر و مد اطلاعات</value>
+  </data>
+  <data name="Bullet_Physics_word" xml:space="preserve">
+    <value>فیزیک گلوله</value>
+  </data>
+  <data name="Bullet_Threaded_word" xml:space="preserve">
+    <value>گلوله موضوعی</value>
+  </data>
+  <data name="Bullet_word_NT" xml:space="preserve">
+    <value>گلوله</value>
+  </data>
+  <data name="Busy_word" xml:space="preserve">
+    <value>مشغول</value>
+  </data>
+  <data name="Caches_word" xml:space="preserve">
+    <value>حافظه های پنهان</value>
+  </data>
+  <data name="Cache_Control_word" xml:space="preserve">
+    <value>کنترل کش</value>
+  </data>
+  <data name="Cache_Directory_word" xml:space="preserve">
+    <value>دایرکتوری کش</value>
+  </data>
+  <data name="Cache_Enabled_word" xml:space="preserve">
+    <value>کش را فعال</value>
+  </data>
+  <data name="Cache_Most_Cleared" xml:space="preserve">
+    <value>تمام انبارها سرور به جز اسکریپت و BAKES آواتار پاک شد. Opensim باید به اسکریپت و پخت روشن انبارهای متوقف شد.</value>
+  </data>
+  <data name="Canceled_IAR" xml:space="preserve">
+    <value>بار IAR لغو - باید نام کامل کاربر و رمز عبور استفاده کنید.</value>
+  </data>
+  <data name="Cancelled_word" xml:space="preserve">
+    <value>لغو شد</value>
+  </data>
+  <data name="Cancel_word" xml:space="preserve">
+    <value>لغو کردن</value>
+  </data>
+  <data name="Cannot_find_region_word" xml:space="preserve">
+    <value>نمی توانید پیدا کنید منطقه</value>
+  </data>
+  <data name="Cannot_locate" xml:space="preserve">
+    <value>می توانید بیابید منطقه خوش آمدید پیش فرض را نمی</value>
+  </data>
+  <data name="Cannot_locate_folder_word" xml:space="preserve">
+    <value>نمی توانید بیابید پوشه</value>
+  </data>
+  <data name="Cannot_Normalize" xml:space="preserve">
+    <value>می توانید عادی نه به عنوان یک منطقه بر روی نقشه را در یک مکان کمتر از 0 باشد</value>
+  </data>
+  <data name="Cannot_resolve_word" xml:space="preserve">
+    <value>نمی تواند حل</value>
+  </data>
+  <data name="Cannot_save_region_word" xml:space="preserve">
+    <value>می توانید ذخیره کنید نه منطقه:</value>
+  </data>
+  <data name="Catalan" xml:space="preserve">
+    <value>کاتالان</value>
+  </data>
+  <data name="Category_word" xml:space="preserve">
+    <value>دسته بندی</value>
+  </data>
+  <data name="CenterMap" xml:space="preserve">
+    <value>مرکز نقشه مختصات</value>
+  </data>
+  <data name="Changes_Made" xml:space="preserve">
+    <value>تغییر شده اند ساخته شده است. صرفه جویی؟</value>
+  </data>
+  <data name="Change_Password_word" xml:space="preserve">
+    <value>تغییر رمز عبور</value>
+  </data>
+  <data name="Change_UUID" xml:space="preserve">
+    <value>تغییر UUID تمام داده ها در سیم کارت های قدیمی از دست دادن و ایجاد یک جدید، سیم کارت خالی است. آیا مطمئن هستید که مایل به تغییر UUID؟</value>
+  </data>
+  <data name="Chat_Channel_word" xml:space="preserve">
+    <value>چت کانال</value>
+  </data>
+  <data name="Checking_Apache_service_word" xml:space="preserve">
+    <value>چک کردن سرویس آپاچی</value>
+  </data>
+  <data name="Checking_for_Updates_word" xml:space="preserve">
+    <value>چک کردن برای به روز رسانی</value>
+  </data>
+  <data name="Checking_LAN_Loopback_word" xml:space="preserve">
+    <value>چک کردن شبکه پرونده</value>
+  </data>
+  <data name="Checking_Loopback_word" xml:space="preserve">
+    <value>چک کردن پرونده</value>
+  </data>
+  <data name="Checking_MySql_word" xml:space="preserve">
+    <value>چک کردن خروجی</value>
+  </data>
+  <data name="Checking_Router_word" xml:space="preserve">
+    <value>چک کردن روتر</value>
+  </data>
+  <data name="Check_and_Repair_Database_word" xml:space="preserve">
+    <value>بررسی و تعمیر پایگاه</value>
+  </data>
+  <data name="Check_Diag" xml:space="preserve">
+    <value>چک کردن پورت تشخیص</value>
+  </data>
+  <data name="Check_for_Updates_word" xml:space="preserve">
+    <value>بررسی برای به روز رسانی</value>
+  </data>
+  <data name="Chinese_Simplifed" xml:space="preserve">
+    <value>Simplifed چینی</value>
+  </data>
+  <data name="Chinese_Traditional" xml:space="preserve">
+    <value>سنتی چینی</value>
+  </data>
+  <data name="Choose_a_Folder_word" xml:space="preserve">
+    <value>یک پوشه را انتخاب کنید</value>
+  </data>
+  <data name="Choose_a_Folder_word1" xml:space="preserve">
+    <value>یک پوشه را انتخاب کنید</value>
+  </data>
+  <data name="Choose_Cache" xml:space="preserve">
+    <value>را انتخاب کنید که کش برای خالی</value>
+  </data>
+  <data name="Choose_folder_for_backups" xml:space="preserve">
+    <value>یک پوشه به فروشگاه پشتیبان گیری را انتخاب کنید</value>
+  </data>
+  <data name="Choose_Region_word" xml:space="preserve">
+    <value>انتخاب استان</value>
+  </data>
+  <data name="Choose_Welcome" xml:space="preserve">
+    <value>انتخاب استان قابلی ندارد</value>
+  </data>
+  <data name="Choose_Where" xml:space="preserve">
+    <value>را انتخاب کنید که برای قرار دادن پارو:</value>
+  </data>
+  <data name="ClampSize" xml:space="preserve">
+    <value>گیره پریم حجم: گزینه ای برای اطمینان از هیچ رسمی و خشک می تواند به اندازه مجموعه ای بیش از است</value>
+  </data>
+  <data name="Clamp_Prim_Size_word" xml:space="preserve">
+    <value>گیره پریم حجم</value>
+  </data>
+  <data name="Clearing_Assets" xml:space="preserve">
+    <value>پاکسازی دارایی کش. این ممکن است زمان زیادی ببرد.</value>
+  </data>
+  <data name="Clearing_Bake_Cache_word" xml:space="preserve">
+    <value>پاکسازی پخت کش</value>
+  </data>
+  <data name="Clearing_Image_Cache_word" xml:space="preserve">
+    <value>پاک کردن حافظه پنهان تصویر</value>
+  </data>
+  <data name="Clearing_Map_tiles_word" xml:space="preserve">
+    <value>پاکسازی نقشه کاشی</value>
+  </data>
+  <data name="Clearing_Mesh_Cache_word" xml:space="preserve">
+    <value>پاکسازی مش کش</value>
+  </data>
+  <data name="Clearing_Script" xml:space="preserve">
+    <value>پاکسازی حافظه پنهان اسکریپت. این ممکن است زمان زیادی ببرد.</value>
+  </data>
+  <data name="ClearReg" xml:space="preserve">
+    <value>پاک کردن همه ثبت نام</value>
+  </data>
+  <data name="ClearRegion" xml:space="preserve">
+    <value>پاک کردن لیست منطقه</value>
+  </data>
+  <data name="Clear_and_Load_word" xml:space="preserve">
+    <value>روشن و بار</value>
+  </data>
+  <data name="Clear_Cache_word" xml:space="preserve">
+    <value>پاک کردن حافظه پنهان</value>
+  </data>
+  <data name="Clear_Selected_Caches_word" xml:space="preserve">
+    <value>انبارهای روشن انتخاب</value>
+  </data>
+  <data name="ClickStartStop" xml:space="preserve">
+    <value>برای شروع یا توقف مقاوم کلیک کنید</value>
+  </data>
+  <data name="ClickStartStoptxt" xml:space="preserve">
+    <value>مناطق ممکن است شروع و یا توقف در گروه، بسته به چه مناطق پوشه خود را سازمان یافته است.</value>
+  </data>
+  <data name="Click_2_Choose" xml:space="preserve">
+    <value>برای انتخاب یک گروه کلیک کنید</value>
+  </data>
+  <data name="Click_Birds" xml:space="preserve">
+    <value>برای راه اندازی ماژول پرندگان را کلیک کنید</value>
+  </data>
+  <data name="Click_Caches" xml:space="preserve">
+    <value>به راه اندازی حافظه های پنهان برای اسکریپت ها، دارایی ها، و تصاویر کلیک کنید</value>
+  </data>
+  <data name="Click_Currency" xml:space="preserve">
+    <value>به راه اندازی نرخ ارز را کلیک کنید</value>
+  </data>
+  <data name="Click_Database" xml:space="preserve">
+    <value>به راه اندازی پایگاه کلیک کنید</value>
+  </data>
+  <data name="Click_for_God_Mode" xml:space="preserve">
+    <value>به راه اندازی حالت خدا و مجوز دیگر کلیک کنید</value>
+  </data>
+  <data name="Click_For_Help" xml:space="preserve">
+    <value>کلیک کنید برای راهنما</value>
+  </data>
+  <data name="Click_HG" xml:space="preserve">
+    <value>برای فعال کردن و یا تغییر Hypergrid نام DNS کلیک کنید</value>
+  </data>
+  <data name="Click_Icecast" xml:space="preserve">
+    <value>به راه اندازی تلویزیون / Icecast را کلیک کنید</value>
+  </data>
+  <data name="Click_Maps" xml:space="preserve">
+    <value>به راه اندازی نقشه کلیک کنید</value>
+  </data>
+  <data name="Click_Physics" xml:space="preserve">
+    <value>برای راه اندازی به طور پیش فرض فیزیک را کلیک کنید</value>
+  </data>
+  <data name="Click_Ports" xml:space="preserve">
+    <value>به راه اندازی بنادر خود را کلیک کنید</value>
+  </data>
+  <data name="Click_Publicity" xml:space="preserve">
+    <value>به راه اندازی تبلیغات کلیک کنید Hyperica.com</value>
+  </data>
+  <data name="Click_Regions" xml:space="preserve">
+    <value>به راه اندازی مناطق را کلیک کنید</value>
+  </data>
+  <data name="Click_Restart" xml:space="preserve">
+    <value>به تنظیم شروع / توقف را کلیک کنید</value>
+  </data>
+  <data name="Click_Server" xml:space="preserve">
+    <value>برای انتخاب یک نوع سرور کلیک کنید. پیش فرض = شبکه است، اما شما می توانید به عنوان منطقه سرور، OsGrid یا سرور مترو منطقه اتصال</value>
+  </data>
+  <data name="Click_Start" xml:space="preserve">
+    <value>می توانید تشخیص اجرا کنید مگر اینکه سیستم در حال اجرا است. کلیک کنید "شروع" و دوباره امتحان کنید.</value>
+  </data>
+  <data name="Click_Start_2_Begin" xml:space="preserve">
+    <value>برای شروع کلیک کنید "شروع".</value>
+  </data>
+  <data name="Click_Tides" xml:space="preserve">
+    <value>به راه اندازی جزر و مد را کلیک کنید</value>
+  </data>
+  <data name="Click_to_change_the_folder" xml:space="preserve">
+    <value>برای تغییر پوشه کلیک کنید</value>
+  </data>
+  <data name="Click_to_load" xml:space="preserve">
+    <value>برای بارگذاری این مطلب به این کلیک کنید</value>
+  </data>
+  <data name="Click_To_Load_Here" xml:space="preserve">
+    <value>برای بارگذاری در گوشه سمت چپ پایین تر از فایل را به این مکان کلیک کنید.</value>
+  </data>
+  <data name="Click_to_Request_Voice_Service" xml:space="preserve">
+    <value>به درخواست خدمات صوتی را کلیک کنید</value>
+  </data>
+  <data name="Click_to_View_this_word" xml:space="preserve">
+    <value>به این کلیک کنید</value>
+  </data>
+  <data name="Click_Voice" xml:space="preserve">
+    <value>به راه اندازی Vivox صدای کلیک کنید</value>
+  </data>
+  <data name="Click_Web" xml:space="preserve">
+    <value>به راه اندازی کنترل پنل وب سایت خود را کلیک کنید</value>
+  </data>
+  <data name="Clouds_word" xml:space="preserve">
+    <value>ابرهای</value>
+  </data>
+  <data name="CMS" xml:space="preserve">
+    <value>مدیریت محتوا</value>
+  </data>
+  <data name="Comment_or_Notes_Word" xml:space="preserve">
+    <value>نظر و یا یادداشت</value>
+  </data>
+  <data name="Common_Settings_word" xml:space="preserve">
+    <value>تنظیمات مشترک</value>
+  </data>
+  <data name="Configger" xml:space="preserve">
+    <value>پیکربندی تمام مناطق</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>تایید مورد نیاز برای ورود؟</value>
+  </data>
+  <data name="Consoles_word" xml:space="preserve">
+    <value>کنسول</value>
+  </data>
+  <data name="Consoletext" xml:space="preserve">
+    <value>Opensim دوس جعبه را می توان به طور خودکار به حداقل برسد</value>
+  </data>
+  <data name="Contact_Email_word" xml:space="preserve">
+    <value>تماس با ایمیل</value>
+  </data>
+  <data name="Contact_Info_word" xml:space="preserve">
+    <value>اطلاعات تماس</value>
+  </data>
+  <data name="Contact_Name_word" xml:space="preserve">
+    <value>تماس با نام</value>
+  </data>
+  <data name="Content_Manager_Word" xml:space="preserve">
+    <value>مدیریت محتوا</value>
+  </data>
+  <data name="Content_word" xml:space="preserve">
+    <value>محتوا</value>
+  </data>
+  <data name="Coordx" xml:space="preserve">
+    <value>موقعیت شرق و غرب بر روی نقشه جهان</value>
+  </data>
+  <data name="CoordY" xml:space="preserve">
+    <value>موقعیت North_South بر روی نقشه جهان</value>
+  </data>
+  <data name="CPU_Intensive" xml:space="preserve">
+    <value>پردازنده پشتیبان گیری فشرده آغاز شده</value>
+  </data>
+  <data name="CreateApp" xml:space="preserve">
+    <value>درست برنامه و دریافت کلید</value>
+  </data>
+  <data name="Create_Account" xml:space="preserve">
+    <value>ایجاد حساب تولید</value>
+  </data>
+  <data name="Create_DB" xml:space="preserve">
+    <value>ایجاد یک جدید، پایگاه داده خالی</value>
+  </data>
+  <data name="Create_Sandbox_word" xml:space="preserve">
+    <value>درست گودال ماسهبازی</value>
+  </data>
+  <data name="Creating_INI_Files_word" xml:space="preserve">
+    <value>ایجاد فایل های INI</value>
+  </data>
+  <data name="CSOD" xml:space="preserve">
+    <value>اندازه فعلی بر روی دیسک</value>
+  </data>
+  <data name="Current_Size" xml:space="preserve">
+    <value>اندازه فعلی بر روی دیسک</value>
+  </data>
+  <data name="Custom_word" xml:space="preserve">
+    <value>سفارشی</value>
+  </data>
+  <data name="Cycle_Time_in_seconds" xml:space="preserve">
+    <value>زمان چرخه در ثانیه</value>
+  </data>
+  <data name="Cycle_time_text" xml:space="preserve">
+    <value>چه مدت در ثانیه برای یک زمان چرخه کامل است. کم&gt; بالا&gt; پایین</value>
+  </data>
+  <data name="Czech" xml:space="preserve">
+    <value>کشور چک</value>
+  </data>
+  <data name="Database_Help_word" xml:space="preserve">
+    <value>پایگاه راهنما</value>
+  </data>
+  <data name="Database_Setup_word" xml:space="preserve">
+    <value>پایگاه راه اندازی</value>
+  </data>
+  <data name="Database_word" xml:space="preserve">
+    <value>پایگاه</value>
+  </data>
+  <data name="Data_Folder_word" xml:space="preserve">
+    <value>پوشه داده</value>
+  </data>
+  <data name="DBName_word" xml:space="preserve">
+    <value>نام پایگاه داده</value>
+  </data>
+  <data name="DDNS_In_Use" xml:space="preserve">
+    <value>پویا نام DNS است در حال حاضر استفاده می شود. شاید شما با استفاده از رمز عبور اشتباه است؟</value>
+  </data>
+  <data name="Debug_word" xml:space="preserve">
+    <value>اشکال زدایی</value>
+  </data>
+  <data name="Default_8001_word" xml:space="preserve">
+    <value>پیش فرض 8001</value>
+  </data>
+  <data name="Default_8002_word" xml:space="preserve">
+    <value>پیش فرض 8002</value>
+  </data>
+  <data name="Default_8003_word" xml:space="preserve">
+    <value>پیش فرض 8003</value>
+  </data>
+  <data name="Default_8004_word" xml:space="preserve">
+    <value>پیش فرض 8004</value>
+  </data>
+  <data name="Default_Checked_word" xml:space="preserve">
+    <value>پیش فرض: بررسی</value>
+  </data>
+  <data name="Default_Not_enabled" xml:space="preserve">
+    <value>به طور پیش فرض 'خوش آمدید' منطقه فعال نیست. ادامه هید؟</value>
+  </data>
+  <data name="Default_Region_word" xml:space="preserve">
+    <value>منطقه به طور پیش فرض</value>
+  </data>
+  <data name="Default_Welcome" xml:space="preserve">
+    <value>به طور پیش فرض 'خوش آمدید' منطقه در سیستم یافت نشد. ادامه هید؟</value>
+  </data>
+  <data name="Deleted_word" xml:space="preserve">
+    <value>حذف شده</value>
+  </data>
+  <data name="Delete_word" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="DelMaps" xml:space="preserve">
+    <value>حذف همه نقشه ها</value>
+  </data>
+  <data name="Deregister_All" xml:space="preserve">
+    <value>همه مناطق لغو می</value>
+  </data>
+  <data name="Deregister_word" xml:space="preserve">
+    <value>لغو ثبت</value>
+  </data>
+  <data name="Description_word" xml:space="preserve">
+    <value>شرح</value>
+  </data>
+  <data name="Desired_Separation_word" xml:space="preserve">
+    <value>جدایی مورد نظر (به طور پیش فرض = 5.0)</value>
+  </data>
+  <data name="Details_word" xml:space="preserve">
+    <value>جزئیات</value>
+  </data>
+  <data name="Determines" xml:space="preserve">
+    <value>این تعیین اینکه آیا ماژول هر چیزی</value>
+  </data>
+  <data name="Diags_Failed" xml:space="preserve">
+    <value>تشخیص شکست خورده است. آیا شما می خواهید برای دیدن وارد شوید؟</value>
+  </data>
+  <data name="Diag_Broken" xml:space="preserve">
+    <value>این بندر کار نمی کند. DreamGrid است توسط ویروس و فایروال و یا ضد مسدود شده، بنابراین آیکون های منطقه غیر فعال هستند.</value>
+  </data>
+  <data name="Diag_Port_word" xml:space="preserve">
+    <value>پورت تشخیص</value>
+  </data>
+  <data name="did_not_start_word" xml:space="preserve">
+    <value>شروع نکردند</value>
+  </data>
+  <data name="Disabled_word" xml:space="preserve">
+    <value>معلول</value>
+  </data>
+  <data name="Disable_Foreigners_word" xml:space="preserve">
+    <value>غیر فعال کردن بازدید کنندگان خارجی</value>
+  </data>
+  <data name="Disable_Gloebits_text" xml:space="preserve">
+    <value>Gloebits saetting جهانی نمی خواهد به این منطقه اعمال می شود اگر بررسی می شود.</value>
+  </data>
+  <data name="Disable_Gloebits_word" xml:space="preserve">
+    <value>غیر فعال کردن همه Gloebits</value>
+  </data>
+  <data name="Disable_Residents" xml:space="preserve">
+    <value>غیر فعال کردن همه ساکنان</value>
+  </data>
+  <data name="Disable_Suitcase_txt" xml:space="preserve">
+    <value>این خواهد بود که امنیت کمتری اگر شما چمدان غیر فعال کردن، اما آسان تر به اشیاء REZ در شبکه های خارجی خواهد بود</value>
+  </data>
+  <data name="Disabling_Suitcase" xml:space="preserve">
+    <value>غیر فعال کردن پرسشنامه چمدان در معرض تمام موجودی خود را به دیگر شبکه های. اما از آن آسان به اشیاء را.</value>
+  </data>
+  <data name="Discard_Exit" xml:space="preserve">
+    <value>دور انداختن تمام تغییرات و خروج؟</value>
+  </data>
+  <data name="Diva_Panel_word" xml:space="preserve">
+    <value>سردستهزنان خواننده اپرا پنل</value>
+  </data>
+  <data name="Diva_Wifi_Enabled_word" xml:space="preserve">
+    <value>سردستهزنان خواننده اپرا فای را فعال کنید</value>
+  </data>
+  <data name="DNSNameText" xml:space="preserve">
+    <value>نام DNS یا SomeName.Outworldz.net یا IP</value>
+  </data>
+  <data name="DNS_HG_Name" xml:space="preserve">
+    <value>نام DNS و Hypergrid</value>
+  </data>
+  <data name="DosBoxRunning" xml:space="preserve">
+    <value>یک حمله انکار سرویس جعبه به نام مقاوم در حال اجرا است</value>
+  </data>
+  <data name="DOS_Box_word" xml:space="preserve">
+    <value>DOS جعبه</value>
+  </data>
+  <data name="Do_NotChange" xml:space="preserve">
+    <value>آنها را تغییر ندهید مگر اینکه پایگاه داده ایجاد شده است</value>
+  </data>
+  <data name="Do_Not_Interrupt_word" xml:space="preserve">
+    <value>آیا قطع نکنید!</value>
+  </data>
+  <data name="Do_you_still_want_to_Stop_word" xml:space="preserve">
+    <value>آیا شما هنوز هم می خواهید برای متوقف کردن؟</value>
+  </data>
+  <data name="DreamGrid_word" xml:space="preserve">
+    <value>DreamGrid</value>
+  </data>
+  <data name="Dutch" xml:space="preserve">
+    <value>هلندی</value>
+  </data>
+  <data name="Dynamic_DNS_word" xml:space="preserve">
+    <value>DNS پویا</value>
+  </data>
+  <data name="DynDNS" xml:space="preserve">
+    <value>آدرس DynDNS ثبت</value>
+  </data>
+  <data name="DynDNS_password_word" xml:space="preserve">
+    <value>رمز عبور DynDNS به</value>
+  </data>
+  <data name="EditRegion" xml:space="preserve">
+    <value>ویرایش منطقه</value>
+  </data>
+  <data name="Edit_word" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="Email_word" xml:space="preserve">
+    <value>پست الکترونیک</value>
+  </data>
+  <data name="Email_word1" xml:space="preserve">
+    <value>پست الکترونیک</value>
+  </data>
+  <data name="EMGod" xml:space="preserve">
+    <value>املاک و مدیر خداوند است - مدیران و مستغلات می تواند تبدیل شدن به خدایان، اما فقط برای این املاک</value>
+  </data>
+  <data name="EnableApache" xml:space="preserve">
+    <value>فعال کردن وب سرور آپاچی</value>
+  </data>
+  <data name="Enabled_word" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="EnableOneClickStart_word" xml:space="preserve">
+    <value>فعال کردن شروع با یک کلیک</value>
+  </data>
+  <data name="EnableOther_Word" xml:space="preserve">
+    <value>فعال کردن دیگر</value>
+  </data>
+  <data name="Enable_Birds_word" xml:space="preserve">
+    <value>فعال کردن پرنده ماژول</value>
+  </data>
+  <data name="Enable_Events_word" xml:space="preserve">
+    <value>فعال کردن رویدادهای</value>
+  </data>
+  <data name="Enable_Hypergrid_word" xml:space="preserve">
+    <value>فعال کردن Hypergrid</value>
+  </data>
+  <data name="Enable_Search_word" xml:space="preserve">
+    <value>فعال کردن جستجو</value>
+  </data>
+  <data name="Enable_word" xml:space="preserve">
+    <value>قادر ساختن</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>انگلیسی</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>یک نام وارد کنید برای تهیه پشتیبان خود</value>
+  </data>
+  <data name="Enter_1_2" xml:space="preserve">
+    <value>اولین و آخرین نام کاربری را وارد کنید</value>
+  </data>
+  <data name="Enter_Dos_Name" xml:space="preserve">
+    <value>نام جدید دوس جعبه را وارد کنید</value>
+  </data>
+  <data name="Enter_Name" xml:space="preserve">
+    <value>نام شی را وارد کنید ( '/' همه چیز پشتیبان گیری، و '/ اشیاء / جعبه خواهد تا از جعبه در اشیاء پوشه</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
+    <value>وارد شبکه اطلاعات مالک</value>
+  </data>
+  <data name="Enter_the_Grid_Owner_Information_word1" xml:space="preserve">
+    <value>وارد شبکه اطلاعات مالک</value>
+  </data>
+  <data name="ErrInstall" xml:space="preserve">
+    <value>خطا: DreamGridInstaller.exe نیست راه اندازی.</value>
+  </data>
+  <data name="ErrorLevel0" xml:space="preserve">
+    <value>0 - (خطا) خطاها تنها، نیاز به راه اندازی مجدد</value>
+  </data>
+  <data name="ErrorLevel1" xml:space="preserve">
+    <value>1 - (اطلاعات) آمار نرخ آمار، نیاز به راه اندازی مجدد</value>
+  </data>
+  <data name="ErrorLevel2" xml:space="preserve">
+    <value>2 - (اشکالزدایی) کش فعالیت، نیاز به راه اندازی مجدد</value>
+  </data>
+  <data name="ErrorRegion" xml:space="preserve">
+    <value>خطا: به مجموعه ای از Opensim.ini برای منطقه شکست خورد</value>
+  </data>
+  <data name="Error_Region" xml:space="preserve">
+    <value>خطا: محتویات فایل منطقه درک نمی کنند:</value>
+  </data>
+  <data name="Error_word" xml:space="preserve">
+    <value>خطا</value>
+  </data>
+  <data name="ErrUpdate" xml:space="preserve">
+    <value>خطا: یافت نشد راه اندازی Downloader.exe. شاید شما می توانید آن را به صورت دستی راه اندازی.</value>
+  </data>
+  <data name="EstateManagerIsGod_word" xml:space="preserve">
+    <value>املاک و مدیر خدا است</value>
+  </data>
+  <data name="Estate_word" xml:space="preserve">
+    <value>ملک</value>
+  </data>
+  <data name="Exit__word" xml:space="preserve">
+    <value>خروج</value>
+  </data>
+  <data name="Export_Backup_file_word" xml:space="preserve">
+    <value>صادرات فایل پشتیبان</value>
+  </data>
+  <data name="Export_Permission_word" xml:space="preserve">
+    <value>صادرات اجازه</value>
+  </data>
+  <data name="Export_SQL_file_word" xml:space="preserve">
+    <value>فایل صادرات SQL</value>
+  </data>
+  <data name="External" xml:space="preserve">
+    <value>سرور های خارجی نام میزبان را برای منطقه</value>
+  </data>
+  <data name="External_text" xml:space="preserve">
+    <value>به طور پیش فرض برای میزبان خارجی نام خالی، که نام DNS خود را یا آی پی تبدیل شده است. فقط این مجموعه اگر شما در حال اجرا یک سرور است و هیچ NAT.</value>
+  </data>
+  <data name="FAC" xml:space="preserve">
+    <value>اب اورد دارایی کش</value>
+  </data>
+  <data name="Failed_LAN" xml:space="preserve">
+    <value>برای اتصال به وب سایت ها انجام نشد.</value>
+  </data>
+  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+    <value>برای بارگذاری تنظیمات INI شکست خورده</value>
+  </data>
+  <data name="Fatal_word" xml:space="preserve">
+    <value>کشنده</value>
+  </data>
+  <data name="File_word" xml:space="preserve">
+    <value>فایل</value>
+  </data>
+  <data name="Finished_with_backup_word" xml:space="preserve">
+    <value>در دست اجرا با پشتیبان:</value>
+  </data>
+  <data name="Finnish" xml:space="preserve">
+    <value>فنلاندی</value>
+  </data>
+  <data name="First_name_word" xml:space="preserve">
+    <value>نام کوچک</value>
+  </data>
+  <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
+    <value>نام کوچک</value>
+  </data>
+  <data name="Folder_To_Save_To_word" xml:space="preserve">
+    <value>پوشه برای ذخیره به</value>
+  </data>
+  <data name="FrameRate" xml:space="preserve">
+    <value>نرخ فریم</value>
+  </data>
+  <data name="FrameTime" xml:space="preserve">
+    <value>نرخ فریم (0.0909)</value>
+  </data>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>پوشه برای ذخیره به</value>
+  </data>
+  <data name="FreeName" xml:space="preserve">
+    <value>رایگان DLC</value>
+  </data>
+  <data name="Free_Account" xml:space="preserve">
+    <value>پیش فرض 1/11 ثانیه. به طور پیش فرض 0.0909 است که 1/5 از 55 فریم در ثانیه است</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>کلیک کنید برای دریافت رایگان Gloebits حساب بنابراین شما می توانید خرید و فروش</value>
+  </data>
+  <data name="French" xml:space="preserve">
+    <value>یک DYN نام DNS رایگان</value>
+  </data>
+  <data name="Friendly" xml:space="preserve">
+    <value>فرانسوی</value>
+  </data>
+  <data name="FRText" xml:space="preserve">
+    <value>نام دوستانه این شبکه را</value>
+  </data>
+  <data name="FSA" xml:space="preserve">
+    <value>SL اجرا می شود 55 فریم در ثانیه. Opensim 11 فریم در ثانیه است. به طور پیش فرض = 0.0909، یا 1/11</value>
+  </data>
+  <data name="FSassets" xml:space="preserve">
+    <value>دارایی ها به عنوان فایل</value>
+  </data>
+  <data name="FSassets_Server_word" xml:space="preserve">
+    <value>فایل پایگاه داده های سیستم دارایی</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>FsAssets سرور</value>
+  </data>
+  <data name="German" xml:space="preserve">
+    <value>آلمانی</value>
+  </data>
+  <data name="Getting_regions_word" xml:space="preserve">
+    <value>تنظیمات کلی پرنده به این منطقه اعمال خواهد شد</value>
+  </data>
+  <data name="GlobalSettings_word" xml:space="preserve">
+    <value>تنظیمات جزر و مد جهانی</value>
+  </data>
+  <data name="Global_Settings_word" xml:space="preserve">
+    <value>تنظیمات جهانی</value>
+  </data>
+  <data name="Global_Tide_Settings_word" xml:space="preserve">
+    <value>مناطق گرفتن</value>
+  </data>
+  <data name="Gloebits_Currency_word" xml:space="preserve">
+    <value>تنظیمات جهانی</value>
+  </data>
+  <data name="Good_Warp3D_word" xml:space="preserve">
+    <value>Gloebits ارز</value>
+  </data>
+  <data name="Greek" xml:space="preserve">
+    <value>یونانی</value>
+  </data>
+  <data name="Grid_Address_is_word" xml:space="preserve">
+    <value>خوب (Warp3D)</value>
+  </data>
+  <data name="Grid_Address_text" xml:space="preserve">
+    <value>شما می توانید این آدرس را به مردم می دهد و آنها می توانید شبکه خود مراجعه کنید</value>
+  </data>
+  <data name="Grid_address_word" xml:space="preserve">
+    <value>آدرس شبکه</value>
+  </data>
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
+    <value>شما می توانید این آدرس را به مردم می دهد و آنها می توانید شبکه خود مراجعه کنید</value>
+  </data>
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
+    <value>شبکه سرور با قوی</value>
+  </data>
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+    <value>شبکه TCP Port را تعیین است</value>
+  </data>
+  <data name="Group_word" xml:space="preserve">
+    <value>گروه</value>
+  </data>
+  <data name="GTide" xml:space="preserve">
+    <value>شبکه UDP پورت مجموعه ای است</value>
+  </data>
+  <data name="Has_Been_DL" xml:space="preserve">
+    <value>به روز رسانی در دسترس است. آیا شما می خواهید برای خروج DreamGrid و نصب به روز رسانی؟</value>
+  </data>
+  <data name="Hebrew" xml:space="preserve">
+    <value>عبری</value>
+  </data>
+  <data name="Help_Console" xml:space="preserve">
+    <value>راهنما بر روی کنسول دستورات</value>
+  </data>
+  <data name="Help_Console_text" xml:space="preserve">
+    <value>ویکی صفحه در دستورات کنسول</value>
+  </data>
+  <data name="Help_Forward" xml:space="preserve">
+    <value>کمک در بندر حمل و نقل</value>
+  </data>
+  <data name="Help_Forward_text" xml:space="preserve">
+    <value>وب راهنما برای بندر حمل و نقل</value>
+  </data>
+  <data name="Help_Godmodes" xml:space="preserve">
+    <value>برای کمک در حالت خدا را کلیک کنید</value>
+  </data>
+  <data name="Help_IARS_text" xml:space="preserve">
+    <value>ویکی صفحه در IAR است</value>
+  </data>
+  <data name="Help_Loopback_Text" xml:space="preserve">
+    <value>چگونه به رفع loopback در ویندوز</value>
+  </data>
+  <data name="Help_Manuals_word" xml:space="preserve">
+    <value>راهنما دفترچه راهنما</value>
+  </data>
+  <data name="Help_OARS" xml:space="preserve">
+    <value>کمک در بدلس</value>
+  </data>
+  <data name="Help_OARS_text" xml:space="preserve">
+    <value>ویکی صفحه در بدلس</value>
+  </data>
+  <data name="Help_On_IARS_word" xml:space="preserve">
+    <value>کمک در IARS</value>
+  </data>
+  <data name="Help_On_LoopBack_word" xml:space="preserve">
+    <value>کمک در خط</value>
+  </data>
+  <data name="Help_Startup" xml:space="preserve">
+    <value>کمک در راه اندازی اولین بار</value>
+  </data>
+  <data name="Help_Technical" xml:space="preserve">
+    <value>راهنما با اطلاعات فنی</value>
+  </data>
+  <data name="Help_Technical_text" xml:space="preserve">
+    <value>خرافات فنی در مورد نحوه پیکربندی چیز</value>
+  </data>
+  <data name="Help_Troubleshooting_word" xml:space="preserve">
+    <value>راهنما عیب یابی</value>
+  </data>
+  <data name="Help_word" xml:space="preserve">
+    <value>کمک</value>
+  </data>
+  <data name="HG_Failed" xml:space="preserve">
+    <value>Hypergrid تشخیص شکست خورده است. این می تواند دوباره اجرا در هر زمان. مشاهده راهنما&gt; تشخیص شبکه '،' دور برگردان »و« بندر مهاجمان:</value>
+  </data>
+  <data name="HG_Works" xml:space="preserve">
+    <value>Hypergrid باید کار شود.</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>مخفی کردن مناطق که به پایان رسید</value>
+  </data>
+  <data name="Hide_Allways_word" xml:space="preserve">
+    <value>همیشه مخفی کردن مناطق</value>
+  </data>
+  <data name="Highest_Used_word" xml:space="preserve">
+    <value>بالاترین استفاده می شود:</value>
+  </data>
+  <data name="High_Water_Level" xml:space="preserve">
+    <value>سطح آب بالا</value>
+  </data>
+  <data name="High_Water_Level_text" xml:space="preserve">
+    <value>بالای آب در متر</value>
+  </data>
+  <data name="Home_word" xml:space="preserve">
+    <value>خانه</value>
+  </data>
+  <data name="Hours_word" xml:space="preserve">
+    <value>ساعت ها</value>
+  </data>
+  <data name="How_Close" xml:space="preserve">
+    <value>چگونه نزدیک به لبه از همه چیز می توان از بدون نگرانی؟</value>
+  </data>
+  <data name="How_Far" xml:space="preserve">
+    <value>چگونه دور از پرندگان دیگر ما دوست داریم که به ماندن؟</value>
+  </data>
+  <data name="How_Far_Travel" xml:space="preserve">
+    <value>تا چه حد در متر هر پرنده می تواند در هر به روز رسانی سفر؟</value>
+  </data>
+  <data name="How_High" xml:space="preserve">
+    <value>چگونه بالا اجازه داریم که گله؟</value>
+  </data>
+  <data name="How_Long" xml:space="preserve">
+    <value>چه مدت برای حفظ پشتیبان گیری. قدیمی ترین بعد از این زمان در روز حذف،</value>
+  </data>
+  <data name="How_Long_runs" xml:space="preserve">
+    <value>چه مدت Opensim اجرا می شود قبل از پشتیبان گیری خودکار رخ می دهد</value>
+  </data>
+  <data name="How_Many_Avatars" xml:space="preserve">
+    <value>چگونه بسیاری از آواتار ها + پتروشیمی را می توانید در یک منطقه می شود قبل از این منطقه به عنوان کامل نشان داده شده است. ارزش واقعی است که در تنظیمات و مستغلات در بیننده تنظیم شده است.</value>
+  </data>
+  <data name="Http_Port_word" xml:space="preserve">
+    <value>HTTP پورت</value>
+  </data>
+  <data name="Hypergrid" xml:space="preserve">
+    <value>Hypergrid نام DNS</value>
+  </data>
+  <data name="Hypergrid_word" xml:space="preserve">
+    <value>Hypergrid</value>
+  </data>
+  <data name="IAR_Load_and_Save_word" xml:space="preserve">
+    <value>بار IAR و ذخیره</value>
+  </data>
+  <data name="Icecast_Desc" xml:space="preserve">
+    <value>IceCast به شما اجازه می دهد جریان موسیقی را به سیم کارت خود را. موسیقی URL:</value>
+  </data>
+  <data name="IceCast_disabled" xml:space="preserve">
+    <value>IceCast به غیر فعال است</value>
+  </data>
+  <data name="Icecast_Exited" xml:space="preserve">
+    <value>IceCast به خارج می شود. آیا شما می خواهید برای دیدن فایل ورود به خطا؟</value>
+  </data>
+  <data name="Icecast_failed" xml:space="preserve">
+    <value>IceCast به شروع نکردند</value>
+  </data>
+  <data name="icecast_help" xml:space="preserve">
+    <value>برای راهنما را کلیک کنید در راه اندازی IceCast به</value>
+  </data>
+  <data name="Icecast_is_Set" xml:space="preserve">
+    <value>IceCast به Port تنظیم است</value>
+  </data>
+  <data name="IceCast_Server_word" xml:space="preserve">
+    <value>IceCast به سرور</value>
+  </data>
+  <data name="Icecast_Started_word" xml:space="preserve">
+    <value>IceCast به آغاز</value>
+  </data>
+  <data name="Icecast_starting" xml:space="preserve">
+    <value>شروع IceCast به</value>
+  </data>
+  <data name="Icecast_word" xml:space="preserve">
+    <value>IceCast به</value>
+  </data>
+  <data name="Icelandic" xml:space="preserve">
+    <value>ایسلندی</value>
+  </data>
+  <data name="Icons_word" xml:space="preserve">
+    <value>آیکن</value>
+  </data>
+  <data name="If_Enabled_Save_Oars" xml:space="preserve">
+    <value>آیکن</value>
+  </data>
+  <data name="Ignore_Parcel_word" xml:space="preserve">
+    <value>نادیده گرفتن بسته</value>
+  </data>
+  <data name="Ignore_Terrain_word" xml:space="preserve">
+    <value>نادیده گرفتن عوارض زمین</value>
+  </data>
+  <data name="Image_Cache_word" xml:space="preserve">
+    <value>کش تصویر</value>
+  </data>
+  <data name="Importtext" xml:space="preserve">
+    <value>وارد کردن فایل های INI منطقه</value>
+  </data>
+  <data name="Import_word" xml:space="preserve">
+    <value>وارد كردن</value>
+  </data>
+  <data name="Incoming_Works" xml:space="preserve">
+    <value>ورودی Hypergrid کارگر است</value>
+  </data>
+  <data name="Increasing_time_to_word" xml:space="preserve">
+    <value>افزایش زمان به</value>
+  </data>
+  <data name="Information_word" xml:space="preserve">
+    <value>اطلاعات</value>
+  </data>
+  <data name="Info_word" xml:space="preserve">
+    <value>اطلاعات</value>
+  </data>
+  <data name="INI_Filter" xml:space="preserve">
+    <value>فایل های ini (* .INI) | * .INI | تمام فایل (*. *) | *. *</value>
+  </data>
+  <data name="InstallRuntime" xml:space="preserve">
+    <value>نصب C ++ زمان های اجرا</value>
+  </data>
+  <data name="Install_Icon" xml:space="preserve">
+    <value>نصب آیکون دسکتاپ</value>
+  </data>
+  <data name="Install_word" xml:space="preserve">
+    <value>نصب</value>
+  </data>
+  <data name="Internet_address" xml:space="preserve">
+    <value>آدرس اینترنتی</value>
+  </data>
+  <data name="Interval_word" xml:space="preserve">
+    <value>فاصله</value>
+  </data>
+  <data name="IPV4_Address_word" xml:space="preserve">
+    <value>آدرس IPv4</value>
+  </data>
+  <data name="Irish" xml:space="preserve">
+    <value>ایرلندی</value>
+  </data>
+  <data name="isLoading" xml:space="preserve">
+    <value>Opensim در حال بارگذاری است مورد شما. شما آن را در پیدا</value>
+  </data>
+  <data name="Issue_Commands" xml:space="preserve">
+    <value>صدور کنسول دستورات</value>
+  </data>
+  <data name="is_already_running_word" xml:space="preserve">
+    <value>در حال حاضر در حال اجرا</value>
+  </data>
+  <data name="is_Off_word" xml:space="preserve">
+    <value>خاموش است</value>
+  </data>
+  <data name="Is_Shown" xml:space="preserve">
+    <value>Opensimulator کنسول نشان داده خواهد شد که Opensim حال اجرا است.</value>
+  </data>
+  <data name="Items_word" xml:space="preserve">
+    <value>موارد</value>
+  </data>
+  <data name="JobEngine_word" xml:space="preserve">
+    <value>موتور های شغلی</value>
+  </data>
+  <data name="Just_one_region_word" xml:space="preserve">
+    <value>فقط یک منطقه</value>
+  </data>
+  <data name="Keep_for_Days_word" xml:space="preserve">
+    <value>برای روز نگه دارید</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>زبان</value>
+  </data>
+  <data name="LAN_IP" xml:space="preserve">
+    <value>شما با استفاده از آی پی های شبکه. این تست نادیده گرفته است.</value>
+  </data>
+  <data name="LargeMap" xml:space="preserve">
+    <value>نقشه مترو بزرگ</value>
+  </data>
+  <data name="Last_Name_Word" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="Last_Name_word1" xml:space="preserve">
+    <value>نام خانوادگی</value>
+  </data>
+  <data name="ListAvatars" xml:space="preserve">
+    <value>مشاهده لیستی از آواتار ها</value>
+  </data>
+  <data name="Loading_Settings" xml:space="preserve">
+    <value>در حال بارگذاری Settings.ini</value>
+  </data>
+  <data name="Load_Bird_IAR_word" xml:space="preserve">
+    <value>بار پرنده IAR</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory" xml:space="preserve">
+    <value>بار پرسشنامه رایگان آواتار</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_text" xml:space="preserve">
+    <value>IARS بار از وب سایت Outworldz</value>
+  </data>
+  <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
+    <value>بار رایگان آواتار پرسشنامه (WWW)</value>
+  </data>
+  <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
+    <value>بار رایگان DreamGrid پارو (WWW)</value>
+  </data>
+  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
+    <value>بار رایگان Dreamworld بدلس</value>
+  </data>
+  <data name="Load_Inventory_IAR" xml:space="preserve">
+    <value>IAR پرسشنامه بار</value>
+  </data>
+  <data name="Load_Local_IARs" xml:space="preserve">
+    <value>بار IARS محلی از پوشه IAR</value>
+  </data>
+  <data name="Load_Local_IARs_word" xml:space="preserve">
+    <value>بار IARS محلی</value>
+  </data>
+  <data name="Load_Local_OARs" xml:space="preserve">
+    <value>بار پارو محلی از پوشه پارو</value>
+  </data>
+  <data name="Load_Local_OARs_word" xml:space="preserve">
+    <value>بار پارو محلی</value>
+  </data>
+  <data name="Load_Parcel" xml:space="preserve">
+    <value>بار بسته</value>
+  </data>
+  <data name="Load_Region_OAR" xml:space="preserve">
+    <value>بار منطقه پارو</value>
+  </data>
+  <data name="Load_Terrain" xml:space="preserve">
+    <value>عوارض زمین بار</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>محلی</value>
+  </data>
+  <data name="Local_Grid" xml:space="preserve">
+    <value>Local_Grid</value>
+  </data>
+  <data name="Local_Search" xml:space="preserve">
+    <value>جستجوی محلی</value>
+  </data>
+  <data name="Logging_word" xml:space="preserve">
+    <value>ورود به سیستم</value>
+  </data>
+  <data name="Log_Level" xml:space="preserve">
+    <value>سطح ورود</value>
+  </data>
+  <data name="Loopback_Failed" xml:space="preserve">
+    <value>آزمون پرونده ناموفق بود. آدرس وب پاسخ نمی دهند.</value>
+  </data>
+  <data name="Loopback_Help" xml:space="preserve">
+    <value>دور برگردان راهنما</value>
+  </data>
+  <data name="Loopback_Passed" xml:space="preserve">
+    <value>آزمون پرونده گذشت برای بندر</value>
+  </data>
+  <data name="Low_High" xml:space="preserve">
+    <value>علائم کم و زیاد آب در متر</value>
+  </data>
+  <data name="Low_Water_Level" xml:space="preserve">
+    <value>سطح آب پایین</value>
+  </data>
+  <data name="LSL_Allow" xml:space="preserve">
+    <value>اسکریپت LSL نمی تواند برسد دیگر کامپیوتر های شبکه است. اگر شما این را روشن، آنها می توانند پورت در شبکه خود را بر روی هر کامپیوتر دسترسی داشته باشید. این خطرناک است!</value>
+  </data>
+  <data name="MAC_Address_word" xml:space="preserve">
+    <value>مک آدرس</value>
+  </data>
+  <data name="Make_a_backup_word" xml:space="preserve">
+    <value>یک نسخه پشتیبان تهیه.</value>
+  </data>
+  <data name="Manager_God_word" xml:space="preserve">
+    <value>یک نسخه پشتیبان تهیه.</value>
+  </data>
+  <data name="Maps_Erased" xml:space="preserve">
+    <value>تمام قطعات نقشه پاک شده اند. مجموعه ای از تنظیمات بر روی نقشه و راه اندازی مجدد به نقشه های جدید</value>
+  </data>
+  <data name="Maps_word" xml:space="preserve">
+    <value>نقشه ها</value>
+  </data>
+  <data name="Mapx" xml:space="preserve">
+    <value>نقشه مختصات: X</value>
+  </data>
+  <data name="Map_Center_Location_word" xml:space="preserve">
+    <value>نقشه مرکز محل سکونت:</value>
+  </data>
+  <data name="Max4096" xml:space="preserve">
+    <value>حداکثر 4096</value>
+  </data>
+  <data name="Max_Accel" xml:space="preserve">
+    <value>بیشینه شتاب مجاز به سرعت در حال حاضر از پرنده</value>
+  </data>
+  <data name="Max_Agents" xml:space="preserve">
+    <value>چگونه بسیاری از آواتار ها + پتروشیمی را می توانید در یک منطقه می شود قبل از این منطقه به عنوان کامل نشان داده شده است. ارزش واقعی است که در تنظیمات و مستغلات در بیننده تنظیم شده است.</value>
+  </data>
+  <data name="Max_Avatars" xml:space="preserve">
+    <value>حداکثر تعداد آواتار ها + NPC ها</value>
+  </data>
+  <data name="Max_Dist" xml:space="preserve">
+    <value>حداکثر فاصله برای پرندگان دیگر را به در همان گله در نظر گرفته شود</value>
+  </data>
+  <data name="Max_Force" xml:space="preserve">
+    <value>حداکثر فاصله برای پرندگان دیگر را به در همان گله در نظر گرفته شود</value>
+  </data>
+  <data name="Max_Height" xml:space="preserve">
+    <value>حداکثر ارتفاع (به طور پیش فرض = 45.0)</value>
+  </data>
+  <data name="Max_NonPhys" xml:space="preserve">
+    <value>256 متر در طوفان. 1500 متر با تکینگی است. شما می توانید یک رسمی و خشک به طور منظم بزرگتر از این را</value>
+  </data>
+  <data name="Max_NumPrims" xml:space="preserve">
+    <value>حداکثر تعداد Prims در یک بسته</value>
+  </data>
+  <data name="Max_Phys" xml:space="preserve">
+    <value>شما می توانید یک رسمی و خشک فیزیکی بزرگتر از این را</value>
+  </data>
+  <data name="Max_PrimLimit" xml:space="preserve">
+    <value>این خواهد شد تعدادی از prims در یک بسته محدود می کند. هیچ محدودیتی به جز حافظه وجود دارد که غیر فعال است.</value>
+  </data>
+  <data name="Max_Prims" xml:space="preserve">
+    <value>فعال کردن محدودیت MAXPRIMS</value>
+  </data>
+  <data name="Max_Speed" xml:space="preserve">
+    <value>حداکثر سرعت (به طور پیش فرض = 1.0)</value>
+  </data>
+  <data name="Merge_OAR_word" xml:space="preserve">
+    <value>حداکثر 4096</value>
+  </data>
+  <data name="Merge_Objects_word" xml:space="preserve">
+    <value>پارو ادغام</value>
+  </data>
+  <data name="Mesh_Cache_word" xml:space="preserve">
+    <value>مش کش</value>
+  </data>
+  <data name="Message_sent_word" xml:space="preserve">
+    <value>پیغام فرستاده شد</value>
+  </data>
+  <data name="MetroOrg" xml:space="preserve">
+    <value>Hypergrid.org منطقه سرور</value>
+  </data>
+  <data name="Minutes_word" xml:space="preserve">
+    <value>دقایق</value>
+  </data>
+  <data name="Mode_word" xml:space="preserve">
+    <value>حالت</value>
+  </data>
+  <data name="Modules_word" xml:space="preserve">
+    <value>ماژول</value>
+  </data>
+  <data name="More_Free_Islands" xml:space="preserve">
+    <value>بیشتر جزایر رایگان و قطعات</value>
+  </data>
+  <data name="More_Free_Islands_and_Parts_word" xml:space="preserve">
+    <value>بیشتر جزایر رایگان و قطعات (WWW)</value>
+  </data>
+  <data name="More_Help" xml:space="preserve">
+    <value>برای راهنمایی بیشتر در وب سایت کلیک کنید</value>
+  </data>
+  <data name="MustHaveName" xml:space="preserve">
+    <value>باید یک نام از یک آیتم موجودی</value>
+  </data>
+  <data name="MustX" xml:space="preserve">
+    <value>باید آن را همان X باشد</value>
+  </data>
+  <data name="MustY" xml:space="preserve">
+    <value>باید همان عنوان Y باشد</value>
+  </data>
+  <data name="Must_be_A_Number" xml:space="preserve">
+    <value>باید یک عدد باشد</value>
+  </data>
+  <data name="Must_PNG" xml:space="preserve">
+    <value>باید یک فایل PNG می باشد</value>
+  </data>
+  <data name="MySqlPort_word" xml:space="preserve">
+    <value>خروجی بندر</value>
+  </data>
+  <data name="MySql_Exited" xml:space="preserve">
+    <value>خروجی خارج می شود. آیا شما می خواهید برای دیدن فایل ورود به خطا؟</value>
+  </data>
+  <data name="Mysql_Failed" xml:space="preserve">
+    <value>پایگاه داده شروع نکردند. آیا شما می خواهید برای دیدن فایل ورود به سیستم؟</value>
+  </data>
+  <data name="Mysql_is_Running" xml:space="preserve">
+    <value>خروجی زیر در حال اجرا است</value>
+  </data>
+  <data name="MySQL_Port_Default" xml:space="preserve">
+    <value>به طور پیش فرض = 3306</value>
+  </data>
+  <data name="Mysql_Starting" xml:space="preserve">
+    <value>شروع پایگاه داده MySQL</value>
+  </data>
+  <data name="MySQL_Was_Running" xml:space="preserve">
+    <value>MySQL در حال اجرا بود که من آغاز شد، به طوری که من می روم خروجی زیر بر روی هستم.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="NameAlreadySet" xml:space="preserve">
+    <value>سیستم شما نام Hypergrid بازنشانی شده است. شما می توانید نام در راه اندازی-تنظیمات&gt; منوی DNS تغییر</value>
+  </data>
+  <data name="Name_of_Region_Word" xml:space="preserve">
+    <value>نام منطقه</value>
+  </data>
+  <data name="Neighbor_Distance" xml:space="preserve">
+    <value>همسایه فاصله (به طور پیش فرض = 25.0)</value>
+  </data>
+  <data name="Network_Change" xml:space="preserve">
+    <value>تغییر شبکه رخ داد. راه اندازی مجدد ممکن است لازم باشد.</value>
+  </data>
+  <data name="Network_Diagnostics" xml:space="preserve">
+    <value>تشخیص شبکه</value>
+  </data>
+  <data name="Network_Diagnostics_text" xml:space="preserve">
+    <value>اجرا تشخیص نصب</value>
+  </data>
+  <data name="Network_Ports" xml:space="preserve">
+    <value>پورت شبکه</value>
+  </data>
+  <data name="New_Content" xml:space="preserve">
+    <value>محتوای جدید در حال بارگذاری است</value>
+  </data>
+  <data name="New_is_Done" xml:space="preserve">
+    <value>مطالب جدید فقط لود</value>
+  </data>
+  <data name="New_User_Home" xml:space="preserve">
+    <value>کاربر جدید صفحه اصلی X، Y، Z</value>
+  </data>
+  <data name="Next1" xml:space="preserve">
+    <value>بعد</value>
+  </data>
+  <data name="Next_Name" xml:space="preserve">
+    <value>نام بعدی</value>
+  </data>
+  <data name="Nobody_Online" xml:space="preserve">
+    <value>هیچ شخص آنلاین است</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>هیچ یک</value>
+  </data>
+  <data name="Nonphysical_Prim" xml:space="preserve">
+    <value>غیر فیزیکی اندازه پریم</value>
+  </data>
+  <data name="NormalizeRegions" xml:space="preserve">
+    <value>عادی مناطق</value>
+  </data>
+  <data name="Normally_Set" xml:space="preserve">
+    <value>به طور معمول به OutworldzFiles / AutoBackup می پوشه با 'AutoBackup می، تنظیم شده است. برای تغییر پوشه کلیک کنید.</value>
+  </data>
+  <data name="Normal_Prim" xml:space="preserve">
+    <value>شما می توانید یک رسمی و خشک به طور منظم بزرگتر از این است.</value>
+  </data>
+  <data name="Norwegian" xml:space="preserve">
+    <value>نروژی</value>
+  </data>
+  <data name="Notify_Email" xml:space="preserve">
+    <value>آگاه کن ایمیل</value>
+  </data>
+  <data name="NotValidUUID" xml:space="preserve">
+    <value>نه یک UUID معتبر است. آیا می خواهید یک جدید، تصادفی UUID؟</value>
+  </data>
+  <data name="Not_Forwarded" xml:space="preserve">
+    <value>به طور معمول به OutworldzFiles / AutoBackup می پوشه با 'AutoBackup می، تنظیم شده است. برای تغییر پوشه کلیک کنید.</value>
+  </data>
+  <data name="Not_Normal" xml:space="preserve">
+    <value>این به نظر نمی رسد در روتر خود را به این دستگاه فرستاده می شود، به طوری که Hypergrid در دسترس نیست. این احتمالا می تواند توسط "بندر مهاجمان در روتر خود را ثابت شود. راهنما&gt; بندر مهاجمان را مشاهده کنید.</value>
+  </data>
+  <data name="Not_Running" xml:space="preserve">
+    <value>Opensim حال اجرا نیست.</value>
+  </data>
+  <data name="Not_Shown" xml:space="preserve">
+    <value>Opensimulator کنسول نشان داده نمی شود. شما هنوز هم می توانید با آن ارتباط برقرار کردن با راهنما&gt; Opensim کنسول</value>
+  </data>
+  <data name="No_Autobackup" xml:space="preserve">
+    <value>بدون AutoBackup می</value>
+  </data>
+  <data name="No_Avatars" xml:space="preserve">
+    <value>بدون آواتار ها</value>
+  </data>
+  <data name="no_Default_sim" xml:space="preserve">
+    <value>ممکن است به سیم به طور پیش فرض برای بازدید کنندگان تنظیم نشده است. مشاهده مناطق پنل.</value>
+  </data>
+  <data name="No_HG" xml:space="preserve">
+    <value>بازدید کنندگان بدون Hypergrid خواهد شد در این منطقه اجازه</value>
+  </data>
+  <data name="No_Locate_FSassets" xml:space="preserve">
+    <value>می توانید پوشه FSasset یافت نشد:</value>
+  </data>
+  <data name="No_Publish_Items" xml:space="preserve">
+    <value>هنوز این منطقه منتشر نمی</value>
+  </data>
+  <data name="No_Regions_Ready" xml:space="preserve">
+    <value>بدون مناطق آماده هستند، بنابراین می توانید IAR "را بارگیری کند</value>
+  </data>
+  <data name="NTSuspend" xml:space="preserve">
+    <value>خطا: یافت نشد راه اندازی NtSuspendProcess64.exe.</value>
+  </data>
+  <data name="Num_Birds" xml:space="preserve">
+    <value>تعدادی از پرندگان به گله</value>
+  </data>
+  <data name="NVMaxAgents" xml:space="preserve">
+    <value>یک عدد Maximujm معتبر از نمایندگی ارزش. باید بیشتر از 0 باشد.</value>
+  </data>
+  <data name="NVMaxPrim" xml:space="preserve">
+    <value>معتبر حداکثر پریم ارزش. باید بیشتر از 0 باشد.</value>
+  </data>
+  <data name="NVNonPhysPrim" xml:space="preserve">
+    <value>معتبر غیر فیزیکی پریم حداکثر ارزش. باید بیشتر از 0 باشد</value>
+  </data>
+  <data name="NVPhysPrim" xml:space="preserve">
+    <value>معتبر رسمی و خشک فیزیکی حداکثر ارزش. باید بیشتر از 0 باشد.</value>
+  </data>
+  <data name="Oar_Files_text" xml:space="preserve">
+    <value>فایل های پشتیبان گیری از پارو کل جزایر هستند</value>
+  </data>
+  <data name="OAR_Load_and_Save" xml:space="preserve">
+    <value>بار پارو و ذخیره</value>
+  </data>
+  <data name="OAR_load_save_backupp_word" xml:space="preserve">
+    <value>پارو بارگذاری، ذخیره و پشتیبان گیری</value>
+  </data>
+  <data name="Object_Path" xml:space="preserve">
+    <value>مسیر شی و نام</value>
+  </data>
+  <data name="Object_Path_and_name" xml:space="preserve">
+    <value>مسیر شی و نام</value>
+  </data>
+  <data name="ODE_text" xml:space="preserve">
+    <value>گسترش دینامیک</value>
+  </data>
+  <data name="ODE_word_NT" xml:space="preserve">
+    <value>گسترش دینامیک</value>
+  </data>
+  <data name="Off" xml:space="preserve">
+    <value>خاموش</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>آفلاین</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>خوب</value>
+  </data>
+  <data name="OneAvatar" xml:space="preserve">
+    <value>یکی نماد وجود دارد</value>
+  </data>
+  <data name="One_region" xml:space="preserve">
+    <value>خوب</value>
+  </data>
+  <data name="Only_Owners" xml:space="preserve">
+    <value>فقط مدیران صاحبان و املاک خواهد شد در این منطقه اجازه</value>
+  </data>
+  <data name="Opensimulator_is_loading" xml:space="preserve">
+    <value>پورت های باز روتر با استفاده از یونیورسال پلاگین و بازی</value>
+  </data>
+  <data name="Open_Router_Ports" xml:space="preserve">
+    <value>فقط مدیران صاحبان و املاک خواهد شد در این منطقه اجازه</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opensimulator بارگذاری است</value>
+  </data>
+  <data name="ors" xml:space="preserve">
+    <value>یا:</value>
+  </data>
+  <data name="OSGrid_Region_Server" xml:space="preserve">
+    <value>OSGrid منطقه سرور</value>
+  </data>
+  <data name="OverridesMap" xml:space="preserve">
+    <value>باطل نقشه تنظیمات جهانی برای این منطقه</value>
+  </data>
+  <data name="Owner_God" xml:space="preserve">
+    <value>صاحب خدا</value>
+  </data>
+  <data name="Parcels" xml:space="preserve">
+    <value>بسته</value>
+  </data>
+  <data name="Passed_LAN" xml:space="preserve">
+    <value>بسته</value>
+  </data>
+  <data name="Password_Text" xml:space="preserve">
+    <value>شما فقط می توانید رمز عبور را تغییر دهید زمانی Opensim در حال اجرا است</value>
+  </data>
+  <data name="Password_word" xml:space="preserve">
+    <value>کلمه عبور</value>
+  </data>
+  <data name="PDF_Manual_word" xml:space="preserve">
+    <value>PDF دفترچه راهنما</value>
+  </data>
+  <data name="people_are_in" xml:space="preserve">
+    <value>مردم در</value>
+  </data>
+  <data name="Permissions_word" xml:space="preserve">
+    <value>مجوز</value>
+  </data>
+  <data name="Photo_Word" xml:space="preserve">
+    <value>عکس</value>
+  </data>
+  <data name="Physical_Prim" xml:space="preserve">
+    <value>فیزیکی پریم حداکثر اندازه</value>
+  </data>
+  <data name="Physics_Engine" xml:space="preserve">
+    <value>موتور فیزیک</value>
+  </data>
+  <data name="Physics_word" xml:space="preserve">
+    <value>فیزیک</value>
+  </data>
+  <data name="picfilter" xml:space="preserve">
+    <value>PNG (* فعلی، * PNG.) | *. فعلی؛ | همه فایلها (*. *) | * * * *.</value>
+  </data>
+  <data name="Please_enter" xml:space="preserve">
+    <value>لطفا یک نام DNS معتبر مانند "name.outworldz.net را وارد کنید، و یا برای ثبت نام اینجا در یکی از http://www.noip.com</value>
+  </data>
+  <data name="Please_select_only_one_row" xml:space="preserve">
+    <value>لطفا تنها یک ردیف را انتخاب کنید</value>
+  </data>
+  <data name="Please_type" xml:space="preserve">
+    <value>لطفا نام نماد شبکه مالک را به پنجره مقاوم تایپ کنید. مطبوعات &lt;وارد کنید&gt; برای UUID و مدل نام. سپس این دکمه OK را فشار دهید</value>
+  </data>
+  <data name="Polish" xml:space="preserve">
+    <value>لهستانی</value>
+  </data>
+  <data name="Port1" xml:space="preserve">
+    <value>بندر 1</value>
+  </data>
+  <data name="port2" xml:space="preserve">
+    <value>بندر 2</value>
+  </data>
+  <data name="Portguese" xml:space="preserve">
+    <value>Portguese</value>
+  </data>
+  <data name="Ports" xml:space="preserve">
+    <value>بنادر</value>
+  </data>
+  <data name="Port_Error" xml:space="preserve">
+    <value>درگیری بندر تشخیص داده شده است. تمام پورت ها به وضعیت پیش فرض شده است</value>
+  </data>
+  <data name="Port_Forwarding_Help" xml:space="preserve">
+    <value>بندر حمل و نقل راهنما</value>
+  </data>
+  <data name="Preview_in_Browser" xml:space="preserve">
+    <value>پیش نمایش در مرورگر</value>
+  </data>
+  <data name="Prim_Limits" xml:space="preserve">
+    <value>محدودیت ها Prim</value>
+  </data>
+  <data name="Prim_Name" xml:space="preserve">
+    <value>پریم نام (به طور پیش فرض = SeaGull1)</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>چاپ</value>
+  </data>
+  <data name="Private_Port_Word" xml:space="preserve">
+    <value>بندر خصوصی</value>
+  </data>
+  <data name="Production_Mode_Word" xml:space="preserve">
+    <value>حالت تولید</value>
+  </data>
+  <data name="Provide_Info" xml:space="preserve">
+    <value>فراهم می کند که اطلاعات جزر و مد بر روی کنسول؟</value>
+  </data>
+  <data name="Publicity_Word" xml:space="preserve">
+    <value>تبلیغات</value>
+  </data>
+  <data name="Public_IP_Setup_Word" xml:space="preserve">
+    <value>راه اندازی IP عمومی</value>
+  </data>
+  <data name="Public_Photo_Word" xml:space="preserve">
+    <value>عکس عمومی</value>
+  </data>
+  <data name="Publish_grid" xml:space="preserve">
+    <value>انتشار شبکه به Hyperica.com</value>
+  </data>
+  <data name="Publish_Items" xml:space="preserve">
+    <value>انتشار موارد مشخص شده برای جستجو</value>
+  </data>
+  <data name="Quit_Now_Word" xml:space="preserve">
+    <value>اکنون ترک</value>
+  </data>
+  <data name="Quit_unexpectedly" xml:space="preserve">
+    <value>ترک غیر منتظره.</value>
+  </data>
+  <data name="RAM_Word" xml:space="preserve">
+    <value>رم</value>
+  </data>
+  <data name="Reading_Region_files" xml:space="preserve">
+    <value>خواندن فایل منطقه</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>آماده</value>
+  </data>
+  <data name="Ready_to_Launch" xml:space="preserve">
+    <value>آماده برای راه اندازی!</value>
+  </data>
+  <data name="Recycle1" xml:space="preserve">
+    <value>بازیافت</value>
+  </data>
+  <data name="RefreshingIAR" xml:space="preserve">
+    <value>محتوا و طراوت رایگان (IAR)</value>
+  </data>
+  <data name="RefreshingOAR" xml:space="preserve">
+    <value>محتوا و طراوت رایگان (پارو)</value>
+  </data>
+  <data name="Refresh_word" xml:space="preserve">
+    <value>تازه کردن</value>
+  </data>
+  <data name="Regen_Map" xml:space="preserve">
+    <value>اگر شما تمامی نقشه ها را حذف کنید، شما را به نقشه های بازسازی نیاز با راه اندازی مجدد با یک تنظیم نقشه</value>
+  </data>
+  <data name="Regions_Are_Running" xml:space="preserve">
+    <value>منطقه UUID نامعتبر است</value>
+  </data>
+  <data name="Regions_word" xml:space="preserve">
+    <value>مناطق</value>
+  </data>
+  <data name="Region_Already_Exists" xml:space="preserve">
+    <value>منطقه قبلا وجود داشته</value>
+  </data>
+  <data name="Region_Controls" xml:space="preserve">
+    <value>کنترل منطقه</value>
+  </data>
+  <data name="Region_Coordinate_X_cannot_be_less_than_0_word" xml:space="preserve">
+    <value>منطقه مختصات X نمی تواند کمتر از 0</value>
+  </data>
+  <data name="Region_Coordinate_X_is_too_large" xml:space="preserve">
+    <value>منطقه مختصات X بیش از حد بزرگ</value>
+  </data>
+  <data name="Region_Coordinate_Y_cannot_be_less_than_32" xml:space="preserve">
+    <value>منطقه مختصات Y می تواند کمتر از 32</value>
+  </data>
+  <data name="Region_Coordinate_Y_Is_too_large" xml:space="preserve">
+    <value>منطقه مختصات y است بیش از حد بزرگ</value>
+  </data>
+  <data name="Region_Database" xml:space="preserve">
+    <value>پایگاه منطقه</value>
+  </data>
+  <data name="Region_full_msg" xml:space="preserve">
+    <value>حداکثر تعداد آواتار ها + NPC ها</value>
+  </data>
+  <data name="Region_List" xml:space="preserve">
+    <value>فهرست منطقه</value>
+  </data>
+  <data name="Region_manager_god" xml:space="preserve">
+    <value>مدیر منطقه خدا است؟</value>
+  </data>
+  <data name="Region_Manager_is_God" xml:space="preserve">
+    <value>منطقه مدیر خداوند است - مدیران و مستغلات می تواند تبدیل شدن به خدایان، اما فقط برای این املاک</value>
+  </data>
+  <data name="Region_Name" xml:space="preserve">
+    <value>آلفا عددی به علاوه فضاهای</value>
+  </data>
+  <data name="Region_Names_Special" xml:space="preserve">
+    <value>نام منطقه می توانید از کاراکترهای خاص استفاده نمی</value>
+  </data>
+  <data name="Region_name_must_not_be_blank_word" xml:space="preserve">
+    <value>نام منطقه باید پر شوند</value>
+  </data>
+  <data name="Region_Overrides" xml:space="preserve">
+    <value>تنظیمات پیش فرض لغو منطقه خاص تنظیمات</value>
+  </data>
+  <data name="Region_Owner_Is_God_word" xml:space="preserve">
+    <value>منطقه مالک خدا است</value>
+  </data>
+  <data name="Region_Ports_word" xml:space="preserve">
+    <value>بنادر منطقه</value>
+  </data>
+  <data name="Region_Port_Start" xml:space="preserve">
+    <value>منطقه بندر شروع #</value>
+  </data>
+  <data name="Region_Port_word" xml:space="preserve">
+    <value>منطقه بندر</value>
+  </data>
+  <data name="Region_Removed" xml:space="preserve">
+    <value>منطقه حذف شده است</value>
+  </data>
+  <data name="Region_ServerName" xml:space="preserve">
+    <value>سرور برای اتصال به. : localhost را "پیش فرض است.</value>
+  </data>
+  <data name="Region_Server_word" xml:space="preserve">
+    <value>منطقه سرور</value>
+  </data>
+  <data name="Region_Specific_Settings_word" xml:space="preserve">
+    <value>تنظیمات خاص منطقه</value>
+  </data>
+  <data name="Region_Stats" xml:space="preserve">
+    <value>منطقه آمار</value>
+  </data>
+  <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
+    <value>منطقه UUID نامعتبر است</value>
+  </data>
+  <data name="Region_word" xml:space="preserve">
+    <value>منطقه</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>بازنگری شبکه</value>
+  </data>
+  <data name="RenderMax" xml:space="preserve">
+    <value>بارگزاری حداکثر ارتفاع</value>
+  </data>
+  <data name="RenderMin" xml:space="preserve">
+    <value>بارگزاری حداقل قد</value>
+  </data>
+  <data name="Repeat_Password_word" xml:space="preserve">
+    <value>رمز عبور تکرار</value>
+  </data>
+  <data name="Repeat_Password_word1" xml:space="preserve">
+    <value>رمز عبور تکرار</value>
+  </data>
+  <data name="Request_App" xml:space="preserve">
+    <value>درخواست پاسخ به برنامه ایجاد</value>
+  </data>
+  <data name="Reserve_Password" xml:space="preserve">
+    <value>درخواست پاسخ به برنامه ایجاد</value>
+  </data>
+  <data name="Reset_To_Default" xml:space="preserve">
+    <value>. تنظیم مجدد به حالت پیش فرض</value>
+  </data>
+  <data name="resolved" xml:space="preserve">
+    <value>مصمم</value>
+  </data>
+  <data name="Restarting_word" xml:space="preserve">
+    <value>راه اندازی مجدد</value>
+  </data>
+  <data name="Restart_All_Checked" xml:space="preserve">
+    <value>راه اندازی مجدد تمام مناطق بررسی</value>
+  </data>
+  <data name="Restart_All_word" xml:space="preserve">
+    <value>راه اندازی مجدد تمام</value>
+  </data>
+  <data name="Restart_Interval" xml:space="preserve">
+    <value>راه اندازی مجدد با فاصله در دقیقه</value>
+  </data>
+  <data name="Restart_one_instance_word" xml:space="preserve">
+    <value>سقوط فیزیک Bulletsim یک راه اندازی مجدد شبیه ساز مجبور</value>
+  </data>
+  <data name="Restart_one_region_word" xml:space="preserve">
+    <value>منطقه یکی راه اندازی مجدد</value>
+  </data>
+  <data name="Restart_On_Crash" xml:space="preserve">
+    <value>اگر یک منطقه را قفل، منطقه را دوباره راه اندازی خواهد شد</value>
+  </data>
+  <data name="Restart_on_Physics_Crash" xml:space="preserve">
+    <value>راه اندازی مجدد در فیزیک سقوط</value>
+  </data>
+  <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
+    <value>سقوط فیزیک Bulletsim یک راه اندازی مجدد شبیه ساز مجبور</value>
+  </data>
+  <data name="Restart_Pending_word" xml:space="preserve">
+    <value>راه اندازی مجدد در انتظار</value>
+  </data>
+  <data name="Restart_Periodically_Minutes" xml:space="preserve">
+    <value>مناطق خواهد همه راه اندازی مجدد خودکار بسیاری از دقیقه پس از در حال اجرا</value>
+  </data>
+  <data name="Restart_Periodically_word" xml:space="preserve">
+    <value>راه اندازی مجدد دوره</value>
+  </data>
+  <data name="Restart_Queued_word" xml:space="preserve">
+    <value>راه اندازی مجدد صف</value>
+  </data>
+  <data name="Restart_Region_word" xml:space="preserve">
+    <value>راه اندازی مجدد صف</value>
+  </data>
+  <data name="Restart_Robust_word" xml:space="preserve">
+    <value>راه اندازی مجدد منطقه</value>
+  </data>
+  <data name="Restart_Settings_word" xml:space="preserve">
+    <value>راه اندازی مجدد مقاوم</value>
+  </data>
+  <data name="Restart_word" xml:space="preserve">
+    <value>تنظیمات راه اندازی مجدد</value>
+  </data>
+  <data name="Restore_Database_word" xml:space="preserve">
+    <value>بازیابی پایگاه داده</value>
+  </data>
+  <data name="Restore_word" xml:space="preserve">
+    <value>بازگرداندن؟</value>
+  </data>
+  <data name="Resuming_word" xml:space="preserve">
+    <value>از سرگیری</value>
+  </data>
+  <data name="Revision_History_word" xml:space="preserve">
+    <value>تاریخچه ویرایشهای</value>
+  </data>
+  <data name="Robust_exited" xml:space="preserve">
+    <value>مقاوم خارج می شود. آیا شما می خواهید برای دیدن فایل ورود به خطا؟</value>
+  </data>
+  <data name="Robust_failed_to_start" xml:space="preserve">
+    <value>مقاوم قادر به شروع</value>
+  </data>
+  <data name="Robust_not_Running" xml:space="preserve">
+    <value>مقاوم در حال اجرا نیست در این دستگاه</value>
+  </data>
+  <data name="Robust_running" xml:space="preserve">
+    <value>است قوی در حال اجرا</value>
+  </data>
+  <data name="Robust_word" xml:space="preserve">
+    <value>قدرتمند</value>
+  </data>
+  <data name="Row" xml:space="preserve">
+    <value>کلیک کنید یک ردیف را قادر به شروع و یا متوقف منطقه است. کلیک کنید یک ردیف معلول برای ویرایش این منطقه است.</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word" xml:space="preserve">
+    <value>در حال اجرا به عنوان یک منطقه سرور</value>
+  </data>
+  <data name="Running_as_a_Region_Server_word1" xml:space="preserve">
+    <value>در حال اجرا به عنوان یک منطقه سرور</value>
+  </data>
+  <data name="Running_Network" xml:space="preserve">
+    <value>اجرای عیبیابی شبکه</value>
+  </data>
+  <data name="Running_Network1" xml:space="preserve">
+    <value>اجرای عیبیابی شبکه</value>
+  </data>
+  <data name="Running_word" xml:space="preserve">
+    <value>در حال اجرا به عنوان یک منطقه سرور</value>
+  </data>
+  <data name="Run_All_word" xml:space="preserve">
+    <value>اجرای همه</value>
+  </data>
+  <data name="Run_as_a_Service_word" xml:space="preserve">
+    <value>اجرای همه</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>روسی</value>
+  </data>
+  <data name="Sandbox_Mode_word" xml:space="preserve">
+    <value>حالت گودال ماسهبازی</value>
+  </data>
+  <data name="Save_All_Regions" xml:space="preserve">
+    <value>ذخیره همه در حال اجرا مناطق به بدلس</value>
+  </data>
+  <data name="Save_changes_word" xml:space="preserve">
+    <value>ذخیره تغییرات؟</value>
+  </data>
+  <data name="Save_IAR_word" xml:space="preserve">
+    <value>ذخیره IAR</value>
+  </data>
+  <data name="Save_Inventory_IAR_word" xml:space="preserve">
+    <value>صرفه جویی در موجودی IAR</value>
+  </data>
+  <data name="Save_Region_OAR_word" xml:space="preserve">
+    <value>ذخیره منطقه پارو</value>
+  </data>
+  <data name="Save_word" xml:space="preserve">
+    <value>صرفه جویی</value>
+  </data>
+  <data name="Saving_word" xml:space="preserve">
+    <value>صرفه جویی در</value>
+  </data>
+  <data name="Scripts_Resume_word" xml:space="preserve">
+    <value>اسکریپت رزومه</value>
+  </data>
+  <data name="Scripts_Start_word" xml:space="preserve">
+    <value>اسکریپت شروع</value>
+  </data>
+  <data name="Scripts_Stop_word" xml:space="preserve">
+    <value>اسکریپت توقف</value>
+  </data>
+  <data name="Scripts_Suspend_word" xml:space="preserve">
+    <value>اسکریپت تعلیق</value>
+  </data>
+  <data name="Scripts_word" xml:space="preserve">
+    <value>اسکریپت</value>
+  </data>
+  <data name="Script_cache_word" xml:space="preserve">
+    <value>حافظه پنهان اسکریپت</value>
+  </data>
+  <data name="Script_Engine_word" xml:space="preserve">
+    <value>موتور اسکریپت</value>
+  </data>
+  <data name="Script_Rate_word" xml:space="preserve">
+    <value>اسکریپت نرخ</value>
+  </data>
+  <data name="Script_Timer_Rate" xml:space="preserve">
+    <value>اسکریپت تایمر نرخ (0.0909)</value>
+  </data>
+  <data name="Script_Timer_Text" xml:space="preserve">
+    <value>اسکریپت تنظیم سرعت تایمر. 1/11 دوم به طور پیش فرض است (0.0909)</value>
+  </data>
+  <data name="Search_All_Grids_word" xml:space="preserve">
+    <value>جستجو همه شبکه های</value>
+  </data>
+  <data name="Search_Connect_failed" xml:space="preserve">
+    <value>اتصال انجام نشد به جستجو پایگاه</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>جستجو کردن</value>
+  </data>
+  <data name="Secret_word" xml:space="preserve">
+    <value>راز</value>
+  </data>
+  <data name="SeeYouSoon" xml:space="preserve">
+    <value>من شما را دوباره ببینید که زمانی که از خواب بیدار همه تازه و جدید!</value>
+  </data>
+  <data name="See_Log" xml:space="preserve">
+    <value>آیا شما می خواهید برای دیدن فایل ورود به سیستم؟</value>
+  </data>
+  <data name="See_Ports_In_Use_word" xml:space="preserve">
+    <value>مشاهده بنادر استفاده می شود</value>
+  </data>
+  <data name="Selectallnone" xml:space="preserve">
+    <value>انتخاب همه یا هیچ یک از چک باکس</value>
+  </data>
+  <data name="Select_word" xml:space="preserve">
+    <value>من شما را دوباره ببینید که زمانی که از خواب بیدار همه تازه و جدید!</value>
+  </data>
+  <data name="Send_Alert_Message_word" xml:space="preserve">
+    <value>ارسال هشدار پیام</value>
+  </data>
+  <data name="Send_Debug_Info" xml:space="preserve">
+    <value>ارسال اطلاعات اشکالزدایی برای کنسول</value>
+  </data>
+  <data name="Separation" xml:space="preserve">
+    <value>جدایی مورد نظر (به طور پیش فرض = 5.0)</value>
+  </data>
+  <data name="Sequentially_text" xml:space="preserve">
+    <value>هر منطقه شروع خواهد شد تنها پس از منطقه قبل لود شده است</value>
+  </data>
+  <data name="Server_Type_is" xml:space="preserve">
+    <value>نوع سرور است</value>
+  </data>
+  <data name="Server_Type_word" xml:space="preserve">
+    <value>نوع سرور</value>
+  </data>
+  <data name="Settings_word" xml:space="preserve">
+    <value>تنظیمات</value>
+  </data>
+  <data name="Setting_Loopback" xml:space="preserve">
+    <value>مجموعه ای مالک</value>
+  </data>
+  <data name="Setup_Firewall_word" xml:space="preserve">
+    <value>راه اندازی فایروال</value>
+  </data>
+  <data name="Setup_Graphs_word" xml:space="preserve">
+    <value>نمودارهای راه اندازی</value>
+  </data>
+  <data name="Setup_Network" xml:space="preserve">
+    <value>راه اندازی شبکه</value>
+  </data>
+  <data name="Setup_Ports_word" xml:space="preserve">
+    <value>بنادر راه اندازی</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>پایگاه داده جستجو راه اندازی</value>
+  </data>
+  <data name="Setup_TOS" xml:space="preserve">
+    <value>به راه اندازی شرایط خود را از خدمات را کلیک کنید</value>
+  </data>
+  <data name="Setup_Voice_Service" xml:space="preserve">
+    <value>راه اندازی خدمات صوتی</value>
+  </data>
+  <data name="Setup_word" xml:space="preserve">
+    <value>برپایی</value>
+  </data>
+  <data name="Setup_Wordpress" xml:space="preserve">
+    <value>راه اندازی پایگاه داده وردپرس</value>
+  </data>
+  <data name="Set_Debug_Level_word" xml:space="preserve">
+    <value>تنظیم سطح اشکال زدایی</value>
+  </data>
+  <data name="Set_Owner_word" xml:space="preserve">
+    <value>تنظیم سطح اشکال زدایی</value>
+  </data>
+  <data name="Shoutcast_Disabled" xml:space="preserve">
+    <value>IceCast به فعال نیست.</value>
+  </data>
+  <data name="Show_Grid_Address" xml:space="preserve">
+    <value>نمایش شبکه نشانی</value>
+  </data>
+  <data name="Show_Stats" xml:space="preserve">
+    <value>نمایش آمار بر روی کنسول</value>
+  </data>
+  <data name="Show_Status_word" xml:space="preserve">
+    <value>نمایش وضعیت در</value>
+  </data>
+  <data name="Show_User_Details_word" xml:space="preserve">
+    <value>نمایش جزئیات کاربر</value>
+  </data>
+  <data name="Show_word" xml:space="preserve">
+    <value>همیشه نشان داده مناطق</value>
+  </data>
+  <data name="Shutdown_word" xml:space="preserve">
+    <value>تعطیل</value>
+  </data>
+  <data name="Simple_but_Fast_word" xml:space="preserve">
+    <value>ساده اما سریع</value>
+  </data>
+  <data name="Sim_Rate" xml:space="preserve">
+    <value>این نرخ از چند رویداد شبیه سازی تعریف می کند. می توان آن را کاهش داد برای بهبود شبیه سازی از اشیاء در حال حرکت، با افزایش احتمالی پردازنده و بار شبکه.</value>
+  </data>
+  <data name="Sim_Size_word" xml:space="preserve">
+    <value>اندازه سیم</value>
+  </data>
+  <data name="Size_word" xml:space="preserve">
+    <value>اندازه</value>
+  </data>
+  <data name="Skip_Autobackup_word" xml:space="preserve">
+    <value>پرش AutoBackup می</value>
+  </data>
+  <data name="Skip_word" xml:space="preserve">
+    <value>پرش</value>
+  </data>
+  <data name="Slow_Backup" xml:space="preserve">
+    <value>شروع یک پایگاه داده پشتیبان گیری آهسته اما گسترده</value>
+  </data>
+  <data name="Small_Map" xml:space="preserve">
+    <value>نقشه مترو کوچک</value>
+  </data>
+  <data name="Smart_Start_Enable_word" xml:space="preserve">
+    <value>شروع هوشمند فعال</value>
+  </data>
+  <data name="Smart_Start_word" xml:space="preserve">
+    <value>شروع هوشمند</value>
+  </data>
+  <data name="SMTP" xml:space="preserve">
+    <value>SMTP حساب ارسال ایمیل</value>
+  </data>
+  <data name="SMTPHost_word" xml:space="preserve">
+    <value>هاست SMTP</value>
+  </data>
+  <data name="SMTPPassword_word" xml:space="preserve">
+    <value>SMTP رمز عبور</value>
+  </data>
+  <data name="SMTPPort_word" xml:space="preserve">
+    <value>SMTP پورت</value>
+  </data>
+  <data name="Someone_is_in_word" xml:space="preserve">
+    <value>کسی که در است</value>
+  </data>
+  <data name="Sorry_No_Help" xml:space="preserve">
+    <value>با عرض پوزش، راهنما است هنوز برای این موجود نمی باشند.</value>
+  </data>
+  <data name="Source_Code_word" xml:space="preserve">
+    <value>کد منبع</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>اسپانیایی</value>
+  </data>
+  <data name="Splash" xml:space="preserve">
+    <value>نمایشگر چلپ چلوپ URL صفحه نمایش:</value>
+  </data>
+  <data name="SplashScreen" xml:space="preserve">
+    <value>صفحه معرفی</value>
+  </data>
+  <data name="SQL_Database_Backup_Restore" xml:space="preserve">
+    <value>پایگاه داده SQL تهیه پشتیبان / بازیابی</value>
+  </data>
+  <data name="StartAll" xml:space="preserve">
+    <value>شروع مناطق به طور کامل بررسی می شود</value>
+  </data>
+  <data name="Starting_DiagPort_Webserver" xml:space="preserve">
+    <value>شروع تشخیصی بندر سرور وب</value>
+  </data>
+  <data name="Starting_up" xml:space="preserve">
+    <value>راه اندازی اولین بار</value>
+  </data>
+  <data name="Starting_WebServer_word" xml:space="preserve">
+    <value>شروع وب سرور</value>
+  </data>
+  <data name="Starting_word" xml:space="preserve">
+    <value>راه افتادن</value>
+  </data>
+  <data name="StartLaunch" xml:space="preserve">
+    <value>بدون نیاز به کلیک بر روی دکمه شروع دوباره وجود دارد. شروع می شود زمانی راه اندازی شد.</value>
+  </data>
+  <data name="StartSequentially" xml:space="preserve">
+    <value>شروع مناطق پی در پی</value>
+  </data>
+  <data name="StartUPNP" xml:space="preserve">
+    <value>شروع به کنترل پنل</value>
+  </data>
+  <data name="Start_Regions_word" xml:space="preserve">
+    <value>مناطق شروع</value>
+  </data>
+  <data name="Start_word" xml:space="preserve">
+    <value>شروع</value>
+  </data>
+  <data name="Status_word" xml:space="preserve">
+    <value>وضعیت</value>
+  </data>
+  <data name="STComment" xml:space="preserve">
+    <value>اسکریپت تنظیم سرعت تایمر. 1/11 دوم به طور پیش فرض است (0.0909)</value>
+  </data>
+  <data name="Step1_word" xml:space="preserve">
+    <value>مرحله 1:</value>
+  </data>
+  <data name="Step2_word" xml:space="preserve">
+    <value>گام 2:</value>
+  </data>
+  <data name="Step3_word" xml:space="preserve">
+    <value>مرحله 3:</value>
+  </data>
+  <data name="Stopped_word" xml:space="preserve">
+    <value>متوقف</value>
+  </data>
+  <data name="Stopping_Apache" xml:space="preserve">
+    <value>توقف وب سرور آپاچی</value>
+  </data>
+  <data name="Stopping_Webserver" xml:space="preserve">
+    <value>توقف سرور وب</value>
+  </data>
+  <data name="Stopping_word" xml:space="preserve">
+    <value>توقف</value>
+  </data>
+  <data name="Stopsall" xml:space="preserve">
+    <value>متوقف می شود تمام مناطق بررسی</value>
+  </data>
+  <data name="Stop_All_word" xml:space="preserve">
+    <value>توقف همه</value>
+  </data>
+  <data name="Stop_word" xml:space="preserve">
+    <value>متوقف کردن</value>
+  </data>
+  <data name="Suitcase_enable" xml:space="preserve">
+    <value>فعال کردن چمدان پرسشنامه</value>
+  </data>
+  <data name="Suspending_word" xml:space="preserve">
+    <value>تعلیق</value>
+  </data>
+  <data name="Swedish" xml:space="preserve">
+    <value>سوئد</value>
+  </data>
+  <data name="System_Backup_word" xml:space="preserve">
+    <value>سیستم پشتیبان گیری</value>
+  </data>
+  <data name="Take_time" xml:space="preserve">
+    <value>این ممکن است زمان برای بارگذاری</value>
+  </data>
+  <data name="TechInfo" xml:space="preserve">
+    <value>اطلاعات فنی</value>
+  </data>
+  <data name="Teleporter_Enable_word" xml:space="preserve">
+    <value>تلهپورتر فعال</value>
+  </data>
+  <data name="Teleporting_word" xml:space="preserve">
+    <value>از teleporting</value>
+  </data>
+  <data name="Teleport_Tooltip" xml:space="preserve">
+    <value>می فرستد این وضعیت منطقه را به نشانه Outworldz دوربری</value>
+  </data>
+  <data name="Teleport_word" xml:space="preserve">
+    <value>دوربری</value>
+  </data>
+  <data name="Terms_of_Service" xml:space="preserve">
+    <value>شرایط استفاده از خدمات</value>
+  </data>
+  <data name="Terrain_word" xml:space="preserve">
+    <value>زمین</value>
+  </data>
+  <data name="Test_DNS_word" xml:space="preserve">
+    <value>تست دی ان اس</value>
+  </data>
+  <data name="Theme_Black" xml:space="preserve">
+    <value>مجموعه تم برای سیاه</value>
+  </data>
+  <data name="theme_Custom" xml:space="preserve">
+    <value>مجموعه تم برای سفارشی</value>
+  </data>
+  <data name="Theme_White" xml:space="preserve">
+    <value>مجموعه تم برای سفید</value>
+  </data>
+  <data name="Theme_word" xml:space="preserve">
+    <value>موضوع:</value>
+  </data>
+  <data name="This_Moves" xml:space="preserve">
+    <value>این حرکت می کند تمام مناطق بنابراین منطقه انتخاب شده است در 1000،1000 به تناسب روی نقشه. ادامه می دهید؟</value>
+  </data>
+  <data name="Thread_pools_word" xml:space="preserve">
+    <value>استخر موضوع</value>
+  </data>
+  <data name="Tides_word" xml:space="preserve">
+    <value>جزر و مد اطلاعات کانال</value>
+  </data>
+  <data name="Tide_Enable" xml:space="preserve">
+    <value>استخر موضوع</value>
+  </data>
+  <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
+    <value>جزر و مد سلام / حقیقت کانال</value>
+  </data>
+  <data name="Tide_Info_Channel_word" xml:space="preserve">
+    <value>جزر و مد سلام / حقیقت کانال</value>
+  </data>
+  <data name="Timeout_in_hours_word" xml:space="preserve">
+    <value>اتمام مهلت در ساعت</value>
+  </data>
+  <data name="Tolerance" xml:space="preserve">
+    <value>اتمام مهلت در ساعت</value>
+  </data>
+  <data name="TOS" xml:space="preserve">
+    <value>ماژول TOS کاربران و / یا بازدید کنندگان خود را از این متن HTML را نشان می دهد.</value>
+  </data>
+  <data name="Troubleshooting_word" xml:space="preserve">
+    <value>عیب یابی</value>
+  </data>
+  <data name="Type_word" xml:space="preserve">
+    <value>نوع</value>
+  </data>
+  <data name="UbitHybrid" xml:space="preserve">
+    <value>Ubit ODE / ترکیبی گلوله</value>
+  </data>
+  <data name="ubODE_Hybrid_word" xml:space="preserve">
+    <value>ترکیبی ubODE</value>
+  </data>
+  <data name="ubODE_word" xml:space="preserve">
+    <value>ubODE</value>
+  </data>
+  <data name="UBODE_words" xml:space="preserve">
+    <value>Ubit گسترش دینامیک</value>
+  </data>
+  <data name="Unable_2_Save" xml:space="preserve">
+    <value>ذخیره تنظیمات ممکن:</value>
+  </data>
+  <data name="UnassignedPerson" xml:space="preserve">
+    <value>اولین و آخرین نام فردی است که در هر نوع اشیاء اختصاص داده نشده خود را وارد کنید</value>
+  </data>
+  <data name="Unrecognized" xml:space="preserve">
+    <value>نوع فایل شناخته شده</value>
+  </data>
+  <data name="Updated_word" xml:space="preserve">
+    <value>به روز رسانی</value>
+  </data>
+  <data name="Update_Downloaded" xml:space="preserve">
+    <value>به روز رسانی دانلود شده است. آن را نصب کنید؟</value>
+  </data>
+  <data name="Update_is_available" xml:space="preserve">
+    <value>به روز رسانی در دسترس است. دانلود به روز رسانی در پس زمینه. لطفا اجازه دهید آن را به پایان برساند.</value>
+  </data>
+  <data name="Updating_Ports_word" xml:space="preserve">
+    <value>بنادر به روز رسانی</value>
+  </data>
+  <data name="UPNP_Disabled" xml:space="preserve">
+    <value>از UPnP غیر فعال</value>
+  </data>
+  <data name="UPnP_Enabled_text" xml:space="preserve">
+    <value>فعال کردن این است که شما یک سیستم کوچک و می خواهید پورت روتر برای به طور خودکار تنظیم</value>
+  </data>
+  <data name="UPnP_Enabled_word" xml:space="preserve">
+    <value>UPnP را فعال کنید</value>
+  </data>
+  <data name="UPnP_Setup_Program" xml:space="preserve">
+    <value>برنامه نصب از UPnP</value>
+  </data>
+  <data name="Useful_Size" xml:space="preserve">
+    <value>هرچه تعداد، بزرگتر از کش.</value>
+  </data>
+  <data name="Users_word" xml:space="preserve">
+    <value>کاربران</value>
+  </data>
+  <data name="User_ID_word" xml:space="preserve">
+    <value>شناسه کاربر</value>
+  </data>
+  <data name="User_Name_word" xml:space="preserve">
+    <value>نام کاربری</value>
+  </data>
+  <data name="Use_Default_word" xml:space="preserve">
+    <value>استفاده به طور پیش فرض</value>
+  </data>
+  <data name="UUID0" xml:space="preserve">
+    <value>خطا: UUID هیچ چیز!</value>
+  </data>
+  <data name="Version_word" xml:space="preserve">
+    <value>نسخه</value>
+  </data>
+  <data name="Viewer_Cache_text" xml:space="preserve">
+    <value>پیش فرض: فعال شده است. کاربران ممکن است نیاز به کاهش پهنای باند بیننده اگر برخی از prims یا قطعات زمین به rez شکست. تغییر به false اگر شما نیاز به استفاده از بینندگان قدیمی که این ویژگی پشتیبانی نمی</value>
+  </data>
+  <data name="Viewer_Cache_word" xml:space="preserve">
+    <value>کننده کش</value>
+  </data>
+  <data name="Viewer_Greeting_word" xml:space="preserve">
+    <value>تبریک آمار بیننده</value>
+  </data>
+  <data name="Viewer_Stops_Counting" xml:space="preserve">
+    <value>نمایشگر متوقف می شود شمارش در 45،000</value>
+  </data>
+  <data name="View_as_Icons" xml:space="preserve">
+    <value>مشاهده به عنوان آیکن</value>
+  </data>
+  <data name="View_Console_word" xml:space="preserve">
+    <value>نمایش کنسول</value>
+  </data>
+  <data name="View_Details" xml:space="preserve">
+    <value>مشاهده جزئیات منطقه</value>
+  </data>
+  <data name="View_Icecast" xml:space="preserve">
+    <value>نمایش IceCast به صفحه وب</value>
+  </data>
+  <data name="View_Logs" xml:space="preserve">
+    <value>دیدن گزارش وقایع</value>
+  </data>
+  <data name="View_Log_word" xml:space="preserve">
+    <value>نمایش ورود</value>
+  </data>
+  <data name="View_Maps" xml:space="preserve">
+    <value>نمایش نقشه های منطقه</value>
+  </data>
+  <data name="View_Map_word" xml:space="preserve">
+    <value>مشاهده نقشه</value>
+  </data>
+  <data name="View_Simulator_Stats" xml:space="preserve">
+    <value>نمایش شبیه ساز آمار</value>
+  </data>
+  <data name="View_Statistics_Word" xml:space="preserve">
+    <value>نمایش آمار</value>
+  </data>
+  <data name="View_Stats" xml:space="preserve">
+    <value>مشاهده یک صفحه وب نشان دادن آمار برای هر منطقه</value>
+  </data>
+  <data name="View_Web_Interface" xml:space="preserve">
+    <value>نمایش رابط وب</value>
+  </data>
+  <data name="View_Web_Interface_text" xml:space="preserve">
+    <value>رابط وب می توان برای اضافه کردن کاربران جدید</value>
+  </data>
+  <data name="Vivox_Voice_word" xml:space="preserve">
+    <value>Vivox صدای</value>
+  </data>
+  <data name="Voice" xml:space="preserve">
+    <value>صدا</value>
+  </data>
+  <data name="Voice_Settings_Word" xml:space="preserve">
+    <value>تنظیمات Voice</value>
+  </data>
+  <data name="Waiting_on_Robust" xml:space="preserve">
+    <value>انتظار در مقاوم به شروع</value>
+  </data>
+  <data name="Waiting_text" xml:space="preserve">
+    <value>در حال انتظار برای مناطق به خروج</value>
+  </data>
+  <data name="Warn_word" xml:space="preserve">
+    <value>هشدار دادن</value>
+  </data>
+  <data name="Web" xml:space="preserve">
+    <value>کنترل پنل وب</value>
+  </data>
+  <data name="WebServerPanel" xml:space="preserve">
+    <value>وب سرور پنل</value>
+  </data>
+  <data name="webserver_Search_map" xml:space="preserve">
+    <value>سرور وب + جستجو و نقشه</value>
+  </data>
+  <data name="Web_Download_Link_Word" xml:space="preserve">
+    <value>دانلود وب لینک</value>
+  </data>
+  <data name="Web_Port" xml:space="preserve">
+    <value>وب بندر (80 یا 8000)</value>
+  </data>
+  <data name="Web_UI" xml:space="preserve">
+    <value>UI وب شما اجازه اضافه کردن و یا تنظیمات نظر برای هر نماد.</value>
+  </data>
+  <data name="What_2_say_To_all" xml:space="preserve">
+    <value>چه چیزی شما را می خواهم بگویم به هر کس در خط؟</value>
+  </data>
+  <data name="What_to_say_2_region" xml:space="preserve">
+    <value>چه چیزی شما را می خواهم بگویم به این منطقه؟</value>
+  </data>
+  <data name="Which_Channel" xml:space="preserve">
+    <value>کدام کانال پرندگان گوش دادن به دستورات در جهان است. اعداد منفی می تواند توسط انسان مورد استفاده قرار گیرد</value>
+  </data>
+  <data name="White_word" xml:space="preserve">
+    <value>سفید</value>
+  </data>
+  <data name="WifiMap" xml:space="preserve">
+    <value>این صفحه نقشه فای استاندارد است</value>
+  </data>
+  <data name="Wifi_interface" xml:space="preserve">
+    <value>فای مدیریت رابط</value>
+  </data>
+  <data name="WillNotSave" xml:space="preserve">
+    <value>یک پارو با AutoBackup را نجات دهد.</value>
+  </data>
+  <data name="Wrong" xml:space="preserve">
+    <value>چیزی اشتباه است با اینترنت است</value>
+  </data>
+  <data name="X" xml:space="preserve">
+    <value>ایکس</value>
+  </data>
+  <data name="XMLRPC" xml:space="preserve">
+    <value>XMLRPC</value>
+  </data>
+  <data name="XMLRP_start" xml:space="preserve">
+    <value>XMLRPC بندر شروع #</value>
+  </data>
+  <data name="X_Engine_word" xml:space="preserve">
+    <value>X موتور</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="YEngine_word" xml:space="preserve">
+    <value>YEngine</value>
+  </data>
+  <data name="Yes_word" xml:space="preserve">
+    <value>آره</value>
+  </data>
+</root>

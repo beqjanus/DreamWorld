@@ -32,14 +32,15 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports Ionic.Zip
 Imports IWshRuntimeLibrary
+Imports System.Globalization
 
 Public Class Form1
 
 #Region "Version"
 
-    Private ReadOnly _MyVersion As String = "3.68"
+    Private ReadOnly _MyVersion As String = "3.695"
     Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
-    Private ReadOnly _SimVersion As String = "#650e6bbe55c55fe05 0.9.2.dev 2020-09-07 17:08	fix silly bugs on osReplaceRegionEnvironment()"
+    Private ReadOnly _SimVersion As String = "#d2e7c711b4188106a  0.9.2.dev 2020-09-21 20:40:24"
 
 #End Region
 
@@ -1236,7 +1237,7 @@ Public Class Form1
                             ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
                     End Select
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    'BreakPoint.Show(ex.Message)
                     Return False
                 End Try
             End If
@@ -1305,8 +1306,8 @@ Public Class Form1
 
         Dim data As String = "&MachineID=" & Settings.MachineID() _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
-        & "&V=" & WebUtility.UrlEncode(CStr(PropMyVersion)) _
-        & "&OV=" & WebUtility.UrlEncode(CStr(PropSimVersion)) _
+        & "&V=" & WebUtility.UrlEncode(PropMyVersion) _
+        & "&OV=" & WebUtility.UrlEncode(PropSimVersion) _
         & "&Type=" & CStr(Grid) _
         & "&isPublic=" & CStr(Settings.GDPR()) _
         & "&r=" & RandomNumber.Random()
@@ -1386,7 +1387,7 @@ Public Class Form1
                     ConsoleCommand(RegionUUID, "change region " & region & "{ENTER}" & vbCrLf)
                     If backMeUp = vbYes Then
                         ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                        ConsoleCommand(RegionUUID, "save oar " & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(RegionUUID, "save oar " & BackupPath() & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                     End If
                     ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
@@ -1639,12 +1640,12 @@ Public Class Form1
                 Settings.PublicIP = Settings.DNSName()
                 Settings.SaveSettings()
                 Print(My.Resources.Setup_Network)
-                Dim ret = RegisterDNS(False)
+                Dim ret = RegisterName(False)
                 Return ret
             Else
                 Settings.PublicIP = PropMyUPnpMap.LocalIP
                 Print(My.Resources.Setup_Network)
-                Dim ret = RegisterDNS(False)
+                Dim ret = RegisterName(False)
                 Settings.SaveSettings()
                 Return ret
             End If
@@ -1663,14 +1664,14 @@ Public Class Form1
                 Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
 
-            If RegisterDNS(False) Then
+            If RegisterName(False) Then
                 Return True
             End If
 
         End If
 
         If Settings.PublicIP = "localhost" Or Settings.PublicIP = "127.0.0.1" Then
-            RegisterDNS(False)
+            RegisterName(False)
             Return True
         End If
 
@@ -2351,8 +2352,6 @@ Public Class Form1
         ' Allow these to change w/o rebooting
         DoOpensimINI()
         DoGloebits()
-        DoBirds()
-        DoTides()
 
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
@@ -3600,6 +3599,13 @@ Public Class Form1
                 BreakPoint.Show(ex.Message)
             End Try
         Else
+            Try
+                If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.bak") Then
+                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.dll", Settings.OpensimBinPath & "OpenSimBirds.Module.bak")
+                End If
+            Catch
+            End Try
+
             FileStuff.DeleteFile(Settings.OpensimBinPath & "\OpenSimBirds.Module.dll")
         End If
 
@@ -5197,7 +5203,6 @@ Public Class Form1
         End If
 
         _RobustIsStarting = True
-
         Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         PropRobustProcID = 0
 
@@ -5969,7 +5974,7 @@ Public Class Form1
                             ConsoleCommand(UUID, "change region " & chosen & "{ENTER}" & vbCrLf)
                             If backMeUp = vbYes Then
                                 ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & "Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                             End If
                             ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.New_Content & "{ENTER}" & vbCrLf)
 
@@ -6471,6 +6476,11 @@ Public Class Form1
 
 #Region "Languages"
 
+    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ArabicToolStripMenuItem.Click
+        Settings.Language = "ar-IQ"
+        Language(sender, e)
+    End Sub
+
     Private Sub BasqueToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BasqueToolStripMenuItem.Click
         Settings.Language = "eu"
         Language(sender, e)
@@ -6543,6 +6553,17 @@ Public Class Form1
 
     Private Sub Language(sender As Object, e As EventArgs)
         Settings.SaveSettings()
+
+        For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
+            Diagnostics.Debug.Print("")
+            Diagnostics.Debug.Print(ci.Name)
+            Diagnostics.Debug.Print(ci.TwoLetterISOLanguageName)
+            Diagnostics.Debug.Print(ci.ThreeLetterISOLanguageName)
+            Diagnostics.Debug.Print(ci.ThreeLetterWindowsLanguageName)
+            Diagnostics.Debug.Print(ci.DisplayName)
+            Diagnostics.Debug.Print(ci.EnglishName)
+        Next
+
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
         Me.Controls.Clear() 'removes all the controls on the form
@@ -6574,39 +6595,16 @@ Public Class Form1
         Settings.Language = "sv"
         Language(sender, e)
     End Sub
+    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarsiToolStripMenuItem.Click
+        Settings.Language = "fa-IR"
+        Language(sender, e)
+    End Sub
+
+
 
 #End Region
 
 #Region "Timer"
-
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    Private Shared Sub RunDataSnapshot()
-
-        If Not Settings.SearchEnabled Then Return
-        Diagnostics.Debug.Print("Scanning Data snapshot")
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-
-        FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory & "\Outworldzfiles\Apache\htdocs\Search"
-        pi.FileName = "Run_parser.bat"
-        pi.UseShellExecute = False  ' needed to make window hidden
-        pi.WindowStyle = ProcessWindowStyle.Hidden
-        Dim ProcessPHP As Process = New Process With {
-            .StartInfo = pi
-        }
-        ProcessPHP.StartInfo.CreateNoWindow = True
-        Using ProcessPHP
-            Try
-                ProcessPHP.Start()
-                ProcessPHP.WaitForExit()
-            Catch ex As Exception
-
-                BreakPoint.Show(ex.Message)
-                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                ErrorLog("Error ProcessPHP failed to launch: " & ex.Message)
-            End Try
-        End Using
-
-    End Sub
 
     '' makes a list of teleports for the prims to use
     Private Sub RegionListHTML()
@@ -6666,7 +6664,7 @@ Public Class Form1
                 A.Add("Ferd Frederix", "SandBox")
                 B.Add("Nyira Machabelli", "SandBox")
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                ' BreakPoint.Show(ex.Message)
             End Try
         End If
 
@@ -6786,12 +6784,11 @@ Public Class Form1
 
         'hourly for DNS
         If PropDNSSTimer Mod 3600 = 0 Then
-            RegisterDNS(True)
+            RegisterName(True)
         End If
 
         ' hourly
         If PropDNSSTimer > 0 And PropDNSSTimer Mod 3600 = 0 Or PropDNSSTimer = 120 Then
-            RunDataSnapshot() ' Fetch assets marked for search- the Snapshot module itself only checks ever 10
             GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
@@ -6819,35 +6816,28 @@ Public Class Form1
             End Try
         End Using
 
-        ' Update Error checks
-
+        ' Update Error check
         ' could be nothing
         If Update_version.Length = 0 Then Update_version = PropMyVersion
 
-        ' Could be "FALSE"
         Try
-            If Settings.SkipUpdateCheck = 0 Then Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            Settings.SkipUpdateCheck = Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture)
-        End Try
-
-        Dim uv As Single = 0
-        Try
+            Dim uv As Single = 0
             uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)
-        Catch ex As Exception
+            Dim ToVersion = Convert.ToSingle(Settings.SkipUpdateCheck, Globalization.CultureInfo.InvariantCulture)
+            ' could be the same or later version already
+            If uv <= ToVersion Then
+                Return
+            End If
+            If uv <= Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture) Then
+                Return
+            End If
 
+        Catch ex As Exception
             BreakPoint.Show(ex.Message)
+            Return
         End Try
 
-        ' could be the same or later version already
-        If uv <= Settings.SkipUpdateCheck Then
-            Return
-        End If
 
-        If uv <= Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture) Then
-            Return
-        End If
 
         ' may need to get the new file
         If System.IO.File.Exists(Settings.CurrentDirectory & "\DreamGrid-V" & Update_version & ".zip") Then
@@ -7020,7 +7010,6 @@ Public Class Form1
             Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-
             ErrorLog("Error:Cannot get new name:" & ex.Message)
             client.Dispose()
             Return ""
@@ -7030,8 +7019,14 @@ Public Class Form1
 
     End Function
 
+
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    Public Function RegisterDNS(force As Boolean) As Boolean
+    Public Function RegisterName(force As Boolean) As Boolean
+
+        Dim Checkname As String = String.Empty
+        If Settings.ServerType <> "Robust" Then
+            Return True
+        End If
 
         If Settings.DNSName.Length = 0 Then
             Return True
@@ -7042,52 +7037,31 @@ Public Class Form1
         End If
 
         If _DNS_is_registered And Not force Then Return True
-        _DNS_is_registered = True
 
-        Dim client As New WebClient
-        Dim Checkname As String
 
-        Try
-            Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
-        Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
-            ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
-            Return False
-        Finally
-            client.Dispose()
-        End Try
-
-        If Checkname.Contains("UPDATE") Then Return True
-        Return False
-
-    End Function
-
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    Public Function RegisterName(name As String) As String
-
-        Dim Checkname As String = String.Empty
-        If Settings.ServerType <> "Robust" Then
-            Return name
-        End If
         Dim client As New WebClient ' download client for web pages
         Try
-            Checkname = client.DownloadString("http://outworldz.net/dns.plx/?GridName=" & name & GetPostData())
+            Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
-            ErrorLog("Warn: Cannot register the DNS Name " & ex.Message)
-            Return ""
+            Try
+                Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
+            Catch
+                ErrorLog("Warn: Cannot register this DNS Name " & ex.Message)
+                Return False
+            End Try
         Finally
             client.Dispose()
         End Try
-        If Checkname = "UPDATED" Then
-            Return name
+
+        If Checkname = "UPDATE" Then
+            _DNS_is_registered = True
+            Return True
         End If
         If Checkname = "NAK" Then
             MsgBox(My.Resources.DDNS_In_Use)
         End If
-        Return ""
+        Return False
 
     End Function
 
@@ -7096,8 +7070,7 @@ Public Class Form1
         If Settings.DNSName.Length = 0 And Settings.EnableHypergrid Then
             Dim newname = GetNewDnsName()
             If newname.Length >= 0 Then
-                If RegisterName(newname).Length >= 0 Then
-
+                If RegisterName(newname) Then
                     Settings.DNSName = newname
                     Settings.PublicIP = newname
                     Settings.SaveSettings()

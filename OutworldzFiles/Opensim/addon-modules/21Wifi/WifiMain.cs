@@ -43,20 +43,20 @@ namespace Diva.Wifi
 {
     public class WifiMain : IServiceConnector
     {
-        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private const string m_ServePathPrefix = "ServePath_";
+        #region Private Fields
+
         private const string m_AddonPrefix = "WifiAddon_";
+        private const string m_ServePathPrefix = "ServePath_";
+        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private IConfigSource m_Config;
+        private List<IRequestHandler> m_RequestHandlers = new List<IRequestHandler>();
         private ISceneActor m_SceneActor;
         private IHttpServer m_Server;
-        private List<IRequestHandler> m_RequestHandlers = new List<IRequestHandler>();
-
-        private IConfigSource m_Config;
         private WebApp m_WebApp;
 
-        private string ConfigName
-        {
-            get { return "WifiService"; }
-        }
+        #endregion Private Fields
+
+        #region Public Constructors
 
         // Robust addin calls this
         public WifiMain(IConfigSource config, IHttpServer server, string configName) :
@@ -65,7 +65,7 @@ namespace Diva.Wifi
         }
 
         // WifiModule calls this
-        public WifiMain(IConfigSource config, IHttpServer server, string configName, ISceneActor sactor) 
+        public WifiMain(IConfigSource config, IHttpServer server, string configName, ISceneActor sactor)
         {
             m_Config = config;
             m_Server = server;
@@ -74,8 +74,33 @@ namespace Diva.Wifi
             m_log.DebugFormat("[Wifi]: WifiMain starting with config {0}", ConfigName);
 
             Initialize(server);
-
         }
+
+        #endregion Public Constructors
+
+        #region Private Properties
+
+        private string ConfigName
+        {
+            get { return "WifiService"; }
+        }
+
+        #endregion Private Properties
+
+        #region Public Methods
+
+        public void Unload()
+        {
+            foreach (IRequestHandler rh in m_RequestHandlers)
+                m_Server.RemoveStreamHandler(rh.HttpMethod, rh.Path);
+
+            // Tell the addons to unload too!
+            m_RequestHandlers.Clear();
+        }
+
+        #endregion Public Methods
+
+        #region Private Methods
 
         private void AddStreamHandler(IRequestHandler rh)
         {
@@ -169,7 +194,7 @@ namespace Diva.Wifi
             {
                 AddinManager.AddExtensionNodeHandler("/Diva/Wifi/Addon", OnExtensionChanged);
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 m_log.DebugFormat("[Wifi]: extension point /Diva/Wifi/Addon not found");
             }
@@ -186,14 +211,6 @@ namespace Diva.Wifi
             }
         }
 
-        public void Unload()
-        {
-            foreach (IRequestHandler rh in m_RequestHandlers)
-                m_Server.RemoveStreamHandler(rh.HttpMethod, rh.Path);
-
-            // Tell the addons to unload too!
-            m_RequestHandlers.Clear();
-        }
-
+        #endregion Private Methods
     }
 }

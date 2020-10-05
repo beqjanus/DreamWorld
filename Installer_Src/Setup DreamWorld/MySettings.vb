@@ -339,7 +339,6 @@ Public Class MySettings
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             MsgBox(My.Resources.Unable_2_Save + myINI)
             Form1.ErrorLog("Error:" + ex.Message)
@@ -364,6 +363,17 @@ Public Class MySettings
 
 #Region "Properties"
 
+
+    Public Property BanList() As String
+        Get
+            Return CType(GetMySetting("BanList", ""), String)
+        End Get
+        Set
+            SetMySetting("BanList", Value)
+        End Set
+    End Property
+
+
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -375,8 +385,7 @@ Public Class MySettings
 
     Public Property AdminEmail() As String
         Get
-            Dim mail As String = GetMySetting("AdminEmail")
-            If mail.Length = 0 Then mail = "not@set.yet"
+            Dim mail As String = GetMySetting("AdminEmail", "not@set.yet")
             Return CType(mail, String)
         End Get
         Set
@@ -1088,7 +1097,7 @@ Public Class MySettings
 
     Public Property LogLevel() As String
         Get
-            Return CType(GetMySetting("LogLevel", "info"), String)
+            Return CType(GetMySetting("LogLevel", "INFO"), String)
         End Get
         Set
             SetMySetting("LogLevel", Value)
@@ -1602,9 +1611,9 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SkipUpdateCheck() As Single
+    Public Property SkipUpdateCheck() As String
         Get
-            Return CType(GetMySetting("SkipUpdateCheck", 0), Single)
+            Return CType(GetMySetting("SkipUpdateCheck", "0"), String)
         End Get
         Set
             SetMySetting("SkipUpdateCheck", CStr(Value))
