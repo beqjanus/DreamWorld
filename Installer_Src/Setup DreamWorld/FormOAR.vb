@@ -363,9 +363,10 @@ Public Class FormOAR
     End Sub
 
     Public Sub ShowForm()
-
+        TextBox1.Text = ""
         Me.Show()
-        Redraw(SearchArray)
+        Search()
+        'Redraw(SearchArray)
         If _type = "OAR" Then Form1.HelpOnce("Load OAR")
         If _type = "IAR" Then Form1.HelpOnce("Load IAR")
     End Sub
@@ -600,9 +601,7 @@ Public Class FormOAR
 
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
 
-    End Sub
 
 #End Region
 

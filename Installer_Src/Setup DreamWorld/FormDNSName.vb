@@ -221,7 +221,7 @@ Public Class FormDNSName
 
             Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
             DNSNameBox.Text = rgx.Replace(DNSNameBox.Text, "")
-            DNSNameBox.Text = DNSNameBox.Text.ToLower
+            DNSNameBox.Text = DNSNameBox.Text.ToLower(Gloablization.CultureInfoInvarient)
 
         End If
 
