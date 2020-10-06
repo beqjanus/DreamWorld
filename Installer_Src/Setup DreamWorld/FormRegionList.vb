@@ -802,6 +802,7 @@ Public Class RegionList
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
+        Form1.PropRegionClass.GetAllRegions()
         LoadMyListView()
         ShowTitle()
 
@@ -1328,10 +1329,11 @@ Public Class RegionList
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
 
         Dim ofd As New OpenFileDialog With {
-            .InitialDirectory = "c:\",
+            .InitialDirectory = "\",
             .Filter = Global.Outworldz.My.Resources.INI_Filter,
             .FilterIndex = 2,
-            .RestoreDirectory = True
+            .RestoreDirectory = True,
+            .Multiselect = True
         }
 
         If ofd.ShowDialog = DialogResult.OK Then
@@ -1352,39 +1354,41 @@ Public Class RegionList
                     Return
                 End If
 
-                Dim noquotes As Regex = New Regex("'")
-                dirpathname = noquotes.Replace(dirpathname, "")
+                For Each ofdFilename As String In ofd.FileNames
 
-                Dim extension As String = Path.GetExtension(ofd.FileName)
-                extension = Mid(extension, 2, 5)
-                If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
+                    Dim noquotes As Regex = New Regex("'")
+                    dirpathname = noquotes.Replace(dirpathname, "")
 
-                    Dim filename = GetRegionsName(ofd.FileName)
-                    Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(filename)
+                    Dim extension As String = Path.GetExtension(ofdFilename)
+                    extension = Mid(extension, 2, 5)
+                    If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
 
-                    If RegionUUID.Length > 0 Then
-                        MsgBox(My.Resources.Region_Already_Exists, vbInformation, Global.Outworldz.My.Resources.Info_word)
-                        ofd.Dispose()
-                        Return
+                        Dim filename = GetRegionsName(ofdFilename)
+                        Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(filename)
+
+                        If RegionUUID.Length > 0 Then
+                            MsgBox(My.Resources.Region_Already_Exists, vbInformation, Global.Outworldz.My.Resources.Info_word)
+                            ofd.Dispose()
+                            Return
+                        End If
+
+                        If dirpathname.Length = 0 Then dirpathname = filename
+
+                        Dim NewFilepath = Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\"
+                        If Not Directory.Exists(NewFilepath) Then
+                            Try
+                                Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
+                            Catch ex As Exception
+                                BreakPoint.Show(ex.Message)
+                            End Try
+                        End If
+                        File.Copy(ofdFilename, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                    Else
+                        Form1.Print(My.Resources.Unrecognized & " " & extension & ". ")
                     End If
+                Next
 
-                    If dirpathname.Length = 0 Then dirpathname = filename
-
-                    Dim NewFilepath = Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\"
-                    If Not Directory.Exists(NewFilepath) Then
-                        Try
-                            Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
-                        Catch ex As Exception
-
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End If
-
-                    File.Copy(ofd.FileName, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
-                Else
-                    Form1.Print(My.Resources.Unrecognized & " " & extension & ". ")
-                End If
-
+                Form1.PropRegionClass.GetAllRegions()
                 LoadMyListView()
             End If
         End If

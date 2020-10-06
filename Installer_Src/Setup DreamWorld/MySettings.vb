@@ -195,10 +195,9 @@ Public Class MySettings
         Try
             Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             MsgBox(ex.Message)
-            Form1.Log("Warn", ex.Message)
+            Form1.Logger("Warn", ex.Message, "Error")
             Return True
         End Try
         INI = arg
@@ -232,9 +231,8 @@ Public Class MySettings
         ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section +
         ' "] " + key + "=" + value)
         Try
-            Data(section)(key) = value ' replace it
+            Data(section)(key) = value
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
@@ -244,12 +242,10 @@ Public Class MySettings
     Public Sub SetMyIni(section As String, key As String, value As String)
 
         If value = Nothing Then value = ""
-        'Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         ' sets values into any INI file
         Try
-            MyData(section)(key) = value ' replace it
+            MyData(section)(key) = value
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
@@ -262,6 +258,7 @@ Public Class MySettings
 
     Shared Function Stripqq(input As String) As String
 
+        ' remove double quotes and any comments ";"
         Return Replace(input, """", "")
 
     End Function
@@ -309,7 +306,6 @@ Public Class MySettings
             Return value.ToString(Globalization.CultureInfo.InvariantCulture)
 #Enable Warning CA1062 ' Validate arguments of public methods
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Return D
         End Try
@@ -363,6 +359,15 @@ Public Class MySettings
 
 #Region "Properties"
 
+
+    Public Property CPUMAX As Single
+        Get
+            Return CType(GetMySetting("CPUMax", 90), Single)
+        End Get
+        Set(value As Single)
+            SetMySetting("CPUMax", CSng(value))
+        End Set
+    End Property
 
     Public Property BanList() As String
         Get
