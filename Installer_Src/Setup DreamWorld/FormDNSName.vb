@@ -182,7 +182,6 @@ Public Class FormDNSName
 
         NextNameButton.Text = Global.Outworldz.My.Resources.Busy_word
 
-
         Dim address As System.Net.IPAddress = Nothing
         If DNSNameBox.Text.Length = 0 Then
             Settings.PublicIP = IP()
@@ -210,6 +209,7 @@ Public Class FormDNSName
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase")>
     Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
 
         If DNSNameBox.Text.Length > 0 Then

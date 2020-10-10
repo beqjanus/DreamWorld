@@ -11,9 +11,9 @@ $CONF_db_user       = "robustuser";  // login
 $CONF_db_pass       = "robustpassword";  // password 
 $CONF_db_database   = "robust";     // Name Of Robust Server 
 /* The Coordinates Of the Grid-Center */ 
-$CONF_center_coord_x = "3705";		// the Center-X-Coordinate 
-$CONF_center_coord_y = "3702";		// the Center-Y-Coordinate 
+$CONF_center_coord_x = "1157";		// the Center-X-Coordinate 
+$CONF_center_coord_y = "1157";		// the Center-Y-Coordinate 
 // style-sheet items
 $CONF_style_sheet     = "/css/stylesheet.css";          //Link To your StyleSheet
-$CONF_HOME            = "JOpensim";          //Link To your Home Folder in htdocs.  Wordpress, DreamGri, Joomla/JOpensim or user assigned folder
+$CONF_HOME            = "DreamGrid";          //Link To your Home Folder in htdocs.  Wordpress, DreamGri, Joomla/JOpensim or user assigned folder
 ?>

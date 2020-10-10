@@ -91,25 +91,6 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        If Button1.Text = "Finished" Then Me.Close()
-
-        Button1.Text = "Busy"
-        Dim WebThread = New Thread(AddressOf bck)
-        Try
-            WebThread.SetApartmentState(ApartmentState.STA)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-        WebThread.Start()
-        WebThread.Priority = ThreadPriority.Highest
-
-        WebThread.Join()
-        Button1.Text = "Finished"
-
-    End Sub
-
     Private Sub bck()
         Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Dest As String
@@ -134,7 +115,6 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -181,6 +161,24 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If Button1.Text = "Finished" Then Me.Close()
+
+        Button1.Text = My.Resources.Busy_word
+        Dim WebThread = New Thread(AddressOf bck)
+        Try
+            WebThread.SetApartmentState(ApartmentState.STA)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        WebThread.Start()
+        WebThread.Priority = ThreadPriority.Highest
+
+        WebThread.Join()
+        Button1.Text = My.Resources.Finished_with_backup_word
+
+    End Sub
 
     Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -204,9 +202,6 @@ Public Class FormBackupCheckboxes
         Form1.Help("Backup Manually")
 
     End Sub
-
-
-
 
 #End Region
 

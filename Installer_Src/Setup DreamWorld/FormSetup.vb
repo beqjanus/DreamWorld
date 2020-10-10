@@ -22,6 +22,7 @@
 
 'Option Strict On
 
+Imports System.Globalization
 Imports System.IO
 Imports System.Management
 Imports System.Net
@@ -32,10 +33,8 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports Ionic.Zip
 Imports IWshRuntimeLibrary
-Imports System.Globalization
 
 Public Class Form1
-
 
 #Disable Warning CA2213
     Private cpu As New PerformanceCounter
@@ -51,7 +50,6 @@ Public Class Form1
     Private ReadOnly _SimVersion As String = "#d2e7c711b4188106a  0.9.2.dev 2020-09-21 20:40:24"
 
 #End Region
-
 
 #Region "Globals"
 
@@ -424,7 +422,6 @@ Public Class Form1
             _ApacheUninstalling = Value
         End Set
     End Property
-
 
     Public Property PropCurSlashDir As String
         Get
@@ -1932,7 +1929,6 @@ Public Class Form1
             Return
         End If
 
-
         Dim WebThread = New Thread(AddressOf Backupper)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
@@ -1942,21 +1938,6 @@ Public Class Form1
         End Try
         WebThread.Start()
         WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-
-    End Sub
-
-    Private Sub Backupper()
-
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                'Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
-                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
-                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
-                SequentialPause()   ' wait for previous region to give us some CPU
-                Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
-            End If
-        Next
 
     End Sub
 
@@ -2031,6 +2012,21 @@ Public Class Form1
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & sender.Text & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
+
+    End Sub
+
+    Private Sub Backupper()
+
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                'Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
+                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                SequentialPause()   ' wait for previous region to give us some CPU
+                Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+                ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+            End If
+        Next
 
     End Sub
 
@@ -3828,6 +3824,8 @@ Public Class Form1
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
         Settings.SetLiteralIni("doc_root", "doc_root = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs""")
+        Settings.SetLiteralIni("include_path", "include_path = """ & PropCurSlashDir & ".;/OutworldzFiles/PHP7/pear""")
+
         Settings.SaveLiteralIni(ini, "php.ini")
 
         Return False
@@ -6514,6 +6512,11 @@ Public Class Form1
         Language(sender, e)
     End Sub
 
+    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarsiToolStripMenuItem.Click
+        Settings.Language = "fa-IR"
+        Language(sender, e)
+    End Sub
+
     Private Sub FinnishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FinnishToolStripMenuItem.Click
         Settings.Language = "fi"
         Language(sender, e)
@@ -6593,12 +6596,6 @@ Public Class Form1
         Settings.Language = "sv"
         Language(sender, e)
     End Sub
-    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarsiToolStripMenuItem.Click
-        Settings.Language = "fa-IR"
-        Language(sender, e)
-    End Sub
-
-
 
 #End Region
 
@@ -6829,13 +6826,10 @@ Public Class Form1
             If uv <= Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture) Then
                 Return
             End If
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Return
         End Try
-
-
 
         ' may need to get the new file
         If System.IO.File.Exists(Settings.CurrentDirectory & "\DreamGrid-V" & Update_version & ".zip") Then
@@ -7017,7 +7011,6 @@ Public Class Form1
 
     End Function
 
-
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Function RegisterName(force As Boolean) As Boolean
 
@@ -7035,7 +7028,6 @@ Public Class Form1
         End If
 
         If _DNS_is_registered And Not force Then Return True
-
 
         Dim client As New WebClient ' download client for web pages
         Try
