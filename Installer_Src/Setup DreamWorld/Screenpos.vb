@@ -239,9 +239,7 @@ Public Class ScreenPos
         ' sets values into any INI file
         Try
             Data(section)(key) = value ' replace it
-
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try

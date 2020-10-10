@@ -221,7 +221,9 @@ Public Class FormDNSName
 
             Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
             DNSNameBox.Text = rgx.Replace(DNSNameBox.Text, "")
-            DNSNameBox.Text = DNSNameBox.Text.ToLower(Gloablization.CultureInfoInvarient)
+#Disable Warning CA1308 ' Normalize strings to uppercase
+            DNSNameBox.Text = DNSNameBox.Text.ToLower(Globalization.CultureInfo.InvariantCulture)
+#Enable Warning CA1308 ' Normalize strings to uppercase
 
         End If
 

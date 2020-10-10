@@ -376,7 +376,6 @@ Public Class RegionMaker
                         Try
                             inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
                         Catch ex As Exception
-
                             BreakPoint.Show(ex.Message)
                         End Try
 
@@ -474,7 +473,6 @@ Public Class RegionMaker
                             Application.DoEvents()
                         Next
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
