@@ -1216,8 +1216,8 @@ Public Class Form1
                     AppActivate(PID)
                     Application.DoEvents()
 
-                    SendKeys.Send(ToLowercaseKeys("{ENTER}" & vbCrLf))
-                    SendKeys.Send(ToLowercaseKeys(command))
+                    SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
+                    SendKeys.SendWait(ToLowercaseKeys(command))
                     Application.DoEvents()
                     Select Case Settings.ConsoleShow
                         Case "True"
@@ -1941,7 +1941,7 @@ Public Class Form1
             Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
-        WebThread.Priority = ThreadPriority.Highest
+        'WebThread.Priority = ThreadPriority.Highest
 
     End Sub
 
@@ -1949,7 +1949,7 @@ Public Class Form1
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             If PropRegionClass.IsBooted(RegionUUID) Then
-                ' Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
+                'Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
                 ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
                 ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                 SequentialPause()   ' wait for previous region to give us some CPU

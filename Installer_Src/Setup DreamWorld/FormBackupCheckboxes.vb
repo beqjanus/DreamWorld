@@ -20,6 +20,8 @@
 
 #End Region
 
+Imports System.Threading
+
 Public Class FormBackupCheckboxes
 
 #Region "ScreenSize"
@@ -91,6 +93,24 @@ Public Class FormBackupCheckboxes
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        If Button1.Text = "Finished" Then Me.Close()
+
+        Button1.Text = "Busy"
+        Dim WebThread = New Thread(AddressOf bck)
+        Try
+            WebThread.SetApartmentState(ApartmentState.STA)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        WebThread.Start()
+        WebThread.Priority = ThreadPriority.Highest
+
+        WebThread.Join()
+        Button1.Text = "Finished"
+
+    End Sub
+
+    Private Sub bck()
         Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Dest As String
         If Settings.BackupFolder = "AutoBackup" Then
@@ -103,12 +123,9 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
-
             Catch ex As Exception
-
             End Try
 
-            PrintStatus(My.Resources.Backup_Regions)
             FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
             Application.DoEvents()
         End If
@@ -122,7 +139,6 @@ Public Class FormBackupCheckboxes
 
                 BreakPoint.Show(ex.Message)
             End Try
-            PrintStatus(My.Resources.Backup_MySQL_Phrase)
             FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
             Application.DoEvents()
         End If
@@ -131,9 +147,7 @@ Public Class FormBackupCheckboxes
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\FSAssets")
-
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
 
@@ -143,8 +157,6 @@ Public Class FormBackupCheckboxes
             Else
                 folder = Settings.BaseDirectory
             End If
-
-            PrintStatus("Backing up FSAssets Folder")
             FileStuff.CopyFolder(folder, Dest + "\FSAssets")
             Application.DoEvents()
         End If
@@ -154,43 +166,25 @@ Public Class FormBackupCheckboxes
                 My.Computer.FileSystem.CreateDirectory(Dest)
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
                 My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
-
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
-            PrintStatus("Backing up Wifi Folders")
             FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
             FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
             Application.DoEvents()
         End If
 
         If SettingsBox.Checked Then
-            PrintStatus(My.Resources.Backing_up_Settings_word)
             FileStuff.CopyFile(Settings.CurrentDirectory + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
         End If
-        PrintStatus(My.Resources.Finished_with_backup_word & Dest)
         DialogResult = DialogResult.OK
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs)
-
-        DialogResult = DialogResult.OK
-        Me.Close()
-
-    End Sub
 
     Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Form1.HelpOnce("Backup Manually")
-
-        TextBox1.BackColor = Me.BackColor
-        ' init the scrolling text box
-        TextBox1.SelectionStart = 0
-        TextBox1.ScrollToCaret()
-        TextBox1.SelectionStart = TextBox1.Text.Length
-        TextBox1.ScrollToCaret()
 
         MySqlCheckBox.Enabled = True
         MySqlCheckBox.Checked = True
@@ -211,25 +205,8 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub PrintStatus(Value As String)
 
-        TextBox1.Text = TextBox1.Text & vbCrLf & Value
-        Trim()
-        Application.DoEvents()
 
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As System.Object, e As System.EventArgs)
-        Dim ln As Integer = TextBox1.Text.Length
-        TextBox1.SelectionStart = ln
-        TextBox1.ScrollToCaret()
-    End Sub
-
-    Private Sub Trim()
-        If TextBox1.Text.Length > TextBox1.MaxLength - 1000 Then
-            TextBox1.Text = Mid(TextBox1.Text, 14000)
-        End If
-    End Sub
 
 #End Region
 
