@@ -551,7 +551,7 @@
     <value>Not a valid Non-Physical Prim Max Value. Must be greater than 0</value>
   </data>
   <data name="Teleporter_Enable_word" xml:space="preserve">
-    <value>Teleporter Enable</value>
+    <value>Teleport Sign Enable</value>
   </data>
   <data name="Low_High" xml:space="preserve">
     <value>Low And high water marks in meters</value>

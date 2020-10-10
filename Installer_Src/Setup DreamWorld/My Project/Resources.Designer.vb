@@ -7761,7 +7761,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Teleporter Enable.
+        '''  Looks up a localized string similar to Teleport Sign Enable.
         '''</summary>
         Friend ReadOnly Property Teleporter_Enable_word() As String
             Get
