@@ -1941,7 +1941,7 @@ Public Class Form1
             Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
-        'WebThread.Priority = ThreadPriority.Highest
+        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
 
     End Sub
 
