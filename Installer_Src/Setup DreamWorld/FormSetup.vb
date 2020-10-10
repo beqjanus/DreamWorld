@@ -36,13 +36,6 @@ Imports System.Globalization
 
 Public Class Form1
 
-#Region "Version"
-
-    Private ReadOnly _MyVersion As String = "3.7"
-    Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
-    Private ReadOnly _SimVersion As String = "#d2e7c711b4188106a  0.9.2.dev 2020-09-21 20:40:24"
-
-#End Region
 
 #Disable Warning CA2213
     Private cpu As New PerformanceCounter
@@ -50,6 +43,15 @@ Public Class Form1
 
     Private newScreenPosition As ScreenPos
     Private ScreenPosition As ScreenPos
+
+#Region "Version"
+
+    Private ReadOnly _MyVersion As String = "3.71"
+    Private ReadOnly _SearchRev = 5 ' the rev of the Search Table
+    Private ReadOnly _SimVersion As String = "#d2e7c711b4188106a  0.9.2.dev 2020-09-21 20:40:24"
+
+#End Region
+
 
 #Region "Globals"
 
@@ -75,7 +77,6 @@ Public Class Form1
     Private _ApacheUninstalling As Boolean
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
-    Private _CPUMAX As Single = 90
     Private _CurSlashDir As String
     Private _DNS_is_registered = False
     Private _DNSSTimer As Integer
@@ -424,14 +425,6 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropCPUMAX As Single
-        Get
-            Return _CPUMAX
-        End Get
-        Set(value As Single)
-            _CPUMAX = value
-        End Set
-    End Property
 
     Public Property PropCurSlashDir As String
         Get
@@ -924,8 +917,6 @@ Public Class Form1
                     Not directoryName.Contains("assetcache") And
                     Not directoryName.Contains("j2kDecodeCache") Then
                     stack.Push(directoryName)
-                Else
-                    Diagnostics.Debug.Print("Skipping script")
                 End If
                 Application.DoEvents()
             Next
@@ -1594,7 +1585,7 @@ Public Class Form1
                     Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
                     Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
-                    Dim ctr = 1200 ' 2 minute max to start a region
+                    Dim ctr = 5 * 60  ' 5 minute max to start a region
 
                     While True
 
@@ -1609,7 +1600,7 @@ Public Class Form1
                         End If
                         ctr -= 1
                         If ctr <= 0 Then Exit While
-                        Sleep(100)
+                        Sleep(1000)
                     End While
                 End If
             Next
@@ -1617,7 +1608,7 @@ Public Class Form1
             Dim ctr = 600 ' 1 minute max to start a region
 
             While True
-                If CPUAverageSpeed < PropCPUMAX Then
+                If CPUAverageSpeed < Settings.CPUMAX Then
                     Exit While
                 End If
                 Sleep(100)
@@ -1941,14 +1932,26 @@ Public Class Form1
             Return
         End If
 
+
+        Dim WebThread = New Thread(AddressOf Backupper)
+        Try
+            WebThread.SetApartmentState(ApartmentState.STA)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+            Log(My.Resources.Error_word, ex.Message)
+        End Try
+        WebThread.Start()
+        WebThread.Priority = ThreadPriority.Highest
+
+    End Sub
+
+    Private Sub Backupper()
+
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             If PropRegionClass.IsBooted(RegionUUID) Then
-
-                Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
+                ' Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
                 ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
                 ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
-
-                Sleep(5000)
                 SequentialPause()   ' wait for previous region to give us some CPU
                 Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
                 ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
@@ -2646,8 +2649,6 @@ Public Class Form1
     ''' <param name="sender">Unused</param>
     ''' <param name="e">Unused</param>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-
-        'Me.Hide()
 
         Application.EnableVisualStyles()
 
@@ -4380,7 +4381,6 @@ Public Class Form1
                 Diagnostics.Debug.Print(message)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -4546,7 +4546,7 @@ Public Class Form1
             Application.DoEvents()
             ApacheProcess.WaitForExit()
 
-            ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
+            ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
