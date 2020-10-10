@@ -5,11 +5,11 @@ This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases
 V3.7
 Sendkeys had issues so save all oars not working. Set to consistent behavior in Start.exe.config
 Threaded System backup to not block the main UI
+Added Joomla DLL's to bin
 
 V3.695 Alpha Release for 3.7
 
-V3.695 
-Minor 
+Minor tweaks
 
 V3.694 Alpha Release for 3.7
 Another bug in Banlist fixed, could not add more than one http:grid.com>:8002 address
