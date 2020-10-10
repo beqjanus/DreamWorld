@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/2.5/template-install.dtd">
+<extension version="3.1" type="template" client="site">
+	<name>protostarplus-eighteen</name>
+	<version>1.18</version>
+	<creationDate>20/01/2018</creationDate>
+	<author>Maarten Blokdijk</author>
+	<authorEmail>info@cloudfaction.nl</authorEmail>
+	<copyright>Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.</copyright>
+	<description><![CDATA[
+                  <!--
+                  #wrap1 {padding:0px 0px 4px 0px;}
+                  h1 {clear:both;font-family: Arial Narrow,sans-serif;font-size:18px;margin:0px 0px 12px 0px;padding:0px 0px 1px 10px;color:#C64934; a:}
+                  .wrap2 {background:#fff;border:1px solid #8F8F8F;padding:10px; color:#403d6a;}
+
+                  -->
+                  </style><div class="moduleinfo">
+<p>
+Introducing ProtostarPlusEighteen (PPE), the 2018 Protostarplus template based on Protostar, but better, much better! Twitter bootstrap based fully responsive. Brought to you by Cloudfaction.nl, for free! Donate: https://paypal.me/cloudfaction
+</p>
+
+<p><a class="btn" style="margin-right:10px;" target="_blank" href="http://www.cloudfaction.nl/">Cloudfaction.nl</a><a class="btn btn-primary" target="_blank" href="http://www.protostarplus.com">Template Tutorials</a>
+<a class="btn" target="_blank" href="http://www.paypal.me/cloudfaction">Buy me a cop of coffee!</a>
+</p>
+
+  </div>
+  ]]></description>
+	<files>
+		<filename>component.php</filename>
+		<filename>error.php</filename>
+		<filename>favicon.ico</filename>
+		<filename>index.php</filename>
+		<filename>templateDetails.xml</filename>
+		<filename>template_preview.png</filename>
+		<filename>template_thumbnail.png</filename>
+		<folder>css</folder>
+		<folder>html</folder>
+		<folder>images</folder>
+		<folder>img</folder>
+		<folder>js</folder>
+		<folder>language</folder>
+		<folder>less</folder>
+        <folder>fonts</folder>
+	</files>
+	<positions>
+		<position>banner</position>
+		<position>debug</position>
+		<position>position-0</position>
+		<position>position-1</position>
+		<position>position-2</position>
+		<position>position-3</position>
+		<position>position-4</position>
+		<position>position-5</position>
+		<position>position-6</position>
+		<position>position-7</position>
+		<position>position-8</position>
+		<position>position-9</position>
+		<position>position-10</position>
+		<position>position-11</position>
+		<position>position-12</position>
+		<position>position-13</position>
+		<position>position-14</position>
+		<position>footer1</position>
+		<position>footer2</position>
+		<position>footer3</position>
+		<position>footer4</position>
+
+		<position>top-bar-content</position>
+	</positions>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.tpl_protostarplus-eighteen.ini</language>
+		<language tag="en-GB">en-GB/en-GB.tpl_protostarplus-eighteen.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="styling">
+
+
+				<field name="bgfile" class="" type="media" default=""
+					label="TPL_PROTOSTAR_BGFILE_LABEL"
+					description="TPL_PROTOSTAR_BGFILE_DESC" />
+
+				<field name="logoFile" class="" type="media" default=""
+					label="TPL_PROTOSTAR_LOGO_LABEL"
+					description="TPL_PROTOSTAR_LOGO_DESC" />
+
+				<field name="sitetitle"  type="text" default=""
+					label="JGLOBAL_TITLE"
+					description="JFIELD_ALT_PAGE_TITLE_LABEL"
+					filter="string" />
+
+				<field name="sitedescription"  type="text" default=""
+					label="JGLOBAL_DESCRIPTION"
+					description="JGLOBAL_SUBHEADING_DESC"
+					filter="string" />
+
+					
+
+				<field name="widelayout"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="TPL_WIDE_LABEL"
+					description="TPL_WIDE_DESC"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+
+
+	<field label="LBL_FOOTER" type="spacer" class="label"/>
+
+					<field name="templateFooterTextColor" class="" type="color" default="#ffffff"
+					label="TPL_PROTOSTAR_FOOTER_TEXT_COLOR_LABEL"
+					description="TPL_PROTOSTAR_FOOTER_TEXT_COLOR_DESC" />
+
+					<field name="templateFooterBgColor" class="" type="color" default="#0088cc"
+					label="TPL_PROTOSTAR_FOOTER_BG_COLOR_LABEL"
+					description="TPL_PROTOSTAR_FOOTER_BG_COLOR_DESC" />
+
+
+
+
+
+	<field label="LBL_SHARE" type="spacer" class="label"/>
+
+				<field name="socialshare"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="TPL_SHARE_LABEL"
+					description="TPL_SHARE_DESC"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+	<field label="LBL_FONT" type="spacer" class="label"/>
+
+				<field name="googleFont"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="TPL_PROTOSTAR_FONT_LABEL"
+					description="TPL_PROTOSTAR_FONT_DESC"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field name="googleFontName" class="" type="text" default="Open+Sans"
+					label="TPL_PROTOSTAR_FONT_NAME_LABEL"
+					description="TPL_PROTOSTAR_FONT_NAME_DESC" />
+
+				<field name="headercolor" class="" type="color" default="#444444"
+					label="TPL_HEADERCOLOR_LABEL"
+					description="TPL_HEADERCOLOR_DESC" />
+
+				<field name="googleFontDiv"
+					type="radio"
+					class="btn-group btn-group-yesno"
+					default="1"
+					label="TPL_PROTOSTAR_FONT_DIV_LABEL"
+					description="TPL_PROTOSTAR_FONT_DIV_DESC"
+				>
+					<option value="1">JYES</option>
+					<option value="0">JNO</option>
+				</field>
+
+				<field name="googleFontNameDiv" class="" type="text" default="Open+Sans"
+					label="TPL_PROTOSTAR_FONT_NAME_LABEL"
+					description="TPL_PROTOSTAR_FONT_NAME_DESC" />
+
+				<field name="textcolor" class="" type="color" default="#444444"
+					label="TPL_TEXTCOLOR_LABEL"
+					description="TPL_TEXTCOLOR_DESC" />
+
+				<field name="fontsize" class="" type="text" default="100"
+					label="TPL_FONTSIZE_LABEL"
+					description="TPL_FONTSIZE_DESC" />
+
+
+
+
+			</fieldset>
+			<fieldset name="Colors">
+
+			<field name="templateColor" class="" type="color" default="#08C"
+					label="TPL_PROTOSTAR_COLOR_LABEL"
+					description="TPL_PROTOSTAR_COLOR_DESC" />
+
+				<field name="templateBackgroundColor" class="" type="color" default="#F4F6F7"
+					label="TPL_PROTOSTAR_BACKGROUND_COLOR_LABEL"
+					description="TPL_PROTOSTAR_BACKGROUND_COLOR_DESC" />
+
+				<field name="linkcolor" class="" type="color" default="#0088cc"
+					label="TPL_LINKCOLOR_LABEL"
+					description="TPL_LINKCOLOR_COLOR_DESC" />
+
+				<field name="linkhovercolor" class="" type="color" default="#0088cc"
+					label="TPL_LINKHOVERCOLOR_LABEL"
+					description="TPL_LINKHOVERCOLOR_DESC" />
+
+
+
+				<field name="ModulesBackgroundColor" class="" type="color" default="#eaeaea"
+					label="TPL_PROTOSTAR_TEXT_WELL_BACKGROUND_COLOR_LABEL"
+					description="TPL_PROTOSTAR_TEXT_WELL_BACKGROUND_COLOR_DESC" />
+
+		<field label="LBL_BACKGROUND" type="spacer" class="label"/>
+				<field name="templateTextBackgroundColor" class="" type="color" default="#ffffff"
+					label="TPL_PROTOSTAR_TEXT_BACKGROUND_COLOR_LABEL"
+					description="TPL_PROTOSTAR_TEXT_BACKGROUND_COLOR_DESC" />
+
+				<field name="templateTextBackgroundColorRGBA" class="" type="text" default=""
+					label="TPL_PROTOSTAR_TEXT_BACKGROUND_COLOR_RGBA_LABEL"
+					description="TPL_PROTOSTAR_TEXT_BACKGROUND_COLOR_RGBA_DESC" />
+
+
+
+		<field label="LBL_MENU" type="spacer" class="label"/>
+				<field name="menugradient1" class="" type="color" default="#ffffff"
+					label="TPL_PROTOSTAR_MENU_GRADIENT_1_LABEL"
+					description="TPL_PROTOSTAR_MENU_GRADIENT_1_DESC" />
+
+				<field name="menugradient2" class="" type="color" default="#eaeaea"
+					label="TPL_PROTOSTAR_MENU_GRADIENT_2_LABEL"
+					description="TPL_PROTOSTAR_MENU_GRADIENT_2_DESC" />
+
+				<field name="menuactivecolor" class="" type="color" default="#ffffff"
+					label="TPL_MENUACTIVE_LABEL"
+					description="TPL_MENUCACTIVE_DESC" />
+
+		<field label="LBL_HEADERBAR" type="spacer" class="label"/>
+
+				<field name="topbarbg" class="" type="color" default="#ffffff"
+					label="TPL_HEADERBAR_BG_LABEL"
+					description="TPL_HEADERBAR_BG_DESC" />
+
+				<field name="topbarbgRGBA" class="" type="text" default=""
+					label="TPL_HEADERBAR_RGBA_BG_LABEL"
+					description="TPL_HEADERBAR_RGBA_BG_DESC" />
+
+				<field name="topbarcontent" class="" type="color" default="#ffffff"
+					label="TPL_TOPBARCONTENT_LABEL"
+					description="TPL_TOPBARCONTENT_DESC" />
+
+
+
+
+
+			</fieldset>
+
+			<fieldset name="Slideshow">
+			<field label="SLIDE_INFO" type="spacer" class="label" />
+			<field name="slide1" class="" type="media" default=""
+					label="TPL_SLIDE"
+					description="TPL_SLIDE_DESC" />
+			<field name="slide1text" class="" type="text" default="" filter="raw"
+					label="TPL_SLIDETEXT_LABEL"
+					description="TPL_SLIDETEXT_DESC" />
+			<field name="slide2" class="" type="media" default=""
+					label="TPL_SLIDE"
+					description="TPL_SLIDE_DESC" />
+			<field name="slide2text" class="" type="text" default="" filter="raw"
+					label="TPL_SLIDETEXT_LABEL"
+					description="TPL_SLIDETEXT_DESC" />
+			<field name="slide3" class="" type="media" default=""
+					label="TPL_SLIDE"
+					description="TPL_SLIDE_DESC" />
+			<field name="slide3text" class="" type="text" default="" filter="raw"
+					label="TPL_SLIDETEXT_LABEL"
+					description="TPL_SLIDETEXT_DESC" />
+			<field name="slide4" class="" type="media" default=""
+					label="TPL_SLIDE"
+					description="TPL_SLIDE_DESC" />
+			<field name="slide4text" class="" type="text" default="" filter="raw"
+					label="TPL_SLIDETEXT_LABEL"
+					description="TPL_SLIDETEXT_DESC" />
+			<field name="slide5" class="" type="media" default=""
+					label="TPL_SLIDE"
+					description="TPL_SLIDE_DESC" />
+			<field name="slide5text" class="" type="text" default="" filter="raw"
+					label="TPL_SLIDETEXT_LABEL"
+					description="TPL_SLIDETEXT_DESC" />
+		<field label="LBL_SLIDER_SPACER" type="spacer" class="label"/>
+			<field name="sliderheight"  type="text" default="300"
+					label="TPL_SLIDER_HEIGHT"
+					description="TPL_SLIDER_HEIGHT_DESC"
+					filter="string" />
+			<field name="sliderspeed"  type="text" default="5000"
+					label="TPL_SLIDER_SPEED_LABEL"
+					description="TPL_SLIDER_SPEED_DESC"
+					filter="string" />
+
+			</fieldset>
+
+			<fieldset name="socials">
+
+			<field name="tplSocial" class="" type="text" default=""
+					label="TPL_SOCIAL_LABEL"
+					description="TPL_SOCIAL_DESC" />
+			<field name="tplFacebook" class="" type="text" default="" filter="raw"
+					label="TPL_FACEBOOK_LABEL"
+					description="TPL_FACEBOOK_DESC" />
+			<field name="tplTwitter" class="" type="text" default="" filter="raw"
+					label="TPL_TWITTER_LABEL"
+					description="TPL_TWITTER_DESC" />
+			<field name="tplLinkedin" class="" type="text" default="" filter="raw"
+					label="TPL_LINKEDIN_LABEL"
+					description="TPL_LINKEDIN_DESC" />
+			<field name="tplPinterest" class="" type="text" default="" filter="raw"
+					label="TPL_PINT_LABEL"
+					description="TPL_PINT_DESC" />
+			<field name="tplGplus" class="" type="text" default="" filter="raw"
+					label="TPL_GPLUS_LABEL"
+					description="TPL_GPLUS_DESC" />
+			<field name="tplInst" class="" type="text" default="" filter="raw"
+					label="TPL_INST_LABEL"
+					description="TPL_INST_DESC" />
+
+
+			</fieldset>
+
+			<fieldset name="Customscriptcss">
+
+			<field name="customcss" class="" type="textarea" rows="10" cols="20" default="" filter="raw"
+					label="TPL_CUSTOMCSS_LABEL"
+					description="TPL_CUSTOMCSS_DESC" />
+
+			<field name="customhead" class="" type="textarea" rows="10" cols="20" default="" filter="raw"
+					label="TPL_CUSTOM_HEAD_LABEL"
+					description="TPL_CUSTOM_HEAD_DESC" />
+
+
+			<field name="customscr" class="" type="textarea" rows="10" cols="20" default="" filter="raw"
+					label="TPL_CUSTOMSCRIPTS_LABEL"
+					description="TPL_CUSTOMSCRIPTS_DESC" />
+
+	<field label="LBL_GA" type="spacer" class="label"/>
+
+			<field name="googleAnalytics" class="" type="textarea" rows="10" cols="5" default="" filter="raw"
+				label="TPL_PROTOSTAR_ANALYTICS_LABEL"
+				description="TPL_PROTOSTAR_ANALYTICS_DESC" />
+
+
+
+			</fieldset>
+
+
+		</fields>
+	</config>
+</extension>

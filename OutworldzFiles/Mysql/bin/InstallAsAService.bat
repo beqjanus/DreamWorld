@@ -1,4 +1,4 @@
 @REM Program to run Mysql as a Service
-mysqld.exe --install Mysql --defaults-file="C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/mysql/my.ini"
+mysqld.exe --install Mysql --defaults-file="O:/Opensim/Outworldz DreamGrid Master/OutworldzFiles/mysql/my.ini"
 net start Mysql
 

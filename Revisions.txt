@@ -2,7 +2,13 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V3.695 Alpha Release for 3.7V3.695 
+V3.7
+Sendkeys had issues so save all oars not working. Set to consistent behavior in Start.exe.config
+Threaded System backup to not block the main UI
+
+V3.695 Alpha Release for 3.7
+
+V3.695 
 Minor 
 
 V3.694 Alpha Release for 3.7

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension 
+    type="module" 
+    version="3.1" 
+    client="site" 
+    method="upgrade">
+    <name>MOD_OPENSIM_REGIONS</name>
+    <title>MOD_OPENSIM_REGIONS</title>
+    <author>FoTo50</author>
+    <creationDate>2018-08-23</creationDate>
+    <copyright>All rights reserved by FoTo50 2018</copyright>
+    <license>GNU/GPL v2 http://www.gnu.org/licenses/gpl-2.0.html</license>
+    <authorEmail>foto50@jopensim.com</authorEmail>
+    <authorUrl>http://www.jopensim.com</authorUrl>
+    <version>0.3.1.5</version>
+    <description>MOD_OPENSIM_REGIONS_DESC</description>
+
+    <files>
+        <filename module="mod_opensim_regions">mod_opensim_regions.php</filename>
+        <folder>assets</folder>
+        <folder>language</folder>
+        <folder>tmpl</folder>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>mod_opensim_installerscript.php</filename>
+    </files>
+
+    <languages>
+        <language tag="en-GB">language/en-GB.mod_opensim_regions.ini</language>
+        <language tag="en-GB">language/en-GB.mod_opensim_regions.sys.ini</language>
+        <language tag="fr-FR">language/fr-FR.mod_opensim_regions.ini</language>
+        <language tag="fr-FR">language/fr-FR.mod_opensim_regions.sys.ini</language>
+        <language tag="it-IT">language/it-IT.mod_opensim_regions.ini</language>
+        <language tag="it-IT">language/it-IT.mod_opensim_regions.sys.ini</language>
+    </languages>
+
+    <help url="MOD_OPENSIM_REGIONS_HELP_URL" key="" />
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="showhiddenregions"
+                    type="radio"
+                    class="btn-group btn-group-yesno"
+                    default="0"
+                    label="MOD_OPENSIM_REGIONS_SHOWHIDDEN"
+                    description="MOD_OPENSIM_REGIONS_SHOWHIDDEN_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field
+                    name="showhgregions"
+                    type="radio"
+                    class="btn-group btn-group-yesno"
+                    default="0"
+                    label="MOD_OPENSIM_REGIONS_SHOWHG"
+                    description="MOD_OPENSIM_REGIONS_SHOWHG_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field
+                    name="tableclasscondensed"
+                    type="radio"
+                    class="btn-group btn-group-yesno"
+                    default="0"
+                    label="MOD_OPENSIM_REGIONS_TABLECLASS_CONDENSED"
+                    description="MOD_OPENSIM_REGIONS_TABLECLASS_CONDENSED_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field
+                    name="tableclassstriped"
+                    type="radio"
+                    class="btn-group btn-group-yesno"
+                    default="0"
+                    label="MOD_OPENSIM_REGIONS_TABLECLASSS_TRIPED"
+                    description="MOD_OPENSIM_REGIONS_TABLECLASSS_TRIPED_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field
+                    name="tableclasshover"
+                    type="radio"
+                    class="btn-group btn-group-yesno"
+                    default="0"
+                    label="MOD_OPENSIM_REGIONS_TABLECLASS_HOVER"
+                    description="MOD_OPENSIM_REGIONS_TABLECLASS_HOVER_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field
+                	name="maxnamelength"
+                	type="number"
+                	default="0"
+                	label="MOD_OPENSIM_REGIONS_MAXCHARS"
+                	description="MOD_OPENSIM_REGIONS_MAXCHARS_DESC" />
+                <field
+                	name="maxheight"
+                	type="number"
+                	default="0"
+                	label="MOD_OPENSIM_REGIONS_MAXHEIGHT"
+                	description="MOD_OPENSIM_REGIONS_MAXHEIGHT_DESC" />
+			</fieldset>
+
+            <fieldset name="advanced">
+                <field
+                    name="layout"
+                    type="modulelayout"
+                    label="JFIELD_ALT_LAYOUT_LABEL"
+                    description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+
+                <field
+                    name="moduleclass_sfx"
+                    type="textarea" rows="3"
+                    label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+                    description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+
+                <field
+                    name="cache"
+                    type="list"
+                    default="0"
+                    label="COM_MODULES_FIELD_CACHING_LABEL"
+                    description="COM_MODULES_FIELD_CACHING_DESC">
+                    <option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
+
+    <scriptfile>mod_opensim_installerscript.php</scriptfile>
+    <updateservers>
+        <server type="collection" priority="1" name="jOpenSim Update Site">https://update.jopensim.com/jopensim_list.xml</server>
+    </updateservers>
+</extension>
