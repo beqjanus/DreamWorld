@@ -55,7 +55,7 @@ Partial Class FormScripts
         Me.YengineButton.Size = New System.Drawing.Size(65, 17)
         Me.YengineButton.TabIndex = 1
         Me.YengineButton.TabStop = True
-        Me.YengineButton.Text = Global.Outworldz.My.Resources.Y_Engine_word
+        Me.YengineButton.Text = Global.Outworldz.My.Resources.YEngine_word
         Me.YengineButton.UseVisualStyleBackColor = True
         '
         'XengineButton
@@ -66,7 +66,7 @@ Partial Class FormScripts
         Me.XengineButton.Size = New System.Drawing.Size(65, 17)
         Me.XengineButton.TabIndex = 0
         Me.XengineButton.TabStop = True
-        Me.XengineButton.Text = Global.Outworldz.My.Resources.X_Engine_word
+        Me.XengineButton.Text = Global.Outworldz.My.Resources.XEngine_word
         Me.XengineButton.UseVisualStyleBackColor = True
         '
         'GroupBox8

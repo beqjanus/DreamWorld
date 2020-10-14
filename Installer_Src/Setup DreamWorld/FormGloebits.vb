@@ -84,6 +84,10 @@ Public Class Gloebits
         ProdSecretTextBox.UseSystemPasswordChar = True
         ProdSecretTextBox.Text = Settings.GLProdSecret
 
+        GLBShowNewSessionAuthIMCheckBox.Checked = Settings.GLBShowNewSessionAuthIM
+        GLBShowNewSessionPurchaseIMCheckBox.Checked = Settings.GLBShowNewSessionPurchaseIM
+        GLBShowWelcomeMessageCheckBox.Checked = Settings.GLBShowWelcomeMessage
+
         GloebitsEnabled.Checked = Settings.GloebitsEnable
         SetScreen()
         Initted = True
@@ -117,7 +121,6 @@ Public Class Gloebits
         Dim webAddress As String = "https://sandbox.gloebit.com/signup/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -128,7 +131,6 @@ Public Class Gloebits
         Dim webAddress As String = "https://sandbox.gloebit.com/merchant-signup/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -139,7 +141,6 @@ Public Class Gloebits
         Dim webAddress As String = "https://www.gloebit.com"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -165,28 +166,35 @@ Public Class Gloebits
 #Region "Production"
 
     Private Sub ProdKeyTextBox_Click(sender As Object, e As EventArgs) Handles ProdKeyTextBox.Click
+
         ProdKeyTextBox.UseSystemPasswordChar = False
+
     End Sub
 
     Private Sub ProdKeyTextBox_TextChanged(sender As Object, e As EventArgs) Handles ProdKeyTextBox.TextChanged
+
         Settings.GLProdKey = ProdKeyTextBox.Text
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub ProdSecretTextBox_Click(sender As Object, e As EventArgs) Handles ProdSecretTextBox.Click
+
         ProdSecretTextBox.UseSystemPasswordChar = False
+
     End Sub
 
     Private Sub ProdSecretTextBox_TextChanged(sender As Object, e As EventArgs) Handles ProdSecretTextBox.TextChanged
+
         Settings.GLProdSecret = ProdSecretTextBox.Text
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub ProductionCreateAppButton_Click(sender As Object, e As EventArgs) Handles ProductionCreateAppButton.Click
         Dim webAddress As String = "https://www.gloebit.com/merchant-tools/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -197,7 +205,6 @@ Public Class Gloebits
         Dim webAddress As String = "https://www.gloebit.com/signup/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -208,7 +215,6 @@ Public Class Gloebits
         Dim webAddress As String = "https://www.gloebit.com/merchant-signup/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -234,6 +240,7 @@ Public Class Gloebits
     End Sub
 
     Private Sub OwnerNameTextbox_TextChanged(sender As Object, e As EventArgs) Handles OwnerNameTextbox.TextChanged
+
         Settings.GLBOwnerName = OwnerNameTextbox.Text
         Settings.SaveSettings()
 
@@ -247,11 +254,30 @@ Public Class Gloebits
         Dim webAddress As String = "http://dev.gloebit.com/opensim/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
+    End Sub
+
+    Private Sub GLBShowNewSessionAuthIMCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GLBShowNewSessionAuthIMCheckBox.CheckedChanged
+
+        Settings.GLBShowNewSessionAuthIM = GLBShowNewSessionAuthIMCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub GLBShowNewSessionPurchaseIMCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GLBShowNewSessionPurchaseIMCheckBox.CheckedChanged
+
+        Settings.GLBShowNewSessionPurchaseIM = GLBShowNewSessionPurchaseIMCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub GLBShowWelcomeMessageCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GLBShowWelcomeMessageCheckBox.CheckedChanged
+
+        Settings.GLBShowWelcomeMessage = GLBShowWelcomeMessageCheckBox.Checked
+        Settings.SaveSettings()
+
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
@@ -259,23 +285,10 @@ Public Class Gloebits
         Dim webAddress As String = "http://dev.gloebit.com/opensim/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
-    End Sub
-
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles PictureBox3.Click
-        Dim webAddress As String = "http://dev.gloebit.com/monetize/"
-        Try
-            Process.Start(webAddress)
-
-        Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
-        End Try
     End Sub
 
 #End Region

@@ -3195,11 +3195,11 @@ Public Class Form1
         'Gloebits.ini
         If Settings.LoadIni(Settings.OpensimBinPath & "Gloebit.ini", ";") Then Return True
         'Print("->Set Gloebits")
-        If Settings.GloebitsEnable Then
-            Settings.SetIni("Gloebit", "Enabled", "True")
-        Else
-            Settings.SetIni("Gloebit", "Enabled", "False")
-        End If
+
+        Settings.SetIni("Gloebit", "Enabled", Settings.GloebitsEnable)
+        Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", Settings.GLBShowNewSessionAuthIM)
+        Settings.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", Settings.GLBShowNewSessionPurchaseIM)
+        Settings.SetIni("Gloebit", "GLBShowWelcomeMessage", Settings.GLBShowWelcomeMessage)
 
         If Settings.GloebitsMode Then
             Settings.SetIni("Gloebit", "GLBEnvironment", "production")

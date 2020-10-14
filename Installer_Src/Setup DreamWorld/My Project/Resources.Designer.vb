@@ -3386,6 +3386,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Show Gloebits authorization Instant Message to user at session start?.
+        '''</summary>
+        Friend ReadOnly Property GLBShowNewSessionAuthIM_text() As String
+            Get
+                Return ResourceManager.GetString("GLBShowNewSessionAuthIM_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Show purchase Gloebits Instant Message to user at session start?.
+        '''</summary>
+        Friend ReadOnly Property GLBShowNewSessionPurchaseIM_text() As String
+            Get
+                Return ResourceManager.GetString("GLBShowNewSessionPurchaseIM_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Show Gloebits welcome message when entering a region?.
+        '''</summary>
+        Friend ReadOnly Property GLBShowWelcomeMessage_text() As String
+            Get
+                Return ResourceManager.GetString("GLBShowWelcomeMessage_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Global Settings.
         '''</summary>
         Friend ReadOnly Property Global_Settings_word() As String
@@ -8643,15 +8670,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to X Engine.
         '''</summary>
-        Friend ReadOnly Property X_Engine_word() As String
-            Get
-                Return ResourceManager.GetString("X_Engine_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to XEngine.
-        '''</summary>
         Friend ReadOnly Property XEngine_word() As String
             Get
                 Return ResourceManager.GetString("XEngine_word", resourceCulture)
@@ -8687,15 +8705,6 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to Y Engine.
-        '''</summary>
-        Friend ReadOnly Property Y_Engine_word() As String
-            Get
-                Return ResourceManager.GetString("Y_Engine_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to YEngine.
         '''</summary>
         Friend ReadOnly Property YEngine_word() As String
             Get

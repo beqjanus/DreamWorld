@@ -359,26 +359,6 @@ Public Class MySettings
 
 #Region "Properties"
 
-
-    Public Property CPUMAX As Single
-        Get
-            Return CType(GetMySetting("CPUMax", 90), Single)
-        End Get
-        Set(value As Single)
-            SetMySetting("CPUMax", CSng(value))
-        End Set
-    End Property
-
-    Public Property BanList() As String
-        Get
-            Return CType(GetMySetting("BanList", ""), String)
-        End Get
-        Set
-            SetMySetting("BanList", Value)
-        End Set
-    End Property
-
-
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -503,6 +483,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("BackupFolder", Value)
+        End Set
+    End Property
+
+    Public Property BanList() As String
+        Get
+            Return CType(GetMySetting("BanList", ""), String)
+        End Get
+        Set
+            SetMySetting("BanList", Value)
         End Set
     End Property
 
@@ -812,6 +801,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CPUMAX As Single
+        Get
+            Return CType(GetMySetting("CPUMax", 90), Single)
+        End Get
+        Set(value As Single)
+            SetMySetting("CPUMax", CSng(value))
+        End Set
+    End Property
+
     ' more stuff
     Public Property CurrentDirectory() As String
         Get
@@ -970,6 +968,45 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("GLBOwnerName", Value)
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Show app authorization Instant Message to user at session start?
+    ''' </summary>
+    ''' <returns>False</returns>
+    Public Property GLBShowNewSessionAuthIM() As Boolean
+        Get
+            Return CType(GetMySetting("GLBShowNewSessionAuthIM", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("GLBShowNewSessionAuthIM", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Show purchase Gloebits Instant Message to user at session start?
+    ''' </summary>
+    ''' <returns>False</returns>
+    Public Property GLBShowNewSessionPurchaseIM() As Boolean
+        Get
+            Return CType(GetMySetting("GLBShowNewSessionPurchaseIM", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("GLBShowNewSessionPurchaseIM", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Show welcome message when entering a region?
+    ''' </summary>
+    ''' <returns>True</returns>
+    Public Property GLBShowWelcomeMessage() As Boolean
+        Get
+            Return CType(GetMySetting("GLBShowWelcomeMessage", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("GLBShowWelcomeMessage", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
