@@ -2982,4 +2982,7 @@
   <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
     <value>Show Gloebits welcome message when entering a region?</value>
   </data>
+  <data name="EnableGloebit_word" xml:space="preserve">
+    <value>Enable Gloebit</value>
+  </data>
 </root>

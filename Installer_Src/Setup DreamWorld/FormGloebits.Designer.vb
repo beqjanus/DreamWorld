@@ -175,7 +175,7 @@ Partial Class Gloebits
         Me.GloebitsEnabled.Name = "GloebitsEnabled"
         Me.GloebitsEnabled.Size = New System.Drawing.Size(59, 17)
         Me.GloebitsEnabled.TabIndex = 16
-        Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.Resources.EnableGloebit_word
         Me.GloebitsEnabled.UseVisualStyleBackColor = True
         '
         'GroupBox2

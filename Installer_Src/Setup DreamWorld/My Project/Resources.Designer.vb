@@ -2645,6 +2645,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Enable Gloebit.
+        '''</summary>
+        Friend ReadOnly Property EnableGloebit_word() As String
+            Get
+                Return ResourceManager.GetString("EnableGloebit_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Enable One-Click Start.
         '''</summary>
         Friend ReadOnly Property EnableOneClickStart_word() As String
