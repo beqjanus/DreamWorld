@@ -67,11 +67,11 @@ Public Class FormPhysics
 
         Select Case Settings.Physics
             Case 0 : PhysicsNone.Checked = True
-            Case 1 : PhysicsODE.Checked = True
-            Case 2 : PhysicsBullet.Checked = True
+            Case 1 : PhysicsSeparate.Checked = True
+            Case 2 : PhysicsSeparate.Checked = True
             Case 3 : PhysicsSeparate.Checked = True
             Case 4 : PhysicsubODE.Checked = True
-            Case 5 : PhysicsHybrid.Checked = True
+            Case 5 : PhysicsubODE.Checked = True
             Case Else : PhysicsSeparate.Checked = True
         End Select
 
@@ -88,7 +88,7 @@ Public Class FormPhysics
         Form1.Help("Physics")
     End Sub
 
-    Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
+    Private Sub GodHelp_Click(sender As Object, e As EventArgs)
         Form1.Help("Physics")
     End Sub
 
@@ -97,22 +97,6 @@ Public Class FormPhysics
         Form1.PropViewedSettings = True
         Settings.SaveSettings()
 
-    End Sub
-
-    Private Sub PhysicsBullet_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsBullet.CheckedChanged
-        If Not initted Then Return
-        If PhysicsBullet.Checked Then
-            Settings.Physics = 2
-            Settings.SaveSettings()
-        End If
-    End Sub
-
-    Private Sub PhysicsHybrid_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsHybrid.CheckedChanged
-        If Not initted Then Return
-        If PhysicsHybrid.Checked Then
-            Settings.Physics = 5
-            Settings.SaveSettings()
-        End If
     End Sub
 
     Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
@@ -135,14 +119,6 @@ Public Class FormPhysics
         If Not initted Then Return
         If PhysicsubODE.Checked Then
             Settings.Physics = 4
-            Settings.SaveSettings()
-        End If
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsODE.CheckedChanged
-        If Not initted Then Return
-        If PhysicsODE.Checked Then
-            Settings.Physics = 1
             Settings.SaveSettings()
         End If
     End Sub
