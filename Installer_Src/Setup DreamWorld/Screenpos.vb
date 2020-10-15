@@ -56,13 +56,11 @@ Public Class ScreenPos
                 Using outputFile As New StreamWriter(MyINI1, True)
                     outputFile.WriteLine(contents)
                 End Using
-
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
-
             LoadXYIni()
+
         End If
 
     End Sub
@@ -156,9 +154,7 @@ Public Class ScreenPos
             Debug.Print("X<" + ValueXOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
-
         Catch ex As Exception
-
             Form1.Logger("Resize", ex.Message, "Error")
             BreakPoint.Show(ex.Message)
         End Try
@@ -170,9 +166,7 @@ Public Class ScreenPos
 
         Try
             Data = parser.ReadFile(MyINI1, System.Text.Encoding.UTF8)
-
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Diagnostics.Debug.Print("Error:" & ex.Message)
         End Try
@@ -184,12 +178,16 @@ Public Class ScreenPos
         If name Is Nothing Then Return
         name = name.Replace("\n", "")
         name = name.Replace("\r", "")
+        name = name.Replace(" ", "_")
         If name Is Nothing Then Return
         If Data Is Nothing Then
             Return
         End If
+
         ' Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
-        Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(name & "_width") = size.ToString(Globalization.CultureInfo.CurrentCulture)
+
+        Dim s As String = name & "_width"
+        Data("Data")(s.ToString(Globalization.CultureInfo.CurrentCulture)) = size.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
@@ -199,7 +197,6 @@ Public Class ScreenPos
         If Data Is Nothing Then Return
         Try
             parser.WriteFile(MyINI1, Data, System.Text.Encoding.UTF8)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -209,7 +206,9 @@ Public Class ScreenPos
     End Sub
 
     Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
-
+        If Data Is Nothing Then
+            Return
+        End If
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_H", ValueH.ToString(Globalization.CultureInfo.CurrentCulture))
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_W", ValueW.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
@@ -233,6 +232,10 @@ Public Class ScreenPos
 #Region "Private Methods"
 
     Private Sub SetXYIni(section As String, key As String, value As String)
+
+        If Data Is Nothing Then
+            Return
+        End If
 
         section = section.ToString(Globalization.CultureInfo.CurrentCulture)
         key = key.ToString(Globalization.CultureInfo.CurrentCulture)
