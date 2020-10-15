@@ -40,6 +40,8 @@ Partial Class FormDNSName
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DNSAliasTextBox = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.OsGridButton.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -53,91 +55,85 @@ Partial Class FormDNSName
         'SuitcaseCheckbox
         '
         Me.SuitcaseCheckbox.AutoSize = True
-        Me.SuitcaseCheckbox.Location = New System.Drawing.Point(24, 63)
-        Me.SuitcaseCheckbox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SuitcaseCheckbox.Location = New System.Drawing.Point(16, 42)
         Me.SuitcaseCheckbox.Name = "SuitcaseCheckbox"
-        Me.SuitcaseCheckbox.Size = New System.Drawing.Size(220, 24)
+        Me.SuitcaseCheckbox.Size = New System.Drawing.Size(150, 17)
         Me.SuitcaseCheckbox.TabIndex = 1877
-        Me.SuitcaseCheckbox.Text = Global.Outworldz.My.Resources.Suitcase_enable
-        Me.ToolTip1.SetToolTip(Me.SuitcaseCheckbox, Global.Outworldz.My.Resources.Disable_Suitcase_txt)
+        Me.SuitcaseCheckbox.Text = Global.Outworldz.My.Resources.Resources.Suitcase_enable
+        Me.ToolTip1.SetToolTip(Me.SuitcaseCheckbox, Global.Outworldz.My.Resources.Resources.Disable_Suitcase_txt)
         Me.SuitcaseCheckbox.UseVisualStyleBackColor = True
         '
         'EnableHypergrid
         '
         Me.EnableHypergrid.AutoSize = True
-        Me.EnableHypergrid.Location = New System.Drawing.Point(24, 28)
-        Me.EnableHypergrid.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.EnableHypergrid.Location = New System.Drawing.Point(16, 19)
         Me.EnableHypergrid.Name = "EnableHypergrid"
-        Me.EnableHypergrid.Size = New System.Drawing.Size(157, 24)
+        Me.EnableHypergrid.Size = New System.Drawing.Size(107, 17)
         Me.EnableHypergrid.TabIndex = 1873
-        Me.EnableHypergrid.Text = Global.Outworldz.My.Resources.Enable_Hypergrid_word
-        Me.ToolTip1.SetToolTip(Me.EnableHypergrid, Global.Outworldz.My.Resources.Enable_Hypergrid_word)
+        Me.EnableHypergrid.Text = Global.Outworldz.My.Resources.Resources.Enable_Hypergrid_word
+        Me.ToolTip1.SetToolTip(Me.EnableHypergrid, Global.Outworldz.My.Resources.Resources.Enable_Hypergrid_word)
         Me.EnableHypergrid.UseVisualStyleBackColor = True
         '
         'DynDNSHelp
         '
-        Me.DynDNSHelp.Image = Global.Outworldz.My.Resources.about
-        Me.DynDNSHelp.Location = New System.Drawing.Point(229, 15)
-        Me.DynDNSHelp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DynDNSHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DynDNSHelp.Location = New System.Drawing.Point(153, 10)
         Me.DynDNSHelp.Name = "DynDNSHelp"
-        Me.DynDNSHelp.Size = New System.Drawing.Size(35, 37)
+        Me.DynDNSHelp.Size = New System.Drawing.Size(23, 25)
         Me.DynDNSHelp.TabIndex = 1874
         Me.DynDNSHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.DynDNSHelp, Global.Outworldz.My.Resources.Click_For_Help)
+        Me.ToolTip1.SetToolTip(Me.DynDNSHelp, Global.Outworldz.My.Resources.Resources.Click_For_Help)
         '
         'UniqueId
         '
-        Me.UniqueId.Location = New System.Drawing.Point(270, 178)
-        Me.UniqueId.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.UniqueId.Location = New System.Drawing.Point(17, 185)
         Me.UniqueId.Name = "UniqueId"
-        Me.UniqueId.Size = New System.Drawing.Size(196, 26)
+        Me.UniqueId.Size = New System.Drawing.Size(132, 20)
         Me.UniqueId.TabIndex = 1875
-        Me.ToolTip1.SetToolTip(Me.UniqueId, Global.Outworldz.My.Resources.Reserve_Password)
+        Me.ToolTip1.SetToolTip(Me.UniqueId, Global.Outworldz.My.Resources.Resources.Reserve_Password)
         '
         'TestButton1
         '
-        Me.TestButton1.Location = New System.Drawing.Point(206, 243)
-        Me.TestButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TestButton1.Location = New System.Drawing.Point(143, 232)
         Me.TestButton1.Name = "TestButton1"
-        Me.TestButton1.Size = New System.Drawing.Size(145, 34)
+        Me.TestButton1.Size = New System.Drawing.Size(97, 23)
         Me.TestButton1.TabIndex = 1872
-        Me.TestButton1.Text = Global.Outworldz.My.Resources.Test_DNS_word
-        Me.ToolTip1.SetToolTip(Me.TestButton1, Global.Outworldz.My.Resources.Test_DNS_word)
+        Me.TestButton1.Text = Global.Outworldz.My.Resources.Resources.Test_DNS_word
+        Me.ToolTip1.SetToolTip(Me.TestButton1, Global.Outworldz.My.Resources.Resources.Test_DNS_word)
         Me.TestButton1.UseVisualStyleBackColor = True
         '
         'NextNameButton
         '
-        Me.NextNameButton.Location = New System.Drawing.Point(28, 243)
-        Me.NextNameButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.NextNameButton.Location = New System.Drawing.Point(25, 232)
         Me.NextNameButton.Name = "NextNameButton"
-        Me.NextNameButton.Size = New System.Drawing.Size(153, 34)
+        Me.NextNameButton.Size = New System.Drawing.Size(102, 23)
         Me.NextNameButton.TabIndex = 1870
-        Me.NextNameButton.Text = Global.Outworldz.My.Resources.Next_Name
-        Me.ToolTip1.SetToolTip(Me.NextNameButton, Global.Outworldz.My.Resources.FreeName)
+        Me.NextNameButton.Text = Global.Outworldz.My.Resources.Resources.Next_Name
+        Me.ToolTip1.SetToolTip(Me.NextNameButton, Global.Outworldz.My.Resources.Resources.FreeName)
         Me.NextNameButton.UseVisualStyleBackColor = True
         '
         'DNSNameBox
         '
-        Me.DNSNameBox.Location = New System.Drawing.Point(24, 130)
-        Me.DNSNameBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DNSNameBox.Location = New System.Drawing.Point(16, 87)
         Me.DNSNameBox.Name = "DNSNameBox"
-        Me.DNSNameBox.Size = New System.Drawing.Size(442, 26)
+        Me.DNSNameBox.Size = New System.Drawing.Size(296, 20)
         Me.DNSNameBox.TabIndex = 1869
-        Me.ToolTip1.SetToolTip(Me.DNSNameBox, Global.Outworldz.My.Resources.AlphaNum)
+        Me.ToolTip1.SetToolTip(Me.DNSNameBox, Global.Outworldz.My.Resources.Resources.AlphaNum)
         '
         'SaveButton1
         '
-        Me.SaveButton1.Location = New System.Drawing.Point(373, 243)
-        Me.SaveButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SaveButton1.Location = New System.Drawing.Point(255, 232)
         Me.SaveButton1.Name = "SaveButton1"
-        Me.SaveButton1.Size = New System.Drawing.Size(136, 34)
+        Me.SaveButton1.Size = New System.Drawing.Size(91, 23)
         Me.SaveButton1.TabIndex = 1879
-        Me.SaveButton1.Text = Global.Outworldz.My.Resources.Save_word
-        Me.ToolTip1.SetToolTip(Me.SaveButton1, Global.Outworldz.My.Resources.Save_word)
+        Me.SaveButton1.Text = Global.Outworldz.My.Resources.Resources.Save_word
+        Me.ToolTip1.SetToolTip(Me.SaveButton1, Global.Outworldz.My.Resources.Resources.Save_word)
         Me.SaveButton1.UseVisualStyleBackColor = True
         '
         'OsGridButton
         '
+        Me.OsGridButton.Controls.Add(Me.Label3)
+        Me.OsGridButton.Controls.Add(Me.DNSAliasTextBox)
         Me.OsGridButton.Controls.Add(Me.SaveButton1)
         Me.OsGridButton.Controls.Add(Me.Label2)
         Me.OsGridButton.Controls.Add(Me.SuitcaseCheckbox)
@@ -148,73 +144,84 @@ Partial Class FormDNSName
         Me.OsGridButton.Controls.Add(Me.TestButton1)
         Me.OsGridButton.Controls.Add(Me.NextNameButton)
         Me.OsGridButton.Controls.Add(Me.DNSNameBox)
-        Me.OsGridButton.Location = New System.Drawing.Point(32, 51)
-        Me.OsGridButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.OsGridButton.Location = New System.Drawing.Point(21, 34)
         Me.OsGridButton.Name = "OsGridButton"
-        Me.OsGridButton.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.OsGridButton.Size = New System.Drawing.Size(535, 305)
+        Me.OsGridButton.Size = New System.Drawing.Size(357, 261)
         Me.OsGridButton.TabIndex = 1869
         Me.OsGridButton.TabStop = False
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(24, 106)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(16, 71)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(334, 20)
+        Me.Label2.Size = New System.Drawing.Size(224, 13)
         Me.Label2.TabIndex = 1878
-        Me.Label2.Text = Global.Outworldz.My.Resources.DNSNameText
+        Me.Label2.Text = "DNS Name or SomeName.Outworldz.net or IP"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(26, 184)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(22, 169)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(143, 20)
+        Me.Label1.Size = New System.Drawing.Size(97, 13)
         Me.Label1.TabIndex = 1876
-        Me.Label1.Text = Global.Outworldz.My.Resources.DynDNS_password_word
+        Me.Label1.Text = "DynDNS password"
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(581, 35)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(387, 30)
         Me.MenuStrip1.TabIndex = 18600
-        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(151, 34)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        '
+        'DNSAliasTextBox
+        '
+        Me.DNSAliasTextBox.Location = New System.Drawing.Point(17, 134)
+        Me.DNSAliasTextBox.Name = "DNSAliasTextBox"
+        Me.DNSAliasTextBox.Size = New System.Drawing.Size(296, 20)
+        Me.DNSAliasTextBox.TabIndex = 1880
+        Me.ToolTip1.SetToolTip(Me.DNSAliasTextBox, Global.Outworldz.My.Resources.Resources.DNSAlt)
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(17, 118)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(224, 13)
+        Me.Label3.TabIndex = 1881
+        Me.Label3.Text = "DNS Name or SomeName.Outworldz.net or IP"
         '
         'FormDNSName
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(581, 380)
+        Me.ClientSize = New System.Drawing.Size(387, 307)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.OsGridButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormDNSName"
-        Me.Text = Global.Outworldz.My.Resources.DNS_HG_Name
-        Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Help_word)
+        Me.Text = "DNS Name & Hypergrid"
+        Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.Help_word)
         CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OsGridButton.ResumeLayout(False)
         Me.OsGridButton.PerformLayout()
@@ -240,4 +247,6 @@ Partial Class FormDNSName
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents Label3 As Label
+    Friend WithEvents DNSAliasTextBox As TextBox
 End Class

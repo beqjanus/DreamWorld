@@ -140,13 +140,26 @@ Public Class FormDNSName
             Settings.DNSName = ""
         Else
             Settings.DNSName = DNSNameBox.Text
-            Form1.RegisterName(True)
+            Form1.RegisterName(Settings.PublicIP, True)
 
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
                     Settings.PublicIP = IP()
                 Else
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
+                End If
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
+
+        If DNSAliasTextBox.Text.Length > 0 Then
+
+            Form1.RegisterName(DNSAliasTextBox.Text, True)
+
+            Try
+                If IPAddress.TryParse(DNSAliasTextBox.Text, address) Then
+                    Settings.AltDnsName = DNSAliasTextBox.Text
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
@@ -187,7 +200,7 @@ Public Class FormDNSName
             Settings.PublicIP = IP()
         Else
             Settings.PublicIP = DNSNameBox.Text
-            Form1.RegisterName(True)    ' force it to register
+            Form1.RegisterName(Settings.PublicIP, True)    ' force it to register
 
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
@@ -225,6 +238,21 @@ Public Class FormDNSName
             DNSNameBox.Text = DNSNameBox.Text.ToLower(Globalization.CultureInfo.InvariantCulture)
 #Enable Warning CA1308 ' Normalize strings to uppercase
 
+        End If
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles DNSAliasTextBox.TextChanged
+
+        If DNSNameBox.Text.Length > 0 And DNSAliasTextBox.Text.Length > 0 Then
+            DNSAliasTextBox.Text = DNSAliasTextBox.Text.Replace("http://", "")
+            DNSAliasTextBox.Text = DNSAliasTextBox.Text.Replace("https://", "")
+            DNSAliasTextBox.Text = Regex.Replace(DNSAliasTextBox.Text, ":\d+", "") ' no :8002 on end.
+            Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
+            DNSAliasTextBox.Text = rgx.Replace(DNSAliasTextBox.Text, "")
+#Disable Warning CA1308 ' Normalize strings to uppercase
+            DNSAliasTextBox.Text = DNSAliasTextBox.Text.ToLower(Globalization.CultureInfo.InvariantCulture)
+#Enable Warning CA1308 ' Normalize strings to uppercase
         End If
 
     End Sub
