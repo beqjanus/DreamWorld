@@ -1722,6 +1722,8 @@ Public Class Form1
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Sub UploadCategory()
 
+        If Settings.DNSName.Length = 0 Then Return
+
         'PHASE 2, upload Description and Categories
         Dim result As String = Nothing
         If Settings.Categories.Length = 0 Then Return
@@ -3349,13 +3351,13 @@ Public Class Form1
         Select Case Settings.ServerType
             Case "Robust"
                 If Settings.SearchEnabled Then
-                    Settings.SetIni("Search", "SearchURL", "https://hyperica.com/Search/query.php")
-                    Settings.SetIni("Search", "SimulatorFeatures", "https://hyperica.com/Search/query.php")
-                    Settings.SetIni("SimulatorFeatures", "SearchServerURI", "https://hyperica.com/Search/query.php")
+                    Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
+                    Settings.SetIni("Search", "SimulatorFeatures", "http://hyperica.com/Search/query.php")
+                    Settings.SetIni("SimulatorFeatures", "SearchServerURI", "http://hyperica.com/Search/query.php")
 
                     ' RegionSnapShot
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
-                    Settings.SetIni("DataSnapshot", "data_services", "https://hyperica.com/Search/register.php")
+                    Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
                 Else
                     Settings.SetIni("Search", "SearchURL", "")
                     Settings.SetIni("Search", "SimulatorFeatures", "")
@@ -3909,7 +3911,7 @@ Public Class Form1
         Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
         Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
-        Settings.SetIni("LoginService", "SearchURL", "https://hyperica.com/Search/query.php")
+        Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
         Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
         'FSASSETS
