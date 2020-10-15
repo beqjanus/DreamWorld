@@ -2377,6 +2377,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Alternate Name such as www.outworldz.com vs. outworldz.com. Can be an old grid name you wish to continute to use..
+        '''</summary>
+        Friend ReadOnly Property DNSAlt() As String
+            Get
+                Return ResourceManager.GetString("DNSAlt", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to DNS Name or SomeName.Outworldz.net or IP.
         '''</summary>
         Friend ReadOnly Property DNSNameText() As String
@@ -6497,7 +6506,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Reserve your DYN DNS name. This is a password for your name..
+        '''  Looks up a localized string similar to Reserve your DYN DNS name. This is a password for your Grid name..
         '''</summary>
         Friend ReadOnly Property Reserve_Password() As String
             Get
