@@ -405,6 +405,16 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property AltDnsName() As String
+        Get
+            Dim AltDns As String = GetMySetting("AltDnsName", "")
+            Return CType(AltDns, String)
+        End Get
+        Set
+            SetMySetting("AltDnsName", Value)
+        End Set
+    End Property
+
     Public Property ApacheEnable() As Boolean
         Get
             Return CType(GetMySetting("ApacheEnabled", "False"), Boolean)
@@ -785,7 +795,7 @@ Public Class MySettings
 
     Public Property CoordX() As Integer
         Get
-            Return Val(0 + GetMySetting("CoordX", RandomNumber.Between(2000, 1000)))
+            Return Val(0 + GetMySetting("CoordX", RandomNumber.Between(1010, 990)))
         End Get
         Set
             SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -794,7 +804,7 @@ Public Class MySettings
 
     Public Property CoordY() As Integer
         Get
-            Return Val(0 + GetMySetting("CoordY", RandomNumber.Between(2000, 1000)))
+            Return Val(0 + GetMySetting("CoordY", RandomNumber.Between(1010, 990)))
         End Get
         Set
             SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))

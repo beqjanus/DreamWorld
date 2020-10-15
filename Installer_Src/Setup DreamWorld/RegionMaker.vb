@@ -421,7 +421,7 @@ Public Class RegionMaker
                             MaxAgents(RegionUUID) = Settings.GetIni(fName, "MaxAgents", "100", "Integer")
 
                             ' Location is int,int format.
-                            Dim C = Settings.GetIni(fName, "Location", RandomNumber.Between(2000, 1000) & "," & RandomNumber.Between(2000, 1000))
+                            Dim C = Settings.GetIni(fName, "Location", RandomNumber.Between(1010, 990) & "," & RandomNumber.Between(2000, 1000))
 
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
                             CoordX(RegionUUID) = CInt("0" & parts(0))
@@ -523,7 +523,7 @@ Public Class RegionMaker
             If val > Max Then Max = val
         Next
         If Max = 0 Then
-            Max = RandomNumber.Between(5000, 996)
+            Max = RandomNumber.Between(1010, 990)
         End If
         Return Max
 
@@ -540,7 +540,7 @@ Public Class RegionMaker
             If val > Max Then Max = val
         Next
         If Max = 0 Then
-            Max = RandomNumber.Between(5000, 1000)
+            Max = RandomNumber.Between(1010, 990)
         End If
         Return Max
 
