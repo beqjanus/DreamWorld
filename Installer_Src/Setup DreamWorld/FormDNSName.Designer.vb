@@ -27,22 +27,20 @@ Partial Class FormDNSName
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuitcaseCheckbox = New System.Windows.Forms.CheckBox()
         Me.EnableHypergrid = New System.Windows.Forms.CheckBox()
-        Me.DynDNSHelp = New System.Windows.Forms.PictureBox()
         Me.UniqueId = New System.Windows.Forms.TextBox()
         Me.TestButton1 = New System.Windows.Forms.Button()
         Me.NextNameButton = New System.Windows.Forms.Button()
         Me.DNSNameBox = New System.Windows.Forms.TextBox()
         Me.SaveButton1 = New System.Windows.Forms.Button()
+        Me.DNSAliasTextBox = New System.Windows.Forms.TextBox()
         Me.OsGridButton = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DNSAliasTextBox = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.OsGridButton.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -73,16 +71,6 @@ Partial Class FormDNSName
         Me.EnableHypergrid.Text = Global.Outworldz.My.Resources.Resources.Enable_Hypergrid_word
         Me.ToolTip1.SetToolTip(Me.EnableHypergrid, Global.Outworldz.My.Resources.Resources.Enable_Hypergrid_word)
         Me.EnableHypergrid.UseVisualStyleBackColor = True
-        '
-        'DynDNSHelp
-        '
-        Me.DynDNSHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.DynDNSHelp.Location = New System.Drawing.Point(153, 10)
-        Me.DynDNSHelp.Name = "DynDNSHelp"
-        Me.DynDNSHelp.Size = New System.Drawing.Size(23, 25)
-        Me.DynDNSHelp.TabIndex = 1874
-        Me.DynDNSHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.DynDNSHelp, Global.Outworldz.My.Resources.Resources.Click_For_Help)
         '
         'UniqueId
         '
@@ -130,6 +118,14 @@ Partial Class FormDNSName
         Me.ToolTip1.SetToolTip(Me.SaveButton1, Global.Outworldz.My.Resources.Resources.Save_word)
         Me.SaveButton1.UseVisualStyleBackColor = True
         '
+        'DNSAliasTextBox
+        '
+        Me.DNSAliasTextBox.Location = New System.Drawing.Point(17, 134)
+        Me.DNSAliasTextBox.Name = "DNSAliasTextBox"
+        Me.DNSAliasTextBox.Size = New System.Drawing.Size(296, 20)
+        Me.DNSAliasTextBox.TabIndex = 1880
+        Me.ToolTip1.SetToolTip(Me.DNSAliasTextBox, Global.Outworldz.My.Resources.Resources.DNSAlt)
+        '
         'OsGridButton
         '
         Me.OsGridButton.Controls.Add(Me.Label3)
@@ -139,7 +135,6 @@ Partial Class FormDNSName
         Me.OsGridButton.Controls.Add(Me.SuitcaseCheckbox)
         Me.OsGridButton.Controls.Add(Me.Label1)
         Me.OsGridButton.Controls.Add(Me.EnableHypergrid)
-        Me.OsGridButton.Controls.Add(Me.DynDNSHelp)
         Me.OsGridButton.Controls.Add(Me.UniqueId)
         Me.OsGridButton.Controls.Add(Me.TestButton1)
         Me.OsGridButton.Controls.Add(Me.NextNameButton)
@@ -150,6 +145,15 @@ Partial Class FormDNSName
         Me.OsGridButton.TabIndex = 1869
         Me.OsGridButton.TabStop = False
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(17, 118)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(224, 13)
+        Me.Label3.TabIndex = 1881
+        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.DNSNameText
+        '
         'Label2
         '
         Me.Label2.AutoSize = True
@@ -157,7 +161,7 @@ Partial Class FormDNSName
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(224, 13)
         Me.Label2.TabIndex = 1878
-        Me.Label2.Text = "DNS Name or SomeName.Outworldz.net or IP"
+        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.DNSNameText
         '
         'Label1
         '
@@ -166,7 +170,7 @@ Partial Class FormDNSName
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(97, 13)
         Me.Label1.TabIndex = 1876
-        Me.Label1.Text = "DynDNS password"
+        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.DynDNS_password_word
         '
         'MenuStrip1
         '
@@ -193,23 +197,6 @@ Partial Class FormDNSName
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
         Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'DNSAliasTextBox
-        '
-        Me.DNSAliasTextBox.Location = New System.Drawing.Point(17, 134)
-        Me.DNSAliasTextBox.Name = "DNSAliasTextBox"
-        Me.DNSAliasTextBox.Size = New System.Drawing.Size(296, 20)
-        Me.DNSAliasTextBox.TabIndex = 1880
-        Me.ToolTip1.SetToolTip(Me.DNSAliasTextBox, Global.Outworldz.My.Resources.Resources.DNSAlt)
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(17, 118)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(224, 13)
-        Me.Label3.TabIndex = 1881
-        Me.Label3.Text = "DNS Name or SomeName.Outworldz.net or IP"
-        '
         'FormDNSName
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -220,9 +207,8 @@ Partial Class FormDNSName
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormDNSName"
-        Me.Text = "DNS Name & Hypergrid"
+        Me.Text = Global.Outworldz.My.Resources.Resources.DNS_HG_Name
         Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.Help_word)
-        CType(Me.DynDNSHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.OsGridButton.ResumeLayout(False)
         Me.OsGridButton.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
@@ -237,7 +223,6 @@ Partial Class FormDNSName
     Friend WithEvents SuitcaseCheckbox As CheckBox
     Friend WithEvents Label1 As Label
     Friend WithEvents EnableHypergrid As CheckBox
-    Friend WithEvents DynDNSHelp As PictureBox
     Friend WithEvents UniqueId As TextBox
     Friend WithEvents TestButton1 As Button
     Friend WithEvents NextNameButton As Button

@@ -27,7 +27,6 @@ Public Class FormDNSName
 
 #Region "Private Fields"
 
-    Dim changed As Boolean
     Dim initted As Boolean
 
 #End Region
@@ -73,37 +72,19 @@ Public Class FormDNSName
         EnableHypergrid.Checked = Settings.EnableHypergrid
         SuitcaseCheckbox.Checked = Settings.Suitcase
         NextNameButton.Enabled = True
-
+        DNSAliasTextBox.Text = Settings.AltDnsName
         Form1.HelpOnce("DNS")
-
         initted = True
-
     End Sub
 
 #End Region
 
 #Region "Buttons"
 
-    Private Sub Closeme() Handles Me.Closed
-
-        If changed Then
-            Dim resp = MsgBox(My.Resources.Changes_Made, vbYesNo)
-            If resp = vbYes Then SaveAll()
-        End If
-
-    End Sub
-
-    Private Sub DynDNSPassword_Click(sender As Object, e As EventArgs) Handles DynDNSHelp.Click
-
-        Form1.Help("DNS")
-
-    End Sub
-
     Private Sub EnableHypergrid_CheckedChanged(sender As Object, e As EventArgs) Handles EnableHypergrid.CheckedChanged
 
         If Not initted Then Return
         Settings.EnableHypergrid = EnableHypergrid.Checked
-        changed = True
 
     End Sub
 
@@ -125,8 +106,6 @@ Public Class FormDNSName
             NextNameButton.Enabled = True
             DNSNameBox.Text = newname
         End If
-
-        changed = True
 
     End Sub
 
@@ -156,18 +135,12 @@ Public Class FormDNSName
         If DNSAliasTextBox.Text.Length > 0 Then
 
             Form1.RegisterName(DNSAliasTextBox.Text, True)
+            Settings.AltDnsName = DNSAliasTextBox.Text
 
-            Try
-                If IPAddress.TryParse(DNSAliasTextBox.Text, address) Then
-                    Settings.AltDnsName = DNSAliasTextBox.Text
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
         End If
 
         Settings.SaveSettings()
-        changed = False ' suppress prompts
+
         Form1.PropViewedSettings = True
         Me.Close()
 
@@ -187,7 +160,6 @@ Public Class FormDNSName
         If Not SuitcaseCheckbox.Checked Then
             MsgBox(My.Resources.Disabling_Suitcase)
         End If
-        changed = True
 
     End Sub
 
@@ -204,7 +176,12 @@ Public Class FormDNSName
 
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
-                    MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP(), vbInformation, Global.Outworldz.My.Resources.Info_word)
+                    Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
+                    If IP.Length = 0 Then
+                        MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, Global.Outworldz.My.Resources.Error_word)
+                    Else
+                        MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, vbInformation, Global.Outworldz.My.Resources.Info_word)
+                    End If
                 Else
                     Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
@@ -216,6 +193,24 @@ Public Class FormDNSName
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
+
+            If DNSAliasTextBox.Text.Length Then
+                Try
+                    If IPAddress.TryParse(DNSAliasTextBox.Text, address) Then
+                        MsgBox(DNSAliasTextBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & DNSAliasTextBox.Text, vbInformation, Global.Outworldz.My.Resources.Info_word)
+                    Else
+                        Dim IP = Form1.GetHostAddresses(DNSAliasTextBox.Text)
+                        If IP.Length = 0 Then
+                            MsgBox(My.Resources.Cannot_resolve_word & " " & DNSAliasTextBox.Text, vbInformation, Global.Outworldz.My.Resources.Error_word)
+                        Else
+                            MsgBox(DNSAliasTextBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, vbInformation, Global.Outworldz.My.Resources.Info_word)
+                        End If
+                    End If
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+
+            End If
         End If
 
         NextNameButton.Text = Global.Outworldz.My.Resources.Next1
@@ -242,17 +237,19 @@ Public Class FormDNSName
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase")>
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles DNSAliasTextBox.TextChanged
 
-        If DNSNameBox.Text.Length > 0 And DNSAliasTextBox.Text.Length > 0 Then
+        If DNSAliasTextBox.Text.Length > 0 Then
             DNSAliasTextBox.Text = DNSAliasTextBox.Text.Replace("http://", "")
             DNSAliasTextBox.Text = DNSAliasTextBox.Text.Replace("https://", "")
             DNSAliasTextBox.Text = Regex.Replace(DNSAliasTextBox.Text, ":\d+", "") ' no :8002 on end.
-            Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
+            Dim rgx As New Regex("[^a-zA-Z0-9\.\-,]")
             DNSAliasTextBox.Text = rgx.Replace(DNSAliasTextBox.Text, "")
 #Disable Warning CA1308 ' Normalize strings to uppercase
             DNSAliasTextBox.Text = DNSAliasTextBox.Text.ToLower(Globalization.CultureInfo.InvariantCulture)
 #Enable Warning CA1308 ' Normalize strings to uppercase
+
         End If
 
     End Sub
@@ -261,7 +258,6 @@ Public Class FormDNSName
 
         If Not initted Then Return
         Settings.MachineID() = UniqueId.Text
-        changed = True
 
     End Sub
 
