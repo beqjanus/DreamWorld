@@ -192,7 +192,7 @@ Public Class RegionMaker
                     Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
                     For Each R As String In GroupList
                         Form1.Logger("RegionReady Heard:", Form1.PropRegionClass.RegionName(R), "Restart")
-                        Form1.BootedList.Add(R)
+                        Form1.BootedList1.Add(R)
                     Next
 
                     Form1.Logger("Ready", json.region_name, "Restart")
