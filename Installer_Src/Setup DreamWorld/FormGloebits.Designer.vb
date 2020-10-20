@@ -104,7 +104,7 @@ Partial Class Gloebits
         Me.GroupBox3.Size = New System.Drawing.Size(466, 158)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Gloebits Currency"
+        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Gloebits_Currency_word
         '
         'GLBShowNewSessionPurchaseIMCheckBox
         '
@@ -197,7 +197,7 @@ Partial Class Gloebits
         Me.GroupBox2.Size = New System.Drawing.Size(225, 225)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Production Mode"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Production_Mode_Word
         '
         'ProductionButton
         '
@@ -323,7 +323,7 @@ Partial Class Gloebits
         Me.GroupBox1.Size = New System.Drawing.Size(235, 225)
         Me.GroupBox1.TabIndex = 1860
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Sandbox Mode"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode_word
         '
         'SandboxButton
         '
