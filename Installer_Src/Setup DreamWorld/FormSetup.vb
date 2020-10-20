@@ -1604,15 +1604,26 @@ Public Class Form1
         Select Case Settings.ServerType
             Case "Robust"
                 If Settings.SearchEnabled Then
-                    Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
-                    Settings.SetIni("Search", "SimulatorFeatures", "http://hyperica.com/Search/query.php")
-                    Settings.SetIni("SimulatorFeatures", "SearchServerURI", "http://hyperica.com/Search/query.php")
+
+                    If Settings.CMS = "JOpensim" Then
+                        Settings.SetIni("Search", "SearchURL", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                        Settings.SetIni("Search", "SimulatorFeatures", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                    Else
+                        Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
+                        Settings.SetIni("Search", "SimulatorFeatures", "http://hyperica.com/Search/query.php")
+                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "http://hyperica.com/Search/query.php")
+                    End If
 
                     ' RegionSnapShot
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
-                    Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
+                    If Settings.CMS = "JOpensim" Then
+                        Settings.SetIni("DataSnapshot", "data_services", "$(Const|jOpensimURL}/components/com_opensim/registersearch.php")
+                    Else
+                        Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
+                    End If
                 Else
-                    Settings.SetIni("Search", "SearchURL", "")
+                    Settings.SetIni("Search", "SearchURL", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
                     Settings.SetIni("Search", "SimulatorFeatures", "")
                     Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
                     ' RegionSnapShot
@@ -4133,7 +4144,12 @@ Public Class Form1
         Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
         Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
-        Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+        If Settings.CMS = "JOpensim" Then
+            Settings.SetIni("LoginService", "SearchURL", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+        Else
+            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+        End If
+
         Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
         'FSASSETS

@@ -1110,15 +1110,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property JOpenSimEnabled() As Boolean
-        Get
-            Return CType(GetMySetting("JOpenSimEnabled", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("JOpenSimEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property KeepForDays() As Integer
         Get
             Return Val("0".ToUpperInvariant & GetMySetting("KeepForDays", "7"))
