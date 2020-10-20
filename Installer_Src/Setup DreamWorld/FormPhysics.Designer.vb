@@ -44,7 +44,7 @@ Partial Class FormPhysics
         Me.GroupBox1.Size = New System.Drawing.Size(215, 104)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Physics Engine"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Physics_Engine
         '
         'PhysicsSeparate
         '
@@ -88,7 +88,7 @@ Partial Class FormPhysics
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(236, 26)
         Me.MenuStrip2.TabIndex = 1891
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
         '
         'ToolStripMenuItem30
         '
@@ -115,7 +115,7 @@ Partial Class FormPhysics
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormPhysics"
-        Me.Text = "Physics"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Physics_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
