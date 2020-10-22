@@ -4095,9 +4095,9 @@ Public Class Form1
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
 "?>"
 
-        Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
-            outputFile.WriteLine(phptext)
-        End Using
+        'Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
+        'outputFile.WriteLine(phptext)
+        'End Using
         Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\PHP7\databaseinfo.php", False)
             outputFile.WriteLine(phptext)
         End Using
