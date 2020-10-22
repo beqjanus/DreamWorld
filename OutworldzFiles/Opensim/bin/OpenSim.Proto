@@ -319,7 +319,7 @@ Stats_URI="jsonSimStats"
 ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;# economy module
-economymodule=BetaGridLikeMoneyModule
+economymodule=jOpenSimMoneyModule
 
 ; Main Frame time
 ; This defines the rate of several simulation events.
