@@ -6874,7 +6874,7 @@ Public Class Form1
         If PropDNSSTimer Mod 60 = 0 Then
             ScanAgents() ' update agent count  seconds
             Application.DoEvents()
-            RegionListHTML() ' create HTML for older 2.4 region teleporters
+            RegionListHTML() ' create HTML for older 2.4 region teleport
             Application.DoEvents()
         End If
 
