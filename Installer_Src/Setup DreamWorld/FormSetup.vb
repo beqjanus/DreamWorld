@@ -6659,10 +6659,11 @@ Public Class Form1
         Dim B = GetHGAgentList()
         Dim C As New Dictionary(Of String, String)
 
+
         If Debugger.IsAttached Then
             Try
-                A.Add("Ferd Frederix", "SandBox")
-                B.Add("Nyira Machabelli", "SandBox")
+                '                A.Add("Ferd Frederix", "SandBox")
+                '               B.Add("Nyira Machabelli", "SandBox")
             Catch ex As Exception
                 ' BreakPoint.Show(ex.Message)
             End Try
@@ -7038,12 +7039,18 @@ Public Class Form1
         Dim Checkname As String
 
         Try
-            Checkname = client.DownloadString("http://outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
+            Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            ErrorLog("Warn: Cannot check the DNS Name " & ex.Message)
-            Return False
+
+            Try
+                Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx?GridName=" & Settings.DNSName & GetPostData())
+            Catch
+                ErrorLog("Warn: Cannot Register the DNS Name " & ex.Message)
+                Return False
+            End Try
+
         Finally
             client.Dispose()
         End Try
