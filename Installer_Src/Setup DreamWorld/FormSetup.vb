@@ -1694,6 +1694,8 @@ Public Class Form1
 
         If Settings.GloebitsEnable Then
             Settings.SetIni("Startup", "economymodule", "Gloebit")
+        ElseIf Settings.CMS = "JOpensim" Then
+            Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
         End If
