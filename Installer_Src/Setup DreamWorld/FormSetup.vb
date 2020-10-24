@@ -1605,9 +1605,9 @@ Public Class Form1
                 If Settings.SearchEnabled Then
 
                     If Settings.CMS = "JOpensim" Then
-                        Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-                        Settings.SetIni("Search", "SimulatorFeatures", "$(Const|BaseURL}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "$(Const|BaseURL}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                        Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                        Settings.SetIni("Search", "SimulatorFeatures", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
                     Else
                         Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
                         Settings.SetIni("Search", "SimulatorFeatures", "http://hyperica.com/Search/query.php")
@@ -1617,12 +1617,12 @@ Public Class Form1
                     ' RegionSnapShot
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
                     If Settings.CMS = "JOpensim" Then
-                        Settings.SetIni("DataSnapshot", "data_services", "$(Const|BaseURL}/JOpensim//components/com_opensim/registersearch.php")
+                        Settings.SetIni("DataSnapshot", "data_services", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim//components/com_opensim/registersearch.php")
                     Else
                         Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
                     End If
                 Else
-                    Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                    Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
                     Settings.SetIni("Search", "SimulatorFeatures", "")
                     Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
                     ' RegionSnapShot
@@ -1639,6 +1639,9 @@ Public Class Form1
             Case "Metro"
 
         End Select
+
+        Settings.SetIni("Const", "ApachePort", Settings.ApachePort)
+
 
         ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
         ' support this feature
@@ -2611,7 +2614,7 @@ Public Class Form1
                     Print(My.Resources.Apache_Failed & ":" & CStr(ApacheProcess.ExitCode))
                     ApacheIs(False)
                 Else
-                    Print(My.Resources.Apache_running & " : " & Settings.ApachePort)
+                    Print(My.Resources.Apache_running & ":" & Settings.ApachePort)
                     ApacheIs(True)
                 End If
             End Using
@@ -4129,9 +4132,6 @@ Public Class Form1
         Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
 
-        ' JOpensim
-        Settings.SetIni("Const", "jOpensimURL", "http://" & Settings.PublicIP & ":" & Settings.ApachePort)
-        Settings.SetIni("Const", "jOpensimURLSSL", "http://" & Settings.PublicIP & ":443")
 
         If Settings.Suitcase() Then
             Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
@@ -4146,7 +4146,7 @@ Public Class Form1
         Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
         If Settings.CMS = "JOpensim" Then
-            Settings.SetIni("LoginService", "SearchURL", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+            Settings.SetIni("LoginService", "SearchURL", "$(Const|jOpensimURL}:$(Const|ApachePort)/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
         Else
             Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
         End If
