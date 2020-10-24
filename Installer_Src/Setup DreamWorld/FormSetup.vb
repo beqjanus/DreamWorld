@@ -1,6 +1,6 @@
-#Region "Todo"
+#Region "To do"
 
-'Add Jopensim changes
+' Add back in the 5 physics type
 
 #End Region
 
@@ -10,7 +10,7 @@
 
 'Permission is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
+'including without limitation the rights To use, copy, modify, merge, publish, distribute, sub license,
 'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
 'Do so, subject To the following conditions:
 
@@ -688,7 +688,6 @@ Public Class Form1
 
         'Gloebits.ini
         If Settings.LoadIni(Settings.OpensimBinPath & "Gloebit.ini", ";") Then Return True
-        'Print("->Set Gloebits")
 
         Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
         Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
@@ -781,7 +780,7 @@ Public Class Form1
             ' Loop through all subdirectories and add them to the stack.
             Dim directoryName As String
 
-            'Save, but skip scriptengines
+            'Save, but skip script engines
             For Each directoryName In Directory.GetDirectories(dir)
                 If Not directoryName.Contains("ScriptEngines") And
                     Not directoryName.Contains("fsassets") And
@@ -1606,9 +1605,9 @@ Public Class Form1
                 If Settings.SearchEnabled Then
 
                     If Settings.CMS = "JOpensim" Then
-                        Settings.SetIni("Search", "SearchURL", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-                        Settings.SetIni("Search", "SimulatorFeatures", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                        Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                        Settings.SetIni("Search", "SimulatorFeatures", "$(Const|BaseURL}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "$(Const|BaseURL}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
                     Else
                         Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
                         Settings.SetIni("Search", "SimulatorFeatures", "http://hyperica.com/Search/query.php")
@@ -1618,12 +1617,12 @@ Public Class Form1
                     ' RegionSnapShot
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
                     If Settings.CMS = "JOpensim" Then
-                        Settings.SetIni("DataSnapshot", "data_services", "$(Const|jOpensimURL}/components/com_opensim/registersearch.php")
+                        Settings.SetIni("DataSnapshot", "data_services", "$(Const|BaseURL}/JOpensim//components/com_opensim/registersearch.php")
                     Else
                         Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
                     End If
                 Else
-                    Settings.SetIni("Search", "SearchURL", "$(Const|jOpensimURL}/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                    Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
                     Settings.SetIni("Search", "SimulatorFeatures", "")
                     Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
                     ' RegionSnapShot
@@ -1723,7 +1722,7 @@ Public Class Form1
             Settings.SetIni("Cloud", "enabled", "False")
         End If
 
-        ' Physics choices for meshmerizer, where Ubit's ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
+        ' Physics choices for meshmerizer, where  ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
         ' 0 = none
         ' 1 = OpenDynamicsEngine
         ' 2 = BulletSim
@@ -2998,7 +2997,7 @@ Public Class Form1
             Sleep(100)
         End While
 
-        ' wait a bit for robust to stablize
+        ' wait a bit for robust to stabilize
         Thread.Sleep(2000)
         _RobustIsStarting = False
 
@@ -4079,7 +4078,7 @@ Public Class Form1
 "$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
 "// style-sheet items" & vbCrLf &
 "$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
-"$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  Wordpress, DreamGri, Joomla/JOpensim or user assigned folder" & vbCrLf &
+"$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  WordPress, DreamGrid, Joomla/JOpensim or user assigned folder" & vbCrLf &
 "?>"
 
         Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
@@ -4194,7 +4193,7 @@ Public Class Form1
 
             FileStuff.DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
-            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Snart Start region and SS is
+            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
             ' enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim RegionSetting As String = Nothing
@@ -5060,7 +5059,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.Text <> "Dreamgrid Manual.pdf" Then Help(sender.Text)
+        If sender.Text.toupper <> "DreamGrid Manual.pdf".ToUpper Then Help(sender.Text)
 
     End Sub
 
@@ -5305,7 +5304,7 @@ Public Class Form1
                 .Multiselect = False
             }
 
-            ' Call the ShowDialog method to show the dialogbox.
+            ' Call the ShowDialog method to show the dialog box.
             Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
 
             ' Process input if the user clicked OK.
@@ -5471,7 +5470,7 @@ Public Class Form1
                 .Multiselect = False
                 }
 
-                ' Call the ShowDialog method to show the dialogbox.
+                ' Call the ShowDialog method to show the dialog box.
                 Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
 
                 ' Process input if the user clicked OK.
@@ -6437,7 +6436,7 @@ Public Class Form1
 
         If Settings.ServerType <> "Robust" Then Return
 
-        ' modify this to migrate search datbase upwards a rev
+        ' modify this to migrate search database upwards a rev
         If Not Settings.SearchMigration = _SearchRev Then
 
             MysqlInterface.DeleteSearchDatabase()
