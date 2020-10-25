@@ -1,5 +1,5 @@
 <icecast>
-<hostname>192.168.2.133</hostname>
+<hostname>192.168.2.139</hostname>
 <location>DreamGrid</location>
 <admin>email@somewhere.com</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>*TM2EVjO8RSkwrM</source-password>
-<relay-password>*TM2EVjO8RSkwrM</relay-password>
+<source-password>GSGK@mEYIUcB^rQ</source-password>
+<relay-password>GSGK@mEYIUcB^rQ</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>hnqrXiS(ixo3Yr(</admin-password>
+<admin-password>7I9iduz3NNAzm8Y</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>

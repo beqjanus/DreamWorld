@@ -51,7 +51,7 @@ http_listener_port=8004
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=192.168.2.133
+BaseHostname=192.168.2.139
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,7 +59,7 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://192.168.2.133
+PrivURL=http://192.168.2.139
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
@@ -77,6 +77,8 @@ GridName=DreamGrid
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
 ;# {DiagnosticsPort} {} {DiagnosticsPort} {8001} "8001"
 DiagnosticsPort=8001
+
+; Automatically changed by Dreamworld - do not change this
 ApachePort=80
 
 [Startup]
@@ -319,7 +321,7 @@ Stats_URI="jsonSimStats"
 ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;# economy module
-economymodule=BetaGridLikeMoneyModule
+economymodule=jOpenSimMoneyModule
 
 ; Main Frame time
 ; This defines the rate of several simulation events.
@@ -509,7 +511,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=192.168.2.133
+host_domain_header_from=192.168.2.139
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -577,7 +579,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.133/32
+OutboundDisallowForUserScriptsExcept=192.168.2.139/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -594,7 +596,7 @@ OutboundDisallowForUserScriptsExcept=192.168.2.133/32
 ;; Hostname to use in llRequestURL/llRequestSecureURL
 ;; if not defined - default machine name is being used
 ;; (on Windows this mean NETBIOS name - useably only inside local network)
-ExternalHostNameForLSL=192.168.2.133
+ExternalHostNameForLSL=${Const|BaseHostname}
 
 ;# {shard} {} {Name to use for X-Secondlife-Shard header? (press enter if unsure)} {} OpenSim
 ;; What is reported as the "X-Secondlife-Shard"
@@ -684,7 +686,7 @@ Cap_GetDisplayNames="localhost"
 ;; and will override that value if set here. The Robust setting
 ;; provides a working default for the grid and setting here is
 ;; optional.
-SearchServerURI=https://hyperica.com/Search/query.php
+SearchServerURI=$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&
 
 ;# {DestinationGuideURI} {} {URL of the destination guide} {}
 ;;
@@ -714,7 +716,8 @@ DestinationGuide="https://hyperica.com/destination-guide"
 ;; This option exists to control the behavior of teleporting gods into places that have landing points
 ;; and telehubs. Historically, there has been a difference: OpenSim (OS) has honored landing points and telehubs even for
 ;; avatars with god permissions; SL lets gods land wherever they want.
-;LandingPointBehavior = LandingPointBehavior_OS
+LandingPointBehavior=LandingPointBehavior_OS
+
 [Messaging]
 
 ;# {OfflineMessageModule} {} {Module to use for offline message storage} {OfflineMessageModule "Offline Message Module V2" *}
@@ -909,14 +912,14 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ;; New way of specifying data services, one per service
 ;DATA_SRV_MISearch=http://hyperica.com/Search/register.php
 ;data_services=https://hyperica.com/Search/register.php
-data_services=https://hyperica.com/Search/register.php
+data_services=$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/components/com_opensim/registersearch.php
 
 [Search]
 Module=OpenSimSearch
 
 ;// Change the URL to point to the query.php file on your own web server  //
-SearchURL=https://hyperica.com/Search/query.php
-SimulatorFeatures=https://hyperica.com/Search/query.php
+SearchURL=$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&
+SimulatorFeatures=$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&
 
 [Economy]
 
@@ -1000,7 +1003,7 @@ MinTimerInterval=0.2
 ;; then startup will be considerably faster since scripts won't need to be recompiled. However, then it becomes your responsibility to delete the
 ;; compiled scripts if you're recompiling OpenSim from source code and internal interfaces used
 ;; by scripts have changed.
-DeleteScriptsOnStartup=True
+DeleteScriptsOnStartup=False
 
 ;# {DefaultCompileLanguage} {Enabled:true} {Default script language?} {lsl vb cs} lsl
 ;; Default language for scripts

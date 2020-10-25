@@ -24,7 +24,6 @@ Partial Class FormBackupCheckboxes
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormBackupCheckboxes))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.TextBox1 = New System.Windows.Forms.RichTextBox()
         Me.SettingsBox = New System.Windows.Forms.CheckBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.CustomCheckBox = New System.Windows.Forms.CheckBox()
@@ -40,7 +39,6 @@ Partial Class FormBackupCheckboxes
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.TextBox1)
         Me.GroupBox1.Controls.Add(Me.SettingsBox)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.CustomCheckBox)
@@ -49,22 +47,10 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Controls.Add(Me.RegionCheckBox)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 27)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(601, 203)
+        Me.GroupBox1.Size = New System.Drawing.Size(221, 203)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Backup_word
-        '
-        'TextBox1
-        '
-        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(255, 10)
-        Me.TextBox1.MaxLength = 15000
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(340, 187)
-        Me.TextBox1.TabIndex = 31
-        Me.TextBox1.Text = ""
+        Me.GroupBox1.Text = My.Resources.Backup_word
         '
         'SettingsBox
         '
@@ -75,7 +61,7 @@ Partial Class FormBackupCheckboxes
         Me.SettingsBox.Name = "SettingsBox"
         Me.SettingsBox.Size = New System.Drawing.Size(104, 17)
         Me.SettingsBox.TabIndex = 11
-        Me.SettingsBox.Text = Global.Outworldz.My.Resources.Backup_Settings_word
+        Me.SettingsBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
         Me.SettingsBox.UseVisualStyleBackColor = True
         '
         'Button1
@@ -84,7 +70,7 @@ Partial Class FormBackupCheckboxes
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 23)
         Me.Button1.TabIndex = 10
-        Me.Button1.Text = Global.Outworldz.My.Resources.Backup_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'CustomCheckBox
@@ -96,7 +82,7 @@ Partial Class FormBackupCheckboxes
         Me.CustomCheckBox.Name = "CustomCheckBox"
         Me.CustomCheckBox.Size = New System.Drawing.Size(160, 17)
         Me.CustomCheckBox.TabIndex = 9
-        Me.CustomCheckBox.Text = Global.Outworldz.My.Resources.Backup_Custom
+        Me.CustomCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Custom
         Me.CustomCheckBox.UseVisualStyleBackColor = True
         '
         'FSAssetsCheckBox
@@ -108,7 +94,7 @@ Partial Class FormBackupCheckboxes
         Me.FSAssetsCheckBox.Name = "FSAssetsCheckBox"
         Me.FSAssetsCheckBox.Size = New System.Drawing.Size(139, 17)
         Me.FSAssetsCheckBox.TabIndex = 8
-        Me.FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Backup_FSAssets
+        Me.FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_FSAssets
         Me.FSAssetsCheckBox.UseVisualStyleBackColor = True
         '
         'MySqlCheckBox
@@ -120,7 +106,7 @@ Partial Class FormBackupCheckboxes
         Me.MySqlCheckBox.Name = "MySqlCheckBox"
         Me.MySqlCheckBox.Size = New System.Drawing.Size(148, 17)
         Me.MySqlCheckBox.TabIndex = 7
-        Me.MySqlCheckBox.Text = Global.Outworldz.My.Resources.Backup_Mysql
+        Me.MySqlCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Mysql
         Me.MySqlCheckBox.UseVisualStyleBackColor = True
         '
         'RegionCheckBox
@@ -132,7 +118,7 @@ Partial Class FormBackupCheckboxes
         Me.RegionCheckBox.Name = "RegionCheckBox"
         Me.RegionCheckBox.Size = New System.Drawing.Size(138, 17)
         Me.RegionCheckBox.TabIndex = 6
-        Me.RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
+        Me.RegionCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Region
         Me.RegionCheckBox.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -142,30 +128,29 @@ Partial Class FormBackupCheckboxes
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(642, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(259, 30)
         Me.MenuStrip1.TabIndex = 18602
-        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(99, 22)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormBackupCheckboxes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(642, 243)
+        Me.ClientSize = New System.Drawing.Size(259, 243)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -190,5 +175,4 @@ Partial Class FormBackupCheckboxes
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents TextBox1 As RichTextBox
 End Class

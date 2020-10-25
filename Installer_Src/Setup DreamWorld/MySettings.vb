@@ -195,10 +195,9 @@ Public Class MySettings
         Try
             Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             MsgBox(ex.Message)
-            Form1.Log("Warn", ex.Message)
+            Form1.Logger("Warn", ex.Message, "Error")
             Return True
         End Try
         INI = arg
@@ -232,9 +231,8 @@ Public Class MySettings
         ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section +
         ' "] " + key + "=" + value)
         Try
-            Data(section)(key) = value ' replace it
+            Data(section)(key) = value
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
@@ -244,12 +242,10 @@ Public Class MySettings
     Public Sub SetMyIni(section As String, key As String, value As String)
 
         If value = Nothing Then value = ""
-        'Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         ' sets values into any INI file
         Try
-            MyData(section)(key) = value ' replace it
+            MyData(section)(key) = value
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Form1.ErrorLog(ex.Message)
         End Try
@@ -262,6 +258,7 @@ Public Class MySettings
 
     Shared Function Stripqq(input As String) As String
 
+        ' remove double quotes and any comments ";"
         Return Replace(input, """", "")
 
     End Function
@@ -309,7 +306,6 @@ Public Class MySettings
             Return value.ToString(Globalization.CultureInfo.InvariantCulture)
 #Enable Warning CA1062 ' Validate arguments of public methods
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Return D
         End Try
@@ -363,17 +359,6 @@ Public Class MySettings
 
 #Region "Properties"
 
-
-    Public Property BanList() As String
-        Get
-            Return CType(GetMySetting("BanList", ""), String)
-        End Get
-        Set
-            SetMySetting("BanList", Value)
-        End Set
-    End Property
-
-
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -417,6 +402,16 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("Allow_grid_gods", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property AltDnsName() As String
+        Get
+            Dim AltDns As String = GetMySetting("AltDnsName", "")
+            Return CType(AltDns, String)
+        End Get
+        Set
+            SetMySetting("AltDnsName", Value)
         End Set
     End Property
 
@@ -498,6 +493,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("BackupFolder", Value)
+        End Set
+    End Property
+
+    Public Property BanList() As String
+        Get
+            Return CType(GetMySetting("BanList", ""), String)
+        End Get
+        Set
+            SetMySetting("BanList", Value)
         End Set
     End Property
 
@@ -791,7 +795,7 @@ Public Class MySettings
 
     Public Property CoordX() As Integer
         Get
-            Return Val(0 + GetMySetting("CoordX", RandomNumber.Between(2000, 1000)))
+            Return Val(0 + GetMySetting("CoordX", RandomNumber.Between(1010, 990)))
         End Get
         Set
             SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -800,10 +804,19 @@ Public Class MySettings
 
     Public Property CoordY() As Integer
         Get
-            Return Val(0 + GetMySetting("CoordY", RandomNumber.Between(2000, 1000)))
+            Return Val(0 + GetMySetting("CoordY", RandomNumber.Between(1010, 990)))
         End Get
         Set
             SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property CPUMAX As Single
+        Get
+            Return CType(GetMySetting("CPUMax", 90), Single)
+        End Get
+        Set(value As Single)
+            SetMySetting("CPUMax", CSng(value))
         End Set
     End Property
 
@@ -968,6 +981,45 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' Show app authorization Instant Message to user at session start?
+    ''' </summary>
+    ''' <returns>False</returns>
+    Public Property GLBShowNewSessionAuthIM() As Boolean
+        Get
+            Return CType(GetMySetting("GLBShowNewSessionAuthIM", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("GLBShowNewSessionAuthIM", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Show purchase Gloebits Instant Message to user at session start?
+    ''' </summary>
+    ''' <returns>False</returns>
+    Public Property GLBShowNewSessionPurchaseIM() As Boolean
+        Get
+            Return CType(GetMySetting("GLBShowNewSessionPurchaseIM", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("GLBShowNewSessionPurchaseIM", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Show welcome message when entering a region?
+    ''' </summary>
+    ''' <returns>True</returns>
+    Public Property GLBShowWelcomeMessage() As Boolean
+        Get
+            Return CType(GetMySetting("GLBShowWelcomeMessage", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("GLBShowWelcomeMessage", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property GloebitsEnable() As Boolean
         Get
             Return CType(GetMySetting("GloebitsEnable", "False"), Boolean)
@@ -1058,15 +1110,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property JOpenSimEnabled() As Boolean
-        Get
-            Return CType(GetMySetting("JOpenSimEnabled", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("JOpenSimEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property KeepForDays() As Integer
         Get
             Return Val("0".ToUpperInvariant & GetMySetting("KeepForDays", "7"))
@@ -1097,7 +1140,7 @@ Public Class MySettings
 
     Public Property LogLevel() As String
         Get
-            Return CType(GetMySetting("LogLevel", "info"), String)
+            Return CType(GetMySetting("LogLevel", "INFO"), String)
         End Get
         Set
             SetMySetting("LogLevel", Value)

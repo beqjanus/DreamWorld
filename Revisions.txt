@@ -2,6 +2,25 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.71
+The 25,000 pickable DNS names updated to be more random when clicking Next.
+Added Alias field to HG DNS Name Setting so you can run more than one URL to your grid.  For example, both www.outworldz.com and outworldz.com. Or an old grid name. The alias field accepts a comma delimited list of names.
+Gloebits is fixed again.
+JOpensim constants added for Search and Profiles.
+JOpensim constants added for Search and Profiles.
+Drop ODE, Bullet/Hybrid modes. We now have UBODE and Bullet in a separate thread.
+Update Opensim to #ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44.
+Fixed German Translations which causes boxes to change size.
+New grids regions start within +/- 10 of the 1000,1000 start point for the main map to use.
+
+V3.7
+Sendkeys had issues so sometimes save all oars not working. Set to consistent behavior in Start.exe.config
+Threaded System backup to not block the main UI
+Added Joomla DLL's to bin
+
+V3.695 Alpha Release for 3.7
+Minor tweaks
+
 V3.694 Alpha Release for 3.7
 Another bug in Banlist fixed, could not add more than one http:grid.com>:8002 address
 

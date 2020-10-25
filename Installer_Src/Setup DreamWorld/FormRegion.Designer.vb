@@ -886,7 +886,7 @@ Partial Class FormRegion
         Me.YEngineButton.Size = New System.Drawing.Size(65, 17)
         Me.YEngineButton.TabIndex = 9
         Me.YEngineButton.TabStop = True
-        Me.YEngineButton.Text = Global.Outworldz.My.Resources.Y_Engine_word
+        Me.YEngineButton.Text = Global.Outworldz.My.Resources.YEngine_word
         Me.YEngineButton.UseVisualStyleBackColor = True
         '
         'GroupBox7

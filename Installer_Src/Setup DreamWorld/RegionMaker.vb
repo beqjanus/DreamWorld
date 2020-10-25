@@ -192,7 +192,7 @@ Public Class RegionMaker
                     Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
                     For Each R As String In GroupList
                         Form1.Logger("RegionReady Heard:", Form1.PropRegionClass.RegionName(R), "Restart")
-                        Form1.BootedList.Add(R)
+                        Form1.BootedList1.Add(R)
                     Next
 
                     Form1.Logger("Ready", json.region_name, "Restart")
@@ -376,7 +376,6 @@ Public Class RegionMaker
                         Try
                             inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
                         Catch ex As Exception
-
                             BreakPoint.Show(ex.Message)
                         End Try
 
@@ -422,7 +421,7 @@ Public Class RegionMaker
                             MaxAgents(RegionUUID) = Settings.GetIni(fName, "MaxAgents", "100", "Integer")
 
                             ' Location is int,int format.
-                            Dim C = Settings.GetIni(fName, "Location", RandomNumber.Between(2000, 1000) & "," & RandomNumber.Between(2000, 1000))
+                            Dim C = Settings.GetIni(fName, "Location", RandomNumber.Between(1010, 990) & "," & RandomNumber.Between(2000, 1000))
 
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
                             CoordX(RegionUUID) = CInt("0" & parts(0))
@@ -474,7 +473,6 @@ Public Class RegionMaker
                             Application.DoEvents()
                         Next
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
                         Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
@@ -525,7 +523,7 @@ Public Class RegionMaker
             If val > Max Then Max = val
         Next
         If Max = 0 Then
-            Max = RandomNumber.Between(5000, 996)
+            Max = RandomNumber.Between(1010, 990)
         End If
         Return Max
 
@@ -542,7 +540,7 @@ Public Class RegionMaker
             If val > Max Then Max = val
         Next
         If Max = 0 Then
-            Max = RandomNumber.Between(5000, 1000)
+            Max = RandomNumber.Between(1010, 990)
         End If
         Return Max
 

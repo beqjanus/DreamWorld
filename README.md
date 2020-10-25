@@ -1,4 +1,4 @@
-An easy and complete installer for standalone hypergrid Opensimulator for Windows.
+An easy and complete installer for standalone hypergrid Opensimulator for Windows.  It is licensed as AGPL 3.
 
 OpenSimulator is normally not easy to run and install. This automates setup pre-set with grid info, ready to go.
 

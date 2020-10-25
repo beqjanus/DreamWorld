@@ -361,7 +361,7 @@
     <value>Render Min Height</value>
   </data>
   <data name="YEngine_word" xml:space="preserve">
-    <value>YEngine</value>
+    <value>Y Engine</value>
   </data>
   <data name="View_Web_Interface_text" xml:space="preserve">
     <value>The Web Interface can be used to add new users</value>
@@ -551,7 +551,7 @@
     <value>Not a valid Non-Physical Prim Max Value. Must be greater than 0</value>
   </data>
   <data name="Teleporter_Enable_word" xml:space="preserve">
-    <value>Teleporter Enable</value>
+    <value>Teleport Sign Enable</value>
   </data>
   <data name="Low_High" xml:space="preserve">
     <value>Low And high water marks in meters</value>
@@ -856,9 +856,6 @@
   <data name="Avatar_Name_word" xml:space="preserve">
     <value>Avatar Name</value>
   </data>
-  <data name="X_Engine_word" xml:space="preserve">
-    <value>X Engine</value>
-  </data>
   <data name="ErrorRegion" xml:space="preserve">
     <value>Error: Failed to set the Opensim.ini for region</value>
   </data>
@@ -976,9 +973,6 @@
   </data>
   <data name="Load_Local_OARs" xml:space="preserve">
     <value>Load Local OARs from the OAR folder</value>
-  </data>
-  <data name="Y_Engine_word" xml:space="preserve">
-    <value>Y Engine</value>
   </data>
   <data name="flag_china" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_china.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1434,7 +1428,7 @@
     <value>Configure All Regions</value>
   </data>
   <data name="XEngine_word" xml:space="preserve">
-    <value>XEngine</value>
+    <value>X Engine</value>
   </data>
   <data name="Check_Diag" xml:space="preserve">
     <value>Checking Diagnostics port</value>
@@ -1624,7 +1618,7 @@
     <value>Print</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Reserve your DYN DNS name. This is a password for your name.</value>
+    <value>Reserve your DYN DNS name. This is a password for your Grid name.</value>
   </data>
   <data name="flag_norway" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_norway.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -2978,5 +2972,20 @@
   </data>
   <data name="flag_iran" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_iran.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
+    <value>Show Gloebits authorization Instant Message to user at session start?</value>
+  </data>
+  <data name="GLBShowNewSessionPurchaseIM_text" xml:space="preserve">
+    <value>Show purchase Gloebits Instant Message to user at session start?</value>
+  </data>
+  <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
+    <value>Show Gloebits welcome message when entering a region?</value>
+  </data>
+  <data name="EnableGloebit_word" xml:space="preserve">
+    <value>Enable Gloebit</value>
+  </data>
+  <data name="DNSAlt" xml:space="preserve">
+    <value>Alternate Name such as www.outworldz.com vs. outworldz.com. Can be an old grid name you wish to continute to use.</value>
   </data>
 </root>

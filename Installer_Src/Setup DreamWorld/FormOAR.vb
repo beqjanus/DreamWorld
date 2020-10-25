@@ -6,6 +6,7 @@ Public Class FormOAR
 
     Dim TimerBusy As Boolean
     Dim WebThread As Thread
+    Dim SearchBusy As Boolean
 
 #Region "JSON"
 
@@ -362,9 +363,10 @@ Public Class FormOAR
     End Sub
 
     Public Sub ShowForm()
-
+        TextBox1.Text = ""
         Me.Show()
-        Redraw(SearchArray)
+        Search()
+        'Redraw(SearchArray)
         If _type = "OAR" Then Form1.HelpOnce("Load OAR")
         If _type = "IAR" Then Form1.HelpOnce("Load IAR")
     End Sub
@@ -554,6 +556,9 @@ Public Class FormOAR
     End Sub
 
     Private Sub Search()
+
+        If SearchBusy = True Then Return
+        SearchBusy = True
         Dim searchterm = TextBox1.Text
 
         If searchterm.Length > 0 Then
@@ -574,6 +579,8 @@ Public Class FormOAR
         Else
             Redraw(json)
         End If
+
+        SearchBusy = False
     End Sub
 
     Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles TextBox1.KeyUp
@@ -593,6 +600,8 @@ Public Class FormOAR
         TimerBusy = 0
 
     End Sub
+
+
 
 #End Region
 
