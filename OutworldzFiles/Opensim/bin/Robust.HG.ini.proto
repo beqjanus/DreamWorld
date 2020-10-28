@@ -529,6 +529,7 @@ ClassifiedFee=0
 
 ;;
 WelcomeMessage=Welcome to DreamGrid
+;;
 AllowRemoteSetLoginLevel="false"
 
 ; For V2 map
@@ -541,16 +542,20 @@ SearchURL=http://www.hyperica.com/Search/query.php
 
 ; For V3 destination guide
 ;DestinationGuide = "${Const|jOpensimURL}/index.php?option=com_opensim&view=guide&tmpl=component"
+;DestinationGuideURI="http://www.hyperica.com/destination-guide/"
 DestinationGuide="http://www.hyperica.com/destination-guide/"
 
-;DestinationGuideURI="http://www.hyperica.com/destination-guide/"
+
 ; For V3 avatar picker (( work in progress ))
 ; AvatarPicker = "${Const|BaseURL}/avatars"
+
 ; If you run this login server behind a proxy, set this to true
 ; HasProxy = false
+
 ; Defaults for the users, if none is specified in the useraccounts table entry (ServiceURLs)
 ;; If you have GatekeeperURI set under [Hypergrid], no need to set it here, leave it commented
 ; GatekeeperURI = "${Const|BaseURL}:${Const|PublicPort}"
+
 SRV_HomeURI="${Const|BaseURL}:${Const|PublicPort}"
 SRV_InventoryServerURI="${Const|BaseURL}:${Const|PublicPort}"
 SRV_AssetServerURI="${Const|BaseURL}:${Const|PublicPort}"
@@ -576,7 +581,7 @@ DSTZone="America/Los_Angeles;Pacific Standard Time"
 ;; Some Grids/Users use a transparent proxy that makes use of the X-Forwarded-For HTTP Header, If you do, set this to true
 ;; If you set this to true and you don't have a transparent proxy, it may allow attackers to put random things in the X-Forwarded-For header to
 ;;     get around this basic DOS protection.
-DOSAllowXForwardedForHeader=true
+DOSAllowXForwardedForHeader=false
 
 ;;
 ;; The protector adds up requests during this rolling period of time, default 10 seconds
@@ -584,7 +589,7 @@ DOSRequestTimeFrameMS=10000
 
 ;;
 ;; The amount of requests in the above timeframe from the same endpoint that triggers protection
-DOSMaxRequestsInTimeFrame=5
+DOSMaxRequestsInTimeFrame=50
 
 ;;
 ;; The amount of time that a specific endpoint is blocked.    Default 2 minutes.
@@ -670,7 +675,6 @@ password=${Const|BaseURL}/${Const|PublicPort}/wifi/forgotpassword
 [GatekeeperService]
 
 ; Set by DreamGrid
-AutoLoadTeleport=True
 LocalServiceModule="OpenSim.Services.HypergridService.dll:GatekeeperService"
 
 ;; for the service
@@ -787,6 +791,8 @@ AuthType=None
 
 ;; Can overwrite the default in [Hypergrid], but probably shouldn't
 ; HomeURI = "${Const|BaseURL}:${Const|PublicPort}"
+
+
 ; * The interface that local users get when they are in other grids.
 ; * This restricts the access that the rest of the world has to
 ; * the assets of this world.
@@ -818,6 +824,7 @@ AuthType=None
 ;; of scripts, like so:
 ; DisallowExport ="LSLText"
 ; DisallowImport ="LSLBytecode"
+
 [HGFriendsService]
 LocalServiceModule="OpenSim.Services.HypergridService.dll:HGFriendsService"
 UserAgentService="OpenSim.Services.HypergridService.dll:UserAgentService"
@@ -850,9 +857,10 @@ UserAccountService="OpenSim.Services.UserAccountService.dll:UserAccountService"
 ;; Can overwrite the default in [Hypergrid], but probably shouldn't
 HomeURI="${Const|BaseURL}:${Const|PublicPort}"
 
-;; end hypergrid
+
 ;; Sets the maximum number of groups an agent may join
 ; MaxAgentGroups = 42
+
 [UserProfilesService]
 LocalServiceModule="OpenSim.Services.UserProfilesService.dll:UserProfilesService"
 Enabled=true
@@ -878,7 +886,7 @@ SMTP_SERVER_PORT=587
 SMTP_SERVER_LOGIN=
 SMTP_SERVER_PASSWORD=Gmail password
 
-; Automatically changed by Dreamworld - do not change this - Should be True ( case sensitive)
+
 ;; Set to True to enable Smart Start
 ;; Set by Dreamgrid
 [AutoLoadTeleport]
