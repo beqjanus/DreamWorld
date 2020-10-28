@@ -1085,7 +1085,7 @@ Public Class Form1
         If RegionMaker.Instance Is Nothing Then Return False
 
         ' Allow these to change w/o rebooting
-        DoOpensimINI()
+        DoOpensimProtoINI()
         DoGloebits()
 
         Timer1.Interval = 1000
@@ -1603,44 +1603,23 @@ Public Class Form1
 
     End Function
 
-    Public Function DoOpensimINI() As Boolean
+    Public Function DoOpensimProtoINI() As Boolean
 
         ' Opensim.ini
         Settings.LoadIni(GetOpensimProto(), ";")
 
         Select Case Settings.ServerType
             Case "Robust"
-                If Settings.SearchEnabled Then
-                    If Settings.CMS = "JOpensim" Then
-                        Dim searchURL As String = Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/interface.php"
-                        Settings.SetIni("Search", "SearchURL", searchURL)
-                        Settings.SetIni("Search", "SimulatorFeatures", searchURL)
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", searchURL)
-                    Else
-                        Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
-                        Settings.SetIni("Search", "SimulatorFeatures", "http://hyperica.com/Search/query.php")
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "http://hyperica.com/Search/query.php")
-                    End If
 
-                    ' RegionSnapShot
-                    Settings.SetIni("DataSnapshot", "index_sims", "True")
-                    If Settings.CMS = "JOpensim" Then
-                        Settings.SetIni("DataSnapshot", "data_services", Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
-                    Else
-                        Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-                    End If
-                Else
-                    Settings.SetIni("Search", "SearchURL", "")
-                    Settings.SetIni("Search", "SimulatorFeatures", "")
-                    Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
-                    Settings.SetIni("DataSnapshot", "index_sims", "False")
-                    Settings.SetIni("DataSnapshot", "data_services", "")
-                End If
+                SetupOpensimSearchINI()
 
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
                 Settings.SetIni("Const", "GridName", Settings.SimName)
 
             Case "Region"
+
+                SetupOpensimSearchINI()
+
             Case "OSGrid"
             Case "Metro"
 
@@ -3552,6 +3531,50 @@ Public Class Form1
 
     End Sub
 
+    Private Shared Sub SetupOpensimSearchINI()
+
+        If Settings.SearchEnabled Then
+            If Settings.CMS = "JOpensim" Then
+                Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
+                Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            Else
+                Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+            End If
+
+            ' RegionSnapShot
+            Settings.SetIni("DataSnapshot", "index_sims", "True")
+            If Settings.CMS = "JOpensim" Then
+                Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
+            Else
+                Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://hyperica.com/Search/register.php")
+            End If
+        Else
+            Settings.SetIni("Search", "SearchURL", "")
+            Settings.SetIni("Search", "SimulatorFeatures", "")
+            Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
+            Settings.SetIni("DataSnapshot", "index_sims", "False")
+            Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "")
+        End If
+
+    End Sub
+
+    Private Shared Sub SetupRobustSearchINI()
+
+        If Settings.SearchEnabled Then
+            If Settings.CMS = "JOpensim" Then
+                Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
+                Settings.SetIni("LoginService", "SearchURL", SearchURL)
+                Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+            Else
+                Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+                Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+            End If
+        Else
+            Settings.SetIni("LoginService", "SearchURL", "")
+        End If
+
+    End Sub
+
     Private Shared Sub ShowLog()
         ''' <summary>Shows the log buttons if diags fail</summary>
         Try
@@ -4148,11 +4171,7 @@ Public Class Form1
         Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
         Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
-        If Settings.CMS = "JOpensim" Then
-            Settings.SetIni("LoginService", "SearchURL", "$(Const|jOpensimURL}:$(Const|ApachePort)/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-        Else
-            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-        End If
+        SetupRobustSearchINI()
 
         Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
@@ -5067,7 +5086,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.Text.toupper <> "DreamGrid Manual.pdf".ToUpper Then Help(sender.Text)
+        If sender.Text.toupper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then Help(sender.Text)
 
     End Sub
 
@@ -6349,7 +6368,7 @@ Public Class Form1
         If DoEditForeigners() Then Return True
         DelLibrary()
         If DoFlotsamINI() Then Return True
-        If DoOpensimINI() Then Return True
+        If DoOpensimProtoINI() Then Return True
         If DoWifi() Then Return True
         If DoGloebits() Then Return True
         If DoTides() Then Return True
