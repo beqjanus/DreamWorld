@@ -104,7 +104,7 @@ Partial Class Gloebits
         Me.GroupBox3.Size = New System.Drawing.Size(466, 158)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Gloebits_Currency_word
+        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Resources.Currency_word
         '
         'GLBShowNewSessionPurchaseIMCheckBox
         '
