@@ -1856,7 +1856,7 @@ Public Class MySettings
 
     Public Property WelcomeMessage() As String
         Get
-            Return GetMySetting("WelcomeMessage", "Welcome to " & SimName() & " , <USERNAME>")
+            Return GetMySetting("WelcomeMessage", "Welcome to " & SimName() & ", <USERNAME>")
         End Get
         Set
             SetMySetting("WelcomeMessage", Value)
