@@ -3544,7 +3544,7 @@ Public Class Form1
             ' RegionSnapShot
             Settings.SetIni("DataSnapshot", "index_sims", "True")
             If Settings.CMS = "JOpensim" Then
-                Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
+                Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
             Else
                 Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://hyperica.com/Search/register.php")
             End If
@@ -3565,9 +3565,22 @@ Public Class Form1
                 Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
                 Settings.SetIni("LoginService", "SearchURL", SearchURL)
                 Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+
+                If Settings.GloebitsEnable Then
+                    Settings.SetIni("LoginService", "Currency", "G$")
+                Else
+                    Settings.SetIni("LoginService", "Currency", "J$")
+                End If
             Else
                 Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
                 Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+
+                If Settings.GloebitsEnable Then
+                    Settings.SetIni("LoginService", "Currency", "G$")
+                Else
+                    Settings.SetIni("LoginService", "Currency", "$")
+                End If
+
             End If
         Else
             Settings.SetIni("LoginService", "SearchURL", "")
