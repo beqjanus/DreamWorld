@@ -1611,9 +1611,8 @@ Public Class Form1
         Select Case Settings.ServerType
             Case "Robust"
                 If Settings.SearchEnabled Then
-
                     If Settings.CMS = "JOpensim" Then
-                        Dim searchURL As String = "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/components/com_opensim/interface.php"
+                        Dim searchURL As String = Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/interface.php"
                         Settings.SetIni("Search", "SearchURL", searchURL)
                         Settings.SetIni("Search", "SimulatorFeatures", searchURL)
                         Settings.SetIni("SimulatorFeatures", "SearchServerURI", searchURL)
@@ -1626,16 +1625,14 @@ Public Class Form1
                     ' RegionSnapShot
                     Settings.SetIni("DataSnapshot", "index_sims", "True")
                     If Settings.CMS = "JOpensim" Then
-                        Settings.SetIni("DataSnapshot", "data_services", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim//components/com_opensim/registersearch.php")
+                        Settings.SetIni("DataSnapshot", "data_services", Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
                     Else
                         Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
                     End If
                 Else
-                    Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
+                    Settings.SetIni("Search", "SearchURL", "")
                     Settings.SetIni("Search", "SimulatorFeatures", "")
                     Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
-                    ' RegionSnapShot
-
                     Settings.SetIni("DataSnapshot", "index_sims", "False")
                     Settings.SetIni("DataSnapshot", "data_services", "")
                 End If
