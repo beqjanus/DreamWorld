@@ -3492,7 +3492,7 @@ Public Class Form1
         If Settings.BirdsModuleStartup Then
             Try
                 If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.dll") Then
-                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
+                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.dll.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
