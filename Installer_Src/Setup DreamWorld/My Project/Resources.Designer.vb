@@ -1921,6 +1921,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Currency.
+        '''</summary>
+        Friend ReadOnly Property Currency_word() As String
+            Get
+                Return ResourceManager.GetString("Currency_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Current Size on Disk.
         '''</summary>
         Friend ReadOnly Property Current_Size() As String
@@ -3454,15 +3463,6 @@ Namespace My.Resources
         Friend ReadOnly Property GlobalSettings_word() As String
             Get
                 Return ResourceManager.GetString("GlobalSettings_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Gloebits Currency.
-        '''</summary>
-        Friend ReadOnly Property Gloebits_Currency_word() As String
-            Get
-                Return ResourceManager.GetString("Gloebits_Currency_word", resourceCulture)
             End Get
         End Property
         

@@ -282,8 +282,8 @@
   <data name="CMS" xml:space="preserve">
     <value>Content Manager</value>
   </data>
-  <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Gloebits Currency</value>
+  <data name="Currency_word" xml:space="preserve">
+    <value>Currency</value>
   </data>
   <data name="AllNone_word" xml:space="preserve">
     <value>All/None</value>

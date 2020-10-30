@@ -105,7 +105,6 @@ Public Class AdvancedForm
         Dim webAddress As String = Form1.PropDomain + "/Outworldz_installer/technical.htm#Regions"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
 
