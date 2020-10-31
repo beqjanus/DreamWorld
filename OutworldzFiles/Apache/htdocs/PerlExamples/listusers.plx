@@ -1,9 +1,5 @@
 #!perl.exe
 
-#This line causes an error. It is to secure this example, which shows your users.
-
-# if you comment out the above line this "list users" example should run.
-# see README  for how to install Strawberry Perl and the necessary Perl modules
 
 use strict;
 use warnings;
@@ -11,6 +7,17 @@ use lib qw(lib); # look in lib for modules and databases
 binmode (STDOUT,':utf8'); # we can use unicode
 use CGI qw(:standard); # so we can read and write to the web
 my $Input = CGI->new();
+
+# uncomment these next lines if you wish to run this via Apache. COmmented out, it secure this example, which shows your users.
+# if you uncomment out line example should run on Apache over the web.
+# see README  for how to install Strawberry Perl and the necessary Perl modules
+
+#print $Input->header(   # and print it as UTF-8
+#      -type    => 'text/html',
+#      -charset =>  'utf-8',
+#   );
+
+
 
 use Robust::Util; # Dbix::Class stuff - set up the DSN in your ODBC driver, and put the details of the DSN in DSN.txt
 my $schema = Robust::Util::mysql_connect;
@@ -38,10 +45,7 @@ foreach my $contact ($userRS->all) #  read each row object into $contact
 
                };
 }
-print $Input->header(   # and print it as UTF-8
-      -type    => 'text/html',
-      -charset =>  'utf-8',
-   );
+
 $tt->process('template/users.tt',  {
       users=>\@data,
       usercount=>$count,

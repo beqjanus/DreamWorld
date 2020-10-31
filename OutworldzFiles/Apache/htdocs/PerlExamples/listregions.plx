@@ -6,6 +6,17 @@ binmode (STDOUT,':utf8'); # we can use unicode
 use CGI qw(:standard); # so we can read and write to the web
 my $Input = CGI->new(); # read data from the web
 
+# uncomment these next lines if you wish to run this via Apache. COmmented out, it secure this example, which shows your users.
+# if you uncomment out line example should run on Apache over the web.
+# see README  for how to install Strawberry Perl and the necessary Perl modules
+
+#print $Input->header(   # and print it as UTF-8
+#      -type    => 'text/html',
+#      -charset =>  'utf-8',
+#   );
+
+
+
 use Robust::Util; # Dbix::Class stuff - set up the DSN in your ODBC driver, and put the details of the DSN in DSN.txt
 my $schema = Robust::Util::mysql_connect;
 $schema->storage->debug(0);   # set to 1 to see detailed database SQL as it is generated
@@ -27,10 +38,7 @@ foreach my $r ($RS->all) #  read each row object into $contact
                   serverPort => $r->serverhttpport,
                };
 }
-print $Input->header(   # and print it as UTF-8
-      -type    => 'text/html',
-      -charset =>  'utf-8',
-   );
+
 
 $tt->process('template/regions.tt',  {
       regions=>\@data,
