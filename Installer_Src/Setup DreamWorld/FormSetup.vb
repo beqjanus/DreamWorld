@@ -44,9 +44,10 @@ Public Class Form1
 
 #Region "Version"
 
-    Private ReadOnly _MyVersion As String = "3.71"
-    Private ReadOnly _SearchRev As Integer = 5
-    Private ReadOnly _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
+    Dim _MyVersion = "3.72"
+    Dim _SearchRev = 5
+    Dim _SimVersion = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
+    Dim _Domain = "http://outworldz.com"
 
 #End Region
 
@@ -74,7 +75,6 @@ Public Class Form1
     Private _CurSlashDir As String
     Private _DNS_is_registered As Boolean
     Private _DNSSTimer As Integer
-    Private _Domain As String = "http://outworldz.com"
     Private _ExitHandlerIsBusy As Boolean
     Private _ForceMerge As Boolean
     Private _ForceParcel As Boolean
@@ -113,7 +113,7 @@ Public Class Form1
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
-    Private newScreenPosition As ScreenPos
+
     Private ScreenPosition As ScreenPos
 
 #End Region
@@ -212,15 +212,6 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property NewScreenPosition1 As ScreenPos
-        Get
-            Return newScreenPosition
-        End Get
-        Set(value As ScreenPos)
-            newScreenPosition = value
-        End Set
-    End Property
-
     Public Property PropAborting() As Boolean
         Get
             Return _PropAborting
@@ -266,13 +257,11 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropDomain As String
+    Public ReadOnly Property PropDomain As String
         Get
             Return _Domain
         End Get
-        Set(value As String)
-            _Domain = value
-        End Set
+
     End Property
 
     Public Property PropExitHandlerIsBusy() As Boolean
@@ -865,16 +854,6 @@ Public Class Form1
         Return Settings.OpensimBinPath & "Opensim.proto"
 
     End Function
-
-    Public Shared Sub Help(page As String)
-
-        FormHelp.Activate()
-        FormHelp.Visible = True
-        FormHelp.Init(page)
-        FormHelp.Select()
-        FormHelp.BringToFront()
-
-    End Sub
 
     Public Shared Sub Log(category As String, message As String)
 
@@ -1859,28 +1838,6 @@ Public Class Form1
         Return data
 
     End Function
-
-    Public Sub HelpOnce(Webpage As String)
-
-        NewScreenPosition1 = New ScreenPos(Webpage)
-        If Not NewScreenPosition1.Exists() Then
-            ' Set the new form's desktop location so it appears below and to the right of the
-            ' current form.
-#Disable Warning CA2000 ' Dispose objects before losing scope
-            Dim FormHelp As New FormHelp
-#Enable Warning CA2000 ' Dispose objects before losing scope
-            FormHelp.Activate()
-            FormHelp.Visible = True
-            FormHelp.Init(Webpage)
-            Try
-                FormHelp.Select()
-                FormHelp.BringToFront()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
-
-    End Sub
 
     ''' <summary>Check is Robust port 8002 is up</summary>
     ''' <returns>boolean</returns>
@@ -5099,7 +5056,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.Text.toupper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then Help(sender.Text)
+        If sender.Text.toupper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then HelpManual(sender.Text)
 
     End Sub
 
@@ -5125,31 +5082,31 @@ Public Class Form1
 
     Private Sub HelpStartingUpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpStartingUpToolStripMenuItem1.Click
 
-        Help("Startup")
+        HelpManual("Startup")
 
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
-        Help("Database")
+        HelpManual("Database")
 
     End Sub
 
     Private Sub HelpToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem2.Click
 
-        Help("ServerType")
+        HelpManual("ServerType")
 
     End Sub
 
     Private Sub HelpToolStripMenuItem3_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem3.Click
 
-        Help("Apache")
+        HelpManual("Apache")
 
     End Sub
 
     Private Sub HelpToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem4.Click
 
-        Help("Icecast")
+        HelpManual("Icecast")
 
     End Sub
 
@@ -5582,7 +5539,7 @@ Public Class Form1
 
     Private Sub LoopBackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoopBackToolStripMenuItem.Click
 
-        Help("Loopback Fixes")
+        HelpManual("Loopback Fixes")
 
     End Sub
 
@@ -5593,7 +5550,6 @@ Public Class Form1
             Print(My.Resources.Create_DB)
             Using zip As ZipFile = ZipFile.Read(m & "\Blank-Mysql-Data-folder.zip")
                 For Each ZipEntry In zip
-
                     ZipEntry.Extract(m, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
                 Next
             End Using
@@ -5647,7 +5603,6 @@ Public Class Form1
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -6100,7 +6055,7 @@ Public Class Form1
 
     Private Sub RevisionHistoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RevisionHistoryToolStripMenuItem.Click
 
-        Help("Revisions")
+        HelpManual("Revisions")
 
     End Sub
 
@@ -6819,7 +6774,6 @@ Public Class Form1
         TextBox1.ScrollToCaret()
     End Sub
 
-
 #End Region
 
     Private Sub Trim()
@@ -7288,7 +7242,7 @@ Public Class Form1
 
     Private Sub TroubleshootingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TroubleshootingToolStripMenuItem.Click
 
-        Help("TroubleShooting")
+        HelpManual("TroubleShooting")
 
     End Sub
 

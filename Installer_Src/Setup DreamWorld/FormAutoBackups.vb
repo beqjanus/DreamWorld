@@ -96,7 +96,7 @@ Public Class FormAutoBackups
 
         BaseFolder.Text = Settings.BackupFolder
         AutoBackup.Checked = Settings.AutoBackup
-        Form1.HelpOnce("Backup")
+        HelpOnce("Backup")
         SetScreen()
 
     End Sub
@@ -177,7 +177,7 @@ Public Class FormAutoBackups
 
     Private Sub AutoBackupHelp_Click(sender As Object, e As EventArgs) Handles AutoBackupHelp.Click
 
-        Form1.Help("Backup")
+        HelpManual("Backup")
 
     End Sub
 
@@ -227,7 +227,7 @@ Public Class FormAutoBackups
     End Sub
 
     Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
-        Form1.Help("Backup")
+        HelpManual("Backup")
     End Sub
 
 #End Region

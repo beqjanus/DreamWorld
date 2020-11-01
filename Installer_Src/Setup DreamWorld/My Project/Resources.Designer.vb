@@ -2564,6 +2564,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property edge() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("edge", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Edit.
         '''</summary>
         Friend ReadOnly Property Edit_word() As String
@@ -4869,6 +4879,16 @@ Namespace My.Resources
         Friend ReadOnly Property MetroOrg() As String
             Get
                 Return ResourceManager.GetString("MetroOrg", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property microsoft_edge() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("microsoft_edge", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

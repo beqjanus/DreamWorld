@@ -125,8 +125,8 @@ Public Class FormDatabase
         SetScreen()
 
         Initted1 = True
-        Form1.HelpOnce("Database")
-        Form1.HelpOnce("ServerType")
+        HelpOnce("Database")
+        HelpOnce("ServerType")
 
     End Sub
 
@@ -144,7 +144,7 @@ Public Class FormDatabase
 
     Private Sub Database_Click(sender As Object, e As EventArgs) Handles DBHelp.Click
 
-        Form1.Help("Database")
+        HelpManual("Database")
 
     End Sub
 
@@ -264,7 +264,7 @@ Public Class FormDatabase
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Database")
+        HelpManual("Database")
     End Sub
 
     Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
@@ -307,7 +307,7 @@ Public Class FormDatabase
 
     Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
 
-        Form1.Help("Database")
+        HelpManual("Database")
 
     End Sub
 

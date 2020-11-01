@@ -70,7 +70,7 @@
                 RadioInfo.Checked = True
         End Select
 
-        Form1.HelpOnce("Logging")
+        HelpOnce("Logging")
         initted = True
 
     End Sub
@@ -80,11 +80,11 @@
 #Region "Help"
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        Form1.Help("Logging")
+        HelpManual("Logging")
     End Sub
 
     Private Sub LoggingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoggingToolStripMenuItem.Click
-        Form1.Help("Logging")
+        HelpManual("Logging")
     End Sub
 
 #End Region

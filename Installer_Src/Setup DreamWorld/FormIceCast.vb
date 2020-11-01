@@ -71,7 +71,7 @@ Public Class Icecast
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
 
-        Form1.Help("Icecast")
+        HelpManual("Icecast")
 
     End Sub
 
@@ -104,7 +104,7 @@ Public Class Icecast
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
-        Form1.Help("Icecast")
+        HelpManual("Icecast")
 
     End Sub
 
@@ -119,7 +119,7 @@ Public Class Icecast
         AdminPassword.UseSystemPasswordChar = True
         ShoutcastPassword.UseSystemPasswordChar = True
         SetScreen()
-        Form1.HelpOnce("Icecast")
+        HelpOnce("Icecast")
 
     End Sub
 

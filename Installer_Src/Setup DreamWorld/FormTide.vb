@@ -66,7 +66,7 @@ Public Class Tides
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Tides")
+        HelpManual("Tides")
     End Sub
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
@@ -87,11 +87,11 @@ Public Class Tides
         TideHiLoChannelTextBox.Text = CStr(Settings.TideLevelChannel)
         TideInfoDebugCheckBox.Checked = Settings.TideInfoDebug
         SetScreen()
-        Form1.HelpOnce("Tides")
+        HelpOnce("Tides")
     End Sub
 
     Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click
-        Form1.Help("Tides")
+        HelpManual("Tides")
     End Sub
 
     Private Sub TideEnabledCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TideEnabledCheckbox.CheckedChanged

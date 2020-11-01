@@ -101,7 +101,7 @@ Public Class TosForm
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
 
-        Form1.Help("TOS")
+        HelpManual("TOS")
 
     End Sub
 
@@ -129,7 +129,7 @@ Public Class TosForm
         TOSEnable.Checked = Settings.TOSEnabled
         SetScreen()
 
-        Form1.HelpOnce("TOS")
+        HelpOnce("TOS")
 
     End Sub
 

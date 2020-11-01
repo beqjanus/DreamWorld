@@ -182,7 +182,7 @@ Public Class FormBackupCheckboxes
 
     Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Form1.HelpOnce("Backup Manually")
+        HelpOnce("Backup Manually")
 
         MySqlCheckBox.Enabled = True
         MySqlCheckBox.Checked = True
@@ -199,7 +199,7 @@ Public Class FormBackupCheckboxes
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
-        Form1.Help("Backup Manually")
+        HelpManual("Backup Manually")
 
     End Sub
 

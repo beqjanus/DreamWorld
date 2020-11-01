@@ -133,7 +133,7 @@ Public Class FormRegions
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Regions")
+        HelpManual("Regions")
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
@@ -158,7 +158,7 @@ Public Class FormRegions
 
         SmartStartEnabled.Checked = Settings.SmartStart
 
-        Form1.HelpOnce("Regions")
+        HelpOnce("Regions")
         SetScreen()
 
     End Sub
@@ -236,7 +236,7 @@ Public Class FormRegions
     End Sub
 
     Private Sub RegionHelp_Click(sender As Object, e As EventArgs) Handles RegionHelp.Click
-        Form1.Help("Regions")
+        HelpManual("Regions")
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged

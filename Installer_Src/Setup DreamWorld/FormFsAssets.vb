@@ -100,7 +100,7 @@ Public Class FormFsAssets
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Form1.HelpOnce("FSAssets")
+        HelpOnce("FSAssets")
 
         EnableFsAssetsCheckbox.Checked = Settings.FsAssetsEnabled
         DataFolder.Text = Settings.BaseDirectory
@@ -129,11 +129,11 @@ Public Class FormFsAssets
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("FSAssets")
+        HelpManual("FSAssets")
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Form1.Help("FSAssets")
+        HelpManual("FSAssets")
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click

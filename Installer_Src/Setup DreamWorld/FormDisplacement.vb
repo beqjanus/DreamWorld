@@ -126,12 +126,12 @@ Public Class FormDisplacement
             ClearOARToolStripMenuItem.Checked = True
         End If
 
-        Form1.HelpOnce("Load OAR")
+        HelpOnce("Load OAR")
 
     End Sub
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        Form1.Help("Load OAR")
+        HelpManual("Load OAR")
     End Sub
 
     Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
@@ -192,7 +192,6 @@ Public Class FormDisplacement
         Dim Pic As Image
         Try
             Pic = Bitmap.FromFile(RegionPhoto)
-
         Catch ex As Exception
 
             Pic = Global.Outworldz.My.Resources.water

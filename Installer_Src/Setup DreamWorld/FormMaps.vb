@@ -91,7 +91,7 @@ Public Class FormMaps
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
 
-        Form1.Help("Maps")
+        HelpManual("Maps")
 
     End Sub
 
@@ -154,7 +154,7 @@ Public Class FormMaps
         RenderMaxH.Text = CStr(Settings.RenderMaxHeight)
         RenderMinH.Text = CStr(Settings.RenderMinHeight)
 
-        Form1.HelpOnce("Maps")
+        HelpOnce("Maps")
         SetScreen()
 
     End Sub
@@ -183,7 +183,7 @@ Public Class FormMaps
 
     Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
 
-        Form1.Help("Maps")
+        HelpManual("Maps")
 
     End Sub
 

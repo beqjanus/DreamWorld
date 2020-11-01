@@ -66,7 +66,7 @@ Public Class BirdForm
 
     Private Sub BirdHelp_Click(sender As Object, e As EventArgs) Handles BirdHelp.Click
 
-        Form1.Help("Birds")
+        HelpManual("Birds")
 
     End Sub
 
@@ -155,7 +155,7 @@ Public Class BirdForm
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
 
-        Form1.Help("Birds")
+        HelpManual("Birds")
 
     End Sub
 
@@ -210,7 +210,7 @@ Public Class BirdForm
         BirdsMaxHeightTextBox.Text = Settings.BirdsMaxHeight.ToString(Globalization.CultureInfo.InvariantCulture)
         PrimNameTextBox.Text = Settings.BirdsPrim
 
-        Form1.HelpOnce("Birds")
+        HelpOnce("Birds")
         initted = True
     End Sub
 

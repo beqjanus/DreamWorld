@@ -75,7 +75,7 @@ Public Class FormPhysics
             Case Else : PhysicsSeparate.Checked = True
         End Select
 
-        Form1.HelpOnce("Physics")
+        HelpOnce("Physics")
         initted = True
 
     End Sub
@@ -85,11 +85,11 @@ Public Class FormPhysics
 #Region "Physics"
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Physics")
+        HelpManual("Physics")
     End Sub
 
     Private Sub GodHelp_Click(sender As Object, e As EventArgs)
-        Form1.Help("Physics")
+        HelpManual("Physics")
     End Sub
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed

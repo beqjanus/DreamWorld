@@ -74,7 +74,7 @@ Public Class FormPermissions
         OutBoundPermissionsCheckbox.Checked = Settings.OutBoundPermissions
 
         SetScreen()
-        Form1.HelpOnce("Permissions")
+        HelpOnce("Permissions")
         initted = True
 
     End Sub
@@ -158,7 +158,7 @@ Public Class FormPermissions
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
 
-        Form1.Help("Permissions")
+        HelpManual("Permissions")
 
     End Sub
 
@@ -171,7 +171,7 @@ Public Class FormPermissions
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        Form1.Help("Permissions")
+        HelpManual("Permissions")
     End Sub
 
 #End Region

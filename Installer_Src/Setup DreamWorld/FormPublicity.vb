@@ -119,7 +119,7 @@ Public Class FormPublicity
             End If
         Next
 
-        Form1.HelpOnce("Publicity")
+        HelpOnce("Publicity")
         initted = True
 
     End Sub
@@ -141,7 +141,7 @@ Public Class FormPublicity
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Publicity")
+        HelpManual("Publicity")
     End Sub
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
@@ -185,7 +185,7 @@ Public Class FormPublicity
     End Sub
 
     Private Sub PublicPhoto_Click(sender As Object, e As EventArgs) Handles PublicPhoto.Click
-        Form1.Help("Publicity")
+        HelpManual("Publicity")
     End Sub
 
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles DescriptionBox.TextChanged

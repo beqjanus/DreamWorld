@@ -74,7 +74,7 @@ Public Class FormVoice
         VivoxUserName.Text = Settings.VivoxUserName
         VivoxPassword.UseSystemPasswordChar = True
         SetScreen()
-        Form1.HelpOnce("Vivox")
+        HelpOnce("Vivox")
     End Sub
 
     Private Sub RequestPassword_Click(sender As Object, e As EventArgs) Handles RequestPassword.Click
@@ -89,11 +89,11 @@ Public Class FormVoice
     End Sub
 
     Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click
-        Form1.Help("Vivox")
+        HelpManual("Vivox")
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        Form1.Help("Vivox")
+        HelpManual("Vivox")
     End Sub
 
     Private Sub VivoxPassword_Clicked(sender As Object, e As EventArgs) Handles VivoxPassword.Click
