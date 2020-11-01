@@ -2417,10 +2417,37 @@ Public Class Form1
 
     End Sub
 
+    Private Sub SetPath()
+
+        Dim value = Environment.GetEnvironmentVariable("Path")
+        Dim PHP = Settings.CurrentDirectory & "\OutworldzFiles\PHP7"
+        If value.Contains(PHP) Then
+            Return
+        Else
+            value += ";" & PHP
+            'setx Path "MyEnvironment" /M
+            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+            ApacheProcess.StartInfo.FileName = "setx"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.Arguments = "Path " & """" & value & """" & " /M"
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            Try
+                ApacheProcess.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+
+        End If
+
+    End Sub
     Public Function StartApache() As Boolean
 
         ' Depends upon PHP for home page
         DoPHPDBSetup()
+
+        SetPath()
 
         Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
         SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.0909"">" & vbCrLf
@@ -2447,10 +2474,10 @@ Public Class Form1
             ApacheProcess.StartInfo.CreateNoWindow = True
             ApacheProcess.StartInfo.Arguments = "stop W3SVC"
             ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()
@@ -2467,7 +2494,6 @@ Public Class Form1
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()
@@ -2483,13 +2509,13 @@ Public Class Form1
             Application.DoEvents()
             ApacheProcess.WaitForExit()
             ApacheIs(False)
+
+            'delete really old service
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-
-                BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
@@ -2521,7 +2547,6 @@ Public Class Form1
                 Try
                     ApacheProcess.Start()
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                     ApacheIs(False)
                     Print(My.Resources.ApacheFailed & ":" & ex.Message)
@@ -2539,6 +2564,8 @@ Public Class Form1
                 Print(My.Resources.Apache_starting)
                 ApacheProcess.StartInfo.FileName = "net"
                 ApacheProcess.StartInfo.Arguments = "start ApacheHTTPServer"
+                ApacheProcess.StartInfo.UseShellExecute = False
+
 
                 Try
                     ApacheProcess.Start()
@@ -3854,7 +3881,7 @@ Public Class Form1
         Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog")
         ' needed for Php5 upgrade
         Settings.SetLiteralIni("LoadModule php5_module", "LoadModule php7_module")
-        Settings.SetLiteralIni("LoadModule php7_module", "LoadModule php7_module " & """" & PropCurSlashDir & "/Outworldzfiles/PHP7/php7apache2_4.dll" & """")
+        Settings.SetLiteralIni("LoadModule php7_module", "LoadModule php7_module " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/php7apache2_4.dll" & """")
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
@@ -4048,9 +4075,8 @@ Public Class Form1
         Print("->Set PHP7")
         Dim ini = Settings.CurrentDirectory & "\Outworldzfiles\PHP7\php.ini"
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext""")
-        Settings.SetLiteralIni("doc_root", "doc_root = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs""")
-        Settings.SetLiteralIni("include_path", "include_path = """ & PropCurSlashDir & ".;/OutworldzFiles/PHP7/pear""")
+        Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext/""")
+        Settings.SetLiteralIni("doc_root", "doc_root = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs/""")
 
         Settings.SaveLiteralIni(ini, "php.ini")
 
