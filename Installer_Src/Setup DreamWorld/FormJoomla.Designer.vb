@@ -41,7 +41,7 @@ Partial Class FormJoomla
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(264, 24)
         Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '
@@ -61,7 +61,7 @@ Partial Class FormJoomla
         Me.GroupBox1.Size = New System.Drawing.Size(240, 216)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "JOpensim Settings"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.JOpensimSettings
         '
         'AdminButton
         '
@@ -92,7 +92,7 @@ Partial Class FormJoomla
         Me.JEnableCheckBox.Name = "JEnableCheckBox"
         Me.JEnableCheckBox.Size = New System.Drawing.Size(59, 17)
         Me.JEnableCheckBox.TabIndex = 2
-        Me.JEnableCheckBox.Text = "Enable"
+        Me.JEnableCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.JEnableCheckBox.UseVisualStyleBackColor = True
         '
         'InstallButton
@@ -115,7 +115,7 @@ Partial Class FormJoomla
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FormJoomla"
-        Me.Text = "Joomla/JOpensim"
+        Me.Text = Global.Outworldz.My.Resources.Resources.JOpensimSettings
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
