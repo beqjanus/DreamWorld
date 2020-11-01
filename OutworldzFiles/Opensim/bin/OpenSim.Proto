@@ -59,7 +59,7 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://192.168.2.100
+PrivURL=http://192.168.2.139
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
@@ -321,7 +321,7 @@ Stats_URI="jsonSimStats"
 ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;# economy module
-economymodule=jOpenSimMoneyModule
+economymodule=BetaGridLikeMoneyModule
 
 ; Main Frame time
 ; This defines the rate of several simulation events.
@@ -511,7 +511,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=192.168.2.100
+host_domain_header_from=192.168.2.139
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -579,7 +579,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.100/32
+OutboundDisallowForUserScriptsExcept=192.168.2.139/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -906,10 +906,12 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ; about the existence of this sim. Uncomment if you want to index your
 ; data with this and/or other search providers.
 ;; New way of specifying data services, one per service
-DATA_SRV_MISearch=192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
+data_services=http://hyperica.com/Search/register.php
 
 ;data_services=https://hyperica.com/Search/register.php
 ;data_services=192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
+
+
 [Economy]
 
 ;# {SellEnabled} {} {Enable selling for 0?} {true false} true
@@ -1394,4 +1396,4 @@ GLBOwnerEmail=Your Email
 GLBSpecificConnectionString="Data Source=127.0.0.1;Database=robust;Port=3306;User ID=robustuser;Password=robustpassword;Old Guids=true;Allow Zero Datetime=true;Connect Timeout=28800;Command Timeout=28800;"
 
 [LoginService]
-SearchURL=http://192.168.2.100:80/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&
+SearchURL=http://hyperica.com/Search/query.php
