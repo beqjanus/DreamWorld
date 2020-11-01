@@ -143,6 +143,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Administer.
+        '''</summary>
+        Friend ReadOnly Property AdministerJoomla_word() As String
+            Get
+                Return ResourceManager.GetString("AdministerJoomla_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Agents.
         '''</summary>
         Friend ReadOnly Property Agents_word() As String
@@ -4173,6 +4182,42 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Installed.
+        '''</summary>
+        Friend ReadOnly Property Installed_word() As String
+            Get
+                Return ResourceManager.GetString("Installed_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Installing. Please wait ....
+        '''</summary>
+        Friend ReadOnly Property Installing_word() As String
+            Get
+                Return ResourceManager.GetString("Installing_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Installing Joomla.
+        '''</summary>
+        Friend ReadOnly Property InstallingJoomla_word() As String
+            Get
+                Return ResourceManager.GetString("InstallingJoomla_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Install.
+        '''</summary>
+        Friend ReadOnly Property InstallJoomla_word() As String
+            Get
+                Return ResourceManager.GetString("InstallJoomla_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Install C++ Runtimes.
         '''</summary>
         Friend ReadOnly Property InstallRuntime() As String
@@ -4277,6 +4322,15 @@ Namespace My.Resources
         Friend ReadOnly Property JobEngine_word() As String
             Get
                 Return ResourceManager.GetString("JobEngine_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to JOpensim Settings.
+        '''</summary>
+        Friend ReadOnly Property JOpensimSettings() As String
+            Get
+                Return ResourceManager.GetString("JOpensimSettings", resourceCulture)
             End Get
         End Property
         
@@ -8463,6 +8517,15 @@ Namespace My.Resources
         Friend ReadOnly Property Viewer_Stops_Counting() As String
             Get
                 Return ResourceManager.GetString("Viewer_Stops_Counting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to View.
+        '''</summary>
+        Friend ReadOnly Property ViewJoomla_word() As String
+            Get
+                Return ResourceManager.GetString("ViewJoomla_word", resourceCulture)
             End Get
         End Property
         

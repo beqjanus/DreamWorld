@@ -1,5 +1,5 @@
-#Region "To do"
 
+#Region "To do"
 ' Add back in the 5 physics type
 
 #End Region
@@ -3501,16 +3501,16 @@ Public Class Form1
             ' RegionSnapShot
             Settings.SetIni("DataSnapshot", "index_sims", "True")
             If Settings.CMS = "JOpensim" Then
-                Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
+                Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
             Else
-                Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://hyperica.com/Search/register.php")
+                Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
             End If
         Else
             Settings.SetIni("Search", "SearchURL", "")
             Settings.SetIni("Search", "SimulatorFeatures", "")
             Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
             Settings.SetIni("DataSnapshot", "index_sims", "False")
-            Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "")
+            Settings.SetIni("DataSnapshot", "data_services", "")
         End If
 
     End Sub

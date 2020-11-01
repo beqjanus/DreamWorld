@@ -26,10 +26,10 @@ Partial Class FormJoomla
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.AdminButton = New System.Windows.Forms.Button()
         Me.ViewButton = New System.Windows.Forms.Button()
         Me.JEnableCheckBox = New System.Windows.Forms.CheckBox()
         Me.InstallButton = New System.Windows.Forms.Button()
-        Me.AdminButton = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -48,7 +48,7 @@ Partial Class FormJoomla
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'GroupBox1
         '
@@ -61,7 +61,18 @@ Partial Class FormJoomla
         Me.GroupBox1.Size = New System.Drawing.Size(240, 216)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Joomla/JOpensim Settings"
+        Me.GroupBox1.Text = "JOpensim Settings"
+        '
+        'AdminButton
+        '
+        Me.AdminButton.Image = CType(resources.GetObject("AdminButton.Image"), System.Drawing.Image)
+        Me.AdminButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.AdminButton.Location = New System.Drawing.Point(23, 106)
+        Me.AdminButton.Name = "AdminButton"
+        Me.AdminButton.Size = New System.Drawing.Size(211, 44)
+        Me.AdminButton.TabIndex = 4
+        Me.AdminButton.Text = Global.Outworldz.My.Resources.Resources.AdministerJoomla_word
+        Me.AdminButton.UseVisualStyleBackColor = True
         '
         'ViewButton
         '
@@ -71,7 +82,7 @@ Partial Class FormJoomla
         Me.ViewButton.Name = "ViewButton"
         Me.ViewButton.Size = New System.Drawing.Size(211, 44)
         Me.ViewButton.TabIndex = 3
-        Me.ViewButton.Text = "View Joomla"
+        Me.ViewButton.Text = Global.Outworldz.My.Resources.Resources.ViewJoomla_word
         Me.ViewButton.UseVisualStyleBackColor = True
         '
         'JEnableCheckBox
@@ -92,19 +103,8 @@ Partial Class FormJoomla
         Me.InstallButton.Name = "InstallButton"
         Me.InstallButton.Size = New System.Drawing.Size(211, 46)
         Me.InstallButton.TabIndex = 0
-        Me.InstallButton.Text = "Install Joomla/JOpensim"
+        Me.InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
         Me.InstallButton.UseVisualStyleBackColor = True
-        '
-        'AdminButton
-        '
-        Me.AdminButton.Image = CType(resources.GetObject("AdminButton.Image"), System.Drawing.Image)
-        Me.AdminButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.AdminButton.Location = New System.Drawing.Point(23, 106)
-        Me.AdminButton.Name = "AdminButton"
-        Me.AdminButton.Size = New System.Drawing.Size(211, 44)
-        Me.AdminButton.TabIndex = 4
-        Me.AdminButton.Text = "Administer  Joomla"
-        Me.AdminButton.UseVisualStyleBackColor = True
         '
         'FormJoomla
         '
