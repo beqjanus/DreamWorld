@@ -2421,7 +2421,7 @@ Public Class Form1
 
         Dim value = Environment.GetEnvironmentVariable("Path")
         Dim PHP = Settings.CurrentDirectory & "\OutworldzFiles\PHP7"
-        If value.Contains(PHP) Then
+        If value.ToUpper.Contains(PHP.ToUpper) Then
             Return
         Else
             value += ";" & PHP
