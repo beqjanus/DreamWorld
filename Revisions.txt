@@ -2,6 +2,13 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.72
+Apache update to 2.4.41
+PHP updated to version 7.4.12
+Apache now supports streaming video for mp4 files so you can use modern players and seek quickly.
+Simplified Joomla install to one zip file.
+Maps work in JOpensim (curl is fixed)
+
 V3.71
 The 25,000 pickable DNS names updated to be more random when clicking Next.
 Added Alias field to HG DNS Name Setting so you can run more than one URL to your grid.  For example, both www.outworldz.com and outworldz.com. Or an old grid name. The alias field accepts a comma delimited list of names.

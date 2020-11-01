@@ -315,7 +315,7 @@ Partial Class AdvancedForm
         Me.GroupBox8.Size = New System.Drawing.Size(340, 380)
         Me.GroupBox8.TabIndex = 1870
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Global Settings"
+        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Resources.Global_Settings_word
         '
         'Button5
         '
@@ -324,7 +324,7 @@ Partial Class AdvancedForm
         Me.Button5.Size = New System.Drawing.Size(143, 23)
         Me.Button5.TabIndex = 25
         Me.Button5.Text = "Joomla/JOpensim"
-        Me.ToolTip1.SetToolTip(Me.Button5, "Click to Setup SJOpensim")
+        Me.ToolTip1.SetToolTip(Me.Button5, "Click to Setup JOpensim")
         Me.Button5.UseVisualStyleBackColor = True
         '
         'AdvancedForm
@@ -338,7 +338,7 @@ Partial Class AdvancedForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "AdvancedForm"
-        Me.Text = "Settings"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         Me.GroupBox8.ResumeLayout(False)
         Me.ResumeLayout(False)
 
