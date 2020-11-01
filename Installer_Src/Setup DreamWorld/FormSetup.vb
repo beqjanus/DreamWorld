@@ -722,7 +722,9 @@ Public Class Form1
     End Sub
 
     Public Shared Function ExternLocalServerName() As String
-        ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
+        ''' <summary>
+        ''' Gets the External Host name which can be either the Public IP or a Host name.
+        ''' </summary>
         ''' <returns>Host for regions</returns>
         Dim Host As String
 
@@ -754,7 +756,10 @@ Public Class Form1
     End Function
 
     Public Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
-        ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
+        ''' <summary>
+        ''' This method starts at the specified directory. It traverses all subdirectories. It
+        ''' returns a List of those directories.
+        ''' </summary>
         ''' ' This list stores the results.
         Dim result As New List(Of String)
 
@@ -893,8 +898,9 @@ Public Class Form1
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Shared Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
         ''' <summary>
-        ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
-        ''' timer to make sure we do not get stuck
+        ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there
+        ''' is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the
+        ''' title. It has a timer to make sure we do not get stuck
         ''' </summary>
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
@@ -972,7 +978,8 @@ Public Class Form1
     Public Shared Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
         ''' <param name="value">millseconds</param>
-        ' value is in milliseconds, but we do it in 10 passes so we can doevents() to free up console
+        ' value is in milliseconds, but we do it in 10 passes so we can doevents() to free up
+        ' console
         Dim sleeptime = value / 100  ' now in tenths
 
         While sleeptime > 0
@@ -1078,7 +1085,7 @@ Public Class Form1
         If RegionMaker.Instance Is Nothing Then Return False
 
         ' Allow these to change w/o rebooting
-        DoOpensimINI()
+        DoOpensimProtoINI()
         DoGloebits()
 
         Timer1.Interval = 1000
@@ -1318,8 +1325,7 @@ Public Class Form1
             End Try
         End Using
 
-        ' Update Error check
-        ' could be nothing
+        ' Update Error check could be nothing
         If Update_version.Length = 0 Then Update_version = PropMyVersion
 
         Try
@@ -1384,7 +1390,9 @@ Public Class Form1
 
     Public Function ConsoleCommand(RegionUUID As String, command As String) As Boolean
 
-        ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
+        ''' <summary>
+        ''' Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys
+        ''' </summary>
         ''' <param name="ProcessID">PID of the DOS box</param>
         ''' <param name="command">String</param>
         ''' <returns></returns>
@@ -1595,46 +1603,23 @@ Public Class Form1
 
     End Function
 
-    Public Function DoOpensimINI() As Boolean
+    Public Function DoOpensimProtoINI() As Boolean
 
         ' Opensim.ini
         Settings.LoadIni(GetOpensimProto(), ";")
 
         Select Case Settings.ServerType
             Case "Robust"
-                If Settings.SearchEnabled Then
 
-                    If Settings.CMS = "JOpensim" Then
-                        Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-                        Settings.SetIni("Search", "SimulatorFeatures", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-                    Else
-                        Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
-                        Settings.SetIni("Search", "SimulatorFeatures", "http://hyperica.com/Search/query.php")
-                        Settings.SetIni("SimulatorFeatures", "SearchServerURI", "http://hyperica.com/Search/query.php")
-                    End If
-
-                    ' RegionSnapShot
-                    Settings.SetIni("DataSnapshot", "index_sims", "True")
-                    If Settings.CMS = "JOpensim" Then
-                        Settings.SetIni("DataSnapshot", "data_services", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim//components/com_opensim/registersearch.php")
-                    Else
-                        Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-                    End If
-                Else
-                    Settings.SetIni("Search", "SearchURL", "$(Const|BaseURL}:$(Const|ApachePort)/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-                    Settings.SetIni("Search", "SimulatorFeatures", "")
-                    Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
-                    ' RegionSnapShot
-
-                    Settings.SetIni("DataSnapshot", "index_sims", "False")
-                    Settings.SetIni("DataSnapshot", "data_services", "")
-                End If
+                SetupOpensimSearchINI()
 
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
                 Settings.SetIni("Const", "GridName", Settings.SimName)
 
             Case "Region"
+
+                SetupOpensimSearchINI()
+
             Case "OSGrid"
             Case "Metro"
 
@@ -1642,9 +1627,9 @@ Public Class Form1
 
         Settings.SetIni("Const", "ApachePort", Settings.ApachePort)
 
-
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
-        ' support this feature
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
+        ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
+        ' that do Not support this feature
 
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
@@ -1725,12 +1710,9 @@ Public Class Form1
             Settings.SetIni("Cloud", "enabled", "False")
         End If
 
-        ' Physics choices for meshmerizer, where  ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer
-        ' 0 = none
-        ' 1 = OpenDynamicsEngine
-        ' 2 = BulletSim
-        ' 3 = BulletSim with threads
-        ' 4 = ubODE
+        ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing =
+        ' Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 =
+        ' BulletSim with threads 4 = ubODE
 
         Select Case Settings.Physics
             Case 0
@@ -1882,7 +1864,8 @@ Public Class Form1
 
         NewScreenPosition1 = New ScreenPos(Webpage)
         If Not NewScreenPosition1.Exists() Then
-            ' Set the new form's desktop location so it appears below and to the right of the current form.
+            ' Set the new form's desktop location so it appears below and to the right of the
+            ' current form.
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormHelp As New FormHelp
 #Enable Warning CA2000 ' Dispose objects before losing scope
@@ -3023,7 +3006,9 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
+    ''' <summary>
+    ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
+    ''' </summary>
     Public Sub Startup()
 
         Buttons(BusyButton)
@@ -3203,7 +3188,10 @@ Public Class Form1
 
     Public Sub UploadPhoto()
 
-        ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
+        ''' <summary>
+        ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server
+        ''' is known to be on line.
+        ''' </summary>
         If Settings.GDPR() Then
             If System.IO.File.Exists(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png") Then
                 UploadCategory()
@@ -3412,12 +3400,9 @@ Public Class Form1
     Private Shared Function DoRegion(RegionName As String, RegionUUID As String) As Boolean
 
         ''' <summary>
-        ''' Copy the Opensim proto
-        ''' Write the Region INI with RegionClass
-        ''' Set the Opensim.ini
+        ''' Copy the Opensim proto Write the Region INI with RegionClass Set the Opensim.ini
         ''' </summary>
         ''' <returns>True if error</returns>
-        '''
 
         If RegionMaker.SetRegionVars(RegionName, RegionUUID) Then Return True
         RegionMaker.CopyOpensimProto(RegionName)
@@ -3507,7 +3492,7 @@ Public Class Form1
         If Settings.BirdsModuleStartup Then
             Try
                 If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.dll") Then
-                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
+                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.dll.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
@@ -3546,10 +3531,65 @@ Public Class Form1
 
     End Sub
 
+    Private Shared Sub SetupOpensimSearchINI()
+
+        If Settings.SearchEnabled Then
+            If Settings.CMS = "JOpensim" Then
+                Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
+                Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            Else
+                Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+            End If
+
+            ' RegionSnapShot
+            Settings.SetIni("DataSnapshot", "index_sims", "True")
+            If Settings.CMS = "JOpensim" Then
+                Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
+            Else
+                Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://hyperica.com/Search/register.php")
+            End If
+        Else
+            Settings.SetIni("Search", "SearchURL", "")
+            Settings.SetIni("Search", "SimulatorFeatures", "")
+            Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
+            Settings.SetIni("DataSnapshot", "index_sims", "False")
+            Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "")
+        End If
+
+    End Sub
+
+    Private Shared Sub SetupRobustSearchINI()
+
+        If Settings.SearchEnabled Then
+            If Settings.CMS = "JOpensim" Then
+                Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
+                Settings.SetIni("LoginService", "SearchURL", SearchURL)
+                Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+
+                If Settings.GloebitsEnable Then
+                    Settings.SetIni("LoginService", "Currency", "G$")
+                Else
+                    Settings.SetIni("LoginService", "Currency", "J$")
+                End If
+            Else
+                Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+                Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+
+                If Settings.GloebitsEnable Then
+                    Settings.SetIni("LoginService", "Currency", "G$")
+                Else
+                    Settings.SetIni("LoginService", "Currency", "$")
+                End If
+
+            End If
+        Else
+            Settings.SetIni("LoginService", "SearchURL", "")
+        End If
+
+    End Sub
+
     Private Shared Sub ShowLog()
         ''' <summary>Shows the log buttons if diags fail</summary>
-        '''
-        '''
         Try
             System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & Settings.CurrentDirectory & "\OutworldzFiles\Outworldz.log" & """")
         Catch ex As Exception
@@ -4033,8 +4073,8 @@ Public Class Form1
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
-        ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling
-        ' ;; and available when they return. True by default.
+        ' ;; Send visual reminder to local users that their inventories are unavailable while they
+        ' are traveling ;; and available when they return. True by default.
         If Settings.Suitcase Then
             Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "true")
         Else
@@ -4132,7 +4172,6 @@ Public Class Form1
         Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
 
-
         If Settings.Suitcase() Then
             Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
         Else
@@ -4145,11 +4184,7 @@ Public Class Form1
         Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
         Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
-        If Settings.CMS = "JOpensim" Then
-            Settings.SetIni("LoginService", "SearchURL", "$(Const|jOpensimURL}:$(Const|ApachePort)/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&")
-        Else
-            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-        End If
+        SetupRobustSearchINI()
 
         Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
@@ -4176,12 +4211,15 @@ Public Class Form1
     Private Function DoSetDefaultSims() As Boolean
 
         Print("->Set Default Sims")
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
+        ' edit must be done before other edits to Robust.HG.ini as this makes the actual
+        ' Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
 
         Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
+            ' add this sim name as a default to the file as HG regions, and add the other regions as
+            ' fallback it may have been deleted
             Dim WelcomeUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If WelcomeUUID.Length = 0 Then
@@ -4193,8 +4231,9 @@ Public Class Form1
 
             FileStuff.DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
-            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
-            ' enabled Region_Name = FallbackRegion if not a SmartStart
+            ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
+            ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start
+            ' region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim RegionSetting As String = Nothing
 
@@ -4649,8 +4688,8 @@ Public Class Form1
                 TimerValue >= 0 And
                 Not PropAborting Then
 
-                ' Maybe we crashed during warm up or running.
-                ' Skip prompt if auto restart on crash and restart the beast
+                ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash
+                ' and restart the beast
 
                 Logger("Crash", GroupName & " Crashed", "Restart")
                 If Settings.RestartOnCrash Then
@@ -4768,7 +4807,8 @@ Public Class Form1
 
         Me.Show()
 
-        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
+        ' Save a random machine ID - we don't want any data to be sent that's personal or
+        ' identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
@@ -5059,7 +5099,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.Text.toupper <> "DreamGrid Manual.pdf".ToUpper Then Help(sender.Text)
+        If sender.Text.toupper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then Help(sender.Text)
 
     End Sub
 
@@ -5776,8 +5816,9 @@ Public Class Form1
         Dim isPortOpen As String = ""
         Using client As New WebClient ' download client for web pages
 
-            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
-            ' results See my privacy policy at https://outworldz.com/privacy.htm
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
+            ' anonymous random ID, both of the versions of Opensim and this program, and the
+            ' diagnostics test results See my privacy policy at https://outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = PropDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
@@ -6340,7 +6381,7 @@ Public Class Form1
         If DoEditForeigners() Then Return True
         DelLibrary()
         If DoFlotsamINI() Then Return True
-        If DoOpensimINI() Then Return True
+        If DoOpensimProtoINI() Then Return True
         If DoWifi() Then Return True
         If DoGloebits() Then Return True
         If DoTides() Then Return True
@@ -6778,29 +6819,8 @@ Public Class Form1
         TextBox1.ScrollToCaret()
     End Sub
 
-#End Region
-
-#Region "Apache"
 
 #End Region
-
-#Region "Icecast"
-
-#End Region
-
-#Region "Charts"
-
-#End Region
-
-#Region "MySql"
-
-#End Region
-
-#Region "Robust"
-
-#End Region
-
-#Region "Updater"
 
     Private Sub Trim()
         If TextBox1.Text.Length > TextBox1.MaxLength - 100 Then
@@ -6832,12 +6852,12 @@ Public Class Form1
 
     End Sub
 
-#End Region
-
 #Region "Timer"
 
     ''' <summary>
-    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
+    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
+    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed
+    ''' regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -7043,12 +7063,8 @@ Public Class Form1
         End If
 
         Dim WebThread = New Thread(AddressOf Backupper)
-        Try
-            WebThread.SetApartmentState(ApartmentState.STA)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            Log(My.Resources.Error_word, ex.Message)
-        End Try
+        WebThread.SetApartmentState(ApartmentState.STA)
+
         WebThread.Start()
         WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
 
