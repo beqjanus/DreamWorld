@@ -95,7 +95,7 @@ Public Class FormApache
 
         EnableSearchCheckBox.Checked = Settings.SearchEnabled
         EventsCheckBox.Checked = Settings.EventTimerEnabled
-        Form1.HelpOnce("Apache")
+        HelpOnce("Apache")
         initted = True
 
     End Sub
@@ -111,7 +111,6 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -122,7 +121,6 @@ Public Class FormApache
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -161,7 +159,7 @@ Public Class FormApache
     End Sub
 
     Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
-        Form1.Help("Apache")
+        HelpManual("Apache")
     End Sub
 
     Private Sub EnableDiva_CheckedChanged(sender As Object, e As EventArgs) Handles EnableDiva.CheckedChanged
@@ -220,7 +218,7 @@ Public Class FormApache
     End Sub
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        Form1.Help("Apache")
+        HelpManual("Apache")
     End Sub
 
     Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
@@ -234,7 +232,6 @@ Public Class FormApache
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Try
             InstallProcess.Start()
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)

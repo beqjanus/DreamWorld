@@ -124,7 +124,7 @@ Public Class FormDiva
         End If
 
         GreetingTextBox.Text = Settings.WelcomeMessage
-        Form1.HelpOnce("Diva")
+        HelpOnce("Diva")
 
         initted = True
 
@@ -144,7 +144,7 @@ Public Class FormDiva
 
     Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles WiFi.Click
 
-        Form1.Help("Diva")
+        HelpManual("Diva")
 
     End Sub
 
@@ -295,7 +295,7 @@ Public Class FormDiva
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("Diva")
+        HelpManual("Diva")
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles CustomButton1.CheckedChanged

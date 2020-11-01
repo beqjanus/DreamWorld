@@ -469,7 +469,7 @@ Public Class FormRegion
             Me.Activate()
 
             Initted1 = True
-            Form1.HelpOnce("Region")
+            HelpOnce("Region")
 
         Catch ex As Exception
 
@@ -569,7 +569,7 @@ Public Class FormRegion
     End Sub
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        Form1.Help("Region")
+        HelpManual("Region")
     End Sub
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
@@ -636,7 +636,7 @@ Public Class FormRegion
 #Region "Private Methods"
 
     Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
-        Form1.Help("Permissions")
+        HelpManual("Permissions")
     End Sub
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
@@ -674,7 +674,7 @@ Public Class FormRegion
 
     Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
 
-        Form1.Help("Region")
+        HelpManual("Region")
 
     End Sub
 
@@ -972,7 +972,7 @@ Public Class FormRegion
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
 
-        Form1.Help("Region")
+        HelpManual("Region")
 
     End Sub
 

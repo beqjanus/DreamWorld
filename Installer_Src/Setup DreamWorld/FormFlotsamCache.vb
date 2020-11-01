@@ -36,7 +36,7 @@ Public Class FormFlotsamCache
 
     Private Sub Form_Load() Handles Me.Load
 
-        Form1.HelpOnce("Flotsam Cache")
+        HelpOnce("Flotsam Cache")
 
         CacheFolder.Text = Settings.CacheFolder
         CacheEnabledBox.Checked = Settings.CacheEnabled

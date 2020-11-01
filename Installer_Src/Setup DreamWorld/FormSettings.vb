@@ -35,6 +35,7 @@ Public Class AdvancedForm
     Dim FormDatabase As New FormDatabase
     Dim FormDiva As New FormDiva
     Dim FormDNSName As New FormDNSName
+    Dim FormJoomla As New FormJoomla
     Dim FormPermissions As New FormPermissions
     Dim FormPhysics As New FormPhysics
     Dim FormPorts As New FormPorts
@@ -149,6 +150,7 @@ Public Class AdvancedForm
         Tos.Dispose()
         Voice.Dispose()
         Banlist.Dispose()
+        FormJoomla.Dispose()
 
     End Sub
 
@@ -434,6 +436,18 @@ Public Class AdvancedForm
         Voice.Visible = True
         Voice.Select()
         Voice.BringToFront()
+
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+
+        FormJoomla.Close()
+        FormJoomla.Dispose()
+        FormJoomla = New FormJoomla
+        FormJoomla.Activate()
+        FormJoomla.Visible = True
+        FormJoomla.Select()
+        FormJoomla.BringToFront()
 
     End Sub
 

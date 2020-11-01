@@ -102,7 +102,7 @@ Public Class FormPorts
             ExternalHostName.Text = ""
         End If
 
-        Form1.HelpOnce("Ports")
+        HelpOnce("Ports")
         initted = True
 
     End Sub
@@ -120,7 +120,7 @@ Public Class FormPorts
 #Region "Ports"
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Ports")
+        HelpManual("Ports")
     End Sub
 
     Private Sub DiagnosticPort_TextChanged(sender As Object, e As EventArgs) Handles DiagnosticPort.TextChanged
@@ -208,7 +208,7 @@ Public Class FormPorts
 
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
 
-        Form1.Help("Ports")
+        HelpManual("Ports")
 
     End Sub
 

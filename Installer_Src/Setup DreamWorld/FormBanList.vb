@@ -62,7 +62,7 @@ Public Class FormBanList
         GetData()
         BringToFront()
 
-        Form1.HelpOnce("BanList")
+        HelpOnce("BanList")
 
     End Sub
 
@@ -155,7 +155,6 @@ Public Class FormBanList
                 If ViewerString.Length Then
                     ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
                 End If
-
 
                 Settings.SetIni("AccessControl", "DeniedClients", ViewerString)
 
@@ -305,9 +304,9 @@ Public Class FormBanList
             DataGridView1.DataSource = table
             DataGridView1.Columns(0).Width = colsize.ColumnWidth(My.Resources.Banned_word, 240)
             DataGridView1.Columns(1).Width = colsize.ColumnWidth(My.Resources.Comment_or_Notes_Word, 500)
- ' Do not catch general exception types
+            ' Do not catch general exception types
         Catch ex As Exception
- ' Do not catch general exception types
+            ' Do not catch general exception types
             BreakPoint.Show(ex.Message)
             Form1.ErrorLog("Banlist:" & ex.Message)
         End Try
@@ -316,7 +315,7 @@ Public Class FormBanList
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
-        Form1.Help("BanList")
+        HelpManual("BanList")
 
     End Sub
 

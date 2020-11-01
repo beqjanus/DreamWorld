@@ -338,6 +338,12 @@
     <Compile Include="FormInitialSetup.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormJoomla.Designer.vb">
+      <DependentUpon>FormJoomla.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormJoomla.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormLogging.Designer.vb">
       <DependentUpon>FormLogging.vb</DependentUpon>
     </Compile>
@@ -487,6 +493,7 @@
     <Compile Include="GlobalSettings.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
+    <Compile Include="Help.vb" />
     <Compile Include="IP.vb" />
     <Compile Include="My Project\Resources.cz.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -580,6 +587,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormInitialSetup.resx">
       <DependentUpon>FormInitialSetup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormJoomla.resx">
+      <DependentUpon>FormJoomla.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogging.resx">
       <DependentUpon>FormLogging.vb</DependentUpon>
@@ -813,6 +823,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\microsoft-edge.png" />
+    <None Include="Resources\edge.png" />
     <None Include="Resources\flag_iran.png" />
     <None Include="Resources\flag_saudi_arabia1.png" />
     <None Include="Resources\flag_brazil.png" />

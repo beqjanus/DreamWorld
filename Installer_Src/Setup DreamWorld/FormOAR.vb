@@ -290,8 +290,8 @@ Public Class FormOAR
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
 
-        If _type = "IAR" Then Form1.Help("Load IAR")
-        If _type = "OAR" Then Form1.Help("Load OAR")
+        If _type = "IAR" Then HelpManual("Load IAR")
+        If _type = "OAR" Then HelpManual("Load OAR")
 
     End Sub
 
@@ -367,8 +367,8 @@ Public Class FormOAR
         Me.Show()
         Search()
         'Redraw(SearchArray)
-        If _type = "OAR" Then Form1.HelpOnce("Load OAR")
-        If _type = "IAR" Then Form1.HelpOnce("Load IAR")
+        If _type = "OAR" Then HelpOnce("Load OAR")
+        If _type = "IAR" Then HelpOnce("Load IAR")
     End Sub
 
     Private Function DoWork() As JSONresult

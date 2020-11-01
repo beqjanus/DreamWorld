@@ -77,7 +77,7 @@ Public Class FormRestart
         RestartOnCrash.Checked = Settings.RestartOnCrash
 
         SetScreen()
-        Form1.HelpOnce("Restart")
+        HelpOnce("Restart")
 
         initted = True ' suppress the install of the startup on formload
 
@@ -134,13 +134,13 @@ Public Class FormRestart
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
 
-        Form1.Help("Restart")
+        HelpManual("Restart")
 
     End Sub
 
     Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs) Handles RunOnBoot.Click
 
-        Form1.Help("Restart")
+        HelpManual("Restart")
 
     End Sub
 

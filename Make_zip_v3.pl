@@ -229,37 +229,35 @@ my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zi
 
 sleep(1);
 
-
-if ($publish) 
-{
+unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
+unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;
+if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
+if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
+if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
+if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
 	
+
+		
 if ($publish eq 'p')
 {
 	say ("Unlinking");	
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" ;
-	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip" ;
-	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
-	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;
-}
+	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip" ;	
 
 	say ("Publishing now");
 	
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "E:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
+	if (!copy ("../Zips/DreamGrid$type.zip", "G:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
 	
 	print "Revisions\n";
-	if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
-	if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
-	if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
 	
 	if (!copy ('outworldzfiles\\Help\\Dreamgrid Manual.pdf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))  {die $!;}
 	$v > io("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
-
-	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
-	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
-
+	
 }
+
 
 
 foreach my $lang (@languages)

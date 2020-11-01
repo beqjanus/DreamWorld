@@ -25,7 +25,7 @@
         End If
         initted = True
 
-        Form1.HelpOnce("Scripts")
+        HelpOnce("Scripts")
 
     End Sub
 
@@ -73,7 +73,7 @@
     End Property
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        Form1.Help("Scripts")
+        HelpManual("Scripts")
     End Sub
 
     'The following detects  the location of the form in screen coordinates
@@ -92,7 +92,7 @@
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        Form1.Help("Scripts")
+        HelpManual("Scripts")
     End Sub
 
 #End Region

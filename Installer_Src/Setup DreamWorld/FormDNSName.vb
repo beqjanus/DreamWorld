@@ -73,7 +73,7 @@ Public Class FormDNSName
         SuitcaseCheckbox.Checked = Settings.Suitcase
         NextNameButton.Enabled = True
         DNSAliasTextBox.Text = Settings.AltDnsName
-        Form1.HelpOnce("DNS")
+        HelpOnce("DNS")
         initted = True
     End Sub
 
@@ -89,7 +89,7 @@ Public Class FormDNSName
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("DNS")
+        HelpManual("DNS")
     End Sub
 
     Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click

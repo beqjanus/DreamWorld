@@ -882,7 +882,7 @@ index_sims=True
 ;; The variable data_exposure controls what the regions expose:
 ;;    minimum: exposes only things explicitly marked for search
 ;;    all: exposes everything
-data_exposure=minimum
+data_exposure=all
 
 ;# {gridname} {index_sims:true} {Enter the name fo your grid} {} OSGrid
 ;; If search is on, change this to your grid name; will be ignored for
@@ -906,10 +906,15 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ; about the existence of this sim. Uncomment if you want to index your
 ; data with this and/or other search providers.
 ;; New way of specifying data services, one per service
-DATA_SRV_MISearch=192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
+; data_services=http://192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
+; data_services=https://hyperica.com/Search/register.php
+data_services=http://192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
 
-;data_services=https://hyperica.com/Search/register.php
-;data_services=192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
+[Search]
+SearchURL=${Const|BaseURL}/Jopensim/components/com_opensim/interface.php
+
+; Optional:
+; searchPeople = false ; in case your people search returns double results
 [Economy]
 
 ;# {SellEnabled} {} {Enable selling for 0?} {true false} true
@@ -1394,4 +1399,4 @@ GLBOwnerEmail=Your Email
 GLBSpecificConnectionString="Data Source=127.0.0.1;Database=robust;Port=3306;User ID=robustuser;Password=robustpassword;Old Guids=true;Allow Zero Datetime=true;Connect Timeout=28800;Command Timeout=28800;"
 
 [LoginService]
-SearchURL=http://192.168.2.100:80/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&
+SearchURL=http://192.168.2.100:80/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component

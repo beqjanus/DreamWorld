@@ -823,7 +823,7 @@ Public Class RegionList
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
-        Form1.Help("RegionList")
+        HelpManual("RegionList")
 
     End Sub
 
@@ -1227,7 +1227,7 @@ Public Class RegionList
     End Sub
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        Form1.Help("RegionList")
+        HelpManual("RegionList")
     End Sub
 
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click

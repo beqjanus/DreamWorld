@@ -72,7 +72,7 @@
 
         initted = True
 
-        Form1.HelpOnce("ServerType")
+        HelpOnce("ServerType")
     End Sub
 
     Private Sub SaveAll()
@@ -147,7 +147,7 @@
 
     Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
 
-        Form1.Help("ServerType")
+        HelpManual("ServerType")
 
     End Sub
 

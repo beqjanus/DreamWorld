@@ -143,7 +143,7 @@ Public Class FormCaches
             CheckBox4.Checked = True
             CheckBox5.Checked = True
         End If
-        Form1.HelpOnce("Flotsam Cache")
+        HelpOnce("Flotsam Cache")
 
         CacheFolder.Text = Settings.CacheFolder
         CacheEnabledBox.Checked = Settings.CacheEnabled
@@ -164,15 +164,15 @@ Public Class FormCaches
 
         gInitted = True
 
-        Form1.HelpOnce("Cache")
+        HelpOnce("Cache")
     End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        Form1.Help("Cache")
+        HelpManual("Cache")
     End Sub
 
     Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
-        Form1.Help("Cache")
+        HelpManual("Cache")
     End Sub
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click
@@ -198,7 +198,7 @@ Public Class FormCaches
     End Sub
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
-        Form1.Help("Flotsam Cache")
+        HelpManual("Flotsam Cache")
     End Sub
 
     Private Sub ViewerCacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ViewerCacheCheckbox.CheckedChanged
