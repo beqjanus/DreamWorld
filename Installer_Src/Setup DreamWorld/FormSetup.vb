@@ -1,5 +1,5 @@
-
 #Region "To do"
+
 ' Add back in the 5 physics type
 
 #End Region
@@ -2442,6 +2442,7 @@ Public Class Form1
         End If
 
     End Sub
+
     Public Function StartApache() As Boolean
 
         ' Depends upon PHP for home page
@@ -2565,7 +2566,6 @@ Public Class Form1
                 ApacheProcess.StartInfo.FileName = "net"
                 ApacheProcess.StartInfo.Arguments = "start ApacheHTTPServer"
                 ApacheProcess.StartInfo.UseShellExecute = False
-
 
                 Try
                     ApacheProcess.Start()
@@ -4185,6 +4185,12 @@ Public Class Form1
         Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
 
         Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
+
+        If Settings.CMS = "JOpensim" Then
+            Settings.SetIni("ServiceList", "GetTextureConnector", "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureSeverConnector")
+        Else
+            Settings.SetIni("ServiceList", "GetTextureConnector", "")
+        End If
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
