@@ -2,6 +2,15 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.73 is a small improvement in Joomla/Jopensim
+Tweaks to Joomla Install Button.
+Joomla Search enabled. This actually sucks, will add a button to toggle between it and Hyperica search which works.
+Same for JMoney. It’s a pay-for-license thing.
+Scrolling text accidentally moved – fixed.
+Suppress SSL msg in PHP in event manager.
+Sitemap.xml now auto updates for all 4 CMS systems.
+Allow remote admin in Joomla.
+
 V3.72
 Apache update to 2.4.41
 PHP updated to version 7.4.12
