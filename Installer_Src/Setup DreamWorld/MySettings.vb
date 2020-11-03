@@ -981,9 +981,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' Show app authorization Instant Message to user at session start?
-    ''' </summary>
+    ''' <summary>Show app authorization Instant Message to user at session start?</summary>
     ''' <returns>False</returns>
     Public Property GLBShowNewSessionAuthIM() As Boolean
         Get
@@ -994,9 +992,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' Show purchase Gloebits Instant Message to user at session start?
-    ''' </summary>
+    ''' <summary>Show purchase Gloebits Instant Message to user at session start?</summary>
     ''' <returns>False</returns>
     Public Property GLBShowNewSessionPurchaseIM() As Boolean
         Get
@@ -1007,9 +1003,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' Show welcome message when entering a region?
-    ''' </summary>
+    ''' <summary>Show welcome message when entering a region?</summary>
     ''' <returns>True</returns>
     Public Property GLBShowWelcomeMessage() As Boolean
         Get
@@ -1910,7 +1904,6 @@ Public Class MySettings
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
