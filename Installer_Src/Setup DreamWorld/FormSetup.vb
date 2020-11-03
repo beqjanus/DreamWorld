@@ -44,10 +44,10 @@ Public Class Form1
 
 #Region "Version"
 
-    Dim _MyVersion = "3.72"
-    Dim _SearchRev = 5
-    Dim _SimVersion = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
-    Dim _Domain = "http://outworldz.com"
+    Dim _MyVersion As String = "3.72"
+    Dim _SearchRev As Integer = 5
+    Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
+    Dim _Domain As String = "http://outworldz.com"
 
 #End Region
 
@@ -1604,7 +1604,7 @@ Public Class Form1
 
         End Select
 
-        Settings.SetIni("Const", "ApachePort", Settings.ApachePort)
+        Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
 
         ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
         ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
@@ -2323,25 +2323,22 @@ Public Class Form1
     Public Function SetPublicIP() As Boolean
 
         ' LAN USE
-        If Settings.EnableHypergrid Then
 
-            If Settings.DNSName.Length > 0 Then
-                Settings.PublicIP = Settings.DNSName()
-                Settings.SaveSettings()
-                Print(My.Resources.Setup_Network)
-                Dim ret = RegisterName(Settings.PublicIP, False)
-                Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
-                For Each part As String In array
-                    RegisterName(part, False)
-                Next
-                Return ret
-            Else
-                Settings.PublicIP = PropMyUPnpMap.LocalIP
-                Print(My.Resources.Setup_Network)
-                Settings.SaveSettings()
-                Return True
-            End If
-
+        If Settings.DNSName.Length > 0 Then
+            Settings.PublicIP = Settings.DNSName()
+            Settings.SaveSettings()
+            Print(My.Resources.Setup_Network)
+            Dim ret = RegisterName(Settings.PublicIP, False)
+            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
+            For Each part As String In array
+                RegisterName(part, False)
+            Next
+            Return ret
+        Else
+            ' Settings.PublicIP = PropMyUPnpMap.LocalIP
+            ' Print(My.Resources.Setup_Network)
+            ' Settings.SaveSettings()
+            ' Return True
         End If
 
         ' HG USE
@@ -2421,7 +2418,7 @@ Public Class Form1
 
         Dim value = Environment.GetEnvironmentVariable("Path")
         Dim PHP = Settings.CurrentDirectory & "\OutworldzFiles\PHP7"
-        If value.ToUpper.Contains(PHP.ToUpper) Then
+        If value.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(PHP.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
             Return
         Else
             value += ";" & PHP
@@ -3699,7 +3696,6 @@ Public Class Form1
             Try
                 speed = Me.Cpu1.NextValue()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Dim pUpdate As Process = New Process()
                 Dim pi As ProcessStartInfo = New ProcessStartInfo With {

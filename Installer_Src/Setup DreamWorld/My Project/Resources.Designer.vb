@@ -98,6 +98,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Action.
+        '''</summary>
+        Friend ReadOnly Property Action_word() As String
+            Get
+                Return ResourceManager.GetString("Action_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Add Region.
         '''</summary>
         Friend ReadOnly Property Add_Region_word() As String
@@ -1590,6 +1599,15 @@ Namespace My.Resources
         Friend ReadOnly Property Click_Server() As String
             Get
                 Return ResourceManager.GetString("Click_Server", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Click To Setup.
+        '''</summary>
+        Friend ReadOnly Property Click_Setup() As String
+            Get
+                Return ResourceManager.GetString("Click_Setup", resourceCulture)
             End Get
         End Property
         
@@ -8471,6 +8489,15 @@ Namespace My.Resources
         Friend ReadOnly Property View_Web_Interface_text() As String
             Get
                 Return ResourceManager.GetString("View_Web_Interface_text", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to View.
+        '''</summary>
+        Friend ReadOnly Property View_word() As String
+            Get
+                Return ResourceManager.GetString("View_word", resourceCulture)
             End Get
         End Property
         

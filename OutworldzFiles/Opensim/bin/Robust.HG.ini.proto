@@ -666,7 +666,7 @@ register=${Const|BaseURL}:${Const|PublicPort}/wifi/user/account/
 
 ; help: optional: page providing further assistance for users of your grid
 ; help = ${Const|jOpensimURLSSL}/
-help="https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
+; help="https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
 
 ; password help: optional: page providing password assistance for users of your grid
 password=${Const|BaseURL}/${Const|PublicPort}/wifi/forgotpassword

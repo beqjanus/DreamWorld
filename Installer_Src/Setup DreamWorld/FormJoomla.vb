@@ -69,6 +69,7 @@ Public Class FormJoomla
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ButtonBase.set_Text(System.String)")>
     Private Sub InstallJoomla()
 
         Dim m As String = Settings.CurrentDirectory & "\OutworldzFiles\Apache\Jopensim_Files\Joomla+Jopensim.zip"

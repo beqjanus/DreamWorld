@@ -3015,4 +3015,13 @@
   <data name="ViewJoomla_word" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="Action_word" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Click_Setup" xml:space="preserve">
+    <value>Click To Setup</value>
+  </data>
+  <data name="View_word" xml:space="preserve">
+    <value>View</value>
+  </data>
 </root>

@@ -529,7 +529,7 @@ Public Class RegionList
                         Num = DGICON.warning ' warning
                     End If
 
-                    ' Create items and subitems for each item. Place a check mark next to the item.
+                    ' Create items and sub items for each item. Place a check mark next to the item.
                     Dim item1 As New ListViewItem(Form1.PropRegionClass.RegionName(RegionUUID), Num) With
                         {
                             .Checked = Form1.PropRegionClass.RegionEnabled(RegionUUID)
@@ -1396,28 +1396,11 @@ Public Class RegionList
 
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RestartRobustButton.Click
-
-        Form1.PropRestartRobust = True
-        Form1.StopRobust()
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
 
     End Sub
 
-    Private Sub Button3_Click_1(sender As Object, e As EventArgs) Handles StatsButton.Click
 
-        Dim regionname = Form1.ChooseRegion(True)
-        If regionname.Length = 0 Then Return
-        Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(regionname)
-        Dim RegionPort = Form1.PropRegionClass.GroupPort(RegionUUID)
-        Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-
-        End Try
-
-    End Sub
 
 #End Region
 

@@ -1,5 +1,5 @@
 <icecast>
-<hostname>192.168.2.139</hostname>
+<hostname>virtualworldsolutions.dyndns.org</hostname>
 <location>DreamGrid</location>
 <admin>email@somewhere.com</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>UozRX5c8j5&Xn53</source-password>
-<relay-password>UozRX5c8j5&Xn53</relay-password>
+<source-password>x8aDCez(Pj)xbf$</source-password>
+<relay-password>x8aDCez(Pj)xbf$</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>JRL6W^j9d$0%cxu</admin-password>
+<admin-password>B3Rm1(!3$qO&uCH</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>

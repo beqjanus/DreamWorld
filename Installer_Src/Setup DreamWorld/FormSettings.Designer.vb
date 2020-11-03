@@ -20,6 +20,7 @@ Partial Class AdvancedForm
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ButtonBase.set_Text(System.String)")>
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
@@ -324,7 +325,7 @@ Partial Class AdvancedForm
         Me.Button5.Size = New System.Drawing.Size(143, 23)
         Me.Button5.TabIndex = 25
         Me.Button5.Text = "Joomla/JOpensim"
-        Me.ToolTip1.SetToolTip(Me.Button5, "Click to Setup JOpensim")
+        Me.ToolTip1.SetToolTip(Me.Button5, Global.Outworldz.My.Resources.Resources.Click_Setup)
         Me.Button5.UseVisualStyleBackColor = True
         '
         'AdvancedForm
