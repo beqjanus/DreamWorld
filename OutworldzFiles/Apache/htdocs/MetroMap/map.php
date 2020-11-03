@@ -1,7 +1,8 @@
-<!DOCTYPE html><html><head><meta charset="utf-8">
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
 <link id="main" rel="stylesheet" href="http://www.w3schools.com/lib/w3.css" type="text/css" media="screen"/>
-
 </head>
     <title>Region Map</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
