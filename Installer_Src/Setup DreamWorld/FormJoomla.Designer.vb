@@ -41,7 +41,6 @@ Partial Class FormJoomla
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(264, 24)
         Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = ""
         '
         'HelpToolStripMenuItem
         '
@@ -61,7 +60,7 @@ Partial Class FormJoomla
         Me.GroupBox1.Size = New System.Drawing.Size(240, 216)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.JOpensimSettings
+        Me.GroupBox1.Text = "JOpensim Settings"
         '
         'AdminButton
         '
@@ -113,9 +112,10 @@ Partial Class FormJoomla
         Me.ClientSize = New System.Drawing.Size(264, 278)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FormJoomla"
-        Me.Text = Global.Outworldz.My.Resources.Resources.JOpensimSettings
+        Me.Text = "JOpensim Settings"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)

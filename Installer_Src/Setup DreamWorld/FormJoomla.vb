@@ -99,6 +99,8 @@ Public Class FormJoomla
 
         Dim folders() = IO.Directory.GetFiles(Settings.CurrentDirectory & "\Outworldzfiles\Apache\htdocs\JOpensim")
         Dim count = folders.Length
+        InstallButton.Enabled = False
+
         If count <= 1 Then
             If Settings.ApacheEnable Then
                 InstallButton.Enabled = True
