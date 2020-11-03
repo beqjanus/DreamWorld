@@ -2423,6 +2423,19 @@ Public Class Form1
         SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.0909"">" & vbCrLf
         SiteMapContents += "<url>" & vbCrLf
         SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
+
+        If Settings.CMS = "Joomla" Then
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/JOpensim" & "</loc>" & vbCrLf
+        End If
+
+        If Settings.CMS = "WordPress" Then
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/DreamGrid" & "</loc>" & vbCrLf
+        End If
+
+        If Settings.CMS = "Other" Then
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Other" & "</loc>" & vbCrLf
+        End If
+
         SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
         SiteMapContents += "<priority>1.0</priority>" & vbCrLf
         SiteMapContents += "</url>" & vbCrLf
