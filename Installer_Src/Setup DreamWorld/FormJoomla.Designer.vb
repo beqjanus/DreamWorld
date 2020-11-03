@@ -60,7 +60,7 @@ Partial Class FormJoomla
         Me.GroupBox1.Size = New System.Drawing.Size(240, 216)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "JOpensim Settings"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         '
         'AdminButton
         '
@@ -115,7 +115,7 @@ Partial Class FormJoomla
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "FormJoomla"
-        Me.Text = "JOpensim Settings"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
