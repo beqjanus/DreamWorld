@@ -79,14 +79,13 @@ Public Class FormApache
         ApachePort.Text = CType(Settings.ApachePort, String)
         ApacheServiceCheckBox.Checked = Settings.ApacheService
 
-        '''' set the other bvox and the radios for Different CMS systems.
+        '''' set the other box and the radios for Different CMS systems.
         ''' This is used to redirect all access to apache / to the folder listed below
-        '''
         If Settings.CMS = "DreamGrid" Then
             EnableDiva.Checked = True
         ElseIf Settings.CMS = "Wordpress" Then
             EnableWP.Checked = True
-        ElseIf Settings.CMS = "JOpensim" Then
+        ElseIf Settings.CMS = "Joomla" Then
             EnableJOpensim.Checked = True
         Else
             EnableOther.Checked = True
@@ -95,7 +94,7 @@ Public Class FormApache
 
         EnableSearchCheckBox.Checked = Settings.SearchEnabled
         EventsCheckBox.Checked = Settings.EventTimerEnabled
-        HelpOnce("Apache")
+        HelpOnce("ThenApache")
         initted = True
 
     End Sub
@@ -172,7 +171,7 @@ Public Class FormApache
     Private Sub EnableJOpensim_CheckedChanged(sender As Object, e As EventArgs) Handles EnableJOpensim.CheckedChanged
 
         If Not initted Then Return
-        If EnableJOpensim.Checked Then Settings.CMS = "JOpensim"
+        If EnableJOpensim.Checked Then Settings.CMS = "Joomla"
 
     End Sub
 
@@ -225,7 +224,6 @@ Public Class FormApache
 
         Dim InstallProcess As New Process
         InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        '
         ' all of them
         InstallProcess.StartInfo.FileName = Settings.CurrentDirectory & "\MSFT_Runtimes\Visual C++ Redist Installer V56.exe"
 
