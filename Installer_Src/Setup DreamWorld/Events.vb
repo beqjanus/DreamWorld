@@ -79,7 +79,7 @@ Module Events
         Using cmd As MySqlCommand = New MySqlCommand(stm, Connection)
 #Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
             Dim rowsinserted = cmd.ExecuteNonQuery()
-            Diagnostics.Debug.Print("Insert: {0}", CStr(rowsinserted))
+            'Diagnostics.Debug.Print("Insert: {0}", CStr(rowsinserted))
         End Using
 
     End Sub
