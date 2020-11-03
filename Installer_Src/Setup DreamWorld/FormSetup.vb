@@ -44,10 +44,10 @@ Public Class Form1
 
 #Region "Version"
 
-    Dim _MyVersion As String = "3.72"
+    Dim _Domain As String = "http://outworldz.com"
+    Dim _MyVersion As String = "3.73"
     Dim _SearchRev As Integer = 5
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
-    Dim _Domain As String = "http://outworldz.com"
 
 #End Region
 
@@ -1398,8 +1398,6 @@ Public Class Form1
                         ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
                     End If
                 Catch ex As Exception
-
-                    BreakPoint.Show(ex.Message)
                     Return False
                 End Try
             Else ' Robust
@@ -1660,7 +1658,7 @@ Public Class Form1
 
         If Settings.GloebitsEnable Then
             Settings.SetIni("Startup", "economymodule", "Gloebit")
-        ElseIf Settings.CMS = "JOpensim" Then
+        ElseIf Settings.CMS = "Joomla" Then
             Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
@@ -2335,18 +2333,19 @@ Public Class Form1
             Next
             Return ret
         Else
-            ' Settings.PublicIP = PropMyUPnpMap.LocalIP
-            ' Print(My.Resources.Setup_Network)
-            ' Settings.SaveSettings()
-            ' Return True
+            Settings.PublicIP = PropMyUPnpMap.LocalIP
+            Print(My.Resources.Setup_Network)
+            Settings.SaveSettings()
         End If
 
         ' HG USE
 
         If Not IPCheck.IsPrivateIP(Settings.DNSName) Then
             Print(My.Resources.Public_IP_Setup_Word)
-            Settings.PublicIP = Settings.DNSName
-            Settings.SaveSettings()
+            If Settings.DNSName.Length > 0 Then
+                Settings.PublicIP = Settings.DNSName
+                Settings.SaveSettings()
+            End If
 
             Dim UC = Settings.PublicIP.ToUpperInvariant()
             If UC.Contains("OUTWORLDZ.NET") Then
@@ -2375,7 +2374,6 @@ Public Class Form1
                     ' Set Public IP
                     Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                     ErrorLog(My.Resources.Wrong & "@ api.ipify.org")
                     Settings.DiagFailed = True
@@ -2411,32 +2409,6 @@ Public Class Form1
         If region.Length = 0 Then Return
 
         VarChooser(region, False, False)
-
-    End Sub
-
-    Private Sub SetPath()
-
-        Dim value = Environment.GetEnvironmentVariable("Path")
-        Dim PHP = Settings.CurrentDirectory & "\OutworldzFiles\PHP7"
-        If value.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(PHP.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-            Return
-        Else
-            value += ";" & PHP
-            'setx Path "MyEnvironment" /M
-            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            ApacheProcess.StartInfo.FileName = "setx"
-            ApacheProcess.StartInfo.CreateNoWindow = True
-            ApacheProcess.StartInfo.Arguments = "Path " & """" & value & """" & " /M"
-            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-            Try
-                ApacheProcess.Start()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-
-        End If
 
     End Sub
 
@@ -2528,7 +2500,7 @@ Public Class Form1
             Application.DoEvents()
             ApacheProcess.WaitForExit()
 
-            Sleep(3000)
+            Sleep(5000)
 
             Using ApacheProcess As New Process With {
                     .EnableRaisingEvents = False
@@ -3515,7 +3487,7 @@ Public Class Form1
     Private Shared Sub SetupOpensimSearchINI()
 
         If Settings.SearchEnabled Then
-            If Settings.CMS = "JOpensim" Then
+            If Settings.CMS = "Joomla" Then
                 Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
                 Settings.SetIni("LoginService", "SearchURL", SearchURL)
             Else
@@ -3524,7 +3496,7 @@ Public Class Form1
 
             ' RegionSnapShot
             Settings.SetIni("DataSnapshot", "index_sims", "True")
-            If Settings.CMS = "JOpensim" Then
+            If Settings.CMS = "Joomla" Then
                 Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
             Else
                 Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
@@ -3542,7 +3514,7 @@ Public Class Form1
     Private Shared Sub SetupRobustSearchINI()
 
         If Settings.SearchEnabled Then
-            If Settings.CMS = "JOpensim" Then
+            If Settings.CMS = "Joomla" Then
                 Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
                 Settings.SetIni("LoginService", "SearchURL", SearchURL)
                 Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
@@ -3550,7 +3522,7 @@ Public Class Form1
                 If Settings.GloebitsEnable Then
                     Settings.SetIni("LoginService", "Currency", "G$")
                 Else
-                    Settings.SetIni("LoginService", "Currency", "J$")
+                    Settings.SetIni("LoginService", "Currency", "jO$")
                 End If
             Else
                 Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
@@ -4030,7 +4002,12 @@ Public Class Form1
 
                     BreakPoint.Show(ex.Message)
                 End Try
-                GridCommon = "Gridcommon-GridServer.ini"
+                If Settings.CMS = "Joomla" Then
+                    GridCommon = "Gridcommon-GridServer-Joomla.ini"
+                Else
+                    GridCommon = "Gridcommon-GridServer.ini"
+                End If
+
             Case "Region"
                 Try
                     My.Computer.FileSystem.CopyDirectory(Settings.OpensimBinPath & "Library.proto", Settings.OpensimBinPath & "Library", True)
@@ -4182,7 +4159,7 @@ Public Class Form1
 
         Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
 
-        If Settings.CMS = "JOpensim" Then
+        If Settings.CMS = "Joomla" Then
             Settings.SetIni("ServiceList", "GetTextureConnector", "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureSeverConnector")
         Else
             Settings.SetIni("ServiceList", "GetTextureConnector", "")
@@ -4714,6 +4691,32 @@ Public Class Form1
         Settings.LogLevel = "FATAL"
         System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
+
+    End Sub
+
+    Private Sub SetPath()
+
+        Dim value = Environment.GetEnvironmentVariable("Path")
+        Dim PHP = Settings.CurrentDirectory & "\OutworldzFiles\PHP7"
+        If value.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(PHP.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+            Return
+        Else
+            value += ";" & PHP
+            'setx Path "MyEnvironment" /M
+            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+            ApacheProcess.StartInfo.FileName = "setx"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.Arguments = "Path " & """" & value & """" & " /M"
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            Try
+                ApacheProcess.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+
+        End If
 
     End Sub
 
@@ -5765,7 +5768,6 @@ Public Class Form1
                 result = client.DownloadString(Weblink)
             Catch ex As WebException  ' not an error as could be a 404 from Diva being off
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
                 Logger("Error", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
