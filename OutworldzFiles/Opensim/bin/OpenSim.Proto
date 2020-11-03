@@ -51,7 +51,7 @@ http_listener_port=8004
 RegionFolderName=Welcome
 
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=192.168.2.139
+BaseHostname=192.168.2.100
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {BaseURL} {} {BaseURL} {"http://${Const|BaseHostname}} "http://${Const|BaseHostname}"
@@ -59,7 +59,7 @@ BaseURL=http://${Const|BaseHostname}
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://192.168.2.139
+PrivURL=http://192.168.2.100
 
 ; Automatically changed by Dreamworld - do not change this
 ;# {PublicPort} {} {PublicPort} {8002} "8002"
@@ -321,7 +321,7 @@ Stats_URI="jsonSimStats"
 ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;# economy module
-economymodule=BetaGridLikeMoneyModule
+economymodule=jOpenSimMoneyModule
 
 ; Main Frame time
 ; This defines the rate of several simulation events.
@@ -511,7 +511,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=virtualworldsolutions.dyndns.org
+host_domain_header_from=192.168.2.100
 
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
 ; email_pause_time = 20
@@ -579,7 +579,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.139/32
+OutboundDisallowForUserScriptsExcept=192.168.2.100/32
 
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
 ;# {HttpBodyMaxLenMAX} {} {Maximum bytes allowed for HTTP_BODY_MAXLENGTH} {} 16384
@@ -770,24 +770,29 @@ UseSeparatePhysicsThread=true
 ;; This is the remote admin module, which uses XMLRPC requests to
 ;; manage regions from a web interface.
 ;# {enabled} {} {Enable the remote admin interface?} {true false} false
-; enabled = false
+enabled=true
+
 ;# {port} {enabled:true} {Port to use for the remote admin interface? (0 = default)} {} 0
 ;; Set this to a nonzero value to have remote admin use a different port
-; port = 0
+port=5050
+
 ;# {access_password} {enabled:true} {Password for the remote admin interface} {}
 ;; This password is required to make any XMLRPC call (should be set as
 ;; the "password" parameter)
-; access_password = ""
+access_password="123silly"
+
 ;# {access_ip_addresses} {enabled:true} {List the IP addresses allowed to call RemoteAdmin?} {}
 ;; List the IP addresses allowed to call RemoteAdmin
 ;; If access_ip_addresses isn't set, then all IP addresses can access RemoteAdmin.
 ;; access_ip_addresses = 0.0.0.0, 0.0.0.0 ...
-; access_ip_addresses =
+access_ip_addresses="127.0.0.1"
+
 ;# {create_region_enable_voice} {enabled:true} {Enable voice for newly created regions?} {true false} false
 ;; set this variable to true if you want the create_region XmlRpc
 ;; call to unconditionally enable voice on all parcels for a newly
 ;; created region
-; create_region_enable_voice = false
+reate_region_enable_voice=true
+
 ;# {create_region_public} {enabled:true} {Make newly created regions public?} {true false} false
 ;; set this variable to false if you want the create_region XmlRpc
 ;; call to create all regions as private per default (can be
@@ -800,21 +805,25 @@ UseSeparatePhysicsThread=true
 ;; enabled_methods = admin_broadcast|admin_save_oar|admin_save_xml
 ;; if this parameter is not specified but enabled = true, all methods
 ;; will be available
-; enabled_methods = all
+enabled_methods=admin_broadcast|admin_get_opensim_version
+
 ;; specify the default appearance for an avatar created through the remote
 ;; admin interface
 ;; This will only take effect is the file specified by the
 ;; default_appearance setting below exists
-; default_male = Default Male
-; default_female = Default Female
+default_male=Default Male
+default_female=Default Female
+
 ;; Update appearance copies inventory items and wearables of default
 ;; avatars. if this value is false, just worn assets are copied to the
 ;; Clothes folder; if true, all Clothes and Bodyparts subfolders are copied.
 ;; The receiver will wear the same items the default avatar did wear.
-; copy_folders = false
+copy_folders=true
+
 ;; Path to default appearance XML file that specifies the look of the
 ;; default avatars
-; default_appearance = default_appearance.xml
+default_appearance=default_appearance.xml
+
 [Sun]
 
 ; number of wall clock hours for an opensim day.  24.0 would mean realtime
@@ -908,14 +917,24 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ;; New way of specifying data services, one per service
 ; data_services=http://192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
 ; data_services=https://hyperica.com/Search/register.php
-data_services=http://hyperica.com/Search/register.php
+data_services=http://192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
 
 [Search]
-SearchURL=${Const|BaseURL}/Jopensim/components/com_opensim/interface.php
+SearchURL=${Const|BaseURL}:${Const|ApachePort}/Jopensim/components/com_opensim/interface.php
 
 ; Optional:
 ; searchPeople = false ; in case your people search returns double results
 [Economy]
+
+;; EconomyModule = jOpenSimMoneyModule
+CurrencyURL=${Const|BaseURL}:${Const|PublicPort}/Joomla/components/com_opensim/currency.php
+
+; Optional:
+DebugMode="1"
+Pay2myself=true
+PayPopup=true
+PayPopupMsgSender="You paid {0} to {1}"
+PayPopupMsgReceiver="You received {0} from {1}"
 
 ;# {SellEnabled} {} {Enable selling for 0?} {true false} true
 ; The default economy module only implements just enough to allow free actions (transfer of objects, etc).
@@ -1399,4 +1418,4 @@ GLBOwnerEmail=Your Email
 GLBSpecificConnectionString="Data Source=127.0.0.1;Database=robust;Port=3306;User ID=robustuser;Password=robustpassword;Old Guids=true;Allow Zero Datetime=true;Connect Timeout=28800;Command Timeout=28800;"
 
 [LoginService]
-SearchURL=http://hyperica.com/Search/query.php
+SearchURL=http://192.168.2.100:80/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&
