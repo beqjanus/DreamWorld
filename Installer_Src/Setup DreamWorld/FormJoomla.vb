@@ -9,32 +9,14 @@ Public Class FormJoomla
 
     End Sub
 
-    Private Sub SetDefaults()
+    Private Sub AdminButton_Click(sender As Object, e As EventArgs) Handles AdminButton.Click
 
-        Dim folders() = IO.Directory.GetFiles(Settings.CurrentDirectory & "\Outworldzfiles\Apache\htdocs\JOpensim")
-        Dim count = folders.Length
-        If count <= 1 Then
-            If Settings.ApacheEnable Then
-                InstallButton.Enabled = True
-            End If
-        End If
-
-        If Settings.CMS = "Joomla" Then
-            JEnableCheckBox.Checked = True
-            If count > 1 Then
-                AdminButton.Enabled = True
-                ViewButton.Enabled = True
-            End If
-        Else
-            AdminButton.Enabled = False
-            ViewButton.Enabled = False
-        End If
-
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-
-        HelpManual("JOpensim")
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/administrator"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
     End Sub
 
@@ -47,25 +29,9 @@ Public Class FormJoomla
 
     End Sub
 
-    Private Sub AdminButton_Click(sender As Object, e As EventArgs) Handles AdminButton.Click
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/administrator"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
-
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+        HelpManual("JOpensim")
 
     End Sub
 
@@ -106,6 +72,7 @@ Public Class FormJoomla
         HelpManual("JOpensim")
         AdminButton.Enabled = True
         ViewButton.Enabled = True
+        InstallButton.Enabled = False
         Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim"
         Try
             Process.Start(webAddress)
@@ -125,6 +92,40 @@ Public Class FormJoomla
 
         Settings.SaveSettings()
         SetDefaults()
+
+    End Sub
+
+    Private Sub SetDefaults()
+
+        Dim folders() = IO.Directory.GetFiles(Settings.CurrentDirectory & "\Outworldzfiles\Apache\htdocs\JOpensim")
+        Dim count = folders.Length
+        If count <= 1 Then
+            If Settings.ApacheEnable Then
+                InstallButton.Enabled = True
+            End If
+        End If
+
+        If Settings.CMS = "Joomla" Then
+            JEnableCheckBox.Checked = True
+            If count > 1 Then
+                AdminButton.Enabled = True
+                ViewButton.Enabled = True
+            End If
+        Else
+            AdminButton.Enabled = False
+            ViewButton.Enabled = False
+        End If
+
+    End Sub
+
+    Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
+
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
     End Sub
 
