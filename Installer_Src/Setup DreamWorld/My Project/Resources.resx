@@ -3024,4 +3024,7 @@
   <data name="View_word" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="InstallOpensim" xml:space="preserve">
+    <value>This will install JOpensim. Do you wish to continue?</value>
+  </data>
 </root>

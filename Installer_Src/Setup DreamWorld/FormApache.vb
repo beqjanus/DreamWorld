@@ -85,7 +85,7 @@ Public Class FormApache
             EnableDiva.Checked = True
         ElseIf Settings.CMS = "Wordpress" Then
             EnableWP.Checked = True
-        ElseIf Settings.CMS = "Joomla" Then
+        ElseIf Settings.CMS = "JOpensim" Then
             EnableJOpensim.Checked = True
         Else
             EnableOther.Checked = True
@@ -171,7 +171,7 @@ Public Class FormApache
     Private Sub EnableJOpensim_CheckedChanged(sender As Object, e As EventArgs) Handles EnableJOpensim.CheckedChanged
 
         If Not initted Then Return
-        If EnableJOpensim.Checked Then Settings.CMS = "Joomla"
+        If EnableJOpensim.Checked Then Settings.CMS = "JOpensim"
 
     End Sub
 

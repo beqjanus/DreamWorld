@@ -4236,6 +4236,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to This will install JOpensim. Do you wish to continue?.
+        '''</summary>
+        Friend ReadOnly Property InstallOpensim() As String
+            Get
+                Return ResourceManager.GetString("InstallOpensim", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Install C++ Runtimes.
         '''</summary>
         Friend ReadOnly Property InstallRuntime() As String

@@ -22,9 +22,9 @@ Public Class FormJoomla
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles InstallButton.Click
 
-        Dim result = MsgBox("This will install Joomla. Do you wish to continue?", vbYesNo)
+        Dim result = MsgBox(My.Resources.InstallOpensim, vbYesNo)
         If result = vbYes Then
-            InstallJoomla()
+            InstallJOpensim()
         End If
 
     End Sub
@@ -36,9 +36,9 @@ Public Class FormJoomla
     End Sub
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ButtonBase.set_Text(System.String)")>
-    Private Sub InstallJoomla()
+    Private Sub InstallJOpensim()
 
-        Dim m As String = Settings.CurrentDirectory & "\OutworldzFiles\Apache\Jopensim_Files\Joomla+Jopensim.zip"
+        Dim m As String = Settings.CurrentDirectory & "\OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip"
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
             Form1.StartApache()

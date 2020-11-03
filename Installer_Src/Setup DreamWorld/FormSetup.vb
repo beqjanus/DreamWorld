@@ -1658,7 +1658,7 @@ Public Class Form1
 
         If Settings.GloebitsEnable Then
             Settings.SetIni("Startup", "economymodule", "Gloebit")
-        ElseIf Settings.CMS = "Joomla" Then
+        ElseIf Settings.CMS = "JOpensim" Then
             Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
@@ -2424,7 +2424,7 @@ Public Class Form1
         SiteMapContents += "<url>" & vbCrLf
         SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
 
-        If Settings.CMS = "Joomla" Then
+        If Settings.CMS = "JOpensim" Then
             SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/JOpensim" & "</loc>" & vbCrLf
         End If
 
@@ -3500,7 +3500,7 @@ Public Class Form1
     Private Shared Sub SetupOpensimSearchINI()
 
         If Settings.SearchEnabled Then
-            If Settings.CMS = "Joomla" Then
+            If Settings.CMS = "JOpensim" Then
                 Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
                 Settings.SetIni("LoginService", "SearchURL", SearchURL)
             Else
@@ -3509,7 +3509,7 @@ Public Class Form1
 
             ' RegionSnapShot
             Settings.SetIni("DataSnapshot", "index_sims", "True")
-            If Settings.CMS = "Joomla" Then
+            If Settings.CMS = "JOpensim" Then
                 Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
             Else
                 Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
@@ -3527,7 +3527,7 @@ Public Class Form1
     Private Shared Sub SetupRobustSearchINI()
 
         If Settings.SearchEnabled Then
-            If Settings.CMS = "Joomla" Then
+            If Settings.CMS = "JOpensim" Then
                 Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
                 Settings.SetIni("LoginService", "SearchURL", SearchURL)
                 Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
@@ -4015,8 +4015,8 @@ Public Class Form1
 
                     BreakPoint.Show(ex.Message)
                 End Try
-                If Settings.CMS = "Joomla" Then
-                    GridCommon = "Gridcommon-GridServer-Joomla.ini"
+                If Settings.CMS = "JOpensim" Then
+                    GridCommon = "Gridcommon-GridServer-JOpensim.ini"
                 Else
                     GridCommon = "Gridcommon-GridServer.ini"
                 End If
@@ -4090,7 +4090,7 @@ Public Class Form1
 "$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
 "// style-sheet items" & vbCrLf &
 "$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
-"$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  WordPress, DreamGrid, Joomla/JOpensim or user assigned folder" & vbCrLf &
+"$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  WordPress, DreamGrid, JOpensim/JOpensim or user assigned folder" & vbCrLf &
 "?>"
 
         Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
@@ -4172,7 +4172,7 @@ Public Class Form1
 
         Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
 
-        If Settings.CMS = "Joomla" Then
+        If Settings.CMS = "JOpensim" Then
             Settings.SetIni("ServiceList", "GetTextureConnector", "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureSeverConnector")
         Else
             Settings.SetIni("ServiceList", "GetTextureConnector", "")
