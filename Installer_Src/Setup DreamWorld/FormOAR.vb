@@ -48,6 +48,8 @@ Public Class FormOAR
 
         Public Property License As String
             Get
+                Return _license
+                '!!! TODO
                 Dim i As List(Of String) = Word_Wrap.WrapText(_license, 80)
                 Dim str As String = ""
                 For Each line In i
@@ -131,7 +133,7 @@ Public Class FormOAR
 
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
-        DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+        DataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
 
         DataGridView.ScrollBars = ScrollBars.Both
         DataGridView.AutoSize = False
@@ -147,18 +149,18 @@ Public Class FormOAR
         DataGridView.ScrollBars = ScrollBars.Both
         DataGridView.Enabled = True
 
-        NumColumns = Math.Ceiling(Me.Width / imgSize) - 1
+        NumColumns = CInt(Math.Ceiling(Me.Width / imgSize) - 1.0)
         If NumColumns = 0 Then
             NumColumns = 1
         End If
 
         DataGridView.Height = Me.Height - 100
         DataGridView.RowTemplate.Height = 256 ' Math.Ceiling((Me.Width - k) / NumColumns)
-        DataGridView.RowTemplate.MinimumHeight = Math.Ceiling((Me.Width - k) / NumColumns)
+        DataGridView.RowTemplate.MinimumHeight = CInt(Math.Ceiling((Me.Width - k) / NumColumns))
 
         DataGridView.Width = Me.Width - 50
         DataGridView.Columns(0).Width = Me.Width - k
-        DataGridView.ColumnHeadersHeight = Math.Ceiling((Me.Width - k) / NumColumns)
+        DataGridView.ColumnHeadersHeight = CInt(Math.Ceiling((Me.Width - k) / NumColumns))
         DataGridView.Columns.Clear()
         DataGridView.Rows.Clear()
         DataGridView.ClearSelection()
@@ -414,7 +416,7 @@ Public Class FormOAR
 
 #Region "Data"
 
-    Private Function GetData()
+    Private Function GetData() As JSONresult()
 
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
@@ -422,7 +424,6 @@ Public Class FormOAR
                 Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return Nothing
@@ -431,7 +432,6 @@ Public Class FormOAR
         Try
             json = JsonConvert.DeserializeObject(Of JSONresult())(result)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Return Nothing
         End Try
@@ -484,7 +484,7 @@ Public Class FormOAR
 
     End Function
 
-    Private Function ImageToJson(ByVal json() As JSONresult)
+    Private Function ImageToJson(ByVal json() As JSONresult) As JSONresult()
 
         If json IsNot Nothing Then
 
@@ -520,7 +520,6 @@ Public Class FormOAR
                             g.DrawImage(img, 0, 0, bmp.Width, bmp.Height)
                         End Using
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                     End Try
                     img.Dispose()
@@ -528,9 +527,8 @@ Public Class FormOAR
                 End If
                 item.Cache = bmp
 
-                item.Size = Format(item.Size / (1024 * 1024), "###0.00")
+                item.Size = Format(CInt(item.Size) / (1024 * 1024), "###0.00")
                 item.Str = item.Name & vbCrLf & item.Size & "MB" & vbCrLf & item.License
-
             Next
         End If
 
@@ -591,17 +589,15 @@ Public Class FormOAR
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If TimerBusy = 0 Then InitiateThread()
-        If TimerBusy = 1 Then Return
-        TimerBusy = 1
+        If Not TimerBusy Then InitiateThread()
+        If TimerBusy Then Return
+        TimerBusy = True
         If WebThread.IsAlive Then Return
         Timer1.Stop()
         Search()
-        TimerBusy = 0
+        TimerBusy = False
 
     End Sub
-
-
 
 #End Region
 

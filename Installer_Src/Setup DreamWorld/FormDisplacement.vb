@@ -56,7 +56,7 @@ Public Class FormDisplacement
 #Region "Public Methods"
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
-    Public Sub Init(Size As Double, RegionUUID As String, Optional map As Boolean = True)
+    Public Sub Init(Size As Integer, RegionUUID As String, Optional map As Boolean = True)
 
         If map Then
             ToolStripMenuItem1.Visible = True
@@ -168,7 +168,7 @@ Public Class FormDisplacement
 
     Private Sub PictureBox_Click(sender As Object, e As EventArgs)
 
-        Dim tag = sender.Tag
+        Dim tag As String = sender.Tag.ToString
         Form1.PropSelectedBox = " --displacement " & tag & " "
         Me.Close()
     End Sub

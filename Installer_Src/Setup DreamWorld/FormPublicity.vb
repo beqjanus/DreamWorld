@@ -79,7 +79,7 @@ Public Class FormPublicity
 
         Dim category As String = ""
         For Each i In CategoryCheckbox.CheckedItems
-            If i.length > 0 Then category += i & ","
+            If i.length > 0 Then category += CStr(i) & ","
         Next
 
         Settings.Categories = category
@@ -100,7 +100,6 @@ Public Class FormPublicity
 
         Try
             PictureBox9.Image = Bitmap.FromFile(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png")
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -110,7 +109,9 @@ Public Class FormPublicity
         tmp = tmp.Replace("<br>", vbCrLf)
         DescriptionBox.Text = tmp
 
+#Disable Warning BC42016 ' Implicit conversion
         Dim cats = Settings.Categories.Split(",")
+#Enable Warning BC42016 ' Implicit conversion
 
         For Each itemname In cats
             Dim Index = CategoryCheckbox.FindStringExact(itemname)
@@ -169,7 +170,6 @@ Public Class FormPublicity
                     Dim newBitmap = New Bitmap(PictureBox9.Image)
                     newBitmap.Save(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
                     newBitmap.Dispose()
-
                 Catch ex As Exception
 
                     BreakPoint.Show(ex.Message)

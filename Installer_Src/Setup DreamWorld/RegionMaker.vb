@@ -121,7 +121,7 @@ Public Class RegionMaker
             Form1.PropRegionClass.RegionPort(RegionUUID) = Portnumber
 
             Settings.SetIni(RegionName, "XmlRpcPort", CStr(XMLPortnumber))
-            Form1.PropRegionClass.XMLRegionPort(RegionUUID) = XMLPortnumber
+            Form1.PropRegionClass.XMLRegionPort(RegionUUID) = CStr(XMLPortnumber)
 
             ' Self setting Region Ports
             Form1.PropMaxPortUsed = Portnumber
@@ -297,11 +297,11 @@ Public Class RegionMaker
             ._Status = SIMSTATUSENUM.Stopped,
             ._LineCounter = 0,
             ._Timer = 0,
-            ._NonPhysicalPrimMax = 1024,
-            ._PhysicalPrimMax = 64,
+            ._NonPhysicalPrimMax = "1024",
+            ._PhysicalPrimMax = "64",
             ._ClampPrimSize = False,
-            ._MaxPrims = 15000,
-            ._MaxAgents = 100,
+            ._MaxPrims = "15000",
+            ._MaxAgents = "100",
             ._MapType = "",
             ._MinTimerInterval = 0.2.ToString(Globalization.CultureInfo.InvariantCulture),
             ._GodDefault = "True",
@@ -364,7 +364,7 @@ Public Class RegionMaker
             Dim folders() As String
             Dim regionfolders() As String
             Dim RegionUUID As String = ""
-            folders = Directory.GetDirectories(Settings.OpensimBinPath + "\Regions")
+            folders = Directory.GetDirectories(Settings.OpensimBinPath + "Regions")
             For Each FolderName As String In folders
 
                 regionfolders = Directory.GetDirectories(FolderName)
@@ -372,7 +372,7 @@ Public Class RegionMaker
 
                     Dim fName = ""
                     Try
-                        Dim inis = Nothing
+                        Dim inis() As String = Nothing
                         Try
                             inis = Directory.GetFiles(FileName, "*.ini", SearchOption.TopDirectoryOnly)
                         Catch ex As Exception
@@ -384,7 +384,7 @@ Public Class RegionMaker
 
                             Settings.LoadIni(ini, ";")
 
-                            RegionUUID = Settings.GetIni(fName, "RegionUUID", "", "String")
+                            RegionUUID = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
                             Dim SomeUUID As New Guid
                             If Not Guid.TryParse(RegionUUID, SomeUUID) Then
                                 MsgBox("Cannot read RegionUUID in INI file for  " & fName)
@@ -393,7 +393,7 @@ Public Class RegionMaker
                             CreateRegion(fName, RegionUUID)
 
                             ' we do not save the above as we are making a new one.
-                            RegionEnabled(RegionUUID) = Settings.GetIni(fName, "Enabled", "True", "Boolean")
+                            RegionEnabled(RegionUUID) = CBool(Settings.GetIni(fName, "Enabled", "True", "Boolean"))
 
                             RegionPath(RegionUUID) = ini ' save the path
                             FolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(ini)
@@ -408,65 +408,64 @@ Public Class RegionMaker
 
                             GroupName(RegionUUID) = gname
 
-                            UUID(RegionUUID) = Settings.GetIni(fName, "RegionUUID", "", "String")
-                            SizeX(RegionUUID) = Settings.GetIni(fName, "SizeX", "256", "Integer")
-                            SizeY(RegionUUID) = Settings.GetIni(fName, "SizeY", "256", "Integer")
-                            RegionPort(RegionUUID) = Settings.GetIni(fName, "InternalPort", "0", "Integer")
+                            UUID(RegionUUID) = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
+                            SizeX(RegionUUID) = CInt(Settings.GetIni(fName, "SizeX", "256", "Integer"))
+                            SizeY(RegionUUID) = CInt(Settings.GetIni(fName, "SizeY", "256", "Integer"))
+                            RegionPort(RegionUUID) = CInt(Settings.GetIni(fName, "InternalPort", "0", "Integer"))
 
                             ' extended props V2.1
-                            NonPhysicalPrimMax(RegionUUID) = Settings.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer")
-                            PhysicalPrimMax(RegionUUID) = Settings.GetIni(fName, "PhysicalPrimMax", "64", "Integer")
-                            ClampPrimSize(RegionUUID) = Settings.GetIni(fName, "ClampPrimSize", "False", "Boolean")
-                            MaxPrims(RegionUUID) = Settings.GetIni(fName, "MaxPrims", "15000", "Integer")
-                            MaxAgents(RegionUUID) = Settings.GetIni(fName, "MaxAgents", "100", "Integer")
+                            NonPhysicalPrimMax(RegionUUID) = CStr(Settings.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer"))
+                            PhysicalPrimMax(RegionUUID) = CStr(Settings.GetIni(fName, "PhysicalPrimMax", "64", "Integer"))
+                            ClampPrimSize(RegionUUID) = CBool(Settings.GetIni(fName, "ClampPrimSize", "False", "Boolean"))
+                            MaxPrims(RegionUUID) = CStr(Settings.GetIni(fName, "MaxPrims", "15000", "Integer"))
+                            MaxAgents(RegionUUID) = CStr(Settings.GetIni(fName, "MaxAgents", "100", "Integer"))
 
                             ' Location is int,int format.
-                            Dim C = Settings.GetIni(fName, "Location", RandomNumber.Between(1010, 990) & "," & RandomNumber.Between(2000, 1000))
-
+                            Dim C As String = CStr(Settings.GetIni(fName, "Location", RandomNumber.Between(1010, 990) & "," & RandomNumber.Between(2000, 1000)))
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
-                            CoordX(RegionUUID) = CInt("0" & parts(0))
-                            CoordY(RegionUUID) = CInt("0" & parts(1))
+                            CoordX(RegionUUID) = CInt("0" & CStr(parts(0)))
+                            CoordY(RegionUUID) = CInt("0" & CStr(parts(1)))
 
                             ' options parameters coming from INI file can be blank!
-                            MinTimerInterval(RegionUUID) = Settings.GetIni(fName, "MinTimerInterval", "", "String")
-                            FrameTime(RegionUUID) = Settings.GetIni(fName, "FrameTime", "", "String")
-                            RegionSnapShot(RegionUUID) = Settings.GetIni(fName, "RegionSnapShot", "", "String")
-                            MapType(RegionUUID) = Settings.GetIni(fName, "MapType", "", "String")
-                            Physics(RegionUUID) = Settings.GetIni(fName, "Physics", "", "String")
-                            MaxPrims(RegionUUID) = Settings.GetIni(fName, "MaxPrims", "", "String")
-                            GodDefault(RegionUUID) = Settings.GetIni(fName, "GodDefault", "True", "String")
-                            AllowGods(RegionUUID) = Settings.GetIni(fName, "AllowGods", "", "String")
-                            RegionGod(RegionUUID) = Settings.GetIni(fName, "RegionGod", "", "String")
-                            ManagerGod(RegionUUID) = Settings.GetIni(fName, "ManagerGod", "", "String")
-                            Birds(RegionUUID) = Settings.GetIni(fName, "Birds", "", "String")
-                            Tides(RegionUUID) = Settings.GetIni(fName, "Tides", "", "String")
-                            Teleport(RegionUUID) = Settings.GetIni(fName, "Teleport", "", "String")
-                            DisableGloebits(RegionUUID) = Settings.GetIni(fName, "DisableGloebits", "", "String")
-                            DisallowForeigners(RegionUUID) = Settings.GetIni(fName, "DisallowForeigners", "", "String")
-                            DisallowResidents(RegionUUID) = Settings.GetIni(fName, "DisallowResidents", "", "String")
-                            SkipAutobackup(RegionUUID) = Settings.GetIni(fName, "SkipAutoBackup", "", "String")
-                            Snapshot(RegionUUID) = Settings.GetIni(fName, "RegionSnapShot", "", "String")
-                            ScriptEngine(RegionUUID) = Settings.GetIni(fName, "ScriptEngine", "", "String")
-                            XMLRegionPort(RegionUUID) = Settings.GetIni(fName, "XMLRegionPort", "", "String")
+                            MinTimerInterval(RegionUUID) = CStr(Settings.GetIni(fName, "MinTimerInterval", "", "String"))
+                            FrameTime(RegionUUID) = CStr(Settings.GetIni(fName, "FrameTime", "", "String"))
+                            RegionSnapShot(RegionUUID) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
+                            MapType(RegionUUID) = CStr(Settings.GetIni(fName, "MapType", "", "String"))
+                            Physics(RegionUUID) = CStr(Settings.GetIni(fName, "Physics", "", "String"))
+                            MaxPrims(RegionUUID) = CStr(Settings.GetIni(fName, "MaxPrims", "", "String"))
+                            GodDefault(RegionUUID) = CStr(Settings.GetIni(fName, "GodDefault", "True", "String"))
+                            AllowGods(RegionUUID) = CStr(Settings.GetIni(fName, "AllowGods", "", "String"))
+                            RegionGod(RegionUUID) = CStr(Settings.GetIni(fName, "RegionGod", "", "String"))
+                            ManagerGod(RegionUUID) = CStr(Settings.GetIni(fName, "ManagerGod", "", "String"))
+                            Birds(RegionUUID) = CStr(Settings.GetIni(fName, "Birds", "", "String"))
+                            Tides(RegionUUID) = CStr(Settings.GetIni(fName, "Tides", "", "String"))
+                            Teleport(RegionUUID) = CStr(Settings.GetIni(fName, "Teleport", "", "String"))
+                            DisableGloebits(RegionUUID) = CStr(Settings.GetIni(fName, "DisableGloebits", "", "String"))
+                            DisallowForeigners(RegionUUID) = CStr(Settings.GetIni(fName, "DisallowForeigners", "", "String"))
+                            DisallowResidents(RegionUUID) = CStr(Settings.GetIni(fName, "DisallowResidents", "", "String"))
+                            SkipAutobackup(RegionUUID) = CStr(Settings.GetIni(fName, "SkipAutoBackup", "", "String"))
+                            Snapshot(RegionUUID) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
+                            ScriptEngine(RegionUUID) = CStr(Settings.GetIni(fName, "ScriptEngine", "", "String"))
+                            XMLRegionPort(RegionUUID) = CStr(Settings.GetIni(fName, "XMLRegionPort", "", "String"))
 
-                            Select Case Settings.GetIni(fName, "SmartStart", "False", "String")
+                            Select Case CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
                                 Case "True"
-                                    SmartStart(RegionUUID) = True
+                                    SmartStart(RegionUUID) = "True"
                                 Case "False"
-                                    SmartStart(RegionUUID) = False
+                                    SmartStart(RegionUUID) = "False"
                                 Case Else
-                                    SmartStart(RegionUUID) = False
+                                    SmartStart(RegionUUID) = ""
                             End Select
 
                             If _RegionListIsInititalized Then
                                 ' restore backups of transient data
                                 Dim o = FindBackupByName(fName)
                                 If o >= 0 Then
-                                    AvatarCount(RegionUUID) = Backup(o)._AvatarCount
-                                    ProcessID(RegionUUID) = Backup(o)._ProcessID
-                                    Status(RegionUUID) = Backup(o)._Status
-                                    LineCounter(RegionUUID) = Backup(o)._LineCounter
-                                    Timer(RegionUUID) = Backup(o)._Timer
+                                    AvatarCount(RegionUUID) = CInt(Backup(o)._AvatarCount)
+                                    ProcessID(RegionUUID) = CInt(Backup(o)._ProcessID)
+                                    Status(RegionUUID) = CInt(Backup(o)._Status)
+                                    LineCounter(RegionUUID) = CInt(Backup(o)._LineCounter)
+                                    Timer(RegionUUID) = CInt(Backup(o)._Timer)
                                 End If
                             End If
 
@@ -801,7 +800,7 @@ Public Class RegionMaker
         Get
             If RegionUUID Is Nothing Then Return "100"
             If Bad(RegionUUID) Then Return "100"
-            If String.IsNullOrEmpty(RegionList(RegionUUID)._MaxAgents) Then RegionList(RegionUUID)._MaxAgents = 100
+            If String.IsNullOrEmpty(RegionList(RegionUUID)._MaxAgents) Then RegionList(RegionUUID)._MaxAgents = "100"
 
             Return RegionList(RegionUUID)._MaxAgents
         End Get
@@ -817,7 +816,7 @@ Public Class RegionMaker
             If RegionUUID Is Nothing Then Return "45000"
             If Bad(RegionUUID) Then Return "45000"
             If String.IsNullOrEmpty(RegionList(RegionUUID)._MaxPrims) Then
-                RegionList(RegionUUID)._MaxPrims = 45000
+                RegionList(RegionUUID)._MaxPrims = "45000"
             End If
             Return RegionList(RegionUUID)._MaxPrims
         End Get
@@ -1131,7 +1130,7 @@ Public Class RegionMaker
     Public Property GodDefault(RegionUUID As String) As String
         Get
             If RegionUUID Is Nothing Then Return "True"
-            If Bad(RegionUUID) Then Return True
+            If Bad(RegionUUID) Then Return "True"
             Return RegionList(RegionUUID)._GodDefault
         End Get
         Set(ByVal Value As String)
@@ -1197,7 +1196,7 @@ Public Class RegionMaker
 
     Public Property RegionEnabled(RegionUUID As String) As Boolean
         Get
-            If RegionUUID Is Nothing Then Return ""
+            If RegionUUID Is Nothing Then Return False
             If Bad(RegionUUID) Then Return False
             Return RegionList(RegionUUID)._RegionEnabled
         End Get
@@ -1567,7 +1566,7 @@ Public Class RegionMaker
             ' Smart Start AutoStart Region mode
             Debug.Print("Smart Start:" + POST)
 
-            ' Auto Start Telport, AKA Smart Start
+            ' Auto Start Teleport, AKA Smart Start
             Dim RegionUUID As String = ""
             Dim pattern As Regex = New Regex("ALT=(.*?)/AGENT=(.*)")
             Dim match As Match = pattern.Match(POST)
@@ -1575,7 +1574,7 @@ Public Class RegionMaker
             If match.Success Then
                 RegionUUID = match.Groups(1).Value
                 Dim AgentUUID = match.Groups(2).Value
-                If RegionUUID.Length > 0 And RegionEnabled(RegionUUID) And SmartStart(RegionUUID) Then
+                If RegionUUID.Length > 0 And RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
                     If Status(RegionUUID) = SIMSTATUSENUM.Booted Then
                         Form1.Print(My.Resources.Someone_is_in_word & " " & RegionName(RegionUUID))
                         Debug.Print("Sending to " & RegionUUID)
@@ -1586,7 +1585,6 @@ Public Class RegionMaker
                         Try
                             TeleportAvatarDict.Remove(RegionName(RegionUUID))
                         Catch ex As Exception
-
                             BreakPoint.Show(ex.Message)
                         End Try
 
@@ -1606,7 +1604,7 @@ Public Class RegionMaker
             Return RegionUUID
 
         ElseIf POST.Contains("TOS") Then
-            ' currently unused as is only in standalones
+            ' currently unused as is only in stand alones
             Debug.Print("UUID:" + POST)
             '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.0909,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.0909" & vbCrLf & vbCrLf &
             '"action-accept=Accept&uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701"

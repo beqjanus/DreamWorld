@@ -194,7 +194,7 @@ Public Class FormDNSName
                 BreakPoint.Show(ex.Message)
             End Try
 
-            If DNSAliasTextBox.Text.Length Then
+            If DNSAliasTextBox.Text.Length > 0 Then
                 Try
                     If IPAddress.TryParse(DNSAliasTextBox.Text, address) Then
                         MsgBox(DNSAliasTextBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & DNSAliasTextBox.Text, vbInformation, Global.Outworldz.My.Resources.Info_word)

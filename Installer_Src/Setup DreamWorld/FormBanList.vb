@@ -83,19 +83,19 @@ Public Class FormBanList
 
                 ' handle DBNull and empty lines
 
-                If IsDBNull(row.Cells(0).Value) Or row.Cells(0).Value Is Nothing Then
+                If IsDBNull(row.Cells(0).Value.ToString) Or row.Cells(0).Value.ToString Is Nothing Then
                     s = ""
                 Else
-                    s = row.Cells(0).Value.trim
+                    s = row.Cells(0).Value.ToString.Trim
                 End If
-                If IsDBNull(row.Cells(1).Value) Or row.Cells(1).Value Is Nothing Then
+                If IsDBNull(row.Cells(1).Value.ToString) Or row.Cells(1).Value.ToString Is Nothing Then
                     t = ""
                 Else
-                    t = row.Cells(1).Value.trim
+                    t = row.Cells(1).Value.ToString.Trim
                 End If
 
                 ' save back to Ban List
-                If s.Length Or t.Length Then BanListString += s & "=" & t & "|"
+                If (s.Length + t.Length) > 0 Then BanListString += s & "=" & t & "|"
                 Debug.Print(s)
 
                 ' ban grid Addresses
@@ -122,7 +122,7 @@ Public Class FormBanList
                 End If
 
                 ' none of the above
-                If s.Length And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
+                If s.Length > 0 And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
                     ViewerString += s & "|"
                 End If
 
@@ -136,23 +136,23 @@ Public Class FormBanList
                 End If
 
                 ' Ban grids
-                If GridString.Length Then
+                If GridString.Length > 0 Then
                     GridString = Mid(GridString, 1, GridString.Length - 1)
                 End If
                 Settings.SetIni("GatekeeperService", "AllowExcept", GridString)
 
                 ' Ban Macs
-                If MACString.Length Then
+                If MACString.Length > 0 Then
                     MACString = Mid(MACString, 1, MACString.Length - 1)
                 End If
                 Settings.SetIni("LoginService", "DeniedMacs", MACString)
                 Settings.SetIni("GatekeeperService", "DeniedMacs", MACString)
 
                 'Ban Viewers
-                If ViewerString.Length Then
+                If ViewerString.Length > 0 Then
                     ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
                 End If
-                If ViewerString.Length Then
+                If ViewerString.Length > 0 Then
                     ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
                 End If
 
@@ -200,7 +200,7 @@ Public Class FormBanList
 
     Private Sub DataGridView1_ColumnWidthChanged(sender As Object, e As DataGridViewColumnEventArgs) Handles DataGridView1.ColumnWidthChanged
 
-        Dim w As String = e.Column.Width.ToString(Globalization.CultureInfo.InvariantCulture)
+        Dim w As Integer = e.Column.Width
         Dim name As String = e.Column.Name.ToString(Globalization.CultureInfo.CurrentCulture)
 
         colsize.PutSize(name, w)
@@ -255,9 +255,9 @@ Public Class FormBanList
             If System.IO.File.Exists(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt") Then
                 filename = Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt"
                 Saveneeded = True
-            ElseIf Settings.BanList.Length Then
+            ElseIf Settings.BanList.Length > 0 Then
 
-                Dim words() = Settings.BanList.Split("|")
+                Dim words() = Settings.BanList.Split("|".ToCharArray)
 
                 For index As Integer = 0 To words.Length - 1
                     Dim elems() As String = words(index).Split("="c)
@@ -277,14 +277,14 @@ Public Class FormBanList
                 filename = Settings.CurrentDirectory & "/Outworldzfiles/Opensim/BanListProto.txt"
             End If
 
-            If filename.Length Then
+            If filename.Length > 0 Then
                 Dim line As String
                 Using reader As IO.StreamReader = System.IO.File.OpenText(filename)
                     'now loop through each line
                     While reader.Peek <> -1
                         line = reader.ReadLine()
                         If line.Length > 1 Then
-                            Dim words() = line.Split("|")
+                            Dim words() = line.Split("|".ToCharArray)
                             table.Rows.Add(words(0), words(1))
 
                             ' remove all IPs from firewall as they are read - new ones or edited ones will be saved back on clode

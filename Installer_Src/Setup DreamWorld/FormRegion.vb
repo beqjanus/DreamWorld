@@ -112,7 +112,6 @@ Public Class FormRegion
         Dim value As Boolean = False
         Try
             value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -139,7 +138,6 @@ Public Class FormRegion
             If chosen = "! Add New Name" Then
                 chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
             End If
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -201,7 +199,7 @@ Public Class FormRegion
             ClampPrimSize.Checked = Form1.PropRegionClass.ClampPrimSize(RegionUUID)
             MaxPrims.Text = Form1.PropRegionClass.MaxPrims(RegionUUID)
             MaxAgents.Text = Form1.PropRegionClass.MaxAgents(RegionUUID)
-            RegionPort.Text = Form1.PropRegionClass.RegionPort(RegionUUID)
+            RegionPort.Text = Form1.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
             ' Size buttons can be zero
             If Form1.PropRegionClass.SizeY(RegionUUID) = 0 Or Form1.PropRegionClass.SizeX(RegionUUID) = 0 Then
                 RadioButton1.Checked = True
@@ -297,7 +295,7 @@ Public Class FormRegion
         FrametimeBox.Text = Form1.PropRegionClass.FrameTime(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
 
         If Form1.PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
-            SkipAutoCheckBox.Checked = "True"
+            SkipAutoCheckBox.Checked = True
         End If
         If Form1.PropRegionClass.SmartStart(RegionUUID) = "True" Then
             SmartStartCheckBox.Checked = True
@@ -347,7 +345,7 @@ Public Class FormRegion
             Case Else : Physics_Default.Checked = True
         End Select
 
-        If Form1.PropRegionClass.GodDefault(RegionUUID) Then
+        If Form1.PropRegionClass.GodDefault(RegionUUID) = "True" Then
             AllowGods.Checked = False
             RegionGod.Checked = False
             ManagerGod.Checked = False
@@ -470,7 +468,6 @@ Public Class FormRegion
 
             Initted1 = True
             HelpOnce("Region")
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -579,7 +576,6 @@ Public Class FormRegion
             FileStuff.DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
                 My.Computer.FileSystem.RenameFile(Form1.PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -829,7 +825,7 @@ Public Class FormRegion
         ' UUID
         Dim result As Guid
         If Not Guid.TryParse(UUID.Text, result) Then
-            Message = Global.Outworldz.My.Resources.Region_UUID_Is_invalid_word & " " & +UUID.Text
+            Message = Global.Outworldz.My.Resources.Region_UUID_Is_invalid_word & " " & UUID.Text
             Return Message
         End If
 
@@ -861,7 +857,6 @@ Public Class FormRegion
                 Message = Global.Outworldz.My.Resources.NVNonPhysPrim
                 Return Message
             End If
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -874,7 +869,6 @@ Public Class FormRegion
                 Message = Global.Outworldz.My.Resources.NVPhysPrim
                 Return Message
             End If
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -887,7 +881,6 @@ Public Class FormRegion
                 Message = Global.Outworldz.My.Resources.NVMaxPrim
                 Return Message
             End If
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -899,7 +892,6 @@ Public Class FormRegion
                 Message = Global.Outworldz.My.Resources.NVMaxAgents
                 Return Message
             End If
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -1022,7 +1014,6 @@ Public Class FormRegion
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -1049,7 +1040,6 @@ Public Class FormRegion
             If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
                 Try
                     Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
-
                 Catch ex As Exception
 
                     BreakPoint.Show(ex.Message)
@@ -1066,9 +1056,9 @@ Public Class FormRegion
 
         ' save the changes to the memory structure, then to disk
         Form1.PropRegionClass.UUID(RegionUUID) = UUID.Text
-        Form1.PropRegionClass.CoordX(RegionUUID) = CoordX.Text
-        Form1.PropRegionClass.CoordY(RegionUUID) = CoordY.Text
-        Form1.PropRegionClass.RegionPort(RegionUUID) = RegionPort.Text
+        Form1.PropRegionClass.CoordX(RegionUUID) = CInt(CoordX.Text)
+        Form1.PropRegionClass.CoordY(RegionUUID) = CInt(CoordY.Text)
+        Form1.PropRegionClass.RegionPort(RegionUUID) = CInt(RegionPort.Text)
         Form1.PropRegionClass.SizeX(RegionUUID) = BoxSize
         Form1.PropRegionClass.SizeY(RegionUUID) = BoxSize
         Form1.PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
@@ -1118,7 +1108,7 @@ Public Class FormRegion
         End If
 
         If Physics_Default.Checked Then
-            Form1.PropRegionClass.Physics(RegionUUID) = Phys
+            Form1.PropRegionClass.Physics(RegionUUID) = CStr(Phys)
         End If
 
         If Gods_Use_Default.Checked Then
@@ -1239,7 +1229,6 @@ Public Class FormRegion
             Using outputFile As New StreamWriter(Filepath, False)
                 outputFile.Write(Region)
             End Using
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)

@@ -6,16 +6,19 @@
         ' Remove leading and trailing spaces
         Text = Trim(Text)
 
-        Dim Words As String() = Text.Split(" ")
+        Dim Words As String() = Text.Split(" ".ToCharArray)
 
         If Words.Length = 1 And Words(0).Length > LineLength Then
             ' Text is just one big word that is longer than one line
             ' Split it mercilessly
-            Dim lines As Integer = (Int(Text.Length / LineLength) + 1)
+            Dim number As Double = Text.Length / LineLength
+            Dim lines As Integer = CInt(number) + 1
             Text = Text.PadRight(lines * LineLength)
             For i = 0 To lines - 1
                 Dim SliceStart As Integer = i * LineLength
+
                 ReturnValue.Add(Text.Substring(SliceStart, LineLength))
+
             Next
         Else
             Dim CurrentLine As New System.Text.StringBuilder
@@ -36,14 +39,14 @@
                         Word = Word.Substring(Slice.Length, Word.Length - Slice.Length)
 
                         ' How many more lines do we need for this word?
-                        Dim RemainingSlices As Integer = Int(Word.Length / LineLength) + 1
+                        Dim RemainingSlices As Integer = CInt(Word.Length / LineLength) + 1
                         For LineNumber = 1 To RemainingSlices
                             If LineNumber = RemainingSlices Then
                                 'this is the last slice
                                 CurrentLine.Append(Word & " ")
                             Else
                                 ' this is not the last slice, hack off a slice that is one  line long, add that slice
-                                ' to the output as a line and  start a new line
+                                ' to the output as a line and start a new line
                                 Slice = Word.Substring(0, LineLength)
                                 CurrentLine.Append(Slice)
                                 ReturnValue.Add(CurrentLine.ToString)

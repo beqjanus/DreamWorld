@@ -3177,7 +3177,7 @@ Public Class Form1
 #Disable Warning CA2000
         Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
 #Enable Warning CA2000
-        Dim span = Math.Ceiling(size / 256)
+        Dim span As Integer = CInt(Math.Ceiling(size / 256))
         ' Show Dialog as a modal dialog
         VarForm.Init(span, RegionUUID, Map)
 
@@ -3890,7 +3890,7 @@ Public Class Form1
             Return
         End If
 
-        Print("---------------------------")
+        Print("__________")
         Print(My.Resources.Running_Network)
         Logger("INFO", Global.Outworldz.My.Resources.Running_Network, "Diagnostics")
         Settings.DiagFailed = False
@@ -3910,7 +3910,7 @@ Public Class Form1
         Else
             NewDNSName()
         End If
-        Print("---------------------------")
+        Print("__________")
 
     End Sub
 
@@ -5100,7 +5100,7 @@ Public Class Form1
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.Text.toupper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then HelpManual(sender.Text)
+        If sender.Text.toupper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then HelpManual(CStr(sender.Text))
 
     End Sub
 
@@ -5559,25 +5559,25 @@ Public Class Form1
 
     Private Sub LocalIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/IAR/" & sender.Text 'make a real URL
+        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/IAR/" & CStr(sender.Text) 'make a real URL
         If LoadIARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & sender.Text)
+            Print(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
         End If
 
     End Sub
 
     Private Sub LocalOarClick(sender As Object, e As EventArgs)
 
-        Dim File = Settings.CurrentDirectory & "/OutworldzFiles/OAR/" & sender.Text 'make a real URL
+        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/OAR/" & CStr(sender.Text) 'make a real URL
         If LoadOARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & sender.Text)
+            Print(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
         End If
 
     End Sub
 
     Private Sub LogViewClick(sender As Object, e As EventArgs)
 
-        Viewlog(sender.Text)
+        Viewlog(CStr(sender.Text))
 
     End Sub
 
@@ -6595,7 +6595,7 @@ Public Class Form1
 
     Private Sub Statmenu(sender As Object, e As EventArgs)
         If PropOpensimIsRunning() Then
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(sender.Text)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(CStr(sender.Text))
             Dim port As String = CStr(PropRegionClass.RegionPort(RegionUUID))
             Dim webAddress As String = "http://localhost:" & Settings.HttpPort & "/bin/data/sim.html?port=" & port
             Try
@@ -7115,18 +7115,18 @@ Public Class Form1
 
     Private Sub BackupIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/AutoBackup/" & sender.Text 'make a real URL
+        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/AutoBackup/" & CStr(sender.Text) 'make a real URL
         If LoadIARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & sender.Text & ".  " & Global.Outworldz.My.Resources.Take_time)
+            Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
 
     End Sub
 
     Private Sub BackupOarClick(sender As Object, e As EventArgs)
 
-        Dim File = Settings.CurrentDirectory & "/OutworldzFiles/AutoBackup/" & sender.Text 'make a real URL
+        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/AutoBackup/" & CStr(sender.Text) 'make a real URL
         If LoadOARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & sender.Text & ".  " & Global.Outworldz.My.Resources.Take_time)
+            Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
 
     End Sub

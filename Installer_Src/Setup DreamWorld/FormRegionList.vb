@@ -33,7 +33,7 @@ Public Class RegionList
 #Disable Warning CA2213
     Private _ImageListSmall As New ImageList
 #Enable Warning CA2213
-    Private initted = False
+    Private initted As Boolean
     Private ItemsAreChecked As Boolean
 
     Private pixels As Integer = 70
@@ -404,7 +404,7 @@ Public Class RegionList
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Private Sub ShowTitle()
 
-        Dim TotalSize As Integer
+        Dim TotalSize As Double
         Dim RegionCount As Integer
         Dim TotalRegionCount As Integer
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
@@ -569,8 +569,8 @@ Public Class RegionList
                     item1.SubItems.Add(Form1.PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
 
                     ' Size of region
-                    Dim s As Integer = Form1.PropRegionClass.SizeX(RegionUUID) / 256
-                    Dim size As String = s & "X" & s
+                    Dim s As Double = Form1.PropRegionClass.SizeX(RegionUUID) / 256
+                    Dim size As String = CStr(s) & "X" & CStr(s)
                     item1.SubItems.Add(size)
 
                     ' add estate name
@@ -718,7 +718,7 @@ Public Class RegionList
                     ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
                 ElseIf TheView1 = ViewType.Details Then
                     For Each col In ListView1.Columns
-                        Dim name = col.Text
+                        Dim name As String = CStr(col.Text)
                         Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
                             col.Width = colsize.ColumnWidth(name & TheView1.ToString(Globalization.CultureInfo.InvariantCulture))
                         End Using
@@ -864,7 +864,7 @@ Public Class RegionList
                 Form1.PropRegionClass.RegionEnabled(RegionUUID) = True
             End If
             Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
-            Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", Form1.PropRegionClass.RegionEnabled(RegionUUID))
+            Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(Form1.PropRegionClass.RegionEnabled(RegionUUID)))
             Settings.SaveINI(System.Text.Encoding.UTF8)
         Next
         ShowTitle()
@@ -1166,7 +1166,7 @@ Public Class RegionList
                 RegionUUID = Form1.PropRegionClass.FindRegionByName(name)
                 Form1.PropRegionClass.RegionEnabled(RegionUUID) = X.Checked
                 Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
-                Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", X.Checked)
+                Settings.SetIni(Form1.PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(X.Checked))
                 Settings.SaveINI(System.Text.Encoding.UTF8)
             End If
 
@@ -1399,8 +1399,6 @@ Public Class RegionList
     Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
 
     End Sub
-
-
 
 #End Region
 
