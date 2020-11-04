@@ -77,7 +77,6 @@ Public Class FormApache
 
         ApacheCheckbox.Checked = Settings.ApacheEnable
         ApachePort.Text = CType(Settings.ApachePort, String)
-        ApacheServiceCheckBox.Checked = Settings.ApacheService
 
         '''' set the other box and the radios for Different CMS systems.
         ''' This is used to redirect all access to apache / to the folder listed below
@@ -92,9 +91,9 @@ Public Class FormApache
             Other.Text = Settings.CMS
         End If
 
-        EnableSearchCheckBox.Checked = Settings.SearchEnabled
-        EventsCheckBox.Checked = Settings.EventTimerEnabled
-        HelpOnce("ThenApache")
+
+
+        HelpOnce("Apache")
         initted = True
 
     End Sub
@@ -150,13 +149,6 @@ Public Class FormApache
 
     End Sub
 
-    Private Sub ApacheServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ApacheServiceCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.ApacheService = ApacheServiceCheckBox.Checked
-
-    End Sub
-
     Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
         HelpManual("Apache")
     End Sub
@@ -182,12 +174,7 @@ Public Class FormApache
 
     End Sub
 
-    Private Sub EnableSearchCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EnableSearchCheckBox.CheckedChanged
 
-        If Not initted Then Return
-        Settings.SearchEnabled = EnableSearchCheckBox.Checked
-
-    End Sub
 
     Private Sub EnableWP_CheckedChanged(sender As Object, e As EventArgs) Handles EnableWP.CheckedChanged
 
@@ -196,12 +183,6 @@ Public Class FormApache
 
     End Sub
 
-    Private Sub EventsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles EventsCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.EventTimerEnabled = EventsCheckBox.Checked
-
-    End Sub
 
     Private Sub Other_TextChanged(sender As Object, e As EventArgs) Handles Other.TextChanged
 
@@ -216,9 +197,6 @@ Public Class FormApache
 
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        HelpManual("Apache")
-    End Sub
 
     Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
 

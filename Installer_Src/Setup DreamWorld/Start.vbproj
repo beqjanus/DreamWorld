@@ -283,7 +283,6 @@
     <Compile Include="BreakPoint.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Dump.vb" />
-    <Compile Include="Events.vb" />
     <Compile Include="FileStuff.vb" />
     <Compile Include="Firewall.vb" />
     <Compile Include="FormApache.Designer.vb">

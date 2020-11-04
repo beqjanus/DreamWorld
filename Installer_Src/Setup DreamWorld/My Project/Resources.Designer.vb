@@ -7093,33 +7093,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Search All Grids.
-        '''</summary>
-        Friend ReadOnly Property Search_All_Grids_word() As String
-            Get
-                Return ResourceManager.GetString("Search_All_Grids_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Failed to Connect to Search Database.
-        '''</summary>
-        Friend ReadOnly Property Search_Connect_failed() As String
-            Get
-                Return ResourceManager.GetString("Search_Connect_failed", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Search.
-        '''</summary>
-        Friend ReadOnly Property Search_word() As String
-            Get
-                Return ResourceManager.GetString("Search_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Secret.
         '''</summary>
         Friend ReadOnly Property Secret_word() As String
@@ -7326,15 +7299,6 @@ Namespace My.Resources
         Friend ReadOnly Property Setup_Ports_word() As String
             Get
                 Return ResourceManager.GetString("Setup_Ports_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Setup search database.
-        '''</summary>
-        Friend ReadOnly Property Setup_search() As String
-            Get
-                Return ResourceManager.GetString("Setup_search", resourceCulture)
             End Get
         End Property
         

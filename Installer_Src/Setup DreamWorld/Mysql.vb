@@ -47,7 +47,6 @@ Public Module MysqlInterface
         Using ClientSocket As New TcpClient
             Try
                 ClientSocket.Connect(ServerAddress, iPort)
-
             Catch ex As Exception
 
                 Return False
@@ -61,43 +60,6 @@ Public Module MysqlInterface
         Return False
 
     End Function
-
-    Public Sub DeleteRegionlist()
-
-        Using osconnection As MySqlConnection = New MySqlConnection(Settings.OSSearchConnectionString())
-            Try
-                osconnection.Open()
-                Dim stm As String = "delete from hostsregister"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
-                    cmd.ExecuteScalar()
-                End Using
-
-            Catch ex As Exception
-
-                Debug.Print("Failed to Connect to OsSearch")
-                Return
-            End Try
-        End Using
-    End Sub
-
-    Public Sub DeleteSearchDatabase()
-
-        Using osconnection As MySqlConnection = New MySqlConnection(Settings.OSSearchConnectionString())
-            Try
-                osconnection.Open()
-                Dim stm As String = "DROP DATABASE ossearch;"
-                Using cmd As New MySqlCommand(stm, osconnection)
-                    cmd.ExecuteScalar()
-                End Using
-
-            Catch ex As Exception
-
-                Debug.Print("Failed to Connect to OsSearch")
-                Return
-            End Try
-        End Using
-
-    End Sub
 
     Public Sub DeregisterRegions()
 
@@ -142,7 +104,6 @@ Public Module MysqlInterface
                     End Using
                 End Using
             End Using
-
         Catch ex As Exception
 
             Console.WriteLine("Error: " & ex.ToString())
@@ -164,7 +125,6 @@ Public Module MysqlInterface
                     End Using
                 End Using
             End Using
-
         Catch ex As Exception
 
             Console.WriteLine("Error: " & ex.ToString())
@@ -196,7 +156,6 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-
             Catch ex As Exception
 
                 Console.WriteLine("Error: " & ex.ToString())
@@ -244,7 +203,6 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-
             Catch ex As Exception
 
                 Console.WriteLine("Error: " & ex.ToString())
@@ -284,7 +242,6 @@ Public Module MysqlInterface
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
                 Return v
-
             Catch ex As Exception
 
                 Debug.Print(ex.Message)
@@ -314,7 +271,6 @@ Public Module MysqlInterface
                     End If
                 End Using
             End Using
-
         Catch ex As Exception
 
             Console.WriteLine("Error: " & ex.ToString())

@@ -1,6 +1,6 @@
 #Region "To do"
 
-' Add back in the 5 physics type
+' Property License As String word wrap
 
 #End Region
 
@@ -46,7 +46,6 @@ Public Class Form1
 
     Dim _Domain As String = "http://outworldz.com"
     Dim _MyVersion As String = "3.73"
-    Dim _SearchRev As Integer = 5
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
@@ -1965,8 +1964,6 @@ Public Class Form1
         ClearAllRegions()
 
         StopRobust()
-        PropStopMysql = True
-        If Not Settings.ApacheService Then StopMysql()
 
         Timer1.Stop()
         PropOpensimIsRunning() = False
@@ -2470,157 +2467,102 @@ Public Class Form1
         Print(My.Resources.Checking_Apache_service_word)
         ' Stop MSFT server if we are on port 80 and enabled
 
-        If Settings.ApacheService Then
-            PropApacheUninstalling = True
-            ApacheProcess.StartInfo.FileName = "sc"
-            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+        PropApacheUninstalling = True
+        ApacheProcess.StartInfo.FileName = "sc"
+        ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+        Try
+            ApacheProcess.Start()
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Application.DoEvents()
+        ApacheProcess.WaitForExit()
+
+        ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
+        Try
+            ApacheProcess.Start()
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
+        End Try
+        Application.DoEvents()
+        ApacheProcess.WaitForExit()
+        ApacheIs(False)
+
+        'delete really old service
+        ApacheProcess.StartInfo.FileName = "sc"
+        ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
+        Try
+            ApacheProcess.Start()
+        Catch ex As Exception
+        End Try
+        Application.DoEvents()
+        ApacheProcess.WaitForExit()
+
+        ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
+        Try
+            ApacheProcess.Start()
+        Catch ex As Exception
+
+            BreakPoint.Show(ex.Message)
+        End Try
+        Application.DoEvents()
+        ApacheProcess.WaitForExit()
+
+        Sleep(5000)
+
+        Using ApacheProcess As New Process With {
+                .EnableRaisingEvents = False
+            }
+            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+            ApacheProcess.StartInfo.FileName = Settings.CurrentDirectory & "\Outworldzfiles\Apache\bin\httpd.exe"
+            ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.WorkingDirectory = Settings.CurrentDirectory & "\Outworldzfiles\Apache\bin\"
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+            DoApache()
+
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
+                ApacheIs(False)
+                Print(My.Resources.ApacheFailed & ":" & ex.Message)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
 
-            ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
+            If ApacheProcess.ExitCode <> 0 Then
+                Print(My.Resources.ApacheFailed)
+                ApacheIs(False)
+            Else
+                PropApacheUninstalling = False ' installed now, trap errors
+            End If
+            Sleep(100)
+            Print(My.Resources.Apache_starting)
+            ApacheProcess.StartInfo.FileName = "net"
+            ApacheProcess.StartInfo.Arguments = "start ApacheHTTPServer"
+            ApacheProcess.StartInfo.UseShellExecute = False
+
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-            ApacheIs(False)
-
-            'delete really old service
-            ApacheProcess.StartInfo.FileName = "sc"
-            ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
-            Try
-                ApacheProcess.Start()
-            Catch ex As Exception
+                Print(My.Resources.Apache_Failed & ":" & ex.Message)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
 
-            ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
-            Try
-                ApacheProcess.Start()
-            Catch ex As Exception
-
-                BreakPoint.Show(ex.Message)
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-
-            Sleep(5000)
-
-            Using ApacheProcess As New Process With {
-                    .EnableRaisingEvents = False
-                }
-                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                ApacheProcess.StartInfo.FileName = Settings.CurrentDirectory & "\Outworldzfiles\Apache\bin\httpd.exe"
-                ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
-                ApacheProcess.StartInfo.CreateNoWindow = True
-                ApacheProcess.StartInfo.WorkingDirectory = Settings.CurrentDirectory & "\Outworldzfiles\Apache\bin\"
-                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-                DoApache()
-
-                Try
-                    ApacheProcess.Start()
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                    ApacheIs(False)
-                    Print(My.Resources.ApacheFailed & ":" & ex.Message)
-                End Try
-                Application.DoEvents()
-                ApacheProcess.WaitForExit()
-
-                If ApacheProcess.ExitCode <> 0 Then
-                    Print(My.Resources.ApacheFailed)
-                    ApacheIs(False)
-                Else
-                    PropApacheUninstalling = False ' installed now, trap errors
-                End If
-                Sleep(100)
-                Print(My.Resources.Apache_starting)
-                ApacheProcess.StartInfo.FileName = "net"
-                ApacheProcess.StartInfo.Arguments = "start ApacheHTTPServer"
-                ApacheProcess.StartInfo.UseShellExecute = False
-
-                Try
-                    ApacheProcess.Start()
-                Catch ex As Exception
-
-                    BreakPoint.Show(ex.Message)
-                    Print(My.Resources.Apache_Failed & ":" & ex.Message)
-                End Try
-                Application.DoEvents()
-                ApacheProcess.WaitForExit()
-
-                If ApacheProcess.ExitCode <> 0 Then
-                    Print(My.Resources.Apache_Failed & ":" & CStr(ApacheProcess.ExitCode))
-                    ApacheIs(False)
-                Else
-                    Print(My.Resources.Apache_running & ":" & Settings.ApachePort)
-                    ApacheIs(True)
-                End If
-            End Using
-        Else
-            ' Start Apache manually
-            Using ApacheProcess As New Process With {
-                    .EnableRaisingEvents = True
-                }
-                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                ApacheProcess.StartInfo.FileName = Settings.CurrentDirectory & "\Outworldzfiles\Apache\bin\httpd.exe"
-                ApacheProcess.StartInfo.CreateNoWindow = True
-                ApacheProcess.StartInfo.WorkingDirectory = Settings.CurrentDirectory & "\Outworldzfiles\Apache\bin\"
-                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                ApacheProcess.StartInfo.Arguments = ""
-                Try
-                    ApacheProcess.Start()
-                Catch ex As Exception
-
-                    BreakPoint.Show(ex.Message)
-                    Print(My.Resources.Apache_Failed & ":" & ex.Message)
-                    ApacheIs(False)
-                    Return False
-                End Try
-
-                Application.DoEvents()
-
-                ' wait for PID
-                Dim ApachePID = WaitForPID(ApacheProcess)
-                If ApachePID = 0 Then
-                    ApacheIs(False)
-                    Return False
-                End If
-
-                ' Wait for Apache to start listening
-                PropgApacheProcessID = ApachePID
-                Dim counter = 0
-
-                While PropOpensimIsRunning And Not PropAborting
-                    counter += 1
-                    ' wait 60 seconds for it to start
-                    If counter > 600 Then
-                        Print(My.Resources.Apache_Failed)
-                        ApacheIs(False)
-                        Return False
-                    End If
-
-                    Dim isRunning = CheckPort(Settings.PrivateURL, CType(Settings.ApachePort, Integer))
-                    If isRunning Then
-                        Print(My.Resources.Apache_running)
-                        ApacheIs(True)
-                        PropApacheExited = False
-                        Return True
-                    End If
-                    Sleep(100)
-                End While
-            End Using
-        End If
+            If ApacheProcess.ExitCode <> 0 Then
+                Print(My.Resources.Apache_Failed & ":" & CStr(ApacheProcess.ExitCode))
+                ApacheIs(False)
+            Else
+                Print(My.Resources.Apache_running & ":" & Settings.ApachePort)
+                ApacheIs(True)
+            End If
+        End Using
 
         Return False
 
@@ -3036,8 +2978,6 @@ Public Class Form1
             Print(My.Resources.Stopped_word)
             Return
         End If
-
-        SetupSearch()
 
         SetupWordPress()
 
@@ -3499,57 +3439,45 @@ Public Class Form1
 
     Private Shared Sub SetupOpensimSearchINI()
 
-        If Settings.SearchEnabled Then
-            If Settings.CMS = "JOpensim" Then
-                Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
-                Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            Else
-                Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-            End If
-
-            ' RegionSnapShot
-            Settings.SetIni("DataSnapshot", "index_sims", "True")
-            If Settings.CMS = "JOpensim" Then
-                Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
-            Else
-                Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-            End If
+        If Settings.CMS = "JOpensim" Then
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
         Else
-            Settings.SetIni("Search", "SearchURL", "")
-            Settings.SetIni("Search", "SimulatorFeatures", "")
-            Settings.SetIni("SimulatorFeatures", "SearchServerURI", "")
-            Settings.SetIni("DataSnapshot", "index_sims", "False")
-            Settings.SetIni("DataSnapshot", "data_services", "")
+            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+        End If
+
+        ' RegionSnapShot
+        Settings.SetIni("DataSnapshot", "index_sims", "True")
+        If Settings.CMS = "JOpensim" Then
+            Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
+        Else
+            Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
         End If
 
     End Sub
 
     Private Shared Sub SetupRobustSearchINI()
 
-        If Settings.SearchEnabled Then
-            If Settings.CMS = "JOpensim" Then
-                Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
-                Settings.SetIni("LoginService", "SearchURL", SearchURL)
-                Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+        If Settings.CMS = "JOpensim" Then
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
 
-                If Settings.GloebitsEnable Then
-                    Settings.SetIni("LoginService", "Currency", "G$")
-                Else
-                    Settings.SetIni("LoginService", "Currency", "jO$")
-                End If
+            If Settings.GloebitsEnable Then
+                Settings.SetIni("LoginService", "Currency", "G$")
             Else
-                Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-                Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
-
-                If Settings.GloebitsEnable Then
-                    Settings.SetIni("LoginService", "Currency", "G$")
-                Else
-                    Settings.SetIni("LoginService", "Currency", "$")
-                End If
-
+                Settings.SetIni("LoginService", "Currency", "jO$")
             End If
         Else
-            Settings.SetIni("LoginService", "SearchURL", "")
+            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+            Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+
+            If Settings.GloebitsEnable Then
+                Settings.SetIni("LoginService", "Currency", "G$")
+            Else
+                Settings.SetIni("LoginService", "Currency", "$")
+            End If
+
         End If
 
     End Sub
@@ -4106,9 +4034,6 @@ Public Class Form1
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
 "?>"
 
-        'Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\Search\databaseinfo.php", False)
-        'outputFile.WriteLine(phptext)
-        'End Using
         Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\PHP7\databaseinfo.php", False)
             outputFile.WriteLine(phptext)
         End Using
@@ -6471,50 +6396,6 @@ Public Class Form1
 #Region "Things"
 
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    Private Sub SetupSearch()
-
-        If Settings.ServerType <> "Robust" Then Return
-
-        ' modify this to migrate search database upwards a rev
-        If Not Settings.SearchMigration = _SearchRev Then
-
-            MysqlInterface.DeleteSearchDatabase()
-
-            Print(My.Resources.Setup_search)
-            Dim pi As ProcessStartInfo = New ProcessStartInfo()
-
-            FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory & "\Outworldzfiles\mysql\bin\"
-            pi.FileName = "Create_OsSearch.bat"
-            pi.UseShellExecute = True
-            pi.CreateNoWindow = False
-            pi.WindowStyle = ProcessWindowStyle.Minimized
-
-            Using MysqlSearch As Process = New Process With {
-                    .StartInfo = pi
-                }
-
-                Try
-                    MysqlSearch.Start()
-                    MysqlSearch.WaitForExit()
-                Catch ex As Exception
-
-                    BreakPoint.Show(ex.Message)
-                    ErrorLog("Could not create Search Database: " & ex.Message)
-                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                    Return
-                End Try
-            End Using
-
-            FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-
-            Settings.SearchMigration = _SearchRev
-            Settings.SaveSettings()
-
-        End If
-
-    End Sub
-
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub SetupWordPress()
 
         If Settings.ServerType <> "Robust" Then Return
@@ -6632,30 +6513,25 @@ Public Class Form1
     Private Sub StopApache(force As Boolean)
 
         If Not Settings.ApacheEnable Then Return
-        If Settings.ApacheService And Not force Then Return
+        If Not force Then Return
 
-        If Settings.ApacheService Then
-            Using ApacheProcess As New Process()
-                Print(My.Resources.Stopping_Apache)
+        Using ApacheProcess As New Process()
+            Print(My.Resources.Stopping_Apache)
 
-                ApacheProcess.StartInfo.FileName = "net.exe"
-                ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
-                ApacheProcess.StartInfo.CreateNoWindow = True
-                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                Try
-                    ApacheProcess.Start()
-                    ApacheProcess.WaitForExit()
-                Catch ex As Exception
+            ApacheProcess.StartInfo.FileName = "net.exe"
+            ApacheProcess.StartInfo.Arguments = "stop ApacheHTTPServer"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            Try
+                ApacheProcess.Start()
+                ApacheProcess.WaitForExit()
+            Catch ex As Exception
 
-                    BreakPoint.Show(ex.Message)
-                    Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
-                End Try
+                BreakPoint.Show(ex.Message)
+                Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
+            End Try
 
-            End Using
-        Else
-            Zap("httpd")
-            Zap("rotatelogs")
-        End If
+        End Using
 
         ApacheIs(False)
 
@@ -6912,11 +6788,6 @@ Public Class Form1
             For Each part As String In array
                 RegisterName(part, True)
             Next
-        End If
-
-        ' hourly
-        If PropDNSSTimer > 0 And PropDNSSTimer Mod 3600 = 0 Or PropDNSSTimer = 120 Then
-            GetEvents() ' get the events from the Outworldz main server for all grids
         End If
 
         PropDNSSTimer += 1

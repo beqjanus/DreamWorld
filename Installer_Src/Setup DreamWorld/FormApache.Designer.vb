@@ -26,16 +26,11 @@ Partial Class FormApache
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.X86Button = New System.Windows.Forms.Button()
         Me.ApachePort = New System.Windows.Forms.TextBox()
-        Me.ApacheServiceCheckBox = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.ApacheCheckbox = New System.Windows.Forms.CheckBox()
-        Me.EventsCheckBox = New System.Windows.Forms.CheckBox()
-        Me.EnableSearchCheckBox = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Other = New System.Windows.Forms.TextBox()
         Me.EnableOther = New System.Windows.Forms.RadioButton()
@@ -43,9 +38,7 @@ Partial Class FormApache
         Me.EnableDiva = New System.Windows.Forms.RadioButton()
         Me.EnableWP = New System.Windows.Forms.RadioButton()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -53,16 +46,14 @@ Partial Class FormApache
         '
         Me.GroupBox2.Controls.Add(Me.X86Button)
         Me.GroupBox2.Controls.Add(Me.ApachePort)
-        Me.GroupBox2.Controls.Add(Me.ApacheServiceCheckBox)
         Me.GroupBox2.Controls.Add(Me.Label3)
-        Me.GroupBox2.Controls.Add(Me.PictureBox1)
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
         Me.GroupBox2.Location = New System.Drawing.Point(10, 29)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(220, 162)
         Me.GroupBox2.TabIndex = 186739
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = Global.Outworldz.My.Resources.webserver_Search_map 'Webserver + Search and Map"
+        Me.GroupBox2.Text = My.Resources.Apache_word
         '
         'X86Button
         '
@@ -80,63 +71,24 @@ Partial Class FormApache
         Me.ApachePort.Size = New System.Drawing.Size(31, 20)
         Me.ApachePort.TabIndex = 186736
         '
-        'ApacheServiceCheckBox
-        '
-        Me.ApacheServiceCheckBox.AutoSize = True
-        Me.ApacheServiceCheckBox.Location = New System.Drawing.Point(16, 128)
-        Me.ApacheServiceCheckBox.Name = "ApacheServiceCheckBox"
-        Me.ApacheServiceCheckBox.Size = New System.Drawing.Size(110, 17)
-        Me.ApacheServiceCheckBox.TabIndex = 1868
-        Me.ApacheServiceCheckBox.Text = Global.Outworldz.My.Resources.Resources.Run_as_a_Service_word
-        Me.ApacheServiceCheckBox.UseVisualStyleBackColor = True
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(52, 77)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(115, 13)
+        Me.Label3.Size = New System.Drawing.Size(130, 15)
         Me.Label3.TabIndex = 186737
-        Me.Label3.Text = Global.Outworldz.My.Resources.Web_Port  '"Web Port (80, or 8000)"
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.PictureBox1.Location = New System.Drawing.Point(173, 101)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(21, 20)
-        Me.PictureBox1.TabIndex = 1859
-        Me.PictureBox1.TabStop = False
+        Me.Label3.Text = My.Resources.Web_Port
         '
         'ApacheCheckbox
         '
         Me.ApacheCheckbox.AutoSize = True
         Me.ApacheCheckbox.Location = New System.Drawing.Point(16, 106)
         Me.ApacheCheckbox.Name = "ApacheCheckbox"
-        Me.ApacheCheckbox.Size = New System.Drawing.Size(157, 17)
+        Me.ApacheCheckbox.Size = New System.Drawing.Size(176, 19)
         Me.ApacheCheckbox.TabIndex = 1866
         Me.ApacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableApache
         Me.ApacheCheckbox.UseVisualStyleBackColor = True
-        '
-        'EventsCheckBox
-        '
-        Me.EventsCheckBox.AutoSize = True
-        Me.EventsCheckBox.Location = New System.Drawing.Point(14, 54)
-        Me.EventsCheckBox.Name = "EventsCheckBox"
-        Me.EventsCheckBox.Size = New System.Drawing.Size(95, 17)
-        Me.EventsCheckBox.TabIndex = 186745
-        Me.EventsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_Events_word
-        Me.EventsCheckBox.UseVisualStyleBackColor = True
-        '
-        'EnableSearchCheckBox
-        '
-        Me.EnableSearchCheckBox.AutoSize = True
-        Me.EnableSearchCheckBox.Location = New System.Drawing.Point(14, 31)
-        Me.EnableSearchCheckBox.Name = "EnableSearchCheckBox"
-        Me.EnableSearchCheckBox.Size = New System.Drawing.Size(96, 17)
-        Me.EnableSearchCheckBox.TabIndex = 186744
-        Me.EnableSearchCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_Search_word
-        Me.EnableSearchCheckBox.UseVisualStyleBackColor = True
         '
         'MenuStrip1
         '
@@ -145,7 +97,7 @@ Partial Class FormApache
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(574, 26)
+        Me.MenuStrip1.Size = New System.Drawing.Size(415, 26)
         Me.MenuStrip1.TabIndex = 186740
         '
         'HelpToolStripMenuItem
@@ -153,28 +105,15 @@ Partial Class FormApache
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApacheToolStripMenuItem})
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(64, 24)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(75, 24)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'ApacheToolStripMenuItem
         '
         Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
-        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(142, 26)
         Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.EventsCheckBox)
-        Me.GroupBox1.Controls.Add(Me.EnableSearchCheckBox)
-        Me.GroupBox1.Location = New System.Drawing.Point(235, 29)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox1.Size = New System.Drawing.Size(150, 162)
-        Me.GroupBox1.TabIndex = 186741
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Search_word
         '
         'GroupBox3
         '
@@ -183,14 +122,14 @@ Partial Class FormApache
         Me.GroupBox3.Controls.Add(Me.EnableJOpensim)
         Me.GroupBox3.Controls.Add(Me.EnableDiva)
         Me.GroupBox3.Controls.Add(Me.EnableWP)
-        Me.GroupBox3.Location = New System.Drawing.Point(403, 28)
+        Me.GroupBox3.Location = New System.Drawing.Point(235, 28)
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox3.Size = New System.Drawing.Size(150, 162)
         Me.GroupBox3.TabIndex = 186742
         Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = Global.Outworldz.My.Resources.Content_Manager_Word
+        Me.GroupBox3.Text = My.Resources.Content_Manager_Word
         '
         'Other
         '
@@ -204,7 +143,7 @@ Partial Class FormApache
         Me.EnableOther.AutoSize = True
         Me.EnableOther.Location = New System.Drawing.Point(14, 102)
         Me.EnableOther.Name = "EnableOther"
-        Me.EnableOther.Size = New System.Drawing.Size(87, 17)
+        Me.EnableOther.Size = New System.Drawing.Size(100, 19)
         Me.EnableOther.TabIndex = 186745
         Me.EnableOther.Text = Global.Outworldz.My.Resources.Resources.EnableOther_Word
         Me.EnableOther.UseVisualStyleBackColor = True
@@ -214,9 +153,9 @@ Partial Class FormApache
         Me.EnableJOpensim.AutoSize = True
         Me.EnableJOpensim.Location = New System.Drawing.Point(14, 78)
         Me.EnableJOpensim.Name = "EnableJOpensim"
-        Me.EnableJOpensim.Size = New System.Drawing.Size(107, 17)
+        Me.EnableJOpensim.Size = New System.Drawing.Size(126, 19)
         Me.EnableJOpensim.TabIndex = 186743
-        Me.EnableJOpensim.Text = Global.Outworldz.My.Resources.Enable_word & " JOpensim"
+        Me.EnableJOpensim.Text = "Enable JOpensim"
         Me.EnableJOpensim.UseVisualStyleBackColor = True
         '
         'EnableDiva
@@ -224,9 +163,9 @@ Partial Class FormApache
         Me.EnableDiva.AutoSize = True
         Me.EnableDiva.Location = New System.Drawing.Point(14, 31)
         Me.EnableDiva.Name = "EnableDiva"
-        Me.EnableDiva.Size = New System.Drawing.Size(83, 17)
+        Me.EnableDiva.Size = New System.Drawing.Size(94, 19)
         Me.EnableDiva.TabIndex = 186744
-        Me.EnableDiva.Text = Global.Outworldz.My.Resources.Enable_word & " Diva"
+        Me.EnableDiva.Text = "Enable Diva"
         Me.EnableDiva.UseVisualStyleBackColor = True
         '
         'EnableWP
@@ -234,30 +173,26 @@ Partial Class FormApache
         Me.EnableWP.AutoSize = True
         Me.EnableWP.Location = New System.Drawing.Point(14, 54)
         Me.EnableWP.Name = "EnableWP"
-        Me.EnableWP.Size = New System.Drawing.Size(115, 17)
+        Me.EnableWP.Size = New System.Drawing.Size(132, 19)
         Me.EnableWP.TabIndex = 186742
-        Me.EnableWP.Text = "Enable  Wordpress"
+        Me.EnableWP.Text = My.Resources.Setup_Wordpress
         Me.EnableWP.UseVisualStyleBackColor = True
         '
         'FormApache
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(574, 205)
+        Me.ClientSize = New System.Drawing.Size(415, 205)
         Me.Controls.Add(Me.GroupBox3)
-        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "FormApache"
-        Me.Text = Global.Outworldz.My.Resources.webserver_Search_map
+        Me.Text = My.Resources.Apache_word
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
@@ -266,18 +201,13 @@ Partial Class FormApache
     End Sub
 
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents EventsCheckBox As CheckBox
-    Friend WithEvents EnableSearchCheckBox As CheckBox
     Friend WithEvents X86Button As Button
     Friend WithEvents ApachePort As TextBox
-    Friend WithEvents ApacheServiceCheckBox As CheckBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents ApacheCheckbox As CheckBox
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ApacheToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Other As TextBox
     Friend WithEvents EnableOther As RadioButton

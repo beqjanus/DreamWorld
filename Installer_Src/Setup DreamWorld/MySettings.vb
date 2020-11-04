@@ -911,15 +911,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property EventTimerEnabled() As Boolean
-        Get
-            Return CType(GetMySetting("EventTimerEnabled", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("EventTimerEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property ExternalHostName() As String
         Get
             Return GetMySetting("ExternalHostName", DNSName)
@@ -1945,17 +1936,6 @@ Public Class MySettings
 #End Region
 
 #Region "Robust"
-
-    Public Function OSSearchConnectionString() As String
-
-        Return "server=" & RobustServer() _
-        & ";database=" & "ossearch" _
-        & ";port=" & CStr(MySqlRobustDBPort) _
-        & ";user=" & RobustUsername _
-        & ";password=" & RobustPassword _
-        & ";Old Guids=true;Allow Zero Datetime=true;"
-
-    End Function
 
     Public Function RegionDBConnection() As String
 
