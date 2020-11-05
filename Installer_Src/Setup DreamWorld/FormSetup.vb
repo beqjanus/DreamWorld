@@ -4725,6 +4725,21 @@ Public Class Form1
             PropViewedSettings = True
         End If
 
+        ' cleanup old code and files
+        Dim ToDrop = New List(Of String) From {
+            _myFolder & "\Downloader.exe",
+            _myFolder & "\DreamGridSetup.exe",
+            _myFolder & "\Downloader.exe.config",
+            _myFolder & "\DreamGridSetup.exe.config"
+        }
+
+        For Each N As String In ToDrop
+            If System.IO.File.Exists(N) Then
+                System.IO.File.Delete(N)
+                PropViewedSettings = True
+            End If
+        Next
+
         'Load Settings, if any
         Settings.Init(_myFolder)
 

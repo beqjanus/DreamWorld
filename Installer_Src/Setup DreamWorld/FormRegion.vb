@@ -577,7 +577,6 @@ Public Class FormRegion
             Try
                 My.Computer.FileSystem.RenameFile(Form1.PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         End If
