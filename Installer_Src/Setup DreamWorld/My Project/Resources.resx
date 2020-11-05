@@ -902,7 +902,7 @@
     <value>Region UUID Is invalid</value>
   </data>
   <data name="Update_is_available" xml:space="preserve">
-    <value>Update is available. Downloading update in background. Please let it finish.</value>
+    <value>Update is available. Do you wish to update?</value>
   </data>
   <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
     <value>Failed to load Settings INI</value>
@@ -1784,7 +1784,7 @@
     <value>Backup</value>
   </data>
   <data name="ErrUpdate" xml:space="preserve">
-    <value>Error: Could Not Launch Downloader.exe. Perhaps you can launch it manually.</value>
+    <value>Error: Could Not Launch DreamGridUpdater.exe.  Perhaps you can launch it manually?</value>
   </data>
   <data name="Photo_Word" xml:space="preserve">
     <value>Photo</value>
@@ -2220,9 +2220,6 @@
   </data>
   <data name="Backup_Settings_word" xml:space="preserve">
     <value>Backup Settings</value>
-  </data>
-  <data name="Update_Downloaded" xml:space="preserve">
-    <value>Update has been downloaded. Install it now?</value>
   </data>
   <data name="Custom_word" xml:space="preserve">
     <value>Custom</value>

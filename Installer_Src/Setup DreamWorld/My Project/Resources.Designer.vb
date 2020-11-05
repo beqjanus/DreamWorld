@@ -2854,7 +2854,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Error: Could Not Launch Downloader.exe. Perhaps you can launch it manually..
+        '''  Looks up a localized string similar to Error: Could Not Launch DreamGridUpdater.exe.  Perhaps you can launch it manually?.
         '''</summary>
         Friend ReadOnly Property ErrUpdate() As String
             Get
@@ -8171,16 +8171,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Update has been downloaded. Install it now?.
-        '''</summary>
-        Friend ReadOnly Property Update_Downloaded() As String
-            Get
-                Return ResourceManager.GetString("Update_Downloaded", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Update is available. Downloading update in background. Please let it finish..
+        '''  Looks up a localized string similar to Update is available. Do you wish to update?.
         '''</summary>
         Friend ReadOnly Property Update_is_available() As String
             Get

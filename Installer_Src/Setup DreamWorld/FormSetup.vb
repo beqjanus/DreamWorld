@@ -1298,7 +1298,6 @@ Public Class Form1
             Try
                 Update_version = client.DownloadString(PropDomain() & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
@@ -1324,47 +1323,28 @@ Public Class Form1
             Return
         End Try
 
-        ' may need to get the new file
-        If System.IO.File.Exists(Settings.CurrentDirectory & "\DreamGrid-V" & Update_version & ".zip") Then
-            Dim result = MsgBox("V" & Update_version & " " & Global.Outworldz.My.Resources.Update_Downloaded, vbYesNo)
-            If result = MsgBoxResult.Yes Then
-
-                Dim BackupForm As New FormBackupCheckboxes
-                Dim ret = BackupForm.ShowDialog()
-                BackupForm.Dispose()
-
-                If ret = DialogResult.OK Then
-                    UpdaterGo("DreamGrid-V" & Update_version & ".zip")
-                    Return
-                End If
-            Else
-                Settings.SkipUpdateCheck() = Update_version
-                Settings.SaveSettings()
-                Return
-            End If
-        End If
-
-        ' we already have the file
-        If System.IO.File.Exists(Settings.CurrentDirectory & "\DreamGrid-V" & Update_version & ".zip") Then
-            Return
-        End If
-
         Print(My.Resources.Update_is_available & ":" & Update_version)
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .Arguments = "DreamGrid-V" & Update_version & ".zip",
-                .WindowStyle = ProcessWindowStyle.Hidden,
-                .FileName = """" & Settings.CurrentDirectory & "\Downloader.exe" & """"
+
+        Dim doUpdate = MsgBox(My.Resources.Update_is_available, vbInformation)
+        If doUpdate = vbOK Then
+
+            If DoStopActions() = False Then Return
+
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .WindowStyle = ProcessWindowStyle.Normal,
+                .FileName = Settings.CurrentDirectory & "\DreamGridUpdater.exe"
             }
 
-        UpdateProcess.StartInfo = pi
-        UpdateProcess.EnableRaisingEvents = True
-        Try
-            UpdateProcess.Start()
-        Catch ex As Exception
+            UpdateProcess.StartInfo = pi
 
-            BreakPoint.Show(ex.Message)
-            Print(My.Resources.ErrUpdate)
-        End Try
+            Try
+                UpdateProcess.Start()
+                End
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                Print(My.Resources.ErrUpdate)
+            End Try
+        End If
 
     End Sub
 
@@ -1792,17 +1772,18 @@ Public Class Form1
         Return False
     End Function
 
-    Public Sub DoStopActions()
+    Public Function DoStopActions() As Boolean
 
         Print(My.Resources.Stopping_word)
         Buttons(BusyButton)
-        If Not KillAll() Then Return
+        If Not KillAll() Then Return False
         Buttons(StartButton)
         Print(My.Resources.Stopped_word)
         Buttons(StartButton)
         ToolBar(False)
+        Return True
 
-    End Sub
+    End Function
 
     Public Function GetHwnd(Groupname As String) As IntPtr
 
