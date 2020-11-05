@@ -1296,7 +1296,7 @@ Public Class Form1
         Using client As New WebClient ' download client for web pages
             Print(My.Resources.Checking_for_Updates_word)
             Try
-                Update_version = client.DownloadString(PropDomain() & "/Outworldz_Installer/UpdateGrid.plx?fill=1" & GetPostData())
+                Update_version = client.DownloadString(PropDomain() & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -1847,12 +1847,17 @@ Public Class Form1
 
         Dim Grid As String = "Grid"
 
-        Dim data As String = "&MachineID=" & Settings.MachineID() _
+        Dim data As String = "?MachineID=" & Settings.MachineID() _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
         & "&V=" & WebUtility.UrlEncode(PropMyVersion) _
         & "&OV=" & WebUtility.UrlEncode(PropSimVersion) _
         & "&Type=" & CStr(Grid) _
         & "&isPublic=" & CStr(Settings.GDPR()) _
+        & "&GridName=" & Settings.DNSName _
+        & "&Port=" & CStr(Settings.HttpPort()) _
+        & "&Category=" & Settings.Categories _
+        & "&Description=" & Settings.Description _
+        & "IP=" & Settings.PublicIP _
         & "&r=" & RandomNumber.Random()
         Return data
 
@@ -2247,11 +2252,11 @@ Public Class Form1
 
         Dim client As New WebClient ' download client for web pages
         Try
-            Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx?GridName=" & DNSName & GetPostData())
+            Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx" & GetPostData())
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Try
-                Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx?GridName=" & DNSName & GetPostData())
+                Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx" & GetPostData())
             Catch
                 ErrorLog("Warn: Cannot register this DNS Name " & ex.Message)
                 Return False
@@ -3101,10 +3106,9 @@ Public Class Form1
 
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = PropDomain & "/cgi/UpdateCategory.plx?Category=" & Settings.Categories & "&Description=" & Settings.Description & GetPostData()
+                Dim str = PropDomain & "/cgi/UpdateCategory.plx" & GetPostData()
                 result = client.DownloadString(str)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
             End Try
@@ -3123,12 +3127,13 @@ Public Class Form1
         ''' is known to be on line.
         ''' </summary>
         If Settings.GDPR() Then
+
+            UploadCategory()
             If System.IO.File.Exists(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png") Then
-                UploadCategory()
                 Dim Myupload As New UploadImage
                 Myupload.PostContentUploadFile()
-
             End If
+
         End If
 
     End Sub
@@ -5768,7 +5773,7 @@ Public Class Form1
             ' diagnostics test results See my privacy policy at https://outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
-            Dim Url = PropDomain() & "/cgi/probetest.plx?IP=" & Settings.PublicIP & "&Port=" & Settings.HttpPort & GetPostData()
+            Dim Url = PropDomain() & "/cgi/probetest.plx" & GetPostData()
             Logger("INFO", "Using URL " & Url, "Diagnostics")
             Try
                 isPortOpen = client.DownloadString(Url)
