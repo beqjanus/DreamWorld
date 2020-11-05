@@ -400,6 +400,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property JOpensimSearch() As Boolean
+        Get
+            Return CType(GetMySetting("JOpensimSearch", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("JOpensimSearch", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property AllowGridGods() As Boolean
         Get
             Return CType(GetMySetting("Allow_grid_gods", "False"), Boolean)
@@ -430,7 +439,7 @@ Public Class MySettings
 
     Public Property ApachePort() As Integer
         Get
-            Return CInt(Val("0".ToUpperInvariant & GetMySetting("ApachePort", "80")))
+            Return CInt("0" & GetMySetting("ApachePort", "80"))
         End Get
         Set
             SetMySetting("ApachePort", CType(Value, String))
@@ -475,7 +484,7 @@ Public Class MySettings
 
     Public Property AutoRestartInterval() As Integer
         Get
-            Return CInt(Val("0".ToUpperInvariant & GetMySetting("AutoRestartInterval", "0".ToUpperInvariant)))
+            Return CInt("0" & GetMySetting("AutoRestartInterval", "0".ToUpperInvariant))
         End Get
         Set
             SetMySetting("AutoRestartInterval", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -549,7 +558,7 @@ Public Class MySettings
     ''' <returns></returns>
     Public Property BirdsChatChannel() As Integer
         Get
-            Return CInt(Val("0".ToUpperInvariant & GetMySetting("BirdsChatChannel", "118")))
+            Return CInt("0" & GetMySetting("BirdsChatChannel", "118"))
         End Get
         Set
             SetMySetting("BirdsChatChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -584,7 +593,7 @@ Public Class MySettings
 
     Public Property BirdsFlockSize() As Integer
         Get
-            Return CInt(Val("0".ToUpperInvariant & GetMySetting("BirdsFlockSize", "25")))
+            Return CInt("0" & GetMySetting("BirdsFlockSize", "25"))
         End Get
         Set
             SetMySetting("BirdsFlockSize", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -799,7 +808,7 @@ Public Class MySettings
 
     Public Property CoordX() As Integer
         Get
-            Return CInt(Val(CInt(GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))))
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
         End Get
         Set
             SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -808,7 +817,7 @@ Public Class MySettings
 
     Public Property CoordY() As Integer
         Get
-            Return CInt(Val(CInt(GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))))
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
         End Get
         Set
             SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -834,9 +843,18 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property RemoteAdminPort() As Integer
+        Get
+            Return CInt("0" & GetMySetting("RemoteAdminPort", "0"))
+        End Get
+        Set
+            SetMySetting("RemoteAdminPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property CycleTime() As Integer
         Get
-            Return CInt(Val(GetMySetting("CycleTime", "900")))
+            Return CInt("0" & GetMySetting("CycleTime", "900"))
         End Get
         Set
             SetMySetting("CycleTime", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -886,7 +904,7 @@ Public Class MySettings
 
     Public Property DiagnosticPort() As Integer
         Get
-            Return CInt(Val(GetMySetting("DiagnosticPort", "8001")))
+            Return CInt("0" & GetMySetting("DiagnosticPort", "8001"))
         End Get
         Set
             SetMySetting("DiagnosticPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -922,7 +940,7 @@ Public Class MySettings
 
     Public Property FirstRegionPort() As Integer
         Get
-            Return CInt(Val(GetMySetting("FirstRegionPort", "8004")))
+            Return CInt("0" & GetMySetting("FirstRegionPort", "8004"))
         End Get
         Set
             SetMySetting("FirstRegionPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -931,7 +949,7 @@ Public Class MySettings
 
     Public Property FirstXMLRegionPort() As Integer
         Get
-            Return CInt(Val(GetMySetting("XMLRegionStartPort", "")))
+            Return CInt("0" & GetMySetting("XMLRegionStartPort", "0"))
         End Get
         Set
             SetMySetting("XMLRegionStartPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1091,7 +1109,7 @@ Public Class MySettings
 
     Public Property HttpPort() As Integer
         Get
-            Return CInt(Val("0".ToUpperInvariant & GetMySetting("HttpPort", "8002")))
+            Return CInt("0" & GetMySetting("HttpPort", "8002"))
         End Get
         Set
             SetMySetting("HttpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1100,7 +1118,7 @@ Public Class MySettings
 
     Public Property KeepForDays() As Integer
         Get
-            Return CInt(Val("0".ToUpperInvariant & GetMySetting("KeepForDays", "7")))
+            Return CInt("0" & GetMySetting("KeepForDays", "7"))
         End Get
         Set
             SetMySetting("KeepForDays", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1166,7 +1184,7 @@ Public Class MySettings
         Get
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
             Dim Center As String = CStr(Form1.PropRegionClass.CoordX(RegionUUID))
-            Return CInt(GetMySetting("MapCenterX", Center))
+            Return CInt("0" & GetMySetting("MapCenterX", Center))
         End Get
         Set
             SetMySetting("MapCenterX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1177,7 +1195,7 @@ Public Class MySettings
         Get
             Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
             Dim Center As String = CStr(Form1.PropRegionClass.CoordY(RegionUUID))
-            Return CInt(Val(GetMySetting("MapCenterY", Center)))
+            Return CInt("0" & GetMySetting("MapCenterY", Center))
         End Get
         Set
             SetMySetting("MapCenterY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1196,7 +1214,9 @@ Public Class MySettings
     Public Property MinTimerInterval() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Globalization.CultureInfo.InvariantCulture)
+                Dim value = Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Globalization.CultureInfo.InvariantCulture)
+                If value < 0.05 Or value > 1 Then value = 0.2
+                Return value
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -1209,7 +1229,7 @@ Public Class MySettings
 
     Public Property MySqlRegionDBPort() As Integer
         Get
-            Return CInt(Val(GetMySetting("MySqlRegionDBPort", "3306")))
+            Return CInt("0" & GetMySetting("MySqlRegionDBPort", "3306"))
         End Get
         Set
             SetMySetting("MySqlRegionDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1218,7 +1238,7 @@ Public Class MySettings
 
     Public Property MySqlRobustDBPort() As Integer
         Get
-            Return CInt(Val(GetMySetting("MySqlRobustDBPort", "3306")))
+            Return CInt("0" & GetMySetting("MySqlRobustDBPort", "3306"))
         End Get
         Set
             SetMySetting("MySqlRobustDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1227,7 +1247,7 @@ Public Class MySettings
 
     Public Property MyX() As Integer
         Get
-            Return CInt(Val(GetMySetting("MyX", "0".ToUpperInvariant)))
+            Return CInt("0" & GetMySetting("MyX", "0".ToUpperInvariant))
         End Get
         Set
             SetMySetting("MyX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1236,7 +1256,7 @@ Public Class MySettings
 
     Public Property MyY() As Integer
         Get
-            Return CInt(Val(GetMySetting("MyY", "0".ToUpperInvariant)))
+            Return CInt("0" & GetMySetting("MyY", "0".ToUpperInvariant))
         End Get
         Set
             SetMySetting("MyY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1272,7 +1292,7 @@ Public Class MySettings
 
     Public Property Password() As String
         Get
-            Return CType(GetMySetting("Password"), String)
+            Return CType("0" & GetMySetting("Password"), String)
         End Get
         Set
             SetMySetting("Password", Value)
@@ -1281,7 +1301,7 @@ Public Class MySettings
 
     Public Property Physics() As Integer
         Get
-            Return CInt(Val(GetMySetting("Physics", "3")))
+            Return CInt("0" & GetMySetting("Physics", "3"))
         End Get
         Set
             SetMySetting("Physics", CType(Value, String))
@@ -1299,7 +1319,7 @@ Public Class MySettings
 
     Public Property PrivatePort() As Integer
         Get
-            Return CInt(Val(GetMySetting("PrivatePort", "8003")))
+            Return CInt("0" & GetMySetting("PrivatePort", "8003"))
         End Get
         Set
             SetMySetting("PrivatePort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1365,7 +1385,7 @@ Public Class MySettings
 
     Public Property RegionListView() As Integer
         Get
-            Return CInt(Val(GetMySetting("RegionListView", "2")))
+            Return CInt("0" & GetMySetting("RegionListView", "2"))
         End Get
         Set
             SetMySetting("RegionListView", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1425,7 +1445,7 @@ Public Class MySettings
 
     Public Property RenderMinHeight() As Integer
         Get
-            Return CInt(Val(GetMySetting("RenderMinHeight", "-100")))
+            Return CInt(GetMySetting("RenderMinHeight", "-100"))
         End Get
         Set
             SetMySetting("RenderMinHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1751,7 +1771,7 @@ Public Class MySettings
 
     Public Property TideInfoChannel() As Integer
         Get
-            Return CInt(GetMySetting("TideInfoChannel", "5555"))
+            Return CInt("0" & GetMySetting("TideInfoChannel", "5555"))
         End Get
         Set
             SetMySetting("TideInfoChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1770,7 +1790,7 @@ Public Class MySettings
 
     Public Property TideLevelChannel() As Integer
         Get
-            Return CInt(GetMySetting("TideLevelChannel", "5556"))
+            Return CInt("0" & GetMySetting("TideLevelChannel", "5556"))
         End Get
         Set
             SetMySetting("TideLevelChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -1779,7 +1799,7 @@ Public Class MySettings
 
     Public Property TideLowLevel() As Single
         Get
-            Return CInt(GetMySetting("TideLowLevel", "17"))
+            Return CInt("0" & GetMySetting("TideLowLevel", "17"))
         End Get
         Set
             SetMySetting("TideLowLevel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))

@@ -71,7 +71,7 @@ Public Class ScreenPos
 
     Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
 
-        If name Is Nothing Then Return 0
+        If name Is Nothing Then Return size
 
         If Data Is Nothing Then
             Return size

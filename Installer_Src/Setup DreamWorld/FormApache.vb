@@ -91,8 +91,6 @@ Public Class FormApache
             Other.Text = Settings.CMS
         End If
 
-
-
         HelpOnce("Apache")
         initted = True
 
@@ -174,15 +172,12 @@ Public Class FormApache
 
     End Sub
 
-
-
     Private Sub EnableWP_CheckedChanged(sender As Object, e As EventArgs) Handles EnableWP.CheckedChanged
 
         If Not initted Then Return
         If EnableWP.Checked Then Settings.CMS = "Wordpress"
 
     End Sub
-
 
     Private Sub Other_TextChanged(sender As Object, e As EventArgs) Handles Other.TextChanged
 
@@ -196,7 +191,6 @@ Public Class FormApache
         Settings.CMS = Other.Text
 
     End Sub
-
 
     Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
 

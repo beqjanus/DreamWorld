@@ -53,7 +53,6 @@ Public Class FormMaps
         Try
             FileStuff.DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
             My.Computer.FileSystem.CreateDirectory(f)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -66,7 +65,6 @@ Public Class FormMaps
         Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/Metromap/index.php"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
 
@@ -82,7 +80,6 @@ Public Class FormMaps
 
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -106,7 +103,6 @@ Public Class FormMaps
         Dim webAddress As String = "http://" + Settings.PublicIP & ":" & Settings.ApachePort & "/Metromap/indexmax.php"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -205,7 +201,9 @@ Public Class FormMaps
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
-        Settings.MapCenterX = CInt("0" & MapXStart.Text)
+        If Not Integer.TryParse(MapXStart.Text, Settings.MapCenterX) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
 
     End Sub
 
@@ -213,7 +211,9 @@ Public Class FormMaps
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
-        Settings.MapCenterY = CInt("0" & MapYStart.Text)
+        If Not Integer.TryParse(MapYStart.Text, Settings.MapCenterY) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
 
     End Sub
 
@@ -221,9 +221,8 @@ Public Class FormMaps
 
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
-        If CInt("0" & RenderMaxH.Text) <= 4096 And CInt("0" & RenderMaxH.Text) > 100 Then
-            Settings.RenderMaxHeight = CInt("0" & RenderMaxH.Text)
-
+        If Not Integer.TryParse(RenderMaxH.Text, CInt("0" & Settings.RenderMaxHeight)) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
 
     End Sub
@@ -231,8 +230,8 @@ Public Class FormMaps
     Private Sub RenderMinH_TextChanged(sender As Object, e As EventArgs) Handles RenderMinH.TextChanged
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
-        If CInt("0" & RenderMaxH.Text) >= -100 Then
-            Settings.RenderMinHeight = CInt("0" & RenderMinH.Text)
+        If Not Integer.TryParse(RenderMinH.Text, Settings.RenderMinHeight) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
         End If
 
     End Sub

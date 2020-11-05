@@ -89,7 +89,6 @@ Public Class Icecast
             Form1.Print(My.Resources.Icecast_Desc & " " + webAddress)
             Try
                 Process.Start(webAddress)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)

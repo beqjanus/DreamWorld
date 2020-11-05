@@ -3966,6 +3966,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Hyperica Search.
+        '''</summary>
+        Friend ReadOnly Property HypericaSearch_word() As String
+            Get
+                Return ResourceManager.GetString("HypericaSearch_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to IAR Load and Save.
         '''</summary>
         Friend ReadOnly Property IAR_Load_and_Save_word() As String
@@ -4349,6 +4358,15 @@ Namespace My.Resources
         Friend ReadOnly Property JobEngine_word() As String
             Get
                 Return ResourceManager.GetString("JobEngine_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to JOpensim Search.
+        '''</summary>
+        Friend ReadOnly Property JOpensimSearch_word() As String
+            Get
+                Return ResourceManager.GetString("JOpensimSearch_word", resourceCulture)
             End Get
         End Property
         
@@ -6561,6 +6579,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Remote Admin Port.
+        '''</summary>
+        Friend ReadOnly Property RemoteAdminPort_word() As String
+            Get
+                Return ResourceManager.GetString("RemoteAdminPort_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Render Max Height.
         '''</summary>
         Friend ReadOnly Property RenderMax() As String
@@ -7030,7 +7057,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Script Timer Rate (0.0909).
+        '''  Looks up a localized string similar to Script Timer Rate (0.2).
         '''</summary>
         Friend ReadOnly Property Script_Timer_Rate() As String
             Get
@@ -7039,7 +7066,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Script timer speed setting. 1/11 second is default (0.0909).
+        '''  Looks up a localized string similar to Script timer speed setting. 0.2 is default.
         '''</summary>
         Friend ReadOnly Property Script_Timer_Text() As String
             Get

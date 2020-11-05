@@ -53,7 +53,6 @@ Public Class FormRestart
         Settings.Autostart = AutoStartCheckbox.Checked
         Try
             Settings.AutoRestartInterval = Convert.ToInt16(AutoRestartBox.Text, Globalization.CultureInfo.InvariantCulture)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)

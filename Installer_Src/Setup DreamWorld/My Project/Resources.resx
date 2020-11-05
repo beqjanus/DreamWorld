@@ -130,7 +130,7 @@
     <value>Restarts all Checked Regions</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Timer Rate (0.0909)</value>
+    <value>Script Timer Rate (0.2)</value>
   </data>
   <data name="Load_Region_OAR" xml:space="preserve">
     <value>Load Region OAR</value>
@@ -1991,7 +1991,7 @@
     <value>Cache Directory</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Script timer speed setting. 1/11 second is default (0.0909)</value>
+    <value>Script timer speed setting. 0.2 is default</value>
   </data>
   <data name="Icelandic" xml:space="preserve">
     <value>Icelandic</value>
@@ -3014,5 +3014,14 @@
   </data>
   <data name="InstallOpensim" xml:space="preserve">
     <value>This will install JOpensim. Do you wish to continue?</value>
+  </data>
+  <data name="HypericaSearch_word" xml:space="preserve">
+    <value>Hyperica Search</value>
+  </data>
+  <data name="JOpensimSearch_word" xml:space="preserve">
+    <value>JOpensim Search</value>
+  </data>
+  <data name="RemoteAdminPort_word" xml:space="preserve">
+    <value>Remote Admin Port</value>
   </data>
 </root>

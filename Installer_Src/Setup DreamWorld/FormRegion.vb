@@ -918,8 +918,18 @@ Public Class FormRegion
 
     Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly As Regex = New Regex("[^\d\. ]")
         ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
+
+        If ScriptTimerTextBox.Text.Length > 0 Then
+            Try
+                Dim value = Convert.ToDouble(ScriptTimerTextBox.Text, Globalization.CultureInfo.InvariantCulture)
+                If value < 0.05 Or value > 1 Then ScriptTimerTextBox.Text = CStr(0.2)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
+
         If Initted1 Then Changed1 = True
 
     End Sub
@@ -930,12 +940,8 @@ Public Class FormRegion
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
 
-        If SmartStartCheckBox.Checked Then
-            Form1.Log(My.Resources.Info_word, "Region " + Name + " has Smart Start enabled")
-        End If
         If Initted1 Then Changed1 = True
 
     End Sub
@@ -947,6 +953,17 @@ Public Class FormRegion
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
+
+        If FrametimeBox.Text.Length > 0 Then
+            Try
+                Dim value = Convert.ToDouble(FrametimeBox.Text, Globalization.CultureInfo.InvariantCulture)
+#Disable Warning CA1303 ' Do not pass literals as localized parameters
+                If value < 0.05 Or value > 1 Then FrametimeBox.Text = CStr(0.2)
+#Enable Warning CA1303 ' Do not pass literals as localized parameters
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
 
         If Initted1 Then Changed1 = True
 
@@ -1056,9 +1073,9 @@ Public Class FormRegion
 
         ' save the changes to the memory structure, then to disk
         Form1.PropRegionClass.UUID(RegionUUID) = UUID.Text
-        Form1.PropRegionClass.CoordX(RegionUUID) = CInt(CoordX.Text)
-        Form1.PropRegionClass.CoordY(RegionUUID) = CInt(CoordY.Text)
-        Form1.PropRegionClass.RegionPort(RegionUUID) = CInt(RegionPort.Text)
+        Form1.PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
+        Form1.PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
+        Form1.PropRegionClass.RegionPort(RegionUUID) = CInt("0" & RegionPort.Text)
         Form1.PropRegionClass.SizeX(RegionUUID) = BoxSize
         Form1.PropRegionClass.SizeY(RegionUUID) = BoxSize
         Form1.PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked

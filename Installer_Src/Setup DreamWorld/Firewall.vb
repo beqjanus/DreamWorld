@@ -13,6 +13,10 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.ApachePort) & vbCrLf
         End If
 
+        If Settings.RemoteAdminPort > 0 Then
+            Command = Command & "netsh advfirewall firewall  add rule name=""RemoteAdmin Joomla Port " & CStr(Settings.RemoteAdminPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.RemoteAdminPort) & vbCrLf
+        End If
+
         ' Icecast needs both ports for both protocols
         If Settings.SCEnable Then
             Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
@@ -21,7 +25,7 @@ Public Module Firewall
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase1) & vbCrLf
         End If
 
-        Dim start = CInt(Settings.FirstRegionPort)
+        Dim start = CInt("0" & Settings.FirstRegionPort)
 
         ' regions need both
         For port As Integer = start To Form1.PropMaxPortUsed
@@ -53,8 +57,13 @@ Public Module Firewall
                           & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """" & vbCrLf
 
         End If
+
         If Settings.ApacheEnable Then
             Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
+        End If
+
+        If Settings.RemoteAdminPort > 0 Then
+            Command = Command & "netsh advfirewall firewall  delete rule name=""RemoteAdmin Joomla Port " & CStr(Settings.RemoteAdminPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.RemoteAdminPort) & vbCrLf
         End If
 
         Dim start = CInt("0" & Settings.FirstRegionPort)
@@ -94,12 +103,10 @@ Public Module Firewall
             'ns.WriteLine("@pause")
             'End If
             ns.Close()
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
         End Try
-
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",
@@ -113,7 +120,6 @@ Public Module Firewall
 
             Try
                 ProcessFirewall.Start()
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)

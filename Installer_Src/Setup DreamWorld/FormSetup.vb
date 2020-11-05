@@ -45,7 +45,7 @@ Public Class Form1
 #Region "Version"
 
     Dim _Domain As String = "http://outworldz.com"
-    Dim _MyVersion As String = "3.73"
+    Dim _MyVersion As String = "3.74"
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
@@ -125,6 +125,7 @@ Public Class Form1
     Private speed3 As Double
     Private Update_version As String
     Private ws As NetServer
+    Private _RemoteAdminSet As Boolean ' if true, one region has remoteadmin port on.
 
 #End Region
 
@@ -1063,6 +1064,7 @@ Public Class Form1
         If RegionMaker.Instance Is Nothing Then Return False
 
         ' Allow these to change w/o rebooting
+
         DoOpensimProtoINI()
         DoGloebits()
 
@@ -1579,6 +1581,25 @@ Public Class Form1
 
     End Function
 
+    Private Sub SetupOpensimRemoteAdmin()
+
+        If Not _RemoteAdminSet Then
+            Settings.SetIni("RemoteAdmin", "port", CStr(Settings.RemoteAdminPort))
+            If Settings.RemoteAdminPort > 0 And Settings.CMS = "Joomla" Then
+                Settings.SetIni("RemoteAdmin", "enabled", "true")
+            Else
+                Settings.SetIni("RemoteAdmin", "enabled", "false")
+                Settings.SetIni("RemoteAdmin", "port", "0")
+            End If
+        Else
+            Settings.SetIni("RemoteAdmin", "enabled", "false")
+            Settings.SetIni("RemoteAdmin", "port", "0")
+        End If
+
+        _RemoteAdminSet = True
+
+    End Sub
+
     Public Function DoOpensimProtoINI() As Boolean
 
         ' Opensim.ini
@@ -1588,6 +1609,7 @@ Public Class Form1
             Case "Robust"
 
                 SetupOpensimSearchINI()
+                SetupOpensimRemoteAdmin()
 
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
                 Settings.SetIni("Const", "GridName", Settings.SimName)
@@ -2750,6 +2772,8 @@ Public Class Form1
         If Not StartRobust() Then Return False
 
         ' Boot them up
+        _RemoteAdminSet = False
+
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
@@ -3439,7 +3463,7 @@ Public Class Form1
 
     Private Shared Sub SetupOpensimSearchINI()
 
-        If Settings.CMS = "JOpensim" Then
+        If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
         Else
@@ -3448,7 +3472,7 @@ Public Class Form1
 
         ' RegionSnapShot
         Settings.SetIni("DataSnapshot", "index_sims", "True")
-        If Settings.CMS = "JOpensim" Then
+        If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
         Else
             Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
@@ -3458,7 +3482,7 @@ Public Class Form1
 
     Private Shared Sub SetupRobustSearchINI()
 
-        If Settings.CMS = "JOpensim" Then
+        If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")

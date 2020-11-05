@@ -101,7 +101,6 @@ Public Class FormPublicity
         Try
             PictureBox9.Image = Bitmap.FromFile(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png")
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto
         End Try

@@ -1,4 +1,5 @@
-﻿Imports Ionic.Zip
+﻿Imports System.Text.RegularExpressions
+Imports Ionic.Zip
 
 Public Class FormJoomla
 
@@ -107,6 +108,12 @@ Public Class FormJoomla
             End If
         End If
 
+        If Settings.JOpensimSearch Then
+            JOpensimRadioButton.Checked = True
+        Else
+            HypericaRadioButton.Checked = True
+        End If
+
         If Settings.CMS = "Joomla" Then
             JEnableCheckBox.Checked = True
             If count > 1 Then
@@ -118,6 +125,8 @@ Public Class FormJoomla
             ViewButton.Enabled = False
         End If
 
+        RemoteAdminPortTextBox.Text = CStr(Settings.RemoteAdminPort)
+
     End Sub
 
     Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
@@ -128,6 +137,39 @@ Public Class FormJoomla
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles RemoteAdminPortTextBox.TextChanged
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        RemoteAdminPortTextBox.Text = digitsOnly.Replace(RemoteAdminPortTextBox.Text, "")
+
+        If Not Integer.TryParse(RemoteAdminPortTextBox.Text, Settings.RemoteAdminPort) Then
+            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+        End If
+
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
+
+        If HypericaRadioButton.Checked Then
+            Settings.JOpensimSearch = False
+            Settings.SaveSettings()
+            JOpensimRadioButton.Checked = False
+        End If
+
+    End Sub
+
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles JOpensimRadioButton.CheckedChanged
+
+        If JOpensimRadioButton.Checked Then
+            Settings.JOpensimSearch = True
+            Settings.SaveSettings()
+            HypericaRadioButton.Checked = False
+        End If
 
     End Sub
 
