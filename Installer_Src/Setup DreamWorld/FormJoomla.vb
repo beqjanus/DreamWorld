@@ -103,9 +103,7 @@ Public Class FormJoomla
         InstallButton.Enabled = False
 
         If count <= 1 Then
-            If Settings.ApacheEnable Then
-                InstallButton.Enabled = True
-            End If
+            InstallButton.Enabled = True
         End If
 
         If Settings.JOpensimSearch Then
