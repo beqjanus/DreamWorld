@@ -13,7 +13,7 @@ Public Class UpdateGrid
 
 #Region "Private Fields"
 
-    Dim Filename As String = ""
+    Dim Filename As String = "DreamGrid.zip"
     Dim MyFolder As String = ""
 
 #End Region
@@ -38,7 +38,7 @@ Public Class UpdateGrid
         Application.DoEvents()
         MyFolder = My.Application.Info.DirectoryPath
         If Debugger.IsAttached = True Then
-            MyFolder = "D:\Opensim\TestDreamgrid"
+            MyFolder = "C:\Opensim\TestDreamgridInstaller"
             If Not IO.Directory.Exists(MyFolder) Then
                 IO.Directory.CreateDirectory(MyFolder)
             End If
@@ -47,14 +47,11 @@ Public Class UpdateGrid
 
         ChDir(MyFolder)
 
-        Dim args() As String = System.Environment.GetCommandLineArgs()
-        If args.Length = 2 Then
-            Filename = args(1)
-        Else
-            MsgBox("Syntax: DreamGridSetup.exe Dreamgrid-V(version).zip")
-        End If
 
-        If Filename.StartsWith("DreamGrid-V") Then
+        Dim f1 = New Downloader
+
+        Dim ret = Downloader.ShowDialog()
+        If ret = DialogResult.OK Then
 
             If Not File.Exists(MyFolder & "\" & Filename) Then
                 MsgBox("File not found. Aborting." & vbCrLf & "Syntax: DreamGridSetup.exe  Dreamgrid-Vn.n.zip")
@@ -87,7 +84,7 @@ Public Class UpdateGrid
                             File.Delete(Path.GetFileName(ZipEntry.FileName) & ".PendingOverwrite")
                             File.Delete(Path.GetFileName(ZipEntry.FileName) & ".tmp")
 
-                            If ZipEntry.FileName <> "Ionic.Zip.dll" And ZipEntry.FileName <> "DreamGridSetup.exe" Then
+                            If ZipEntry.FileName <> "Ionic.Zip.dll" And ZipEntry.FileName <> "DreamGridUpdater.exe" Then
                                 TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
                                 Application.DoEvents()
                                 ZipEntry.Extract(MyFolder, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
@@ -97,18 +94,24 @@ Public Class UpdateGrid
                 Catch ex As Exception
                     TextPrint("Unable to extract file: " & fname & ":" & ex.Message)
                     Thread.Sleep(3000)
-
                     err += 1
                 End Try
                 Application.DoEvents()
                 If Not err Then TextPrint("Completed!")
+                If Not err Then
+                    Try
+                        My.Computer.FileSystem.RenameFile(MyFolder & "\Ionic.Zip.proto", "Ionic.Zip.dll")
+                    Catch ex As Exception
+                    End Try
+                End If
                 Application.DoEvents()
                 Thread.Sleep(3000)
                 End
             End If
         Else
-            MsgBox("Cannot locate zip file. Syntax: DreamGridSetup.exe Dreamgrid-VX.Y.zip")
+            TextPrint("Cancelled!")
         End If
+
         End
 
     End Sub
@@ -117,6 +120,8 @@ Public Class UpdateGrid
 
         Using ApacheProcess As New Process()
             ApacheProcess.StartInfo.FileName = "net"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             ApacheProcess.Start()
             Application.DoEvents()

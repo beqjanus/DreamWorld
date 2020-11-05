@@ -13,7 +13,7 @@ Public Module Core
 
     Private Function AssemblyResolve(ByVal sender As Object, ByVal e As ResolveEventArgs) As Reflection.Assembly
 
-        MsgBox(e.Name)
+        'MsgBox(e.Name)
         Dim resourceFullName As String = String.Format("Ionic.{0}.dll", e.Name.Split(","c)(0))
         Dim thisAssembly As Reflection.Assembly = Reflection.Assembly.GetExecutingAssembly()
         Using resource As Stream = thisAssembly.GetManifestResourceStream(resourceFullName)

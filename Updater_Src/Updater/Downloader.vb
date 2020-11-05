@@ -12,13 +12,11 @@ Public Class Downloader
 #Region "Private Fields"
 
     Dim Cancelled As Boolean = False
-    Dim debugfolder = "D:\Opensim\TestDreamgrid\"
+    Dim debugfolder = "C:\Opensim\TestDreamgridInstaller"
     Dim gCurDir = Nothing
 
     ' Holds the current folder that we are running in
     Dim gFileName As String = "https://www.outworldz.com/Outworldz_installer/Grid/DreamGrid.zip"
-
-    Dim Type As String = "Downloader"
     Dim whereToSave As String = Nothing
 
 #End Region
@@ -42,7 +40,7 @@ Public Class Downloader
 
     Public Sub Log(message As String)
         Try
-            Using outputFile As New StreamWriter(MyFolder & "\" + Type + ".log", True)
+            Using outputFile As New StreamWriter(MyFolder & "\Updater.log", True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" + message)
             End Using
         Catch
@@ -56,23 +54,14 @@ Public Class Downloader
 
     Private Sub Cancel(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Me.FormClosing
 
-        Log("Cancel requested")
-
-        Cancelled = True
-        Try
-            My.Computer.FileSystem.DeleteFile(whereToSave)
-        Catch
-        End Try
-        Label1.Text = "Cancelled"
-        Thread.Sleep(2000)
-
+        DialogResult = DialogResult.OK
 
     End Sub
 
     Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         MyFolder = My.Application.Info.DirectoryPath
-
+        Label1.Text = ""
         If Debugger.IsAttached = True Then
             MyFolder = debugfolder ' for testing, as the compiler buries itself in ../../../debug
             If Not IO.Directory.Exists(MyFolder) Then
@@ -82,42 +71,21 @@ Public Class Downloader
         End If
 
         Dim Filename As String = ""
-        Dim args() As String = System.Environment.GetCommandLineArgs()
-        If args.Length = 2 Then
-            Filename = args(1)
-        End If
-        If Filename.StartsWith("DreamGrid-V") Then
-            whereToSave = MyFolder & "\" & Filename
-            IO.File.Delete(MyFolder & "\" & Type & ".log")
-            Log("Downloading Version " + Filename)
+        whereToSave = MyFolder & "\" & "DreamGrid.zip"
+        IO.File.Delete(MyFolder & "\Updater.log")
+        Log("Downloading " + Filename)
 
-            Dim client As New WebClient()
+        'Creating the request and getting the response
+        Label1.Text = "Downloading " + Filename
 
-            Dim date1 = Date.Now
-            'Creating the request and getting the response
-            Label1.Text = "Downloading " + Filename
-            Dim urlContents As Byte() = Await GetURLContentsAsync(gFileName)
+        Dim client As New WebClient()
+        Dim urlContents As Byte() = Await GetURLContentsAsync(gFileName)
 
-            Dim date2 = Date.Now
-            Dim Seconds As Long = DateDiff(DateInterval.Second, date1, date2)
-            Dim Bytespersec As Single
-            If Seconds > 0 Then
-                Bytespersec = urlContents.Length / Seconds / 1024
-            End If
-
-            Label1.Text = "Downloaded " & Math.Ceiling(urlContents.Length / 1024 / 1024).ToString & " MB at " & Math.Ceiling(Bytespersec).ToString & " KB/Sec"
-            Log(Label1.Text)
-            Using DestinationStream As New IO.FileStream(whereToSave, IO.FileMode.Create)
-                DestinationStream.Write(urlContents, 0, urlContents.Length)
-            End Using
-            Log("Created " & whereToSave)
-            Thread.Sleep(5000)
-            Environment.Exit(0)
-        Else
-            MsgBox("Syntax: Downloader DreamGrid-Vn.n.zip")
-            Log("Syntax: Downloader DreamGrid-Vn.n.zip")
-            Environment.Exit(1)
-        End If
+        Using DestinationStream As New IO.FileStream(whereToSave, IO.FileMode.Create)
+            DestinationStream.Write(urlContents, 0, urlContents.Length)
+        End Using
+        Log("Created " & whereToSave)
+        DialogResult = DialogResult.OK
 
     End Sub
 

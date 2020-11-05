@@ -8,10 +8,10 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>Outworldz.My.MyApplication</StartupObject>
     <RootNamespace>Outworldz</RootNamespace>
-    <AssemblyName>DreamGridSetup</AssemblyName>
+    <AssemblyName>DreamGridUpdater</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -126,10 +126,17 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Downloader.Designer.vb">
+      <DependentUpon>Downloader.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Downloader.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -150,6 +157,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Downloader.resx">
+      <DependentUpon>Downloader.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -187,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes_blue.ico" />
+    <None Include="Resources\copper.gif" />
     <None Include="packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll" />
     <None Include="packages.config" />
   </ItemGroup>
