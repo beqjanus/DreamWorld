@@ -785,7 +785,7 @@ Partial Class FormRegion
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(52, 15)
         Me.Label4.TabIndex = 16
-        Me.Label4.Text = "Maps: X"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Maps_X
         '
         'Label1
         '
@@ -801,7 +801,7 @@ Partial Class FormRegion
         Me.UUID.Enabled = False
         Me.UUID.Location = New System.Drawing.Point(11, 89)
         Me.UUID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.UUID.Name = "UUID"
+        Me.UUID.Name = Global.Outworldz.My.Resources.UUID
         Me.UUID.Size = New System.Drawing.Size(268, 20)
         Me.UUID.TabIndex = 15
         '

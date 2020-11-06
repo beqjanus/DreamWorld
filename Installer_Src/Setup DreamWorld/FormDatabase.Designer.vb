@@ -202,7 +202,7 @@ Partial Class FormDatabase
         Me.GridGroup.Size = New System.Drawing.Size(300, 210)
         Me.GridGroup.TabIndex = 55
         Me.GridGroup.TabStop = False
-        Me.GridGroup.Text = "Robust"
+        Me.GridGroup.Text = Global.Outworldz.My.Resources.Robust_word
         '
         'Label3
         '
@@ -246,7 +246,7 @@ Partial Class FormDatabase
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(41, 13)
         Me.Label16.TabIndex = 38
-        Me.Label16.Text = "Robust"
+        Me.Label16.Text = Global.Outworldz.My.Resources.Robust_word
         '
         'Dbnameindex
         '

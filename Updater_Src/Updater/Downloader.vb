@@ -11,12 +11,11 @@ Public Class Downloader
 
 #Region "Private Fields"
 
-    Dim Cancelled As Boolean = False
-    Dim debugfolder = "C:\Opensim\TestDreamgridInstaller"
+    ReadOnly debugfolder = "C:\Opensim\TestDreamgridInstaller"
     Dim gCurDir = Nothing
 
     ' Holds the current folder that we are running in
-    Dim gFileName As String = "https://www.outworldz.com/Outworldz_installer/Grid/DreamGrid.zip"
+    ReadOnly gFileName As String = "https://www.outworldz.com/Outworldz_installer/Grid/DreamGrid.zip"
     Dim whereToSave As String = Nothing
 
 #End Region

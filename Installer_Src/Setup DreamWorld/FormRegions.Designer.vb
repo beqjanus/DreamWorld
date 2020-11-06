@@ -107,7 +107,7 @@ Partial Class FormRegions
         '
         Me.Z.Location = New System.Drawing.Point(120, 172)
         Me.Z.Margin = New System.Windows.Forms.Padding(4)
-        Me.Z.Name = "Z"
+        Me.Z.Name = Global.Outworldz.My.Resources.Z
         Me.Z.Size = New System.Drawing.Size(43, 26)
         Me.Z.TabIndex = 1864
         '
@@ -115,7 +115,7 @@ Partial Class FormRegions
         '
         Me.Y.Location = New System.Drawing.Point(66, 172)
         Me.Y.Margin = New System.Windows.Forms.Padding(4)
-        Me.Y.Name = "Y"
+        Me.Y.Name = Global.Outworldz.My.Resources.Y
         Me.Y.Size = New System.Drawing.Size(43, 26)
         Me.Y.TabIndex = 1863
         '
@@ -123,7 +123,7 @@ Partial Class FormRegions
         '
         Me.X.Location = New System.Drawing.Point(12, 172)
         Me.X.Margin = New System.Windows.Forms.Padding(4)
-        Me.X.Name = "X"
+        Me.X.Name = Global.Outworldz.My.Resources.X
         Me.X.Size = New System.Drawing.Size(43, 26)
         Me.X.TabIndex = 1862
         '

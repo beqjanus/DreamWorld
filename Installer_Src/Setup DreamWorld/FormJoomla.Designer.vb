@@ -182,7 +182,7 @@ Partial Class FormJoomla
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormJoomla"
-        Me.Text = "JOpensim"
+        Me.Text = Global.Outworldz.My.Resources.JOpensim_word
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)

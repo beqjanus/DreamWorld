@@ -2700,11 +2700,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Enable Diva Web Page.
+        '''</summary>
+        Friend ReadOnly Property EnableDiva() As String
+            Get
+                Return ResourceManager.GetString("EnableDiva", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Enable Gloebit.
         '''</summary>
         Friend ReadOnly Property EnableGloebit_word() As String
             Get
                 Return ResourceManager.GetString("EnableGloebit_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to EnableJOpensim Web Page.
+        '''</summary>
+        Friend ReadOnly Property EnableJOpensim() As String
+            Get
+                Return ResourceManager.GetString("EnableJOpensim", resourceCulture)
             End Get
         End Property
         
@@ -4362,6 +4380,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to JOpensim.
+        '''</summary>
+        Friend ReadOnly Property JOpensim_word() As String
+            Get
+                Return ResourceManager.GetString("JOpensim_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to JOpensim Search.
         '''</summary>
         Friend ReadOnly Property JOpensimSearch_word() As String
@@ -4737,6 +4764,15 @@ Namespace My.Resources
         Friend ReadOnly Property Maps_word() As String
             Get
                 Return ResourceManager.GetString("Maps_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Maps : X.
+        '''</summary>
+        Friend ReadOnly Property Maps_X() As String
+            Get
+                Return ResourceManager.GetString("Maps_X", resourceCulture)
             End Get
         End Property
         
@@ -5667,6 +5703,15 @@ Namespace My.Resources
         Friend ReadOnly Property OAR_load_save_backupp_word() As String
             Get
                 Return ResourceManager.GetString("OAR_load_save_backupp_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to OAuth Key.
+        '''</summary>
+        Friend ReadOnly Property OAuth_Key() As String
+            Get
+                Return ResourceManager.GetString("OAuth_Key", resourceCulture)
             End Get
         End Property
         
@@ -8339,6 +8384,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to UUID.
+        '''</summary>
+        Friend ReadOnly Property UUID() As String
+            Get
+                Return ResourceManager.GetString("UUID", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Error: UUID Is nothing!.
         '''</summary>
         Friend ReadOnly Property UUID0() As String
@@ -8837,6 +8891,15 @@ Namespace My.Resources
         Friend ReadOnly Property Yes_word() As String
             Get
                 Return ResourceManager.GetString("Yes_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Z.
+        '''</summary>
+        Friend ReadOnly Property Z() As String
+            Get
+                Return ResourceManager.GetString("Z", resourceCulture)
             End Get
         End Property
     End Module

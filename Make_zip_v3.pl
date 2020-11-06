@@ -421,7 +421,7 @@ sub sign
 			
 			
 			my $f = qq!../Certs/digicertutil.exe sign /noInput /sha1 "d7ea8e5f8e6d27b138ecd93811daa6b02b0ba333" "$name"!;
-			print $f;
+			print $f . "\n";
 			my $result = `$f`;
 			print $result. "\n";
 			$result =~ s/\n//g;

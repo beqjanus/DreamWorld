@@ -1,6 +1,5 @@
 ﻿Imports System.Net
 Imports System.IO
-
 Imports Ionic.Zip
 Imports System.Threading
 
@@ -10,10 +9,11 @@ Imports System.Threading
 ' that ALL the licenses in the text files are followed and included in all copies
 
 Public Class UpdateGrid
+    Private WithEvents ApacheProcess As New Process()
 
 #Region "Private Fields"
 
-    Dim Filename As String = "DreamGrid.zip"
+    ReadOnly Filename As String = "DreamGrid.zip"
     Dim MyFolder As String = ""
 
 #End Region
@@ -47,7 +47,6 @@ Public Class UpdateGrid
 
         ChDir(MyFolder)
 
-
         Dim f1 = New Downloader
 
         Dim ret = Downloader.ShowDialog()
@@ -78,7 +77,7 @@ Public Class UpdateGrid
                 Try
                     Using zip As ZipFile = ZipFile.Read(MyFolder & "\" & Filename)
                         For Each ZipEntry In zip
-                            ctr = ctr + 1
+                            ctr += 1
                             fname = ZipEntry.FileName
 
                             File.Delete(Path.GetFileName(ZipEntry.FileName) & ".PendingOverwrite")
@@ -98,18 +97,29 @@ Public Class UpdateGrid
                 End Try
                 Application.DoEvents()
                 If Not err Then TextPrint("Completed!")
-                If Not err Then
-                    Try
-                        My.Computer.FileSystem.RenameFile(MyFolder & "\Ionic.Zip.proto", "Ionic.Zip.dll")
-                    Catch ex As Exception
-                    End Try
-                End If
+                'If Not err Then
+                'Try
+                'My.Computer.FileSystem.RenameFile(MyFolder & "\Ionic.Zip.proto", "Ionic.Zip.dll")
+                'Catch ex As Exception
+                'End Try
+                'End If
                 Application.DoEvents()
                 Thread.Sleep(3000)
+
+                ApacheProcess.StartInfo.FileName = "Start.exe"
+                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+
+                Try
+                    ApacheProcess.Start()
+                Catch ex As Exception
+                    TextPrint("Could not start DreamGrid!")
+                End Try
+
+
                 End
             End If
         Else
-            TextPrint("Cancelled!")
+            TextPrint("Cancelled")
         End If
 
         End
@@ -136,10 +146,11 @@ Public Class UpdateGrid
     Private Sub StopMYSQL()
 
         Dim p As Process = New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-        pi.Arguments = "-u root shutdown"
-        pi.FileName = MyFolder + "\OutworldzFiles\mysql\bin\mysqladmin.exe"
-        pi.WindowStyle = ProcessWindowStyle.Minimized
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "-u root shutdown",
+            .FileName = MyFolder + "\OutworldzFiles\mysql\bin\mysqladmin.exe",
+            .WindowStyle = ProcessWindowStyle.Minimized
+        }
         p.StartInfo = pi
         Try
             p.Start()
