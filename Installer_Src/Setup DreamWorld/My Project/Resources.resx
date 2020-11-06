@@ -3021,4 +3021,25 @@
   <data name="RemoteAdminPort_word" xml:space="preserve">
     <value>Remote Admin Port</value>
   </data>
+  <data name="EnableDiva" xml:space="preserve">
+    <value>Enable Diva Web Page</value>
+  </data>
+  <data name="EnableJOpensim" xml:space="preserve">
+    <value>EnableJOpensim Web Page</value>
+  </data>
+  <data name="JOpensim_word" xml:space="preserve">
+    <value>JOpensim</value>
+  </data>
+  <data name="Maps_X" xml:space="preserve">
+    <value>Maps : X</value>
+  </data>
+  <data name="OAuth_Key" xml:space="preserve">
+    <value>OAuth Key</value>
+  </data>
+  <data name="UUID" xml:space="preserve">
+    <value>UUID</value>
+  </data>
+  <data name="Z" xml:space="preserve">
+    <value>Z</value>
+  </data>
 </root>

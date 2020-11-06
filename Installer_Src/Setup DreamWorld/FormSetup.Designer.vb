@@ -1036,7 +1036,7 @@ Partial Class Form1
         Me.RestartIcecastItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.RestartIcecastItem.Name = "RestartIcecastItem"
         Me.RestartIcecastItem.Size = New System.Drawing.Size(75, 24)
-        Me.RestartIcecastItem.Text = "Icecast"
+        Me.RestartIcecastItem.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
         '
         'HelpToolStripMenuItem4
         '
@@ -1223,7 +1223,7 @@ Partial Class Form1
         Me.MinimumSize = New System.Drawing.Size(361, 128)
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "DreamGrid"
+        Me.Text = Global.Outworldz.My.Resources.Resources.DreamGrid_word
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)

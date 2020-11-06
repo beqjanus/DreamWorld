@@ -61,7 +61,7 @@ Public Class FormJoomla
             Using zip As ZipFile = ZipFile.Read(m)
                 For Each ZipEntry In zip
                     ZipEntry.Extract(n, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
-                    InstallButton.Text = Global.Outworldz.My.Resources.Installing_word & " " & CStr(ctr)
+                    InstallButton.Text = Global.Outworldz.My.Resources.Install_word & " " & CStr(ctr)
                     Application.DoEvents()
                     ctr += 1
                 Next
