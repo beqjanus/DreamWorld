@@ -210,7 +210,7 @@ Partial Class Tides
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(318, 26)
         Me.MenuStrip2.TabIndex = 1886
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
         '
         'ToolStripMenuItem30
         '

@@ -1659,10 +1659,13 @@ Public Class Form1
 
         If Settings.GloebitsEnable Then
             Settings.SetIni("Startup", "economymodule", "Gloebit")
+            Settings.SetIni("Economy", "CurrencyURL", "")
         ElseIf Settings.CMS = "JOpensim" Then
             Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
+            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/Joomla/components/com_opensim/currency.php")
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
+            Settings.SetIni("Economy", "CurrencyURL", "")
         End If
 
         ' Main Frame time
@@ -3452,8 +3455,10 @@ Public Class Form1
         If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            Settings.SetIni("Search", "SearchURL", SearchURL)
         Else
             Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+            Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
         End If
 
         ' RegionSnapShot

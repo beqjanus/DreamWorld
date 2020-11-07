@@ -142,7 +142,7 @@ Partial Class TosForm
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Size = New System.Drawing.Size(660, 28)
         Me.MenuStrip2.TabIndex = 1887
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
         '
         'ToolStripMenuItem30
         '
