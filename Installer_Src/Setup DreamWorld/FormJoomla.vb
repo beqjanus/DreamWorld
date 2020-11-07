@@ -42,6 +42,7 @@ Public Class FormJoomla
         Dim m As String = Settings.CurrentDirectory & "\OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip"
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
+            InstallButton.Image = Nothing
             Form1.StartApache()
 
             Dim JoomlaProcess As New Process()
@@ -74,7 +75,7 @@ Public Class FormJoomla
         AdminButton.Enabled = True
         ViewButton.Enabled = True
         InstallButton.Enabled = False
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim"
+        Dim webAddress As String = "http://" & Settings.PublicIP & ":" & Settings.PublicIP & "/JOpensim"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
