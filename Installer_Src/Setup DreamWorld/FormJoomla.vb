@@ -1,5 +1,7 @@
-﻿Imports System.Text.RegularExpressions
-Imports Ionic.Zip
+﻿Imports Ionic.Zip
+Imports Ionic.Zip.ZipFile
+
+Imports System.Text.RegularExpressions
 
 Public Class FormJoomla
 
@@ -58,10 +60,11 @@ Public Class FormJoomla
             JoomlaProcess.WaitForExit()
 
             Dim ctr As Integer = 0
-            Dim n = Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\JOpensim"
+            Dim Dest = Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\JOpensim"
+
             Using zip As ZipFile = ZipFile.Read(m)
                 For Each ZipEntry In zip
-                    ZipEntry.Extract(n, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
+                    ZipEntry.Extract(Dest, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
                     InstallButton.Text = Global.Outworldz.My.Resources.Install_word & " " & CStr(ctr)
                     Application.DoEvents()
                     ctr += 1
