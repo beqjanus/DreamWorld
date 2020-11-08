@@ -399,8 +399,7 @@ sub sign
 		
 		if ($name =~ /Start\.exe/i)
 		{
-			my $bp =1 ;
-			
+			my $bp =1 ;			
 		}
 		
 		if ($name =~ /dll$|exe$/ ) {

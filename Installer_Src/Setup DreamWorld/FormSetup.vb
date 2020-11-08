@@ -45,7 +45,7 @@ Public Class Form1
 #Region "Version"
 
     Dim _Domain As String = "http://outworldz.com"
-    Dim _MyVersion As String = "3.74"
+    Dim _MyVersion As String = "3.75"
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
