@@ -267,7 +267,7 @@ Public Class MySettings
 
         Dim Variable = Stripqq(Data(section)(key))
         If Variable = Nothing Then Variable = Value
-        If V Is Nothing Then Return Value
+        If Variable Is Nothing Then Return Value
 
         Dim bool As Boolean
         If V = "Boolean" Then
