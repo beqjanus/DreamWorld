@@ -1,6 +1,6 @@
-﻿Imports Ionic.Zip
-Imports Ionic.Zip.ZipFile
-
+﻿Imports System.Threading
+Imports System.IO
+Imports System.IO.Compression
 Imports System.Text.RegularExpressions
 
 Public Class FormJoomla
@@ -60,16 +60,36 @@ Public Class FormJoomla
             JoomlaProcess.WaitForExit()
 
             Dim ctr As Integer = 0
-            Dim Dest = Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\JOpensim"
+            Dim extractPath = Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\JOpensim"
+            Dim fname As String = ""
 
-            Using zip As ZipFile = ZipFile.Read(m)
-                For Each ZipEntry In zip
-                    ZipEntry.Extract(Dest, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
-                    InstallButton.Text = Global.Outworldz.My.Resources.Install_word & " " & CStr(ctr)
-                    Application.DoEvents()
-                    ctr += 1
-                Next
-            End Using
+            Try
+                Using zip As ZipArchive = ZipFile.Open(m, ZipArchiveMode.Read)
+
+                    For Each ZipEntry In zip.Entries
+
+                        fname = ZipEntry.Name
+                        If fname.Length = 0 Then
+                            Continue For
+                        End If
+
+                        Application.DoEvents()
+                        Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
+                        If System.IO.File.Exists(destinationPath) Then
+                            System.IO.File.Delete(destinationPath)
+                        End If
+                        Dim folder = System.IO.Path.GetDirectoryName(destinationPath)
+                        Directory.CreateDirectory(folder)
+                        InstallButton.Text = Global.Outworldz.My.Resources.Install_word & " " & CStr(ctr) & " of " & CStr(zip.Entries.Count)
+                        ZipEntry.ExtractToFile(folder & "\" & ZipEntry.Name)
+                        ctr += 1
+                    Next
+                End Using
+            Catch ex As Exception
+                Form1.Print($"Unable to extract file: {fname}:{ex.Message}")
+                Thread.Sleep(3000)
+            End Try
+
             InstallButton.Text = Global.Outworldz.My.Resources.Installed_word
 
         End If
@@ -97,6 +117,26 @@ Public Class FormJoomla
 
         Settings.SaveSettings()
         SetDefaults()
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
+
+        If HypericaRadioButton.Checked Then
+            Settings.JOpensimSearch = False
+            Settings.SaveSettings()
+            JOpensimRadioButton.Checked = False
+        End If
+
+    End Sub
+
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles JOpensimRadioButton.CheckedChanged
+
+        If JOpensimRadioButton.Checked Then
+            Settings.JOpensimSearch = True
+            Settings.SaveSettings()
+            HypericaRadioButton.Checked = False
+        End If
 
     End Sub
 
@@ -131,17 +171,6 @@ Public Class FormJoomla
 
     End Sub
 
-    Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
-
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles RemoteAdminPortTextBox.TextChanged
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
@@ -155,23 +184,14 @@ Public Class FormJoomla
 
     End Sub
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
+    Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
 
-        If HypericaRadioButton.Checked Then
-            Settings.JOpensimSearch = False
-            Settings.SaveSettings()
-            JOpensimRadioButton.Checked = False
-        End If
-
-    End Sub
-
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles JOpensimRadioButton.CheckedChanged
-
-        If JOpensimRadioButton.Checked Then
-            Settings.JOpensimSearch = True
-            Settings.SaveSettings()
-            HypericaRadioButton.Checked = False
-        End If
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
     End Sub
 

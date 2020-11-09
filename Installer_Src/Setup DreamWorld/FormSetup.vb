@@ -1,7 +1,6 @@
 #Region "To do"
 
 ' Property License As String word wrap
-'
 
 #End Region
 
@@ -38,8 +37,8 @@ Imports System.Net.Sockets
 Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Threading
-Imports Ionic.Zip
 Imports IWshRuntimeLibrary
+Imports System.IO.Compression
 
 Public Class Form1
 
@@ -120,13 +119,14 @@ Public Class Form1
 
 #Region "Globals"
 
+    Private _RemoteAdminSet As Boolean
     Private speed As Double
     Private speed1 As Double
     Private speed2 As Double
     Private speed3 As Double
     Private Update_version As String
     Private ws As NetServer
-    Private _RemoteAdminSet As Boolean ' if true, one region has remoteadmin port on.
+    ' if true, one region has remoteadmin port on.
 
 #End Region
 
@@ -712,9 +712,7 @@ Public Class Form1
     End Sub
 
     Public Shared Function ExternLocalServerName() As String
-        ''' <summary>
-        ''' Gets the External Host name which can be either the Public IP or a Host name.
-        ''' </summary>
+        ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
         ''' <returns>Host for regions</returns>
         Dim Host As String
 
@@ -746,10 +744,7 @@ Public Class Form1
     End Function
 
     Public Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
-        ''' <summary>
-        ''' This method starts at the specified directory. It traverses all subdirectories. It
-        ''' returns a List of those directories.
-        ''' </summary>
+        ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
         ''' ' This list stores the results.
         Dim result As New List(Of String)
 
@@ -878,9 +873,8 @@ Public Class Form1
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Shared Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
         ''' <summary>
-        ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there
-        ''' is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the
-        ''' title. It has a timer to make sure we do not get stuck
+        ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
+        ''' timer to make sure we do not get stuck
         ''' </summary>
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
@@ -958,8 +952,7 @@ Public Class Form1
     Public Shared Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
         ''' <param name="value">millseconds</param>
-        ' value is in milliseconds, but we do it in 10 passes so we can doevents() to free up
-        ' console
+        ' value is in milliseconds, but we do it in 10 passes so we can doevents() to free up console
         Dim sleeptime = value / 100  ' now in tenths
 
         While sleeptime > 0
@@ -1351,9 +1344,7 @@ Public Class Form1
 
     Public Function ConsoleCommand(RegionUUID As String, command As String) As Boolean
 
-        ''' <summary>
-        ''' Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys
-        ''' </summary>
+        ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
         ''' <param name="ProcessID">PID of the DOS box</param>
         ''' <param name="command">String</param>
         ''' <returns></returns>
@@ -1562,25 +1553,6 @@ Public Class Form1
 
     End Function
 
-    Private Sub SetupOpensimRemoteAdmin()
-
-        If Not _RemoteAdminSet Then
-            Settings.SetIni("RemoteAdmin", "port", CStr(Settings.RemoteAdminPort))
-            If Settings.RemoteAdminPort > 0 And Settings.CMS = "Joomla" Then
-                Settings.SetIni("RemoteAdmin", "enabled", "true")
-            Else
-                Settings.SetIni("RemoteAdmin", "enabled", "false")
-                Settings.SetIni("RemoteAdmin", "port", "0")
-            End If
-        Else
-            Settings.SetIni("RemoteAdmin", "enabled", "false")
-            Settings.SetIni("RemoteAdmin", "port", "0")
-        End If
-
-        _RemoteAdminSet = True
-
-    End Sub
-
     Public Function DoOpensimProtoINI() As Boolean
 
         ' Opensim.ini
@@ -1606,9 +1578,8 @@ Public Class Form1
 
         Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
 
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
-        ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
-        ' that do Not support this feature
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
+        ' support this feature
 
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
@@ -1692,9 +1663,8 @@ Public Class Form1
             Settings.SetIni("Cloud", "enabled", "False")
         End If
 
-        ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing =
-        ' Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 =
-        ' BulletSim with threads 4 = ubODE
+        ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 = BulletSim with
+        ' threads 4 = ubODE
 
         Select Case Settings.Physics
             Case 0
@@ -2928,9 +2898,7 @@ Public Class Form1
 
     End Function
 
-    ''' <summary>
-    ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
-    ''' </summary>
+    ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
     Public Sub Startup()
 
         Buttons(BusyButton)
@@ -3107,10 +3075,7 @@ Public Class Form1
 
     Public Sub UploadPhoto()
 
-        ''' <summary>
-        ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server
-        ''' is known to be on line.
-        ''' </summary>
+        ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
         If Settings.GDPR() Then
 
             UploadCategory()
@@ -3319,9 +3284,7 @@ Public Class Form1
 
     Private Shared Function DoRegion(RegionName As String, RegionUUID As String) As Boolean
 
-        ''' <summary>
-        ''' Copy the Opensim proto Write the Region INI with RegionClass Set the Opensim.ini
-        ''' </summary>
+        ''' <summary>Copy the Opensim proto Write the Region INI with RegionClass Set the Opensim.ini</summary>
         ''' <returns>True if error</returns>
 
         If RegionMaker.SetRegionVars(RegionName, RegionUUID) Then Return True
@@ -3987,8 +3950,7 @@ Public Class Form1
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
-        ' ;; Send visual reminder to local users that their inventories are unavailable while they
-        ' are traveling ;; and available when they return. True by default.
+        ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling ;; and available when they return. True by default.
         If Settings.Suitcase Then
             Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "true")
         Else
@@ -4127,15 +4089,12 @@ Public Class Form1
     Private Function DoSetDefaultSims() As Boolean
 
         Print("->Set Default Sims")
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
-        ' edit must be done before other edits to Robust.HG.ini as this makes the actual
-        ' Robust.HG.ifile
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
 
         Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as
-            ' fallback it may have been deleted
+            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
             Dim WelcomeUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If WelcomeUUID.Length = 0 Then
@@ -4147,9 +4106,8 @@ Public Class Form1
 
             FileStuff.DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
-            ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
-            ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start
-            ' region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
+            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
+            ' enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim RegionSetting As String = Nothing
 
@@ -4562,8 +4520,7 @@ Public Class Form1
             Logger(Reason, GroupName & " Exited", "Restart")
             Print(GroupName & " " & Reason)
 
-            ' Need a region number and a Name. Name is either a region or a Group. For groups we
-            ' need to get a region name from the group
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
             Dim RegionUUID As String = ""
             Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
             If GroupList.Count > 0 Then
@@ -4604,8 +4561,7 @@ Public Class Form1
                 TimerValue >= 0 And
                 Not PropAborting Then
 
-                ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash
-                ' and restart the beast
+                ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
 
                 Logger("Crash", GroupName & " Crashed", "Restart")
                 If Settings.RestartOnCrash Then
@@ -4671,6 +4627,25 @@ Public Class Form1
             ApacheProcess.WaitForExit()
 
         End If
+
+    End Sub
+
+    Private Sub SetupOpensimRemoteAdmin()
+
+        If Not _RemoteAdminSet Then
+            Settings.SetIni("RemoteAdmin", "port", CStr(Settings.RemoteAdminPort))
+            If Settings.RemoteAdminPort > 0 And Settings.CMS = "Joomla" Then
+                Settings.SetIni("RemoteAdmin", "enabled", "true")
+            Else
+                Settings.SetIni("RemoteAdmin", "enabled", "false")
+                Settings.SetIni("RemoteAdmin", "port", "0")
+            End If
+        Else
+            Settings.SetIni("RemoteAdmin", "enabled", "false")
+            Settings.SetIni("RemoteAdmin", "port", "0")
+        End If
+
+        _RemoteAdminSet = True
 
     End Sub
 
@@ -4764,8 +4739,7 @@ Public Class Form1
 
         Me.Show()
 
-        ' Save a random machine ID - we don't want any data to be sent that's personal or
-        ' identifiable, but it needs to be unique
+        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
@@ -5545,14 +5519,39 @@ Public Class Form1
 
     Private Sub MakeMysql()
 
+        Dim fname As String = ""
         Dim m As String = Settings.CurrentDirectory & "\OutworldzFiles\Mysql\"
         If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
             Print(My.Resources.Create_DB)
-            Using zip As ZipFile = ZipFile.Read(m & "\Blank-Mysql-Data-folder.zip")
-                For Each ZipEntry In zip
-                    ZipEntry.Extract(m, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
-                Next
-            End Using
+            Try
+                Using zip As ZipArchive = ZipFile.Open(m & "\Blank-Mysql-Data-folder.zip", ZipArchiveMode.Read)
+                    Dim extractPath = Path.GetFullPath(Settings.CurrentDirectory) & "\OutworldzFiles\Mysql"
+                    If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
+                        extractPath += Path.DirectorySeparatorChar
+                    End If
+
+                    For Each ZipEntry In zip.Entries
+                        fname = ZipEntry.Name
+                        If fname.Length = 0 Then
+                            Continue For
+                        End If
+
+                        'Print("Extracting " & Path.GetFileName(ZipEntry.Name))
+                        Application.DoEvents()
+                        Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
+                        If System.IO.File.Exists(destinationPath) Then
+                            System.IO.File.Delete(destinationPath)
+                        End If
+                        Dim folder = System.IO.Path.GetDirectoryName(destinationPath)
+                        Directory.CreateDirectory(folder)
+                        ZipEntry.ExtractToFile(folder & "\" & ZipEntry.Name)
+                    Next
+                End Using
+            Catch ex As Exception
+                Print("Unable to extract file: " & fname & ":" & ex.Message)
+                Thread.Sleep(3000)
+            End Try
+
         End If
 
     End Sub
@@ -5770,9 +5769,8 @@ Public Class Form1
         Dim isPortOpen As String = ""
         Using client As New WebClient ' download client for web pages
 
-            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
-            ' anonymous random ID, both of the versions of Opensim and this program, and the
-            ' diagnostics test results See my privacy policy at https://outworldz.com/privacy.htm
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
+            ' results See my privacy policy at https://outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = PropDomain() & "/cgi/probetest.plx" & GetPostData()
@@ -6759,9 +6757,7 @@ Public Class Form1
 #Region "Timer"
 
     ''' <summary>
-    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
-    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed
-    ''' regions
+    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
