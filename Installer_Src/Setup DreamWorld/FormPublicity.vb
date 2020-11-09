@@ -60,7 +60,7 @@ Public Class FormPublicity
 
 #End Region
 
-#Region "Pubicity Checkbox"
+#Region "Publicity Checkbox"
 
     Private Sub GDPRCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles GDPRCheckBox.CheckedChanged
 

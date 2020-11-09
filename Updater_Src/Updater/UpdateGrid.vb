@@ -1,7 +1,8 @@
 ﻿Imports System.Net
 Imports System.IO
-Imports Ionic.Zip
+
 Imports System.Threading
+Imports System.IO.Compression
 
 ' Copyright 2019 Fred Beckhusen
 ' AGPL 3.0 Licensed
@@ -53,7 +54,7 @@ Public Class UpdateGrid
         If ret = DialogResult.OK Then
 
             If Not File.Exists(MyFolder & "\" & Filename) Then
-                MsgBox("File not found. Aborting." & vbCrLf & "Syntax: DreamGridSetup.exe  Dreamgrid-Vn.n.zip")
+                MsgBox("File not found. Aborting.")
                 End
             Else
 
@@ -73,20 +74,30 @@ Public Class UpdateGrid
                 End Try
                 Dim err As Integer = 0
                 Dim fname As String = ""
-                Dim ctr As Integer
+
+                Dim extractPath = Path.GetFullPath(MyFolder)
+                If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
+                    extractPath += Path.DirectorySeparatorChar
+                End If
+
                 Try
-                    Using zip As ZipFile = ZipFile.Read(MyFolder & "\" & Filename)
-                        For Each ZipEntry In zip
-                            ctr += 1
-                            fname = ZipEntry.FileName
-
-                            File.Delete(Path.GetFileName(ZipEntry.FileName) & ".PendingOverwrite")
-                            File.Delete(Path.GetFileName(ZipEntry.FileName) & ".tmp")
-
-                            If ZipEntry.FileName <> "Ionic.Zip.dll" And ZipEntry.FileName <> "DreamGridUpdater.exe" Then
-                                TextPrint("Extracting " + Path.GetFileName(ZipEntry.FileName))
+                    Using zip As ZipArchive = ZipFile.Open(MyFolder & "\" & Filename, ZipArchiveMode.Read)
+                        For Each ZipEntry In zip.Entries
+                            fname = ZipEntry.Name
+                            If fname.Length = 0 Then
+                                Continue For
+                            End If
+                            If ZipEntry.Name <> "DreamGridUpdater.exe" Then
+                                'If ZipEntry.Name <> "Ionic.Zip.dll" And ZipEntry.Name <> "DreamGridUpdater.exe" And ZipEntry.Name <> "DotNetZip.dll" Then
+                                TextPrint("Extracting " + Path.GetFileName(ZipEntry.Name))
                                 Application.DoEvents()
-                                ZipEntry.Extract(MyFolder, Ionic.Zip.ExtractExistingFileAction.OverwriteSilently)
+                                Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
+                                If File.Exists(destinationPath) Then
+                                    File.Delete(destinationPath)
+                                End If
+                                Dim folder = Path.GetDirectoryName(destinationPath)
+                                Directory.CreateDirectory(folder)
+                                ZipEntry.ExtractToFile(folder & "\" & ZipEntry.Name)
                             End If
                         Next
                     End Using
@@ -95,14 +106,8 @@ Public Class UpdateGrid
                     Thread.Sleep(3000)
                     err += 1
                 End Try
-                Application.DoEvents()
                 If Not err Then TextPrint("Completed!")
-                'If Not err Then
-                'Try
-                'My.Computer.FileSystem.RenameFile(MyFolder & "\Ionic.Zip.proto", "Ionic.Zip.dll")
-                'Catch ex As Exception
-                'End Try
-                'End If
+
                 Application.DoEvents()
                 Thread.Sleep(3000)
 

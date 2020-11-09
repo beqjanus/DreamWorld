@@ -1183,6 +1183,18 @@ Public Class FormRegion
             Form1.PropRegionClass.DisableGloebits(RegionUUID) = ""
         End If
 
+        If NoPublish.Checked Then
+            Form1.PropRegionClass.GDPR(RegionUUID) = "False"
+        Else
+            Form1.PropRegionClass.GDPR(RegionUUID) = ""
+        End If
+
+        If Publish.Checked Then
+            Form1.PropRegionClass.GDPR(RegionUUID) = "True"
+        Else
+            Form1.PropRegionClass.GDPR(RegionUUID) = ""
+        End If
+
         If SmartStartCheckBox.Checked Then
             Form1.PropRegionClass.SmartStart(RegionUUID) = "True"
         Else
@@ -1237,6 +1249,7 @@ Public Class FormRegion
                             "DisallowResidents = " & Form1.PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
                             "SkipAutoBackup = " & Form1.PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
                             "ScriptEngine = " & Form1.PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
+                            "Publicity = " & Form1.PropRegionClass.GDPR(RegionUUID) & vbCrLf &
                             "SmartStart = " & Form1.PropRegionClass.SmartStart(RegionUUID) & vbCrLf
 
         'Debug.Print(Region)

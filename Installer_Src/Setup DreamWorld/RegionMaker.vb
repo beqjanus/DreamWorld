@@ -304,7 +304,7 @@ Public Class RegionMaker
             ._MaxAgents = "100",
             ._MapType = "",
             ._MinTimerInterval = 0.2.ToString(Globalization.CultureInfo.InvariantCulture),
-            ._GodDefault = "True",
+            ._GodDefault = "",
             ._AllowGods = "",
             ._RegionGod = "",
             ._ManagerGod = "",
@@ -447,6 +447,7 @@ Public Class RegionMaker
                             Snapshot(RegionUUID) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
                             ScriptEngine(RegionUUID) = CStr(Settings.GetIni(fName, "ScriptEngine", "", "String"))
                             XMLRegionPort(RegionUUID) = CStr(Settings.GetIni(fName, "XMLRegionPort", "", "String"))
+                            GDPR(RegionUUID) = CStr(Settings.GetIni(fName, "Publicity", "", "String"))
 
                             Select Case CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
                                 Case "True"
@@ -639,6 +640,7 @@ Public Class RegionMaker
         & "Frametime =" & FrameTime(RegionUUID) & vbCrLf _
         & "ScriptEngine =" & ScriptEngine(RegionUUID) & vbCrLf _
         & "XmlRpcPort =" & XMLRegionPort(RegionUUID) & vbCrLf _
+        & "Publicity =" & GDPR(RegionUUID) & vbCrLf _
         & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf
 
         FileStuff.DeleteFile(fname)
@@ -705,7 +707,8 @@ Public Class RegionMaker
         Public _Birds As String = ""
         Public _DisableGloebits As String = ""
         Public _FrameTime As String = ""
-        Public _GodDefault As String = "True"
+        Public _GDPR As String = ""
+        Public _GodDefault As String = ""
         Public _ManagerGod As String = ""
         Public _MapType As String = ""
         Public _MaxAgents As String = ""
@@ -1137,6 +1140,19 @@ Public Class RegionMaker
             If RegionUUID Is Nothing Then Return
             If Bad(RegionUUID) Then Return
             RegionList(RegionUUID)._GodDefault = Value
+        End Set
+    End Property
+
+    Public Property GDPR(RegionUUID As String) As String
+        Get
+            If RegionUUID Is Nothing Then Return ""
+            If Bad(RegionUUID) Then Return ""
+            Return RegionList(RegionUUID)._GDPR
+        End Get
+        Set(ByVal Value As String)
+            If RegionUUID Is Nothing Then Return
+            If Bad(RegionUUID) Then Return
+            RegionList(RegionUUID)._GDPR = Value
         End Set
     End Property
 

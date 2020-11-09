@@ -82,6 +82,7 @@ Public Class Downloader
 
         Using DestinationStream As New IO.FileStream(whereToSave, IO.FileMode.Create)
             DestinationStream.Write(urlContents, 0, urlContents.Length)
+            Log("Saved " & urlContents.Length.ToString)
         End Using
         Log("Created " & whereToSave)
         DialogResult = DialogResult.OK
