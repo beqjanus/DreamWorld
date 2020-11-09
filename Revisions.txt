@@ -2,12 +2,17 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.75 Updater Tweak 
+Removed deprecated Ionic.zip.dll. Older versions of DreamGrid were forced to use this DLL at an even old rev due to collisions in updater and older Dreamgrids. Now its really, really dead. Replaced by System.Compression.DotNetZip.
+DreamGridUpdater case in URL (Dremgrid vs DreamGrid) caused download to be incredibly slow. An updateable redirect at Outworldz.com was supposed to send this URL to a Cloud Storage service. It did not always do so.
+Add CAA record to Outworldz and Hyperica DNS for security - prevents forgery of certificates.
+
+V3.74 Updater Updated
 Run “DreamGridUpdater.exe”. It will shut off Apache and MySQL, download the latest released and extract it, then click Start.exe for you.  
 Some region columns could end up with 0 width and so they disappeared. 
-Added more checks for correct data entry to regions such as Script timer and Frame timers.  Limits added: .05 < value > 1
+Added more checks for correct data entry to regions such as Script timer and Frame timers.  Limits added: .05 < value > 1.
 JOpensim’s RemoteAdminPort was 5050 in all regions which crashed the 2nd region onward.  It is now a variable set to 0, happens on only one region as originally intended, and the port is disabled by default.  Crash fix was also pushed back into 3.73.
 Simplified JOpensim Installer can choose between JOpensimSearch of your local grid or Hyperica Global Search.
-
 
 V3.73 is a small improvement in Joomla/Jopensim
 Tweaks to Joomla Install Button.
