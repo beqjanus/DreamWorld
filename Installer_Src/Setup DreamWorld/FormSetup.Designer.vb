@@ -1088,7 +1088,7 @@ Partial Class Form1
         Me.AvatarLabel.Name = "AvatarLabel"
         Me.AvatarLabel.Size = New System.Drawing.Size(18, 20)
         Me.AvatarLabel.TabIndex = 32
-        Me.AvatarLabel.Text = "0"
+        Me.AvatarLabel.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
         '
         'AviLabel
         '
@@ -1098,7 +1098,7 @@ Partial Class Form1
         Me.AviLabel.Name = "AviLabel"
         Me.AviLabel.Size = New System.Drawing.Size(63, 20)
         Me.AviLabel.TabIndex = 34
-        Me.AviLabel.Text = "Avatars"
+        Me.AviLabel.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
         '
         'PercentCPU
         '
@@ -1108,7 +1108,7 @@ Partial Class Form1
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(18, 20)
         Me.PercentCPU.TabIndex = 35
-        Me.PercentCPU.Text = "0"
+        Me.PercentCPU.Text = Global.Outworldz.My.Resources.Resources._0
         '
         'PercentRAM
         '
@@ -1118,7 +1118,7 @@ Partial Class Form1
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(18, 20)
         Me.PercentRAM.TabIndex = 37
-        Me.PercentRAM.Text = "0"
+        Me.PercentRAM.Text = Global.Outworldz.My.Resources.Resources._0
         '
         'BusyButton
         '
