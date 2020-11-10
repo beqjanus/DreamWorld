@@ -118,8 +118,9 @@ Public Class FormDNSName
             Settings.PublicIP = IP()
             Settings.DNSName = ""
         Else
+
             Settings.DNSName = DNSNameBox.Text
-            Form1.RegisterName(Settings.PublicIP, True)
+            Form1.RegisterName(DNSNameBox.Text, True)
 
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
@@ -133,11 +134,10 @@ Public Class FormDNSName
         End If
 
         If DNSAliasTextBox.Text.Length > 0 Then
-
             Form1.RegisterName(DNSAliasTextBox.Text, True)
             Settings.AltDnsName = DNSAliasTextBox.Text
-
         End If
+
 
         Settings.SaveSettings()
 
@@ -222,17 +222,17 @@ Public Class FormDNSName
 
         If DNSNameBox.Text.Length > 0 Then
 
-            DNSNameBox.Text = DNSNameBox.Text.Replace("http://", "")
-            DNSNameBox.Text = DNSNameBox.Text.Replace("https://", "")
 
             DNSNameBox.Text = Regex.Replace(DNSNameBox.Text, ":\d+", "") ' no :8002 on end.
 
             Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
             DNSNameBox.Text = rgx.Replace(DNSNameBox.Text, "")
+
 #Disable Warning CA1308 ' Normalize strings to uppercase
             DNSNameBox.Text = DNSNameBox.Text.ToLower(Globalization.CultureInfo.InvariantCulture)
+            DNSNameBox.Text = DNSNameBox.Text.Replace("http://", "")
+            DNSNameBox.Text = DNSNameBox.Text.Replace("https://", "")
 #Enable Warning CA1308 ' Normalize strings to uppercase
-
         End If
 
     End Sub
