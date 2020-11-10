@@ -802,9 +802,8 @@ Public Class Form1
             Next
             Return String.Empty
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
-            ErrorLog("Warn:Unable to resolve name:" & ex.Message)
+            ErrorLog("Warn:Unable to resolve name: " & ex.Message)
         End Try
         Return String.Empty
 
@@ -3429,8 +3428,10 @@ Public Class Form1
         Settings.SetIni("DataSnapshot", "index_sims", "True")
         If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
+            Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
         Else
             Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
+            Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://hyperica.com/Search/register.php")
         End If
 
     End Sub
