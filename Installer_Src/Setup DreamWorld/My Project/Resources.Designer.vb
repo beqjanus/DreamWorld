@@ -5798,7 +5798,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to There is one avatar.
+        '''  Looks up a localized string similar to There is one avatar in.
         '''</summary>
         Friend ReadOnly Property OneAvatar() As String
             Get

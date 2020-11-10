@@ -636,7 +636,6 @@ Public Class Form1
                 ' Read the chosen sim name
                 chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
             End Try
@@ -763,7 +762,6 @@ Public Class Form1
             Try
                 result.AddRange(Directory.GetFiles(dir, "*.dll"))
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
 
@@ -936,7 +934,6 @@ Public Class Form1
                     HandleValid = ShowWindow(handle, command)
                     If HandleValid Then Return True
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
                 ctr -= 1
@@ -1010,7 +1007,6 @@ Public Class Form1
             Try
                 pMySqlBackup.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
 
@@ -1232,7 +1228,6 @@ Public Class Form1
             ok = myProcess.Start
             Application.DoEvents()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
         End Try
@@ -2045,7 +2040,6 @@ Public Class Form1
                     once = True
                 End If
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 ErrorLog(My.Resources.Error_word & ":" & ex.Message)
             End Try
@@ -2167,7 +2161,6 @@ Public Class Form1
 
             Next
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Log("UPnP", "UPnP Exception caught:  " & ex.Message)
             Return False
@@ -2484,7 +2477,6 @@ Public Class Form1
         Try
             ApacheProcess.Start()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
         Application.DoEvents()
@@ -2529,7 +2521,6 @@ Public Class Form1
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Print(My.Resources.Apache_Failed & ":" & ex.Message)
             End Try
@@ -2591,7 +2582,6 @@ Public Class Form1
         Try
             IcecastProcess.Start()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Print(My.Resources.Icecast_failed & ":" & ex.Message)
             IceCastIs(False)
@@ -2649,7 +2639,6 @@ Public Class Form1
                                  & "mysqld.exe --defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """")
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -2669,7 +2658,6 @@ Public Class Form1
             ProcessMySql.Start()
             MysqlInterface.IsRunning = True
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -2687,7 +2675,6 @@ Public Class Form1
                     Try
                         files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                     End Try
 
@@ -2695,7 +2682,6 @@ Public Class Form1
                         Try
                             System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & FileName & """")
                         Catch ex As Exception
-
                             BreakPoint.Show(ex.Message)
                         End Try
                         Application.DoEvents()
@@ -2820,7 +2806,6 @@ Public Class Form1
             RobustProcess.Start()
             Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Print("Robust " & Global.Outworldz.My.Resources.did_not_start_word & ex.Message)
             KillAll()
@@ -2860,7 +2845,6 @@ Public Class Form1
                     Try
                         System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe " & Log)
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                     End Try
                 End If
@@ -2951,7 +2935,12 @@ Public Class Form1
             OpenPorts()
         End If
 
-        Print(My.Resources.Reading_Region_files)
+        If SetIniData() Then
+            MsgBox("Failed to setup")
+            Buttons(StartButton)
+            Print(My.Resources.Stopped_word)
+            Return
+        End If
 
         If Not StartMySQL() Then
             ToolBar(False)
@@ -3147,7 +3136,6 @@ Public Class Form1
                         path.Add("""" & FileName & """")
                     Next
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             End If
@@ -3164,7 +3152,6 @@ Public Class Form1
         Try
             System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", logs)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -3183,7 +3170,6 @@ Public Class Form1
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
 
@@ -3200,7 +3186,6 @@ Public Class Form1
         Try
             Print("Cannot get a Process ID from " & myProcess.ProcessName)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -3275,7 +3260,6 @@ Public Class Form1
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -3310,7 +3294,6 @@ Public Class Form1
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -3406,7 +3389,6 @@ Public Class Form1
             Try
                 PowerShell.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         End Using
@@ -3428,10 +3410,8 @@ Public Class Form1
         Settings.SetIni("DataSnapshot", "index_sims", "True")
         If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
-            Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
         Else
             Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-            Settings.SetIni("DataSnapshot", "DATA_SRV_MISearch", "http://hyperica.com/Search/register.php")
         End If
 
     End Sub
@@ -3441,7 +3421,7 @@ Public Class Form1
         If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+            Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
 
             If Settings.GloebitsEnable Then
                 Settings.SetIni("LoginService", "Currency", "G$")
@@ -3450,7 +3430,7 @@ Public Class Form1
             End If
         Else
             Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-            Settings.SetIni("LoginService", "DestinationGuide", "https://hyperica.com/destination-guide")
+            Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
 
             If Settings.GloebitsEnable Then
                 Settings.SetIni("LoginService", "Currency", "G$")
@@ -3467,7 +3447,6 @@ Public Class Form1
         Try
             System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & Settings.CurrentDirectory & "\OutworldzFiles\Outworldz.log" & """")
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -3492,7 +3471,6 @@ Public Class Form1
             Try
                 P.Kill()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()
@@ -3541,7 +3519,6 @@ Public Class Form1
             Try
                 System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & Apachelog & """")
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         End If
@@ -3637,7 +3614,6 @@ Public Class Form1
 
             Next
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
         End Try
@@ -3656,7 +3632,6 @@ Public Class Form1
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 If ex.Message.Contains("200 OK") Then Return True
                 Return False
@@ -3691,7 +3666,6 @@ Public Class Form1
             Try
                 Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Return False
             End Try
@@ -3718,7 +3692,6 @@ Public Class Form1
             PropRegionHandles.Clear()
             PropRegionClass.WebserverList.Clear()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -3736,7 +3709,6 @@ Public Class Form1
             "mysqld.exe --install Mysql --defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -3886,7 +3858,6 @@ Public Class Form1
                 outputFile.Write(Output)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
         End Try
@@ -3920,7 +3891,6 @@ Public Class Form1
                 Try
                     My.Computer.FileSystem.CopyDirectory(Settings.OpensimBinPath & "Library.proto", Settings.OpensimBinPath & "Library", True)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
                 If Settings.CMS = "JOpensim" Then
@@ -3933,7 +3903,6 @@ Public Class Form1
                 Try
                     My.Computer.FileSystem.CopyDirectory(Settings.OpensimBinPath & "Library.proto", Settings.OpensimBinPath & "Library", True)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
                 GridCommon = "Gridcommon-RegionServer.ini"
@@ -4157,7 +4126,6 @@ Public Class Form1
             'close your reader
             reader.Close()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             MsgBox(My.Resources.no_Default_sim, vbInformation, Global.Outworldz.My.Resources.Settings_word)
             Return True
@@ -4201,7 +4169,6 @@ Public Class Form1
             SuspendProcess.Start()
             SuspendProcess.WaitForExit()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Print(My.Resources.NTSuspend)
         Finally
@@ -4581,7 +4548,6 @@ Public Class Form1
                         Try
                             System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
                         Catch ex As Exception
-
                             BreakPoint.Show(ex.Message)
                         End Try
                     End If
@@ -6472,6 +6438,7 @@ Public Class Form1
             PropRegionForm.Show()
             PropRegionForm.Activate()
             PropRegionForm.Select()
+            PropRegionForm.BringToFront()
         Else
             PropRegionForm.Show()
             PropRegionForm.Activate()
@@ -6512,7 +6479,6 @@ Public Class Form1
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         Else
@@ -6556,7 +6522,6 @@ Public Class Form1
                 ApacheProcess.Start()
                 ApacheProcess.WaitForExit()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Print(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
             End Try
@@ -6611,7 +6576,6 @@ Public Class Form1
             p.Start()
             MysqlInterface.IsRunning = False    ' mark all as not running
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
         Application.DoEvents()
@@ -6631,7 +6595,6 @@ Public Class Form1
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -6672,7 +6635,6 @@ Public Class Form1
             Try
                 result = client.DownloadString(weblink)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Logger("Error", ex.Message, "Diagnostics")
             End Try
@@ -6747,7 +6709,6 @@ Public Class Form1
         Try
             pUpdate.Start()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             ErrorLog(My.Resources.ErrInstall)
         End Try
@@ -6910,7 +6871,6 @@ Public Class Form1
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             Else
@@ -6930,7 +6890,6 @@ Public Class Form1
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             Else
@@ -7058,7 +7017,6 @@ Public Class Form1
             Try
                 pMySqlDiag1.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             pMySqlDiag1.WaitForExit()
@@ -7088,7 +7046,6 @@ Public Class Form1
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -7177,7 +7134,6 @@ Public Class Form1
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -7195,7 +7151,6 @@ Public Class Form1
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         ElseIf Settings.SCEnable = False Then
