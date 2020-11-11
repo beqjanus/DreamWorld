@@ -843,12 +843,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RemoteAdminPort() As Integer
+    Public Property RemoteAdminPort() As String
         Get
-            Return CInt("0" & GetMySetting("RemoteAdminPort", "0"))
+            Return GetMySetting("RemoteAdminPort", "")
         End Get
         Set
-            SetMySetting("RemoteAdminPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RemoteAdminPort", Value)
         End Set
     End Property
 

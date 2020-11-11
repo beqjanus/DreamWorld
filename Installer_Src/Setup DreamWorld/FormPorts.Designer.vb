@@ -27,9 +27,7 @@ Partial Class FormPorts
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPorts))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.MaxX = New System.Windows.Forms.Label()
-        Me.MaxXLabel = New System.Windows.Forms.Label()
-        Me.FirstXMLRegionPort = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.OverrideNameLabel = New System.Windows.Forms.Label()
         Me.ExternalHostName = New System.Windows.Forms.TextBox()
         Me.MaxP = New System.Windows.Forms.Label()
         Me.Label26 = New System.Windows.Forms.Label()
@@ -46,6 +44,10 @@ Partial Class FormPorts
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FirstXMLRegionPort = New System.Windows.Forms.TextBox()
+        Me.MaxXLabel = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.RemoteAdmin = New System.Windows.Forms.TextBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.Upnp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -53,10 +55,12 @@ Partial Class FormPorts
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Controls.Add(Me.RemoteAdmin)
         Me.GroupBox2.Controls.Add(Me.MaxX)
         Me.GroupBox2.Controls.Add(Me.MaxXLabel)
         Me.GroupBox2.Controls.Add(Me.FirstXMLRegionPort)
-        Me.GroupBox2.Controls.Add(Me.Label1)
+        Me.GroupBox2.Controls.Add(Me.OverrideNameLabel)
         Me.GroupBox2.Controls.Add(Me.ExternalHostName)
         Me.GroupBox2.Controls.Add(Me.MaxP)
         Me.GroupBox2.Controls.Add(Me.Label26)
@@ -69,153 +73,152 @@ Partial Class FormPorts
         Me.GroupBox2.Controls.Add(Me.PrivatePort)
         Me.GroupBox2.Controls.Add(Me.DiagnosticPort)
         Me.GroupBox2.Controls.Add(Me.Label4)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 38)
+        Me.GroupBox2.Location = New System.Drawing.Point(15, 48)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(270, 286)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Size = New System.Drawing.Size(338, 400)
         Me.GroupBox2.TabIndex = 45
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Ports
+        Me.GroupBox2.Text = "Ports"
         '
         'MaxX
         '
         Me.MaxX.AutoSize = True
-        Me.MaxX.Location = New System.Drawing.Point(20, 200)
+        Me.MaxX.Location = New System.Drawing.Point(39, 249)
+        Me.MaxX.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.MaxX.Name = "MaxX"
-        Me.MaxX.Size = New System.Drawing.Size(105, 13)
+        Me.MaxX.Size = New System.Drawing.Size(95, 17)
         Me.MaxX.TabIndex = 1867
-        Me.MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word
+        Me.MaxX.Text = "Highest used:"
         '
-        'MaxXLabel
+        'OverrideNameLabel
         '
-        Me.MaxXLabel.AutoSize = True
-        Me.MaxXLabel.Location = New System.Drawing.Point(19, 177)
-        Me.MaxXLabel.Name = "MaxXLabel"
-        Me.MaxXLabel.Size = New System.Drawing.Size(108, 13)
-        Me.MaxXLabel.TabIndex = 1866
-        Me.MaxXLabel.Text = Global.Outworldz.My.Resources.XMLRP_start '"XMLRPC Port Start #"
-        '
-        'FirstXMLRegionPort
-        '
-        Me.FirstXMLRegionPort.Location = New System.Drawing.Point(166, 172)
-        Me.FirstXMLRegionPort.Name = "FirstXMLRegionPort"
-        Me.FirstXMLRegionPort.Size = New System.Drawing.Size(47, 20)
-        Me.FirstXMLRegionPort.TabIndex = 1865
-        Me.ToolTip1.SetToolTip(Me.FirstXMLRegionPort, "20800")
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(21, 225)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(192, 13)
-        Me.Label1.TabIndex = 1864
-        Me.Label1.Text = Global.Outworldz.My.Resources.External
-        Me.ToolTip1.SetToolTip(Me.Label1, Global.Outworldz.My.Resources.External_text)
+        Me.OverrideNameLabel.AutoSize = True
+        Me.OverrideNameLabel.Location = New System.Drawing.Point(25, 323)
+        Me.OverrideNameLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.OverrideNameLabel.Name = "OverrideNameLabel"
+        Me.OverrideNameLabel.Size = New System.Drawing.Size(256, 17)
+        Me.OverrideNameLabel.TabIndex = 1864
+        Me.OverrideNameLabel.Text = "External HostName For Region Servers"
+        Me.ToolTip1.SetToolTip(Me.OverrideNameLabel, Global.Outworldz.My.Resources.Resources.External_text)
         '
         'ExternalHostName
         '
-        Me.ExternalHostName.Location = New System.Drawing.Point(22, 250)
+        Me.ExternalHostName.Location = New System.Drawing.Point(27, 354)
+        Me.ExternalHostName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ExternalHostName.Name = "ExternalHostName"
-        Me.ExternalHostName.Size = New System.Drawing.Size(218, 20)
+        Me.ExternalHostName.Size = New System.Drawing.Size(272, 22)
         Me.ExternalHostName.TabIndex = 1863
-        Me.ToolTip1.SetToolTip(Me.ExternalHostName, Global.Outworldz.My.Resources.External_text)
+        Me.ToolTip1.SetToolTip(Me.ExternalHostName, Global.Outworldz.My.Resources.Resources.External_text)
         '
         'MaxP
         '
         Me.MaxP.AutoSize = True
-        Me.MaxP.Location = New System.Drawing.Point(19, 153)
+        Me.MaxP.Location = New System.Drawing.Point(39, 191)
+        Me.MaxP.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.MaxP.Name = "MaxP"
-        Me.MaxP.Size = New System.Drawing.Size(99, 13)
+        Me.MaxP.Size = New System.Drawing.Size(95, 17)
         Me.MaxP.TabIndex = 1862
-        Me.MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word
+        Me.MaxP.Text = "Highest used:"
         '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(18, 130)
+        Me.Label26.Location = New System.Drawing.Point(22, 162)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(98, 13)
+        Me.Label26.Size = New System.Drawing.Size(129, 17)
         Me.Label26.TabIndex = 1861
-        Me.Label26.Text = Global.Outworldz.My.Resources.Region_Port_Start
+        Me.Label26.Text = "Region Port Start #"
         '
         'FirstRegionPort
         '
-        Me.FirstRegionPort.Location = New System.Drawing.Point(165, 125)
+        Me.FirstRegionPort.Location = New System.Drawing.Point(206, 156)
+        Me.FirstRegionPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.FirstRegionPort.Name = "FirstRegionPort"
-        Me.FirstRegionPort.Size = New System.Drawing.Size(47, 20)
+        Me.FirstRegionPort.Size = New System.Drawing.Size(58, 22)
         Me.FirstRegionPort.TabIndex = 25
-        Me.ToolTip1.SetToolTip(Me.FirstRegionPort, Global.Outworldz.My.Resources.Default_8004_word)
+        Me.ToolTip1.SetToolTip(Me.FirstRegionPort, Global.Outworldz.My.Resources.Resources.Default_8004_word)
         '
         'Upnp
         '
-        Me.Upnp.Image = Global.Outworldz.My.Resources.about
-        Me.Upnp.Location = New System.Drawing.Point(182, 18)
+        Me.Upnp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.Upnp.Location = New System.Drawing.Point(228, 22)
+        Me.Upnp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Upnp.Name = "Upnp"
-        Me.Upnp.Size = New System.Drawing.Size(30, 29)
+        Me.Upnp.Size = New System.Drawing.Size(38, 36)
         Me.Upnp.TabIndex = 1859
         Me.Upnp.TabStop = False
         '
         'uPnPEnabled
         '
         Me.uPnPEnabled.AutoSize = True
-        Me.uPnPEnabled.Location = New System.Drawing.Point(22, 23)
+        Me.uPnPEnabled.Location = New System.Drawing.Point(28, 29)
+        Me.uPnPEnabled.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.uPnPEnabled.Name = "uPnPEnabled"
-        Me.uPnPEnabled.Size = New System.Drawing.Size(96, 17)
+        Me.uPnPEnabled.Size = New System.Drawing.Size(122, 21)
         Me.uPnPEnabled.TabIndex = 21
-        Me.uPnPEnabled.Text = Global.Outworldz.My.Resources.UPnP_Enabled_word
-        Me.ToolTip1.SetToolTip(Me.uPnPEnabled, Global.Outworldz.My.Resources.UPnP_Enabled_text)
+        Me.uPnPEnabled.Text = Global.Outworldz.My.Resources.Resources.UPnP_Enabled_word
+        Me.ToolTip1.SetToolTip(Me.uPnPEnabled, Global.Outworldz.My.Resources.Resources.UPnP_Enabled_text)
         Me.uPnPEnabled.UseVisualStyleBackColor = True
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(18, 103)
+        Me.Label7.Location = New System.Drawing.Point(22, 129)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(62, 13)
+        Me.Label7.Size = New System.Drawing.Size(82, 17)
         Me.Label7.TabIndex = 38
-        Me.Label7.Text = Global.Outworldz.My.Resources.Private_Port_Word
+        Me.Label7.Text = "Private Port"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(19, 51)
+        Me.Label5.Location = New System.Drawing.Point(24, 64)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(83, 13)
+        Me.Label5.Size = New System.Drawing.Size(110, 17)
         Me.Label5.TabIndex = 33
-        Me.Label5.Text = Global.Outworldz.My.Resources.Diag_Port_word
+        Me.Label5.Text = "Diagnostics port"
         '
         'HTTPPort
         '
-        Me.HTTPPort.Location = New System.Drawing.Point(165, 73)
+        Me.HTTPPort.Location = New System.Drawing.Point(206, 91)
+        Me.HTTPPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.HTTPPort.Name = "HTTPPort"
-        Me.HTTPPort.Size = New System.Drawing.Size(47, 20)
+        Me.HTTPPort.Size = New System.Drawing.Size(58, 22)
         Me.HTTPPort.TabIndex = 23
-        Me.ToolTip1.SetToolTip(Me.HTTPPort, Global.Outworldz.My.Resources.Default_8002_word)
+        Me.ToolTip1.SetToolTip(Me.HTTPPort, Global.Outworldz.My.Resources.Resources.Default_8002_word)
         '
         'PrivatePort
         '
-        Me.PrivatePort.Location = New System.Drawing.Point(165, 99)
+        Me.PrivatePort.Location = New System.Drawing.Point(206, 124)
+        Me.PrivatePort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PrivatePort.Name = "PrivatePort"
-        Me.PrivatePort.Size = New System.Drawing.Size(47, 20)
+        Me.PrivatePort.Size = New System.Drawing.Size(58, 22)
         Me.PrivatePort.TabIndex = 24
-        Me.ToolTip1.SetToolTip(Me.PrivatePort, Global.Outworldz.My.Resources.Default_8003_word)
+        Me.ToolTip1.SetToolTip(Me.PrivatePort, Global.Outworldz.My.Resources.Resources.Default_8003_word)
         '
         'DiagnosticPort
         '
-        Me.DiagnosticPort.Location = New System.Drawing.Point(165, 47)
+        Me.DiagnosticPort.Location = New System.Drawing.Point(206, 59)
+        Me.DiagnosticPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DiagnosticPort.Name = "DiagnosticPort"
-        Me.DiagnosticPort.Size = New System.Drawing.Size(47, 20)
+        Me.DiagnosticPort.Size = New System.Drawing.Size(58, 22)
         Me.DiagnosticPort.TabIndex = 22
-        Me.ToolTip1.SetToolTip(Me.DiagnosticPort, Global.Outworldz.My.Resources.Default_8001_word)
+        Me.ToolTip1.SetToolTip(Me.DiagnosticPort, Global.Outworldz.My.Resources.Resources.Default_8001_word)
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(18, 76)
+        Me.Label4.Location = New System.Drawing.Point(22, 95)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(49, 13)
+        Me.Label4.Size = New System.Drawing.Size(64, 17)
         Me.Label4.TabIndex = 32
-        Me.Label4.Text = Global.Outworldz.My.Resources.Http_Port_word
+        Me.Label4.Text = "Http Port"
         '
         'MenuStrip2
         '
@@ -223,36 +226,75 @@ Partial Class FormPorts
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(309, 26)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(5, 1, 0, 1)
+        Me.MenuStrip2.Size = New System.Drawing.Size(386, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(75, 24)
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(124, 26)
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        '
+        'FirstXMLRegionPort
+        '
+        Me.FirstXMLRegionPort.Location = New System.Drawing.Point(208, 215)
+        Me.FirstXMLRegionPort.Margin = New System.Windows.Forms.Padding(4)
+        Me.FirstXMLRegionPort.Name = "FirstXMLRegionPort"
+        Me.FirstXMLRegionPort.Size = New System.Drawing.Size(58, 22)
+        Me.FirstXMLRegionPort.TabIndex = 1865
+        Me.ToolTip1.SetToolTip(Me.FirstXMLRegionPort, "20800")
+        '
+        'MaxXLabel
+        '
+        Me.MaxXLabel.AutoSize = True
+        Me.MaxXLabel.Location = New System.Drawing.Point(24, 221)
+        Me.MaxXLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.MaxXLabel.Name = "MaxXLabel"
+        Me.MaxXLabel.Size = New System.Drawing.Size(140, 17)
+        Me.MaxXLabel.TabIndex = 1866
+        Me.MaxXLabel.Text = "XMLRPC Port Start #"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(25, 282)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(140, 17)
+        Me.Label2.TabIndex = 1869
+        Me.Label2.Text = "XMLRPC Port Start #"
+        '
+        'RemoteAdmin
+        '
+        Me.RemoteAdmin.Location = New System.Drawing.Point(209, 276)
+        Me.RemoteAdmin.Margin = New System.Windows.Forms.Padding(4)
+        Me.RemoteAdmin.Name = "RemoteAdmin"
+        Me.RemoteAdmin.Size = New System.Drawing.Size(58, 22)
+        Me.RemoteAdmin.TabIndex = 1868
+        Me.ToolTip1.SetToolTip(Me.RemoteAdmin, "20800")
         '
         'FormPorts
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(309, 338)
+        Me.ClientSize = New System.Drawing.Size(386, 476)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormPorts"
-        Me.Text = Global.Outworldz.My.Resources.Region_Ports_word
+        Me.Text = "Region Ports"
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.Upnp, System.ComponentModel.ISupportInitialize).EndInit()
@@ -275,13 +317,15 @@ Partial Class FormPorts
     Friend WithEvents PrivatePort As TextBox
     Friend WithEvents DiagnosticPort As TextBox
     Friend WithEvents Label4 As Label
-    Friend WithEvents Label1 As Label
+    Friend WithEvents OverrideNameLabel As Label
     Friend WithEvents ExternalHostName As TextBox
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MaxX As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents RemoteAdmin As TextBox
     Friend WithEvents MaxXLabel As Label
     Friend WithEvents FirstXMLRegionPort As TextBox
 End Class

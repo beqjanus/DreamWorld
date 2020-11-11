@@ -119,14 +119,12 @@ Public Class Form1
 
 #Region "Globals"
 
-    Private _RemoteAdminSet As Boolean
     Private speed As Double
     Private speed1 As Double
     Private speed2 As Double
     Private speed3 As Double
     Private Update_version As String
     Private ws As NetServer
-    ' if true, one region has remoteadmin port on.
 
 #End Region
 
@@ -2111,7 +2109,7 @@ Public Class Form1
             Application.DoEvents()
 
             ' RemoteAdminPort
-            If Settings.RemoteAdminPort > 1024 Then
+            If Settings.RemoteAdminPort.Length > 0 Then
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.RemoteAdminPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.RemoteAdminPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
                 End If
@@ -2748,7 +2746,6 @@ Public Class Form1
         If Not StartRobust() Then Return False
 
         ' Boot them up
-        _RemoteAdminSet = False
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
@@ -4614,22 +4611,15 @@ Public Class Form1
 
     End Sub
 
-    Private Sub SetupOpensimRemoteAdmin()
+    Private Shared Sub SetupOpensimRemoteAdmin()
 
-        If Not _RemoteAdminSet Then
-            Settings.SetIni("RemoteAdmin", "port", CStr(Settings.RemoteAdminPort))
-            If Settings.RemoteAdminPort > 0 And Settings.CMS = "Joomla" Then
-                Settings.SetIni("RemoteAdmin", "enabled", "true")
-            Else
-                Settings.SetIni("RemoteAdmin", "enabled", "false")
-                Settings.SetIni("RemoteAdmin", "port", "0")
-            End If
+        If Settings.RemoteAdminPort.Length > 0 Then
+            Settings.SetIni("RemoteAdmin", "enabled", "true")
+            Settings.SetIni("RemoteAdmin", "port", Settings.RemoteAdminPort)
         Else
             Settings.SetIni("RemoteAdmin", "enabled", "false")
             Settings.SetIni("RemoteAdmin", "port", "0")
         End If
-
-        _RemoteAdminSet = True
 
     End Sub
 

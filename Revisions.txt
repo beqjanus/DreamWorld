@@ -2,6 +2,12 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.76
+Add remote Admin port and XMLRPC ports to firewall and UPNP
+PHP7 curl works
+Patch around an issue with Hyperica.com's SSL interfering with Opensims inability to fetch from a https source
+
+
 V3.75 Updater Tweak 
 Removed deprecated Ionic.zip.dll. Older versions of DreamGrid were forced to use this DLL at an even old rev due to collisions in updater and older Dreamgrids. Now its really, really dead. Replaced by System.Compression.DotNetZip.
 DreamGridUpdater case in URL (Dremgrid vs DreamGrid) caused download to be incredibly slow. An updateable redirect at Outworldz.com was supposed to send this URL to a Cloud Storage service. It did not always do so.

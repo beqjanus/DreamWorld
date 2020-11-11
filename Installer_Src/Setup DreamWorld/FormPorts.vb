@@ -90,17 +90,27 @@ Public Class FormPorts
         PrivatePort.Text = CStr(Settings.PrivatePort)
         HTTPPort.Text = CStr(Settings.HttpPort)
 
+        ' only used for region servers
         ExternalHostName.Text = Settings.OverrideName
+        If Settings.ServerType = "Robust" Then
+            ExternalHostName.Visible = False
+            OverrideNameLabel.Visible = False
+        Else
+            ExternalHostName.Visible = True
+            OverrideNameLabel.Visible = True
+        End If
 
         If Settings.ServerType <> "Robust" Then
-            Label1.Visible = True
+            OverrideNameLabel.Visible = True
             ExternalHostName.Visible = True
         Else
-            Label1.Visible = False
+            OverrideNameLabel.Visible = False
             ExternalHostName.Visible = False
-            Label1.Visible = True
+            OverrideNameLabel.Visible = True
             ExternalHostName.Text = ""
         End If
+
+        RemoteAdmin.Text = Settings.RemoteAdminPort()
 
         HelpOnce("Ports")
         initted = True
@@ -209,6 +219,15 @@ Public Class FormPorts
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
 
         HelpManual("Ports")
+
+    End Sub
+
+    Private Sub RemoteAdmin_TextChanged(sender As Object, e As EventArgs) Handles RemoteAdmin.TextChanged
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        RemoteAdmin.Text = digitsOnly.Replace(RemoteAdmin.Text, "")
+        Settings.RemoteAdminPort() = RemoteAdmin.Text
+        Settings.SaveSettings()
 
     End Sub
 
