@@ -3049,6 +3049,6 @@
     <value>Remote Admin Port is set</value>
   </data>
   <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
-    <value>XMLRPC Region Port is set </value>
+    <value>XMLRPC Region Port</value>
   </data>
 </root>

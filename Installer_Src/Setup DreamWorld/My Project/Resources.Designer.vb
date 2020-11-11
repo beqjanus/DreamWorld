@@ -8886,7 +8886,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to XMLRPC Region Port is set .
+        '''  Looks up a localized string similar to XMLRPC Region Port.
         '''</summary>
         Friend ReadOnly Property XMLRPC_TCP_is_set_word() As String
             Get

@@ -2162,7 +2162,7 @@ Public Class Form1
                         PropMyUPnpMap.Remove(Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
                     End If
                     If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
-                        Print(My.Resources.XMLRPC_TCP_is_set_word & ":" & X.ToString(Globalization.CultureInfo.InvariantCulture))
+                        Print(PropRegionClass.RegionName(RegionUUID) & " " & My.Resources.XMLRPC_TCP_is_set_word & ":" & X.ToString(Globalization.CultureInfo.InvariantCulture))
                     End If
                     Application.DoEvents()
                 End If

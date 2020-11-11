@@ -5,32 +5,37 @@ Public Module Firewall
     Function AddFirewallRules() As String
 
         ' TCP only for 8001 (DiagnosticPort) and both for 8002
-        Dim Command As String = "netsh advfirewall firewall  add rule name=""Opensim TCP Port " & Settings.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.DiagnosticPort) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Opensim HTTP TCP Port " & Settings.HttpPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.HttpPort) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Opensim HTTP UDP Port " & Settings.HttpPort & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.HttpPort) & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall add rule name=""Diagnostics TCP Port " & Settings.DiagnosticPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.DiagnosticPort) & vbCrLf _
+                          & "netsh advfirewall firewall add rule name=""Opensim HTTP TCP Port " & Settings.HttpPort & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.HttpPort) & vbCrLf _
+                          & "netsh advfirewall firewall add rule name=""Opensim HTTP UDP Port " & Settings.HttpPort & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.HttpPort) & vbCrLf
 
         If Settings.ApacheEnable Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.ApachePort) & vbCrLf
+            Command = Command & "netsh advfirewall firewall add rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.ApachePort) & vbCrLf
         End If
 
         ' Icecast needs both ports for both protocols
         If Settings.SCEnable Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase1) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase1) & vbCrLf
+            Command = Command & "netsh advfirewall firewall add rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
+                          & "netsh advfirewall firewall add rule name=""Icecast Port1 TCP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
+                          & "netsh advfirewall firewall add rule name=""Icecast Port2 UDP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase1) & vbCrLf _
+                          & "netsh advfirewall firewall add rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase1) & vbCrLf
         End If
-
-        If Settings.FirstXMLRegionPort.Length > 0 Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""XMLRegionPort " & CStr(Settings.FirstXMLRegionPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.FirstXMLRegionPort) & vbCrLf
-        End If
-
-        Dim start = CInt("0" & Settings.FirstRegionPort)
 
         ' regions need both
-        For port As Integer = start To Form1.PropMaxPortUsed
-            Command = Command & "netsh advfirewall firewall  add rule name=""Region TCP Port " & CStr(port) & """ dir=in action=allow protocol=TCP localport=" & CStr(port) & vbCrLf _
-                          & "netsh advfirewall firewall  add rule name=""Region UDP Port " & CStr(port) & """ dir=in action=allow protocol=UDP localport=" & CStr(port) & vbCrLf
+
+        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+
+            Dim X As Integer = CInt("0" & Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+            If X > 0 Then
+                Command = Command & "netsh advfirewall firewall add rule name=""XMLRegionPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
+            End If
+
+            Dim R As Integer = CInt("0" & Form1.PropRegionClass.RegionPort(RegionUUID))
+            If R > 0 Then
+                Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Port " & CStr(R) & """ dir=in action=allow protocol=TCP localport=" & CStr(R) & vbCrLf _
+                          & "netsh advfirewall firewall add rule name=""Region UDP Port " & CStr(R) & """ dir=in action=allow protocol=UDP localport=" & CStr(R) & vbCrLf
+            End If
+
         Next
 
         Return Command
@@ -46,30 +51,34 @@ Public Module Firewall
 
     Function DeleteFirewallRules() As String
 
-        Dim Command As String = "netsh advfirewall firewall  delete rule name=""Opensim TCP Port " & CStr(Settings.DiagnosticPort) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Opensim HTTP TCP Port " & CStr(Settings.HttpPort) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Opensim HTTP UDP Port " & CStr(Settings.HttpPort) & """" & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall delete rule name=""Diagnostics TCP Port " & CStr(Settings.DiagnosticPort) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Opensim HTTP TCP Port " & CStr(Settings.HttpPort) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Opensim HTTP UDP Port " & CStr(Settings.HttpPort) & """" & vbCrLf
 
         If Settings.SCEnable Then
-            Command += "netsh advfirewall firewall  delete rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port1 TCP " & CStr(Settings.SCPortBase) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 UDP " & CStr(Settings.SCPortBase1) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """" & vbCrLf
+            Command += "netsh advfirewall firewall delete rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Icecast Port1 TCP " & CStr(Settings.SCPortBase) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Icecast Port2 UDP " & CStr(Settings.SCPortBase1) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """" & vbCrLf
 
         End If
 
         If Settings.ApacheEnable Then
-            Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
+            Command = Command & "netsh advfirewall firewall delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
-        If Settings.FirstXMLRegionPort.Length > 0 Then
-            Command = Command & "netsh advfirewall firewall  delete rule name=""XMLRegionPort " & CStr(Settings.FirstXMLRegionPort) & """" & vbCrLf
-        End If
+        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
 
-        Dim start = CInt("0" & Settings.FirstRegionPort)
-        For Port As Integer = start To Form1.PropMaxPortUsed
-            Command = Command & "netsh advfirewall firewall  delete rule name=""Region TCP Port " & CStr(Port) & """" & vbCrLf _
-                          & "netsh advfirewall firewall  delete rule name=""Region UDP Port " & CStr(Port) & """" & vbCrLf
+            Dim X As Integer = CInt("0" & Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+            If X > 0 Then
+                Command = Command & "netsh advfirewall firewall delete rule name=""XMLRegionPort " & CStr(X) & """" & vbCrLf
+            End If
+
+            Dim R As Integer = CInt("0" & Form1.PropRegionClass.RegionPort(RegionUUID))
+            If R > 0 Then
+                Command = Command & "netsh advfirewall firewall delete rule name=""Region TCP Port " & CStr(R) & """" & vbCrLf _
+                              & "netsh advfirewall firewall delete rule name=""Region UDP Port " & CStr(R) & """" & vbCrLf
+            End If
         Next
 
         Return Command
