@@ -4573,27 +4573,13 @@ Public Class Form1
 
     Private Sub SetPath()
 
-        Dim value = Environment.GetEnvironmentVariable("Path")
-        Dim PHP = Settings.CurrentDirectory & "\OutworldzFiles\PHP7"
-        If value.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(PHP.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-            Return
-        Else
-            value += ";" & PHP
-            'setx Path "MyEnvironment" /M
-            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            ApacheProcess.StartInfo.FileName = "setx"
-            ApacheProcess.StartInfo.CreateNoWindow = True
-            ApacheProcess.StartInfo.Arguments = "Path " & """" & value & """" & " /M"
-            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-            Try
-                ApacheProcess.Start()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
+        Dim DLLList As New List(Of String) From {"libeay32.dll", "libssh2.dll", "ssleay32.dll"}
 
-        End If
+        For Each item In DLLList
+            If Not IO.File.Exists("C:/Windows/System32/" & item) Then
+                My.Computer.FileSystem.CopyFile(Settings.CurrentDirectory & "\OutworldzFiles\PHP7\curl\" & item, "C:\Windows\System32\" & item)
+            End If
+        Next
 
     End Sub
 

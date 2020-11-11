@@ -1,4 +1,5 @@
-﻿;; ROBUST VERSION
+﻿;; Opensim.Proto ROBUST VERSION
+;; Opensim.Proto ROBUST VERSION
 ;; This is the main configuration file for OpenSimulator.
 ;; If it's named OpenSim.ini then it will be loaded by OpenSimulator.
 ;; If it's named OpenSim.ini.example then you will need to copy it to
@@ -44,7 +45,7 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=8005
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
@@ -71,7 +72,7 @@ PrivatePort=8003
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=DreamGrid
+GridName=Gandalf
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
@@ -524,10 +525,10 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=Gmail for notification
+SMTP_SERVER_LOGIN=
 
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
-SMTP_SERVER_PASSWORD=Gmail password
+SMTP_SERVER_PASSWORD=
 
 [Network]
 'must be started with parameter "-console=rest". Furthermore, the configuration options
@@ -888,6 +889,10 @@ enable_windlight=true
 ;; and you can ignore the rest of these search-related configs.
 index_sims=True
 
+;; how many items have to be stale before an update is run
+;;Waits default_snapshot_period seconds normally. But if there are max_changes_before_update stale prims, then its run right
+max_changes_before_update=1
+
 ;# {data_exposure} {index_sims:true} {How much data should be exposed?} {minimum all} minimum
 ;; The variable data_exposure controls what the regions expose:
 ;;    minimum: exposes only things explicitly marked for search
@@ -911,7 +916,7 @@ default_snapshot_period=300
 snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 
 ;; [Supported, but obsolete]
-;# {data_services} {index_sims:true} {Data service URLs to register with?} {} http://metaverseink.com/cgi-bin/register.py
+;# {data_services} {index_sims:true} {Data service URLs to register with?} {} http://hyperica.com/Search/register.php
 ; This semicolon-separated string serves to notify specific data services
 ; about the existence of this sim. Uncomment if you want to index your
 ; data with this and/or other search providers.
@@ -919,7 +924,6 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ; data_services=http://192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
 ; data_services=https://hyperica.com/Search/register.php
 data_services=http://hyperica.com/Search/register.php
-DATA_SRV_MISearch=http://hyperica.com/Search/register.php
 
 [Search]
 SearchURL=http://hyperica.com/Search/query.php
