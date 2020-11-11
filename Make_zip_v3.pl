@@ -36,6 +36,7 @@ foreach my $lang (@languages)
 }
 
 
+
 say("Clean up opensim");
 my @deletions = (
 	"$dir/OutworldzFiles/AutoBackup",	
@@ -123,6 +124,10 @@ sub process_file {
 	
 	print OUT $fullpath . "\n";	
 }
+
+# these are needed in this file even if deleted on disk as there is a .bak file.
+print OUT "$dir/OutworldzFiles/opensim.bin/JOpensimProfile.Modules.dll";
+print OUT "$dir/OutworldzFiles/opensim.bin/JOpensimSearch.Modules.dll";
 
 close OUT;
 
