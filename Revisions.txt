@@ -4,7 +4,7 @@ This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases
 
 V3.76
 Add remote Admin port and XMLRPC ports to firewall and UPNP
-PHP7 curl works
+PHP7 curl works now for Jopensim to use
 Patch around an issue with Hyperica.com's SSL interfering with Opensims inability to fetch from a https source
 
 
