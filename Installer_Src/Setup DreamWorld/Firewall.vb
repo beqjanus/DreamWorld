@@ -14,7 +14,7 @@ Public Module Firewall
         End If
 
         If Settings.RemoteAdminPort > 0 Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""RemoteAdmin Joomla Port " & CStr(Settings.RemoteAdminPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.RemoteAdminPort) & vbCrLf
+            Command = Command & "netsh advfirewall firewall  add rule name=""RemoteAdmin Port " & CStr(Settings.RemoteAdminPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.RemoteAdminPort) & vbCrLf
         End If
 
         ' Icecast needs both ports for both protocols
@@ -23,6 +23,10 @@ Public Module Firewall
                           & "netsh advfirewall firewall  add rule name=""Icecast Port1 TCP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 UDP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase1) & vbCrLf _
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase1) & vbCrLf
+        End If
+
+        If Settings.FirstXMLRegionPort > 1024 Then
+            Command = Command & "netsh advfirewall firewall  add rule name=""XMLRegionPort " & CStr(Settings.FirstXMLRegionPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.FirstXMLRegionPort) & vbCrLf
         End If
 
         Dim start = CInt("0" & Settings.FirstRegionPort)
@@ -62,8 +66,12 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
+        If Settings.FirstXMLRegionPort > 1024 Then
+            Command = Command & "netsh advfirewall firewall  delete rule name=""XMLRegionPort " & CStr(Settings.FirstXMLRegionPort) & """" & vbCrLf
+        End If
+
         If Settings.RemoteAdminPort > 0 Then
-            Command = Command & "netsh advfirewall firewall  delete rule name=""RemoteAdmin Joomla Port " & CStr(Settings.RemoteAdminPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.RemoteAdminPort) & vbCrLf
+            Command = Command & "netsh advfirewall firewall  delete rule name=""RemoteAdmin Port " & CStr(Settings.RemoteAdminPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.RemoteAdminPort) & vbCrLf
         End If
 
         Dim start = CInt("0" & Settings.FirstRegionPort)

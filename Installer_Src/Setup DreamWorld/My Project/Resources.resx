@@ -3042,4 +3042,10 @@
   <data name="Z" xml:space="preserve">
     <value>Z</value>
   </data>
+  <data name="Diag_TCP_is_set_word" xml:space="preserve">
+    <value>Diagnostics TCP Port is set</value>
+  </data>
+  <data name="Grid_Remote_is_set_word" xml:space="preserve">
+    <value>Remote Admin Port is set</value>
+  </data>
 </root>

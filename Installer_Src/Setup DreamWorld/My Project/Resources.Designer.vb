@@ -2256,6 +2256,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Diagnostics TCP Port is set.
+        '''</summary>
+        Friend ReadOnly Property Diag_TCP_is_set_word() As String
+            Get
+                Return ResourceManager.GetString("Diag_TCP_is_set_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Diagnostics failed. Do you want to see the log?.
         '''</summary>
         Friend ReadOnly Property Diags_Failed() As String
@@ -3573,6 +3582,15 @@ Namespace My.Resources
         Friend ReadOnly Property Grid_address_word() As String
             Get
                 Return ResourceManager.GetString("Grid_address_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Remote Admin Port is set.
+        '''</summary>
+        Friend ReadOnly Property Grid_Remote_is_set_word() As String
+            Get
+                Return ResourceManager.GetString("Grid_Remote_is_set_word", resourceCulture)
             End Get
         End Property
         

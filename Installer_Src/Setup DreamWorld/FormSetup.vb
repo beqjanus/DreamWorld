@@ -2110,6 +2110,28 @@ Public Class Form1
             End If ' IceCast
             Application.DoEvents()
 
+            ' RemoteAdminPort
+            If Settings.RemoteAdminPort > 1024 Then
+                If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.RemoteAdminPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
+                    PropMyUPnpMap.Remove(Convert.ToInt16(Settings.RemoteAdminPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
+                End If
+                If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.RemoteAdminPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
+                    Print(My.Resources.Grid_Remote_is_set_word & ":" & Settings.RemoteAdminPort.ToString(Globalization.CultureInfo.InvariantCulture))
+                End If
+                Application.DoEvents()
+            End If
+
+            ' XMLRPC
+            If Settings.FirstXMLRegionPort > 1024 Then
+                If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.FirstXMLRegionPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
+                    PropMyUPnpMap.Remove(Convert.ToInt16(Settings.FirstXMLRegionPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
+                End If
+                If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.FirstXMLRegionPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
+                    Print(My.Resources.Grid_TCP_is_set_word & ":" & Settings.FirstXMLRegionPort.ToString(Globalization.CultureInfo.InvariantCulture))
+                End If
+                Application.DoEvents()
+            End If
+
             If Settings.ApacheEnable Then
                 If PropMyUPnpMap.Exists(Settings.ApachePort, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Settings.ApachePort, UPnp.MyProtocol.TCP)
@@ -2117,6 +2139,15 @@ Public Class Form1
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Settings.ApachePort, UPnp.MyProtocol.TCP, "Apache TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)) Then
                     Print(My.Resources.Apache_is_Set & ":TCP:" & Settings.ApachePort.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
+            End If
+            Application.DoEvents()
+
+            ' 8001 for Diagnostics
+            If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.DiagnosticPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
+                PropMyUPnpMap.Remove(Convert.ToInt16(Settings.DiagnosticPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
+            End If
+            If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.DiagnosticPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
+                Print(My.Resources.Diag_TCP_is_set_word & ":" & Settings.DiagnosticPort.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
             Application.DoEvents()
 
@@ -4571,7 +4602,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub SetPath()
+    Private Shared Sub SetPath()
 
         Dim DLLList As New List(Of String) From {"libeay32.dll", "libssh2.dll", "ssleay32.dll"}
 
