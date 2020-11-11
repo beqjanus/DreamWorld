@@ -46,7 +46,7 @@ Public Class ScreenPos
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        MyINI1 = Settings.CurrentDirectory + "\OutworldzFiles\XYSettings.ini"
+        MyINI1 = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini")
 
         If File.Exists(MyINI1) Then
             LoadXYIni()

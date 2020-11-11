@@ -252,8 +252,8 @@ Public Class FormBanList
 
             Dim filename As String = ""
 
-            If System.IO.File.Exists(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt") Then
-                filename = Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt"
+            If System.IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "/Outworldzfiles/BanList.txt")) Then
+                filename = IO.Path.Combine(Settings.CurrentDirectory, "/Outworldzfiles/BanList.txt")
                 Saveneeded = True
             ElseIf Settings.BanList.Length > 0 Then
 
@@ -274,7 +274,7 @@ Public Class FormBanList
                     End If
                 Next
             Else
-                filename = Settings.CurrentDirectory & "/Outworldzfiles/Opensim/BanListProto.txt"
+                filename = IO.Path.Combine(Settings.CurrentDirectory, "/Outworldzfiles/Opensim/BanListProto.txt")
             End If
 
             If filename.Length > 0 Then
@@ -297,8 +297,8 @@ Public Class FormBanList
             End If
 
             ' kill the old file, we store in Settings.ini now.
-            If System.IO.File.Exists(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt") Then
-                My.Computer.FileSystem.DeleteFile(Settings.CurrentDirectory & "/Outworldzfiles/BanList.txt")
+            If System.IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "/Outworldzfiles/BanList.txt")) Then
+                My.Computer.FileSystem.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "/Outworldzfiles/BanList.txt"))
             End If
 
             DataGridView1.DataSource = table

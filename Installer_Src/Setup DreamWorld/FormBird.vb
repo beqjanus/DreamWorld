@@ -135,7 +135,7 @@ Public Class BirdForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim thing As String = Settings.CurrentDirectory + "/Outworldzfiles/IAR/OpenSimBirds.iar"
+        Dim thing As String = IO.Path.Combine(Settings.CurrentDirectory, "/Outworldzfiles/IAR/OpenSimBirds.iar")
         Form1.LoadIARContent(thing)
 
     End Sub

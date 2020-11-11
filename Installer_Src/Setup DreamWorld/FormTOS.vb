@@ -60,14 +60,13 @@ Public Class TosForm
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         Try
-            Using outputFile As New StreamWriter(Settings.CurrentDirectory + "\tos.html")
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory & "\tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
-            Using outputFile As New StreamWriter(Settings.CurrentDirectory + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -81,7 +80,6 @@ Public Class TosForm
             Dim webAddress As String = "http://" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & "/wifi/termsofservice.html"
             Try
                 Process.Start(webAddress)
-
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -113,9 +111,8 @@ Public Class TosForm
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        'Load file Settings.CurrentDirectory + "TOS.txt"
         Dim reader As System.IO.StreamReader
-        reader = System.IO.File.OpenText(Settings.CurrentDirectory + "\tos.html")
+        reader = System.IO.File.OpenText(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
         'now loop through each line
         Dim HTML As String = ""
         While reader.Peek <> -1
@@ -136,15 +133,13 @@ Public Class TosForm
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         Try
-            Using outputFile As New StreamWriter(Settings.CurrentDirectory + "\tos.html")
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
-            Using outputFile As New StreamWriter(Settings.CurrentDirectory + "\Outworldzfiles\opensim\bin\WifiPages\tos.html")
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
-
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)

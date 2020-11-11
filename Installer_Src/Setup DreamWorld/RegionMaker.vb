@@ -112,7 +112,7 @@ Public Class RegionMaker
         Form1.Print(My.Resources.Updating_Ports_word)
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
-        Dim XMLPortnumber As Integer = Settings.FirstXMLRegionPort()
+        Dim XMLPortnumber As Integer = CInt("0" & Settings.FirstXMLRegionPort())
         For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
             Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
             Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
@@ -1808,7 +1808,7 @@ Public Class RegionMaker
             Return True
         End If
 
-        If Settings.FirstXMLRegionPort > 0 Then
+        If Settings.FirstXMLRegionPort.Length > 0 Then
             Settings.SetIni("XMLRPC", "XmlRpcPort", Form1.PropRegionClass.XMLRegionPort(RegionUUID))
         Else
             Settings.SetIni("XMLRPC", "XmlRpcPort", "")
@@ -2019,7 +2019,7 @@ Public Class RegionMaker
 
         ' Extended in v 2.1
 
-        If Settings.FirstXMLRegionPort > 0 Then
+        If Settings.FirstXMLRegionPort.Length > 0 Then
             Settings.SetIni(RegionName, "XmlRpcPort", Form1.PropRegionClass.XMLRegionPort(RegionUUID))
         Else
             Settings.SetIni(RegionName, "XmlRpcPort", "")

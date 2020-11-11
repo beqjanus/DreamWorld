@@ -604,7 +604,6 @@ Public Class RegionList
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                             item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
                         Catch ex As Exception
-
                             BreakPoint.Show(ex.Message)
                             item1.SubItems.Add("0".ToUpperInvariant)
                         End Try

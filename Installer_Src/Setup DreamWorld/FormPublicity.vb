@@ -99,7 +99,7 @@ Public Class FormPublicity
         GDPRCheckBox.Checked = Settings.GDPR()
 
         Try
-            PictureBox9.Image = Bitmap.FromFile(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png")
+            PictureBox9.Image = Bitmap.FromFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"))
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto
@@ -165,9 +165,9 @@ Public Class FormPublicity
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
 
-                    FileStuff.DeleteFile(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png")
+                    FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"))
                     Dim newBitmap = New Bitmap(PictureBox9.Image)
-                    newBitmap.Save(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png", Imaging.ImageFormat.Png)
+                    newBitmap.Save(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), Imaging.ImageFormat.Png)
                     newBitmap.Dispose()
                 Catch ex As Exception
 

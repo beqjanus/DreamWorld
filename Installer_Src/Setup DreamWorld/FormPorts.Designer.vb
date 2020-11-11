@@ -27,6 +27,8 @@ Partial Class FormPorts
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPorts))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.MaxX = New System.Windows.Forms.Label()
+        Me.MaxXLabel = New System.Windows.Forms.Label()
+        Me.FirstXMLRegionPort = New System.Windows.Forms.TextBox()
         Me.OverrideNameLabel = New System.Windows.Forms.Label()
         Me.ExternalHostName = New System.Windows.Forms.TextBox()
         Me.MaxP = New System.Windows.Forms.Label()
@@ -44,10 +46,6 @@ Partial Class FormPorts
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.FirstXMLRegionPort = New System.Windows.Forms.TextBox()
-        Me.MaxXLabel = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.RemoteAdmin = New System.Windows.Forms.TextBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.Upnp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -55,8 +53,6 @@ Partial Class FormPorts
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Controls.Add(Me.RemoteAdmin)
         Me.GroupBox2.Controls.Add(Me.MaxX)
         Me.GroupBox2.Controls.Add(Me.MaxXLabel)
         Me.GroupBox2.Controls.Add(Me.FirstXMLRegionPort)
@@ -74,9 +70,9 @@ Partial Class FormPorts
         Me.GroupBox2.Controls.Add(Me.DiagnosticPort)
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Location = New System.Drawing.Point(15, 48)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Size = New System.Drawing.Size(338, 400)
         Me.GroupBox2.TabIndex = 45
         Me.GroupBox2.TabStop = False
@@ -92,6 +88,24 @@ Partial Class FormPorts
         Me.MaxX.TabIndex = 1867
         Me.MaxX.Text = "Highest used:"
         '
+        'MaxXLabel
+        '
+        Me.MaxXLabel.AutoSize = True
+        Me.MaxXLabel.Location = New System.Drawing.Point(24, 221)
+        Me.MaxXLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.MaxXLabel.Name = "MaxXLabel"
+        Me.MaxXLabel.Size = New System.Drawing.Size(140, 17)
+        Me.MaxXLabel.TabIndex = 1866
+        Me.MaxXLabel.Text = "XMLRPC Port Start #"
+        '
+        'FirstXMLRegionPort
+        '
+        Me.FirstXMLRegionPort.Location = New System.Drawing.Point(208, 215)
+        Me.FirstXMLRegionPort.Margin = New System.Windows.Forms.Padding(4)
+        Me.FirstXMLRegionPort.Name = "FirstXMLRegionPort"
+        Me.FirstXMLRegionPort.Size = New System.Drawing.Size(58, 22)
+        Me.FirstXMLRegionPort.TabIndex = 1865
+        '
         'OverrideNameLabel
         '
         Me.OverrideNameLabel.AutoSize = True
@@ -106,7 +120,7 @@ Partial Class FormPorts
         'ExternalHostName
         '
         Me.ExternalHostName.Location = New System.Drawing.Point(27, 354)
-        Me.ExternalHostName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ExternalHostName.Margin = New System.Windows.Forms.Padding(4)
         Me.ExternalHostName.Name = "ExternalHostName"
         Me.ExternalHostName.Size = New System.Drawing.Size(272, 22)
         Me.ExternalHostName.TabIndex = 1863
@@ -135,7 +149,7 @@ Partial Class FormPorts
         'FirstRegionPort
         '
         Me.FirstRegionPort.Location = New System.Drawing.Point(206, 156)
-        Me.FirstRegionPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.FirstRegionPort.Margin = New System.Windows.Forms.Padding(4)
         Me.FirstRegionPort.Name = "FirstRegionPort"
         Me.FirstRegionPort.Size = New System.Drawing.Size(58, 22)
         Me.FirstRegionPort.TabIndex = 25
@@ -145,7 +159,7 @@ Partial Class FormPorts
         '
         Me.Upnp.Image = Global.Outworldz.My.Resources.Resources.about
         Me.Upnp.Location = New System.Drawing.Point(228, 22)
-        Me.Upnp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Upnp.Margin = New System.Windows.Forms.Padding(4)
         Me.Upnp.Name = "Upnp"
         Me.Upnp.Size = New System.Drawing.Size(38, 36)
         Me.Upnp.TabIndex = 1859
@@ -155,7 +169,7 @@ Partial Class FormPorts
         '
         Me.uPnPEnabled.AutoSize = True
         Me.uPnPEnabled.Location = New System.Drawing.Point(28, 29)
-        Me.uPnPEnabled.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.uPnPEnabled.Margin = New System.Windows.Forms.Padding(4)
         Me.uPnPEnabled.Name = "uPnPEnabled"
         Me.uPnPEnabled.Size = New System.Drawing.Size(122, 21)
         Me.uPnPEnabled.TabIndex = 21
@@ -179,14 +193,14 @@ Partial Class FormPorts
         Me.Label5.Location = New System.Drawing.Point(24, 64)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(110, 17)
+        Me.Label5.Size = New System.Drawing.Size(111, 17)
         Me.Label5.TabIndex = 33
-        Me.Label5.Text = "Diagnostics port"
+        Me.Label5.Text = "Diagnostics Port"
         '
         'HTTPPort
         '
         Me.HTTPPort.Location = New System.Drawing.Point(206, 91)
-        Me.HTTPPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.HTTPPort.Margin = New System.Windows.Forms.Padding(4)
         Me.HTTPPort.Name = "HTTPPort"
         Me.HTTPPort.Size = New System.Drawing.Size(58, 22)
         Me.HTTPPort.TabIndex = 23
@@ -195,7 +209,7 @@ Partial Class FormPorts
         'PrivatePort
         '
         Me.PrivatePort.Location = New System.Drawing.Point(206, 124)
-        Me.PrivatePort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PrivatePort.Margin = New System.Windows.Forms.Padding(4)
         Me.PrivatePort.Name = "PrivatePort"
         Me.PrivatePort.Size = New System.Drawing.Size(58, 22)
         Me.PrivatePort.TabIndex = 24
@@ -204,7 +218,7 @@ Partial Class FormPorts
         'DiagnosticPort
         '
         Me.DiagnosticPort.Location = New System.Drawing.Point(206, 59)
-        Me.DiagnosticPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DiagnosticPort.Margin = New System.Windows.Forms.Padding(4)
         Me.DiagnosticPort.Name = "DiagnosticPort"
         Me.DiagnosticPort.Size = New System.Drawing.Size(58, 22)
         Me.DiagnosticPort.TabIndex = 22
@@ -246,44 +260,6 @@ Partial Class FormPorts
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(124, 26)
         Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'FirstXMLRegionPort
-        '
-        Me.FirstXMLRegionPort.Location = New System.Drawing.Point(208, 215)
-        Me.FirstXMLRegionPort.Margin = New System.Windows.Forms.Padding(4)
-        Me.FirstXMLRegionPort.Name = "FirstXMLRegionPort"
-        Me.FirstXMLRegionPort.Size = New System.Drawing.Size(58, 22)
-        Me.FirstXMLRegionPort.TabIndex = 1865
-        Me.ToolTip1.SetToolTip(Me.FirstXMLRegionPort, "20800")
-        '
-        'MaxXLabel
-        '
-        Me.MaxXLabel.AutoSize = True
-        Me.MaxXLabel.Location = New System.Drawing.Point(24, 221)
-        Me.MaxXLabel.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.MaxXLabel.Name = "MaxXLabel"
-        Me.MaxXLabel.Size = New System.Drawing.Size(140, 17)
-        Me.MaxXLabel.TabIndex = 1866
-        Me.MaxXLabel.Text = "XMLRPC Port Start #"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(25, 282)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(140, 17)
-        Me.Label2.TabIndex = 1869
-        Me.Label2.Text = "XMLRPC Port Start #"
-        '
-        'RemoteAdmin
-        '
-        Me.RemoteAdmin.Location = New System.Drawing.Point(209, 276)
-        Me.RemoteAdmin.Margin = New System.Windows.Forms.Padding(4)
-        Me.RemoteAdmin.Name = "RemoteAdmin"
-        Me.RemoteAdmin.Size = New System.Drawing.Size(58, 22)
-        Me.RemoteAdmin.TabIndex = 1868
-        Me.ToolTip1.SetToolTip(Me.RemoteAdmin, "20800")
-        '
         'FormPorts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -292,7 +268,7 @@ Partial Class FormPorts
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormPorts"
         Me.Text = "Region Ports"
         Me.GroupBox2.ResumeLayout(False)
@@ -324,8 +300,6 @@ Partial Class FormPorts
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MaxX As Label
-    Friend WithEvents Label2 As Label
-    Friend WithEvents RemoteAdmin As TextBox
     Friend WithEvents MaxXLabel As Label
     Friend WithEvents FirstXMLRegionPort As TextBox
 End Class

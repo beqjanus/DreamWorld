@@ -3018,9 +3018,6 @@
   <data name="JOpensimSearch_word" xml:space="preserve">
     <value>JOpensim Search</value>
   </data>
-  <data name="RemoteAdminPort_word" xml:space="preserve">
-    <value>Remote Admin Port</value>
-  </data>
   <data name="EnableDiva" xml:space="preserve">
     <value>Enable Diva Web Page</value>
   </data>
@@ -3042,10 +3039,16 @@
   <data name="Z" xml:space="preserve">
     <value>Z</value>
   </data>
+  <data name="Diagnostics_port_word" xml:space="preserve">
+    <value>Diagnostics Port</value>
+  </data>
   <data name="Diag_TCP_is_set_word" xml:space="preserve">
     <value>Diagnostics TCP Port is set</value>
   </data>
   <data name="Grid_Remote_is_set_word" xml:space="preserve">
     <value>Remote Admin Port is set</value>
+  </data>
+  <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
+    <value>XMLRPC Region Port is set </value>
   </data>
 </root>

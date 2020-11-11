@@ -843,15 +843,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RemoteAdminPort() As String
-        Get
-            Return GetMySetting("RemoteAdminPort", "")
-        End Get
-        Set
-            SetMySetting("RemoteAdminPort", Value)
-        End Set
-    End Property
-
     Public Property CycleTime() As Integer
         Get
             Return CInt("0" & GetMySetting("CycleTime", "900"))
@@ -947,12 +938,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property FirstXMLRegionPort() As Integer
+    Public Property FirstXMLRegionPort() As String
         Get
-            Return CInt("0" & GetMySetting("XMLRegionStartPort", "0"))
+            Return GetMySetting("XMLRegionStartPort", "")
         End Get
         Set
-            SetMySetting("XMLRegionStartPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("XMLRegionStartPort", Value)
         End Set
     End Property
 

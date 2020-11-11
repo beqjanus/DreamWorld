@@ -95,9 +95,9 @@ Public Class FormBackupCheckboxes
         Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Dest As String
         If Settings.BackupFolder = "AutoBackup" Then
-            Dest = Settings.CurrentDirectory + "\OutworldzFiles\AutoBackup\" + Foldername
+            Dest = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\AutoBackup\" & Foldername)
         Else
-            Dest = Settings.BackupFolder + "\" + Foldername
+            Dest = IO.Path.Combine(Settings.BackupFolder, Foldername)
         End If
 
         If RegionCheckBox.Checked Then
@@ -107,19 +107,19 @@ Public Class FormBackupCheckboxes
             Catch ex As Exception
             End Try
 
-            FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\Regions", Dest + "\Opensim_bin_Regions")
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), IO.Path.Combine(Dest, "Opensim_bin_Regions"))
             Application.DoEvents()
         End If
 
         If MySqlCheckBox.Checked Then
             Try
                 My.Computer.FileSystem.CreateDirectory(Dest)
-                My.Computer.FileSystem.CreateDirectory(Dest + "\Mysql_Data")
+                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Dest, "Mysql_Data"))
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
             End Try
-            FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Mysql\Data\", Dest + "\Mysql_Data")
+            FileStuff.CopyFolder(IO.Path.Combine(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data\")), IO.Path.Combine(Dest, "Mysql_Data"))
             Application.DoEvents()
         End If
 
@@ -137,7 +137,7 @@ Public Class FormBackupCheckboxes
             Else
                 folder = Settings.BaseDirectory
             End If
-            FileStuff.CopyFolder(folder, Dest + "\FSAssets")
+            FileStuff.CopyFolder(folder, IO.Path.Combine(Dest, "FSAssets"))
             Application.DoEvents()
         End If
 
@@ -149,13 +149,13 @@ Public Class FormBackupCheckboxes
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
-            FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\WifiPages\", Dest + "\Opensim_WifiPages-Custom")
-            FileStuff.CopyFolder(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\WifiPages\", Dest + "\Opensim_bin_WifiPages-Custom")
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages\"), IO.Path.Combine(Dest, "Opensim_WifiPages-Custom"))
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\"), IO.Path.Combine(Dest, "Opensim_bin_WifiPages-Custom"))
             Application.DoEvents()
         End If
 
         If SettingsBox.Checked Then
-            FileStuff.CopyFile(Settings.CurrentDirectory + "\OutworldzFiles\Settings.ini", Dest + "\Settings.ini", True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(Dest, "Settings.ini"), True)
         End If
         DialogResult = DialogResult.OK
 

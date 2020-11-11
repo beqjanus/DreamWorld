@@ -41,15 +41,15 @@ Public Class FormJoomla
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ButtonBase.set_Text(System.String)")>
     Private Sub InstallJOpensim()
 
-        Dim m As String = Settings.CurrentDirectory & "\OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip"
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip")
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
             InstallButton.Image = Nothing
             Form1.StartApache()
 
             Dim JoomlaProcess As New Process()
-            JoomlaProcess.StartInfo.FileName = Settings.CurrentDirectory & "\OutworldzFiles\MySQL\bin\Create_Joomla.bat"
-            JoomlaProcess.StartInfo.WorkingDirectory = Settings.CurrentDirectory & "\OutworldzFiles\MySQL\bin\"
+            JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
+            JoomlaProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
             JoomlaProcess.StartInfo.CreateNoWindow = True
             Try
                 JoomlaProcess.Start()
@@ -60,7 +60,7 @@ Public Class FormJoomla
             JoomlaProcess.WaitForExit()
 
             Dim ctr As Integer = 0
-            Dim extractPath = Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\JOpensim"
+            Dim extractPath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\JOpensim")
             Dim fname As String = ""
 
             Try
@@ -75,9 +75,9 @@ Public Class FormJoomla
 
                         Application.DoEvents()
                         Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
-                        If System.IO.File.Exists(destinationPath) Then
-                            System.IO.File.Delete(destinationPath)
-                        End If
+
+                        FileStuff.DeleteFile(destinationPath)
+
                         Dim folder = System.IO.Path.GetDirectoryName(destinationPath)
                         Directory.CreateDirectory(folder)
                         InstallButton.Text = Global.Outworldz.My.Resources.Install_word & " " & CStr(ctr) & " of " & CStr(zip.Entries.Count)
@@ -142,7 +142,7 @@ Public Class FormJoomla
 
     Private Sub SetDefaults()
 
-        Dim folders() = IO.Directory.GetFiles(Settings.CurrentDirectory & "\Outworldzfiles\Apache\htdocs\JOpensim")
+        Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
         Dim count = folders.Length
         InstallButton.Enabled = False
 

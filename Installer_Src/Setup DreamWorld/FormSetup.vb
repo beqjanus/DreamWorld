@@ -655,16 +655,16 @@ Public Class Form1
 
     Public Shared Sub CopyWifi(Page As String)
 
-        If System.IO.Directory.Exists(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\WifiPages") Then
-            System.IO.Directory.Delete(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\WifiPages", True)
+        If System.IO.Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages")) Then
+            System.IO.Directory.Delete(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"), True)
         End If
-        If System.IO.Directory.Exists(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\bin\WifiPages") Then
-            System.IO.Directory.Delete(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\bin\WifiPages", True)
+        If System.IO.Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages")) Then
+            System.IO.Directory.Delete(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"), True)
         End If
 
         Try
-            My.Computer.FileSystem.CopyDirectory(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\WifiPages-" & Page, Settings.CurrentDirectory & "\Outworldzfiles\Opensim\WifiPages", True)
-            My.Computer.FileSystem.CopyDirectory(Settings.CurrentDirectory & "\Outworldzfiles\Opensim\bin\WifiPages-" & Page, Settings.CurrentDirectory & "\Outworldzfiles\Opensim\bin\WifiPages", True)
+            My.Computer.FileSystem.CopyDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Page), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"), True)
+            My.Computer.FileSystem.CopyDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-" & Page), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"), True)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -856,7 +856,7 @@ Public Class Form1
 
     Public Shared Sub Logger(category As String, message As String, file As String)
         Try
-            Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\" & file & ".log", True)
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\" & file & ".log"), True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
                 Diagnostics.Debug.Print(message)
             End Using
@@ -998,8 +998,8 @@ Public Class Form1
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",
             .WindowStyle = ProcessWindowStyle.Normal,
-            .WorkingDirectory = Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin\",
-            .FileName = Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin\BackupMysql.bat"
+            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
+            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\BackupMysql.bat")
             }
             pMySqlBackup.StartInfo = pi
             Try
@@ -1318,7 +1318,7 @@ Public Class Form1
 
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                 .WindowStyle = ProcessWindowStyle.Normal,
-                .FileName = Settings.CurrentDirectory & "\DreamGridUpdater.exe"
+                .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
             }
 
             UpdateProcess.StartInfo = pi
@@ -1416,12 +1416,9 @@ Public Class Form1
     Public Sub DelLibrary()
 
         Print("->Set Library")
-        If IO.File.Exists(Settings.OpensimBinPath & "Library\Clothing Library (small).iar") Then
-            System.IO.File.Delete(Settings.OpensimBinPath & "Library\Clothing Library (small).iar")
-        End If
-        If IO.File.Exists(Settings.OpensimBinPath & "Library\Objects Library (small).iar") Then
-            System.IO.File.Delete(Settings.OpensimBinPath & "Library\Objects Library (small).iar")
-        End If
+
+        FileStuff.DeleteFile(Settings.OpensimBinPath & "Library\Clothing Library (small).iar")
+        FileStuff.DeleteFile(Settings.OpensimBinPath & "Library\Objects Library (small).iar")
 
     End Sub
 
@@ -1431,9 +1428,7 @@ Public Class Form1
         Print("->Set Birds")
         Dim BirdFile = Settings.OpensimBinPath & "addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
 
-        If IO.File.Exists(BirdFile) Then
-            System.IO.File.Delete(BirdFile)
-        End If
+        FileStuff.DeleteFile(BirdFile)
 
         Dim BirdData As String = ""
 
@@ -1537,7 +1532,7 @@ Public Class Form1
                               "</logging>" & vbCrLf +
                           "</icecast>" & vbCrLf
 
-        Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\Outworldzfiles\Icecast\icecast_run.xml", False)
+        Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\icecast_run.xml"), False)
             outputFile.WriteLine(icecast)
         End Using
 
@@ -1552,20 +1547,14 @@ Public Class Form1
 
         Select Case Settings.ServerType
             Case "Robust"
-
                 SetupOpensimSearchINI()
-                SetupOpensimRemoteAdmin()
-
+                Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
                 Settings.SetIni("Const", "GridName", Settings.SimName)
-
             Case "Region"
-
                 SetupOpensimSearchINI()
-
             Case "OSGrid"
             Case "Metro"
-
         End Select
 
         Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
@@ -2108,28 +2097,6 @@ Public Class Form1
             End If ' IceCast
             Application.DoEvents()
 
-            ' RemoteAdminPort
-            If Settings.RemoteAdminPort.Length > 0 Then
-                If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.RemoteAdminPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
-                    PropMyUPnpMap.Remove(Convert.ToInt16(Settings.RemoteAdminPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
-                End If
-                If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.RemoteAdminPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
-                    Print(My.Resources.Grid_Remote_is_set_word & ":" & Settings.RemoteAdminPort.ToString(Globalization.CultureInfo.InvariantCulture))
-                End If
-                Application.DoEvents()
-            End If
-
-            ' XMLRPC
-            If Settings.FirstXMLRegionPort > 1024 Then
-                If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.FirstXMLRegionPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
-                    PropMyUPnpMap.Remove(Convert.ToInt16(Settings.FirstXMLRegionPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
-                End If
-                If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(Settings.FirstXMLRegionPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
-                    Print(My.Resources.Grid_TCP_is_set_word & ":" & Settings.FirstXMLRegionPort.ToString(Globalization.CultureInfo.InvariantCulture))
-                End If
-                Application.DoEvents()
-            End If
-
             If Settings.ApacheEnable Then
                 If PropMyUPnpMap.Exists(Settings.ApachePort, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(Settings.ApachePort, UPnp.MyProtocol.TCP)
@@ -2186,6 +2153,18 @@ Public Class Form1
                 Application.DoEvents()
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(RegionUUID) & " ") Then
                     Print(PropRegionClass.RegionName(RegionUUID) & ":TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
+                End If
+
+                ' XMLRPC
+                Dim X As Integer = CInt("0" & PropRegionClass.XMLRegionPort(RegionUUID))
+                If X > 0 Then
+                    If PropMyUPnpMap.Exists(Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
+                        PropMyUPnpMap.Remove(Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
+                    End If
+                    If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
+                        Print(My.Resources.XMLRPC_TCP_is_set_word & ":" & X.ToString(Globalization.CultureInfo.InvariantCulture))
+                    End If
+                    Application.DoEvents()
                 End If
 
             Next
@@ -2441,7 +2420,7 @@ Public Class Form1
         SiteMapContents += "</url>" & vbCrLf
         SiteMapContents += "</urlset>" & vbCrLf
 
-        Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\Sitemap.xml", False)
+        Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Sitemap.xml"), False)
             outputFile.WriteLine(SiteMapContents)
         End Using
 
@@ -2517,10 +2496,10 @@ Public Class Form1
                 .EnableRaisingEvents = False
             }
             ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            ApacheProcess.StartInfo.FileName = Settings.CurrentDirectory & "\Outworldzfiles\Apache\bin\httpd.exe"
+            ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\httpd.exe")
             ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
             ApacheProcess.StartInfo.CreateNoWindow = True
-            ApacheProcess.StartInfo.WorkingDirectory = Settings.CurrentDirectory & "\Outworldzfiles\Apache\bin\"
+            ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\")
             ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
 
             DoApache()
@@ -2588,16 +2567,16 @@ Public Class Form1
 
         DoIceCast()
 
-        FileStuff.DeleteFile(Settings.CurrentDirectory & "\Outworldzfiles\Icecast\log\access.log")
-        FileStuff.DeleteFile(Settings.CurrentDirectory & "\Outworldzfiles\Icecast\log\error.log")
+        FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
+        FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log"))
 
         PropIcecastProcID = 0
         Print(My.Resources.Icecast_starting)
         IcecastProcess.EnableRaisingEvents = True
         IcecastProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        IcecastProcess.StartInfo.FileName = Settings.CurrentDirectory & "\Outworldzfiles\icecast\icecast.bat"
+        IcecastProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast\icecast.bat")
         IcecastProcess.StartInfo.CreateNoWindow = False
-        IcecastProcess.StartInfo.WorkingDirectory = Settings.CurrentDirectory & "\Outworldzfiles\icecast"
+        IcecastProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast")
 
         Select Case Settings.ConsoleShow
             Case "True"
@@ -2651,7 +2630,7 @@ Public Class Form1
         Print(My.Resources.Mysql_Starting)
 
         ' SAVE INI file
-        If Settings.LoadIni(Settings.CurrentDirectory & "\OutworldzFiles\mysql\my.ini", "#") Then Return True
+        If Settings.LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#") Then Return True
         Settings.SetIni("mysqld", "basedir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
         Settings.SetIni("mysqld", "datadir", """" & PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
         Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
@@ -2659,13 +2638,13 @@ Public Class Form1
         Settings.SaveINI(System.Text.Encoding.ASCII)
 
         ' create test program slants the other way:
-        Dim testProgram As String = Settings.CurrentDirectory & "\OutworldzFiles\Mysql\bin\StartManually.bat"
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StartManually.bat")
         FileStuff.DeleteFile(testProgram)
 
         Try
             Using outputFile As New StreamWriter(testProgram, True)
                 outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
-                                 & "mysqld.exe --defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """")
+                             & "mysqld.exe --defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """")
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -2679,7 +2658,7 @@ Public Class Form1
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "--defaults-file=" & """" & PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """",
             .WindowStyle = ProcessWindowStyle.Hidden,
-            .FileName = """" & Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin\mysqld.exe" & """"
+            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqld.exe") & """"
         }
         ProcessMySql.StartInfo = pi
         ProcessMySql.EnableRaisingEvents = True
@@ -2695,7 +2674,7 @@ Public Class Form1
         Dim ctr As Integer = 0
         While Not MysqlOk
 
-            Dim MysqlLog As String = Settings.CurrentDirectory & "\OutworldzFiles\mysql\data"
+            Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
             If ctr = 60 Then ' about 60 seconds when it fails
 
                 Dim yesno = MsgBox(My.Resources.Mysql_Failed, vbYesNo, Global.Outworldz.My.Resources.Error_word)
@@ -2709,7 +2688,7 @@ Public Class Form1
 
                     For Each FileName As String In files
                         Try
-                            System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & FileName & """")
+                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
@@ -2871,7 +2850,7 @@ Public Class Form1
                 If (yesno = vbYes) Then
                     Dim Log As String = """" & Settings.OpensimBinPath & "Robust.log" & """"
                     Try
-                        System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe " & Log)
+                        System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe " & Log))
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                     End Try
@@ -3095,7 +3074,7 @@ Public Class Form1
         If Settings.GDPR() Then
 
             UploadCategory()
-            If System.IO.File.Exists(Settings.CurrentDirectory & "\OutworldzFiles\Photo.png") Then
+            If System.IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")) Then
                 Dim Myupload As New UploadImage
                 Myupload.PostContentUploadFile()
             End If
@@ -3139,11 +3118,11 @@ Public Class Form1
         Else
             If name = "All Logs" Then AllLogs = True
             If name = "Robust" Or AllLogs Then path.Add("""" & Settings.OpensimBinPath & "Robust.log" & """")
-            If name = "Outworldz" Or AllLogs Then path.Add("""" & Settings.CurrentDirectory & "\Outworldzfiles\Outworldz.log" & """")
-            If name = "Error" Or AllLogs Then path.Add("""" & Settings.CurrentDirectory & "\Outworldzfiles\Error.log" & """")
-            If name = "UPnP" Or AllLogs Then path.Add("""" & Settings.CurrentDirectory & "\Outworldzfiles\Upnp.log" & """")
-            If name = "Icecast" Or AllLogs Then path.Add(" " & """" & Settings.CurrentDirectory & "\Outworldzfiles\Icecast\log\error.log" & """")
-            If name = "All Settings" Or AllLogs Then path.Add("""" & Settings.CurrentDirectory & "\Outworldzfiles\Settings.ini" & """")
+            If name = "Outworldz" Or AllLogs Then path.Add("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Outworldz.log") & """")
+            If name = "Error" Or AllLogs Then path.Add("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Error.log") & """")
+            If name = "UPnP" Or AllLogs Then path.Add("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Upnp.log") & """")
+            If name = "Icecast" Or AllLogs Then path.Add(" " & """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log") & """")
+            If name = "All Settings" Or AllLogs Then path.Add("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Settings.ini") & """")
             If name = "--- Regions ---" Then Return
 
             If AllLogs Then
@@ -3155,7 +3134,7 @@ Public Class Form1
             End If
 
             If name = "MySQL" Or AllLogs Then
-                Dim MysqlLog As String = Settings.CurrentDirectory & "\OutworldzFiles\mysql\data"
+                Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
                 Dim files As Array
                 Try
                     files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
@@ -3178,7 +3157,7 @@ Public Class Form1
         Next
 
         Try
-            System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", logs)
+            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), logs)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -3224,17 +3203,19 @@ Public Class Form1
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Shared Sub CleanDLLs()
 
-        Dim dlls As List(Of String) = GetDlls(Settings.CurrentDirectory & "/dlls.txt")
-        Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath)
-        For Each localdllname In localdlls
-            Application.DoEvents()
-            Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
-            Dim newlocaldllname = Mid(localdllname, x)
-            If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
-                Log(My.Resources.Info_word, "Deleting dll " & localdllname)
-                FileStuff.DeleteFile(localdllname)
-            End If
-        Next
+        If Not Debugger.IsAttached Then
+            Dim dlls As List(Of String) = GetDlls(IO.Path.Combine(Settings.CurrentDirectory, "/dlls.txt"))
+            Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath)
+            For Each localdllname In localdlls
+                Application.DoEvents()
+                Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
+                Dim newlocaldllname = Mid(localdllname, x)
+                If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
+                    Log(My.Resources.Info_word, "Deleting dll " & localdllname)
+                    FileStuff.DeleteFile(localdllname)
+                End If
+            Next
+        End If
 
     End Sub
 
@@ -3242,17 +3223,17 @@ Public Class Form1
     Private Shared Sub ClearLogFiles()
 
         Dim Logfiles = New List(Of String) From {
-            Settings.CurrentDirectory & "\OutworldzFiles\Error.log",
-            Settings.CurrentDirectory & "\OutworldzFiles\Diagnostics.log",
-            Settings.CurrentDirectory & "\OutworldzFiles\Outworldz.log",
-            Settings.CurrentDirectory & "\OutworldzFiles\Restart.log",
-            Settings.CurrentDirectory & "\OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt",
-            Settings.CurrentDirectory & "\OutworldzFiles\Diagnostics.log",
-            Settings.CurrentDirectory & "\OutworldzFiles\UPnp.log",
-            Settings.CurrentDirectory & "\OutworldzFiles\Opensim\bin\Robust.log",
-            Settings.CurrentDirectory & "\OutworldzFiles\http.log",
-            Settings.CurrentDirectory & "\OutworldzFiles\PHPLog.log",
-            Settings.CurrentDirectory & "\http.log"      ' an old mistake
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Restart.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\UPnp.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\http.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHPLog.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "http.log")     ' an old mistake
         }
 
         For Each thing As String In Logfiles
@@ -3280,7 +3261,7 @@ Public Class Form1
     Private Shared Sub CreateStopMySql()
 
         ' create test program slants the other way:
-        Dim testProgram As String = Settings.CurrentDirectory & "\OutworldzFiles\Mysql\bin\StopMySQL.bat"
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StopMySQL.bat")
         FileStuff.DeleteFile(testProgram)
         Try
             Using outputFile As New StreamWriter(testProgram, True)
@@ -3310,7 +3291,7 @@ Public Class Form1
 
         Try
             Dim reader As System.IO.StreamReader
-            reader = System.IO.File.OpenText(Settings.CurrentDirectory + "\tos.html")
+            reader = System.IO.File.OpenText(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
             'now loop through each line
             Dim HTML As String = ""
             While reader.Peek <> -1
@@ -3318,7 +3299,7 @@ Public Class Form1
             End While
             reader.Close()
 
-            Using outputFile As New StreamWriter(Settings.CurrentDirectory + "\Outworldzfiles\Opensim\bin\WifiPages\tos.html")
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory + "\Outworldzfiles\Opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
@@ -3365,7 +3346,7 @@ Public Class Form1
     Private Shared Sub KillFiles(AL As List(Of String))
 
         For Each filename As String In AL
-            FileStuff.DeleteFile(Settings.CurrentDirectory & filename)
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, filename))
         Next
 
     End Sub
@@ -3373,8 +3354,8 @@ Public Class Form1
     Private Shared Sub KillFolder(AL As List(Of String))
 
         For Each folder As String In AL
-            If IO.Directory.Exists(Settings.CurrentDirectory & folder) Then
-                System.IO.Directory.Delete(Settings.CurrentDirectory & folder, True)
+            If IO.Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, folder)) Then
+                System.IO.Directory.Delete(IO.Path.Combine(Settings.CurrentDirectory, folder), True)
             End If
         Next
 
@@ -3429,7 +3410,12 @@ Public Class Form1
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
             Settings.SetIni("Search", "SearchURL", SearchURL)
+
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll"), True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "OpensimSearch.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll"), True)
         Else
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll"))
             Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
             Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
         End If
@@ -3473,7 +3459,7 @@ Public Class Form1
     Private Shared Sub ShowLog()
         ''' <summary>Shows the log buttons if diags fail</summary>
         Try
-            System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & Settings.CurrentDirectory & "\OutworldzFiles\Outworldz.log" & """")
+            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log") & """")
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -3543,9 +3529,9 @@ Public Class Form1
 
         Dim yesno = MsgBox(My.Resources.Apache_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then
-            Dim Apachelog As String = Settings.CurrentDirectory & "\Outworldzfiles\Apache\logs\error*.log"
+            Dim Apachelog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\logs\error*.log")
             Try
-                System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & Apachelog & """")
+                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & Apachelog & """")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -3728,7 +3714,7 @@ Public Class Form1
     Private Sub CreateService()
 
         ' create test program slants the other way:
-        Dim testProgram As String = Settings.CurrentDirectory & "\OutworldzFiles\Mysql\bin\InstallAsAService.bat"
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\InstallAsAService.bat")
         FileStuff.DeleteFile(testProgram)
 
         Try
@@ -3756,7 +3742,7 @@ Public Class Form1
         Print("->Set Apache")
 
         ' lean rightward paths for Apache
-        Dim ini = Settings.CurrentDirectory & "\Outworldzfiles\Apache\conf\httpd.conf"
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\conf\httpd.conf")
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetLiteralIni("Define SRVROOT", "Define SRVROOT " & """" & PropCurSlashDir & "/Outworldzfiles/Apache" & """")
@@ -3774,12 +3760,12 @@ Public Class Form1
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
-        If IO.File.Exists(Settings.CurrentDirectory & "\Outworldzfiles\PHP5") Then
-            Directory.Delete(Settings.CurrentDirectory & "\Outworldzfiles\PHP5", True)
+        If IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5")) Then
+            Directory.Delete(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5"), True)
         End If
 
         ' lean rightward paths for Apache
-        ini = Settings.CurrentDirectory & "\Outworldzfiles\Apache\conf\extra\httpd-ssl.conf"
+        ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\conf\extra\httpd-ssl.conf")
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Settings.PrivateURL & ":" & "443")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
@@ -3942,7 +3928,7 @@ Public Class Form1
         End Select
 
         ' Put that gridcommon.ini file in place
-        FileStuff.CopyFile(Settings.OpensimBinPath & "config-include\" & GridCommon, IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini"), True)
+        FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath & "config-include\", GridCommon), IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini"), True)
 
         If Settings.LoadIni(Settings.OpensimBinPath & "config-include\GridCommon.ini", ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
@@ -3963,7 +3949,7 @@ Public Class Form1
     Private Function DoPHP() As Boolean
 
         Print("->Set PHP7")
-        Dim ini = Settings.CurrentDirectory & "\Outworldzfiles\PHP7\php.ini"
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP7\php.ini")
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/ext/""")
         Settings.SetLiteralIni("doc_root", "doc_root = """ & PropCurSlashDir & "/OutworldzFiles/Apache/htdocs/""")
@@ -3997,7 +3983,7 @@ Public Class Form1
 "$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  WordPress, DreamGrid, JOpensim/JOpensim or user assigned folder" & vbCrLf &
 "?>"
 
-        Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php", False)
+        Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php"), False)
             outputFile.WriteLine(phptext)
         End Using
 
@@ -4010,7 +3996,7 @@ Public Class Form1
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
 "?>"
 
-        Using outputFile As New StreamWriter(Settings.CurrentDirectory & "\OutworldzFiles\PHP7\databaseinfo.php", False)
+        Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\databaseinfo.php"), False)
             outputFile.WriteLine(phptext)
         End Using
 
@@ -4182,7 +4168,7 @@ Public Class Form1
         Dim SuspendProcess As New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
               .Arguments = R & PID,
-              .FileName = """" & Settings.CurrentDirectory & "\NtSuspendProcess64.exe" & """"
+              .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
           }
 
         If Debugger.IsAttached Then
@@ -4221,9 +4207,8 @@ Public Class Form1
 
         Dim TideData As String = ""
         Dim TideFile = Settings.OpensimBinPath & "addon-modules\OpenSimTide\config\OpenSimTide.ini"
-        If IO.File.Exists(TideFile) Then
-            System.IO.File.Delete(TideFile)
-        End If
+
+        FileStuff.DeleteFile(TideFile)
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDs
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
@@ -4574,7 +4559,7 @@ Public Class Form1
                     Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, vbYesNo, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
                         Try
-                            System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
@@ -4605,21 +4590,9 @@ Public Class Form1
 
         For Each item In DLLList
             If Not IO.File.Exists("C:/Windows/System32/" & item) Then
-                My.Computer.FileSystem.CopyFile(Settings.CurrentDirectory & "\OutworldzFiles\PHP7\curl\" & item, "C:\Windows\System32\" & item)
+                My.Computer.FileSystem.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), IO.Path.Combine("C:\Windows\System32\" & item))
             End If
         Next
-
-    End Sub
-
-    Private Shared Sub SetupOpensimRemoteAdmin()
-
-        If Settings.RemoteAdminPort.Length > 0 Then
-            Settings.SetIni("RemoteAdmin", "enabled", "true")
-            Settings.SetIni("RemoteAdmin", "port", Settings.RemoteAdminPort)
-        Else
-            Settings.SetIni("RemoteAdmin", "enabled", "false")
-            Settings.SetIni("RemoteAdmin", "port", "0")
-        End If
 
     End Sub
 
@@ -4670,10 +4643,7 @@ Public Class Form1
         }
 
         For Each N As String In ToDrop
-            If System.IO.File.Exists(N) Then
-                System.IO.File.Delete(N)
-                PropViewedSettings = True
-            End If
+            FileStuff.DeleteFile(N)
         Next
 
         'Load Settings, if any
@@ -4731,8 +4701,8 @@ Public Class Form1
 
         ClearLogFiles() ' clear log files
 
-        If Not IO.File.Exists(Settings.CurrentDirectory & "\BareTail.udm") Then
-            IO.File.Copy(Settings.CurrentDirectory & "\BareTail.udm.bak", Settings.CurrentDirectory & "\BareTail.udm")
+        If Not IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm")) Then
+            IO.File.Copy(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm.bak"), IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm"))
         End If
 
         GridNames.SetServerNames()
@@ -5111,9 +5081,9 @@ Public Class Form1
         Dim yesno = MsgBox(My.Resources.Icecast_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
 
         If (yesno = vbYes) Then
-            Dim IceCastLog As String = Settings.CurrentDirectory & "\Outworldzfiles\Icecast\log\error.log"
+            Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
             Try
-                System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & IceCastLog & """")
+                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IceCastLog & """")
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -5202,7 +5172,7 @@ Public Class Form1
 
         Dim folders As Array = Nothing
         Try
-            folders = Directory.GetFiles(Settings.CurrentDirectory & "\Outworldzfiles\Help")
+            folders = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help"))
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -5243,7 +5213,7 @@ Public Class Form1
         If PropOpensimIsRunning() Then
             ' Create an instance of the open file dialog box. Set filter options and filter index.
             Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
-                .InitialDirectory = """" & Settings.CurrentDirectory & "/" & """",
+                .InitialDirectory = """" & IO.Path.Combine(Settings.CurrentDirectory, "/") & """",
                 .Filter = Global.Outworldz.My.Resources.IAR_Load_and_Save_word & " (*.iar)|*.iar|All Files (*.*)|*.*",
                 .FilterIndex = 1,
                 .Multiselect = False
@@ -5276,7 +5246,7 @@ Public Class Form1
         LoadLocalOARSToolStripMenuItem.DropDownItems.Clear()
         Dim MaxFileNum As Integer = 10
         Dim counter = MaxFileNum
-        Dim Filename = Settings.CurrentDirectory & "\OutworldzFiles\OAR\"
+        Dim Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\OAR\")
         Dim OARs As Array = Nothing
         Try
             OARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
@@ -5302,7 +5272,7 @@ Public Class Form1
         Next
 
         If Settings.BackupFolder = "AutoBackup" Then
-            Filename = Settings.CurrentDirectory & "\OutworldzFiles\AutoBackup\"
+            Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\AutoBackup\")
         Else
             Filename = Settings.BackupFolder
         End If
@@ -5335,7 +5305,7 @@ Public Class Form1
 
         ' now for the IARs
 
-        Filename = Settings.CurrentDirectory & "\OutworldzFiles\IAR\"
+        Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\IAR\")
         Dim IARs As Array = Nothing
 
         Try
@@ -5366,7 +5336,7 @@ Public Class Form1
         Next
 
         If Settings.BackupFolder = "AutoBackup" Then
-            Filename = Settings.CurrentDirectory & "\OutworldzFiles\AutoBackup\"
+            Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\AutoBackup\")
         Else
             Filename = Settings.BackupFolder
         End If
@@ -5463,7 +5433,7 @@ Public Class Form1
 
     Private Sub LocalIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/IAR/" & CStr(sender.Text) 'make a real URL
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "/OutworldzFiles/IAR/" & CStr(sender.Text)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
         End If
@@ -5472,7 +5442,7 @@ Public Class Form1
 
     Private Sub LocalOarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/OAR/" & CStr(sender.Text) 'make a real URL
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "/OutworldzFiles/OAR/" & CStr(sender.Text)) 'make a real URL
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
         End If
@@ -5494,7 +5464,7 @@ Public Class Form1
     Private Sub MakeMysql()
 
         Dim fname As String = ""
-        Dim m As String = Settings.CurrentDirectory & "\OutworldzFiles\Mysql\"
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\")
         If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
             Print(My.Resources.Create_DB)
             Try
@@ -5514,7 +5484,7 @@ Public Class Form1
                         Application.DoEvents()
                         Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
                         If System.IO.File.Exists(destinationPath) Then
-                            System.IO.File.Delete(destinationPath)
+                            FileStuff.DeleteFile(destinationPath)
                         End If
                         Dim folder = System.IO.Path.GetDirectoryName(destinationPath)
                         Directory.CreateDirectory(folder)
@@ -5591,7 +5561,7 @@ Public Class Form1
             Return
         End If
         _MysqlCrashCounter = 0
-        Dim MysqlLog As String = Settings.CurrentDirectory & "\OutworldzFiles\mysql\data"
+        Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
         Dim files As Array = Nothing
         Try
             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
@@ -5606,7 +5576,7 @@ Public Class Form1
 
                 For Each FileName As String In files
                     Try
-                        System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & FileName & """")
+                        System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
                     Catch ex As Exception
 
                         BreakPoint.Show(ex.Message)
@@ -5691,7 +5661,7 @@ Public Class Form1
     End Function
 
     Private Sub PDFManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFManualToolStripMenuItem.Click
-        Dim webAddress As String = Settings.CurrentDirectory & "\Outworldzfiles\Help\Dreamgrid Manual.pdf"
+        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\Dreamgrid Manual.pdf")
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -5980,10 +5950,10 @@ Public Class Form1
                 Dim yesno = MsgBox(My.Resources.Are_You_Sure, vbYesNo, Global.Outworldz.My.Resources.Restore_word)
                 If yesno = vbYes Then
 
-                    FileStuff.DeleteFile(Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin\RestoreMysql.bat")
+                    FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat"))
 
                     Try
-                        Dim filename As String = Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin\RestoreMysql.bat"
+                        Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
                         Using outputFile As New StreamWriter(filename, True)
                             outputFile.WriteLine("@REM A program to restore Mysql from a backup" & vbCrLf _
                                 & "mysql -u root opensim <  " & """" & thing & """" _
@@ -6001,8 +5971,8 @@ Public Class Form1
                     ' pi.Arguments = thing
                     Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                         .WindowStyle = ProcessWindowStyle.Normal,
-                        .WorkingDirectory = Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin\",
-                        .FileName = Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin\RestoreMysql.bat"
+                        .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
+                        .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
                     }
                     pMySqlRestore.StartInfo = pi
 
@@ -6062,7 +6032,7 @@ Public Class Form1
         If (yesno = vbYes) Then
             Dim MysqlLog As String = Settings.OpensimBinPath & "Robust.log"
             Try
-                System.Diagnostics.Process.Start(Settings.CurrentDirectory & "\baretail.exe", """" & MysqlLog & """")
+                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & MysqlLog & """")
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
@@ -6267,7 +6237,7 @@ Public Class Form1
 
         Using CPortsProcess As New Process
             CPortsProcess.StartInfo.UseShellExecute = True
-            CPortsProcess.StartInfo.FileName = Settings.CurrentDirectory & "\Cports.exe"
+            CPortsProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Cports.exe")
             CPortsProcess.StartInfo.CreateNoWindow = False
             CPortsProcess.StartInfo.Arguments = ""
             CPortsProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
@@ -6331,7 +6301,7 @@ Public Class Form1
                 Print(My.Resources.Setting_Loopback)
                 Using LoopbackProcess As New Process
                     LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                    LoopbackProcess.StartInfo.FileName = Settings.CurrentDirectory & "\NAT_Loopback_Tool.bat"
+                    LoopbackProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "NAT_Loopback_Tool.bat")
                     LoopbackProcess.StartInfo.CreateNoWindow = False
                     LoopbackProcess.StartInfo.Arguments = "Loopback"
                     LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
@@ -6406,7 +6376,7 @@ Public Class Form1
         Print(My.Resources.Setup_Wordpress)
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
-        FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory & "\Outworldzfiles\mysql\bin\"
+        FileIO.FileSystem.CurrentDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
         pi.FileName = "Create_WordPress.bat"
         pi.UseShellExecute = True
         pi.CreateNoWindow = False
@@ -6573,7 +6543,7 @@ Public Class Form1
         Dim p As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "--port " & CStr(Settings.MySqlRobustDBPort) & " -u root shutdown",
-            .FileName = """" & Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin\mysqladmin.exe" & """",
+            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqladmin.exe") & """",
             .UseShellExecute = True, ' so we can redirect streams and minimize
             .WindowStyle = ProcessWindowStyle.Hidden
         }
@@ -6709,7 +6679,7 @@ Public Class Form1
         Dim pUpdate As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = Filename,
-            .FileName = """" & Settings.CurrentDirectory & "\DreamGridSetup.exe" & """"
+            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
         }
         pUpdate.StartInfo = pi
         Print(My.Resources.SeeYouSoon)
@@ -6980,7 +6950,7 @@ Public Class Form1
 
     Private Sub BackupIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/AutoBackup/" & CStr(sender.Text) 'make a real URL
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "/OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
@@ -6989,7 +6959,7 @@ Public Class Form1
 
     Private Sub BackupOarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = Settings.CurrentDirectory & "/OutworldzFiles/AutoBackup/" & CStr(sender.Text) 'make a real URL
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "/OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
@@ -7013,7 +6983,7 @@ Public Class Form1
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo()
 
-        ChDir(Settings.CurrentDirectory & "\OutworldzFiles\mysql\bin")
+        ChDir(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"))
         pi.WindowStyle = ProcessWindowStyle.Normal
         pi.Arguments = CStr(Settings.MySqlRobustDBPort)
 

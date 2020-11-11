@@ -2265,6 +2265,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Diagnostics Port.
+        '''</summary>
+        Friend ReadOnly Property Diagnostics_port_word() As String
+            Get
+                Return ResourceManager.GetString("Diagnostics_port_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Diagnostics failed. Do you want to see the log?.
         '''</summary>
         Friend ReadOnly Property Diags_Failed() As String
@@ -6642,15 +6651,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Remote Admin Port.
-        '''</summary>
-        Friend ReadOnly Property RemoteAdminPort_word() As String
-            Get
-                Return ResourceManager.GetString("RemoteAdminPort_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Render Max Height.
         '''</summary>
         Friend ReadOnly Property RenderMax() As String
@@ -8882,6 +8882,15 @@ Namespace My.Resources
         Friend ReadOnly Property XMLRPC() As String
             Get
                 Return ResourceManager.GetString("XMLRPC", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to XMLRPC Region Port is set .
+        '''</summary>
+        Friend ReadOnly Property XMLRPC_TCP_is_set_word() As String
+            Get
+                Return ResourceManager.GetString("XMLRPC_TCP_is_set_word", resourceCulture)
             End Get
         End Property
         
