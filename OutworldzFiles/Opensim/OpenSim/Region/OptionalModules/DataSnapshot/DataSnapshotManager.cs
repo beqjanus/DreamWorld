@@ -418,6 +418,7 @@ namespace OpenSim.Region.DataSnapshot
                     cli.AddQueryParameter("port", m_listener_port);
                     cli.AddQueryParameter("secret", m_Secret.ToString());
                     cli.RequestMethod = "GET";
+                    m_log.Info("[DATASNAPSHOT]: data service asked to contact  " + m_hostname + ":" + m_listener_port);
                     try
                     {
                         using(reply = cli.Request(null))
@@ -437,6 +438,7 @@ namespace OpenSim.Region.DataSnapshot
 
                     // This is not quite working, so...
                     // string responseStr = Util.UTF8.GetString(response);
+                    
                     m_log.Info("[DATASNAPSHOT]: data service " + url + " notified. Secret: " + m_Secret);
                 }
             }
