@@ -13,8 +13,8 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.ApachePort) & vbCrLf
         End If
 
-        If Settings.RemoteAdminPort > 0 Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""RemoteAdmin Port " & CStr(Settings.RemoteAdminPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.RemoteAdminPort) & vbCrLf
+        If Settings.RemoteAdminPort.Length > 0 Then
+            Command = Command & "netsh advfirewall firewall  add rule name=""RemoteAdmin Port " & Settings.RemoteAdminPort & """ dir=in action=allow protocol=TCP localport=" & Settings.RemoteAdminPort & vbCrLf
         End If
 
         ' Icecast needs both ports for both protocols
@@ -70,8 +70,8 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall  delete rule name=""XMLRegionPort " & CStr(Settings.FirstXMLRegionPort) & """" & vbCrLf
         End If
 
-        If Settings.RemoteAdminPort > 0 Then
-            Command = Command & "netsh advfirewall firewall  delete rule name=""RemoteAdmin Port " & CStr(Settings.RemoteAdminPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.RemoteAdminPort) & vbCrLf
+        If Settings.RemoteAdminPort.Length > 0 Then
+            Command = Command & "netsh advfirewall firewall  delete rule name=""RemoteAdmin Port " & Settings.RemoteAdminPort & """ dir=in action=allow protocol=TCP localport=" & Settings.RemoteAdminPort & vbCrLf
         End If
 
         Dim start = CInt("0" & Settings.FirstRegionPort)
