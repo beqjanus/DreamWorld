@@ -13,10 +13,6 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall  add rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.ApachePort) & vbCrLf
         End If
 
-        If Settings.RemoteAdminPort.Length > 0 Then
-            Command = Command & "netsh advfirewall firewall  add rule name=""RemoteAdmin Port " & Settings.RemoteAdminPort & """ dir=in action=allow protocol=TCP localport=" & Settings.RemoteAdminPort & vbCrLf
-        End If
-
         ' Icecast needs both ports for both protocols
         If Settings.SCEnable Then
             Command = Command & "netsh advfirewall firewall  add rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.SCPortBase) & vbCrLf _
@@ -25,7 +21,7 @@ Public Module Firewall
                           & "netsh advfirewall firewall  add rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.SCPortBase1) & vbCrLf
         End If
 
-        If Settings.FirstXMLRegionPort > 1024 Then
+        If Settings.FirstXMLRegionPort.Length > 0 Then
             Command = Command & "netsh advfirewall firewall  add rule name=""XMLRegionPort " & CStr(Settings.FirstXMLRegionPort) & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.FirstXMLRegionPort) & vbCrLf
         End If
 
@@ -66,12 +62,8 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall  delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
-        If Settings.FirstXMLRegionPort > 1024 Then
+        If Settings.FirstXMLRegionPort.Length > 0 Then
             Command = Command & "netsh advfirewall firewall  delete rule name=""XMLRegionPort " & CStr(Settings.FirstXMLRegionPort) & """" & vbCrLf
-        End If
-
-        If Settings.RemoteAdminPort.Length > 0 Then
-            Command = Command & "netsh advfirewall firewall  delete rule name=""RemoteAdmin Port " & Settings.RemoteAdminPort & """ dir=in action=allow protocol=TCP localport=" & Settings.RemoteAdminPort & vbCrLf
         End If
 
         Dim start = CInt("0" & Settings.FirstRegionPort)
@@ -105,7 +97,7 @@ Public Module Firewall
     Private Sub Write(cmd As String)
 
         Try
-            Dim ns As StreamWriter = New StreamWriter(Settings.CurrentDirectory & "\fw.bat", False)
+            Dim ns As StreamWriter = New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "fw.bat"), False)
             ns.WriteLine(cmd)
             'If Debugger.IsAttached Then
             'ns.WriteLine("@pause")
@@ -118,7 +110,7 @@ Public Module Firewall
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",
-            .FileName = Settings.CurrentDirectory & "\fw.bat",
+            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "fw.bat"),
             .WindowStyle = ProcessWindowStyle.Hidden,
             .Verb = "runas"
         }
