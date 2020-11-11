@@ -31,11 +31,9 @@ Partial Class FormJoomla
         Me.ViewButton = New System.Windows.Forms.Button()
         Me.InstallButton = New System.Windows.Forms.Button()
         Me.JEnableCheckBox = New System.Windows.Forms.CheckBox()
-        Me.RemoteAdminPortTextBox = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.HypericaRadioButton = New System.Windows.Forms.RadioButton()
         Me.JOpensimRadioButton = New System.Windows.Forms.RadioButton()
+        Me.HypericaRadioButton = New System.Windows.Forms.RadioButton()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -47,14 +45,14 @@ Partial Class FormJoomla
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(563, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(563, 28)
         Me.MenuStrip1.TabIndex = 0
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(75, 26)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(75, 24)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'GroupBox1
@@ -69,7 +67,7 @@ Partial Class FormJoomla
         Me.GroupBox1.Size = New System.Drawing.Size(256, 203)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+        Me.GroupBox1.Text = "Settings"
         '
         'AdminButton
         '
@@ -118,46 +116,17 @@ Partial Class FormJoomla
         Me.JEnableCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.JEnableCheckBox.UseVisualStyleBackColor = True
         '
-        'RemoteAdminPortTextBox
-        '
-        Me.RemoteAdminPortTextBox.Location = New System.Drawing.Point(28, 124)
-        Me.RemoteAdminPortTextBox.Name = "RemoteAdminPortTextBox"
-        Me.RemoteAdminPortTextBox.Size = New System.Drawing.Size(47, 22)
-        Me.RemoteAdminPortTextBox.TabIndex = 2
-        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.JOpensimRadioButton)
         Me.GroupBox2.Controls.Add(Me.HypericaRadioButton)
-        Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Controls.Add(Me.RemoteAdminPortTextBox)
         Me.GroupBox2.Controls.Add(Me.JEnableCheckBox)
         Me.GroupBox2.Location = New System.Drawing.Point(299, 57)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(244, 203)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Options
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(81, 124)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(130, 17)
-        Me.Label1.TabIndex = 3
-        Me.Label1.Text = Global.Outworldz.My.Resources.Resources.RemoteAdminPort_word
-        '
-        'HypericaRadioButton
-        '
-        Me.HypericaRadioButton.AutoSize = True
-        Me.HypericaRadioButton.Location = New System.Drawing.Point(28, 56)
-        Me.HypericaRadioButton.Name = "HypericaRadioButton"
-        Me.HypericaRadioButton.Size = New System.Drawing.Size(134, 21)
-        Me.HypericaRadioButton.TabIndex = 4
-        Me.HypericaRadioButton.TabStop = True
-        Me.HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
-        Me.HypericaRadioButton.UseVisualStyleBackColor = True
+        Me.GroupBox2.Text = "Options"
         '
         'JOpensimRadioButton
         '
@@ -169,6 +138,17 @@ Partial Class FormJoomla
         Me.JOpensimRadioButton.TabStop = True
         Me.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
         Me.JOpensimRadioButton.UseVisualStyleBackColor = True
+        '
+        'HypericaRadioButton
+        '
+        Me.HypericaRadioButton.AutoSize = True
+        Me.HypericaRadioButton.Location = New System.Drawing.Point(28, 56)
+        Me.HypericaRadioButton.Name = "HypericaRadioButton"
+        Me.HypericaRadioButton.Size = New System.Drawing.Size(134, 21)
+        Me.HypericaRadioButton.TabIndex = 4
+        Me.HypericaRadioButton.TabStop = True
+        Me.HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
+        Me.HypericaRadioButton.UseVisualStyleBackColor = True
         '
         'FormJoomla
         '
@@ -182,7 +162,7 @@ Partial Class FormJoomla
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormJoomla"
-        Me.Text = Global.Outworldz.My.Resources.JOpensim_word
+        Me.Text = "JOpensim"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
@@ -200,9 +180,7 @@ Partial Class FormJoomla
     Friend WithEvents InstallButton As Button
     Friend WithEvents ViewButton As Button
     Friend WithEvents AdminButton As Button
-    Friend WithEvents RemoteAdminPortTextBox As TextBox
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents Label1 As Label
     Friend WithEvents JOpensimRadioButton As RadioButton
     Friend WithEvents HypericaRadioButton As RadioButton
 End Class

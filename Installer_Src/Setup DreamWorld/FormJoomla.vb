@@ -167,21 +167,6 @@ Public Class FormJoomla
             ViewButton.Enabled = False
         End If
 
-        RemoteAdminPortTextBox.Text = CStr(Settings.RemoteAdminPort)
-
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles RemoteAdminPortTextBox.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        RemoteAdminPortTextBox.Text = digitsOnly.Replace(RemoteAdminPortTextBox.Text, "")
-
-        If Not Integer.TryParse(RemoteAdminPortTextBox.Text, Settings.RemoteAdminPort) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
-        End If
-
-        Settings.SaveSettings()
-
     End Sub
 
     Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
