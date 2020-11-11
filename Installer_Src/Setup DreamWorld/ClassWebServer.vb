@@ -171,8 +171,8 @@ Public Class NetServer
 
     Private Shared Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
 
-        'redirect from http://localhost:8002/bin/data/teleports.htm
-        'to http://localhost:8001/teleports.htm
+        ' http://localhost:8001/teleports.htm
+        ' http://YourURL:8001/teleports.htm
         'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
         '*|Welcome||outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
