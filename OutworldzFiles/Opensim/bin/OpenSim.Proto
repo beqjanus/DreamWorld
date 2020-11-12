@@ -45,7 +45,7 @@
 [Const]
 
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8005
+http_listener_port=8004
 
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
@@ -72,7 +72,7 @@ PrivatePort=8003
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=Gandalf
+GridName=DreamGrid
 
 ; Automatically changed by Dreamworld - do not change this
 ;# Dreamworld runs a listener on this port to run diagnostics. Dreamgrid listens for regions LOGINS enabled
@@ -80,7 +80,7 @@ GridName=Gandalf
 DiagnosticsPort=8001
 
 ; Automatically changed by Dreamworld - do not change this
-ApachePort=80
+ApachePort=8000
 
 [Startup]
 
@@ -525,10 +525,10 @@ SMTP_SERVER_HOSTNAME=smtp.gmail.com
 SMTP_SERVER_PORT=587
 
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=
+SMTP_SERVER_LOGIN=Gmail for notification
 
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
-SMTP_SERVER_PASSWORD=
+SMTP_SERVER_PASSWORD=Gmail password
 
 [Network]
 
@@ -781,7 +781,7 @@ port=0
 ;# {access_password} {enabled:true} {Password for the remote admin interface} {}
 ;; This password is required to make any XMLRPC call (should be set as
 ;; the "password" parameter)
-access_password=123456
+access_password=104010880
 
 ;# {access_ip_addresses} {enabled:true} {List the IP addresses allowed to call RemoteAdmin?} {}
 ;; List the IP addresses allowed to call RemoteAdmin
