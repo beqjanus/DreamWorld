@@ -107,7 +107,7 @@ use File::Find;
 
 open (OUT, ">", 'dlls.txt');
 
-find({ wanted => \&process_file, no_chdir => 1 }, $dir . '/Outworldzfiles/opensim/bin/');
+find({ wanted => \&process_file, no_chdir => 1 }, $dir . '/OutworldzFiles/Opensim/bin/');
 
 sub process_file {
    # if (-f $_) {
@@ -126,8 +126,8 @@ sub process_file {
 }
 
 # these are needed in this file even if deleted on disk as there is a .bak file.
-print OUT "$dir/OutworldzFiles/opensim.bin/JOpensimProfile.Modules.dll";
-print OUT "$dir/OutworldzFiles/opensim.bin/JOpensimSearch.Modules.dll";
+print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensimProfile.Modules.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensimSearch.Modules.dll\n";
 
 close OUT;
 
