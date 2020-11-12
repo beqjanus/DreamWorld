@@ -155,7 +155,7 @@ Partial Class FormApache
         Me.EnableJOpensim.Name = "EnableJOpensim"
         Me.EnableJOpensim.Size = New System.Drawing.Size(126, 19)
         Me.EnableJOpensim.TabIndex = 186743
-        Me.EnableJOpensim.Text = Global.Outworldz.My.Resources.Resources.EnableJOpensim
+        Me.EnableJOpensim.Text = Global.Outworldz.My.Resources.Resources.JOpensim_word
         Me.EnableJOpensim.UseVisualStyleBackColor = True
         '
         'EnableDiva
@@ -175,7 +175,7 @@ Partial Class FormApache
         Me.EnableWP.Name = "EnableWP"
         Me.EnableWP.Size = New System.Drawing.Size(132, 19)
         Me.EnableWP.TabIndex = 186742
-        Me.EnableWP.Text = My.Resources.Setup_Wordpress
+        Me.EnableWP.Text = My.Resources.WordPress_Word
         Me.EnableWP.UseVisualStyleBackColor = True
         '
         'FormApache
