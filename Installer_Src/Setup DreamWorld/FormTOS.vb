@@ -76,7 +76,7 @@ Public Class TosForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        If Form1.PropOpensimIsRunning() Then
+        If FormSetup.PropOpensimIsRunning() Then
             Dim webAddress As String = "http://" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & "/wifi/termsofservice.html"
             Try
                 Process.Start(webAddress)
@@ -111,6 +111,7 @@ Public Class TosForm
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         Dim reader As System.IO.StreamReader
         reader = System.IO.File.OpenText(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
         'now loop through each line

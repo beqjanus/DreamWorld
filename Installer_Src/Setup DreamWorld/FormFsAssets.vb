@@ -91,7 +91,7 @@ Public Class FormFsAssets
 
             Dim result As MsgBoxResult = MsgBox(My.Resources.Changes_Made, vbYesNo)
             If result = vbOK Then
-                Form1.PropViewedSettings = True
+                FormSetup.PropViewedSettings = True
                 Settings.SaveSettings()
             End If
         End If
@@ -100,6 +100,7 @@ Public Class FormFsAssets
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         HelpOnce("FSAssets")
 
         EnableFsAssetsCheckbox.Checked = Settings.FsAssetsEnabled

@@ -22,7 +22,7 @@
 
 Imports System.Text.RegularExpressions
 
-Public Class Icecast
+Public Class FormIcecast
 
 #Region "ScreenSize"
 
@@ -77,16 +77,16 @@ Public Class Icecast
 
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
-        Form1.DoIceCast()
+        FormSetup.DoIceCast()
 
     End Sub
 
     Private Sub LoadURL_Click(sender As Object, e As EventArgs) Handles LoadURL.Click
-        If Form1.PropOpensimIsRunning() Then
+        If FormSetup.PropOpensimIsRunning() Then
             Dim webAddress As String = "http://" + Settings.PublicIP + ":" + ShoutcastPort.Text
-            Form1.Print(My.Resources.Icecast_Desc & " " + webAddress)
+            FormSetup.Print(My.Resources.Icecast_Desc & " " + webAddress)
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
@@ -94,9 +94,9 @@ Public Class Icecast
                 BreakPoint.Show(ex.Message)
             End Try
         ElseIf Settings.SCEnable = False Then
-            Form1.Print(My.Resources.IceCast_disabled)
+            FormSetup.Print(My.Resources.IceCast_disabled)
         Else
-            Form1.Print(My.Resources.Not_Running)
+            FormSetup.Print(My.Resources.Not_Running)
         End If
 
     End Sub
@@ -109,6 +109,7 @@ Public Class Icecast
 
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         ShoutcastPort.Text = Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)
         ShoutcastPort1.Text = Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture)
         AdminPassword.Text = Settings.SCAdminPassword

@@ -36,6 +36,7 @@ Public Class FormFlotsamCache
 
     Private Sub Form_Load() Handles Me.Load
 
+        Translate.Run(Name)
         HelpOnce("Flotsam Cache")
 
         CacheFolder.Text = Settings.CacheFolder
@@ -69,7 +70,7 @@ Public Class FormFlotsamCache
         Settings.CacheFolder = CacheFolder.Text
         Settings.CacheEnabled = CacheEnabledBox.Checked
         Settings.CacheTimeout = CacheTimeout.Text
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub

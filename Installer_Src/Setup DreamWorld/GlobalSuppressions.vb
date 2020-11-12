@@ -5,4 +5,3 @@ Imports System.Diagnostics.CodeAnalysis
 
 <Assembly: SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.Form1.Startup")>
 <Assembly: SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification:="<Pending>", Scope:="member", Target:="~M:Outworldz.RegionList.StartStopEdit(System.String,System.String)")>
-<Assembly: SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)", Scope:="member", Target:="Outworldz.FormOAR.#GetData()")>

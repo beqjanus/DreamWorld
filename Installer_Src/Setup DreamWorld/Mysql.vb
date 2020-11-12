@@ -63,7 +63,7 @@ Public Module MysqlInterface
 
     Public Sub DeregisterRegions()
 
-        If Form1.PropOpensimIsRunning Then
+        If FormSetup.PropOpensimIsRunning Then
             MsgBox("Opensim is running. Cannot clear the list of registered regions", vbInformation)
             Return
         End If
@@ -71,7 +71,7 @@ Public Module MysqlInterface
         Dim Mysql = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
         If Mysql Then
             QueryString("delete from robust.regions;")
-            Form1.Print(My.Resources.Deregister_All)
+            FormSetup.Print(My.Resources.Deregister_All)
         End If
 
     End Sub
@@ -79,8 +79,6 @@ Public Module MysqlInterface
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID"></param>
     ''' <returns>Name as string</returns>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Console.WriteLine(System.String)")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function EstateName(UUID As String) As String
 
         If Settings.RegionMySqlConnection.Length = 0 Then Return ""
@@ -137,7 +135,6 @@ Public Module MysqlInterface
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Console.WriteLine(System.String)")>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
@@ -170,7 +167,6 @@ Public Module MysqlInterface
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Console.WriteLine(System.String)")>
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         ' griduse table column UserID
@@ -252,8 +248,6 @@ Public Module MysqlInterface
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Console.WriteLine(System.String)")>
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
         Dim MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)

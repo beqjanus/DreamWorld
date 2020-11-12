@@ -47,13 +47,14 @@ Public Class FormPermissions
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         EnableMaxPrims.Checked = Settings.Primlimits()
 
         'gods

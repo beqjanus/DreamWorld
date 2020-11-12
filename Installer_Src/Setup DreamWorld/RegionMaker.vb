@@ -109,35 +109,34 @@ Public Class RegionMaker
     ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     Public Shared Sub UpdateAllRegionPorts()
 
-        Form1.Print(My.Resources.Updating_Ports_word)
+        FormSetup.Print(My.Resources.Updating_Ports_word)
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
         Dim XMLPortnumber As Integer = CInt("0" & Settings.FirstXMLRegionPort())
-        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-            Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
-            Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";")
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+            Dim RegionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
+            Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(RegionUUID), ";")
 
             Settings.SetIni(RegionName, "InternalPort", CStr(Portnumber))
-            Form1.PropRegionClass.RegionPort(RegionUUID) = Portnumber
+            FormSetup.PropRegionClass.RegionPort(RegionUUID) = Portnumber
 
             Settings.SetIni(RegionName, "XmlRpcPort", CStr(XMLPortnumber))
-            Form1.PropRegionClass.XMLRegionPort(RegionUUID) = CStr(XMLPortnumber)
+            FormSetup.PropRegionClass.XMLRegionPort(RegionUUID) = CStr(XMLPortnumber)
 
             ' Self setting Region Ports
-            Form1.PropMaxPortUsed = Portnumber
-            Form1.PropMaxXMLPortUsed = XMLPortnumber
+            FormSetup.PropMaxPortUsed = Portnumber
+            FormSetup.PropMaxXMLPortUsed = XMLPortnumber
 
             Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
             If XMLPortnumber > 1024 Then XMLPortnumber += 1
         Next
 
-        Form1.Print(My.Resources.Setup_Firewall_word)
+        FormSetup.Print(My.Resources.Setup_Firewall_word)
         Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Public Sub CheckPost()
 
         If WebserverList.Count = 0 Then Return
@@ -158,7 +157,7 @@ Public Class RegionMaker
                 If first > -1 And last > -1 Then
                     rawJSON = POST.Substring(first, last - first + 1)
                 Else
-                    Form1.Logger("RegionReady", "Malformed Web request: " & POST, "Restart")
+                    FormSetup.Logger("RegionReady", "Malformed Web request: " & POST, "Restart")
                     Continue While
                 End If
 
@@ -168,7 +167,7 @@ Public Class RegionMaker
 
                     BreakPoint.Show(ex.Message)
                     Debug.Print(ex.Message)
-                    Form1.Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
+                    FormSetup.Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
                     Continue While
                 End Try
 
@@ -178,24 +177,24 @@ Public Class RegionMaker
 
                 If json.login = "enabled" Then
 
-                    Form1.Logger("RegionReady: Enabled", json.region_name, "Restart")
+                    FormSetup.Logger("RegionReady: Enabled", json.region_name, "Restart")
                     Dim RegionUUID As String = FindRegionByName(json.region_name)
                     If RegionUUID.Length = 0 Then
-                        Form1.Logger("RegionReady Error, no UUID!!", json.region_name, "Restart")
+                        FormSetup.Logger("RegionReady Error, no UUID!!", json.region_name, "Restart")
                         Continue While
                     End If
 
-                    Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
+                    Dim GName = FormSetup.PropRegionClass.GroupName(RegionUUID)
 
                     ' not used - wait on each region ready instead
 
-                    Dim GroupList = Form1.PropRegionClass.RegionUUIDListByName(GName)
+                    Dim GroupList = FormSetup.PropRegionClass.RegionUUIDListByName(GName)
                     For Each R As String In GroupList
-                        Form1.Logger("RegionReady Heard:", Form1.PropRegionClass.RegionName(R), "Restart")
-                        Form1.BootedList1.Add(R)
+                        FormSetup.Logger("RegionReady Heard:", FormSetup.PropRegionClass.RegionName(R), "Restart")
+                        FormSetup.BootedList1.Add(R)
                     Next
 
-                    Form1.Logger("Ready", json.region_name, "Restart")
+                    FormSetup.Logger("Ready", json.region_name, "Restart")
 
                     If Debugger.IsAttached = True Then
                         Try
@@ -213,12 +212,12 @@ Public Class RegionMaker
                             If Keypair.Value = json.region_name Then
                                 Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
                                 If AgentName.Length > 0 Then
-                                    Form1.Print(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
+                                    FormSetup.Print(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
 
                                     Dim Welcome = Settings.WelcomeRegion
                                     Dim UUID = FindRegionByName(Welcome)
-                                    Form1.ConsoleCommand(UUID, "change region " & json.region_name & "{ENTER}")
-                                    Form1.ConsoleCommand(UUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
+                                    FormSetup.ConsoleCommand(UUID, "change region " & json.region_name & "{ENTER}")
+                                    FormSetup.ConsoleCommand(UUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
                                         Removelist.Add(Keypair.Key)
                                     Catch ex As Exception
@@ -242,28 +241,28 @@ Public Class RegionMaker
                     Next
 
                     If Settings.ConsoleShow = "False" Or Settings.ConsoleShow = "None" Then
-                        Dim hwnd = Form1.GetHwnd(GroupName(RegionUUID))
-                        Form1.ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                        Dim hwnd = FormSetup.GetHwnd(GroupName(RegionUUID))
+                        FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
 
                 ElseIf json.login = "shutdown" Then
 
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
 
-                    Form1.Print(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
-                    Dim RegionUUID = Form1.PropRegionClass.FindRegionByName(json.region_name)
-                    Dim GName = Form1.PropRegionClass.GroupName(RegionUUID)
-                    If Not Form1.PropExitList.ContainsKey(GName) Then
-                        Form1.PropExitList.Add(GName, "RegionReady: shutdown ")
+                    FormSetup.Print(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
+                    Dim RegionUUID = FormSetup.PropRegionClass.FindRegionByName(json.region_name)
+                    Dim GName = FormSetup.PropRegionClass.GroupName(RegionUUID)
+                    If Not FormSetup.PropExitList.ContainsKey(GName) Then
+                        FormSetup.PropExitList.Add(GName, "RegionReady: shutdown ")
                     End If
 
-                    Form1.Logger("RegionReady", json.region_name & " shutdown", "Restart")
+                    FormSetup.Logger("RegionReady", json.region_name & " shutdown", "Restart")
 
                 ElseIf json.login = "disabled" Then
-                    Form1.Logger("RegionReady", json.region_name & " disabled login", "Restart")
+                    FormSetup.Logger("RegionReady", json.region_name & " disabled login", "Restart")
                     Continue While
                 Else
-                    Form1.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
+                    FormSetup.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
                     Continue While
                 End If
             Catch ex As Exception
@@ -274,7 +273,7 @@ Public Class RegionMaker
 
         End While
 
-        Form1.PropUpdateView() = True
+        FormSetup.PropUpdateView() = True
 
     End Sub
 
@@ -349,7 +348,6 @@ Public Class RegionMaker
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Function GetAllRegions() As Integer
         Try
             Backup.Clear()
@@ -475,7 +473,7 @@ Public Class RegionMaker
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
-                        Form1.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
+                        FormSetup.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
                 Next
             Next
@@ -612,7 +610,7 @@ Public Class RegionMaker
         & "InternalAddress = 0.0.0.0" & vbCrLf _
         & "InternalPort = " & RegionPort(RegionUUID) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
-        & "ExternalHostName = " & Form1.ExternLocalServerName() & vbCrLf _
+        & "ExternalHostName = " & FormSetup.ExternLocalServerName() & vbCrLf _
         & "SizeX = " & CStr(SizeX(RegionUUID)) & vbCrLf _
         & "SizeY = " & CStr(SizeY(RegionUUID)) & vbCrLf _
         & "Enabled = " & CStr(RegionEnabled(RegionUUID)) & vbCrLf _
@@ -1354,10 +1352,9 @@ Public Class RegionMaker
         Next
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Sub DebugRegions(RegionUUID As String)
 
-        Form1.Log("RegionUUID", CStr(RegionUUID) & vbCrLf &
+        FormSetup.Log("RegionUUID", CStr(RegionUUID) & vbCrLf &
             " PID:" & RegionList(RegionUUID)._ProcessID & vbCrLf &
             " Group:" & RegionList(RegionUUID)._Group & vbCrLf &
             " Region:" & RegionList(RegionUUID)._RegionName & vbCrLf &
@@ -1429,7 +1426,6 @@ Public Class RegionMaker
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Function Bad(RegionUUID As String) As Boolean
 
         If RegionList.ContainsKey(RegionUUID) Then
@@ -1437,11 +1433,11 @@ Public Class RegionMaker
         End If
 
         If String.IsNullOrEmpty(RegionUUID) Then
-            Form1.ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
+            FormSetup.ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
             Return True
         End If
 
-        Form1.ErrorLog("Region UUID does not exist. " & CStr(RegionUUID))
+        FormSetup.ErrorLog("Region UUID does not exist. " & CStr(RegionUUID))
         Return True
 
     End Function
@@ -1592,11 +1588,11 @@ Public Class RegionMaker
                 Dim AgentUUID = match.Groups(2).Value
                 If RegionUUID.Length > 0 And RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
                     If Status(RegionUUID) = SIMSTATUSENUM.Booted Then
-                        Form1.Print(My.Resources.Someone_is_in_word & " " & RegionName(RegionUUID))
+                        FormSetup.Print(My.Resources.Someone_is_in_word & " " & RegionName(RegionUUID))
                         Debug.Print("Sending to " & RegionUUID)
                         Return RegionUUID
                     Else
-                        Form1.Print(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
+                        FormSetup.Print(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
                         Status(RegionUUID) = SIMSTATUSENUM.Resume
                         Try
                             TeleportAvatarDict.Remove(RegionName(RegionUUID))
@@ -1753,45 +1749,45 @@ Public Class RegionMaker
 
     Public Shared Sub CopyOpensimProto(name As String)
 
-        Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(name)
+        Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then Opensimproto(RegionUUID)
 
     End Sub
 
     Public Shared Function Opensimproto(RegionUUID As String) As Boolean
 
-        Dim regionName = Form1.PropRegionClass.RegionName(RegionUUID)
-        Dim pathname = Form1.PropRegionClass.IniPath(RegionUUID)
+        Dim regionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
+        Dim pathname = FormSetup.PropRegionClass.IniPath(RegionUUID)
 
-        If Settings.LoadIni(Form1.GetOpensimProto(), ";") Then Return True
+        If Settings.LoadIni(FormSetup.GetOpensimProto(), ";") Then Return True
 
         Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
 
         Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
-        Settings.SetIni("Const", "http_listener_port", CStr(Form1.PropRegionClass.RegionPort(RegionUUID))) ' varies with region
+        Settings.SetIni("Const", "http_listener_port", CStr(FormSetup.PropRegionClass.RegionPort(RegionUUID))) ' varies with region
 
         ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
-        If Form1.PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
-            If Not Double.TryParse(Form1.PropRegionClass.MinTimerInterval(RegionUUID), Xtime) Then
+        If FormSetup.PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
+            If Not Double.TryParse(FormSetup.PropRegionClass.MinTimerInterval(RegionUUID), Xtime) Then
                 Xtime = 1.0 / 11.0
             End If
         End If
         Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
-        Dim name = Form1.PropRegionClass.RegionName(RegionUUID)
+        Dim name = FormSetup.PropRegionClass.RegionName(RegionUUID)
 
         ' save the http listener port away for the group
-        Form1.PropRegionClass.GroupPort(RegionUUID) = Form1.PropRegionClass.RegionPort(RegionUUID)
+        FormSetup.PropRegionClass.GroupPort(RegionUUID) = FormSetup.PropRegionClass.RegionPort(RegionUUID)
 
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
-        Settings.SetIni("Const", "RegionFolderName", Form1.PropRegionClass.GroupName(RegionUUID))
+        Settings.SetIni("Const", "RegionFolderName", FormSetup.PropRegionClass.GroupName(RegionUUID))
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Try
-            My.Computer.FileSystem.CopyFile(Form1.GetOpensimProto(), pathname & "Opensim.ini", True)
+            My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), pathname & "Opensim.ini", True)
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -1804,12 +1800,12 @@ Public Class RegionMaker
     Public Shared Function SetOpensimIni(RegionName As String, RegionUUID As String) As Boolean
 
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & Form1.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
+        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
             Return True
         End If
 
         If Settings.FirstXMLRegionPort.Length > 0 Then
-            Settings.SetIni("XMLRPC", "XmlRpcPort", Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+            Settings.SetIni("XMLRPC", "XmlRpcPort", FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
         Else
             Settings.SetIni("XMLRPC", "XmlRpcPort", "")
         End If
@@ -1819,11 +1815,11 @@ Public Class RegionMaker
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
         End If
 
-        If Settings.AutoBackup And String.IsNullOrEmpty(Form1.PropRegionClass.SkipAutobackup(RegionUUID)) Then
+        If Settings.AutoBackup And String.IsNullOrEmpty(FormSetup.PropRegionClass.SkipAutobackup(RegionUUID)) Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
         End If
 
-        If Settings.AutoBackup And Form1.PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
+        If Settings.AutoBackup And FormSetup.PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
         End If
 
@@ -1833,30 +1829,30 @@ Public Class RegionMaker
 
         Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
         Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("AutoBackupModule", "AutoBackupDir", Form1.BackupPath())
+        Settings.SetIni("AutoBackupModule", "AutoBackupDir", FormSetup.BackupPath())
 
-        If Form1.PropRegionClass.MapType(RegionUUID) = "Simple" Then
+        If FormSetup.PropRegionClass.MapType(RegionUUID) = "Simple" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Good" Then
+        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Good" Then
             Settings.SetIni(RegionName, "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Better" Then
+        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Better" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Best" Then
+        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Best" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus True
@@ -1865,7 +1861,7 @@ Public Class RegionMaker
             Settings.SetIni("Map", "RenderMeshes", "True")
         End If
 
-        Select Case Form1.PropRegionClass.Physics(RegionUUID)
+        Select Case FormSetup.PropRegionClass.Physics(RegionUUID)
             Case ""
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
@@ -1898,10 +1894,10 @@ Public Class RegionMaker
                 ' do nothing
         End Select
 
-        If String.IsNullOrEmpty(Form1.PropRegionClass.GodDefault(RegionUUID)) _
-            Or Form1.PropRegionClass.GodDefault(RegionUUID) = "False" Then
+        If String.IsNullOrEmpty(FormSetup.PropRegionClass.GodDefault(RegionUUID)) _
+            Or FormSetup.PropRegionClass.GodDefault(RegionUUID) = "False" Then
 
-            Select Case Form1.PropRegionClass.AllowGods(RegionUUID)
+            Select Case FormSetup.PropRegionClass.AllowGods(RegionUUID)
                 Case ""
                     Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
                 Case "False"
@@ -1910,7 +1906,7 @@ Public Class RegionMaker
                     Settings.SetIni("Permissions", "allow_grid_gods", "True")
             End Select
 
-            Select Case Form1.PropRegionClass.RegionGod(RegionUUID)
+            Select Case FormSetup.PropRegionClass.RegionGod(RegionUUID)
                 Case ""
                     Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
                 Case "False"
@@ -1919,7 +1915,7 @@ Public Class RegionMaker
                     Settings.SetIni("Permissions", "region_owner_is_god", "True")
             End Select
 
-            Select Case Form1.PropRegionClass.ManagerGod(RegionUUID)
+            Select Case FormSetup.PropRegionClass.ManagerGod(RegionUUID)
                 Case ""
                     Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
                 Case "False"
@@ -1934,40 +1930,40 @@ Public Class RegionMaker
         End If
 
         ' V3.15
-        If Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID).Length > 0 Then
+            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If Form1.PropRegionClass.PhysicalPrimMax(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(Form1.PropRegionClass.PhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID).Length > 0 Then
+            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If Form1.PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
-            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Form1.PropRegionClass.MinTimerInterval(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
+            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(FormSetup.PropRegionClass.MinTimerInterval(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If Form1.PropRegionClass.FrameTime(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "FrameTime", Convert.ToString(Form1.PropRegionClass.FrameTime(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.FrameTime(RegionUUID).Length > 0 Then
+            Settings.SetIni("Startup", "FrameTime", Convert.ToString(FormSetup.PropRegionClass.FrameTime(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
         ' no FALSE setting for these
-        Settings.SetIni("SmartStart", "Enabled", Form1.PropRegionClass.SmartStart(RegionUUID))
+        Settings.SetIni("SmartStart", "Enabled", FormSetup.PropRegionClass.SmartStart(RegionUUID))
 
-        If Form1.PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
-            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(Form1.PropRegionClass.DisallowForeigners(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
+            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(FormSetup.PropRegionClass.DisallowForeigners(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If Form1.PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
-            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(Form1.PropRegionClass.DisallowResidents(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
+            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(FormSetup.PropRegionClass.DisallowResidents(RegionUUID), Globalization.CultureInfo.InvariantCulture))
         End If
 
         ' replace with a PHP module
-        If Form1.PropRegionClass.DisableGloebits(RegionUUID) = "True" Then
+        If FormSetup.PropRegionClass.DisableGloebits(RegionUUID) = "True" Then
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
         End If
 
         ' Search
-        Select Case Form1.PropRegionClass.Snapshot(RegionUUID)
+        Select Case FormSetup.PropRegionClass.Snapshot(RegionUUID)
             Case ""
                 Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled))
             Case "True"
@@ -1977,13 +1973,13 @@ Public Class RegionMaker
         End Select
 
         'ScriptEngine Overrides
-        If Form1.PropRegionClass.ScriptEngine(RegionUUID) = "XEngine" Then
+        If FormSetup.PropRegionClass.ScriptEngine(RegionUUID) = "XEngine" Then
             Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
             Settings.SetIni("XEngine", "Enabled", "True")
             Settings.SetIni("YEngine", "Enabled", "False")
         End If
 
-        If Form1.PropRegionClass.ScriptEngine(RegionUUID) = "YEngine" Then
+        If FormSetup.PropRegionClass.ScriptEngine(RegionUUID) = "YEngine" Then
             Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
             Settings.SetIni("XEngine", "Enabled", "False")
             Settings.SetIni("YEngine", "Enabled", "True")
@@ -1998,20 +1994,20 @@ Public Class RegionMaker
     Public Shared Function SetRegionVars(RegionName As String, RegionUUID As String) As Boolean
 
         ' edit the region INI
-        If Settings.LoadIni(Form1.PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
+        If Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
 
         ' Autobackup
-        If Settings.AutoBackup And String.IsNullOrEmpty(Form1.PropRegionClass.SkipAutobackup(RegionUUID)) Then
+        If Settings.AutoBackup And String.IsNullOrEmpty(FormSetup.PropRegionClass.SkipAutobackup(RegionUUID)) Then
             Settings.SetIni(RegionName, "AutoBackup", "True")
         Else
             Settings.SetIni(RegionName, "AutoBackup", "False")
         End If
 
-        Settings.SetIni(RegionName, "InternalPort", Convert.ToString(Form1.PropRegionClass.RegionPort(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni(RegionName, "ExternalHostName", Form1.ExternLocalServerName())
+        Settings.SetIni(RegionName, "InternalPort", Convert.ToString(FormSetup.PropRegionClass.RegionPort(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(RegionName, "ExternalHostName", FormSetup.ExternLocalServerName())
 
         ' not a standard INI, only use by the Dreamers
-        If Form1.PropRegionClass.RegionEnabled(RegionUUID) Then
+        If FormSetup.PropRegionClass.RegionEnabled(RegionUUID) Then
             Settings.SetIni(RegionName, "Enabled", "True")
         Else
             Settings.SetIni(RegionName, "Enabled", "False")
@@ -2020,75 +2016,75 @@ Public Class RegionMaker
         ' Extended in v 2.1
 
         If Settings.FirstXMLRegionPort.Length > 0 Then
-            Settings.SetIni(RegionName, "XmlRpcPort", Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+            Settings.SetIni(RegionName, "XmlRpcPort", FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
         Else
             Settings.SetIni(RegionName, "XmlRpcPort", "")
         End If
 
-        Select Case Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID)
+        Select Case FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID)
             Case ""
                 Settings.SetIni(RegionName, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(RegionName, "NonPhysicalPrimMax", Form1.PropRegionClass.NonPhysicalPrimMax(RegionUUID))
+                Settings.SetIni(RegionName, "NonPhysicalPrimMax", FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID))
         End Select
 
-        Select Case Form1.PropRegionClass.PhysicalPrimMax(RegionUUID)
+        Select Case FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID)
             Case ""
                 Settings.SetIni(RegionName, "PhysicalPrimMax", 64.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(RegionName, "PhysicalPrimMax", Form1.PropRegionClass.PhysicalPrimMax(RegionUUID))
+                Settings.SetIni(RegionName, "PhysicalPrimMax", FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID))
         End Select
 
         If (Settings.Primlimits) Then
-            Select Case Form1.PropRegionClass.MaxPrims(RegionUUID)
+            Select Case FormSetup.PropRegionClass.MaxPrims(RegionUUID)
                 Case ""
                     Settings.SetIni(RegionName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
                 Case Else
-                    Settings.SetIni(RegionName, "MaxPrims", Form1.PropRegionClass.MaxPrims(RegionUUID))
+                    Settings.SetIni(RegionName, "MaxPrims", FormSetup.PropRegionClass.MaxPrims(RegionUUID))
             End Select
         Else
-            Select Case Form1.PropRegionClass.MaxPrims(RegionUUID)
+            Select Case FormSetup.PropRegionClass.MaxPrims(RegionUUID)
                 Case ""
                     Settings.SetIni(RegionName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
                 Case Else
-                    Settings.SetIni(RegionName, "MaxPrims", Form1.PropRegionClass.MaxPrims(RegionUUID))
+                    Settings.SetIni(RegionName, "MaxPrims", FormSetup.PropRegionClass.MaxPrims(RegionUUID))
             End Select
         End If
 
-        Select Case Form1.PropRegionClass.MaxAgents(RegionUUID)
+        Select Case FormSetup.PropRegionClass.MaxAgents(RegionUUID)
             Case ""
                 Settings.SetIni(RegionName, "MaxAgents", 100.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(RegionName, "MaxAgents", Form1.PropRegionClass.MaxAgents(RegionUUID))
+                Settings.SetIni(RegionName, "MaxAgents", FormSetup.PropRegionClass.MaxAgents(RegionUUID))
         End Select
 
-        Settings.SetIni(RegionName, "ClampPrimSize", Convert.ToString(Form1.PropRegionClass.ClampPrimSize(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(RegionName, "ClampPrimSize", Convert.ToString(FormSetup.PropRegionClass.ClampPrimSize(RegionUUID), Globalization.CultureInfo.InvariantCulture))
 
         ' Optional Extended in v 2.31 optional things
-        If Form1.PropRegionClass.MapType(RegionUUID) = "None" Then
+        If FormSetup.PropRegionClass.MapType(RegionUUID) = "None" Then
             Settings.SetIni(RegionName, "GenerateMaptiles", "False")
-        ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Simple" Then
+        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Simple" Then
             Settings.SetIni(RegionName, "GenerateMaptiles", "True")
             Settings.SetIni(RegionName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
             Settings.SetIni(RegionName, "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni(RegionName, "DrawPrimOnMapTile", "False")
             Settings.SetIni(RegionName, "TexturePrims", "False")
             Settings.SetIni(RegionName, "RenderMeshes", "False")
-        ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Good" Then
+        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Good" Then
             Settings.SetIni(RegionName, "GenerateMaptiles", "True")
             Settings.SetIni(RegionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni(RegionName, "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni(RegionName, "DrawPrimOnMapTile", "False")
             Settings.SetIni(RegionName, "TexturePrims", "False")
             Settings.SetIni(RegionName, "RenderMeshes", "False")
-        ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Better" Then
+        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Better" Then
             Settings.SetIni(RegionName, "GenerateMaptiles", "True")
             Settings.SetIni(RegionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni(RegionName, "TextureOnMapTile", "True")         ' versus True
             Settings.SetIni(RegionName, "DrawPrimOnMapTile", "True")
             Settings.SetIni(RegionName, "TexturePrims", "False")
             Settings.SetIni(RegionName, "RenderMeshes", "False")
-        ElseIf Form1.PropRegionClass.MapType(RegionUUID) = "Best" Then
+        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Best" Then
             Settings.SetIni(RegionName, "GenerateMaptiles", "True")
             Settings.SetIni(RegionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni(RegionName, "TextureOnMapTile", "True")      ' versus True
@@ -2104,17 +2100,17 @@ Public Class RegionMaker
             Settings.SetIni(RegionName, "RenderMeshes", "")
         End If
 
-        Settings.SetIni(RegionName, "DisableGloebits", Form1.PropRegionClass.DisableGloebits(RegionUUID))
-        Settings.SetIni(RegionName, "RegionSnapShot", Form1.PropRegionClass.RegionSnapShot(RegionUUID))
-        Settings.SetIni(RegionName, "Birds", Form1.PropRegionClass.Birds(RegionUUID))
-        Settings.SetIni(RegionName, "Tides", Form1.PropRegionClass.Tides(RegionUUID))
-        Settings.SetIni(RegionName, "Teleport", Form1.PropRegionClass.Teleport(RegionUUID))
-        Settings.SetIni(RegionName, "DisallowForeigners", Form1.PropRegionClass.DisallowForeigners(RegionUUID))
-        Settings.SetIni(RegionName, "DisallowResidents", Form1.PropRegionClass.DisallowResidents(RegionUUID))
-        Settings.SetIni(RegionName, "SkipAutoBackup", Form1.PropRegionClass.SkipAutobackup(RegionUUID))
-        Settings.SetIni(RegionName, "Physics", Form1.PropRegionClass.Physics(RegionUUID))
-        Settings.SetIni(RegionName, "FrameTime", Form1.PropRegionClass.FrameTime(RegionUUID))
-        Settings.SetIni(RegionName, "XmlRpcPort", Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+        Settings.SetIni(RegionName, "DisableGloebits", FormSetup.PropRegionClass.DisableGloebits(RegionUUID))
+        Settings.SetIni(RegionName, "RegionSnapShot", FormSetup.PropRegionClass.RegionSnapShot(RegionUUID))
+        Settings.SetIni(RegionName, "Birds", FormSetup.PropRegionClass.Birds(RegionUUID))
+        Settings.SetIni(RegionName, "Tides", FormSetup.PropRegionClass.Tides(RegionUUID))
+        Settings.SetIni(RegionName, "Teleport", FormSetup.PropRegionClass.Teleport(RegionUUID))
+        Settings.SetIni(RegionName, "DisallowForeigners", FormSetup.PropRegionClass.DisallowForeigners(RegionUUID))
+        Settings.SetIni(RegionName, "DisallowResidents", FormSetup.PropRegionClass.DisallowResidents(RegionUUID))
+        Settings.SetIni(RegionName, "SkipAutoBackup", FormSetup.PropRegionClass.SkipAutobackup(RegionUUID))
+        Settings.SetIni(RegionName, "Physics", FormSetup.PropRegionClass.Physics(RegionUUID))
+        Settings.SetIni(RegionName, "FrameTime", FormSetup.PropRegionClass.FrameTime(RegionUUID))
+        Settings.SetIni(RegionName, "XmlRpcPort", FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 

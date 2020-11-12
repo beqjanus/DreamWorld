@@ -65,6 +65,7 @@ Public Class FormDNSName
 #Region "Load"
 
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Translate.Run(Name)
         SetScreen()
         Me.Text = Global.Outworldz.My.Resources.Dynamic_DNS_word
         DNSNameBox.Text = Settings.DNSName
@@ -97,7 +98,7 @@ Public Class FormDNSName
         NextNameButton.Text = Global.Outworldz.My.Resources.Busy_word
         DNSNameBox.Text = String.Empty
         Application.DoEvents()
-        Dim newname = Form1.GetNewDnsName()
+        Dim newname = FormSetup.GetNewDnsName()
         NextNameButton.Text = Global.Outworldz.My.Resources.Next1
         If newname.Length = 0 Then
             MsgBox(My.Resources.Please_enter, vbInformation, Global.Outworldz.My.Resources.Info_word)
@@ -120,13 +121,13 @@ Public Class FormDNSName
         Else
 
             Settings.DNSName = DNSNameBox.Text
-            Form1.RegisterName(DNSNameBox.Text, True)
+            FormSetup.RegisterName(DNSNameBox.Text, True)
 
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
                     Settings.PublicIP = IP()
                 Else
-                    Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
+                    Dim IP = FormSetup.GetHostAddresses(DNSNameBox.Text)
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
@@ -134,14 +135,13 @@ Public Class FormDNSName
         End If
 
         If DNSAliasTextBox.Text.Length > 0 Then
-            Form1.RegisterName(DNSAliasTextBox.Text, True)
+            FormSetup.RegisterName(DNSAliasTextBox.Text, True)
             Settings.AltDnsName = DNSAliasTextBox.Text
         End If
 
-
         Settings.SaveSettings()
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Me.Close()
 
     End Sub
@@ -172,18 +172,18 @@ Public Class FormDNSName
             Settings.PublicIP = IP()
         Else
             Settings.PublicIP = DNSNameBox.Text
-            Form1.RegisterName(Settings.PublicIP, True)    ' force it to register
+            FormSetup.RegisterName(Settings.PublicIP, True)    ' force it to register
 
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
-                    Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
+                    Dim IP = FormSetup.GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
                         MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, Global.Outworldz.My.Resources.Error_word)
                     Else
                         MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, vbInformation, Global.Outworldz.My.Resources.Info_word)
                     End If
                 Else
-                    Dim IP = Form1.GetHostAddresses(DNSNameBox.Text)
+                    Dim IP = FormSetup.GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
                         MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, Global.Outworldz.My.Resources.Error_word)
                     Else
@@ -199,7 +199,7 @@ Public Class FormDNSName
                     If IPAddress.TryParse(DNSAliasTextBox.Text, address) Then
                         MsgBox(DNSAliasTextBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & DNSAliasTextBox.Text, vbInformation, Global.Outworldz.My.Resources.Info_word)
                     Else
-                        Dim IP = Form1.GetHostAddresses(DNSAliasTextBox.Text)
+                        Dim IP = FormSetup.GetHostAddresses(DNSAliasTextBox.Text)
                         If IP.Length = 0 Then
                             MsgBox(My.Resources.Cannot_resolve_word & " " & DNSAliasTextBox.Text, vbInformation, Global.Outworldz.My.Resources.Error_word)
                         Else
@@ -221,7 +221,6 @@ Public Class FormDNSName
     Private Sub TextBox1_LostFocus(sender As Object, e As EventArgs) Handles DNSNameBox.TextChanged
 
         If DNSNameBox.Text.Length > 0 Then
-
 
             DNSNameBox.Text = Regex.Replace(DNSNameBox.Text, ":\d+", "") ' no :8002 on end.
 

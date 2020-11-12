@@ -49,6 +49,7 @@
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         SetScreen()
 
         Select Case Settings.LogLevel.ToUpperInvariant
@@ -93,37 +94,37 @@
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioOff.CheckedChanged
         If Not initted Then Return
-        If RadioOff.Checked Then Form1.SendMsg("off")
+        If RadioOff.Checked Then FormSetup.SendMsg("off")
     End Sub
 
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioDebug.CheckedChanged
         If Not initted Then Return
-        If RadioDebug.Checked Then Form1.SendMsg("debug")
+        If RadioDebug.Checked Then FormSetup.SendMsg("debug")
     End Sub
 
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioInfo.CheckedChanged
         If Not initted Then Return
-        If RadioInfo.Checked Then Form1.SendMsg("info")
+        If RadioInfo.Checked Then FormSetup.SendMsg("info")
     End Sub
 
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioWarn.CheckedChanged
         If Not initted Then Return
-        If RadioWarn.Checked Then Form1.SendMsg("warn")
+        If RadioWarn.Checked Then FormSetup.SendMsg("warn")
     End Sub
 
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioError.CheckedChanged
         If Not initted Then Return
-        If RadioError.Checked Then Form1.SendMsg("error")
+        If RadioError.Checked Then FormSetup.SendMsg("error")
     End Sub
 
     Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioFatal.CheckedChanged
         If Not initted Then Return
-        If RadioFatal.Checked Then Form1.SendMsg("fatal")
+        If RadioFatal.Checked Then FormSetup.SendMsg("fatal")
     End Sub
 
     Private Sub RadioButton7_CheckedChanged(sender As Object, e As EventArgs) Handles RadioAll.CheckedChanged
         If Not initted Then Return
-        If RadioAll.Checked Then Form1.SendMsg("all")
+        If RadioAll.Checked Then FormSetup.SendMsg("all")
     End Sub
 
 #End Region

@@ -55,7 +55,6 @@ Public Class FormDisplacement
 
 #Region "Public Methods"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Public Sub Init(Size As Integer, RegionUUID As String, Optional map As Boolean = True)
 
         If map Then
@@ -69,7 +68,7 @@ Public Class FormDisplacement
         Me.Width = Size * 256 + 60
         Me.Height = Size * 256 + 100
 
-        Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
+        Dim RegionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
         Me.Text = RegionName & " " & CStr(Size) + " X " & CStr(Size)
         Me.Name = "FormDisplacement_" & RegionUUID
         MakeArray(Size, RegionUUID, map)
@@ -82,7 +81,7 @@ Public Class FormDisplacement
 
     Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
 
-        Form1.PropForceMerge = False
+        FormSetup.PropForceMerge = False
         MergeOARToolStripMenuItem.Checked = False
         ClearOARToolStripMenuItem.Checked = True
 
@@ -90,7 +89,7 @@ Public Class FormDisplacement
 
     Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
 
-        Form1.PropForceTerrain = True
+        FormSetup.PropForceTerrain = True
         ForceTerrainToolStripMenuItem.Checked = True
         OriginalTererainToolStripMenuItem.Checked = False
 
@@ -100,8 +99,8 @@ Public Class FormDisplacement
 
         SetScreen()
 
-        Form1.PropSelectedBox = ""
-        If Form1.PropForceParcel Then
+        FormSetup.PropSelectedBox = ""
+        If FormSetup.PropForceParcel Then
             LoadParcelToolStripMenuItem.Checked = True
             IgnoreParcelToolStripMenuItem.Checked = False
         Else
@@ -110,7 +109,7 @@ Public Class FormDisplacement
 
         End If
 
-        If Form1.PropForceTerrain Then
+        If FormSetup.PropForceTerrain Then
             ForceTerrainToolStripMenuItem.Checked = True
             OriginalTererainToolStripMenuItem.Checked = False
         Else
@@ -118,7 +117,7 @@ Public Class FormDisplacement
             OriginalTererainToolStripMenuItem.Checked = True
         End If
 
-        If Form1.PropForceMerge Then
+        If FormSetup.PropForceMerge Then
             MergeOARToolStripMenuItem.Checked = True
             ClearOARToolStripMenuItem.Checked = False
         Else
@@ -136,7 +135,7 @@ Public Class FormDisplacement
 
     Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
 
-        Form1.PropForceParcel = False
+        FormSetup.PropForceParcel = False
         LoadParcelToolStripMenuItem.Checked = False
         IgnoreParcelToolStripMenuItem.Checked = True
 
@@ -144,7 +143,7 @@ Public Class FormDisplacement
 
     Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
 
-        Form1.PropForceParcel = True
+        FormSetup.PropForceParcel = True
         LoadParcelToolStripMenuItem.Checked = True
         IgnoreParcelToolStripMenuItem.Checked = False
 
@@ -152,7 +151,7 @@ Public Class FormDisplacement
 
     Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
 
-        Form1.PropForceMerge = True
+        FormSetup.PropForceMerge = True
         MergeOARToolStripMenuItem.Checked = True
         ClearOARToolStripMenuItem.Checked = False
 
@@ -160,7 +159,7 @@ Public Class FormDisplacement
 
     Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
 
-        Form1.PropForceTerrain = False
+        FormSetup.PropForceTerrain = False
         ForceTerrainToolStripMenuItem.Checked = False
         OriginalTererainToolStripMenuItem.Checked = True
 
@@ -169,12 +168,12 @@ Public Class FormDisplacement
     Private Sub PictureBox_Click(sender As Object, e As EventArgs)
 
         Dim tag As String = sender.Tag.ToString
-        Form1.PropSelectedBox = " --displacement " & tag & " "
+        FormSetup.PropSelectedBox = " --displacement " & tag & " "
         Me.Close()
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
-        Form1.PropUserName = InputBox(My.Resources.UnassignedPerson, "")
+        FormSetup.PropUserName = InputBox(My.Resources.UnassignedPerson, "")
     End Sub
 
 #End Region
@@ -182,8 +181,8 @@ Public Class FormDisplacement
     Private Shared Function MakePhotoOfRegion(regionUUID As String, X As Integer, Y As Integer) As Image
 
         'map-1-1000-1000-objects
-        Dim Xcoord = Form1.PropRegionClass.CoordX(regionUUID) + X
-        Dim Ycoord = Form1.PropRegionClass.CoordY(regionUUID) + Y
+        Dim Xcoord = FormSetup.PropRegionClass.CoordX(regionUUID) + X
+        Dim Ycoord = FormSetup.PropRegionClass.CoordY(regionUUID) + Y
 
         Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
         Dim RegionPhoto = Settings.OpensimBinPath & "maptiles\00000000-0000-0000-0000-000000000000\" & place

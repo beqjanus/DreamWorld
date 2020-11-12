@@ -47,7 +47,7 @@ Module FileStuff
             If File.Exists(fileSystemInfo.FullName) Then
                 ctr += 1
                 If ctr Mod 100 = 0 Then
-                    Form1.Print(CStr(ctr) & " copied")
+                    FormSetup.Print(CStr(ctr) & " copied")
                 End If
 
                 Try

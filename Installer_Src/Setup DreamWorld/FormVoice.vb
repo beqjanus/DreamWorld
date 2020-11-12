@@ -62,12 +62,14 @@ Public Class FormVoice
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
+
+        Translate.Run(Name)
         Me.Text = Global.Outworldz.My.Resources.Voice_Settings_Word
         VivoxEnable.Checked = Settings.VivoxEnabled
         VivoxPassword.Text = Settings.VivoxPassword
@@ -75,13 +77,13 @@ Public Class FormVoice
         VivoxPassword.UseSystemPasswordChar = True
         SetScreen()
         HelpOnce("Vivox")
+
     End Sub
 
     Private Sub RequestPassword_Click(sender As Object, e As EventArgs) Handles RequestPassword.Click
         Dim webAddress As String = "https://opensim.vivox.com/opensim/"
         Try
             Process.Start(webAddress)
-
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)

@@ -85,10 +85,10 @@ Public Class FormCaches
             ClrCache.WipeMesh()
         End If
 
-        If Not Form1.PropOpensimIsRunning() Then
-            Form1.Print(My.Resources.All_Caches_Cleared_word)
+        If Not FormSetup.PropOpensimIsRunning() Then
+            FormSetup.Print(My.Resources.All_Caches_Cleared_word)
         Else
-            Form1.Print(My.Resources.Cache_Most_Cleared)
+            FormSetup.Print(My.Resources.Cache_Most_Cleared)
         End If
 
         Me.Close()
@@ -97,14 +97,14 @@ Public Class FormCaches
 
     Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
         If Not gInitted Then Return
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
     End Sub
 
     Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
         If Not gInitted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
     End Sub
 
     Private Sub Form_unload() Handles Me.Closing
@@ -115,17 +115,17 @@ Public Class FormCaches
         Settings.CacheTimeout = CacheTimeout.Text
         Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.TextBox.set_Text(System.String)")>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         SetScreen()
 
-        If Not Form1.PropOpensimIsRunning() Then
+        If Not FormSetup.PropOpensimIsRunning() Then
             CheckBox1.Enabled = True
             CheckBox2.Enabled = True
 
@@ -157,7 +157,7 @@ Public Class FormCaches
 
         If Not IO.Directory.Exists(tmp) Then
             MsgBox(My.Resources.No_Locate_FSassets & tmp & Global.Outworldz.My.Resources.Reset_To_Default, vbInformation)
-            CacheFolder.Text = ".\assetcache"
+            CacheFolder.Text = ".\assetcache".ToString(Globalization.CultureInfo.InvariantCulture)
         End If
 
         ViewerCacheCheckbox.Checked = Settings.SupportViewerObjectsCache
@@ -191,7 +191,7 @@ Public Class FormCaches
                 Settings.CacheFolder = thing
                 Settings.SaveSettings()
                 CacheFolder.Text = thing
-                Form1.PropViewedSettings = True
+                FormSetup.PropViewedSettings = True
             End If
         End If
 

@@ -67,12 +67,13 @@ Public Class FormApache
 
         Settings.SaveSettings()
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         SetScreen()
 
         ApacheCheckbox.Checked = Settings.ApacheEnable
@@ -113,7 +114,7 @@ Public Class FormApache
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
-            Form1.Sleep(1000)
+            FormSetup.Sleep(1000)
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             Try
                 ApacheProcess.Start()
@@ -123,7 +124,7 @@ Public Class FormApache
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
-            Form1.Print(My.Resources.Apache_has_been_removed)
+            FormSetup.Print(My.Resources.Apache_has_been_removed)
         End Using
 
     End Sub

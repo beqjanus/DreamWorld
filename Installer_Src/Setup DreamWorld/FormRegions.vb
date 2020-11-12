@@ -61,7 +61,7 @@ Public Class FormRegions
 
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
 
-        Form1.PropRegionClass.CreateRegion("")
+        FormSetup.PropRegionClass.CreateRegion("")
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope
@@ -77,24 +77,24 @@ Public Class FormRegions
         Dim result As MsgBoxResult = MsgBox(My.Resources.This_Moves, vbYesNo)
         If result = vbYes Then
 
-            Dim chosen = Form1.ChooseRegion(False) ' all regions, running or not
+            Dim chosen = FormSetup.ChooseRegion(False) ' all regions, running or not
 
             ' Check for illegal stuff
-            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(chosen)
-            Dim X = Form1.PropRegionClass.CoordX(RegionUUID)
-            Dim Y = Form1.PropRegionClass.CoordY(RegionUUID)
+            Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(chosen)
+            Dim X = FormSetup.PropRegionClass.CoordX(RegionUUID)
+            Dim Y = FormSetup.PropRegionClass.CoordY(RegionUUID)
             Dim Err As Boolean = False
             Dim Failed As String
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
-            For Each UUID As String In Form1.PropRegionClass.RegionUUIDs
-                If (Form1.PropRegionClass.CoordX(UUID) + DeltaX) <= 0 Then
+            For Each UUID As String In FormSetup.PropRegionClass.RegionUUIDs
+                If (FormSetup.PropRegionClass.CoordX(UUID) + DeltaX) <= 0 Then
                     Err = True
-                    Failed = Form1.PropRegionClass.RegionName(UUID)
+                    Failed = FormSetup.PropRegionClass.RegionName(UUID)
                 End If
-                If (Form1.PropRegionClass.CoordY(RegionUUID) + DeltaY) <= 0 Then
+                If (FormSetup.PropRegionClass.CoordY(RegionUUID) + DeltaY) <= 0 Then
                     Err = True
-                    Failed = Form1.PropRegionClass.RegionName(UUID)
+                    Failed = FormSetup.PropRegionClass.RegionName(UUID)
                 End If
             Next
 
@@ -103,10 +103,10 @@ Public Class FormRegions
                 Return
             End If
 
-            For Each UUID As String In Form1.PropRegionClass.RegionUUIDs
-                Form1.PropRegionClass.CoordX(RegionUUID) = Form1.PropRegionClass.CoordX(UUID) + DeltaX
-                Form1.PropRegionClass.CoordY(RegionUUID) = Form1.PropRegionClass.CoordY(UUID) + DeltaY
-                Form1.PropRegionClass.WriteRegionObject(Form1.PropRegionClass.RegionName(UUID))
+            For Each UUID As String In FormSetup.PropRegionClass.RegionUUIDs
+                FormSetup.PropRegionClass.CoordX(RegionUUID) = FormSetup.PropRegionClass.CoordX(UUID) + DeltaX
+                FormSetup.PropRegionClass.CoordY(RegionUUID) = FormSetup.PropRegionClass.CoordY(UUID) + DeltaY
+                FormSetup.PropRegionClass.WriteRegionObject(FormSetup.PropRegionClass.RegionName(UUID))
             Next
 
         End If
@@ -114,7 +114,7 @@ Public Class FormRegions
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Form1.StartMySQL()
+        FormSetup.StartMySQL()
         MysqlInterface.DeregisterRegions()
 
     End Sub
@@ -144,6 +144,8 @@ Public Class FormRegions
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
+
         '!!!remove for production
         If Debugger.IsAttached = False Then
             SmartStartEnabled.Enabled = False
@@ -167,8 +169,8 @@ Public Class FormRegions
         ' All region load
         RegionBox.Items.Clear()
 
-        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-            RegionBox.Items.Add(Form1.PropRegionClass.RegionName(RegionUUID))
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+            RegionBox.Items.Add(FormSetup.PropRegionClass.RegionName(RegionUUID))
         Next
 
     End Sub
@@ -178,8 +180,8 @@ Public Class FormRegions
         ' Default welcome region load
         WelcomeBox1.Items.Clear()
 
-        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
-            WelcomeBox1.Items.Add(Form1.PropRegionClass.RegionName(RegionUUID))
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+            WelcomeBox1.Items.Add(FormSetup.PropRegionClass.RegionName(RegionUUID))
         Next
 
         Dim s = WelcomeBox1.FindString(Settings.WelcomeRegion)
@@ -187,7 +189,7 @@ Public Class FormRegions
             WelcomeBox1.SelectedIndex = s
         Else
             MsgBox(My.Resources.Choose_Welcome, vbInformation, Global.Outworldz.My.Resources.Choose_Region_word)
-            Dim chosen = Form1.ChooseRegion(False)
+            Dim chosen = FormSetup.ChooseRegion(False)
             Dim Index = WelcomeBox1.FindString(chosen)
             WelcomeBox1.SelectedIndex = Index
         End If
@@ -214,9 +216,9 @@ Public Class FormRegions
         Dim Y As Integer = 200
         Dim counter As Integer = 0
 
-        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
 
-            Dim RegionName = Form1.PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope

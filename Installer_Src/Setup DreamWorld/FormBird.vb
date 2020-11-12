@@ -22,7 +22,7 @@
 
 Imports System.Text.RegularExpressions
 
-Public Class BirdForm
+Public Class FormBird
 
 #Region "Private Fields"
 
@@ -136,7 +136,7 @@ Public Class BirdForm
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Dim thing As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/IAR/OpenSimBirds.iar")
-        Form1.LoadIARContent(thing)
+        FormSetup.LoadIARContent(thing)
 
     End Sub
 
@@ -176,7 +176,7 @@ Public Class BirdForm
 
         If Not initted Then Return
         If changed Then
-            Form1.PropViewedSettings = True
+            FormSetup.PropViewedSettings = True
         End If
         Settings.BirdsFlockSize = CInt("0" & BirdsFlockSizeDomain.Text)
         Settings.SaveSettings()
@@ -185,9 +185,8 @@ Public Class BirdForm
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        ' This call is required by the designer. InitializeComponent()
+        Translate.Run(Name)
 
-        ' Add any initialization after the InitializeComponent() call.
         SetScreen()
 
         BirdsModuleStartupbox.Checked = Settings.BirdsModuleStartup

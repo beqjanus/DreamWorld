@@ -169,13 +169,13 @@ Public Class MySettings
 
         If Theme().Length = 0 Then
             Theme() = "White"
-            Form1.CopyWifi("White")
+            FormSetup.CopyWifi("White")
         ElseIf Theme() = "Black" Then
-            Form1.CopyWifi("Black")
+            FormSetup.CopyWifi("Black")
         ElseIf Theme() = "White" Then
-            Form1.CopyWifi("White")
+            FormSetup.CopyWifi("White")
         ElseIf Theme() = "Custom" Then
-            Form1.CopyWifi("Custom")
+            FormSetup.CopyWifi("Custom")
         End If
 
     End Sub
@@ -184,10 +184,9 @@ Public Class MySettings
 
 #Region "Functions And Subs"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Function LoadIni(arg As String, comment As String) As Boolean
 
-        Form1.Log(My.Resources.Info_word, "Loading INI " & arg)
+        FormSetup.Log(My.Resources.Info_word, "Loading INI " & arg)
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -197,7 +196,7 @@ Public Class MySettings
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             MsgBox(ex.Message)
-            Form1.Logger("Warn", ex.Message, "Error")
+            FormSetup.Logger("Warn", ex.Message, "Error")
             Return True
         End Try
         INI = arg
@@ -234,7 +233,7 @@ Public Class MySettings
             Data(section)(key) = value
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog(ex.Message)
+            FormSetup.ErrorLog(ex.Message)
         End Try
 
     End Sub
@@ -247,7 +246,7 @@ Public Class MySettings
             MyData(section)(key) = value
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog(ex.Message)
+            FormSetup.ErrorLog(ex.Message)
         End Try
 
     End Sub
@@ -316,32 +315,28 @@ Public Class MySettings
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Sub SaveINI(encoding As System.Text.Encoding)
 
-        Form1.Log(My.Resources.Info_word, "Save INI " & INI)
+        FormSetup.Log(My.Resources.Info_word, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, encoding)
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog("Error:" + ex.Message)
+            FormSetup.ErrorLog("Error:" + ex.Message)
         End Try
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Sub SaveSettings()
 
-        Form1.Log(My.Resources.Info_word, "Save Settings " & myINI)
+        FormSetup.Log(My.Resources.Info_word, "Save Settings " & myINI)
         Try
             Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             MsgBox(My.Resources.Unable_2_Save + myINI)
-            Form1.ErrorLog("Error:" + ex.Message)
+            FormSetup.ErrorLog("Error:" + ex.Message)
         End Try
 
     End Sub
@@ -354,7 +349,7 @@ Public Class MySettings
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Form1.Logger("Error", ex.Message, "Error")
+            FormSetup.Logger("Error", ex.Message, "Error")
         End Try
 
     End Sub
@@ -1173,8 +1168,8 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = CStr(Form1.PropRegionClass.CoordX(RegionUUID))
+            Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(WelcomeRegion)
+            Dim Center As String = CStr(FormSetup.PropRegionClass.CoordX(RegionUUID))
             Return CInt("0" & GetMySetting("MapCenterX", Center))
         End Get
         Set
@@ -1184,8 +1179,8 @@ Public Class MySettings
 
     Public Property MapCenterY() As Integer
         Get
-            Dim RegionUUID As String = Form1.PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = CStr(Form1.PropRegionClass.CoordY(RegionUUID))
+            Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(WelcomeRegion)
+            Dim Center As String = CStr(FormSetup.PropRegionClass.CoordY(RegionUUID))
             Return CInt("0" & GetMySetting("MapCenterY", Center))
         End Get
         Set
@@ -1708,7 +1703,7 @@ Public Class MySettings
 
     Public Property SplashPage() As String
         Get
-            Return GetMySetting("SplashPage", Form1.PropDomain() & "/Outworldz_installer/Welcome.htm")
+            Return GetMySetting("SplashPage", FormSetup.PropDomain() & "/Outworldz_installer/Welcome.htm")
         End Get
         Set
             SetMySetting("SplashPage", Value)

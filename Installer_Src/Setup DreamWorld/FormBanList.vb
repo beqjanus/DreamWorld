@@ -57,7 +57,7 @@ Public Class FormBanList
 #Region "Start Stop"
 
     Public Sub LoadCollectionData() Handles Me.Load
-
+        Translate.Run(Name)
         SetScreen()
         GetData()
         BringToFront()
@@ -66,7 +66,6 @@ Public Class FormBanList
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub Q() Handles Me.Closing
 
         If Saveneeded = False Then Return
@@ -160,12 +159,12 @@ Public Class FormBanList
 
                 Settings.SaveINI(System.Text.Encoding.UTF8)
 
-                If Form1.IsRobustRunning() Then
+                If FormSetup.IsRobustRunning() Then
                     Me.Hide()
-                    Form1.PropAborting = True
-                    Form1.StopRobust()
-                    Form1.StartRobust()
-                    Form1.PropAborting = False
+                    FormSetup.PropAborting = True
+                    FormSetup.StopRobust()
+                    FormSetup.StartRobust()
+                    FormSetup.PropAborting = False
                 End If
             End If
             ' Do not catch general exception types
@@ -215,7 +214,6 @@ Public Class FormBanList
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub GetData()
 
         Try
@@ -308,7 +306,7 @@ Public Class FormBanList
         Catch ex As Exception
             ' Do not catch general exception types
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog("Banlist:" & ex.Message)
+            FormSetup.ErrorLog("Banlist:" & ex.Message)
         End Try
 
     End Sub

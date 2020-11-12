@@ -20,7 +20,7 @@
 
 #End Region
 
-Public Class AdvancedForm
+Public Class FormSettings
     Implements IDisposable
 
 #Region "Declarations"
@@ -29,7 +29,7 @@ Public Class AdvancedForm
 
     Private Backups As New FormAutoBackups
     Dim Banlist As New FormBanList
-    Private Bird As New BirdForm
+    Private Bird As New FormBird
     Dim FormApache As New FormApache
     Dim FormCache As New FormCaches
     Dim FormDatabase As New FormDatabase
@@ -43,12 +43,12 @@ Public Class AdvancedForm
     Dim FormRegions As New FormRegions
     Dim FormRestart As New FormRestart
     Dim FormServerType As New FormServerType
-    Dim Gloebits As New Gloebits
-    Dim Icecast As New Icecast
+    Dim Gloebits As New FormGloebits
+    Dim Icecast As New FormIcecast
     Dim Logging As New FormLogging
     Dim Maps As New FormMaps
     Dim Scripts As New FormScripts
-    Dim Tide As New Tides
+    Dim Tide As New FormTide
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
 #Enable Warning CA2213
@@ -90,6 +90,7 @@ Public Class AdvancedForm
 
     Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         SetScreen()
 
         Me.Visible = True
@@ -103,7 +104,7 @@ Public Class AdvancedForm
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs)
 
-        Dim webAddress As String = Form1.PropDomain + "/Outworldz_installer/technical.htm#Regions"
+        Dim webAddress As String = FormSetup.PropDomain + "/Outworldz_installer/technical.htm#Regions"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -202,7 +203,7 @@ Public Class AdvancedForm
 
         Bird.Close()
         Bird.Dispose()
-        Bird = New BirdForm
+        Bird = New FormBird
         Bird.Activate()
         Bird.Visible = True
         Bird.Select()
@@ -214,7 +215,7 @@ Public Class AdvancedForm
 
         Gloebits.Close()
         Gloebits.Dispose()
-        Gloebits = New Gloebits
+        Gloebits = New FormGloebits
         Gloebits.Activate()
         Gloebits.Visible = True
         Gloebits.Select()
@@ -394,7 +395,7 @@ Public Class AdvancedForm
 
         Icecast.Close()
         Icecast.Dispose()
-        Icecast = New Icecast With {
+        Icecast = New FormIcecast With {
             .Visible = True
         }
         Icecast.Activate()
@@ -407,7 +408,7 @@ Public Class AdvancedForm
 
         Tide.Close()
         Tide.Dispose()
-        Tide = New Tides
+        Tide = New FormTide
         Tide.Activate()
         Tide.Visible = True
         Tide.Select()

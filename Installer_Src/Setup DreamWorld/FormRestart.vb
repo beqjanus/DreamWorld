@@ -62,13 +62,14 @@ Public Class FormRestart
         Settings.RestartOnCrash = RestartOnCrash.Checked
         Settings.Sequential = SequentialCheckBox1.Checked
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         AutoRestartBox.Text = Settings.AutoRestartInterval.ToString(Globalization.CultureInfo.InvariantCulture)
         ARTimerBox.Checked = Settings.AutoRestartEnabled
         AutoStartCheckbox.Checked = Settings.Autostart

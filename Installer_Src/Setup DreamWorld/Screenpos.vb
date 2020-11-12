@@ -40,6 +40,7 @@ Public Class ScreenPos
     Public Sub New(Name As String)
 
         If String.IsNullOrEmpty(Name) Then Return
+
         GName1 = Name ' save gName for this form
 
         parser = New FileIniDataParser()
@@ -155,7 +156,7 @@ Public Class ScreenPos
             Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
         Catch ex As Exception
-            Form1.Logger("Resize", ex.Message, "Error")
+            FormSetup.Logger("Resize", ex.Message, "Error")
             BreakPoint.Show(ex.Message)
         End Try
         Return New List(Of Integer) From {100, 100}
@@ -191,7 +192,6 @@ Public Class ScreenPos
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Sub SaveFormSettings()
 
         If Data Is Nothing Then Return
@@ -200,7 +200,7 @@ Public Class ScreenPos
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog("Error:" + ex.Message)
+            FormSetup.ErrorLog("Error:" + ex.Message)
         End Try
 
     End Sub
@@ -244,7 +244,7 @@ Public Class ScreenPos
             Data(section)(key) = value ' replace it
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog(ex.Message)
+            FormSetup.ErrorLog(ex.Message)
         End Try
 
     End Sub

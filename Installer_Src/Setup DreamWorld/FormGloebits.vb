@@ -20,7 +20,7 @@
 
 #End Region
 
-Public Class Gloebits
+Public Class FormGloebits
 
 #Region "Globals"
 
@@ -63,13 +63,14 @@ Public Class Gloebits
 
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
-        Form1.PropViewedSettings = True
-        Form1.DoGloebits()
+        FormSetup.PropViewedSettings = True
+        FormSetup.DoGloebits()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         ContactEmailTextBox.Text = Settings.GLBOwnerEmail
         OwnerNameTextbox.Text = Settings.GLBOwnerName
 

@@ -22,7 +22,7 @@
 
 Imports System.ComponentModel
 
-Public Class Choice
+Public Class FormChooser
 
 #Region "ScreenSize"
 

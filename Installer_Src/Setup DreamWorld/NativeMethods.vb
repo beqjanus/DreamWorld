@@ -2,7 +2,7 @@
 
 Friend Module NativeMethods
 
-    Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As Form1.SHOWWINDOWENUM) As Boolean
+    Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As FormSetup.SHOWWINDOWENUM) As Boolean
 
 #Disable Warning CA2101 ' Specify marshaling for P/Invoke string arguments
 

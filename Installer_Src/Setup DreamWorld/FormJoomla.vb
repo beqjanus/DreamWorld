@@ -7,6 +7,8 @@ Public Class FormJoomla
 
     Public Sub LoadSub() Handles Me.Load
 
+        Translate.Run(Name)
+        Translate.Run(Name)
         SetDefaults()
         HelpOnce("JOpensim")
 
@@ -38,14 +40,13 @@ Public Class FormJoomla
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ButtonBase.set_Text(System.String)")>
     Private Sub InstallJOpensim()
 
         Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip")
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
             InstallButton.Image = Nothing
-            Form1.StartApache()
+            FormSetup.StartApache()
 
             Dim JoomlaProcess As New Process()
             JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
@@ -86,7 +87,7 @@ Public Class FormJoomla
                     Next
                 End Using
             Catch ex As Exception
-                Form1.Print($"Unable to extract file: {fname}:{ex.Message}")
+                FormSetup.Print($"Unable to extract file: {fname}:{ex.Message}")
                 Thread.Sleep(3000)
             End Try
 

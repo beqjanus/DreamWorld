@@ -99,13 +99,14 @@ Public Class FormDatabase
 
     Private Sub Form_exit() Handles Me.Closed
         If Changed1 Then
-            Form1.PropViewedSettings = True
+            FormSetup.PropViewedSettings = True
             SaveAll()
         End If
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         'Database
 
         RegionDbName.Text = Settings.RegionDBName
@@ -132,7 +133,7 @@ Public Class FormDatabase
 
     Private Sub SaveAll()
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
         Changed1 = False ' do not trigger the save a second time
 
@@ -269,7 +270,7 @@ Public Class FormDatabase
 
     Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
 
-        Form1.BackupDB()
+        FormSetup.BackupDB()
 
     End Sub
 

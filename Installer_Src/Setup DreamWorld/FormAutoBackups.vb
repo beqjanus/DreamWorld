@@ -58,7 +58,7 @@ Public Class FormAutoBackups
 #Region "Private Methods"
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-
+        Translate.Run(Name)
         AutoBackupKeepFilesForDays.Text = CStr(Settings.KeepForDays)
 
         '0 = Hourly
@@ -107,7 +107,7 @@ Public Class FormAutoBackups
 
     Private Sub ABEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles AutoBackup.CheckedChanged
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.AutoBackup = AutoBackup.Checked
         Settings.SaveSettings()
 
@@ -148,7 +148,7 @@ Public Class FormAutoBackups
         End If
 
         Settings.AutobackupInterval = CStr(Interval)
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
     End Sub
 
@@ -162,7 +162,7 @@ Public Class FormAutoBackups
             Settings.SaveSettings()
         End If
         ' TODO:  Implement PropViewedSettings as a dictionary in a module we can prompt for restart with
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
     End Sub
 
     Private Sub BackupFolder_clicked(sender As Object, e As EventArgs) Handles BaseFolder.Click
@@ -205,7 +205,7 @@ Public Class FormAutoBackups
 
     Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
 
-        Form1.BackupDB()
+        FormSetup.BackupDB()
 
     End Sub
 

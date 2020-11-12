@@ -128,7 +128,6 @@ Public Class FormOAR
 
 #Region "Draw"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Public Sub Redraw(json As JSONresult())
 
         Dim gdImageColumn As New DataGridViewImageColumn
@@ -220,14 +219,14 @@ Public Class FormOAR
 
         Try
             Dim File As String = SearchArray(e.ColumnIndex + (NumColumns * e.RowIndex)).Name
-            File = Form1.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
+            File = FormSetup.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
             If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
                 Me.Hide()
-                Form1.LoadOARContent(File)
+                FormSetup.LoadOARContent(File)
             ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
-                Form1.LoadIARContent(File)
+                FormSetup.LoadIARContent(File)
             End If
         Catch ex As Exception
 
@@ -253,7 +252,7 @@ Public Class FormOAR
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Form1.Log("Warn", ex.Message)
+            FormSetup.Log("Warn", ex.Message)
         End Try
 
         Return Nothing
@@ -269,7 +268,7 @@ Public Class FormOAR
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Form1.Log("Warn", ex.Message)
+            FormSetup.Log("Warn", ex.Message)
         End Try
         Return ""
 
@@ -285,7 +284,7 @@ Public Class FormOAR
             End If
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Form1.Log("Error", ex.Message)
+            FormSetup.Log("Error", ex.Message)
         End Try
 
     End Sub
@@ -385,6 +384,7 @@ Public Class FormOAR
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         Me.Hide()
         SetScreen()
 
@@ -406,7 +406,7 @@ Public Class FormOAR
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Form1.Log(My.Resources.Error_word, ex.Message)
+            FormSetup.Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
 
@@ -421,11 +421,11 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = Form1.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
+                Dim str = FormSetup.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                Form1.ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                FormSetup.ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return Nothing
             End Try
         End Using
@@ -500,7 +500,7 @@ Public Class FormOAR
                 Else
                     Dim img As Image = Nothing
                     If item.Photo.Length > 0 Then
-                        Dim link As Uri = New Uri(Form1.PropDomain & "/Outworldz_installer/" & _type & "/" & item.Photo)
+                        Dim link As Uri = New Uri(FormSetup.PropDomain & "/Outworldz_installer/" & _type & "/" & item.Photo)
 #Disable Warning CA2000
                         img = GetImageFromURL(link)
 #Enable Warning CA2000

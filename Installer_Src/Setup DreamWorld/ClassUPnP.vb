@@ -54,7 +54,7 @@ Public Class UPnp
             UPnpnat = New NATUPNPLib.UPnPNAT
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Form1.ErrorLog(ex.Message)
+            FormSetup.ErrorLog(ex.Message)
 
         End Try
 
@@ -147,7 +147,7 @@ Public Class UPnp
             staticMapping.Add(port, protocol, port, localIP, True, desc & ":" & CStr(port))
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Form1.Print("Cannot add port " & CStr(port) & " to router")
+            FormSetup.Print("Cannot add port " & CStr(port) & " to router")
             Return False
 
         End Try
@@ -275,25 +275,25 @@ Public Class UPnp
     ''' Returns all static port mappings
     ''' </summary>
     ''' <remarks></remarks>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
+
     Private Sub GetStaticMappings()
         Try
             staticMapping = UPnpnat.StaticPortMappingCollection()
             If staticMapping Is Nothing Then
                 staticEnabled = False
-                Form1.Log("WARN", "UPNP is not available")
+                FormSetup.Log("WARN", "UPNP is not available")
                 Debug.Print("No Static UPNP")
                 Return
             End If
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Form1.Log("WARN", "UPNP is not available")
+            FormSetup.Log("WARN", "UPNP is not available")
             staticEnabled = False
             Return
         End Try
         Debug.Print("Static UPNP available")
-        Form1.Log("INFO", "UPNP is available")
+        FormSetup.Log("INFO", "UPNP is available")
     End Sub
 
 #End Region

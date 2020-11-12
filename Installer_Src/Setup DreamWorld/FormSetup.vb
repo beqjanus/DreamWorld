@@ -40,7 +40,7 @@ Imports System.Threading
 Imports IWshRuntimeLibrary
 Imports System.IO.Compression
 
-Public Class Form1
+Public Class FormSetup
 
 #Region "Version"
 
@@ -64,7 +64,7 @@ Public Class Form1
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
-    Private _Adv As AdvancedForm
+    Private _Adv As FormSettings
     Private _ApacheCrashCounter As Integer
     Private _ApacheExited As Boolean
     Private _ApacheProcessID As Integer
@@ -93,7 +93,7 @@ Public Class Form1
     Private _OpensimBinPath As String
     Private _PropAborting As Boolean
     Private _regionClass As RegionMaker
-    Private _regionForm As RegionList
+    Private _regionForm As FormRegionlist
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _RestartRobust As Boolean
@@ -160,11 +160,11 @@ Public Class Form1
 
 #Region "Public Properties"
 
-    Public Property Adv1 As AdvancedForm
+    Public Property Adv1 As FormSettings
         Get
             Return _Adv
         End Get
-        Set(value As AdvancedForm)
+        Set(value As FormSettings)
             _Adv = value
         End Set
     End Property
@@ -419,11 +419,11 @@ Public Class Form1
         End Set
     End Property
 
-    Public Property PropRegionForm As RegionList
+    Public Property PropRegionForm As FormRegionlist
         Get
             Return _regionForm
         End Get
-        Set(value As RegionList)
+        Set(value As FormRegionlist)
             _regionForm = value
         End Set
     End Property
@@ -594,7 +594,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Shared Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
         Log(My.Resources.Info_word, "Checking port " & CStr(Port))
@@ -621,12 +620,11 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Shared Function ChooseRegion(Optional JustRunning As Boolean = False) As String
 
         ' Show testDialog as a modal dialog and determine if DialogResult = OK.
         Dim chosen As String = ""
-        Using Chooseform As New Choice ' form for choosing a set of regions
+        Using Chooseform As New FormChooser ' form for choosing a set of regions
             Chooseform.FillGrid("Region", JustRunning)  ' populate the grid with either Group or RegionName
             Dim ret = Chooseform.ShowDialog()
             If ret = DialogResult.Cancel Then Return ""
@@ -783,7 +781,6 @@ Public Class Form1
         Return result
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Shared Function GetHostAddresses(hostName As String) As String
 
         Try
@@ -805,7 +802,6 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Shared Function GetNewDnsName() As String
 
         Dim client As New WebClient
@@ -865,7 +861,6 @@ Public Class Form1
         End Try
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Shared Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
         ''' <summary>
         ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
@@ -1040,8 +1035,6 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
@@ -1276,7 +1269,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Sub CheckForUpdates()
 
         Using client As New WebClient ' download client for web pages
@@ -1822,7 +1814,6 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Function KillAll() As Boolean
 
         If ScanAgents() > 0 Then
@@ -1975,7 +1966,6 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Function LoadOARContent(thing As String) As Boolean
 
         If Not PropOpensimIsRunning() Then
@@ -2038,7 +2028,6 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Function OpenRouterPorts() As Boolean
 
         If Not PropMyUPnpMap.UPnpEnabled And Settings.UPnPEnabled Then
@@ -2185,7 +2174,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Function RegisterName(DNSName As String, force As Boolean) As Boolean
 
         If DNSName Is Nothing Then Return False
@@ -2238,7 +2226,7 @@ Public Class Form1
                 If PropRegionClass.IsBooted(RegionUUID) Then
                     ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
                     hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                    ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
                 End If
             Next
             ConsoleCommand(RobustName, "set log level " & msg & "{ENTER}" & vbCrLf)
@@ -2295,8 +2283,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Public Function SetPublicIP() As Boolean
 
         ' LAN USE
@@ -3007,7 +2993,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Public Sub StopGroup(Groupname As String)
 
         For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(Groupname)
@@ -3043,7 +3028,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Public Sub UploadCategory()
 
         If Settings.DNSName.Length = 0 Then Return
@@ -3200,7 +3184,6 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Shared Sub CleanDLLs()
 
         If Not Debugger.IsAttached Then
@@ -3472,7 +3455,6 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Shared Sub Zap(processName As String)
 
         ''' <summary>Kill processes by name</summary>
@@ -3548,7 +3530,7 @@ Public Class Form1
                 ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                 SequentialPause()   ' wait for previous region to give us some CPU
                 Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                ShowDOSWindow(hwnd, Form1.SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
             End If
         Next
 
@@ -3569,7 +3551,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Label.set_Text(System.String)")>
     Private Sub Chart()
         ' Graph https://github.com/sinairv/MSChartWrapper
         Try
@@ -4309,7 +4290,6 @@ Public Class Form1
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Private Sub ExitHandlerPoll()
 
         If PropAborting Then Return ' not if we are aborting
@@ -4615,6 +4595,8 @@ Public Class Form1
     ''' <param name="e">Unused</param>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
+
         Application.EnableVisualStyles()
 
         Dim _myFolder As String = My.Application.Info.DirectoryPath
@@ -4663,7 +4645,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Form.set_Text(System.String)")>
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
         TextBox1.BackColor = Me.BackColor
@@ -4679,7 +4660,7 @@ Public Class Form1
 
         ToolBar(False)
 
-        Adv1 = New AdvancedForm
+        Adv1 = New FormSettings
 
         Me.Show()
 
@@ -5207,7 +5188,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.FileDialog.set_Filter(System.String)")>
     Private Sub LoadInventoryIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadInventoryIARToolStripMenuItem.Click
 
         If PropOpensimIsRunning() Then
@@ -5369,7 +5349,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.FileDialog.set_Filter(System.String)")>
     Private Sub LoadRegionOarToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadRegionOarToolStripMenuItem.Click
 
         If PropOpensimIsRunning() Then
@@ -5638,7 +5617,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Private Function OpenPorts() As Boolean
 
         If OpenRouterPorts() Then ' open UPnp port
@@ -5670,8 +5648,6 @@ Public Class Form1
         End Try
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Private Sub PortTest(Weblink As String, Port As Integer)
 
         Dim result As String = ""
@@ -5698,8 +5674,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Private Sub ProbePublicPort()
 
         If Settings.ServerType <> "Robust" Then
@@ -5914,8 +5888,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.FileDialog.set_Filter(System.String)")>
     Private Sub RestoreDatabaseToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RestoreDatabaseToolStripMenuItem1.Click
 
         If PropOpensimIsRunning() Then
@@ -6135,7 +6107,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolTip.SetToolTip(System.Windows.Forms.Control,System.String)")>
     Private Function ScanAgents() As Integer
 
         If Not MysqlInterface.IsMySqlRunning() Then Return 0
@@ -6368,7 +6339,6 @@ Public Class Form1
 
 #Region "Things"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub SetupWordPress()
 
         If Settings.ServerType <> "Robust" Then Return
@@ -6410,8 +6380,8 @@ Public Class Form1
 
     Private Sub ShowRegionform()
 
-        If RegionList.InstanceExists = False Then
-            PropRegionForm = New RegionList
+        If FormRegionlist.InstanceExists = False Then
+            PropRegionForm = New FormRegionlist
             PropRegionForm.Show()
             PropRegionForm.Activate()
             PropRegionForm.Select()
@@ -6576,7 +6546,6 @@ Public Class Form1
         End Try
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Private Sub TestAllRegionPorts()
 
         Dim result As String = ""
@@ -6600,7 +6569,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Private Sub TestPrivateLoopback()
 
         Dim result As String = ""
@@ -6629,7 +6597,6 @@ Public Class Form1
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Logger(System.String,System.String,System.String)")>
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
@@ -6765,7 +6732,6 @@ Public Class Form1
 
 #Region "Updater"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub UpdaterProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles UpdateProcess.Exited
 
         Dim ExitCode = UpdateProcess.ExitCode
@@ -6781,7 +6747,6 @@ Public Class Form1
 
 #Region "Toolbars"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.ToolStripItem.set_ToolTipText(System.String)")>
     Public Sub LoadRegionsStatsBar()
 
         SimulatorStatsToolStripMenuItem.DropDownItems.Clear()

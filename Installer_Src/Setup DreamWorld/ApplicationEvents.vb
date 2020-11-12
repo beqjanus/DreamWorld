@@ -48,8 +48,8 @@ Namespace My
                     Result &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
                 End If
             Next
-            Form1.ErrorLog(Result)
-            Form1.ErrorLog(DisplayObjectInfo(sender))
+            FormSetup.ErrorLog(Result)
+            FormSetup.ErrorLog(DisplayObjectInfo(sender))
 
         End Sub
 

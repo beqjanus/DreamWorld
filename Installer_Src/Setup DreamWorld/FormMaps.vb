@@ -48,7 +48,7 @@ Public Class FormMaps
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewMap.Click
 
-        Form1.Print(My.Resources.Clearing_Map_tiles_word)
+        FormSetup.Print(My.Resources.Clearing_Map_tiles_word)
         Dim f As String = Settings.OpensimBinPath & "Maptiles\00000000-0000-0000-0000-000000000000"
         Try
             FileStuff.DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
@@ -57,7 +57,7 @@ Public Class FormMaps
 
             BreakPoint.Show(ex.Message)
         End Try
-        Form1.Print(My.Resources.Maps_Erased)
+        FormSetup.Print(My.Resources.Maps_Erased)
 
     End Sub
 
@@ -94,7 +94,7 @@ Public Class FormMaps
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub
@@ -110,6 +110,9 @@ Public Class FormMaps
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
+
+        Translate.Run(Name)
+
         If Settings.MapType = "None" Then
             MapNone.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.blankbox
@@ -127,7 +130,7 @@ Public Class FormMaps
             MapPicture.Image = Global.Outworldz.My.Resources.Best
         End If
 
-        If Form1.PropOpensimIsRunning Then
+        If FormSetup.PropOpensimIsRunning Then
             Button2.Enabled = True
         Else
             Button2.Enabled = False

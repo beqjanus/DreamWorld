@@ -87,13 +87,14 @@ Public Class FormPublicity
         Dim tmp = DescriptionBox.Text.Replace(vbCrLf, "<br>")
         Settings.Description = tmp
 
-        Form1.UploadCategory()
+        FormSetup.UploadCategory()
         Settings.SaveSettings()
 
     End Sub
 
     Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         SetScreen()
 
         GDPRCheckBox.Checked = Settings.GDPR()
@@ -144,7 +145,6 @@ Public Class FormPublicity
         HelpManual("Publicity")
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = Global.Outworldz.My.Resources.picfilter,
@@ -172,11 +172,11 @@ Public Class FormPublicity
                 Catch ex As Exception
 
                     BreakPoint.Show(ex.Message)
-                    Form1.ErrorLog("Save Photo " & ex.Message)
+                    FormSetup.ErrorLog("Save Photo " & ex.Message)
                     Return
                 End Try
 
-                Form1.UploadPhoto()
+                FormSetup.UploadPhoto()
 
             End If
         End If

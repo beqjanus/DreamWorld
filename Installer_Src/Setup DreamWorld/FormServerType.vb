@@ -48,13 +48,15 @@
         If Changed Then
             Dim result = MsgBox(My.Resources.Save_changes_word, vbYesNo)
             If result = vbYes Then
-                Form1.PropViewedSettings = True
+                FormSetup.PropViewedSettings = True
                 SaveAll()
             End If
         End If
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
+
+        Translate.Run(Name)
         SetScreen()
 
         Select Case Settings.ServerType
@@ -81,7 +83,7 @@
         Settings.BaseHostName = BaseHostName
         Settings.DNSName = DNSName
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
         Changed = False ' do not trigger the save a second time
 

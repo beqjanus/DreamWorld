@@ -23,14 +23,14 @@ Public Module Firewall
 
         ' regions need both
 
-        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
 
-            Dim X As Integer = CInt("0" & Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+            Dim X As Integer = CInt("0" & FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
             If X > 0 Then
                 Command = Command & "netsh advfirewall firewall add rule name=""XMLRegionPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
             End If
 
-            Dim R As Integer = CInt("0" & Form1.PropRegionClass.RegionPort(RegionUUID))
+            Dim R As Integer = CInt("0" & FormSetup.PropRegionClass.RegionPort(RegionUUID))
             If R > 0 Then
                 Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Port " & CStr(R) & """ dir=in action=allow protocol=TCP localport=" & CStr(R) & vbCrLf _
                           & "netsh advfirewall firewall add rule name=""Region UDP Port " & CStr(R) & """ dir=in action=allow protocol=UDP localport=" & CStr(R) & vbCrLf
@@ -67,14 +67,14 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
-        For Each RegionUUID As String In Form1.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
 
-            Dim X As Integer = CInt("0" & Form1.PropRegionClass.XMLRegionPort(RegionUUID))
+            Dim X As Integer = CInt("0" & FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
             If X > 0 Then
                 Command = Command & "netsh advfirewall firewall delete rule name=""XMLRegionPort " & CStr(X) & """" & vbCrLf
             End If
 
-            Dim R As Integer = CInt("0" & Form1.PropRegionClass.RegionPort(RegionUUID))
+            Dim R As Integer = CInt("0" & FormSetup.PropRegionClass.RegionPort(RegionUUID))
             If R > 0 Then
                 Command = Command & "netsh advfirewall firewall delete rule name=""Region TCP Port " & CStr(R) & """" & vbCrLf _
                               & "netsh advfirewall firewall delete rule name=""Region UDP Port " & CStr(R) & """" & vbCrLf
@@ -102,7 +102,6 @@ Public Module Firewall
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Private Sub Write(cmd As String)
 
         Try
@@ -132,7 +131,7 @@ Public Module Firewall
             Catch ex As Exception
 
                 BreakPoint.Show(ex.Message)
-                Form1.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
+                FormSetup.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try
 
         End Using

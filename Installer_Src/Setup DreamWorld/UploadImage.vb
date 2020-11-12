@@ -29,19 +29,17 @@ Public Class UploadImage
 
 #Region "Public Methods"
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.Log(System.String,System.String)")>
     Shared Sub UploadComplete(ByVal Data As String)
         ' Your Upload Success Routine Goes here
         If Data <> "1" Then
-            Form1.Log(My.Resources.Error_word, "Upload Failed. " & Data)
+            FormSetup.Log(My.Resources.Error_word, "Upload Failed. " & Data)
         End If
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Form1.ErrorLog(System.String)")>
     Shared Sub UploadError(ByVal Data As String)
         ' Your Upload failure Routine Goes here
-        Form1.ErrorLog("Upload Error:" + Data)
+        FormSetup.ErrorLog("Upload Error:" + Data)
     End Sub
 
     Public Sub PostContentUploadFile()
@@ -66,7 +64,7 @@ Public Class UploadImage
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
-            Form1.Log(My.Resources.Error_word, ex.Message)
+            FormSetup.Log(My.Resources.Error_word, ex.Message)
         End Try
 
     End Sub

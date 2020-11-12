@@ -49,6 +49,7 @@
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         Password1TextBox.UseSystemPasswordChar = True
         Password2TextBox.UseSystemPasswordChar = True
 

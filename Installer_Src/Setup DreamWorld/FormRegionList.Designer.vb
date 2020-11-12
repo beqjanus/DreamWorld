@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class RegionList
+Partial Class FormRegionlist
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -26,7 +26,7 @@ Partial Class RegionList
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RegionList))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionlist))
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ListView1 = New System.Windows.Forms.ListView()
         Me.RefreshButton = New System.Windows.Forms.Button()
@@ -60,10 +60,10 @@ Partial Class RegionList
         Me.ListView1.FullRowSelect = True
         Me.ListView1.GridLines = True
         Me.ListView1.HideSelection = False
-        ListViewItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.ClickStartStop
+
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
         Me.ListView1.Location = New System.Drawing.Point(21, 86)
-        Me.ListView1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ListView1.Margin = New System.Windows.Forms.Padding(4)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
@@ -76,7 +76,7 @@ Partial Class RegionList
         'RefreshButton
         '
         Me.RefreshButton.Location = New System.Drawing.Point(191, 10)
-        Me.RefreshButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RefreshButton.Margin = New System.Windows.Forms.Padding(4)
         Me.RefreshButton.Name = "RefreshButton"
         Me.RefreshButton.Size = New System.Drawing.Size(116, 29)
         Me.RefreshButton.TabIndex = 1
@@ -92,7 +92,7 @@ Partial Class RegionList
         'AddRegionButton
         '
         Me.AddRegionButton.Location = New System.Drawing.Point(192, 46)
-        Me.AddRegionButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AddRegionButton.Margin = New System.Windows.Forms.Padding(4)
         Me.AddRegionButton.Name = "AddRegionButton"
         Me.AddRegionButton.Size = New System.Drawing.Size(116, 29)
         Me.AddRegionButton.TabIndex = 18593
@@ -104,7 +104,7 @@ Partial Class RegionList
         '
         Me.AllNone.AutoSize = True
         Me.AllNone.Location = New System.Drawing.Point(15, 51)
-        Me.AllNone.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AllNone.Margin = New System.Windows.Forms.Padding(4)
         Me.AllNone.Name = "AllNone"
         Me.AllNone.Size = New System.Drawing.Size(83, 21)
         Me.AllNone.TabIndex = 4
@@ -115,7 +115,7 @@ Partial Class RegionList
         'RunAllButton
         '
         Me.RunAllButton.Location = New System.Drawing.Point(315, 46)
-        Me.RunAllButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RunAllButton.Margin = New System.Windows.Forms.Padding(4)
         Me.RunAllButton.Name = "RunAllButton"
         Me.RunAllButton.Size = New System.Drawing.Size(116, 29)
         Me.RunAllButton.TabIndex = 18594
@@ -126,7 +126,7 @@ Partial Class RegionList
         'StopAllButton
         '
         Me.StopAllButton.Location = New System.Drawing.Point(438, 46)
-        Me.StopAllButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StopAllButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StopAllButton.Name = "StopAllButton"
         Me.StopAllButton.Size = New System.Drawing.Size(116, 29)
         Me.StopAllButton.TabIndex = 18595
@@ -137,7 +137,7 @@ Partial Class RegionList
         'RestartButton
         '
         Me.RestartButton.Location = New System.Drawing.Point(561, 45)
-        Me.RestartButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RestartButton.Margin = New System.Windows.Forms.Padding(4)
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Size = New System.Drawing.Size(116, 29)
         Me.RestartButton.TabIndex = 18596
@@ -148,7 +148,7 @@ Partial Class RegionList
         'DetailsButton
         '
         Me.DetailsButton.Location = New System.Drawing.Point(315, 10)
-        Me.DetailsButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DetailsButton.Margin = New System.Windows.Forms.Padding(4)
         Me.DetailsButton.Name = "DetailsButton"
         Me.DetailsButton.Size = New System.Drawing.Size(116, 29)
         Me.DetailsButton.TabIndex = 18599
@@ -159,7 +159,7 @@ Partial Class RegionList
         'IconsButton
         '
         Me.IconsButton.Location = New System.Drawing.Point(442, 10)
-        Me.IconsButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.IconsButton.Margin = New System.Windows.Forms.Padding(4)
         Me.IconsButton.Name = "IconsButton"
         Me.IconsButton.Size = New System.Drawing.Size(116, 29)
         Me.IconsButton.TabIndex = 18600
@@ -170,7 +170,7 @@ Partial Class RegionList
         'MapsButton
         '
         Me.MapsButton.Location = New System.Drawing.Point(565, 10)
-        Me.MapsButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MapsButton.Margin = New System.Windows.Forms.Padding(4)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(116, 29)
         Me.MapsButton.TabIndex = 18601
@@ -181,7 +181,7 @@ Partial Class RegionList
         'AvatarsButton
         '
         Me.AvatarsButton.Location = New System.Drawing.Point(688, 10)
-        Me.AvatarsButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AvatarsButton.Margin = New System.Windows.Forms.Padding(4)
         Me.AvatarsButton.Name = "AvatarsButton"
         Me.AvatarsButton.Size = New System.Drawing.Size(116, 29)
         Me.AvatarsButton.TabIndex = 18602
@@ -192,7 +192,7 @@ Partial Class RegionList
         'ImportButton
         '
         Me.ImportButton.Location = New System.Drawing.Point(689, 45)
-        Me.ImportButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ImportButton.Margin = New System.Windows.Forms.Padding(4)
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Size = New System.Drawing.Size(116, 29)
         Me.ImportButton.TabIndex = 18603
@@ -207,7 +207,7 @@ Partial Class RegionList
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
         Me.AvatarView.Location = New System.Drawing.Point(20, 86)
-        Me.AvatarView.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AvatarView.Margin = New System.Windows.Forms.Padding(4)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
@@ -263,7 +263,7 @@ Partial Class RegionList
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(45, 20)
         Me.Label2.TabIndex = 18607
-        Me.Label2.Text = Global.Outworldz.My.Resources.Resources.View_word
+        Me.Label2.Text = "View"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label3
@@ -277,10 +277,10 @@ Partial Class RegionList
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(56, 20)
         Me.Label3.TabIndex = 18608
-        Me.Label3.Text = Global.Outworldz.My.Resources.Resources.Action_word
+        Me.Label3.Text = "Action"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'RegionList
+        'FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
@@ -304,9 +304,9 @@ Partial Class RegionList
         Me.Controls.Add(Me.Label1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.Name = "RegionList"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Region_List
+        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Name = "FormRegionlist"
+        Me.Text = "Region List"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)

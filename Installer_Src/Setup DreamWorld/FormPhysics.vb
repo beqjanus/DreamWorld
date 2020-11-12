@@ -63,6 +63,7 @@ Public Class FormPhysics
 
     Private Sub Physics_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         SetScreen()
 
         Select Case Settings.Physics
@@ -94,7 +95,7 @@ Public Class FormPhysics
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub

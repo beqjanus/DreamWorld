@@ -62,7 +62,8 @@
     <NoWarn>42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <WarningsAsErrors>
     </WarningsAsErrors>
     <Optimize>false</Optimize>
@@ -80,7 +81,8 @@
     <NoWarn>42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
     <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <WarningsAsErrors>
     </WarningsAsErrors>
     <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
@@ -560,6 +562,7 @@
     <Compile Include="FormVoice.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Translate.vb" />
     <Compile Include="UploadImage.vb" />
     <Compile Include="WordWrap.vb" />
   </ItemGroup>
@@ -780,7 +783,6 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Start.ruleset" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -829,6 +831,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\package_add.png" />
     <None Include="Resources\microsoft-edge.png" />
     <None Include="Resources\edge.png" />
     <None Include="Resources\flag_iran.png" />

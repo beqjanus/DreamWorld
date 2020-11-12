@@ -12,6 +12,7 @@
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         SetScreen()
 
         LSLCheckbox.Checked = Settings.LSLHTTP()

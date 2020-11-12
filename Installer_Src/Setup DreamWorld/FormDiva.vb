@@ -67,15 +67,17 @@ Public Class FormDiva
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
         Settings.SaveSettings()
-        Form1.PropViewedSettings = True
-        If setpassword And Form1.PropOpensimIsRunning() Then
-            Form1.ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password & "{ENTER}" + vbCrLf)
+        FormSetup.PropViewedSettings = True
+        If setpassword And FormSetup.PropOpensimIsRunning() Then
+            FormSetup.ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password & "{ENTER}" + vbCrLf)
         End If
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
+        Translate.Run(Name)
         SetScreen()
 
         'Wifi
@@ -117,7 +119,7 @@ Public Class FormDiva
             CustomButton1.Checked = True
         End If
 
-        If Form1.PropOpensimIsRunning Then
+        If FormSetup.PropOpensimIsRunning Then
             AdminPassword.Enabled = True
         Else
             AdminPassword.Enabled = False
@@ -274,8 +276,8 @@ Public Class FormDiva
     Private Sub BlackRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles BlackRadioButton.CheckedChanged
         If Not initted Then Return
         If BlackRadioButton.Checked Then
-            Form1.CopyWifi("Black")
-            Form1.Print(My.Resources.Theme_Black)
+            FormSetup.CopyWifi("Black")
+            FormSetup.Print(My.Resources.Theme_Black)
             Settings.Theme = "Black"
         End If
 
@@ -301,8 +303,8 @@ Public Class FormDiva
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles CustomButton1.CheckedChanged
         If Not initted Then Return
         If CustomButton1.Checked Then
-            Form1.CopyWifi("Custom")
-            Form1.Print(My.Resources.Theme_Custom)
+            FormSetup.CopyWifi("Custom")
+            FormSetup.Print(My.Resources.Theme_Custom)
             Settings.Theme = "Custom"
         End If
 
@@ -319,8 +321,8 @@ Public Class FormDiva
 
         If Not initted Then Return
         If WhiteRadioButton.Checked Then
-            Form1.CopyWifi("White")
-            Form1.Print(My.Resources.Theme_White)
+            FormSetup.CopyWifi("White")
+            FormSetup.Print(My.Resources.Theme_White)
             Settings.Theme = "White"
         End If
 

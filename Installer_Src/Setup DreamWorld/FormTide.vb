@@ -20,7 +20,7 @@
 
 #End Region
 
-Public Class Tides
+Public Class FormTide
 
 #Region "ScreenSize"
 
@@ -71,13 +71,14 @@ Public Class Tides
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        Form1.PropViewedSettings = True
+        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        Translate.Run(Name)
         TideEnabledCheckbox.Checked = CType(Settings.TideEnabled, Boolean)
         TideHighLevelTextBox.Text = Convert.ToString(Settings.TideHighLevel(), Globalization.CultureInfo.InvariantCulture)
         TideLowLevelTextBox.Text = Convert.ToString(Settings.TideLowLevel(), Globalization.CultureInfo.InvariantCulture)
@@ -88,6 +89,7 @@ Public Class Tides
         TideInfoDebugCheckBox.Checked = Settings.TideInfoDebug
         SetScreen()
         HelpOnce("Tides")
+
     End Sub
 
     Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click
