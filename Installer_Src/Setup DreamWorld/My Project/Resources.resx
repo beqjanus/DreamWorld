@@ -3019,10 +3019,10 @@
     <value>JOpensim Search</value>
   </data>
   <data name="EnableDiva" xml:space="preserve">
-    <value>Enable Diva Web Page</value>
+    <value>Enable Diva Page</value>
   </data>
   <data name="EnableJOpensim" xml:space="preserve">
-    <value>EnableJOpensim Web Page</value>
+    <value>Enable JOpensim</value>
   </data>
   <data name="JOpensim_word" xml:space="preserve">
     <value>JOpensim</value>
@@ -3050,5 +3050,8 @@
   </data>
   <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
     <value>XMLRPC Region Port</value>
+  </data>
+  <data name="WordPress_Word" xml:space="preserve">
+    <value>WordPress</value>
   </data>
 </root>

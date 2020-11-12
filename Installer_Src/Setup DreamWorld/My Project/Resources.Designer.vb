@@ -2718,7 +2718,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Enable Diva Web Page.
+        '''  Looks up a localized string similar to Enable Diva Page.
         '''</summary>
         Friend ReadOnly Property EnableDiva() As String
             Get
@@ -2736,7 +2736,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to EnableJOpensim Web Page.
+        '''  Looks up a localized string similar to Enable JOpensim.
         '''</summary>
         Friend ReadOnly Property EnableJOpensim() As String
             Get
@@ -8837,6 +8837,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("window_environment", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to WordPress.
+        '''</summary>
+        Friend ReadOnly Property WordPress_Word() As String
+            Get
+                Return ResourceManager.GetString("WordPress_Word", resourceCulture)
             End Get
         End Property
         

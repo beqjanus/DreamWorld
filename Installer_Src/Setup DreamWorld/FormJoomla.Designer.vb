@@ -67,7 +67,7 @@ Partial Class FormJoomla
         Me.GroupBox1.Size = New System.Drawing.Size(256, 203)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Settings"
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         '
         'AdminButton
         '
@@ -126,7 +126,7 @@ Partial Class FormJoomla
         Me.GroupBox2.Size = New System.Drawing.Size(244, 203)
         Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Options"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Options
         '
         'JOpensimRadioButton
         '

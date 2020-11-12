@@ -3204,7 +3204,7 @@ Public Class Form1
     Private Shared Sub CleanDLLs()
 
         If Not Debugger.IsAttached Then
-            Dim dlls As List(Of String) = GetDlls(IO.Path.Combine(Settings.CurrentDirectory, "/dlls.txt"))
+            Dim dlls As List(Of String) = GetDlls(IO.Path.Combine(Settings.CurrentDirectory, "dlls.txt"))
             Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath)
             For Each localdllname In localdlls
                 Application.DoEvents()
@@ -5213,7 +5213,7 @@ Public Class Form1
         If PropOpensimIsRunning() Then
             ' Create an instance of the open file dialog box. Set filter options and filter index.
             Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
-                .InitialDirectory = """" & IO.Path.Combine(Settings.CurrentDirectory, "/") & """",
+                .InitialDirectory = """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles") & """",
                 .Filter = Global.Outworldz.My.Resources.IAR_Load_and_Save_word & " (*.iar)|*.iar|All Files (*.*)|*.*",
                 .FilterIndex = 1,
                 .Multiselect = False
@@ -5433,7 +5433,7 @@ Public Class Form1
 
     Private Sub LocalIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "/OutworldzFiles/IAR/" & CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/IAR/" & CStr(sender.Text)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
         End If
@@ -5442,7 +5442,7 @@ Public Class Form1
 
     Private Sub LocalOarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "/OutworldzFiles/OAR/" & CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/OAR/" & CStr(sender.Text)) 'make a real URL
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
         End If
@@ -6950,7 +6950,7 @@ Public Class Form1
 
     Private Sub BackupIarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "/OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
@@ -6959,7 +6959,7 @@ Public Class Form1
 
     Private Sub BackupOarClick(sender As Object, e As EventArgs)
 
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "/OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If

@@ -76,7 +76,7 @@ Partial Class FormPorts
         Me.GroupBox2.Size = New System.Drawing.Size(338, 400)
         Me.GroupBox2.TabIndex = 45
         Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Ports"
+        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Ports
         '
         'MaxX
         '
@@ -86,7 +86,7 @@ Partial Class FormPorts
         Me.MaxX.Name = "MaxX"
         Me.MaxX.Size = New System.Drawing.Size(95, 17)
         Me.MaxX.TabIndex = 1867
-        Me.MaxX.Text = "Highest used:"
+        Me.MaxX.Text = Global.Outworldz.My.Resources.Resources.Highest_Used_word
         '
         'MaxXLabel
         '
@@ -96,7 +96,7 @@ Partial Class FormPorts
         Me.MaxXLabel.Name = "MaxXLabel"
         Me.MaxXLabel.Size = New System.Drawing.Size(140, 17)
         Me.MaxXLabel.TabIndex = 1866
-        Me.MaxXLabel.Text = "XMLRPC Port Start #"
+        Me.MaxXLabel.Text = Global.Outworldz.My.Resources.Resources.XMLRP_start
         '
         'FirstXMLRegionPort
         '
@@ -114,7 +114,7 @@ Partial Class FormPorts
         Me.OverrideNameLabel.Name = "OverrideNameLabel"
         Me.OverrideNameLabel.Size = New System.Drawing.Size(256, 17)
         Me.OverrideNameLabel.TabIndex = 1864
-        Me.OverrideNameLabel.Text = "External HostName For Region Servers"
+        Me.OverrideNameLabel.Text = Global.Outworldz.My.Resources.Resources.External
         Me.ToolTip1.SetToolTip(Me.OverrideNameLabel, Global.Outworldz.My.Resources.Resources.External_text)
         '
         'ExternalHostName
@@ -134,7 +134,7 @@ Partial Class FormPorts
         Me.MaxP.Name = "MaxP"
         Me.MaxP.Size = New System.Drawing.Size(95, 17)
         Me.MaxP.TabIndex = 1862
-        Me.MaxP.Text = "Highest used:"
+        Me.MaxP.Text = Global.Outworldz.My.Resources.Resources.Highest_Used_word
         '
         'Label26
         '
@@ -144,7 +144,7 @@ Partial Class FormPorts
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(129, 17)
         Me.Label26.TabIndex = 1861
-        Me.Label26.Text = "Region Port Start #"
+        Me.Label26.Text = Global.Outworldz.My.Resources.Resources.Region_Port_Start
         '
         'FirstRegionPort
         '
@@ -185,7 +185,7 @@ Partial Class FormPorts
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(82, 17)
         Me.Label7.TabIndex = 38
-        Me.Label7.Text = "Private Port"
+        Me.Label7.Text = Global.Outworldz.My.Resources.Resources.Private_Port_Word
         '
         'Label5
         '
@@ -195,7 +195,7 @@ Partial Class FormPorts
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(111, 17)
         Me.Label5.TabIndex = 33
-        Me.Label5.Text = "Diagnostics Port"
+        Me.Label5.Text = Global.Outworldz.My.Resources.Resources.Diagnostics_port_word
         '
         'HTTPPort
         '
@@ -232,7 +232,7 @@ Partial Class FormPorts
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(64, 17)
         Me.Label4.TabIndex = 32
-        Me.Label4.Text = "Http Port"
+        Me.Label4.Text = Global.Outworldz.My.Resources.Resources.Http_Port_word
         '
         'MenuStrip2
         '
@@ -243,7 +243,7 @@ Partial Class FormPorts
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(5, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(386, 26)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = "0"
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
         '
         'ToolStripMenuItem30
         '
@@ -270,7 +270,7 @@ Partial Class FormPorts
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormPorts"
-        Me.Text = "Region Ports"
+        Me.Text = Global.Outworldz.My.Resources.Resources.Region_Ports_word
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.Upnp, System.ComponentModel.ISupportInitialize).EndInit()
