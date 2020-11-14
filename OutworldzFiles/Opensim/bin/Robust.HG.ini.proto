@@ -669,7 +669,7 @@ register=${Const|BaseURL}:${Const|PublicPort}/wifi/user/account/
 ; help="https://www.outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
 
 ; password help: optional: page providing password assistance for users of your grid
-password=${Const|BaseURL}/${Const|PublicPort}/wifi/forgotpassword
+password=${Const|BaseURL}:${Const|PublicPort}/wifi/forgotpassword
 
 ; HG address of the gatekeeper, if you have one
 ; this is the entry point for all the regions of the world
