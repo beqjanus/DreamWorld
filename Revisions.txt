@@ -2,6 +2,25 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.77
+Data snapshot (Search) was interfering with Diva Wifi. The Wifi module has been removed from Regions and is now in Robust onl. The side effect is if you wish to test if a region is running with a web browser, you use the Statistics button in Regions Panel.
+Offline IMs now work again. Needed to use the Public URL and Public port, not private port 8003. 
+Group IM’s now work. Same thing. 
+Clicking Start now redoes all INIs. A bit slower to boot, but less confusing as you should no longer have to exit the app for some changes to take effect.
+Joomla MAP	s & Apache needed PHP7 curl, which would not load.  They could have just read the files off disk, but noooo.  It’s been “fixed” by copying necessary (and very old) DLLs to Windows/System32. These are OpenSSL V1.02. No idea what PHP people are going to do in the future as these DLLS are really, really dead, but also really necessary.  A test file is located at Http://Grid:80/curl_test.php and it should print your Public IP address.
+RemoteAdmin Port has been altered for use with Joomla.  See Ports setup.
+
+XMLRPC Ports can be set per region. Some third party apps use them for money.
+Local IAR HypeEvents IAR changed to have a clickable link to the current Hypevents provider.
+The DreamGrid Test Region in the free OARS has been modified with an updated radio, HypeEvents and other free goodies.
+A new translation.vb added to eliminate all the constant editing of non-editable files.
+Reset Password link in Viewer was broken
+Log level change now survives reboots.
+IAR and OAR menus reorganized to be easier to locate the various ways to load and save things.
+Built and tested a shared region module “WhoGotWhat”.  It uses use a LSL script in a ‘giver’ box. Touching the box gives the contents. It also posts Who, What, Where the contents was given, and logs when it happens in Outworldzfile\Opensim\Bin\ WhoGotWhat.csv. Should work in Region Servers, too. The grid owner can load this into a spreadsheet and know what people have been getting. 
+
+
+
 V3.76
 Add remote Admin port and XMLRPC ports to firewall and UPNP
 PHP7 curl works now for Jopensim to use
