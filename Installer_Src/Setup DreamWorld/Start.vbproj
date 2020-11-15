@@ -831,6 +831,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\window_colors.png" />
+    <None Include="Resources\text_find.png" />
     <None Include="Resources\package_add.png" />
     <None Include="Resources\microsoft-edge.png" />
     <None Include="Resources\edge.png" />
