@@ -42,8 +42,9 @@
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
         System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
-
         Settings.SaveSettings()
+        FormSetup.SendMsg(Settings.LogLevel.ToUpperInvariant)
+
 
     End Sub
 
@@ -94,37 +95,37 @@
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioOff.CheckedChanged
         If Not initted Then Return
-        If RadioOff.Checked Then FormSetup.SendMsg("off")
+        Settings.LogLevel = "OFF"
     End Sub
 
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioDebug.CheckedChanged
         If Not initted Then Return
-        If RadioDebug.Checked Then FormSetup.SendMsg("debug")
+        Settings.LogLevel = "DEBUG"
     End Sub
 
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioInfo.CheckedChanged
         If Not initted Then Return
-        If RadioInfo.Checked Then FormSetup.SendMsg("info")
+        Settings.LogLevel = "INFO"
     End Sub
 
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioWarn.CheckedChanged
         If Not initted Then Return
-        If RadioWarn.Checked Then FormSetup.SendMsg("warn")
+        Settings.LogLevel = "WARN"
     End Sub
 
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioError.CheckedChanged
         If Not initted Then Return
-        If RadioError.Checked Then FormSetup.SendMsg("error")
+        Settings.LogLevel = "OFF"
     End Sub
 
     Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioFatal.CheckedChanged
         If Not initted Then Return
-        If RadioFatal.Checked Then FormSetup.SendMsg("fatal")
+        Settings.LogLevel = "FATAL"
     End Sub
 
     Private Sub RadioButton7_CheckedChanged(sender As Object, e As EventArgs) Handles RadioAll.CheckedChanged
         If Not initted Then Return
-        If RadioAll.Checked Then FormSetup.SendMsg("all")
+        Settings.LogLevel = "All"
     End Sub
 
 #End Region
