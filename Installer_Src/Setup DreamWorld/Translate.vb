@@ -749,8 +749,7 @@
                 FormSetup.AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word
                 FormSetup.AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.All_Global_Settings_word
                 FormSetup.All.Text = Global.Outworldz.My.Resources.Resources.All_word
-                FormSetup.AllTheRegionsOarsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
-                FormSetup.AllTheRegionsOarsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_All_Regions
+
                 FormSetup.AllUsersAllSimsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.All_Users_All_Sims_word
                 FormSetup.ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_saudi_arabia1
                 FormSetup.BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
@@ -831,8 +830,6 @@
                 FormSetup.HelpToolStripMenuItem3.Text = Global.Outworldz.My.Resources.Resources.Help_word
                 FormSetup.HelpToolStripMenuItem4.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
                 FormSetup.HelpToolStripMenuItem4.Text = Global.Outworldz.My.Resources.Resources.Help_word
-                FormSetup.IARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
-                FormSetup.IARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.IAR_Load_and_Save_word
                 FormSetup.IcelandicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_iceland
                 FormSetup.IcelandicToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Icelandic
                 FormSetup.Info.Text = Global.Outworldz.My.Resources.Resources.Info_word
@@ -846,27 +843,24 @@
                 FormSetup.JustQuitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Quit_Now_Word
                 FormSetup.LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users3
                 FormSetup.LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Language
-                FormSetup.LoadInventoryIARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.data
-                FormSetup.LoadInventoryIARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Inventory_IAR
-                FormSetup.LoadLocalIARsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
-                FormSetup.LoadLocalIARsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Local_IARs_word
+
+                FormSetup.LoadIARsToolMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
+                FormSetup.LoadIARsToolMenuItem.Text = Global.Outworldz.My.Resources.Resources.Inventory_IAR_Load_and_Save_words
                 FormSetup.LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
                 FormSetup.LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Local_OARs_word
-                FormSetup.LoadRegionOarToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.data
-                FormSetup.LoadRegionOarToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Region_OAR
+
                 FormSetup.LoopBackToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
                 FormSetup.LoopBackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_On_LoopBack_word
                 FormSetup.LoopBackToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Loopback_Text
                 FormSetup.MnuContent.Text = Global.Outworldz.My.Resources.Resources.Content_word
-                FormSetup.MoreContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
-                FormSetup.MoreContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.More_Free_Islands_and_Parts_word
-                FormSetup.MoreContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Free_DLC_word
+                FormSetup.MoreFreeIslandsandPartsContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
+                FormSetup.MoreFreeIslandsandPartsContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.More_Free_Islands_and_Parts_word
+                FormSetup.MoreFreeIslandsandPartsContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Free_DLC_word
                 FormSetup.MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
                 FormSetup.MysqlToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Mysql_Word
                 FormSetup.NorwegianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_norway
                 FormSetup.NorwegianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Norwegian
-                FormSetup.OARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
-                FormSetup.OARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.OAR_load_save_backupp_word
+
                 FormSetup.Off1.Text = Global.Outworldz.My.Resources.Resources.Off
                 FormSetup.PDFManualToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.pdf
                 FormSetup.PDFManualToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.PDF_Manual_word
@@ -899,10 +893,6 @@
                 FormSetup.RobustToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Robust_word
                 FormSetup.RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_russia1
                 FormSetup.RussianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Russian
-                FormSetup.SaveInventoryIARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
-                FormSetup.SaveInventoryIARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_Inventory_IAR_word
-                FormSetup.SaveRegionOARToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_green
-                FormSetup.SaveRegionOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_Region_OAR_word
                 FormSetup.ScriptsResumeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Resume_word
                 FormSetup.ScriptsStartToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Start_word
                 FormSetup.ScriptsStopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Stop_word
@@ -956,6 +946,17 @@
                 FormSetup.mnuSettings.Text = Global.Outworldz.My.Resources.Resources.Setup_word
                 FormSetup.mnuShow.Image = Global.Outworldz.My.Resources.Resources.navigate_up
                 FormSetup.mnuShow.Text = Global.Outworldz.My.Resources.Resources.Show_word
+
+                ' OAR AND IAR MENU
+                FormSetup.SearchForObjectsMenuItem.Text = Global.Outworldz.My.Resources.Search_Events
+                FormSetup.SearchForGridsMenuItem.Text = Global.Outworldz.My.Resources.Search_grids
+                FormSetup.LoadInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Load_Inventory_IAR
+                FormSetup.SaveAllRunningRegiondsAsOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_All_Regions
+                FormSetup.LoadRegionOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Region_OAR
+                FormSetup.LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.OAR_load_save_backupp_word
+                FormSetup.SaveInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Save_Inventory_IAR_word
+                FormSetup.SaveRegionOARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Save_Region_OAR_word
+
             Case "FormTide"
                 FormTide.BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Info
                 FormTide.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
