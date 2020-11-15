@@ -106,7 +106,7 @@ namespace OpenSim.Region.DataSnapshot
             if (!m_configLoaded)
             {
                 m_configLoaded = true;
-                //m_log.Debug("[DATASNAPSHOT]: Loading configuration");
+                m_log.Debug("[DATASNAPSHOT]: Loading configuration");
                 //Read from the config for options
                 lock (m_syncInit)
                 {
@@ -327,7 +327,9 @@ namespace OpenSim.Region.DataSnapshot
 
         public XmlDocument GetSnapshot(string regionName)
         {
-            if(!Monitor.TryEnter(m_serializeGen,30000))
+
+            m_log.Info("[DATASNAPSHOT]: GetSnapshot");
+            if (!Monitor.TryEnter(m_serializeGen,30000))
             {
                 return null;
             }
@@ -457,6 +459,8 @@ namespace OpenSim.Region.DataSnapshot
         private void CheckStale()
         {
             // Wrap check
+            m_log.Info("[DATASNAPSHOT]: CheckStale()");
+
             if (Environment.TickCount < m_lastUpdate)
             {
                 m_lastUpdate = Environment.TickCount;
