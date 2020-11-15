@@ -370,7 +370,7 @@ Public Class MySettings
     Public Property AdminEmail() As String
         Get
             Dim mail As String = GetMySetting("AdminEmail", "not@set.yet")
-            Return CType(mail, String)
+            Return mail
         End Get
         Set
             SetMySetting("AdminEmail", Value)
@@ -379,7 +379,7 @@ Public Class MySettings
 
     Public Property AdminFirst() As String
         Get
-            Return CType(GetMySetting("AdminFirst", "Wifi"), String)
+            Return GetMySetting("AdminFirst", "Wifi")
         End Get
         Set
             SetMySetting("AdminFirst", Value)
@@ -388,7 +388,7 @@ Public Class MySettings
 
     Public Property AdminLast() As String
         Get
-            Return CType(GetMySetting("AdminLast", "Admin"), String)
+            Return GetMySetting("AdminLast", "Admin")
         End Get
         Set
             SetMySetting("AdminLast", Value)
@@ -416,7 +416,7 @@ Public Class MySettings
     Public Property AltDnsName() As String
         Get
             Dim AltDns As String = GetMySetting("AltDnsName", "")
-            Return CType(AltDns, String)
+            Return AltDns
         End Get
         Set
             SetMySetting("AltDnsName", Value)
@@ -461,7 +461,7 @@ Public Class MySettings
 
     Public Property AutobackupInterval() As String
         Get
-            Return CType(GetMySetting("AutobackupInterval", "720"), String)
+            Return GetMySetting("AutobackupInterval", "720")
         End Get
         Set
             SetMySetting("AutobackupInterval", Value)
@@ -506,7 +506,7 @@ Public Class MySettings
 
     Public Property BanList() As String
         Get
-            Return CType(GetMySetting("BanList", ""), String)
+            Return GetMySetting("BanList", "")
         End Get
         Set
             SetMySetting("BanList", Value)
@@ -749,7 +749,7 @@ Public Class MySettings
 
     Public Property Categories() As String
         Get
-            Return CType(GetMySetting("Categories"), String)
+            Return GetMySetting("Categories")
         End Get
         Set
             SetMySetting("Categories", Value)
@@ -767,7 +767,7 @@ Public Class MySettings
 
     Public Property CMS() As String
         Get
-            Return CType(GetMySetting("CMS", "DreamGrid"), String)
+            Return GetMySetting("CMS", "DreamGrid")
         End Get
         Set
             SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -776,7 +776,7 @@ Public Class MySettings
 
     Public Property ConsolePass() As String
         Get
-            Return CType(GetMySetting("ConsolePass"), String)
+            Return GetMySetting("ConsolePass")
         End Get
         Set
             SetMySetting("ConsolePass", Value)
@@ -785,7 +785,7 @@ Public Class MySettings
 
     Public Property ConsoleShow() As String
         Get
-            Return CType(GetMySetting("ConsoleShow", "False"), String)
+            Return GetMySetting("ConsoleShow", "False")
         End Get
         Set
             SetMySetting("ConsoleShow", Value)
@@ -794,7 +794,7 @@ Public Class MySettings
 
     Public Property ConsoleUser() As String
         Get
-            Return CType(GetMySetting("ConsoleUser"), String)
+            Return GetMySetting("ConsoleUser")
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
@@ -872,7 +872,7 @@ Public Class MySettings
 
     Public Property Description() As String
         Get
-            Return CType(GetMySetting("Description"), String)
+            Return GetMySetting("Description")
         End Get
         Set
             SetMySetting("Description", Value)
@@ -1113,7 +1113,7 @@ Public Class MySettings
 
     Public Property Language() As String
         Get
-            Return CType(GetMySetting("Language"), String)
+            Return GetMySetting("Language")
         End Get
         Set
             SetMySetting("Language", Value)
@@ -1132,7 +1132,7 @@ Public Class MySettings
 
     Public Property LogLevel() As String
         Get
-            Return CType(GetMySetting("LogLevel", "INFO"), String)
+            Return GetMySetting("LogLevel", "INFO")
         End Get
         Set
             SetMySetting("LogLevel", Value)
@@ -1278,7 +1278,7 @@ Public Class MySettings
 
     Public Property Password() As String
         Get
-            Return CType("0" & GetMySetting("Password"), String)
+            Return GetMySetting("Password")
         End Get
         Set
             SetMySetting("Password", Value)
@@ -1326,7 +1326,7 @@ Public Class MySettings
 
     Public Property PublicIP() As String
         Get
-            Return CType(GetMySetting("PublicIP"), String)
+            Return GetMySetting("PublicIP")
         End Get
         Set
             SetMySetting("PublicIP", Value)
@@ -1548,7 +1548,7 @@ Public Class MySettings
 
     Public Property ScriptEngine() As String
         Get
-            Return CType(GetMySetting("ScriptEngine", "YEngine"), String)
+            Return GetMySetting("ScriptEngine", "YEngine")
         End Get
         Set
             SetMySetting("ScriptEngine", Value)
@@ -1630,7 +1630,7 @@ Public Class MySettings
 
     Public Property SizeX() As String
         Get
-            Return CType(GetMySetting("SizeX", "256"), String)
+            Return GetMySetting("SizeX", "256")
         End Get
         Set
             SetMySetting("SizeX", Value)
@@ -1639,7 +1639,7 @@ Public Class MySettings
 
     Public Property SizeY() As String
         Get
-            Return CType(GetMySetting("SizeY", "256"), String)
+            Return GetMySetting("SizeY", "256")
         End Get
         Set
             SetMySetting("SizeY", Value)
@@ -1648,7 +1648,7 @@ Public Class MySettings
 
     Public Property SkipUpdateCheck() As String
         Get
-            Return CType(GetMySetting("SkipUpdateCheck", "0"), String)
+            Return GetMySetting("SkipUpdateCheck", "0")
         End Get
         Set
             SetMySetting("SkipUpdateCheck", CStr(Value))
@@ -1667,7 +1667,7 @@ Public Class MySettings
 
     Public Property SmtpHost() As String
         Get
-            Return CType(GetMySetting("SmtpHost", "smtp.gmail.com"), String)
+            Return GetMySetting("SmtpHost", "smtp.gmail.com")
         End Get
         Set
             SetMySetting("SmtpHost", Value)
