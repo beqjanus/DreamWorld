@@ -4326,6 +4326,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Inventory IAR Load and Save.
+        '''</summary>
+        Friend ReadOnly Property Inventory_IAR_Load_and_Save_words() As String
+            Get
+                Return ResourceManager.GetString("Inventory_IAR_Load_and_Save_words", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to IPV4 Address.
         '''</summary>
         Friend ReadOnly Property IPV4_Address_word() As String
@@ -7193,6 +7202,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Search for Objects and Events (www).
+        '''</summary>
+        Friend ReadOnly Property Search_Events() As String
+            Get
+                Return ResourceManager.GetString("Search_Events", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Search for Grids (www).
+        '''</summary>
+        Friend ReadOnly Property Search_grids() As String
+            Get
+                Return ResourceManager.GetString("Search_grids", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Secret.
         '''</summary>
         Friend ReadOnly Property Secret_word() As String
@@ -8028,6 +8055,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property text_find() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("text_find", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property text_marked() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("text_marked", resourceCulture)
@@ -8826,6 +8863,16 @@ Namespace My.Resources
         Friend ReadOnly Property window_add() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("window_add", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property window_colors() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("window_colors", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
