@@ -15,3 +15,7 @@ The following file types are supported:
 
 All others are MIME type text/html
 
+The files here are used for Statistics and Teleport signs, and avataranimations.xml is needed for the system to boot.
+
+
+
