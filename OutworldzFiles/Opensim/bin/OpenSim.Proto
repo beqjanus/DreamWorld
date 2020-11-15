@@ -51,11 +51,11 @@ http_listener_port=8004
 ;
 ; Automatically changed by Dreamworld - do not change this
 ;# used by the one-exe-per-instance logic. This becomes the folder for the regions file.
-RegionFolderName=Region
+RegionFolderName=Welcome
 
 ;
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=gandalf.outworldz.net
+BaseHostname=192.168.2.139
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -90,7 +90,7 @@ DiagnosticsPort=8001
 
 ;
 ; Automatically changed by Dreamworld - do not change this
-ApachePort=8000
+ApachePort=80
 
 ;
 [Startup]
@@ -316,7 +316,7 @@ UseSeparatePhysicsThread=True
 ;
 ;# {DefaultScriptEngine} {} {Default script engine} {XEngine} XEngine
 ;; Default script engine to use. Currently, we have XEngine and YEngine
-DefaultScriptEngine=XEngine
+DefaultScriptEngine=YEngine
 
 ;
 ;# {HttpProxy} {} {Proxy URL for llHTTPRequest and dynamic texture loading} {} http://proxy.com:8080
@@ -375,7 +375,7 @@ ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;
 ;# economy module
-economymodule=Gloebit
+economymodule=BetaGridLikeMoneyModule
 
 ;
 ; Main Frame time
@@ -604,7 +604,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=gandalf.outworldz.net
+host_domain_header_from=192.168.2.139
 
 ;
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
@@ -622,11 +622,11 @@ SMTP_SERVER_PORT=587
 
 ;
 ;# {SMTP_SERVER_LOGIN} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server user name?} {}
-SMTP_SERVER_LOGIN=
+SMTP_SERVER_LOGIN=Gmail for notification
 
 ;
 ;# {SMTP_SERVER_PASSWORD} {[Startup]emailmodule:DefaultEmailModule enabled:true} {SMTP server password} {}
-SMTP_SERVER_PASSWORD=
+SMTP_SERVER_PASSWORD=Gmail password
 
 ;
 [Network]
@@ -932,7 +932,7 @@ port=0
 ;# {access_password} {enabled:true} {Password for the remote admin interface} {}
 ;; This password is required to make any XMLRPC call (should be set as
 ;; the "password" parameter)
-access_password=104010880
+access_password=358765504
 
 ;
 ;# {access_ip_addresses} {enabled:true} {List the IP addresses allowed to call RemoteAdmin?} {}
@@ -1175,7 +1175,7 @@ MeshModelAllowTextureToInventory=true
 ;
 ;# {Enabled} {} {Enable the XEngine scripting engine?} {true false} true
 ;; Enable this engine in this OpenSim instance
-Enabled=False
+Enabled=True
 
 ;
 ; Set by Dreamgrid to 1/11th of a second. Can be overwritten per region
@@ -1189,7 +1189,7 @@ MinTimerInterval=0.2
 ;
 ;# {Enabled} {} {Enable the XEngine scripting engine?} {true false} true
 ;; Enable this engine in this OpenSim instance
-Enabled=True
+Enabled=False
 
 ;
 ;; How many threads to keep alive even if nothing is happening
