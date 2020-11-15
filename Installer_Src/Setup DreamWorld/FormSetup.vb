@@ -11,7 +11,7 @@
 'Permission is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
 'including without limitation the rights To use, copy, modify, merge, publish, distribute, sub license,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
+'And/Or sell copies Of the Software ad To permit persons To whom the Software Is furnished To
 'Do so, subject To the following conditions:
 
 'The above copyright notice And this permission notice shall be included In all copies Or '

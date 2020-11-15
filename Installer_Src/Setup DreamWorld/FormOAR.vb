@@ -48,19 +48,17 @@ Public Class FormOAR
 
         Public Property License As String
             Get
-                Return _license
-                '!!! TODO
-                Dim i As List(Of String) = Word_Wrap.WrapText(_license, 80)
+                'Return _license
+                _license = Mid(_license, 1, 1024)
+                Dim i As List(Of String) = Word_Wrap.WrapText(_license, 70)
                 Dim str As String = ""
                 For Each line In i
                     str += line & vbCrLf
+                    If str.Length >= 1024 Then
+                        Exit For
+                    End If
                 Next
-
-                Dim l = Mid(str, 1, 1024)
-                If l.Length = 1024 Then
-                    l += " ..."
-                End If
-                Return l
+                Return str
             End Get
             Set(value As String)
                 _license = value
