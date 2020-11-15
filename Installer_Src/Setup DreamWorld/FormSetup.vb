@@ -5860,7 +5860,7 @@ Public Class FormSetup
 
 #Region "Things"
 
-    Private Sub SetupWordPress()
+    Private Shared Sub SetupWordPress()
 
         If Settings.ServerType <> "Robust" Then Return
 

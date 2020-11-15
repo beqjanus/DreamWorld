@@ -48,10 +48,8 @@ Public Module MysqlInterface
             Try
                 ClientSocket.Connect(ServerAddress, iPort)
             Catch ex As Exception
-
                 Return False
             End Try
-
             If ClientSocket.Connected Then
                 Return True
             End If
@@ -90,10 +88,9 @@ Public Module MysqlInterface
         Try
             Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
                 MysqlConn.Open()
-                Dim stm = "Select EstateID from estate_map where regionid = '" & UUID & "';"
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                Dim stm = "Select EstateID from estate_map where regionid = @UUID"
                 Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             'Debug.Print("ID = {0}", reader.GetString(0))
@@ -103,19 +100,17 @@ Public Module MysqlInterface
                 End Using
             End Using
         Catch ex As Exception
-
             Console.WriteLine("Error: " & ex.ToString())
             Return ""
         End Try
 
         Try
-            Dim stm1 = "Select EstateName from estate_settings where EstateID = '" & Val & "';"
+            Dim stm1 = "Select EstateName from estate_settings where EstateID = @ID"
             Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
                 MysqlConn.Open()
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                Using cmd2 As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                    Using reader2 As MySqlDataReader = cmd2.ExecuteReader()
+                Using cmd As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
+                    cmd.Parameters.AddWithValue("@ID", Val)
+                    Using reader2 As MySqlDataReader = cmd.ExecuteReader()
                         If reader2.Read() Then
                             'Debug.Print("Name = {0}", reader2.GetString(0))
                             name = reader2.GetString(0)
@@ -124,13 +119,9 @@ Public Module MysqlInterface
                 End Using
             End Using
         Catch ex As Exception
-
             Console.WriteLine("Error: " & ex.ToString())
             Return ""
-        Finally
-
         End Try
-
         Return name
 
     End Function
@@ -169,7 +160,6 @@ Public Module MysqlInterface
 
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
-        ' griduse table column UserID
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
         Dim Dict As New Dictionary(Of String, String)
 
@@ -194,13 +184,11 @@ Public Module MysqlInterface
                                 If UUID <> "00000000-0000-0000-0000-000000000000" Then
                                     Dict.Add(Avatar, GetRegionName(UUID))
                                 End If
-
                             Next
                         End While
                     End Using
                 End Using
             Catch ex As Exception
-
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
         End Using
@@ -231,15 +219,11 @@ Public Module MysqlInterface
         Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 MysqlConn.Open()
-                Dim v As String
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
                 Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                    v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
+                    Dim v As String = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
+                    Return v
                 End Using
-                Return v
             Catch ex As Exception
-
                 Debug.Print(ex.Message)
             End Try
         End Using
@@ -253,11 +237,9 @@ Public Module MysqlInterface
         Dim MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
         Try
             MysqlConn.Open()
-
-            Dim stm = "Select RegionName from regions where uuid = '" & UUID & "';"
-#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+            Dim stm = "Select RegionName from regions where uuid = @UUID';"
             Using cmd As New MySqlCommand(stm, MysqlConn)
-#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                cmd.Parameters.AddWithValue("@UUID", UUID)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     If reader.Read() Then
                         Debug.Print("Region Name = {0}", reader.GetString(0))
@@ -266,7 +248,6 @@ Public Module MysqlInterface
                 End Using
             End Using
         Catch ex As Exception
-
             Console.WriteLine("Error: " & ex.ToString())
         Finally
             MysqlConn.Close()
