@@ -103,7 +103,7 @@ namespace WhoGotWhat
 
             AddToCSVFile(avatarname, regionname, primname);
 
-            string result = "Thanks, your visit has been recorded.";
+            string result = "OK your object has been recorded.";
             httpResponse.ContentType = "text/html";
             httpResponse.StatusCode = 200;
 
@@ -197,7 +197,7 @@ namespace WhoGotWhat
 
                 if (!File.Exists(pathToCsvFile))
                 {
-                    m_log.WarnFormat("[WhoGotWhat]: Creating WhoGotWhat.csv");
+                    m_log.InfoFormat("[WhoGotWhat]: Creating WhoGotWhat.csv");
                     using (var tr = new StreamWriter(pathToCsvFile))
                     using (var writer = new CsvWriter(tr))
                     {
