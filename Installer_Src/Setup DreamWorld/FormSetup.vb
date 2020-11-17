@@ -45,7 +45,7 @@ Public Class FormSetup
 #Region "Version"
 
     Dim _Domain As String = "http://outworldz.com"
-    Dim _MyVersion As String = "3.77"
+    Dim _MyVersion As String = "3.78"
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
@@ -1215,11 +1215,6 @@ Public Class FormSetup
         End Select
 
         myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
-
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
-        FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
 
         SequentialPause()   ' wait for previous region to give us some CPU
         Logger("Booting", GroupName, "Restart")
@@ -3113,7 +3108,7 @@ Public Class FormSetup
     End Sub
 
     ''' <summary>Deletes old log files</summary>
-    Private Shared Sub ClearLogFiles()
+    Private Sub ClearLogFiles()
 
         Dim Logfiles = New List(Of String) From {
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"),
@@ -3133,6 +3128,14 @@ Public Class FormSetup
             ' clear out the log files
             FileStuff.DeleteFile(thing)
             Application.DoEvents()
+        Next
+
+        For Each UUID As String In PropRegionClass.RegionUUIDs
+            Dim GroupName = PropRegionClass.GroupName(UUID)
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
         Next
 
     End Sub
