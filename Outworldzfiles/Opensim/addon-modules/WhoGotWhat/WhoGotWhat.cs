@@ -92,16 +92,21 @@ namespace WhoGotWhat
             Dictionary<string, object> postdata = ServerUtils.ParseQueryString(body);
 
             string avatarname = string.Empty, regionname = string.Empty, primname = string.Empty;
+            string data = string.Empty, location = string.Empty;
             if (postdata.ContainsKey("name") && !string.IsNullOrEmpty(postdata["name"].ToString()))
                 avatarname = postdata["name"].ToString();
             if (postdata.ContainsKey("region") && !string.IsNullOrEmpty(postdata["region"].ToString()))
                 regionname = postdata["region"].ToString();
             if (postdata.ContainsKey("primname") && !string.IsNullOrEmpty(postdata["primname"].ToString()))
                 primname = postdata["primname"].ToString();
+            if (postdata.ContainsKey("data") && !string.IsNullOrEmpty(postdata["data"].ToString()))
+                data = postdata["data"].ToString();
+            if (postdata.ContainsKey("location") && !string.IsNullOrEmpty(postdata["location"].ToString()))
+                location = postdata["location"].ToString();
             if (postdata.ContainsKey("password") && !string.IsNullOrEmpty(postdata["password"].ToString()))
                 theirpassword = postdata["password"].ToString();
 
-            AddToCSVFile(avatarname, regionname, primname);
+            AddToCSVFile(avatarname, regionname, primname, location, data);
 
             string result = "OK your object has been recorded.";
             httpResponse.ContentType = "text/html";
@@ -114,7 +119,7 @@ namespace WhoGotWhat
 
         #region Private Methods
 
-        private void AddToCSVFile(string avatar, string region, string primname)
+        private void AddToCSVFile(string avatar, string region, string primname, string location, string data)
         {
             string d = DateTime.Now.ToString("G");
             using (var tr = new StreamWriter(m_PathToFile, true))
@@ -124,6 +129,8 @@ namespace WhoGotWhat
                 writer.WriteField(avatar);
                 writer.WriteField(region);
                 writer.WriteField(primname);
+                writer.WriteField(location);
+                writer.WriteField(data);
                 writer.NextRecord();
             }
         }
