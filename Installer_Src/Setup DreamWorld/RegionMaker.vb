@@ -294,7 +294,6 @@ Public Class RegionMaker
             ._ProcessID = 0,
             ._AvatarCount = 0,
             ._Status = SIMSTATUSENUM.Stopped,
-            ._LineCounter = 0,
             ._Timer = 0,
             ._NonPhysicalPrimMax = "1024",
             ._PhysicalPrimMax = "64",
@@ -463,7 +462,6 @@ Public Class RegionMaker
                                     AvatarCount(RegionUUID) = CInt(Backup(o)._AvatarCount)
                                     ProcessID(RegionUUID) = CInt(Backup(o)._ProcessID)
                                     Status(RegionUUID) = CInt(Backup(o)._Status)
-                                    LineCounter(RegionUUID) = CInt(Backup(o)._LineCounter)
                                     Timer(RegionUUID) = CInt(Backup(o)._Timer)
                                 End If
                             End If
@@ -683,7 +681,6 @@ Public Class RegionMaker
         Public _FolderPath As String = ""
         Public _Group As String = ""  ' the path to the folder that holds the region ini
         Public _IniPath As String = "" ' the folder name that holds the region(s), can be different named
-        Public _LineCounter As Integer
         Public _ProcessID As Integer
         Public _RegionEnabled As Boolean = True
         Public _RegionName As String = ""
@@ -782,18 +779,6 @@ Public Class RegionMaker
             If RegionUUID Is Nothing Then Return
             If Bad(RegionUUID) Then Return
             RegionList(RegionUUID)._CoordY = Value
-        End Set
-    End Property
-
-    Public Property LineCounter(RegionUUID As String) As Integer
-        Get
-            If RegionUUID Is Nothing Then Return 0
-            If Bad(RegionUUID) Then Return 0
-            Return RegionList(RegionUUID)._LineCounter
-        End Get
-        Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            RegionList(RegionUUID)._LineCounter = Value
         End Set
     End Property
 
@@ -1359,7 +1344,6 @@ Public Class RegionMaker
             " Group:" & RegionList(RegionUUID)._Group & vbCrLf &
             " Region:" & RegionList(RegionUUID)._RegionName & vbCrLf &
             " Status=" & CStr(RegionList(RegionUUID)._Status) & vbCrLf &
-            " LineCtr=" & CStr(RegionList(RegionUUID)._LineCounter) & vbCrLf &
            " RegionEnabled=" & RegionList(RegionUUID)._RegionEnabled & vbCrLf &
            " Timer=" & CStr(RegionList(RegionUUID)._Timer))
 
