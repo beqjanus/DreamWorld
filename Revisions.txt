@@ -7,7 +7,7 @@ Data snapshot (Search) was interfering with Diva Wifi. The Wifi module has been 
 Offline IMs now work again. Needed to use the Public URL and Public port, not private port 8003. 
 Group IM’s now work. Same thing. 
 Clicking Start now redoes all INIs. A bit slower to boot, but less confusing as you should no longer have to exit the app for some changes to take effect.
-Joomla MAP	s & Apache needed PHP7 curl, which would not load.  They could have just read the files off disk, but noooo.  It’s been “fixed” by copying necessary (and very old) DLLs to Windows/System32. These are OpenSSL V1.02. No idea what PHP people are going to do in the future as these DLLS are really, really dead, but also really necessary.  A test file is located at Http://Grid:80/curl_test.php and it should print your Public IP address.
+Joomla MAPs & Apache needed PHP7 curl, which would not load.  They could have just read the files off disk, but noooo.  It’s been “fixed” by copying necessary (and very old) DLLs to Windows/System32. These are OpenSSL V1.02. No idea what PHP people are going to do in the future as these DLLS are really, really dead, but also really necessary.  A test file is located at Http://Grid:80/curl_test.php and it should print your Public IP address.
 RemoteAdmin Port has been altered for use with Joomla.  See Ports setup.
 
 XMLRPC Ports can be set per region. Some third party apps use them for money.
