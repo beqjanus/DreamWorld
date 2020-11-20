@@ -55,7 +55,7 @@ RegionFolderName=Welcome
 
 ;
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=192.168.2.139
+BaseHostname=gandalf.outworldz.net
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -80,7 +80,7 @@ PrivatePort=8003
 ;
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=DreamGrid
+GridName=Gandalf
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -375,7 +375,7 @@ ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;
 ;# economy module
-economymodule=BetaGridLikeMoneyModule
+economymodule=Gloebit
 
 ;
 ; Main Frame time
@@ -452,7 +452,7 @@ GenerateMaptiles=True
 ;
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
-MapImageModule=MapImageModule
+MapImageModule=Warp3DImageModule
 
 ;
 ;; generate better images.
@@ -468,18 +468,18 @@ MapImageModule=MapImageModule
 ; MaptileStaticUUID = "00000000-0000-0000-0000-000000000000"
 ;# {TextureOnMapTile} {} {Use terrain textures for map tiles?} {true false} true
 ;; Use terrain texture for maptiles if true, use shaded green if false
-TextureOnMapTile=False
+TextureOnMapTile=True
 
 ;
 ;# {DrawPrimOnMapTile} {} {Draw prim shapes on map tiles?} {true false} false
 ;; Draw objects on maptile.  This step might take a long time if you've
 ;; got a large number of objects, so you can turn it off here if you'd like.
-DrawPrimOnMapTile=False
+DrawPrimOnMapTile=True
 
 ;
 ;# {TexturePrims} {} {Texture prims on map tiles?} {true false} true
 ;; Texture the faces of the prims that are rendered on the map tiles.
-TexturePrims=False
+TexturePrims=True
 
 ;
 ;# {TexturePrimSize} {} {Size of prims to texture faces?} {} 48
@@ -487,7 +487,7 @@ TexturePrims=False
 ; TexturePrimSize = 48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map
-RenderMeshes=False
+RenderMeshes=True
 
 ;
 ;; Map Height
@@ -604,7 +604,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=192.168.2.139
+host_domain_header_from=gandalf.outworldz.net
 
 ;
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
@@ -932,7 +932,7 @@ port=0
 ;# {access_password} {enabled:true} {Password for the remote admin interface} {}
 ;; This password is required to make any XMLRPC call (should be set as
 ;; the "password" parameter)
-access_password=517453888
+access_password=Gandalf
 
 ;
 ;# {access_ip_addresses} {enabled:true} {List the IP addresses allowed to call RemoteAdmin?} {}
@@ -1101,7 +1101,7 @@ gridname=${Const|GridName}
 ;; Period between data snapshots, in seconds. 20 minutes, for starters,
 ;; so that you see the initial changes fast.
 ;; Later, you may want to increase this to 3600 (1 hour) or more
-default_snapshot_period=3600
+default_snapshot_period=300
 
 ;
 ;

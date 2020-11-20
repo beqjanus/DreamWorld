@@ -52,6 +52,8 @@ Public Class FormJoomla
             JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
             JoomlaProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
             JoomlaProcess.StartInfo.CreateNoWindow = True
+            JoomlaProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+
             Try
                 JoomlaProcess.Start()
             Catch ex As Exception
@@ -89,6 +91,8 @@ Public Class FormJoomla
             Catch ex As Exception
                 FormSetup.Print($"Unable to extract file: {fname}:{ex.Message}")
                 Thread.Sleep(3000)
+                InstallButton.Text = Global.Outworldz.My.Resources.Error_word
+                Return
             End Try
 
             InstallButton.Text = Global.Outworldz.My.Resources.Installed_word
@@ -99,7 +103,8 @@ Public Class FormJoomla
         AdminButton.Enabled = True
         ViewButton.Enabled = True
         InstallButton.Enabled = False
-        Dim webAddress As String = "http://" & Settings.PublicIP & ":" & Settings.PublicIP & "/JOpensim"
+
+        Dim webAddress As String = "http://127.0.0.1:" & Settings.ApachePort & "/JOpensim"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

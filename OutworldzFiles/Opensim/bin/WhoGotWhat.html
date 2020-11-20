@@ -4,11 +4,15 @@
     <h1>WhoGotWhat Test Form</h1>
 
     <form name="upload" action="/diva/WhoGotWhat" method="post">
-        <p>Avatar Name: <input type="text" name="name"></p>
-        <p>Region : <input type="text" name="region"></p>
-        <p>Prim Name : <input type="text" name="primname"></p>
-        <p>Password : <input type="password" name="password"></p>
-        <p><input type="submit" value="Submit"></p>
+        <table>
+        <tr><td>Avatar Name:</td><td><input type="text" name="name"></td></tr>
+        <tr><td>Region</td><td><input type="text" name="region"></td></tr>
+        <tr><td>Prim Name</td><td><input type="text" name="primname"></td></tr>
+        <tr><td>Location</td><td><input type="text" name="location"></td></tr>
+        <tr><td>Data</td><td><input type="text" name="data"></td></tr>
+        <tr><td>Password</td><td><input type="password" name="password"></td><td>This is the Settings->Hypergrid DNS Password</td></tr>
+        <tr><td><input type="submit" value="Send"></td></tr>
+        </table>
     </form>
 </body>
 </html>

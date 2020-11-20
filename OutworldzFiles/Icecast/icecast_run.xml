@@ -1,6 +1,6 @@
 <icecast>
-<hostname>192.168.2.139</hostname>
-<location>DreamGrid</location>
+<hostname>gandalf.outworldz.net</hostname>
+<location>Gandalf</location>
 <admin>email@somewhere.com</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
 <listen-socket>
@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>u%#F(NRVIMZoffT</source-password>
-<relay-password>u%#F(NRVIMZoffT</relay-password>
+<source-password>dMb%g5qLmC%cYyK</source-password>
+<relay-password>dMb%g5qLmC%cYyK</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>GAJQ6)3gSrNhDn#</admin-password>
+<admin-password>$8rD(s8#8dI4b1o</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>
