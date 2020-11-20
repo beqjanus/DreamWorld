@@ -1246,6 +1246,7 @@ Public Class FormRegionlist
                 FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE)
                 FormSetup.SequentialPause()
                 FormSetup.Print(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Restarting_word)
+
                 FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
 
                 If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
@@ -1260,7 +1261,7 @@ Public Class FormRegionlist
                     Next
                 End If
 
-                PropUpdateView = True ' make form refresh
+                'PropUpdateView = True ' make form refresh
             End If
         Next
 
