@@ -767,7 +767,9 @@ Public Class MySettings
 
     Public Property CMS() As String
         Get
-            Return GetMySetting("CMS", "DreamGrid")
+            Dim var = GetMySetting("CMS", "DreamGrid")
+            If var = "Joomla" Then var = "JOpensim"
+            Return var
         End Get
         Set
             SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -935,7 +937,7 @@ Public Class MySettings
 
     Public Property FirstXMLRegionPort() As String
         Get
-            Return GetMySetting("XMLRegionStartPort", "")
+            Return GetMySetting("XMLRegionStartPort", CStr(FirstRegionPort + 500))
         End Get
         Set
             SetMySetting("XMLRegionStartPort", Value)

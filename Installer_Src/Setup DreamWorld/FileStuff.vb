@@ -13,7 +13,6 @@ Module FileStuff
         Try
             My.Computer.FileSystem.CopyFile(Source, Dest, overwrite)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 

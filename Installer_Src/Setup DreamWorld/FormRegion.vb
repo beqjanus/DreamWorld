@@ -113,8 +113,6 @@ Public Class FormRegion
         Try
             value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
         Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
             BreakPoint.Show(ex.Message)
         End Try
 

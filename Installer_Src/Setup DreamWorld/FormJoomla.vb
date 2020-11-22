@@ -116,7 +116,7 @@ Public Class FormJoomla
     Private Sub JEnableCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles JEnableCheckBox.CheckedChanged
 
         If JEnableCheckBox.Checked Then
-            Settings.CMS = "Joomla"
+            Settings.CMS = "JOpensim"
         Else
             Settings.CMS = "DreamGrid"
         End If
@@ -162,7 +162,7 @@ Public Class FormJoomla
             HypericaRadioButton.Checked = True
         End If
 
-        If Settings.CMS = "Joomla" Then
+        If Settings.CMS = "JOpensim" Then
             JEnableCheckBox.Checked = True
             If count > 1 Then
                 AdminButton.Enabled = True
