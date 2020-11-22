@@ -107,10 +107,7 @@ Public Class FormSetup
     Private _UserName As String = ""
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
-#Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
-#Enable Warning CA2213 ' Disposable fields should be disposed
-
     Private ScreenPosition As ScreenPos
 
 #End Region
@@ -667,15 +664,6 @@ Public Class FormSetup
 
     End Sub
 
-    Public Shared Function DoWhoGotWhat() As Boolean
-
-        If Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";") Then Return True
-        Settings.SetIni("WhoGotWhat", "MachineID", Settings.MachineID)
-        Settings.SaveINI(System.Text.Encoding.UTF8)
-        Return False
-
-    End Function
-
     Public Shared Function DoGloebits() As Boolean
 
         'Gloebits.ini
@@ -706,6 +694,15 @@ Public Class FormSetup
 
     End Function
 
+    Public Shared Function DoWhoGotWhat() As Boolean
+
+        If Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";") Then Return True
+        Settings.SetIni("WhoGotWhat", "MachineID", Settings.MachineID)
+        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Return False
+
+    End Function
+
     Public Shared Sub ErrorLog(message As String)
         If Debugger.IsAttached Then
             MsgBox(message, vbInformation)
@@ -714,7 +711,9 @@ Public Class FormSetup
     End Sub
 
     Public Shared Function ExternLocalServerName() As String
-        ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
+        ''' <summary>
+        ''' Gets the External Host name which can be either the Public IP or a Host name.
+        ''' </summary>
         ''' <returns>Host for regions</returns>
         Dim Host As String
 
@@ -746,7 +745,10 @@ Public Class FormSetup
     End Function
 
     Public Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
-        ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
+        ''' <summary>
+        ''' This method starts at the specified directory. It traverses all subdirectories. It
+        ''' returns a List of those directories.
+        ''' </summary>
         ''' ' This list stores the results.
         Dim result As New List(Of String)
 
@@ -870,8 +872,9 @@ Public Class FormSetup
 
     Public Shared Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
         ''' <summary>
-        ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
-        ''' timer to make sure we do not get stuck
+        ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there
+        ''' is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the
+        ''' title. It has a timer to make sure we do not get stuck
         ''' </summary>
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
@@ -948,7 +951,8 @@ Public Class FormSetup
     Public Shared Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
         ''' <param name="value">millseconds</param>
-        ' value is in milliseconds, but we do it in 10 passes so we can doevents() to free up console
+        ' value is in milliseconds, but we do it in 10 passes so we can doevents() to free up
+        ' console
         Dim sleeptime = value / 100  ' now in tenths
 
         While sleeptime > 0
@@ -1332,7 +1336,9 @@ Public Class FormSetup
 
     Public Function ConsoleCommand(RegionUUID As String, command As String) As Boolean
 
-        ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
+        ''' <summary>
+        ''' Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys
+        ''' </summary>
         ''' <param name="ProcessID">PID of the DOS box</param>
         ''' <param name="command">String</param>
         ''' <returns></returns>
@@ -1555,8 +1561,9 @@ Public Class FormSetup
 
         Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
 
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
-        ' support this feature
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if
+        ' some prims Or terrain parts fail to rez. change to false if you need to use old viewers
+        ' that do Not support this feature
 
         Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
 
@@ -1640,8 +1647,9 @@ Public Class FormSetup
             Settings.SetIni("Cloud", "enabled", "False")
         End If
 
-        ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 = BulletSim with
-        ' threads 4 = ubODE
+        ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing =
+        ' Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 =
+        ' BulletSim with threads 4 = ubODE
 
         Select Case Settings.Physics
             Case 0
@@ -2779,7 +2787,9 @@ Public Class FormSetup
 
     End Function
 
-    ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
+    ''' <summary>
+    ''' Startup() Starts opensimulator system Called by Start Button or by AutoStart
+    ''' </summary>
     Public Sub Startup()
 
         Buttons(BusyButton)
@@ -2959,7 +2969,10 @@ Public Class FormSetup
 
     Public Sub UploadPhoto()
 
-        ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
+        ''' <summary>
+        ''' Upload in a separate thread the photo, if any. Cannot be called unless main web server
+        ''' is known to be on line.
+        ''' </summary>
         If Settings.GDPR() Then
 
             UploadCategory()
@@ -3107,39 +3120,6 @@ Public Class FormSetup
 
     End Sub
 
-    ''' <summary>Deletes old log files</summary>
-    Private Sub ClearLogFiles()
-
-        Dim Logfiles = New List(Of String) From {
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Restart.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\UPnp.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\http.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHPLog.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "http.log")     ' an old mistake
-        }
-
-        For Each thing As String In Logfiles
-            ' clear out the log files
-            FileStuff.DeleteFile(thing)
-            Application.DoEvents()
-        Next
-
-        For Each UUID As String In PropRegionClass.RegionUUIDs
-            Dim GroupName = PropRegionClass.GroupName(UUID)
-            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
-            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
-            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
-            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
-        Next
-
-    End Sub
-
     Private Shared Sub Create_ShortCut(ByVal sTargetPath As String)
         ' Requires reference to Windows Script Host Object Model
         Dim WshShell As WshShellClass = New WshShellClass
@@ -3172,7 +3152,9 @@ Public Class FormSetup
 
     Private Shared Function DoRegion(RegionName As String, RegionUUID As String) As Boolean
 
-        ''' <summary>Copy the Opensim proto Write the Region INI with RegionClass Set the Opensim.ini</summary>
+        ''' <summary>
+        ''' Copy the Opensim proto Write the Region INI with RegionClass Set the Opensim.ini
+        ''' </summary>
         ''' <returns>True if error</returns>
 
         If RegionMaker.SetRegionVars(RegionName, RegionUUID) Then Return True
@@ -3277,6 +3259,18 @@ Public Class FormSetup
 
             FileStuff.DeleteFile(Settings.OpensimBinPath & "\OpenSimBirds.Module.dll")
         End If
+
+    End Sub
+
+    Private Shared Sub SetPath()
+
+        Dim DLLList As New List(Of String) From {"libeay32.dll", "libssh2.dll", "ssleay32.dll"}
+
+        For Each item In DLLList
+            If Not IO.File.Exists("C:/Windows/System32/" & item) Then
+                My.Computer.FileSystem.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), IO.Path.Combine("C:\Windows\System32\" & item))
+            End If
+        Next
 
     End Sub
 
@@ -3605,6 +3599,39 @@ Public Class FormSetup
 
     End Sub
 
+    ''' <summary>Deletes old log files</summary>
+    Private Sub ClearLogFiles()
+
+        Dim Logfiles = New List(Of String) From {
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Restart.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\UPnp.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\http.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHPLog.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "http.log")     ' an old mistake
+        }
+
+        For Each thing As String In Logfiles
+            ' clear out the log files
+            FileStuff.DeleteFile(thing)
+            Application.DoEvents()
+        Next
+
+        For Each UUID As String In PropRegionClass.RegionUUIDs
+            Dim GroupName = PropRegionClass.GroupName(UUID)
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
+        Next
+
+    End Sub
+
     Private Sub CreateService()
 
         ' create test program slants the other way:
@@ -3820,7 +3847,8 @@ Public Class FormSetup
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
-        ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling ;; and available when they return. True by default.
+        ' ;; Send visual reminder to local users that their inventories are unavailable while they
+        ' are traveling ;; and available when they return. True by default.
         If Settings.Suitcase Then
             Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "true")
         Else
@@ -3959,12 +3987,15 @@ Public Class FormSetup
     Private Function DoSetDefaultSims() As Boolean
 
         Print("->Set Default Sims")
-        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit must be done before other edits to Robust.HG.ini as this makes the actual Robust.HG.ifile
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side
+        ' edit must be done before other edits to Robust.HG.ini as this makes the actual
+        ' Robust.HG.ifile
         Dim reader As StreamReader
         Dim line As String
 
         Try
-            ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
+            ' add this sim name as a default to the file as HG regions, and add the other regions as
+            ' fallback it may have been deleted
             Dim WelcomeUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
             If WelcomeUUID.Length = 0 Then
@@ -3976,8 +4007,9 @@ Public Class FormSetup
 
             FileStuff.DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
-            ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
-            ' enabled Region_Name = FallbackRegion if not a SmartStart
+            ' Replace the block with a list of regions with the Region_Name = DefaultRegion,
+            ' DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start
+            ' region and SS is enabled Region_Name = FallbackRegion if not a SmartStart
 
             Dim RegionSetting As String = Nothing
 
@@ -4371,9 +4403,7 @@ Public Class FormSetup
 
                     PropUpdateView = True ' make form refresh
                 Else
-#Disable Warning CA1303
                     Logger("ExitHandlerPoll", "None of the above!", "Restart")
-#Enable Warning CA1303
                 End If
             End If
         Next
@@ -4389,7 +4419,8 @@ Public Class FormSetup
             Logger(Reason, GroupName & " Exited", "Restart")
             Print(GroupName & " " & Reason)
 
-            ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
+            ' Need a region number and a Name. Name is either a region or a Group. For groups we
+            ' need to get a region name from the group
             Dim RegionUUID As String = ""
             Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
             If GroupList.Count > 0 Then
@@ -4430,7 +4461,8 @@ Public Class FormSetup
                 TimerValue >= 0 And
                 Not PropAborting Then
 
-                ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
+                ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash
+                ' and restart the beast
 
                 Logger("Crash", GroupName & " Crashed", "Restart")
                 If Settings.RestartOnCrash Then
@@ -4461,18 +4493,6 @@ Public Class FormSetup
         End While
 
         PropExitHandlerIsBusy = False
-
-    End Sub
-
-    Private Shared Sub SetPath()
-
-        Dim DLLList As New List(Of String) From {"libeay32.dll", "libssh2.dll", "ssleay32.dll"}
-
-        For Each item In DLLList
-            If Not IO.File.Exists("C:/Windows/System32/" & item) Then
-                My.Computer.FileSystem.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), IO.Path.Combine("C:\Windows\System32\" & item))
-            End If
-        Next
 
     End Sub
 
@@ -4564,7 +4584,8 @@ Public Class FormSetup
 
         Me.Show()
 
-        ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
+        ' Save a random machine ID - we don't want any data to be sent that's personal or
+        ' identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
 
@@ -5294,18 +5315,16 @@ Public Class FormSetup
     Private Sub ProbePublicPort()
 
         If Settings.ServerType <> "Robust" Then
-#Disable Warning ca1303
             Logger("INFO", "Server Is Not Robust", "Diagnostics")
-#Enable Warning ca1303
-
             Return
         End If
 
         Dim isPortOpen As String = ""
         Using client As New WebClient ' download client for web pages
 
-            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
-            ' results See my privacy policy at https://outworldz.com/privacy.htm
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique,
+            ' anonymous random ID, both of the versions of Opensim and this program, and the
+            ' diagnostics test results See my privacy policy at https://outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
             Dim Url = PropDomain() & "/cgi/probetest.plx" & GetPostData()
@@ -5855,12 +5874,6 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Public Properties"
-
-#Disable Warning CA2227 ' Collection properties should be read only
-
-#End Region
-
 #Region "Things"
 
     Private Shared Sub SetupWordPress()
@@ -6124,20 +6137,12 @@ Public Class FormSetup
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
-
-#Disable Warning ca1303
             Logger("INFO", "Local LAN IP", "Diagnostics")
-#Enable Warning ca1303
-
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
-
-#Disable Warning ca1303
             Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
-#Enable Warning ca1303
-
             Return
         End If
 
@@ -6187,7 +6192,9 @@ Public Class FormSetup
 #Region "Timer"
 
     ''' <summary>
-    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
+    ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any
+    ''' sims , updates lists of agents builds teleports.html for older teleport checks for crashed
+    ''' regions
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
@@ -6587,22 +6594,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub Fatal1_Click(sender As Object, e As EventArgs) Handles Fatal1.Click
-
-        Settings.LogLevel = "FATAL"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
-        SendMsg(Settings.LogLevel)
-
-    End Sub
-
-    Private Sub Off1_Click(sender As Object, e As EventArgs) Handles Off1.Click
-
-        Settings.LogLevel = "OFF"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
-        SendMsg(Settings.LogLevel)
-
-    End Sub
-
     Private Sub ErrorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ErrorToolStripMenuItem.Click
 
         Settings.LogLevel = "ERROR"
@@ -6611,9 +6602,25 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub Fatal1_Click(sender As Object, e As EventArgs) Handles Fatal1.Click
+
+        Settings.LogLevel = "FATAL"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
+
+    End Sub
+
     Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
 
         Settings.LogLevel = "INFO"
+        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel)
+
+    End Sub
+
+    Private Sub Off1_Click(sender As Object, e As EventArgs) Handles Off1.Click
+
+        Settings.LogLevel = "OFF"
         System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
 
@@ -6630,280 +6637,6 @@ Public Class FormSetup
 #End Region
 
 #Region "IAR OAR"
-
-    Private Sub LoadLocalIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadLocalIARToolStripMenuItem.Click
-
-        Dim thing As String = sender.Text.ToString
-        Dim file As String = Mid(thing, 1, InStr(thing, "|") - 2)
-        file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
-        If LoadIARContent(file) Then
-            Print(My.Resources.isLoading & " " & file)
-        End If
-        sender.Checked = True
-
-    End Sub
-
-    Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
-        If PropInitted Then
-            ContentOAR.Activate()
-            ContentOAR.ShowForm()
-            ContentOAR.Select()
-            ContentOAR.BringToFront()
-        End If
-    End Sub
-
-    Private Sub SearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForObjectsMenuItem.Click
-
-        Dim webAddress As String = "https://hyperica.com/Search/"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub SaveInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem1.Click
-
-        If PropOpensimIsRunning() Then
-
-            Using SaveIAR As New FormIARSave
-                SaveIAR.ShowDialog()
-                Dim chosen = SaveIAR.DialogResult()
-                If chosen = DialogResult.OK Then
-
-                    Dim itemName = SaveIAR.GObject
-                    If itemName.Length = 0 Then
-                        MsgBox(My.Resources.MustHaveName)
-                        Return
-                    End If
-
-                    Dim ToBackup As String
-
-                    Dim BackupName = SaveIAR.GBackupName
-
-                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
-                        BackupName += ".iar"
-                    End If
-
-                    If String.IsNullOrEmpty(SaveIAR.GBackupPath) Or SaveIAR.GBackupPath = "AutoBackup" Then
-                        ToBackup = BackupPath() & "" & BackupName
-                    Else
-                        ToBackup = BackupName
-                    End If
-
-                    Dim Name = SaveIAR.GAvatarName
-                    Dim Password = SaveIAR.GPassword
-
-                    For Each RegionUUID As String In PropRegionClass.RegionUUIDs
-                        If PropRegionClass.IsBooted(RegionUUID) Then
-                            ConsoleCommand(RegionUUID, "save iar " _
-                                       & Name & " " _
-                                       & """" & itemName & """" _
-                                       & " " & """" & Password & """" & " " _
-                                       & """" & ToBackup & """" _
-                                       & "{ENTER}" & vbCrLf
-                                      )
-                            Exit For
-                            Print(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName)
-
-                        End If
-                    Next
-                End If
-            End Using
-        Else
-            Print(My.Resources.Not_Running)
-        End If
-
-    End Sub
-
-    Private Sub LoadInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LoadInventoryIARToolStripMenuItem1.Click
-
-        If PropOpensimIsRunning() Then
-            ' Create an instance of the open file dialog box. Set filter options and filter index.
-            Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
-                        .InitialDirectory = """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles") & """",
-                        .Filter = Global.Outworldz.My.Resources.IAR_Load_and_Save_word & " (*.iar)|*.iar|All Files (*.*)|*.*",
-                        .FilterIndex = 1,
-                        .Multiselect = False
-                    }
-
-            ' Call the ShowDialog method to show the dialog box.
-            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
-            ' Process input if the user clicked OK.
-            If UserClickedOK = DialogResult.OK Then
-                Dim thing = openFileDialog1.FileName
-                If thing.Length > 0 Then
-                    thing = thing.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
-                    If LoadIARContent(thing) Then
-                        Print(My.Resources.isLoading & " " & thing)
-                    End If
-                End If
-            End If
-            openFileDialog1.Dispose()
-        Else
-            Print(My.Resources.Not_Running)
-        End If
-
-    End Sub
-
-    Private Sub LoadOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadRegionOARToolStripMenuItem.Click
-
-        If PropOpensimIsRunning() Then
-            Dim chosen = ChooseRegion(True)
-            If chosen.Length = 0 Then Return
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(chosen)
-
-            ' Create an instance of the open file dialog box. Set filter options and filter index.
-            Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
-                .InitialDirectory = BackupPath(),
-                .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
-                .FilterIndex = 1,
-                .Multiselect = False
-                }
-
-                ' Call the ShowDialog method to show the dialog box.
-                Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
-                ' Process input if the user clicked OK.
-                If UserClickedOK = DialogResult.OK Then
-
-                    Dim offset = VarChooser(chosen)
-
-                    Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, Global.Outworldz.My.Resources.Backup_word)
-                    Dim thing = openFileDialog1.FileName
-                    If thing.Length > 0 Then
-                        thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
-
-                        Dim Group = PropRegionClass.GroupName(RegionUUID)
-                        For Each UUID In PropRegionClass.RegionUUIDListByName(Group)
-
-                            ConsoleCommand(UUID, "change region " & chosen & "{ENTER}" & vbCrLf)
-                            If backMeUp = vbYes Then
-                                ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
-                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
-                            End If
-                            ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.New_Content & "{ENTER}" & vbCrLf)
-
-                            Dim ForceParcel As String = ""
-                            If PropForceParcel() Then ForceParcel = " --force-parcels "
-                            Dim ForceTerrain As String = ""
-                            If PropForceTerrain Then ForceTerrain = " --force-terrain "
-                            Dim ForceMerge As String = ""
-                            If PropForceMerge Then ForceMerge = " --merge "
-                            Dim UserName As String = ""
-                            If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
-
-                            ConsoleCommand(UUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
-                            ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
-                            ConsoleCommand(UUID, "generate map {ENTER}" & vbCrLf)
-                        Next
-                    End If
-                End If
-
-            End Using
-        Else
-            Print(My.Resources.Not_Running)
-        End If
-
-    End Sub
-
-    Private Sub SaveAllRunningRegiondsAsOARSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveAllRunningRegiondsAsOARSToolStripMenuItem.Click
-
-        If Not PropOpensimIsRunning() Then
-            Print(My.Resources.Not_Running)
-            Return
-        End If
-
-        Dim WebThread = New Thread(AddressOf Backupper)
-        WebThread.SetApartmentState(ApartmentState.STA)
-
-        WebThread.Start()
-        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-
-    End Sub
-
-    Private Sub SaveRegionOARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveRegionOARToolStripMenuItem1.Click
-        If PropOpensimIsRunning() Then
-
-            Dim chosen = ChooseRegion(True)
-            If chosen.Length = 0 Then Return
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(chosen)
-
-            Dim Message, title, defaultValue As String
-            Dim myValue As String
-            ' Set prompt.
-            Message = Global.Outworldz.My.Resources.EnterName
-            title = "Backup to OAR"
-            defaultValue = chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
-
-            ' Display message, title, and default value.
-            myValue = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue
-            If myValue.Length = 0 Then Return
-
-            If myValue.EndsWith(".OAR", StringComparison.InvariantCulture) Or myValue.EndsWith(".oar", StringComparison.InvariantCulture) Then
-                ' nothing
-            Else
-                myValue += ".oar"
-            End If
-
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                Dim Group = PropRegionClass.GroupName(RegionUUID)
-                ConsoleCommand(RegionUUID, "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
-                ConsoleCommand(RegionUUID, "change region " & """" & chosen & """" & "{ENTER}" & vbCrLf)
-                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
-            End If
-            Me.Focus()
-            Print(My.Resources.Saving_word & " " & BackupPath() & "\" & myValue)
-        Else
-            Print(My.Resources.Not_Running)
-        End If
-
-    End Sub
-
-    Private Sub FindIARsOnOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FindIARsOnOutworldzToolStripMenuItem.Click
-
-        Dim webAddress As String = PropDomain & "/outworldz_installer/IAR"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub SearchForOarsAtOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForOarsAtOutworldzToolStripMenuItem.Click
-
-        Dim webAddress As String = PropDomain & "/outworldz_installer/OAR"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub LocalIarClick(sender As Object, e As EventArgs) ''''
-
-        Dim thing As String = sender.text.ToString
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/IAR/" & CStr(thing)) 'make a real URL
-        If LoadIARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & CStr(thing))
-        End If
-
-    End Sub
-
-    Private Sub LocalOarClick(sender As Object, e As EventArgs)
-
-        Dim thing As String = sender.text.ToString
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/OAR/" & thing) 'make a real URL
-        If LoadOARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
-        End If
-
-    End Sub
 
     Public Function LoadIARContent(thing As String) As Boolean
 
@@ -7006,6 +6739,66 @@ Public Class FormSetup
         Return True
 
     End Function
+
+    Private Sub FindIARsOnOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FindIARsOnOutworldzToolStripMenuItem.Click
+
+        Dim webAddress As String = PropDomain & "/outworldz_installer/IAR"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
+        If PropInitted Then
+            ContentOAR.Activate()
+            ContentOAR.ShowForm()
+            ContentOAR.Select()
+            ContentOAR.BringToFront()
+        End If
+    End Sub
+
+    Private Sub LoadIarClick(sender As Object, e As EventArgs) ' event handler
+
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
+        If LoadIARContent(File) Then
+            Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
+        End If
+
+    End Sub
+
+    Private Sub LoadInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LoadInventoryIARToolStripMenuItem1.Click
+
+        If PropOpensimIsRunning() Then
+            ' Create an instance of the open file dialog box. Set filter options and filter index.
+            Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+                        .InitialDirectory = """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles") & """",
+                        .Filter = Global.Outworldz.My.Resources.IAR_Load_and_Save_word & " (*.iar)|*.iar|All Files (*.*)|*.*",
+                        .FilterIndex = 1,
+                        .Multiselect = False
+                    }
+
+            ' Call the ShowDialog method to show the dialog box.
+            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+                Dim thing = openFileDialog1.FileName
+                If thing.Length > 0 Then
+                    thing = thing.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
+                    If LoadIARContent(thing) Then
+                        Print(My.Resources.isLoading & " " & thing)
+                    End If
+                End If
+            End If
+            openFileDialog1.Dispose()
+        Else
+            Print(My.Resources.Not_Running)
+        End If
+
+    End Sub
 
     Private Sub LoadLocalIAROAR()
 
@@ -7137,12 +6930,15 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub LoadIarClick(sender As Object, e As EventArgs) ' event handler
+    Private Sub LoadLocalIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadLocalIARToolStripMenuItem.Click
 
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
-        If LoadIARContent(File) Then
-            Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
+        Dim thing As String = sender.Text.ToString
+        Dim file As String = Mid(thing, 1, InStr(thing, "|") - 2)
+        file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
+        If LoadIARContent(file) Then
+            Print(My.Resources.isLoading & " " & file)
         End If
+        sender.Checked = True
 
     End Sub
 
@@ -7152,6 +6948,217 @@ Public Class FormSetup
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
+
+    End Sub
+
+    Private Sub LoadOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadRegionOARToolStripMenuItem.Click
+
+        If PropOpensimIsRunning() Then
+            Dim chosen = ChooseRegion(True)
+            If chosen.Length = 0 Then Return
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(chosen)
+
+            ' Create an instance of the open file dialog box. Set filter options and filter index.
+            Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+                .InitialDirectory = BackupPath(),
+                .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
+                .FilterIndex = 1,
+                .Multiselect = False
+                }
+
+                ' Call the ShowDialog method to show the dialog box.
+                Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+
+                ' Process input if the user clicked OK.
+                If UserClickedOK = DialogResult.OK Then
+
+                    Dim offset = VarChooser(chosen)
+
+                    Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNo, Global.Outworldz.My.Resources.Backup_word)
+                    Dim thing = openFileDialog1.FileName
+                    If thing.Length > 0 Then
+                        thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
+
+                        Dim Group = PropRegionClass.GroupName(RegionUUID)
+                        For Each UUID In PropRegionClass.RegionUUIDListByName(Group)
+
+                            ConsoleCommand(UUID, "change region " & chosen & "{ENTER}" & vbCrLf)
+                            If backMeUp = vbYes Then
+                                ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive & "{Enter}" & vbCrLf)
+                                ConsoleCommand(UUID, "save oar  " & """" & BackupPath() & chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+                            End If
+                            ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.New_Content & "{ENTER}" & vbCrLf)
+
+                            Dim ForceParcel As String = ""
+                            If PropForceParcel() Then ForceParcel = " --force-parcels "
+                            Dim ForceTerrain As String = ""
+                            If PropForceTerrain Then ForceTerrain = " --force-terrain "
+                            Dim ForceMerge As String = ""
+                            If PropForceMerge Then ForceMerge = " --merge "
+                            Dim UserName As String = ""
+                            If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
+
+                            ConsoleCommand(UUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(UUID, "alert " & Global.Outworldz.My.Resources.New_is_Done & "{ENTER}" & vbCrLf)
+                            ConsoleCommand(UUID, "generate map {ENTER}" & vbCrLf)
+                        Next
+                    End If
+                End If
+
+            End Using
+        Else
+            Print(My.Resources.Not_Running)
+        End If
+
+    End Sub
+
+    Private Sub LocalIarClick(sender As Object, e As EventArgs) ''''
+
+        Dim thing As String = sender.text.ToString
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/IAR/" & CStr(thing)) 'make a real URL
+        If LoadIARContent(File) Then
+            Print(My.Resources.Opensimulator_is_loading & CStr(thing))
+        End If
+
+    End Sub
+
+    Private Sub LocalOarClick(sender As Object, e As EventArgs)
+
+        Dim thing As String = sender.text.ToString
+        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/OAR/" & thing) 'make a real URL
+        If LoadOARContent(File) Then
+            Print(My.Resources.Opensimulator_is_loading & CStr(sender.Text))
+        End If
+
+    End Sub
+
+    Private Sub SaveAllRunningRegiondsAsOARSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveAllRunningRegiondsAsOARSToolStripMenuItem.Click
+
+        If Not PropOpensimIsRunning() Then
+            Print(My.Resources.Not_Running)
+            Return
+        End If
+
+        Dim WebThread = New Thread(AddressOf Backupper)
+        WebThread.SetApartmentState(ApartmentState.STA)
+
+        WebThread.Start()
+        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+
+    End Sub
+
+    Private Sub SaveInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem1.Click
+
+        If PropOpensimIsRunning() Then
+
+            Using SaveIAR As New FormIARSave
+                SaveIAR.ShowDialog()
+                Dim chosen = SaveIAR.DialogResult()
+                If chosen = DialogResult.OK Then
+
+                    Dim itemName = SaveIAR.GObject
+                    If itemName.Length = 0 Then
+                        MsgBox(My.Resources.MustHaveName)
+                        Return
+                    End If
+
+                    Dim ToBackup As String
+
+                    Dim BackupName = SaveIAR.GBackupName
+
+                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
+                        BackupName += ".iar"
+                    End If
+
+                    If String.IsNullOrEmpty(SaveIAR.GBackupPath) Or SaveIAR.GBackupPath = "AutoBackup" Then
+                        ToBackup = BackupPath() & "" & BackupName
+                    Else
+                        ToBackup = BackupName
+                    End If
+
+                    Dim Name = SaveIAR.GAvatarName
+                    Dim Password = SaveIAR.GPassword
+
+                    For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                        If PropRegionClass.IsBooted(RegionUUID) Then
+                            ConsoleCommand(RegionUUID, "save iar " _
+                                       & Name & " " _
+                                       & """" & itemName & """" _
+                                       & " " & """" & Password & """" & " " _
+                                       & """" & ToBackup & """" _
+                                       & "{ENTER}" & vbCrLf
+                                      )
+                            Exit For
+                            Print(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName)
+
+                        End If
+                    Next
+                End If
+            End Using
+        Else
+            Print(My.Resources.Not_Running)
+        End If
+
+    End Sub
+
+    Private Sub SaveRegionOARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveRegionOARToolStripMenuItem1.Click
+        If PropOpensimIsRunning() Then
+
+            Dim chosen = ChooseRegion(True)
+            If chosen.Length = 0 Then Return
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(chosen)
+
+            Dim Message, title, defaultValue As String
+            Dim myValue As String
+            ' Set prompt.
+            Message = Global.Outworldz.My.Resources.EnterName
+            title = "Backup to OAR"
+            defaultValue = chosen & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
+
+            ' Display message, title, and default value.
+            myValue = InputBox(Message, title, defaultValue)
+            ' If user has clicked Cancel, set myValue to defaultValue
+            If myValue.Length = 0 Then Return
+
+            If myValue.EndsWith(".OAR", StringComparison.InvariantCulture) Or myValue.EndsWith(".oar", StringComparison.InvariantCulture) Then
+                ' nothing
+            Else
+                myValue += ".oar"
+            End If
+
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                Dim Group = PropRegionClass.GroupName(RegionUUID)
+                ConsoleCommand(RegionUUID, "alert CPU Intensive Backup Started{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "change region " & """" & chosen & """" & "{ENTER}" & vbCrLf)
+                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
+            End If
+            Me.Focus()
+            Print(My.Resources.Saving_word & " " & BackupPath() & "\" & myValue)
+        Else
+            Print(My.Resources.Not_Running)
+        End If
+
+    End Sub
+
+    Private Sub SearchForOarsAtOutworldzToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForOarsAtOutworldzToolStripMenuItem.Click
+
+        Dim webAddress As String = PropDomain & "/outworldz_installer/OAR"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub SearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForObjectsMenuItem.Click
+
+        Dim webAddress As String = "https://hyperica.com/Search/"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
     End Sub
 
