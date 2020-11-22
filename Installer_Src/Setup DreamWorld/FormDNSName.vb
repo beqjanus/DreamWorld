@@ -226,12 +226,9 @@ Public Class FormDNSName
 
             Dim rgx As New Regex("[^a-zA-Z0-9\.\-]")
             DNSNameBox.Text = rgx.Replace(DNSNameBox.Text, "")
-
-#Disable Warning CA1308 ' Normalize strings to uppercase
             DNSNameBox.Text = DNSNameBox.Text.ToLower(Globalization.CultureInfo.InvariantCulture)
             DNSNameBox.Text = DNSNameBox.Text.Replace("http://", "")
             DNSNameBox.Text = DNSNameBox.Text.Replace("https://", "")
-#Enable Warning CA1308 ' Normalize strings to uppercase
         End If
 
     End Sub
@@ -245,9 +242,8 @@ Public Class FormDNSName
             DNSAliasTextBox.Text = Regex.Replace(DNSAliasTextBox.Text, ":\d+", "") ' no :8002 on end.
             Dim rgx As New Regex("[^a-zA-Z0-9\.\-,]")
             DNSAliasTextBox.Text = rgx.Replace(DNSAliasTextBox.Text, "")
-#Disable Warning CA1308 ' Normalize strings to uppercase
             DNSAliasTextBox.Text = DNSAliasTextBox.Text.ToLower(Globalization.CultureInfo.InvariantCulture)
-#Enable Warning CA1308 ' Normalize strings to uppercase
+
 
         End If
 

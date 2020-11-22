@@ -1147,13 +1147,11 @@ Public Class FormRegionlist
 
         ElseIf chosen = "Teleport" Then
             'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
-
+            RegionName = RegionName.Replace(" ", "+")
             Dim link = "secondlife://http|!!" & Settings.PublicIP & "|" & Settings.HttpPort & "+" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
-#Disable Warning CA103
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
 

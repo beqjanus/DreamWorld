@@ -1,7 +1,3 @@
-#Region "To do"
-
-#End Region
-
 #Region "Copyright"
 
 ' Copyright 2014 Fred Beckhusen for Outworldz.com https://opensource.org/licenses/AGPL
@@ -28,6 +24,7 @@
 
 Imports System.Globalization
 Imports System.IO
+Imports System.IO.Compression
 Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
@@ -36,9 +33,9 @@ Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
-Imports System.IO.Compression
 
-Public Class FormSetup
+Public Class FormSetup : Implements IDisposable
+
 
 #Region "Version"
 
@@ -47,6 +44,7 @@ Public Class FormSetup
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
+
 
 #Region "Declarations"
 
@@ -4500,14 +4498,10 @@ Public Class FormSetup
 
 #Region "StartStop"
 
-    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
+    Private Sub Form_exit() Handles Me.Closed
 
-        cpu.Dispose()
-
-    End Sub
-
-    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
         ReallyQuit()
+
     End Sub
 
     ''' <summary>Form Load is main() for all DreamGrid</summary>
@@ -5866,13 +5860,7 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Event Declarations"
 
-#End Region
-
-#Region "Public Enums"
-
-#End Region
 
 #Region "Things"
 
@@ -5972,21 +5960,7 @@ Public Class FormSetup
 
 #End Region
 
-#Region "BootUp"
 
-#End Region
-
-#Region "ExitHandler Polling"
-
-#End Region
-
-#Region "Do"
-
-#End Region
-
-#Region "Stopping"
-
-#End Region
 
 #Region "Logging"
 
@@ -7160,6 +7134,10 @@ Public Class FormSetup
             BreakPoint.Show(ex.Message)
         End Try
 
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
     End Sub
 
 #End Region
