@@ -2075,6 +2075,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Default: 8000.
+        '''</summary>
+        Friend ReadOnly Property Default_8000_word() As String
+            Get
+                Return ResourceManager.GetString("Default_8000_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Default 8001.
         '''</summary>
         Friend ReadOnly Property Default_8001_word() As String
@@ -6670,6 +6679,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Admin Port.
+        '''</summary>
+        Friend ReadOnly Property RemoteAdminPort_word() As String
+            Get
+                Return ResourceManager.GetString("RemoteAdminPort_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Render Max Height.
         '''</summary>
         Friend ReadOnly Property RenderMax() As String
@@ -8759,7 +8777,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Web Port (80, or 8000).
+        '''  Looks up a localized string similar to Web Port (800.
         '''</summary>
         Friend ReadOnly Property Web_Port() As String
             Get

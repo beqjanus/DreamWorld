@@ -2086,7 +2086,7 @@
     <value>Clearing Asset Cache. This may take a long time.</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
-    <value>Web Port (80, or 8000)</value>
+    <value>Web Port (800</value>
   </data>
   <data name="EnableOther_Word" xml:space="preserve">
     <value>Enable Other</value>
@@ -3071,5 +3071,11 @@
   </data>
   <data name="Search_grids" xml:space="preserve">
     <value>Search for Grids (www)</value>
+  </data>
+  <data name="Default_8000_word" xml:space="preserve">
+    <value>Default: 8000</value>
+  </data>
+  <data name="RemoteAdminPort_word" xml:space="preserve">
+    <value>Admin Port</value>
   </data>
 </root>
