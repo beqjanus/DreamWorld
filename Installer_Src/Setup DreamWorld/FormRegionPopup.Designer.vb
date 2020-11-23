@@ -54,114 +54,114 @@ Partial Class FormRegionPopup
         Me.GroupBox1.Size = New System.Drawing.Size(210, 365)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Region_Controls
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Region_Controls
         '
         'ViewMapButton
         '
-        Me.ViewMapButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        Me.ViewMapButton.Image = Global.Outworldz.My.Resources.document_view1
         Me.ViewMapButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ViewMapButton.Location = New System.Drawing.Point(25, 279)
         Me.ViewMapButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ViewMapButton.Name = "ViewMapButton"
         Me.ViewMapButton.Size = New System.Drawing.Size(162, 28)
         Me.ViewMapButton.TabIndex = 13
-        Me.ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
+        Me.ViewMapButton.Text = Global.Outworldz.My.Resources.View_Map_word
         Me.ViewMapButton.UseVisualStyleBackColor = True
         '
         'ShowConsoleButton
         '
-        Me.ShowConsoleButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        Me.ShowConsoleButton.Image = Global.Outworldz.My.Resources.document_view1
         Me.ShowConsoleButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ShowConsoleButton.Location = New System.Drawing.Point(25, 29)
         Me.ShowConsoleButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ShowConsoleButton.Name = "ShowConsoleButton"
         Me.ShowConsoleButton.Size = New System.Drawing.Size(162, 28)
         Me.ShowConsoleButton.TabIndex = 12
-        Me.ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
+        Me.ShowConsoleButton.Text = Global.Outworldz.My.Resources.View_Console_word
         Me.ShowConsoleButton.UseVisualStyleBackColor = True
         '
         'Button1
         '
-        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        Me.Button1.Image = Global.Outworldz.My.Resources.document_view1
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button1.Location = New System.Drawing.Point(25, 243)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(162, 28)
         Me.Button1.TabIndex = 11
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.View_Log_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'StatsButton1
         '
-        Me.StatsButton1.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        Me.StatsButton1.Image = Global.Outworldz.My.Resources.user1_into
         Me.StatsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatsButton1.Location = New System.Drawing.Point(25, 101)
         Me.StatsButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.StatsButton1.Name = "StatsButton1"
         Me.StatsButton1.Size = New System.Drawing.Size(162, 28)
         Me.StatsButton1.TabIndex = 10
-        Me.StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
+        Me.StatsButton1.Text = Global.Outworldz.My.Resources.View_Statistics_Word
         Me.StatsButton1.UseVisualStyleBackColor = True
         '
         'StatsButton
         '
-        Me.StatsButton.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        Me.StatsButton.Image = Global.Outworldz.My.Resources.user1_into
         Me.StatsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StatsButton.Location = New System.Drawing.Point(25, 136)
         Me.StatsButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.StatsButton.Name = "StatsButton"
         Me.StatsButton.Size = New System.Drawing.Size(162, 28)
         Me.StatsButton.TabIndex = 9
-        Me.StatsButton.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
+        Me.StatsButton.Text = Global.Outworldz.My.Resources.Teleport_word
         Me.StatsButton.UseVisualStyleBackColor = True
         '
         'EditButton1
         '
-        Me.EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
+        Me.EditButton1.Image = Global.Outworldz.My.Resources.document_dirty
         Me.EditButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.EditButton1.Location = New System.Drawing.Point(25, 315)
         Me.EditButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.EditButton1.Name = "EditButton1"
         Me.EditButton1.Size = New System.Drawing.Size(162, 28)
         Me.EditButton1.TabIndex = 8
-        Me.EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
+        Me.EditButton1.Text = Global.Outworldz.My.Resources.Edit_word
         Me.EditButton1.UseVisualStyleBackColor = True
         '
         'StartButton3
         '
-        Me.StartButton3.Image = Global.Outworldz.My.Resources.Resources.media_play
+        Me.StartButton3.Image = Global.Outworldz.My.Resources.media_play
         Me.StartButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StartButton3.Location = New System.Drawing.Point(25, 65)
         Me.StartButton3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.StartButton3.Name = "StartButton3"
         Me.StartButton3.Size = New System.Drawing.Size(162, 28)
         Me.StartButton3.TabIndex = 7
-        Me.StartButton3.Text = Global.Outworldz.My.Resources.Resources.Start_word
+        Me.StartButton3.Text = Global.Outworldz.My.Resources.Start_word
         Me.StartButton3.UseVisualStyleBackColor = True
         '
         'RecycleButton2
         '
-        Me.RecycleButton2.Image = Global.Outworldz.My.Resources.Resources.recycle
+        Me.RecycleButton2.Image = Global.Outworldz.My.Resources.recycle
         Me.RecycleButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.RecycleButton2.Location = New System.Drawing.Point(25, 208)
         Me.RecycleButton2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RecycleButton2.Name = "RecycleButton2"
         Me.RecycleButton2.Size = New System.Drawing.Size(167, 28)
         Me.RecycleButton2.TabIndex = 6
-        Me.RecycleButton2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        Me.RecycleButton2.Text = Global.Outworldz.My.Resources.Restart_word
         Me.RecycleButton2.UseVisualStyleBackColor = True
         '
         'StopButton1
         '
-        Me.StopButton1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
+        Me.StopButton1.Image = Global.Outworldz.My.Resources.media_stop_red1
         Me.StopButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StopButton1.Location = New System.Drawing.Point(25, 172)
         Me.StopButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.StopButton1.Name = "StopButton1"
         Me.StopButton1.Size = New System.Drawing.Size(167, 28)
         Me.StopButton1.TabIndex = 5
-        Me.StopButton1.Text = Global.Outworldz.My.Resources.Resources.Stop_word
+        Me.StopButton1.Text = Global.Outworldz.My.Resources.Stop_word
         Me.StopButton1.UseVisualStyleBackColor = True
         '
         'FormRegionPopup

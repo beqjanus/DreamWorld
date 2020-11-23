@@ -61,7 +61,7 @@ Partial Class FormApache
         Me.X86Button.Name = "X86Button"
         Me.X86Button.Size = New System.Drawing.Size(199, 24)
         Me.X86Button.TabIndex = 186740
-        Me.X86Button.Text = Global.Outworldz.My.Resources.Resources.InstallRuntime
+        Me.X86Button.Text = Global.Outworldz.My.Resources.InstallRuntime
         Me.X86Button.UseVisualStyleBackColor = True
         '
         'ApachePort
@@ -87,7 +87,7 @@ Partial Class FormApache
         Me.ApacheCheckbox.Name = "ApacheCheckbox"
         Me.ApacheCheckbox.Size = New System.Drawing.Size(176, 19)
         Me.ApacheCheckbox.TabIndex = 1866
-        Me.ApacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableApache
+        Me.ApacheCheckbox.Text = Global.Outworldz.My.Resources.EnableApache
         Me.ApacheCheckbox.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -103,17 +103,17 @@ Partial Class FormApache
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApacheToolStripMenuItem})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(75, 24)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'ApacheToolStripMenuItem
         '
-        Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
+        Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
         Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(142, 26)
-        Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
+        Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Apache_word
         '
         'GroupBox3
         '
@@ -145,7 +145,7 @@ Partial Class FormApache
         Me.EnableOther.Name = "EnableOther"
         Me.EnableOther.Size = New System.Drawing.Size(100, 19)
         Me.EnableOther.TabIndex = 186745
-        Me.EnableOther.Text = Global.Outworldz.My.Resources.Resources.EnableOther_Word
+        Me.EnableOther.Text = Global.Outworldz.My.Resources.EnableOther_Word
         Me.EnableOther.UseVisualStyleBackColor = True
         '
         'EnableJOpensim
@@ -155,7 +155,7 @@ Partial Class FormApache
         Me.EnableJOpensim.Name = "EnableJOpensim"
         Me.EnableJOpensim.Size = New System.Drawing.Size(126, 19)
         Me.EnableJOpensim.TabIndex = 186743
-        Me.EnableJOpensim.Text = Global.Outworldz.My.Resources.Resources.JOpensim_word
+        Me.EnableJOpensim.Text = Global.Outworldz.My.Resources.JOpensim_word
         Me.EnableJOpensim.UseVisualStyleBackColor = True
         '
         'EnableDiva
@@ -165,7 +165,7 @@ Partial Class FormApache
         Me.EnableDiva.Name = "EnableDiva"
         Me.EnableDiva.Size = New System.Drawing.Size(94, 19)
         Me.EnableDiva.TabIndex = 186744
-        Me.EnableDiva.Text = Global.Outworldz.My.Resources.Resources.EnableDiva
+        Me.EnableDiva.Text = Global.Outworldz.My.Resources.EnableDiva
         Me.EnableDiva.UseVisualStyleBackColor = True
         '
         'EnableWP

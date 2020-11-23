@@ -39,8 +39,7 @@ Public Class RegionMaker
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
     ReadOnly TeleportAvatarDict As New Dictionary(Of String, String)
     Private _RegionListIsInititalized As Boolean
-#Disable Warning CA1051 ' Do not declare visible instance fields
-#Enable Warning CA1051 ' Do not declare visible instance fields
+
     Dim json As New JSONresult
 
     Public Enum REGIONTIMER As Integer
@@ -112,7 +111,9 @@ Public Class RegionMaker
         FormSetup.Print(My.Resources.Updating_Ports_word)
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
+        Dim AdminPortnumber As Integer = CInt("0" & Settings.FirstRemoteAdminPort())
         Dim XMLPortnumber As Integer = CInt("0" & Settings.FirstXMLRegionPort())
+
         For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
             Dim RegionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
             Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(RegionUUID), ";")
@@ -123,13 +124,18 @@ Public Class RegionMaker
             Settings.SetIni(RegionName, "XmlRpcPort", CStr(XMLPortnumber))
             FormSetup.PropRegionClass.XMLRegionPort(RegionUUID) = CStr(XMLPortnumber)
 
+            Settings.SetIni(RegionName, "RemoteAdminPort", CStr(AdminPortnumber))
+            FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID) = CStr(AdminPortnumber)
+
             ' Self setting Region Ports
             FormSetup.PropMaxPortUsed = Portnumber
             FormSetup.PropMaxXMLPortUsed = XMLPortnumber
+            FormSetup.PropMaxAdminPortUsed = AdminPortnumber
 
             Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
             If XMLPortnumber > 1024 Then XMLPortnumber += 1
+            If AdminPortnumber > 1024 Then AdminPortnumber += 1
         Next
 
         FormSetup.Print(My.Resources.Setup_Firewall_word)
@@ -315,6 +321,7 @@ Public Class RegionMaker
             ._SkipAutobackup = "",
             ._ScriptEngine = "",
             ._XMLRegionPort = "",
+            ._AdminPort = "",
             ._RegionSmartStart = ""
         }
 
@@ -444,6 +451,8 @@ Public Class RegionMaker
                             Snapshot(RegionUUID) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
                             ScriptEngine(RegionUUID) = CStr(Settings.GetIni(fName, "ScriptEngine", "", "String"))
                             XMLRegionPort(RegionUUID) = CStr(Settings.GetIni(fName, "XMLRegionPort", "", "String"))
+                            RemoteAdminPort(RegionUUID) = CStr(Settings.GetIni(fName, "RemoteAdminPort", "", "String"))
+
                             GDPR(RegionUUID) = CStr(Settings.GetIni(fName, "Publicity", "", "String"))
 
                             Select Case CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
@@ -636,6 +645,7 @@ Public Class RegionMaker
         & "Frametime =" & FrameTime(RegionUUID) & vbCrLf _
         & "ScriptEngine =" & ScriptEngine(RegionUUID) & vbCrLf _
         & "XmlRpcPort =" & XMLRegionPort(RegionUUID) & vbCrLf _
+        & "RemoteAdminPort =" & RemoteAdminPort(RegionUUID) & vbCrLf _
         & "Publicity =" & GDPR(RegionUUID) & vbCrLf _
         & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf
 
@@ -672,6 +682,7 @@ Public Class RegionMaker
 
 #Region "Public Fields"
 
+        Public _AdminPort As String = ""
         Public _AvatarCount As Integer
         Public _ClampPrimSize As Boolean
         Public _CoordX As Integer = 1000
@@ -715,12 +726,13 @@ Public Class RegionMaker
         Public _RegionGod As String = ""
         Public _RegionSmartStart As String = ""
         Public _RegionSnapShot As String = ""
+        Public _RemoteAdminPort As String = ""
         Public _ScriptEngine As String = ""
         Public _SkipAutobackup As String = ""
         Public _Snapshot As String = ""
         Public _Teleport As String = ""
         Public _Tides As String = ""
-        Public _XMLRegionPort As String = ""
+        Public _XMLRegionPort As String
 
 #End Region
 
@@ -1113,19 +1125,6 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property GodDefault(RegionUUID As String) As String
-        Get
-            If RegionUUID Is Nothing Then Return "True"
-            If Bad(RegionUUID) Then Return "True"
-            Return RegionList(RegionUUID)._GodDefault
-        End Get
-        Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._GodDefault = Value
-        End Set
-    End Property
-
     Public Property GDPR(RegionUUID As String) As String
         Get
             If RegionUUID Is Nothing Then Return ""
@@ -1136,6 +1135,19 @@ Public Class RegionMaker
             If RegionUUID Is Nothing Then Return
             If Bad(RegionUUID) Then Return
             RegionList(RegionUUID)._GDPR = Value
+        End Set
+    End Property
+
+    Public Property GodDefault(RegionUUID As String) As String
+        Get
+            If RegionUUID Is Nothing Then Return "True"
+            If Bad(RegionUUID) Then Return "True"
+            Return RegionList(RegionUUID)._GodDefault
+        End Get
+        Set(ByVal Value As String)
+            If RegionUUID Is Nothing Then Return
+            If Bad(RegionUUID) Then Return
+            RegionList(RegionUUID)._GodDefault = Value
         End Set
     End Property
 
@@ -1232,6 +1244,19 @@ Public Class RegionMaker
         End Set
     End Property
 
+    Public Property RemoteAdminPort(RegionUUID As String) As String
+        Get
+            If RegionUUID Is Nothing Then Return ""
+            If Bad(RegionUUID) Then Return ""
+            Return RegionList(RegionUUID)._RemoteAdminPort
+        End Get
+        Set(ByVal Value As String)
+            If RegionUUID Is Nothing Then Return
+            If Bad(RegionUUID) Then Return
+            RegionList(RegionUUID)._RemoteAdminPort = Value
+        End Set
+    End Property
+
     Public Property ScriptEngine(RegionUUID As String) As String
         Get
             If RegionUUID Is Nothing Then Return ""
@@ -1324,8 +1349,6 @@ Public Class RegionMaker
             RegionList(RegionUUID)._XMLRegionPort = Value
         End Set
     End Property
-
-#Disable Warning CA2227 ' Collection properties should be read only
 
 #End Region
 
@@ -1794,6 +1817,12 @@ Public Class RegionMaker
             Settings.SetIni("XMLRPC", "XmlRpcPort", "")
         End If
 
+        If Settings.FirstRemoteAdminPort.Length > 0 Then
+            Settings.SetIni("RemoteAdmin", "port", FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID))
+        Else
+            Settings.SetIni("RemoteAdmin", "port", "")
+        End If
+
         ' Autobackup
         If Settings.AutoBackup Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
@@ -2005,6 +2034,12 @@ Public Class RegionMaker
             Settings.SetIni(RegionName, "XmlRpcPort", "")
         End If
 
+        If Settings.FirstRemoteAdminPort.Length > 0 Then
+            Settings.SetIni(RegionName, "RemoteAdmin", FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID))
+        Else
+            Settings.SetIni(RegionName, "RemoteAdmin", "")
+        End If
+
         Select Case FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID)
             Case ""
                 Settings.SetIni(RegionName, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -2095,6 +2130,7 @@ Public Class RegionMaker
         Settings.SetIni(RegionName, "Physics", FormSetup.PropRegionClass.Physics(RegionUUID))
         Settings.SetIni(RegionName, "FrameTime", FormSetup.PropRegionClass.FrameTime(RegionUUID))
         Settings.SetIni(RegionName, "XmlRpcPort", FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
+        Settings.SetIni(RegionName, "RemoteAdminPort", FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID))
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 

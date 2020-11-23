@@ -53,13 +53,13 @@ Partial Class FormChooser
         'Group
         '
         Me.Group.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Group.HeaderText = Global.Outworldz.My.Resources.Resources.Group_word
+        Me.Group.HeaderText = Global.Outworldz.My.Resources.Group_word
         Me.Group.MaxInputLength = 50
         Me.Group.MinimumWidth = 8
         Me.Group.Name = "Group"
         Me.Group.ReadOnly = True
         Me.Group.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.Group.ToolTipText = Global.Outworldz.My.Resources.Resources.Click_2_Choose
+        Me.Group.ToolTipText = Global.Outworldz.My.Resources.Click_2_Choose
         '
         'CancelButton1
         '
@@ -69,7 +69,7 @@ Partial Class FormChooser
         Me.CancelButton1.Name = "CancelButton1"
         Me.CancelButton1.Size = New System.Drawing.Size(289, 30)
         Me.CancelButton1.TabIndex = 6
-        Me.CancelButton1.Text = Global.Outworldz.My.Resources.Resources.Cancel_word
+        Me.CancelButton1.Text = Global.Outworldz.My.Resources.Cancel_word
         Me.CancelButton1.UseVisualStyleBackColor = True
         '
         'OKButton1
@@ -80,7 +80,7 @@ Partial Class FormChooser
         Me.OKButton1.Name = "OKButton1"
         Me.OKButton1.Size = New System.Drawing.Size(289, 30)
         Me.OKButton1.TabIndex = 5
-        Me.OKButton1.Text = Global.Outworldz.My.Resources.Resources.Ok
+        Me.OKButton1.Text = Global.Outworldz.My.Resources.Ok
         Me.OKButton1.UseVisualStyleBackColor = True
         '
         'FormChooser

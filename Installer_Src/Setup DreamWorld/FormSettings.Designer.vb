@@ -61,8 +61,8 @@ Partial Class FormSettings
         Me.TOSButton.Name = "TOSButton"
         Me.TOSButton.Size = New System.Drawing.Size(181, 29)
         Me.TOSButton.TabIndex = 15
-        Me.TOSButton.Text = Global.Outworldz.My.Resources.Resources.Terms_of_Service
-        Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Resources.Setup_TOS)
+        Me.TOSButton.Text = Global.Outworldz.My.Resources.Terms_of_Service
+        Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
         Me.TOSButton.UseVisualStyleBackColor = True
         '
         'TideButton
@@ -72,8 +72,8 @@ Partial Class FormSettings
         Me.TideButton.Name = "TideButton"
         Me.TideButton.Size = New System.Drawing.Size(181, 29)
         Me.TideButton.TabIndex = 14
-        Me.TideButton.Text = Global.Outworldz.My.Resources.Resources.Tides_word
-        Me.ToolTip1.SetToolTip(Me.TideButton, Global.Outworldz.My.Resources.Resources.Click_Tides)
+        Me.TideButton.Text = Global.Outworldz.My.Resources.Tides_word
+        Me.ToolTip1.SetToolTip(Me.TideButton, Global.Outworldz.My.Resources.Click_Tides)
         Me.TideButton.UseVisualStyleBackColor = True
         '
         'GloebitsButton
@@ -83,8 +83,8 @@ Partial Class FormSettings
         Me.GloebitsButton.Name = "GloebitsButton"
         Me.GloebitsButton.Size = New System.Drawing.Size(179, 29)
         Me.GloebitsButton.TabIndex = 4
-        Me.GloebitsButton.Text = Global.Outworldz.My.Resources.Resources.Currency_word
-        Me.ToolTip1.SetToolTip(Me.GloebitsButton, Global.Outworldz.My.Resources.Resources.Click_Currency)
+        Me.GloebitsButton.Text = Global.Outworldz.My.Resources.Currency_word
+        Me.ToolTip1.SetToolTip(Me.GloebitsButton, Global.Outworldz.My.Resources.Click_Currency)
         Me.GloebitsButton.UseVisualStyleBackColor = True
         '
         'VoiceButton1
@@ -94,8 +94,8 @@ Partial Class FormSettings
         Me.VoiceButton1.Name = "VoiceButton1"
         Me.VoiceButton1.Size = New System.Drawing.Size(179, 29)
         Me.VoiceButton1.TabIndex = 16
-        Me.VoiceButton1.Text = Global.Outworldz.My.Resources.Resources.Vivox_Voice_word
-        Me.ToolTip1.SetToolTip(Me.VoiceButton1, Global.Outworldz.My.Resources.Resources.Click_Voice)
+        Me.VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
+        Me.ToolTip1.SetToolTip(Me.VoiceButton1, Global.Outworldz.My.Resources.Click_Voice)
         Me.VoiceButton1.UseVisualStyleBackColor = True
         '
         'Shoutcast
@@ -105,8 +105,8 @@ Partial Class FormSettings
         Me.Shoutcast.Name = "Shoutcast"
         Me.Shoutcast.Size = New System.Drawing.Size(179, 29)
         Me.Shoutcast.TabIndex = 6
-        Me.Shoutcast.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
-        Me.ToolTip1.SetToolTip(Me.Shoutcast, Global.Outworldz.My.Resources.Resources.Click_Icecast)
+        Me.Shoutcast.Text = Global.Outworldz.My.Resources.Icecast_word
+        Me.ToolTip1.SetToolTip(Me.Shoutcast, Global.Outworldz.My.Resources.Click_Icecast)
         Me.Shoutcast.UseVisualStyleBackColor = True
         '
         'MapsButton
@@ -116,8 +116,8 @@ Partial Class FormSettings
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(179, 29)
         Me.MapsButton.TabIndex = 7
-        Me.MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
-        Me.ToolTip1.SetToolTip(Me.MapsButton, Global.Outworldz.My.Resources.Resources.Click_Maps)
+        Me.MapsButton.Text = Global.Outworldz.My.Resources.Maps_word
+        Me.ToolTip1.SetToolTip(Me.MapsButton, Global.Outworldz.My.Resources.Click_Maps)
         Me.MapsButton.UseVisualStyleBackColor = True
         '
         'Birds
@@ -127,8 +127,8 @@ Partial Class FormSettings
         Me.Birds.Name = "Birds"
         Me.Birds.Size = New System.Drawing.Size(181, 29)
         Me.Birds.TabIndex = 2
-        Me.Birds.Text = Global.Outworldz.My.Resources.Resources.Bird_Settings_word
-        Me.ToolTip1.SetToolTip(Me.Birds, Global.Outworldz.My.Resources.Resources.Click_Birds)
+        Me.Birds.Text = Global.Outworldz.My.Resources.Bird_Settings_word
+        Me.ToolTip1.SetToolTip(Me.Birds, Global.Outworldz.My.Resources.Click_Birds)
         Me.Birds.UseVisualStyleBackColor = True
         '
         'BackupButton1
@@ -138,8 +138,8 @@ Partial Class FormSettings
         Me.BackupButton1.Name = "BackupButton1"
         Me.BackupButton1.Size = New System.Drawing.Size(181, 29)
         Me.BackupButton1.TabIndex = 1
-        Me.BackupButton1.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
-        Me.ToolTip1.SetToolTip(Me.BackupButton1, Global.Outworldz.My.Resources.Resources.Backup_Schedule)
+        Me.BackupButton1.Text = Global.Outworldz.My.Resources.Backup_Settings_word
+        Me.ToolTip1.SetToolTip(Me.BackupButton1, Global.Outworldz.My.Resources.Backup_Schedule)
         Me.BackupButton1.UseVisualStyleBackColor = True
         '
         'RegionsButton1
@@ -149,8 +149,8 @@ Partial Class FormSettings
         Me.RegionsButton1.Name = "RegionsButton1"
         Me.RegionsButton1.Size = New System.Drawing.Size(181, 29)
         Me.RegionsButton1.TabIndex = 12
-        Me.RegionsButton1.Text = Global.Outworldz.My.Resources.Resources.Regions_word
-        Me.ToolTip1.SetToolTip(Me.RegionsButton1, Global.Outworldz.My.Resources.Resources.Click_Regions)
+        Me.RegionsButton1.Text = Global.Outworldz.My.Resources.Regions_word
+        Me.ToolTip1.SetToolTip(Me.RegionsButton1, Global.Outworldz.My.Resources.Click_Regions)
         Me.RegionsButton1.UseVisualStyleBackColor = True
         '
         'DivaButton1
@@ -160,8 +160,8 @@ Partial Class FormSettings
         Me.DivaButton1.Name = "DivaButton1"
         Me.DivaButton1.Size = New System.Drawing.Size(181, 29)
         Me.DivaButton1.TabIndex = 18
-        Me.DivaButton1.Text = Global.Outworldz.My.Resources.Resources.Web
-        Me.ToolTip1.SetToolTip(Me.DivaButton1, Global.Outworldz.My.Resources.Resources.Click_Web)
+        Me.DivaButton1.Text = Global.Outworldz.My.Resources.Web
+        Me.ToolTip1.SetToolTip(Me.DivaButton1, Global.Outworldz.My.Resources.Click_Web)
         Me.DivaButton1.UseVisualStyleBackColor = True
         '
         'PortsButton1
@@ -171,8 +171,8 @@ Partial Class FormSettings
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(181, 29)
         Me.PortsButton1.TabIndex = 8
-        Me.PortsButton1.Text = Global.Outworldz.My.Resources.Resources.Network_Ports
-        Me.ToolTip1.SetToolTip(Me.PortsButton1, Global.Outworldz.My.Resources.Resources.Click_Ports)
+        Me.PortsButton1.Text = Global.Outworldz.My.Resources.Network_Ports
+        Me.ToolTip1.SetToolTip(Me.PortsButton1, Global.Outworldz.My.Resources.Click_Ports)
         Me.PortsButton1.UseVisualStyleBackColor = True
         '
         'PhysicsButton1
@@ -183,8 +183,8 @@ Partial Class FormSettings
         Me.PhysicsButton1.Name = "PhysicsButton1"
         Me.PhysicsButton1.Size = New System.Drawing.Size(181, 29)
         Me.PhysicsButton1.TabIndex = 10
-        Me.PhysicsButton1.Text = Global.Outworldz.My.Resources.Resources.Physics_word
-        Me.ToolTip1.SetToolTip(Me.PhysicsButton1, Global.Outworldz.My.Resources.Resources.Click_Physics)
+        Me.PhysicsButton1.Text = Global.Outworldz.My.Resources.Physics_word
+        Me.ToolTip1.SetToolTip(Me.PhysicsButton1, Global.Outworldz.My.Resources.Click_Physics)
         Me.PhysicsButton1.UseVisualStyleBackColor = True
         '
         'DatabaseButton2
@@ -194,8 +194,8 @@ Partial Class FormSettings
         Me.DatabaseButton2.Name = "DatabaseButton2"
         Me.DatabaseButton2.Size = New System.Drawing.Size(181, 29)
         Me.DatabaseButton2.TabIndex = 3
-        Me.DatabaseButton2.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
-        Me.ToolTip1.SetToolTip(Me.DatabaseButton2, Global.Outworldz.My.Resources.Resources.Click_Database)
+        Me.DatabaseButton2.Text = Global.Outworldz.My.Resources.Database_Setup_word
+        Me.ToolTip1.SetToolTip(Me.DatabaseButton2, Global.Outworldz.My.Resources.Click_Database)
         Me.DatabaseButton2.UseVisualStyleBackColor = True
         '
         'Button3
@@ -205,8 +205,8 @@ Partial Class FormSettings
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(179, 29)
         Me.Button3.TabIndex = 13
-        Me.Button3.Text = Global.Outworldz.My.Resources.Resources.Restart_Settings_word
-        Me.ToolTip1.SetToolTip(Me.Button3, Global.Outworldz.My.Resources.Resources.Click_Restart)
+        Me.Button3.Text = Global.Outworldz.My.Resources.Restart_Settings_word
+        Me.ToolTip1.SetToolTip(Me.Button3, Global.Outworldz.My.Resources.Click_Restart)
         Me.Button3.UseVisualStyleBackColor = True
         '
         'Button2
@@ -216,8 +216,8 @@ Partial Class FormSettings
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(179, 29)
         Me.Button2.TabIndex = 9
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
-        Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Resources.Click_for_God_Mode)
+        Me.Button2.Text = Global.Outworldz.My.Resources.Permissions_word
+        Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Click_for_God_Mode)
         Me.Button2.UseVisualStyleBackColor = True
         '
         'DNSButton
@@ -227,8 +227,8 @@ Partial Class FormSettings
         Me.DNSButton.Name = "DNSButton"
         Me.DNSButton.Size = New System.Drawing.Size(179, 29)
         Me.DNSButton.TabIndex = 5
-        Me.DNSButton.Text = Global.Outworldz.My.Resources.Resources.Hypergrid
-        Me.ToolTip1.SetToolTip(Me.DNSButton, Global.Outworldz.My.Resources.Resources.Click_HG)
+        Me.DNSButton.Text = Global.Outworldz.My.Resources.Hypergrid
+        Me.ToolTip1.SetToolTip(Me.DNSButton, Global.Outworldz.My.Resources.Click_HG)
         Me.DNSButton.UseVisualStyleBackColor = True
         '
         'Button4
@@ -238,8 +238,8 @@ Partial Class FormSettings
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(181, 29)
         Me.Button4.TabIndex = 11
-        Me.Button4.Text = Global.Outworldz.My.Resources.Resources.Publicity_Word
-        Me.ToolTip1.SetToolTip(Me.Button4, Global.Outworldz.My.Resources.Resources.Click_Publicity)
+        Me.Button4.Text = Global.Outworldz.My.Resources.Publicity_Word
+        Me.ToolTip1.SetToolTip(Me.Button4, Global.Outworldz.My.Resources.Click_Publicity)
         Me.Button4.UseVisualStyleBackColor = True
         '
         'CacheButton1
@@ -249,8 +249,8 @@ Partial Class FormSettings
         Me.CacheButton1.Name = "CacheButton1"
         Me.CacheButton1.Size = New System.Drawing.Size(181, 29)
         Me.CacheButton1.TabIndex = 19
-        Me.CacheButton1.Text = Global.Outworldz.My.Resources.Resources.Caches_word
-        Me.ToolTip1.SetToolTip(Me.CacheButton1, Global.Outworldz.My.Resources.Resources.Click_Caches)
+        Me.CacheButton1.Text = Global.Outworldz.My.Resources.Caches_word
+        Me.ToolTip1.SetToolTip(Me.CacheButton1, Global.Outworldz.My.Resources.Click_Caches)
         Me.CacheButton1.UseVisualStyleBackColor = True
         '
         'Button1
@@ -260,8 +260,8 @@ Partial Class FormSettings
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(181, 29)
         Me.Button1.TabIndex = 20
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Server_Type_word
-        Me.ToolTip1.SetToolTip(Me.Button1, Global.Outworldz.My.Resources.Resources.Click_Server)
+        Me.Button1.Text = Global.Outworldz.My.Resources.Server_Type_word
+        Me.ToolTip1.SetToolTip(Me.Button1, Global.Outworldz.My.Resources.Click_Server)
         Me.Button1.UseVisualStyleBackColor = True
         '
         'ApacheButton
@@ -271,8 +271,8 @@ Partial Class FormSettings
         Me.ApacheButton.Name = "ApacheButton"
         Me.ApacheButton.Size = New System.Drawing.Size(181, 29)
         Me.ApacheButton.TabIndex = 21
-        Me.ApacheButton.Text = Global.Outworldz.My.Resources.Resources.Apache_Webserver
-        Me.ToolTip1.SetToolTip(Me.ApacheButton, Global.Outworldz.My.Resources.Resources.ApacheWebServer)
+        Me.ApacheButton.Text = Global.Outworldz.My.Resources.Apache_Webserver
+        Me.ToolTip1.SetToolTip(Me.ApacheButton, Global.Outworldz.My.Resources.ApacheWebServer)
         Me.ApacheButton.UseVisualStyleBackColor = True
         '
         'ScriptButton
@@ -282,8 +282,8 @@ Partial Class FormSettings
         Me.ScriptButton.Name = "ScriptButton"
         Me.ScriptButton.Size = New System.Drawing.Size(181, 29)
         Me.ScriptButton.TabIndex = 22
-        Me.ScriptButton.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
-        Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Resources.Click_to_View_this_word)
+        Me.ScriptButton.Text = Global.Outworldz.My.Resources.Scripts_word
+        Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Click_to_View_this_word)
         Me.ScriptButton.UseVisualStyleBackColor = True
         '
         'LoggingButton
@@ -293,8 +293,8 @@ Partial Class FormSettings
         Me.LoggingButton.Name = "LoggingButton"
         Me.LoggingButton.Size = New System.Drawing.Size(179, 29)
         Me.LoggingButton.TabIndex = 23
-        Me.LoggingButton.Text = Global.Outworldz.My.Resources.Resources.Logging_word
-        Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Resources.Log_Level)
+        Me.LoggingButton.Text = Global.Outworldz.My.Resources.Logging_word
+        Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Log_Level)
         Me.LoggingButton.UseVisualStyleBackColor = True
         '
         'BanListButton
@@ -304,8 +304,8 @@ Partial Class FormSettings
         Me.BanListButton.Name = "BanListButton"
         Me.BanListButton.Size = New System.Drawing.Size(181, 29)
         Me.BanListButton.TabIndex = 24
-        Me.BanListButton.Text = Global.Outworldz.My.Resources.Resources.Ban_List_word
-        Me.ToolTip1.SetToolTip(Me.BanListButton, Global.Outworldz.My.Resources.Resources.BanList_string)
+        Me.BanListButton.Text = Global.Outworldz.My.Resources.Ban_List_word
+        Me.ToolTip1.SetToolTip(Me.BanListButton, Global.Outworldz.My.Resources.BanList_string)
         Me.BanListButton.UseVisualStyleBackColor = True
         '
         'Button5
@@ -316,7 +316,7 @@ Partial Class FormSettings
         Me.Button5.Size = New System.Drawing.Size(179, 29)
         Me.Button5.TabIndex = 25
         Me.Button5.Text = "Joomla/JOpensim"
-        Me.ToolTip1.SetToolTip(Me.Button5, Global.Outworldz.My.Resources.Resources.Click_Setup)
+        Me.ToolTip1.SetToolTip(Me.Button5, Global.Outworldz.My.Resources.Click_Setup)
         Me.Button5.UseVisualStyleBackColor = True
         '
         'GroupBox8

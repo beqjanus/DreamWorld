@@ -36,7 +36,6 @@ Imports IWshRuntimeLibrary
 
 Public Class FormSetup : Implements IDisposable
 
-
 #Region "Version"
 
     Dim _Domain As String = "http://outworldz.com"
@@ -44,7 +43,6 @@ Public Class FormSetup : Implements IDisposable
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
-
 
 #Region "Declarations"
 
@@ -81,6 +79,7 @@ Public Class FormSetup : Implements IDisposable
     Private _IPv4Address As String
     Private _IsRunning As Boolean
     Private _KillSource As Boolean
+    Private _MaxAdminPortUsed As Integer
     Private _MaxPortUsed As Integer
     Private _MaxXMLPortUsed As Integer
     Private _MysqlCrashCounter As Integer
@@ -201,6 +200,15 @@ Public Class FormSetup : Implements IDisposable
         End Get
         Set(value As Double)
             _speed = value
+        End Set
+    End Property
+
+    Public Property OpensimBinPath As String
+        Get
+            Return _OpensimBinPath
+        End Get
+        Set(value As String)
+            _OpensimBinPath = value
         End Set
     End Property
 
@@ -349,6 +357,15 @@ Public Class FormSetup : Implements IDisposable
         End Get
         Set(value As Boolean)
             _KillSource = value
+        End Set
+    End Property
+
+    Public Property PropMaxAdminPortUsed As Integer
+        Get
+            Return _MaxAdminPortUsed
+        End Get
+        Set(value As Integer)
+            _MaxAdminPortUsed = value
         End Set
     End Property
 
@@ -557,15 +574,6 @@ Public Class FormSetup : Implements IDisposable
         End Get
         Set(value As Integer)
             _timerBusy1 = value
-        End Set
-    End Property
-
-    Public Property OpensimBinPath As String
-        Get
-            Return _OpensimBinPath
-        End Get
-        Set(value As String)
-            _OpensimBinPath = value
         End Set
     End Property
 
@@ -1547,12 +1555,10 @@ Public Class FormSetup : Implements IDisposable
 
         Select Case Settings.ServerType
             Case "Robust"
-                SetupOpensimSearchINI()
-                Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
                 Settings.SetIni("Const", "GridName", Settings.SimName)
+                SetupOpensimSearchINI()
             Case "Region"
-                Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
                 SetupOpensimSearchINI()
             Case "OSGrid"
             Case "Metro"
@@ -5861,8 +5867,6 @@ Public Class FormSetup : Implements IDisposable
 
 #End Region
 
-
-
 #Region "Things"
 
     Private Shared Sub SetupWordPress()
@@ -5960,8 +5964,6 @@ Public Class FormSetup : Implements IDisposable
     End Sub
 
 #End Region
-
-
 
 #Region "Logging"
 
@@ -6613,6 +6615,10 @@ Public Class FormSetup : Implements IDisposable
 
 #Region "IAR OAR"
 
+    Protected Overrides Sub Finalize()
+        MyBase.Finalize()
+    End Sub
+
     Public Function LoadIARContent(thing As String) As Boolean
 
         ' handles IARS clicks
@@ -7135,10 +7141,6 @@ Public Class FormSetup : Implements IDisposable
             BreakPoint.Show(ex.Message)
         End Try
 
-    End Sub
-
-    Protected Overrides Sub Finalize()
-        MyBase.Finalize()
     End Sub
 
 #End Region

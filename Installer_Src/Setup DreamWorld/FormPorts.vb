@@ -78,8 +78,10 @@ Public Class FormPorts
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
         MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
-        FirstXMLRegionPort.Text = Settings.FirstXMLRegionPort()
+        AdminPort.Text = CStr(Settings.FirstRemoteAdminPort)
+        MaxRAdmin.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxAdminPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
+        FirstXMLRegionPort.Text = Settings.FirstXMLRegionPort()
         MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         uPnPEnabled.Checked = Settings.UPnPEnabled
@@ -100,6 +102,7 @@ Public Class FormPorts
             OverrideNameLabel.Visible = False
             ExternalHostName.Text = ""
         End If
+
 
         HelpOnce("Ports")
         initted = True
@@ -206,6 +209,21 @@ Public Class FormPorts
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
 
         HelpManual("Ports")
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles AdminPort.TextChanged
+
+        If Not initted Then Return
+
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        AdminPort.Text = digitsOnly.Replace(AdminPort.Text, "")
+        Settings.FirstRemoteAdminPort() = CInt("0" & AdminPort.Text)
+        Settings.SaveSettings()
+
+        RegionMaker.UpdateAllRegionPorts()
+
+        MaxRAdmin.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxAdminPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 

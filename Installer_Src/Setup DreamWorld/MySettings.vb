@@ -395,15 +395,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property JOpensimSearch() As Boolean
-        Get
-            Return CType(GetMySetting("JOpensimSearch", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("JOpensimSearch", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property AllowGridGods() As Boolean
         Get
             Return CType(GetMySetting("Allow_grid_gods", "False"), Boolean)
@@ -935,9 +926,18 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property FirstRemoteAdminPort() As String
+        Get
+            Return GetMySetting("FirstRemoteAdminPort", CStr(FirstRegionPort + 496)) ' + "500"
+        End Get
+        Set
+            SetMySetting("FirstRemoteAdminPort", Value)
+        End Set
+    End Property
+
     Public Property FirstXMLRegionPort() As String
         Get
-            Return GetMySetting("XMLRegionStartPort", CStr(FirstRegionPort + 500))
+            Return GetMySetting("XMLRegionStartPort", CStr(FirstRegionPort + 246)) ' + "250"
         End Get
         Set
             SetMySetting("XMLRegionStartPort", Value)
@@ -1101,6 +1101,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("HttpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property JOpensimSearch() As Boolean
+        Get
+            Return CType(GetMySetting("JOpensimSearch", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("JOpensimSearch", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1858,8 +1867,6 @@ Public Class MySettings
 
     End Property
 
-#Disable Warning CA1056 ' Uri properties should not be strings
-
     Public Property WelcomeRegion() As String
         Get
             Return GetMySetting("WelcomeRegion", "Welcome")
@@ -1923,9 +1930,7 @@ Public Class MySettings
         Apacheout.Clear()
         Dim found As Boolean = False
         For Each Item As String In Apachein
-#Disable Warning CA1307 ' Specify StringComparison
             If Item.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase) Then
-#Enable Warning CA1307 ' Specify StringComparison
                 Apacheout.Add(value)
                 found = True
             Else

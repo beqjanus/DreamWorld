@@ -69,6 +69,15 @@ Public Class FormRegionlist
         End Get
     End Property
 
+    Shared Property PropUpdateView() As Boolean
+        Get
+            Return FormSetup.PropUpdateView
+        End Get
+        Set(ByVal Value As Boolean)
+            FormSetup.PropUpdateView = Value
+        End Set
+    End Property
+
     Public Property ImageListLarge1 As ImageList
         Get
             Return _ImageListLarge
@@ -129,15 +138,6 @@ Public Class FormRegionlist
         End Get
         Set(value As Boolean)
             ViewNotBusy = value
-        End Set
-    End Property
-
-    Shared Property PropUpdateView() As Boolean
-        Get
-            Return FormSetup.PropUpdateView
-        End Get
-        Set(ByVal Value As Boolean)
-            FormSetup.PropUpdateView = Value
         End Set
     End Property
 
@@ -350,6 +350,9 @@ Public Class FormRegionlist
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
         ListView1.Columns.Add(My.Resources.XMLRPC, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
+        ctr += 1
+        ListView1.Columns.Add(My.Resources.RemoteAdminPort_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
         ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
@@ -609,6 +612,7 @@ Public Class FormRegionlist
 
                     item1.SubItems.Add(FormSetup.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.XMLRegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
 

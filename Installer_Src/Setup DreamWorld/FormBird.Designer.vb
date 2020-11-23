@@ -98,17 +98,17 @@ Partial Class FormBird
         Me.Label7.Size = New System.Drawing.Size(165, 17)
         Me.Label7.TabIndex = 24
         Me.Label7.Text = "Tolerance (default=25.0)"
-        Me.ToolTip1.SetToolTip(Me.Label7, Global.Outworldz.My.Resources.Resources.Tolerance)
+        Me.ToolTip1.SetToolTip(Me.Label7, Global.Outworldz.My.Resources.Tolerance)
         '
         'BirdHelp
         '
-        Me.BirdHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.BirdHelp.Image = Global.Outworldz.My.Resources.about
         Me.BirdHelp.Location = New System.Drawing.Point(217, 22)
         Me.BirdHelp.Name = "BirdHelp"
         Me.BirdHelp.Size = New System.Drawing.Size(37, 29)
         Me.BirdHelp.TabIndex = 1858
         Me.BirdHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.BirdHelp, Global.Outworldz.My.Resources.Resources.Bird_help)
+        Me.ToolTip1.SetToolTip(Me.BirdHelp, Global.Outworldz.My.Resources.Bird_help)
         '
         'Label11
         '
@@ -118,7 +118,7 @@ Partial Class FormBird
         Me.Label11.Size = New System.Drawing.Size(200, 17)
         Me.Label11.TabIndex = 23
         Me.Label11.Text = "Prim Name (default=SeaGull1)"
-        Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Resources.How_High)
+        Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.How_High)
         '
         'PrimNameTextBox
         '
@@ -127,7 +127,7 @@ Partial Class FormBird
         Me.PrimNameTextBox.Size = New System.Drawing.Size(89, 22)
         Me.PrimNameTextBox.TabIndex = 11
         Me.PrimNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.PrimNameTextBox, Global.Outworldz.My.Resources.Resources.Prim_Name)
+        Me.ToolTip1.SetToolTip(Me.PrimNameTextBox, Global.Outworldz.My.Resources.Prim_Name)
         '
         'Label10
         '
@@ -187,7 +187,7 @@ Partial Class FormBird
         Me.Label6.Size = New System.Drawing.Size(215, 17)
         Me.Label6.TabIndex = 13
         Me.Label6.Text = "Desired Separation (default=5.0)"
-        Me.ToolTip1.SetToolTip(Me.Label6, Global.Outworldz.My.Resources.Resources.How_Far)
+        Me.ToolTip1.SetToolTip(Me.Label6, Global.Outworldz.My.Resources.How_Far)
         '
         'DesiredSeparationTextBox
         '
@@ -196,7 +196,7 @@ Partial Class FormBird
         Me.DesiredSeparationTextBox.Size = New System.Drawing.Size(52, 22)
         Me.DesiredSeparationTextBox.TabIndex = 7
         Me.DesiredSeparationTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.DesiredSeparationTextBox, Global.Outworldz.My.Resources.Resources.How_Far)
+        Me.ToolTip1.SetToolTip(Me.DesiredSeparationTextBox, Global.Outworldz.My.Resources.How_Far)
         '
         'Label5
         '
@@ -206,7 +206,7 @@ Partial Class FormBird
         Me.Label5.Size = New System.Drawing.Size(218, 17)
         Me.Label5.TabIndex = 11
         Me.Label5.Text = "Neighbor Distance (default=25.0)"
-        Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.Resources.How_Far)
+        Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.How_Far)
         '
         'BirdsNeighbourDistanceTextBox
         '
@@ -215,7 +215,7 @@ Partial Class FormBird
         Me.BirdsNeighbourDistanceTextBox.Size = New System.Drawing.Size(52, 22)
         Me.BirdsNeighbourDistanceTextBox.TabIndex = 6
         Me.BirdsNeighbourDistanceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.BirdsNeighbourDistanceTextBox, Global.Outworldz.My.Resources.Resources.Max_Dist)
+        Me.ToolTip1.SetToolTip(Me.BirdsNeighbourDistanceTextBox, Global.Outworldz.My.Resources.Max_Dist)
         '
         'Label4
         '
@@ -225,7 +225,7 @@ Partial Class FormBird
         Me.Label4.Size = New System.Drawing.Size(158, 17)
         Me.Label4.TabIndex = 9
         Me.Label4.Text = "Max Force (default=0.2)"
-        Me.ToolTip1.SetToolTip(Me.Label4, Global.Outworldz.My.Resources.Resources.Max_Accel)
+        Me.ToolTip1.SetToolTip(Me.Label4, Global.Outworldz.My.Resources.Max_Accel)
         '
         'MaxForceTextBox
         '
@@ -234,7 +234,7 @@ Partial Class FormBird
         Me.MaxForceTextBox.Size = New System.Drawing.Size(52, 22)
         Me.MaxForceTextBox.TabIndex = 5
         Me.MaxForceTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.MaxForceTextBox, Global.Outworldz.My.Resources.Resources.How_Far_Travel)
+        Me.ToolTip1.SetToolTip(Me.MaxForceTextBox, Global.Outworldz.My.Resources.How_Far_Travel)
         '
         'Label3
         '
@@ -252,7 +252,7 @@ Partial Class FormBird
         Me.MaxSpeedTextBox.Size = New System.Drawing.Size(52, 22)
         Me.MaxSpeedTextBox.TabIndex = 4
         Me.MaxSpeedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ToolTip1.SetToolTip(Me.MaxSpeedTextBox, Global.Outworldz.My.Resources.Resources.How_Far_Travel)
+        Me.ToolTip1.SetToolTip(Me.MaxSpeedTextBox, Global.Outworldz.My.Resources.How_Far_Travel)
         '
         'Label2
         '
@@ -262,7 +262,7 @@ Partial Class FormBird
         Me.Label2.Size = New System.Drawing.Size(93, 17)
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "Chat Channel"
-        Me.ToolTip1.SetToolTip(Me.Label2, Global.Outworldz.My.Resources.Resources.Which_Channel)
+        Me.ToolTip1.SetToolTip(Me.Label2, Global.Outworldz.My.Resources.Which_Channel)
         '
         'ChatChanelTextBox
         '
@@ -280,7 +280,7 @@ Partial Class FormBird
         Me.Label1.Size = New System.Drawing.Size(101, 17)
         Me.Label1.TabIndex = 3
         Me.Label1.Text = "Bird Flock Size"
-        Me.ToolTip1.SetToolTip(Me.Label1, Global.Outworldz.My.Resources.Resources.Num_Birds)
+        Me.ToolTip1.SetToolTip(Me.Label1, Global.Outworldz.My.Resources.Num_Birds)
         '
         'BirdsFlockSizeDomain
         '
@@ -297,19 +297,19 @@ Partial Class FormBird
         Me.BirdsModuleStartupbox.Name = "BirdsModuleStartupbox"
         Me.BirdsModuleStartupbox.Size = New System.Drawing.Size(153, 21)
         Me.BirdsModuleStartupbox.TabIndex = 1
-        Me.BirdsModuleStartupbox.Text = Global.Outworldz.My.Resources.Resources.Enable_Birds_word
-        Me.ToolTip1.SetToolTip(Me.BirdsModuleStartupbox, Global.Outworldz.My.Resources.Resources.Determines)
+        Me.BirdsModuleStartupbox.Text = Global.Outworldz.My.Resources.Enable_Birds_word
+        Me.ToolTip1.SetToolTip(Me.BirdsModuleStartupbox, Global.Outworldz.My.Resources.Determines)
         Me.BirdsModuleStartupbox.UseVisualStyleBackColor = True
         '
         'Button1
         '
-        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.package_add
+        Me.Button1.Image = Global.Outworldz.My.Resources.package_add
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button1.Location = New System.Drawing.Point(34, 47)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(195, 28)
         Me.Button1.TabIndex = 0
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Load_Bird_IAR_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.Load_Bird_IAR_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -326,17 +326,17 @@ Partial Class FormBird
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(75, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(124, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormBird
         '

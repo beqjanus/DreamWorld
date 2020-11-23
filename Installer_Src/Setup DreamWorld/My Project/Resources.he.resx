@@ -123,14 +123,20 @@
   <data name="About_word" xml:space="preserve">
     <value>על אודות</value>
   </data>
+  <data name="Action_word" xml:space="preserve">
+    <value>פעולה</value>
+  </data>
+  <data name="AddUser_Word" xml:space="preserve">
+    <value>הוסף משתמש</value>
+  </data>
   <data name="Add_Region_word" xml:space="preserve">
     <value>הוספת האזור</value>
   </data>
-  <data name="Add_User_word" xml:space="preserve">
-    <value>הוסף משתמש</value>
-  </data>
   <data name="Add_word" xml:space="preserve">
     <value>לְהוֹסִיף</value>
+  </data>
+  <data name="AdministerJoomla_word" xml:space="preserve">
+    <value>לְנַהֵל</value>
   </data>
   <data name="Admin_Password_word" xml:space="preserve">
     <value>סיסמה Admin</value>
@@ -169,7 +175,7 @@
     <value>כל מטמוני פינה</value>
   </data>
   <data name="All_Global_Settings_word" xml:space="preserve">
-    <value>כל ההגדרות הגלובליות</value>
+    <value>כל הגדרות גלובליות</value>
   </data>
   <data name="All_Users_All_Sims_word" xml:space="preserve">
     <value>כל המשתמשים, כל Sims</value>
@@ -193,7 +199,7 @@
     <value>חיפוש + וואבסארואר ו מפה</value>
   </data>
   <data name="Apache_Disabled" xml:space="preserve">
-    <value>שרת האינטרנט אינו מופעל</value>
+    <value>שרת האינטרנט אינו הופעל</value>
   </data>
   <data name="Apache_Exited" xml:space="preserve">
     <value>אפאצ'י יצא. האם אתה רוצה לראות את קובץ היומן השגיא?</value>
@@ -361,7 +367,7 @@
     <value>גודל גבול (ברירת מחדל = 25.0)</value>
   </data>
   <data name="BP" xml:space="preserve">
-    <value>פיזיקה Bullet פתיל נפרד</value>
+    <value>פיסיקת Bullet פתיל נפרד</value>
   </data>
   <data name="Broadcast_Tide_Chat" xml:space="preserve">
     <value>Chat מידע גאות לאזור כך סקריפטים יכול לנוע עם הזרם?</value>
@@ -370,7 +376,7 @@
     <value>מידע שידור Tide</value>
   </data>
   <data name="Bullet_Physics_word" xml:space="preserve">
-    <value>פיזיקה Bullet</value>
+    <value>פיזיקת Bullet</value>
   </data>
   <data name="Bullet_Threaded_word" xml:space="preserve">
     <value>Bullet משורשר</value>
@@ -433,7 +439,7 @@
     <value>במרכז המפה לתאם</value>
   </data>
   <data name="Changes_Made" xml:space="preserve">
-    <value>בוצעו שינויים. לשמור?</value>
+    <value>בוצעו שינויים. להציל?</value>
   </data>
   <data name="Change_Password_word" xml:space="preserve">
     <value>שנה סיסמא</value>
@@ -478,9 +484,6 @@
     <value>מסורת סינית</value>
   </data>
   <data name="Choose_a_Folder_word" xml:space="preserve">
-    <value>בחר תיקייה</value>
-  </data>
-  <data name="Choose_a_Folder_word1" xml:space="preserve">
     <value>בחר תיקייה</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
@@ -574,7 +577,7 @@
     <value>לחץ כדי להגדיר את Maps</value>
   </data>
   <data name="Click_Physics" xml:space="preserve">
-    <value>לחץ כדי להגדיר ברירת מחדל פיזיקה</value>
+    <value>לחץ כדי להגדיר ברירת מחדל פיסיקה</value>
   </data>
   <data name="Click_Ports" xml:space="preserve">
     <value>לחץ כדי להגדיר היציאות שלך</value>
@@ -590,6 +593,9 @@
   </data>
   <data name="Click_Server" xml:space="preserve">
     <value>לחץ כדי לבחור סוג שרת. Default = גריד, אבל אתה יכול להתחבר כשר האזור, OsGrid או שירת אזור מטרו</value>
+  </data>
+  <data name="Click_Setup" xml:space="preserve">
+    <value>לחץ על הגדרה כדי</value>
   </data>
   <data name="Click_Start" xml:space="preserve">
     <value>אין אפשרות להפעיל אבחון אלא אם המערכת פועלת. לחץ על "התחל" ונסה שוב.</value>
@@ -634,7 +640,7 @@
     <value>הגדרות נפוצות</value>
   </data>
   <data name="Configger" xml:space="preserve">
-    <value>כל האזורים Configure</value>
+    <value>כל אזורי Configure</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>אישור נדרש להתחבר?</value>
@@ -687,6 +693,9 @@
   <data name="CSOD" xml:space="preserve">
     <value>גודל נוכחי על דיסק</value>
   </data>
+  <data name="Currency_word" xml:space="preserve">
+    <value>מַטְבֵּעַ</value>
+  </data>
   <data name="Current_Size" xml:space="preserve">
     <value>גודל נוכחי על דיסק</value>
   </data>
@@ -722,6 +731,9 @@
   </data>
   <data name="Debug_word" xml:space="preserve">
     <value>לנפות</value>
+  </data>
+  <data name="Default_8000_word" xml:space="preserve">
+    <value>ברירת מחדל: 8000</value>
   </data>
   <data name="Default_8001_word" xml:space="preserve">
     <value>ברירת מחדל 8001</value>
@@ -774,6 +786,9 @@
   <data name="Determines" xml:space="preserve">
     <value>זו קובעת אם מודול עושה כלום</value>
   </data>
+  <data name="Diagnostics_port_word" xml:space="preserve">
+    <value>נמל אבחון</value>
+  </data>
   <data name="Diags_Failed" xml:space="preserve">
     <value>אבחון נכשל. האם אתה רוצה לראות את היומן?</value>
   </data>
@@ -782,6 +797,9 @@
   </data>
   <data name="Diag_Port_word" xml:space="preserve">
     <value>יציאת אבחון</value>
+  </data>
+  <data name="Diag_TCP_is_set_word" xml:space="preserve">
+    <value>אבחון TCP היציאה מוגדרת</value>
   </data>
   <data name="did_not_start_word" xml:space="preserve">
     <value>לא התחילה</value>
@@ -815,6 +833,9 @@
   </data>
   <data name="Diva_Wifi_Enabled_word" xml:space="preserve">
     <value>מופעל דיווה Wifi</value>
+  </data>
+  <data name="DNSAlt" xml:space="preserve">
+    <value>שם חלופי כגון www.outworldz.com לעומת outworldz.com. יכול להיות שם רשת ישן ברצונך continute לשימוש.</value>
   </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>שם DNS או SomeName.Outworldz.net או IP</value>
@@ -861,17 +882,23 @@
   <data name="Email_word" xml:space="preserve">
     <value>אימייל</value>
   </data>
-  <data name="Email_word1" xml:space="preserve">
-    <value>אימייל</value>
-  </data>
   <data name="EMGod" xml:space="preserve">
-    <value>מנהל העזבון הוא אלוהים - מנהלי נדל"ן יכולים להיות אלימים, אבל רק עבור אחוזה זו</value>
+    <value>מנהל עזבון הוא אלוהים - מנהלי נדל"ן יכולים להיות אלימים, אבל רק עבור אחוזה זו</value>
   </data>
   <data name="EnableApache" xml:space="preserve">
     <value>אפשר שרת Apache Web</value>
   </data>
+  <data name="EnableDiva" xml:space="preserve">
+    <value>אפשר דיווה עמוד</value>
+  </data>
   <data name="Enabled_word" xml:space="preserve">
     <value>מופעל</value>
+  </data>
+  <data name="EnableGloebit_word" xml:space="preserve">
+    <value>אפשר Gloebit</value>
+  </data>
+  <data name="EnableJOpensim" xml:space="preserve">
+    <value>אפשר JOpensim</value>
   </data>
   <data name="EnableOneClickStart_word" xml:space="preserve">
     <value>אפשר בלחיצה אחת התחל</value>
@@ -912,9 +939,6 @@
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
     <value>הזן את פרטי בעלי Grid</value>
   </data>
-  <data name="Enter_the_Grid_Owner_Information_word1" xml:space="preserve">
-    <value>הזן את פרטי בעלי Grid</value>
-  </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>שגיאה: אין אפשרות להפעיל DreamGridInstaller.exe.</value>
   </data>
@@ -937,7 +961,7 @@
     <value>שְׁגִיאָה</value>
   </data>
   <data name="ErrUpdate" xml:space="preserve">
-    <value>שגיאה: אין אפשרות להפעיל Downloader.exe. אולי אתה יכול להפעיל אותו באופן ידני.</value>
+    <value>שגיאה: אין אפשרות להפעיל DreamGridUpdater.exe. אולי אתה יכול להפעיל אותו באופן ידני?</value>
   </data>
   <data name="EstateManagerIsGod_word" xml:space="preserve">
     <value>נדל"ן Manager הוא אלוהים</value>
@@ -949,7 +973,7 @@
     <value>יְצִיאָה</value>
   </data>
   <data name="Export_Backup_file_word" xml:space="preserve">
-    <value>קובץ גיבוי ייצוא</value>
+    <value>קובץ גיבוי יצוא</value>
   </data>
   <data name="Export_Permission_word" xml:space="preserve">
     <value>רשות יצוא</value>
@@ -988,76 +1012,82 @@
     <value>שם פרטי</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>שם פרטי</value>
+    <value>חלאות אדם Asset מטמון</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>תיקייה כדי לשמור על</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>מסגרת שיעור</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
     <value>קצב פריימים (0.0909)</value>
   </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
-    <value>תיקייה כדי לשמור על</value>
-  </data>
-  <data name="FreeName" xml:space="preserve">
-    <value>חינם DLC</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
+  <data name="FrameTime" xml:space="preserve">
     <value>מחדל 1/11 שניות. ברירת המחדל היא 0.0909 המהווה 1/5 של 55 FPS</value>
   </data>
-  <data name="Free_DLC_word" xml:space="preserve">
-    <value>לחץ כאן כדי לקבל קנה אתה יכול אז חשבון חינם Gloebits ולמכור</value>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>מסגרת שיעור</value>
   </data>
-  <data name="French" xml:space="preserve">
+  <data name="FreeName" xml:space="preserve">
     <value>קבל DYN DNS שם בחינם</value>
   </data>
-  <data name="Friendly" xml:space="preserve">
+  <data name="Free_Account" xml:space="preserve">
+    <value>לחץ כאן כדי לקבל קנה אתה יכול אז חשבון חינם Gloebits ולמכור</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>חינם DLC</value>
+  </data>
+  <data name="French" xml:space="preserve">
     <value>צָרְפָתִית</value>
   </data>
-  <data name="FRText" xml:space="preserve">
+  <data name="Friendly" xml:space="preserve">
     <value>הידידותי של גריד זה שם</value>
   </data>
-  <data name="FSA" xml:space="preserve">
+  <data name="FRText" xml:space="preserve">
     <value>SL מפעילה 55 FPS. Opensim הוא 11 FPS. ברירה = 0.0909, או 1/11</value>
   </data>
-  <data name="FSassets" xml:space="preserve">
+  <data name="FSA" xml:space="preserve">
     <value>נכסים כקבצים</value>
   </data>
-  <data name="FSassets_Server_word" xml:space="preserve">
+  <data name="FSassets" xml:space="preserve">
     <value>מסד קובץ מערכת נכסים</value>
   </data>
-  <data name="GBoids" xml:space="preserve">
+  <data name="FSassets_Server_word" xml:space="preserve">
     <value>FsAssets שרת</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>ההגדרות בירד העולמיות תחולנה באזור זה</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>גֶרמָנִיָת</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>ההגדרות בירד העולמיות תחולנה באזור זה</value>
+    <value>קבלת אזורים</value>
+  </data>
+  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
+    <value>הצג הודעה מיידית אישור Gloebits למשתמש בתחילת הפגישה?</value>
+  </data>
+  <data name="GLBShowNewSessionPurchaseIM_text" xml:space="preserve">
+    <value>הצג רכישה Gloebits הודעה מיידית למשתמש בתחילת הפגישה?</value>
+  </data>
+  <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
+    <value>הצג Gloebits מברכים הודעה כאשר נכנס לאזור?</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>הגדרות Tide גלובל</value>
+    <value>הגדרות כלליות</value>
   </data>
   <data name="Global_Settings_word" xml:space="preserve">
     <value>הגדרות כלליות</value>
   </data>
   <data name="Global_Tide_Settings_word" xml:space="preserve">
-    <value>קבלת אזורים</value>
-  </data>
-  <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>הגדרות כלליות</value>
+    <value>הגדרות Tide גלובל</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Gloebits מטבע</value>
+    <value>טוב (Warp3D)</value>
   </data>
   <data name="Greek" xml:space="preserve">
     <value>יווני</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>טוב (Warp3D)</value>
+    <value>גריד הכתובת היא</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
     <value>אתה יכול לתת את הכתובת הזו החוצה לאנשים והם יכולים לבקר הרשת שלך</value>
@@ -1065,20 +1095,23 @@
   <data name="Grid_address_word" xml:space="preserve">
     <value>גריד כתובת</value>
   </data>
-  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
-    <value>אתה יכול לתת את הכתובת הזו החוצה לאנשים והם יכולים לבקר הרשת שלך</value>
+  <data name="Grid_Remote_is_set_word" xml:space="preserve">
+    <value>מרחוק Admin היציאה מוגדרת</value>
   </data>
-  <data name="Grid_TCP_is_set_word" xml:space="preserve">
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
     <value>Grid שרת עם חזק</value>
   </data>
-  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
     <value>רשת TCP היציאה מוגדרת</value>
+  </data>
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+    <value>רשת UDP Port הוא סט</value>
   </data>
   <data name="Group_word" xml:space="preserve">
     <value>קְבוּצָה</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>רשת UDP Port הוא סט</value>
+    <value>הגדרות Tide העולמיות תחולנה באזור זה</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>עדכון זמין. האם אתה רוצה לצאת DreamGrid ולהתקין את העדכון?</value>
@@ -1156,7 +1189,7 @@
     <value>מים גבוהים רמה</value>
   </data>
   <data name="High_Water_Level_text" xml:space="preserve">
-    <value>סימני מים גבוהים במטר</value>
+    <value>סימני מים גבוהים במטרים</value>
   </data>
   <data name="Home_word" xml:space="preserve">
     <value>בית</value>
@@ -1171,13 +1204,13 @@
     <value>כמה רחוק ציפורים אחרות שהיינו רוצים להישאר?</value>
   </data>
   <data name="How_Far_Travel" xml:space="preserve">
-    <value>כמה רחוק במטרים כל ציפור יכול לנסוע לכל עדכון?</value>
+    <value>כמה רחוק במטרים כל ציפור יכולה לנסוע לכל עדכון?</value>
   </data>
   <data name="How_High" xml:space="preserve">
     <value>כמה גבוה הם אפשרנו לנהור?</value>
   </data>
   <data name="How_Long" xml:space="preserve">
-    <value>כמה זמן לשמור את הגיבויים. הגט ותיק שנמחק אחרי הפעם ימים,</value>
+    <value>כמה זמן לשמור את הגיבויים. הגט הוותיק שנמחקו אחרי הפעם ימים,</value>
   </data>
   <data name="How_Long_runs" xml:space="preserve">
     <value>כמה זמן Opensim רץ לפני גיבוי אוטומטי מתרחש</value>
@@ -1194,11 +1227,14 @@
   <data name="Hypergrid_word" xml:space="preserve">
     <value>Hypergrid</value>
   </data>
+  <data name="HypericaSearch_word" xml:space="preserve">
+    <value>חיפוש Hyperica</value>
+  </data>
   <data name="IAR_Load_and_Save_word" xml:space="preserve">
     <value>טען IAR ולחסוך</value>
   </data>
   <data name="Icecast_Desc" xml:space="preserve">
-    <value>Icecast מאפשר לך להזרים מוסיקה לתוך ה- SIM שלך. כתובת האתר מוסיקה:</value>
+    <value>Icecast מאפשר לך להזרים מוסיקה לתוך ה- SIM שלך. כתוב אתר מוזיקה:</value>
   </data>
   <data name="IceCast_disabled" xml:space="preserve">
     <value>Icecast מושבתת</value>
@@ -1234,7 +1270,7 @@
     <value>סמלים</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>סמלים</value>
+    <value>Opensim יחסוך משוטים לאחר ריצה זו ארוכה</value>
   </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>התעלם Parcel</value>
@@ -1246,7 +1282,7 @@
     <value>מטמון תמונה</value>
   </data>
   <data name="Importtext" xml:space="preserve">
-    <value>קבצי INI אזור ייבוא</value>
+    <value>קבצי INI אזור היבוא</value>
   </data>
   <data name="Import_word" xml:space="preserve">
     <value>יְבוּא</value>
@@ -1266,6 +1302,21 @@
   <data name="INI_Filter" xml:space="preserve">
     <value>קבצי INI (* .ini) | * .ini | כל הקבצים (*. *) |. * *</value>
   </data>
+  <data name="Installed_word" xml:space="preserve">
+    <value>מוּתקָן</value>
+  </data>
+  <data name="InstallingJoomla_word" xml:space="preserve">
+    <value>התקנת ג'ומלה</value>
+  </data>
+  <data name="Installing_word" xml:space="preserve">
+    <value>התקנה. המתן בבקשה ...</value>
+  </data>
+  <data name="InstallJoomla_word" xml:space="preserve">
+    <value>להתקין</value>
+  </data>
+  <data name="InstallOpensim" xml:space="preserve">
+    <value>זה יתקין JOpensim. האם אתה מקווה להמשיך?</value>
+  </data>
   <data name="InstallRuntime" xml:space="preserve">
     <value>תקן C ++ Runtimes</value>
   </data>
@@ -1280,6 +1331,9 @@
   </data>
   <data name="Interval_word" xml:space="preserve">
     <value>הַפסָקָה</value>
+  </data>
+  <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
+    <value>טענו מלאה IAR ולחסוך</value>
   </data>
   <data name="IPV4_Address_word" xml:space="preserve">
     <value>כתובת IPv4</value>
@@ -1308,6 +1362,15 @@
   <data name="JobEngine_word" xml:space="preserve">
     <value>מנוע איוב</value>
   </data>
+  <data name="JOpensimSearch_word" xml:space="preserve">
+    <value>חיפוש JOpensim</value>
+  </data>
+  <data name="JOpensimSettings" xml:space="preserve">
+    <value>הגדרות JOpensim</value>
+  </data>
+  <data name="JOpensim_word" xml:space="preserve">
+    <value>JOpensim</value>
+  </data>
   <data name="Just_one_region_word" xml:space="preserve">
     <value>רק אחד באזור</value>
   </data>
@@ -1324,9 +1387,6 @@
     <value>מפת מטרו גדולה</value>
   </data>
   <data name="Last_Name_Word" xml:space="preserve">
-    <value>שם משפחה</value>
-  </data>
-  <data name="Last_Name_word1" xml:space="preserve">
     <value>שם משפחה</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1402,7 +1462,7 @@
     <value>Loopback הבדיקה עברה על נמל</value>
   </data>
   <data name="Low_High" xml:space="preserve">
-    <value>סימני מים נמוכים וגבוהים במ'</value>
+    <value>סימני מים נמוכים וגבוהים במטרים</value>
   </data>
   <data name="Low_Water_Level" xml:space="preserve">
     <value>נמוך מפלס המים</value>
@@ -1417,13 +1477,16 @@
     <value>בצע גיבוי?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>בצע גיבוי?</value>
+    <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>כל אריחי המפה נמחקו. קבע את הגדרת מפת אתחול מחדש כדי ליצור מפות חדשות</value>
   </data>
   <data name="Maps_word" xml:space="preserve">
     <value>מפות</value>
+  </data>
+  <data name="Maps_X" xml:space="preserve">
+    <value>מפות: X</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>מפת coords: X</value>
@@ -1447,7 +1510,7 @@
     <value>מרחק מקסימאלי עבור ציפור אחרות כדי להיחשב באותה הלהקה</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>מרחק מקסימאלי עבור ציפור אחרות כדי להיחשב באותה הלהקה</value>
+    <value>מקס חיל (ברירת מחדל = 0.2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>גובה מקס (ברירת מחדל = 45.0)</value>
@@ -1459,7 +1522,7 @@
     <value>מקס מספר Prims בחטיבה</value>
   </data>
   <data name="Max_Phys" xml:space="preserve">
-    <value>אתה לא יכול לעשות פרים פיזי גדול מזה</value>
+    <value>אתה לא יכול לעשות פרים פיזיים גדול מזה</value>
   </data>
   <data name="Max_PrimLimit" xml:space="preserve">
     <value>זה יגביל את מספר prims על חבילה. אין מגבלה למעט זיכרון כאשר הן מושבתות.</value>
@@ -1471,10 +1534,10 @@
     <value>מהירות מקסימלית (ברירת מחדל = 1.0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>מקסימאלי של 4096</value>
+    <value>משוט Merge</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>משוט Merge</value>
+    <value>אובייקטים Merge</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>מטמון Mesh</value>
@@ -1483,7 +1546,7 @@
     <value>הודעה נשלחה</value>
   </data>
   <data name="MetroOrg" xml:space="preserve">
-    <value>Hypergrid.org אזור שרת</value>
+    <value>Metro.land אזור שרת</value>
   </data>
   <data name="Minutes_word" xml:space="preserve">
     <value>דקות</value>
@@ -1539,11 +1602,14 @@
   <data name="MySQL_Was_Running" xml:space="preserve">
     <value>MySQL רץ כשאני החלתי, כך אני עוזב MySQL על.</value>
   </data>
+  <data name="Mysql_Word" xml:space="preserve">
+    <value>Mysql</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>שֵׁם</value>
   </data>
   <data name="NameAlreadySet" xml:space="preserve">
-    <value>שם Hypergrid המערכת שלך אופס. אתה יכול לשנות את השם של התקנה-הגדרות-&gt; תפריט DNS</value>
+    <value>שם Hypergrid מערכת שלך אופס. אתה יכול לשנות את השם של התקנה-הגדרות-&gt; תפריט DNS</value>
   </data>
   <data name="Name_of_Region_Word" xml:space="preserve">
     <value>שם אזור</value>
@@ -1597,7 +1663,7 @@
     <value>אתה לא יכול לעשות פרים רגילים גדול מזה.</value>
   </data>
   <data name="Norwegian" xml:space="preserve">
-    <value>נורווגי</value>
+    <value>נורבגי</value>
   </data>
   <data name="Notify_Email" xml:space="preserve">
     <value>הודע דוא"ל</value>
@@ -1606,10 +1672,10 @@
     <value>לא UUID תקף. האם אתה רוצה UUID חדש, אקראי?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>בדרך כלל מוגדר OutworldzFiles / גיבוי אוטומטי תיקייה עם "גיבוי אוטומטי". לחץ כדי לשנות את התיקייה.</value>
+    <value>זה לא נראה יועבר אל המחשב הזה ב הנתב, כך Hypergrid אינו זמין. זה יכול אולי להיות קבוע על ידי "פורט פורוורד" ב הנתב. ראה Help-&gt; נמל חלוצים.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>זה לא נראה יועבר אל המחשב הזה ב הנתב, כך Hypergrid אינו זמין. זה יכול אולי להיות קבוע על ידי "פורט פורוורד" ב הנתב. ראה Help-&gt; נמל חלוצים.</value>
+    <value>לא נאכף בדרך כלל על ידי Opensim. Viewer לא יציג יותר מ 45,000. כאן הגדרה זו ולאפשר זו במסגרות תאכוף את הדרישה ועשוי לחזור prims!</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim אינו פועל.</value>
@@ -1648,13 +1714,13 @@
     <value>לא מספר Maximujm תקפה של סוכני ערך. חייב להיות גדול מ 0.</value>
   </data>
   <data name="NVMaxPrim" xml:space="preserve">
-    <value>איננו ערך מקסימאלי פרים תקף. חייב להיות גדול מ 0.</value>
+    <value>אינו ערך מקסימאלי פרים תקף. חייב להיות גדול מ 0.</value>
   </data>
   <data name="NVNonPhysPrim" xml:space="preserve">
-    <value>אינו ערך שאינו פיסי פרי מקס תקף. חייב להיות גדול מ 0</value>
+    <value>איננו ערך שאיננו פיזי פרי מקס תקף. חייב להיות גדול מ 0</value>
   </data>
   <data name="NVPhysPrim" xml:space="preserve">
-    <value>איננו ערך הגופן פרי מקס תקף. חייב להיות גדול מ 0.</value>
+    <value>אינו ערך הגופן פרי מקס תקף. חייב להיות גדול מ 0.</value>
   </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>קבצי משוט הם גיבויים של אי השלם</value>
@@ -1664,6 +1730,9 @@
   </data>
   <data name="OAR_load_save_backupp_word" xml:space="preserve">
     <value>טען משוט, שמור גיבוי</value>
+  </data>
+  <data name="OAuth_Key" xml:space="preserve">
+    <value>OAuth מפתח</value>
   </data>
   <data name="Object_Path" xml:space="preserve">
     <value>נתיב ושם אובייקט</value>
@@ -1675,7 +1744,7 @@
     <value>מנוע פתוח דינמי</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>מנוע פתוח דינמי</value>
+    <value>שיר הלל</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>כבוי</value>
@@ -1690,19 +1759,19 @@
     <value>יש avatar אחד</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>בסדר</value>
+    <value>אזור אחד הוא עדיין פועל</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>רק מנהלי בעלי Estate יוותרו באזור זה</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>יציאות נתב להרחיב באמצעות בהכנס-הפעל אוניברסלי</value>
+    <value>Opensimulator הוא טוען</value>
   </data>
   <data name="Open_Router_Ports" xml:space="preserve">
-    <value>רק מנהלי בעלי Estate יוותרו באזור זה</value>
+    <value>יציאות נתב להרחיב באמצעות בהכנס-הפעל אוניברסלי</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opensimulator הוא טוען</value>
+    <value>אפשרויות</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>אוֹ:</value>
@@ -1720,7 +1789,7 @@
     <value>חבילות</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>חבילות</value>
+    <value>עבר LAN בדיקת Loopback</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>באפשרותך לשנות את הסיסמה רק כאשר Opensim הוא פועל</value>
@@ -1770,11 +1839,11 @@
   <data name="port2" xml:space="preserve">
     <value>נמל 2</value>
   </data>
-  <data name="Portguese" xml:space="preserve">
-    <value>Portguese</value>
-  </data>
   <data name="Ports" xml:space="preserve">
     <value>יציאות</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>פורטוגזי</value>
   </data>
   <data name="Port_Error" xml:space="preserve">
     <value>הסכסוך בנמל זוהה. כל היציאות אופסו המחדל של</value>
@@ -1839,6 +1908,9 @@
   <data name="Recycle1" xml:space="preserve">
     <value>לְמַחְזֵר</value>
   </data>
+  <data name="Refresh1" xml:space="preserve">
+    <value>לְרַעֲנֵן</value>
+  </data>
   <data name="RefreshingIAR" xml:space="preserve">
     <value>מרענן חינם תוכן (IAR)</value>
   </data>
@@ -1849,10 +1921,10 @@
     <value>לְרַעֲנֵן</value>
   </data>
   <data name="Regen_Map" xml:space="preserve">
-    <value>אם תמחק את כל מפות, אתה צריך מפות להתחדש על ידי הפעלה מחדש עם הגדרת מפה</value>
+    <value>אם תמחק את כל המפות, אתה צריך מפות להתחדש על ידי הפעלה מחדש עם הגדרת מפה</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>אזור UUID איננו חוקי</value>
+    <value>אזורים שעדיין רצים</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>אזורים</value>
@@ -1930,13 +2002,16 @@
     <value>נתונים סטטיסטיים של אזור</value>
   </data>
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
-    <value>אזור UUID איננו חוקי</value>
+    <value>אזור UUID אינו חוקי</value>
   </data>
   <data name="Region_word" xml:space="preserve">
     <value>אזור</value>
   </data>
   <data name="Reload" xml:space="preserve">
     <value>רענן לרשת</value>
+  </data>
+  <data name="RemoteAdminPort_word" xml:space="preserve">
+    <value>נמל Admin</value>
   </data>
   <data name="RenderMax" xml:space="preserve">
     <value>Render מקס גובה</value>
@@ -1947,14 +2022,11 @@
   <data name="Repeat_Password_word" xml:space="preserve">
     <value>חזור על הסיסמה</value>
   </data>
-  <data name="Repeat_Password_word1" xml:space="preserve">
-    <value>חזור על הסיסמה</value>
-  </data>
   <data name="Request_App" xml:space="preserve">
     <value>בקשה לאפליקציה בריאה</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>בקשה לאפליקציה בריאה</value>
+    <value>שמור שם DNS DYN שלך. זוהי סיסמא עבור שם הגריד שלך.</value>
   </data>
   <data name="Reset_To_Default" xml:space="preserve">
     <value>. איפוס לברירת מחדל</value>
@@ -1975,7 +2047,7 @@
     <value>הפעל מחדש מרווח בתוך דקות</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>התרסקות פיזיקה Bulletsim יאלץ הפעלה מחדש סימולטור</value>
+    <value>במקרה אחד Restart</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>אזור אחד Restart</value>
@@ -1993,7 +2065,7 @@
     <value>הפעל מחדש בהמתנה</value>
   </data>
   <data name="Restart_Periodically_Minutes" xml:space="preserve">
-    <value>האזורים כל יופעל מחדש אוטומטית אחרי דקות רבות כל כך פועל</value>
+    <value>האזורים כל יופעלו מחדש אוטומטית אחרי דקות רבות כל כך פועלים</value>
   </data>
   <data name="Restart_Periodically_word" xml:space="preserve">
     <value>הפעל מחדש באופן תקופתי</value>
@@ -2002,16 +2074,16 @@
     <value>הפעל מחדש שבתור</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>הפעל מחדש שבתור</value>
-  </data>
-  <data name="Restart_Robust_word" xml:space="preserve">
     <value>אזור Restart</value>
   </data>
-  <data name="Restart_Settings_word" xml:space="preserve">
+  <data name="Restart_Robust_word" xml:space="preserve">
     <value>הפעל מחדש חזק</value>
   </data>
-  <data name="Restart_word" xml:space="preserve">
+  <data name="Restart_Settings_word" xml:space="preserve">
     <value>הגדרות מחדש</value>
+  </data>
+  <data name="Restart_word" xml:space="preserve">
+    <value>אתחול</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>שחזור מסד</value>
@@ -2046,23 +2118,17 @@
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Running כשרת אזור</value>
   </data>
-  <data name="Running_as_a_Region_Server_word1" xml:space="preserve">
-    <value>Running כשרת אזור</value>
-  </data>
   <data name="Running_Network" xml:space="preserve">
     <value>הרצת אבחוני רשת</value>
   </data>
-  <data name="Running_Network1" xml:space="preserve">
-    <value>הרצת אבחוני רשת</value>
-  </data>
   <data name="Running_word" xml:space="preserve">
-    <value>Running כשרת אזור</value>
+    <value>רץ</value>
   </data>
   <data name="Run_All_word" xml:space="preserve">
     <value>הפעל הכל</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>הפעל הכל</value>
+    <value>להפעיל כשירות</value>
   </data>
   <data name="Russian" xml:space="preserve">
     <value>רוּסִי</value>
@@ -2086,7 +2152,7 @@
     <value>שמור אזור משוט</value>
   </data>
   <data name="Save_word" xml:space="preserve">
-    <value>לשמור</value>
+    <value>להציל</value>
   </data>
   <data name="Saving_word" xml:space="preserve">
     <value>חִסָכוֹן</value>
@@ -2116,19 +2182,16 @@
     <value>שערי סקריפט</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>שערי טיימר סקריפט (0.0909)</value>
+    <value>שערי טיימר סקריפט (0.2)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>הגדרת מהירות טיימר סקריפט. השני 1/11 הוא ברירת מחדל (0.0909)</value>
+    <value>הגדרת מהירות טיימר סקריפט. 0.2 הן ברירת מחדל</value>
   </data>
-  <data name="Search_All_Grids_word" xml:space="preserve">
-    <value>חפש בכל רשתות</value>
+  <data name="Search_Events" xml:space="preserve">
+    <value>חיפוש אובייקטים ואירועים (www)</value>
   </data>
-  <data name="Search_Connect_failed" xml:space="preserve">
-    <value>לא הצליח להתחבר חפש במסד</value>
-  </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>לחפש</value>
+  <data name="Search_grids" xml:space="preserve">
+    <value>חפש רשתות (www)</value>
   </data>
   <data name="Secret_word" xml:space="preserve">
     <value>סוֹד</value>
@@ -2146,7 +2209,7 @@
     <value>בוחר את כל או אף אחד התיבות</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>אני אראה אותך שוב כשאני מתעורר כל חדש ורענן!</value>
+    <value>בחר</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>שלח הודעת התראה</value>
@@ -2170,7 +2233,7 @@
     <value>הגדרות</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>בעלים שהוגדר</value>
+    <value>הגדרת מתאם Loopback לכתובת IP ציבורי</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>Firewall Setup</value>
@@ -2183,9 +2246,6 @@
   </data>
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>יציאות Setup</value>
-  </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>מסד חיפוש Setup</value>
   </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>לחץ כדי להגדיר במונחים שלך של שירות</value>
@@ -2203,10 +2263,10 @@
     <value>סט Debug רמה</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>סט Debug רמה</value>
+    <value>בעלים שהוגדר</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
-    <value>Icecast אינה מופעלת.</value>
+    <value>Shoutcast אינה מופעלת.</value>
   </data>
   <data name="Show_Grid_Address" xml:space="preserve">
     <value>הצג Grid כתובת</value>
@@ -2263,7 +2323,7 @@
     <value>מארח SMTP</value>
   </data>
   <data name="SMTPPassword_word" xml:space="preserve">
-    <value>סיסמא SMTP</value>
+    <value>סיסמה SMTP</value>
   </data>
   <data name="SMTPPort_word" xml:space="preserve">
     <value>SMTP Port</value>
@@ -2290,7 +2350,7 @@
     <value>גיבוי מסד נתונים SQL / Restore</value>
   </data>
   <data name="StartAll" xml:space="preserve">
-    <value>התחל כל האזורים בדקו</value>
+    <value>התחל כל האזורים בדק</value>
   </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
     <value>החל אבחון נמל וואבסארואר</value>
@@ -2347,7 +2407,7 @@
     <value>סְתִימָה</value>
   </data>
   <data name="Stopsall" xml:space="preserve">
-    <value>עצירה כל האזורים נבדקו</value>
+    <value>עצירה כול אזורים נבדקו</value>
   </data>
   <data name="Stop_All_word" xml:space="preserve">
     <value>עצור הכל</value>
@@ -2374,7 +2434,7 @@
     <value>מידע טכני</value>
   </data>
   <data name="Teleporter_Enable_word" xml:space="preserve">
-    <value>טלפורטר אפשר</value>
+    <value>היכנס טלפורט אפשר</value>
   </data>
   <data name="Teleporting_word" xml:space="preserve">
     <value>teleporting</value>
@@ -2397,7 +2457,7 @@
   <data name="Theme_Black" xml:space="preserve">
     <value>סט Theme to Black</value>
   </data>
-  <data name="theme_Custom" xml:space="preserve">
+  <data name="Theme_Custom" xml:space="preserve">
     <value>הגדרת עיצוב מותאם אישית</value>
   </data>
   <data name="Theme_White" xml:space="preserve">
@@ -2410,25 +2470,25 @@
     <value>זה מעביר כל האזורים כך האזור שנבחר הוא ב 1000,1000 כדי להתאים את המפה. להמשיך?</value>
   </data>
   <data name="Thread_pools_word" xml:space="preserve">
-    <value>ברכות אשכול</value>
+    <value>ברכה אשכול</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>Tide מידע בערוץ</value>
+    <value>גאות ושפל</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>ברכות אשכול</value>
+    <value>אפשר את הגאות כדי להיכנס ולצאת?</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Tide Hi / Lo ערוץ</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Tide Hi / Lo ערוץ</value>
+    <value>Tide מידע בערוץ</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>Timeout בשעות</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Timeout בשעות</value>
+    <value>סובלנות (ברירת מחדל = 25.0)</value>
   </data>
   <data name="TOS" xml:space="preserve">
     <value>מודול TOS מציג למשתמשים שלך ו / או מבקרים הטקסט HTML זה.</value>
@@ -2463,11 +2523,8 @@
   <data name="Updated_word" xml:space="preserve">
     <value>מְעוּדכָּן</value>
   </data>
-  <data name="Update_Downloaded" xml:space="preserve">
-    <value>עדכון כבר הורד. התקן זה עכשיו?</value>
-  </data>
   <data name="Update_is_available" xml:space="preserve">
-    <value>עדכון זמין. מוריד עדכון ברקע. אנא תן לזה לסיים.</value>
+    <value>עדכון זמין. האם ברצונך לעדכן?</value>
   </data>
   <data name="Updating_Ports_word" xml:space="preserve">
     <value>יציאות עדכון</value>
@@ -2476,7 +2533,7 @@
     <value>UPnP לנכים</value>
   </data>
   <data name="UPnP_Enabled_text" xml:space="preserve">
-    <value>Enable זה יש לך מערכת קטנה ורוצים יציאות הנתב להיות מוגדר באופן אוטומטי</value>
+    <value>Enable זה יש לך מערכת קטנה ורוצה היציאות הנתב להיות מוגדרות באופן אוטומטי</value>
   </data>
   <data name="UPnP_Enabled_word" xml:space="preserve">
     <value>UPnP מופעל</value>
@@ -2491,13 +2548,16 @@
     <value>משתמש</value>
   </data>
   <data name="User_ID_word" xml:space="preserve">
-    <value>זהות המשתמש</value>
+    <value>תעודת זהות של משתמש</value>
   </data>
   <data name="User_Name_word" xml:space="preserve">
     <value>שם משתמש</value>
   </data>
   <data name="Use_Default_word" xml:space="preserve">
     <value>השתמש בברית המחדל</value>
+  </data>
+  <data name="UUID" xml:space="preserve">
+    <value>UUID</value>
   </data>
   <data name="UUID0" xml:space="preserve">
     <value>שגיאה: אין דבר UUID!</value>
@@ -2516,6 +2576,9 @@
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>מציג מפסיק לספור על 45,000</value>
+  </data>
+  <data name="ViewJoomla_word" xml:space="preserve">
+    <value>נוף</value>
   </data>
   <data name="View_as_Icons" xml:space="preserve">
     <value>הצג כסמלים</value>
@@ -2556,6 +2619,9 @@
   <data name="View_Web_Interface_text" xml:space="preserve">
     <value>ממשק האינטרנט יכול לשמש כדי להוסיף משתמשים חדשים</value>
   </data>
+  <data name="View_word" xml:space="preserve">
+    <value>נוף</value>
+  </data>
   <data name="Vivox_Voice_word" xml:space="preserve">
     <value>Vivox קול</value>
   </data>
@@ -2569,7 +2635,7 @@
     <value>הממתין חזק כדי להתחיל</value>
   </data>
   <data name="Waiting_text" xml:space="preserve">
-    <value>מחכה כל האזורים ליציאה</value>
+    <value>מחכים כל האזורים ליציאה</value>
   </data>
   <data name="Warn_word" xml:space="preserve">
     <value>לְהַזהִיר</value>
@@ -2587,7 +2653,7 @@
     <value>קישור להורדה באינטרנט</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
-    <value>אינטרנט פורט (80, או 8000)</value>
+    <value>אינטרנט פורט (80)</value>
   </data>
   <data name="Web_UI" xml:space="preserve">
     <value>הממשק באינטרנט מאפשר להוסיף או הגדרות תצוגה עבור דמות כלשהי.</value>
@@ -2613,28 +2679,40 @@
   <data name="WillNotSave" xml:space="preserve">
     <value>לא תישמר משוט עם Autobackup.</value>
   </data>
+  <data name="WordPress_Word" xml:space="preserve">
+    <value>וורדפרס</value>
+  </data>
   <data name="Wrong" xml:space="preserve">
     <value>משהו לא בסדר עם האינטרנט</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>איקס</value>
+    <value>Y</value>
+  </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>מנוע X</value>
   </data>
   <data name="XMLRPC" xml:space="preserve">
     <value>xmlrpc</value>
   </data>
+  <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
+    <value>Xmlrpc אזור נמל</value>
+  </data>
   <data name="XMLRP_start" xml:space="preserve">
     <value>Xmlrpc נמל התחל #</value>
-  </data>
-  <data name="X_Engine_word" xml:space="preserve">
-    <value>מנוע X</value>
   </data>
   <data name="Y" xml:space="preserve">
     <value>Y</value>
   </data>
   <data name="YEngine_word" xml:space="preserve">
-    <value>YEngine</value>
+    <value>מנוע Y</value>
   </data>
   <data name="Yes_word" xml:space="preserve">
     <value>כן</value>
+  </data>
+  <data name="Z" xml:space="preserve">
+    <value>Z</value>
+  </data>
+  <data name="_0" xml:space="preserve">
+    <value>0</value>
   </data>
 </root>

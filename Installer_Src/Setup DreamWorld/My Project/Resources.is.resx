@@ -123,14 +123,20 @@
   <data name="About_word" xml:space="preserve">
     <value>um</value>
   </data>
+  <data name="Action_word" xml:space="preserve">
+    <value>aðgerð</value>
+  </data>
+  <data name="AddUser_Word" xml:space="preserve">
+    <value>Bæta notanda</value>
+  </data>
   <data name="Add_Region_word" xml:space="preserve">
     <value>bæta við Norðurlönd</value>
   </data>
-  <data name="Add_User_word" xml:space="preserve">
-    <value>Bæta notanda</value>
-  </data>
   <data name="Add_word" xml:space="preserve">
     <value>Bæta við</value>
+  </data>
+  <data name="AdministerJoomla_word" xml:space="preserve">
+    <value>Gefið</value>
   </data>
   <data name="Admin_Password_word" xml:space="preserve">
     <value>admin lykilorð</value>
@@ -480,9 +486,6 @@
   <data name="Choose_a_Folder_word" xml:space="preserve">
     <value>Veldu möppu</value>
   </data>
-  <data name="Choose_a_Folder_word1" xml:space="preserve">
-    <value>Veldu möppu</value>
-  </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Veldu hvaða skyndiminni til að tæma</value>
   </data>
@@ -591,6 +594,9 @@
   <data name="Click_Server" xml:space="preserve">
     <value>Smelltu til að velja tegund miðlara. Default = Grid, en hægt er að tengja eins Region miðlara, OsGrid eða Metro svæðum netþjóna</value>
   </data>
+  <data name="Click_Setup" xml:space="preserve">
+    <value>Smelltu til skipulag</value>
+  </data>
   <data name="Click_Start" xml:space="preserve">
     <value>Getur ekki keyrt greiningu nema kerfið er í gangi. Smelltu á 'Start' og reyndu aftur.</value>
   </data>
@@ -687,6 +693,9 @@
   <data name="CSOD" xml:space="preserve">
     <value>Núverandi stærð á diski</value>
   </data>
+  <data name="Currency_word" xml:space="preserve">
+    <value>Gjaldmiðill</value>
+  </data>
   <data name="Current_Size" xml:space="preserve">
     <value>Núverandi stærð á diski</value>
   </data>
@@ -722,6 +731,9 @@
   </data>
   <data name="Debug_word" xml:space="preserve">
     <value>kemba</value>
+  </data>
+  <data name="Default_8000_word" xml:space="preserve">
+    <value>Default: 8000</value>
   </data>
   <data name="Default_8001_word" xml:space="preserve">
     <value>Sjálfgefin 8001</value>
@@ -774,6 +786,9 @@
   <data name="Determines" xml:space="preserve">
     <value>Þetta ákvarðar hvort einingin gerir neitt</value>
   </data>
+  <data name="Diagnostics_port_word" xml:space="preserve">
+    <value>Diagnostics Port</value>
+  </data>
   <data name="Diags_Failed" xml:space="preserve">
     <value>Diagnostics mistókst. Viltu sjá þig inn?</value>
   </data>
@@ -782,6 +797,9 @@
   </data>
   <data name="Diag_Port_word" xml:space="preserve">
     <value>Diagnostics höfn</value>
+  </data>
+  <data name="Diag_TCP_is_set_word" xml:space="preserve">
+    <value>Greiningin TCP Port er sett</value>
   </data>
   <data name="did_not_start_word" xml:space="preserve">
     <value>ekki að byrja</value>
@@ -815,6 +833,9 @@
   </data>
   <data name="Diva_Wifi_Enabled_word" xml:space="preserve">
     <value>Diva Wifi virkt</value>
+  </data>
+  <data name="DNSAlt" xml:space="preserve">
+    <value>Auknefni svo sem www.outworldz.com vs outworldz.com. Getur verið gamall rist nafn sem þú vilt að continute til notkunar.</value>
   </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>DNS Nafn eða SomeName.Outworldz.net eða IP</value>
@@ -861,17 +882,23 @@
   <data name="Email_word" xml:space="preserve">
     <value>Tölvupóstur</value>
   </data>
-  <data name="Email_word1" xml:space="preserve">
-    <value>Tölvupóstur</value>
-  </data>
   <data name="EMGod" xml:space="preserve">
     <value>Bú Manager er Guð - Estate stjórnendur geta orðið guðir, heldur bara fyrir búinu</value>
   </data>
   <data name="EnableApache" xml:space="preserve">
     <value>Virkja Apache vefþjóninn</value>
   </data>
+  <data name="EnableDiva" xml:space="preserve">
+    <value>Virkja Diva Page</value>
+  </data>
   <data name="Enabled_word" xml:space="preserve">
     <value>virkt</value>
+  </data>
+  <data name="EnableGloebit_word" xml:space="preserve">
+    <value>virkja Gloebit</value>
+  </data>
+  <data name="EnableJOpensim" xml:space="preserve">
+    <value>virkja JOpensim</value>
   </data>
   <data name="EnableOneClickStart_word" xml:space="preserve">
     <value>Virkja One-Click Start</value>
@@ -912,9 +939,6 @@
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
     <value>Sláðu inn Grid Owner Upplýsingar</value>
   </data>
-  <data name="Enter_the_Grid_Owner_Information_word1" xml:space="preserve">
-    <value>Sláðu inn Grid Owner Upplýsingar</value>
-  </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Villa: Gat ekki ræst DreamGridInstaller.exe.</value>
   </data>
@@ -937,7 +961,7 @@
     <value>villa</value>
   </data>
   <data name="ErrUpdate" xml:space="preserve">
-    <value>Villa: Gat ekki ræst Downloader.exe. Kannski þú getur ræst það handvirkt.</value>
+    <value>Villa: Gat ekki ræst DreamGridUpdater.exe. Kannski þú getur ræst það handvirkt?</value>
   </data>
   <data name="EstateManagerIsGod_word" xml:space="preserve">
     <value>Bú Manager er guð</value>
@@ -988,76 +1012,82 @@
     <value>Fyrsta nafn</value>
   </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Fyrsta nafn</value>
+    <value>Samtíningur Asset Cache</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Möppu til að vista í</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Frame Rate</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
     <value>Frame Rate (0,0909)</value>
   </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
-    <value>Möppu til að vista í</value>
-  </data>
-  <data name="FreeName" xml:space="preserve">
-    <value>Free DLC</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
+  <data name="FrameTime" xml:space="preserve">
     <value>Default 1/11 sek. Sjálfgefið er 0,0909 sem er 1/5 af 55 FPS</value>
   </data>
-  <data name="Free_DLC_word" xml:space="preserve">
-    <value>Smelltu til að fá ókeypis Gloebits reikningi þannig að þú getur keypt og selt</value>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Frame Rate</value>
   </data>
-  <data name="French" xml:space="preserve">
+  <data name="FreeName" xml:space="preserve">
     <value>Fá ókeypis Dyn DNS nafn</value>
   </data>
-  <data name="Friendly" xml:space="preserve">
+  <data name="Free_Account" xml:space="preserve">
+    <value>Smelltu til að fá ókeypis Gloebits reikningi þannig að þú getur keypt og selt</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Free DLC</value>
+  </data>
+  <data name="French" xml:space="preserve">
     <value>french</value>
   </data>
-  <data name="FRText" xml:space="preserve">
+  <data name="Friendly" xml:space="preserve">
     <value>Þessi flutningskerfisins Friendly Name</value>
   </data>
-  <data name="FSA" xml:space="preserve">
+  <data name="FRText" xml:space="preserve">
     <value>SL rekur 55 FPS. Opensim er 11 FPS. Default = 0,0909, eða 1/11</value>
   </data>
-  <data name="FSassets" xml:space="preserve">
+  <data name="FSA" xml:space="preserve">
     <value>Eignir sem skrá</value>
   </data>
-  <data name="FSassets_Server_word" xml:space="preserve">
+  <data name="FSassets" xml:space="preserve">
     <value>File System Eignir Database</value>
   </data>
-  <data name="GBoids" xml:space="preserve">
+  <data name="FSassets_Server_word" xml:space="preserve">
     <value>FsAssets Server</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>The alheims stillingar Bird eiga á þessu svæði</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>þýska, Þjóðverji, þýskur</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>The alheims stillingar Bird eiga á þessu svæði</value>
+    <value>fá svæði</value>
+  </data>
+  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
+    <value>Sýna Gloebits heimild Augnablik Skilaboð til notanda á fundi upphafi?</value>
+  </data>
+  <data name="GLBShowNewSessionPurchaseIM_text" xml:space="preserve">
+    <value>Sýna kaup Gloebits Augnablik Skilaboð til notanda á fundi upphafi?</value>
+  </data>
+  <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
+    <value>Sýna Gloebits velkomin skilaboð þegar farið er inn á svæði?</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Global Tide stillingar</value>
+    <value>Global Settings</value>
   </data>
   <data name="Global_Settings_word" xml:space="preserve">
     <value>Global Settings</value>
   </data>
   <data name="Global_Tide_Settings_word" xml:space="preserve">
-    <value>fá svæði</value>
-  </data>
-  <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Global Settings</value>
+    <value>Global Tide stillingar</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Gloebits Gjaldmiðill</value>
+    <value>Gott (Warp3D)</value>
   </data>
   <data name="Greek" xml:space="preserve">
     <value>greek</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>Gott (Warp3D)</value>
+    <value>Tafla netfang er</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
     <value>Þú getur gefið þetta heimilisfang út til fólks og þeir geta heimsótt rist þig</value>
@@ -1065,20 +1095,23 @@
   <data name="Grid_address_word" xml:space="preserve">
     <value>Tafla netfang</value>
   </data>
-  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
-    <value>Þú getur gefið þetta heimilisfang út til fólks og þeir geta heimsótt rist þig</value>
+  <data name="Grid_Remote_is_set_word" xml:space="preserve">
+    <value>Remote Admin Port er sett</value>
   </data>
-  <data name="Grid_TCP_is_set_word" xml:space="preserve">
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
     <value>Grid Server Með sterkur</value>
   </data>
-  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
     <value>Tafla TCP Port er sett</value>
+  </data>
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+    <value>Tafla UDP Port er sett</value>
   </data>
   <data name="Group_word" xml:space="preserve">
     <value>Group</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>Tafla UDP Port er sett</value>
+    <value>The alheims stillingar Tide eiga á þessu svæði</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Uppfærsla er í boði. Viltu hætta DreamGrid og setja upp uppfærsluna?</value>
@@ -1194,6 +1227,9 @@
   <data name="Hypergrid_word" xml:space="preserve">
     <value>Hypergrid</value>
   </data>
+  <data name="HypericaSearch_word" xml:space="preserve">
+    <value>Hyperica leit</value>
+  </data>
   <data name="IAR_Load_and_Save_word" xml:space="preserve">
     <value>IAR hlaða og vista</value>
   </data>
@@ -1234,7 +1270,7 @@
     <value>Tákn</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>Tákn</value>
+    <value>Opensim mun bjarga árar eftir að keyra þetta lengi</value>
   </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>Hunsa Parcel</value>
@@ -1266,6 +1302,21 @@
   <data name="INI_Filter" xml:space="preserve">
     <value>INI skrár (* .ini) | * .ini | Allar skrár (*. *) |. * *</value>
   </data>
+  <data name="Installed_word" xml:space="preserve">
+    <value>Uppsett</value>
+  </data>
+  <data name="InstallingJoomla_word" xml:space="preserve">
+    <value>að setja inn Joomla</value>
+  </data>
+  <data name="Installing_word" xml:space="preserve">
+    <value>Set. Vinsamlegast bíðið ...</value>
+  </data>
+  <data name="InstallJoomla_word" xml:space="preserve">
+    <value>setja upp</value>
+  </data>
+  <data name="InstallOpensim" xml:space="preserve">
+    <value>Þetta mun setja JOpensim. Viltu halda áfram?</value>
+  </data>
   <data name="InstallRuntime" xml:space="preserve">
     <value>Setja C ++ runtimes</value>
   </data>
@@ -1280,6 +1331,9 @@
   </data>
   <data name="Interval_word" xml:space="preserve">
     <value>interval</value>
+  </data>
+  <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
+    <value>Inventory IAR hlaða og vista</value>
   </data>
   <data name="IPV4_Address_word" xml:space="preserve">
     <value>IPv4 vistfang</value>
@@ -1308,6 +1362,15 @@
   <data name="JobEngine_word" xml:space="preserve">
     <value>starf Engine</value>
   </data>
+  <data name="JOpensimSearch_word" xml:space="preserve">
+    <value>JOpensim leit</value>
+  </data>
+  <data name="JOpensimSettings" xml:space="preserve">
+    <value>JOpensim Stillingar</value>
+  </data>
+  <data name="JOpensim_word" xml:space="preserve">
+    <value>JOpensim</value>
+  </data>
   <data name="Just_one_region_word" xml:space="preserve">
     <value>Bara eitt svæði</value>
   </data>
@@ -1324,9 +1387,6 @@
     <value>Stórt kort Metro</value>
   </data>
   <data name="Last_Name_Word" xml:space="preserve">
-    <value>Eftirnafn</value>
-  </data>
-  <data name="Last_Name_word1" xml:space="preserve">
     <value>Eftirnafn</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1417,13 +1477,16 @@
     <value>Gerðu afrit?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Gerðu afrit?</value>
+    <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Allar kortaflísar hefur verið eytt. Stilltu kort stillingu og endurræsa til að gera nýtt kort</value>
   </data>
   <data name="Maps_word" xml:space="preserve">
     <value>Kortin</value>
+  </data>
+  <data name="Maps_X" xml:space="preserve">
+    <value>Kort: X</value>
   </data>
   <data name="Mapx" xml:space="preserve">
     <value>Kort Coords: X</value>
@@ -1447,7 +1510,7 @@
     <value>Max vegalengd fyrir aðra fugla til að hafa í huga við sama hópnum</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max vegalengd fyrir aðra fugla til að hafa í huga við sama hópnum</value>
+    <value>Max Force (sjálfgefið = 0,2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Max Hæð (sjálfgefið = 45,0)</value>
@@ -1471,10 +1534,10 @@
     <value>Max Speed ​​(sjálfgefið = 1,0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>Hámark 4096</value>
+    <value>Sameina OAR</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>Sameina OAR</value>
+    <value>sameina hluti</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Mesh Cache</value>
@@ -1483,7 +1546,7 @@
     <value>Skilaboð send</value>
   </data>
   <data name="MetroOrg" xml:space="preserve">
-    <value>Hypergrid.org Region Server</value>
+    <value>Metro.land Region Server</value>
   </data>
   <data name="Minutes_word" xml:space="preserve">
     <value>mínútur</value>
@@ -1538,6 +1601,9 @@
   </data>
   <data name="MySQL_Was_Running" xml:space="preserve">
     <value>MySQL var í gangi þegar ég var að byrja, þannig að ég er að fara MySQL á.</value>
+  </data>
+  <data name="Mysql_Word" xml:space="preserve">
+    <value>mysql</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>heiti</value>
@@ -1606,10 +1672,10 @@
     <value>Ekki gilt UUID. Viltu nýja, Random UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>Venjulega stillt á OutworldzFiles / sjálfvirkri afritun mappa með 'sjálfvirkri afritun ". Smelltu til að breyta möppu.</value>
+    <value>Þetta virðist ekki vera fluttur á vél í beininum, svo Hypergrid er ekki í boði. Þetta getur hugsanlega verið fastur með "Port Framherjar 'á leið. Sjá Hjálp-&gt; Port áfram.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Þetta virðist ekki vera fluttur á vél í beininum, svo Hypergrid er ekki í boði. Þetta getur hugsanlega verið fastur með "Port Framherjar 'á leið. Sjá Hjálp-&gt; Port áfram.</value>
+    <value>Yfirleitt ekki framfylgt með Opensim. Viewer mun ekki sýna meira en 45.000. Setja þetta hér og gera þetta í stillingum símans framfylgja mörkin og komið aftur prims!</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim er ekki í gangi.</value>
@@ -1665,6 +1731,9 @@
   <data name="OAR_load_save_backupp_word" xml:space="preserve">
     <value>OAR Hlaða, Vista og Backup</value>
   </data>
+  <data name="OAuth_Key" xml:space="preserve">
+    <value>OAuth Key</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
     <value>Object Path og nafn</value>
   </data>
@@ -1675,7 +1744,7 @@
     <value>Opna Dynamic Engine</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>Opna Dynamic Engine</value>
+    <value>Nethönnunarumhverfi</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Af</value>
@@ -1687,22 +1756,22 @@
     <value>Ok</value>
   </data>
   <data name="OneAvatar" xml:space="preserve">
-    <value>Það er eitt avatar</value>
+    <value>Það er eitt avatar í</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>Ok</value>
+    <value>Einn svæði er enn í gangi</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Aðeins eigendur og Estate Stjórnendur verður leyft á þessu svæði</value>
   </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>Open Leið Hafnir nota Universal Plug and Play</value>
+    <value>Opensimulator er hleðsla</value>
   </data>
   <data name="Open_Router_Ports" xml:space="preserve">
-    <value>Aðeins eigendur og Estate Stjórnendur verður leyft á þessu svæði</value>
+    <value>Open Leið Hafnir nota Universal Plug and Play</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opensimulator er hleðsla</value>
+    <value>Valmöguleikar</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>eða:</value>
@@ -1720,7 +1789,7 @@
     <value>bögglar</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>bögglar</value>
+    <value>Liðið LAN sýndardiskur Test</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Þú getur aðeins breytt lykilorðinu ef Opensim er í gangi</value>
@@ -1770,11 +1839,11 @@
   <data name="port2" xml:space="preserve">
     <value>Port 2</value>
   </data>
-  <data name="Portguese" xml:space="preserve">
-    <value>Portguese</value>
-  </data>
   <data name="Ports" xml:space="preserve">
     <value>Hafnir</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>Portúgalska</value>
   </data>
   <data name="Port_Error" xml:space="preserve">
     <value>Port Átökin hafa fundist. Allar hafnir hafa verið endurstillt til vanskila</value>
@@ -1839,6 +1908,9 @@
   <data name="Recycle1" xml:space="preserve">
     <value>endurvinna</value>
   </data>
+  <data name="Refresh1" xml:space="preserve">
+    <value>Uppfæra</value>
+  </data>
   <data name="RefreshingIAR" xml:space="preserve">
     <value>Hressandi Free Content (IAR)</value>
   </data>
@@ -1852,7 +1924,7 @@
     <value>Ef þú eyðir öllum kortum, þú þarft að endurnýja kort með því að endurræsa með kort stillingu</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>Region UUID er ógilt</value>
+    <value>svæði eru enn í gangi</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>Svæði</value>
@@ -1938,6 +2010,9 @@
   <data name="Reload" xml:space="preserve">
     <value>Endurhlaða rist</value>
   </data>
+  <data name="RemoteAdminPort_word" xml:space="preserve">
+    <value>admin Port</value>
+  </data>
   <data name="RenderMax" xml:space="preserve">
     <value>Gjaldið Max Hæð</value>
   </data>
@@ -1947,14 +2022,11 @@
   <data name="Repeat_Password_word" xml:space="preserve">
     <value>Endurtaktu lykilorð</value>
   </data>
-  <data name="Repeat_Password_word1" xml:space="preserve">
-    <value>Endurtaktu lykilorð</value>
-  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Óska App Creation</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Óska App Creation</value>
+    <value>Panta Dyn DNS nafn þitt. Þetta er lykilorð fyrir Grid nafninu þínu.</value>
   </data>
   <data name="Reset_To_Default" xml:space="preserve">
     <value>. Endurstilla á sjálfgefið</value>
@@ -1975,7 +2047,7 @@
     <value>Restart Interval í Mínútur</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>Bulletsim eðlisfræði hrun þvinga fram hermir endurræsa</value>
+    <value>Restart eitt dæmi</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>Endurræsa eitt svæði</value>
@@ -2002,16 +2074,16 @@
     <value>endurræsa biðröð</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>endurræsa biðröð</value>
-  </data>
-  <data name="Restart_Robust_word" xml:space="preserve">
     <value>endurræsa Region</value>
   </data>
-  <data name="Restart_Settings_word" xml:space="preserve">
+  <data name="Restart_Robust_word" xml:space="preserve">
     <value>endurræsa sterkur</value>
   </data>
-  <data name="Restart_word" xml:space="preserve">
+  <data name="Restart_Settings_word" xml:space="preserve">
     <value>Restart Stillingar</value>
+  </data>
+  <data name="Restart_word" xml:space="preserve">
+    <value>Endurræsa</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>endurheimta gagnagrunn</value>
@@ -2046,26 +2118,20 @@
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Gangi sem svæðið Server</value>
   </data>
-  <data name="Running_as_a_Region_Server_word1" xml:space="preserve">
-    <value>Gangi sem svæðið Server</value>
-  </data>
   <data name="Running_Network" xml:space="preserve">
     <value>Running Network Diagnostics</value>
   </data>
-  <data name="Running_Network1" xml:space="preserve">
-    <value>Running Network Diagnostics</value>
-  </data>
   <data name="Running_word" xml:space="preserve">
-    <value>Gangi sem svæðið Server</value>
+    <value>Running</value>
   </data>
   <data name="Run_All_word" xml:space="preserve">
     <value>Run All</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Run All</value>
+    <value>Run as a Service</value>
   </data>
   <data name="Russian" xml:space="preserve">
-    <value>Rússneskt</value>
+    <value>rússneska, Rússi, rússneskur</value>
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>sandkassi Mode</value>
@@ -2116,19 +2182,16 @@
     <value>Script Rate</value>
   </data>
   <data name="Script_Timer_Rate" xml:space="preserve">
-    <value>Script Timer Rate (0,0909)</value>
+    <value>Script Timer Rate (0,2)</value>
   </data>
   <data name="Script_Timer_Text" xml:space="preserve">
-    <value>Script myndatöku hraða stilling. 11/01 Annað er sjálfgefið (0,0909)</value>
+    <value>Script myndatöku hraða stilling. 0.2 er sjálfgefin</value>
   </data>
-  <data name="Search_All_Grids_word" xml:space="preserve">
-    <value>Leita All grids</value>
+  <data name="Search_Events" xml:space="preserve">
+    <value>Leita að hlutum og viðburðir (www)</value>
   </data>
-  <data name="Search_Connect_failed" xml:space="preserve">
-    <value>Ekki tókst að tengjast Leit Database</value>
-  </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>leita</value>
+  <data name="Search_grids" xml:space="preserve">
+    <value>Leita að Grids (www)</value>
   </data>
   <data name="Secret_word" xml:space="preserve">
     <value>Secret</value>
@@ -2146,7 +2209,7 @@
     <value>Velur allar eða enginn gátreitunum</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>Ég sé þig aftur þegar ég vakna allt ferskt og nýtt!</value>
+    <value>velja</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Senda skilaboðunum</value>
@@ -2170,7 +2233,7 @@
     <value>Stillingar</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>setja Eigandi</value>
+    <value>Setja sýndardiskur Adapter Public IP heimilisfang</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>skipulag Firewall</value>
@@ -2183,9 +2246,6 @@
   </data>
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>skipulag Hafnir</value>
-  </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>Skipulag leit gagnagrunnur</value>
   </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>Smelltu til að setja upp Skilmálar þitt þjónustuskilmálana</value>
@@ -2203,10 +2263,10 @@
     <value>Setja Kemba Level</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>Setja Kemba Level</value>
+    <value>setja Eigandi</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
-    <value>Icecast er ekki virkt.</value>
+    <value>Shoutcast er ekki virkt.</value>
   </data>
   <data name="Show_Grid_Address" xml:space="preserve">
     <value>Sýna Grid Address</value>
@@ -2374,7 +2434,7 @@
     <value>Tæknilegar upplýsingar</value>
   </data>
   <data name="Teleporter_Enable_word" xml:space="preserve">
-    <value>teleporter Virkja</value>
+    <value>Teleport Sign Virkja</value>
   </data>
   <data name="Teleporting_word" xml:space="preserve">
     <value>teleporting</value>
@@ -2397,7 +2457,7 @@
   <data name="Theme_Black" xml:space="preserve">
     <value>Þema sett í Black</value>
   </data>
-  <data name="theme_Custom" xml:space="preserve">
+  <data name="Theme_Custom" xml:space="preserve">
     <value>Þema stillt á valmöguleika</value>
   </data>
   <data name="Theme_White" xml:space="preserve">
@@ -2413,22 +2473,22 @@
     <value>Thread laugar</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>Fjöru Info Channel</value>
+    <value>sjávarföll</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>Thread laugar</value>
+    <value>Kleift fjöru til að koma inn og út?</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Sjávarföll Hi / Lo Channel</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Sjávarföll Hi / Lo Channel</value>
+    <value>Fjöru Info Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>Rann út á tíma í klukkustundum</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Rann út á tíma í klukkustundum</value>
+    <value>Umburðarlyndi (sjálfgefið = 25.0)</value>
   </data>
   <data name="TOS" xml:space="preserve">
     <value>TOS Einingin sýnir notendum og / eða gestir þessi HTML texta.</value>
@@ -2463,11 +2523,8 @@
   <data name="Updated_word" xml:space="preserve">
     <value>Uppfært</value>
   </data>
-  <data name="Update_Downloaded" xml:space="preserve">
-    <value>Uppfærslan hefur verið hlaðið niður. Setja hana núna?</value>
-  </data>
   <data name="Update_is_available" xml:space="preserve">
-    <value>Uppfærsla er í boði. Sækir uppfærslu í bakgrunni. Vinsamlegast láttu það klára.</value>
+    <value>Uppfærsla er í boði. Viltu uppfæra?</value>
   </data>
   <data name="Updating_Ports_word" xml:space="preserve">
     <value>Uppfærir Hafnir</value>
@@ -2499,6 +2556,9 @@
   <data name="Use_Default_word" xml:space="preserve">
     <value>Nota Default</value>
   </data>
+  <data name="UUID" xml:space="preserve">
+    <value>UUID</value>
+  </data>
   <data name="UUID0" xml:space="preserve">
     <value>VILLA: UUID er ekkert!</value>
   </data>
@@ -2516,6 +2576,9 @@
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>Áhorfandinn hættir að telja á 45.000</value>
+  </data>
+  <data name="ViewJoomla_word" xml:space="preserve">
+    <value>Útsýni</value>
   </data>
   <data name="View_as_Icons" xml:space="preserve">
     <value>Skoða sem Icons</value>
@@ -2556,6 +2619,9 @@
   <data name="View_Web_Interface_text" xml:space="preserve">
     <value>The Web Interface er hægt að nota til að bæta við nýjum notendum</value>
   </data>
+  <data name="View_word" xml:space="preserve">
+    <value>Útsýni</value>
+  </data>
   <data name="Vivox_Voice_word" xml:space="preserve">
     <value>Vivox Voice</value>
   </data>
@@ -2587,7 +2653,7 @@
     <value>Web Sækja Link</value>
   </data>
   <data name="Web_Port" xml:space="preserve">
-    <value>Vefurinn Port (80, eða 8000)</value>
+    <value>Vefurinn Port (80)</value>
   </data>
   <data name="Web_UI" xml:space="preserve">
     <value>The Web UI gerir þér kleift að bæta við eða skoða stillingar fyrir hvaða avatar.</value>
@@ -2613,28 +2679,40 @@
   <data name="WillNotSave" xml:space="preserve">
     <value>Mun ekki vista OAR með sjálfvirkri afritun.</value>
   </data>
+  <data name="WordPress_Word" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
   <data name="Wrong" xml:space="preserve">
     <value>Eitthvað er athugavert við Internetið</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>X</value>
+    <value>Y</value>
+  </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>X Engine</value>
   </data>
   <data name="XMLRPC" xml:space="preserve">
     <value>xmlrpc</value>
   </data>
+  <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
+    <value>Xmlrpc Region Port</value>
+  </data>
   <data name="XMLRP_start" xml:space="preserve">
     <value>Xmlrpc Port Start #</value>
-  </data>
-  <data name="X_Engine_word" xml:space="preserve">
-    <value>X Engine</value>
   </data>
   <data name="Y" xml:space="preserve">
     <value>Y</value>
   </data>
   <data name="YEngine_word" xml:space="preserve">
-    <value>YEngine</value>
+    <value>Y Engine</value>
   </data>
   <data name="Yes_word" xml:space="preserve">
     <value>Já</value>
+  </data>
+  <data name="Z" xml:space="preserve">
+    <value>Z</value>
+  </data>
+  <data name="_0" xml:space="preserve">
+    <value>0</value>
   </data>
 </root>

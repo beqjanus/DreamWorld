@@ -72,7 +72,7 @@ Partial Class FormGloebits
         '
         'PictureBox3
         '
-        Me.PictureBox3.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox3.Image = Global.Outworldz.My.Resources.about
         Me.PictureBox3.Location = New System.Drawing.Point(545, 61)
         Me.PictureBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox3.Name = "PictureBox3"
@@ -87,7 +87,7 @@ Partial Class FormGloebits
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(501, 34)
         Me.Button4.TabIndex = 1
-        Me.Button4.Text = Global.Outworldz.My.Resources.Resources.Free_Account
+        Me.Button4.Text = Global.Outworldz.My.Resources.Free_Account
         Me.Button4.UseVisualStyleBackColor = True
         '
         'GroupBox3
@@ -116,7 +116,7 @@ Partial Class FormGloebits
         Me.GLBShowNewSessionPurchaseIMCheckBox.Name = "GLBShowNewSessionPurchaseIMCheckBox"
         Me.GLBShowNewSessionPurchaseIMCheckBox.Size = New System.Drawing.Size(446, 21)
         Me.GLBShowNewSessionPurchaseIMCheckBox.TabIndex = 19
-        Me.GLBShowNewSessionPurchaseIMCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowNewSessionPurchaseIM_text
+        Me.GLBShowNewSessionPurchaseIMCheckBox.Text = Global.Outworldz.My.Resources.GLBShowNewSessionPurchaseIM_text
         Me.GLBShowNewSessionPurchaseIMCheckBox.UseVisualStyleBackColor = True
         '
         'GLBShowNewSessionAuthIMCheckBox
@@ -127,7 +127,7 @@ Partial Class FormGloebits
         Me.GLBShowNewSessionAuthIMCheckBox.Name = "GLBShowNewSessionAuthIMCheckBox"
         Me.GLBShowNewSessionAuthIMCheckBox.Size = New System.Drawing.Size(469, 21)
         Me.GLBShowNewSessionAuthIMCheckBox.TabIndex = 18
-        Me.GLBShowNewSessionAuthIMCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowNewSessionAuthIM_text
+        Me.GLBShowNewSessionAuthIMCheckBox.Text = Global.Outworldz.My.Resources.GLBShowNewSessionAuthIM_text
         Me.GLBShowNewSessionAuthIMCheckBox.UseVisualStyleBackColor = True
         '
         'GLBShowWelcomeMessageCheckBox
@@ -138,7 +138,7 @@ Partial Class FormGloebits
         Me.GLBShowWelcomeMessageCheckBox.Name = "GLBShowWelcomeMessageCheckBox"
         Me.GLBShowWelcomeMessageCheckBox.Size = New System.Drawing.Size(396, 21)
         Me.GLBShowWelcomeMessageCheckBox.TabIndex = 17
-        Me.GLBShowWelcomeMessageCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowWelcomeMessage_text
+        Me.GLBShowWelcomeMessageCheckBox.Text = Global.Outworldz.My.Resources.GLBShowWelcomeMessage_text
         Me.GLBShowWelcomeMessageCheckBox.UseVisualStyleBackColor = True
         '
         'OwnerNameTextbox
@@ -185,7 +185,7 @@ Partial Class FormGloebits
         Me.GloebitsEnabled.Name = "GloebitsEnabled"
         Me.GloebitsEnabled.Size = New System.Drawing.Size(123, 21)
         Me.GloebitsEnabled.TabIndex = 16
-        Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.Resources.EnableGloebit_word
+        Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.EnableGloebit_word
         Me.GloebitsEnabled.UseVisualStyleBackColor = True
         '
         'GroupBox2
@@ -220,7 +220,7 @@ Partial Class FormGloebits
         Me.ProductionButton.Size = New System.Drawing.Size(136, 21)
         Me.ProductionButton.TabIndex = 8
         Me.ProductionButton.TabStop = True
-        Me.ProductionButton.Text = Global.Outworldz.My.Resources.Resources.Production_Mode_Word
+        Me.ProductionButton.Text = Global.Outworldz.My.Resources.Production_Mode_Word
         Me.ProductionButton.UseVisualStyleBackColor = True
         '
         'Label12
@@ -295,7 +295,7 @@ Partial Class FormGloebits
         Me.ProductionCreateAppButton.Name = "ProductionCreateAppButton"
         Me.ProductionCreateAppButton.Size = New System.Drawing.Size(189, 34)
         Me.ProductionCreateAppButton.TabIndex = 11
-        Me.ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
+        Me.ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.CreateApp
         Me.ProductionCreateAppButton.UseVisualStyleBackColor = True
         '
         'ProductionReqAppButton
@@ -305,7 +305,7 @@ Partial Class FormGloebits
         Me.ProductionReqAppButton.Name = "ProductionReqAppButton"
         Me.ProductionReqAppButton.Size = New System.Drawing.Size(189, 31)
         Me.ProductionReqAppButton.TabIndex = 10
-        Me.ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
+        Me.ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Request_App
         Me.ProductionReqAppButton.UseVisualStyleBackColor = True
         '
         'Label14
@@ -325,7 +325,7 @@ Partial Class FormGloebits
         Me.ProductionCreateButton.Name = "ProductionCreateButton"
         Me.ProductionCreateButton.Size = New System.Drawing.Size(189, 34)
         Me.ProductionCreateButton.TabIndex = 9
-        Me.ProductionCreateButton.Text = Global.Outworldz.My.Resources.Resources.Create_Account
+        Me.ProductionCreateButton.Text = Global.Outworldz.My.Resources.Create_Account
         Me.ProductionCreateButton.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -360,7 +360,7 @@ Partial Class FormGloebits
         Me.SandboxButton.Size = New System.Drawing.Size(123, 21)
         Me.SandboxButton.TabIndex = 2
         Me.SandboxButton.TabStop = True
-        Me.SandboxButton.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode_word
+        Me.SandboxButton.Text = Global.Outworldz.My.Resources.Sandbox_Mode_word
         Me.SandboxButton.UseVisualStyleBackColor = True
         '
         'Label8
@@ -410,7 +410,7 @@ Partial Class FormGloebits
         Me.SandBoxCreateAppButton.Name = "SandBoxCreateAppButton"
         Me.SandBoxCreateAppButton.Size = New System.Drawing.Size(189, 34)
         Me.SandBoxCreateAppButton.TabIndex = 5
-        Me.SandBoxCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
+        Me.SandBoxCreateAppButton.Text = Global.Outworldz.My.Resources.CreateApp
         Me.SandBoxCreateAppButton.UseVisualStyleBackColor = True
         '
         'SandKeyTextBox
@@ -428,7 +428,7 @@ Partial Class FormGloebits
         Me.SandBoxReqAppButton.Name = "SandBoxReqAppButton"
         Me.SandBoxReqAppButton.Size = New System.Drawing.Size(189, 31)
         Me.SandBoxReqAppButton.TabIndex = 4
-        Me.SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
+        Me.SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Request_App
         Me.SandBoxReqAppButton.UseVisualStyleBackColor = True
         '
         'SandSecretTextBox
@@ -466,7 +466,7 @@ Partial Class FormGloebits
         Me.SandBoxSignUpButton.Name = "SandBoxSignUpButton"
         Me.SandBoxSignUpButton.Size = New System.Drawing.Size(189, 34)
         Me.SandBoxSignUpButton.TabIndex = 3
-        Me.SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Resources.Create_Sandbox_word
+        Me.SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Create_Sandbox_word
         Me.SandBoxSignUpButton.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -482,17 +482,17 @@ Partial Class FormGloebits
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(79, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(124, 26)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormGloebits
         '
