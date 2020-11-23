@@ -1552,6 +1552,7 @@ Public Class FormSetup : Implements IDisposable
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
                 Settings.SetIni("Const", "GridName", Settings.SimName)
             Case "Region"
+                Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
                 SetupOpensimSearchINI()
             Case "OSGrid"
             Case "Metro"
@@ -3525,7 +3526,7 @@ Public Class FormSetup : Implements IDisposable
     End Sub
 
     Private Function CheckApache() As Boolean
-        ''' <summary>Check is Apache port 80 or 8000 is up</summary>
+        ''' <summary>Check is Apache port 80 is up</summary>
         ''' <returns>boolean</returns>
         Using client As New WebClient ' download client for web pages
             Dim Up As String
