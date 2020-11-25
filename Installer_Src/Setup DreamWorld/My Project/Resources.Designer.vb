@@ -2508,6 +2508,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property document_text() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("document_text", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property document_view() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("document_view", resourceCulture)
@@ -3463,6 +3473,16 @@ Namespace My.Resources
         Friend ReadOnly Property gear_run() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("gear_run", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property gear_stop() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("gear_stop", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

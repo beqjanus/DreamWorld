@@ -28,6 +28,7 @@
 
 Imports System.Globalization
 Imports System.IO
+Imports System.IO.Compression
 Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
@@ -36,14 +37,13 @@ Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
-Imports System.IO.Compression
 
 Public Class FormSetup
 
 #Region "Version"
 
     Dim _Domain As String = "http://outworldz.com"
-    Dim _MyVersion As String = "3.8"
+    Dim _MyVersion As String = "3.781"
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
@@ -2684,9 +2684,10 @@ Public Class FormSetup
 
         RobustProcess.EnableRaisingEvents = True
         RobustProcess.StartInfo.UseShellExecute = False ' must be false
-        RobustProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        If Not RobustProcess.StartInfo.EnvironmentVariables.ContainsKey("OSIM_LOGLEVEL") Then
+            RobustProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        End If
         RobustProcess.StartInfo.FileName = Settings.OpensimBinPath & "robust.exe"
-
         RobustProcess.StartInfo.CreateNoWindow = False
         RobustProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath
 
@@ -6016,7 +6017,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub StopMysql()
+    Public Sub StopMysql()
 
         If Not MysqlInterface.IsMySqlRunning() Then
             Application.DoEvents()
