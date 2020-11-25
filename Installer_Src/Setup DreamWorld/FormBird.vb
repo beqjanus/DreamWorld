@@ -135,7 +135,7 @@ Public Class FormBird
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim thing As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/IAR/OpenSimBirds.iar")
+        Dim thing As String = IO.Path.Combine(FileSystem.CurDir(), "Outworldzfiles/IAR/OpenSimBirds.iar")
         FormSetup.LoadIARContent(thing)
 
     End Sub

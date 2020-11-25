@@ -42,15 +42,15 @@ Public Class FormJoomla
 
     Private Sub InstallJOpensim()
 
-        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip")
+        Dim m As String = IO.Path.Combine(FileSystem.CurDir(), "OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip")
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
             InstallButton.Image = Nothing
             FormSetup.StartApache()
 
             Dim JoomlaProcess As New Process()
-            JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
-            JoomlaProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
+            JoomlaProcess.StartInfo.FileName = IO.Path.Combine(FileSystem.CurDir(), "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
+            JoomlaProcess.StartInfo.WorkingDirectory = IO.Path.Combine(FileSystem.CurDir(), "OutworldzFiles\MySQL\bin\")
             JoomlaProcess.StartInfo.CreateNoWindow = True
             JoomlaProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
 
@@ -63,7 +63,7 @@ Public Class FormJoomla
             JoomlaProcess.WaitForExit()
 
             Dim ctr As Integer = 0
-            Dim extractPath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\JOpensim")
+            Dim extractPath = IO.Path.Combine(FileSystem.CurDir(), "OutworldzFiles\Apache\htdocs\JOpensim")
             Dim fname As String = ""
 
             Try
@@ -129,9 +129,21 @@ Public Class FormJoomla
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
 
         If HypericaRadioButton.Checked Then
-            Settings.JOpensimSearch = False
+            Settings.SearchEngine = "Hyperica"
             Settings.SaveSettings()
             JOpensimRadioButton.Checked = False
+            NoSearchRadioButton.Checked = False
+        End If
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged_1(sender As Object, e As EventArgs) Handles NoSearchRadioButton.CheckedChanged
+
+        If NoSearchRadioButton.Checked Then
+            Settings.SearchEngine = "None"
+            Settings.SaveSettings()
+            JOpensimRadioButton.Checked = False
+            HypericaRadioButton.Checked = False
         End If
 
     End Sub
@@ -139,27 +151,33 @@ Public Class FormJoomla
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles JOpensimRadioButton.CheckedChanged
 
         If JOpensimRadioButton.Checked Then
-            Settings.JOpensimSearch = True
+            Settings.SearchEngine = "JOpensim"
             Settings.SaveSettings()
             HypericaRadioButton.Checked = False
+            NoSearchRadioButton.Checked = False
         End If
 
     End Sub
 
     Private Sub SetDefaults()
 
-        Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
+        Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(FileSystem.CurDir(), "Outworldzfiles\Apache\htdocs\JOpensim"))
         Dim count = folders.Length
         InstallButton.Enabled = False
 
         If count <= 1 Then
             InstallButton.Enabled = True
+            NoSearchRadioButton.Enabled = True
+            JOpensimRadioButton.Enabled = False
+            HypericaRadioButton.Enabled = True
         End If
 
-        If Settings.JOpensimSearch Then
+        If Settings.SearchEngine = "JOpensim" Then
             JOpensimRadioButton.Checked = True
-        Else
+        ElseIf Settings.SearchEngine = "Hyperica" Then
             HypericaRadioButton.Checked = True
+        Else
+            NoSearchRadioButton.Checked = True
         End If
 
         If Settings.CMS = "JOpensim" Then

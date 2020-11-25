@@ -198,7 +198,7 @@ Public Class FormApache
         Dim InstallProcess As New Process
         InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
         ' all of them
-        InstallProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\Visual C++ Redist Installer V56.exe")
+        InstallProcess.StartInfo.FileName = IO.Path.Combine(FileSystem.CurDir(), "MSFT_Runtimes\Visual C++ Redist Installer V56.exe")
 
         InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Try

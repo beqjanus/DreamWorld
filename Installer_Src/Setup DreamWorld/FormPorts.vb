@@ -103,7 +103,6 @@ Public Class FormPorts
             ExternalHostName.Text = ""
         End If
 
-
         HelpOnce("Ports")
         initted = True
 
@@ -206,24 +205,24 @@ Public Class FormPorts
 
     End Sub
 
-    Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
-
-        HelpManual("Ports")
-
-    End Sub
-
     Private Sub TextBox1_TextChanged_1(sender As Object, e As EventArgs) Handles AdminPort.TextChanged
 
         If Not initted Then Return
 
         Dim digitsOnly As Regex = New Regex("[^\d]")
         AdminPort.Text = digitsOnly.Replace(AdminPort.Text, "")
-        Settings.FirstRemoteAdminPort() = CInt("0" & AdminPort.Text)
+        Settings.FirstRemoteAdminPort() = AdminPort.Text
         Settings.SaveSettings()
 
         RegionMaker.UpdateAllRegionPorts()
 
         MaxRAdmin.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxAdminPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+
+    End Sub
+
+    Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
+
+        HelpManual("Ports")
 
     End Sub
 

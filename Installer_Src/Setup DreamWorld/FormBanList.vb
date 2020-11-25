@@ -273,7 +273,7 @@ Public Class FormBanList
                     End If
                 Next
             Else
-                filename = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/Opensim/BanListProto.txt")
+                filename = IO.Path.Combine(FileSystem.CurDir(), "Outworldzfiles/Opensim/BanListProto.txt")
             End If
 
             If filename.Length > 0 Then

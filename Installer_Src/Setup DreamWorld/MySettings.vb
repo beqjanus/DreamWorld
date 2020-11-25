@@ -55,7 +55,6 @@ Public Class MySettings
         myINI = Folder + "\OutworldzFiles\Settings.ini"
         If File.Exists(myINI) Then
             LoadSettingsIni()
-            Settings.CurrentDirectory = Folder
         Else
             myINI = Folder + "\OutworldzFiles\Settings.ini"
             Dim contents = "[Data]" + vbCrLf
@@ -69,7 +68,6 @@ Public Class MySettings
 
             LoadSettingsIni()
 
-            Settings.CurrentDirectory = Folder
             AdminFirst() = My.Settings.AdminFirst
             AdminLast() = My.Settings.AdminLast
             AdminEmail() = My.Settings.AdminEmail
@@ -821,16 +819,6 @@ Public Class MySettings
         End Set
     End Property
 
-    ' more stuff
-    Public Property CurrentDirectory() As String
-        Get
-            Return GetMySetting("Myfolder") ' no default
-        End Get
-        Set
-            SetMySetting("Myfolder", Value)
-        End Set
-    End Property
-
     Public Property CycleTime() As Integer
         Get
             Return CInt("0" & GetMySetting("CycleTime", "900"))
@@ -1104,15 +1092,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property JOpensimSearch() As Boolean
-        Get
-            Return CType(GetMySetting("JOpensimSearch", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("JOpensimSearch", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property KeepForDays() As Integer
         Get
             Return CInt("0" & GetMySetting("KeepForDays", "7"))
@@ -1323,10 +1302,11 @@ Public Class MySettings
         End Set
     End Property
 
-#Disable Warning CA1056 ' Uri properties should not be strings
+#Disable Warning CA1056 ' URI-like properties should not be strings
 
     Public Property PrivateURL() As String
-#Enable Warning CA1056 ' Uri properties should not be strings
+#Enable Warning CA1056 ' URI-like properties should not be strings
+
         Get
             Return GetMySetting("PrivateURL")   ' no default
         End Get
@@ -1572,6 +1552,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("SearchEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property SearchEngine() As String
+        Get
+            Return GetMySetting("SearchEngine", "Hyperica")
+        End Get
+        Set
+            SetMySetting("SearchEngine", Value)
         End Set
     End Property
 

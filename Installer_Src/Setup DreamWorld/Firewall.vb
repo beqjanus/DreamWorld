@@ -103,7 +103,7 @@ Public Module Firewall
     Private Sub Write(cmd As String)
 
         Try
-            Dim ns As StreamWriter = New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "fw.bat"), False)
+            Dim ns As StreamWriter = New StreamWriter(IO.Path.Combine(FileSystem.CurDir(), "fw.bat"), False)
             ns.WriteLine(cmd)
             'If Debugger.IsAttached Then
             'ns.WriteLine("@pause")
@@ -116,7 +116,7 @@ Public Module Firewall
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "",
-            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "fw.bat"),
+            .FileName = IO.Path.Combine(FileSystem.CurDir(), "fw.bat"),
             .WindowStyle = ProcessWindowStyle.Hidden,
             .Verb = "runas"
         }

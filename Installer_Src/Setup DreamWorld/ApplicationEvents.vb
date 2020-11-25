@@ -32,8 +32,13 @@ Namespace My
 
 #Region "Private Methods"
 
+        Private Sub AppStart(ByVal sender As Object,
+      ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
+            AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
+        End Sub
+
         Private Sub MyApplication_UnhandledException(
-                    ByVal sender As Object,
+                            ByVal sender As Object,
                     ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
          ) Handles Me.UnhandledException
 
@@ -48,14 +53,17 @@ Namespace My
                     Result &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
                 End If
             Next
-            FormSetup.ErrorLog(Result)
-            FormSetup.ErrorLog(DisplayObjectInfo(sender))
+            Try
+                FormSetup.ErrorLog(Result)
+                FormSetup.ErrorLog(DisplayObjectInfo(sender))
+            Catch
+                Dim process = System.Diagnostics.Process.Start(IO.Path.Combine(FileSystem.CurDir(), "baretail.exe"), """" & "Error.log" & """")
+            Finally
+                MsgBox("Error")
+            End Try
 
-        End Sub
+            End
 
-        Private Sub AppStart(ByVal sender As Object,
-      ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
-            AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
         End Sub
 
         ''' <summary>
@@ -66,13 +74,13 @@ Namespace My
         ''' <param name="e"></param>
         ''' <returns></returns>
         Private Function ResolveAssemblies(sender As Object, e As System.ResolveEventArgs) As Reflection.Assembly
-            Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
-            Diagnostics.Debug.Print("Loading Assembly " & desiredAssembly.Name)
-            If desiredAssembly.Name = "Ionic.Zip" Then
-                Return Reflection.Assembly.Load("") 'replace with your assembly's resource name
-            Else
-                Return Nothing
-            End If
+            'Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
+            'Diagnostics.Debug.Print("Loading Assembly " & desiredAssembly.Name)
+            'If desiredAssembly.Name = "Ionic.Zip" Then
+            'Return Reflection.Assembly.Load("") 'replace with your assembly's resource name
+            'Else
+            Return Nothing
+            'End If
         End Function
 
     End Class

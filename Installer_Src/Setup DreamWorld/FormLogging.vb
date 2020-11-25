@@ -45,7 +45,6 @@
         Settings.SaveSettings()
         FormSetup.SendMsg(Settings.LogLevel.ToUpperInvariant)
 
-
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -115,7 +114,7 @@
 
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioError.CheckedChanged
         If Not initted Then Return
-        Settings.LogLevel = "OFF"
+        Settings.LogLevel = "ERROR"
     End Sub
 
     Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioFatal.CheckedChanged

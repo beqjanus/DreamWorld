@@ -51,7 +51,7 @@ Public Class FormHelp
         SetScreen(Webpage)
 
         Try
-            Dim Page As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\" & Webpage + ".rtf")
+            Dim Page As String = IO.Path.Combine(FileSystem.CurDir(), "Outworldzfiles\Help\" & Webpage + ".rtf")
             RichTextBox1.LoadFile(Page)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -119,7 +119,7 @@ Public Class FormHelp
     End Sub
 
     Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
-        Dim info = New ProcessStartInfo(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\" & Document & ".rtf")) With {
+        Dim info = New ProcessStartInfo(IO.Path.Combine(FileSystem.CurDir(), "Outworldzfiles\Help\" & Document & ".rtf")) With {
             .Verb = "Print",
             .CreateNoWindow = True,
             .WindowStyle = ProcessWindowStyle.Hidden

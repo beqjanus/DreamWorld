@@ -46,7 +46,7 @@
 
 ;
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=8005
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -55,7 +55,7 @@ RegionFolderName=Welcome
 
 ;
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=gandalf.outworldz.net
+BaseHostname=192.168.2.100
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -65,7 +65,7 @@ BaseURL=http://${Const|BaseHostname}
 ;
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://192.168.2.139
+PrivURL=http://192.168.2.100
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -80,7 +80,7 @@ PrivatePort=8003
 ;
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=Gandalf
+GridName=DreamGrid
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -264,12 +264,14 @@ InworldRestartShutsDown=true
 ;# {MinimumTimeBeforePersistenceConsidered} {} {Time before un-changed object may be persisted} {} 60
 ;; Objects will be considered for persistance in the next sweep when they
 ;; have not changed for this number of seconds.
-; MinimumTimeBeforePersistenceConsidered = 60
+MinimumTimeBeforePersistenceConsidered=60
+
 ;
 ;# {MaximumTimeBeforePersistenceConsidered} {} {Time before changed objects may be persisted?} {} 600
 ;; Objects will always be considered for persistance in the next sweep
 ;; if the first change occurred this number of seconds ago.
-; MaximumTimeBeforePersistenceConsidered = 600
+MaximumTimeBeforePersistenceConsidered=600
+
 ;
 ;# {physical_prim} {} {Allow prims to be physical?} {true false} true
 ;; if you would like to allow prims to be physical and move by physics
@@ -375,7 +377,7 @@ ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;
 ;# economy module
-economymodule=Gloebit
+economymodule=jOpenSimMoneyModule
 
 ;
 ; Main Frame time
@@ -452,7 +454,7 @@ GenerateMaptiles=True
 ;
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
-MapImageModule=Warp3DImageModule
+MapImageModule=MapImageModule
 
 ;
 ;; generate better images.
@@ -468,18 +470,18 @@ MapImageModule=Warp3DImageModule
 ; MaptileStaticUUID = "00000000-0000-0000-0000-000000000000"
 ;# {TextureOnMapTile} {} {Use terrain textures for map tiles?} {true false} true
 ;; Use terrain texture for maptiles if true, use shaded green if false
-TextureOnMapTile=True
+TextureOnMapTile=False
 
 ;
 ;# {DrawPrimOnMapTile} {} {Draw prim shapes on map tiles?} {true false} false
 ;; Draw objects on maptile.  This step might take a long time if you've
 ;; got a large number of objects, so you can turn it off here if you'd like.
-DrawPrimOnMapTile=True
+DrawPrimOnMapTile=False
 
 ;
 ;# {TexturePrims} {} {Texture prims on map tiles?} {true false} true
 ;; Texture the faces of the prims that are rendered on the map tiles.
-TexturePrims=True
+TexturePrims=False
 
 ;
 ;# {TexturePrimSize} {} {Size of prims to texture faces?} {} 48
@@ -487,7 +489,7 @@ TexturePrims=True
 ; TexturePrimSize = 48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map
-RenderMeshes=True
+RenderMeshes=False
 
 ;
 ;; Map Height
@@ -604,7 +606,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=gandalf.outworldz.net
+host_domain_header_from=192.168.2.100
 
 ;
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
@@ -685,7 +687,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.139/32
+OutboundDisallowForUserScriptsExcept=192.168.2.100/32
 
 ;
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
@@ -926,13 +928,13 @@ enabled=true
 ;
 ;# {port} {enabled:true} {Port to use for the remote admin interface? (0 = default)} {} 0
 ;; Set this to a nonzero value to have remote admin use a different port
-port=0
+port=8000
 
 ;
 ;# {access_password} {enabled:true} {Password for the remote admin interface} {}
 ;; This password is required to make any XMLRPC call (should be set as
 ;; the "password" parameter)
-access_password=Gandalf
+access_password=526325344
 
 ;
 ;# {access_ip_addresses} {enabled:true} {List the IP addresses allowed to call RemoteAdmin?} {}
@@ -1120,7 +1122,7 @@ snapshot_cache_directory="./Regions/${Const|RegionFolderName}/DataSnapshot"
 ;; New way of specifying data services, one per service
 ; data_services=http://192.168.2.100:80/JOpensim/components/com_opensim/registersearch.php
 ; data_services=https://hyperica.com/Search/register.php
-data_services=http://hyperica.com/Search/register.php
+data_services=
 
 ;
 ;;
@@ -1138,7 +1140,7 @@ SearchURL=http://hyperica.com/Search/query.php
 
 ;
 ;; EconomyModule = jOpenSimMoneyModule
-CurrencyURL=
+CurrencyURL=${Const|BaseURL}:${Const|PublicPort}/JOpensim/components/com_opensim/currency.php
 
 ;
 ; Optional:
@@ -1720,3 +1722,7 @@ GLBSpecificConnectionString="Data Source=127.0.0.1;Database=robust;Port=3306;Use
 ;
 [LoginService]
 SearchURL=http://hyperica.com/Search/query.php
+
+;; Set by Dreamgrid
+[SmartStart]
+Enabled=False

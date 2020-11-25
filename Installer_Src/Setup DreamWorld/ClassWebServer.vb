@@ -31,6 +31,7 @@ Public Class NetServer : Implements IDisposable
 
     Private Shared blnFlag As Boolean
     Private Shared singleWebserver As NetServer
+    Private disposedValue As Boolean
     Dim listen As Boolean = True
     Private MyPort As String
 
@@ -38,7 +39,6 @@ Public Class NetServer : Implements IDisposable
     Private running As Boolean
     Dim Setting As MySettings
     Private WebThread As Thread
-    Private disposedValue As Boolean
 
 #End Region
 
@@ -55,16 +55,14 @@ Public Class NetServer : Implements IDisposable
 
 #End Region
 
-
 #Region "Callback"
 
-    Public Sub StartServer(pathinfo As String, Settings As MySettings)
+    Public Sub StartServer(Settings As MySettings)
 
         If Settings Is Nothing Then Return
         ' stash some globs
         Setting = Settings
         MyPort = CStr(Settings.DiagnosticPort)
-        Settings.CurrentDirectory = pathinfo
 
         If running Then Return
 
@@ -164,10 +162,36 @@ Public Class NetServer : Implements IDisposable
 
 #Region "Private Methods"
 
+    ' ' TODO: override finalizer only if 'Dispose(disposing As Boolean)' has code to free unmanaged resources
+    Protected Overrides Sub Finalize()
+        '     ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+        Dispose(disposing:=False)
+        MyBase.Finalize()
+    End Sub
+
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
+        Dispose(disposing:=True)
+        GC.SuppressFinalize(Me)
+    End Sub
+
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+
+                ' TODO: dispose managed state (managed objects)
+            End If
+
+            ' TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            ' TODO: set large fields to null
+            disposedValue = True
+        End If
+    End Sub
+
     Private Shared Sub Log(category As String, message As String)
         Debug.Print(message)
         Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Http.log"), True)
+            Using outputFile As New StreamWriter(IO.Path.Combine(FileSystem.CurDir(), "Outworldzfiles\Http.log"), True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
             End Using
         Catch ex As Exception
@@ -251,34 +275,6 @@ Public Class NetServer : Implements IDisposable
 
         running = False
 
-    End Sub
-
-    Protected Overridable Sub Dispose(disposing As Boolean)
-        If Not disposedValue Then
-            If disposing Then
-
-
-
-                ' TODO: dispose managed state (managed objects)
-            End If
-
-            ' TODO: free unmanaged resources (unmanaged objects) and override finalizer
-            ' TODO: set large fields to null
-            disposedValue = True
-        End If
-    End Sub
-
-    ' ' TODO: override finalizer only if 'Dispose(disposing As Boolean)' has code to free unmanaged resources
-    Protected Overrides Sub Finalize()
-        '     ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
-        Dispose(disposing:=False)
-        MyBase.Finalize()
-    End Sub
-
-    Public Sub Dispose() Implements IDisposable.Dispose
-        ' Do not change this code. Put cleanup code in 'Dispose(disposing As Boolean)' method
-        Dispose(disposing:=True)
-        GC.SuppressFinalize(Me)
     End Sub
 
 #End Region

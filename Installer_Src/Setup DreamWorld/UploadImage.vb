@@ -47,7 +47,7 @@ Public Class UploadImage
         Try
             Dim URL = New Uri("https://outworldz.com/cgi/uploadphoto.plx")
 
-            Dim File = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
+            Dim File = IO.Path.Combine(FileSystem.CurDir(), "OutworldzFiles\Photo.png")
             Dim params As New Specialized.NameValueCollection From {
                 {"MachineID", Settings.MachineID()},
                 {"DnsName", Settings.PublicIP}

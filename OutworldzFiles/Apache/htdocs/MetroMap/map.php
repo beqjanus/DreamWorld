@@ -104,7 +104,7 @@ if (mysqli_connect_errno())
     exit();
 }
   
-  
+  $xx = 0;
 
 
   while($region=mysqli_fetch_array($z))

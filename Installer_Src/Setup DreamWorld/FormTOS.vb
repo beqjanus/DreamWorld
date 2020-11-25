@@ -60,11 +60,11 @@ Public Class TosForm
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory & "\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(FileSystem.CurDir() & "\tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\opensim\bin\WifiPages\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(FileSystem.CurDir(), "Outworldzfiles\opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception
@@ -113,7 +113,7 @@ Public Class TosForm
 
         Translate.Run(Name)
         Dim reader As System.IO.StreamReader
-        reader = System.IO.File.OpenText(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
+        reader = System.IO.File.OpenText(IO.Path.Combine(FileSystem.CurDir(), "tos.html"))
         'now loop through each line
         Dim HTML As String = ""
         While reader.Peek <> -1
@@ -134,11 +134,11 @@ Public Class TosForm
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(FileSystem.CurDir(), "tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\opensim\bin\WifiPages\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(FileSystem.CurDir(), "Outworldzfiles\opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception

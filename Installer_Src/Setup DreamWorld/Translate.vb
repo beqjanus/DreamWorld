@@ -361,7 +361,7 @@
             Case "FormJoomla"
                 FormJoomla.AdminButton.Text = Global.Outworldz.My.Resources.AdministerJoomla_word
                 FormJoomla.GroupBox1.Text = Global.Outworldz.My.Resources.Settings_word
-                FormJoomla.GroupBox2.Text = Global.Outworldz.My.Resources.Options
+                FormJoomla.NoSearch.Text = Global.Outworldz.My.Resources.Options
                 FormJoomla.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
                 FormJoomla.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
                 FormJoomla.HypericaRadioButton.Text = Global.Outworldz.My.Resources.HypericaSearch_word
