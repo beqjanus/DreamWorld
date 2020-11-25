@@ -7,6 +7,7 @@ V3.78 JOpensim fix
 A password was accidentally put in the JOpensim Backup.  Fix has been back ported to V3.77.
 Minor fix to ban list to prevent a blank line from creeping in.
 Hyperica.com rewritten to get rid of ancient PHP5 code with many improvements for Search. Only V3.77 and higher are supported.
+Load Local IAR crashed system - leftover old code
 
 Known issues: JOpensim search is still down. 
 

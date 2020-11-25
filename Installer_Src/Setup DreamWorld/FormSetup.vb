@@ -6631,18 +6631,6 @@ Public Class FormSetup
 
 #Region "IAR OAR"
 
-    Private Sub LoadLocalIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadLocalIARToolStripMenuItem.Click
-
-        Dim thing As String = sender.Text.ToString
-        Dim file As String = Mid(thing, 1, InStr(thing, "|") - 2)
-        file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
-        If LoadIARContent(file) Then
-            Print(My.Resources.isLoading & " " & file)
-        End If
-        sender.Checked = True
-
-    End Sub
-
     Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
         If PropInitted Then
             ContentOAR.Activate()
@@ -6888,6 +6876,7 @@ Public Class FormSetup
     Private Sub LocalIarClick(sender As Object, e As EventArgs) ''''
 
         Dim thing As String = sender.text.ToString
+
         Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/IAR/" & CStr(thing)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & CStr(thing))
@@ -7031,7 +7020,8 @@ Public Class FormSetup
                 Dim OarMenu As New ToolStripMenuItem With {
                     .Text = Name,
                     .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                    .Image = My.Resources.box_new
                 }
                 AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
                 LoadLocalOARToolStripMenuItem.Visible = True
@@ -7063,7 +7053,8 @@ Public Class FormSetup
                     Dim OarMenu As New ToolStripMenuItem With {
                         .Text = Name,
                         .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                        .Image = My.Resources.box_new
                     }
                     AddHandler OarMenu.Click, New EventHandler(AddressOf LoadOarClick)
                     LoadLocalOARToolStripMenuItem.Visible = True
@@ -7093,7 +7084,8 @@ Public Class FormSetup
                 Dim IarMenu As New ToolStripMenuItem With {
                     .Text = Name,
                     .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                    .Image = My.Resources.box_new
                 }
                 AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
                 LoadLocalIARToolStripMenuItem.Visible = True
