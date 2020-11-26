@@ -1197,8 +1197,11 @@ Public Class FormSetup
         myProcess.StartInfo.UseShellExecute = False ' Must be false
         myProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 
-        myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
-        myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        Try
+            myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
+            myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        Catch
+        End Try
 
         myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
         myProcess.StartInfo.CreateNoWindow = False

@@ -320,6 +320,7 @@ Public Class FormDatabase
 
     Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
 
+        FormSetup.PropStopMysql = True
         FormSetup.StopMysql()
 
     End Sub
