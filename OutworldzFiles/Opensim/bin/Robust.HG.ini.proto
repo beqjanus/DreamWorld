@@ -589,15 +589,15 @@ DOSAllowXForwardedForHeader=false
 
 ;;
 ;; The protector adds up requests during this rolling period of time, default 10 seconds
-DOSRequestTimeFrameMS=10000
+;DOSRequestTimeFrameMS=10000
 
 ;;
 ;; The amount of requests in the above timeframe from the same endpoint that triggers protection
-DOSMaxRequestsInTimeFrame=50
+;DOSMaxRequestsInTimeFrame=50
 
 ;;
 ;; The amount of time that a specific endpoint is blocked.    Default 2 minutes.
-DOSForgiveClientAfterMS=120000
+;DOSForgiveClientAfterMS=120000
 
 ;;
 ;; To turn off basic dos protection, set the DOSMaxRequestsInTimeFrame to 0.

@@ -1233,6 +1233,7 @@ Public Class FormRegionlist
         FormSetup.TimerBusy = 0
 
         For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+            Application.DoEvents()
             Dim GroupName = FormSetup.PropRegionClass.GroupName(RegionUUID)
             Dim Status = FormSetup.PropRegionClass.Status(RegionUUID)
             If FormSetup.PropRegionClass.RegionEnabled(RegionUUID) And

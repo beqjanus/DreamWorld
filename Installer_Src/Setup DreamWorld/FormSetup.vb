@@ -1355,7 +1355,7 @@ Public Class FormSetup
             If RegionUUID <> RobustName() And RegionUUID <> "Robust" Then
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
-                Application.DoEvents()
+                'Application.DoEvents()
                 Try
                     If PID > 0 And ShowDosBox Then
                         ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
@@ -1373,7 +1373,7 @@ Public Class FormSetup
                 End Try
             End If
 
-            Application.DoEvents()
+            'Application.DoEvents()
 
             'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
             command = command.Replace("+", "{+}")
@@ -1386,11 +1386,11 @@ Public Class FormSetup
                 Try
 
                     AppActivate(PID)
-                    Application.DoEvents()
+                    ' Application.DoEvents()
 
                     SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
                     SendKeys.SendWait(ToLowercaseKeys(command))
-                    Application.DoEvents()
+                    ' Application.DoEvents()
                     Select Case Settings.ConsoleShow
                         Case "True"
                         ' do nothing, already up
