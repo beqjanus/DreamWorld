@@ -1,7 +1,5 @@
 #Region "To do"
 
-' Property License As String word wrap
-
 #End Region
 
 #Region "Copyright"
@@ -30,6 +28,7 @@
 
 Imports System.Globalization
 Imports System.IO
+Imports System.IO.Compression
 Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
@@ -38,14 +37,13 @@ Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
-Imports System.IO.Compression
 
 Public Class FormSetup
 
 #Region "Version"
 
     Dim _Domain As String = "http://outworldz.com"
-    Dim _MyVersion As String = "3.77"
+    Dim _MyVersion As String = "3.781"
     Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
@@ -1191,16 +1189,19 @@ Public Class FormSetup
             End If
         End If
 
-        Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
-        Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
-
         Dim myProcess As Process = GetNewProcess()
 
         Print(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
 
         myProcess.EnableRaisingEvents = True
-        myProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+        myProcess.StartInfo.UseShellExecute = False ' Must be false
         myProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
+
+        Try
+            myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
+            myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        Catch
+        End Try
 
         myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
         myProcess.StartInfo.CreateNoWindow = False
@@ -1613,7 +1614,7 @@ Public Class FormSetup
             Settings.SetIni("Economy", "CurrencyURL", "")
         ElseIf Settings.CMS = "JOpensim" Then
             Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
-            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/Joomla/components/com_opensim/currency.php")
+            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/JOpensim/components/com_opensim/currency.php")
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
             Settings.SetIni("Economy", "CurrencyURL", "")
@@ -2341,6 +2342,7 @@ Public Class FormSetup
         ' Stop MSFT server if we are on port 80 and enabled
 
         PropApacheUninstalling = True
+
         ApacheProcess.StartInfo.FileName = "sc"
         ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
         Try
@@ -2411,7 +2413,7 @@ Public Class FormSetup
             Else
                 PropApacheUninstalling = False ' installed now, trap errors
             End If
-            Sleep(100)
+            Sleep(1000)
             Print(My.Resources.Apache_starting)
             ApacheProcess.StartInfo.FileName = "net"
             ApacheProcess.StartInfo.Arguments = "start ApacheHTTPServer"
@@ -2676,7 +2678,7 @@ Public Class FormSetup
         End If
 
         _RobustIsStarting = True
-        Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+
         PropRobustProcID = 0
 
         DoSetDefaultSims()
@@ -2684,9 +2686,11 @@ Public Class FormSetup
         Print("Robust " & Global.Outworldz.My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
-        RobustProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+        RobustProcess.StartInfo.UseShellExecute = False ' must be false
+        If Not RobustProcess.StartInfo.EnvironmentVariables.ContainsKey("OSIM_LOGLEVEL") Then
+            RobustProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        End If
         RobustProcess.StartInfo.FileName = Settings.OpensimBinPath & "robust.exe"
-
         RobustProcess.StartInfo.CreateNoWindow = False
         RobustProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath
 
@@ -3305,10 +3309,10 @@ Public Class FormSetup
         If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            Settings.SetIni("Search", "SearchURL", SearchURL)
+            Settings.SetIni("Search", "SearchURL", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/interface.php")
 
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll"), True)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "OpensimSearch.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll"), True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll"), True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll"), True)
         Else
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll"))
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll"))
@@ -3331,7 +3335,7 @@ Public Class FormSetup
         If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
+            Settings.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/Index.php?Option=com_opensim&view=guide&tmpl=component")
 
             If Settings.GloebitsEnable Then
                 Settings.SetIni("LoginService", "Currency", "G$")
@@ -6016,7 +6020,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub StopMysql()
+    Public Sub StopMysql()
 
         If Not MysqlInterface.IsMySqlRunning() Then
             Application.DoEvents()
@@ -6631,18 +6635,6 @@ Public Class FormSetup
 
 #Region "IAR OAR"
 
-    Private Sub LoadLocalIARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadLocalIARToolStripMenuItem.Click
-
-        Dim thing As String = sender.Text.ToString
-        Dim file As String = Mid(thing, 1, InStr(thing, "|") - 2)
-        file = PropDomain() & "/Outworldz_Installer/IAR/" & file 'make a real URL
-        If LoadIARContent(file) Then
-            Print(My.Resources.isLoading & " " & file)
-        End If
-        sender.Checked = True
-
-    End Sub
-
     Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
         If PropInitted Then
             ContentOAR.Activate()
@@ -6888,6 +6880,7 @@ Public Class FormSetup
     Private Sub LocalIarClick(sender As Object, e As EventArgs) ''''
 
         Dim thing As String = sender.text.ToString
+
         Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/IAR/" & CStr(thing)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & CStr(thing))
@@ -7031,7 +7024,8 @@ Public Class FormSetup
                 Dim OarMenu As New ToolStripMenuItem With {
                     .Text = Name,
                     .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                    .Image = My.Resources.box_new
                 }
                 AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
                 LoadLocalOARToolStripMenuItem.Visible = True
@@ -7063,7 +7057,8 @@ Public Class FormSetup
                     Dim OarMenu As New ToolStripMenuItem With {
                         .Text = Name,
                         .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                        .Image = My.Resources.box_new
                     }
                     AddHandler OarMenu.Click, New EventHandler(AddressOf LoadOarClick)
                     LoadLocalOARToolStripMenuItem.Visible = True
@@ -7093,7 +7088,8 @@ Public Class FormSetup
                 Dim IarMenu As New ToolStripMenuItem With {
                     .Text = Name,
                     .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text
+                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                    .Image = My.Resources.box_new
                 }
                 AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
                 LoadLocalIARToolStripMenuItem.Visible = True
