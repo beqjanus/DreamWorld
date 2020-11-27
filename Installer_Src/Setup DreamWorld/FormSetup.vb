@@ -1543,8 +1543,8 @@ Public Class FormSetup
 
         Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim"
         If Settings.CMS = "JOpensim" Then
-            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "${Const|jOpensimURL}/index.php?option=com_opensim&view=interface&messaging=")
-            Settings.SetIni("Messaging", "MuteListURL", URL & "${Const|jOpensimURL}/index.php?option=com_opensim&view=interface&messaging=")
+            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/index.php?option=com_opensim&view=interface&messaging=")
+            Settings.SetIni("Messaging", "MuteListURL", URL & "/index.php?option=com_opensim&view=interface&messaging=")
         Else
             Settings.SetIni("Messaging", "OfflineMessageURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
             Settings.SetIni("Messaging", "MuteListURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
@@ -2700,10 +2700,13 @@ Public Class FormSetup
         Print("Robust " & Global.Outworldz.My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
-        RobustProcess.StartInfo.UseShellExecute = False ' must be false
+        RobustProcess.StartInfo.UseShellExecute = False ' must be false for OSIM_LEVEL
+        RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
+
         If Not RobustProcess.StartInfo.EnvironmentVariables.ContainsKey("OSIM_LOGLEVEL") Then
             RobustProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         End If
+
         RobustProcess.StartInfo.FileName = Settings.OpensimBinPath & "robust.exe"
         RobustProcess.StartInfo.CreateNoWindow = False
         RobustProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath
@@ -2717,7 +2720,6 @@ Public Class FormSetup
                 RobustProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         End Select
 
-        RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
         Try
             RobustProcess.Start()
             Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)

@@ -375,7 +375,7 @@ ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;
 ;# economy module
-economymodule=BetaGridLikeMoneyModule
+economymodule=jOpenSimMoneyModule
 
 ;
 ; Main Frame time
@@ -452,7 +452,7 @@ GenerateMaptiles=True
 ;
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
-MapImageModule=MapImageModule
+MapImageModule=Warp3DImageModule
 
 ;
 ;; generate better images.
@@ -468,18 +468,18 @@ MapImageModule=MapImageModule
 ; MaptileStaticUUID = "00000000-0000-0000-0000-000000000000"
 ;# {TextureOnMapTile} {} {Use terrain textures for map tiles?} {true false} true
 ;; Use terrain texture for maptiles if true, use shaded green if false
-TextureOnMapTile=False
+TextureOnMapTile=True
 
 ;
 ;# {DrawPrimOnMapTile} {} {Draw prim shapes on map tiles?} {true false} false
 ;; Draw objects on maptile.  This step might take a long time if you've
 ;; got a large number of objects, so you can turn it off here if you'd like.
-DrawPrimOnMapTile=False
+DrawPrimOnMapTile=True
 
 ;
 ;# {TexturePrims} {} {Texture prims on map tiles?} {true false} true
 ;; Texture the faces of the prims that are rendered on the map tiles.
-TexturePrims=False
+TexturePrims=True
 
 ;
 ;# {TexturePrimSize} {} {Size of prims to texture faces?} {} 48
@@ -487,7 +487,7 @@ TexturePrims=False
 ; TexturePrimSize = 48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map
-RenderMeshes=False
+RenderMeshes=True
 
 ;
 ;; Map Height
@@ -856,7 +856,7 @@ OfflineMessageModule="Offline Message Module V2"
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-OfflineMessageURL=${Const|BaseURL}:${Const|PublicPort}
+OfflineMessageURL=http://192.168.2.100:80/JOpensim/index.php?option=com_opensim&view=interface&messaging=
 
 ;
 ;
@@ -876,7 +876,7 @@ MuteListModule=MuteListModule
 ;# {MuteListURL} {OfflineMessageModule:OfflineMessageModule} {} {} http://yourserver/Mute.php
 ;; URL of the web service that serves mute lists. Not currently used, but
 ;; must be set to allow offline messaging to work.
-MuteListURL=${Const|BaseURL}:${Const|PublicPort}
+MuteListURL=http://192.168.2.100:80/JOpensim/index.php?option=com_opensim&view=interface&messaging=
 
 ;
 ;
@@ -1128,7 +1128,7 @@ data_services=http://hyperica.com/Search/register.php
 ;
 ;
 [Search]
-SearchURL=http://hyperica.com/Search/query.php
+SearchURL=http://192.168.2.100:80/JOpensim//index.php?option=com_opensim&view=interface
 
 ;
 ; Optional:
@@ -1138,7 +1138,7 @@ SearchURL=http://hyperica.com/Search/query.php
 
 ;
 ;; EconomyModule = jOpenSimMoneyModule
-CurrencyURL=
+CurrencyURL=${Const|BaseURL}:${Const|PublicPort}/JOpensim/index.php?option=com_opensim&view=interface
 
 ;
 ; Optional:
