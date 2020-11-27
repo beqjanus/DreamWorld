@@ -113,19 +113,6 @@ Public Class FormJoomla
 
     End Sub
 
-    Private Sub JEnableCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles JEnableCheckBox.CheckedChanged
-
-        If JEnableCheckBox.Checked Then
-            Settings.CMS = "JOpensim"
-        Else
-            Settings.CMS = "DreamGrid"
-        End If
-
-        Settings.SaveSettings()
-        SetDefaults()
-
-    End Sub
-
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
 
         If HypericaRadioButton.Checked Then
@@ -156,14 +143,8 @@ Public Class FormJoomla
             InstallButton.Enabled = True
         End If
 
-        If Settings.JOpensimSearch Then
-            JOpensimRadioButton.Checked = True
-        Else
-            HypericaRadioButton.Checked = True
-        End If
-
         If Settings.CMS = "JOpensim" Then
-            JEnableCheckBox.Checked = True
+            JOpensimRadioButton.Checked = True
             If count > 1 Then
                 AdminButton.Enabled = True
                 ViewButton.Enabled = True
@@ -171,6 +152,7 @@ Public Class FormJoomla
         Else
             AdminButton.Enabled = False
             ViewButton.Enabled = False
+            HypericaRadioButton.Checked = True
         End If
 
     End Sub

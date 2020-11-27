@@ -1539,17 +1539,15 @@ Public Class FormSetup
 
     End Function
 
-    Private Sub SetupOpensimIM()
+    Private Shared Sub SetupOpensimIM()
 
         Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim"
         If Settings.CMS = "JOpensim" Then
-
             Settings.SetIni("Messaging", "OfflineMessageURL", URL & "${Const|jOpensimURL}/index.php?option=com_opensim&view=interface&messaging=")
             Settings.SetIni("Messaging", "MuteListURL", URL & "${Const|jOpensimURL}/index.php?option=com_opensim&view=interface&messaging=")
         Else
             Settings.SetIni("Messaging", "OfflineMessageURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
             Settings.SetIni("Messaging", "MuteListURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
-
         End If
     End Sub
 
@@ -4396,9 +4394,9 @@ Public Class FormSetup
 
                     PropUpdateView = True ' make form refresh
                 Else
-#Disable Warning CA1303
+
                     Logger("ExitHandlerPoll", "None of the above!", "Restart")
-#Enable Warning CA1303
+
                 End If
             End If
         Next
@@ -5319,9 +5317,8 @@ Public Class FormSetup
     Private Sub ProbePublicPort()
 
         If Settings.ServerType <> "Robust" Then
-#Disable Warning ca1303
+
             Logger("INFO", "Server Is Not Robust", "Diagnostics")
-#Enable Warning ca1303
 
             Return
         End If
@@ -5882,8 +5879,6 @@ Public Class FormSetup
 
 #Region "Public Properties"
 
-#Disable Warning CA2227 ' Collection properties should be read only
-
 #End Region
 
 #Region "Things"
@@ -6149,20 +6144,12 @@ Public Class FormSetup
     Private Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
-
-#Disable Warning ca1303
             Logger("INFO", "Local LAN IP", "Diagnostics")
-#Enable Warning ca1303
-
             Return
         End If
 
         If Settings.ServerType <> "Robust" Then
-
-#Disable Warning ca1303
             Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
-#Enable Warning ca1303
-
             Return
         End If
 
