@@ -1539,6 +1539,20 @@ Public Class FormSetup
 
     End Function
 
+    Private Sub SetupOpensimIM()
+
+        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim"
+        If Settings.CMS = "JOpensim" Then
+
+            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "${Const|jOpensimURL}/index.php?option=com_opensim&view=interface&messaging=")
+            Settings.SetIni("Messaging", "MuteListURL", URL & "${Const|jOpensimURL}/index.php?option=com_opensim&view=interface&messaging=")
+        Else
+            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
+            Settings.SetIni("Messaging", "MuteListURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
+
+        End If
+    End Sub
+
     Public Function DoOpensimProtoINI() As Boolean
 
         ' Opensim.ini
@@ -1550,8 +1564,10 @@ Public Class FormSetup
                 Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
                 Settings.SetIni("Const", "GridName", Settings.SimName)
+                SetupOpensimIM()
             Case "Region"
                 SetupOpensimSearchINI()
+                SetupOpensimIM()
             Case "OSGrid"
             Case "Metro"
         End Select
@@ -1614,7 +1630,7 @@ Public Class FormSetup
             Settings.SetIni("Economy", "CurrencyURL", "")
         ElseIf Settings.CMS = "JOpensim" Then
             Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
-            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/JOpensim/components/com_opensim/currency.php")
+            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/JOpensim/index.php?option=com_opensim&view=interface")
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
             Settings.SetIni("Economy", "CurrencyURL", "")
@@ -3304,28 +3320,33 @@ Public Class FormSetup
 
     End Sub
 
-    Private Shared Sub SetupOpensimSearchINI()
+    Private Shared Sub SetupDataSnapshot()
 
-        If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
-            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
-            Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            Settings.SetIni("Search", "SearchURL", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/interface.php")
-
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll"), True)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll"), True)
-        Else
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimProfile.Modules.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensimSearch.Modules.dll"))
-            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-            Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
-        End If
-
-        ' RegionSnapShot
+        'Opensim.Proto RegionSnapShot
         Settings.SetIni("DataSnapshot", "index_sims", "True")
         If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
-            Settings.SetIni("DataSnapshot", "data_services", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/components/com_opensim/registersearch.php")
+            Settings.SetIni("DataSnapshot", "data_services", "")
         Else
             Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
+        End If
+
+    End Sub
+
+    Private Shared Sub SetupOpensimSearchINI()
+
+        'Opensim.Proto
+
+        If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim//index.php?option=com_opensim&view=interface"
+            Settings.SetIni("Search", "SearchURL", SearchURL)
+
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Profile.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Profile.dll"), True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Search.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Search.dll"), True)
+        Else
+            Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
+
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Profile.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Search.dll"))
         End If
 
     End Sub
