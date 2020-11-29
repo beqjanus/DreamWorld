@@ -1807,6 +1807,7 @@ Public Class FormSetup
         & "&Category=" & Settings.Categories _
         & "&Description=" & Settings.Description _
         & "IP=" & Settings.PublicIP _
+        & "ServerType=" & Settings.ServerType _
         & "&r=" & RandomNumber.Random()
         Return data
 

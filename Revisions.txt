@@ -2,6 +2,12 @@
 
 This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.781 JOpensim  Update
+This rev of DreamGrid supports Rev 0.3.2.0.  If you are running Jopensim at an earlier rev, you must update JOpensim in the Joomla/administrator menu. There are minor changes in new added features, but huge changes to the internal communication structure between OpenSimulator and Joomla.
+
+Step 1) To Update Joomla, navigate to your Joomla admin panel at http://127.0.0.1/JOpensim/administrator and log in as Admin.  In the top menu, go to Component->Joomla Update and update your Joomla system.  
+Step 2)Go to Extensions-Manage->Install and click Browse to File.   The file you install is in OutworldzFiles\Apache\JOpensim_Files\Version0.3.2.0. Select and install pkg_jopensim.0.3.2.0.zip. There is no need to unzip it first.
+
 
 V3.78 JOpensim fix
 A password was accidentally put in the JOpensim Backup.  Fix has been back ported to V3.77.
