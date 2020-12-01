@@ -39,6 +39,9 @@ Imports System.Threading
 Imports IWshRuntimeLibrary
 
 Public Class FormSetup
+    Private Const JOpensim As String = "JOpensim"
+    Private Const Hyperica As String = "Hyperica"
+    Private Const DreamGrid As String = "DreamGrid"
 
 #Region "Version"
 
@@ -1542,7 +1545,7 @@ Public Class FormSetup
     Private Shared Sub SetupOpensimIM()
 
         Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim"
-        If Settings.CMS = "JOpensim" Then
+        If Settings.CMS = JOpensim Then
             Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/index.php?option=com_opensim&view=interface&messaging=")
             Settings.SetIni("Messaging", "MuteListURL", URL & "/index.php?option=com_opensim&view=interface&messaging=")
         Else
@@ -1626,7 +1629,7 @@ Public Class FormSetup
         If Settings.GloebitsEnable Then
             Settings.SetIni("Startup", "economymodule", "Gloebit")
             Settings.SetIni("Economy", "CurrencyURL", "")
-        ElseIf Settings.CMS = "JOpensim" Then
+        ElseIf Settings.CMS = JOpensim Then
             Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
             Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/JOpensim/index.php?option=com_opensim&view=interface")
         Else
@@ -2310,7 +2313,7 @@ Public Class FormSetup
         SiteMapContents += "<url>" & vbCrLf
         SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
 
-        If Settings.CMS = "JOpensim" Then
+        If Settings.CMS = JOpensim Then
             SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/JOpensim" & "</loc>" & vbCrLf
         End If
 
@@ -3325,10 +3328,12 @@ Public Class FormSetup
 
         'Opensim.Proto RegionSnapShot
         Settings.SetIni("DataSnapshot", "index_sims", "True")
-        If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
+        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
             Settings.SetIni("DataSnapshot", "data_services", "")
-        Else
+        ElseIf Settings.JOpensimSearch = Hyperica Then
             Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
+        Else
+            Settings.SetIni("DataSnapshot", "data_services", "")
         End If
 
     End Sub
@@ -3337,43 +3342,47 @@ Public Class FormSetup
 
         'Opensim.Proto
 
-        If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
+        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim//index.php?option=com_opensim&view=interface"
             Settings.SetIni("Search", "SearchURL", SearchURL)
-
             FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Profile.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Profile.dll"), True)
             FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Search.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Search.dll"), True)
-        Else
+        ElseIf Settings.JOpensimSearch = Hyperica Then
             Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
-
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Profile.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Search.dll"))
+        Else
+            Settings.SetIni("Search", "SearchURL", "")
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Profile.dll"))
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "JOpensim.Search.dll"))
         End If
 
     End Sub
 
+    Private Shared Sub SetupMoney()
+
+        If Settings.GloebitsEnable And Settings.CMS = JOpensim Then
+            Settings.SetIni("LoginService", "Currency", "G$")
+        ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
+            Settings.SetIni("LoginService", "Currency", "jO$")
+        Else
+            Settings.SetIni("LoginService", "Currency", "$")
+        End If
+
+    End Sub
+
     Private Shared Sub SetupRobustSearchINI()
 
-        If Settings.CMS = "JOpensim" And Settings.JOpensimSearch Then
+        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewer&templ=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/Index.php?Option=com_opensim&view=guide&tmpl=component")
-
-            If Settings.GloebitsEnable Then
-                Settings.SetIni("LoginService", "Currency", "G$")
-            Else
-                Settings.SetIni("LoginService", "Currency", "jO$")
-            End If
-        Else
+        ElseIf Settings.JOpensimSearch = Hyperica Then
             Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
             Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
-
-            If Settings.GloebitsEnable Then
-                Settings.SetIni("LoginService", "Currency", "G$")
-            Else
-                Settings.SetIni("LoginService", "Currency", "$")
-            End If
-
+        Else
+            Settings.SetIni("LoginService", "SearchURL", "")
+            Settings.SetIni("LoginService", "DestinationGuide", "")
         End If
 
     End Sub
@@ -3819,7 +3828,7 @@ Public Class FormSetup
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
-                If Settings.CMS = "JOpensim" Then
+                If Settings.CMS = JOpensim Then
                     GridCommon = "Gridcommon-GridServer-JOpensim.ini"
                 Else
                     GridCommon = "Gridcommon-GridServer.ini"
@@ -3954,6 +3963,8 @@ Public Class FormSetup
 
         SetupRobustSearchINI()
 
+        SetupMoney()
+
         Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
         'FSASSETS
@@ -3971,7 +3982,7 @@ Public Class FormSetup
 
         Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
 
-        If Settings.CMS = "JOpensim" Then
+        If Settings.CMS = JOpensim Then
             Settings.SetIni("ServiceList", "GetTextureConnector", "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureSeverConnector")
         Else
             Settings.SetIni("ServiceList", "GetTextureConnector", "")

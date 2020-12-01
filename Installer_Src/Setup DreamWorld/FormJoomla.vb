@@ -4,13 +4,15 @@ Imports System.IO.Compression
 Imports System.Text.RegularExpressions
 
 Public Class FormJoomla
+    Private Const JOpensim As String = "JOpensim"
+    Private Const Hyperica As String = "Hyperica"
 
     Public Sub LoadSub() Handles Me.Load
 
         Translate.Run(Name)
         Translate.Run(Name)
         SetDefaults()
-        HelpOnce("JOpensim")
+        HelpOnce(JOpensim)
 
     End Sub
 
@@ -36,7 +38,7 @@ Public Class FormJoomla
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
-        HelpManual("JOpensim")
+        HelpManual(JOpensim)
 
     End Sub
 
@@ -101,7 +103,7 @@ Public Class FormJoomla
 
         End If
 
-        HelpManual("JOpensim")
+        HelpManual(JOpensim)
         AdminButton.Enabled = True
         ViewButton.Enabled = True
         InstallButton.Enabled = False
@@ -118,7 +120,7 @@ Public Class FormJoomla
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
 
         If HypericaRadioButton.Checked Then
-            Settings.JOpensimSearch = False
+            Settings.JOpensimSearch = Hyperica
             Settings.SaveSettings()
             JOpensimRadioButton.Checked = False
         End If
@@ -128,7 +130,7 @@ Public Class FormJoomla
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles JOpensimRadioButton.CheckedChanged
 
         If JOpensimRadioButton.Checked Then
-            Settings.JOpensimSearch = True
+            Settings.JOpensimSearch = JOpensim
             Settings.SaveSettings()
             HypericaRadioButton.Checked = False
         End If
@@ -145,7 +147,7 @@ Public Class FormJoomla
             InstallButton.Enabled = True
         End If
 
-        If Settings.CMS = "JOpensim" Then
+        If Settings.CMS = JOpensim Then
             JOpensimRadioButton.Checked = True
             If count > 1 Then
                 AdminButton.Enabled = True
@@ -160,6 +162,46 @@ Public Class FormJoomla
     End Sub
 
     Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
+
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub RadioButton2_CheckedChanged_1(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
+
+        Settings.JOpensimSearch = ""
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub UpdateButton_Click(sender As Object, e As EventArgs) Handles UpdateButton.Click
+
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub BackupButton_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
+
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub ReinstallButton_Click(sender As Object, e As EventArgs) Handles ReinstallButton.Click
 
         Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
         Try
