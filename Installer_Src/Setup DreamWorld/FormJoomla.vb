@@ -42,6 +42,8 @@ Public Class FormJoomla
 
     Private Sub InstallJOpensim()
 
+        FormSetup.StartMySQL()
+
         Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip")
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
