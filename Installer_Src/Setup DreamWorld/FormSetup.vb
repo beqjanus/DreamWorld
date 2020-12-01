@@ -4524,7 +4524,9 @@ Public Class FormSetup
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
+
         ReallyQuit()
+
     End Sub
 
     ''' <summary>Form Load is main() for all DreamGrid</summary>
@@ -4568,14 +4570,16 @@ Public Class FormSetup
 
         Settings.CurrentDirectory = _myFolder
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
+
         Log("Startup:", DisplayObjectInfo(Me))
+        SetScreen()     ' move Form to fit screen from SetXY.ini
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
 
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
-        FrmHome_Load(sender, e) 'Load everything in your form load event again
+        FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be tradslated
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
     End Sub
