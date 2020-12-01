@@ -10,7 +10,6 @@ Public Class FormJoomla
     Public Sub LoadSub() Handles Me.Load
 
         Translate.Run(Name)
-        Translate.Run(Name)
         SetDefaults()
         HelpOnce(JOpensim)
 
@@ -55,8 +54,7 @@ Public Class FormJoomla
             Dim JoomlaProcess As New Process()
             JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
             JoomlaProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
-            JoomlaProcess.StartInfo.CreateNoWindow = True
-            JoomlaProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            JoomlaProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
 
             Try
                 JoomlaProcess.Start()
@@ -104,9 +102,6 @@ Public Class FormJoomla
         End If
 
         HelpManual(JOpensim)
-        AdminButton.Enabled = True
-        ViewButton.Enabled = True
-        InstallButton.Enabled = False
 
         Dim webAddress As String = "http://127.0.0.1:" & Settings.ApachePort & "/JOpensim"
         Try
@@ -115,6 +110,8 @@ Public Class FormJoomla
             BreakPoint.Show(ex.Message)
         End Try
 
+        Me.Close()
+
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
@@ -122,7 +119,7 @@ Public Class FormJoomla
         If HypericaRadioButton.Checked Then
             Settings.JOpensimSearch = Hyperica
             Settings.SaveSettings()
-            JOpensimRadioButton.Checked = False
+
         End If
 
     End Sub
@@ -132,38 +129,53 @@ Public Class FormJoomla
         If JOpensimRadioButton.Checked Then
             Settings.JOpensimSearch = JOpensim
             Settings.SaveSettings()
-            HypericaRadioButton.Checked = False
         End If
 
     End Sub
 
     Private Sub SetDefaults()
 
-        Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
-        Dim count = folders.Length
+        Dim count As Integer
+        Try
+            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
+            count = folders.Length
+        Catch
+        End Try
+
         InstallButton.Enabled = False
+
+        If Not Settings.ApacheEnable Then
+            InstallButton.Enabled = False
+            AdminButton.Enabled = False
+            ViewButton.Enabled = False
+            UpdateButton.Enabled = False
+            BackupButton.Enabled = False
+            ReinstallButton.Enabled = False
+            MsgBox(My.Resources.Apache_Disabled)
+            JOpensimRadioButton.Checked = False
+            JOpensimRadioButton.Enabled = False
+            Return
+        End If
 
         If count <= 1 Then
             InstallButton.Enabled = True
         End If
 
-        If Settings.CMS = JOpensim Then
+        If count > 1 Then
+            JOpensimRadioButton.Enabled = True
             JOpensimRadioButton.Checked = True
-            If count > 1 Then
-                AdminButton.Enabled = True
-                ViewButton.Enabled = True
-            End If
-        Else
-            AdminButton.Enabled = False
-            ViewButton.Enabled = False
-            HypericaRadioButton.Checked = True
+            AdminButton.Enabled = True
+            ViewButton.Enabled = True
+            UpdateButton.Enabled = True
+            BackupButton.Enabled = True
+            ReinstallButton.Enabled = True
         End If
 
     End Sub
 
     Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/index.php?r=" & Random.ToString
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -181,7 +193,7 @@ Public Class FormJoomla
 
     Private Sub UpdateButton_Click(sender As Object, e As EventArgs) Handles UpdateButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/administrator/index.php?option=com_installer&r=" & Random.ToString
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -203,7 +215,11 @@ Public Class FormJoomla
 
     Private Sub ReinstallButton_Click(sender As Object, e As EventArgs) Handles ReinstallButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache")
+        FileStuff.CopyFile(IO.Path.Combine(path, "Jopensim_Files\kickstart.php"), IO.Path.Combine(path, "htdocs\JOpensim\kickstart.php"), True)
+        FileStuff.CopyFile(IO.Path.Combine(path, "Jopensim_Files\en-GB.kickstart.ini"), IO.Path.Combine(path, "htdocs\JOpensim\en-GB.kickstart.ini"), True)
+
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/kickstart.php?r=" & Random.ToString
         Try
             Process.Start(webAddress)
         Catch ex As Exception

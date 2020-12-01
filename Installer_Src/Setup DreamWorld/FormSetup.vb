@@ -39,15 +39,16 @@ Imports System.Threading
 Imports IWshRuntimeLibrary
 
 Public Class FormSetup
+
+#Region "Const"
+
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
     Private Const DreamGrid As String = "DreamGrid"
-
-#Region "Version"
-
-    Dim _Domain As String = "http://outworldz.com"
-    Dim _MyVersion As String = "3.781"
-    Dim _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
+    Private Const jOpensimRev = "3.9.23"
+    Private Const _Domain As String = "http://outworldz.com"
+    Private Const _MyVersion As String = "3.781"
+    Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
 
@@ -1277,6 +1278,17 @@ Public Class FormSetup
 
     End Sub
 
+#Region "Updater"
+
+    Private Sub CheckForjOpensimUpdate()
+
+        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim\" & jOpensimRev)
+        If Not IO.File.Exists(file) Then
+            HelpManual("Joomla Update")
+        End If
+
+    End Sub
+
     Public Sub CheckForUpdates()
 
         Using client As New WebClient ' download client for web pages
@@ -1335,6 +1347,8 @@ Public Class FormSetup
         End If
 
     End Sub
+
+#End Region
 
     Public Function ConsoleCommand(RegionUUID As String, command As String) As Boolean
 
@@ -4752,6 +4766,8 @@ Public Class FormSetup
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
 
+        CheckForjOpensimUpdate()
+
     End Sub
 
 #End Region
@@ -5887,18 +5903,6 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Event Declarations"
-
-#End Region
-
-#Region "Public Enums"
-
-#End Region
-
-#Region "Public Properties"
-
-#End Region
-
 #Region "Things"
 
     Private Shared Sub SetupWordPress()
@@ -5997,23 +6001,7 @@ Public Class FormSetup
 
 #End Region
 
-#Region "BootUp"
-
-#End Region
-
-#Region "ExitHandler Polling"
-
-#End Region
-
-#Region "Do"
-
-#End Region
-
 #Region "Stopping"
-
-#End Region
-
-#Region "Logging"
 
     Private Sub StopApache(force As Boolean)
 
@@ -6099,6 +6087,8 @@ Public Class FormSetup
 
     End Sub
 
+#End Region
+
     Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
         Dim webAddress As String = PropDomain & "/Outworldz_installer/technical.htm"
         Try
@@ -6182,8 +6172,6 @@ Public Class FormSetup
         TextBox1.SelectionStart = ln
         TextBox1.ScrollToCaret()
     End Sub
-
-#End Region
 
     Private Sub Trim()
         If TextBox1.Text.Length > TextBox1.MaxLength - 100 Then
