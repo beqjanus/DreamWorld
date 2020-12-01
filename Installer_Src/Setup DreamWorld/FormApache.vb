@@ -152,7 +152,9 @@ Public Class FormApache
     End Sub
 
     Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
+
         HelpManual("Apache")
+
     End Sub
 
     Private Sub EnableDiva_CheckedChanged(sender As Object, e As EventArgs) Handles EnableDiva.CheckedChanged
@@ -165,6 +167,24 @@ Public Class FormApache
     Private Sub EnableJOpensim_CheckedChanged(sender As Object, e As EventArgs) Handles EnableJOpensim.CheckedChanged
 
         If Not initted Then Return
+
+        If Not EnableJOpensim.Checked Then Return
+
+        Dim Exist As Boolean
+        Try
+            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
+            If folders.Length > 1 Then
+                Exist = True
+            End If
+        Catch
+        End Try
+
+        If Not Exist Then
+            MsgBox("That folder has no content. Install Joomla and JOpensim first, then enable this.")
+            EnableDiva.Checked = True
+            Return
+        End If
+
         If EnableJOpensim.Checked Then Settings.CMS = JOpensim
 
     End Sub
@@ -172,11 +192,22 @@ Public Class FormApache
     Private Sub EnableOther_CheckedChanged(sender As Object, e As EventArgs) Handles EnableOther.CheckedChanged
 
         If Not initted Then Return
-        Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\" & Other.Text))
-        Dim count = folders.Length
+        If Not EnableOther.Checked Then Return
 
-        If count <= 1 Then
-            MsgBox("That folder has no content")
+        Dim Exist As Boolean
+        Try
+            If Other.Text.Length > 0 Then
+                Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\" & Other.Text))
+                If folders.Length > 1 Then
+                    Exist = True
+                End If
+            End If
+        Catch
+        End Try
+
+        If Not Exist Then
+            MsgBox("That folder has no content. Install a CMS and then enable 'Other'.")
+            EnableDiva.Checked = True
             Return
         End If
 
@@ -187,12 +218,20 @@ Public Class FormApache
     Private Sub EnableWP_CheckedChanged(sender As Object, e As EventArgs) Handles EnableWP.CheckedChanged
 
         If Not initted Then Return
+        If Not EnableWP.Checked Then Return
 
-        Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\WordPress"))
-        Dim count = folders.Length
+        Dim Exist As Boolean
+        Try
+            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\WordPress"))
+            If folders.Length > 1 Then
+                Exist = True
+            End If
+        Catch
+        End Try
 
-        If count <= 1 Then
-            MsgBox("WordPress is not installed")
+        If Not Exist Then
+            MsgBox("That folder has no content. Install WordPress then enable WordPress.")
+            EnableDiva.Checked = True
             Return
         End If
 
