@@ -100,6 +100,7 @@ NoVerifyCertHostname=true
 
 ; having both options true does provide encryption but with low security
 ; set both true if you don't care to use SSL, they are needed to contact regions or grids that do use it.
+
 [ServiceList]
 AssetServiceConnector="${Const|PrivatePort}/OpenSim.Server.Handlers.dll:AssetServiceConnector"
 InventoryInConnector="${Const|PrivatePort}/OpenSim.Server.Handlers.dll:XInventoryInConnector"
@@ -537,7 +538,7 @@ WelcomeMessage=Welcome to DreamGrid
 AllowRemoteSetLoginLevel="false"
 
 ; For V2 map
-MapTileURL="${Const|BaseURL}:${Const|PublicPort}/";
+MapTileURL="${Const|BaseURL}:${Const|PublicPort}/"
 
 ; Url to search service
 ;SearchURL = "${Const|BaseURL}:${Const|PublicPort}/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
@@ -898,9 +899,7 @@ SMTP_SERVER_PASSWORD=Gmail password
 [AutoLoadTeleport]
 Enabled=False
 
-
-
+;; For Joomla/jOpensim
 [CapsService]
-
 AssetService = "OpenSim.Services.AssetService.dll:AssetService"
 	
