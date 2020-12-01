@@ -46,7 +46,7 @@
 
 ;
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=8005
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -55,7 +55,7 @@ RegionFolderName=Welcome
 
 ;
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=gandalf.outworldz.net
+BaseHostname=192.168.2.100
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -65,7 +65,7 @@ BaseURL=http://${Const|BaseHostname}
 ;
 ; Automatically changed by Dreamworld - do not change this
 ;# {PrivURL} {} {PrivURL} {127.0.0.1} "127.0.0.1"
-PrivURL=http://192.168.2.139
+PrivURL=http://192.168.2.100
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -80,7 +80,7 @@ PrivatePort=8003
 ;
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=Gandalf
+GridName=DreamGrid
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -375,7 +375,7 @@ ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;
 ;# economy module
-economymodule=Gloebit
+economymodule=jOpenSimMoneyModule
 
 ;
 ; Main Frame time
@@ -604,7 +604,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=gandalf.outworldz.net
+host_domain_header_from=192.168.2.100
 
 ;
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
@@ -685,7 +685,7 @@ http_listener_port=${Const|http_listener_port}
 ;
 ; OutboundDisallowForUserScriptsExcept = 192.168.1.2/32
 ;
-OutboundDisallowForUserScriptsExcept=192.168.2.139/32
+OutboundDisallowForUserScriptsExcept=192.168.2.100/32
 
 ;
 ; See http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation for more information on CIDR notation
@@ -856,7 +856,7 @@ OfflineMessageModule="Offline Message Module V2"
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-OfflineMessageURL=${Const|BaseURL}:${Const|PublicPort}
+OfflineMessageURL=http://192.168.2.100:80/JOpensim/index.php?option=com_opensim&view=interface&messaging=
 
 ;
 ;
@@ -876,7 +876,7 @@ MuteListModule=MuteListModule
 ;# {MuteListURL} {OfflineMessageModule:OfflineMessageModule} {} {} http://yourserver/Mute.php
 ;; URL of the web service that serves mute lists. Not currently used, but
 ;; must be set to allow offline messaging to work.
-MuteListURL=${Const|BaseURL}:${Const|PublicPort}
+MuteListURL=http://192.168.2.100:80/JOpensim/index.php?option=com_opensim&view=interface&messaging=
 
 ;
 ;
@@ -932,7 +932,7 @@ port=0
 ;# {access_password} {enabled:true} {Password for the remote admin interface} {}
 ;; This password is required to make any XMLRPC call (should be set as
 ;; the "password" parameter)
-access_password=Gandalf
+access_password=526325344
 
 ;
 ;# {access_ip_addresses} {enabled:true} {List the IP addresses allowed to call RemoteAdmin?} {}
@@ -1128,7 +1128,7 @@ data_services=http://hyperica.com/Search/register.php
 ;
 ;
 [Search]
-SearchURL=http://hyperica.com/Search/query.php
+SearchURL=http://192.168.2.100:80/JOpensim//index.php?option=com_opensim&view=interface
 
 ;
 ; Optional:
@@ -1138,7 +1138,7 @@ SearchURL=http://hyperica.com/Search/query.php
 
 ;
 ;; EconomyModule = jOpenSimMoneyModule
-CurrencyURL=
+CurrencyURL=${Const|BaseURL}:${Const|PublicPort}/JOpensim/index.php?option=com_opensim&view=interface
 
 ;
 ; Optional:

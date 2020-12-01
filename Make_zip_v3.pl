@@ -25,7 +25,7 @@ my $dir = getcwd;
 say ("Building DreamGrid$type.zip");
 
 
-say ('Server Publish? <p = publish, c = clean>');
+say ('Server Publish? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
@@ -125,9 +125,9 @@ sub process_file {
 	print OUT $fullpath . "\n";	
 }
 
-# these are needed in this file even if deleted on disk as there is a .bak file.
-print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensimProfile.Modules.dll\n";
-print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensimSearch.Modules.dll\n";
+# these are needed in this file even if deleted on disk.
+print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensim.Profile.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensim.Search.dll\n";
 
 close OUT;
 

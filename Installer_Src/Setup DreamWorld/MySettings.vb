@@ -1858,8 +1858,6 @@ Public Class MySettings
 
     End Property
 
-#Disable Warning CA1056 ' Uri properties should not be strings
-
     Public Property WelcomeRegion() As String
         Get
             Return GetMySetting("WelcomeRegion", "Welcome")
@@ -1923,9 +1921,8 @@ Public Class MySettings
         Apacheout.Clear()
         Dim found As Boolean = False
         For Each Item As String In Apachein
-#Disable Warning CA1307 ' Specify StringComparison
             If Item.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase) Then
-#Enable Warning CA1307 ' Specify StringComparison
+
                 Apacheout.Add(value)
                 found = True
             Else

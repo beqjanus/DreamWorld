@@ -367,7 +367,6 @@
                 FormJoomla.HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
                 FormJoomla.InstallButton.Image = Global.Outworldz.My.Resources.Resources.gear_run
                 FormJoomla.InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
-                FormJoomla.JEnableCheckBox.Text = Global.Outworldz.My.Resources.Resources.EnableJOpensim
                 FormJoomla.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
                 FormJoomla.ViewButton.Image = Global.Outworldz.My.Resources.Resources.edge
                 FormJoomla.ViewButton.Text = Global.Outworldz.My.Resources.Resources.ViewJoomla_word
