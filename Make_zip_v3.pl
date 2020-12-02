@@ -1,3 +1,6 @@
+# build Zipfile
+# AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
+
 use strict;
 use IO::All;
 use warnings;
@@ -126,8 +129,9 @@ sub process_file {
 }
 
 # these are needed in this file even if deleted on disk.
-print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensim.Profile.dll\n";
-print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensim.Search.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Profile.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Search.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Money.dll\n";
 
 close OUT;
 
