@@ -3976,7 +3976,7 @@ Public Class FormSetup
         If Settings.CMS = JOpensim Then
             Settings.SetIni("Groups", "Module", "GroupsModule")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "/JOpensim/index.php?option=com_opensim&view=interface"
+            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "/JOpensim/index.php?option=com_opensim&view=interface")
             Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
 
             Settings.SetIni("GridInfoService", "welcome", "http://" & Settings.PublicIP & "/JOpensim/index.php?option=com_opensim")
