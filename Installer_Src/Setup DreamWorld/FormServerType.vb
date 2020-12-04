@@ -50,6 +50,7 @@
             If result = vbYes Then
                 FormSetup.PropViewedSettings = True
                 SaveAll()
+                FormSetup.DoGridCommon()
             End If
         End If
     End Sub

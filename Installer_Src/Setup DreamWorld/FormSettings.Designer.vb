@@ -291,7 +291,7 @@ Partial Class FormSettings
         Me.Button5.Name = "Button5"
         Me.Button5.Size = New System.Drawing.Size(143, 23)
         Me.Button5.TabIndex = 25
-        Me.Button5.Text = "Joomla/JOpensim"
+        Me.Button5.Text = "Joomla/jOpensim"
         Me.ToolTip1.SetToolTip(Me.Button5, Global.Outworldz.My.Resources.Resources.Click_Setup)
         Me.Button5.UseVisualStyleBackColor = True
         '

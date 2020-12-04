@@ -4,7 +4,8 @@ Module FileStuff
 
     Sub CopyFile(Source As String, Dest As String, overwrite As Boolean)
 
-        If Source.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
+        If Source.EndsWith("\Opensim.ini", StringComparison.InvariantCulture) Then Return
+        If Source.EndsWith("/Opensim.ini", StringComparison.InvariantCulture) Then Return
         If Source.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
         If Source.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
         If Source.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return

@@ -258,7 +258,7 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public ReadOnly Property PropDomain As String
+    Public Shared ReadOnly Property PropDomain As String
         Get
             Return _Domain
         End Get
@@ -397,7 +397,7 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public ReadOnly Property PropMyVersion As String
+    Public Shared ReadOnly Property PropMyVersion As String
         Get
             Return _MyVersion
         End Get
@@ -490,7 +490,7 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public ReadOnly Property PropSimVersion As String
+    Public Shared ReadOnly Property PropSimVersion As String
         Get
             Return _SimVersion
         End Get
@@ -553,7 +553,7 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public ReadOnly Property SimVersion As String
+    Public Shared ReadOnly Property SimVersion As String
         Get
             Return _SimVersion
         End Get
@@ -1202,7 +1202,7 @@ Public Class FormSetup
         myProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 
         Try
-            myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
+            myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName & "\")
             myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         Catch
         End Try
@@ -1280,9 +1280,9 @@ Public Class FormSetup
 
 #Region "Updater"
 
-    Private Sub CheckForjOpensimUpdate()
+    Private Shared Sub CheckForjOpensimUpdate()
 
-        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim\" & jOpensimRev)
+        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\jOpensim\" & jOpensimRev)
         If Not IO.File.Exists(file) Then
             HelpManual("Joomla Update")
         End If
@@ -1294,7 +1294,7 @@ Public Class FormSetup
         Using client As New WebClient ' download client for web pages
             Print(My.Resources.Checking_for_Updates_word)
             Try
-                Update_version = client.DownloadString(PropDomain() & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
+                Update_version = client.DownloadString(PropDomain & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
@@ -1558,19 +1558,19 @@ Public Class FormSetup
 
     Private Shared Sub SetupOpensimIM()
 
-        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim"
+        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim"
         If Settings.CMS = JOpensim Then
             Settings.SetIni("Messaging", "OfflineMessageModule", "OfflineMessageModule")
             Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/index.php?option=com_opensim&view=interface&messaging=")
             Settings.SetIni("Messaging", "MuteListURL", URL & "/index.php?option=com_opensim&view=interface&messaging=")
         Else
             Settings.SetIni("Messaging", "OfflineMessageModule", "Offline Message Module V2")
-            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
+            Settings.SetIni("Messaging", "OfflineMessageURL", "${Const|BaseURL}:${Const|PublicPort}")
             Settings.SetIni("Messaging", "MuteListURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
         End If
     End Sub
 
-    Public Function DoOpensimProtoINI() As Boolean
+    Public Shared Function DoOpensimProtoINI() As Boolean
 
         ' Opensim.ini
         Settings.LoadIni(GetOpensimProto(), ";")
@@ -1593,6 +1593,18 @@ Public Class FormSetup
             Settings.SetIni("UserProfiles", "ProfileServiceURL", "")
         Else
             Settings.SetIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
+        End If
+
+        If Settings.CMS = JOpensim Then
+            Settings.SetIni("Groups", "Module", "GroupsModule")
+            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
+            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "/jOpensim/index.php?option=com_opensim&view=interface")
+            Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
+        Else
+            Settings.SetIni("Groups", "Module", "Groups Module V2")
+            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "Groups HG Service Connector" & """")
+            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "${Const|PrivURL}:${Const|PrivatePort}")
+            Settings.SetIni("Groups", "MessagingModule", "Groups Messaging Module V2")
         End If
 
         Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
@@ -1653,7 +1665,7 @@ Public Class FormSetup
             Settings.SetIni("Economy", "CurrencyURL", "")
         ElseIf Settings.CMS = JOpensim Then
             Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
-            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/JOpensim/index.php?option=com_opensim&view=interface")
+            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/jOpensim/index.php?option=com_opensim&view=interface")
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
             Settings.SetIni("Economy", "CurrencyURL", "")
@@ -1817,7 +1829,7 @@ Public Class FormSetup
 
     End Function
 
-    Public Function GetPostData() As String
+    Public Shared Function GetPostData() As String
 
         Dim Grid As String = "Grid"
 
@@ -2336,7 +2348,7 @@ Public Class FormSetup
         SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
 
         If Settings.CMS = JOpensim Then
-            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/JOpensim" & "</loc>" & vbCrLf
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/jOpensim" & "</loc>" & vbCrLf
         End If
 
         If Settings.CMS = "WordPress" Then
@@ -2979,7 +2991,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Sub UploadCategory()
+    Public Shared Sub UploadCategory()
 
         If Settings.DNSName.Length = 0 Then Return
 
@@ -3003,7 +3015,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Sub UploadPhoto()
+    Public Shared Sub UploadPhoto()
 
         ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
         If Settings.GDPR() Then
@@ -3365,33 +3377,36 @@ Public Class FormSetup
         'Opensim.Proto
 
         If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
-            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim//index.php?option=com_opensim&view=interface"
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface"
             Settings.SetIni("Search", "SearchURL", SearchURL)
             FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"), True)
             FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"), True)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Money.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Money.dll"), True)
         ElseIf Settings.JOpensimSearch = Hyperica Then
             Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         Else
             Settings.SetIni("Search", "SearchURL", "")
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         End If
 
     End Sub
 
     Private Shared Sub SetupMoney()
 
-        If Settings.GloebitsEnable And Settings.CMS = JOpensim Then
+        If Settings.GloebitsEnable Then
             Settings.SetIni("LoginService", "Currency", "G$")
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"), True)
+            'FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
             Settings.SetIni("LoginService", "Currency", "jO$")
+            'FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Money.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Money.dll"), True)
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         Else
             Settings.SetIni("LoginService", "Currency", "$")
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+            'FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         End If
 
     End Sub
@@ -3399,9 +3414,9 @@ Public Class FormSetup
     Private Shared Sub SetupRobustSearchINI()
 
         If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
-            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/JOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
+            Settings.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
         ElseIf Settings.JOpensimSearch = Hyperica Then
             Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
             Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
@@ -3839,7 +3854,7 @@ Public Class FormSetup
 
     End Function
 
-    Private Function DoGridCommon() As Boolean
+    Public Function DoGridCommon() As Boolean
 
         Print("->Set GridCommon.ini")
 
@@ -3926,7 +3941,7 @@ Public Class FormSetup
 "$CONF_center_coord_y = " & """" & CStr(Settings.MapCenterY) & """" & ";		// the Center-Y-Coordinate " & vbCrLf &
 "// style-sheet items" & vbCrLf &
 "$CONF_style_sheet     = " & """" & "/css/stylesheet.css" & """" & ";          //Link To your StyleSheet" & vbCrLf &
-"$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  WordPress, DreamGrid, JOpensim/JOpensim or user assigned folder" & vbCrLf &
+"$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  WordPress, DreamGrid, JOpensim/jOpensim or user assigned folder" & vbCrLf &
 "?>"
 
         Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php"), False)
@@ -3973,24 +3988,6 @@ Public Class FormSetup
         Settings.SetIni("Const", "PrivatePort", Convert.ToString(Settings.PrivatePort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture))
 
-        If Settings.CMS = JOpensim Then
-            Settings.SetIni("Groups", "Module", "GroupsModule")
-            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "/JOpensim/index.php?option=com_opensim&view=interface")
-            Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
-
-            Settings.SetIni("GridInfoService", "welcome", "http://" & Settings.PublicIP & "/JOpensim/index.php?option=com_opensim")
-            Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}/JOpensim/components/com_opensim/")
-        Else
-            Settings.SetIni("Groups", "Module", "Groups Module V2")
-            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "Groups HG Service Connector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "${Const|PrivURL}:${Const|PrivatePort}")
-            Settings.SetIni("Groups", "MessagingModule", "Groups Messaging Module V2")
-
-            Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
-            Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
-        End If
-
         If Settings.Suitcase() Then
             Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
         Else
@@ -4028,10 +4025,14 @@ Public Class FormSetup
             Settings.SetIni("ServiceList", "GetTextureConnector", "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureSeverConnector")
             Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "")
             Settings.SetIni("UserProfilesService", "Enabled", "False")
+            Settings.SetIni("GridInfoService", "welcome", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim")
+            Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/components/com_opensim/")
         Else
             Settings.SetIni("ServiceList", "GetTextureConnector", "")
             Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "${Const|PublicPort}/OpenSim.Server.Handlers.dll:UserProfilesConnector")
             Settings.SetIni("UserProfilesService", "Enabled", "True")
+            Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
+            Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
         End If
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
@@ -4113,9 +4114,6 @@ Public Class FormSetup
             MsgBox(My.Resources.no_Default_sim, vbInformation, Global.Outworldz.My.Resources.Settings_word)
             Return True
         End Try
-
-        ' needs to be set up after the above
-        If DoRobust() Then Return True
 
         Return False
 
@@ -5396,7 +5394,7 @@ Public Class FormSetup
             ' results See my privacy policy at https://outworldz.com/privacy.htm
 
             Print(My.Resources.Checking_Router_word)
-            Dim Url = PropDomain() & "/cgi/probetest.plx" & GetPostData()
+            Dim Url = PropDomain & "/cgi/probetest.plx" & GetPostData()
             Logger("INFO", "Using URL " & Url, "Diagnostics")
             Try
                 isPortOpen = client.DownloadString(Url)
@@ -5854,6 +5852,7 @@ Public Class FormSetup
         Print(My.Resources.Creating_INI_Files_word)
 
         If DoSetDefaultSims() Then Return True
+        If DoRobust() Then Return True
         If DoTos() Then Return True
         If DoGridCommon() Then Return True
         If DoEditForeigners() Then Return True
@@ -6574,7 +6573,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
-        Dim webAddress As String = PropDomain() & "/Outworldz_Installer/PortForwarding.htm"
+        Dim webAddress As String = PropDomain & "/Outworldz_Installer/PortForwarding.htm"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

@@ -1708,7 +1708,7 @@ Public Class MySettings
 
     Public Property SplashPage() As String
         Get
-            Return GetMySetting("SplashPage", FormSetup.PropDomain() & "/Outworldz_installer/Welcome.htm")
+            Return GetMySetting("SplashPage", FormSetup.PropDomain & "/Outworldz_installer/Welcome.htm")
         End Get
         Set
             SetMySetting("SplashPage", Value)

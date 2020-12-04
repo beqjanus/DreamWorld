@@ -17,7 +17,7 @@ Public Class FormJoomla
 
     Private Sub AdminButton_Click(sender As Object, e As EventArgs) Handles AdminButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/administrator"
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -45,7 +45,7 @@ Public Class FormJoomla
 
         FormSetup.StartMySQL()
 
-        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\Jopensim_Files\Joomla+JOpensim.zip")
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\jOpensim_Files\Joomla+JOpensim.zip")
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
             InstallButton.Image = Nothing
@@ -103,7 +103,7 @@ Public Class FormJoomla
 
         HelpManual(JOpensim)
 
-        Dim webAddress As String = "http://127.0.0.1:" & Settings.ApachePort & "/JOpensim"
+        Dim webAddress As String = "http://127.0.0.1:" & Settings.ApachePort & "/jOpensim"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -175,7 +175,7 @@ Public Class FormJoomla
 
     Private Sub ViewButton_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/index.php?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/index.php?r=" & Random.ToString
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -193,7 +193,7 @@ Public Class FormJoomla
 
     Private Sub UpdateButton_Click(sender As Object, e As EventArgs) Handles UpdateButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/administrator/index.php?option=com_installer&r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator/index.php?option=com_installer&r=" & Random.ToString
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -204,7 +204,7 @@ Public Class FormJoomla
 
     Private Sub BackupButton_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim?r=" & Random.ToString
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -215,11 +215,11 @@ Public Class FormJoomla
 
     Private Sub ReinstallButton_Click(sender As Object, e As EventArgs) Handles ReinstallButton.Click
 
-        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache")
-        FileStuff.CopyFile(IO.Path.Combine(path, "Jopensim_Files\kickstart.php"), IO.Path.Combine(path, "htdocs\JOpensim\kickstart.php"), True)
-        FileStuff.CopyFile(IO.Path.Combine(path, "Jopensim_Files\en-GB.kickstart.ini"), IO.Path.Combine(path, "htdocs\JOpensim\en-GB.kickstart.ini"), True)
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles")
+        FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\kickstart.php"), IO.Path.Combine(path, "htdocs\JOpensim\kickstart.php"), True)
+        FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\en-GB.kickstart.ini"), IO.Path.Combine(path, "htdocs\JOpensim\en-GB.kickstart.ini"), True)
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/JOpensim/kickstart.php?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/kickstart.php?r=" & Random.ToString
         Try
             Process.Start(webAddress)
         Catch ex As Exception

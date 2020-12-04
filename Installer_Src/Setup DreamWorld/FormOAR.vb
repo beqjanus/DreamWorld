@@ -217,7 +217,7 @@ Public Class FormOAR
 
         Try
             Dim File As String = SearchArray(e.ColumnIndex + (NumColumns * e.RowIndex)).Name
-            File = FormSetup.PropDomain() & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
+            File = FormSetup.PropDomain & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
             If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
@@ -419,7 +419,7 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = FormSetup.PropDomain() & "/outworldz_installer/JSON/" & _type & ".json"
+                Dim str = FormSetup.PropDomain & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
