@@ -360,17 +360,21 @@
                 FormInitialSetup.SaveButton.Text = Global.Outworldz.My.Resources.Save_word
             Case "FormJoomla"
                 FormJoomla.AdminButton.Text = Global.Outworldz.My.Resources.Resources.AdministerJoomla_word
-                FormJoomla.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Settings_word
-                FormJoomla.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Options
+                FormJoomla.ButtonBox.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+                FormJoomla.SearchBox.Text = Global.Outworldz.My.Resources.Resources.Options
                 FormJoomla.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
                 FormJoomla.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
                 FormJoomla.HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
                 FormJoomla.InstallButton.Image = Global.Outworldz.My.Resources.Resources.gear_run
                 FormJoomla.InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
-                FormJoomla.JEnableCheckBox.Text = Global.Outworldz.My.Resources.Resources.EnableJOpensim
                 FormJoomla.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
                 FormJoomla.ViewButton.Image = Global.Outworldz.My.Resources.Resources.edge
                 FormJoomla.ViewButton.Text = Global.Outworldz.My.Resources.Resources.ViewJoomla_word
+                FormJoomla.ButtonBox.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+                FormJoomla.SearchBox.Text = Global.Outworldz.My.Resources.Resources.SearchOptions_word
+                FormJoomla.ReinstallButton.Text = Global.Outworldz.My.Resources.Resources.Restore_word
+                FormJoomla.UpdateButton.Text = Global.Outworldz.My.Resources.Resources.Update_word
+                FormJoomla.BackupButton.Text = Global.Outworldz.My.Resources.Resources.Backup_word
             Case "FormLogging"
                 FormLogging.GroupBox1.Text = Global.Outworldz.My.Resources.Logging_word
                 FormLogging.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer

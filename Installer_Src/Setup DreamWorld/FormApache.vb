@@ -27,6 +27,9 @@ Public Class FormApache
 #Region "Private Fields"
 
     Dim initted As Boolean
+    Private Const JOpensim As String = "JOpensim"
+    Private Const WordPress As String = "WordPress"
+    Private Const DreamGrid As String = "DreamGrid"
 
 #End Region
 
@@ -81,11 +84,11 @@ Public Class FormApache
 
         '''' set the other box and the radios for Different CMS systems.
         ''' This is used to redirect all access to apache / to the folder listed below
-        If Settings.CMS = "DreamGrid" Then
+        If Settings.CMS = DreamGrid Then
             EnableDiva.Checked = True
-        ElseIf Settings.CMS = "Wordpress" Then
+        ElseIf Settings.CMS = WordPress Then
             EnableWP.Checked = True
-        ElseIf Settings.CMS = "JOpensim" Then
+        ElseIf Settings.CMS = JOpensim Then
             EnableJOpensim.Checked = True
         Else
             EnableOther.Checked = True
@@ -149,26 +152,65 @@ Public Class FormApache
     End Sub
 
     Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
+
         HelpManual("Apache")
+
     End Sub
 
     Private Sub EnableDiva_CheckedChanged(sender As Object, e As EventArgs) Handles EnableDiva.CheckedChanged
 
         If Not initted Then Return
-        If EnableDiva.Checked Then Settings.CMS = "DreamGrid"
+        If EnableDiva.Checked Then Settings.CMS = DreamGrid
 
     End Sub
 
     Private Sub EnableJOpensim_CheckedChanged(sender As Object, e As EventArgs) Handles EnableJOpensim.CheckedChanged
 
         If Not initted Then Return
-        If EnableJOpensim.Checked Then Settings.CMS = "JOpensim"
+
+        If Not EnableJOpensim.Checked Then Return
+
+        Dim Exist As Boolean
+        Try
+            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
+            If folders.Length > 1 Then
+                Exist = True
+            End If
+        Catch
+        End Try
+
+        If Not Exist Then
+            MsgBox("That folder has no content. Install Joomla and JOpensim first, then enable this.")
+            EnableDiva.Checked = True
+            Return
+        End If
+
+        If EnableJOpensim.Checked Then Settings.CMS = JOpensim
 
     End Sub
 
     Private Sub EnableOther_CheckedChanged(sender As Object, e As EventArgs) Handles EnableOther.CheckedChanged
 
         If Not initted Then Return
+        If Not EnableOther.Checked Then Return
+
+        Dim Exist As Boolean
+        Try
+            If Other.Text.Length > 0 Then
+                Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\" & Other.Text))
+                If folders.Length > 1 Then
+                    Exist = True
+                End If
+            End If
+        Catch
+        End Try
+
+        If Not Exist Then
+            MsgBox("That folder has no content. Install a CMS and then enable 'Other'.")
+            EnableDiva.Checked = True
+            Return
+        End If
+
         If EnableOther.Checked Then Other.Text = Settings.CMS
 
     End Sub
@@ -176,13 +218,31 @@ Public Class FormApache
     Private Sub EnableWP_CheckedChanged(sender As Object, e As EventArgs) Handles EnableWP.CheckedChanged
 
         If Not initted Then Return
-        If EnableWP.Checked Then Settings.CMS = "Wordpress"
+        If Not EnableWP.Checked Then Return
+
+        Dim Exist As Boolean
+        Try
+            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\WordPress"))
+            If folders.Length > 1 Then
+                Exist = True
+            End If
+        Catch
+        End Try
+
+        If Not Exist Then
+            MsgBox("That folder has no content. Install WordPress then enable WordPress.")
+            EnableDiva.Checked = True
+            Return
+        End If
+
+        If EnableWP.Checked Then Settings.CMS = WordPress
 
     End Sub
 
     Private Sub Other_TextChanged(sender As Object, e As EventArgs) Handles Other.TextChanged
 
         If Not initted Then Return
+
         If Other.Text.Length > 0 Then
             EnableOther.Checked = True
         Else

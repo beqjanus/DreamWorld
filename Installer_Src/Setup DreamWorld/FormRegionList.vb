@@ -1151,9 +1151,7 @@ Public Class FormRegionlist
             Dim link = "secondlife://http|!!" & Settings.PublicIP & "|" & Settings.HttpPort & "+" & RegionName
             Try
                 System.Diagnostics.Process.Start(link)
-#Disable Warning CA103
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
 

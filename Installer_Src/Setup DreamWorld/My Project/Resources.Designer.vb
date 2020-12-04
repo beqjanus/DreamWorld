@@ -7240,6 +7240,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Search Options.
+        '''</summary>
+        Friend ReadOnly Property SearchOptions_word() As String
+            Get
+                Return ResourceManager.GetString("SearchOptions_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Secret.
         '''</summary>
         Friend ReadOnly Property Secret_word() As String
@@ -8306,6 +8315,15 @@ Namespace My.Resources
         Friend ReadOnly Property Update_is_available() As String
             Get
                 Return ResourceManager.GetString("Update_is_available", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Update.
+        '''</summary>
+        Friend ReadOnly Property Update_word() As String
+            Get
+                Return ResourceManager.GetString("Update_word", resourceCulture)
             End Get
         End Property
         

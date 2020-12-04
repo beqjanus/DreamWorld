@@ -26,17 +26,20 @@ Partial Class FormJoomla
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormJoomla))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ButtonBox = New System.Windows.Forms.GroupBox()
+        Me.BackupButton = New System.Windows.Forms.Button()
+        Me.ReinstallButton = New System.Windows.Forms.Button()
+        Me.UpdateButton = New System.Windows.Forms.Button()
         Me.AdminButton = New System.Windows.Forms.Button()
         Me.ViewButton = New System.Windows.Forms.Button()
         Me.InstallButton = New System.Windows.Forms.Button()
-        Me.JEnableCheckBox = New System.Windows.Forms.CheckBox()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.SearchBox = New System.Windows.Forms.GroupBox()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.JOpensimRadioButton = New System.Windows.Forms.RadioButton()
         Me.HypericaRadioButton = New System.Windows.Forms.RadioButton()
         Me.MenuStrip1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
+        Me.ButtonBox.SuspendLayout()
+        Me.SearchBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -45,6 +48,7 @@ Partial Class FormJoomla
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
         Me.MenuStrip1.Size = New System.Drawing.Size(563, 28)
         Me.MenuStrip1.TabIndex = 0
         '
@@ -55,19 +59,58 @@ Partial Class FormJoomla
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(75, 24)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'GroupBox1
+        'ButtonBox
         '
-        Me.GroupBox1.Controls.Add(Me.AdminButton)
-        Me.GroupBox1.Controls.Add(Me.ViewButton)
-        Me.GroupBox1.Controls.Add(Me.InstallButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 57)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(256, 203)
-        Me.GroupBox1.TabIndex = 1
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+        Me.ButtonBox.Controls.Add(Me.BackupButton)
+        Me.ButtonBox.Controls.Add(Me.ReinstallButton)
+        Me.ButtonBox.Controls.Add(Me.UpdateButton)
+        Me.ButtonBox.Controls.Add(Me.AdminButton)
+        Me.ButtonBox.Controls.Add(Me.ViewButton)
+        Me.ButtonBox.Controls.Add(Me.InstallButton)
+        Me.ButtonBox.Location = New System.Drawing.Point(16, 57)
+        Me.ButtonBox.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonBox.Name = "ButtonBox"
+        Me.ButtonBox.Padding = New System.Windows.Forms.Padding(4)
+        Me.ButtonBox.Size = New System.Drawing.Size(256, 359)
+        Me.ButtonBox.TabIndex = 1
+        Me.ButtonBox.TabStop = False
+        Me.ButtonBox.Text = "Settings"
+        '
+        'BackupButton
+        '
+        Me.BackupButton.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.BackupButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.BackupButton.Location = New System.Drawing.Point(32, 236)
+        Me.BackupButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.BackupButton.Name = "BackupButton"
+        Me.BackupButton.Size = New System.Drawing.Size(197, 41)
+        Me.BackupButton.TabIndex = 7
+        Me.BackupButton.Text = "Backup"
+        Me.BackupButton.UseVisualStyleBackColor = True
+        '
+        'ReinstallButton
+        '
+        Me.ReinstallButton.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.ReinstallButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.ReinstallButton.Location = New System.Drawing.Point(32, 285)
+        Me.ReinstallButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.ReinstallButton.Name = "ReinstallButton"
+        Me.ReinstallButton.Size = New System.Drawing.Size(197, 41)
+        Me.ReinstallButton.TabIndex = 6
+        Me.ReinstallButton.Text = "Restore"
+        Me.ReinstallButton.UseVisualStyleBackColor = True
+        '
+        'UpdateButton
+        '
+        Me.UpdateButton.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.UpdateButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.UpdateButton.Location = New System.Drawing.Point(32, 187)
+        Me.UpdateButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.UpdateButton.Name = "UpdateButton"
+        Me.UpdateButton.Size = New System.Drawing.Size(197, 41)
+        Me.UpdateButton.TabIndex = 5
+        Me.UpdateButton.Text = "Update"
+        Me.UpdateButton.UseVisualStyleBackColor = True
         '
         'AdminButton
         '
@@ -105,33 +148,37 @@ Partial Class FormJoomla
         Me.InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
         Me.InstallButton.UseVisualStyleBackColor = True
         '
-        'JEnableCheckBox
+        'SearchBox
         '
-        Me.JEnableCheckBox.AutoSize = True
-        Me.JEnableCheckBox.Location = New System.Drawing.Point(28, 22)
-        Me.JEnableCheckBox.Margin = New System.Windows.Forms.Padding(4)
-        Me.JEnableCheckBox.Name = "JEnableCheckBox"
-        Me.JEnableCheckBox.Size = New System.Drawing.Size(74, 21)
-        Me.JEnableCheckBox.TabIndex = 2
-        Me.JEnableCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
-        Me.JEnableCheckBox.UseVisualStyleBackColor = True
+        Me.SearchBox.Controls.Add(Me.RadioButton2)
+        Me.SearchBox.Controls.Add(Me.JOpensimRadioButton)
+        Me.SearchBox.Controls.Add(Me.HypericaRadioButton)
+        Me.SearchBox.Location = New System.Drawing.Point(299, 57)
+        Me.SearchBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SearchBox.Name = "SearchBox"
+        Me.SearchBox.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SearchBox.Size = New System.Drawing.Size(244, 139)
+        Me.SearchBox.TabIndex = 3
+        Me.SearchBox.TabStop = False
+        Me.SearchBox.Text = "Search Options"
         '
-        'GroupBox2
+        'RadioButton2
         '
-        Me.GroupBox2.Controls.Add(Me.JOpensimRadioButton)
-        Me.GroupBox2.Controls.Add(Me.HypericaRadioButton)
-        Me.GroupBox2.Controls.Add(Me.JEnableCheckBox)
-        Me.GroupBox2.Location = New System.Drawing.Point(299, 57)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(244, 203)
-        Me.GroupBox2.TabIndex = 3
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Options
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(29, 41)
+        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(96, 21)
+        Me.RadioButton2.TabIndex = 6
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "No Search"
+        Me.RadioButton2.UseVisualStyleBackColor = True
         '
         'JOpensimRadioButton
         '
         Me.JOpensimRadioButton.AutoSize = True
-        Me.JOpensimRadioButton.Location = New System.Drawing.Point(28, 84)
+        Me.JOpensimRadioButton.Location = New System.Drawing.Point(29, 98)
+        Me.JOpensimRadioButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.JOpensimRadioButton.Name = "JOpensimRadioButton"
         Me.JOpensimRadioButton.Size = New System.Drawing.Size(141, 21)
         Me.JOpensimRadioButton.TabIndex = 5
@@ -142,7 +189,8 @@ Partial Class FormJoomla
         'HypericaRadioButton
         '
         Me.HypericaRadioButton.AutoSize = True
-        Me.HypericaRadioButton.Location = New System.Drawing.Point(28, 56)
+        Me.HypericaRadioButton.Location = New System.Drawing.Point(29, 71)
+        Me.HypericaRadioButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.HypericaRadioButton.Name = "HypericaRadioButton"
         Me.HypericaRadioButton.Size = New System.Drawing.Size(134, 21)
         Me.HypericaRadioButton.TabIndex = 4
@@ -154,9 +202,9 @@ Partial Class FormJoomla
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(563, 275)
-        Me.Controls.Add(Me.GroupBox2)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.ClientSize = New System.Drawing.Size(563, 433)
+        Me.Controls.Add(Me.SearchBox)
+        Me.Controls.Add(Me.ButtonBox)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -165,9 +213,9 @@ Partial Class FormJoomla
         Me.Text = "JOpensim"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
+        Me.ButtonBox.ResumeLayout(False)
+        Me.SearchBox.ResumeLayout(False)
+        Me.SearchBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -175,12 +223,15 @@ Partial Class FormJoomla
 
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents JEnableCheckBox As CheckBox
+    Friend WithEvents ButtonBox As GroupBox
     Friend WithEvents InstallButton As Button
     Friend WithEvents ViewButton As Button
     Friend WithEvents AdminButton As Button
-    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents SearchBox As GroupBox
     Friend WithEvents JOpensimRadioButton As RadioButton
     Friend WithEvents HypericaRadioButton As RadioButton
+    Friend WithEvents ReinstallButton As Button
+    Friend WithEvents UpdateButton As Button
+    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents BackupButton As Button
 End Class

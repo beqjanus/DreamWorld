@@ -4,18 +4,20 @@ DreamWorld is a small Opensimulator world to demonstrate a easy to use Opensim S
 
 author: Fred Beckhusen, aka Ferd Frederix fred@outworldz.com, Outworld, LLC.
 The vast majority of this project is made from Opensimulator, which is made by an enormous number of dedicated volunteers.  This is especially true for Diva Canto. Thank you very much!
- 
+
+Dreamgrid code is AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
+
 INTRODUCTION 
 
 The system supports a special installer that will put a easy-to-use copy of OpenSim on Windows.    It is written in C# and Visual Basic Dot Net  and runs under Dot Net 4.6.1 and Microsoft Studio 2019.
 
-It has a executable copy of Opensim 0.9.0.1 included.
+It has a executable copy of Opensim included.
 
 LAUNCHING MANUALLY
 
 It's standard Opensim with lots of small tweaks, so it starts the standard things - MySql, then Opensim.
 
-After OpenSim has fully started, use your favourite viewer with the following grid and login information:
+After OpenSim has fully started, use your favorite viewer with the following grid and login information:
 
 login URI: http://127.0.0.1:8002/
 
@@ -27,7 +29,7 @@ User Last Name: Admin
 Password: will show on the screen when you click the link to get to the above page.
 
 Other passwords
-MySQL Database root user has no password
+MySQL Database root user has no password - it only listens to localhost or 127.0.0.1
 MySQL Database "opensim" user name "opensimuser" has a password of "opensimpassword"
 MySQL Database robust user name "robustuser" has a password of "robustpassword"
 
@@ -36,7 +38,8 @@ File structure:
 Each folder has specific purposes. Some are used for distribution, others hold source code or output from compilers.
 
 The following folders must be in any distributed zip, thumb, or DVD.  
-   OurworldzFiles - Contents is everything you need post installation.  All other folders are for setup or source.
+
+OutworldzFiles - Contents is everything you need post installation.  All other folders are for setup or source.
 
 Installer_Src - Hold Source code for the Start.exe 
 
@@ -60,7 +63,11 @@ git pull
 runprebuild.bat
 compile.bat
   
+Then run  Visual Studio 2019 on the Opensim solution to compile it with icons.
+
+
 Updates: The system has a built in updater that fetches a zip file from the Outworldz web site.   
+
 Backups and other details:
 
 The database will grow and grow!   So before you make any changes, you should make a backup copy of "OutworldzFiles" folder.    Do not use the original folder for live work as the blank db will get overwritten.    

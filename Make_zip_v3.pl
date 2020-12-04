@@ -1,3 +1,6 @@
+# build Zipfile
+# AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
+
 use strict;
 use IO::All;
 use warnings;
@@ -25,7 +28,7 @@ my $dir = getcwd;
 say ("Building DreamGrid$type.zip");
 
 
-say ('Server Publish? <p = publish, c = clean>');
+say ('Server Publish? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
@@ -125,9 +128,10 @@ sub process_file {
 	print OUT $fullpath . "\n";	
 }
 
-# these are needed in this file even if deleted on disk as there is a .bak file.
-print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensimProfile.Modules.dll\n";
-print OUT "\\OutworldzFiles\\opensim\\bin\\JOpensimSearch.Modules.dll\n";
+# these are needed in this file even if deleted on disk.
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Profile.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Search.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Money.dll\n";
 
 close OUT;
 

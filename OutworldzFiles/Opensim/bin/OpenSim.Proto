@@ -46,7 +46,7 @@
 
 ;
 ; Automatically changed by Dreamworld - do not change this
-http_listener_port=8004
+http_listener_port=8005
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -55,7 +55,7 @@ RegionFolderName=Welcome
 
 ;
 ;# {BaseHostname} {} {BaseHostname} {"example.com" "127.0.0.1"} "127.0.0.1"
-BaseHostname=gandalf.outworldz.net
+BaseHostname=192.168.2.100
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -80,7 +80,7 @@ PrivatePort=8003
 ;
 ; Automatically changed by Dreamworld - do not change this
 ;# Grid Name for Wifi to show
-GridName=Gandalf
+GridName=DreamGrid
 
 ;
 ; Automatically changed by Dreamworld - do not change this
@@ -375,7 +375,7 @@ ManagedStatsRemoteFetchURI="ManagedStats"
 
 ;
 ;# economy module
-economymodule=Gloebit
+economymodule=BetaGridLikeMoneyModule
 
 ;
 ; Main Frame time
@@ -452,7 +452,7 @@ GenerateMaptiles=True
 ;
 ;# {MapImageModule} {} {The map image module to use} {MapImageModule Warp3DImageModule} MapImageModule
 ;; The module to use in order to generate map images.
-MapImageModule=Warp3DImageModule
+MapImageModule=MapImageModule
 
 ;
 ;; generate better images.
@@ -468,18 +468,18 @@ MapImageModule=Warp3DImageModule
 ; MaptileStaticUUID = "00000000-0000-0000-0000-000000000000"
 ;# {TextureOnMapTile} {} {Use terrain textures for map tiles?} {true false} true
 ;; Use terrain texture for maptiles if true, use shaded green if false
-TextureOnMapTile=True
+TextureOnMapTile=False
 
 ;
 ;# {DrawPrimOnMapTile} {} {Draw prim shapes on map tiles?} {true false} false
 ;; Draw objects on maptile.  This step might take a long time if you've
 ;; got a large number of objects, so you can turn it off here if you'd like.
-DrawPrimOnMapTile=True
+DrawPrimOnMapTile=False
 
 ;
 ;# {TexturePrims} {} {Texture prims on map tiles?} {true false} true
 ;; Texture the faces of the prims that are rendered on the map tiles.
-TexturePrims=True
+TexturePrims=False
 
 ;
 ;# {TexturePrimSize} {} {Size of prims to texture faces?} {} 48
@@ -487,7 +487,7 @@ TexturePrims=True
 ; TexturePrimSize = 48
 ;# {RenderMeshes} {} {Render meshes and sculpties on map tiles?} {true false} false
 ;; Attempt to render meshes and sculpties on the map
-RenderMeshes=True
+RenderMeshes=False
 
 ;
 ;; Map Height
@@ -604,7 +604,7 @@ enabled=true
 ;# {internal_object_host} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Host name to treat as internal (object to object) email?} {} lsl.opensim.local
 ; internal_object_host = lsl.opensim.local
 ;# {host_domain_header_from} {[Startup]emailmodule:DefaultEmailModule enabled:true} {From address to use in the sent email header?} {} 127.0.0.1
-host_domain_header_from=gandalf.outworldz.net
+host_domain_header_from=192.168.2.139
 
 ;
 ;# {email_pause_time} {[Startup]emailmodule:DefaultEmailModule enabled:true} {Period in seconds to delay after an email is sent.} {} 20
@@ -840,7 +840,6 @@ LandingPointBehavior=LandingPointBehavior_OS
 
 ;
 [Messaging]
-
 ;
 ;
 ;# {OfflineMessageModule} {} {Module to use for offline message storage} {OfflineMessageModule "Offline Message Module V2" *}
@@ -850,14 +849,12 @@ LandingPointBehavior=LandingPointBehavior_OS
 ;
 ;; Or, alternatively, use this one, which works for both standalones and grids
 OfflineMessageModule="Offline Message Module V2"
-
 ;
 ;
 ;# {OfflineMessageURL} {OfflineMessageModule:OfflineMessageModule Offline Message Module V2:Offline Message Module V2} {URL of offline messaging service} {}
 ;; URL of web service for offline message storage. Leave it commented if your service is local to the sim.
 ; OfflineMessageURL = ${Const|BaseURL}/Offline.php
-OfflineMessageURL=${Const|BaseURL}:${Const|PublicPort}
-
+OfflineMessageURL=http://192.168.2.139:80/JOpensim${Const|BaseURL}:${Const|PublicPort}
 ;
 ;
 ;# {StorageProvider} {Offline Message Module V2:Offline Message Module V2} {DLL that provides the storage interface} {OpenSim.Data.MySQL.dll}
@@ -876,30 +873,24 @@ MuteListModule=MuteListModule
 ;# {MuteListURL} {OfflineMessageModule:OfflineMessageModule} {} {} http://yourserver/Mute.php
 ;; URL of the web service that serves mute lists. Not currently used, but
 ;; must be set to allow offline messaging to work.
-MuteListURL=${Const|BaseURL}:${Const|PublicPort}
-
+MuteListURL=http://192.168.2.139:80/JOpensim${Const|BaseURL}:${Const|PublicPort}
 ;
 ;
 ;; Control whether group invites and notices are stored for offline users.
 ;; Default is true.
 ;; This applies to both core groups module.
 ForwardOfflineGroupMessages=true
-
 ;
 ;
 [BulletSim]
-
 ;
 ;
 ;# {AvatarToAvatarCollisionsByDefault} {[Startup]physics:BulletSim} {Should avatars collide with each other?} {true false} true
 AvatarToAvatarCollisionsByDefault=true
-
 ;
 UseSeparatePhysicsThread=true
-
 ;
 [ODEPhysicsSettings]
-
 ;
 ;# {mesh_sculpted_prim} {[Startup]physics:OpenDynamicsEngine} {Mesh sculpties so they collide as they look?} {true false} true
 ;; Do we want to mesh sculpted prim to collide like they look?
@@ -915,32 +906,27 @@ UseSeparatePhysicsThread=true
 ;
 ;
 [RemoteAdmin]
-
 ;
 ;; This is the remote admin module, which uses XMLRPC requests to
 ;; manage regions from a web interface.
 ;# {enabled} {} {Enable the remote admin interface?} {true false} false
 enabled=true
-
 ;
 ;
 ;# {port} {enabled:true} {Port to use for the remote admin interface? (0 = default)} {} 0
 ;; Set this to a nonzero value to have remote admin use a different port
 port=0
-
 ;
 ;# {access_password} {enabled:true} {Password for the remote admin interface} {}
 ;; This password is required to make any XMLRPC call (should be set as
 ;; the "password" parameter)
-access_password=Gandalf
-
+access_password=527011968
 ;
 ;# {access_ip_addresses} {enabled:true} {List the IP addresses allowed to call RemoteAdmin?} {}
 ;; List the IP addresses allowed to call RemoteAdmin
 ;; If access_ip_addresses isn't set, then all IP addresses can access RemoteAdmin.
 ;; access_ip_addresses = 0.0.0.0, 0.0.0.0 ...
 access_ip_addresses="127.0.0.1"
-
 ;
 ;
 ;# {create_region_enable_voice} {enabled:true} {Enable voice for newly created regions?} {true false} false
@@ -1085,7 +1071,7 @@ index_sims=True
 ;; The variable data_exposure controls what the regions expose:
 ;;    minimum: exposes only things explicitly marked for search
 ;;    all: exposes everything
-data_exposure=minimum
+data_exposure=all
 
 ;
 ;
@@ -1128,18 +1114,19 @@ data_services=http://hyperica.com/Search/register.php
 ;
 ;
 [Search]
-SearchURL=http://hyperica.com/Search/query.php
-
+SearchURL=
 ;
 ; Optional:
-; searchPeople = false ; in case your people search returns double results
-;
-[Economy]
+; in case your people search returns double results
+; searchPeople = false 
+; also optional
+; DebugMode = false
 
+
+[Economy]
 ;
 ;; EconomyModule = jOpenSimMoneyModule
 CurrencyURL=
-
 ;
 ; Optional:
 DebugMode="1"
@@ -1375,14 +1362,11 @@ vivox_channel_max_range=80
 ; - a value between 0 and 160, default is 10
 vivox_channel_clamping_distance=10
 
-;
 [Groups]
-
 ;
 ;# {Enabled} {} {Enable groups?} {true false} false
 ;; Enables the groups module
 Enabled=true
-
 ;
 ;# {LevelGroupCreate} {Enabled:true} {User level for creating groups} {} 0
 ;; Minimum user level required to create groups
@@ -1425,7 +1409,10 @@ LocalService=remote
 ;; or ${Const|BaseURL}:${Const|PrivatePort} for robust, V2
 ;; Leave it commented for standalones, V2
 GroupsServerURI=${Const|PrivURL}:${Const|PrivatePort}
-
+;
+; Used by JOpensim, from Groups
+XmlRpcServiceReadKey = 1234
+XmlRpcServiceWriteKey = 1234
 ;
 ;# {HomeURI} {ServicesConnectorModule:Groups HG Service Connector} {What's the home address of this world?} {}
 ;; Used for V2 in HG only. For example
@@ -1533,7 +1520,6 @@ Enabled=true
 ;ShowParcelBansLines = true
 ;
 [UserProfiles]
-
 ;
 ;# {ProfileServiceURL} {} {Set url to UserProfilesService} {}
 ;; Set the value of the url to your UserProfilesService
