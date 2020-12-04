@@ -1268,7 +1268,7 @@ Partial Class FormSetup
         Me.MinimumSize = New System.Drawing.Size(531, 164)
         Me.Name = "FormSetup"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "DreamGrid"
+        Me.Text = DreamGrid
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)

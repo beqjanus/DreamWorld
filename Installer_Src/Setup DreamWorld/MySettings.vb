@@ -27,6 +27,9 @@ Public Class MySettings
 
 #Region "Private Fields"
 
+    Private Const DreamGrid As String = "DreamGrid"
+    Private Const JOpensim As String = "JOpensim"
+
     Dim Apachein As New List(Of String)
     Dim Apacheout As New List(Of String)
     Dim Data As IniParser.Model.IniData
@@ -395,12 +398,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property JOpensimSearch() As Boolean
+    Public Property JOpensimSearch() As String
         Get
-            Return CType(GetMySetting("JOpensimSearch", "False"), Boolean)
+            Return GetMySetting("JOpensimSearch", "False")
         End Get
         Set
-            SetMySetting("JOpensimSearch", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("JOpensimSearch", Value)
         End Set
     End Property
 
@@ -767,8 +770,8 @@ Public Class MySettings
 
     Public Property CMS() As String
         Get
-            Dim var = GetMySetting("CMS", "DreamGrid")
-            If var = "Joomla" Then var = "JOpensim"
+            Dim var = GetMySetting("CMS", DreamGrid)
+            If var = "Joomla" Then var = JOpensim
             Return var
         End Get
         Set
@@ -1623,7 +1626,7 @@ Public Class MySettings
 
     Public Property SimName() As String
         Get
-            Return GetMySetting("SimName", "DreamGrid")
+            Return GetMySetting("SimName", DreamGrid)
         End Get
         Set
             SetMySetting("SimName", Value)
@@ -1705,7 +1708,7 @@ Public Class MySettings
 
     Public Property SplashPage() As String
         Get
-            Return GetMySetting("SplashPage", FormSetup.PropDomain() & "/Outworldz_installer/Welcome.htm")
+            Return GetMySetting("SplashPage", FormSetup.PropDomain & "/Outworldz_installer/Welcome.htm")
         End Get
         Set
             SetMySetting("SplashPage", Value)
