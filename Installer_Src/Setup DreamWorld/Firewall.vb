@@ -44,7 +44,9 @@ Public Module Firewall
 
     Public Sub BlockIP(Ip As String)
 
-        Dim Command As String = "netsh advfirewall firewall add rule name=""Opensim Deny " & Ip & """ dir=in profile=any action=block protocol=any remoteip=" & Ip & vbCrLf
+
+        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & Ip & vbCrLf
+        Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & Ip & """ dir=in profile=any action=block protocol=any remoteip=" & Ip & vbCrLf
         Write(Command)
 
     End Sub
@@ -127,7 +129,6 @@ Public Module Firewall
             Try
                 ProcessFirewall.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 FormSetup.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try

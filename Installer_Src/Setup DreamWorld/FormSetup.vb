@@ -2461,7 +2461,7 @@ Public Class FormSetup
         DoIceCast()
 
         FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
-        FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log"))
+
 
         PropIcecastProcID = 0
         Print(My.Resources.Icecast_starting)

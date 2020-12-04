@@ -108,14 +108,16 @@ Public Class FormBanList
                     End If
 
                     ' Ban IP's
-                    Dim I As System.Net.IPAddress = Nothing
-                    If IPAddress.TryParse(s, I) Then
+
+                    Dim pattern3 As Regex = New Regex("^\d+\.\d+\.\d+\.\d+")
+                    Dim match3 As Match = pattern3.Match(s)
+                    If match3.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
                         Firewall.BlockIP(s)
                         Continue For
                     End If
 
                     ' ban MAC Addresses with and without caps and :
-                    Dim pattern1 As Regex = New Regex("^[a-f0-9A-F][a-f0-9A-F][-:]+")
+                    Dim pattern1 As Regex = New Regex("^[a-f0-9A-F]{32}")
                     Dim match1 As Match = pattern1.Match(s)
                     If match1.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
                         MACString += s & " " ' delimiter is a " " and  not a pipe
