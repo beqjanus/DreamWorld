@@ -3,18 +3,18 @@
     <!-- PropertyGroup to compute global analyzer config file to be used -->
     <PropertyGroup>
       <!-- Set the default analysis mode, if not set by the user -->
-      <_GlobalAnalyzerConfigAnalysisMode>$(AnalysisMode)</_GlobalAnalyzerConfigAnalysisMode>
-      <_GlobalAnalyzerConfigAnalysisMode Condition="'$(_GlobalAnalyzerConfigAnalysisMode)' == ''">Default</_GlobalAnalyzerConfigAnalysisMode>
+      <_GlobalAnalyzerConfigAnalysisMode_MicrosoftCodeAnalysisAnalyzers>$(AnalysisMode)</_GlobalAnalyzerConfigAnalysisMode_MicrosoftCodeAnalysisAnalyzers>
+      <_GlobalAnalyzerConfigAnalysisMode_MicrosoftCodeAnalysisAnalyzers Condition="'$(_GlobalAnalyzerConfigAnalysisMode_MicrosoftCodeAnalysisAnalyzers)' == ''">Default</_GlobalAnalyzerConfigAnalysisMode_MicrosoftCodeAnalysisAnalyzers>
 
       <!-- GlobalAnalyzerConfig file name based on user specified package version 'MicrosoftCodeAnalysisAnalyzersRulesVersion', if any. We replace '.' with '_' to map the version string to file name suffix. -->
-      <_GlobalAnalyzerConfigFileName Condition="'$(MicrosoftCodeAnalysisAnalyzersRulesVersion)' != ''">AnalysisLevel_$(MicrosoftCodeAnalysisAnalyzersRulesVersion.Replace(".","_"))_$(_GlobalAnalyzerConfigAnalysisMode).editorconfig</_GlobalAnalyzerConfigFileName>
+      <_GlobalAnalyzerConfigFileName_MicrosoftCodeAnalysisAnalyzers Condition="'$(MicrosoftCodeAnalysisAnalyzersRulesVersion)' != ''">AnalysisLevel_$(MicrosoftCodeAnalysisAnalyzersRulesVersion.Replace(".","_"))_$(_GlobalAnalyzerConfigAnalysisMode_MicrosoftCodeAnalysisAnalyzers).editorconfig</_GlobalAnalyzerConfigFileName_MicrosoftCodeAnalysisAnalyzers>
       
-      <_GlobalAnalyzerConfigDir Condition="'$(_GlobalAnalyzerConfigDir)' == ''">$(MSBuildThisFileDirectory)config</_GlobalAnalyzerConfigDir>
-      <_GlobalAnalyzerConfigFile Condition="'$(_GlobalAnalyzerConfigFileName)' != ''">$(_GlobalAnalyzerConfigDir)\$(_GlobalAnalyzerConfigFileName)</_GlobalAnalyzerConfigFile>
+      <_GlobalAnalyzerConfigDir_MicrosoftCodeAnalysisAnalyzers Condition="'$(_GlobalAnalyzerConfigDir_MicrosoftCodeAnalysisAnalyzers)' == ''">$(MSBuildThisFileDirectory)config</_GlobalAnalyzerConfigDir_MicrosoftCodeAnalysisAnalyzers>
+      <_GlobalAnalyzerConfigFile_MicrosoftCodeAnalysisAnalyzers Condition="'$(_GlobalAnalyzerConfigFileName_MicrosoftCodeAnalysisAnalyzers)' != ''">$(_GlobalAnalyzerConfigDir_MicrosoftCodeAnalysisAnalyzers)\$(_GlobalAnalyzerConfigFileName_MicrosoftCodeAnalysisAnalyzers)</_GlobalAnalyzerConfigFile_MicrosoftCodeAnalysisAnalyzers>
     </PropertyGroup>
 
-    <ItemGroup Condition="Exists('$(_GlobalAnalyzerConfigFile)')">
-      <EditorConfigFiles Include="$(_GlobalAnalyzerConfigFile)" />
+    <ItemGroup Condition="Exists('$(_GlobalAnalyzerConfigFile_MicrosoftCodeAnalysisAnalyzers)')">
+      <EditorConfigFiles Include="$(_GlobalAnalyzerConfigFile_MicrosoftCodeAnalysisAnalyzers)" />
     </ItemGroup>
   </Target>
 

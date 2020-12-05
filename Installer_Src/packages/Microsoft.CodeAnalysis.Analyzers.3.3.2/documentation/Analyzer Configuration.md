@@ -80,6 +80,7 @@ Configurable Rules:
 [CA1056](https://docs.microsoft.com/visualstudio/code-quality/ca1056),
 [CA1058](https://docs.microsoft.com/visualstudio/code-quality/ca1058),
 [CA1063](https://docs.microsoft.com/visualstudio/code-quality/ca1063),
+[CA1068](https://docs.microsoft.com/visualstudio/code-quality/ca1068),
 [CA1070](https://docs.microsoft.com/visualstudio/code-quality/ca1070),
 [CA1700](https://docs.microsoft.com/visualstudio/code-quality/ca1700),
 [CA1707](https://docs.microsoft.com/visualstudio/code-quality/ca1707),
@@ -261,6 +262,7 @@ Example: `dotnet_code_quality.try_determine_additional_string_formatting_methods
 Option Name: `excluded_symbol_names`
 
 Configurable Rules:
+[CA1001](https://docs.microsoft.com/visualstudio/code-quality/ca1001),
 [CA1062](https://docs.microsoft.com/visualstudio/code-quality/ca1062),
 [CA1303](https://docs.microsoft.com/visualstudio/code-quality/ca1303),
 [CA1304](https://docs.microsoft.com/visualstudio/code-quality/ca1304),
@@ -335,9 +337,10 @@ Additionally, all the dataflow analysis based rules can be configured with a sin
 Option Name: `excluded_type_names_with_derived_types`
 
 Configurable Rules:
-[CA1303](https://docs.microsoft.com/visualstudio/code-quality/ca1303),
+[CA1001](https://docs.microsoft.com/visualstudio/code-quality/ca1001),
 [CA1062](https://docs.microsoft.com/visualstudio/code-quality/ca1062),
-[CA1304](https://docs.microsoft.com/visualstudio/code-quality/ca1304), 
+[CA1303](https://docs.microsoft.com/visualstudio/code-quality/ca1303),
+[CA1304](https://docs.microsoft.com/visualstudio/code-quality/ca1304),
 [CA1508](https://docs.microsoft.com/visualstudio/code-quality/ca1508),
 [CA2000](https://docs.microsoft.com/visualstudio/code-quality/ca2000),
 [CA2100](https://docs.microsoft.com/visualstudio/code-quality/ca2100),
