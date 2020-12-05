@@ -80,7 +80,7 @@ Partial Class FormRegionlist
         Me.RefreshButton.Name = "RefreshButton"
         Me.RefreshButton.Size = New System.Drawing.Size(116, 29)
         Me.RefreshButton.TabIndex = 1
-        Me.RefreshButton.Text = Global.Outworldz.My.Resources.Resources.Refresh1
+        Me.RefreshButton.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
         Me.ToolTip1.SetToolTip(Me.RefreshButton, Global.Outworldz.My.Resources.Resources.Reload)
         Me.RefreshButton.UseVisualStyleBackColor = True
         '

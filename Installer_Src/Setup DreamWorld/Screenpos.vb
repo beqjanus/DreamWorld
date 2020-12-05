@@ -31,30 +31,30 @@ Public Class ScreenPos
     ReadOnly parser As FileIniDataParser
     Dim Data As IniParser.Model.IniData
     Dim gName As String
-    Dim myINI As String
+    Dim my_ini As String
 
 #End Region
 
 #Region "Public Constructors"
 
-    Public Sub New(Name As String)
+    Public Sub New(name As String)
 
-        If String.IsNullOrEmpty(Name) Then Return
+        If String.IsNullOrEmpty(name) Then Return
 
-        GName1 = Name ' save gName for this form
+        GName1 = name ' save gName for this form
 
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        MyINI1 = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini")
+        MyIni = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini")
 
-        If File.Exists(MyINI1) Then
+        If File.Exists(MyIni) Then
             LoadXYIni()
         Else
             Dim contents = "[Data]" + vbCrLf
             Try
-                Using outputFile As New StreamWriter(MyINI1, True)
+                Using outputFile As New StreamWriter(MyIni, True)
                     outputFile.WriteLine(contents)
                 End Using
             Catch ex As Exception
@@ -126,10 +126,7 @@ Public Class ScreenPos
     Public Function GetXY() As List(Of Integer)
 
         If Data Is Nothing Then
-            Dim array = New List(Of Integer) From {
-                100,
-                100
-            }
+            Dim array = New List(Of Integer) From {100, 100}
             Return array
         End If
         Try
@@ -166,7 +163,7 @@ Public Class ScreenPos
     Public Sub LoadXYIni()
 
         Try
-            Data = parser.ReadFile(MyINI1, System.Text.Encoding.UTF8)
+            Data = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Diagnostics.Debug.Print("Error:" & ex.Message)
@@ -196,7 +193,7 @@ Public Class ScreenPos
 
         If Data Is Nothing Then Return
         Try
-            parser.WriteFile(MyINI1, Data, System.Text.Encoding.UTF8)
+            parser.WriteFile(MyIni, Data, System.Text.Encoding.UTF8)
         Catch ex As Exception
 
             BreakPoint.Show(ex.Message)
@@ -205,25 +202,25 @@ Public Class ScreenPos
 
     End Sub
 
-    Public Sub SaveHW(ValueH As Integer, ValueW As Integer)
+    Public Sub SaveHW(valueH As Integer, valueW As Integer)
         If Data Is Nothing Then
             Return
         End If
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_H", ValueH.ToString(Globalization.CultureInfo.CurrentCulture))
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_W", ValueW.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_H", valueH.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_W", valueW.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
-        Debug.Print("H>" + ValueH.ToString(Globalization.CultureInfo.InvariantCulture))
-        Debug.Print("W>" + ValueW.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("H>" + valueH.ToString(Globalization.CultureInfo.InvariantCulture))
+        Debug.Print("W>" + valueW.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
 
-    Public Sub SaveXY(ValueX As Integer, ValueY As Integer)
+    Public Sub SaveXY(valueX As Integer, valueY As Integer)
 
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_X", ValueX.ToString(Globalization.CultureInfo.CurrentCulture))
-        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_Y", ValueY.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_X", valueX.ToString(Globalization.CultureInfo.CurrentCulture))
+        SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_Y", valueY.ToString(Globalization.CultureInfo.CurrentCulture))
         SaveFormSettings()
-        Debug.Print("X>" + ValueX.ToString(Globalization.CultureInfo.CurrentCulture))
-        Debug.Print("Y>" + ValueY.ToString(Globalization.CultureInfo.CurrentCulture))
+        Debug.Print("X>" + valueX.ToString(Globalization.CultureInfo.CurrentCulture))
+        Debug.Print("Y>" + valueY.ToString(Globalization.CultureInfo.CurrentCulture))
 
     End Sub
 
@@ -293,12 +290,12 @@ Public Class ScreenPos
         End Set
     End Property
 
-    Public Property MyINI1 As String
+    Public Property MyIni As String
         Get
-            Return myINI
+            Return my_ini
         End Get
         Set(value As String)
-            myINI = value
+            my_ini = value
         End Set
     End Property
 

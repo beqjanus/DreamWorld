@@ -253,7 +253,7 @@
     <value>Script timer speed setting. 1/11 second is default (0.0909)</value>
   </data>
   <data name="Help_On_LoopBack_word" xml:space="preserve">
-    <value>Help On LoopBack</value>
+    <value>Help On Loopback</value>
   </data>
   <data name="Group_word" xml:space="preserve">
     <value>Group</value>
@@ -262,7 +262,7 @@
     <value>Web Help For Port Forwarding</value>
   </data>
   <data name="Stopping_Webserver" xml:space="preserve">
-    <value>Stopping Webserver</value>
+    <value>Stopping Web Server</value>
   </data>
   <data name="OAR_Load_and_Save" xml:space="preserve">
     <value>OAR Load and Save</value>
@@ -331,7 +331,7 @@
     <value>Viewer Cache</value>
   </data>
   <data name="DynDNS_password_word" xml:space="preserve">
-    <value>DynDNS password</value>
+    <value>Dynamic DNS password</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
     <value>Merge OAR</value>
@@ -512,7 +512,7 @@
     <value>..\Resources\navigate_open.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Stopping_Apache" xml:space="preserve">
-    <value>Stopping Apache Webserver</value>
+    <value>Stopping Apache Web Server</value>
   </data>
   <data name="Auto_Restart_word" xml:space="preserve">
     <value>Auto Restart</value>
@@ -585,7 +585,7 @@
     <value>Internet address</value>
   </data>
   <data name="No_Autobackup" xml:space="preserve">
-    <value>No Autobackup</value>
+    <value>No Automatic OAR backup</value>
   </data>
   <data name="Last_Name_Word" xml:space="preserve">
     <value>Last Name</value>
@@ -820,7 +820,7 @@
     <value>Max number of Avatars + NPCs</value>
   </data>
   <data name="Maps_X" xml:space="preserve">
-    <value>Maps : X</value>
+    <value>Map  X:</value>
   </data>
   <data name="Take_time" xml:space="preserve">
     <value>This may take time to load</value>
@@ -1141,9 +1141,6 @@
   <data name="InstallOpensim" xml:space="preserve">
     <value>This will install JOpensim. Do you wish to continue?</value>
   </data>
-  <data name="Refresh1" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
   <data name="Help_Console_text" xml:space="preserve">
     <value>Wiki Page on Console Commands</value>
   </data>
@@ -1175,7 +1172,7 @@
     <value>Assets as Files</value>
   </data>
   <data name="WillNotSave" xml:space="preserve">
-    <value>Will not save an OAR with Autobackup.</value>
+    <value>Will not save an OAR with Automatic backup.</value>
   </data>
   <data name="flag_russia1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_russia.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1298,7 +1295,7 @@
     <value>Log Level</value>
   </data>
   <data name="Autobackup_cannot_be_located" xml:space="preserve">
-    <value>Autobackup folder cannot be located, so the folder has been reset to the default.</value>
+    <value>Auto backup folder cannot be located, so the folder has been reset to the default.</value>
   </data>
   <data name="disks" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\disks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1657,7 +1654,7 @@
     <value>..\Resources\gear_stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OAuth_Key" xml:space="preserve">
-    <value>OAuth Key</value>
+    <value>Key</value>
   </data>
   <data name="error_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1732,7 +1729,7 @@
     <value>Modules</value>
   </data>
   <data name="Prim_Name" xml:space="preserve">
-    <value>Prim Name (default=SeaGull1)</value>
+    <value>Prim Name (default='SeaGull1')</value>
   </data>
   <data name="Size_word" xml:space="preserve">
     <value>Size</value>
@@ -1828,7 +1825,7 @@
     <value>..\Resources\map-1-9510-10006-objects.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FSassets_Server_word" xml:space="preserve">
-    <value>FsAssets Server</value>
+    <value>Fie System Assets Server</value>
   </data>
   <data name="UUID0" xml:space="preserve">
     <value>Error: UUID Is nothing!</value>
@@ -2312,7 +2309,7 @@
     <value>Overrides the global Map Settings for this one region</value>
   </data>
   <data name="Restart_on_Physics_Crash_Text" xml:space="preserve">
-    <value>Bulletsim physics crash will force a simulator restart</value>
+    <value>Physics crash will force a simulator restart</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
@@ -2567,7 +2564,7 @@
     <value>Enable Search</value>
   </data>
   <data name="webserver_Search_map" xml:space="preserve">
-    <value>Webserver + Search and Map</value>
+    <value>Web Server + Search and Map</value>
   </data>
   <data name="Setup_word" xml:space="preserve">
     <value>Setup</value>
@@ -2591,7 +2588,7 @@
     <value>Start Regions</value>
   </data>
   <data name="Selectallnone" xml:space="preserve">
-    <value>Selects all or none of the checkboxes</value>
+    <value>Selects all or none of the check boxes</value>
   </data>
   <data name="Cancelled_word" xml:space="preserve">
     <value>Cancelled</value>
@@ -2621,7 +2618,7 @@
     <value>Checking for Updates</value>
   </data>
   <data name="DynDNS" xml:space="preserve">
-    <value>Registering DynDNS address</value>
+    <value>Registering Dynamic DNS address</value>
   </data>
   <data name="Enable_Birds_word" xml:space="preserve">
     <value>Enable Bird Module</value>
@@ -2645,7 +2642,7 @@
     <value>Opensim Is not running.</value>
   </data>
   <data name="Skip_Autobackup_word" xml:space="preserve">
-    <value>Skip Autobackup</value>
+    <value>Skip Automatic OAR backup</value>
   </data>
   <data name="WifiMap" xml:space="preserve">
     <value>This is the standard Wifi Map page</value>
@@ -2847,7 +2844,7 @@
     <value>regions are still running</value>
   </data>
   <data name="Mapx" xml:space="preserve">
-    <value>Map Coords: X</value>
+    <value>Map  X:</value>
   </data>
   <data name="UUID" xml:space="preserve">
     <value>UUID</value>
@@ -2882,9 +2879,6 @@
   <data name="Desired_Separation_word" xml:space="preserve">
     <value>Desired Separation (default=5.0)</value>
     <comment>new</comment>
-  </data>
-  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
-    <value>Load Free Dreamworld OARs</value>
   </data>
   <data name="Changes_Made" xml:space="preserve">
     <value>Changes have been made.  Save?</value>

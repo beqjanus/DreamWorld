@@ -73,100 +73,14 @@ Public Class MySettings
             LoadSettingsIni()
 
             Settings.CurrentDirectory = Folder
-            AdminFirst() = My.Settings.AdminFirst
-            AdminLast() = My.Settings.AdminLast
-            AdminEmail() = My.Settings.AdminEmail
 
-            AutoBackup() = My.Settings.AutoBackup
-            AutobackupInterval() = My.Settings.AutobackupInterval
-
-            Autostart() = My.Settings.Autostart
-            AccountConfirmationRequired() = My.Settings.AccountConfirmationRequired
-
-            BackupFolder() = My.Settings.BackupFolder
-
-            Clouds() = False    ' does not exist in old code, so set it off
-            Density() = 0.5
-            ConsoleUser() = My.Settings.ConsoleUser
-            ConsolePass() = My.Settings.ConsolePass
-            CoordX() = CInt("0" & My.Settings.CoordX)
-            CoordY() = CInt("0" & My.Settings.CoordY)
-
-            DiagFailed() = My.Settings.DiagFailed
-
-            DiagnosticPort() = CInt("0" & My.Settings.DiagnosticPort)
-            DNSName() = My.Settings.DnsName
-
-            EnableHypergrid() = My.Settings.EnableHypergrid
-
-            GLProdSecret() = My.Settings.GLProdSecret
-            GLProdKey() = My.Settings.GLProdKey
-            GLBOwnerName() = My.Settings.GLBOwnerName
-            GLBOwnerEmail() = My.Settings.GLBOwnerEmail
-            GLSandSecret() = My.Settings.GLSandSecret
-            GLSandKey() = My.Settings.GLSandKey
-            GloebitsMode() = My.Settings.GloebitsMode
-            GloebitsEnable() = My.Settings.GloebitsEnable
-
-            HttpPort() = CInt("0" & My.Settings.HttpPort)
-
-            KeepForDays() = My.Settings.KeepForDays
-
-            LoopBackDiag() = My.Settings.LoopBackDiag
-
-            MapType() = My.Settings.MapType
-            MyX() = My.Settings.MyX
-            MyY() = My.Settings.MyY
-
-            Password() = My.Settings.Password
-            Physics() = My.Settings.Physics
-            PrivatePort() = CInt("0" & My.Settings.PrivatePort)
-            PublicIP() = My.Settings.PublicIP
-
-            AllowGridGods() = CType(My.Settings.allow_grid_gods, Boolean)
-            RegionOwnerIsGod() = My.Settings.region_owner_is_god
-            RegionManagerIsGod() = My.Settings.region_manager_is_god
-
-            RanAllDiags() = My.Settings.RanAllDiags
-
-            RegionDBName() = My.Settings.RegionDBName
-            RegionDbPassword() = My.Settings.RegionDbPassword
-            RegionDBUsername() = My.Settings.RegionDBUsername
-
-            ' RobustSCAdminPassword
-            RobustServer() = My.Settings.RobustServer
-            RobustPassword() = My.Settings.RobustPassword
-            RobustUsername() = My.Settings.RobustUsername
-            RobustDataBaseName() = My.Settings.RobustDataBaseName
-            RunOnce() = My.Settings.RunOnce
-
-            SCEnable() = False
-            SCPortBase() = 8100
-            SCPortBase1() = 8101
             Dim SCPasswordAdmin = New PassGen
             SCPassword() = SCPasswordAdmin.GeneratePass()
             SCAdminPassword() = SCPasswordAdmin.GeneratePass()
 
-            SizeX() = My.Settings.SizeX
-            SizeY() = My.Settings.SizeY
-            SimName() = My.Settings.SimName
-
             'email
             SmtpHost() = "smtp.gmail.com"
             SmtpPort() = 587
-            SmtPropUserName() = My.Settings.SmtPropUserName
-            SmtpPassword() = My.Settings.SmtpPassword
-
-            SplashPage() = My.Settings.SplashPage
-
-            UPnPEnabled() = My.Settings.UPnPEnabled
-            UPnpDiag() = My.Settings.UPnpDiag
-            VivoxEnabled = My.Settings.VivoxEnabled
-            VivoxUserName() = My.Settings.Vivox_username
-            VivoxPassword() = My.Settings.Vivox_password
-
-            WelcomeRegion() = My.Settings.WelcomeRegion
-            WifiEnabled() = My.Settings.WifiEnabled
 
         End If
 
@@ -1681,7 +1595,7 @@ Public Class MySettings
 
     Public Property SmtpPassword() As String
         Get
-            Return GetMySetting("SmtpPassword")
+            Return GetMySetting("SmtpPassword", "Some Password")
         End Get
         Set
             SetMySetting("SmtpPassword", Value)
@@ -1699,7 +1613,7 @@ Public Class MySettings
 
     Public Property SmtPropUserName() As String
         Get
-            Return GetMySetting("SmtPropUserName")
+            Return GetMySetting("SmtPropUserName", "LoginName@gmail.com")
         End Get
         Set
             SetMySetting("SmtPropUserName", Value)
@@ -1835,7 +1749,7 @@ Public Class MySettings
 
     Public Property VivoxPassword() As String
         Get
-            Return GetMySetting("Vivox_password")
+            Return GetMySetting("Vivox_password", "Passord")
         End Get
         Set
             SetMySetting("Vivox_password", Value)
@@ -1844,7 +1758,7 @@ Public Class MySettings
 
     Public Property VivoxUserName() As String
         Get
-            Return GetMySetting("Vivox_username")
+            Return GetMySetting("Vivox_username", "User Name")
         End Get
         Set
             SetMySetting("Vivox_username", Value)

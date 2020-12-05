@@ -143,6 +143,13 @@ Public Class FormChooser
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        CancelButton1.Text = Global.Outworldz.My.Resources.Cancel_word
+        Group.HeaderText = Global.Outworldz.My.Resources.Group_word
+        Group.Name = Global.Outworldz.My.Resources.Group_word
+        Group.ToolTipText = Global.Outworldz.My.Resources.Click_2_Choose
+        OKButton1.Text = Global.Outworldz.My.Resources.Ok
+        Text = Global.Outworldz.My.Resources.Choose_Region_word
+
         SetScreen()
         BringToFront()
 

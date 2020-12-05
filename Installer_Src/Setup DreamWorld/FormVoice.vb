@@ -69,7 +69,18 @@ Public Class FormVoice
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Setup_Voice_Service
+        Label1.Text = Global.Outworldz.My.Resources.User_ID_word
+        Label2.Text = Global.Outworldz.My.Resources.Password_word
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        RequestPassword.Text = Global.Outworldz.My.Resources.Click_to_Request_Voice_Service
+        RunOnBoot.Image = Global.Outworldz.My.Resources.about
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        VivoxEnable.Text = Global.Outworldz.My.Resources.Enable_word
+
         Me.Text = Global.Outworldz.My.Resources.Voice_Settings_Word
         VivoxEnable.Checked = Settings.VivoxEnabled
         VivoxPassword.Text = Settings.VivoxPassword
@@ -109,9 +120,8 @@ Public Class FormVoice
     End Sub
 
     Private Sub VivoxUserName_TextChanged(sender As Object, e As EventArgs) Handles VivoxUserName.TextChanged
-#Disable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
+
         Settings.VivoxUserName = VivoxUserName.Text
-#Enable Warning BC30456 ' 'Vivox_UserName' is not a member of 'MySettings'.
         Settings.SaveSettings()
     End Sub
 

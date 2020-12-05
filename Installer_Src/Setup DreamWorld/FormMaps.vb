@@ -111,7 +111,34 @@ Public Class FormMaps
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        Button2.Text = Global.Outworldz.My.Resources.View_Maps
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        GroupBox2.Text = Global.Outworldz.My.Resources.Maps_word
+        Label1.Text = Global.Outworldz.My.Resources.Map_Center_Location_word
+        Label2.Text = Global.Outworldz.My.Resources.X
+        Label3.Text = Global.Outworldz.My.Resources.Y
+        Label4.Text = Global.Outworldz.My.Resources.RenderMax
+        Label5.Text = Global.Outworldz.My.Resources.RenderMin
+        LargeMapButton.Text = Global.Outworldz.My.Resources.LargeMap
+        MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
+        MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
+        MapBox.Text = Global.Outworldz.My.Resources.Maps_word
+        MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
+        MapHelp.Image = Global.Outworldz.My.Resources.about
+        MapNone.Text = Global.Outworldz.My.Resources.None
+        MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        SmallMapButton.Text = Global.Outworldz.My.Resources.Small_Map
+        Text = Global.Outworldz.My.Resources.Maps_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        ToolTip1.SetToolTip(Button2, Global.Outworldz.My.Resources.WifiMap)
+        ToolTip1.SetToolTip(MapXStart, Global.Outworldz.My.Resources.CenterMap)
+        ToolTip1.SetToolTip(MapYStart, Global.Outworldz.My.Resources.CenterMap)
+        ToolTip1.SetToolTip(RenderMaxH, Global.Outworldz.My.Resources.Max4096)
+        ToolTip1.SetToolTip(ViewMap, Global.Outworldz.My.Resources.Regen_Map)
+        ViewMap.Text = Global.Outworldz.My.Resources.DelMaps
 
         If Settings.MapType = "None" Then
             MapNone.Checked = True

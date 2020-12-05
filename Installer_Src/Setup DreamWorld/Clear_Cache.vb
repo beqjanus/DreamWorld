@@ -63,9 +63,7 @@ Module Clear_Cache
             Dim files() = Nothing
             Try
                 files = IO.Directory.GetFiles(Flotsam)
-
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
 
@@ -90,9 +88,7 @@ Module Clear_Cache
             If Directory.Exists(Settings.OpensimBinPath & "bakes\") Then
                 Try
                     files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
-
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             End If
@@ -118,7 +114,6 @@ Module Clear_Cache
             If Directory.Exists(Settings.OpensimBinPath & "j2kDecodeCache\") Then
                 Try
                     files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
-
                 Catch ex As Exception
 
                     BreakPoint.Show(ex.Message)
@@ -146,7 +141,6 @@ Module Clear_Cache
             If Directory.Exists(Settings.OpensimBinPath & "MeshCache\") Then
                 Try
                     files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
-
                 Catch ex As Exception
 
                     BreakPoint.Show(ex.Message)

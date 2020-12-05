@@ -29,17 +29,17 @@ Public Class UploadImage
 
 #Region "Public Methods"
 
-    Shared Sub UploadComplete(ByVal Data As String)
+    Shared Sub UploadComplete(ByVal data As String)
         ' Your Upload Success Routine Goes here
-        If Data <> "1" Then
-            FormSetup.Log(My.Resources.Error_word, "Upload Failed. " & Data)
+        If data <> "1" Then
+            FormSetup.Log(My.Resources.Error_word, "Upload Failed. " & data)
         End If
 
     End Sub
 
-    Shared Sub UploadError(ByVal Data As String)
+    Shared Sub UploadError(ByVal data As String)
         ' Your Upload failure Routine Goes here
-        FormSetup.ErrorLog("Upload Error:" + Data)
+        FormSetup.ErrorLog("Upload Error:" + data)
     End Sub
 
     Public Sub PostContentUploadFile()
@@ -123,19 +123,17 @@ Public Class UploadImage
             Debug.Print("Content-Type: application/octet-stream")
             sw.WriteLine()
             Debug.Print("")
-
-            Dim fileStream As FileStream = New FileStream(r_State.FileName, FileMode.Open, FileAccess.Read)
             Dim buffer(1024) As Byte, bytesRead As Integer
             sw.Flush()
 
-            Do
-                bytesRead = fileStream.Read(buffer, 0, buffer.Length)
-                If bytesRead > 0 Then
-                    sw.BaseStream.Write(buffer, 0, bytesRead)
-                End If
-            Loop While (bytesRead > 0)
-            fileStream.Close()
-            fileStream = Nothing
+            Using fileStream As FileStream = New FileStream(r_State.FileName, FileMode.Open, FileAccess.Read)
+                Do
+                    bytesRead = fileStream.Read(buffer, 0, buffer.Length)
+                    If bytesRead > 0 Then
+                        sw.BaseStream.Write(buffer, 0, bytesRead)
+                    End If
+                Loop While (bytesRead > 0)
+            End Using
 
             sw.BaseStream.Flush()
             sw.Write(vbNewLine & "--" & boundary & "--" & vbNewLine)
@@ -143,7 +141,6 @@ Public Class UploadImage
 
             sw.Flush() : sw.Close()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 

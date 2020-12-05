@@ -2204,7 +2204,7 @@ Public Class FormSetup
                 If PropRegionClass.IsBooted(RegionUUID) Then
                     ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
                     hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                    ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
                 End If
             Next
             ConsoleCommand(RobustName, "set log level " & msg & "{ENTER}" & vbCrLf)
@@ -2868,7 +2868,9 @@ Public Class FormSetup
         If RegionUUID.Length = 0 Then
             MsgBox(My.Resources.Default_Welcome, vbInformation)
             Print(My.Resources.Stopped_word)
+#Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormRegions = New FormRegions
+#Enable Warning CA2000 ' Dispose objects before losing scope
             FormRegions.Activate()
             FormRegions.Select()
             FormRegions.Visible = True
@@ -3538,7 +3540,7 @@ Public Class FormSetup
                 ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                 SequentialPause()   ' wait for previous region to give us some CPU
                 Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
             End If
         Next
 
@@ -4650,7 +4652,218 @@ Public Class FormSetup
 
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
-        Translate.Run(Name)
+        AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Add_User_word
+        AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
+        AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+        AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.All_Global_Settings_word
+        All.Text = Global.Outworldz.My.Resources.Resources.All_word
+
+        AllUsersAllSimsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.All_Users_All_Sims_word
+        ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_saudi_arabia1
+        BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        BackupCriticalFilesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
+        BackupDatabaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        BackupDatabaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Databases
+        BackupRestoreToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        BackupRestoreToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.SQL_Database_Backup_Restore
+        BasqueToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.basque
+        BasqueToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Basque_word
+        BrazilToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_brazil
+        BusyButton.Text = Global.Outworldz.My.Resources.Resources.Busy_word
+        CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
+        CHeckForUpdatesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Check_for_Updates_word
+        CatalanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_catalan
+        CatalanToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Catalan
+        ChangePasswordToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Change_Password_word
+        ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
+        ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
+        CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
+        CheckAndRepairDatbaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Check_and_Repair_Database_word
+        ChineseSimplifedToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_china
+        ChineseSimplifedToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Chinese_Simplifed
+        ChineseTraditionalToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_taiwan
+        ChineseTraditionalToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Chinese_Traditional
+        ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        ClothingInventoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Free_Avatar_Inventory_word
+        ClothingInventoryToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Load_Free_Avatar_Inventory_text
+        CommonConsoleCommandsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.text_marked
+        CommonConsoleCommandsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Issue_Commands
+        ConsoleCOmmandsToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.text_marked
+        ConsoleCOmmandsToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_Console
+        ConsoleCOmmandsToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Console_text
+        ConsoleToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.window_add
+        ConsoleToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Consoles_word
+        ConsoleToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Consoletext
+        CzechToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_czech_republic
+        CzechToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Czech
+        Debug.Text = Global.Outworldz.My.Resources.Resources.Debug_word
+        DebugToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Set_Debug_Level_word
+        DiagnosticsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
+        DiagnosticsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Network_Diagnostics
+        DiagnosticsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Network_Diagnostics_text
+        DutchToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_netherlands
+        DutchToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Dutch
+        EnglishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_usa
+        EnglishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.English
+        ErrorToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Error_word
+        FarsiToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_iran
+        Fatal1.Text = Global.Outworldz.My.Resources.Resources.Fatal_word
+        FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.File_word
+        FinnishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_finland
+        FinnishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Finnish
+        FrenchToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_france
+        FrenchToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.French
+        GermanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_germany
+        GermanToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.German
+        GreekToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_greece
+        GreekToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Greek
+        HebrewToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_israel
+        HebrewToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Hebrew
+        HelpOnIARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        HelpOnIARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_On_IARS_word
+        HelpOnIARSToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_IARS_text
+        HelpOnOARsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        HelpOnOARsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_OARS
+        HelpOnOARsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_OARS_text
+        HelpOnSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear
+        HelpOnSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_Manuals_word
+        HelpStartingUpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        HelpStartingUpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_Startup
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem3.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem3.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem4.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem4.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        IcelandicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_iceland
+        IcelandicToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Icelandic
+        Info.Text = Global.Outworldz.My.Resources.Resources.Info_word
+        IrishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_ireland
+        IrishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Irish
+        IslandToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        IslandToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Free_DreamGrid_OARs_word
+        JobEngineToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.JobEngine_word
+        JustOneRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Just_one_region_word
+        JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flash
+        JustQuitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Quit_Now_Word
+        LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users3
+        LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Language
+
+        LoadIARsToolMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        LoadIARsToolMenuItem.Text = Global.Outworldz.My.Resources.Resources.Inventory_IAR_Load_and_Save_words
+        LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Local_OARs_word
+
+        LoopBackToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
+        LoopBackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_On_LoopBack_word
+        LoopBackToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Loopback_Text
+        MnuContent.Text = Global.Outworldz.My.Resources.Resources.Content_word
+        MoreFreeIslandsandPartsContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
+        MoreFreeIslandsandPartsContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.More_Free_Islands_and_Parts_word
+        MoreFreeIslandsandPartsContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Free_DLC_word
+        MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        MysqlToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Mysql_Word
+        NorwegianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_norway
+        NorwegianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Norwegian
+
+        Off1.Text = Global.Outworldz.My.Resources.Resources.Off
+        PDFManualToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.pdf
+        PDFManualToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.PDF_Manual_word
+        PolishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_poland
+        PolishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Polish
+        PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_portugal
+        PortgueseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Portuguese
+        RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
+        RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Regions_word
+        RestartApacheItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        RestartApacheItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
+        RestartIceCastItem2.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RestartIceCastItem2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        RestartIcecastItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        RestartIcecastItem.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
+        RestartMysqlItem.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RestartMysqlItem.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        RestartOneRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Restart_one_region_word
+        RestartRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Restart_Region_word
+        RestartRobustItem.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RestartRobustItem.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        RestartTheInstanceToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Restart_one_instance_word
+        RestartToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RestartToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        RestoreDatabaseToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        RestoreDatabaseToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Restore_Database_word
+        RevisionHistoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_dirty
+        RevisionHistoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Revision_History_word
+        RobustToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        RobustToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Robust_word
+        RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_russia1
+        RussianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Russian
+        ScriptsResumeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Resume_word
+        ScriptsStartToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Start_word
+        ScriptsStopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Stop_word
+        ScriptsSuspendToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Suspend_word
+        ScriptsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
+        SeePortsInUseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_connection
+        SeePortsInUseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.See_Ports_In_Use_word
+        SendAlertToAllUsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Send_Alert_Message_word
+        ShowHyperGridAddressToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
+        ShowHyperGridAddressToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Show_Grid_Address
+        ShowHyperGridAddressToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Grid_Address_text
+        ShowStatusToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Show_Status_word
+        ShowUserDetailsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Show_User_Details_word
+        SimulatorStatsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
+        SimulatorStatsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.View_Simulator_Stats
+        SpanishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_spain
+        SpanishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Spanish
+        StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
+        StopButton.Text = Global.Outworldz.My.Resources.Resources.Stop_word
+        SwedishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_sweden
+        SwedishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Swedish
+        TechnicalInfoToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_dirty
+        TechnicalInfoToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_Technical
+        TechnicalInfoToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Technical_text
+        ThreadpoolsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Thread_pools_word
+        ToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.document_connection
+        ToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_Forward
+        ToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Forward_text
+        TroubleshootingToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_view
+        TroubleshootingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_Troubleshooting_word
+        UsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Users_word
+        ViewIcecastWebPageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        ViewIcecastWebPageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.View_Icecast
+        ViewLogsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_view
+        ViewLogsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.View_Logs
+        ViewRegionMapToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Good
+        ViewRegionMapToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.View_Maps
+        ViewWebUI.Image = Global.Outworldz.My.Resources.Resources.document_view
+        ViewWebUI.Text = Global.Outworldz.My.Resources.Resources.View_Web_Interface
+        ViewWebUI.ToolTipText = Global.Outworldz.My.Resources.Resources.View_Web_Interface_text
+        Warn.Text = Global.Outworldz.My.Resources.Resources.Warn_word
+        XengineToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.XEngine_word
+        mnuAbout.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        mnuAbout.Text = Global.Outworldz.My.Resources.Resources.About_word
+        mnuExit.Image = Global.Outworldz.My.Resources.Resources.exit_icon
+        mnuExit.Text = Global.Outworldz.My.Resources.Resources.Exit__word
+        mnuHide.Image = Global.Outworldz.My.Resources.Resources.navigate_down
+        mnuHide.Text = Global.Outworldz.My.Resources.Resources.Hide
+        mnuHideAllways.Image = Global.Outworldz.My.Resources.Resources.navigate_down2
+        mnuHideAllways.Text = Global.Outworldz.My.Resources.Resources.Hide_Allways_word
+        mnuSettings.Text = Global.Outworldz.My.Resources.Resources.Setup_word
+        mnuShow.Image = Global.Outworldz.My.Resources.Resources.navigate_up
+        mnuShow.Text = Global.Outworldz.My.Resources.Resources.Show_word
+
+        ' OAR AND IAR MENU
+        SearchForObjectsMenuItem.Text = Global.Outworldz.My.Resources.Search_Events
+        SearchForGridsMenuItem.Text = Global.Outworldz.My.Resources.Search_grids
+        LoadInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Load_Inventory_IAR
+        SaveAllRunningRegiondsAsOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_All_Regions
+        LoadRegionOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Region_OAR
+        LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.OAR_load_save_backupp_word
+        SaveInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Save_Inventory_IAR_word
+        SaveRegionOARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Save_Region_OAR_word
 
         TextBox1.BackColor = Me.BackColor
         ' initialize the scrolling text box

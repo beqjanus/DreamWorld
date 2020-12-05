@@ -49,7 +49,15 @@
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        GroupBox1.Text = Global.Outworldz.My.Resources.Enter_the_Grid_Owner_Information_word
+        Label1.Text = Global.Outworldz.My.Resources.First_name_word
+        Label2.Text = Global.Outworldz.My.Resources.Last_Name_Word
+        Label3.Text = Global.Outworldz.My.Resources.Password_word
+        Label5.Text = Global.Outworldz.My.Resources.Repeat_Password_word
+        Label6.Text = Global.Outworldz.My.Resources.Email_word
+        PictureBox1.Image = Global.Outworldz.My.Resources.document_view
+        SaveButton.Text = Global.Outworldz.My.Resources.Save_word
+
         Password1TextBox.UseSystemPasswordChar = True
         Password2TextBox.UseSystemPasswordChar = True
 

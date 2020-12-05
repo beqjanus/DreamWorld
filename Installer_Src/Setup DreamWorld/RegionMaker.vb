@@ -39,8 +39,6 @@ Public Class RegionMaker
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
     ReadOnly TeleportAvatarDict As New Dictionary(Of String, String)
     Private _RegionListIsInititalized As Boolean
-#Disable Warning CA1051 ' Do not declare visible instance fields
-#Enable Warning CA1051 ' Do not declare visible instance fields
     Dim json As New JSONresult
 
     Public Enum REGIONTIMER As Integer
@@ -113,15 +111,15 @@ Public Class RegionMaker
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
         Dim XMLPortnumber As Integer = CInt("0" & Settings.FirstXMLRegionPort())
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
-            Dim RegionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
-            Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(RegionUUID), ";")
+        For Each uuid As String In FormSetup.PropRegionClass.RegionUuids
+            Dim RegionName = FormSetup.PropRegionClass.RegionName(uuid)
+            Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(uuid), ";")
 
             Settings.SetIni(RegionName, "InternalPort", CStr(Portnumber))
-            FormSetup.PropRegionClass.RegionPort(RegionUUID) = Portnumber
+            FormSetup.PropRegionClass.RegionPort(uuid) = Portnumber
 
             Settings.SetIni(RegionName, "XmlRpcPort", CStr(XMLPortnumber))
-            FormSetup.PropRegionClass.XMLRegionPort(RegionUUID) = CStr(XMLPortnumber)
+            FormSetup.PropRegionClass.XmlRegionPort(uuid) = CStr(XMLPortnumber)
 
             ' Self setting Region Ports
             FormSetup.PropMaxPortUsed = Portnumber
@@ -178,17 +176,17 @@ Public Class RegionMaker
                 If json.login = "enabled" Then
 
                     FormSetup.Logger("RegionReady: Enabled", json.region_name, "Restart")
-                    Dim RegionUUID As String = FindRegionByName(json.region_name)
-                    If RegionUUID.Length = 0 Then
+                    Dim uuid As String = FindRegionByName(json.region_name)
+                    If uuid.Length = 0 Then
                         FormSetup.Logger("RegionReady Error, no UUID!!", json.region_name, "Restart")
                         Continue While
                     End If
 
-                    Dim GName = FormSetup.PropRegionClass.GroupName(RegionUUID)
+                    Dim GName = FormSetup.PropRegionClass.GroupName(uuid)
 
                     ' not used - wait on each region ready instead
 
-                    Dim GroupList = FormSetup.PropRegionClass.RegionUUIDListByName(GName)
+                    Dim GroupList = FormSetup.PropRegionClass.RegionUuidListByName(GName)
                     For Each R As String In GroupList
                         FormSetup.Logger("RegionReady Heard:", FormSetup.PropRegionClass.RegionName(R), "Restart")
                         FormSetup.BootedList1.Add(R)
@@ -215,9 +213,9 @@ Public Class RegionMaker
                                     FormSetup.Print(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
 
                                     Dim Welcome = Settings.WelcomeRegion
-                                    Dim UUID = FindRegionByName(Welcome)
-                                    FormSetup.ConsoleCommand(UUID, "change region " & json.region_name & "{ENTER}")
-                                    FormSetup.ConsoleCommand(UUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
+                                    Dim rUUID = FindRegionByName(Welcome)
+                                    FormSetup.ConsoleCommand(rUUID, "change region " & json.region_name & "{ENTER}")
+                                    FormSetup.ConsoleCommand(rUUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
                                         Removelist.Add(Keypair.Key)
                                     Catch ex As Exception
@@ -241,7 +239,7 @@ Public Class RegionMaker
                     Next
 
                     If Settings.ConsoleShow = "False" Or Settings.ConsoleShow = "None" Then
-                        Dim hwnd = FormSetup.GetHwnd(GroupName(RegionUUID))
+                        Dim hwnd = FormSetup.GetHwnd(GroupName(uuid))
                         FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
 
@@ -250,8 +248,8 @@ Public Class RegionMaker
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
 
                     FormSetup.Print(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
-                    Dim RegionUUID = FormSetup.PropRegionClass.FindRegionByName(json.region_name)
-                    Dim GName = FormSetup.PropRegionClass.GroupName(RegionUUID)
+                    Dim uuid = FormSetup.PropRegionClass.FindRegionByName(json.region_name)
+                    Dim GName = FormSetup.PropRegionClass.GroupName(uuid)
                     If Not FormSetup.PropExitList.ContainsKey(GName) Then
                         FormSetup.PropExitList.Add(GName, "RegionReady: shutdown ")
                     End If
@@ -360,7 +358,7 @@ Public Class RegionMaker
 
             Dim folders() As String
             Dim regionfolders() As String
-            Dim RegionUUID As String = ""
+            Dim uuid As String = ""
             folders = Directory.GetDirectories(Settings.OpensimBinPath + "Regions")
             For Each FolderName As String In folders
 
@@ -381,88 +379,88 @@ Public Class RegionMaker
 
                             Settings.LoadIni(ini, ";")
 
-                            RegionUUID = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
+                            uuid = CStr(Settings.GetIni(fName, "uuid", "", "String"))
                             Dim SomeUUID As New Guid
-                            If Not Guid.TryParse(RegionUUID, SomeUUID) Then
-                                MsgBox("Cannot read RegionUUID in INI file for  " & fName)
+                            If Not Guid.TryParse(uuid, SomeUUID) Then
+                                MsgBox("Cannot read uuid in INI file for  " & fName)
                             End If
 
-                            CreateRegion(fName, RegionUUID)
+                            CreateRegion(fName, uuid)
 
                             ' we do not save the above as we are making a new one.
-                            RegionEnabled(RegionUUID) = CBool(Settings.GetIni(fName, "Enabled", "True", "Boolean"))
+                            RegionEnabled(uuid) = CBool(Settings.GetIni(fName, "Enabled", "True", "Boolean"))
 
-                            RegionPath(RegionUUID) = ini ' save the path
-                            FolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(ini)
+                            RegionPath(uuid) = ini ' save the path
+                            FolderPath(uuid) = System.IO.Path.GetDirectoryName(ini)
 
-                            Dim theEnd As Integer = FolderPath(RegionUUID).LastIndexOf("\", StringComparison.InvariantCulture)
-                            IniPath(RegionUUID) = FolderPath(RegionUUID).Substring(0, theEnd + 1)
+                            Dim theEnd As Integer = FolderPath(uuid).LastIndexOf("\", StringComparison.InvariantCulture)
+                            IniPath(uuid) = FolderPath(uuid).Substring(0, theEnd + 1)
 
                             ' need folder name in case there are more than 1 ini
-                            Dim theStart = FolderPath(RegionUUID).IndexOf("Regions\", StringComparison.InvariantCulture) + 8
-                            theEnd = FolderPath(RegionUUID).LastIndexOf("\", StringComparison.InvariantCulture)
-                            Dim gname = FolderPath(RegionUUID).Substring(theStart, theEnd - theStart)
+                            Dim theStart = FolderPath(uuid).IndexOf("Regions\", StringComparison.InvariantCulture) + 8
+                            theEnd = FolderPath(uuid).LastIndexOf("\", StringComparison.InvariantCulture)
+                            Dim gname = FolderPath(uuid).Substring(theStart, theEnd - theStart)
 
-                            GroupName(RegionUUID) = gname
+                            GroupName(uuid) = gname
 
-                            UUID(RegionUUID) = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
-                            SizeX(RegionUUID) = CInt(Settings.GetIni(fName, "SizeX", "256", "Integer"))
-                            SizeY(RegionUUID) = CInt(Settings.GetIni(fName, "SizeY", "256", "Integer"))
-                            RegionPort(RegionUUID) = CInt(Settings.GetIni(fName, "InternalPort", "0", "Integer"))
+                            RegionUUID(uuid) = CStr(Settings.GetIni(fName, "uuid", "", "String"))
+                            SizeX(uuid) = CInt(Settings.GetIni(fName, "SizeX", "256", "Integer"))
+                            SizeY(uuid) = CInt(Settings.GetIni(fName, "SizeY", "256", "Integer"))
+                            RegionPort(uuid) = CInt(Settings.GetIni(fName, "InternalPort", "0", "Integer"))
 
                             ' extended props V2.1
-                            NonPhysicalPrimMax(RegionUUID) = CStr(Settings.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer"))
-                            PhysicalPrimMax(RegionUUID) = CStr(Settings.GetIni(fName, "PhysicalPrimMax", "64", "Integer"))
-                            ClampPrimSize(RegionUUID) = CBool(Settings.GetIni(fName, "ClampPrimSize", "False", "Boolean"))
-                            MaxPrims(RegionUUID) = CStr(Settings.GetIni(fName, "MaxPrims", "15000", "Integer"))
-                            MaxAgents(RegionUUID) = CStr(Settings.GetIni(fName, "MaxAgents", "100", "Integer"))
+                            NonPhysicalPrimMax(uuid) = CStr(Settings.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer"))
+                            PhysicalPrimMax(uuid) = CStr(Settings.GetIni(fName, "PhysicalPrimMax", "64", "Integer"))
+                            ClampPrimSize(uuid) = CBool(Settings.GetIni(fName, "ClampPrimSize", "False", "Boolean"))
+                            MaxPrims(uuid) = CStr(Settings.GetIni(fName, "MaxPrims", "15000", "Integer"))
+                            MaxAgents(uuid) = CStr(Settings.GetIni(fName, "MaxAgents", "100", "Integer"))
 
                             ' Location is int,int format.
                             Dim C As String = CStr(Settings.GetIni(fName, "Location", RandomNumber.Between(1010, 990) & "," & RandomNumber.Between(2000, 1000)))
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
-                            CoordX(RegionUUID) = CInt("0" & CStr(parts(0)))
-                            CoordY(RegionUUID) = CInt("0" & CStr(parts(1)))
+                            CoordX(uuid) = CInt("0" & CStr(parts(0)))
+                            CoordY(uuid) = CInt("0" & CStr(parts(1)))
 
                             ' options parameters coming from INI file can be blank!
-                            MinTimerInterval(RegionUUID) = CStr(Settings.GetIni(fName, "MinTimerInterval", "", "String"))
-                            FrameTime(RegionUUID) = CStr(Settings.GetIni(fName, "FrameTime", "", "String"))
-                            RegionSnapShot(RegionUUID) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
-                            MapType(RegionUUID) = CStr(Settings.GetIni(fName, "MapType", "", "String"))
-                            Physics(RegionUUID) = CStr(Settings.GetIni(fName, "Physics", "", "String"))
-                            MaxPrims(RegionUUID) = CStr(Settings.GetIni(fName, "MaxPrims", "", "String"))
-                            GodDefault(RegionUUID) = CStr(Settings.GetIni(fName, "GodDefault", "True", "String"))
-                            AllowGods(RegionUUID) = CStr(Settings.GetIni(fName, "AllowGods", "", "String"))
-                            RegionGod(RegionUUID) = CStr(Settings.GetIni(fName, "RegionGod", "", "String"))
-                            ManagerGod(RegionUUID) = CStr(Settings.GetIni(fName, "ManagerGod", "", "String"))
-                            Birds(RegionUUID) = CStr(Settings.GetIni(fName, "Birds", "", "String"))
-                            Tides(RegionUUID) = CStr(Settings.GetIni(fName, "Tides", "", "String"))
-                            Teleport(RegionUUID) = CStr(Settings.GetIni(fName, "Teleport", "", "String"))
-                            DisableGloebits(RegionUUID) = CStr(Settings.GetIni(fName, "DisableGloebits", "", "String"))
-                            DisallowForeigners(RegionUUID) = CStr(Settings.GetIni(fName, "DisallowForeigners", "", "String"))
-                            DisallowResidents(RegionUUID) = CStr(Settings.GetIni(fName, "DisallowResidents", "", "String"))
-                            SkipAutobackup(RegionUUID) = CStr(Settings.GetIni(fName, "SkipAutoBackup", "", "String"))
-                            Snapshot(RegionUUID) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
-                            ScriptEngine(RegionUUID) = CStr(Settings.GetIni(fName, "ScriptEngine", "", "String"))
-                            XMLRegionPort(RegionUUID) = CStr(Settings.GetIni(fName, "XMLRegionPort", "", "String"))
-                            GDPR(RegionUUID) = CStr(Settings.GetIni(fName, "Publicity", "", "String"))
+                            MinTimerInterval(uuid) = CStr(Settings.GetIni(fName, "MinTimerInterval", "", "String"))
+                            FrameTime(uuid) = CStr(Settings.GetIni(fName, "FrameTime", "", "String"))
+                            RegionSnapShot(uuid) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
+                            MapType(uuid) = CStr(Settings.GetIni(fName, "MapType", "", "String"))
+                            Physics(uuid) = CStr(Settings.GetIni(fName, "Physics", "", "String"))
+                            MaxPrims(uuid) = CStr(Settings.GetIni(fName, "MaxPrims", "", "String"))
+                            GodDefault(uuid) = CStr(Settings.GetIni(fName, "GodDefault", "True", "String"))
+                            AllowGods(uuid) = CStr(Settings.GetIni(fName, "AllowGods", "", "String"))
+                            RegionGod(uuid) = CStr(Settings.GetIni(fName, "RegionGod", "", "String"))
+                            ManagerGod(uuid) = CStr(Settings.GetIni(fName, "ManagerGod", "", "String"))
+                            Birds(uuid) = CStr(Settings.GetIni(fName, "Birds", "", "String"))
+                            Tides(uuid) = CStr(Settings.GetIni(fName, "Tides", "", "String"))
+                            Teleport(uuid) = CStr(Settings.GetIni(fName, "Teleport", "", "String"))
+                            DisableGloebits(uuid) = CStr(Settings.GetIni(fName, "DisableGloebits", "", "String"))
+                            DisallowForeigners(uuid) = CStr(Settings.GetIni(fName, "DisallowForeigners", "", "String"))
+                            DisallowResidents(uuid) = CStr(Settings.GetIni(fName, "DisallowResidents", "", "String"))
+                            SkipAutobackup(uuid) = CStr(Settings.GetIni(fName, "SkipAutoBackup", "", "String"))
+                            Snapshot(uuid) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
+                            ScriptEngine(uuid) = CStr(Settings.GetIni(fName, "ScriptEngine", "", "String"))
+                            XmlRegionPort(uuid) = CStr(Settings.GetIni(fName, "XMLRegionPort", "", "String"))
+                            GDPR(uuid) = CStr(Settings.GetIni(fName, "Publicity", "", "String"))
 
                             Select Case CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
                                 Case "True"
-                                    SmartStart(RegionUUID) = "True"
+                                    SmartStart(uuid) = "True"
                                 Case "False"
-                                    SmartStart(RegionUUID) = "False"
+                                    SmartStart(uuid) = "False"
                                 Case Else
-                                    SmartStart(RegionUUID) = ""
+                                    SmartStart(uuid) = ""
                             End Select
 
                             If _RegionListIsInititalized Then
                                 ' restore backups of transient data
                                 Dim o = FindBackupByName(fName)
                                 If o >= 0 Then
-                                    AvatarCount(RegionUUID) = CInt(Backup(o)._AvatarCount)
-                                    ProcessID(RegionUUID) = CInt(Backup(o)._ProcessID)
-                                    Status(RegionUUID) = CInt(Backup(o)._Status)
-                                    Timer(RegionUUID) = CInt(Backup(o)._Timer)
+                                    AvatarCount(uuid) = CInt(Backup(o)._AvatarCount)
+                                    ProcessID(uuid) = CInt(Backup(o)._ProcessID)
+                                    Status(uuid) = CInt(Backup(o)._Status)
+                                    Timer(uuid) = CInt(Backup(o)._Timer)
                                 End If
                             End If
 
@@ -574,13 +572,13 @@ Public Class RegionMaker
 
     Public Sub WriteRegionObject(name As String)
 
-        Dim RegionUUID As String = FindRegionByName(name)
-        If RegionUUID.Length = 0 Then
+        Dim uuid As String = FindRegionByName(name)
+        If uuid.Length = 0 Then
             MsgBox(My.Resources.Cannot_find_region_word & " " & name, vbInformation, Global.Outworldz.My.Resources.Error_word)
             Return
         End If
 
-        Dim fname As String = RegionList(RegionUUID)._FolderPath
+        Dim fname As String = RegionList(uuid)._FolderPath
 
         If (fname.Length = 0) Then
             Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + name + "\Region\"
@@ -603,41 +601,41 @@ Public Class RegionMaker
         & "; Rule2: Only one region per INI file." & vbCrLf _
         & ";" & vbCrLf _
         & "[" & name & "]" & vbCrLf _
-        & "RegionUUID = " & UUID(RegionUUID) & vbCrLf _
-        & "Location = " & CoordX(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
+        & "uuid = " & RegionUUID(uuid) & vbCrLf _
+        & "Location = " & CoordX(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
-        & "InternalPort = " & RegionPort(RegionUUID) & vbCrLf _
+        & "InternalPort = " & RegionPort(uuid) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
         & "ExternalHostName = " & FormSetup.ExternLocalServerName() & vbCrLf _
-        & "SizeX = " & CStr(SizeX(RegionUUID)) & vbCrLf _
-        & "SizeY = " & CStr(SizeY(RegionUUID)) & vbCrLf _
-        & "Enabled = " & CStr(RegionEnabled(RegionUUID)) & vbCrLf _
-        & "NonPhysicalPrimMax = " & CStr(NonPhysicalPrimMax(RegionUUID)) & vbCrLf _
-        & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(RegionUUID)) & vbCrLf _
-        & "ClampPrimSize = " & CStr(ClampPrimSize(RegionUUID)) & vbCrLf _
-        & "MaxPrims = " & MaxPrims(RegionUUID) & vbCrLf _
+        & "SizeX = " & CStr(SizeX(uuid)) & vbCrLf _
+        & "SizeY = " & CStr(SizeY(uuid)) & vbCrLf _
+        & "Enabled = " & CStr(RegionEnabled(uuid)) & vbCrLf _
+        & "NonPhysicalPrimMax = " & CStr(NonPhysicalPrimMax(uuid)) & vbCrLf _
+        & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(uuid)) & vbCrLf _
+        & "ClampPrimSize = " & CStr(ClampPrimSize(uuid)) & vbCrLf _
+        & "MaxPrims = " & MaxPrims(uuid) & vbCrLf _
         & "RegionType = Estate" & vbCrLf _
         & "MaxAgents = 100" & vbCrLf & vbCrLf _
         & ";# Dreamgrid extended properties" & vbCrLf _
-        & "RegionSnapShot = " & RegionSnapShot(RegionUUID) & vbCrLf _
-        & "MapType = " & MapType(RegionUUID) & vbCrLf _
-        & "Physics = " & Physics(RegionUUID) & vbCrLf _
-        & "GodDefault = " & GodDefault(RegionUUID) & vbCrLf _
-        & "AllowGods = " & AllowGods(RegionUUID) & vbCrLf _
-        & "RegionGod = " & RegionGod(RegionUUID) & vbCrLf _
-        & "ManagerGod = " & ManagerGod(RegionUUID) & vbCrLf _
-        & "Birds = " & Birds(RegionUUID) & vbCrLf _
-        & "Tides = " & Tides(RegionUUID) & vbCrLf _
-        & "Teleport = " & Teleport(RegionUUID) & vbCrLf _
-        & "DisableGloebits = " & DisableGloebits(RegionUUID) & vbCrLf _
-        & "DisallowForeigners = " & DisallowForeigners(RegionUUID) & vbCrLf _
-        & "DisallowResidents = " & DisallowResidents(RegionUUID) & vbCrLf _
-        & "MinTimerInterval =" & MinTimerInterval(RegionUUID) & vbCrLf _
-        & "Frametime =" & FrameTime(RegionUUID) & vbCrLf _
-        & "ScriptEngine =" & ScriptEngine(RegionUUID) & vbCrLf _
-        & "XmlRpcPort =" & XMLRegionPort(RegionUUID) & vbCrLf _
-        & "Publicity =" & GDPR(RegionUUID) & vbCrLf _
-        & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf
+        & "RegionSnapShot = " & RegionSnapShot(uuid) & vbCrLf _
+        & "MapType = " & MapType(uuid) & vbCrLf _
+        & "Physics = " & Physics(uuid) & vbCrLf _
+        & "GodDefault = " & GodDefault(uuid) & vbCrLf _
+        & "AllowGods = " & AllowGods(uuid) & vbCrLf _
+        & "RegionGod = " & RegionGod(uuid) & vbCrLf _
+        & "ManagerGod = " & ManagerGod(uuid) & vbCrLf _
+        & "Birds = " & Birds(uuid) & vbCrLf _
+        & "Tides = " & Tides(uuid) & vbCrLf _
+        & "Teleport = " & Teleport(uuid) & vbCrLf _
+        & "DisableGloebits = " & DisableGloebits(uuid) & vbCrLf _
+        & "DisallowForeigners = " & DisallowForeigners(uuid) & vbCrLf _
+        & "DisallowResidents = " & DisallowResidents(uuid) & vbCrLf _
+        & "MinTimerInterval =" & MinTimerInterval(uuid) & vbCrLf _
+        & "Frametime =" & FrameTime(uuid) & vbCrLf _
+        & "ScriptEngine =" & ScriptEngine(uuid) & vbCrLf _
+        & "XmlRpcPort =" & XmlRegionPort(uuid) & vbCrLf _
+        & "Publicity =" & GDPR(uuid) & vbCrLf _
+        & "SmartStart =" & SmartStart(uuid) & vbCrLf
 
         FileStuff.DeleteFile(fname)
 
@@ -730,191 +728,191 @@ Public Class RegionMaker
 
 #Region "Standard INI"
 
-    Public Property AvatarCount(RegionUUID As String) As Integer
+    Public Property AvatarCount(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return 0
-            If Bad(RegionUUID) Then Return 0
-            Return RegionList(RegionUUID)._AvatarCount
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Return RegionList(uuid)._AvatarCount
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._AvatarCount = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._AvatarCount = Value
         End Set
     End Property
 
-    Public Property ClampPrimSize(RegionUUID As String) As Boolean
+    Public Property ClampPrimSize(uuid As String) As Boolean
         Get
-            If RegionUUID Is Nothing Then Return False
-            If Bad(RegionUUID) Then Return False
-            Return RegionList(RegionUUID)._ClampPrimSize
+            If uuid Is Nothing Then Return False
+            If Bad(uuid) Then Return False
+            Return RegionList(uuid)._ClampPrimSize
         End Get
         Set(ByVal Value As Boolean)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._ClampPrimSize = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._ClampPrimSize = Value
         End Set
     End Property
 
-    Public Property CoordX(RegionUUID As String) As Integer
+    Public Property CoordX(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return 0
-            If Bad(RegionUUID) Then Return 0
-            Return RegionList(RegionUUID)._CoordX
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Return RegionList(uuid)._CoordX
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._CoordX = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._CoordX = Value
         End Set
     End Property
 
-    Public Property CoordY(RegionUUID As String) As Integer
+    Public Property CoordY(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return 0
-            If Bad(RegionUUID) Then Return 0
-            Return RegionList(RegionUUID)._CoordY
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Return RegionList(uuid)._CoordY
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._CoordY = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._CoordY = Value
         End Set
     End Property
 
-    Public Property MaxAgents(RegionUUID As String) As String
+    Public Property MaxAgents(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return "100"
-            If Bad(RegionUUID) Then Return "100"
-            If String.IsNullOrEmpty(RegionList(RegionUUID)._MaxAgents) Then RegionList(RegionUUID)._MaxAgents = "100"
+            If uuid Is Nothing Then Return "100"
+            If Bad(uuid) Then Return "100"
+            If String.IsNullOrEmpty(RegionList(uuid)._MaxAgents) Then RegionList(uuid)._MaxAgents = "100"
 
-            Return RegionList(RegionUUID)._MaxAgents
+            Return RegionList(uuid)._MaxAgents
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._MaxAgents = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._MaxAgents = Value
         End Set
     End Property
 
-    Public Property MaxPrims(RegionUUID As String) As String
+    Public Property MaxPrims(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return "45000"
-            If Bad(RegionUUID) Then Return "45000"
-            If String.IsNullOrEmpty(RegionList(RegionUUID)._MaxPrims) Then
-                RegionList(RegionUUID)._MaxPrims = "45000"
+            If uuid Is Nothing Then Return "45000"
+            If Bad(uuid) Then Return "45000"
+            If String.IsNullOrEmpty(RegionList(uuid)._MaxPrims) Then
+                RegionList(uuid)._MaxPrims = "45000"
             End If
-            Return RegionList(RegionUUID)._MaxPrims
+            Return RegionList(uuid)._MaxPrims
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._MaxPrims = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._MaxPrims = Value
         End Set
     End Property
 
-    Public Property NonPhysicalPrimMax(RegionUUID As String) As String
+    Public Property NonPhysicalPrimMax(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return "1024"
-            If Bad(RegionUUID) Then Return "1024"
-            Return RegionList(RegionUUID)._NonPhysicalPrimMax
+            If uuid Is Nothing Then Return "1024"
+            If Bad(uuid) Then Return "1024"
+            Return RegionList(uuid)._NonPhysicalPrimMax
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._NonPhysicalPrimMax = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._NonPhysicalPrimMax = Value
         End Set
     End Property
 
-    Public Property PhysicalPrimMax(RegionUUID As String) As String
+    Public Property PhysicalPrimMax(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return "1024"
-            If Bad(RegionUUID) Then Return "1024"
-            Return RegionList(RegionUUID)._PhysicalPrimMax
+            If uuid Is Nothing Then Return "1024"
+            If Bad(uuid) Then Return "1024"
+            Return RegionList(uuid)._PhysicalPrimMax
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._PhysicalPrimMax = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._PhysicalPrimMax = Value
         End Set
     End Property
 
-    Public Property ProcessID(RegionUUID As String) As Integer
+    Public Property ProcessID(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return 0
-            If Bad(RegionUUID) Then Return 0
-            Return RegionList(RegionUUID)._ProcessID
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Return RegionList(uuid)._ProcessID
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._ProcessID = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._ProcessID = Value
         End Set
     End Property
 
-    Public Property SizeX(RegionUUID As String) As Integer
+    Public Property SizeX(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return 256
-            If Bad(RegionUUID) Then Return 256
-            Return RegionList(RegionUUID)._SizeX
+            If uuid Is Nothing Then Return 256
+            If Bad(uuid) Then Return 256
+            Return RegionList(uuid)._SizeX
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._SizeX = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._SizeX = Value
         End Set
     End Property
 
-    Public Property SizeY(RegionUUID As String) As Integer
+    Public Property SizeY(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return 256
-            If Bad(RegionUUID) Then Return 256
-            Return RegionList(RegionUUID)._SizeY
+            If uuid Is Nothing Then Return 256
+            If Bad(uuid) Then Return 256
+            Return RegionList(uuid)._SizeY
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._SizeY = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._SizeY = Value
         End Set
     End Property
 
-    Public Property Status(RegionUUID As String) As Integer
+    Public Property Status(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return -1
-            If Bad(RegionUUID) Then Return -1
-            Return RegionList(RegionUUID)._Status
+            If uuid Is Nothing Then Return -1
+            If Bad(uuid) Then Return -1
+            Return RegionList(uuid)._Status
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._Status = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Status = Value
         End Set
     End Property
 
-    Public Property Timer(RegionUUID As String) As Integer
+    Public Property Timer(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return -1
-            If Bad(RegionUUID) Then Return -1
-            Return RegionList(RegionUUID)._Timer
+            If uuid Is Nothing Then Return -1
+            If Bad(uuid) Then Return -1
+            Return RegionList(uuid)._Timer
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._Timer = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Timer = Value
         End Set
     End Property
 
-    Public Property UUID(RegionUUID As String) As String
+    Public Property RegionUUID(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._UUID
+            If uuid Is Nothing Then Return ""
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._UUID
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._UUID = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._UUID = Value
         End Set
     End Property
 
@@ -928,35 +926,35 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Public Property FolderPath(RegionUUID As String) As String
+    Public Property FolderPath(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._FolderPath
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._FolderPath
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._FolderPath = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._FolderPath = Value
         End Set
     End Property
 
-    Public Property GroupName(RegionUUID As String) As String
+    Public Property GroupName(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._Group
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._Group
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._Group = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Group = Value
         End Set
     End Property
 
-    Public Property GroupPort(RegionUUID As String) As Integer
+    Public Property GroupPort(uuid As String) As Integer
         Get
-            Dim GN As String = GroupName(RegionUUID)
+            Dim GN As String = GroupName(uuid)
             If _Grouplist.ContainsKey(GN) Then
                 Return _Grouplist.Item(GN)
             End If
@@ -964,7 +962,7 @@ Public Class RegionMaker
         End Get
 
         Set(ByVal Value As Integer)
-            Dim GN As String = GroupName(RegionUUID)
+            Dim GN As String = GroupName(uuid)
             If _Grouplist.ContainsKey(GN) Then
                 If Value > _Grouplist.Item(GN) Then
                     _Grouplist.Item(GN) = Value
@@ -977,55 +975,55 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property IniPath(RegionUUID As String) As String
+    Public Property IniPath(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._IniPath
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._IniPath
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._IniPath = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._IniPath = Value
         End Set
     End Property
 
-    Public Property RegionName(RegionUUID As String) As String
+    Public Property RegionName(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._RegionName
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RegionName
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._RegionName = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionName = Value
         End Set
     End Property
 
-    Public Property RegionPath(RegionUUID As String) As String
+    Public Property RegionPath(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._RegionPath
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RegionPath
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._RegionPath = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionPath = Value
         End Set
     End Property
 
-    Public Property RegionPort(RegionUUID As String) As Integer
+    Public Property RegionPort(uuid As String) As Integer
         Get
-            If RegionUUID Is Nothing Then Return -1
-            If Bad(RegionUUID) Then Return -1
-            Return RegionList(RegionUUID)._RegionPort
+            If uuid Is Nothing Then Return -1
+            If Bad(uuid) Then Return -1
+            Return RegionList(uuid)._RegionPort
         End Get
         Set(ByVal Value As Integer)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._RegionPort = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionPort = Value
         End Set
     End Property
 
@@ -1033,299 +1031,297 @@ Public Class RegionMaker
 
 #Region "Options"
 
-    Public Property AllowGods(RegionUUID As String) As String
+    Public Property AllowGods(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._AllowGods
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._AllowGods
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._AllowGods = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._AllowGods = Value
         End Set
     End Property
 
-    Public Property Birds(RegionUUID As String) As String
+    Public Property Birds(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._Birds
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._Birds
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._Birds = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Birds = Value
         End Set
     End Property
 
-    Public Property DisableGloebits(RegionUUID As String) As String
+    Public Property DisableGloebits(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._DisableGloebits
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._DisableGloebits
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._DisableGloebits = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._DisableGloebits = Value
         End Set
     End Property
 
-    Public Property DisallowForeigners(RegionUUID As String) As String
+    Public Property DisallowForeigners(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._DisallowForeigners
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._DisallowForeigners
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._DisallowForeigners = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._DisallowForeigners = Value
         End Set
     End Property
 
-    Public Property DisallowResidents(RegionUUID As String) As String
+    Public Property DisallowResidents(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._DisallowResidents
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._DisallowResidents
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._DisallowResidents = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._DisallowResidents = Value
         End Set
     End Property
 
-    Public Property FrameTime(RegionUUID As String) As String
+    Public Property FrameTime(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._FrameTime
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._FrameTime
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
             If Value Is Nothing Then Return
             Value = Value.Replace(",", ".")
-            RegionList(RegionUUID)._FrameTime = Value
+            RegionList(uuid)._FrameTime = Value
         End Set
     End Property
 
-    Public Property GodDefault(RegionUUID As String) As String
+    Public Property GodDefault(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return "True"
-            If Bad(RegionUUID) Then Return "True"
-            Return RegionList(RegionUUID)._GodDefault
+            If uuid Is Nothing Then Return "True"
+            If Bad(uuid) Then Return "True"
+            Return RegionList(uuid)._GodDefault
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._GodDefault = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._GodDefault = Value
         End Set
     End Property
 
-    Public Property GDPR(RegionUUID As String) As String
+    Public Property GDPR(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._GDPR
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._GDPR
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._GDPR = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._GDPR = Value
         End Set
     End Property
 
-    Public Property ManagerGod(RegionUUID As String) As String
+    Public Property ManagerGod(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._ManagerGod
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._ManagerGod
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._ManagerGod = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._ManagerGod = Value
         End Set
     End Property
 
-    Public Property MapType(RegionUUID As String) As String
+    Public Property MapType(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._MapType
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._MapType
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._MapType = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._MapType = Value
         End Set
     End Property
 
-    Public Property MinTimerInterval(RegionUUID As String) As String
+    Public Property MinTimerInterval(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._MinTimerInterval
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._MinTimerInterval
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
             If Value Is Nothing Then Return
             Value = Value.Replace(",", ".")
-            RegionList(RegionUUID)._MinTimerInterval = Value
+            RegionList(uuid)._MinTimerInterval = Value
         End Set
     End Property
 
-    Public Property Physics(RegionUUID As String) As String
+    Public Property Physics(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._Physics
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._Physics
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._Physics = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Physics = Value
         End Set
     End Property
 
-    Public Property RegionEnabled(RegionUUID As String) As Boolean
+    Public Property RegionEnabled(uuid As String) As Boolean
         Get
-            If RegionUUID Is Nothing Then Return False
-            If Bad(RegionUUID) Then Return False
-            Return RegionList(RegionUUID)._RegionEnabled
+            If uuid Is Nothing Then Return False
+            If Bad(uuid) Then Return False
+            Return RegionList(uuid)._RegionEnabled
         End Get
         Set(ByVal Value As Boolean)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._RegionEnabled = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionEnabled = Value
         End Set
     End Property
 
-    Public Property RegionGod(RegionUUID As String) As String
+    Public Property RegionGod(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._RegionGod
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RegionGod
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._RegionGod = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionGod = Value
         End Set
     End Property
 
-    Public Property RegionSnapShot(RegionUUID As String) As String
+    Public Property RegionSnapShot(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._RegionSnapShot
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RegionSnapShot
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._RegionSnapShot = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionSnapShot = Value
         End Set
     End Property
 
-    Public Property ScriptEngine(RegionUUID As String) As String
+    Public Property ScriptEngine(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._ScriptEngine
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._ScriptEngine
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._ScriptEngine = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._ScriptEngine = Value
         End Set
     End Property
 
-    Public Property SkipAutobackup(RegionUUID As String) As String
+    Public Property SkipAutobackup(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._SkipAutobackup
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._SkipAutobackup
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._SkipAutobackup = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._SkipAutobackup = Value
         End Set
     End Property
 
-    Public Property SmartStart(RegionUUID As String) As String
+    Public Property SmartStart(uuid As String) As String
 
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._RegionSmartStart
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RegionSmartStart
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._RegionSmartStart = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionSmartStart = Value
         End Set
 
     End Property
 
-    Public Property Snapshot(RegionUUID As String) As String
+    Public Property Snapshot(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._Snapshot
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._Snapshot
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._Snapshot = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Snapshot = Value
         End Set
     End Property
 
-    Public Property Teleport(RegionUUID As String) As String
+    Public Property Teleport(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._Teleport
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._Teleport
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._Teleport = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Teleport = Value
         End Set
     End Property
 
-    Public Property Tides(RegionUUID As String) As String
+    Public Property Tides(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._Tides
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._Tides
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._Tides = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Tides = Value
         End Set
     End Property
 
-    Public Property XMLRegionPort(RegionUUID As String) As String
+    Public Property XmlRegionPort(uuid As String) As String
         Get
-            If RegionUUID Is Nothing Then Return ""
-            If Bad(RegionUUID) Then Return ""
-            Return RegionList(RegionUUID)._XMLRegionPort
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._XMLRegionPort
         End Get
         Set(ByVal Value As String)
-            If RegionUUID Is Nothing Then Return
-            If Bad(RegionUUID) Then Return
-            RegionList(RegionUUID)._XMLRegionPort = Value
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._XMLRegionPort = Value
         End Set
     End Property
-
-#Disable Warning CA2227 ' Collection properties should be read only
 
 #End Region
 
@@ -1337,23 +1333,23 @@ Public Class RegionMaker
         Next
     End Sub
 
-    Public Sub DebugRegions(RegionUUID As String)
+    Public Sub DebugRegions(region As String)
 
-        FormSetup.Log("RegionUUID", CStr(RegionUUID) & vbCrLf &
-            " PID:" & RegionList(RegionUUID)._ProcessID & vbCrLf &
-            " Group:" & RegionList(RegionUUID)._Group & vbCrLf &
-            " Region:" & RegionList(RegionUUID)._RegionName & vbCrLf &
-            " Status=" & CStr(RegionList(RegionUUID)._Status) & vbCrLf &
-           " RegionEnabled=" & RegionList(RegionUUID)._RegionEnabled & vbCrLf &
-           " Timer=" & CStr(RegionList(RegionUUID)._Timer))
+        FormSetup.Log("uuid", CStr(region) & vbCrLf &
+            " PID:" & RegionList(region)._ProcessID & vbCrLf &
+            " Group:" & RegionList(region)._Group & vbCrLf &
+            " Region:" & RegionList(region)._RegionName & vbCrLf &
+            " Status=" & CStr(RegionList(region)._Status) & vbCrLf &
+           " RegionEnabled=" & RegionList(region)._RegionEnabled & vbCrLf &
+           " Timer=" & CStr(RegionList(region)._Timer))
 
     End Sub
 
-    Public Function FindRegionByName(Name As String) As String
+    Public Function FindRegionByName(name As String) As String
 
         Dim pair As KeyValuePair(Of String, Region_data)
         For Each pair In RegionList
-            If Name = pair.Value._RegionName Then
+            If name = pair.Value._RegionName Then
                 Debug.Print("Current Region is " + pair.Value._RegionName)
                 Return pair.Value._UUID
             End If
@@ -1363,10 +1359,10 @@ Public Class RegionMaker
 
     End Function
 
-    Public Function IsBooted(RegionUUID As String) As Boolean
-        If RegionUUID Is Nothing Then Return False
-        If Bad(RegionUUID) Then Return False
-        If Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+    Public Function IsBooted(uuid As String) As Boolean
+        If uuid Is Nothing Then Return False
+        If Bad(uuid) Then Return False
+        If Status(uuid) = SIMSTATUSENUM.Booted Then
             Return True
         End If
         Return False
@@ -1383,7 +1379,7 @@ Public Class RegionMaker
 
     End Sub
 
-    Public Function RegionUUIDListByName(Gname As String) As List(Of String)
+    Public Function RegionUuidListByName(Gname As String) As List(Of String)
 
         Dim L As New List(Of String)
 
@@ -1398,7 +1394,7 @@ Public Class RegionMaker
 
     End Function
 
-    Public Function RegionUUIDs() As List(Of String)
+    Public Function RegionUuids() As List(Of String)
 
         Dim L As New List(Of String)
         Dim pair As KeyValuePair(Of String, Region_data)
@@ -1410,28 +1406,28 @@ Public Class RegionMaker
 
     End Function
 
-    Private Function Bad(RegionUUID As String) As Boolean
+    Private Function Bad(uuid As String) As Boolean
 
-        If RegionList.ContainsKey(RegionUUID) Then
+        If RegionList.ContainsKey(uuid) Then
             Return False
         End If
 
-        If String.IsNullOrEmpty(RegionUUID) Then
+        If String.IsNullOrEmpty(uuid) Then
             FormSetup.ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
             Return True
         End If
 
-        FormSetup.ErrorLog("Region UUID does not exist. " & CStr(RegionUUID))
+        FormSetup.ErrorLog("Region UUID does not exist. " & CStr(uuid))
         Return True
 
     End Function
 
-    Private Function FindRegionUUIDByName(Name As String) As String
+    Private Function FindRegionUUIDByName(name As String) As String
 
         Dim pair As KeyValuePair(Of String, Region_data)
 
         For Each pair In RegionList
-            If Name = pair.Value._UUID Then Return pair.Value._UUID
+            If name = pair.Value._UUID Then Return pair.Value._UUID
         Next
 
         Return ""
@@ -1442,24 +1438,24 @@ Public Class RegionMaker
 
 #Region "POST"
 
-    Shared Function CheckPassword(POST As String, Machine As String) As Boolean
+    Shared Function CheckPassword(post As String, machine As String) As Boolean
 
-        If Machine Is Nothing Then Return False
+        If machine Is Nothing Then Return False
 
         ' Returns true is password is blank or matching
         Dim pattern1 As Regex = New Regex("PW=(.*?)&")
-        Dim match1 As Match = pattern1.Match(POST)
+        Dim match1 As Match = pattern1.Match(post)
         If match1.Success Then
             Dim p1 As String = match1.Groups(1).Value
             If p1.Length = 0 Then Return True
-            If Machine.ToUpper(Globalization.CultureInfo.InvariantCulture) = p1.ToUpper(Globalization.CultureInfo.InvariantCulture) Then Return True
+            If machine.ToUpper(Globalization.CultureInfo.InvariantCulture) = p1.ToUpper(Globalization.CultureInfo.InvariantCulture) Then Return True
         End If
         Return False
 
     End Function
 
     'TODO: Move to Mysql
-    Shared Function GetAgentNameByUUID(UUID As String) As String
+    Shared Function GetAgentNameByUUID(uuid As String) As String
 
         If Settings.ServerType <> "Robust" Then Return ""
 
@@ -1471,16 +1467,16 @@ Public Class RegionMaker
             }
             myConnection.Open()
             myCommand1.Prepare()
-            myCommand1.Parameters.AddWithValue("p1", UUID & "%")
+            myCommand1.Parameters.AddWithValue("p1", uuid & "%")
             Name = CStr(myCommand1.ExecuteScalar())
         End Using
 
-        Debug.Print("User=" + UUID + ", name=" + Name)
+        Debug.Print("User=" + uuid + ", name=" + Name)
         Dim pattern As Regex = New Regex(".*?;.*?;(.*)")
         Dim match As Match = pattern.Match(Name)
         If match.Success Then
             Name = match.Groups(1).Value
-            Debug.Print("User=" + UUID + ", name=" + Name)
+            Debug.Print("User=" + uuid + ", name=" + Name)
             myConnection.Close()
             Return Name
         End If
@@ -1489,32 +1485,34 @@ Public Class RegionMaker
     End Function
 
     'TODO: Move to Mysql
-    Shared Function GetPartner(p1 As String, Mysetting As MySettings) As String
+    Shared Function GetPartner(p1 As String, mysetting As MySettings) As String
 
-        If Mysetting Is Nothing Then
+        If mysetting Is Nothing Then
             Return ""
         End If
-        Dim myConnection As MySqlConnection = New MySqlConnection(Mysetting.RobustMysqlConnection)
-        Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
-        Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-            .Connection = myConnection
-        }
-        myConnection.Open()
-        myCommand1.Prepare()
-        myCommand1.Parameters.AddWithValue("p1", p1)
-        Dim a = CStr(myCommand1.ExecuteScalar())
-        Debug.Print("User=" + p1 + ", Partner=" + a)
 
-        myConnection.Close()
-        myCommand1.Dispose()
-        Return a
+        Dim answer As String = ""
+        Using myConnection As MySqlConnection = New MySqlConnection(mysetting.RobustMysqlConnection)
+            Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
+            Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                .Connection = myConnection
+            }
+                myConnection.Open()
+                myCommand1.Prepare()
+                myCommand1.Parameters.AddWithValue("p1", p1)
+                answer = CStr(myCommand1.ExecuteScalar())
+                Debug.Print("User=" + p1 + ", Partner=" + answer)
+            End Using
+        End Using
+
+        Return answer
 
     End Function
 
-    Public Function ParsePost(POST As String, Settings As MySettings) As String
+    Public Function ParsePost(post As String, settings As MySettings) As String
 
-        If Settings Is Nothing Then Return "<html><head></head><body>Error</html>"
-        If POST Is Nothing Then Return "<html><head></head><body>Error</html>"
+        If settings Is Nothing Then Return "<html><head></head><body>Error</html>"
+        If post Is Nothing Then Return "<html><head></head><body>Error</html>"
         ' set Region.Booted to true if the POST from the region indicates it is online requires a section in Opensim.ini where [RegionReady] has this:
 
         '[RegionReady]
@@ -1554,54 +1552,54 @@ Public Class RegionMaker
 
         ' alerts need to be fast so we stash them on a list and process them on a 10 second timer.
 
-        If (POST.Contains("""alert"":""region_ready""")) Then
+        If (post.Contains("""alert"":""region_ready""")) Then
 
-            WebserverList.Add(POST)
+            WebserverList.Add(post)
 
-        ElseIf POST.Contains("ALT=") Then
+        ElseIf post.Contains("ALT=") Then
             ' Smart Start AutoStart Region mode
-            Debug.Print("Smart Start:" + POST)
+            Debug.Print("Smart Start:" + post)
 
             ' Auto Start Teleport, AKA Smart Start
-            Dim RegionUUID As String = ""
+            Dim uuid As String = ""
             Dim pattern As Regex = New Regex("ALT=(.*?)/AGENT=(.*)")
-            Dim match As Match = pattern.Match(POST)
+            Dim match As Match = pattern.Match(post)
 
             If match.Success Then
-                RegionUUID = match.Groups(1).Value
+                uuid = match.Groups(1).Value
                 Dim AgentUUID = match.Groups(2).Value
-                If RegionUUID.Length > 0 And RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
-                    If Status(RegionUUID) = SIMSTATUSENUM.Booted Then
-                        FormSetup.Print(My.Resources.Someone_is_in_word & " " & RegionName(RegionUUID))
-                        Debug.Print("Sending to " & RegionUUID)
-                        Return RegionUUID
+                If uuid.Length > 0 And RegionEnabled(uuid) And SmartStart(uuid) = "True" Then
+                    If Status(uuid) = SIMSTATUSENUM.Booted Then
+                        FormSetup.Print(My.Resources.Someone_is_in_word & " " & RegionName(uuid))
+                        Debug.Print("Sending to " & uuid)
+                        Return uuid
                     Else
-                        FormSetup.Print(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
-                        Status(RegionUUID) = SIMSTATUSENUM.Resume
+                        FormSetup.Print(My.Resources.Smart_Start_word & " " & RegionName(uuid))
+                        Status(uuid) = SIMSTATUSENUM.Resume
                         Try
-                            TeleportAvatarDict.Remove(RegionName(RegionUUID))
+                            TeleportAvatarDict.Remove(RegionName(uuid))
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
 
-                        TeleportAvatarDict.Add(AgentUUID, RegionName(RegionUUID))
+                        TeleportAvatarDict.Add(AgentUUID, RegionName(uuid))
 
                         ' redirect to welcome
-                        Dim wname = Settings.WelcomeRegion
+                        Dim wname = settings.WelcomeRegion
                         Dim WelcomeRegionUUID As String = FindRegionByName(wname)
-                        Debug.Print("Sending to " & UUID(WelcomeRegionUUID))
-                        Return UUID(WelcomeRegionUUID)
+                        Debug.Print("Sending to " & RegionUUID(WelcomeRegionUUID))
+                        Return RegionUUID(WelcomeRegionUUID)
                     End If
                     'other states we can ignore as eventually it will be Stopped or Running
                 End If
             End If
 
             ' HG Sim, perhaps,. it is not found, not enabled, not Smart Start,let it work normally
-            Return RegionUUID
+            Return uuid
 
-        ElseIf POST.Contains("TOS") Then
+        ElseIf post.Contains("TOS") Then
             ' currently unused as is only in stand alones
-            Debug.Print("UUID:" + POST)
+            Debug.Print("UUID:" + post)
             '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.0909,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.0909" & vbCrLf & vbCrLf &
             '"action-accept=Accept&uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701"
 
@@ -1611,17 +1609,17 @@ Public Class RegionMaker
             Dim sid As Guid
 
             Try
-                POST = POST.Replace("{ENTER}", "")
-                POST = POST.Replace("\r", "")
+                post = post.Replace("{ENTER}", "")
+                post = post.Replace("\r", "")
 
                 Dim pattern As Regex = New Regex("uid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
-                Dim match As Match = pattern.Match(POST)
+                Dim match As Match = pattern.Match(post)
                 If match.Success Then
                     uid = Guid.Parse(match.Groups(1).Value)
                 End If
 
                 Dim pattern2 As Regex = New Regex("sid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
-                Dim match2 As Match = pattern2.Match(POST)
+                Dim match2 As Match = pattern2.Match(post)
                 If match2.Success Then
                     sid = Guid.Parse(match2.Groups(1).Value)
                 End If
@@ -1631,7 +1629,7 @@ Public Class RegionMaker
                     ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                     Dim result As Integer = 1
 
-                    Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
+                    Dim myConnection As MySqlConnection = New MySqlConnection(settings.RobustMysqlConnection)
 
                     Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
                     Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
@@ -1651,17 +1649,17 @@ Public Class RegionMaker
                 Return "<html><head></head><body>Error</html>"
             End Try
 
-        ElseIf POST.ToUpperInvariant.Contains("GET_PARTNER") Then
+        ElseIf post.ToUpperInvariant.Contains("GET_PARTNER") Then
             Debug.Print("get Partner")
-            Dim PWok As Boolean = CheckPassword(POST, Settings.MachineID())
+            Dim PWok As Boolean = CheckPassword(post, settings.MachineID())
             If Not PWok Then Return ""
 
             Dim pattern1 As Regex = New Regex("User=(.*)", RegexOptions.IgnoreCase)
-            Dim match1 As Match = pattern1.Match(POST)
+            Dim match1 As Match = pattern1.Match(post)
             Dim p1 As String
             If match1.Success Then
                 p1 = match1.Groups(1).Value
-                Dim s = GetPartner(p1, Settings)
+                Dim s = GetPartner(p1, settings)
                 Debug.Print(s)
                 Return s
             Else
@@ -1670,44 +1668,44 @@ Public Class RegionMaker
             End If
 
             ' Partner prim
-        ElseIf POST.ToUpperInvariant.Contains("SET_PARTNER") Then
+        ElseIf post.ToUpperInvariant.Contains("SET_PARTNER") Then
             Debug.Print("set Partner")
-            Dim PWok As Boolean = CheckPassword(POST, CStr(Settings.MachineID()))
+            Dim PWok As Boolean = CheckPassword(post, CStr(settings.MachineID()))
             If Not PWok Then Return ""
 
             Dim pattern1 As Regex = New Regex("User=(.*?)&", RegexOptions.IgnoreCase)
-            Dim match1 As Match = pattern1.Match(POST)
+            Dim match1 As Match = pattern1.Match(post)
             If match1.Success Then
 
                 Dim p2 As String = ""
                 Dim p1 = match1.Groups(1).Value
                 Dim pattern2 As Regex = New Regex("Partner=(.*)", RegexOptions.IgnoreCase)
-                Dim match2 As Match = pattern2.Match(POST)
+                Dim match2 As Match = pattern2.Match(post)
                 If match2.Success Then
                     p2 = match2.Groups(1).Value
                 End If
                 Dim result As New Guid
                 If Guid.TryParse(p1, result) And Guid.TryParse(p1, result) Then
-                    Dim Partner = GetPartner(p1, Settings)
+                    Dim Partner = GetPartner(p1, settings)
                     Debug.Print("Partner=" + p2)
 
                     Try
-                        Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
-                        Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
-                        Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-                                .Connection = myConnection
-                            }
-                            myConnection.Open()
-                            myCommand1.Prepare()
+                        Using myConnection As MySqlConnection = New MySqlConnection(settings.RobustMysqlConnection)
+                            Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
+                            Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                                    .Connection = myConnection
+                                }
+                                myConnection.Open()
+                                myCommand1.Prepare()
 
-                            myCommand1.Parameters.AddWithValue("p1", p1)
-                            myCommand1.Parameters.AddWithValue("p2", p2)
+                                myCommand1.Parameters.AddWithValue("p1", p1)
+                                myCommand1.Parameters.AddWithValue("p2", p2)
 
-                            myCommand1.ExecuteScalar()
-                            myConnection.Close()
+                                myCommand1.ExecuteScalar()
+                                myConnection.Close()
+                            End Using
                         End Using
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                         Debug.Print(ex.Message)
                     End Try
@@ -1733,15 +1731,15 @@ Public Class RegionMaker
 
     Public Shared Sub CopyOpensimProto(name As String)
 
-        Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(name)
-        If RegionUUID.Length > 0 Then Opensimproto(RegionUUID)
+        Dim uuid As String = FormSetup.PropRegionClass.FindRegionByName(name)
+        If uuid.Length > 0 Then Opensimproto(uuid)
 
     End Sub
 
-    Public Shared Function Opensimproto(RegionUUID As String) As Boolean
+    Public Shared Function Opensimproto(uuid As String) As Boolean
 
-        Dim regionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
-        Dim pathname = FormSetup.PropRegionClass.IniPath(RegionUUID)
+        Dim regionName = FormSetup.PropRegionClass.RegionName(uuid)
+        Dim pathname = FormSetup.PropRegionClass.IniPath(uuid)
 
         If Settings.LoadIni(FormSetup.GetOpensimProto(), ";") Then Return True
 
@@ -1749,25 +1747,25 @@ Public Class RegionMaker
 
         Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
-        Settings.SetIni("Const", "http_listener_port", CStr(FormSetup.PropRegionClass.RegionPort(RegionUUID))) ' varies with region
+        Settings.SetIni("Const", "http_listener_port", CStr(FormSetup.PropRegionClass.RegionPort(uuid))) ' varies with region
 
         ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
-        If FormSetup.PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
-            If Not Double.TryParse(FormSetup.PropRegionClass.MinTimerInterval(RegionUUID), Xtime) Then
+        If FormSetup.PropRegionClass.MinTimerInterval(uuid).Length > 0 Then
+            If Not Double.TryParse(FormSetup.PropRegionClass.MinTimerInterval(uuid), Xtime) Then
                 Xtime = 1.0 / 11.0
             End If
         End If
         Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
-        Dim name = FormSetup.PropRegionClass.RegionName(RegionUUID)
+        Dim name = FormSetup.PropRegionClass.RegionName(uuid)
 
         ' save the http listener port away for the group
-        FormSetup.PropRegionClass.GroupPort(RegionUUID) = FormSetup.PropRegionClass.RegionPort(RegionUUID)
+        FormSetup.PropRegionClass.GroupPort(uuid) = FormSetup.PropRegionClass.RegionPort(uuid)
 
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
-        Settings.SetIni("Const", "RegionFolderName", FormSetup.PropRegionClass.GroupName(RegionUUID))
+        Settings.SetIni("Const", "RegionFolderName", FormSetup.PropRegionClass.GroupName(uuid))
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Try
@@ -1781,15 +1779,15 @@ Public Class RegionMaker
 
     End Function
 
-    Public Shared Function SetOpensimIni(RegionName As String, RegionUUID As String) As Boolean
+    Public Shared Function SetOpensimIni(RegionName As String, uuid As String) As Boolean
 
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(RegionUUID) & "\Opensim.ini", ";") Then
+        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(uuid) & "\Opensim.ini", ";") Then
             Return True
         End If
 
         If Settings.FirstXMLRegionPort.Length > 0 Then
-            Settings.SetIni("XMLRPC", "XmlRpcPort", FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
+            Settings.SetIni("XMLRPC", "XmlRpcPort", FormSetup.PropRegionClass.XmlRegionPort(uuid))
         Else
             Settings.SetIni("XMLRPC", "XmlRpcPort", "")
         End If
@@ -1799,11 +1797,11 @@ Public Class RegionMaker
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
         End If
 
-        If Settings.AutoBackup And String.IsNullOrEmpty(FormSetup.PropRegionClass.SkipAutobackup(RegionUUID)) Then
+        If Settings.AutoBackup And String.IsNullOrEmpty(FormSetup.PropRegionClass.SkipAutobackup(uuid)) Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
         End If
 
-        If Settings.AutoBackup And FormSetup.PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
+        If Settings.AutoBackup And FormSetup.PropRegionClass.SkipAutobackup(uuid) = "True" Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
         End If
 
@@ -1815,28 +1813,28 @@ Public Class RegionMaker
         Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("AutoBackupModule", "AutoBackupDir", FormSetup.BackupPath())
 
-        If FormSetup.PropRegionClass.MapType(RegionUUID) = "Simple" Then
+        If FormSetup.PropRegionClass.MapType(uuid) = "Simple" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Good" Then
+        ElseIf FormSetup.PropRegionClass.MapType(uuid) = "Good" Then
             Settings.SetIni(RegionName, "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Better" Then
+        ElseIf FormSetup.PropRegionClass.MapType(uuid) = "Better" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus True
             Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
             Settings.SetIni("Map", "TexturePrims", "False")
             Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Best" Then
+        ElseIf FormSetup.PropRegionClass.MapType(uuid) = "Best" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")
             Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
             Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus True
@@ -1845,7 +1843,7 @@ Public Class RegionMaker
             Settings.SetIni("Map", "RenderMeshes", "True")
         End If
 
-        Select Case FormSetup.PropRegionClass.Physics(RegionUUID)
+        Select Case FormSetup.PropRegionClass.Physics(uuid)
             Case ""
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
@@ -1878,10 +1876,10 @@ Public Class RegionMaker
                 ' do nothing
         End Select
 
-        If String.IsNullOrEmpty(FormSetup.PropRegionClass.GodDefault(RegionUUID)) _
-            Or FormSetup.PropRegionClass.GodDefault(RegionUUID) = "False" Then
+        If String.IsNullOrEmpty(FormSetup.PropRegionClass.GodDefault(uuid)) _
+            Or FormSetup.PropRegionClass.GodDefault(uuid) = "False" Then
 
-            Select Case FormSetup.PropRegionClass.AllowGods(RegionUUID)
+            Select Case FormSetup.PropRegionClass.AllowGods(uuid)
                 Case ""
                     Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
                 Case "False"
@@ -1890,7 +1888,7 @@ Public Class RegionMaker
                     Settings.SetIni("Permissions", "allow_grid_gods", "True")
             End Select
 
-            Select Case FormSetup.PropRegionClass.RegionGod(RegionUUID)
+            Select Case FormSetup.PropRegionClass.RegionGod(uuid)
                 Case ""
                     Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
                 Case "False"
@@ -1899,7 +1897,7 @@ Public Class RegionMaker
                     Settings.SetIni("Permissions", "region_owner_is_god", "True")
             End Select
 
-            Select Case FormSetup.PropRegionClass.ManagerGod(RegionUUID)
+            Select Case FormSetup.PropRegionClass.ManagerGod(uuid)
                 Case ""
                     Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
                 Case "False"
@@ -1914,40 +1912,40 @@ Public Class RegionMaker
         End If
 
         ' V3.15
-        If FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.NonPhysicalPrimMax(uuid).Length > 0 Then
+            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(FormSetup.PropRegionClass.NonPhysicalPrimMax(uuid), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.PhysicalPrimMax(uuid).Length > 0 Then
+            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(FormSetup.PropRegionClass.PhysicalPrimMax(uuid), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If FormSetup.PropRegionClass.MinTimerInterval(RegionUUID).Length > 0 Then
-            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(FormSetup.PropRegionClass.MinTimerInterval(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.MinTimerInterval(uuid).Length > 0 Then
+            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(FormSetup.PropRegionClass.MinTimerInterval(uuid), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If FormSetup.PropRegionClass.FrameTime(RegionUUID).Length > 0 Then
-            Settings.SetIni("Startup", "FrameTime", Convert.ToString(FormSetup.PropRegionClass.FrameTime(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.FrameTime(uuid).Length > 0 Then
+            Settings.SetIni("Startup", "FrameTime", Convert.ToString(FormSetup.PropRegionClass.FrameTime(uuid), Globalization.CultureInfo.InvariantCulture))
         End If
 
         ' no FALSE setting for these
-        Settings.SetIni("SmartStart", "Enabled", FormSetup.PropRegionClass.SmartStart(RegionUUID))
+        Settings.SetIni("SmartStart", "Enabled", FormSetup.PropRegionClass.SmartStart(uuid))
 
-        If FormSetup.PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
-            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(FormSetup.PropRegionClass.DisallowForeigners(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.DisallowForeigners(uuid) = "True" Then
+            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(FormSetup.PropRegionClass.DisallowForeigners(uuid), Globalization.CultureInfo.InvariantCulture))
         End If
 
-        If FormSetup.PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
-            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(FormSetup.PropRegionClass.DisallowResidents(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        If FormSetup.PropRegionClass.DisallowResidents(uuid) = "True" Then
+            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(FormSetup.PropRegionClass.DisallowResidents(uuid), Globalization.CultureInfo.InvariantCulture))
         End If
 
         ' replace with a PHP module
-        If FormSetup.PropRegionClass.DisableGloebits(RegionUUID) = "True" Then
+        If FormSetup.PropRegionClass.DisableGloebits(uuid) = "True" Then
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
         End If
 
         ' Search
-        Select Case FormSetup.PropRegionClass.Snapshot(RegionUUID)
+        Select Case FormSetup.PropRegionClass.Snapshot(uuid)
             Case ""
                 Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled))
             Case "True"
@@ -1957,13 +1955,13 @@ Public Class RegionMaker
         End Select
 
         'ScriptEngine Overrides
-        If FormSetup.PropRegionClass.ScriptEngine(RegionUUID) = "XEngine" Then
+        If FormSetup.PropRegionClass.ScriptEngine(uuid) = "XEngine" Then
             Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
             Settings.SetIni("XEngine", "Enabled", "True")
             Settings.SetIni("YEngine", "Enabled", "False")
         End If
 
-        If FormSetup.PropRegionClass.ScriptEngine(RegionUUID) = "YEngine" Then
+        If FormSetup.PropRegionClass.ScriptEngine(uuid) = "YEngine" Then
             Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
             Settings.SetIni("XEngine", "Enabled", "False")
             Settings.SetIni("YEngine", "Enabled", "True")
@@ -1975,126 +1973,126 @@ Public Class RegionMaker
 
     End Function
 
-    Public Shared Function SetRegionVars(RegionName As String, RegionUUID As String) As Boolean
+    Public Shared Function SetRegionVars(regionName As String, uuid As String) As Boolean
 
         ' edit the region INI
-        If Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
+        If Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(uuid), ";") Then Return True
 
         ' Autobackup
-        If Settings.AutoBackup And String.IsNullOrEmpty(FormSetup.PropRegionClass.SkipAutobackup(RegionUUID)) Then
-            Settings.SetIni(RegionName, "AutoBackup", "True")
+        If Settings.AutoBackup And String.IsNullOrEmpty(FormSetup.PropRegionClass.SkipAutobackup(uuid)) Then
+            Settings.SetIni(regionName, "AutoBackup", "True")
         Else
-            Settings.SetIni(RegionName, "AutoBackup", "False")
+            Settings.SetIni(regionName, "AutoBackup", "False")
         End If
 
-        Settings.SetIni(RegionName, "InternalPort", Convert.ToString(FormSetup.PropRegionClass.RegionPort(RegionUUID), Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni(RegionName, "ExternalHostName", FormSetup.ExternLocalServerName())
+        Settings.SetIni(regionName, "InternalPort", Convert.ToString(FormSetup.PropRegionClass.RegionPort(uuid), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(regionName, "ExternalHostName", FormSetup.ExternLocalServerName())
 
         ' not a standard INI, only use by the Dreamers
-        If FormSetup.PropRegionClass.RegionEnabled(RegionUUID) Then
-            Settings.SetIni(RegionName, "Enabled", "True")
+        If FormSetup.PropRegionClass.RegionEnabled(uuid) Then
+            Settings.SetIni(regionName, "Enabled", "True")
         Else
-            Settings.SetIni(RegionName, "Enabled", "False")
+            Settings.SetIni(regionName, "Enabled", "False")
         End If
 
         ' Extended in v 2.1
 
         If Settings.FirstXMLRegionPort.Length > 0 Then
-            Settings.SetIni(RegionName, "XmlRpcPort", FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
+            Settings.SetIni(regionName, "XmlRpcPort", FormSetup.PropRegionClass.XmlRegionPort(uuid))
         Else
-            Settings.SetIni(RegionName, "XmlRpcPort", "")
+            Settings.SetIni(regionName, "XmlRpcPort", "")
         End If
 
-        Select Case FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID)
+        Select Case FormSetup.PropRegionClass.NonPhysicalPrimMax(uuid)
             Case ""
-                Settings.SetIni(RegionName, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
+                Settings.SetIni(regionName, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(RegionName, "NonPhysicalPrimMax", FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID))
+                Settings.SetIni(regionName, "NonPhysicalPrimMax", FormSetup.PropRegionClass.NonPhysicalPrimMax(uuid))
         End Select
 
-        Select Case FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID)
+        Select Case FormSetup.PropRegionClass.PhysicalPrimMax(uuid)
             Case ""
-                Settings.SetIni(RegionName, "PhysicalPrimMax", 64.ToString(Globalization.CultureInfo.InvariantCulture))
+                Settings.SetIni(regionName, "PhysicalPrimMax", 64.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(RegionName, "PhysicalPrimMax", FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID))
+                Settings.SetIni(regionName, "PhysicalPrimMax", FormSetup.PropRegionClass.PhysicalPrimMax(uuid))
         End Select
 
         If (Settings.Primlimits) Then
-            Select Case FormSetup.PropRegionClass.MaxPrims(RegionUUID)
+            Select Case FormSetup.PropRegionClass.MaxPrims(uuid)
                 Case ""
-                    Settings.SetIni(RegionName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
+                    Settings.SetIni(regionName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
                 Case Else
-                    Settings.SetIni(RegionName, "MaxPrims", FormSetup.PropRegionClass.MaxPrims(RegionUUID))
+                    Settings.SetIni(regionName, "MaxPrims", FormSetup.PropRegionClass.MaxPrims(uuid))
             End Select
         Else
-            Select Case FormSetup.PropRegionClass.MaxPrims(RegionUUID)
+            Select Case FormSetup.PropRegionClass.MaxPrims(uuid)
                 Case ""
-                    Settings.SetIni(RegionName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
+                    Settings.SetIni(regionName, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
                 Case Else
-                    Settings.SetIni(RegionName, "MaxPrims", FormSetup.PropRegionClass.MaxPrims(RegionUUID))
+                    Settings.SetIni(regionName, "MaxPrims", FormSetup.PropRegionClass.MaxPrims(uuid))
             End Select
         End If
 
-        Select Case FormSetup.PropRegionClass.MaxAgents(RegionUUID)
+        Select Case FormSetup.PropRegionClass.MaxAgents(uuid)
             Case ""
-                Settings.SetIni(RegionName, "MaxAgents", 100.ToString(Globalization.CultureInfo.InvariantCulture))
+                Settings.SetIni(regionName, "MaxAgents", 100.ToString(Globalization.CultureInfo.InvariantCulture))
             Case Else
-                Settings.SetIni(RegionName, "MaxAgents", FormSetup.PropRegionClass.MaxAgents(RegionUUID))
+                Settings.SetIni(regionName, "MaxAgents", FormSetup.PropRegionClass.MaxAgents(uuid))
         End Select
 
-        Settings.SetIni(RegionName, "ClampPrimSize", Convert.ToString(FormSetup.PropRegionClass.ClampPrimSize(RegionUUID), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(regionName, "ClampPrimSize", Convert.ToString(FormSetup.PropRegionClass.ClampPrimSize(uuid), Globalization.CultureInfo.InvariantCulture))
 
         ' Optional Extended in v 2.31 optional things
-        If FormSetup.PropRegionClass.MapType(RegionUUID) = "None" Then
-            Settings.SetIni(RegionName, "GenerateMaptiles", "False")
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Simple" Then
-            Settings.SetIni(RegionName, "GenerateMaptiles", "True")
-            Settings.SetIni(RegionName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni(RegionName, "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni(RegionName, "DrawPrimOnMapTile", "False")
-            Settings.SetIni(RegionName, "TexturePrims", "False")
-            Settings.SetIni(RegionName, "RenderMeshes", "False")
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Good" Then
-            Settings.SetIni(RegionName, "GenerateMaptiles", "True")
-            Settings.SetIni(RegionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(RegionName, "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni(RegionName, "DrawPrimOnMapTile", "False")
-            Settings.SetIni(RegionName, "TexturePrims", "False")
-            Settings.SetIni(RegionName, "RenderMeshes", "False")
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Better" Then
-            Settings.SetIni(RegionName, "GenerateMaptiles", "True")
-            Settings.SetIni(RegionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(RegionName, "TextureOnMapTile", "True")         ' versus True
-            Settings.SetIni(RegionName, "DrawPrimOnMapTile", "True")
-            Settings.SetIni(RegionName, "TexturePrims", "False")
-            Settings.SetIni(RegionName, "RenderMeshes", "False")
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Best" Then
-            Settings.SetIni(RegionName, "GenerateMaptiles", "True")
-            Settings.SetIni(RegionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(RegionName, "TextureOnMapTile", "True")      ' versus True
-            Settings.SetIni(RegionName, "DrawPrimOnMapTile", "True")
-            Settings.SetIni(RegionName, "TexturePrims", "True")
-            Settings.SetIni(RegionName, "RenderMeshes", "True")
+        If FormSetup.PropRegionClass.MapType(uuid) = "None" Then
+            Settings.SetIni(regionName, "GenerateMaptiles", "False")
+        ElseIf FormSetup.PropRegionClass.MapType(uuid) = "Simple" Then
+            Settings.SetIni(regionName, "GenerateMaptiles", "True")
+            Settings.SetIni(regionName, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
+            Settings.SetIni(regionName, "TextureOnMapTile", "False")         ' versus True
+            Settings.SetIni(regionName, "DrawPrimOnMapTile", "False")
+            Settings.SetIni(regionName, "TexturePrims", "False")
+            Settings.SetIni(regionName, "RenderMeshes", "False")
+        ElseIf FormSetup.PropRegionClass.MapType(uuid) = "Good" Then
+            Settings.SetIni(regionName, "GenerateMaptiles", "True")
+            Settings.SetIni(regionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni(regionName, "TextureOnMapTile", "False")         ' versus True
+            Settings.SetIni(regionName, "DrawPrimOnMapTile", "False")
+            Settings.SetIni(regionName, "TexturePrims", "False")
+            Settings.SetIni(regionName, "RenderMeshes", "False")
+        ElseIf FormSetup.PropRegionClass.MapType(uuid) = "Better" Then
+            Settings.SetIni(regionName, "GenerateMaptiles", "True")
+            Settings.SetIni(regionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni(regionName, "TextureOnMapTile", "True")         ' versus True
+            Settings.SetIni(regionName, "DrawPrimOnMapTile", "True")
+            Settings.SetIni(regionName, "TexturePrims", "False")
+            Settings.SetIni(regionName, "RenderMeshes", "False")
+        ElseIf FormSetup.PropRegionClass.MapType(uuid) = "Best" Then
+            Settings.SetIni(regionName, "GenerateMaptiles", "True")
+            Settings.SetIni(regionName, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni(regionName, "TextureOnMapTile", "True")      ' versus True
+            Settings.SetIni(regionName, "DrawPrimOnMapTile", "True")
+            Settings.SetIni(regionName, "TexturePrims", "True")
+            Settings.SetIni(regionName, "RenderMeshes", "True")
         Else
-            Settings.SetIni(RegionName, "GenerateMaptiles", "")
-            Settings.SetIni(RegionName, "MapImageModule", "")  ' versus MapImageModule
-            Settings.SetIni(RegionName, "TextureOnMapTile", "")      ' versus True
-            Settings.SetIni(RegionName, "DrawPrimOnMapTile", "")
-            Settings.SetIni(RegionName, "TexturePrims", "")
-            Settings.SetIni(RegionName, "RenderMeshes", "")
+            Settings.SetIni(regionName, "GenerateMaptiles", "")
+            Settings.SetIni(regionName, "MapImageModule", "")  ' versus MapImageModule
+            Settings.SetIni(regionName, "TextureOnMapTile", "")      ' versus True
+            Settings.SetIni(regionName, "DrawPrimOnMapTile", "")
+            Settings.SetIni(regionName, "TexturePrims", "")
+            Settings.SetIni(regionName, "RenderMeshes", "")
         End If
 
-        Settings.SetIni(RegionName, "DisableGloebits", FormSetup.PropRegionClass.DisableGloebits(RegionUUID))
-        Settings.SetIni(RegionName, "RegionSnapShot", FormSetup.PropRegionClass.RegionSnapShot(RegionUUID))
-        Settings.SetIni(RegionName, "Birds", FormSetup.PropRegionClass.Birds(RegionUUID))
-        Settings.SetIni(RegionName, "Tides", FormSetup.PropRegionClass.Tides(RegionUUID))
-        Settings.SetIni(RegionName, "Teleport", FormSetup.PropRegionClass.Teleport(RegionUUID))
-        Settings.SetIni(RegionName, "DisallowForeigners", FormSetup.PropRegionClass.DisallowForeigners(RegionUUID))
-        Settings.SetIni(RegionName, "DisallowResidents", FormSetup.PropRegionClass.DisallowResidents(RegionUUID))
-        Settings.SetIni(RegionName, "SkipAutoBackup", FormSetup.PropRegionClass.SkipAutobackup(RegionUUID))
-        Settings.SetIni(RegionName, "Physics", FormSetup.PropRegionClass.Physics(RegionUUID))
-        Settings.SetIni(RegionName, "FrameTime", FormSetup.PropRegionClass.FrameTime(RegionUUID))
-        Settings.SetIni(RegionName, "XmlRpcPort", FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
+        Settings.SetIni(regionName, "DisableGloebits", FormSetup.PropRegionClass.DisableGloebits(uuid))
+        Settings.SetIni(regionName, "RegionSnapShot", FormSetup.PropRegionClass.RegionSnapShot(uuid))
+        Settings.SetIni(regionName, "Birds", FormSetup.PropRegionClass.Birds(uuid))
+        Settings.SetIni(regionName, "Tides", FormSetup.PropRegionClass.Tides(uuid))
+        Settings.SetIni(regionName, "Teleport", FormSetup.PropRegionClass.Teleport(uuid))
+        Settings.SetIni(regionName, "DisallowForeigners", FormSetup.PropRegionClass.DisallowForeigners(uuid))
+        Settings.SetIni(regionName, "DisallowResidents", FormSetup.PropRegionClass.DisallowResidents(uuid))
+        Settings.SetIni(regionName, "SkipAutoBackup", FormSetup.PropRegionClass.SkipAutobackup(uuid))
+        Settings.SetIni(regionName, "Physics", FormSetup.PropRegionClass.Physics(uuid))
+        Settings.SetIni(regionName, "FrameTime", FormSetup.PropRegionClass.FrameTime(uuid))
+        Settings.SetIni(regionName, "XmlRpcPort", FormSetup.PropRegionClass.XmlRegionPort(uuid))
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 

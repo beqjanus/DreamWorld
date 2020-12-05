@@ -505,7 +505,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Autobackup folder cannot be located, so the folder has been reset to the default..
+        '''  Looks up a localized string similar to Auto backup folder cannot be located, so the folder has been reset to the default..
         '''</summary>
         Friend ReadOnly Property Autobackup_cannot_be_located() As String
             Get
@@ -2591,7 +2591,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Registering DynDNS address.
+        '''  Looks up a localized string similar to Registering Dynamic DNS address.
         '''</summary>
         Friend ReadOnly Property DynDNS() As String
             Get
@@ -2600,7 +2600,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to DynDNS password.
+        '''  Looks up a localized string similar to Dynamic DNS password.
         '''</summary>
         Friend ReadOnly Property DynDNS_password_word() As String
             Get
@@ -3440,7 +3440,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to FsAssets Server.
+        '''  Looks up a localized string similar to Fie System Assets Server.
         '''</summary>
         Friend ReadOnly Property FSassets_Server_word() As String
             Get
@@ -3786,7 +3786,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Help On LoopBack.
+        '''  Looks up a localized string similar to Help On Loopback.
         '''</summary>
         Friend ReadOnly Property Help_On_LoopBack_word() As String
             Get
@@ -4571,15 +4571,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Load Free Dreamworld OARs.
-        '''</summary>
-        Friend ReadOnly Property Load_Free_Dreamworld_OARs() As String
-            Get
-                Return ResourceManager.GetString("Load_Free_Dreamworld_OARs", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Load Inventory IAR.
         '''</summary>
         Friend ReadOnly Property Load_Inventory_IAR() As String
@@ -4824,7 +4815,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Maps : X.
+        '''  Looks up a localized string similar to Map  X:.
         '''</summary>
         Friend ReadOnly Property Maps_X() As String
             Get
@@ -4833,7 +4824,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Map Coords: X.
+        '''  Looks up a localized string similar to Map  X:.
         '''</summary>
         Friend ReadOnly Property Mapx() As String
             Get
@@ -5492,7 +5483,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to No Autobackup.
+        '''  Looks up a localized string similar to No Automatic OAR backup.
         '''</summary>
         Friend ReadOnly Property No_Autobackup() As String
             Get
@@ -5763,7 +5754,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to OAuth Key.
+        '''  Looks up a localized string similar to Key.
         '''</summary>
         Friend ReadOnly Property OAuth_Key() As String
             Get
@@ -6181,7 +6172,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Prim Name (default=SeaGull1).
+        '''  Looks up a localized string similar to Prim Name (default=&apos;SeaGull1&apos;).
         '''</summary>
         Friend ReadOnly Property Prim_Name() As String
             Get
@@ -6389,15 +6380,6 @@ Namespace My.Resources
         Friend ReadOnly Property Refresh_word() As String
             Get
                 Return ResourceManager.GetString("Refresh_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Refresh.
-        '''</summary>
-        Friend ReadOnly Property Refresh1() As String
-            Get
-                Return ResourceManager.GetString("Refresh1", resourceCulture)
             End Get
         End Property
         
@@ -6808,7 +6790,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Bulletsim physics crash will force a simulator restart.
+        '''  Looks up a localized string similar to Physics crash will force a simulator restart.
         '''</summary>
         Friend ReadOnly Property Restart_on_Physics_Crash_Text() As String
             Get
@@ -7294,7 +7276,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Selects all or none of the checkboxes.
+        '''  Looks up a localized string similar to Selects all or none of the check boxes.
         '''</summary>
         Friend ReadOnly Property Selectallnone() As String
             Get
@@ -7604,7 +7586,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Skip Autobackup.
+        '''  Looks up a localized string similar to Skip Automatic OAR backup.
         '''</summary>
         Friend ReadOnly Property Skip_Autobackup_word() As String
             Get
@@ -7919,7 +7901,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Stopping Apache Webserver.
+        '''  Looks up a localized string similar to Stopping Apache Web Server.
         '''</summary>
         Friend ReadOnly Property Stopping_Apache() As String
             Get
@@ -7928,7 +7910,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Stopping Webserver.
+        '''  Looks up a localized string similar to Stopping Web Server.
         '''</summary>
         Friend ReadOnly Property Stopping_Webserver() As String
             Get
@@ -8815,7 +8797,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Webserver + Search and Map.
+        '''  Looks up a localized string similar to Web Server + Search and Map.
         '''</summary>
         Friend ReadOnly Property webserver_Search_map() As String
             Get
@@ -8887,7 +8869,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Will not save an OAR with Autobackup..
+        '''  Looks up a localized string similar to Will not save an OAR with Automatic backup..
         '''</summary>
         Friend ReadOnly Property WillNotSave() As String
             Get

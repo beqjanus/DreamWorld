@@ -56,13 +56,13 @@ Public Class NetServer
 
 #Region "Callback"
 
-    Public Sub StartServer(pathinfo As String, Settings As MySettings)
+    Public Sub StartServer(pathinfo As String, settings As MySettings)
 
-        If Settings Is Nothing Then Return
+        If settings Is Nothing Then Return
         ' stash some globs
-        Setting = Settings
-        MyPort = CStr(Settings.DiagnosticPort)
-        Settings.CurrentDirectory = pathinfo
+        Setting = settings
+        MyPort = CStr(settings.DiagnosticPort)
+        settings.CurrentDirectory = pathinfo
 
         If running Then Return
 
@@ -134,7 +134,6 @@ Public Class NetServer
 
             End Using
         Catch ex As Exception
-
         End Try
     End Sub
 
@@ -188,7 +187,6 @@ Public Class NetServer
             Try
                 NewSQLConn.Open()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Return HTML
             End Try

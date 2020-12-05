@@ -48,6 +48,33 @@ Public Class FormHelp
 
     Public Sub Init(Webpage As String)
 
+        DatabaseHelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.data
+        DatabaseHelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Database_Help_word
+        DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_blue
+        DreamgridToolStripMenuItem.Text = Global.Outworldz.My.Resources.Home_word
+        ExitToolStripMenuItem.Image = Global.Outworldz.My.Resources.exit_icon
+        ExitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Exit__word
+        FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.File_word
+        HomeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        LoopbackToolStripMenuItem.Image = Global.Outworldz.My.Resources.replace2
+        LoopbackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Loopback_Help
+        PortsToolStripMenuItem.Image = Global.Outworldz.My.Resources.earth_network
+        PortsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Port_Forwarding_Help
+        PrintToolStripMenuItem.Text = Global.Outworldz.My.Resources.Print
+        PrintToolStripMenuItem1.Image = Global.Outworldz.My.Resources.printer3
+        PrintToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Print
+        SourceCodeToolStripMenuItem.Image = Global.Outworldz.My.Resources.transform
+        SourceCodeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Source_Code_word
+        StepbyStepInstallationToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_connection
+        StepbyStepInstallationToolStripMenuItem.Text = Global.Outworldz.My.Resources.Starting_up
+        TechnicalInfoToolStripMenuItem.Image = Global.Outworldz.My.Resources.gear
+        TechnicalInfoToolStripMenuItem.Text = Global.Outworldz.My.Resources.TechInfo
+        Text = Global.Outworldz.My.Resources.Help_word
+        TroubleshootingToolStripMenuItem.Image = Global.Outworldz.My.Resources.gear_run
+        TroubleshootingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Troubleshooting_word
+        WebSiteToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        WebSiteToolStripMenuItem.Text = Global.Outworldz.My.Resources.More_Help
+
         SetScreen(Webpage)
 
         Try

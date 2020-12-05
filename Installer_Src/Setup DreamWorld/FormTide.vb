@@ -78,7 +78,20 @@ Public Class FormTide
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Info
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        RunOnBoot.Image = Global.Outworldz.My.Resources.Resources.about
+        TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        TideInfoDebugCheckBox.Text = Global.Outworldz.My.Resources.Resources.Send_Debug_Info
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        ToolTip1.SetToolTip(BroadcastTideInfo, Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Chat)
+        ToolTip1.SetToolTip(CycleTimeTextBox, Global.Outworldz.My.Resources.Resources.Cycle_time_text)
+        ToolTip1.SetToolTip(TideHighLevelTextBox, Global.Outworldz.My.Resources.Resources.High_Water_Level_text)
+        ToolTip1.SetToolTip(TideInfoDebugCheckBox, Global.Outworldz.My.Resources.Resources.Provide_Info)
+        ToolTip1.SetToolTip(TideLowLevelTextBox, Global.Outworldz.My.Resources.Resources.Low_High)
+        ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Resources.Tide_Enable
         TideEnabledCheckbox.Checked = CType(Settings.TideEnabled, Boolean)
         TideHighLevelTextBox.Text = Convert.ToString(Settings.TideHighLevel(), Globalization.CultureInfo.InvariantCulture)
         TideLowLevelTextBox.Text = Convert.ToString(Settings.TideLowLevel(), Globalization.CultureInfo.InvariantCulture)
@@ -87,6 +100,7 @@ Public Class FormTide
         TideInfoChannelTextBox.Text = CStr(Settings.TideInfoChannel)
         TideHiLoChannelTextBox.Text = CStr(Settings.TideLevelChannel)
         TideInfoDebugCheckBox.Checked = Settings.TideInfoDebug
+
         SetScreen()
         HelpOnce("Tides")
 

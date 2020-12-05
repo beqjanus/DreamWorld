@@ -45,12 +45,24 @@
         Settings.SaveSettings()
         FormSetup.SendMsg(Settings.LogLevel.ToUpperInvariant)
 
-
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        GroupBox1.Text = Global.Outworldz.My.Resources.Logging_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        LoggingToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
+        LoggingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Logging_word
+        RadioAll.Text = Global.Outworldz.My.Resources.All_word
+        RadioDebug.Text = Global.Outworldz.My.Resources.Debug_word
+        RadioError.Text = Global.Outworldz.My.Resources.Error_word
+        RadioFatal.Text = Global.Outworldz.My.Resources.Fatal_word
+        RadioInfo.Text = Global.Outworldz.My.Resources.Info_word
+        RadioOff.Text = Global.Outworldz.My.Resources.Off
+        RadioWarn.Text = Global.Outworldz.My.Resources.Warn_word
+        Text = Global.Outworldz.My.Resources.Logging_word
+
         SetScreen()
 
         Select Case Settings.LogLevel.ToUpperInvariant

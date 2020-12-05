@@ -39,6 +39,22 @@ Public Class FormIARSave
         ' This call is required by the designer.
         InitializeComponent()
 
+        Button1.Text = Global.Outworldz.My.Resources.Save_IAR_word
+        Button2.Text = Global.Outworldz.My.Resources.Cancel_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word '"Save Inventory IAR"
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
+        Label1.Text = Global.Outworldz.My.Resources.Object_Path_and_name
+        Label2.Text = Global.Outworldz.My.Resources.Backup_Name
+        Label3.Text = Global.Outworldz.My.Resources.Avatar_Name_word
+        PictureBox1.Image = Global.Outworldz.My.Resources.folder
+        Pwd.Text = Global.Outworldz.My.Resources.Password_word
+        Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word
+        ToolTip1.SetToolTip(AviName, Global.Outworldz.My.Resources.Avatar_First_and_Last_Name_word)
+        ToolTip1.SetToolTip(ObjectNameBox, Global.Outworldz.My.Resources.Enter_Name)
+
         BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) + ".iar"
 
     End Sub

@@ -69,7 +69,25 @@ Public Class FormRestart
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        ARTimerBox.Text = Global.Outworldz.My.Resources.Restart_Periodically_word
+        AutoStart.Text = Global.Outworldz.My.Resources.Auto_Startup_word
+        AutoStartCheckbox.Text = Global.Outworldz.My.Resources.EnableOneClickStart_word
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        Label25.Text = Global.Outworldz.My.Resources.Restart_Interval
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        RestartOnCrash.Text = Global.Outworldz.My.Resources.Restart_On_Crash
+        RunOnBoot.Image = Global.Outworldz.My.Resources.about
+        SequentialCheckBox1.Text = Global.Outworldz.My.Resources.StartSequentially
+        Text = Global.Outworldz.My.Resources.Restart_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        ToolTip1.SetToolTip(ARTimerBox, Global.Outworldz.My.Resources.Restart_Periodically_Minutes)
+        ToolTip1.SetToolTip(AutoRestartBox, Global.Outworldz.My.Resources.AutorestartBox)
+        ToolTip1.SetToolTip(AutoStartCheckbox, Global.Outworldz.My.Resources.StartLaunch)
+        ToolTip1.SetToolTip(RestartOnCrash, Global.Outworldz.My.Resources.Restart_On_Crash)
+        ToolTip1.SetToolTip(SequentialCheckBox1, Global.Outworldz.My.Resources.Sequentially_text)
+
         AutoRestartBox.Text = Settings.AutoRestartInterval.ToString(Globalization.CultureInfo.InvariantCulture)
         ARTimerBox.Checked = Settings.AutoRestartEnabled
         AutoStartCheckbox.Checked = Settings.Autostart

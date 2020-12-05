@@ -72,7 +72,31 @@ Public Class FormPorts
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        GroupBox2.Text = Global.Outworldz.My.Resources.Resources.Ports
+        Label26.Text = Global.Outworldz.My.Resources.Resources.Region_Port_Start
+        Label4.Text = Global.Outworldz.My.Resources.Resources.Http_Port_word
+        Label5.Text = Global.Outworldz.My.Resources.Resources.Diagnostics_port_word
+        Label7.Text = Global.Outworldz.My.Resources.Resources.Private_Port_Word
+        MaxP.Text = Global.Outworldz.My.Resources.Resources.Highest_Used_word
+        MaxX.Text = Global.Outworldz.My.Resources.Resources.Highest_Used_word
+        MaxXLabel.Text = Global.Outworldz.My.Resources.Resources.XMLRP_start
+        MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
+        OverrideNameLabel.Text = Global.Outworldz.My.Resources.Resources.External
+        Text = Global.Outworldz.My.Resources.Resources.Region_Ports_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        ToolTip1.SetToolTip(DiagnosticPort, Global.Outworldz.My.Resources.Resources.Default_8001_word)
+        ToolTip1.SetToolTip(ExternalHostName, Global.Outworldz.My.Resources.Resources.External_text)
+        ToolTip1.SetToolTip(FirstRegionPort, Global.Outworldz.My.Resources.Resources.Default_8004_word)
+        ToolTip1.SetToolTip(HTTPPort, Global.Outworldz.My.Resources.Resources.Default_8002_word)
+        ToolTip1.SetToolTip(OverrideNameLabel, Global.Outworldz.My.Resources.Resources.External_text)
+        ToolTip1.SetToolTip(PrivatePort, Global.Outworldz.My.Resources.Resources.Default_8003_word)
+        ToolTip1.SetToolTip(uPnPEnabled, Global.Outworldz.My.Resources.Resources.UPnP_Enabled_text)
+        Upnp.Image = Global.Outworldz.My.Resources.Resources.about
+        uPnPEnabled.Text = Global.Outworldz.My.Resources.Resources.UPnP_Enabled_word
+
         SetScreen()
 
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())

@@ -65,9 +65,32 @@ Public Class FormDNSName
 #Region "Load"
 
     Private Sub DNS_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Translate.Run(Name)
-        SetScreen()
+
+        EnableHypergrid.Text = Global.Outworldz.My.Resources.Resources.Enable_Hypergrid_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Label1.Text = Global.Outworldz.My.Resources.Resources.DynDNS_password_word
+        Label2.Text = Global.Outworldz.My.Resources.Resources.DNSNameText
+        Label3.Text = Global.Outworldz.My.Resources.Resources.DNSNameText
         Me.Text = Global.Outworldz.My.Resources.Dynamic_DNS_word
+        NextNameButton.Text = Global.Outworldz.My.Resources.Resources.Next_Name
+        SaveButton1.Text = Global.Outworldz.My.Resources.Resources.Save_word
+        SuitcaseCheckbox.Text = Global.Outworldz.My.Resources.Resources.Suitcase_enable
+        TestButton1.Text = Global.Outworldz.My.Resources.Resources.Test_DNS_word
+        Text = Global.Outworldz.My.Resources.Resources.DNS_HG_Name
+        ToolTip1.SetToolTip(DNSAliasTextBox, Global.Outworldz.My.Resources.Resources.DNSAlt)
+        ToolTip1.SetToolTip(DNSNameBox, Global.Outworldz.My.Resources.Resources.AlphaNum)
+        ToolTip1.SetToolTip(EnableHypergrid, Global.Outworldz.My.Resources.Resources.Enable_Hypergrid_word)
+        ToolTip1.SetToolTip(NextNameButton, Global.Outworldz.My.Resources.Resources.FreeName)
+        ToolTip1.SetToolTip(SaveButton1, Global.Outworldz.My.Resources.Resources.Save_word)
+        ToolTip1.SetToolTip(SuitcaseCheckbox, Global.Outworldz.My.Resources.Resources.Disable_Suitcase_txt)
+        ToolTip1.SetToolTip(TestButton1, Global.Outworldz.My.Resources.Resources.Test_DNS_word)
+        ToolTip1.SetToolTip(UniqueId, Global.Outworldz.My.Resources.Resources.Reserve_Password)
+
+        SetScreen()
+
         DNSNameBox.Text = Settings.DNSName
         UniqueId.Text = Settings.MachineID()
         EnableHypergrid.Checked = Settings.EnableHypergrid
@@ -76,6 +99,7 @@ Public Class FormDNSName
         DNSAliasTextBox.Text = Settings.AltDnsName
         HelpOnce("DNS")
         initted = True
+
     End Sub
 
 #End Region

@@ -12,7 +12,18 @@
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Script_Engine_word '"Script Engine"
+        GroupBox8.Text = Global.Outworldz.My.Resources.Allow_LSL
+        LSLCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        Text = Global.Outworldz.My.Resources.Scripts_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        XengineButton.Text = Global.Outworldz.My.Resources.XEngine_word
+        YengineButton.Text = Global.Outworldz.My.Resources.YEngine_word
+
         SetScreen()
 
         LSLCheckbox.Checked = Settings.LSLHTTP()
