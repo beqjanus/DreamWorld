@@ -1702,7 +1702,7 @@ Public Class RegionMaker
                                 myCommand1.Parameters.AddWithValue("p2", p2)
 
                                 myCommand1.ExecuteScalar()
-                                myConnection.Close()
+
                             End Using
                         End Using
                     Catch ex As Exception
