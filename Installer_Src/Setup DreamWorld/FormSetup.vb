@@ -703,7 +703,11 @@ Public Class FormSetup
         Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
         Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
-        Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
+        If Settings.ServerType = "Robust" Then
+            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
+        Else
+            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
+        End If
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
         Return False
