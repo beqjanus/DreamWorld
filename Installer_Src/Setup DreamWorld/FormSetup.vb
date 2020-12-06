@@ -45,10 +45,9 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-    Private Const DreamGrid As String = "DreamGrid"
     Private Const jOpensimRev = "Joomla_3.9.21-Stable-Full_Package"
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.781"
+    Private Const _MyVersion As String = "3.782"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
 
 #End Region
@@ -1296,7 +1295,6 @@ Public Class FormSetup
 #Region "Updater"
 
     Private Shared Sub CheckForjOpensimUpdate()
-
 
         Dim count As Integer
         Try
@@ -2554,7 +2552,6 @@ Public Class FormSetup
 
         FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
 
-
         PropIcecastProcID = 0
         Print(My.Resources.Icecast_starting)
         IcecastProcess.EnableRaisingEvents = True
@@ -2728,8 +2725,7 @@ Public Class FormSetup
                 Settings.SaveSettings()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                Print(My.Resources.NTSuspend)
-
+                Print(My.Resources.Error_word)
             End Try
         End Using
 
@@ -2810,9 +2806,7 @@ Public Class FormSetup
 
         PropRobustProcID = 0
 
-
         DoRobust()
-
 
         Print("Robust " & Global.Outworldz.My.Resources.Starting_word)
 
@@ -6142,7 +6136,6 @@ Public Class FormSetup
     Private Function SetIniData() As Boolean
 
         Print(My.Resources.Creating_INI_Files_word)
-
 
         If DoRobust() Then Return True
         If DoTos() Then Return True
