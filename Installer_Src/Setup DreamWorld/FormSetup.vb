@@ -1297,8 +1297,17 @@ Public Class FormSetup
 
     Private Shared Sub CheckForjOpensimUpdate()
 
+
+        Dim count As Integer
+        Try
+            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
+            count = folders.Length
+        Catch
+        End Try
+
         Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\jOpensim\" & jOpensimRev)
-        If Not IO.File.Exists(file) Then
+
+        If Not IO.File.Exists(file) And count > 1 Then
             HelpManual("Joomla Update")
         End If
 
