@@ -45,7 +45,7 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-    Private Const jOpensimRev = "Joomla_3.9.21-Stable-Full_Package"
+    Private Const jOpensimRev = "Joomla_3.9.23-Stable-Full_Package"
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.782"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
