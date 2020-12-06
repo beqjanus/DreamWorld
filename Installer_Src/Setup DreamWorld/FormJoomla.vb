@@ -158,6 +158,15 @@ Public Class FormJoomla
         Catch
         End Try
 
+        Select Case Settings.JOpensimSearch
+            Case ""
+                JOpensimRadioButton.Checked = False
+            Case JOpensim
+                JOpensimRadioButton.Checked = True
+            Case "Hyperica"
+                HypericaRadioButton.Checked = True
+        End Select
+
         InstallButton.Enabled = False
 
         If Not Settings.ApacheEnable Then

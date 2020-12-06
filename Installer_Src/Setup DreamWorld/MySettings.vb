@@ -324,7 +324,7 @@ Public Class MySettings
 
     Public Property JOpensimSearch() As String
         Get
-            Return GetMySetting("JOpensimSearch", "False")
+            Return GetMySetting("JOpensimSearch", "")
         End Get
         Set
             SetMySetting("JOpensimSearch", Value)
