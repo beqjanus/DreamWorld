@@ -3893,7 +3893,7 @@ Public Class FormSetup
 
         If Settings.LoadIni(Settings.OpensimBinPath & "config-include\GridCommon.ini", ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
-        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
+        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustMysqlConnection)
 
         ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling ;; and available when they return. True by default.
         If Settings.Suitcase Then
