@@ -1,0 +1,251 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Courier;
+	panose-1:2 7 4 9 2 2 5 2 4 4;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Title Char";
+	margin:0in;
+	line-height:115%;
+	font-size:26.0pt;
+	font-family:"Calibri Light",sans-serif;
+	color:#4472C4;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-link:Title;
+	font-family:"Calibri Light",sans-serif;
+	color:#4472C4;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+.MsoChpDefault
+	{font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
+
+<div class=WordSection1>
+
+<p class=MsoTitle align=center style='text-align:center'>Save IAR</p>
+
+<p class=MsoNormal style='margin-left:.5in'>OpenSimulator Inventory Archives
+(IARs) are a means by which inventory folders and items can be saved offline to
+a single file (an IAR). This file can then be loaded into a different
+OpenSimulator installation.<br>
+<br>
+Like Opensim Archives, IARs save all the necessary asset data required to fully
+restore the items including textures, sounds, scripts, and objects contained in
+the inventory of other objects.</p>
+
+<p class=MsoNormal style='margin-left:.5in'><img width=422 height=279
+id="Picture 1" src="SaveIAR_files/image001.png"></p>
+
+<p class=MsoNormal style='margin-left:.5in'>The command to save an IAR on the
+region console is</p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='font-family:Courier'>save
+iar [-h|--home=&lt;url&gt;] [-v|--verbose] [--noassets]
+[--perm=&lt;permissions&gt;] &lt;user-name&gt; &lt;path&gt; &lt;password&gt;
+[&lt;filename&gt;]</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'>where &lt;user-name&gt; is the name
+of the user to save inventory from</p>
+
+<p class=MsoNormal style='margin-left:.5in'>&lt;path&gt; is the path to an
+inventory item or folder. If the path is for a folder, that folder and all its
+contents (both descendant folders and items) are saved. If the path is for an
+item, then only that item is saved.</p>
+
+<p class=MsoNormal style='margin-left:.5in'>Components of the path are
+separated by a forward slash (&quot;/&quot;). If you need to specify a path
+with spaces, you can surround the whole thing with double quotation marks (e.g.
+&quot;Folder A/Folder B&quot;)</p>
+
+<p class=MsoNormal style='margin-left:.5in'>You can specify that the contents
+of a folder should be saved rather than the folder itself using the * wildcard.
+For instance, &quot;a/b/*&quot; will save the contents of folder b but not
+folder b itself.</p>
+
+<p class=MsoNormal style='margin-left:.5in'>If a name or folder contains a
+forward slash (&quot;/&quot;) then it can be escaped with the backslash (i.e.
+&quot;\/&quot;) to stop it being seen as a path separator. Back slashes
+themselves need to be escaped with another backslash (i.e. &quot;\\&quot;).</p>
+
+<p class=MsoNormal style='margin-left:.5in'>One further issue here is that it is
+not possible to distinguish between identically named folders or items on the
+path - the workaround is to rename your items/folders if you need to specify
+them in the path :)</p>
+
+<p class=MsoNormal style='margin-left:.5in'>&lt;password&gt; is the password of
+the user.</p>
+
+<p class=MsoNormal style='margin-left:.5in'>&lt;filename&gt; is an optional
+filename for the IAR. If none is supplied, then the filename user-inventory.iar
+is used in the current directory. I recommend that IARs have the .iar
+extension.</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#D9E2F3'><span style='color:black'>Switches</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:.5in'>If the --noassets option is
+specified, then the archive will be saved without assets. This can be handy if you
+are backing up the asset database separately and do not want the expense of
+including all the assets in each archive.</p>
+
+<p class=MsoNormal style='margin-left:.5in'>--home=&lt;url&gt; is the URL of
+this world's profile service. It is not required that the profile service is
+operational; the information will be saved, and it will be displayed wherever
+the archive will be loaded. NOTE: the older --profile option (the previous name
+of this switch) produced IARs that are not compatible with OpenSimulator
+0.7.0.2 and earlier; do not use this option if you want to produce a compatible
+IAR.</p>
+
+<p class=MsoNormal style='margin-left:.5in'>--verbose prints out verbose saving
+messages</p>
+
+<p class=MsoNormal style='margin-left:.5in'>If the --perm option is specified,
+then items with insufficient permissions will not be saved to the IAR. This can
+be useful for grids that allow their customers to export their inventorys to
+IARs, because it ensures that exporting to IAR cannot be used to bypass content
+permissions.</p>
+
+<p class=MsoNormal style='margin-left:.5in'>&lt;permissions&gt; specifies which
+permissions are required. It is a string that contains one or more of these
+characters:</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#D9E2F3'><span style='color:black'>&quot;C&quot; = Copy<br>
+&quot;T&quot; = Transfer<br>
+&quot;M&quot; = Modify<br>
+<br>
+<b>Examples</b></span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:.5in'>Here is an example. Suppose you
+have an inventory structure like this</p>
+
+<p class=MsoNormal style='margin-left:.5in'>My Inventory<br>
+  |<br>
+  +-- FolderA<br>
+        |  <br>
+        +-- FolderB<br>
+        |      |<br>
+        |      +-- ItemX<br>
+        |<br>
+        +-- ItemY</p>
+
+<p class=MsoNormal style='margin-left:.5in'>If you type:</p>
+
+<p class=MsoNormal style='margin-left:.5in'>save iar John Doe FolderA PASSWORD
+my-items.iar</p>
+
+<p class=MsoNormal style='margin-left:.5in'>then FolderA and everything in
+FolderA (FolderB, ItemX and ItemY) will be saved into an IAR called
+my-items.iar. On the other hand, if you type</p>
+
+<p class=MsoNormal style='margin-left:.5in'>save iar John Doe
+FolderA/FolderB/ItemX PASSWORD my-items.iar</p>
+
+<p class=MsoNormal style='margin-left:.5in'>then only ItemX will be saved.</p>
+
+<p class=MsoNormal style='margin-left:.5in'>If there is a space in the path to
+the item, for example if John Doe's folder was named &quot;Folder A&quot;
+instead of &quot;FolderA&quot;, then quotes around the path are necessary on
+the command line:</p>
+
+<p class=MsoNormal style='margin-left:.5in'>save iar John Doe &quot;Folder
+A/FolderB/ItemX&quot; PASSWORD my-items.iar</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#D9E2F3'><span style='color:black'>Saving an entire
+user's inventory</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:.5in'>With save iar you can save your
+entire inventory as well as the contents of particular folders or individual
+items.</p>
+
+<p class=MsoNormal style='margin-left:.5in'>For instance, typing</p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Courier New"'>save
+iar John Doe /* password</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

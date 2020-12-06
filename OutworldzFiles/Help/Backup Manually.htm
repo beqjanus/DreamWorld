@@ -1,0 +1,222 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#4472C4;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Title Char";
+	margin:0in;
+	line-height:115%;
+	font-size:26.0pt;
+	font-family:"Calibri Light",sans-serif;
+	color:#4472C4;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Times New Roman",serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#4472C4;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-link:Title;
+	font-family:"Calibri Light",sans-serif;
+	color:#4472C4;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+.MsoChpDefault
+	{font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
+
+<div class=WordSection1>
+
+<p class=MsoTitle>Backup - Manual Backups</p>
+
+<p class=MsoNormal>A manual backup uses a lot of disk space, but it backs up
+all critical files quickly and in a usable form.   It will save the selected
+items in the AUTOBACKUP folder. <br>
+<img width=251 height=261 id="Picture 1"
+src="Backup%20Manually_files/image001.png"><br>
+<br>
+Some of these boxes may be grayed out or uncheckable because the system has not
+installed that service. </p>
+
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1>CheckBoxes</h1>
+
+</div>
+
+<p class=MsoNormal><br>
+<b>Backup Region INI files </b>All files from Opensim\bin\Regions are copied. 
+The useful ones are in the bin\Region\DosBoxName\Region\folder</p>
+
+<p class=MsoNormal><b>Backup MySQL\Data folder</b>:  This folder holds the database. 
+The rest of the folders in MySQL are just code or changeable settings that come
+in an update.</p>
+
+<p class=MsoNormal><b>Backup FSassets Folder</b>: If you are running the
+FSAssets system, this contains just the assets of the database.  You still need
+to backup MySQL.</p>
+
+<p class=MsoNormal><b>Custom Web Pages</b>: This backs up two folders in
+bin\WifiPages-Custom and WifiPages-Custom in case you have made changes.</p>
+
+<p class=MsoNormal><b>Backup Settings: </b>This copies the Settings.ini. All
+settings come from this file.</p>
+
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1>Backup Strategies</h1>
+
+</div>
+
+<p class=MsoNormal>There are multiple kinds of backups. Backups are at the
+region level, or at the grid level, which includes regions.&nbsp; Also remember
+there are always two or more databases on a grid: the grid's robust database,
+and the regions Opensim database. There can be more than one Opensim database,
+as a grid can consists of more than one machine.</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Region Level OAR</span></h2>
+
+</div>
+
+<p class=MsoNormal>OARs can be made on the fly - look in Content Save Oars and
+you can do them all with one click.&nbsp; You can also set up OARS to be made
+on a schedule. - 24 hours is an excellent choice.</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Grid level IAR</span></h2>
+
+</div>
+
+<p class=MsoNormal>IARS are more difficult and are more time consuming, as you
+need the password.&nbsp;&nbsp; But you should make them on occasion
+anyway.&nbsp; Just in case. They take a long time and can lag a grid when
+running.&nbsp; If you are on OsGrid or Metro, I HIGHLY RECOMMEND you get an IAR
+backup often!&nbsp; I have at different times lost data at both grids.</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Grid level SQL</span></h2>
+
+</div>
+
+<p class=MsoNormal>SQL backup is also slow, but very thorough. It saves outfits,
+logins, and usernames. Basically, everything but region UUID's and
+settings.&nbsp; With this you can fix problems in MySQL that are known to
+develop.&nbsp;&nbsp; This is sort of a monthly thing to do.</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>Grid Level Copies</span></h2>
+
+</div>
+
+<p class=MsoNormal>A smaller and quicker way to back up the entire grid is to
+run the very last backup option.&nbsp; It makes a copy of the database, Regions
+files, the custom Wi-Fi pages, if any, and the Settings.ini. This is all you
+need to recreate a grid.&nbsp; I do this on weekends.</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span style='color:black'>UUID</span></h2>
+
+</div>
+
+<p class=MsoNormal>Keep a copy of your UUID, too. This is available in your
+Profile.  If you must start over, at least your new avatars will have the same
+UUID and will owe everything you created.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

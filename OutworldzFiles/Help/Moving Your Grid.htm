@@ -1,0 +1,124 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<title>Moving a DreamGrid to another folder or PC</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:"Kozuka Mincho Pro B";
+	panose-1:2 2 8 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"\@Kozuka Mincho Pro B";}
+@font-face
+	{font-family:"\@Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Title Char";
+	margin:0in;
+	line-height:115%;
+	font-size:26.0pt;
+	font-family:"Calibri Light",sans-serif;
+	color:#5B9BD5;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Arial Unicode MS",sans-serif;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-link:Title;
+	font-family:"Calibri Light",sans-serif;
+	color:#5B9BD5;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 65.95pt 1.0in 65.95pt;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoTitle align=center style='text-align:center'>Moving a DreamGrid to
+another folder or PC</p>
+
+<p style='margin-top:5.0pt;margin-right:21.1pt;margin-bottom:5.0pt;margin-left:
+.5in'>There are no dependencies outside of the DreamGrid folder to copy to a
+new location.</p>
+
+<p style='margin-top:5.0pt;margin-right:21.1pt;margin-bottom:5.0pt;margin-left:
+.5in'>Stop the original grid and go to Setup-&gt;Setting-&gt;Caches. Select and
+clear all the caches. These do not need to be copied and are huge. Opensim will
+recreate them as needed.  The states of scripts will be maintained.  </p>
+
+<p style='margin-top:5.0pt;margin-right:21.1pt;margin-bottom:5.0pt;margin-left:
+.5in'>Now copy the entire folder from one machine to the other or from one
+folder to another.</p>
+
+<p style='margin-top:5.0pt;margin-right:21.1pt;margin-bottom:5.0pt;margin-left:
+.5in'>Another method is to unzip a new copy of DreamGrid on the destination
+machine.   Then copy the file Outworldzfiles\Settings.ini, 
+Outworldzfiles\mysql\data, and Outworldzfiles\opensim\bin\regions to the second
+machine or folder.</p>
+
+<p style='margin-top:5.0pt;margin-right:21.1pt;margin-bottom:5.0pt;margin-left:
+.5in'>If you are running the Apache web server (for jOpensim Or Maps), install
+the service packs in Setting-&gt;Apache, which is also in the folder MSFT_Runtimes.&nbsp;
+<br>
+<img width=465 height=217 src="Moving%20Your%20Grid_files/image001.jpg"><br>
+It may ask to reboot.  There is no need to reboot. If it asks, type 'i' to
+ignore, then 'y' to install.&nbsp; </p>
+
+<p style='margin-top:5.0pt;margin-right:21.1pt;margin-bottom:5.0pt;margin-left:
+.5in'><b>Router:   </b>You will need to port forward to the new IP if you are
+on the hypergrid.&nbsp; <br>
+<br>
+<b>Anti Virus:</b> If setting up a new computer, you will want to check that
+any 3rd party anti-virus is not blocking ports. Also add an exclusion to the
+Opensim\bin folder to the Real-time component of any virus scanner as this area
+gets heavy use of Script DLLS, and it will cause issues with scripts starting
+up or being created.&nbsp;&nbsp; Opensim does not create viruses, and all my
+code is digitally encrypted and signed by Microsoft Authenticode and will not
+run if even a single bit changes.</p>
+
+</div>
+
+</body>
+
+</html>

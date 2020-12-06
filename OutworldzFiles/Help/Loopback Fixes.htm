@@ -1,0 +1,277 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Title Char";
+	margin:0in;
+	line-height:115%;
+	font-size:26.0pt;
+	font-family:"Calibri Light",sans-serif;
+	color:#4472C4;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-link:Title;
+	font-family:"Calibri Light",sans-serif;
+	color:#4472C4;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+.MsoChpDefault
+	{font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
+
+<div class=WordSection1>
+
+<p class=MsoTitle align=center style='text-align:center'><span lang=EN>Loopback</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>If you are reading
+this, it is probably because you already know loopback is not working and
+clicked the Help menu to get here. You can skip down below and go right to <u>&quot;Installing
+the Loopback Adapter&quot;</u>. </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'><img width=431
+height=568 id="Picture 1" src="Loopback%20Fixes_files/image001.png"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'>What happens when
+loopback is broken in your router, you cannot get to your own PC using the
+address of outside of the router.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'><img width=431
+height=568 id="Picture 2" src="Loopback%20Fixes_files/image002.png"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'>             A
+working loopback router</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Loopback is necessary
+in some gaming applications and in Opensimulator if you are going to be running
+on the Hypergrid and using the viewer on the server. The usual symptoms are
+being unable to log in to the server after switching to a Public IP or a
+Dynamic DNS name. If your router does not support it, you can install a simple
+fix to one file so it can run a viewer. The loopback adapter lets a viewer on
+the server reach itself, as the loopback via the router is not functioning.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>You can manually test
+for loopback by starting Opensimulator, then use a web browser to navigate to <a
+href="http://canyouseeme.org/"><span style='color:windowtext;text-decoration:
+none'>http://canyouseeme.org</span></a>. Enter port 8002 and click Check Port.
+This must work. if not, fix the port forwarding issues and come back and try
+this test again.  You may need to Open Ports in the firewall or disable it on
+the PC temporarily.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Do not install a
+loopback adapter until the above test passes! There is one more test to do to
+see if you really need to add an adapter.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Your ports are known
+to be working now, so go get the Public IP of your system from <a
+href="http://canyouseeme.org/"><span style='color:windowtext;text-decoration:
+none'>http://canyouseeme.org</span></a>. Use a web browser to navigate to <a
+href="http://(public/"><span style='color:windowtext;text-decoration:none'>http://(Public</span></a>
+IP):8002. Use your Public IP where it says (Public IP).</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>You should get a
+login page.  If you get this page, loopback is working.  You do not need to
+install an adapter (which is great!)  If you do not get this page, loopback is
+not working in your router.</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2 style='background:#D9E2F3'><span lang=EN style='color:black'>Installing the
+Loopback Adapter</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>1. Click Start, then
+type cmd in the search box.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>2. When cmd.exe
+appears, right-click it and choose Run as administrator.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>3. In the command
+prompt, type hdwwiz.exe and press Enter.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN><img border=0
+width=572 height=419 id="Picture 3" src="Loopback%20Fixes_files/image003.png"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>4. Click Next.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>5. Select <b>Install
+the hardware that I manually select from a list (Advanced), </b>then click
+Next.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'><img border=0
+width=576 height=427 id="Picture 4" src="Loopback%20Fixes_files/image004.png"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>6. Select Network
+adapters, then click Next.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'><img border=0
+width=576 height=427 id="Picture 5" src="Loopback%20Fixes_files/image005.png"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>7. Select <b>Microsoft
+</b>as the manufacturer, select <b>Microsoft KM-TEST Loopback Adapter</b> as
+the adapter for Windows 10, then click Next.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'><img border=0
+width=576 height=427 id="Picture 6" src="Loopback%20Fixes_files/image006.png"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>8. Select Next to
+confirm the installation.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'><img border=0
+width=576 height=427 id="Picture 7" src="Loopback%20Fixes_files/image007.png"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>9. Select Finish to
+complete the installation.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;line-height:normal;text-autospace:none'><span lang=EN
+style='font-size:12.0pt;font-family:"Verdana",sans-serif'><img border=0
+width=506 height=375 id="Picture 8" src="Loopback%20Fixes_files/image008.jpg"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>10. Go to your
+Network Adapters in Control panel and rename the Microsoft Loopback Adapter to
+just &quot;Loopback&quot;.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+12.0pt;line-height:115%;font-family:"Verdana",sans-serif'>11. Exit the DreamGrid
+entirely if it was running, and then start it again.   A black DOS box will
+appear as DreamGrid automatically configures your Loopback adapter. </span></p>
+
+</div>
+
+</body>
+
+</html>
