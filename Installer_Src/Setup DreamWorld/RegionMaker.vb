@@ -117,13 +117,13 @@ Public Class RegionMaker
             Dim RegionName = FormSetup.PropRegionClass.RegionName(uuid)
             Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(uuid), ";")
 
-            Settings.SetIni(RegionName, "InternalPort", CStr(Settings.FirstRegionPort()))
-            FormSetup.PropRegionClass.RegionPort(uuid) = Settings.FirstRegionPort()
-            FormSetup.PropRegionClass.XmlRegionPort(uuid) = Settings.FirstXMLRegionPort()
-            FormSetup.PropRegionClass.RemoteAdminPort(uuid) = Settings.FirstRemoteAdminPort()
+            Settings.SetIni(RegionName, "InternalPort", CStr(Portnumber))
+            FormSetup.PropRegionClass.RegionPort(uuid) = Portnumber
+            FormSetup.PropRegionClass.XmlRegionPort(uuid) = XMLPortnumber
+            FormSetup.PropRegionClass.RemoteAdminPort(uuid) = RemoteAdminPortnumber
 
             ' Self setting Region Ports
-            FormSetup.PropMaxPortUsed = Settings.FirstRegionPort()
+            FormSetup.PropMaxPortUsed = Portnumber
             FormSetup.PropMaxXMLPortUsed = XMLPortnumber
             FormSetup.PropMaxRemoteAdminPortUsed = RemoteAdminPortnumber
 

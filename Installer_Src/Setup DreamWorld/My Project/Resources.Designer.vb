@@ -6672,6 +6672,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to RemoteAdmin.
+        '''</summary>
+        Friend ReadOnly Property Remote_Admin_word() As String
+            Get
+                Return ResourceManager.GetString("Remote_Admin_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Render Max Height.
         '''</summary>
         Friend ReadOnly Property RenderMax() As String
