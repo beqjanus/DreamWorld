@@ -374,12 +374,6 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 80), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
-        ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
-        ctr += 1
-        ListView1.Columns.Add(My.Resources.XMLRPC, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
-        ctr += 1
         ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
@@ -390,6 +384,15 @@ Public Class FormRegionlist
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
         ListView1.Columns.Add(My.Resources.Estate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 100), HorizontalAlignment.Left)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
+        ctr += 1
+        ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
+        ctr += 1
+        ListView1.Columns.Add(My.Resources.XMLRPC, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
+        ctr += 1
+        ListView1.Columns.Add(My.Resources.Remote_Admin_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
 
@@ -635,8 +638,6 @@ Public Class FormRegionlist
                         item1.SubItems.Add("0".ToUpperInvariant)
                     End If
 
-                    item1.SubItems.Add(FormSetup.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-                    item1.SubItems.Add(FormSetup.PropRegionClass.XmlRegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
 
@@ -651,6 +652,11 @@ Public Class FormRegionlist
                         Estate = MysqlInterface.EstateName(FormSetup.PropRegionClass.RegionUUID(RegionUUID))
                     End If
                     item1.SubItems.Add(Estate)
+
+                    item1.SubItems.Add(FormSetup.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(FormSetup.PropRegionClass.XmlRegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+
 
                     'Scripts XEngine or YEngine
                     Select Case FormSetup.PropRegionClass.ScriptEngine(RegionUUID)
