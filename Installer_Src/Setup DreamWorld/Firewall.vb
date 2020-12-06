@@ -44,8 +44,8 @@ Public Module Firewall
 
     Public Sub BlockIP(ipaddress As String)
 
-        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & IP() & vbCrLf
-        Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & Ip & """ dir=in profile=any action=block protocol=any remoteip=" & Ip & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & ipaddress & vbCrLf
+        Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & ipaddress & """ dir=in profile=any action=block protocol=any remoteip=" & IP() & vbCrLf
 
         Write(Command)
 
