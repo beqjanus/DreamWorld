@@ -1939,7 +1939,7 @@ Public Class FormSetup
                     PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                 Next
                 ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
-
+                Application.DoEvents()
             End If
             PropUpdateView = True ' make form refresh
 
