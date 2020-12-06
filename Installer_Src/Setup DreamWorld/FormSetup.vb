@@ -3972,7 +3972,7 @@ Public Class FormSetup
 
         If Settings.LoadIni(Settings.OpensimBinPath & "config-include\GridCommon.ini", ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
-        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustMysqlConnection)
+        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling ;; and available when they return. True by default.
         If Settings.Suitcase Then
@@ -4314,8 +4314,6 @@ Public Class FormSetup
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         If Settings.LoadIni(Settings.OpensimBinPath & "Wifi.ini", ";") Then Return True
-
-        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         If Settings.ServerType = "Robust" Then ' wifi could be on or off
             If (Settings.WifiEnabled) Then
