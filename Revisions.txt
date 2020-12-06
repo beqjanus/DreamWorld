@@ -1,6 +1,20 @@
-  REVISIONS FOR DREAMGRID
+REVISIONS FOR DREAMGRID
 
-This is a high-level view of major changes. Revs such as 3.4 or 3.5 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
+This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
+
+
+V3.782 
+When you load this rev, if Joomla is installed, this will prompt for an update if one is available. There is a easy way to update jOpensim included in Setup->Settings->Joomla/jOpensim. Your content will not be overwritten.
+Maps, local Search, Users and Groups all work.  jMoney does not yet work (it crashes, so the DLL is disabled).
+Joomla is now 3.9.23, jOpensim is 0.3.2.0. The jOpensim webpage is now at V5 which has web page instructions on how to edit after an install. 
+MySqlRev = "5.6.5" to prep for Joomla V4, which requires at least 5.6, 5.65 is the next release.5.7 requires major changes, we may never see that.
+Gloebit runs in Grid mode on Grids, in Region mode on region servers. No need to open Port 3306 and protect it with firewall on Region servers to get Gloebit.
+Major changes in how translations work to make it easier to maintain. About 16,000 of them now. If you have both English and other language skills, please take a look at the Spreadsheet in Outworldzfiles and help us translate more phrases.
+Help Files are now web pages for ease of maintenance. The RTF files are still the source for these in github Src, but are not in releases as they are huge.
+Added Remote Admin port to all regions for future use and for jOpensim.
+Enable AddinExample to capture simple script input.
+Enable WhoGotWhat to capture in world events.
+BanList changes for IP addresses which now support /24 subnets
 
 V3.781 JOpensim  Update
 This rev of DreamGrid supports Rev 0.3.2.0.  If you are running Jopensim at an earlier rev, you must update JOpensim in the Joomla/administrator menu. There are minor changes in new added features, but huge changes to the internal communication structure between OpenSimulator and Joomla.
