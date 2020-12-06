@@ -23,11 +23,16 @@ Public Module Firewall
 
         ' regions need both
 
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
 
-            Dim X As Integer = CInt("0" & FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
+            Dim X As Integer = CInt("0" & FormSetup.PropRegionClass.XmlRegionPort(RegionUUID))
             If X > 0 Then
                 Command = Command & "netsh advfirewall firewall add rule name=""XMLRegionPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
+            End If
+
+            Dim P As Integer = CInt("0" & FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID))
+            If P > 0 Then
+                Command = Command & "netsh advfirewall firewall add rule name=""RemoteAdminPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
             End If
 
             Dim R As Integer = CInt("0" & FormSetup.PropRegionClass.RegionPort(RegionUUID))
@@ -69,11 +74,16 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
 
-            Dim X As Integer = CInt("0" & FormSetup.PropRegionClass.XMLRegionPort(RegionUUID))
+            Dim X As Integer = CInt("0" & FormSetup.PropRegionClass.XmlRegionPort(RegionUUID))
             If X > 0 Then
                 Command = Command & "netsh advfirewall firewall delete rule name=""XMLRegionPort " & CStr(X) & """" & vbCrLf
+            End If
+
+            Dim P As Integer = CInt("0" & FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID))
+            If P > 0 Then
+                Command = Command & "netsh advfirewall firewall delete rule name=""RemoteAdminPort " & CStr(X) & """" & vbCrLf
             End If
 
             Dim R As Integer = CInt("0" & FormSetup.PropRegionClass.RegionPort(RegionUUID))
