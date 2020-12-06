@@ -203,7 +203,13 @@ Public Module MysqlInterface
 
     Public Function IsMySqlRunning() As Boolean
 
-        Dim Mysql = CheckPort(Settings.RegionServer, Settings.MySqlRegionDBPort)
+        Dim Mysql As Boolean
+        If (Settings.ServerType = "Robust") Then
+            Mysql = CheckPort(Settings.RobustServer, Settings.MySqlRobustDBPort)
+        Else
+            Mysql = CheckPort(Settings.RegionServer, Settings.MySqlRegionDBPort)
+        End If
+
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
             Debug.Print("MySQL version: " & version)
