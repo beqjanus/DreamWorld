@@ -44,11 +44,16 @@ PublicPort=8002
 ; The private port of the Robust server
 PrivatePort=8003
 
+;; Set by Dreamgrid
 ; port used for icons, teleports and other tasks when communicating to/from opensim
 DiagnosticsPort=8001
 
+;; Set by Dreamgrid
 
+;Apache Port for Jopensim
+ApachePort=80
 
+;
 ; * The startup section lists all the connectors to start up in this server
 ; * instance. This may be only one, or it may be the entire server suite.
 ; * Multiple connectors should be separated by commas.
