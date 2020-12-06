@@ -2810,7 +2810,9 @@ Public Class FormSetup
 
         PropRobustProcID = 0
 
-        DoSetDefaultSims()
+
+        DoRobust()
+
 
         Print("Robust " & Global.Outworldz.My.Resources.Starting_word)
 
@@ -4047,6 +4049,8 @@ Public Class FormSetup
     Private Function DoRobust() As Boolean
 
         Print("->Set Robust")
+
+        DoSetDefaultSims()
 
         ' Robust Process
         If Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";") Then
@@ -6139,7 +6143,7 @@ Public Class FormSetup
 
         Print(My.Resources.Creating_INI_Files_word)
 
-        If DoSetDefaultSims() Then Return True
+
         If DoRobust() Then Return True
         If DoTos() Then Return True
         If DoGridCommon() Then Return True
