@@ -48,15 +48,15 @@ Partial Class FormJoomla
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(563, 28)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(483, 28)
         Me.MenuStrip1.TabIndex = 0
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(75, 24)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(64, 24)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'ButtonBox
@@ -67,11 +67,9 @@ Partial Class FormJoomla
         Me.ButtonBox.Controls.Add(Me.AdminButton)
         Me.ButtonBox.Controls.Add(Me.ViewButton)
         Me.ButtonBox.Controls.Add(Me.InstallButton)
-        Me.ButtonBox.Location = New System.Drawing.Point(16, 57)
-        Me.ButtonBox.Margin = New System.Windows.Forms.Padding(4)
+        Me.ButtonBox.Location = New System.Drawing.Point(12, 46)
         Me.ButtonBox.Name = "ButtonBox"
-        Me.ButtonBox.Padding = New System.Windows.Forms.Padding(4)
-        Me.ButtonBox.Size = New System.Drawing.Size(256, 359)
+        Me.ButtonBox.Size = New System.Drawing.Size(231, 292)
         Me.ButtonBox.TabIndex = 1
         Me.ButtonBox.TabStop = False
         Me.ButtonBox.Text = "Settings"
@@ -80,10 +78,9 @@ Partial Class FormJoomla
         '
         Me.BackupButton.Image = Global.Outworldz.My.Resources.Resources.edge
         Me.BackupButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.BackupButton.Location = New System.Drawing.Point(32, 236)
-        Me.BackupButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.BackupButton.Location = New System.Drawing.Point(24, 192)
         Me.BackupButton.Name = "BackupButton"
-        Me.BackupButton.Size = New System.Drawing.Size(197, 41)
+        Me.BackupButton.Size = New System.Drawing.Size(188, 33)
         Me.BackupButton.TabIndex = 7
         Me.BackupButton.Text = "Backup"
         Me.BackupButton.UseVisualStyleBackColor = True
@@ -92,10 +89,9 @@ Partial Class FormJoomla
         '
         Me.ReinstallButton.Image = Global.Outworldz.My.Resources.Resources.edge
         Me.ReinstallButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.ReinstallButton.Location = New System.Drawing.Point(32, 285)
-        Me.ReinstallButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.ReinstallButton.Location = New System.Drawing.Point(24, 232)
         Me.ReinstallButton.Name = "ReinstallButton"
-        Me.ReinstallButton.Size = New System.Drawing.Size(197, 41)
+        Me.ReinstallButton.Size = New System.Drawing.Size(188, 33)
         Me.ReinstallButton.TabIndex = 6
         Me.ReinstallButton.Text = "Restore"
         Me.ReinstallButton.UseVisualStyleBackColor = True
@@ -104,10 +100,9 @@ Partial Class FormJoomla
         '
         Me.UpdateButton.Image = Global.Outworldz.My.Resources.Resources.edge
         Me.UpdateButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.UpdateButton.Location = New System.Drawing.Point(32, 187)
-        Me.UpdateButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.UpdateButton.Location = New System.Drawing.Point(24, 152)
         Me.UpdateButton.Name = "UpdateButton"
-        Me.UpdateButton.Size = New System.Drawing.Size(197, 41)
+        Me.UpdateButton.Size = New System.Drawing.Size(188, 33)
         Me.UpdateButton.TabIndex = 5
         Me.UpdateButton.Text = "Update"
         Me.UpdateButton.UseVisualStyleBackColor = True
@@ -116,10 +111,9 @@ Partial Class FormJoomla
         '
         Me.AdminButton.Image = CType(resources.GetObject("AdminButton.Image"), System.Drawing.Image)
         Me.AdminButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.AdminButton.Location = New System.Drawing.Point(32, 86)
-        Me.AdminButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.AdminButton.Location = New System.Drawing.Point(24, 70)
         Me.AdminButton.Name = "AdminButton"
-        Me.AdminButton.Size = New System.Drawing.Size(197, 44)
+        Me.AdminButton.Size = New System.Drawing.Size(188, 36)
         Me.AdminButton.TabIndex = 4
         Me.AdminButton.Text = Global.Outworldz.My.Resources.Resources.AdministerJoomla_word
         Me.AdminButton.UseVisualStyleBackColor = True
@@ -128,10 +122,9 @@ Partial Class FormJoomla
         '
         Me.ViewButton.Image = Global.Outworldz.My.Resources.Resources.edge
         Me.ViewButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.ViewButton.Location = New System.Drawing.Point(32, 138)
-        Me.ViewButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.ViewButton.Location = New System.Drawing.Point(24, 112)
         Me.ViewButton.Name = "ViewButton"
-        Me.ViewButton.Size = New System.Drawing.Size(197, 41)
+        Me.ViewButton.Size = New System.Drawing.Size(188, 33)
         Me.ViewButton.TabIndex = 3
         Me.ViewButton.Text = Global.Outworldz.My.Resources.Resources.ViewJoomla_word
         Me.ViewButton.UseVisualStyleBackColor = True
@@ -140,10 +133,9 @@ Partial Class FormJoomla
         '
         Me.InstallButton.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.InstallButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.InstallButton.Location = New System.Drawing.Point(32, 41)
-        Me.InstallButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.InstallButton.Location = New System.Drawing.Point(24, 33)
         Me.InstallButton.Name = "InstallButton"
-        Me.InstallButton.Size = New System.Drawing.Size(197, 37)
+        Me.InstallButton.Size = New System.Drawing.Size(188, 30)
         Me.InstallButton.TabIndex = 0
         Me.InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
         Me.InstallButton.UseVisualStyleBackColor = True
@@ -153,11 +145,11 @@ Partial Class FormJoomla
         Me.SearchBox.Controls.Add(Me.RadioButton2)
         Me.SearchBox.Controls.Add(Me.JOpensimRadioButton)
         Me.SearchBox.Controls.Add(Me.HypericaRadioButton)
-        Me.SearchBox.Location = New System.Drawing.Point(299, 57)
-        Me.SearchBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SearchBox.Location = New System.Drawing.Point(277, 46)
+        Me.SearchBox.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.SearchBox.Name = "SearchBox"
-        Me.SearchBox.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.SearchBox.Size = New System.Drawing.Size(244, 139)
+        Me.SearchBox.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SearchBox.Size = New System.Drawing.Size(183, 113)
         Me.SearchBox.TabIndex = 3
         Me.SearchBox.TabStop = False
         Me.SearchBox.Text = "Search Options"
@@ -165,10 +157,10 @@ Partial Class FormJoomla
         'RadioButton2
         '
         Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(29, 41)
-        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RadioButton2.Location = New System.Drawing.Point(22, 33)
+        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(96, 21)
+        Me.RadioButton2.Size = New System.Drawing.Size(76, 17)
         Me.RadioButton2.TabIndex = 6
         Me.RadioButton2.TabStop = True
         Me.RadioButton2.Text = "No Search"
@@ -177,10 +169,10 @@ Partial Class FormJoomla
         'JOpensimRadioButton
         '
         Me.JOpensimRadioButton.AutoSize = True
-        Me.JOpensimRadioButton.Location = New System.Drawing.Point(29, 98)
-        Me.JOpensimRadioButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.JOpensimRadioButton.Location = New System.Drawing.Point(22, 80)
+        Me.JOpensimRadioButton.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.JOpensimRadioButton.Name = "JOpensimRadioButton"
-        Me.JOpensimRadioButton.Size = New System.Drawing.Size(141, 21)
+        Me.JOpensimRadioButton.Size = New System.Drawing.Size(108, 17)
         Me.JOpensimRadioButton.TabIndex = 5
         Me.JOpensimRadioButton.TabStop = True
         Me.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
@@ -189,10 +181,10 @@ Partial Class FormJoomla
         'HypericaRadioButton
         '
         Me.HypericaRadioButton.AutoSize = True
-        Me.HypericaRadioButton.Location = New System.Drawing.Point(29, 71)
-        Me.HypericaRadioButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.HypericaRadioButton.Location = New System.Drawing.Point(22, 58)
+        Me.HypericaRadioButton.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.HypericaRadioButton.Name = "HypericaRadioButton"
-        Me.HypericaRadioButton.Size = New System.Drawing.Size(134, 21)
+        Me.HypericaRadioButton.Size = New System.Drawing.Size(104, 17)
         Me.HypericaRadioButton.TabIndex = 4
         Me.HypericaRadioButton.TabStop = True
         Me.HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
@@ -200,15 +192,14 @@ Partial Class FormJoomla
         '
         'FormJoomla
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(563, 433)
+        Me.ClientSize = New System.Drawing.Size(483, 352)
         Me.Controls.Add(Me.SearchBox)
         Me.Controls.Add(Me.ButtonBox)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormJoomla"
         Me.Text = "JOpensim"
         Me.MenuStrip1.ResumeLayout(False)

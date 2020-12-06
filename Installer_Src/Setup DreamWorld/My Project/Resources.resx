@@ -802,7 +802,7 @@
     <value>Admin Password</value>
   </data>
   <data name="Restore_word" xml:space="preserve">
-    <value>Restore?</value>
+    <value>Restore From Backup</value>
   </data>
   <data name="Bullet_Physics_word" xml:space="preserve">
     <value>Bullet physics</value>

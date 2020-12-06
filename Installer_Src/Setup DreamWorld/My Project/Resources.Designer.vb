@@ -6916,7 +6916,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Restore?.
+        '''  Looks up a localized string similar to Restore From Backup.
         '''</summary>
         Friend ReadOnly Property Restore_word() As String
             Get

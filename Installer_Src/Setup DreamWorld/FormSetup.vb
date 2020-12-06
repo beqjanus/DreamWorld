@@ -45,10 +45,11 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-    Private Const jOpensimRev = "Joomla_3.9.23-Stable-Full_Package"
+
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.782"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
+    Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
 
 #End Region
 
@@ -585,6 +586,15 @@ Public Class FormSetup
         End Get
         Set(value As String)
             _OpensimBinPath = value
+        End Set
+    End Property
+
+    Public Property JOpensimRev1 As String
+        Get
+            Return jOpensimRev
+        End Get
+        Set(value As String)
+            jOpensimRev = value
         End Set
     End Property
 
@@ -1303,7 +1313,7 @@ Public Class FormSetup
         Catch
         End Try
 
-        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\jOpensim\" & jOpensimRev)
+        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\jOpensim\" & FormSetup.JOpensimRev1)
 
         If Not IO.File.Exists(file) And count > 1 Then
             HelpManual("Joomla Update")

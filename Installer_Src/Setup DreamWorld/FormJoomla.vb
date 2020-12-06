@@ -61,7 +61,7 @@ Public Class FormJoomla
 
         FormSetup.StartMySQL()
 
-        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\jOpensim_Files\Joomla+JOpensim.zip")
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\jOpensim_Files\" & FormSetup.JOpensimRev1 & ".zip")
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
             InstallButton.Image = Nothing
@@ -70,7 +70,7 @@ Public Class FormJoomla
             Dim JoomlaProcess As New Process()
             JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
             JoomlaProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
-            JoomlaProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            JoomlaProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
 
             Try
                 JoomlaProcess.Start()
@@ -115,16 +115,16 @@ Public Class FormJoomla
 
             InstallButton.Text = Global.Outworldz.My.Resources.Installed_word
 
+            HelpManual(JOpensim)
+
+            Dim webAddress As String = "http://127.0.0.1:" & Settings.ApachePort & "/jOpensim"
+            Try
+                Process.Start(webAddress)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+
         End If
-
-        HelpManual(JOpensim)
-
-        Dim webAddress As String = "http://127.0.0.1:" & Settings.ApachePort & "/jOpensim"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
 
         Me.Close()
 
@@ -246,10 +246,11 @@ Public Class FormJoomla
     Private Sub ReinstallButton_Click(sender As Object, e As EventArgs) Handles ReinstallButton.Click
 
         Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles")
-        FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\kickstart.php"), IO.Path.Combine(path, "htdocs\JOpensim\kickstart.php"), True)
-        FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\en-GB.kickstart.ini"), IO.Path.Combine(path, "htdocs\JOpensim\en-GB.kickstart.ini"), True)
+        FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\kickstart.php"), IO.Path.Combine(path, "Apache\htdocs\JOpensim\kickstart.php"), True)
+        FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\en-GB.kickstart.ini"), IO.Path.Combine(path, "Apache\htdocs\JOpensim\en-GB.kickstart.ini"), True)
+        FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\Joomla+JOpensimV5.jpa"), IO.Path.Combine(path, "Apache\htdocs\JOpensim\Joomla+JOpensimV5.jpa"), True)
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/kickstart.php"
+        Dim webAddress As String = "http://127.0.0.1/jOpensim/kickstart.php"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
