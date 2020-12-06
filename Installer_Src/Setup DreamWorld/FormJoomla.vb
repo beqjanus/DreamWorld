@@ -183,10 +183,15 @@ Public Class FormJoomla
         End If
 
         If count <= 1 Then
+            HypericaRadioButton.Checked = True
+            JOpensimRadioButton.Enabled = False
             InstallButton.Enabled = True
-        End If
-
-        If count > 1 Then
+            AdminButton.Enabled = False
+            ViewButton.Enabled = False
+            UpdateButton.Enabled = False
+            BackupButton.Enabled = False
+            ReinstallButton.Enabled = False
+        Else
             JOpensimRadioButton.Enabled = True
             JOpensimRadioButton.Checked = True
             AdminButton.Enabled = True
