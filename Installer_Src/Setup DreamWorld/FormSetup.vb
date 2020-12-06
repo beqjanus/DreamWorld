@@ -1937,7 +1937,7 @@ Public Class FormSetup
                     PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                 Next
                 ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
-
+                Application.DoEvents()
             End If
             PropUpdateView = True ' make form refresh
 
@@ -4056,7 +4056,6 @@ Public Class FormSetup
             Settings.SetIni("Hypergrid", "GatekeeperURIAlias", Settings.AltDnsName)
         End If
 
-        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
         Settings.SetIni("Const", "GridName", Settings.SimName)
         Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
 
@@ -4111,6 +4110,8 @@ Public Class FormSetup
             Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
             Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
         End If
+
+        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
@@ -4312,6 +4313,8 @@ Public Class FormSetup
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         If Settings.LoadIni(Settings.OpensimBinPath & "Wifi.ini", ";") Then Return True
+
+        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         If Settings.ServerType = "Robust" Then ' wifi could be on or off
             If (Settings.WifiEnabled) Then
