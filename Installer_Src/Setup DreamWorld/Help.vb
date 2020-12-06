@@ -16,9 +16,9 @@
         If Not NewScreenPosition1.Exists() Then
             Dim FormHelp As New FormHelp
 
-            FormHelp.Activate()
-            FormHelp.Visible = True
             FormHelp.Init(Webpage)
+            FormHelp.Activate()
+
             Try
                 FormHelp.Select()
                 FormHelp.BringToFront()

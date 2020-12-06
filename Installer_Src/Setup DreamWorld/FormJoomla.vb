@@ -46,7 +46,7 @@ Public Class FormJoomla
 
         Dim result = MsgBox(My.Resources.InstallOpensim, vbYesNo)
         If result = vbYes Then
-            InstallJOpensim()
+            InstallJoomla()
         End If
 
     End Sub
@@ -57,7 +57,7 @@ Public Class FormJoomla
 
     End Sub
 
-    Private Sub InstallJOpensim()
+    Private Sub InstallJoomla()
 
         FormSetup.StartMySQL()
 
@@ -209,7 +209,7 @@ Public Class FormJoomla
 
     Private Sub UpdateButton_Click(sender As Object, e As EventArgs) Handles UpdateButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator/index.php?option=com_installer&r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator/index.php?option=com_installer"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -220,7 +220,7 @@ Public Class FormJoomla
 
     Private Sub BackupButton_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator/index.php?option=com_akeeba"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -235,7 +235,7 @@ Public Class FormJoomla
         FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\kickstart.php"), IO.Path.Combine(path, "htdocs\JOpensim\kickstart.php"), True)
         FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\en-GB.kickstart.ini"), IO.Path.Combine(path, "htdocs\JOpensim\en-GB.kickstart.ini"), True)
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/kickstart.php?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/kickstart.php"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

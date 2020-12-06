@@ -111,23 +111,26 @@ Public Class RegionMaker
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
         Dim XMLPortnumber As Integer = CInt("0" & Settings.FirstXMLRegionPort())
+        Dim RemoteAdminPortnumber As Integer = CInt("0" & Settings.FirstRemoteAdminPort())
+
         For Each uuid As String In FormSetup.PropRegionClass.RegionUuids
             Dim RegionName = FormSetup.PropRegionClass.RegionName(uuid)
             Settings.LoadIni(FormSetup.PropRegionClass.RegionPath(uuid), ";")
 
-            Settings.SetIni(RegionName, "InternalPort", CStr(Portnumber))
-            FormSetup.PropRegionClass.RegionPort(uuid) = Portnumber
-
-            Settings.SetIni(RegionName, "XmlRpcPort", CStr(XMLPortnumber))
-            FormSetup.PropRegionClass.XmlRegionPort(uuid) = CStr(XMLPortnumber)
+            Settings.SetIni(RegionName, "InternalPort", CStr(Settings.FirstRegionPort()))
+            FormSetup.PropRegionClass.RegionPort(uuid) = Settings.FirstRegionPort()
+            FormSetup.PropRegionClass.XmlRegionPort(uuid) = Settings.FirstXMLRegionPort()
+            FormSetup.PropRegionClass.RemoteAdminPort(uuid) = Settings.FirstRemoteAdminPort()
 
             ' Self setting Region Ports
-            FormSetup.PropMaxPortUsed = Portnumber
+            FormSetup.PropMaxPortUsed = Settings.FirstRegionPort()
             FormSetup.PropMaxXMLPortUsed = XMLPortnumber
+            FormSetup.PropMaxRemoteAdminPortUsed = RemoteAdminPortnumber
 
             Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
             If XMLPortnumber > 1024 Then XMLPortnumber += 1
+            If RemoteAdminPortnumber > 1024 Then RemoteAdminPortnumber += 1
         Next
 
         FormSetup.Print(My.Resources.Setup_Firewall_word)
@@ -264,11 +267,9 @@ Public Class RegionMaker
                     Continue While
                 End If
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 Debug.Print(ex.Message)
             End Try
-
         End While
 
         FormSetup.PropUpdateView() = True
@@ -379,10 +380,11 @@ Public Class RegionMaker
 
                             Settings.LoadIni(ini, ";")
 
-                            uuid = CStr(Settings.GetIni(fName, "uuid", "", "String"))
+                            uuid = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
                             Dim SomeUUID As New Guid
                             If Not Guid.TryParse(uuid, SomeUUID) Then
-                                MsgBox("Cannot read uuid in INI file for  " & fName)
+                                MsgBox("Cannot read uuid in INI file for " & fName)
+                                Return 0
                             End If
 
                             CreateRegion(fName, uuid)
@@ -396,14 +398,16 @@ Public Class RegionMaker
                             Dim theEnd As Integer = FolderPath(uuid).LastIndexOf("\", StringComparison.InvariantCulture)
                             IniPath(uuid) = FolderPath(uuid).Substring(0, theEnd + 1)
 
-                            ' need folder name in case there are more than 1 ini
-                            Dim theStart = FolderPath(uuid).IndexOf("Regions\", StringComparison.InvariantCulture) + 8
-                            theEnd = FolderPath(uuid).LastIndexOf("\", StringComparison.InvariantCulture)
-                            Dim gname = FolderPath(uuid).Substring(theStart, theEnd - theStart)
+                            Dim M As Match = Regex.Match(FolderName, ".*\\(.*)$")
+                            If M.Groups(1).Success Then
+                                Debug.Print(M.Groups(1).Value)
+                                GroupName(uuid) = M.Groups(1).Value
+                            Else
+                                MsgBox("Cannot locate Dos Box name for  " & fName)
+                                Return 0
+                            End If
 
-                            GroupName(uuid) = gname
-
-                            RegionUUID(uuid) = CStr(Settings.GetIni(fName, "uuid", "", "String"))
+                            RegionUUID(uuid) = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
                             SizeX(uuid) = CInt(Settings.GetIni(fName, "SizeX", "256", "Integer"))
                             SizeY(uuid) = CInt(Settings.GetIni(fName, "SizeY", "256", "Integer"))
                             RegionPort(uuid) = CInt(Settings.GetIni(fName, "InternalPort", "0", "Integer"))
@@ -719,6 +723,7 @@ Public Class RegionMaker
         Public _Teleport As String = ""
         Public _Tides As String = ""
         Public _XMLRegionPort As String = ""
+        Public _RemoteAdminPort As String = ""
 
 #End Region
 
@@ -1323,14 +1328,29 @@ Public Class RegionMaker
         End Set
     End Property
 
+    Public Property RemoteAdminPort(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RemoteAdminPort
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RemoteAdminPort = Value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Functions"
 
     Public Sub DebugGroup()
+
         For Each pair In _Grouplist
             Debug.Print("Group name: {0}, http port: {1}", pair.Key, pair.Value)
         Next
+
     End Sub
 
     Public Sub DebugRegions(region As String)
@@ -1402,23 +1422,8 @@ Public Class RegionMaker
         For Each pair In RegionList
             L.Add(pair.Value._UUID)
         Next
+
         Return L
-
-    End Function
-
-    Private Function Bad(uuid As String) As Boolean
-
-        If RegionList.ContainsKey(uuid) Then
-            Return False
-        End If
-
-        If String.IsNullOrEmpty(uuid) Then
-            FormSetup.ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
-            Return True
-        End If
-
-        FormSetup.ErrorLog("Region UUID does not exist. " & CStr(uuid))
-        Return True
 
     End Function
 
@@ -1458,29 +1463,30 @@ Public Class RegionMaker
     Shared Function GetAgentNameByUUID(uuid As String) As String
 
         If Settings.ServerType <> "Robust" Then Return ""
+        Dim name As String = ""
+        Using myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
+            Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
 
-        Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
-        Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
-        Dim Name As String = ""
-        Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+            Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
                 .Connection = myConnection
             }
-            myConnection.Open()
-            myCommand1.Prepare()
-            myCommand1.Parameters.AddWithValue("p1", uuid & "%")
-            Name = CStr(myCommand1.ExecuteScalar())
+                myConnection.Open()
+                myCommand1.Prepare()
+                myCommand1.Parameters.AddWithValue("p1", uuid & "%")
+                name = CStr(myCommand1.ExecuteScalar())
+            End Using
+
         End Using
 
-        Debug.Print("User=" + uuid + ", name=" + Name)
+        Debug.Print("User=" + uuid + ", name=" + name)
         Dim pattern As Regex = New Regex(".*?;.*?;(.*)")
-        Dim match As Match = pattern.Match(Name)
+        Dim match As Match = pattern.Match(name)
         If match.Success Then
-            Name = match.Groups(1).Value
-            Debug.Print("User=" + uuid + ", name=" + Name)
-            myConnection.Close()
-            Return Name
+            name = match.Groups(1).Value
+            Debug.Print("User=" + uuid + ", name=" + name)
+            Return name
         End If
-        myConnection.Close()
+
         Return ""
     End Function
 
@@ -1792,6 +1798,12 @@ Public Class RegionMaker
             Settings.SetIni("XMLRPC", "XmlRpcPort", "")
         End If
 
+        If Settings.FirstRemoteAdminPort.Length > 0 Then
+            Settings.SetIni("RemoteAdmin", "port", FormSetup.PropRegionClass.RemoteAdminPort(uuid))
+        Else
+            Settings.SetIni("RemoteAdmin", "port", "")
+        End If
+
         ' Autobackup
         If Settings.AutoBackup Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
@@ -1997,12 +2009,6 @@ Public Class RegionMaker
 
         ' Extended in v 2.1
 
-        If Settings.FirstXMLRegionPort.Length > 0 Then
-            Settings.SetIni(regionName, "XmlRpcPort", FormSetup.PropRegionClass.XmlRegionPort(uuid))
-        Else
-            Settings.SetIni(regionName, "XmlRpcPort", "")
-        End If
-
         Select Case FormSetup.PropRegionClass.NonPhysicalPrimMax(uuid)
             Case ""
                 Settings.SetIni(regionName, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -2099,6 +2105,22 @@ Public Class RegionMaker
         Return False
 
         '''
+    End Function
+
+    Private Function Bad(uuid As String) As Boolean
+
+        If RegionList.ContainsKey(uuid) Then
+            Return False
+        End If
+
+        If String.IsNullOrEmpty(uuid) Then
+            FormSetup.ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
+            Return True
+        End If
+
+        FormSetup.ErrorLog("Region UUID does not exist. " & CStr(uuid))
+        Return True
+
     End Function
 
 #End Region

@@ -294,6 +294,16 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property MysqlRev() As String
+        Get
+            Dim mail As String = GetMySetting("MysqlRev", "")
+            Return mail
+        End Get
+        Set
+            SetMySetting("MysqlRev", Value)
+        End Set
+    End Property
+
     Public Property AdminFirst() As String
         Get
             Return GetMySetting("AdminFirst", "Wifi")
@@ -852,9 +862,18 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property FirstRemoteAdminPort() As String
+        Get
+            Return GetMySetting("FirstRemoteAdminPort", CStr(FirstRegionPort + 500 - 4))
+        End Get
+        Set
+            SetMySetting("FirstRemoteAdminPort", Value)
+        End Set
+    End Property
+
     Public Property FirstXMLRegionPort() As String
         Get
-            Return GetMySetting("XMLRegionStartPort", CStr(FirstRegionPort + 500))
+            Return GetMySetting("XMLRegionStartPort", CStr(FirstRegionPort + 250 - 4))
         End Get
         Set
             SetMySetting("XMLRegionStartPort", Value)
