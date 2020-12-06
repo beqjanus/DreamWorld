@@ -119,8 +119,8 @@ Public Class RegionMaker
 
             Settings.SetIni(RegionName, "InternalPort", CStr(Portnumber))
             FormSetup.PropRegionClass.RegionPort(uuid) = Portnumber
-            FormSetup.PropRegionClass.XmlRegionPort(uuid) = XMLPortnumber
-            FormSetup.PropRegionClass.RemoteAdminPort(uuid) = RemoteAdminPortnumber
+            FormSetup.PropRegionClass.XmlRegionPort(uuid) = CStr(XMLPortnumber)
+            FormSetup.PropRegionClass.RemoteAdminPort(uuid) = CStr(RemoteAdminPortnumber)
 
             ' Self setting Region Ports
             FormSetup.PropMaxPortUsed = Portnumber
