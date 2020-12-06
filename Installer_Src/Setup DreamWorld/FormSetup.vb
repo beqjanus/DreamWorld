@@ -42,10 +42,11 @@ Public Class FormSetup
 
 #Region "Const"
 
+    Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
     Private Const DreamGrid As String = "DreamGrid"
-    Private Const jOpensimRev = "3.9.23"
+    Private Const jOpensimRev = "Joomla_3.9.21-Stable-Full_Package"
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.781"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
@@ -89,6 +90,7 @@ Public Class FormSetup
     Private _KillSource As Boolean
     Private _MaxPortUsed As Integer
     Private _MaxXMLPortUsed As Integer
+    Private _MaxRemoteAdminPortUsed As Integer
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
     Private _myUPnpMap As UPnp
@@ -367,6 +369,15 @@ Public Class FormSetup
         End Get
         Set(value As Integer)
             _MaxPortUsed = value
+        End Set
+    End Property
+
+    Public Property PropMaxRemoteAdminPortUsed As Integer
+        Get
+            Return _MaxRemoteAdminPortUsed
+        End Get
+        Set(value As Integer)
+            _MaxRemoteAdminPortUsed = value
         End Set
     End Property
 
@@ -703,7 +714,11 @@ Public Class FormSetup
         Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
         Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
-        Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
+        If Settings.ServerType = "Robust" Then
+            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
+        Else
+            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
+        End If
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
         Return False
@@ -982,7 +997,7 @@ Public Class FormSetup
     Public Function AvatarsIsInGroup(groupname As String) As Boolean
 
         Dim present As Integer = 0
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(groupname)
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(groupname)
             present += PropRegionClass.AvatarCount(RegionUUID)
         Next
 
@@ -1145,7 +1160,7 @@ Public Class FormSetup
                             PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
                         End If
 
-                        For Each RegionUUID In Regionclass.RegionUUIDListByName(GroupName)
+                        For Each RegionUUID In Regionclass.RegionUuidListByName(GroupName)
                             Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                             Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
                             Regionclass.ProcessID(RegionUUID) = p.Id
@@ -1172,7 +1187,7 @@ Public Class FormSetup
                     PropRegionHandles.Add(Regionclass.ProcessID(RegionUUID), GroupName) ' save in the list of exit events in case it crashes or exits
                 End If
 
-                For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
+                For Each UUID As String In Regionclass.RegionUuidListByName(GroupName)
                     Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
                     Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
                 Next
@@ -1244,7 +1259,7 @@ Public Class FormSetup
                 Return False
             End If
             SetWindowTextCall(myProcess, GroupName)
-            For Each UUID As String In Regionclass.RegionUUIDListByName(GroupName)
+            For Each UUID As String In Regionclass.RegionUuidListByName(GroupName)
                 Log("Debug", "Process started for " & Regionclass.RegionName(UUID) & " PID=" & CStr(myProcess.Id) & " UUID:" & CStr(UUID))
                 Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
                 Regionclass.ProcessID(UUID) = PID
@@ -1449,7 +1464,7 @@ Public Class FormSetup
         Dim BirdData As String = ""
 
         ' Birds setup per region
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
@@ -1805,7 +1820,7 @@ Public Class FormSetup
 
         End If
 
-        Dim Regionlist = PropRegionClass.RegionUUIDListByName(Groupname)
+        Dim Regionlist = PropRegionClass.RegionUuidListByName(Groupname)
 
         For Each RegionUUID As String In Regionlist
             Dim pid = PropRegionClass.ProcessID(RegionUUID)
@@ -1893,7 +1908,7 @@ Public Class FormSetup
 
         Dim TotalRunningRegions As Integer
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             If PropRegionClass.IsBooted(RegionUUID) Then
                 TotalRunningRegions += 1
             End If
@@ -1901,7 +1916,7 @@ Public Class FormSetup
         Next
         Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(RegionUUID) And
             Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
             Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
@@ -1910,7 +1925,7 @@ Public Class FormSetup
                 SequentialPause()
 
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-                For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
                     PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                 Next
@@ -1922,7 +1937,7 @@ Public Class FormSetup
         Next
 
         Dim counter = 600 ' 10 minutes to quit all regions
-        Dim last As Integer = PropRegionClass.RegionUUIDs.Count
+        Dim last As Integer = PropRegionClass.RegionUuids.Count
 
         ' only wait if the port 8001 is working
         If PropUseIcons Then
@@ -1934,7 +1949,7 @@ Public Class FormSetup
                 counter -= 1
                 Dim CountisRunning As Integer = 0
 
-                For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                For Each RegionUUID As String In PropRegionClass.RegionUuids
                     If (Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) _
                         And PropRegionClass.RegionEnabled(RegionUUID) Then
 
@@ -2014,7 +2029,7 @@ Public Class FormSetup
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.TCP, "Icecast TCP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)) Then
                     Print(My.Resources.Icecast_is_Set & ":TCP:" & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
-
+                If Not PropOpensimIsRunning() Then Return False
                 '0 UDP
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.UDP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase), UPnp.MyProtocol.UDP)
@@ -2023,6 +2038,7 @@ Public Class FormSetup
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase, Integer), UPnp.MyProtocol.UDP, "Icecast UDP Public " & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)) Then
                     Print(My.Resources.Icecast_is_Set & ":UDP:" & Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
+                If Not PropOpensimIsRunning() Then Return False
 
                 '1 TCP
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.TCP) Then
@@ -2032,11 +2048,15 @@ Public Class FormSetup
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase1, Integer), UPnp.MyProtocol.TCP, "Icecast1 TCP Public " & Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture)) Then
                     Print(My.Resources.Icecast_is_Set & ":TCP:" & Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
+                If Not PropOpensimIsRunning() Then Return False
+
                 '0 UDP
                 If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.UDP) Then
                     PropMyUPnpMap.Remove(Convert.ToInt16(Settings.SCPortBase1), UPnp.MyProtocol.UDP)
                 End If
                 Application.DoEvents()
+                If Not PropOpensimIsRunning() Then Return False
+
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, CType(Settings.SCPortBase1, Integer), UPnp.MyProtocol.UDP, "Icecast1 UDP Public " & Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture)) Then
                     Print(My.Resources.Icecast_is_Set & ":UDP:" & Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
@@ -2053,6 +2073,7 @@ Public Class FormSetup
                 End If
             End If
             Application.DoEvents()
+            If Not PropOpensimIsRunning() Then Return False
 
             ' 8001 for Diagnostics
             If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.DiagnosticPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
@@ -2062,6 +2083,7 @@ Public Class FormSetup
                 Print(My.Resources.Diag_TCP_is_set_word & ":" & Settings.DiagnosticPort.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
             Application.DoEvents()
+            If Not PropOpensimIsRunning() Then Return False
 
             ' 8002 for TCP
             If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
@@ -2071,6 +2093,7 @@ Public Class FormSetup
                 Print(My.Resources.Grid_TCP_is_set_word & ":" & Settings.HttpPort.ToString(Globalization.CultureInfo.InvariantCulture))
             End If
             Application.DoEvents()
+            If Not PropOpensimIsRunning() Then Return False
 
             ' 8002 for UDP
             If PropMyUPnpMap.Exists(Convert.ToInt16(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.UDP) Then
@@ -2082,28 +2105,35 @@ Public Class FormSetup
 
             Application.DoEvents()
 
-            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
                 Dim R As Integer = PropRegionClass.RegionPort(RegionUUID)
 
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.UDP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.UDP)
                 End If
                 Application.DoEvents()
+                If Not PropOpensimIsRunning() Then Return False
+
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.UDP, "Opensim UDP Region " & PropRegionClass.RegionName(RegionUUID) & " ") Then
                     Print(PropRegionClass.RegionName(RegionUUID) & ":UDP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
                 Application.DoEvents()
+                If Not PropOpensimIsRunning() Then Return False
 
                 If PropMyUPnpMap.Exists(R, UPnp.MyProtocol.TCP) Then
                     PropMyUPnpMap.Remove(R, UPnp.MyProtocol.TCP)
                 End If
                 Application.DoEvents()
+                If Not PropOpensimIsRunning() Then Return False
+
                 If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, R, UPnp.MyProtocol.TCP, "Opensim TCP Region " & PropRegionClass.RegionName(RegionUUID) & " ") Then
                     Print(PropRegionClass.RegionName(RegionUUID) & ":TCP:" & R.ToString(Globalization.CultureInfo.InvariantCulture))
                 End If
+                Application.DoEvents()
+                If Not PropOpensimIsRunning() Then Return False
 
                 ' XMLRPC
-                Dim X As Integer = CInt("0" & PropRegionClass.XMLRegionPort(RegionUUID))
+                Dim X As Integer = CInt("0" & PropRegionClass.XmlRegionPort(RegionUUID))
                 If X > 0 Then
                     If PropMyUPnpMap.Exists(Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
                         PropMyUPnpMap.Remove(Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
@@ -2113,6 +2143,7 @@ Public Class FormSetup
                     End If
                     Application.DoEvents()
                 End If
+                If Not PropOpensimIsRunning() Then Return False
 
             Next
         Catch ex As Exception
@@ -2180,11 +2211,11 @@ Public Class FormSetup
     Public Sub SendMsg(msg As String)
         Dim hwnd As IntPtr
         If PropOpensimIsRunning() Then
-            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
                 If PropRegionClass.IsBooted(RegionUUID) Then
                     ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
                     hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                    ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
+                    ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
                 End If
             Next
             ConsoleCommand(RobustName, "set log level " & msg & "{ENTER}" & vbCrLf)
@@ -2200,7 +2231,7 @@ Public Class FormSetup
 
         If Settings.Sequential Then
 
-            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
                 If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(RegionUUID) And
                     Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
                     Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
@@ -2557,6 +2588,10 @@ Public Class FormSetup
 
     End Function
 
+#End Region
+
+#Region "Mysql"
+
     Public Function StartMySQL() As Boolean
 
         If MysqlInterface.IsMySqlRunning() Then
@@ -2655,12 +2690,45 @@ Public Class FormSetup
         MysqlInterface.IsRunning = True
         MySqlIs(True)
 
+        If MySqlRev <> Settings.MysqlRev Then
+            UpgradeMysql()
+        End If
+
         Print(Global.Outworldz.My.Resources.Mysql_is_Running)
         PropMysqlExited = False
 
         Return True
 
     End Function
+
+    Private Sub UpgradeMysql()
+
+        Using UpgradeProcess As New Process()
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+              .Arguments = "",
+              .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\mysql_upgrade.exe") & """"
+          }
+
+            pi.WindowStyle = ProcessWindowStyle.Normal
+            UpgradeProcess.StartInfo = pi
+
+            Try
+                UpgradeProcess.Start()
+                UpgradeProcess.WaitForExit()
+                Settings.MysqlRev = MySqlRev
+                Settings.SaveSettings()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                Print(My.Resources.NTSuspend)
+
+            End Try
+        End Using
+
+    End Sub
+
+#End Region
+
+#Region "StartOpensim"
 
     Public Function StartOpensimulator() As Boolean
 
@@ -2671,7 +2739,7 @@ Public Class FormSetup
 
         ' Boot them up
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
+        For Each RegionUUID As String In PropRegionClass.RegionUuids()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
                 Application.DoEvents()
@@ -2848,7 +2916,9 @@ Public Class FormSetup
         If RegionUUID.Length = 0 Then
             MsgBox(My.Resources.Default_Welcome, vbInformation)
             Print(My.Resources.Stopped_word)
+#Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormRegions = New FormRegions
+#Enable Warning CA2000 ' Dispose objects before losing scope
             FormRegions.Activate()
             FormRegions.Select()
             FormRegions.Visible = True
@@ -2958,7 +3028,7 @@ Public Class FormSetup
 
     Public Sub StopGroup(Groupname As String)
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(Groupname)
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(Groupname)
             Logger(My.Resources.Info_word, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Restart")
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
@@ -3073,7 +3143,7 @@ Public Class FormSetup
             If name = "--- Regions ---" Then Return
 
             If AllLogs Then
-                For Each UUID As String In PropRegionClass.RegionUUIDs
+                For Each UUID As String In PropRegionClass.RegionUuids
                     name = PropRegionClass.GroupName(UUID)
                     path.Add("""" & Settings.OpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
                     Application.DoEvents()
@@ -3188,7 +3258,7 @@ Public Class FormSetup
             Application.DoEvents()
         Next
 
-        For Each UUID As String In PropRegionClass.RegionUUIDs
+        For Each UUID As String In PropRegionClass.RegionUuids
             Dim GroupName = PropRegionClass.GroupName(UUID)
             FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
             FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
@@ -3511,14 +3581,14 @@ Public Class FormSetup
 
     Private Sub Backupper()
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             If PropRegionClass.IsBooted(RegionUUID) Then
                 'Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
                 ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
                 ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
                 SequentialPause()   ' wait for previous region to give us some CPU
                 Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
+                ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
             End If
         Next
 
@@ -3663,7 +3733,7 @@ Public Class FormSetup
 
     Private Sub ClearAllRegions()
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             Logger("State is Stopped", PropRegionClass.RegionName(RegionUUID), "Restart")
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
             PropRegionClass.ProcessID(RegionUUID) = 0
@@ -3775,7 +3845,7 @@ Public Class FormSetup
         ' adds a list like 'Region_Test_1 = "DisallowForeigners"' to Gridcommon.ini
 
         Dim Authorizationlist As String = ""
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
 
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             '(replace spaces with underscore)
@@ -4066,7 +4136,7 @@ Public Class FormSetup
             Dim RegionSetting As String = Nothing
 
             ' make a long list of the various regions with region_ at the start
-            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
                 If RegionName <> Settings.WelcomeRegion Then
                     If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
@@ -4157,7 +4227,7 @@ Public Class FormSetup
         End Try
 
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-        For Each UUID In PropRegionClass.RegionUUIDListByName(GroupName)
+        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
             If ResumeSwitch Then
                 PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
@@ -4177,7 +4247,7 @@ Public Class FormSetup
 
         FileStuff.DeleteFile(TideFile)
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             'Tides Setup per region
             If Settings.TideEnabled And PropRegionClass.Tides(RegionUUID) = "True" Then
@@ -4299,7 +4369,7 @@ Public Class FormSetup
         Dim GroupName As String
         Dim TimerValue As Integer
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
             ' count up to auto restart, when high enough, restart the sim
             If PropRegionClass.Timer(RegionUUID) >= 0 Then
@@ -4310,7 +4380,7 @@ Public Class FormSetup
             Dim Status = PropRegionClass.Status(RegionUUID)
             ' Logger(GetStateString(Status), GroupName, "Restart")
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-            Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
+            Dim GroupList = PropRegionClass.RegionUuidListByName(GroupName)
 
             If PropOpensimIsRunning() Then
 
@@ -4472,7 +4542,7 @@ Public Class FormSetup
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
             Dim RegionUUID As String = ""
-            Dim GroupList = PropRegionClass.RegionUUIDListByName(GroupName)
+            Dim GroupList = PropRegionClass.RegionUuidListByName(GroupName)
             If GroupList.Count > 0 Then
                 RegionUUID = GroupList(0)
             Else
@@ -4630,7 +4700,218 @@ Public Class FormSetup
 
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
-        Translate.Run(Name)
+        AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Add_User_word
+        AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
+        AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+        AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.All_Global_Settings_word
+        All.Text = Global.Outworldz.My.Resources.Resources.All_word
+
+        AllUsersAllSimsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.All_Users_All_Sims_word
+        ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_saudi_arabia1
+        BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        BackupCriticalFilesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
+        BackupDatabaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        BackupDatabaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Databases
+        BackupRestoreToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        BackupRestoreToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.SQL_Database_Backup_Restore
+        BasqueToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.basque
+        BasqueToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Basque_word
+        BrazilToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_brazil
+        BusyButton.Text = Global.Outworldz.My.Resources.Resources.Busy_word
+        CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
+        CHeckForUpdatesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Check_for_Updates_word
+        CatalanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_catalan
+        CatalanToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Catalan
+        ChangePasswordToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Change_Password_word
+        ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
+        ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
+        CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
+        CheckAndRepairDatbaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Check_and_Repair_Database_word
+        ChineseSimplifedToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_china
+        ChineseSimplifedToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Chinese_Simplifed
+        ChineseTraditionalToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_taiwan
+        ChineseTraditionalToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Chinese_Traditional
+        ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        ClothingInventoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Free_Avatar_Inventory_word
+        ClothingInventoryToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Load_Free_Avatar_Inventory_text
+        CommonConsoleCommandsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.text_marked
+        CommonConsoleCommandsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Issue_Commands
+        ConsoleCOmmandsToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.text_marked
+        ConsoleCOmmandsToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_Console
+        ConsoleCOmmandsToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Console_text
+        ConsoleToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.window_add
+        ConsoleToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Consoles_word
+        ConsoleToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Consoletext
+        CzechToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_czech_republic
+        CzechToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Czech
+        Debug.Text = Global.Outworldz.My.Resources.Resources.Debug_word
+        DebugToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Set_Debug_Level_word
+        DiagnosticsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
+        DiagnosticsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Network_Diagnostics
+        DiagnosticsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Network_Diagnostics_text
+        DutchToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_netherlands
+        DutchToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Dutch
+        EnglishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_usa
+        EnglishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.English
+        ErrorToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Error_word
+        FarsiToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_iran
+        Fatal1.Text = Global.Outworldz.My.Resources.Resources.Fatal_word
+        FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.File_word
+        FinnishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_finland
+        FinnishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Finnish
+        FrenchToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_france
+        FrenchToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.French
+        GermanToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_germany
+        GermanToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.German
+        GreekToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_greece
+        GreekToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Greek
+        HebrewToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_israel
+        HebrewToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Hebrew
+        HelpOnIARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        HelpOnIARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_On_IARS_word
+        HelpOnIARSToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_IARS_text
+        HelpOnOARsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        HelpOnOARsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_OARS
+        HelpOnOARsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_OARS_text
+        HelpOnSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear
+        HelpOnSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_Manuals_word
+        HelpStartingUpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        HelpStartingUpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_Startup
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem3.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem3.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem4.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem4.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        IcelandicToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_iceland
+        IcelandicToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Icelandic
+        Info.Text = Global.Outworldz.My.Resources.Resources.Info_word
+        IrishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_ireland
+        IrishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Irish
+        IslandToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        IslandToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Free_DreamGrid_OARs_word
+        JobEngineToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.JobEngine_word
+        JustOneRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Just_one_region_word
+        JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flash
+        JustQuitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Quit_Now_Word
+        LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users3
+        LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Language
+
+        LoadIARsToolMenuItem.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        LoadIARsToolMenuItem.Text = Global.Outworldz.My.Resources.Resources.Inventory_IAR_Load_and_Save_words
+        LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Local_OARs_word
+
+        LoopBackToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
+        LoopBackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_On_LoopBack_word
+        LoopBackToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Loopback_Text
+        MnuContent.Text = Global.Outworldz.My.Resources.Resources.Content_word
+        MoreFreeIslandsandPartsContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
+        MoreFreeIslandsandPartsContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.More_Free_Islands_and_Parts_word
+        MoreFreeIslandsandPartsContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Free_DLC_word
+        MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        MysqlToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Mysql_Word
+        NorwegianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_norway
+        NorwegianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Norwegian
+
+        Off1.Text = Global.Outworldz.My.Resources.Resources.Off
+        PDFManualToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.pdf
+        PDFManualToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.PDF_Manual_word
+        PolishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_poland
+        PolishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Polish
+        PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_portugal
+        PortgueseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Portuguese
+        RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
+        RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Regions_word
+        RestartApacheItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        RestartApacheItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
+        RestartIceCastItem2.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RestartIceCastItem2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        RestartIcecastItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        RestartIcecastItem.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
+        RestartMysqlItem.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RestartMysqlItem.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        RestartOneRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Restart_one_region_word
+        RestartRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Restart_Region_word
+        RestartRobustItem.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RestartRobustItem.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        RestartTheInstanceToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Restart_one_instance_word
+        RestartToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RestartToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        RestoreDatabaseToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        RestoreDatabaseToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Restore_Database_word
+        RevisionHistoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_dirty
+        RevisionHistoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Revision_History_word
+        RobustToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        RobustToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Robust_word
+        RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_russia1
+        RussianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Russian
+        ScriptsResumeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Resume_word
+        ScriptsStartToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Start_word
+        ScriptsStopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Stop_word
+        ScriptsSuspendToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_Suspend_word
+        ScriptsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
+        SeePortsInUseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.server_connection
+        SeePortsInUseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.See_Ports_In_Use_word
+        SendAlertToAllUsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Send_Alert_Message_word
+        ShowHyperGridAddressToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
+        ShowHyperGridAddressToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Show_Grid_Address
+        ShowHyperGridAddressToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Grid_Address_text
+        ShowStatusToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Show_Status_word
+        ShowUserDetailsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Show_User_Details_word
+        SimulatorStatsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
+        SimulatorStatsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.View_Simulator_Stats
+        SpanishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_spain
+        SpanishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Spanish
+        StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
+        StopButton.Text = Global.Outworldz.My.Resources.Resources.Stop_word
+        SwedishToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.flag_sweden
+        SwedishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Swedish
+        TechnicalInfoToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_dirty
+        TechnicalInfoToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_Technical
+        TechnicalInfoToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Technical_text
+        ThreadpoolsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Thread_pools_word
+        ToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.document_connection
+        ToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_Forward
+        ToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Help_Forward_text
+        TroubleshootingToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_view
+        TroubleshootingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_Troubleshooting_word
+        UsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Users_word
+        ViewIcecastWebPageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        ViewIcecastWebPageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.View_Icecast
+        ViewLogsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_view
+        ViewLogsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.View_Logs
+        ViewRegionMapToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Good
+        ViewRegionMapToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.View_Maps
+        ViewWebUI.Image = Global.Outworldz.My.Resources.Resources.document_view
+        ViewWebUI.Text = Global.Outworldz.My.Resources.Resources.View_Web_Interface
+        ViewWebUI.ToolTipText = Global.Outworldz.My.Resources.Resources.View_Web_Interface_text
+        Warn.Text = Global.Outworldz.My.Resources.Resources.Warn_word
+        XengineToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.XEngine_word
+        mnuAbout.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        mnuAbout.Text = Global.Outworldz.My.Resources.Resources.About_word
+        mnuExit.Image = Global.Outworldz.My.Resources.Resources.exit_icon
+        mnuExit.Text = Global.Outworldz.My.Resources.Resources.Exit__word
+        mnuHide.Image = Global.Outworldz.My.Resources.Resources.navigate_down
+        mnuHide.Text = Global.Outworldz.My.Resources.Resources.Hide
+        mnuHideAllways.Image = Global.Outworldz.My.Resources.Resources.navigate_down2
+        mnuHideAllways.Text = Global.Outworldz.My.Resources.Resources.Hide_Allways_word
+        mnuSettings.Text = Global.Outworldz.My.Resources.Resources.Setup_word
+        mnuShow.Image = Global.Outworldz.My.Resources.Resources.navigate_up
+        mnuShow.Text = Global.Outworldz.My.Resources.Resources.Show_word
+
+        ' OAR AND IAR MENU
+        SearchForObjectsMenuItem.Text = Global.Outworldz.My.Resources.Search_Events
+        SearchForGridsMenuItem.Text = Global.Outworldz.My.Resources.Search_grids
+        LoadInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Load_Inventory_IAR
+        SaveAllRunningRegiondsAsOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Save_All_Regions
+        LoadRegionOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Region_OAR
+        LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.OAR_load_save_backupp_word
+        SaveInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Save_Inventory_IAR_word
+        SaveRegionOARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Save_Region_OAR_word
 
         TextBox1.BackColor = Me.BackColor
         ' initialize the scrolling text box
@@ -5112,7 +5393,7 @@ Public Class FormSetup
         End Try
 
         For Each aline As String In folders
-            If aline.EndsWith(".rtf", StringComparison.InvariantCultureIgnoreCase) Then
+            If aline.EndsWith(".htm", StringComparison.InvariantCultureIgnoreCase) Then
                 aline = System.IO.Path.GetFileNameWithoutExtension(aline)
                 Dim HelpMenu As New ToolStripMenuItem With {
                     .Text = aline,
@@ -5133,7 +5414,7 @@ Public Class FormSetup
         AddLog("MySQL")
         AddLog("All Settings")
         AddLog("--- Regions ---")
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             Dim Name = PropRegionClass.RegionName(RegionUUID)
             AddLog("Region " & Name)
         Next
@@ -5447,7 +5728,7 @@ Public Class FormSetup
         HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
         Dim ToSort As New List(Of String)
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             If RegionUUID.Length > 0 Then
                 If PropRegionClass.Teleport(RegionUUID) = "True" And
                     PropRegionClass.RegionEnabled(RegionUUID) = True And
@@ -5746,7 +6027,7 @@ Public Class FormSetup
         Next
 
         '; start with zero avatars
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             PropRegionClass.AvatarCount(RegionUUID) = 0
         Next
 
@@ -6136,7 +6417,7 @@ Public Class FormSetup
 
         Dim Used As New List(Of String)
         ' Boot them up
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs()
+        For Each RegionUUID As String In PropRegionClass.RegionUuids()
             If PropRegionClass.IsBooted(RegionUUID) Then
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
@@ -6312,7 +6593,7 @@ Public Class FormSetup
 
         If PropRegionClass Is Nothing Then Return
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
 
             Dim Menu As New ToolStripMenuItem With {
                 .Text = PropRegionClass.RegionName(RegionUUID),
@@ -6526,7 +6807,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
             ConsoleCommand(RegionUUID, "debug jobengine status{ENTER}" & vbCrLf)
         Next
     End Sub
@@ -6541,7 +6822,7 @@ Public Class FormSetup
         Dim HowManyAreOnline As Integer = 0
         Dim Message = InputBox(My.Resources.What_2_say_To_all)
         If Message.Length > 0 Then
-            For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
                 If PropRegionClass.AvatarCount(RegionUUID) > 0 Then
                     HowManyAreOnline += 1
                     ConsoleCommand(RegionUUID, "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf)
@@ -6567,7 +6848,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
             ConsoleCommand(RegionUUID, "show threads{ENTER}" & vbCrLf)
         Next
     End Sub
@@ -6610,7 +6891,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName("*")
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
             ConsoleCommand(RegionUUID, "xengine status{ENTER}" & vbCrLf)
             Application.DoEvents()
         Next
@@ -6732,7 +7013,7 @@ Public Class FormSetup
                     Dim Name = SaveIAR.GAvatarName
                     Dim Password = SaveIAR.GPassword
 
-                    For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+                    For Each RegionUUID As String In PropRegionClass.RegionUuids
                         If PropRegionClass.IsBooted(RegionUUID) Then
                             ConsoleCommand(RegionUUID, "save iar " _
                                        & Name & " " _
@@ -6814,7 +7095,7 @@ Public Class FormSetup
                         thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                         Dim Group = PropRegionClass.GroupName(RegionUUID)
-                        For Each UUID In PropRegionClass.RegionUUIDListByName(Group)
+                        For Each UUID In PropRegionClass.RegionUuidListByName(Group)
 
                             ConsoleCommand(UUID, "change region " & chosen & "{ENTER}" & vbCrLf)
                             If backMeUp = vbYes Then
@@ -6954,7 +7235,7 @@ Public Class FormSetup
         Dim UUID As String = ""
 
         ' find one that is running
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             If PropRegionClass.IsBooted(RegionUUID) Then
                 UUID = RegionUUID
                 Exit For
@@ -7006,7 +7287,7 @@ Public Class FormSetup
         End If
         Dim GroupName = PropRegionClass.GroupName(testRegionUUID)
         Dim once As Boolean = False
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDListByName(GroupName)
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(GroupName)
             Try
                 If Not once Then
                     Print(My.Resources.Opensimulator_is_loading & " " & thing)

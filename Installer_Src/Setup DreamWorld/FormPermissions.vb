@@ -54,7 +54,29 @@ Public Class FormPermissions
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
+        Clouds.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        EnableMaxPrims.Text = Global.Outworldz.My.Resources.Resources.Max_Prims
+        GodHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        GroupBox1.Text = Global.Outworldz.My.Resources.Export_Permission_word '"Export Permission"
+        GroupBox4.Text = Global.Outworldz.My.Resources.Permissions_word '"Permissions"
+        GroupBox7.Text = Global.Outworldz.My.Resources.Clouds_word '"Clouds"
+        LimitsBox.Text = Global.Outworldz.My.Resources.Prim_Limits '"Prim Limits"
+        ManagerGod.Text = Global.Outworldz.My.Resources.Resources.Region_manager_god
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        OutBoundPermissionsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Allow_Items_to_leave_word
+        RegionGod.Text = Global.Outworldz.My.Resources.Resources.Allow_Region_Owner_Gods_word
+        Text = Global.Outworldz.My.Resources.Permissions_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        ToolTip1.SetToolTip(AllowGods, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
+        ToolTip1.SetToolTip(Clouds, Global.Outworldz.My.Resources.Resources.Allow_cloud)
+        ToolTip1.SetToolTip(EnableMaxPrims, Global.Outworldz.My.Resources.Resources.Max_PrimLimit)
+        ToolTip1.SetToolTip(GodHelp, Global.Outworldz.My.Resources.Resources.Help_Godmodes)
+        ToolTip1.SetToolTip(ManagerGod, Global.Outworldz.My.Resources.Resources.Region_Manager_is_God)
+        ToolTip1.SetToolTip(OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Resources.Allow_objects)
+        ToolTip1.SetToolTip(RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
+
         EnableMaxPrims.Checked = Settings.Primlimits()
 
         'gods

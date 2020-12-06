@@ -202,7 +202,26 @@ Public Class FormRegionPopup
 
     Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        Button1.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        Button1.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
+        EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
+        EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Region_Controls
+        RecycleButton2.Image = Global.Outworldz.My.Resources.Resources.recycle
+        RecycleButton2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        ShowConsoleButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
+        StartButton3.Image = Global.Outworldz.My.Resources.Resources.media_play
+        StartButton3.Text = Global.Outworldz.My.Resources.Resources.Start_word
+        StatsButton.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        StatsButton.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
+        StatsButton1.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
+        StopButton1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
+        StopButton1.Text = Global.Outworldz.My.Resources.Resources.Stop_word
+        ViewMapButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
+
         SetScreen()
 
     End Sub

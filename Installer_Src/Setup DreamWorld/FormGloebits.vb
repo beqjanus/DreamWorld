@@ -22,12 +22,6 @@
 
 Public Class FormGloebits
 
-#Region "Globals"
-
-    Dim Initted As Boolean
-
-#End Region
-
 #Region "ScreenSize"
 
     Private _screenPosition As ScreenPos
@@ -70,7 +64,25 @@ Public Class FormGloebits
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        Button4.Text = Global.Outworldz.My.Resources.Resources.Free_Account
+        GLBShowNewSessionAuthIMCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowNewSessionAuthIM_text
+        GLBShowNewSessionPurchaseIMCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowNewSessionPurchaseIM_text
+        GLBShowWelcomeMessageCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowWelcomeMessage_text
+        GloebitsEnabled.Text = Global.Outworldz.My.Resources.Resources.EnableGloebit_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        PictureBox3.Image = Global.Outworldz.My.Resources.Resources.about
+        ProductionButton.Text = Global.Outworldz.My.Resources.Resources.Production_Mode_Word
+        ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
+        ProductionCreateButton.Text = Global.Outworldz.My.Resources.Resources.Create_Account
+        ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
+        SandBoxCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
+        SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
+        SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Resources.Create_Sandbox_word
+        SandboxButton.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode_word
+
         ContactEmailTextBox.Text = Settings.GLBOwnerEmail
         OwnerNameTextbox.Text = Settings.GLBOwnerName
 
@@ -91,7 +103,7 @@ Public Class FormGloebits
 
         GloebitsEnabled.Checked = Settings.GloebitsEnable
         SetScreen()
-        Initted = True
+
     End Sub
 
 #End Region

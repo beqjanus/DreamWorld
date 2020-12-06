@@ -58,6 +58,23 @@ Public Class FormBackupCheckboxes
 
 #Region "Private Methods"
 
+    Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
+
+        Button1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+        CustomCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Custom
+        FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_FSAssets
+        GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        MySqlCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Mysql
+        RegionCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Region
+        SettingsBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
+        Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
+
+    End Sub
+
     Private Shared Sub CpyFile(From As String, Dest As String)
 
         If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
@@ -91,7 +108,7 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub bck()
+    Private Sub FullBackup()
         Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Dest As String
         If Settings.BackupFolder = "AutoBackup" Then
@@ -166,7 +183,7 @@ Public Class FormBackupCheckboxes
         If Button1.Text = "Finished" Then Me.Close()
 
         Button1.Text = My.Resources.Busy_word
-        Dim WebThread = New Thread(AddressOf bck)
+        Dim WebThread = New Thread(AddressOf FullBackup)
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
         Catch ex As Exception

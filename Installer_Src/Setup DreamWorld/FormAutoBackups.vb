@@ -58,7 +58,32 @@ Public Class FormAutoBackups
 #Region "Private Methods"
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
-        Translate.Run(Name)
+
+        AutoBackup.Text = Global.Outworldz.My.Resources.Enabled_word
+        AutoBackupHelp.Image = Global.Outworldz.My.Resources.about
+        BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disks
+        BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_word
+        DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_yellow
+        DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Export_SQL_file_word
+        FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
+        FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Data_Files_word
+        GroupBox3.Text = Global.Outworldz.My.Resources.Auto_Backup_word
+        Label6.Text = Global.Outworldz.My.Resources.Backup_Folder
+        Label8.Text = Global.Outworldz.My.Resources.Interval_word
+        Label9.Text = Global.Outworldz.My.Resources.Keep_for_Days_word
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
+        ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        Text = Global.Outworldz.My.Resources.Auto_Backup_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        ToolTip1.SetToolTip(AutoBackup, Global.Outworldz.My.Resources.If_Enabled_Save_Oars)
+        ToolTip1.SetToolTip(AutoBackupInterval, Global.Outworldz.My.Resources.How_Long_runs)
+        ToolTip1.SetToolTip(AutoBackupKeepFilesForDays, Global.Outworldz.My.Resources.How_Long)
+        ToolTip1.SetToolTip(BaseFolder, Global.Outworldz.My.Resources.Normally_Set)
+        ToolTip1.SetToolTip(PictureBox1, Global.Outworldz.My.Resources.Click_to_change_the_folder)
+
         AutoBackupKeepFilesForDays.Text = CStr(Settings.KeepForDays)
 
         '0 = Hourly
@@ -184,22 +209,21 @@ Public Class FormAutoBackups
     Private Sub Backup()
 
         'Create an instance of the open file dialog box.
-        Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+        Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
             .Description = Global.Outworldz.My.Resources.Choose_folder_for_backups
         }
-        Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-        openFileDialog1.Dispose()
-
-        ' Process input if the user clicked OK.
-        If UserClickedOK = DialogResult.OK Then
-            Dim thing = openFileDialog1.SelectedPath
-            If thing.Length > 0 Then
-                Settings.BackupFolder = thing
-                Settings.SaveSettings()
-                BaseFolder.Text = thing
+            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+                Dim thing = openFileDialog1.SelectedPath
+                If thing.Length > 0 Then
+                    Settings.BackupFolder = thing
+                    Settings.SaveSettings()
+                    BaseFolder.Text = thing
+                End If
             End If
-        End If
+        End Using
 
     End Sub
 

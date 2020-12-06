@@ -109,7 +109,21 @@ Public Class FormIcecast
 
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.IceCast_Server_word
+        Label1.Text = Global.Outworldz.My.Resources.Password_word
+        Label2.Text = Global.Outworldz.My.Resources.Port1
+        Label3.Text = Global.Outworldz.My.Resources.Admin_Password_word
+        Label4.Text = Global.Outworldz.My.Resources.port2
+        LoadURL.Text = Global.Outworldz.My.Resources.Admin_Web_Page_word
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        PictureBox1.Image = Global.Outworldz.My.Resources.about
+        ShoutcastEnable.Text = Global.Outworldz.My.Resources.Enable_word
+        Text = Global.Outworldz.My.Resources.Icecast_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+
         ShoutcastPort.Text = Settings.SCPortBase.ToString(Globalization.CultureInfo.InvariantCulture)
         ShoutcastPort1.Text = Settings.SCPortBase1.ToString(Globalization.CultureInfo.InvariantCulture)
         AdminPassword.Text = Settings.SCAdminPassword

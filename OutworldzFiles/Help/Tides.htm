@@ -1,0 +1,262 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Title Char";
+	margin:0in;
+	line-height:115%;
+	font-size:26.0pt;
+	font-family:"Calibri Light",sans-serif;
+	color:#5B9BD5;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+a:link, span.MsoHyperlink
+	{color:#0563C1;
+	text-decoration:underline;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-link:Title;
+	font-family:"Calibri Light",sans-serif;
+	color:#5B9BD5;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link="#0563C1" vlink="#954F72" style='word-wrap:break-word;
+text-justify-trim:punctuation'>
+
+<div class=WordSection1>
+
+<p class=MsoTitle align=center style='text-align:center'><span lang=EN>Tides
+Module</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>The tide module makes
+water go up and down. It has a buoy with a script to make boats and objects
+float with the changing water level. It must be used on a single sim surrounded
+by water. </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'><img width=255
+height=286 src="Tides_files/image001.png"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Enable</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>: 
+If set, Tides are enabled globally.  Individual region Tide setting must be
+enabled to make the water go up and down in each region.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Broadcast Tide Info</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>:
+This must be checked to send tide level info to the provided buoy.  It uses
+channel 5555.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>High Water Level</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>:
+default 20 meters</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Low Water Level</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>:
+default 17 meters</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Cycle time in seconds</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>.
+default 900 seconds = 15 minutes</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Tide Info Channel</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>:
+As the tides rise and fall, a tide level command is broadcast on this channel.
+This must be set to 5555 for the provided script to work.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Tide High Low Channel</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>:
+An announcement will be made on this channel when the tide is at a high or low
+level.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Send Debug Info to
+console: </span></b><span lang=EN style='font-size:11.0pt;line-height:115%;
+font-family:"Verdana",sans-serif'>will send chat to the regions console for
+debugging.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Buoy:</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>A floating buoy is
+provided in the Load Local IAR menu. </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'><img width=384
+height=235 src="Tides_files/image002.jpg"></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Tide script:</span></b></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>To make items float
+on water just place this script into their root prim.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+8.0pt;line-height:115%;font-family:"Courier New"'>integer listen_handle;<br>
+vector myPos;<br>
+float tideLevel = 20.0;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+8.0pt;line-height:115%;font-family:"Courier New"'>default {<br>
+    on_rez(integer start_param)<br>
+    {<br>
+        llResetScript();<br>
+    }</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+8.0pt;line-height:115%;font-family:"Courier New"'>    state_entry()<br>
+    {<br>
+        listen_handle = llListen(5556, &quot;TIDE&quot;, NULL_KEY,
+&quot;&quot;);<br>
+    }</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+8.0pt;line-height:115%;font-family:"Courier New"'>    listen( integer channel,
+string name, key id, string message )<br>
+    {<br>
+        tideLevel=(float)message;<br>
+        myPos = llGetPos();<br>
+        llSetPos(&lt;myPos.x, myPos.y, tideLevel + 0.05&gt;);<br>
+    }   <br>
+}</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>To make items float
+on water just place this script into their root prim.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>More complex stuff
+can be done using the full info channel, which has data about where in the tide
+cycle we are. Rez a cube prim and place this script inside:</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+8.0pt;line-height:115%;font-family:"Courier New"'>integer listen_handle;<br>
+default<br>
+{<br>
+    state_entry()<br>
+    {<br>
+        listen_handle = llListen(5555, &quot;TIDE&quot;, NULL_KEY,
+&quot;&quot;);<br>
+    }</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+8.0pt;line-height:115%;font-family:"Courier New"'>    listen( integer channel,
+string name, key id, string message )<br>
+    {<br>
+        llWhisper(0,channel + &quot; &quot; + name + &quot; &quot; + id +
+&quot;\n&quot; + message);<br>
+    }<br>
+}</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>The cube will whisper
+info about the current tide position every time the tide is updated.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Links:</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Tides is by Jak
+Daniels from <a href="https://github.com/JakDaniels/OpenSimTide">https://github.com/JakDaniels/OpenSimTide</a></span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

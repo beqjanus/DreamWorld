@@ -76,7 +76,21 @@ Public Class FormApache
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        ApacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableApache
+        ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
+        ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
+        EnableDiva.Text = Global.Outworldz.My.Resources.Resources.EnableDiva
+        EnableJOpensim.Text = Global.Outworldz.My.Resources.Resources.JOpensim_word
+        EnableOther.Text = Global.Outworldz.My.Resources.Resources.EnableOther_Word
+        EnableWP.Text = My.Resources.WordPress_Word
+        GroupBox2.Text = My.Resources.Apache_word
+        GroupBox3.Text = My.Resources.Content_Manager_Word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Label3.Text = My.Resources.Web_Port
+        Text = My.Resources.Apache_word
+        X86Button.Text = Global.Outworldz.My.Resources.Resources.InstallRuntime
+
         SetScreen()
 
         ApacheCheckbox.Checked = Settings.ApacheEnable
@@ -255,22 +269,20 @@ Public Class FormApache
 
     Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
 
-        Dim InstallProcess As New Process
-        InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        ' all of them
-        InstallProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\Visual C++ Redist Installer V56.exe")
+        Using InstallProcess As New Process
+            InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+            ' all of them
+            InstallProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\Visual C++ Redist Installer V56.exe")
 
-        InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-        Try
-            InstallProcess.Start()
-        Catch ex As Exception
+            InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Try
+                InstallProcess.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
 
-            BreakPoint.Show(ex.Message)
-        End Try
-
-        InstallProcess.WaitForExit()
-
-        InstallProcess.Dispose()
+            InstallProcess.WaitForExit()
+        End Using
 
     End Sub
 

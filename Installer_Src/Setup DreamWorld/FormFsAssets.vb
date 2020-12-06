@@ -100,7 +100,19 @@ Public Class FormFsAssets
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        EnableFsAssetsCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
+        Label6.Text = Global.Outworldz.My.Resources.Data_Folder_word
+        PictureBox1.Image = Global.Outworldz.My.Resources.about
+        PictureBox2.BackgroundImage = Global.Outworldz.My.Resources.folder
+        SaveButton.Text = Global.Outworldz.My.Resources.Save_word
+        ShowStatsCheckBox.Text = Global.Outworldz.My.Resources.Show_Stats
+        Text = Global.Outworldz.My.Resources.FSassets_Server_word
+        b.Text = Global.Outworldz.My.Resources.FSassets_Server_word
+
         HelpOnce("FSAssets")
 
         EnableFsAssetsCheckbox.Checked = Settings.FsAssetsEnabled

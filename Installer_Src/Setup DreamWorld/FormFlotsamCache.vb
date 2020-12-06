@@ -36,7 +36,22 @@ Public Class FormFlotsamCache
 
     Private Sub Form_Load() Handles Me.Load
 
-        Translate.Run(Name)
+        Button1.Text = Global.Outworldz.My.Resources.Clear_Cache_word
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Asset_Cache_word
+        Label1.Text = Global.Outworldz.My.Resources.Cache_Directory_word
+        Label2.Text = Global.Outworldz.My.Resources.Log_Level
+        Label4.Text = Global.Outworldz.My.Resources.Cache_Enabled_word
+        Label5.Text = Global.Outworldz.My.Resources.Timeout_in_hours_word
+        Label6.Text = Global.Outworldz.My.Resources.Current_Size '"Current Size on Disk"
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
+        Text = Global.Outworldz.My.Resources.Asset_Cache_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        ToolTip1.SetToolTip(PictureBox1, Global.Outworldz.My.Resources.Click_to_change_the_folder)
+
         HelpOnce("Flotsam Cache")
 
         CacheFolder.Text = Settings.CacheFolder

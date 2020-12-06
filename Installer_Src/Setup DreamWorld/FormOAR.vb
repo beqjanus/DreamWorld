@@ -163,15 +163,15 @@ Public Class FormOAR
         DataGridView.ClearSelection()
 
         For index = 1 To NumColumns 'How many do you want?
-            Dim col As New DataGridViewImageColumn
-            With col
-                .Width = 256 '(Me.Width - k) / NumColumns
-                .Name = "Details" & CStr(index)
-                .Frozen = False
-                .ImageLayout = DataGridViewImageCellLayout.Zoom
-
-            End With
-            DataGridView.Columns.Insert(0, col)
+            Using col As New DataGridViewImageColumn
+                With col
+                    .Width = 256 '(Me.Width - k) / NumColumns
+                    .Name = "Details" & CStr(index)
+                    .Frozen = False
+                    .ImageLayout = DataGridViewImageCellLayout.Zoom
+                End With
+                DataGridView.Columns.Insert(0, col)
+            End Using
         Next
         Dim column = 0
         Dim rowcounter = 0
@@ -382,7 +382,13 @@ Public Class FormOAR
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
+        PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view1
+        RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
+        RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+
         Me.Hide()
         SetScreen()
 
@@ -466,19 +472,18 @@ Public Class FormOAR
     Private Shared Function NoImage(item As JSONresult) As Image
 
         Dim bmp = Global.Outworldz.My.Resources.Blank256
-        Dim drawFont As Font = New Font("Arial", 12)
-
-        Dim newImage = New Bitmap(256, 256)
-        Try
-            Dim gr = Graphics.FromImage(newImage)
-            gr.DrawImageUnscaled(bmp, 0, 0)
-            gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
-        Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
-        End Try
-
-        Return newImage
+        Using drawFont As Font = New Font("Arial", 12)
+            Dim newImage = New Bitmap(256, 256)
+            Try
+                Dim gr = Graphics.FromImage(newImage)
+                gr.DrawImageUnscaled(bmp, 0, 0)
+                gr.DrawString(item.Name, drawFont, Brushes.Black, 30, 100)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Return newImage
+        End Using
+        Return Nothing
 
     End Function
 

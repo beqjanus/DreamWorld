@@ -22,25 +22,44 @@
 
 Public Class FormHelp
 
-#Region "Private Fields"
+#Region "ScreenSize"
+
+    Private Document As String
 
     Private _screenPosition As ScreenPos
-    Dim Document As String
     Private Handler As New EventHandler(AddressOf Resize_page)
 
-#End Region
+    Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-#Region "Public Properties"
+    End Sub
+
+    Private Sub SetScreen(Webpage As String)
+
+        Me.Show()
+        Document = Webpage
+        Me.Name = Webpage
+        ScreenPosition = New ScreenPos(Me.Name)
+        AddHandler ResizeEnd, Handler
+        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+        Me.Left = xy.Item(0) + 25
+        Me.Top = xy.Item(1) + 25
+
+    End Sub
 
     Public Property ScreenPosition As ScreenPos
         Get
-            _screenPosition.SaveXY(Me.Left, Me.Top)
             Return _screenPosition
         End Get
         Set(value As ScreenPos)
             _screenPosition = value
         End Set
     End Property
+
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
+    End Sub
 
 #End Region
 
@@ -50,30 +69,31 @@ Public Class FormHelp
 
         SetScreen(Webpage)
 
-        Try
-            Dim Page As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\" & Webpage + ".rtf")
-            RichTextBox1.LoadFile(Page)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            MsgBox(My.Resources.Sorry_No_Help, vbInformation)
-            FormSetup.ErrorLog("Error:" + ex.Message)
-            Me.Close()
-        End Try
+        DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_blue
+        DreamgridToolStripMenuItem.Text = Global.Outworldz.My.Resources.Home_word
+        ExitToolStripMenuItem.Image = Global.Outworldz.My.Resources.exit_icon
+        ExitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Exit__word
+        FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.File_word
+        HomeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        LoopbackToolStripMenuItem.Image = Global.Outworldz.My.Resources.replace2
+        LoopbackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Loopback_Help
+        PrintToolStripMenuItem.Text = Global.Outworldz.My.Resources.Print
+        PrintToolStripMenuItem1.Image = Global.Outworldz.My.Resources.printer3
+        PrintToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Print
+        SourceCodeToolStripMenuItem.Image = Global.Outworldz.My.Resources.transform
+        SourceCodeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Source_Code_word
+        Text = Global.Outworldz.My.Resources.Help_word
+        WebSiteToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        WebSiteToolStripMenuItem.Text = Global.Outworldz.My.Resources.More_Help
+
+        Dim u As New Uri(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\" & Webpage + ".htm"))
+        WebBrowser1.Navigate(u)
 
     End Sub
 
 #End Region
 
 #Region "Private Methods"
-
-    Private Sub DatabaseHelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseHelpToolStripMenuItem.Click
-        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Rebuilding_from_a_blank_database.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-    End Sub
 
     Private Sub DreamgridToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DreamgridToolStripMenuItem.Click
         Dim webAddress As String = "https://outworldz.com/Outworldz_installer/"
@@ -98,28 +118,9 @@ Public Class FormHelp
         End Try
     End Sub
 
-    Private Sub LoopbackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoopbackToolStripMenuItem.Click
-        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Loopback.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub PortsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortsToolStripMenuItem.Click
-        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/PortForwarding.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
-        End Try
-    End Sub
-
     Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
-        Dim info = New ProcessStartInfo(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\" & Document & ".rtf")) With {
+
+        Dim info = New ProcessStartInfo(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\HelpFiles\" & Document & ".htm")) With {
             .Verb = "Print",
             .CreateNoWindow = True,
             .WindowStyle = ProcessWindowStyle.Hidden
@@ -127,28 +128,8 @@ Public Class FormHelp
         Try
             Process.Start(info)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
-    End Sub
-
-    'The following detects  the location of the form in screen coordinates
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
-        ScreenPosition.SaveXY(Me.Left, Me.Top)
-    End Sub
-
-    Private Sub SetScreen(Webpage As String)
-
-        Me.Show()
-        Document = Webpage
-        Me.Name = Webpage
-        ScreenPosition = New ScreenPos(Me.Name)
-        AddHandler ResizeEnd, Handler
-        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
-        Me.Left = xy.Item(0) + 25
-        Me.Top = xy.Item(1) + 25
-
     End Sub
 
     Private Sub SourceCodeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SourceCodeToolStripMenuItem.Click
@@ -157,41 +138,9 @@ Public Class FormHelp
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
-    End Sub
-
-    Private Sub StepbyStepInstallationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StepbyStepInstallationToolStripMenuItem.Click
-
-        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Startup.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
-        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/technical.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Sub TroubleshootingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TroubleshootingToolStripMenuItem.Click
-        Dim webAddress As String = "https://outworldz.com/Outworldz_installer/Manual_TroubleShooting.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-
-            BreakPoint.Show(ex.Message)
-        End Try
     End Sub
 
 #End Region

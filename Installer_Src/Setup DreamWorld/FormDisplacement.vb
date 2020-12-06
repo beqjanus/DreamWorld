@@ -97,6 +97,25 @@ Public Class FormDisplacement
 
     Private Sub FormDisplacement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        ClearOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Clear_and_Load_word
+        ForceTerrainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Terrain
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        IgnoreParcelToolStripMenuItem.Text = Global.Outworldz.My.Resources.Ignore_Parcel_word
+        LoadParcelToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Parcel
+        MergeOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Merge_OAR_word
+        MergingToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_blue
+        MergingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Merge_Objects_word
+        OriginalTererainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Ignore_Terrain_word
+        ParcelsToolStripMenuItem.Image = Global.Outworldz.My.Resources.text_align_justified
+        ParcelsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Parcels
+        SetOwnerToolStripMenuItem.Image = Global.Outworldz.My.Resources.user3
+        SetOwnerToolStripMenuItem.Text = Global.Outworldz.My.Resources.Set_Owner_word
+        TerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Good
+        TerrainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Terrain_word
+        ToolStripMenuItem1.Image = Global.Outworldz.My.Resources.package
+        ToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Options
+
         SetScreen()
 
         FormSetup.PropSelectedBox = ""

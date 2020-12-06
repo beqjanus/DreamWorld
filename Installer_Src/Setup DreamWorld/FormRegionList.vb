@@ -30,9 +30,9 @@ Public Class FormRegionlist
     Private Shared _FormExists As Boolean
     Private ReadOnly colsize As New ScreenPos("Region List")
     Private _ImageListLarge As ImageList
-#Disable Warning CA2213
+#Disable Warning CA2213 ' Disposable fields should be disposed
     Private _ImageListSmall As New ImageList
-#Enable Warning CA2213
+#Enable Warning CA2213 ' Disposable fields should be disposed
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
 
@@ -65,7 +65,7 @@ Public Class FormRegionlist
     Public Shared ReadOnly Property InstanceExists() As Boolean
         Get
             ' Access shared members through the Class name, not an instance.
-            Return FormRegionlist.FormExists1
+            Return FormExists1
         End Get
     End Property
 
@@ -266,7 +266,35 @@ Public Class FormRegionlist
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        AddRegionButton.Text = Global.Outworldz.My.Resources.Resources.Add_word
+        AllNone.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
+        AvatarsButton.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
+        DetailsButton.Text = Global.Outworldz.My.Resources.Resources.Details_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        IconsButton.Text = Global.Outworldz.My.Resources.Resources.Icons_word
+        ImportButton.Text = Global.Outworldz.My.Resources.Resources.Import_word
+        MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
+        RefreshButton.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
+        RestartButton.Text = Global.Outworldz.My.Resources.Resources.Restart_All_word
+        RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All_word
+        StopAllButton.Text = Global.Outworldz.My.Resources.Resources.Stop_All_word
+        ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Resources.Add_Region_word)
+        ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Resources.Selectallnone)
+        ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.Resources.ListAvatars)
+        ToolTip1.SetToolTip(DetailsButton, Global.Outworldz.My.Resources.Resources.View_Details)
+        ToolTip1.SetToolTip(IconsButton, Global.Outworldz.My.Resources.Resources.View_as_Icons)
+        ToolTip1.SetToolTip(ImportButton, Global.Outworldz.My.Resources.Resources.Importtext)
+        ToolTip1.SetToolTip(ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
+        ToolTip1.SetToolTip(MapsButton, Global.Outworldz.My.Resources.Resources.View_Maps)
+        ToolTip1.SetToolTip(RefreshButton, Global.Outworldz.My.Resources.Resources.Reload)
+        ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Resources.Restart_All_Checked)
+        ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.Resources.StartAll)
+        ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Resources.Stopsall)
+        ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Resources.Row
+
         ViewBusy = True
         FormExists1 = True
         Pixels1 = 70
@@ -455,7 +483,7 @@ Public Class FormRegionlist
         Dim TotalSize As Double
         Dim RegionCount As Integer
         Dim TotalRegionCount As Integer
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
             TotalSize += FormSetup.PropRegionClass.SizeX(RegionUUID) / 256 * FormSetup.PropRegionClass.SizeY(RegionUUID) / 256
             If FormSetup.PropRegionClass.RegionEnabled(RegionUUID) Then RegionCount += 1
             TotalRegionCount += 1
@@ -512,7 +540,7 @@ Public Class FormRegionlist
             ImageListSmall1.ImageSize = New Drawing.Size(20, 20)
 
             Try
-                For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+                For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
 
                     Dim Num As Integer = 0
                     Dim Groupname As String = FormSetup.PropRegionClass.GroupName(RegionUUID)
@@ -608,7 +636,7 @@ Public Class FormRegionlist
                     End If
 
                     item1.SubItems.Add(FormSetup.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-                    item1.SubItems.Add(FormSetup.PropRegionClass.XMLRegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(FormSetup.PropRegionClass.XmlRegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
 
@@ -620,7 +648,7 @@ Public Class FormRegionlist
                     ' add estate name
                     Dim Estate = "-".ToUpperInvariant
                     If MysqlInterface.IsRunning() Then
-                        Estate = MysqlInterface.EstateName(FormSetup.PropRegionClass.UUID(RegionUUID))
+                        Estate = MysqlInterface.EstateName(FormSetup.PropRegionClass.RegionUUID(RegionUUID))
                     End If
                     item1.SubItems.Add(Estate)
 
@@ -735,7 +763,7 @@ Public Class FormRegionlist
                     If TheView1 = ViewType.Maps Then
 
                         If Status = RegionMaker.SIMSTATUSENUM.Booted Then
-                            Dim img As String = "http://127.0.0.1:" + FormSetup.PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + FormSetup.PropRegionClass.UUID(RegionUUID).Replace("-".ToUpperInvariant, "")
+                            Dim img As String = "http://127.0.0.1:" + FormSetup.PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + FormSetup.PropRegionClass.RegionUUID(RegionUUID).Replace("-".ToUpperInvariant, "")
                             Dim bmp As Image = Nothing
 
                             Try
@@ -898,7 +926,7 @@ Public Class FormRegionlist
         If UUID.Length = 0 Then Return
         Dim GroupName = FormSetup.PropRegionClass.GroupName(UUID)
 
-        For Each RegionUUID In FormSetup.PropRegionClass.RegionUUIDListByName(GroupName)
+        For Each RegionUUID In FormSetup.PropRegionClass.RegionUuidListByName(GroupName)
 
             If (e.NewValue = CheckState.Unchecked) Then
                 FormSetup.PropRegionClass.RegionEnabled(RegionUUID) = False
@@ -1066,7 +1094,7 @@ Public Class FormRegionlist
 
             ' if any avatars in any region, give them a choice.
             Dim StopIt As Boolean = True
-            For Each num In FormSetup.PropRegionClass.RegionUUIDListByName(FormSetup.PropRegionClass.GroupName(RegionUUID))
+            For Each num In FormSetup.PropRegionClass.RegionUuidListByName(FormSetup.PropRegionClass.GroupName(RegionUUID))
                 ' Ask before killing any people
                 If FormSetup.PropRegionClass.AvatarCount(num) > 0 Then
                     Dim response As MsgBoxResult
@@ -1088,7 +1116,7 @@ Public Class FormRegionlist
                     FormSetup.SequentialPause()
 
                     ' shut down all regions in the DOS box
-                    For Each RegionUUID In FormSetup.PropRegionClass.RegionUUIDListByName(FormSetup.PropRegionClass.GroupName(RegionUUID))
+                    For Each RegionUUID In FormSetup.PropRegionClass.RegionUuidListByName(FormSetup.PropRegionClass.GroupName(RegionUUID))
                         FormSetup.PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                         FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
                     Next
@@ -1097,7 +1125,7 @@ Public Class FormRegionlist
                     FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 Else
                     ' shut down all regions in the DOS box
-                    For Each UUID As String In FormSetup.PropRegionClass.RegionUUIDListByName(FormSetup.PropRegionClass.GroupName(RegionUUID))
+                    For Each UUID As String In FormSetup.PropRegionClass.RegionUuidListByName(FormSetup.PropRegionClass.GroupName(RegionUUID))
                         FormSetup.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                         FormSetup.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                     Next
@@ -1121,7 +1149,9 @@ Public Class FormRegionlist
 
         ElseIf chosen = "Edit" Then
 
+#Disable Warning CA2000 ' Dispose objects before losing scope
             Dim RegionForm As New FormRegion
+#Enable Warning CA2000 ' Dispose objects before losing scope
             RegionForm.BringToFront()
             RegionForm.Init(RegionName)
             RegionForm.Activate()
@@ -1135,7 +1165,7 @@ Public Class FormRegionlist
             ' shut down all regions in the DOS box
             Dim GroupName = FormSetup.PropRegionClass.GroupName(RegionUUID)
             FormSetup.Logger("RecyclingDown", GroupName, "Restart")
-            For Each UUID In FormSetup.PropRegionClass.RegionUUIDListByName(GroupName)
+            For Each UUID In FormSetup.PropRegionClass.RegionUuidListByName(GroupName)
                 FormSetup.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                 FormSetup.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                 FormSetup.Logger("RecyclingDown", FormSetup.PropRegionClass.RegionName(UUID), "Restart")
@@ -1230,16 +1260,17 @@ Public Class FormRegionlist
         FormSetup.Timer1.Start() 'Timer starts functioning
         FormSetup.TimerBusy = 0
 
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
             Application.DoEvents()
+
             Dim GroupName = FormSetup.PropRegionClass.GroupName(RegionUUID)
             Dim Status = FormSetup.PropRegionClass.Status(RegionUUID)
             If FormSetup.PropRegionClass.RegionEnabled(RegionUUID) And
-                Not FormSetup.AvatarsIsInGroup(GroupName) And
-                Not FormSetup.PropAborting And
-                (Status = RegionMaker.SIMSTATUSENUM.Booting _
-                Or Status = RegionMaker.SIMSTATUSENUM.Booted _
-                Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
+                    Not FormSetup.AvatarsIsInGroup(GroupName) And
+                    Not FormSetup.PropAborting And
+                    (Status = RegionMaker.SIMSTATUSENUM.Booting _
+                    Or Status = RegionMaker.SIMSTATUSENUM.Booted _
+                    Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                 Dim hwnd = FormSetup.GetHwnd(GroupName)
                 FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE)
@@ -1249,12 +1280,12 @@ Public Class FormRegionlist
                 FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
 
                 If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
-                    For Each UUID As String In FormSetup.PropRegionClass.RegionUUIDListByName(GroupName)
+                    For Each UUID As String In FormSetup.PropRegionClass.RegionUuidListByName(GroupName)
                         FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
                     Next
                 Else
                     ' shut down all regions in the DOS box
-                    For Each UUID As String In FormSetup.PropRegionClass.RegionUUIDListByName(GroupName)
+                    For Each UUID As String In FormSetup.PropRegionClass.RegionUuidListByName(GroupName)
                         FormSetup.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                         FormSetup.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                     Next

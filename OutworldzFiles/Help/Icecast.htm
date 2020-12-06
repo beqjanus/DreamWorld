@@ -1,0 +1,638 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<title>Outworldz Shoutcast And Icecast Server</title>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:"\@Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#DEEAF6;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Title Char";
+	margin:0in;
+	line-height:115%;
+	font-size:26.0pt;
+	font-family:"Calibri Light",sans-serif;
+	color:#5B9BD5;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+a:link, span.MsoHyperlink
+	{font-family:"Times New Roman",serif;
+	color:blue;
+	text-decoration:underline;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Arial Unicode MS",sans-serif;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#DEEAF6;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-link:Title;
+	font-family:"Calibri Light",sans-serif;
+	color:#5B9BD5;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><a name="OLE_LINK6"><b><u><span style='font-family:"Verdana",sans-serif'><span
+ style='text-decoration:none'>&nbsp;</span></span></u></b></a></p>
+
+<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'>Outworldz
+Shoutcast And Icecast Server</p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Outworldz
+DreamGrid contains a free Icecast and Shoutcast server. You can use this to
+broadcast voice and music to any radio, web page, Opensim, Second Life, or your
+own grid.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'><img
+width=240 height=254 src="Icecast_files/image001.png"> </span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:0in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Enable</span></b><span
+style='font-family:"Verdana",sans-serif;color:black'>:  Starts an Icecast
+Server when Start is clicked.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:0in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Show
+Status</span></b><span style='font-family:"Verdana",sans-serif;color:black'>:
+Displays in the window the server’s status</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:0in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Port1
+&amp; Port 2</span></b><span style='font-family:"Verdana",sans-serif;
+color:black'>: Default is 8080 and 8081.  Both ports must be Port Forwarded in
+your router from the Internet so users can hear the music.   </span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:0in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Admin
+Password</span></b><span style='font-family:"Verdana",sans-serif;color:black'>: 
+Enter a strong password for control of your Shoutcast server. This Password
+protects a web page, so choose a good one.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:0in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Password</span></b><span
+style='font-family:"Verdana",sans-serif;color:black'>:  This password is used
+to stream music to your server.  You give it and the stream mount point out to
+applications and musicians who can stream music using your server.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:0in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Admin
+Web Page</span></b><span style='font-family:"Verdana",sans-serif;color:black'>: 
+Click this button when Icecast is running to get to the control panel web page.</span></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif;
+color:black;text-transform:uppercase;letter-spacing:.75pt'><br clear=all
+style='page-break-before:always'>
+</span>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>Troubleshooting:</span></h2>
+
+</div>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>The latest
+&quot;default&quot; for ports for NEW installs is 8100 and 8101. </span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Check in
+Setup-&gt;Icecast which port is set.&nbsp; Check that Icecast is enabled.&nbsp;
+There is an Icecast DOS box that appears when it is running.&nbsp; You can
+restart it by clicking the Icon or Menu bar at top of DreamGrid.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Check that you
+can reach the Icecast server at http://127.0.0.1:8080. &nbsp; If not, check
+Icecast error.log and access.log.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>This is normal
+error.log:</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>[2019-08-20&nbsp;
+11:13:33] INFO main/main. C Icecast 2.4.3 server started<br>
+[2019-08-20&nbsp; 11:13:33] INFO yp/yp.c YP update thread started<br>
+[2019-08-20&nbsp; 11:13:33] INFO connection/connection.c No SSL capability on
+any configured ports</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'><br>
+Check the port with http://CanyouSeeme.org to see that it is open.&nbsp; If
+not, make sure both ports are port forward for TCP and UDP.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Add an
+exclusion for both ports to your firewall.&nbsp; Keep trying this until you get
+it to answer to http://127.0.0.1:8100. At that point Winamp should
+connect.&nbsp; </span></p>
+
+<b><u><span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif;
+color:black'><br clear=all style='page-break-before:always'>
+</span></u></b>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><b><u><span style='font-family:"Verdana",sans-serif;color:black'>How to
+Broadcast Music:</span></u></b></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>To streaming
+your own radio, you need a program to play music and send it to your stream.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>I use Winamp.
+You can also use Mixxx, or any third-party streamer.  Instructions for both
+follow.</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>WINAMP</span></h2>
+
+</div>
+
+<p style='margin-top:12.0pt;margin-right:.5in;margin-bottom:6.0pt;margin-left:
+.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>You can use many different music or microphone players to stream
+music to your system. These instructions are for the popular Winamp player.</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><span style='font-family:"Verdana",sans-serif;color:black'>First,&nbsp;</span><a
+href="https://www.outworldz.com/Outworldz_installer/Grid/winamp5666_full_en-us_redux.exe"><span
+style='font-family:"Verdana",sans-serif;color:black'><span style='color:black'>download</span></span></a><span
+style='font-family:"Verdana",sans-serif;color:black'>&nbsp;and install
+Winamp.&nbsp;&nbsp;</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+text-indent:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Then&nbsp;</span><a
+href="https://www.outworldz.com/Outworldz_installer/Grid/shoutcast-dsp-2-3-5-windows.exe"><span
+style='font-family:"Verdana",sans-serif;color:black'><span style='color:black'>download</span></span></a><span
+style='font-family:"Verdana",sans-serif;color:black'>&nbsp;and install the
+Shoutcast DSP</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+.5in;text-indent:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Run Winamp.&nbsp; You should see a screen like this:</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><span style='font-family:"Verdana",sans-serif;color:black'><img
+border=0 width=531 height=403 src="Icecast_files/image002.jpg"></span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Navigate to the Options -&gt; Preferences screen</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><span style='font-family:"Verdana",sans-serif;color:black'><img
+border=0 width=623 height=499 src="Icecast_files/image003.jpg"></span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><span style='font-family:"Verdana",sans-serif;color:black'><br>
+<br>
+</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Scroll to the DSP/Effect section on the left side:</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><span style='font-family:"Verdana",sans-serif;color:black'><img
+border=0 width=623 height=501 src="Icecast_files/image004.jpg"><br>
+<br>
+</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Double click the Shoutcast DSP on the right side to get the DSP
+setup screen.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'><img border=0 width=386 height=648 src="Icecast_files/image005.png"></span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>&nbsp;</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><strong><span style='font-family:"Verdana",sans-serif;
+color:black'>Server Address</span></strong><span style='font-family:"Verdana",sans-serif;
+color:black'>: Enter 'localhost' for the Server Address.&nbsp; If you wish to
+run Winamp on a different machine, use the Server LAN address.</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><strong><span style='font-family:"Verdana",sans-serif;
+color:black'>Password:</span></strong><span style='font-family:"Verdana",sans-serif;
+color:black'>&nbsp;Choose the same password as you used in the Dream grid’s
+password field (not the Admin password).</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><strong><span style='font-family:"Verdana",sans-serif;
+color:black'>Port:&nbsp;</span></strong><span style='font-family:"Verdana",sans-serif;
+color:black'>Also enter the same port you used in the DreamGrid setup
+screen.&nbsp; The default is 8000.&nbsp;&nbsp; If you want others to hear this
+stream from outside your network, remember to either forward the port or enable
+the UPNP setting and restart your server.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>You can configure more of the screens, but they are not required.</span></p>
+
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><span style='font-family:"Verdana",sans-serif;color:black'>Click&nbsp;<strong><span
+style='font-family:"Verdana",sans-serif'>[Auto Connect]</span></strong>&nbsp;and
+make certain you see it connect to your Shoutcast server.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:6.0pt;margin-left:
+.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'><img border=0 width=380 height=648 src="Icecast_files/image006.png"></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
+color:black;background:white'>&nbsp;</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span style='color:black;background:white'>Shoutcast
+Control Panel</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif;
+color:black;background:white'>&nbsp;</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
+color:black;background:white'>Click the Shoutcast [Control, View and Listen]
+Button to view your Shoutcast web page.&nbsp;&nbsp;</span><span
+style='font-family:"Verdana",sans-serif;color:black'><br>
+<br>
+</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
+color:black'><img border=0 width=187 height=44 src="Icecast_files/image007.png"><br>
+<br>
+<span style='background:white'>It should open a web page that looks like this
+when there is no stream playing.</span><br>
+<br>
+<img border=0 width=576 height=514 src="Icecast_files/image008.png"><br>
+<br>
+<br>
+<span style='background:white'>Go find some music in Winamp and press
+&quot;Play&quot;.</span><br>
+<br>
+<span style='background:white'>The screen should now change to show it is up.</span></span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span class=Heading2Char><span style='color:
+black;text-transform:none'>Setting up the in-world radio</span></span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
+color:black;background:white'>You can use any radio script to set your radio
+onto the land. A straightforward way is to navigate to the About Land tab and
+enter the URL into the Sound Tab. For more information see&nbsp;</span><a
+href="http://wiki.phoenixviewer.com/land_audio_tab"><span style='font-family:
+"Verdana",sans-serif;color:black;background:white'><span style='color:black'>http://wiki.phoenixviewer.com/land_audio_tab</span></span></a><span
+style='font-family:"Verdana",sans-serif;color:black'><br>
+<br>
+<img border=0 width=410 height=379 src="Icecast_files/image009.png"><br>
+<br>
+<span style='background:white'>Now enable the media to play in your viewers
+Sound &amp; Media tab.</span><br>
+<br>
+<img border=0 width=622 height=442 src="Icecast_files/image010.png"><br>
+<br>
+<span style='background:white'>For more details, please see&nbsp;</span></span><a
+href="http://wiki.phoenixviewer.com/land_audio_tab"><span style='font-family:
+"Verdana",sans-serif;color:black;background:white'><span style='color:black'>http://wiki.phoenixviewer.com/land_audio_tab</span></span></a></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>MIXXX</span></h2>
+
+</div>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Download and
+install&nbsp;</span><a href="https://www.mixxx.org/"><span style='font-family:
+"Verdana",sans-serif;color:black;text-decoration:none'><span style='color:black'>Mixxx</span></span></a><span
+style='font-family:"Verdana",sans-serif;color:black'> from
+https://www.mixxx.org/. This is what the screen looks like.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'><img border=0
+width=576 height=343 src="Icecast_files/image011.jpg"></span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><b><u><span style='font-family:"Verdana",sans-serif;color:black'>Special
+instructions for MP3 files:</span></u></b></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>To enable <u>MP3</u>
+streaming on Windows, you must follow these instructions:</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>First, download
+the lame library from&nbsp;http://www.rarewares.org. The download page includes
+32-bit and 64-bit versions. Make sure the version you download matches the
+version of Mixxx that you use, not the version of Windows. If you are on 64-bit
+Windows but are using 32bit Mixxx, you need the 32bit (</span><span
+style='color:black'>“</span><span style='font-family:"Verdana",sans-serif;
+color:black'>x86</span><span style='color:black'>”</span><span
+style='font-family:"Verdana",sans-serif;color:black'>) version of the library.
+Unpack the downloaded ZIP archive.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Copy
+libmp3lame.dll to the location you have installed Mixxx, probably C:\Program
+Files\Mixxx\.</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>Running Mixxx</span></h2>
+
+</div>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Go to Mixxx's
+Preferences Screen, then select the &quot;Live Broadcasting&quot; tab on the
+left.  These are the settings I used:</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'><img border=0
+width=567 height=453 src="Icecast_files/image012.jpg"></span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><strong><span style='font-family:Symbol;color:black;
+font-weight:normal'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></strong><span style='font-family:"Verdana",sans-serif;
+color:black'>Check&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>Turn
+On Live Broadcasting&nbsp;</span></strong></span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Set
+type to&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>Shoutcast1</span></strong>&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><strong><span style='font-family:Symbol;color:black;
+font-weight:normal'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></strong><span style='font-family:"Verdana",sans-serif;
+color:black'>The standard mount point everyone uses is&nbsp;<strong><span
+style='font-family:"Verdana",sans-serif'>/stream&nbsp;</span></strong></span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><strong><span style='font-family:Symbol;color:black;
+font-weight:normal'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></strong><span style='font-family:"Verdana",sans-serif;
+color:black'>Host is&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>127.0.0.1&nbsp;</span></strong></span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Port
+is&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>8080</span></strong>&nbsp;from
+the Dreamworld setup.&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Login
+is&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>blank</span></strong>&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Password
+is the same password in your Dreamworld setup.&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Check&nbsp;<strong><span
+style='font-family:"Verdana",sans-serif'>Public</span></strong>&nbsp;if you
+want your stream to be on the Mixxx website. Give it a name.&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Click&nbsp;<strong><span
+style='font-family:"Verdana",sans-serif'>Okay</span></strong>&nbsp;and the
+screen will gray out and should show no errors.&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>Mixx Setup</span></h2>
+
+</div>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>On the top of
+the Mixxx main screen is an&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>Options</span></strong>&nbsp;menu.
+Click&nbsp;<strong><span style='font-family:"Verdana",sans-serif'>Enable Live
+Broadcasting</span></strong>. I have it shown in the photo. Load a track and
+click play. For me, that was hard to find! It is circled in the picture and
+shows a pause button.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'><img border=0
+width=574 height=342 src="Icecast_files/image013.jpg"></span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Use a web
+browser and navigate to http://127.0.0.1:8080/stream and click the play button.
+You can also click the <b>Admin Web Page</b> button. You should hear the music,
+delayed by maybe 15 seconds. This is normal buffering. Click Stop in Mixxx and
+the music will play for a bit longer due to the buffering.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>The Public URL
+or Domain Name for your world is entered into your sim instead of 127.0.0.1, so
+for my simulator, the music URL becomes <b>http://www.outworldz.com:8080/stream</b>.
+This URL must include the 'mount point' of /stream you entered earlier.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in;text-indent:-.25in'><span style='font-family:Symbol;color:black'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Navigate
+to http://127.0.0.1:8080. You should see the standard web page for Icecast.
+Yours truly, can log in using your administrator password, see the status, and
+see the mount point.</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>Troubleshooting:&nbsp;</span></h2>
+
+</div>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>If it cannot
+connect, make sure Icecast is running in a separate DOS box. </span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>You do not
+have to run the grid to stream music. It is only used to set up the files and
+start Icecast. For example, you can run a radio station or use it for Second
+Life. There is a batch file in /Icecast called 'icecast.bat' that will run the
+server.</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>Port Forwards:</span></h2>
+
+</div>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>Add port 8080
+and 8081 to your routers Port Forward.&nbsp; You should also check they are not
+blocked by your firewall or anti-virus. This is my setup:</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:#5973CC'> <img
+border=0 width=483 height=314 src="Icecast_files/image014.jpg"></span><span
+style='font-family:"Verdana",sans-serif;color:black'>  </span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>The Shoutcast
+setting shown above is used when you are running the Icecast/Shoutcast server.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'>&nbsp;</span></p>
+
+<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -106,8 +106,43 @@ Public Class FormDatabase
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
-        'Database
+        BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disks
+        BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_word
+        Button1.Text = Global.Outworldz.My.Resources.FSassets_Server_word
+        ClearRegionTable.Text = Global.Outworldz.My.Resources.ClearRegion
+        DBHelp.Image = Global.Outworldz.My.Resources.about
+        DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_yellow
+        DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Export_Backup_file_word
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Database_Setup_word
+        Dbnameindex.Text = Global.Outworldz.My.Resources.DBName_word
+        FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
+        FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Data_Files_word
+        GridGroup.Text = Global.Outworldz.My.Resources.Robust_word
+        Label1.Text = Global.Outworldz.My.Resources.Region_Server_word
+        Label15.Text = Global.Outworldz.My.Resources.User_Name_word
+        Label16.Text = Global.Outworldz.My.Resources.Robust_word
+        Label2.Text = Global.Outworldz.My.Resources.MySqlPort_word
+        Label20.Text = Outworldz.My.Resources.Region_Database
+        Label21.Text = Global.Outworldz.My.Resources.User_Name_word
+        Label22.Text = Global.Outworldz.My.Resources.Password_word
+        Label3.Text = Global.Outworldz.My.Resources.Assets_as_Files_word
+        Label8.Text = Global.Outworldz.My.Resources.MySqlPort_word
+        Label9.Text = Global.Outworldz.My.Resources.Password_word
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        StandaloneGroup.Text = Global.Outworldz.My.Resources.Region_Database
+        Text = Global.Outworldz.My.Resources.Database_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Region_Database
+        ToolTip1.SetToolTip(RegionDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RegionDbName, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RegionMySqlPassword, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RegionServer, Global.Outworldz.My.Resources.Region_ServerName)
+        ToolTip1.SetToolTip(RobustDBPassword, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RobustDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RobustDbName, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RobustDbPort, Global.Outworldz.My.Resources.MySQL_Port_Default)
+        ToolTip1.SetToolTip(RobustServer, Global.Outworldz.My.Resources.Region_ServerName)
 
         RegionDbName.Text = Settings.RegionDBName
         RegionDBUsername.Text = Settings.RegionDBUsername

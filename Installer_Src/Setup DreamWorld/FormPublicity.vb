@@ -94,7 +94,18 @@ Public Class FormPublicity
 
     Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        GDPRCheckBox.Text = Global.Outworldz.My.Resources.Publish_grid
+        GroupBox1.Text = Global.Outworldz.My.Resources.Category_word
+        GroupBox11.Text = Global.Outworldz.My.Resources.Photo_Word
+        GroupBox2.Text = Global.Outworldz.My.Resources.Description_word
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        PictureBox9.InitialImage = Global.Outworldz.My.Resources.ClicktoInsertPhoto
+        PublicPhoto.Image = Global.Outworldz.My.Resources.about
+        Text = Global.Outworldz.My.Resources.Publicity_Word
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+
         SetScreen()
 
         GDPRCheckBox.Checked = Settings.GDPR()

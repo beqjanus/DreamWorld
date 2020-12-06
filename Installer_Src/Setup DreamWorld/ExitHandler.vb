@@ -37,10 +37,10 @@ Public Class Handler
 
 #Region "Public Methods"
 
-    Public Function Init(ByRef RegionHandles As Dictionary(Of Integer, String), ByRef ExitList As Dictionary(Of String, String)) As Process
+    Public Function Init(ByRef regionHandles As Dictionary(Of Integer, String), ByRef exitList As Dictionary(Of String, String)) As Process
 
-        Exitlist1 = ExitList
-        RegionHandles1 = RegionHandles
+        Exitlist1 = exitList
+        RegionHandles1 = regionHandles
         Return MyProcess
 
     End Function
@@ -62,7 +62,6 @@ Public Class Handler
                 End If
             End If
             RegionHandles1.Remove(pid)
-
         Catch ex As Exception
 
         End Try

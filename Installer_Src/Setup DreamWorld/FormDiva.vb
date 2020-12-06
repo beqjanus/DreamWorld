@@ -76,8 +76,36 @@ Public Class FormDiva
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
-        Translate.Run(Name)
+        AccountConfirmationRequired.Text = Global.Outworldz.My.Resources.Confirm
+        ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
+        ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Apache_word
+        BlackRadioButton.Text = Global.Outworldz.My.Resources.Black_word
+        CustomButton1.Text = Global.Outworldz.My.Resources.Custom_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.SplashScreen
+        GroupBox6.Text = Global.Outworldz.My.Resources.SMTP
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Diva_Panel_word
+        Label1.Text = Global.Outworldz.My.Resources.Theme_word
+        Label10.Text = Global.Outworldz.My.Resources.Password_word
+        Label11.Text = Global.Outworldz.My.Resources.First_name_word
+        Label12.Text = Global.Outworldz.My.Resources.Last_Name_Word
+        Label14.Text = Global.Outworldz.My.Resources.User_Name_word
+        Label17.Text = Global.Outworldz.My.Resources.Notify_Email
+        Label18.Text = Global.Outworldz.My.Resources.SMTPPassword_word
+        Label19.Text = Global.Outworldz.My.Resources.SplashScreen
+        Label2.Text = Global.Outworldz.My.Resources.Friendly
+        Label23.Text = Global.Outworldz.My.Resources.SMTPHost_word
+        Label24.Text = Global.Outworldz.My.Resources.SMTPPort_word
+        Label4.Text = Global.Outworldz.My.Resources.Viewer_Greeting_word
+        Text = Global.Outworldz.My.Resources.WebServerPanel
+        ToolTip1.SetToolTip(AdminPassword, Global.Outworldz.My.Resources.Password_Text)
+        Web.Text = Global.Outworldz.My.Resources.Wifi_interface
+        WhiteRadioButton.Text = Global.Outworldz.My.Resources.White_word
+        WiFi.Image = Global.Outworldz.My.Resources.about
+        WifiEnabled.Text = Global.Outworldz.My.Resources.Diva_Wifi_Enabled_word
+
         SetScreen()
 
         'Wifi

@@ -57,7 +57,18 @@
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        GridRegionButton.Text = Global.Outworldz.My.Resources.Region_Server_word
+        GridServerButton.Text = Global.Outworldz.My.Resources.Grid_Server_With_Robust_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Server_Type_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        MetroRadioButton2.Text = Global.Outworldz.My.Resources.MetroOrg
+        SaveButton.Text = Global.Outworldz.My.Resources.Save_word
+        ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Server_Type_word
+        Text = Global.Outworldz.My.Resources.Server_Type_word
+        osGridRadioButton1.Text = Global.Outworldz.My.Resources.OSGrid_Region_Server
+
         SetScreen()
 
         Select Case Settings.ServerType

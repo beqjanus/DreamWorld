@@ -42,11 +42,11 @@ Public Module Firewall
 
     End Function
 
-    Public Sub BlockIP(Ip As String)
+    Public Sub BlockIP(ipaddress As String)
 
-
-        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & Ip & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & IP() & vbCrLf
         Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & Ip & """ dir=in profile=any action=block protocol=any remoteip=" & Ip & vbCrLf
+
         Write(Command)
 
     End Sub
@@ -105,14 +105,10 @@ Public Module Firewall
     Private Sub Write(cmd As String)
 
         Try
-            Dim ns As StreamWriter = New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "fw.bat"), False)
-            ns.WriteLine(cmd)
-            'If Debugger.IsAttached Then
-            'ns.WriteLine("@pause")
-            'End If
-            ns.Close()
+            Using ns As StreamWriter = New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "fw.bat"), False)
+                ns.WriteLine(cmd)
+            End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -125,14 +121,12 @@ Public Module Firewall
         Using ProcessFirewall As Process = New Process With {
                 .StartInfo = pi
             }
-
             Try
                 ProcessFirewall.Start()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 FormSetup.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try
-
         End Using
 
     End Sub

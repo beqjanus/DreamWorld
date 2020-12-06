@@ -9,7 +9,23 @@ Public Class FormJoomla
 
     Public Sub LoadSub() Handles Me.Load
 
-        Translate.Run(Name)
+        AdminButton.Text = Global.Outworldz.My.Resources.Resources.AdministerJoomla_word
+        ButtonBox.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+        SearchBox.Text = Global.Outworldz.My.Resources.Resources.Options
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
+        InstallButton.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
+        JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
+        ViewButton.Image = Global.Outworldz.My.Resources.Resources.edge
+        ViewButton.Text = Global.Outworldz.My.Resources.Resources.ViewJoomla_word
+        ButtonBox.Text = Global.Outworldz.My.Resources.Resources.Settings_word
+        SearchBox.Text = Global.Outworldz.My.Resources.Resources.SearchOptions_word
+        ReinstallButton.Text = Global.Outworldz.My.Resources.Resources.Restore_word
+        UpdateButton.Text = Global.Outworldz.My.Resources.Resources.Update_word
+        BackupButton.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+
         SetDefaults()
         HelpOnce(JOpensim)
 
@@ -30,7 +46,7 @@ Public Class FormJoomla
 
         Dim result = MsgBox(My.Resources.InstallOpensim, vbYesNo)
         If result = vbYes Then
-            InstallJOpensim()
+            InstallJoomla()
         End If
 
     End Sub
@@ -41,7 +57,7 @@ Public Class FormJoomla
 
     End Sub
 
-    Private Sub InstallJOpensim()
+    Private Sub InstallJoomla()
 
         FormSetup.StartMySQL()
 
@@ -63,7 +79,7 @@ Public Class FormJoomla
             End Try
             Application.DoEvents()
             JoomlaProcess.WaitForExit()
-
+            JoomlaProcess.Dispose()
             Dim ctr As Integer = 0
             Dim extractPath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\JOpensim")
             Dim fname As String = ""
@@ -193,7 +209,7 @@ Public Class FormJoomla
 
     Private Sub UpdateButton_Click(sender As Object, e As EventArgs) Handles UpdateButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator/index.php?option=com_installer&r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator/index.php?option=com_installer"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -204,7 +220,7 @@ Public Class FormJoomla
 
     Private Sub BackupButton_Click(sender As Object, e As EventArgs) Handles BackupButton.Click
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/administrator/index.php?option=com_akeeba"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -219,7 +235,7 @@ Public Class FormJoomla
         FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\kickstart.php"), IO.Path.Combine(path, "htdocs\JOpensim\kickstart.php"), True)
         FileStuff.CopyFile(IO.Path.Combine(path, "jOpensim_Files\en-GB.kickstart.ini"), IO.Path.Combine(path, "htdocs\JOpensim\en-GB.kickstart.ini"), True)
 
-        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/kickstart.php?r=" & Random.ToString
+        Dim webAddress As String = "http://" & Settings.PublicIP & "/jOpensim/kickstart.php"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

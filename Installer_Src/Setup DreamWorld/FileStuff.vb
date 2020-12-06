@@ -2,17 +2,17 @@
 
 Module FileStuff
 
-    Sub CopyFile(Source As String, Dest As String, overwrite As Boolean)
+    Sub CopyFile(source As String, dest As String, overwrite As Boolean)
 
-        If Source.EndsWith("\Opensim.ini", StringComparison.InvariantCulture) Then Return
-        If Source.EndsWith("/Opensim.ini", StringComparison.InvariantCulture) Then Return
-        If Source.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
-        If Source.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
-        If Source.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
-        If Source.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
+        If source.EndsWith("\Opensim.ini", StringComparison.InvariantCulture) Then Return
+        If source.EndsWith("/Opensim.ini", StringComparison.InvariantCulture) Then Return
+        If source.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
+        If source.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
+        If source.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
+        If source.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
 
         Try
-            My.Computer.FileSystem.CopyFile(Source, Dest, overwrite)
+            My.Computer.FileSystem.CopyFile(source, dest, overwrite)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try

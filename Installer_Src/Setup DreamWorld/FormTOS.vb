@@ -68,32 +68,23 @@ Public Class TosForm
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles PreviewButton.Click
 
         If FormSetup.PropOpensimIsRunning() Then
             Dim webAddress As String = "http://" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & "/wifi/termsofservice.html"
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         Else
             MsgBox(My.Resources.Not_Running)
         End If
-
-    End Sub
-
-    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToLocalUsersCheckbox.CheckedChanged
-
-        Settings.ShowToLocalUsers = ShowToLocalUsersCheckbox.Checked
-        Settings.SaveSettings()
 
     End Sub
 
@@ -103,15 +94,12 @@ Public Class TosForm
 
     End Sub
 
-    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-
-        'nothing
-
-    End Sub
-
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        SaveButton.Text = My.Resources.Save_changes_word
+        ApplyButton.Text = My.Resources.Apply_word
+        PreviewButton.Text = My.Resources.Preview_in_Browser
+
         Dim reader As System.IO.StreamReader
         reader = System.IO.File.OpenText(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
         'now loop through each line
@@ -122,9 +110,6 @@ Public Class TosForm
         reader.Close()
         Editor1.BodyHtml = HTML
 
-        ShowToLocalUsersCheckbox.Checked = Settings.ShowToLocalUsers
-        ShowToHGUsersCheckbox.Checked = Settings.ShowToForeignUsers
-        TOSEnable.Checked = Settings.TOSEnabled
         SetScreen()
 
         HelpOnce("TOS")
@@ -147,20 +132,6 @@ Public Class TosForm
         End Try
 
         Me.Close()
-
-    End Sub
-
-    Private Sub ShowToHGUsersCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ShowToHGUsersCheckbox.CheckedChanged
-
-        Settings.ShowToForeignUsers = ShowToHGUsersCheckbox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub TOSEnable_CheckedChanged(sender As Object, e As EventArgs) Handles TOSEnable.CheckedChanged
-
-        Settings.TOSEnabled = TOSEnable.Checked
-        Settings.SaveSettings()
 
     End Sub
 

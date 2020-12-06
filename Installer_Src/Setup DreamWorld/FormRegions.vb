@@ -144,7 +144,26 @@ Public Class FormRegions
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Translate.Run(Name)
+        AddRegion.Text = Global.Outworldz.My.Resources.Add_Region_word
+        Button1.Text = Global.Outworldz.My.Resources.ClearReg
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        GroupBox2.Text = Global.Outworldz.My.Resources.Region_word
+        Label1.Text = Global.Outworldz.My.Resources.EditRegion
+        Label2.Text = Global.Outworldz.My.Resources.New_User_Home
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        NormalizeButton1.Text = Global.Outworldz.My.Resources.NormalizeRegions
+        RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
+        RegionButton.Text = Global.Outworldz.My.Resources.Configger
+        RegionHelp.Image = Global.Outworldz.My.Resources.about
+        SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
+        Text = Global.Outworldz.My.Resources.Region_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        WelcomeRegion.Text = Global.Outworldz.My.Resources.Default_Region_word
+        X.Name = Global.Outworldz.My.Resources.X
+        Y.Name = Global.Outworldz.My.Resources.Y
+        Z.Name = Global.Outworldz.My.Resources.Z
 
         '!!!remove for production
         If Debugger.IsAttached = False Then

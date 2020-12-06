@@ -1,0 +1,165 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Calibri Light";
+	panose-1:2 15 3 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+	{mso-style-link:"Title Char";
+	margin:0in;
+	line-height:115%;
+	font-size:26.0pt;
+	font-family:"Calibri Light",sans-serif;
+	color:#4472C4;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
+span.TitleChar
+	{mso-style-name:"Title Char";
+	mso-style-link:Title;
+	font-family:"Calibri Light",sans-serif;
+	color:#4472C4;
+	text-transform:uppercase;
+	letter-spacing:.5pt;}
+.MsoChpDefault
+	{font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
+
+<div class=WordSection1>
+
+<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><span
+lang=EN>Flotsam Cache Settings</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
+background:white'><br>
+OpenSimulator has an asset cache that stores the assets retrieved from an asset
+service. This reduces the load on a possibly remote asset service and improves
+OpenSimulator responsiveness.  </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'><img
+width=576 height=275 id="Picture 1" src="Flotsam%20Cache_files/image001.png"></span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#D9E2F3'><span style='color:black;background:white'>Flotsam
+asset cache</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
+background:white'>The Flotsam asset cache, stores assets on disk and in memory.
+</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
+background:white'>At the moment, the amount of memory or filesystem storage
+used by the cache can only be limited via manual actions (wiping all or part of
+cached assets from the filesystem), by console commands (e.g. &quot;fcache
+clear&quot;) or by timeout settings (e.g. FileCacheTimeout = 1 to automatically
+remove cache files not accessed for 1 hours). </span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
+margin-left:.5in;margin-right:0in'>
+
+<h2 style='background:#D9E2F3'><span style='color:black;background:white'>General
+principles</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
+background:white'>When OpenSimulator requires an asset (e.g. in response to a
+viewer request for a notecard), then it first asks the cache for this data. If
+the data is not found in the cache, then it asks the grid asset service (or
+possibly a foreign asset service in the case of Hypergrid). If the asset is
+found then it is both stored in the cache and returned to the user.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
+background:white'>If an asset is uploaded to OpenSimulator (e.g. by the viewer
+uploading an animation), then the asset is immediately both kept in cache (if
+there is room and the asset is not temporary) and sent to the asset service (if
+the asset is not temporary).</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
+background:white'>Therefore, at any point you can wipe any temporary data
+stored by the asset cache (e.g. on the filesystem), since the next request for
+that asset will simply query the asset service as the asset will not be found
+in cache.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
+background:white'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><b><span style='font-family:"Times New Roman",serif;
+background:white'>&nbsp;</span></b></p>
+
+</div>
+
+</body>
+
+</html>
