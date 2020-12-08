@@ -732,6 +732,10 @@ Public Class MySettings
         Get
             Dim var = GetMySetting("CMS", DreamGrid)
             If var = "Joomla" Then var = JOpensim
+            Dim installed As Boolean = Joomla.IsjOpensimInstalled()
+            If Not installed & Settings.JOpensimSearch = JOpensim Then
+                Return DreamGrid
+            End If
             Return var
         End Get
         Set

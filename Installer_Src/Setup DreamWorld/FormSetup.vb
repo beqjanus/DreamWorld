@@ -1304,23 +1304,6 @@ Public Class FormSetup
 
 #Region "Updater"
 
-    Private Shared Sub CheckForjOpensimUpdate()
-
-        Dim count As Integer
-        Try
-            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
-            count = folders.Length
-        Catch
-        End Try
-
-        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\jOpensim\" & FormSetup.JOpensimRev1)
-
-        If Not IO.File.Exists(file) And count > 1 Then
-            HelpManual("Joomla Update")
-        End If
-
-    End Sub
-
     Public Sub CheckForUpdates()
 
         Using client As New WebClient ' download client for web pages
@@ -5096,7 +5079,7 @@ Public Class FormSetup
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
 
-        CheckForjOpensimUpdate()
+        Joomla.CheckForjOpensimUpdate()
 
     End Sub
 

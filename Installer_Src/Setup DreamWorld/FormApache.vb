@@ -184,16 +184,9 @@ Public Class FormApache
 
         If Not EnableJOpensim.Checked Then Return
 
-        Dim Exist As Boolean
-        Try
-            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
-            If folders.Length > 1 Then
-                Exist = True
-            End If
-        Catch
-        End Try
+        Dim installed As Boolean = Joomla.IsjOpensimInstalled()
 
-        If Not Exist Then
+        If Not installed Then
             MsgBox("That folder has no content. Install Joomla and JOpensim first, then enable this.")
             EnableDiva.Checked = True
             Return

@@ -151,12 +151,7 @@ Public Class FormJoomla
 
     Private Sub SetDefaults()
 
-        Dim count As Integer
-        Try
-            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
-            count = folders.Length
-        Catch
-        End Try
+        Dim installed As Boolean = Joomla.IsjOpensimInstalled()
 
         Select Case Settings.JOpensimSearch
             Case ""
@@ -182,7 +177,7 @@ Public Class FormJoomla
             Return
         End If
 
-        If count <= 1 Then
+        If Not installed Then
             HypericaRadioButton.Checked = True
             JOpensimRadioButton.Enabled = False
             InstallButton.Enabled = True
