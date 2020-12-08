@@ -49,7 +49,7 @@ Module Backups
         Dim File1 As System.IO.FileInfo
 
         Dim originalBoottime As Date = _startDate
-        originalBoottime = originalBoottime.AddMinutes(CDbl(Settings.AutobackupInterval))
+        originalBoottime = originalBoottime.AddDays(CDbl(Settings.KeepForDays))
 
         ' get each file's last modified date
         For Each File1 In File
