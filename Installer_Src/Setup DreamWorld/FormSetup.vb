@@ -1622,12 +1622,12 @@ Public Class FormSetup
         If Settings.CMS = JOpensim Then
             Settings.SetIni("Groups", "Module", "GroupsModule")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "/jOpensim/index.php?option=com_opensim&view=interface")
+            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface")
             Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
         Else
             Settings.SetIni("Groups", "Module", "Groups Module V2")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "Groups HG Service Connector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "${Const|PrivURL}:${Const|PrivatePort}")
+            Settings.SetIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
             Settings.SetIni("Groups", "MessagingModule", "Groups Messaging Module V2")
         End If
 
