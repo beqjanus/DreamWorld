@@ -21,13 +21,13 @@ Module Backups
         Dim originalBoottime As Date = _startDate
         originalBoottime = originalBoottime.AddMinutes(CDbl(Settings.AutobackupInterval))
 
-        'Dim x = DateTime.Compare(currentdatetime, originalBoottime)
+        Dim x = DateTime.Compare(currentdatetime, originalBoottime)
         If DateTime.Compare(currentdatetime, originalBoottime) > 0 Then
 
             _startDate = currentdatetime ' wait another interval
 
             If Settings.AutoBackup Then
-
+                FormSetup.Print(currentdatetime.ToLocalTime & " Auto Backup Running")
                 Dim WebThread = New Thread(AddressOf FullBackup)
                 Try
                     WebThread.SetApartmentState(ApartmentState.STA)
@@ -56,7 +56,7 @@ Module Backups
             If File1.Name.StartsWith("Full_Backup_", StringComparison.InvariantCultureIgnoreCase) Then
                 Dim strLastModified As Date = System.IO.File.GetLastWriteTime(strFilepath & "\" & File1.Name)
                 'Dim y = DateTime.Compare(originalBoottime, strLastModified)
-                If DateTime.Compare(originalBoottime, strLastModified) > 0 Then
+                If DateTime.Compare(originalBoottime, strLastModified) < 0 Then
                     FileStuff.DeleteFile(File1.FullName)
                 End If
             End If
