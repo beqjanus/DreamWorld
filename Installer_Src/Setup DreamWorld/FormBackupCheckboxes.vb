@@ -20,8 +20,6 @@
 
 #End Region
 
-Imports System.Threading
-
 Public Class FormBackupCheckboxes
 
 #Region "ScreenSize"
@@ -70,7 +68,6 @@ Public Class FormBackupCheckboxes
         HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         MySqlCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Mysql
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Region
-        SettingsBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
         Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
 
     End Sub
@@ -97,7 +94,6 @@ Public Class FormBackupCheckboxes
             intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
             'Write to the Target
             streamWrite.Write(byteBuffer, 0, intBytesRead)
-
             Application.DoEvents()    'do it
         End While
 
@@ -108,92 +104,13 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub FullBackup()
-        Dim Foldername = "Full_backup" + "_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-        Dim Dest As String
-        If Settings.BackupFolder = "AutoBackup" Then
-            Dest = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\AutoBackup\" & Foldername)
-        Else
-            Dest = IO.Path.Combine(Settings.BackupFolder, Foldername)
-        End If
-
-        If RegionCheckBox.Checked Then
-            Try
-                My.Computer.FileSystem.CreateDirectory(Dest)
-                My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_Regions")
-            Catch ex As Exception
-            End Try
-
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), IO.Path.Combine(Dest, "Opensim_bin_Regions"))
-            Application.DoEvents()
-        End If
-
-        If MySqlCheckBox.Checked Then
-            Try
-                My.Computer.FileSystem.CreateDirectory(Dest)
-                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Dest, "Mysql_Data"))
-            Catch ex As Exception
-
-                BreakPoint.Show(ex.Message)
-            End Try
-            FileStuff.CopyFolder(IO.Path.Combine(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data\")), IO.Path.Combine(Dest, "Mysql_Data"))
-            Application.DoEvents()
-        End If
-
-        If FSAssetsCheckBox.Checked Then
-            Try
-                My.Computer.FileSystem.CreateDirectory(Dest)
-                My.Computer.FileSystem.CreateDirectory(Dest + "\FSAssets")
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-
-            Dim folder As String = "./fsassets"
-            If Settings.BaseDirectory = "./fsassets" Then
-                folder = Settings.OpensimBinPath & "\FSAssets"
-            Else
-                folder = Settings.BaseDirectory
-            End If
-            FileStuff.CopyFolder(folder, IO.Path.Combine(Dest, "FSAssets"))
-            Application.DoEvents()
-        End If
-
-        If CustomCheckBox.Checked Then
-            Try
-                My.Computer.FileSystem.CreateDirectory(Dest)
-                My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_WifiPages-Custom")
-                My.Computer.FileSystem.CreateDirectory(Dest + "\Opensim_bin_WifiPages-Custom")
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages\"), IO.Path.Combine(Dest, "Opensim_WifiPages-Custom"))
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\"), IO.Path.Combine(Dest, "Opensim_bin_WifiPages-Custom"))
-            Application.DoEvents()
-        End If
-
-        If SettingsBox.Checked Then
-            FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(Dest, "Settings.ini"), True)
-        End If
-        DialogResult = DialogResult.OK
-
-    End Sub
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        If Button1.Text = "Finished" Then Me.Close()
-
-        Button1.Text = My.Resources.Busy_word
-        Dim WebThread = New Thread(AddressOf FullBackup)
-        Try
-            WebThread.SetApartmentState(ApartmentState.STA)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-        WebThread.Start()
-        WebThread.Priority = ThreadPriority.Highest
-
-        WebThread.Join()
-        Button1.Text = My.Resources.Finished_with_backup_word
+        Button1.Text = My.Resources.Running_word
+        Backups.RunBackups()
+        Application.DoEvents()
+        Threading.Thread.Sleep(2000)
+        Me.Close()
 
     End Sub
 
@@ -217,6 +134,34 @@ Public Class FormBackupCheckboxes
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
         HelpManual("Backup Manually")
+
+    End Sub
+
+    Private Sub RegionCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RegionCheckBox.CheckedChanged
+
+        Settings.BackupMysql = RegionCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub MySqlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles MySqlCheckBox.CheckedChanged
+
+        Settings.BackupMysql = RegionCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub FSAssetsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles FSAssetsCheckBox.CheckedChanged
+
+        Settings.BackupFSAssets = FSAssetsCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub CustomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CustomCheckBox.CheckedChanged
+
+        Settings.BackupFSAssets = CustomCheckBox.Checked
+        Settings.SaveSettings()
 
     End Sub
 

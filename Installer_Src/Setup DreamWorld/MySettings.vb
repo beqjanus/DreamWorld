@@ -275,6 +275,42 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property BackupWifi() As Boolean
+        Get
+            Return CType(GetMySetting("BackupWifi", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupWifi", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property BackupFSAssets() As Boolean
+        Get
+            Return CType(GetMySetting("BackupFSAssets", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupFSAssets", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property BackupMysql() As Boolean
+        Get
+            Return CType(GetMySetting("BackupMysql", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupMysql", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property BackupRegion() As Boolean
+        Get
+            Return CType(GetMySetting("BackupRegion", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupRegion", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)

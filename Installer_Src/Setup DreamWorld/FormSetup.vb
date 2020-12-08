@@ -6575,6 +6575,7 @@ Public Class FormSetup
             Application.DoEvents()
             RegionListHTML() ' create HTML for older 2.4 region teleport
             Application.DoEvents()
+            Backups.RunBackups()
         End If
 
         PropRegionClass.CheckPost() ' get the stack filled ASAP

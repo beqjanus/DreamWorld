@@ -202,7 +202,13 @@ foreach my $lang (@languages)
 say("Drop mysql files from update");
 # now delete the mysql from the UPDATE
 
+say("Drop Mysql from update");
 DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\mysql\\Data');
+say("Drop Jopensim from update");
+DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim');
+if (!copy ('\\Opensim\\Zip\\Outworldzfiles\\jOpensim_Files\\default.htm', '\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim\\default.htm'))  {die $!;}
+
+
 say("Drop Opensim Source code from update");
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/bin/addin-db-002');
@@ -229,7 +235,6 @@ JustDelete('/Opensim/Zip/Make_zip_v2.pl');
 JustDelete('/Opensim/Zip/Start.vshost.exe.manifest');
 JustDelete('/Opensim/Zip/Start.vshost.exe.config');
 JustDelete('/Opensim/Zip/Start.vshost.exe');
-
 JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
 
 print "Make zip\n";
