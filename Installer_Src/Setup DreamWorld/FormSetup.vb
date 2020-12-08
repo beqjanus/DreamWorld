@@ -6563,11 +6563,10 @@ Public Class FormSetup
 
         ' print hourly marks on console
         If PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
-
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
-
+            Backups.RunBackups()
         End If
 
         If PropDNSSTimer Mod 60 = 0 Then
@@ -6575,7 +6574,7 @@ Public Class FormSetup
             Application.DoEvents()
             RegionListHTML() ' create HTML for older 2.4 region teleport
             Application.DoEvents()
-            Backups.RunBackups()
+
         End If
 
         PropRegionClass.CheckPost() ' get the stack filled ASAP

@@ -15,16 +15,14 @@ Module Backups
             _startDate = Date.Now
         End If
 
-        Settings.AutobackupInterval = "1"  ' !!!!! debug 1 minute
-
         Dim currentdatetime As Date = New DateTime()
         currentdatetime = Date.Now
 
         Dim originalBoottime As Date = _startDate
         originalBoottime = originalBoottime.AddMinutes(CDbl(Settings.AutobackupInterval))
 
-        Dim x = DateTime.Compare(currentdatetime, originalBoottime) ' debug !!!
-        If DateTime.Compare(originalBoottime, currentdatetime) < 0 Then
+        'Dim x = DateTime.Compare(currentdatetime, originalBoottime)
+        If DateTime.Compare(currentdatetime, originalBoottime) > 0 Then
 
             _startDate = currentdatetime ' wait another interval
 
@@ -57,7 +55,8 @@ Module Backups
         For Each File1 In File
             If File1.Name.StartsWith("Full_Backup_", StringComparison.InvariantCultureIgnoreCase) Then
                 Dim strLastModified As Date = System.IO.File.GetLastWriteTime(strFilepath & "\" & File1.Name)
-                If DateTime.Compare(originalBoottime, strLastModified) < 0 Then
+                'Dim y = DateTime.Compare(originalBoottime, strLastModified)
+                If DateTime.Compare(originalBoottime, strLastModified) > 0 Then
                     FileStuff.DeleteFile(File1.FullName)
                 End If
             End If
