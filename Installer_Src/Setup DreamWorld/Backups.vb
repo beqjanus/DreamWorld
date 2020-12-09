@@ -21,7 +21,10 @@ Module Backups
     Private Sub Zipup()
 
         Dim f = _filename.Replace(".sql", ".zip")
-        ZipFile.CreateFromDirectory(_folder & "\tmp\", _folder & "\" & f, CompressionLevel.Optimal, False)
+        Try
+            ZipFile.CreateFromDirectory(_folder & "\tmp\", _folder & "\" & f, CompressionLevel.Optimal, False)
+        Catch
+        End Try
         Thread.Sleep(5000)
         FileStuff.DeleteDirectory(_folder & "\tmp\", FileIO.DeleteDirectoryOption.DeleteAllContents)
 
@@ -35,7 +38,7 @@ Module Backups
         End If
         _Busy = True
         FormSetup.Print(My.Resources.Slow_Backup)
-        BackupMysql("opensim")
+        BackupMysql(Settings.RegionDBName)
 
     End Sub
 
@@ -44,7 +47,7 @@ Module Backups
         If Not _OpensimBackupRunning Then
             _OpensimBackupRunning = True
             Zipup()
-            BackupMysql("robust")
+            BackupMysql(Settings.RobustDataBaseName)
         Else
             Zipup()
             _OpensimBackupRunning = False
@@ -124,16 +127,28 @@ Module Backups
 
         Dim port As String = ""
         Dim host As String = ""
+        Dim password As String = ""
+        Dim user As String = ""
+        Dim dbname As String = ""
         If OP = "robust" Then
             port = CStr(Settings.MySqlRobustDBPort)
             host = Settings.RobustServer
+            user = Settings.RobustUsername
+            password = Settings.RobustPassword
+            dbname = Settings.RobustDataBaseName
         Else
             port = CStr(Settings.MySqlRegionDBPort)
             host = Settings.RegionServer
+            user = Settings.RegionDBUsername
+            password = Settings.RegionDbPassword
+            dbname = Settings.RegionDBName
         End If
 
+
         Dim options = " --host=" & host & " --port=" & port _
-        & " --opt --hex-blob --add-drop-table --allow-keywords  -uroot " _
+        & " --opt --hex-blob --add-drop-table --allow-keywords  " _
+        & " -u" & user _
+        & " -p" & password _
         & " --verbose --log-error=Mysqldump.log " _
         & " --result-file=" & """" & Settings.BackupFolder & "\tmp\" & what & """" _
         & " " & Name
