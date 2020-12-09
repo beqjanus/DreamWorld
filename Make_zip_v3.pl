@@ -151,14 +151,15 @@ use IO::All;
 sign($dir);
 
 #
-say("Mysql");
-chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
-print `mysqladmin.exe --port 3306 -u root shutdown`;
-
-chdir ($dir);
-DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
 if ($publish eq 'c') {
+	say("Mysql");
+	chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
+	print `mysqladmin.exe --port 3306 -u root shutdown`;
+
+	chdir ($dir);
+	DeleteandKeep("$dir/OutworldzFiles/mysql/data");
+
 	say ("Cleaned");
 	exit;
 }
@@ -192,6 +193,7 @@ ProcessDir ("OutworldzFiles\\Mysql");
 ProcessDir ("OutworldzFiles\\OAR");
 ProcessDir ("OutworldzFiles\\PHP7");
 ProcessDir ("OutworldzFiles\\Opensim");
+ProcessDir ("OutworldzFiles\\jOpensim_files");
 
 
 foreach my $lang (@languages)
@@ -202,7 +204,13 @@ foreach my $lang (@languages)
 say("Drop mysql files from update");
 # now delete the mysql from the UPDATE
 
+say("Drop Mysql from update");
 DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\mysql\\Data');
+say("Drop Jopensim from update");
+DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim');
+if (!copy ('\\Opensim\\Zip\\Outworldzfiles\\jOpensim_Files\\default.htm', '\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim\\default.htm'))  {die $!;}
+
+
 say("Drop Opensim Source code from update");
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/bin/addin-db-002');
@@ -229,7 +237,6 @@ JustDelete('/Opensim/Zip/Make_zip_v2.pl');
 JustDelete('/Opensim/Zip/Start.vshost.exe.manifest');
 JustDelete('/Opensim/Zip/Start.vshost.exe.config');
 JustDelete('/Opensim/Zip/Start.vshost.exe');
-
 JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
 
 print "Make zip\n";
@@ -240,8 +247,11 @@ sleep(1);
 
 unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
 unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;
-if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
+
+#!!!!!!!!!!!!!if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
+
 if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
+
 if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
 if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
 if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
@@ -307,6 +317,7 @@ sub ProcessFile
 sub ProcessDir
 {
 	my $file = shift;
+	return if $file =~ /\.rtf$/;
 	
 	my $x = `xcopy /E /I /C \\Opensim\\Outworldz_Dreamgrid\\$file  \\Opensim\\zip\\$file`;
 	$x =~ s/\n//g;

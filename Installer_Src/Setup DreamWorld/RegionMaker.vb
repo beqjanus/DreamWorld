@@ -317,12 +317,8 @@ Public Class RegionMaker
             ._RegionSmartStart = ""
         }
 
-        If RegionList.ContainsKey(r._UUID) Then
-            BreakPoint.Show("Region exists!")
-            RegionDump()
-        Else
-            RegionList.Add(r._UUID, r)
-        End If
+        RegionList.Add(r._UUID, r)
+        'RegionDump()
         Debug.Print("Region count is " & CStr(RegionList.Count - 1))
         Return r._UUID
 
@@ -477,7 +473,7 @@ Public Class RegionMaker
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
-                        ''FormSetup.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
+                        FormSetup.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                     End Try
                 Next
             Next

@@ -45,11 +45,11 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-    Private Const DreamGrid As String = "DreamGrid"
-    Private Const jOpensimRev = "Joomla_3.9.21-Stable-Full_Package"
+
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.781"
+    Private Const _MyVersion As String = "3.782"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
+    Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
 
 #End Region
 
@@ -589,6 +589,15 @@ Public Class FormSetup
         End Set
     End Property
 
+    Public Property JOpensimRev1 As String
+        Get
+            Return jOpensimRev
+        End Get
+        Set(value As String)
+            jOpensimRev = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Public Shared"
@@ -1014,22 +1023,7 @@ Public Class FormSetup
             Return
         End If
 
-        Print(My.Resources.Slow_Backup)
-        Using pMySqlBackup As Process = New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "",
-            .WindowStyle = ProcessWindowStyle.Normal,
-            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
-            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\BackupMysql.bat")
-            }
-            pMySqlBackup.StartInfo = pi
-            Try
-                pMySqlBackup.Start()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-
-        End Using
+        Backups.SQLBackup()
 
     End Sub
 
@@ -1294,24 +1288,6 @@ Public Class FormSetup
     End Sub
 
 #Region "Updater"
-
-    Private Shared Sub CheckForjOpensimUpdate()
-
-
-        Dim count As Integer
-        Try
-            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
-            count = folders.Length
-        Catch
-        End Try
-
-        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\jOpensim\" & jOpensimRev)
-
-        If Not IO.File.Exists(file) And count > 1 Then
-            HelpManual("Joomla Update")
-        End If
-
-    End Sub
 
     Public Sub CheckForUpdates()
 
@@ -1622,7 +1598,7 @@ Public Class FormSetup
         If Settings.CMS = JOpensim Then
             Settings.SetIni("Groups", "Module", "GroupsModule")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface")
+            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "/jOpensim/index.php?option=com_opensim&view=interface")
             Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
         Else
             Settings.SetIni("Groups", "Module", "Groups Module V2")
@@ -1803,6 +1779,7 @@ Public Class FormSetup
 
     Public Function DoStopActions() As Boolean
 
+        Backups.ClearFlags()
         Print(My.Resources.Stopping_word)
         Buttons(BusyButton)
         If Not KillAll() Then Return False
@@ -2554,7 +2531,6 @@ Public Class FormSetup
 
         FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
 
-
         PropIcecastProcID = 0
         Print(My.Resources.Icecast_starting)
         IcecastProcess.EnableRaisingEvents = True
@@ -2728,8 +2704,7 @@ Public Class FormSetup
                 Settings.SaveSettings()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                Print(My.Resources.NTSuspend)
-
+                Print(My.Resources.Error_word)
             End Try
         End Using
 
@@ -2743,6 +2718,7 @@ Public Class FormSetup
 
         PropExitHandlerIsBusy = False
         PropAborting = False
+        Backups.ClearFlags()
 
         If Not StartRobust() Then Return False
 
@@ -4067,6 +4043,7 @@ Public Class FormSetup
         Settings.SetIni("Const", "PublicPort", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture)) ' 8002
         Settings.SetIni("Const", "PrivatePort", Convert.ToString(Settings.PrivatePort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Const", "ApachePort", Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
 
         If Settings.Suitcase() Then
             Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
@@ -4712,6 +4689,8 @@ Public Class FormSetup
 
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
+        Backups.ClearFlags()
+
         AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Add_User_word
         AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
         AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word
@@ -5089,7 +5068,7 @@ Public Class FormSetup
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
 
-        CheckForjOpensimUpdate()
+        Joomla.CheckForjOpensimUpdate()
 
     End Sub
 
@@ -6144,7 +6123,6 @@ Public Class FormSetup
 
         Print(My.Resources.Creating_INI_Files_word)
 
-
         If DoRobust() Then Return True
         If DoTos() Then Return True
         If DoGridCommon() Then Return True
@@ -6557,11 +6535,9 @@ Public Class FormSetup
 
         ' print hourly marks on console
         If PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
-
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
-
         End If
 
         If PropDNSSTimer Mod 60 = 0 Then
@@ -6569,6 +6545,7 @@ Public Class FormSetup
             Application.DoEvents()
             RegionListHTML() ' create HTML for older 2.4 region teleport
             Application.DoEvents()
+            Backups.RunBackups()
         End If
 
         PropRegionClass.CheckPost() ' get the stack filled ASAP
@@ -7372,19 +7349,13 @@ Public Class FormSetup
 
         Next
 
-        If Settings.BackupFolder = "AutoBackup" Then
-            Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\AutoBackup\")
-        Else
-            Filename = Settings.BackupFolder
-        End If
-
         Dim AutoOARs As Array = Nothing
         Try
-            AutoOARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
+            AutoOARs = Directory.GetFiles(FileStuff.AutoBackupPath(), "*.OAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
+
         counter = MaxFileNum
 
         If AutoOARs IsNot Nothing Then
@@ -7437,17 +7408,10 @@ Public Class FormSetup
 
         Next
 
-        If Settings.BackupFolder = "AutoBackup" Then
-            Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\AutoBackup\")
-        Else
-            Filename = Settings.BackupFolder
-        End If
-
         Dim AutoIARs As Array = Nothing
         Try
-            AutoIARs = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
+            AutoIARs = Directory.GetFiles(FileStuff.AutoBackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
         If AutoIARs IsNot Nothing Then
@@ -7473,7 +7437,7 @@ Public Class FormSetup
 
     Private Sub LoadIarClick(sender As Object, e As EventArgs) ' event handler
 
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(FileStuff.AutoBackupPath, CStr(sender.Text)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
@@ -7482,7 +7446,7 @@ Public Class FormSetup
 
     Private Sub LoadOarClick(sender As Object, e As EventArgs) ' event handler
 
-        Dim File As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/AutoBackup/" & CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(FileStuff.AutoBackupPath, CStr(sender.Text)) 'make a real URL
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If

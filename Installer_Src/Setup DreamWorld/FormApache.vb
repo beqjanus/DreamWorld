@@ -184,16 +184,9 @@ Public Class FormApache
 
         If Not EnableJOpensim.Checked Then Return
 
-        Dim Exist As Boolean
-        Try
-            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
-            If folders.Length > 1 Then
-                Exist = True
-            End If
-        Catch
-        End Try
+        Dim installed As Boolean = Joomla.IsjOpensimInstalled()
 
-        If Not Exist Then
+        If Not installed Then
             MsgBox("That folder has no content. Install Joomla and JOpensim first, then enable this.")
             EnableDiva.Checked = True
             Return
@@ -225,7 +218,9 @@ Public Class FormApache
             Return
         End If
 
-        If EnableOther.Checked Then Other.Text = Settings.CMS
+        If EnableOther.Checked Then
+            Settings.CMS = Other.Text
+        End If
 
     End Sub
 
@@ -256,13 +251,6 @@ Public Class FormApache
     Private Sub Other_TextChanged(sender As Object, e As EventArgs) Handles Other.TextChanged
 
         If Not initted Then Return
-
-        If Other.Text.Length > 0 Then
-            EnableOther.Checked = True
-        Else
-            EnableOther.Checked = False
-            EnableDiva.Checked = True
-        End If
         Settings.CMS = Other.Text
 
     End Sub

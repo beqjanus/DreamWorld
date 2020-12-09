@@ -126,8 +126,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Outworldz.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestTimestampUrl>http://timestamp.digicert.com</ManifestTimestampUrl>
@@ -254,6 +253,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Backups.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Dump.vb" />
@@ -470,6 +470,7 @@
     <Compile Include="GridNames.vb" />
     <Compile Include="Help.vb" />
     <Compile Include="IP.vb" />
+    <Compile Include="jOpensim.vb" />
     <Compile Include="My Project\Resources.cz.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -797,6 +798,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Outworldz.pfx" />
     <None Include="Resources\scroll.png" />
     <None Include="Resources\document_text.png" />
     <None Include="Resources\gear_stop.png" />
