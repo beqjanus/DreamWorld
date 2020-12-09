@@ -50,6 +50,7 @@ Public Class FormSetup
     Private Const _MyVersion As String = "3.782"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
+    Public jRev As String = "3.9.23"
 
 #End Region
 
@@ -2307,7 +2308,7 @@ Public Class FormSetup
 
         Log(My.Resources.Info_word, "Public IP=" & Settings.PublicIP)
         TestPublicLoopback()
-        If Settings.DiagFailed Then
+        If Settings.DiagFailed = "False" Then
 
             Using client As New WebClient ' download client for web pages
                 Try
@@ -2316,7 +2317,7 @@ Public Class FormSetup
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                     ErrorLog(My.Resources.Wrong & "@ api.ipify.org")
-                    Settings.DiagFailed = True
+                    Settings.DiagFailed = "True"
                 End Try
             End Using
 
@@ -3413,7 +3414,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Shared Sub SetupDataSnapshot()
+    Private Shared Sub SetupOpensimSearchINI()
 
         'Opensim.Proto RegionSnapShot
         Settings.SetIni("DataSnapshot", "index_sims", "True")
@@ -3425,15 +3426,10 @@ Public Class FormSetup
             Settings.SetIni("DataSnapshot", "data_services", "")
         End If
 
-    End Sub
-
-    Private Shared Sub SetupOpensimSearchINI()
-
-        'Opensim.Proto
-
         If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface"
             Settings.SetIni("Search", "SearchURL", SearchURL)
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
             FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"), True)
             FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"), True)
         ElseIf Settings.JOpensimSearch = Hyperica Then
@@ -3803,7 +3799,7 @@ Public Class FormSetup
         Print("__________")
         Print(My.Resources.Running_Network)
         Logger("INFO", Global.Outworldz.My.Resources.Running_Network, "Diagnostics")
-        Settings.DiagFailed = False
+        Settings.DiagFailed = "False"
 
         OpenPorts() ' Open router ports with UPnp
         ProbePublicPort() ' Probe using Outworldz like Canyouseeme.org does on HTTP port
@@ -3811,7 +3807,7 @@ Public Class FormSetup
         TestPublicLoopback()    ' Http port
         TestAllRegionPorts()    ' All Dos boxes, actually
 
-        If Settings.DiagFailed Then
+        If Settings.DiagFailed = "True" Then
             Logger("Error", Global.Outworldz.My.Resources.Diags_Failed, "Diagnostics")
             Dim answer = MsgBox(My.Resources.Diags_Failed, vbYesNo)
             If answer = vbYes Then
@@ -5645,7 +5641,7 @@ Public Class FormSetup
             Print(My.Resources.Loopback_Failed & " " & Weblink)
             Logger("INFO", Global.Outworldz.My.Resources.Loopback_Failed & " " & Weblink, "Diagnostics")
             Settings.LoopBackDiag = False
-            Settings.DiagFailed = True
+            Settings.DiagFailed = "True"
         End If
 
     End Sub
@@ -5682,7 +5678,7 @@ Public Class FormSetup
             Print(My.Resources.Incoming_Works)
         Else
             Settings.LoopBackDiag = False
-            Settings.DiagFailed = True
+            Settings.DiagFailed = "True"
             Logger("INFO", Global.Outworldz.My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded, "Diagnostics")
             Print(My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded)
         End If
@@ -6446,7 +6442,7 @@ Public Class FormSetup
             Logger("INFO", Global.Outworldz.My.Resources.Failed_LAN & " " & weblink & " result was " & result, "Diagnostics")
             Print(My.Resources.Failed_LAN & " " & weblink)
             Settings.LoopBackDiag = False
-            Settings.DiagFailed = True
+            Settings.DiagFailed = "True"
         End If
 
     End Sub
@@ -6787,7 +6783,7 @@ Public Class FormSetup
         End If
 
         DoDiag()
-        If Settings.DiagFailed = True Then
+        If Settings.DiagFailed = "True" Then
             Print(My.Resources.HG_Failed)
         Else
             Print(My.Resources.HG_Works)

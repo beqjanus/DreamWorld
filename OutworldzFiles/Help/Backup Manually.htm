@@ -13,8 +13,8 @@
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{font-family:"Calibri Light";
-	panose-1:2 15 3 2 2 2 4 3 2 4;}
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -55,15 +55,21 @@ h2
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#1F3763;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	font-weight:normal;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -79,13 +85,13 @@ span.Heading2Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#4472C4;
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Times New Roman",serif;
+	color:#1F3763;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -110,20 +116,29 @@ div.WordSection1
 
 <div class=WordSection1>
 
-<p class=MsoTitle>Backup - Manual Backups</p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1><a name="_Toc58323676">Backup Settings</a></h1>
+
+</div>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><img width=280 height=206 id=image60.png
+src="Backup%20Manually_files/image001.png"></p>
 
 <p class=MsoNormal>A manual backup uses a lot of disk space, but it backs up
 all critical files quickly and in a usable form.   It will save the selected
 items in the AUTOBACKUP folder. <br>
-<img width=251 height=261 id="Picture 1"
-src="Backup%20Manually_files/image001.png"><br>
+<img width=266 height=258 id="Picture 2146235479"
+src="Backup%20Manually_files/image002.jpg"><br>
 <br>
 Some of these boxes may be grayed out or uncheckable because the system has not
 installed that service. </p>
 
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h1>CheckBoxes</h1>
+<h2><span style='color:black'>CheckBoxes</span></h2>
 
 </div>
 
@@ -142,34 +157,31 @@ to backup MySQL.</p>
 <p class=MsoNormal><b>Custom Web Pages</b>: This backs up two folders in
 bin\WifiPages-Custom and WifiPages-Custom in case you have made changes.</p>
 
-<p class=MsoNormal><b>Backup Settings: </b>This copies the Settings.ini. All
-settings come from this file.</p>
-
-<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
-
-<h1>Backup Strategies</h1>
-
-</div>
-
-<p class=MsoNormal>There are multiple kinds of backups. Backups are at the
-region level, or at the grid level, which includes regions.&nbsp; Also remember
-there are always two or more databases on a grid: the grid's robust database,
-and the regions Opensim database. There can be more than one Opensim database,
-as a grid can consists of more than one machine.</p>
-
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
-<h2><span style='color:black'>Region Level OAR</span></h2>
+<h2><span style='color:black'>Backup Strategies</span></h2>
 
 </div>
 
-<p class=MsoNormal>OARs can be made on the fly - look in Content Save Oars and
-you can do them all with one click.&nbsp; You can also set up OARS to be made
+<p class=MsoNormal>There are multiple kinds of backups. Backups are at the region
+level, or at the grid level, which includes regions.&nbsp; Also remember there
+are always two or more databases on a grid: the grid's robust database, and the
+regions Opensim database. There can be more than one Opensim database, as a
+grid can consists of more than one machine.</p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>Region Level OAR</h3>
+
+</div>
+
+<p class=MsoNormal>OARs can be created on the fly - look in Content Save Oars
+and you can do them all with one click.&nbsp; You can also set up OARS to be created
 on a schedule. - 24 hours is an excellent choice.</p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
 
-<h2><span style='color:black'>Grid level IAR</span></h2>
+<h3>Grid level IAR</h3>
 
 </div>
 
@@ -177,43 +189,28 @@ on a schedule. - 24 hours is an excellent choice.</p>
 need the password.&nbsp;&nbsp; But you should make them on occasion
 anyway.&nbsp; Just in case. They take a long time and can lag a grid when
 running.&nbsp; If you are on OsGrid or Metro, I HIGHLY RECOMMEND you get an IAR
-backup often!&nbsp; I have at different times lost data at both grids.</p>
+backup often!&nbsp; I have at different times lost data at both these major grids.</p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
 
-<h2><span style='color:black'>Grid level SQL</span></h2>
+<h3>Grid level SQL</h3>
 
 </div>
 
 <p class=MsoNormal>SQL backup is also slow, but very thorough. It saves outfits,
-logins, and usernames. Basically, everything but region UUID's and
-settings.&nbsp; With this you can fix problems in MySQL that are known to
-develop.&nbsp;&nbsp; This is sort of a monthly thing to do.</p>
+logins, and usernames; everything but region UUID's and settings.&nbsp; With
+this you can fix problems in MySQL that are known to develop.&nbsp;&nbsp; This
+is sort of a monthly thing to do.</p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
 
-<h2><span style='color:black'>Grid Level Copies</span></h2>
-
-</div>
-
-<p class=MsoNormal>A smaller and quicker way to back up the entire grid is to
-run the very last backup option.&nbsp; It makes a copy of the database, Regions
-files, the custom Wi-Fi pages, if any, and the Settings.ini. This is all you
-need to recreate a grid.&nbsp; I do this on weekends.</p>
-
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
-
-<h2><span style='color:black'>UUID</span></h2>
+<h3><a name="_Toc58323685">UUID:</a></h3>
 
 </div>
 
 <p class=MsoNormal>Keep a copy of your UUID, too. This is available in your
 Profile.  If you must start over, at least your new avatars will have the same
-UUID and will owe everything you created.</p>
-
-<p class=MsoNormal>&nbsp;</p>
-
-<p class=MsoNormal>&nbsp;</p>
+UUID and will own everything you created.</p>
 
 </div>
 

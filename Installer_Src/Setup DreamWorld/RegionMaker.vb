@@ -605,7 +605,7 @@ Public Class RegionMaker
         & "; Rule2: Only one region per INI file." & vbCrLf _
         & ";" & vbCrLf _
         & "[" & name & "]" & vbCrLf _
-        & "uuid = " & RegionUUID(uuid) & vbCrLf _
+        & "RegionUUID = " & RegionUUID(uuid) & vbCrLf _
         & "Location = " & CoordX(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
         & "InternalPort = " & RegionPort(uuid) & vbCrLf _

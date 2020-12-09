@@ -733,7 +733,7 @@ Public Class MySettings
             Dim var = GetMySetting("CMS", DreamGrid)
             If var = "Joomla" Then var = JOpensim
             Dim installed As Boolean = Joomla.IsjOpensimInstalled()
-            If Not installed & Settings.JOpensimSearch = JOpensim Then
+            If (Not installed) & Settings.JOpensimSearch = JOpensim Then
                 Return DreamGrid
             End If
             Return var
@@ -848,12 +848,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property DiagFailed() As Boolean
+    Public Property DiagFailed() As String
         Get
-            Return CType(GetMySetting("DiagFailed"), Boolean)
+            Return GetMySetting("DiagFailed", "False")
         End Get
         Set
-            SetMySetting("DiagFailed", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("DiagFailed", Value)
         End Set
     End Property
 
