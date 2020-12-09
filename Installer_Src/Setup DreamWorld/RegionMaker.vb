@@ -1823,7 +1823,7 @@ Public Class RegionMaker
 
         Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
         Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("AutoBackupModule", "AutoBackupDir", FormSetup.BackupPath())
+        Settings.SetIni("AutoBackupModule", "AutoBackupDir", Backups.BackupPath())
 
         If FormSetup.PropRegionClass.MapType(uuid) = "Simple" Then
             Settings.SetIni("Map", "GenerateMaptiles", "True")

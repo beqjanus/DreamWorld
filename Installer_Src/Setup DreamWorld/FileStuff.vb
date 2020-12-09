@@ -2,16 +2,7 @@
 
 Module FileStuff
 
-    Public Function AutoBackupPath() As String
-        Dim Filename As String
-        If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
-            Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\AutoBackup\")
-        Else
-            Filename = Settings.BackupFolder
-        End If
-        Return Filename
 
-    End Function
 
     Sub CopyFile(source As String, dest As String, overwrite As Boolean)
 

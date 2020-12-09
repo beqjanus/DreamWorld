@@ -1028,33 +1028,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Function BackupPath() As String
 
-        'Autobackup must exist. if not create it
-        ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
-            BackupPath = PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
-            If Not Directory.Exists(BackupPath) Then
-                MkDir(BackupPath)
-            End If
-        Else
-            BackupPath = Settings.BackupFolder & "/"
-            BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
-
-            If Not Directory.Exists(BackupPath) Then
-                BackupPath = PropCurSlashDir & "/OutworldzFiles/Autobackup/"
-
-                If Not Directory.Exists(BackupPath) Then
-                    MkDir(BackupPath)
-                End If
-
-                MsgBox(My.Resources.Autobackup_cannot_be_located & BackupPath)
-                Settings.BackupFolder = "AutoBackup"
-                Settings.SaveSettings()
-            End If
-        End If
-
-    End Function
 
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
@@ -7347,7 +7321,7 @@ Public Class FormSetup
 
         Dim AutoOARs As Array = Nothing
         Try
-            AutoOARs = Directory.GetFiles(FileStuff.AutoBackupPath(), "*.OAR", SearchOption.TopDirectoryOnly)
+            AutoOARs = Directory.GetFiles(Backups.BackupPath(), "*.OAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -7406,7 +7380,7 @@ Public Class FormSetup
 
         Dim AutoIARs As Array = Nothing
         Try
-            AutoIARs = Directory.GetFiles(FileStuff.AutoBackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
+            AutoIARs = Directory.GetFiles(Backups.BackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -7433,7 +7407,7 @@ Public Class FormSetup
 
     Private Sub LoadIarClick(sender As Object, e As EventArgs) ' event handler
 
-        Dim File As String = IO.Path.Combine(FileStuff.AutoBackupPath, CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(Backups.BackupPath, CStr(sender.Text)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
@@ -7442,7 +7416,7 @@ Public Class FormSetup
 
     Private Sub LoadOarClick(sender As Object, e As EventArgs) ' event handler
 
-        Dim File As String = IO.Path.Combine(FileStuff.AutoBackupPath, CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(Backups.BackupPath, CStr(sender.Text)) 'make a real URL
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If

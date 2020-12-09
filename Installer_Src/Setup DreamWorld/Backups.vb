@@ -63,7 +63,34 @@ Module Backups
         _Busy = False
 
     End Sub
+    Public Function BackupPath() As String
 
+        'Autobackup must exist. if not create it
+        ' if they set the folder somewhere else, it may have been deleted, so reset it to default
+        If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
+            BackupPath = FormSetup.PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
+            If Not Directory.Exists(BackupPath) Then
+                MkDir(BackupPath)
+            End If
+        Else
+            BackupPath = Settings.BackupFolder & "/"
+            BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
+
+            If Not Directory.Exists(BackupPath) Then
+                BackupPath = FormSetup.PropCurSlashDir & "/OutworldzFiles/Autobackup/"
+
+                If Not Directory.Exists(BackupPath) Then
+                    MkDir(BackupPath)
+                End If
+
+                MsgBox(My.Resources.Autobackup_cannot_be_located & BackupPath)
+                Settings.BackupFolder = BackupPath
+                Settings.SaveSettings()
+            End If
+        End If
+        Return BackupPath
+
+    End Function
     Public Sub RunSQLBackup(OP As Object)
 
         Dim Name As String = OP.ToString
@@ -74,7 +101,7 @@ Module Backups
 
         Dim what = Name & "_" & whenrun & ".sql"
         ' used to zip it, zip if good
-        _folder = Settings.CurrentDirectory & "\OutworldzFiles\" & Settings.BackupFolder
+        _folder = Settings.BackupFolder
         _filename = what
 
         ' make sure this is empty as we use it again and might have crashed
@@ -108,7 +135,7 @@ Module Backups
         Dim options = " --host=" & host & " --port=" & port _
         & " --opt --hex-blob --add-drop-table --allow-keywords  -uroot " _
         & " --verbose --log-error=Mysqldump.log " _
-        & " --result-file=" & """" & Settings.CurrentDirectory & "\OutworldzFiles\" & Settings.BackupFolder & "\tmp\" & what & """" _
+        & " --result-file=" & """" & Settings.BackupFolder & "\tmp\" & what & """" _
         & " " & Name
         Debug.Print(options)
         '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
@@ -183,14 +210,14 @@ Module Backups
         ' delete old files
         originalBoottime = _startDate
 
-        Dim directory As New System.IO.DirectoryInfo(FileStuff.AutoBackupPath)
+        Dim directory As New System.IO.DirectoryInfo(Backups.BackupPath)
         Dim File As System.IO.FileInfo() = directory.GetFiles()
         Dim File1 As System.IO.FileInfo
 
         ' get each file's last modified date
         For Each File1 In File
             If File1.Name.StartsWith("Full_Backup_", StringComparison.InvariantCultureIgnoreCase) Then
-                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(FileStuff.AutoBackupPath & "\" & File1.Name)
+                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(Backups.BackupPath & "\" & File1.Name)
                 strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
                 Dim y = DateTime.Compare(currentdatetime, strLastModified)
                 If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
@@ -207,31 +234,31 @@ Module Backups
 
         If Settings.BackupMysql Then
             Try
-                My.Computer.FileSystem.CreateDirectory(FileStuff.AutoBackupPath)
-                My.Computer.FileSystem.CreateDirectory(FileStuff.AutoBackupPath + "\Opensim_bin_Regions")
+                My.Computer.FileSystem.CreateDirectory(Backups.BackupPath)
+                My.Computer.FileSystem.CreateDirectory(Backups.BackupPath & "\Opensim_bin_Regions")
             Catch ex As Exception
             End Try
 
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), IO.Path.Combine(FileStuff.AutoBackupPath, "Opensim_bin_Regions"))
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), IO.Path.Combine(Backups.BackupPath, "Opensim_bin_Regions"))
             Application.DoEvents()
 
         End If
 
         If Settings.BackupMysql Then
             Try
-                My.Computer.FileSystem.CreateDirectory(FileStuff.AutoBackupPath)
-                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(FileStuff.AutoBackupPath, "Mysql_Data"))
+                My.Computer.FileSystem.CreateDirectory(Backups.BackupPath)
+                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Backups.BackupPath, "Mysql_Data"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
-            FileStuff.CopyFolder(IO.Path.Combine(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data\")), IO.Path.Combine(FileStuff.AutoBackupPath, "Mysql_Data"))
+            FileStuff.CopyFolder(IO.Path.Combine(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data\")), IO.Path.Combine(Backups.BackupPath, "Mysql_Data"))
             Application.DoEvents()
         End If
 
         If Settings.BackupFSAssets Then
             Try
-                My.Computer.FileSystem.CreateDirectory(FileStuff.AutoBackupPath)
-                My.Computer.FileSystem.CreateDirectory(FileStuff.AutoBackupPath + "\FSAssets")
+                My.Computer.FileSystem.CreateDirectory(Backups.BackupPath)
+                My.Computer.FileSystem.CreateDirectory(Backups.BackupPath + "\FSAssets")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -242,33 +269,33 @@ Module Backups
             Else
                 folder = Settings.BaseDirectory
             End If
-            FileStuff.CopyFolder(folder, IO.Path.Combine(FileStuff.AutoBackupPath, "FSAssets"))
+            FileStuff.CopyFolder(folder, IO.Path.Combine(Backups.BackupPath, "FSAssets"))
             Application.DoEvents()
         End If
 
         If Settings.BackupWifi Then
             Try
-                My.Computer.FileSystem.CreateDirectory(FileStuff.AutoBackupPath)
-                My.Computer.FileSystem.CreateDirectory(FileStuff.AutoBackupPath + "\Opensim_WifiPages-Custom")
-                My.Computer.FileSystem.CreateDirectory(FileStuff.AutoBackupPath + "\Opensim_bin_WifiPages-Custom")
+                My.Computer.FileSystem.CreateDirectory(Backups.BackupPath)
+                My.Computer.FileSystem.CreateDirectory(Backups.BackupPath + "\Opensim_WifiPages-Custom")
+                My.Computer.FileSystem.CreateDirectory(Backups.BackupPath + "\Opensim_bin_WifiPages-Custom")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages\"), IO.Path.Combine(FileStuff.AutoBackupPath, "Opensim_WifiPages-Custom"))
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\"), IO.Path.Combine(FileStuff.AutoBackupPath, "Opensim_bin_WifiPages-Custom"))
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages\"), IO.Path.Combine(Backups.BackupPath, "Opensim_WifiPages-Custom"))
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\"), IO.Path.Combine(Backups.BackupPath, "Opensim_bin_WifiPages-Custom"))
             Application.DoEvents()
         End If
 
-        FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(FileStuff.AutoBackupPath, "Settings.ini"), True)
+        FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(Backups.BackupPath, "Settings.ini"), True)
 
-        Dim Bak = Settings.CurrentDirectory & "\OutworldzFiles\" & Settings.BackupFolder & "\" & Foldername & ".zip"
+        Dim Bak = Settings.BackupFolder & "\" & Foldername & ".zip"
         Dim counter As Integer = 10
         While counter > 0
             Try
                 FileStuff.DeleteFile(Bak)
-                ZipFile.CreateFromDirectory(FileStuff.AutoBackupPath, Bak, CompressionLevel.Optimal, False)
+                ZipFile.CreateFromDirectory(Backups.BackupPath, Bak, CompressionLevel.Optimal, False)
                 Thread.Sleep(1000)
-                FileStuff.DeleteDirectory(FileStuff.AutoBackupPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                FileStuff.DeleteDirectory(Backups.BackupPath, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 counter = 0
             Catch
                 counter -= 1
