@@ -50,7 +50,7 @@ Public Class FormSetup
     Private Const _MyVersion As String = "3.782"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
-    Public jRev As String = "3.9.23"
+    Private _jRev As String = "3.9.23"
 
 #End Region
 
@@ -599,6 +599,15 @@ Public Class FormSetup
         End Set
     End Property
 
+    Public Property JRev As String
+        Get
+            Return _jRev
+        End Get
+        Set(value As String)
+            _jRev = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Public Shared"
@@ -1027,8 +1036,6 @@ Public Class FormSetup
         Backups.SQLBackup()
 
     End Sub
-
-
 
     Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
