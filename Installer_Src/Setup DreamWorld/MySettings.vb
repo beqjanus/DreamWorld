@@ -910,21 +910,21 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property FirstRemoteAdminPort() As String
+    Public Property FirstRemoteAdminPort() As Integer
         Get
-            Return GetMySetting("FirstRemoteAdminPort", CStr(FirstRegionPort + 500 - 4))
+            Return CInt(GetMySetting("FirstRemoteAdminPort", "0"))
         End Get
         Set
-            SetMySetting("FirstRemoteAdminPort", Value)
+            SetMySetting("FirstRemoteAdminPort", CStr(Value))
         End Set
     End Property
 
-    Public Property FirstXMLRegionPort() As String
+    Public Property FirstXMLRegionPort() As Integer
         Get
-            Return GetMySetting("XMLRegionStartPort", CStr(FirstRegionPort + 250 - 4))
+            Return CInt("0" & GetMySetting("XMLRegionStartPort", "0"))
         End Get
         Set
-            SetMySetting("XMLRegionStartPort", Value)
+            SetMySetting("XMLRegionStartPort", CStr(Value))
         End Set
     End Property
 
