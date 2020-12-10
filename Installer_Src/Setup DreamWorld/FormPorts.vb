@@ -116,16 +116,13 @@ Public Class FormPorts
         PrivatePort.Text = CStr(Settings.PrivatePort)
         HTTPPort.Text = CStr(Settings.HttpPort)
 
-        ' only used for region servers
+        ' only used for region servers that are not behind a NAT
         ExternalHostName.Text = Settings.OverrideName
-
         If Settings.ServerType <> "Robust" Then
-            OverrideNameLabel.Visible = True
-            ExternalHostName.Visible = True
+            ExternalHostName.Enabled = True
         Else
-            ExternalHostName.Visible = False
-            OverrideNameLabel.Visible = False
             ExternalHostName.Text = ""
+            ExternalHostName.Enabled = False
         End If
 
         HelpOnce("Ports")

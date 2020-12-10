@@ -66,34 +66,34 @@ Module Backups
         _Busy = False
 
     End Sub
+
     Public Function BackupPath() As String
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
         If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
             BackupPath = FormSetup.PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
+            Settings.BackupFolder = BackupPath
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
             End If
         Else
-            BackupPath = Settings.BackupFolder & "/"
+            BackupPath = Settings.BackupFolder
             BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
-
+            Settings.BackupFolder = BackupPath
             If Not Directory.Exists(BackupPath) Then
                 BackupPath = FormSetup.PropCurSlashDir & "/OutworldzFiles/Autobackup/"
-
                 If Not Directory.Exists(BackupPath) Then
                     MkDir(BackupPath)
                 End If
-
                 MsgBox(My.Resources.Autobackup_cannot_be_located & BackupPath)
-                Settings.BackupFolder = BackupPath
-                Settings.SaveSettings()
             End If
+            Settings.SaveSettings()
         End If
         Return BackupPath
 
     End Function
+
     Public Sub RunSQLBackup(OP As Object)
 
         Dim Name As String = OP.ToString
@@ -104,7 +104,7 @@ Module Backups
 
         Dim what = Name & "_" & whenrun & ".sql"
         ' used to zip it, zip if good
-        _folder = Settings.BackupFolder
+        _folder = Backups.BackupPath
         _filename = what
 
         ' make sure this is empty as we use it again and might have crashed
@@ -144,13 +144,12 @@ Module Backups
             dbname = Settings.RegionDBName
         End If
 
-
         Dim options = " --host=" & host & " --port=" & port _
         & " --opt --hex-blob --add-drop-table --allow-keywords  " _
         & " -u" & user _
         & " -p" & password _
         & " --verbose --log-error=Mysqldump.log " _
-        & " --result-file=" & """" & Settings.BackupFolder & "\tmp\" & what & """" _
+        & " --result-file=" & """" & Backups.BackupPath & "\tmp\" & what & """" _
         & " " & dbname
         Debug.Print(options)
         '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
@@ -260,7 +259,6 @@ Module Backups
 
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
 
-
         Dim Destination = IO.Path.Combine(Backups.BackupPath, Foldername)
         If Settings.BackupMysql Then
             Try
@@ -314,7 +312,7 @@ Module Backups
 
         FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(Destination, "Settings.ini"), True)
 
-        Dim Bak = Settings.BackupFolder & "\" & Foldername & ".zip"
+        Dim Bak = Backups.BackupPath & "\" & Foldername & ".zip"
         Dim counter As Integer = 10
         While counter > 0
             Try
@@ -323,7 +321,7 @@ Module Backups
                 Thread.Sleep(1000)
                 FileStuff.DeleteDirectory(Destination, FileIO.DeleteDirectoryOption.DeleteAllContents)
                 counter = 0
-            Catch ex As exception
+            Catch ex As Exception
                 counter -= 1
             End Try
         End While

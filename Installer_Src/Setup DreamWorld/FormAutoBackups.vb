@@ -117,7 +117,7 @@ Public Class FormAutoBackups
             AutoBackupInterval.SelectedIndex = 1
         End If
 
-        BaseFolder.Text = Settings.BackupFolder
+        BaseFolder.Text = Backups.BackupPath
         AutoBackup.Checked = Settings.AutoBackup
         HelpOnce("Backup")
         SetScreen()

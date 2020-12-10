@@ -65,23 +65,23 @@ Public Class FormCaches
 
     Private Sub B_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        If CheckBox1.Checked Then
+        If ScriptCheckBox1.Checked Then
             ClrCache.WipeScripts()
         End If
 
-        If CheckBox2.Checked Then
+        If AvatarCheckBox2.Checked Then
             ClrCache.WipeBakes()
         End If
 
-        If CheckBox3.Checked Then
+        If AssetCheckBox3.Checked Then
             ClrCache.WipeAssets()
         End If
 
-        If CheckBox4.Checked Then
+        If ImageCheckBox4.Checked Then
             ClrCache.WipeImage()
         End If
 
-        If CheckBox5.Checked Then
+        If MeshCheckBox5.Checked Then
             ClrCache.WipeMesh()
         End If
 
@@ -123,11 +123,11 @@ Public Class FormCaches
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Button1.Text = Global.Outworldz.My.Resources.Resources.Clear_Selected_Caches_word
-        CheckBox1.Text = Global.Outworldz.My.Resources.Resources.Script_cache_word
-        CheckBox2.Text = Global.Outworldz.My.Resources.Resources.Avatar_Bakes_Cache_word
-        CheckBox3.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache_word
-        CheckBox4.Text = Global.Outworldz.My.Resources.Resources.Image_Cache_word
-        CheckBox5.Text = Global.Outworldz.My.Resources.Resources.Mesh_Cache_word
+        ScriptCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Script_cache_word
+        AvatarCheckBox2.Text = Global.Outworldz.My.Resources.Resources.Avatar_Bakes_Cache_word
+        AssetCheckBox3.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache_word
+        ImageCheckBox4.Text = Global.Outworldz.My.Resources.Resources.Image_Cache_word
+        MeshCheckBox5.Text = Global.Outworldz.My.Resources.Resources.Mesh_Cache_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Choose_Cache ' "Choose which cache to empty"
         GroupBox2.Text = Global.Outworldz.My.Resources.Asset_Cache_word
         GroupBox3.Text = Global.Outworldz.My.Resources.Viewer_Cache_word
@@ -154,22 +154,22 @@ Public Class FormCaches
         SetScreen()
 
         If Not FormSetup.PropOpensimIsRunning() Then
-            CheckBox1.Enabled = True
-            CheckBox2.Enabled = True
+            ScriptCheckBox1.Enabled = True
+            AvatarCheckBox2.Enabled = True
 
-            CheckBox1.Checked = True
-            CheckBox2.Checked = True
-            CheckBox3.Checked = True
-            CheckBox4.Checked = True
-            CheckBox5.Checked = True
+            ScriptCheckBox1.Checked = True
+            AvatarCheckBox2.Checked = True
+            AssetCheckBox3.Checked = True
+            ImageCheckBox4.Checked = True
+            MeshCheckBox5.Checked = True
         Else
-            CheckBox1.Enabled = False
-            CheckBox2.Enabled = False
-            CheckBox1.Checked = False
-            CheckBox2.Checked = False
-            CheckBox3.Checked = True
-            CheckBox4.Checked = True
-            CheckBox5.Checked = True
+            ScriptCheckBox1.Enabled = False
+            AvatarCheckBox2.Enabled = False
+            ScriptCheckBox1.Checked = False
+            AvatarCheckBox2.Checked = False
+            AssetCheckBox3.Checked = True
+            ImageCheckBox4.Checked = True
+            MeshCheckBox5.Checked = True
         End If
         HelpOnce("Flotsam Cache")
 
@@ -237,6 +237,7 @@ Public Class FormCaches
         Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
     End Sub
+
 
 #End Region
 
