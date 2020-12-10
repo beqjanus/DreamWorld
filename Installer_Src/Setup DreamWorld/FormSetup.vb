@@ -47,7 +47,7 @@ Public Class FormSetup
     Private Const Hyperica As String = "Hyperica"
 
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.782"
+    Private Const _MyVersion As String = "3.81"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private _jRev As String = "3.9.23"
@@ -56,7 +56,7 @@ Public Class FormSetup
 
 #Region "Declarations"
 
-    Public CounterList As New Dictionary(Of String, PerformanceCounter)
+    Private _counterList As New Dictionary(Of String, PerformanceCounter)
     Private OpensimProcesses() As Process
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
@@ -607,6 +607,15 @@ Public Class FormSetup
         End Get
         Set(value As String)
             _jRev = value
+        End Set
+    End Property
+
+    Public Property CounterList As Dictionary(Of String, PerformanceCounter)
+        Get
+            Return _counterList
+        End Get
+        Set(value As Dictionary(Of String, PerformanceCounter))
+            _counterList = value
         End Set
     End Property
 
@@ -3363,7 +3372,7 @@ Public Class FormSetup
         If Settings.BirdsModuleStartup Then
             Try
                 If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.dll") Then
-                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.dll.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
+                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
@@ -6493,35 +6502,19 @@ Public Class FormSetup
 
         OpensimProcesses = Process.GetProcessesByName("Opensim")
 
-    End Sub
-
-    Private Sub StartRun()
-
         For Each p As Process In OpensimProcesses
             Dim counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
 
             Dim Group As String = ""
             If PropRegionHandles.ContainsKey(p.Id) Then
                 Group = PropRegionHandles.Item(p.Id)
+                counter.NextValue() ' start the counter
             End If
 
-            counter.NextValue()
             If Not CounterList.ContainsKey(Group) Then
                 CounterList.Add(Group, counter)
             End If
         Next
-
-    End Sub
-
-    Private Sub GetCPUValue()
-
-        '  For Each counterkeypair In CounterList
-        ' Try
-        'Dim cpu = counterkeypair.Value.NextValue() / CDbl(Environment.ProcessorCount)
-        'Console.WriteLine(counterkeypair.Key & " -  Cpu: " & CStr(cpu))
-        'Catch
-        'End Try
-        'Next
 
     End Sub
 
@@ -6559,11 +6552,8 @@ Public Class FormSetup
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
         End If
 
-        GetCPUValue() ' show the results
-
         If PropDNSSTimer Mod 10 = 0 Then
             CalcCPU() ' get a list of running opensim processes
-            StartRun() ' set up counters
         End If
 
         If PropDNSSTimer Mod 60 = 0 Then

@@ -15,7 +15,7 @@ Module CPUCOunter
         Dim process = GetProcessById(processId)
         Dim processName As String = IO.Path.GetFileNameWithoutExtension(process.ProcessName)
         Dim cat As PerformanceCounterCategory = New PerformanceCounterCategory("Process")
-        Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith(processName)).ToArray()
+        Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith(processName, System.StringComparison.InvariantCultureIgnoreCase)).ToArray()
 
         For Each instance As String In instances
 
