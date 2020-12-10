@@ -94,7 +94,7 @@ Partial Class FormDatabase
         Me.ClearRegionTable.Location = New System.Drawing.Point(21, 206)
         Me.ClearRegionTable.Margin = New System.Windows.Forms.Padding(4)
         Me.ClearRegionTable.Name = "ClearRegionTable"
-        Me.ClearRegionTable.Size = New System.Drawing.Size(134, 29)
+        Me.ClearRegionTable.Size = New System.Drawing.Size(226, 29)
         Me.ClearRegionTable.TabIndex = 1886
         Me.ClearRegionTable.Text = Global.Outworldz.My.Resources.Resources.ClearRegion
         Me.ClearRegionTable.UseVisualStyleBackColor = True
@@ -222,7 +222,7 @@ Partial Class FormDatabase
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(21, 212)
+        Me.Label3.Location = New System.Drawing.Point(185, 212)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(102, 17)
@@ -231,7 +231,7 @@ Partial Class FormDatabase
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(122, 206)
+        Me.Button1.Location = New System.Drawing.Point(33, 206)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(134, 29)
@@ -405,21 +405,21 @@ Partial Class FormDatabase
         '
         Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
-        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(145, 26)
         Me.StartToolStripMenuItem.Text = "Start"
         '
         'StopToolStripMenuItem
         '
         Me.StopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_stop
         Me.StopToolStripMenuItem.Name = "StopToolStripMenuItem"
-        Me.StopToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.StopToolStripMenuItem.Size = New System.Drawing.Size(145, 26)
         Me.StopToolStripMenuItem.Text = "Stop"
         '
         'ConsoleToolStripMenuItem
         '
         Me.ConsoleToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_text
         Me.ConsoleToolStripMenuItem.Name = "ConsoleToolStripMenuItem"
-        Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(145, 26)
         Me.ConsoleToolStripMenuItem.Text = "Console"
         '
         'FormDatabase
