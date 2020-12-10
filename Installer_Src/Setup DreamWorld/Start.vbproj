@@ -256,6 +256,7 @@
     <Compile Include="Backups.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="Clear_Cache.vb" />
+    <Compile Include="CPUCounter.vb" />
     <Compile Include="Dump.vb" />
     <Compile Include="FileStuff.vb" />
     <Compile Include="Firewall.vb" />

@@ -374,6 +374,9 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 80), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
+        ListView1.Columns.Add(My.Resources.CPU_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 60), HorizontalAlignment.Center)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
+        ctr += 1
         ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
@@ -632,11 +635,20 @@ Public Class FormRegionlist
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
                             item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
                         Catch ex As Exception
-                            item1.SubItems.Add("0".ToUpperInvariant)
+                            item1.SubItems.Add("0")
                         End Try
                     Else
-                        item1.SubItems.Add("0".ToUpperInvariant)
+                        item1.SubItems.Add("0")
                     End If
+
+                    Dim cpupercent As Single = 0
+                    Dim p As PerformanceCounter = Nothing
+                    If FormSetup.CounterList.TryGetValue(Groupname, p) Then
+                        cpupercent = p.NextValue() / Environment.ProcessorCount
+                    Else
+                        cpupercent = 0
+                    End If
+                    item1.SubItems.Add(CStr(cpupercent))
 
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
@@ -656,7 +668,6 @@ Public Class FormRegionlist
                     item1.SubItems.Add(FormSetup.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.XmlRegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-
 
                     'Scripts XEngine or YEngine
                     Select Case FormSetup.PropRegionClass.ScriptEngine(RegionUUID)
@@ -959,7 +970,7 @@ Public Class FormRegionlist
 
             Dim Index = 0
 
-            ' Create items and subitems for each item.
+            ' Create items and sub items for each item.
             Dim L As New Dictionary(Of String, String)
 
             If MysqlInterface.IsMySqlRunning() Then

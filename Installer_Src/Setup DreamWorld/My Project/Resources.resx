@@ -3084,4 +3084,8 @@
   <data name="Remote_Admin_word" xml:space="preserve">
     <value>RemoteAdmin</value>
   </data>
+  <data name="CPU_word" xml:space="preserve">
+    <value>CPU %</value>
+    <comment>new</comment>
+  </data>
 </root>

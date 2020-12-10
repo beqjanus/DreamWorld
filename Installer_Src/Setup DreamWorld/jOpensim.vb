@@ -9,7 +9,7 @@
         Catch
         End Try
 
-        Return count > 1
+        Return count > 2
 
     End Function
 

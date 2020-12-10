@@ -56,6 +56,8 @@ Public Class FormSetup
 
 #Region "Declarations"
 
+    Public CounterList As New Dictionary(Of String, PerformanceCounter)
+    Private OpensimProcesses() As Process
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -6487,6 +6489,42 @@ Public Class FormSetup
 
 #Region "Timer"
 
+    Private Sub CalcCPU()
+
+        OpensimProcesses = Process.GetProcessesByName("Opensim")
+
+    End Sub
+
+    Private Sub StartRun()
+
+        For Each p As Process In OpensimProcesses
+            Dim counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
+
+            Dim Group As String = ""
+            If PropRegionHandles.ContainsKey(p.Id) Then
+                Group = PropRegionHandles.Item(p.Id)
+            End If
+
+            counter.NextValue()
+            If Not CounterList.ContainsKey(Group) Then
+                CounterList.Add(Group, counter)
+            End If
+        Next
+
+    End Sub
+
+    Private Sub GetCPUValue()
+
+        '  For Each counterkeypair In CounterList
+        ' Try
+        'Dim cpu = counterkeypair.Value.NextValue() / CDbl(Environment.ProcessorCount)
+        'Console.WriteLine(counterkeypair.Key & " -  Cpu: " & CStr(cpu))
+        'Catch
+        'End Try
+        'Next
+
+    End Sub
+
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
@@ -6521,7 +6559,15 @@ Public Class FormSetup
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
         End If
 
+        GetCPUValue() ' show the results
+
+        If PropDNSSTimer Mod 10 = 0 Then
+            CalcCPU() ' get a list of running opensim processes
+            StartRun() ' set up counters
+        End If
+
         If PropDNSSTimer Mod 60 = 0 Then
+
             ScanAgents() ' update agent count  seconds
             Application.DoEvents()
             RegionListHTML() ' create HTML for older 2.4 region teleport

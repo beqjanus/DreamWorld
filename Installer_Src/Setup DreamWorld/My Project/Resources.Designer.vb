@@ -1874,6 +1874,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to CPU %.
+        '''</summary>
+        Friend ReadOnly Property CPU_word() As String
+            Get
+                Return ResourceManager.GetString("CPU_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Create Production Account.
         '''</summary>
         Friend ReadOnly Property Create_Account() As String
