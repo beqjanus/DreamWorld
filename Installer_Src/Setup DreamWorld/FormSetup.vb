@@ -1050,8 +1050,11 @@ Public Class FormSetup
         DoOpensimProtoINI()
         DoGloebits()
 
-        Timer1.Interval = 1000
-        Timer1.Start() 'Timer starts functioning
+        If Not Timer1.Enabled Then
+            Timer1.Interval = 1000
+            Timer1.Start() 'Timer starts functioning
+        End If
+
         PropOpensimIsRunning() = True
 
         If PropAborting Then Return True
@@ -2708,9 +2711,11 @@ Public Class FormSetup
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
-                Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID))
-                Application.DoEvents()
+                If Not Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID)) Then
+                    Exit For
+                End If
             End If
+            Application.DoEvents()
         Next
 
         Return True
