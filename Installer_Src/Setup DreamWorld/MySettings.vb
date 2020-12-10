@@ -274,6 +274,14 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+    Public Property BackupOARs() As Boolean
+        Get
+            Return CType(GetMySetting("BackupOARs", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupOARs", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
 
     Public Property BackupWifi() As Boolean
         Get

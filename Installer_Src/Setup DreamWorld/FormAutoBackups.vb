@@ -65,8 +65,6 @@ Public Class FormAutoBackups
         BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_word
         DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_yellow
         DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Export_SQL_file_word
-        FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
-        FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Data_Files_word
         GroupBox3.Text = Global.Outworldz.My.Resources.Auto_Backup_word
         Label6.Text = Global.Outworldz.My.Resources.Backup_Folder
         Label8.Text = Global.Outworldz.My.Resources.Interval_word
@@ -233,7 +231,7 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
+    Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim CriticalForm = New FormBackupCheckboxes
@@ -252,6 +250,19 @@ Public Class FormAutoBackups
 
     Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
         HelpManual("Backup")
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim CriticalForm As New FormBackupCheckboxes
+#Enable Warning CA2000 ' Dispose objects before losing scope
+
+        CriticalForm.Activate()
+        CriticalForm.Visible = True
+        CriticalForm.Select()
+        CriticalForm.BringToFront()
+
     End Sub
 
 #End Region

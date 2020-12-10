@@ -22,6 +22,7 @@
 
 Public Class FormBackupCheckboxes
 
+    Private initted As Boolean
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
@@ -70,6 +71,24 @@ Public Class FormBackupCheckboxes
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Region
         Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
 
+        HelpOnce("Backup Manually")
+
+        If Settings.FsAssetsEnabled Then
+            FSAssetsCheckBox.Enabled = True
+            FSAssetsCheckBox.Checked = True
+        Else
+            FSAssetsCheckBox.Enabled = False
+            FSAssetsCheckBox.Checked = False
+        End If
+
+        RegionCheckBox.Checked = Settings.BackupRegion
+        MySqlCheckBox.Checked = Settings.BackupMysql
+        FSAssetsCheckBox.Checked = Settings.BackupFSAssets
+        CustomCheckBox.Checked = Settings.BackupWifi
+        BackupOarsCheckBox.Checked = Settings.BackupOARs
+
+        initted = True
+
     End Sub
 
     Private Shared Sub CpyFile(From As String, Dest As String)
@@ -107,29 +126,14 @@ Public Class FormBackupCheckboxes
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Button1.Text = My.Resources.Running_word
-        Backups.RunBackups()
+        Backups.RunBackups(True)
         Application.DoEvents()
         Threading.Thread.Sleep(2000)
         Me.Close()
 
     End Sub
 
-    Private Sub FormCritical_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        HelpOnce("Backup Manually")
-
-        MySqlCheckBox.Enabled = True
-        MySqlCheckBox.Checked = True
-
-        If Settings.FsAssetsEnabled Then
-            FSAssetsCheckBox.Enabled = True
-            FSAssetsCheckBox.Checked = True
-        Else
-            FSAssetsCheckBox.Enabled = False
-            FSAssetsCheckBox.Checked = False
-        End If
-
-    End Sub
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
@@ -139,13 +143,15 @@ Public Class FormBackupCheckboxes
 
     Private Sub RegionCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RegionCheckBox.CheckedChanged
 
-        Settings.BackupMysql = RegionCheckBox.Checked
+        If Not initted Then Return
+        Settings.BackupRegion = RegionCheckBox.Checked
         Settings.SaveSettings()
 
     End Sub
 
     Private Sub MySqlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles MySqlCheckBox.CheckedChanged
 
+        If Not initted Then Return
         Settings.BackupMysql = RegionCheckBox.Checked
         Settings.SaveSettings()
 
@@ -153,6 +159,7 @@ Public Class FormBackupCheckboxes
 
     Private Sub FSAssetsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles FSAssetsCheckBox.CheckedChanged
 
+        If Not initted Then Return
         Settings.BackupFSAssets = FSAssetsCheckBox.Checked
         Settings.SaveSettings()
 
@@ -160,7 +167,16 @@ Public Class FormBackupCheckboxes
 
     Private Sub CustomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CustomCheckBox.CheckedChanged
 
-        Settings.BackupFSAssets = CustomCheckBox.Checked
+        If Not initted Then Return
+        Settings.BackupWifi = CustomCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles BackupOarsCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupOARS = BackupOarsCheckBox.Checked
         Settings.SaveSettings()
 
     End Sub

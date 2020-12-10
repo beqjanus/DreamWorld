@@ -32,12 +32,14 @@ Partial Class FormBackupCheckboxes
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackupOarsCheckBox = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.BackupOarsCheckBox)
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.CustomCheckBox)
         Me.GroupBox1.Controls.Add(Me.FSAssetsCheckBox)
@@ -47,14 +49,14 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(295, 227)
+        Me.GroupBox1.Size = New System.Drawing.Size(295, 253)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Backup"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(31, 171)
+        Me.Button1.Location = New System.Drawing.Point(31, 217)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(191, 28)
@@ -139,6 +141,19 @@ Partial Class FormBackupCheckboxes
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(124, 26)
         Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
+        'BackupOarsCheckBox
+        '
+        Me.BackupOarsCheckBox.AutoSize = True
+        Me.BackupOarsCheckBox.Checked = True
+        Me.BackupOarsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.BackupOarsCheckBox.Location = New System.Drawing.Point(31, 153)
+        Me.BackupOarsCheckBox.Margin = New System.Windows.Forms.Padding(4)
+        Me.BackupOarsCheckBox.Name = "BackupOarsCheckBox"
+        Me.BackupOarsCheckBox.Size = New System.Drawing.Size(118, 21)
+        Me.BackupOarsCheckBox.TabIndex = 11
+        Me.BackupOarsCheckBox.Text = "Backup OARs"
+        Me.BackupOarsCheckBox.UseVisualStyleBackColor = True
+        '
         'FormBackupCheckboxes
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -168,4 +183,5 @@ Partial Class FormBackupCheckboxes
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents BackupOarsCheckBox As CheckBox
 End Class

@@ -3263,7 +3263,6 @@ Public Class FormSetup
         ''' <summary>Copy the Opensim proto Write the Region INI with RegionClass Set the Opensim.ini</summary>
         ''' <returns>True if error</returns>
 
-        If RegionMaker.SetRegionVars(RegionName, RegionUUID) Then Return True
         RegionMaker.CopyOpensimProto(RegionName)
         If RegionMaker.SetOpensimIni(RegionName, RegionUUID) Then Return True
 
