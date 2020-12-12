@@ -274,6 +274,7 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
     Public Property BackupOARs() As Boolean
         Get
             Return CType(GetMySetting("BackupOARs", "True"), Boolean)
@@ -1859,6 +1860,34 @@ Public Class MySettings
             SetMySetting("WifiEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
+
+#End Region
+
+#Region "Grep"
+
+    ''' <summary>
+    ''' Replaces .config file XML with log level and path info
+    ''' </summary>
+    ''' <param name="INI">Path to file</param>
+    ''' <param name="bar">OSIM_LOGPATH path to log file in regions folder</param>
+    ''' <param name="baz">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
+    Public Sub Grep(INI As String, bar As String, baz As String)
+
+        If INI Is Nothing Then Return
+        FileStuff.DeleteFile(INI)
+        Dim file As System.IO.StreamWriter
+        file = My.Computer.FileSystem.OpenTextFileWriter(INI, False)
+        Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
+            While Not Reader.EndOfStream
+                Dim line As String = Reader.ReadLine
+                line = line.Replace("OSIM_LOGPATH", bar)
+                line = line.Replace("OSIM_LOGLEVEL", baz)
+                file.WriteLine(line)
+            End While
+        End Using
+        file.Close()
+
+    End Sub
 
 #End Region
 

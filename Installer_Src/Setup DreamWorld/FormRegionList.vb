@@ -544,6 +544,7 @@ Public Class FormRegionlist
 
             ListView1.Items.Clear()
             ImageListSmall1.ImageSize = New Drawing.Size(20, 20)
+            Dim p As PerformanceCounter = Nothing
 
             Try
                 For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
@@ -642,12 +643,14 @@ Public Class FormRegionlist
                     End If
 
                     Dim cpupercent As Single = 0
-                    Dim p As PerformanceCounter = Nothing
-                    If FormSetup.CounterList.TryGetValue(Groupname, p) Then
-                        cpupercent = p.NextValue() / Environment.ProcessorCount
-                    Else
-                        cpupercent = 0
-                    End If
+                    Try
+                        If CounterList.TryGetValue(Groupname, p) Then
+                            cpupercent = p.NextValue() / Environment.ProcessorCount
+                        Else
+                            cpupercent = 0
+                        End If
+                    Catch
+                    End Try
                     item1.SubItems.Add(CStr(cpupercent))
 
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))

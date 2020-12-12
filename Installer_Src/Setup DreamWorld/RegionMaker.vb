@@ -79,9 +79,13 @@ Public Class RegionMaker
 
 #Region "Start/Stop"
 
+    ''' <summary>
+    ''' TO DO catch caller error
+    ''' </summary>
+    ''' <returns>-1 if fails</returns>
     Private Sub New()
 
-        GetAllRegions()
+        If GetAllRegions() = -1 Then Return
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
             Settings.WelcomeRegion = "Welcome"
@@ -91,6 +95,7 @@ Public Class RegionMaker
             GetAllRegions()
         End If
         Debug.Print("Loaded " + CStr(RegionCount) + " Regions")
+        Return
 
     End Sub
 
@@ -465,23 +470,24 @@ Public Class RegionMaker
                                     Timer(uuid) = CInt(Backup(o)._Timer)
                                 End If
                             End If
-
                             Application.DoEvents()
                         Next
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
                         FormSetup.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
+                        Return -1
                     End Try
                 Next
             Next
 
             _RegionListIsInititalized = True
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Debug.Print(ex.Message)
+            Return -1
         End Try
+
         Return RegionList.Count
 
     End Function
@@ -1791,7 +1797,7 @@ Public Class RegionMaker
         End If
 
         ''' ports
-        ''' 
+        '''
         Settings.SetIni(RegionName, "InternalPort", Convert.ToString(FormSetup.PropRegionClass.RegionPort(uuid), Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni(RegionName, "ExternalHostName", FormSetup.ExternLocalServerName())
 
@@ -1799,7 +1805,6 @@ Public Class RegionMaker
 
         Settings.SetIni("XMLRPC", "XmlRpcPort", CStr(FormSetup.PropRegionClass.XmlRegionPort(uuid)))
         Settings.SetIni("RemoteAdmin", "port", CStr(FormSetup.PropRegionClass.RemoteAdminPort(uuid)))
-
 
         ' not a standard INI, only use by the Dreamers
         If FormSetup.PropRegionClass.RegionEnabled(uuid) Then
@@ -1920,7 +1925,6 @@ Public Class RegionMaker
         Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("AutoBackupModule", "AutoBackupDir", Backups.BackupPath())
 
-
         Select Case FormSetup.PropRegionClass.Physics(uuid)
             Case ""
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
@@ -1992,7 +1996,6 @@ Public Class RegionMaker
 
         ' Prims
 
-
         Settings.SetIni(RegionName, "ClampPrimSize", Convert.ToString(FormSetup.PropRegionClass.ClampPrimSize(uuid), Globalization.CultureInfo.InvariantCulture))
 
         If FormSetup.PropRegionClass.NonPhysicalPrimMax(uuid).Length > 0 Then
@@ -2047,17 +2050,13 @@ Public Class RegionMaker
             Settings.SetIni("YEngine", "Enabled", "True")
         End If
 
-
         Settings.SetIni("SmartStart", "Enabled", FormSetup.PropRegionClass.SmartStart(uuid))
-
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Return False
 
     End Function
-
-
 
     Private Function Bad(uuid As String) As Boolean
 

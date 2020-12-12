@@ -56,8 +56,6 @@ Public Class FormSetup
 
 #Region "Declarations"
 
-    Private _counterList As New Dictionary(Of String, PerformanceCounter)
-    Private OpensimProcesses() As Process
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -608,12 +606,6 @@ Public Class FormSetup
         Set(value As String)
             _jRev = value
         End Set
-    End Property
-
-    Public ReadOnly Property CounterList As Dictionary(Of String, PerformanceCounter)
-        Get
-            Return _counterList
-        End Get
     End Property
 
 #End Region
@@ -1204,9 +1196,10 @@ Public Class FormSetup
         myProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 
         Try
-            myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName & "\")
-            myProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
-        Catch
+            Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+            Settings.Grep(ini, Settings.OpensimBinPath() & "Regions\" & GroupName, Settings.LogLevel)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
         End Try
 
         myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
@@ -1591,7 +1584,7 @@ Public Class FormSetup
         If Settings.CMS = JOpensim Then
             Settings.SetIni("Groups", "Module", "GroupsModule")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & "/jOpensim/index.php?option=com_opensim&view=interface")
+            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface")
             Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
         Else
             Settings.SetIni("Groups", "Module", "Groups Module V2")
@@ -1658,7 +1651,7 @@ Public Class FormSetup
             Settings.SetIni("Economy", "CurrencyURL", "")
         ElseIf Settings.CMS = JOpensim Then
             Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
-            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|PublicPort}/jOpensim/index.php?option=com_opensim&view=interface")
+            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface")
         Else
             Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
             Settings.SetIni("Economy", "CurrencyURL", "")
@@ -1848,21 +1841,27 @@ Public Class FormSetup
     ''' <returns>boolean</returns>
     Public Function IsRobustRunning() As Boolean
 
+        Log("INFO", "Checking Robust")
         Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
                 Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
             Catch ex As Exception
-
-                If ex.Message.Contains("404") Then Return True
-                'BreakPoint.Show(ex.Message)
+                Log("INFO", "Robust is running")
+                If ex.Message.Contains("404") Then
+                    Log("INFO", "Robust is running")
+                    Return True
+                End If
+                Log("INFO", "Robust is not running")
                 Return False
             End Try
 
             If Up.Length = 0 And PropOpensimIsRunning() Then
+                Log("INFO", "Robust is not running")
                 Return False
             End If
         End Using
+        Log("INFO", "Robust is running")
         Return True
 
     End Function
@@ -2571,14 +2570,16 @@ Public Class FormSetup
 #Region "Mysql"
 
     Public Function StartMySQL() As Boolean
-
+        Log("INFO", "Checking Mysql")
         If MysqlInterface.IsMySqlRunning() Then
             MysqlInterface.IsRunning = True
             MySqlIs(True)
             PropMysqlExited = False
+            Log("INFO", "Mysql is running")
             Return True
         End If
 
+        Log("INFO", "Mysql is not running")
         ' Build data folder if it does not exist
         MakeMysql()
 
@@ -2783,15 +2784,19 @@ Public Class FormSetup
 
         DoRobust()
 
+        Log("INFO", "Setup Log levels")
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
+        Settings.Grep(ini, "OSIM_LOGLEVEL", Settings.LogLevel)
+
         Print("Robust " & Global.Outworldz.My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
         RobustProcess.StartInfo.UseShellExecute = False ' must be false for OSIM_LEVEL
         RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
 
-        If Not RobustProcess.StartInfo.EnvironmentVariables.ContainsKey("OSIM_LOGLEVEL") Then
-            RobustProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
-        End If
+        'If Not RobustProcess.StartInfo.EnvironmentVariables.ContainsKey("OSIM_LOGLEVEL") Then
+        'RobustProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
+        'End If
 
         RobustProcess.StartInfo.FileName = Settings.OpensimBinPath & "robust.exe"
         RobustProcess.StartInfo.CreateNoWindow = False
@@ -4086,6 +4091,7 @@ Public Class FormSetup
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Return False
+
     End Function
 
     Private Function DoSetDefaultSims() As Boolean
@@ -6494,26 +6500,6 @@ Public Class FormSetup
     End Sub
 
 #Region "Timer"
-
-    Private Sub CalcCPU()
-
-        OpensimProcesses = Process.GetProcessesByName("Opensim")
-
-        For Each p As Process In OpensimProcesses
-            Dim counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-
-            Dim Group As String = ""
-            If PropRegionHandles.ContainsKey(p.Id) Then
-                Group = PropRegionHandles.Item(p.Id)
-                counter.NextValue() ' start the counter
-            End If
-
-            If Not CounterList.ContainsKey(Group) Then
-                CounterList.Add(Group, counter)
-            End If
-        Next
-
-    End Sub
 
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions

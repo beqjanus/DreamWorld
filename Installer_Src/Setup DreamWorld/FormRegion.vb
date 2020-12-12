@@ -1089,7 +1089,11 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub WriteRegion(RegionUUID As String)
+    ''' <summary>
+    ''' !!! TODO catch errors by callers
+    ''' </summary>
+    ''' <returns>false if it fails</returns>
+    Private Function WriteRegion(RegionUUID As String) As Boolean
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
 
@@ -1101,10 +1105,9 @@ Public Class FormRegion
             Try
                 My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
                 FormSetup.Print(My.Resources.Aborted_word)
-                Return
+                Return False
             End Try
 
             Filepath = Folderpath + "\" + RegionName.Text + ".ini"
@@ -1120,17 +1123,16 @@ Public Class FormRegion
             NewGroup = RegionChosen(RegionName.Text)
             If NewGroup.Length = 0 Then
                 FormSetup.Print(My.Resources.Aborted_word)
-                Return
+                Return False
             End If
 
             If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
                 Try
                     Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                     FormSetup.Print(My.Resources.Aborted_word)
-                    Return
+                    Return False
                 End Try
             End If
 
@@ -1329,17 +1331,18 @@ Public Class FormRegion
                 outputFile.Write(Region)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
+            Return False
             MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         End Try
 
-        FormSetup.PropRegionClass.GetAllRegions()
+        If FormSetup.PropRegionClass.GetAllRegions() = -1 Then Return False
         FormSetup.PropUpdateView = True
-
         Oldname1 = RegionName.Text
 
-    End Sub
+        Return True
+
+    End Function
 
 #End Region
 
