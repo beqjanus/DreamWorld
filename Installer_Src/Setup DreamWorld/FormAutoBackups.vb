@@ -204,7 +204,7 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub Backup()
+    Private Shared Sub Backup()
 
         'Create an instance of the open file dialog box.
         Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
