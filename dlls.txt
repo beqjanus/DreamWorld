@@ -16,8 +16,6 @@
 \OutworldzFiles\Opensim\bin\DotNetOpenMail.dll
 \OutworldzFiles\Opensim\bin\ICSharpCode.SharpZipLib.dll
 \OutworldzFiles\Opensim\bin\Ionic.Zip.dll
-\OutworldzFiles\Opensim\bin\jOpensim.Profile.dll
-\OutworldzFiles\Opensim\bin\jOpensim.Search.dll
 \OutworldzFiles\Opensim\bin\log4net.dll
 \OutworldzFiles\Opensim\bin\LukeSkywalker.IPNetwork.dll
 \OutworldzFiles\Opensim\bin\Mono.Addins.CecilReflector.dll
