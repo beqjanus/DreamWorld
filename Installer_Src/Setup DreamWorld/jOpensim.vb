@@ -2,14 +2,8 @@
 
     Public Function IsjOpensimInstalled() As Boolean
 
-        Dim count As Integer
-        Try
-            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\JOpensim"))
-            count = folders.Length
-        Catch
-        End Try
-
-        Return count > 2
+        Dim x = IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\JOpensim\administrator\index.php"))
+        Return x
 
     End Function
 
