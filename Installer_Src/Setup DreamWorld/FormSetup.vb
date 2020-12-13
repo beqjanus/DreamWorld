@@ -1589,7 +1589,7 @@ Public Class FormSetup
         Else
             Settings.SetIni("Groups", "Module", "Groups Module V2")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "Groups HG Service Connector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
+            Settings.SetIni("Groups", "GroupsServerURI", "${Const|BaseURL}:${Const|PrivatePort}")
             Settings.SetIni("Groups", "MessagingModule", "Groups Messaging Module V2")
         End If
 
@@ -4073,7 +4073,7 @@ Public Class FormSetup
         Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
 
         If Settings.CMS = JOpensim Then
-            Settings.SetIni("ServiceList", "GetTextureConnector", "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureSeverConnector")
+            Settings.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureSeverConnector" & """")
             Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "")
             Settings.SetIni("UserProfilesService", "Enabled", "False")
             Settings.SetIni("GridInfoService", "welcome", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim")
