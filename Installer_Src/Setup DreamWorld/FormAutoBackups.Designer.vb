@@ -25,6 +25,7 @@ Partial Class FormAutoBackups
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormAutoBackups))
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.AutoBackupHelp = New System.Windows.Forms.PictureBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -40,7 +41,6 @@ Partial Class FormAutoBackups
         Me.ServerTypeToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DataOnlyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox3.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AutoBackupHelp, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,6 +65,15 @@ Partial Class FormAutoBackups
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Auto Backup"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(253, 68)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(135, 30)
+        Me.Button1.TabIndex = 1859
+        Me.Button1.Text = "Backup Type"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'PictureBox1
         '
@@ -189,17 +198,8 @@ Partial Class FormAutoBackups
         '
         Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
-        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(190, 26)
         Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Export_SQL_file_word
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(253, 68)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(135, 30)
-        Me.Button1.TabIndex = 1859
-        Me.Button1.Text = "Backup Type"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'FormAutoBackups
         '

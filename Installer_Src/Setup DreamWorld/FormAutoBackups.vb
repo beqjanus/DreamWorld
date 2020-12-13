@@ -218,7 +218,6 @@ Public Class FormAutoBackups
                 If thing.Length > 0 Then
                     Settings.BackupFolder = thing
                     Settings.SaveSettings()
-                    BaseFolder.Text = thing
                 End If
             End If
         End Using
@@ -262,6 +261,13 @@ Public Class FormAutoBackups
         CriticalForm.Visible = True
         CriticalForm.Select()
         CriticalForm.BringToFront()
+
+    End Sub
+
+    Private Sub BaseFolder_TextChanged(sender As Object, e As EventArgs) Handles BaseFolder.TextChanged
+
+        Settings.BackupFolder = BaseFolder.Text
+        Settings.SaveSettings()
 
     End Sub
 
