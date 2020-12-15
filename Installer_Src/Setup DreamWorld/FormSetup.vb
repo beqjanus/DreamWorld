@@ -2212,6 +2212,8 @@ Public Class FormSetup
         If Settings.Sequential Then
 
             For Each RegionUUID As String In PropRegionClass.RegionUuids
+                Application.DoEvents()
+
                 If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(RegionUUID) And
                     Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
                     Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
