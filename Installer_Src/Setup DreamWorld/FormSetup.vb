@@ -1112,10 +1112,6 @@ Public Class FormSetup
             Return True
         End If
 
-        If RegionMaker.CopyOpensimProto(GroupName) Then
-            Return False
-        End If
-
         Dim isRegionRunning As Boolean = False
 
         For Each p In Process.GetProcesses
@@ -1189,6 +1185,10 @@ Public Class FormSetup
             End If
         End If
 
+        If RegionMaker.CopyOpensimProto(GroupName) Then
+            Return False
+        End If
+
         Dim myProcess As Process = GetNewProcess()
 
         Print(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
@@ -1220,6 +1220,12 @@ Public Class FormSetup
 
         SequentialPause()   ' wait for previous region to give us some CPU
         Logger("Booting", GroupName, "Restart")
+
+        ' Mark them before we boot as a crash will immediately trigger the event that it exited
+        For Each UUID As String In Regionclass.RegionUuidListByName(GroupName)
+            Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
+        Next
+
         Dim ok As Boolean = False
         Try
             ok = myProcess.Start
@@ -1233,27 +1239,20 @@ Public Class FormSetup
 
             Dim PID = WaitForPID(myProcess)
             ' check if it gave us a PID, if not, it failed.
-            If PID = 0 Then
-                Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Error
-                PropUpdateView = True ' make form refresh
-                Print("Failed to get a PID for region " & GroupName)
-                Logger("No PID", GroupName, "Restart")
-                Return False
-            End If
-            SetWindowTextCall(myProcess, GroupName)
-            For Each UUID As String In Regionclass.RegionUuidListByName(GroupName)
-                Log("Debug", "Process started for " & Regionclass.RegionName(UUID) & " PID=" & CStr(myProcess.Id) & " UUID:" & CStr(UUID))
-                Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
-                Regionclass.ProcessID(UUID) = PID
-            Next
 
             PropUpdateView = True ' make form refresh
 
-            Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
-            If Not PropRegionHandles.ContainsKey(myProcess.Id) Then
-                PropRegionHandles.Add(myProcess.Id, GroupName) ' save in the list of exit events in case it crashes or exits
+            For Each UUID As String In Regionclass.RegionUuidListByName(GroupName)
+                Regionclass.ProcessID(UUID) = PID
+            Next
+            If PID > 0 Then
+                Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
+                If Not PropRegionHandles.ContainsKey(myProcess.Id) Then
+                    PropRegionHandles.Add(myProcess.Id, GroupName) ' save in the list of exit events in case it crashes or exits
+                End If
+                SetWindowTextCall(myProcess, GroupName)
             End If
-
+            PropUpdateView = True ' make form refresh
             Buttons(StopButton)
             Return True
         End If
@@ -2355,31 +2354,34 @@ Public Class FormSetup
 
         SetPath()
 
-        Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
-        SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.0909"">" & vbCrLf
-        SiteMapContents += "<url>" & vbCrLf
-        SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
+        If Settings.SiteMap Then
+            Dim SiteMapContents = "<?xml version=""1.0"" encoding=""UTF-8""?>" & vbCrLf
+            SiteMapContents += "<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.0909"">" & vbCrLf
+            SiteMapContents += "<url>" & vbCrLf
+            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
 
-        If Settings.CMS = JOpensim Then
-            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/jOpensim" & "</loc>" & vbCrLf
+            If Settings.CMS = JOpensim Then
+                SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/jOpensim" & "</loc>" & vbCrLf
+            End If
+
+            If Settings.CMS = "WordPress" Then
+                SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/DreamGrid" & "</loc>" & vbCrLf
+            End If
+
+            If Settings.CMS = "Other" Then
+                SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Other" & "</loc>" & vbCrLf
+            End If
+
+            SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
+            SiteMapContents += "<priority>1.0</priority>" & vbCrLf
+            SiteMapContents += "</url>" & vbCrLf
+            SiteMapContents += "</urlset>" & vbCrLf
+
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Sitemap.xml"), False)
+                outputFile.WriteLine(SiteMapContents)
+            End Using
+
         End If
-
-        If Settings.CMS = "WordPress" Then
-            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/DreamGrid" & "</loc>" & vbCrLf
-        End If
-
-        If Settings.CMS = "Other" Then
-            SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Other" & "</loc>" & vbCrLf
-        End If
-
-        SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf
-        SiteMapContents += "<priority>1.0</priority>" & vbCrLf
-        SiteMapContents += "</url>" & vbCrLf
-        SiteMapContents += "</urlset>" & vbCrLf
-
-        Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Sitemap.xml"), False)
-            outputFile.WriteLine(SiteMapContents)
-        End Using
 
         If Not Settings.ApacheEnable Then
             ApacheIs(False)
@@ -2393,7 +2395,7 @@ Public Class FormSetup
             ApacheProcess.StartInfo.CreateNoWindow = True
             ApacheProcess.StartInfo.Arguments = "stop W3SVC"
             ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-
+            ApacheProcess.StartInfo.CreateNoWindow = True
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
@@ -2410,6 +2412,7 @@ Public Class FormSetup
 
         ApacheProcess.StartInfo.FileName = "sc"
         ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+        ApacheProcess.StartInfo.CreateNoWindow = True
         Try
             ApacheProcess.Start()
         Catch ex As Exception
@@ -2429,61 +2432,76 @@ Public Class FormSetup
         ApacheProcess.WaitForExit()
         ApacheIs(False)
 
-        'delete really old service
-        ApacheProcess.StartInfo.FileName = "sc"
-        ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
-        Try
-            ApacheProcess.Start()
-        Catch ex As Exception
-        End Try
-        Application.DoEvents()
-        ApacheProcess.WaitForExit()
+        If Settings.OldInstallFolder <> Settings.CurrentDirectory Then
 
-        ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
-        Try
-            ApacheProcess.Start()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-        Application.DoEvents()
-        ApacheProcess.WaitForExit()
-
-        Sleep(5000)
-
-        Using ApacheProcess As New Process With {
-                .EnableRaisingEvents = False
-            }
-            ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\httpd.exe")
-            ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
+            'delete really old service
+            ApacheProcess.StartInfo.FileName = "sc"
+            ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
             ApacheProcess.StartInfo.CreateNoWindow = True
-            ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\")
-            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-            DoApache()
-
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ApacheIs(False)
-                Print(My.Resources.ApacheFailed & ":" & ex.Message)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
 
-            If ApacheProcess.ExitCode <> 0 Then
-                Print(My.Resources.ApacheFailed)
-                ApacheIs(False)
-            Else
-                PropApacheUninstalling = False ' installed now, trap errors
-            End If
-            Sleep(1000)
-            Print(My.Resources.Apache_starting)
+            ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
+            Try
+                ApacheProcess.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+
+            Sleep(5000)
+
+            Using ApacheProcess As New Process With {
+                    .EnableRaisingEvents = False
+                }
+                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\httpd.exe")
+                ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
+                ApacheProcess.StartInfo.CreateNoWindow = True
+                ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\")
+                ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+                DoApache()
+
+                Try
+                    ApacheProcess.Start()
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                    ApacheIs(False)
+                    Print(My.Resources.ApacheFailed & ":" & ex.Message)
+                End Try
+                Application.DoEvents()
+                ApacheProcess.WaitForExit()
+
+                If ApacheProcess.ExitCode <> 0 Then
+                    Print(My.Resources.ApacheFailed)
+                    ApacheIs(False)
+                Else
+                    PropApacheUninstalling = False ' installed now, trap errors
+                    Settings.CurrentDirectory = Settings.OldInstallFolder
+                End If
+                Sleep(1000)
+            End Using
+
+        End If
+
+        Print(My.Resources.Apache_starting)
+
+        DoApache()
+
+        Using ApacheProcess As New Process With {
+                    .EnableRaisingEvents = False
+                }
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             ApacheProcess.StartInfo.FileName = "net"
             ApacheProcess.StartInfo.Arguments = "start ApacheHTTPServer"
             ApacheProcess.StartInfo.UseShellExecute = False
-
+            ApacheProcess.StartInfo.CreateNoWindow = True
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
@@ -2721,9 +2739,9 @@ Public Class FormSetup
         If Not StartRobust() Then Return False
 
         ' Boot them up
-
         For Each RegionUUID As String In PropRegionClass.RegionUuids()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
+                PropRegionClass.CrashCounter(RegionUUID) = 0
                 If Not Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID)) Then
                     Exit For
                 End If
@@ -3170,7 +3188,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Function WaitForPID(myProcess As Process) As Integer
+    Public Shared Function WaitForPID(myProcess As Process) As Integer
 
         If myProcess Is Nothing Then Return 0
 
@@ -3178,12 +3196,12 @@ Public Class FormSetup
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
 
-        Do While TooMany < 200
+        Do While TooMany < 5
 
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                'BreakPoint.Show(ex.Message)
             End Try
 
             If p IsNot Nothing Then
@@ -3193,14 +3211,9 @@ Public Class FormSetup
                 End If
             End If
 
-            Sleep(100)
+            Sleep(1000)
             TooMany += 1
         Loop
-        Try
-            Print("Cannot get a Process ID from " & myProcess.ProcessName)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
 
         Return 0
 
@@ -4558,9 +4571,30 @@ Public Class FormSetup
                 Not PropAborting Then
 
                 ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
-
+                Status = RegionMaker.SIMSTATUSENUM.Error
+                PropUpdateView = True
+                Application.DoEvents()
                 Logger("Crash", GroupName & " Crashed", "Restart")
                 If Settings.RestartOnCrash Then
+
+                    If PropRegionClass.CrashCounter(RegionUUID) > 3 Then
+                        Print(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                        Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+                        If (yesno = vbYes) Then
+                            Try
+                                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+                            Catch ex As Exception
+                                BreakPoint.Show(ex.Message)
+                            End Try
+                        End If
+                        StopGroup(GroupName)
+                        PropRegionClass.CrashCounter(RegionUUID) = 0
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Error
+                        PropUpdateView = True
+                        Continue While
+                    End If
+                    PropRegionClass.CrashCounter(RegionUUID) += 1
+
                     ' shut down all regions in the DOS box
                     Print(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     StopGroup(GroupName)
@@ -4580,9 +4614,7 @@ Public Class FormSetup
                         End Try
                     End If
                     StopGroup(GroupName)
-
                 End If
-
             End If
             PropUpdateView = True
         End While
@@ -6142,7 +6174,7 @@ Public Class FormSetup
                 Using LoopbackProcess As New Process
                     LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
                     LoopbackProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "NAT_Loopback_Tool.bat")
-                    LoopbackProcess.StartInfo.CreateNoWindow = False
+                    LoopbackProcess.StartInfo.CreateNoWindow = True
                     LoopbackProcess.StartInfo.Arguments = "Loopback"
                     LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
                     Try
