@@ -4710,6 +4710,8 @@ Public Class FormSetup
 
         Backups.ClearFlags()
 
+        FileStuff.DeleteOldHelpFiles()
+
         AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Add_User_word
         AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
         AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word

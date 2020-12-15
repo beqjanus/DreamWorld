@@ -2,7 +2,20 @@
 
 Module FileStuff
 
+    Sub DeleteOldHelpFiles()
 
+        Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")
+        Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)
+
+        Dim fileSystemInfo As System.IO.FileSystemInfo
+        For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
+            If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
+                DeleteFile(fileSystemInfo.FullName)
+            End If
+
+        Next
+
+    End Sub
 
     Sub CopyFile(source As String, dest As String, overwrite As Boolean)
 
