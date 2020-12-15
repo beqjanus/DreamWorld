@@ -248,6 +248,7 @@ Public Class FormRegionlist
         HomeOffline = 12
         Pending = 13
         Suspended = 14
+        ErrorIcon = 15
     End Enum
 
 #End Region
@@ -465,8 +466,9 @@ Public Class FormRegionlist
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home", Globalization.CultureInfo.InvariantCulture))  '  11- home
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  13- Suspended
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("error_icon", Globalization.CultureInfo.InvariantCulture))  '  14- Error
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("replace2", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("error_icon", Globalization.CultureInfo.InvariantCulture))  '  15- Error
         FormSetup.PropUpdateView = True ' make form refresh
 
         ViewBusy = False
@@ -558,6 +560,9 @@ Public Class FormRegionlist
                         And FormSetup.PropRegionClass.SmartStart(RegionUUID) = "True" Then
                         Letter = "Waiting"
                         Num = DGICON.SmartStart
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.Error Then
+                        Letter = "Error"
+                        Num = DGICON.ErrorIcon
                     ElseIf Status = RegionMaker.SIMSTATUSENUM.Suspended Then
                         Letter = "Suspended"
                         Num = DGICON.Suspended
@@ -1101,7 +1106,7 @@ Public Class FormRegionlist
             FormSetup.Log("Starting", FormSetup.PropRegionClass.RegionName(RegionUUID))
 
             FormSetup.PropAborting = False
-
+            FormSetup.PropRegionClass.CrashCounter(RegionUUID) = 0
             FormSetup.Boot(FormSetup.PropRegionClass, FormSetup.PropRegionClass.RegionName(RegionUUID))
             Application.DoEvents()
             FormSetup.Timer1.Interval = 1000
