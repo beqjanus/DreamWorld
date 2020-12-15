@@ -15,22 +15,22 @@ Module CPUCOunter
     Public Sub CalcCPU()
 
         OpensimProcesses = Process.GetProcessesByName("Opensim")
+        Try
+            For Each p As Process In OpensimProcesses
+                Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
+                    Dim Group As String = ""
+                    If FormSetup.PropRegionHandles.ContainsKey(p.Id) Then
+                        Group = FormSetup.PropRegionHandles.Item(p.Id)
+                        counter.NextValue() ' start the counter
+                    End If
 
-        For Each p As Process In OpensimProcesses
-            Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-                Dim Group As String = ""
-                If FormSetup.PropRegionHandles.ContainsKey(p.Id) Then
-                    Group = FormSetup.PropRegionHandles.Item(p.Id)
-                    counter.NextValue() ' start the counter
-                End If
-
-                If Not CounterList.ContainsKey(Group) Then
-                    CounterList.Add(Group, counter)
-                End If
-            End Using
-
-        Next
-
+                    If Not CounterList.ContainsKey(Group) Then
+                        CounterList.Add(Group, counter)
+                    End If
+                End Using
+            Next
+        Catch
+        End Try
     End Sub
 
     Public Function GetPerfCounterForProcessId(ByVal processId As Integer, ByVal Optional processCounterName As String = "% Processor Time") As PerformanceCounter
@@ -50,7 +50,6 @@ Module CPUCOunter
             Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith(processName, System.StringComparison.InvariantCultureIgnoreCase)).ToArray()
 
             For Each instance As String In instances
-
                 Using cnt As PerformanceCounter = New PerformanceCounter("Process", "ID Process", instance, True)
                     Dim val As Integer = CInt(cnt.RawValue)
                     If val = processId Then
