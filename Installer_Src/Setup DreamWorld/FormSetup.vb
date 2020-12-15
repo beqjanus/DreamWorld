@@ -1112,7 +1112,9 @@ Public Class FormSetup
             Return True
         End If
 
-        DoRegion(BootName, RegionUUID) ' setup region ini file
+        If RegionMaker.CopyOpensimProto(GroupName) Then
+            Return False
+        End If
 
         Dim isRegionRunning As Boolean = False
 
@@ -3283,18 +3285,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Shared Function DoRegion(RegionName As String, RegionUUID As String) As Boolean
-
-        ''' <summary>Copy the Opensim proto Write the Region INI with RegionClass Set the Opensim.ini</summary>
-        ''' <returns>True if error</returns>
-
-        RegionMaker.CopyOpensimProto(RegionName)
-        If RegionMaker.SetOpensimIni(RegionName, RegionUUID) Then Return True
-
-        Return False
-
-    End Function
-
     Private Shared Function DoTos() As Boolean
 
         Try
@@ -4073,7 +4063,7 @@ Public Class FormSetup
         Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
 
         If Settings.CMS = JOpensim Then
-            Settings.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureSeverConnector" & """")
+            Settings.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
             Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "")
             Settings.SetIni("UserProfilesService", "Enabled", "False")
             Settings.SetIni("GridInfoService", "welcome", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim")

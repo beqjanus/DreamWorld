@@ -1871,7 +1871,7 @@ Public Class MySettings
     ''' <param name="INI">Path to file</param>
     ''' <param name="bar">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="baz">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
-    Public Shared Sub Grep(INI As String, bar As String, baz As String)
+    Public Sub Grep(INI As String, bar As String, baz As String)
 
         If INI Is Nothing Then Return
         FileStuff.DeleteFile(INI)
