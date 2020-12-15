@@ -14,6 +14,7 @@
 \OutworldzFiles\Opensim\bin\Diva.Wifi.ScriptEngine.dll
 \OutworldzFiles\Opensim\bin\DotNetOpenId.dll
 \OutworldzFiles\Opensim\bin\DotNetOpenMail.dll
+\OutworldzFiles\Opensim\bin\Gloebit.dll
 \OutworldzFiles\Opensim\bin\ICSharpCode.SharpZipLib.dll
 \OutworldzFiles\Opensim\bin\Ionic.Zip.dll
 \OutworldzFiles\Opensim\bin\log4net.dll
