@@ -90,6 +90,7 @@ Public Class FormApache
         Label3.Text = My.Resources.Web_Port
         Text = My.Resources.Apache_word
         X86Button.Text = Global.Outworldz.My.Resources.Resources.InstallRuntime
+        Sitemap.Text = Global.Outworldz.My.Resources.Resources.Automatic_Site_map_word
 
         SetScreen()
 
@@ -109,6 +110,8 @@ Public Class FormApache
             Other.Text = Settings.CMS
         End If
 
+        Sitemap.Checked = Settings.SiteMap
+
         HelpOnce("Apache")
         initted = True
 
@@ -123,16 +126,17 @@ Public Class FormApache
         Using ApacheProcess As New Process()
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
+            ApacheProcess.StartInfo.CreateNoWindow = True
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
             FormSetup.Sleep(1000)
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
+            ApacheProcess.StartInfo.CreateNoWindow = True
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
@@ -271,6 +275,13 @@ Public Class FormApache
 
             InstallProcess.WaitForExit()
         End Using
+
+    End Sub
+
+    Private Sub Sitemap_CheckedChanged(sender As Object, e As EventArgs) Handles Sitemap.CheckedChanged
+
+        If Not initted Then Return
+        Settings.SiteMap = Sitemap.Checked
 
     End Sub
 
