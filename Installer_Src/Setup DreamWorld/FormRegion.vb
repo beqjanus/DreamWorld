@@ -581,7 +581,6 @@ Public Class FormRegion
         Else
             FormSetup.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
             WriteRegion(RegionUUID)
-            RegionMaker.CopyOpensimProto(RegionName.Text)
             Firewall.SetFirewall()
             FormSetup.PropUpdateView = True ' make form refresh
             Changed1 = False
@@ -701,7 +700,6 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(RegionUUID)
-                    RegionMaker.CopyOpensimProto(RegionName.Text)
                     Firewall.SetFirewall()
                     FormSetup.PropUpdateView() = True
                     Changed1 = False
