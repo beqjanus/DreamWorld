@@ -2,8 +2,7 @@
 
     Public Function IsjOpensimInstalled() As Boolean
 
-        Dim x = IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\JOpensim\administrator\index.php"))
-        Return x
+        Return IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\JOpensim\administrator\index.php"))
 
     End Function
 
