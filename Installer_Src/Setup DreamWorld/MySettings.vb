@@ -404,6 +404,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SiteMap() As Boolean
+        Get
+            Return CType(GetMySetting("SiteMap", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("SiteMap", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property ApachePort() As Integer
         Get
             Return CInt("0" & GetMySetting("ApachePort", "80"))
@@ -806,7 +815,15 @@ Public Class MySettings
         End Set
     End Property
 
-    ' more stuff
+    Public Property OldInstallFolder() As String
+        Get
+            Return GetMySetting("OldInstallFolder", "")
+        End Get
+        Set
+            SetMySetting("OldInstallFolder", Value)
+        End Set
+    End Property
+
     Public Property CurrentDirectory() As String
         Get
             Return GetMySetting("Myfolder") ' no default
@@ -1871,7 +1888,10 @@ Public Class MySettings
     ''' <param name="INI">Path to file</param>
     ''' <param name="bar">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="baz">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
+#Disable Warning CA1822 ' Mark members as static
+
     Public Sub Grep(INI As String, bar As String, baz As String)
+#Enable Warning CA1822 ' Mark members as static
 
         If INI Is Nothing Then Return
         FileStuff.DeleteFile(INI)

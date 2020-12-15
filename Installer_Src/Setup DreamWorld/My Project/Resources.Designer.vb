@@ -523,6 +523,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Automatic Site Map.
+        '''</summary>
+        Friend ReadOnly Property Automatic_Site_map_word() As String
+            Get
+                Return ResourceManager.GetString("Automatic_Site_map_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to 0  - Off. How many minutes until auto restart occurs?.
         '''</summary>
         Friend ReadOnly Property AutorestartBox() As String

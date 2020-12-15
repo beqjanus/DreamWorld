@@ -3088,4 +3088,8 @@
     <value>CPU %</value>
     <comment>new</comment>
   </data>
+  <data name="Automatic_Site_map_word" xml:space="preserve">
+    <value>Automatic Site Map</value>
+    <comment>new</comment>
+  </data>
 </root>

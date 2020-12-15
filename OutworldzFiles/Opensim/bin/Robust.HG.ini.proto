@@ -163,7 +163,6 @@ GetTextureConnector="${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTe
 ; * server instance, if none is specified above
 ; *
 [Network]
-
 ;; Set by Dreamgrid
 port=${Const|PrivatePort}
 

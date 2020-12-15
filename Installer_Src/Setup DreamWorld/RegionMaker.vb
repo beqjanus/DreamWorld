@@ -35,7 +35,7 @@ Public Class RegionMaker
 #Enable Warning CA1051 ' Do not declare visible instance fields
     Private Shared FInstance As RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
-    ReadOnly Backup As New ArrayList()
+    ReadOnly Backup As New List(Of RegionMaker.Region_data)
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
     ReadOnly TeleportAvatarDict As New Dictionary(Of String, String)
     Private _RegionListIsInititalized As Boolean
@@ -318,7 +318,8 @@ Public Class RegionMaker
             ._FrameTime = 0.090909.ToString(Globalization.CultureInfo.InvariantCulture),
             ._SkipAutobackup = "",
             ._ScriptEngine = "",
-            ._RegionSmartStart = "0"
+            ._RegionSmartStart = "0",
+            ._CrashCounter = 0
         }
 
         RegionList.Add(r._UUID, r)
@@ -464,10 +465,11 @@ Public Class RegionMaker
                                 ' restore backups of transient data
                                 Dim o = FindBackupByName(fName)
                                 If o >= 0 Then
-                                    AvatarCount(uuid) = CInt(Backup(o)._AvatarCount)
-                                    ProcessID(uuid) = CInt(Backup(o)._ProcessID)
-                                    Status(uuid) = CInt(Backup(o)._Status)
-                                    Timer(uuid) = CInt(Backup(o)._Timer)
+                                    AvatarCount(uuid) = Backup(o)._AvatarCount
+                                    ProcessID(uuid) = Backup(o)._ProcessID
+                                    Status(uuid) = Backup(o)._Status
+                                    Timer(uuid) = Backup(o)._Timer
+                                    CrashCounter(uuid) = Backup(o)._CrashCounter
                                 End If
                             End If
                             Application.DoEvents()
@@ -728,6 +730,7 @@ Public Class RegionMaker
         Public _Tides As String = ""
         Public _XMLRegionPort As Integer
         Public _RemoteAdminPort As Integer
+        Public _CrashCounter As Integer
 
 #End Region
 
@@ -882,6 +885,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._SizeY = Value
+        End Set
+    End Property
+
+    Public Property CrashCounter(uuid As String) As Integer
+        Get
+            If uuid Is Nothing Then Return -1
+            If Bad(uuid) Then Return -1
+            Return RegionList(uuid)._CrashCounter
+        End Get
+        Set(ByVal Value As Integer)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._CrashCounter = Value
         End Set
     End Property
 
@@ -1364,6 +1380,7 @@ Public Class RegionMaker
             " Group:" & RegionList(region)._Group & vbCrLf &
             " Region:" & RegionList(region)._RegionName & vbCrLf &
             " Status=" & CStr(RegionList(region)._Status) & vbCrLf &
+            " Crashes=" & CStr(RegionList(region)._CrashCounter) & vbCrLf &
            " RegionEnabled=" & RegionList(region)._RegionEnabled & vbCrLf &
            " Timer=" & CStr(RegionList(region)._Timer))
 
