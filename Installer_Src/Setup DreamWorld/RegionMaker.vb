@@ -1758,8 +1758,6 @@ Public Class RegionMaker
 
     Public Shared Function CopyOpensimProto(RegionName As String, uuid As String) As Boolean
 
-
-
         ' copy the prototype to the regions Opensim.ini
         Dim pathname = FormSetup.PropRegionClass.IniPath(uuid)
         Try
@@ -1795,15 +1793,34 @@ Public Class RegionMaker
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
         Settings.SetIni("Const", "RegionFolderName", FormSetup.PropRegionClass.GroupName(uuid))
 
-        Settings.SaveINI(System.Text.Encoding.UTF8)
 
-        '============== Opensim.ini =====================
-        ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(uuid) & "\Region\" & RegionName & ".ini", ";") Then
-            Return True
+        ' Gloebit
+        Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
+        Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
+        Settings.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM))
+        Settings.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage))
+
+        If Settings.GloebitsMode Then
+            Settings.SetIni("Gloebit", "GLBEnvironment", "production")
+            Settings.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
+            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
+        Else
+            Settings.SetIni("Gloebit", "GLBEnvironment", "sandbox")
+            Settings.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
+            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
         End If
 
-        ' Extended
+        Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
+        Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
+
+        If Settings.ServerType = "Robust" Then
+            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
+        Else
+            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
+        End If
+
+        Settings.SetIni("XMLRPC", "XmlRpcPort", CStr(FormSetup.PropRegionClass.XmlRegionPort(uuid)))
+        Settings.SetIni("RemoteAdmin", "port", CStr(FormSetup.PropRegionClass.RemoteAdminPort(uuid)))
 
         ' Autobackup
         Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
@@ -1952,34 +1969,6 @@ Public Class RegionMaker
         End If
 
         Settings.SetIni("SmartStart", "Enabled", FormSetup.PropRegionClass.SmartStart(uuid))
-
-        ' Gloebit
-        Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
-        Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
-        Settings.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM))
-        Settings.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage))
-
-        If Settings.GloebitsMode Then
-            Settings.SetIni("Gloebit", "GLBEnvironment", "production")
-            Settings.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
-            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
-        Else
-            Settings.SetIni("Gloebit", "GLBEnvironment", "sandbox")
-            Settings.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
-            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
-        End If
-
-        Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
-        Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
-
-        If Settings.ServerType = "Robust" Then
-            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
-        Else
-            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
-        End If
-
-        Settings.SetIni("XMLRPC", "XmlRpcPort", CStr(FormSetup.PropRegionClass.XmlRegionPort(uuid)))
-        Settings.SetIni("RemoteAdmin", "port", CStr(FormSetup.PropRegionClass.RemoteAdminPort(uuid)))
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
