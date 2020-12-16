@@ -1756,10 +1756,9 @@ Public Class RegionMaker
 
 #Region "Opensim.ini writers"
 
-    Public Shared Function CopyOpensimProto(RegionName As String) As Boolean
+    Public Shared Function CopyOpensimProto(RegionName As String, uuid As String) As Boolean
 
-        Dim uuid As String = FormSetup.PropRegionClass.FindRegionByName(RegionName)
-        If uuid.Length = 0 Then Return False
+
 
         ' copy the prototype to the regions Opensim.ini
         Dim pathname = FormSetup.PropRegionClass.IniPath(uuid)
@@ -1800,14 +1799,9 @@ Public Class RegionMaker
 
         '============== Opensim.ini =====================
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(uuid) & "\Opensim.ini", ";") Then
+        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(uuid) & "\Region\" & RegionName & ".ini", ";") Then
             Return True
         End If
-
-        ''' ports
-
-        Settings.SetIni(RegionName, "InternalPort", Convert.ToString(FormSetup.PropRegionClass.RegionPort(uuid), Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni(RegionName, "ExternalHostName", FormSetup.ExternLocalServerName())
 
         ' Extended
 
@@ -1994,6 +1988,10 @@ Public Class RegionMaker
         If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(uuid) & "\Region\" & RegionName & ".ini", ";") Then
             Return True
         End If
+
+
+        Settings.SetIni(RegionName, "InternalPort", Convert.ToString(FormSetup.PropRegionClass.RegionPort(uuid), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(RegionName, "ExternalHostName", FormSetup.ExternLocalServerName())
 
         Settings.SetIni(RegionName, "ClampPrimSize", Convert.ToString(FormSetup.PropRegionClass.ClampPrimSize(uuid), Globalization.CultureInfo.InvariantCulture))
 
