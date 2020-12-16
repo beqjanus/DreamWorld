@@ -47,7 +47,7 @@ Public Class FormSetup
     Private Const Hyperica As String = "Hyperica"
 
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.79"
+    Private Const _MyVersion As String = "3.791"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private _jRev As String = "3.9.23"
@@ -1590,8 +1590,12 @@ Public Class FormSetup
         Else
             Settings.SetIni("Groups", "Module", "Groups Module V2")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "Groups HG Service Connector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "${Const|BaseURL}:${Const|PrivatePort}")
             Settings.SetIni("Groups", "MessagingModule", "Groups Messaging Module V2")
+            If Settings.ServerType = "Robust" Then
+                Settings.SetIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
+            Else
+                Settings.SetIni("Groups", "GroupsServerURI", "${Const|BaseURL}:${Const|PrivatePort}")
+            End If
         End If
 
         Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
@@ -1762,6 +1766,7 @@ Public Class FormSetup
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
         Return False
+
     End Function
 
     Public Function DoStopActions() As Boolean
@@ -6561,11 +6566,9 @@ Public Class FormSetup
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
         End If
 
-        If PropDNSSTimer Mod 10 = 0 Then
-            CalcCPU() ' get a list of running opensim processes
-        End If
-
         If PropDNSSTimer Mod 60 = 0 Then
+
+            CalcCPU() ' get a list of running opensim processes
 
             ScanAgents() ' update agent count  seconds
             Application.DoEvents()

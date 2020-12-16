@@ -3,7 +3,7 @@
 
 use strict;
 use IO::All;
-use warnings;
+no warnings;
 use 5.010;
 
 use File::Copy;
@@ -28,7 +28,7 @@ my $dir = getcwd;
 say ("Building DreamGrid$type.zip");
 
 
-say ('Server Publish? <p = publish, c = clean, enter = make the zip only>');
+say ('Server Publish $v ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
