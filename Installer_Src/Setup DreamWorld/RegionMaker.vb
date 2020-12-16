@@ -1756,10 +1756,14 @@ Public Class RegionMaker
 
 #Region "Opensim.ini writers"
 
-    Public Shared Function CopyOpensimProto(RegionName As String, uuid As String) As Boolean
+    Public Shared Function CopyOpensimProto(uuid As String) As Boolean
 
         ' copy the prototype to the regions Opensim.ini
         Dim pathname = FormSetup.PropRegionClass.IniPath(uuid)
+        Dim RegionName = FormSetup.PropRegionClass.RegionName(uuid)
+        Dim GroupName = FormSetup.PropRegionClass.GroupName(uuid)
+
+
         Try
             My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), pathname & "Opensim.ini", True)
         Catch ex As Exception
@@ -1768,7 +1772,7 @@ Public Class RegionMaker
 
         '============== Opensim.ini =====================
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(uuid) & "\Opensim.ini", ";") Then
+        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & GroupName & "\Opensim.ini", ";") Then
             Return True
         End If
 
@@ -1974,7 +1978,7 @@ Public Class RegionMaker
 
         '============== Region.ini =====================
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & FormSetup.PropRegionClass.GroupName(uuid) & "\Region\" & RegionName & ".ini", ";") Then
+        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & GroupName & "\Region\" & RegionName & ".ini", ";") Then
             Return True
         End If
 

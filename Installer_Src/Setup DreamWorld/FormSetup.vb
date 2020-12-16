@@ -1185,7 +1185,7 @@ Public Class FormSetup
             End If
         End If
 
-        If RegionMaker.CopyOpensimProto(BootName, RegionUUID) Then
+        If RegionMaker.CopyOpensimProto(RegionUUID) Then
             Return False
         End If
 
