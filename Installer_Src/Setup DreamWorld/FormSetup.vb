@@ -47,7 +47,7 @@ Public Class FormSetup
     Private Const Hyperica As String = "Hyperica"
 
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.79"
+    Private Const _MyVersion As String = "3.792"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private _jRev As String = "3.9.23"
