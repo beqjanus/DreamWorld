@@ -238,7 +238,6 @@ Public Class MySettings
         Try
             parser.WriteFile(INI, Data, encoding)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.ErrorLog("Error:" + ex.Message)
         End Try
