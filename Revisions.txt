@@ -3,7 +3,7 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
 V3.791
-Grid Gloebits broke in 3.79 when region loebit was fixed.
+Grid Gloebits broke in 3.79 when region Gloebit was fixed for jOpensim
 Possible crash fixed when shutting down.
 Log levels are sticky again. As one example If you set it to INFO, it will be INFO on a reboot. Log Folders were broken by changes to Log4Net in core.
 Groups on Region servers were set to the wrong port.
