@@ -2488,7 +2488,7 @@ Public Class FormSetup
                     ApacheIs(False)
                 Else
                     PropApacheUninstalling = False ' installed now, trap errors
-                    Settings.CurrentDirectory = Settings.OldInstallFolder
+                    Settings.OldInstallFolder = Settings.CurrentDirectory
                 End If
                 Sleep(1000)
             End Using
