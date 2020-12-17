@@ -940,7 +940,6 @@ Public Class FormRegion
                 Return Message
             End If
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Message = Global.Outworldz.My.Resources.NVPhysPrim
             Return Message
@@ -952,7 +951,6 @@ Public Class FormRegion
                 Return Message
             End If
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Message = Global.Outworldz.My.Resources.NVMaxPrim
             Return Message
@@ -988,19 +986,21 @@ Public Class FormRegion
 
     Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d\. ]")
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
         ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
 
-        If ScriptTimerTextBox.Text.Length > 0 Then
-            Try
-                Dim value = Convert.ToDouble(ScriptTimerTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-                If value < 0.05 Or value > 1 Then ScriptTimerTextBox.Text = CStr(0.2)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
-
         If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub ScriptTimerTextBox_focusChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.LostFocus
+
+        Try
+            Dim value = Convert.ToDouble(ScriptTimerTextBox.Text, Globalization.CultureInfo.InvariantCulture)
+            If value < 0.01 Then ScriptTimerTextBox.Text = ""
+        Catch ex As Exception
+            ScriptTimerTextBox.Text = ""
+        End Try
 
     End Sub
 
@@ -1024,15 +1024,19 @@ Public Class FormRegion
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
 
-        If FrametimeBox.Text.Length > 0 Then
-            Try
-                Dim value = Convert.ToDouble(FrametimeBox.Text, Globalization.CultureInfo.InvariantCulture)
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        FrametimeBox.Text = digitsOnly.Replace(FrametimeBox.Text, "")
 
-                If value < 0.05 Or value > 1 Then FrametimeBox.Text = CStr(0.2)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
+    End Sub
+
+    Private Sub TextBox1_FocusChanged(sender As Object, e As EventArgs) Handles FrametimeBox.LostFocus
+
+        Try
+            Dim value = Convert.ToDouble(FrametimeBox.Text, Globalization.CultureInfo.InvariantCulture)
+            If value < 0.01 Then FrametimeBox.Text = ""
+        Catch ex As Exception
+            FrametimeBox.Text = ""
+        End Try
 
         If Initted1 Then Changed1 = True
 
