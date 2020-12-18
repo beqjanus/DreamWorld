@@ -3659,6 +3659,7 @@ Public Class FormSetup
             BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
         End Try
+        results.Dispose()
 
         ChartWrapper2.ClearChart()
         Dim RAM() As Double = MyRAMCollection.ToArray()
