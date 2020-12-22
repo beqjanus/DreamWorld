@@ -3774,8 +3774,6 @@ Public Class FormSetup
         Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & ">")
         Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog")
-        ' needed for Php5 upgrade
-        Settings.SetLiteralIni("LoadModule php5_module", "LoadModule php7_module")
         Settings.SetLiteralIni("LoadModule php7_module", "LoadModule php7_module " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/php7apache2_4.dll" & """")
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
@@ -7023,7 +7021,7 @@ Public Class FormSetup
                     End If
 
                     If String.IsNullOrEmpty(SaveIAR.GBackupPath) Or SaveIAR.GBackupPath = "AutoBackup" Then
-                        ToBackup = BackupPath() & "" & BackupName
+                        ToBackup = IO.Path.Combine(BackupPath(), BackupName)
                     Else
                         ToBackup = BackupName
                     End If
