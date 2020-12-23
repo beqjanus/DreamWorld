@@ -17,17 +17,15 @@ Module CPUCOunter
         OpensimProcesses = Process.GetProcessesByName("Opensim")
         Try
             For Each p As Process In OpensimProcesses
-                Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-                    Dim Group As String = ""
-                    If FormSetup.PropRegionHandles.ContainsKey(p.Id) Then
-                        Group = FormSetup.PropRegionHandles.Item(p.Id)
+                If FormSetup.PropRegionHandles.ContainsKey(p.Id) Then
+                    Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
+                        Dim G As String = FormSetup.PropRegionHandles.Item(p.Id)
                         counter.NextValue() ' start the counter
-                    End If
-
-                    If Not CounterList.ContainsKey(Group) Then
-                        CounterList.Add(Group, counter)
-                    End If
-                End Using
+                        If Not CounterList.ContainsKey(G) Then
+                            CounterList.Add(G, counter)
+                        End If
+                    End Using
+                End If
             Next
         Catch
         End Try
