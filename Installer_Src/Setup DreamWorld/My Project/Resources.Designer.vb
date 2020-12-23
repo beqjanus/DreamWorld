@@ -6000,6 +6000,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Password is too short.
+        '''</summary>
+        Friend ReadOnly Property Passwordtooshort_word() As String
+            Get
+                Return ResourceManager.GetString("Passwordtooshort_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property pdf() As System.Drawing.Bitmap

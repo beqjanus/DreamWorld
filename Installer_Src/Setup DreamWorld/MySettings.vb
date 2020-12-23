@@ -823,6 +823,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property LastDirectory() As String
+        Get
+            Return GetMySetting("LastDirectory") ' no default
+        End Get
+        Set
+            SetMySetting("LastDirectory", Value)
+        End Set
+    End Property
+
     Public Property CurrentDirectory() As String
         Get
             Return GetMySetting("Myfolder") ' no default
@@ -948,7 +957,7 @@ Public Class MySettings
     ' fsassets
     Public Property FsAssetsEnabled() As Boolean
         Get
-            Return CType(GetMySetting("FsAssetsEnabled", "False"), Boolean)
+            Return CType(GetMySetting("FsAssetsEnabled", "True"), Boolean)
         End Get
         Set
             SetMySetting("FsAssetsEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))

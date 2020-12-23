@@ -2,9 +2,18 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.794
+Auto Restart now handles region restarts if the GUI has been restarted. Users can reliably restart a region.
+Speedup: Only as many Performance counters as necessary, for umm, performance!
+Boot Speedup: Install Apache only if it has changed folder. Also stops Apache from occasionally not starting. 
+Opensim error: Mutelist and SearchURL fixes if Jopensim was enabled and them disabled.
+
+V3.793
+Error starting Icecast due to a missing slash.
+
 V3.792
-Prior versionn mixed up a INI file and never re-wrote the Opensim.ini.
-Depending upon your sitiuation, it would  boot but not let you log in. Or crash regions and not boot.
+Prior version mixed up a INI file and never re-wrote the Opensim.ini.
+Depending upon your situation, it would  boot but not let you log in. Or crash regions and not boot.
 
 
 V3.791

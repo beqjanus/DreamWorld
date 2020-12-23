@@ -68,7 +68,7 @@ Public Class FormDiva
 
         Settings.SaveSettings()
         FormSetup.PropViewedSettings = True
-        If setpassword And FormSetup.PropOpensimIsRunning() Then
+        If setpassword And FormSetup.PropOpensimIsRunning() And Settings.Password.Length > 5 Then
             FormSetup.ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password & "{ENTER}" + vbCrLf)
         End If
 
@@ -234,8 +234,10 @@ Public Class FormDiva
     Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
         If Not initted Then Return
-        Settings.Password = AdminPassword.Text
-        Settings.SaveSettings()
+        If AdminPassword.Text.Length > 5 Then
+            Settings.Password = AdminPassword.Text
+            Settings.SaveSettings()
+        End If
 
     End Sub
 
@@ -264,10 +266,13 @@ Public Class FormDiva
     Private Sub Password_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
         If Not initted Then Return
-        Settings.Password = AdminPassword.Text
-        Settings.SaveSettings()
-
-        setpassword = True
+        If AdminPassword.Text.Length > 5 Then
+            Settings.Password = AdminPassword.Text
+            Settings.SaveSettings()
+            setpassword = True
+        Else
+            MsgBox(My.Resources.Passwordtooshort_word, vbInformation)
+        End If
 
     End Sub
 

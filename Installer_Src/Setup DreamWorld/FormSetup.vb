@@ -37,6 +37,7 @@ Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
+Imports System.Diagnostics.Process
 
 Public Class FormSetup
 
@@ -47,7 +48,7 @@ Public Class FormSetup
     Private Const Hyperica As String = "Hyperica"
 
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.793"
+    Private Const _MyVersion As String = "3.794"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private _jRev As String = "3.9.23"
@@ -56,6 +57,7 @@ Public Class FormSetup
 
 #Region "Declarations"
 
+    Private WithEvents BootProcess As New Process '= GetNewProcess()
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
     Private WithEvents ProcessMySql As Process = New Process()
@@ -64,8 +66,8 @@ Public Class FormSetup
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
     Private ReadOnly D As New Dictionary(Of String, String)
-    Private ReadOnly ExitInterval As Integer = 1
-    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+    Private ReadOnly ExitInterval As Integer = 2
+    Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
     Private _Adv As FormSettings
@@ -634,7 +636,7 @@ Public Class FormSetup
         Using ClientSocket As New TcpClient
             Try
                 result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
-                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(2))
+                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5))
                 ClientSocket.EndConnect(result)
             Catch ex As Exception
                 ' no Breakpoint needed
@@ -1037,12 +1039,68 @@ Public Class FormSetup
 
     End Sub
 
-    Public Function Boot(Regionclass As RegionMaker, BootName As String) As Boolean
+    Private Sub quitter(ByVal sender As Object, ByVal e As System.EventArgs) Handles BootProcess.Exited
+        ' Handle any process that exits by adding it to a dictionary. DoExitHandlerPoll will clean up.
+
+        Dim pid = CType(sender.Id, Integer)
+
+        If PropRegionHandles.ContainsKey(pid) Then
+            Dim name = PropRegionHandles.Item(pid)
+            If name.Length > 0 Then
+                If Not PropExitList.ContainsKey(name) Then
+                    PropExitList.Add(name, "DOS Box exit")
+                End If
+            End If
+            PropRegionHandles.Remove(pid)
+        End If
+
+    End Sub
+
+    ''' <summary>
+    ''' Saves Opensim process with an event handler
+    ''' if process is not located, also adds a exit event handler
+    ''' </summary>
+    ''' <param name="p"></param>
+    ''' <param name="Groupname"></param>
+    Private Sub SaveProcess(p As Process, Groupname As String)
+
+        If Not PropRegionHandles.ContainsKey(p.Id) Then
+            PropRegionHandles.Add(p.Id, Groupname) ' save in the list of exit events in case it crashes or exits
+            'Dim handle = New Handler
+            'Handler.Init(PropRegionHandles, PropExitList)
+            p.EnableRaisingEvents = True
+            AddHandler p.Exited, AddressOf quitter
+            AddHandler p.Disposed, AddressOf quitter
+        End If
+
+        For Each RegionUUID In PropRegionClass.RegionUuidListByName(Groupname)
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
+            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
+            PropRegionClass.ProcessID(RegionUUID) = p.Id
+        Next
+
+    End Sub
+
+    Private Sub Addeventhandler(RegionUUID As String)
+
+        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+        'If PropRegionClass.ProcessID(RegionUUID) = 0 Then
+        For Each p In Process.GetProcesses
+            If p.MainWindowTitle = GroupName Then
+                SaveProcess(p, GroupName)
+                Logger("Located, is already running", GroupName, "Restart")
+                PropUpdateView = True ' make form refresh
+                Exit For
+            End If
+        Next
+        'End If
+    End Sub
+
+    Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
 
-        If Regionclass Is Nothing Then Return False
         If RegionMaker.Instance Is Nothing Then Return False
 
         ' Allow these to change w/o rebooting
@@ -1059,8 +1117,8 @@ Public Class FormSetup
 
         If PropAborting Then Return True
 
-        Dim RegionUUID As String = Regionclass.FindRegionByName(BootName)
-        Dim GroupName = Regionclass.GroupName(RegionUUID)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
+        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
 
         If String.IsNullOrEmpty(RegionUUID) Then
             ErrorLog("Cannot find " & BootName & " to boot!")
@@ -1069,133 +1127,33 @@ Public Class FormSetup
         End If
         Log(My.Resources.Info_word, "Region: Starting Region " & BootName)
 
-        If Regionclass.IsBooted(RegionUUID) Then
-            Logger("Already Running", BootName, "Restart")
-            Log(My.Resources.Info_word, "Region " & BootName & " already running")
-            PropUpdateView = True ' make form refresh
-            Return True
-        End If
-
-        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
-            Logger("Already warming up", BootName, "Restart")
-            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Warming Up")
-            PropUpdateView = True ' make form refresh
-            Return True
-        End If
-
-        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Then
-            Logger("Already booting up", BootName, "Restart")
-            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Booting Up")
-            PropUpdateView = True ' make form refresh
-            Return True
-        End If
-
-        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-            Logger("Cannot boot, shutting down", BootName, "Restart")
-            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Shutting Down")
-            PropUpdateView = True ' make form refresh
-            Return True
-        End If
-
-        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-            Logger("Already Recycling Down", BootName, "Restart")
-            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Recycling Down")
-            PropUpdateView = True ' make form refresh
-            Return True
-        End If
-
-        If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-            Logger("Suspended, Resuming it", BootName, "Restart")
-            Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-            Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
-            PropUpdateView = True ' make form refresh
-            Return True
-        End If
-
-        Dim isRegionRunning As Boolean = False
-
-        For Each p In Process.GetProcesses
-            Application.DoEvents()
-            If p.MainWindowTitle = GroupName Then
-                isRegionRunning = True
-                Exit For
-            End If
-        Next
-
-        If Not isRegionRunning Then isRegionRunning = CheckPort("127.0.0.1", Regionclass.GroupPort(RegionUUID))
-        Application.DoEvents()
-        If isRegionRunning Then
-            Print(GroupName & " " & Global.Outworldz.My.Resources.is_already_running_word)
-            Logger(My.Resources.is_already_running_word, GroupName, "Restart")
-            ' if running, grab it and return
-            If Regionclass.ProcessID(RegionUUID) = 0 Then
-                Dim listP = Process.GetProcesses
-                For Each p In listP
-                    Application.DoEvents()
-                    If p.MainWindowTitle = GroupName Then
-                        If Not PropRegionHandles.ContainsKey(p.Id) Then
-                            PropRegionHandles.Add(p.Id, GroupName) ' save in the list of exit events in case it crashes or exits
-                        End If
-
-                        For Each RegionUUID In Regionclass.RegionUuidListByName(GroupName)
-                            Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
-                            Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-                            Regionclass.ProcessID(RegionUUID) = p.Id
-                        Next
-
-                        Logger("Located, is already running", BootName, "Restart")
-                        Select Case Settings.ConsoleShow
-                            Case "True"
-                            ' Do nothing, Always Show
-                            Case "False"
-                                ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWMINIMIZE)
-                            Case "None"
-                                ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWMINIMIZE)
-                        End Select
-                        PropUpdateView = True ' make form refresh
-                        Return True
-                    End If
-                Next
-                ErrorLog("Cannot find Window " & GroupName)
-                Logger("Cannot find Window", GroupName, "Restart")
-                Return False
-            Else
-                If Not PropRegionHandles.ContainsKey(Regionclass.ProcessID(RegionUUID)) Then
-                    PropRegionHandles.Add(Regionclass.ProcessID(RegionUUID), GroupName) ' save in the list of exit events in case it crashes or exits
-                End If
-
-                For Each UUID As String In Regionclass.RegionUuidListByName(GroupName)
-                    Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted ' force it up
-                    Regionclass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
-                Next
-
-                Logger("Booting Up", BootName, "Restart")
-
-                PropUpdateView = True ' make form refresh
-                Return True
-            End If
-        Else
-            If Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                Regionclass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-                Regionclass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-                Log(My.Resources.Info_word, GroupName & " skipped as it is Suspended, Resuming it instead")
-                Logger("Suspended, Resuming it instead", GroupName, "Restart")
-                PropUpdateView = True ' make form refresh
-                Return True
-            End If
-        End If
-
         If RegionMaker.CopyOpensimProto(RegionUUID) Then
             Return False
         End If
 
-        Dim myProcess As Process = GetNewProcess()
+        Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", PropRegionClass.GroupPort(RegionUUID))
+        Application.DoEvents()
+
+        If isRegionRunning Then
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                Addeventhandler(RegionUUID)
+                Logger("Suspended, Resuming it", BootName, "Restart")
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+                Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
+                PropUpdateView = True ' make form refresh
+                Return True
+            Else    ' needs to be captured into the event handler
+                Addeventhandler(RegionUUID)
+                Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Warming Up")
+                Return True
+            End If
+        End If
 
         Print(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
 
-        myProcess.EnableRaisingEvents = True
-        myProcess.StartInfo.UseShellExecute = False ' Must be false
-        myProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
+        BootProcess.EnableRaisingEvents = True
+        BootProcess.StartInfo.UseShellExecute = False ' Must be false
+        BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 
         Try
             Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
@@ -1204,31 +1162,31 @@ Public Class FormSetup
             BreakPoint.Show(ex.Message)
         End Try
 
-        myProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
-        myProcess.StartInfo.CreateNoWindow = False
+        BootProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
+        BootProcess.StartInfo.CreateNoWindow = False
 
         Select Case Settings.ConsoleShow
             Case "True"
-                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Case "False"
-                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
             Case "None"
-                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
         End Select
 
-        myProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
+        BootProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
 
         SequentialPause()   ' wait for previous region to give us some CPU
         Logger("Booting", GroupName, "Restart")
 
         ' Mark them before we boot as a crash will immediately trigger the event that it exited
-        For Each UUID As String In Regionclass.RegionUuidListByName(GroupName)
-            Regionclass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
+        For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
         Next
 
         Dim ok As Boolean = False
         Try
-            ok = myProcess.Start
+            ok = BootProcess.Start
             Application.DoEvents()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -1237,25 +1195,22 @@ Public Class FormSetup
 
         If ok Then
 
-            Dim PID = WaitForPID(myProcess)
+            Dim PID = WaitForPID(BootProcess)
             ' check if it gave us a PID, if not, it failed.
 
-            PropUpdateView = True ' make form refresh
-
-            For Each UUID As String In Regionclass.RegionUuidListByName(GroupName)
-                Regionclass.ProcessID(UUID) = PID
+            For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                PropRegionClass.ProcessID(UUID) = PID
             Next
             If PID > 0 Then
-                Log("Debug", "Created Process Number " & CStr(myProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
-                If Not PropRegionHandles.ContainsKey(myProcess.Id) Then
-                    PropRegionHandles.Add(myProcess.Id, GroupName) ' save in the list of exit events in case it crashes or exits
-                End If
-                SetWindowTextCall(myProcess, GroupName)
+                Log("Debug", "Created Process Number " & CStr(BootProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
+                SetWindowTextCall(BootProcess, GroupName)
+                SaveProcess(BootProcess, GroupName)
             End If
             PropUpdateView = True ' make form refresh
             Buttons(StopButton)
             Return True
         End If
+        PropUpdateView = True ' make form refresh
         Logger("Failed to boot ", BootName, "Restart")
         Print("Failed to boot region " & BootName)
         Return False
@@ -1545,21 +1500,21 @@ Public Class FormSetup
 
     Private Shared Sub SetupOpensimIM()
 
-        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim"
+        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort
         If Settings.CMS = JOpensim Then
             Settings.SetIni("Messaging", "OfflineMessageModule", "OfflineMessageModule")
-            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/index.php?option=com_opensim&view=interface&messaging=")
-            Settings.SetIni("Messaging", "MuteListURL", URL & "/index.php?option=com_opensim&view=interface&messaging=")
+            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
+            Settings.SetIni("Messaging", "MuteListURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
         Else
             Settings.SetIni("Messaging", "OfflineMessageModule", "Offline Message Module V2")
-            Settings.SetIni("Messaging", "OfflineMessageURL", "${Const|BaseURL}:${Const|PublicPort}")
-            Settings.SetIni("Messaging", "MuteListURL", URL & "${Const|BaseURL}:${Const|PublicPort}")
+            Settings.SetIni("Messaging", "OfflineMessageURL", "")
+            Settings.SetIni("Messaging", "MuteListURL", "http://127.0.0.1" & ":" & Settings.PublicIP)
         End If
     End Sub
 
     Public Shared Function DoOpensimProtoINI() As Boolean
 
-        ' Opensim.ini
+        ' Opensim.Proto
         Settings.LoadIni(GetOpensimProto(), ";")
 
         Select Case Settings.ServerType
@@ -1811,14 +1766,6 @@ Public Class FormSetup
             Next
         Next
         Return IntPtr.Zero
-
-    End Function
-
-    Public Function GetNewProcess() As Process
-        ''' <summary>Creates and exit handler for each region</summary>
-        ''' <returns>a process handle</returns>
-        Dim handle = New Handler
-        Return handle.Init(PropRegionHandles, PropExitList)
 
     End Function
 
@@ -2269,7 +2216,9 @@ Public Class FormSetup
             Dim ret = RegisterName(Settings.PublicIP, False)
             Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
             For Each part As String In array
-                RegisterName(part, False)
+                If part.Length > 0 Then
+                    RegisterName(part, False)
+                End If
             Next
             Return ret
         Else
@@ -2352,7 +2301,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Function StartApache() As Boolean
+    Public Sub StartApache()
 
         ' Depends upon PHP for home page
         DoPHPDBSetup()
@@ -2391,7 +2340,7 @@ Public Class FormSetup
         If Not Settings.ApacheEnable Then
             ApacheIs(False)
             Print(My.Resources.Apache_Disabled)
-            Return True
+            Return
         End If
 
         If Settings.ApachePort = 80 Then
@@ -2410,47 +2359,20 @@ Public Class FormSetup
             ApacheProcess.WaitForExit()
         End If
 
-        Print(My.Resources.Checking_Apache_service_word)
-        ' Stop MSFT server if we are on port 80 and enabled
+        If Settings.CurrentDirectory <> Settings.LastDirectory Then
 
-        PropApacheUninstalling = True
+            Settings.LastDirectory = Settings.CurrentDirectory
+            Settings.SaveSettings()
 
-        ApacheProcess.StartInfo.FileName = "sc"
-        ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
-        ApacheProcess.StartInfo.CreateNoWindow = True
-        Try
-            ApacheProcess.Start()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-        Application.DoEvents()
-        ApacheProcess.WaitForExit()
+            Print(My.Resources.Checking_Apache_service_word)
+            ' Stop MSFT server if we are on port 80 and enabled
 
-        ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
-        Try
-            ApacheProcess.Start()
-        Catch ex As Exception
+            PropApacheUninstalling = True
 
-            BreakPoint.Show(ex.Message)
-        End Try
-        Application.DoEvents()
-        ApacheProcess.WaitForExit()
-        ApacheIs(False)
-
-        If Settings.OldInstallFolder <> Settings.CurrentDirectory Then
-
-            'delete really old service
             ApacheProcess.StartInfo.FileName = "sc"
-            ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
+            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
             ApacheProcess.StartInfo.CreateNoWindow = True
-            Try
-                ApacheProcess.Start()
-            Catch ex As Exception
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-
-            ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
@@ -2459,44 +2381,79 @@ Public Class FormSetup
             Application.DoEvents()
             ApacheProcess.WaitForExit()
 
-            Sleep(5000)
+            ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
+            Try
+                ApacheProcess.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+            ApacheIs(False)
 
-            Using ApacheProcess As New Process With {
-                    .EnableRaisingEvents = False
-                }
-                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\httpd.exe")
-                ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
+            If Settings.OldInstallFolder <> Settings.CurrentDirectory Then
+
+                'delete really old service
+                ApacheProcess.StartInfo.FileName = "sc"
+                ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
                 ApacheProcess.StartInfo.CreateNoWindow = True
-                ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\")
                 ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-                DoApache()
 
                 Try
                     ApacheProcess.Start()
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                    ApacheIs(False)
-                    Print(My.Resources.ApacheFailed & ":" & ex.Message)
                 End Try
                 Application.DoEvents()
                 ApacheProcess.WaitForExit()
 
-                If ApacheProcess.ExitCode <> 0 Then
-                    Print(My.Resources.ApacheFailed)
-                    ApacheIs(False)
-                Else
-                    PropApacheUninstalling = False ' installed now, trap errors
-                    Settings.OldInstallFolder = Settings.CurrentDirectory
-                End If
-                Sleep(1000)
-            End Using
+                ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
+                Try
+                    ApacheProcess.Start()
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+                Application.DoEvents()
+                ApacheProcess.WaitForExit()
+
+                Sleep(5000)
+
+                Using ApacheProcess As New Process With {
+                        .EnableRaisingEvents = False
+                    }
+                    ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                    ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\httpd.exe")
+                    ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
+                    ApacheProcess.StartInfo.CreateNoWindow = True
+                    ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\")
+                    ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+                    DoApache()
+
+                    Try
+                        ApacheProcess.Start()
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                        ApacheIs(False)
+                        Print(My.Resources.ApacheFailed & ":" & ex.Message)
+                    End Try
+                    Application.DoEvents()
+                    ApacheProcess.WaitForExit()
+
+                    If ApacheProcess.ExitCode <> 0 Then
+                        Print(My.Resources.ApacheFailed)
+                        ApacheIs(False)
+                    Else
+                        PropApacheUninstalling = False ' installed now, trap errors
+                        Settings.OldInstallFolder = Settings.CurrentDirectory
+                    End If
+                    Sleep(1000)
+                End Using
+
+            End If
 
         End If
 
         Print(My.Resources.Apache_starting)
-
         DoApache()
 
         Using ApacheProcess As New Process With {
@@ -2507,8 +2464,13 @@ Public Class FormSetup
             ApacheProcess.StartInfo.Arguments = "start ApacheHTTPServer"
             ApacheProcess.StartInfo.UseShellExecute = False
             ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.RedirectStandardError = True
+            ApacheProcess.StartInfo.RedirectStandardOutput = True
+            Dim response As String = ""
+
             Try
                 ApacheProcess.Start()
+                response = ApacheProcess.StandardOutput.ReadToEnd() & ApacheProcess.StandardError.ReadToEnd()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 Print(My.Resources.Apache_Failed & ":" & ex.Message)
@@ -2517,17 +2479,20 @@ Public Class FormSetup
             ApacheProcess.WaitForExit()
 
             If ApacheProcess.ExitCode <> 0 Then
+                If response.Contains("has already been started") Then
+                    ApacheIs(True)
+                    Return
+                End If
                 Print(My.Resources.Apache_Failed & ":" & CStr(ApacheProcess.ExitCode))
                 ApacheIs(False)
             Else
                 Print(My.Resources.Apache_running & ":" & Settings.ApachePort)
                 ApacheIs(True)
             End If
+
         End Using
 
-        Return False
-
-    End Function
+    End Sub
 
     Public Function StartIcecast() As Boolean
 
@@ -2747,7 +2712,7 @@ Public Class FormSetup
         For Each RegionUUID As String In PropRegionClass.RegionUuids()
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 PropRegionClass.CrashCounter(RegionUUID) = 0
-                If Not Boot(PropRegionClass, PropRegionClass.RegionName(RegionUUID)) Then
+                If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
                     Exit For
                 End If
             End If
@@ -2820,10 +2785,6 @@ Public Class FormSetup
         RobustProcess.EnableRaisingEvents = True
         RobustProcess.StartInfo.UseShellExecute = False ' must be false for OSIM_LEVEL
         RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
-
-        'If Not RobustProcess.StartInfo.EnvironmentVariables.ContainsKey("OSIM_LOGLEVEL") Then
-        'RobustProcess.StartInfo.EnvironmentVariables.Add("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
-        'End If
 
         RobustProcess.StartInfo.FileName = Settings.OpensimBinPath & "robust.exe"
         RobustProcess.StartInfo.CreateNoWindow = False
@@ -2948,9 +2909,6 @@ Public Class FormSetup
         ToolBar(False)
 
         GridNames.SetServerNames()
-
-        ' clear region error handlers
-        PropRegionHandles.Clear()
 
         If Settings.Language.Length = 0 Then
             Settings.Language = "en-US"
@@ -3441,11 +3399,14 @@ Public Class FormSetup
             FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"), True)
             FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"), True)
         ElseIf Settings.JOpensimSearch = Hyperica Then
-            Settings.SetIni("Search", "SearchURL", "http://hyperica.com/Search/query.php")
+            Dim SearchURL = "http://hyperica.com/Search/query.php"
+            Settings.SetIni("Search", "SearchURL", SearchURL)
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
         Else
             Settings.SetIni("Search", "SearchURL", "")
+            Settings.SetIni("LoginService", "SearchURL", "")
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
         End If
@@ -3775,8 +3736,6 @@ Public Class FormSetup
         Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & ">")
         Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
         Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog")
-        ' needed for Php5 upgrade
-        Settings.SetLiteralIni("LoadModule php5_module", "LoadModule php7_module")
         Settings.SetLiteralIni("LoadModule php7_module", "LoadModule php7_module " & """" & PropCurSlashDir & "/OutworldzFiles/PHP7/php7apache2_4.dll" & """")
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
@@ -4473,7 +4432,7 @@ Public Class FormSetup
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartPending Then
                     Logger("State is RestartPending", GroupName, "Restart")
                     'RestartPending = 6
-                    Boot(PropRegionClass, RegionName)
+                    Boot(RegionName)
                     Logger("State is now Booted", PropRegionClass.RegionName(RegionUUID), "Restart")
                     PropUpdateView = True
                     Continue For
@@ -5036,7 +4995,7 @@ Public Class FormSetup
         Application.DoEvents()
         LoadLocalIAROAR() ' load IAR and OAR local content
 
-        If Settings.Password = "secret" Then
+        If Settings.Password = "secret" Or Settings.Password.Length = 0 Then
             Dim Password = New PassGen
             Settings.Password = Password.GeneratePass()
         End If
@@ -6202,7 +6161,7 @@ Public Class FormSetup
     Private Sub SetScreen()
         '365, 238 default
         ScreenPosition1 = New ScreenPos("Form1")
-        AddHandler ResizeEnd, Handler
+        AddHandler ResizeEnd, HandlerSetup
         Dim xy As List(Of Integer) = ScreenPosition1.GetXY()
         Left = xy.Item(0)
         Top = xy.Item(1)
@@ -6237,33 +6196,31 @@ Public Class FormSetup
     Private Shared Sub SetupWordPress()
 
         If Settings.ServerType <> "Robust" Then Return
-
-        'Print(My.Resources.Setup_Wordpress)
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
-
-        FileIO.FileSystem.CurrentDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
-        pi.FileName = "Create_WordPress.bat"
-        pi.UseShellExecute = True
-        pi.CreateNoWindow = False
-        pi.WindowStyle = ProcessWindowStyle.Minimized
-
-        Using MysqlWordpress As Process = New Process With {
+        If Settings.CMS = "WordPress" Then
+            'Print(My.Resources.Setup_Wordpress)
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .FileName = "Create_WordPress.bat",
+                .UseShellExecute = True,
+                .CreateNoWindow = False,
+                .WindowStyle = ProcessWindowStyle.Minimized,
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
+            }
+            Using MysqlWordpress As Process = New Process With {
                 .StartInfo = pi
             }
 
-            Try
-                MysqlWordpress.Start()
-                MysqlWordpress.WaitForExit()
-            Catch ex As Exception
+                Try
+                    MysqlWordpress.Start()
+                    MysqlWordpress.WaitForExit()
+                Catch ex As Exception
 
-                BreakPoint.Show(ex.Message)
-                ErrorLog("Could not create WordPress Database: " & ex.Message)
-                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                Return
-            End Try
-        End Using
-
-        FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                    BreakPoint.Show(ex.Message)
+                    ErrorLog("Could not create WordPress Database: " & ex.Message)
+                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                    Return
+                End Try
+            End Using
+        End If
 
     End Sub
 
@@ -6565,6 +6522,13 @@ Public Class FormSetup
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
+
+            RegisterName(Settings.DNSName, True)
+            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
+            For Each part As String In array
+                RegisterName(part, True)
+            Next
+
         End If
 
         If PropDNSSTimer Mod 60 = 0 Then
@@ -6578,22 +6542,12 @@ Public Class FormSetup
             Backups.RunBackups()
         End If
 
-        PropRegionClass.CheckPost() ' get the stack filled ASAP
-
         If PropDNSSTimer Mod ExitInterval = 0 And PropDNSSTimer > 0 Then
+            PropRegionClass.CheckPost() ' get the stack filled ASAP
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             Application.DoEvents()
             RestartDOSboxes()
             Application.DoEvents()
-        End If
-
-        'hourly for DNS
-        If PropDNSSTimer Mod 3600 = 0 Then
-            RegisterName(Settings.DNSName, True)
-            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
-            For Each part As String In array
-                RegisterName(part, True)
-            Next
         End If
 
         PropDNSSTimer += 1
@@ -7024,7 +6978,7 @@ Public Class FormSetup
                     End If
 
                     If String.IsNullOrEmpty(SaveIAR.GBackupPath) Or SaveIAR.GBackupPath = "AutoBackup" Then
-                        ToBackup = BackupPath() & "" & BackupName
+                        ToBackup = IO.Path.Combine(BackupPath(), BackupName)
                     Else
                         ToBackup = BackupName
                     End If

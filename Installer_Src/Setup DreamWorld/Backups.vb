@@ -72,7 +72,7 @@ Module Backups
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
         If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
-            BackupPath = FormSetup.PropCurSlashDir & "/OutworldzFiles/AutoBackup/"
+            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/AutoBackup/")
             Settings.BackupFolder = BackupPath
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
@@ -82,13 +82,12 @@ Module Backups
             BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
             Settings.BackupFolder = BackupPath
             If Not Directory.Exists(BackupPath) Then
-                BackupPath = FormSetup.PropCurSlashDir & "/OutworldzFiles/Autobackup/"
+                BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup/")
                 If Not Directory.Exists(BackupPath) Then
                     MkDir(BackupPath)
                 End If
                 MsgBox(My.Resources.Autobackup_cannot_be_located & BackupPath)
             End If
-            Settings.SaveSettings()
         End If
         Return BackupPath
 

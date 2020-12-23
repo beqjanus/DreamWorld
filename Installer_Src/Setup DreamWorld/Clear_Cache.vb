@@ -50,7 +50,7 @@ Module Clear_Cache
             If folders IsNot Nothing Then
 
                 For Each folder As String In folders
-
+                    ''' TO DO !!! Speed this up
                     FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
 
                     ctr += 1
