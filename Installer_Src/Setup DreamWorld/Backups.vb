@@ -88,7 +88,6 @@ Module Backups
                 End If
                 MsgBox(My.Resources.Autobackup_cannot_be_located & BackupPath)
             End If
-            Settings.SaveSettings()
         End If
         Return BackupPath
 

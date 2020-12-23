@@ -2418,6 +2418,7 @@ Public Class FormSetup
         ApacheProcess.StartInfo.FileName = "sc"
         ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
         ApacheProcess.StartInfo.CreateNoWindow = True
+        ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
         Try
             ApacheProcess.Start()
         Catch ex As Exception
@@ -2443,6 +2444,7 @@ Public Class FormSetup
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
             ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
