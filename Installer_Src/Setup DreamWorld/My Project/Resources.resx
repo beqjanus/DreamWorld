@@ -3092,4 +3092,7 @@
     <value>Automatic Site Map</value>
     <comment>new</comment>
   </data>
+  <data name="Passwordtooshort_word" xml:space="preserve">
+    <value>Password is too short</value>
+  </data>
 </root>

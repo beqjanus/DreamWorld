@@ -5035,7 +5035,7 @@ Public Class FormSetup
         Application.DoEvents()
         LoadLocalIAROAR() ' load IAR and OAR local content
 
-        If Settings.Password = "secret" Then
+        If Settings.Password = "secret" Or Settings.Password.Length = 0 Then
             Dim Password = New PassGen
             Settings.Password = Password.GeneratePass()
         End If
