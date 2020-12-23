@@ -465,7 +465,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalAspects.vb" />
-    <Compile Include="ExitHandler.vb" />
     <Compile Include="GlobalSettings.vb" />
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="GridNames.vb" />
