@@ -1107,7 +1107,7 @@ Public Class FormRegionlist
 
             FormSetup.PropAborting = False
             FormSetup.PropRegionClass.CrashCounter(RegionUUID) = 0
-            FormSetup.Boot(FormSetup.PropRegionClass, FormSetup.PropRegionClass.RegionName(RegionUUID))
+            FormSetup.Boot(FormSetup.PropRegionClass.RegionName(RegionUUID))
             Application.DoEvents()
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Start() 'Timer starts functioning
