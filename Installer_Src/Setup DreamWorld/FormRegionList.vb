@@ -626,7 +626,7 @@ Public Class FormRegionlist
 
                     item1.SubItems.Add(Letter)
                     Dim fmtXY = "00000" ' 65536
-                    Dim fmtRam = "0000." ' 9999 MB
+                    Dim fmtRam = "0.0" ' 9999 MB
                     ' RAM
 
                     If Status = RegionMaker.SIMSTATUSENUM.Booting _
@@ -648,14 +648,11 @@ Public Class FormRegionlist
                     End If
 
                     Dim cpupercent As Single = 0
-                    Try
-                        If CounterList.TryGetValue(Groupname, p) Then
-                            cpupercent = p.NextValue() / Environment.ProcessorCount
-                        Else
-                            cpupercent = 0
-                        End If
-                    Catch
-                    End Try
+
+                    If CPUValues.TryGetValue(Groupname, cpupercent) Then
+                    Else
+                        cpupercent = 0
+                    End If
                     item1.SubItems.Add(CStr(cpupercent))
 
                     item1.SubItems.Add(FormSetup.PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))

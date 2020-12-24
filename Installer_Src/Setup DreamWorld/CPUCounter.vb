@@ -5,13 +5,17 @@ Module CPUCOunter
     Private OpensimProcesses() As Process
 
     Private _counterList As New Dictionary(Of String, PerformanceCounter)
-
+    Private _CPUValues As New Dictionary(Of String, Single)
     Public ReadOnly Property CounterList As Dictionary(Of String, PerformanceCounter)
         Get
             Return _counterList
         End Get
     End Property
-
+    Public ReadOnly Property CPUValues As Dictionary(Of String, Single)
+        Get
+            Return _CPUValues
+        End Get
+    End Property
     Public Sub CalcCPU()
 
         OpensimProcesses = Process.GetProcessesByName("Opensim")
@@ -30,10 +34,20 @@ Module CPUCOunter
                     If Not CounterList.ContainsKey(Gname) Then
                         CounterList.Add(Gname, c)
                     End If
+
+                    If Not CPUValues.ContainsKey(Gname) Then
+                        CPUValues.Add(Gname, 0)
+                    Else
+                        CPUValues.Item(Gname) = (CounterList.Item(Gname).NextValue() / Environment.ProcessorCount).ToString("0.0")
+                    End If
+
+
+
                 End If
 
             Next
         Catch ex As Exception
+            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
