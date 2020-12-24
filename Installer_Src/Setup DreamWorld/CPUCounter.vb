@@ -39,8 +39,8 @@ Module CPUCOunter
                         CPUValues.Add(Gname, 0)
                     Else
                         Dim a = CDbl(CounterList.Item(Gname).NextValue())
-                        Dim b = (a / Environment.ProcessorCount) * 10
-                        CPUValues.Item(Gname) = b
+                        Dim b = (a / Environment.ProcessorCount)
+                        CPUValues.Item(Gname) = Math.Round(b, 1)
                     End If
                 End If
             Next

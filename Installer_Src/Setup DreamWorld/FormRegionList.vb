@@ -539,6 +539,8 @@ Public Class FormRegionlist
             ViewBusy = True
             ListView1.BeginUpdate()
 
+            'CalcCPU()
+
             ImageListLarge1 = New ImageList()
 
             If Pixels1 = 0 Then Pixels1 = 24
