@@ -40,14 +40,12 @@ Module CPUCOunter
                     Else
                         CPUValues.Item(Gname) = (CounterList.Item(Gname).NextValue() / Environment.ProcessorCount).ToString("0.0")
                     End If
-
-
-
                 End If
-
             Next
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
+            CounterList.Clear()
+            CPUValues.Clear()
         End Try
     End Sub
 

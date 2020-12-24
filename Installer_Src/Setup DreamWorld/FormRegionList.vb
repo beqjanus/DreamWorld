@@ -639,7 +639,7 @@ Public Class FormRegionlist
                             Dim PID = FormSetup.PropRegionClass.ProcessID(RegionUUID)
                             Dim component1 As Process = Process.GetProcessById(PID)
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
-                            item1.SubItems.Add(FormatNumber(Memory.ToString(fmtRam, Globalization.CultureInfo.InvariantCulture)))
+                            item1.SubItems.Add(Memory.ToString("0.0") & " MiB")
                         Catch ex As Exception
                             item1.SubItems.Add("0")
                         End Try
