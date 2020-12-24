@@ -1524,7 +1524,7 @@ Public Class FormSetup
         Else
             Settings.SetIni("Messaging", "OfflineMessageModule", "Offline Message Module V2")
             Settings.SetIni("Messaging", "OfflineMessageURL", "")
-            Settings.SetIni("Messaging", "MuteListURL", "http://127.0.0.1" & ":" & Settings.PublicIP)
+            Settings.SetIni("Messaging", "MuteListURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
         End If
     End Sub
 

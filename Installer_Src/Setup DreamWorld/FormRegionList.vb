@@ -257,6 +257,8 @@ Public Class FormRegionlist
 
     Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
+        CtrIsRunning = False
+
         Settings.RegionListVisible = False
         Settings.SaveSettings()
         FormExists1 = False
@@ -522,8 +524,10 @@ Public Class FormRegionlist
     Private Sub LoadMyListView()
         BringToFront()
         If TheView1 = ViewType.Avatars Then
+            CtrIsRunning = False
             ShowAvatars()
         Else
+            CtrIsRunning = True
             ShowRegions()
         End If
 

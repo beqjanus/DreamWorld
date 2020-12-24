@@ -155,7 +155,7 @@ Public Class FormJoomla
 
         Select Case Settings.JOpensimSearch
             Case ""
-                JOpensimRadioButton.Checked = False
+                RadioButton2.Checked = True
             Case JOpensim
                 JOpensimRadioButton.Checked = True
             Case "Hyperica"
@@ -188,7 +188,6 @@ Public Class FormJoomla
             ReinstallButton.Enabled = False
         Else
             JOpensimRadioButton.Enabled = True
-            JOpensimRadioButton.Checked = True
             AdminButton.Enabled = True
             ViewButton.Enabled = True
             UpdateButton.Enabled = True
