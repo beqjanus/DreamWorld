@@ -58,12 +58,12 @@ Module Backups
 
     Private Sub ErrorHandler(sender As Object, e As System.EventArgs)
 
-        Dim myProcess As New Process
-        myProcess = DirectCast(sender, Process)
-        BreakPoint.Show(CStr(myProcess.ExitCode))
-        myProcess.Close()
+        ' Dim myProcess As New Process
+        'myProcess = DirectCast(sender, Process)
+        'BreakPoint.Show(CStr(myProcess.ExitCode))
+        'myProcess.Close()
 
-        _Busy = False
+        '_Busy = False
 
     End Sub
 

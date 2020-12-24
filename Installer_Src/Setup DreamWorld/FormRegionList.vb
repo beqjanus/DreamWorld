@@ -639,7 +639,7 @@ Public Class FormRegionlist
                             Dim PID = FormSetup.PropRegionClass.ProcessID(RegionUUID)
                             Dim component1 As Process = Process.GetProcessById(PID)
                             Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
-                            item1.SubItems.Add(Memory.ToString("0.0") & " MiB")
+                            item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.InvariantCulture))
                         Catch ex As Exception
                             item1.SubItems.Add("0")
                         End Try
@@ -647,7 +647,7 @@ Public Class FormRegionlist
                         item1.SubItems.Add("0")
                     End If
 
-                    Dim cpupercent As Single = 0
+                    Dim cpupercent As Double = 0
 
                     If CPUValues.TryGetValue(Groupname, cpupercent) Then
                     Else
