@@ -124,6 +124,9 @@ Public Class RegionMaker
 
             Settings.SetIni(RegionName, "InternalPort", CStr(Portnumber))
             FormSetup.PropRegionClass.RegionPort(uuid) = Portnumber
+
+            FormSetup.PropRegionClass.GroupPort(uuid) = Portnumber
+
             FormSetup.PropRegionClass.XmlRegionPort(uuid) = XMLPortnumber
             FormSetup.PropRegionClass.RemoteAdminPort(uuid) = RemoteAdminPortnumber
 
@@ -1779,7 +1782,7 @@ Public Class RegionMaker
         Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
         Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
-        Settings.SetIni("Const", "http_listener_port", CStr(FormSetup.PropRegionClass.RegionPort(uuid))) ' varies with region
+        Settings.SetIni("Const", "http_listener_port", CStr(FormSetup.PropRegionClass.GroupPort(uuid))) ' varies with region
 
         ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
@@ -1792,7 +1795,7 @@ Public Class RegionMaker
         Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
         ' save the http listener port away for the group
-        FormSetup.PropRegionClass.GroupPort(uuid) = FormSetup.PropRegionClass.RegionPort(uuid)
+        'FormSetup.PropRegionClass.GroupPort(uuid) = FormSetup.PropRegionClass.RegionPort(uuid)
 
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
         Settings.SetIni("Const", "RegionFolderName", FormSetup.PropRegionClass.GroupName(uuid))

@@ -18,16 +18,22 @@ Module CPUCOunter
         Try
             For Each p As Process In OpensimProcesses
                 If FormSetup.PropRegionHandles.ContainsKey(p.Id) Then
-                    Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-                        Dim G As String = FormSetup.PropRegionHandles.Item(p.Id)
-                        counter.NextValue() ' start the counter
-                        If Not CounterList.ContainsKey(G) Then
-                            CounterList.Add(G, counter)
-                        End If
-                    End Using
+                    Dim Gname As String = FormSetup.PropRegionHandles.Item(p.Id)
+                    Dim c As PerformanceCounter = Nothing
+                    If Not CounterList.ContainsKey(Gname) Then
+                        Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
+                            c = counter
+                            c.NextValue() ' start the counter
+                        End Using
+                    End If
+
+                    If Not CounterList.ContainsKey(Gname) Then
+                        CounterList.Add(Gname, c)
+                    End If
                 End If
+
             Next
-        Catch
+        Catch ex As Exception
         End Try
     End Sub
 
@@ -48,6 +54,7 @@ Module CPUCOunter
             Dim instances As String() = cat.GetInstanceNames().Where(Function(inst) inst.StartsWith(processName, System.StringComparison.InvariantCultureIgnoreCase)).ToArray()
 
             For Each instance As String In instances
+                Application.DoEvents()
                 Using cnt As PerformanceCounter = New PerformanceCounter("Process", "ID Process", instance, True)
                     Dim val As Integer = CInt(cnt.RawValue)
                     If val = processId Then

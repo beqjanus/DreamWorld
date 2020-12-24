@@ -57,6 +57,7 @@ Public Class FormSetup
 
 #Region "Declarations"
 
+    Dim searcher As ManagementObjectSearcher
     Private WithEvents BootProcess As New Process '= GetNewProcess()
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
@@ -949,11 +950,11 @@ Public Class FormSetup
             End If
 
             WindowCounter += 1
-            If WindowCounter > 600 Then '  60 seconds
+            If WindowCounter > 600 Then '  6 seconds
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
-
+            Thread.Sleep(100)
         End While
         Return True
 
@@ -1044,6 +1045,10 @@ Public Class FormSetup
 
         Dim pid = CType(sender.Id, Integer)
 
+        '  Return
+
+        Diagnostics.Debug.Print("Pid quit:" & pid.ToString)
+
         If PropRegionHandles.ContainsKey(pid) Then
             Dim name = PropRegionHandles.Item(pid)
             If name.Length > 0 Then
@@ -1066,10 +1071,9 @@ Public Class FormSetup
 
         If Not PropRegionHandles.ContainsKey(p.Id) Then
             PropRegionHandles.Add(p.Id, Groupname) ' save in the list of exit events in case it crashes or exits
-            'Dim handle = New Handler
-            'Handler.Init(PropRegionHandles, PropExitList)
+
             p.EnableRaisingEvents = True
-            AddHandler p.Exited, AddressOf quitter
+            'AddHandler p.Exited, AddressOf quitter
             AddHandler p.Disposed, AddressOf quitter
         End If
 
@@ -1083,17 +1087,18 @@ Public Class FormSetup
 
     Private Sub Addeventhandler(RegionUUID As String)
 
-        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-        'If PropRegionClass.ProcessID(RegionUUID) = 0 Then
-        For Each p In Process.GetProcesses
-            If p.MainWindowTitle = GroupName Then
-                SaveProcess(p, GroupName)
-                Logger("Located, is already running", GroupName, "Restart")
-                PropUpdateView = True ' make form refresh
-                Exit For
-            End If
-        Next
-        'End If
+        If PropRegionClass.ProcessID(RegionUUID) = 0 Then
+            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+            Diagnostics.Debug.Print("Adding event for " & GroupName)
+            For Each p In Process.GetProcesses
+                If p.MainWindowTitle = GroupName Then
+                    SaveProcess(p, GroupName)
+                    Logger("Located, is already running", GroupName, "Restart")
+                    PropUpdateView = True ' make form refresh
+                    Exit For
+                End If
+            Next
+        End If
     End Sub
 
     Public Function Boot(BootName As String) As Boolean
@@ -1130,10 +1135,9 @@ Public Class FormSetup
         If RegionMaker.CopyOpensimProto(RegionUUID) Then
             Return False
         End If
-
-        Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", PropRegionClass.GroupPort(RegionUUID))
-        Application.DoEvents()
-
+        Dim GP = PropRegionClass.GroupPort(RegionUUID)
+        Diagnostics.Debug.Print("Goup port =" & CStr(GP))
+        Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
         If isRegionRunning Then
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
                 Addeventhandler(RegionUUID)
@@ -1144,7 +1148,7 @@ Public Class FormSetup
                 Return True
             Else    ' needs to be captured into the event handler
                 Addeventhandler(RegionUUID)
-                Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already Warming Up")
+                Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already up")
                 Return True
             End If
         End If
@@ -3601,10 +3605,8 @@ Public Class FormSetup
 
         'RAM
 
-        Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
-        Dim searcher As ManagementObjectSearcher = New ManagementObjectSearcher(wql)
         Dim results As ManagementObjectCollection = searcher.Get()
-        searcher.Dispose()
+        'searcher.Dispose()
 
         Try
             For Each result In results
@@ -4663,6 +4665,9 @@ Public Class FormSetup
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
+
+        Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
+        searcher = New ManagementObjectSearcher(wql)
 
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
@@ -6517,6 +6522,11 @@ Public Class FormSetup
             Return
         End If
 
+        If PropDNSSTimer Mod 10 = 0 And PropDNSSTimer > 0 Then
+            CalcCPU() ' get a list of running opensim processes
+        End If
+
+
         ' print hourly marks on console
         If PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
             Dim thisDate As Date = Now
@@ -6532,9 +6542,6 @@ Public Class FormSetup
         End If
 
         If PropDNSSTimer Mod 60 = 0 Then
-
-            CalcCPU() ' get a list of running opensim processes
-
             ScanAgents() ' update agent count  seconds
             Application.DoEvents()
             RegionListHTML() ' create HTML for older 2.4 region teleport
