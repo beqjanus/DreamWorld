@@ -46,7 +46,7 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-
+    Private Const ExitInterval As Integer = 1
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.794"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
@@ -67,7 +67,6 @@ Public Class FormSetup
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
     Private ReadOnly D As New Dictionary(Of String, String)
-    Private ReadOnly ExitInterval As Integer = 2
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
@@ -611,6 +610,24 @@ Public Class FormSetup
         End Set
     End Property
 
+    Public Property Searcher1 As ManagementObjectSearcher
+        Get
+            Return Searcher2
+        End Get
+        Set(value As ManagementObjectSearcher)
+            Searcher2 = value
+        End Set
+    End Property
+
+    Public Property Searcher2 As ManagementObjectSearcher
+        Get
+            Return searcher
+        End Get
+        Set(value As ManagementObjectSearcher)
+            searcher = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Public Shared"
@@ -1040,14 +1057,11 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub quitter(ByVal sender As Object, ByVal e As System.EventArgs) Handles BootProcess.Exited
+    Private Sub Quitter(ByVal sender As Object, ByVal e As System.EventArgs) Handles BootProcess.Exited
         ' Handle any process that exits by adding it to a dictionary. DoExitHandlerPoll will clean up.
 
         Dim pid = CType(sender.Id, Integer)
-
-        '  Return
-
-        Diagnostics.Debug.Print("Pid quit:" & pid.ToString)
+        Diagnostics.Debug.Print("Pid quit:" & CStr(pid))
 
         If PropRegionHandles.ContainsKey(pid) Then
             Dim name = PropRegionHandles.Item(pid)
@@ -1071,10 +1085,8 @@ Public Class FormSetup
 
         If Not PropRegionHandles.ContainsKey(p.Id) Then
             PropRegionHandles.Add(p.Id, Groupname) ' save in the list of exit events in case it crashes or exits
-
             p.EnableRaisingEvents = True
-            'AddHandler p.Exited, AddressOf quitter
-            AddHandler p.Disposed, AddressOf quitter
+            AddHandler p.Exited, AddressOf Quitter
         End If
 
         For Each RegionUUID In PropRegionClass.RegionUuidListByName(Groupname)
@@ -1136,7 +1148,7 @@ Public Class FormSetup
             Return False
         End If
         Dim GP = PropRegionClass.GroupPort(RegionUUID)
-        Diagnostics.Debug.Print("Goup port =" & CStr(GP))
+        Diagnostics.Debug.Print("Group port =" & CStr(GP))
         Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
         If isRegionRunning Then
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
@@ -3605,8 +3617,7 @@ Public Class FormSetup
 
         'RAM
 
-        Dim results As ManagementObjectCollection = searcher.Get()
-        'searcher.Dispose()
+        Dim results As ManagementObjectCollection = Searcher1.Get()
 
         Try
             For Each result In results
@@ -4608,6 +4619,7 @@ Public Class FormSetup
 
     Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
 
+        Searcher1.Dispose()
         cpu.Dispose()
 
     End Sub
@@ -4667,7 +4679,7 @@ Public Class FormSetup
         My.Application.ChangeCulture(Settings.Language)
 
         Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
-        searcher = New ManagementObjectSearcher(wql)
+        Searcher1 = New ManagementObjectSearcher(wql)
 
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
@@ -6525,7 +6537,6 @@ Public Class FormSetup
         If PropDNSSTimer Mod 10 = 0 And PropDNSSTimer > 0 Then
             CalcCPU() ' get a list of running opensim processes
         End If
-
 
         ' print hourly marks on console
         If PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
