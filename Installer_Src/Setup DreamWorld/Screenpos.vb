@@ -22,13 +22,15 @@
 
 Imports System.IO
 Imports IniParser
+Imports IniParser.Model
+
 
 Public Class ScreenPos
     Implements IDisposable
 
 #Region "Private Fields"
 
-    ReadOnly parser As FileIniDataParser
+    ReadOnly parser As IniParser.FileIniDataParser
     Dim Data As IniParser.Model.IniData
     Dim gName As String
     Dim my_ini As String

@@ -22,6 +22,8 @@
 
 Imports System.IO
 Imports IniParser
+Imports IniParser.Model
+
 
 Public Class MySettings
 
@@ -37,8 +39,8 @@ Public Class MySettings
     Dim INI As String = ""
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
-    Dim Myparser As FileIniDataParser
-    Dim parser As FileIniDataParser
+    Dim Myparser As IniParser.FileIniDataParser
+    Dim parser As IniParser.FileIniDataParser
 
 #End Region
 

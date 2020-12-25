@@ -41,10 +41,14 @@ Module CPUCOunter
                     Dim Gname As String = FormSetup.PropRegionHandles.Item(p.Id)
                     Dim c As PerformanceCounter = Nothing
                     If Not CounterList.ContainsKey(Gname) Then
-                        Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-                            c = counter
-                            c.NextValue() ' start the counter
-                        End Using
+                        Try
+                            Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
+                                c = counter
+                                c.NextValue() ' start the counter
+                            End Using
+                        Catch ex As exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
                     End If
 
                     If Not CounterList.ContainsKey(Gname) Then
@@ -54,9 +58,15 @@ Module CPUCOunter
                     If Not CPUValues.ContainsKey(Gname) Then
                         CPUValues.Add(Gname, 0)
                     Else
-                        Dim a = CDbl(CounterList.Item(Gname).NextValue())
+                        Dim a As Double
+                        Try
+                            a = CDbl(CounterList.Item(Gname).NextValue())
+                        Catch ex As exception
+                            a = 0
+                        End Try
+
                         Dim b = (a / Environment.ProcessorCount)
-                        CPUValues.Item(Gname) = Math.Round(b, 1)
+                        CPUValues.Item(Gname) = Math.Round(b, 3)
                     End If
                 End If
             Next
