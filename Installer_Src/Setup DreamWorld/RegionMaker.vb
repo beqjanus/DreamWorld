@@ -173,7 +173,6 @@ Public Class RegionMaker
                 Try
                     json = JsonConvert.DeserializeObject(Of JSONresult)(rawJSON)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                     Debug.Print(ex.Message)
                     FormSetup.Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
@@ -209,7 +208,6 @@ Public Class RegionMaker
                         Try
                             '! debug TeleportAvatarDict.Add("Test", "Test User")
                         Catch ex As Exception
-
                             BreakPoint.Show(ex.Message)
                         End Try
                     End If
@@ -230,7 +228,6 @@ Public Class RegionMaker
                                     Try
                                         Removelist.Add(Keypair.Key)
                                     Catch ex As Exception
-
                                         BreakPoint.Show(ex.Message)
                                     End Try
                                 End If
@@ -244,7 +241,6 @@ Public Class RegionMaker
                         Try
                             TeleportAvatarDict.Remove(Name)
                         Catch ex As Exception
-
                             BreakPoint.Show(ex.Message)
                         End Try
                     Next
@@ -510,7 +506,6 @@ Public Class RegionMaker
                     MaxNum = pair.Value._RegionPort
                 End If
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         Next
@@ -563,7 +558,6 @@ Public Class RegionMaker
             Try
                 Portlist.Add(pair.Value._RegionPort, pair.Value._RegionName)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         Next
@@ -600,7 +594,6 @@ Public Class RegionMaker
                 Try
                     Directory.CreateDirectory(pathtoWelcome)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             End If
@@ -657,7 +650,6 @@ Public Class RegionMaker
                 outputFile.WriteLine(proto)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 

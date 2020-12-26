@@ -140,7 +140,6 @@ Public Class FormApache
             Try
                 ApacheProcess.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()

@@ -145,7 +145,6 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As Exception
-
                 Console.WriteLine("Error: " & ex.ToString())
             End Try
         End Using

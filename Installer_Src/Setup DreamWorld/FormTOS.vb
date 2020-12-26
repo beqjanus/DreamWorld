@@ -127,7 +127,6 @@ Public Class TosForm
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 

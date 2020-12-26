@@ -67,7 +67,6 @@ Module FileStuff
                 Try
                     CopyFile(fileSystemInfo.FullName, destinationFileName, True)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             Else
@@ -76,7 +75,6 @@ Module FileStuff
                     Try
                         System.IO.Directory.CreateDirectory(fileSystemInfo.FullName)
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                     End Try
                 End If

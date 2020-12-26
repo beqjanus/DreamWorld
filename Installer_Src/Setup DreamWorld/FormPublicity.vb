@@ -181,7 +181,6 @@ Public Class FormPublicity
                     newBitmap.Save(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), Imaging.ImageFormat.Png)
                     newBitmap.Dispose()
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                     FormSetup.ErrorLog("Save Photo " & ex.Message)
                     Return

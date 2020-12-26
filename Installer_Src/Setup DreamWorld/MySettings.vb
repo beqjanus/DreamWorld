@@ -133,7 +133,6 @@ Public Class MySettings
         Try
             MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -265,7 +264,6 @@ Public Class MySettings
             SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 #Enable Warning CA1062
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.Logger("Error", ex.Message, "Error")
         End Try
@@ -521,7 +519,6 @@ Public Class MySettings
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Return 25
@@ -549,7 +546,6 @@ Public Class MySettings
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Return 5
@@ -582,7 +578,6 @@ Public Class MySettings
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Return 0.2
@@ -599,7 +594,6 @@ Public Class MySettings
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Return 25
@@ -616,7 +610,6 @@ Public Class MySettings
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Return 1.0
@@ -642,7 +635,6 @@ Public Class MySettings
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Return 25
@@ -674,7 +666,6 @@ Public Class MySettings
             Try
                 Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Globalization.CultureInfo.InvariantCulture)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
             Return 25

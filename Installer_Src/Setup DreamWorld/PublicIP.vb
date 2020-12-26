@@ -8,7 +8,6 @@
             ipaddress = client.DownloadString("http://api.ipify.org/?r=" + RandomNumber.Random())
 
         Catch ex As Exception
-
         Finally
             client.Dispose()
         End Try

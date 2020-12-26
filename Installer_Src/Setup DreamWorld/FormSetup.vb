@@ -949,7 +949,6 @@ Public Class FormSetup
                 End If
             End While
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             ErrorLog(windowName & ":" & ex.Message)
             Return False
@@ -2516,9 +2515,13 @@ Public Class FormSetup
         End If
 
         ' Check if DOS box exists, first, if so, its running.
-        For Each p In Process.GetProcessesByName("Icecast")
+        For Each p In Process.GetProcesses
             If p.MainWindowTitle = "Icecast" Then
                 PropIcecastProcID = p.Id
+
+                p.EnableRaisingEvents = True
+                AddHandler p.Exited, AddressOf IceCast_Exited
+
                 IceCastIs(True)
                 Return True
             End If
@@ -2551,7 +2554,6 @@ Public Class FormSetup
             BreakPoint.Show(ex.Message)
             Print(My.Resources.Icecast_failed & ":" & ex.Message)
             IceCastIs(False)
-
             Return False
         End Try
 
@@ -2670,15 +2672,14 @@ Public Class FormSetup
 
         If Not MysqlOk Then Return False
 
-        PropMysqlExited = False
-        MysqlInterface.IsRunning = True
-        MySqlIs(True)
-
         If MySqlRev <> Settings.MysqlRev Then
             UpgradeMysql()
         End If
 
         Print(Global.Outworldz.My.Resources.Mysql_is_Running)
+        MysqlInterface.IsRunning = True
+        MySqlIs(True)
+
         PropMysqlExited = False
 
         Return True
@@ -2749,6 +2750,9 @@ Public Class FormSetup
                 PropRobustProcID = p.Id
                 Log(My.Resources.Info_word, Global.Outworldz.My.Resources.DosBoxRunning)
                 RobustIs(True)
+
+                p.EnableRaisingEvents = True
+                AddHandler p.Exited, AddressOf RobustProcess_Exited
 
                 Select Case Settings.ConsoleShow
                     Case "True"
@@ -4510,6 +4514,7 @@ Public Class FormSetup
             Dim RegionUUID As String = ""
             If GroupList.Count > 0 Then
                 RegionUUID = GroupList(0)
+                ' Already done, just being safe here
                 PID = PropRegionClass.ProcessID(RegionUUID)
                 If PropInstanceHandles.ContainsKey(PID) Then
                     PropInstanceHandles.Remove(PID)
@@ -5231,7 +5236,6 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -5241,7 +5245,6 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -5298,7 +5301,6 @@ Public Class FormSetup
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IceCastLog & """")
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         End If
@@ -5387,7 +5389,6 @@ Public Class FormSetup
         Try
             folders = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help"))
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -5478,7 +5479,6 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -5537,7 +5537,6 @@ Public Class FormSetup
         Try
             files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -5549,10 +5548,8 @@ Public Class FormSetup
                     Try
                         System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                     End Try
-
                 Next
             End If
         Else
@@ -5627,7 +5624,6 @@ Public Class FormSetup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -5752,7 +5748,6 @@ Public Class FormSetup
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -5785,7 +5780,7 @@ Public Class FormSetup
         End If
 
         If PropApacheExited Then
-            MySqlIs(False)
+            ApacheIs(False)
             StartApache()
         End If
 
@@ -5915,7 +5910,6 @@ Public Class FormSetup
                                 & vbCrLf & "@pause" & vbCrLf)
                         End Using
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                         ErrorLog("Failed to create restore file:" & ex.Message)
                         Return
@@ -5935,7 +5929,6 @@ Public Class FormSetup
                         pMySqlRestore.Start()
                         pMySqlRestore.WaitForExit()
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                     Finally
                         pMySqlRestore.Dispose()
@@ -5989,7 +5982,6 @@ Public Class FormSetup
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & MysqlLog & """")
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         End If
@@ -6104,7 +6096,6 @@ Public Class FormSetup
             Try
                 CPortsProcess.Start()
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         End Using
@@ -6169,7 +6160,6 @@ Public Class FormSetup
                     Try
                         LoopbackProcess.Start()
                     Catch ex As Exception
-
                         BreakPoint.Show(ex.Message)
                     End Try
                     Exit For
@@ -6235,7 +6225,6 @@ Public Class FormSetup
                     MysqlWordpress.Start()
                     MysqlWordpress.WaitForExit()
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                     ErrorLog("Could not create WordPress Database: " & ex.Message)
                     FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
@@ -6655,7 +6644,6 @@ Public Class FormSetup
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
                 Print(My.Resources.User_Name_word & ":" & Settings.AdminFirst & " " & Settings.AdminLast)
@@ -7335,7 +7323,6 @@ Public Class FormSetup
         Try
             OARs = Directory.GetFiles(Filename, "*.OAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 

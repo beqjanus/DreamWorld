@@ -211,7 +211,6 @@ Public Class FormDisplacement
         Try
             Pic = Bitmap.FromFile(RegionPhoto)
         Catch ex As Exception
-
             Pic = Global.Outworldz.My.Resources.water
         End Try
 

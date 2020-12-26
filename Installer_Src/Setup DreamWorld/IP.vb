@@ -18,7 +18,6 @@
             Quad2 = CInt("0" & CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.InvariantCulture) + 1).Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
 
         Catch ex As Exception
-
         End Try
 
         Select Case Quad1

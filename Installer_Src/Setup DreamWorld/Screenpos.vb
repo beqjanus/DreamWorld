@@ -197,7 +197,6 @@ Public Class ScreenPos
         Try
             parser.WriteFile(MyIni, Data, System.Text.Encoding.UTF8)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.ErrorLog("Error:" + ex.Message)
         End Try

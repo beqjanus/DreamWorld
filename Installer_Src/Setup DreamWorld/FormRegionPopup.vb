@@ -171,7 +171,6 @@ Public Class FormRegionPopup
             Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(_RegionName)
             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe") & " " & """" & FormSetup.PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -184,7 +183,6 @@ Public Class FormRegionPopup
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub

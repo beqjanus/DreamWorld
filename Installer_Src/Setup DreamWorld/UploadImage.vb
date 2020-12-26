@@ -62,7 +62,6 @@ Public Class UploadImage
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
                 New HttpRequestState(req, params, File))
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.Log(My.Resources.Error_word, ex.Message)
         End Try
@@ -83,7 +82,6 @@ Public Class UploadImage
         Try
             reqStream = r_State.Request.EndGetRequestStream(ar)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             UploadError(ex.Message)
             Return

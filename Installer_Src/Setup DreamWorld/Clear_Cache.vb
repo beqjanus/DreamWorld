@@ -115,7 +115,6 @@ Module Clear_Cache
                 Try
                     files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             End If
@@ -142,7 +141,6 @@ Module Clear_Cache
                 Try
                     files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             End If

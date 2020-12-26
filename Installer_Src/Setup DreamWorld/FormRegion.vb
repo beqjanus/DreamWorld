@@ -226,7 +226,6 @@ Public Class FormRegion
                 chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
             End If
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             chosen = ""
         End Try
@@ -555,7 +554,6 @@ Public Class FormRegion
             Initted1 = True
             HelpOnce("Region")
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -928,7 +926,6 @@ Public Class FormRegion
                 Return Message
             End If
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Message = Global.Outworldz.My.Resources.NVNonPhysPrim
             Return Message
@@ -961,7 +958,6 @@ Public Class FormRegion
                 Return Message
             End If
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             Message = Global.Outworldz.My.Resources.NVMaxAgents
             Return Message

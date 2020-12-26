@@ -35,7 +35,7 @@ Public Class PassGen
 #Region "Public Methods"
 
     Public Function GeneratePass() As String
-        possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()"
+        possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
         len = 15
 
         Dim cpossibleChars() As Char

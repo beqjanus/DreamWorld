@@ -227,7 +227,6 @@ Public Class FormOAR
                 FormSetup.LoadIARContent(File)
             End If
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
 
         End Try
@@ -248,7 +247,6 @@ Public Class FormOAR
                 End Using
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.Log("Warn", ex.Message)
         End Try
@@ -264,7 +262,6 @@ Public Class FormOAR
                 Return client.DownloadString(url)
             End Using
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.Log("Warn", ex.Message)
         End Try
@@ -408,7 +405,6 @@ Public Class FormOAR
         Try
             WebThread.SetApartmentState(ApartmentState.STA)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.Log(My.Resources.Error_word, ex.Message)
         End Try

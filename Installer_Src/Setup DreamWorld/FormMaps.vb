@@ -54,7 +54,6 @@ Public Class FormMaps
             FileStuff.DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
             My.Computer.FileSystem.CreateDirectory(f)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
         FormSetup.Print(My.Resources.Maps_Erased)
@@ -81,7 +80,6 @@ Public Class FormMaps
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -104,7 +102,6 @@ Public Class FormMaps
         Try
             Process.Start(webAddress)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub

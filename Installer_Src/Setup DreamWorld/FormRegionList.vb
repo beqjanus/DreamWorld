@@ -889,7 +889,6 @@ Public Class FormRegionlist
                 Try
                     Dim result = Process.Start(webAddress)
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                 End Try
             End If
@@ -945,7 +944,6 @@ Public Class FormRegionlist
         Try
             Item = ListView1.Items.Item(e.Index)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
         If Item.Text.Length = 0 Then Return
@@ -1045,7 +1043,6 @@ Public Class FormRegionlist
             ViewBusy = False
             PropUpdateView() = False
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
@@ -1065,7 +1062,6 @@ Public Class FormRegionlist
         Try
             response = request.GetResponse()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 
@@ -1073,7 +1069,6 @@ Public Class FormRegionlist
         Try
             responseStream = response.GetResponseStream()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
 

@@ -90,7 +90,6 @@ Public Class FormIcecast
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
-
                 BreakPoint.Show(ex.Message)
             End Try
         ElseIf Settings.SCEnable = False Then

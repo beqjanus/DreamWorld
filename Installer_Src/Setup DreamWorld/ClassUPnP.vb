@@ -212,7 +212,6 @@ Public Class UPnp
                         LIP = EndPoint.Address.ToString()
                     End Using
                 Catch ex As Exception
-
                     BreakPoint.Show(ex.Message)
                     LIP = LocalIPForced()
 
@@ -225,7 +224,6 @@ Public Class UPnp
                 LIP = CacheIP
             End If
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
         Return LIP
@@ -262,7 +260,6 @@ Public Class UPnp
             If staticMapping IsNot Nothing Then Marshal.ReleaseComObject(staticMapping)
             Marshal.ReleaseComObject(UPnpnat)
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
@@ -286,7 +283,6 @@ Public Class UPnp
                 Return
             End If
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             FormSetup.Log("WARN", "UPNP is not available")
             staticEnabled = False
