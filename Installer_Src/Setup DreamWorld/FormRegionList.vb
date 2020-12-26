@@ -1275,47 +1275,7 @@ Public Class FormRegionlist
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles RestartButton.Click
 
-        FormSetup.PropOpensimIsRunning() = True
-        FormSetup.StartMySQL()
-        FormSetup.StartRobust()
-        FormSetup.Timer1.Interval = 1000
-        FormSetup.Timer1.Start() 'Timer starts functioning
-        FormSetup.TimerBusy = 0
-
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
-            Application.DoEvents()
-
-            Dim GroupName = FormSetup.PropRegionClass.GroupName(RegionUUID)
-            Dim Status = FormSetup.PropRegionClass.Status(RegionUUID)
-            If FormSetup.PropRegionClass.RegionEnabled(RegionUUID) And
-                    Not FormSetup.AvatarsIsInGroup(GroupName) And
-                    Not FormSetup.PropAborting And
-                    (Status = RegionMaker.SIMSTATUSENUM.Booting _
-                    Or Status = RegionMaker.SIMSTATUSENUM.Booted _
-                    Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
-
-                Dim hwnd = FormSetup.GetHwnd(GroupName)
-                FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE)
-                FormSetup.SequentialPause()
-                FormSetup.Print(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Restarting_word)
-
-                FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
-
-                If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
-                    For Each UUID As String In FormSetup.PropRegionClass.RegionUuidListByName(GroupName)
-                        FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
-                    Next
-                Else
-                    ' shut down all regions in the DOS box
-                    For Each UUID As String In FormSetup.PropRegionClass.RegionUuidListByName(GroupName)
-                        FormSetup.PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                        FormSetup.PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                    Next
-                End If
-
-                'PropUpdateView = True ' make form refresh
-            End If
-        Next
+        FormSetup.RestartAllRegions()
 
     End Sub
 

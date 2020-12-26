@@ -75,8 +75,7 @@ Public Class FormHelp
         ExitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Exit__word
         FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.File_word
         HomeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        LoopbackToolStripMenuItem.Image = Global.Outworldz.My.Resources.replace2
-        LoopbackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Loopback_Help
+
         PrintToolStripMenuItem.Text = Global.Outworldz.My.Resources.Print
         PrintToolStripMenuItem1.Image = Global.Outworldz.My.Resources.printer3
         PrintToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Print
@@ -119,10 +118,10 @@ Public Class FormHelp
 
     Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
 
-        Dim info = New ProcessStartInfo(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\HelpFiles\" & Document & ".htm")) With {
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\" & Document & ".htm")
+        Dim info = New ProcessStartInfo(path) With {
             .Verb = "Print",
-            .CreateNoWindow = True,
-            .WindowStyle = ProcessWindowStyle.Hidden
+            .WindowStyle = ProcessWindowStyle.Normal
         }
         Try
             Process.Start(info)

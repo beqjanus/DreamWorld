@@ -1330,7 +1330,6 @@ Public Class FormSetup
             If RegionUUID <> RobustName() And RegionUUID <> "Robust" Then
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
-                'Application.DoEvents()
                 Try
                     If PID > 0 And ShowDosBox Then
                         ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
@@ -1359,13 +1358,10 @@ Public Class FormSetup
 
             If PID > 0 Then
                 Try
-
                     AppActivate(PID)
-                    ' Application.DoEvents()
-
                     SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
                     SendKeys.SendWait(ToLowercaseKeys(command))
-                    ' Application.DoEvents()
+
                     Select Case Settings.ConsoleShow
                         Case "True"
                         ' do nothing, already up
@@ -1375,7 +1371,6 @@ Public Class FormSetup
                             ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
                     End Select
                 Catch ex As Exception
-                    'BreakPoint.Show(ex.Message)
                     Return False
                 End Try
             End If
@@ -1757,7 +1752,7 @@ Public Class FormSetup
 
         If Groupname = RobustName() Then
 
-            For Each pList As Process In Process.GetProcessesByName("Opensim")
+            For Each pList As Process In Process.GetProcessesByName("Robust")
                 If pList.ProcessName = "Robust" Then
                     Return pList.MainWindowHandle
                 End If
@@ -2800,7 +2795,7 @@ Public Class FormSetup
         Print("Robust " & Global.Outworldz.My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
-        RobustProcess.StartInfo.UseShellExecute = False ' must be false for OSIM_LEVEL
+        RobustProcess.StartInfo.UseShellExecute = True
         RobustProcess.StartInfo.Arguments = "-inifile Robust.HG.ini"
 
         RobustProcess.StartInfo.FileName = Settings.OpensimBinPath & "robust.exe"
@@ -3026,8 +3021,7 @@ Public Class FormSetup
     Public Sub StopRobust()
 
         Print("Robust " & Global.Outworldz.My.Resources.Stopping_word)
-        ConsoleCommand("Robust", "q{ENTER}" & vbCrLf)
-        ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf)
+        ConsoleCommand("Robust", "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
         While IsRobustRunning() And ctr < 60
@@ -3550,9 +3544,12 @@ Public Class FormSetup
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             If PropRegionClass.IsBooted(RegionUUID) Then
-                'Print("Backing up " & PropRegionClass.RegionName(RegionUUID))
-                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf)
-                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf)
+
+                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf _
+                               & "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" &
+                               DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) &
+                               ".oar" & """" & "{ENTER}" & vbCrLf)
+
                 SequentialPause()   ' wait for previous region to give us some CPU
                 Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
                 ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
@@ -4325,12 +4322,12 @@ Public Class FormSetup
         PropExitHandlerIsBusy = True
 
         While BootedList1.Count > 0
-            Dim R As String = BootedList1(0)
+            Dim Ruuid As String = BootedList1(0)
             BootedList1.RemoveAt(0)
-            Logger("RegionReady Booted:", PropRegionClass.RegionName(R), "Restart")
-            PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
-            PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
-            Print(PropRegionClass.RegionName(R) & " " & Global.Outworldz.My.Resources.Running_word)
+            Logger("RegionReady Booted:", PropRegionClass.RegionName(Ruuid), "Restart")
+            PropRegionClass.Timer(Ruuid) = RegionMaker.REGIONTIMER.StartCounting
+            PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
+            Print(PropRegionClass.RegionName(Ruuid) & " " & Global.Outworldz.My.Resources.Running_word)
             PropUpdateView = True
         End While
 
@@ -5799,11 +5796,16 @@ Public Class FormSetup
         End If
         Dim name = ChooseRegion(True)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "change region " & name & "{ENTER}" & vbCrLf)
-            ConsoleCommand(RegionUUID, "restart region " & name & "{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "q" & vbCrLf)
+            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+            Logger("RecyclingDown", PropRegionClass.RegionName(RegionUUID), "Restart")
             PropUpdateView = True ' make form refresh
         End If
+
+        PropUpdateView = True ' make form refresh
 
     End Sub
 
@@ -5816,7 +5818,10 @@ Public Class FormSetup
         Dim name = ChooseRegion(True)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "restart{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "q" & vbCrLf)
+            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+            Logger("RecyclingDown", PropRegionClass.RegionName(RegionUUID), "Restart")
             PropUpdateView = True ' make form refresh
         End If
 
@@ -6000,8 +6005,8 @@ Public Class FormSetup
 
         If Debugger.IsAttached Then
             Try
-                A.Add("Ferd Frederix", "SandBox")
-                B.Add("Nyira Machabelli", "SandBox")
+                A.Add("Ferd Frederix", "Welcome")
+                B.Add("Nyira Machabelli", "Welcome")
             Catch ex As Exception
                 ' BreakPoint.Show(ex.Message)
             End Try
@@ -6509,7 +6514,7 @@ Public Class FormSetup
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
         TimerBusy += 1
-        If TimerBusy < 60 And TimerBusy > 1 Then
+        If TimerBusy < 120 And TimerBusy > 1 Then
             Diagnostics.Debug.Print("Ticker busy")
             Return
         End If
@@ -6530,6 +6535,7 @@ Public Class FormSetup
 
         If PropDNSSTimer Mod 10 = 0 And PropDNSSTimer > 0 Then
             CalcCPU() ' get a list of running opensim processes
+            Application.DoEvents()
         End If
 
         ' print hourly marks on console
@@ -6537,11 +6543,12 @@ Public Class FormSetup
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
-
+            Application.DoEvents()
             RegisterName(Settings.DNSName, True)
             Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
             For Each part As String In array
                 RegisterName(part, True)
+                Application.DoEvents()
             Next
 
         End If
@@ -7444,6 +7451,62 @@ Public Class FormSetup
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
+
+    End Sub
+
+    Private Sub RestartAllRegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartAllRegionsToolStripMenuItem.Click
+
+        RestartAllRegions()
+
+    End Sub
+
+    Public Sub RestartAllRegions()
+
+        PropOpensimIsRunning() = True
+        StartMySQL()
+        StartRobust()
+        Timer1.Interval = 1000
+        Timer1.Start() 'Timer starts functioning
+        TimerBusy = 0
+
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
+            Application.DoEvents()
+
+            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+            Dim Status = PropRegionClass.Status(RegionUUID)
+
+            If PropRegionClass.RegionEnabled(RegionUUID) And AvatarsIsInGroup(GroupName) Then
+                Print("People are in " & GroupName)
+            End If
+
+            If PropRegionClass.RegionEnabled(RegionUUID) And
+                    Not AvatarsIsInGroup(GroupName) And
+                    Not PropAborting And
+                    (Status = RegionMaker.SIMSTATUSENUM.Booting _
+                    Or Status = RegionMaker.SIMSTATUSENUM.Booted _
+                    Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
+
+                Dim hwnd = GetHwnd(GroupName)
+                ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE)
+                SequentialPause()
+
+                ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
+
+                If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                    For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
+                    Next
+                Else
+                    ' shut down all regions in the DOS box
+                    For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                        PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                    Next
+                End If
+
+                PropUpdateView = True ' make form refresh
+            End If
+        Next
 
     End Sub
 
