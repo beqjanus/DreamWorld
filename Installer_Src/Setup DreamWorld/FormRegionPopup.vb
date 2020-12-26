@@ -146,9 +146,8 @@ Public Class FormRegionPopup
             End If
         End If
 
-        For Each p In Process.GetProcesses
+        For Each p In Process.GetProcessesByName("Opensim")
             If p.MainWindowTitle = GroupBox1.Text Then
-
                 Exit For
             End If
         Next

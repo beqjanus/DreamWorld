@@ -1,6 +1,6 @@
 ﻿Imports System.Diagnostics.Process
 
-Module CPUCOunter
+Module CPUCounter
 
     Private OpensimProcesses() As Process
 
@@ -37,8 +37,8 @@ Module CPUCOunter
         OpensimProcesses = Process.GetProcessesByName("Opensim")
         Try
             For Each p As Process In OpensimProcesses
-                If FormSetup.PropRegionHandles.ContainsKey(p.Id) Then
-                    Dim Gname As String = FormSetup.PropRegionHandles.Item(p.Id)
+                If FormSetup.PropInstanceHandles.ContainsKey(p.Id) Then
+                    Dim Gname As String = FormSetup.PropInstanceHandles.Item(p.Id)
                     Dim c As PerformanceCounter = Nothing
                     If Not CounterList.ContainsKey(Gname) Then
                         Try
@@ -46,7 +46,7 @@ Module CPUCOunter
                                 c = counter
                                 c.NextValue() ' start the counter
                             End Using
-                        Catch ex As exception
+                        Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
                     End If
@@ -61,7 +61,7 @@ Module CPUCOunter
                         Dim a As Double
                         Try
                             a = CDbl(CounterList.Item(Gname).NextValue())
-                        Catch ex As exception
+                        Catch ex As Exception
                             a = 0
                         End Try
 

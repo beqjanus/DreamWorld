@@ -474,7 +474,7 @@ Public Class FormRegionlist
         FormSetup.PropUpdateView = True ' make form refresh
 
         ViewBusy = False
-        Timer1.Interval = 250 ' check for Form1.PropUpdateView every second
+        Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
         Timer1.Start() 'Timer starts functioning
 
         ShowTitle()
@@ -1234,7 +1234,6 @@ Public Class FormRegionlist
             ' Read the chosen GROUP name
             chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
         Catch ex As Exception
-
             BreakPoint.Show(ex.Message)
             chosen = ""
         End Try

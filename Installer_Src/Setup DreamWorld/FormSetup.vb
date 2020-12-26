@@ -444,7 +444,7 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public ReadOnly Property PropRegionHandles As Dictionary(Of Integer, String)
+    Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
         Get
             Return _regionHandles
         End Get
@@ -1063,14 +1063,14 @@ Public Class FormSetup
         Dim pid = CType(sender.Id, Integer)
         Diagnostics.Debug.Print("Pid quit:" & CStr(pid))
 
-        If PropRegionHandles.ContainsKey(pid) Then
-            Dim name = PropRegionHandles.Item(pid)
+        If PropInstanceHandles.ContainsKey(pid) Then
+            Dim name = PropInstanceHandles.Item(pid)
             If name.Length > 0 Then
                 If Not PropExitList.ContainsKey(name) Then
                     PropExitList.Add(name, "DOS Box exit")
                 End If
             End If
-            PropRegionHandles.Remove(pid)
+            PropInstanceHandles.Remove(pid)
         End If
 
     End Sub
@@ -1083,8 +1083,8 @@ Public Class FormSetup
     ''' <param name="Groupname"></param>
     Private Sub SaveProcess(p As Process, Groupname As String)
 
-        If Not PropRegionHandles.ContainsKey(p.Id) Then
-            PropRegionHandles.Add(p.Id, Groupname) ' save in the list of exit events in case it crashes or exits
+        If Not PropInstanceHandles.ContainsKey(p.Id) Then
+            PropInstanceHandles.Add(p.Id, Groupname) ' save in the list of exit events in case it crashes or exits
             p.EnableRaisingEvents = True
             AddHandler p.Exited, AddressOf Quitter
         End If
@@ -1102,7 +1102,7 @@ Public Class FormSetup
         If PropRegionClass.ProcessID(RegionUUID) = 0 Then
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             Diagnostics.Debug.Print("Adding event for " & GroupName)
-            For Each p In Process.GetProcesses
+            For Each p In Process.GetProcessesByName("Opensim")
                 If p.MainWindowTitle = GroupName Then
                     SaveProcess(p, GroupName)
                     Logger("Located, is already running", GroupName, "Restart")
@@ -1218,9 +1218,9 @@ Public Class FormSetup
                 PropRegionClass.ProcessID(UUID) = PID
             Next
             If PID > 0 Then
-                Log("Debug", "Created Process Number " & CStr(BootProcess.Id) & " in  RegionHandles(" & CStr(PropRegionHandles.Count) & ") " & "Group:" & GroupName)
-                SetWindowTextCall(BootProcess, GroupName)
+                Log("Debug", "Created Process Number " & CStr(BootProcess.Id) & " in  RegionHandles(" & CStr(PropInstanceHandles.Count) & ") " & "Group:" & GroupName)
                 SaveProcess(BootProcess, GroupName)
+                SetWindowTextCall(BootProcess, GroupName)
             End If
             PropUpdateView = True ' make form refresh
             Buttons(StopButton)
@@ -1758,7 +1758,7 @@ Public Class FormSetup
 
         If Groupname = RobustName() Then
 
-            For Each pList As Process In Process.GetProcesses()
+            For Each pList As Process In Process.GetProcessesByName("Opensim")
                 If pList.ProcessName = "Robust" Then
                     Return pList.MainWindowHandle
                 End If
@@ -1773,8 +1773,7 @@ Public Class FormSetup
 
         For Each RegionUUID As String In Regionlist
             Dim pid = PropRegionClass.ProcessID(RegionUUID)
-
-            For Each pList As Process In Process.GetProcesses()
+            For Each pList As Process In Process.GetProcessesByName("Opensim")
                 If pList.Id = pid Then
                     Return pList.MainWindowHandle
                 End If
@@ -1902,7 +1901,7 @@ Public Class FormSetup
 
                         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
                         If GroupName.Length > 0 Then
-                            For Each p In Process.GetProcesses
+                            For Each p In Process.GetProcessesByName("Opensim")
                                 Application.DoEvents()
                                 If p.MainWindowTitle = GroupName Then
                                     CountisRunning += 1
@@ -2114,9 +2113,7 @@ Public Class FormSetup
 
         If DNSName Is Nothing Then Return False
 
-        If DNSName.Length = 0 Then
-            Return False
-        End If
+        If DNSName.Length < 3 Then Return False
 
         Dim Checkname As String = String.Empty
         If Settings.ServerType <> "Robust" Then
@@ -2247,7 +2244,7 @@ Public Class FormSetup
 
         If Not IPCheck.IsPrivateIP(Settings.DNSName) Then
             Print(My.Resources.Public_IP_Setup_Word)
-            If Settings.DNSName.Length > 0 Then
+            If Settings.DNSName.Length > 3 Then
                 Settings.PublicIP = Settings.DNSName
                 Settings.SaveSettings()
             End If
@@ -2519,7 +2516,7 @@ Public Class FormSetup
         End If
 
         ' Check if DOS box exists, first, if so, its running.
-        For Each p In Process.GetProcesses
+        For Each p In Process.GetProcessesByName("Icecast")
             If p.MainWindowTitle = "Icecast" Then
                 PropIcecastProcID = p.Id
                 IceCastIs(True)
@@ -2747,7 +2744,7 @@ Public Class FormSetup
             Return True
         End If
 
-        For Each p In Process.GetProcesses
+        For Each p In Process.GetProcessesByName("Robust")
             If p.MainWindowTitle = RobustName() Then
                 PropRobustProcID = p.Id
                 Log(My.Resources.Info_word, Global.Outworldz.My.Resources.DosBoxRunning)
@@ -3706,7 +3703,7 @@ Public Class FormSetup
         Try
             PropExitList.Clear()
             PropRegionClass.ClearStack()
-            PropRegionHandles.Clear()
+            PropInstanceHandles.Clear()
             PropRegionClass.WebserverList.Clear()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -4324,7 +4321,7 @@ Public Class FormSetup
         PropExitHandlerIsBusy = True
 
         While BootedList1.Count > 0
-            Dim R = BootedList1(0)
+            Dim R As String = BootedList1(0)
             BootedList1.RemoveAt(0)
             Logger("RegionReady Booted:", PropRegionClass.RegionName(R), "Restart")
             PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
@@ -4333,21 +4330,22 @@ Public Class FormSetup
             PropUpdateView = True
         End While
 
-        Dim GroupName As String
+        Dim GroupName As String = ""
         Dim TimerValue As Integer
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
+
             ' count up to auto restart, when high enough, restart the sim
             If PropRegionClass.Timer(RegionUUID) >= 0 Then
                 PropRegionClass.Timer(RegionUUID) += 1
             End If
 
             GroupName = PropRegionClass.GroupName(RegionUUID)
+            Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
             Dim Status = PropRegionClass.Status(RegionUUID)
             ' Logger(GetStateString(Status), GroupName, "Restart")
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-            Dim GroupList = PropRegionClass.RegionUuidListByName(GroupName)
 
             If PropOpensimIsRunning() Then
 
@@ -4408,7 +4406,7 @@ Public Class FormSetup
                             ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE)
                             SequentialPause()
                             ' shut down all regions in the DOS box
-                            For Each UUID In GroupList
+                            For Each UUID As String In GroupList
                                 PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                             Next
@@ -4455,7 +4453,7 @@ Public Class FormSetup
                     '[Resume] = 8
                     Logger("State is Resuming", GroupName, "Restart")
                     DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
-                    For Each R In GroupList
+                    For Each R As String In GroupList
                         Logger("State changed to Booted", PropRegionClass.RegionName(R), "Restart")
                         PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
                         PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.StartCounting
@@ -4495,9 +4493,7 @@ Public Class FormSetup
                 End If
             End If
         Next
-
         ' now look at the exit stack
-
         While PropExitList.Count > 0
 
             GroupName = PropExitList.Keys.First
@@ -4508,15 +4504,24 @@ Public Class FormSetup
             Print(GroupName & " " & Reason)
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
+            Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
+
+            Dim PID As Integer
             Dim RegionUUID As String = ""
-            Dim GroupList = PropRegionClass.RegionUuidListByName(GroupName)
             If GroupList.Count > 0 Then
                 RegionUUID = GroupList(0)
+                PID = PropRegionClass.ProcessID(RegionUUID)
+                If PropInstanceHandles.ContainsKey(PID) Then
+                    PropInstanceHandles.Remove(PID)
+                End If
             Else
                 Logger("No UUID", GroupName, "Restart")
             End If
 
-            Dim Status As Integer = PropRegionClass.Status(RegionUUID)
+            Dim Status = PropRegionClass.Status(RegionUUID)
+            ' Logger(GetStateString(Status), GroupName, "Restart")
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+
             Logger(GetStateString(Status), GroupName, "Restart")
 
             'Stopped = 0
