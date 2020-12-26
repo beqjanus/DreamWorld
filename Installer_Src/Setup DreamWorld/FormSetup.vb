@@ -1842,8 +1842,6 @@ Public Class FormSetup
 
         StopIcecast()
 
-        StopApache(False) ' do not stop if a service
-
         Dim n As Integer = PropRegionClass.RegionCount()
 
         Dim TotalRunningRegions As Integer
@@ -1852,7 +1850,6 @@ Public Class FormSetup
             If PropRegionClass.IsBooted(RegionUUID) Then
                 TotalRunningRegions += 1
             End If
-
         Next
         Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
@@ -4624,15 +4621,26 @@ Public Class FormSetup
 
 #Region "StartStop"
 
-    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed
+    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) 'Handles MyBase.FormClosed
 
-        Searcher1.Dispose()
-        cpu.Dispose()
+        If BackupRunning() Then
+            Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
+            If info = vbNo Then
+                Return
+            End If
+        End If
 
     End Sub
 
-    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Closed
+    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
+        If BackupRunning() Then
+            Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
+            If info = vbNo Then
+                e.Cancel = True
+                Return
+            End If
+        End If
         ReallyQuit()
 
     End Sub
@@ -5695,6 +5703,7 @@ Public Class FormSetup
         If Not KillAll() Then Return
 
         cpu.Dispose()
+        Searcher1.Dispose()
 
         If PropWebServer IsNot Nothing Then
             PropWebServer.StopWebServer()
@@ -6833,7 +6842,14 @@ Public Class FormSetup
     ''' <summary>The main startup - done this way so languages can reload the entire form</summary>
     Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
 
+        If BackupRunning() Then
+            Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
+            If info = vbNo Then
+                Return
+            End If
+        End If
         Print("Zzzz...")
+        Thread.Sleep(100)
         End
 
     End Sub

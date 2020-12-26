@@ -4,6 +4,10 @@ Imports System.IO.Compression
 
 Module Backups
 
+    Private _WebThread1 As Thread
+    Private _WebThread2 As Thread
+    Private _WebThread3 As Thread
+
     Private _OpensimBackupRunning As Boolean
     Private _startDate As Date
     Private _initted As Boolean
@@ -22,13 +26,34 @@ Module Backups
 
         Dim f = _filename.Replace(".sql", ".zip")
         Try
-            ZipFile.CreateFromDirectory(_folder & "\tmp\", _folder & "\" & f, CompressionLevel.Optimal, False)
+            ZipFile.CreateFromDirectory(IO.Path.Combine(_folder, "tmp"), IO.Path.Combine(_folder, f), CompressionLevel.Optimal, False)
         Catch
         End Try
         Thread.Sleep(5000)
-        FileStuff.DeleteDirectory(_folder & "\tmp\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+        FileStuff.DeleteDirectory(IO.Path.Combine(_folder, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub
+
+    Public Function BackupRunning() As Boolean
+
+        Dim isrunning As Boolean
+        Try
+            If _WebThread1.IsAlive Then isrunning = True
+        Catch
+        End Try
+
+        Try
+            If _WebThread2.IsAlive Then isrunning = True
+        Catch
+        End Try
+
+        Try
+            If _WebThread3.IsAlive Then isrunning = True
+        Catch
+        End Try
+        Return isrunning
+
+    End Function
 
     Public Sub SQLBackup()
 
@@ -56,23 +81,12 @@ Module Backups
 
     End Sub
 
-    Private Sub ErrorHandler(sender As Object, e As System.EventArgs)
-
-        ' Dim myProcess As New Process
-        'myProcess = DirectCast(sender, Process)
-        'BreakPoint.Show(CStr(myProcess.ExitCode))
-        'myProcess.Close()
-
-        '_Busy = False
-
-    End Sub
-
     Public Function BackupPath() As String
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
         If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
-            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/AutoBackup/")
+            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/AutoBackup")
             Settings.BackupFolder = BackupPath
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
@@ -82,7 +96,7 @@ Module Backups
             BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
             Settings.BackupFolder = BackupPath
             If Not Directory.Exists(BackupPath) Then
-                BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup/")
+                BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup")
                 If Not Directory.Exists(BackupPath) Then
                     MkDir(BackupPath)
                 End If
@@ -121,7 +135,7 @@ Module Backups
         Dim ProcessSqlDump As Process = New Process With {
             .EnableRaisingEvents = True
         }
-        AddHandler ProcessSqlDump.ErrorDataReceived, AddressOf ErrorHandler
+
         AddHandler ProcessSqlDump.Exited, AddressOf Exited
 
         Dim port As String = ""
@@ -181,10 +195,10 @@ Module Backups
 
     Public Sub BackupMysql(name As String)
 
-        Dim WebThread = New Thread(AddressOf RunSQLBackup)
-        WebThread.SetApartmentState(ApartmentState.STA)
-        WebThread.Start(name)
-        WebThread.Priority = ThreadPriority.BelowNormal
+        _WebThread1 = New Thread(AddressOf RunSQLBackup)
+        _WebThread1.SetApartmentState(ApartmentState.STA)
+        _WebThread1.Start(name)
+        _WebThread1.Priority = ThreadPriority.BelowNormal
 
     End Sub
 
@@ -195,14 +209,14 @@ Module Backups
 
         If force Then
             FormSetup.Print(currentdatetime.ToLocalTime & " Backup Running")
-            Dim WebThread = New Thread(AddressOf FullBackup)
+            _WebThread2 = New Thread(AddressOf FullBackup)
             Try
-                WebThread.SetApartmentState(ApartmentState.STA)
+                _WebThread2.SetApartmentState(ApartmentState.STA)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
-            WebThread.Start()
-            WebThread.Priority = ThreadPriority.BelowNormal
+            _WebThread2.Start()
+            _WebThread2.Priority = ThreadPriority.BelowNormal
             Return
         End If
 
@@ -222,14 +236,14 @@ Module Backups
 
             If Settings.AutoBackup Then
                 FormSetup.Print(currentdatetime.ToLocalTime & " Auto Backup Running")
-                Dim WebThread = New Thread(AddressOf FullBackup)
+                _WebThread3 = New Thread(AddressOf FullBackup)
                 Try
-                    WebThread.SetApartmentState(ApartmentState.STA)
+                    _WebThread3.SetApartmentState(ApartmentState.STA)
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
-                WebThread.Start()
-                WebThread.Priority = ThreadPriority.BelowNormal
+                _WebThread3.Start()
+                _WebThread3.Priority = ThreadPriority.BelowNormal
             End If
         End If
 
@@ -258,7 +272,16 @@ Module Backups
 
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
 
-        Dim Destination = IO.Path.Combine(Backups.BackupPath, Foldername)
+        Dim Destination = IO.Path.Combine(Backups.BackupPath & "tmp", Foldername)
+
+        Try
+            If Not Directory.Exists(Destination) Then
+                MkDir(Destination)
+            End If
+        Catch
+            Return
+        End Try
+
         If Settings.BackupMysql Then
             Try
                 My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Destination, "Opensim_bin_Regions"))
@@ -310,20 +333,13 @@ Module Backups
         End If
 
         FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(Destination, "Settings.ini"), True)
+        FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), IO.Path.Combine(Destination, "Photo.png"), True)
 
-        Dim Bak = Backups.BackupPath & "\" & Foldername & ".zip"
-        Dim counter As Integer = 10
-        While counter > 0
-            Try
-                FileStuff.DeleteFile(Bak)
-                ZipFile.CreateFromDirectory(Destination, Bak, CompressionLevel.Optimal, False)
-                Thread.Sleep(1000)
-                FileStuff.DeleteDirectory(Destination, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                counter = 0
-            Catch ex As Exception
-                counter -= 1
-            End Try
-        End While
+        Dim Bak = IO.Path.Combine(Backups.BackupPath, Foldername & ".zip")
+        FileStuff.DeleteFile(Bak)
+        ZipFile.CreateFromDirectory(Destination, Bak, CompressionLevel.Optimal, False)
+        Thread.Sleep(1000)
+        FileStuff.DeleteDirectory(IO.Path.Combine(Backups.BackupPath, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub
 

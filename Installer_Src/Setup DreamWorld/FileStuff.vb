@@ -90,7 +90,6 @@ Module FileStuff
         Try
             My.Computer.FileSystem.DeleteDirectory(folder, param)
         Catch ex As Exception
-            ' BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
