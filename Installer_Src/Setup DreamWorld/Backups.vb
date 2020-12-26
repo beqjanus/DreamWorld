@@ -272,7 +272,7 @@ Module Backups
 
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
 
-        Dim Destination = IO.Path.Combine(Backups.BackupPath & "tmp", Foldername)
+        Dim Destination = IO.Path.Combine(Backups.BackupPath & "\tmp", Foldername)
 
         Try
             If Not Directory.Exists(Destination) Then

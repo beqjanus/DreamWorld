@@ -119,6 +119,7 @@ Public Class FormSetup
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
+    Private _BackupsRunning As Boolean
 
     Private ScreenPosition As ScreenPos
 
@@ -6545,6 +6546,7 @@ Public Class FormSetup
         If PropDNSSTimer Mod 10 = 0 And PropDNSSTimer > 0 Then
             CalcCPU() ' get a list of running opensim processes
             Application.DoEvents()
+            CheckOnBackups()
         End If
 
         ' print hourly marks on console
@@ -6563,6 +6565,7 @@ Public Class FormSetup
         End If
 
         If PropDNSSTimer Mod 60 = 0 Then
+
             ScanAgents() ' update agent count  seconds
             Application.DoEvents()
             RegionListHTML() ' create HTML for older 2.4 region teleport
@@ -6580,6 +6583,20 @@ Public Class FormSetup
 
         PropDNSSTimer += 1
         TimerBusy = 0
+
+    End Sub
+
+    Private Sub CheckOnBackups()
+
+        Dim q = BackupRunning()
+        If q And Not _BackupsRunning Then
+            _BackupsRunning = True
+        ElseIf Not q And _BackupsRunning Then
+            _BackupsRunning = False
+            Dim currentdatetime As Date = New DateTime()
+            currentdatetime = Date.Now
+            Print(currentdatetime.ToLocalTime & " Backup Finished")
+        End If
 
     End Sub
 
