@@ -199,7 +199,7 @@ Public Class FormRegionPopup
 
     Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ViewLog.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        ViewLog.Image = Global.Outworldz.My.Resources.Resources.document_view
         ViewLog.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
         EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word

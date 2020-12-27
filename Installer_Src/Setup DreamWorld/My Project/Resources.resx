@@ -267,9 +267,6 @@
   <data name="OAR_Load_and_Save" xml:space="preserve">
     <value>OAR Load and Save</value>
   </data>
-  <data name="view1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\view1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Secret_word" xml:space="preserve">
     <value>Secret</value>
   </data>
@@ -876,9 +873,6 @@
   <data name="Region_Controls" xml:space="preserve">
     <value>Region Controls</value>
   </data>
-  <data name="Arrow2Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Arrow2Left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Server_Type_is" xml:space="preserve">
     <value>Server Type is</value>
   </data>
@@ -953,9 +947,6 @@
   </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>Ignore Parcel</value>
-  </data>
-  <data name="replace2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\replace2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Restart_Robust_word" xml:space="preserve">
     <value>Restart Robust</value>
@@ -1111,7 +1102,7 @@
     <value>Region List</value>
   </data>
   <data name="media_stop_red1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\media_stop_red1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\media_stop_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Send_Debug_Info" xml:space="preserve">
     <value>Send Debug Info To Console</value>
@@ -1413,9 +1404,6 @@
   <data name="SMTPPassword_word" xml:space="preserve">
     <value>SMTP Password</value>
   </data>
-  <data name="navigate_up2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\navigate_up2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Add_Region_word" xml:space="preserve">
     <value>Add Region</value>
   </data>
@@ -1647,9 +1635,6 @@
   </data>
   <data name="Ports" xml:space="preserve">
     <value>Ports</value>
-  </data>
-  <data name="document_view1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\document_view1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="gear_run" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gear_run.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1979,9 +1964,6 @@
   <data name="Robust_running" xml:space="preserve">
     <value>Robust is running</value>
   </data>
-  <data name="recycle" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\recycle1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Region_UUID_Is_invalid_word" xml:space="preserve">
     <value>Region UUID Is invalid</value>
   </data>
@@ -2283,9 +2265,6 @@
   </data>
   <data name="Help_Forward" xml:space="preserve">
     <value>Help On Port Forwarding</value>
-  </data>
-  <data name="Arrow2Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Arrow2Right.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Load_Free_Avatar_Inventory_word" xml:space="preserve">
     <value>Load Free Avatar Inventory (www)</value>
@@ -3094,5 +3073,17 @@
   </data>
   <data name="Passwordtooshort_word" xml:space="preserve">
     <value>Password is too short</value>
+  </data>
+  <data name="navigate_up2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigate_up2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="recycle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\recycle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="replace2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\replace2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="selection" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\selection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -380,7 +380,7 @@ Public Class FormOAR
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
         MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
-        PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view1
+        PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view
         RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
         RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer

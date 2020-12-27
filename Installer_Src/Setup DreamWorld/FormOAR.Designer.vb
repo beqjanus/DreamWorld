@@ -92,7 +92,7 @@ Partial Class FormOAR
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view1
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view
         Me.PictureBox1.Location = New System.Drawing.Point(253, 5)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox1.Name = "PictureBox1"

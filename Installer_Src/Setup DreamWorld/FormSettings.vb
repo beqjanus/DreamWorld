@@ -101,7 +101,7 @@ Public Class FormSettings
         DNSButton.Text = Global.Outworldz.My.Resources.Resources.Hypergrid
         DatabaseButton2.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
         DivaButton1.Text = Global.Outworldz.My.Resources.Resources.Web
-        GloebitsButton.Text = Global.Outworldz.My.Resources.Resources.Currency_word
+        CurrencyButton.Text = Global.Outworldz.My.Resources.Resources.Currency_word
         LoggingButton.Text = Global.Outworldz.My.Resources.Resources.Logging_word
         MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
         PhysicsButton1.Text = Global.Outworldz.My.Resources.Resources.Physics_word
@@ -124,7 +124,7 @@ Public Class FormSettings
         ToolTip1.SetToolTip(DNSButton, Global.Outworldz.My.Resources.Resources.Click_HG)
         ToolTip1.SetToolTip(DatabaseButton2, Global.Outworldz.My.Resources.Resources.Click_Database)
         ToolTip1.SetToolTip(DivaButton1, Global.Outworldz.My.Resources.Resources.Click_Web)
-        ToolTip1.SetToolTip(GloebitsButton, Global.Outworldz.My.Resources.Resources.Click_Currency)
+        ToolTip1.SetToolTip(CurrencyButton, Global.Outworldz.My.Resources.Resources.Click_Currency)
         ToolTip1.SetToolTip(LoggingButton, Global.Outworldz.My.Resources.Resources.Log_Level)
         ToolTip1.SetToolTip(MapsButton, Global.Outworldz.My.Resources.Resources.Click_Maps)
         ToolTip1.SetToolTip(PhysicsButton1, Global.Outworldz.My.Resources.Resources.Click_Physics)
@@ -257,7 +257,7 @@ Public Class FormSettings
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles GloebitsButton.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles CurrencyButton.Click
 
         Gloebits.Close()
         Gloebits.Dispose()
