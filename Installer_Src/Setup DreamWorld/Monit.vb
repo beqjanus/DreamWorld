@@ -26,21 +26,20 @@ Module Monit
 
             For Each RegionUUID As String In PropRegionClass.RegionUuids
 
-                Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-
                 If CBool(PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
-                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
+ _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
                      Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended)) Then
 
+                    Dim GroupName = PropRegionClass.GroupName(RegionUUID)
                     Dim hwnd = GetHwnd(GroupName)
 
                     If hwnd = IntPtr.Zero Then
                         Dim RegionName As String = PropRegionClass.RegionName(RegionUUID)
                         Dim s As String = ""
-                        If Not PropExitList.TryGetValue(RegionName, s) Then
-                            PropExitList.Add(RegionName, "DOS Box exit")
+                        If Not PropExitList.TryGetValue(GroupName, s) Then
+                            PropExitList.Add(GroupName, "DOS Box exit")
                         End If
                     End If
                 End If
@@ -55,29 +54,24 @@ Module Monit
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname = RobustName() Then
-
             For Each pList As Process In Process.GetProcessesByName("Robust")
                 If pList.ProcessName = "Robust" Then
                     Return pList.MainWindowHandle
                 End If
             Next
-
-            Dim h As IntPtr = IntPtr.Zero
-            Return h
+            Return IntPtr.Zero
 
         End If
 
-        Dim Regionlist = PropRegionClass.RegionUuidListByName(Groupname)
-
-        For Each RegionUUID As String In Regionlist
-            Dim pid = PropRegionClass.ProcessID(RegionUUID)
-            For Each pList As Process In Process.GetProcessesByName("Opensim")
-                If pList.Id = pid Then
-                    Return pList.MainWindowHandle
-                End If
-                Application.DoEvents()
-            Next
+        Dim AllProcesses = Process.GetProcesses()
+        For Each p As Process In AllProcesses
+            If p.MainWindowTitle = Groupname Then
+                p.Refresh()
+                Return p.MainWindowHandle
+            End If
+            Application.DoEvents()
         Next
+
         Return IntPtr.Zero
 
     End Function
