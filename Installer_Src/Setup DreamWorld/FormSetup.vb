@@ -64,7 +64,7 @@ Public Class FormSetup
     Private WithEvents ProcessMySql As Process = New Process()
     Private WithEvents RobustProcess As New Process()
     Private WithEvents UpdateProcess As New Process()
-    Private ReadOnly _exitList As New Dictionary(Of String, String)
+
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
     Private ReadOnly D As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
@@ -277,12 +277,6 @@ Public Class FormSetup
         Set(ByVal Value As Boolean)
             _ExitHandlerIsBusy = Value
         End Set
-    End Property
-
-    Public ReadOnly Property PropExitList As Dictionary(Of String, String)
-        Get
-            Return _exitList
-        End Get
     End Property
 
     Public Property PropForceMerge As Boolean
@@ -1047,7 +1041,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub Quitter(ByVal sender As Object, ByVal e As System.EventArgs) Handles BootProcess.Exited
+    Private Sub Quitter(ByVal sender As Object, ByVal e As System.EventArgs) ' Handles BootProcess.Exited
         ' Handle any process that exits by adding it to a dictionary. DoExitHandlerPoll will clean up.
 
         Dim pid = CType(sender.Id, Integer)
@@ -1073,7 +1067,7 @@ Public Class FormSetup
     ''' <param name="p"></param>
     ''' <param name="Groupname"></param>
     Private Sub SaveProcess(p As Process, Groupname As String)
-
+        Return
         If Not PropInstanceHandles.ContainsKey(p.Id) Then
             PropInstanceHandles.Add(p.Id, Groupname) ' save in the list of exit events in case it crashes or exits
             p.EnableRaisingEvents = True
@@ -1088,7 +1082,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub Addeventhandler(RegionUUID As String)
-
+        Return
         If PropRegionClass.ProcessID(RegionUUID) = 0 Then
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             Diagnostics.Debug.Print("Adding event for " & GroupName)
@@ -1142,14 +1136,14 @@ Public Class FormSetup
         Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
         If isRegionRunning Then
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                Addeventhandler(RegionUUID)
+                'Addeventhandler(RegionUUID)
                 Logger("Suspended, Resuming it", BootName, "Restart")
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
                 PropUpdateView = True ' make form refresh
                 Return True
             Else    ' needs to be captured into the event handler
-                Addeventhandler(RegionUUID)
+                'Addeventhandler(RegionUUID)
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already up")
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
                 PropUpdateView = True ' make form refresh
@@ -1208,7 +1202,7 @@ Public Class FormSetup
             Next
             If PID > 0 Then
                 Log("Debug", "Created Process Number " & CStr(BootProcess.Id) & " in  RegionHandles(" & CStr(PropInstanceHandles.Count) & ") " & "Group:" & GroupName)
-                SaveProcess(BootProcess, GroupName)
+                ' SaveProcess(BootProcess, GroupName)
                 SetWindowTextCall(BootProcess, GroupName)
             End If
             PropUpdateView = True ' make form refresh
@@ -1735,36 +1729,6 @@ Public Class FormSetup
         Buttons(StartButton)
         ToolBar(False)
         Return True
-
-    End Function
-
-    Public Shared Function GetHwnd(Groupname As String) As IntPtr
-
-        If Groupname = RobustName() Then
-
-            For Each pList As Process In Process.GetProcessesByName("Robust")
-                If pList.ProcessName = "Robust" Then
-                    Return pList.MainWindowHandle
-                End If
-            Next
-
-            Dim h As IntPtr = IntPtr.Zero
-            Return h
-
-        End If
-
-        Dim Regionlist = PropRegionClass.RegionUuidListByName(Groupname)
-
-        For Each RegionUUID As String In Regionlist
-            Dim pid = PropRegionClass.ProcessID(RegionUUID)
-            For Each pList As Process In Process.GetProcessesByName("Opensim")
-                If pList.Id = pid Then
-                    Return pList.MainWindowHandle
-                End If
-                Application.DoEvents()
-            Next
-        Next
-        Return IntPtr.Zero
 
     End Function
 
@@ -5029,6 +4993,8 @@ Public Class FormSetup
 
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
+
+        StartMonitorThread()
 
         Print(My.Resources.Version_word & " " & PropMyVersion)
         Print(My.Resources.Version_word & " " & _SimVersion)

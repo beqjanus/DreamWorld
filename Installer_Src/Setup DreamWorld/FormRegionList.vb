@@ -1130,7 +1130,7 @@ Public Class FormRegionlist
 
             If (StopIt) Then
 
-                Dim hwnd As IntPtr = FormSetup.GetHwnd(PropRegionClass.GroupName(RegionUUID))
+                Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
                 If FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE) Then
                     FormSetup.SequentialPause()
 
@@ -1156,7 +1156,7 @@ Public Class FormRegionlist
         ElseIf chosen = "Console" Then
             Dim PID = PropRegionClass.ProcessID(RegionUUID)
             If PID > 0 Then
-                Dim hwnd = FormSetup.GetHwnd(PropRegionClass.GroupName(RegionUUID))
+                Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
 
                 Dim tmp As String = Settings.ConsoleShow
                 'temp show console
