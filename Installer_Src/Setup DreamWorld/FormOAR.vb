@@ -560,7 +560,7 @@ Public Class FormOAR
 
         If searchterm.Length > 0 Then
             Erase SearchArray
-            ' search thru search and
+            ' search
             For Each item In json
                 If item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
                     Dim l As Integer

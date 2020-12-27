@@ -24,7 +24,6 @@ Imports System.IO
 Imports IniParser
 Imports IniParser.Model
 
-
 Public Class MySettings
 
 #Region "Private Fields"
@@ -105,7 +104,7 @@ Public Class MySettings
 
     Public Function LoadIni(arg As String, comment As String) As Boolean
 
-        FormSetup.Log(My.Resources.Info_word, "Loading INI " & arg)
+        'FormSetup.Log(My.Resources.Info_word, "Loading INI " & arg)
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -235,7 +234,7 @@ Public Class MySettings
 
     Public Sub SaveINI(encoding As System.Text.Encoding)
 
-        FormSetup.Log(My.Resources.Info_word, "Save INI " & INI)
+        'FormSetup.Log(My.Resources.Info_word, "Save INI " & INI)
         Try
             parser.WriteFile(INI, Data, encoding)
         Catch ex As Exception
@@ -1173,8 +1172,8 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = CStr(FormSetup.PropRegionClass.CoordX(RegionUUID))
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
+            Dim Center As String = CStr(PropRegionClass.CoordX(RegionUUID))
             Return CInt("0" & GetMySetting("MapCenterX", Center))
         End Get
         Set
@@ -1184,8 +1183,8 @@ Public Class MySettings
 
     Public Property MapCenterY() As Integer
         Get
-            Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = CStr(FormSetup.PropRegionClass.CoordY(RegionUUID))
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
+            Dim Center As String = CStr(PropRegionClass.CoordY(RegionUUID))
             Return CInt("0" & GetMySetting("MapCenterY", Center))
         End Get
         Set

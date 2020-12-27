@@ -76,81 +76,81 @@ Public Class FormRegionPopup
 
         _RegionName = RegionName
 
-        Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(RegionName)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Me.Text = RegionName
-        GroupBox1.Text = FormSetup.PropRegionClass.GroupName(RegionUUID)
+        GroupBox1.Text = PropRegionClass.GroupName(RegionUUID)
 
-        If Not FormSetup.PropRegionClass.RegionEnabled(RegionUUID) Then
+        If Not PropRegionClass.RegionEnabled(RegionUUID) Then
             ShowConsoleButton.Enabled = False
             StatsButton1.Enabled = False
-            StartButton3.Enabled = False
-            StopButton1.Enabled = False
-            RecycleButton2.Enabled = False
-            StatsButton.Enabled = False
+            StartButton.Enabled = False
+            StopButton.Enabled = False
+            SaveOAR.Enabled = False
+            Teleport.Enabled = False
+            LoadOAR.Enabled = False
             EditButton1.Enabled = True
         Else
 
-            If FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                ShowConsoleButton.Enabled = True
-                'TODO: Unsuspend region
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                'TODO: un-suspend region
 
+                ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
-                StartButton3.Enabled = True
-                StopButton1.Enabled = True
-                RecycleButton2.Enabled = True
-                StatsButton.Enabled = True
+                StartButton.Enabled = True
+                StopButton.Enabled = True
+                SaveOAR.Enabled = True
+                LoadOAR.Enabled = True
+                Teleport.Enabled = True
                 EditButton1.Enabled = False
             End If
 
-            If FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = True
-                StartButton3.Enabled = False
-                StopButton1.Enabled = True
-                RecycleButton2.Enabled = True
-                StatsButton.Enabled = True
+                StartButton.Enabled = False
+                StopButton.Enabled = True
+                SaveOAR.Enabled = True
+                LoadOAR.Enabled = True
+                Teleport.Enabled = True
                 EditButton1.Enabled = True
             End If
 
-            If FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
-                FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
-                StartButton3.Enabled = False
-                StopButton1.Enabled = True
-                RecycleButton2.Enabled = False
-                StatsButton.Enabled = False
+                StartButton.Enabled = False
+                StopButton.Enabled = True
+                LoadOAR.Enabled = False
+                SaveOAR.Enabled = False
+                Teleport.Enabled = False
                 EditButton1.Enabled = True
             End If
 
-            If FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Or
-                FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Or
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
-                StartButton3.Enabled = False
-                StopButton1.Enabled = True
-                RecycleButton2.Enabled = False
-                StatsButton.Enabled = False
+                StartButton.Enabled = False
+                StopButton.Enabled = True
+                SaveOAR.Enabled = False
+                LoadOAR.Enabled = False
+                Teleport.Enabled = False
                 EditButton1.Enabled = False
             End If
 
             ' stopped
-            If FormSetup.PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
                 ShowConsoleButton.Enabled = False
                 StatsButton1.Enabled = False
-                StartButton3.Enabled = True
-                StopButton1.Enabled = False
-                RecycleButton2.Enabled = False
-                StatsButton.Enabled = False
+                StartButton.Enabled = True
+                StopButton.Enabled = False
+                SaveOAR.Enabled = False
+                LoadOAR.Enabled = False
+                Teleport.Enabled = False
                 EditButton1.Enabled = True
             End If
         End If
-
-        For Each p In Process.GetProcessesByName("Opensim")
-            If p.MainWindowTitle = GroupBox1.Text Then
-                Exit For
-            End If
-        Next
 
         BringToFront()
 
@@ -160,16 +160,16 @@ Public Class FormRegionPopup
 
 #Region "Private Methods"
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles StatsButton.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Teleport.Click
         gPick = "Teleport"
         DialogResult = DialogResult.OK
     End Sub
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles ViewLog.Click
 
         Try
-            Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(_RegionName)
-            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe") & " " & """" & FormSetup.PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(_RegionName)
+            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe") & " " & """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -177,8 +177,8 @@ Public Class FormRegionPopup
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles StatsButton1.Click
 
-        Dim RegionNum = FormSetup.PropRegionClass.FindRegionByName(_RegionName)
-        Dim RegionPort = FormSetup.PropRegionClass.GroupPort(RegionNum)
+        Dim RegionNum = PropRegionClass.FindRegionByName(_RegionName)
+        Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
         Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
         Try
             Process.Start(webAddress)
@@ -199,41 +199,35 @@ Public Class FormRegionPopup
 
     Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Button1.Image = Global.Outworldz.My.Resources.Resources.document_view1
-        Button1.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
+        ViewLog.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        ViewLog.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
         EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Region_Controls
-        RecycleButton2.Image = Global.Outworldz.My.Resources.Resources.recycle
-        RecycleButton2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
-        ShowConsoleButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        Restart.Text = Global.Outworldz.My.Resources.Resources.Restart_word
         ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
-        StartButton3.Image = Global.Outworldz.My.Resources.Resources.media_play
-        StartButton3.Text = Global.Outworldz.My.Resources.Resources.Start_word
-        StatsButton.Image = Global.Outworldz.My.Resources.Resources.user1_into
-        StatsButton.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
-        StatsButton1.Image = Global.Outworldz.My.Resources.Resources.user1_into
+        StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
+        Teleport.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
         StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
-        StopButton1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
-        StopButton1.Text = Global.Outworldz.My.Resources.Resources.Stop_word
-        ViewMapButton.Image = Global.Outworldz.My.Resources.Resources.document_view1
+        StopButton.Text = Global.Outworldz.My.Resources.Resources.Stop_word
         ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
-
+        LoadOAR.Text = Global.Outworldz.My.Resources.Resources.Load_Region_OAR
+        SaveOAR.Text = Global.Outworldz.My.Resources.Resources.Save_Region_OAR_word
         SetScreen()
 
     End Sub
 
-    Private Sub RecycleButton2_Click(sender As Object, e As EventArgs) Handles RecycleButton2.Click
-        gPick = "Recycle"
+    Private Sub RecycleButton2_Click(sender As Object, e As EventArgs) Handles SaveOAR.Click
+        gPick = "Save"
         DialogResult = DialogResult.OK
     End Sub
 
-    Private Sub StartButton3_Click(sender As Object, e As EventArgs) Handles StartButton3.Click
+    Private Sub StartButton3_Click(sender As Object, e As EventArgs) Handles StartButton.Click
         gPick = "Start"
         DialogResult = DialogResult.OK
     End Sub
 
-    Private Sub StopButton1_Click(sender As Object, e As EventArgs) Handles StopButton1.Click
+    Private Sub StopButton1_Click(sender As Object, e As EventArgs) Handles StopButton.Click
         gPick = "Stop"
         DialogResult = DialogResult.OK
     End Sub
@@ -242,6 +236,16 @@ Public Class FormRegionPopup
 
         FormSetup.VarChooser(_RegionName, False, False)
 
+    End Sub
+
+    Private Sub Load_Click(sender As Object, e As EventArgs) Handles LoadOAR.Click
+        gPick = "Load"
+        DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub Button2_Click_2(sender As Object, e As EventArgs) Handles Restart.Click
+        gPick = "Restart"
+        DialogResult = DialogResult.OK
     End Sub
 
 #End Region

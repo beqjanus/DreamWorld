@@ -68,7 +68,7 @@ Public Class FormDisplacement
         Me.Width = Size * 256 + 60
         Me.Height = Size * 256 + 100
 
-        Dim RegionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
         Me.Text = RegionName & " " & CStr(Size) + " X " & CStr(Size)
         Me.Name = "FormDisplacement_" & RegionUUID
         MakeArray(Size, RegionUUID, map)
@@ -200,8 +200,8 @@ Public Class FormDisplacement
     Private Shared Function MakePhotoOfRegion(regionUUID As String, X As Integer, Y As Integer) As Image
 
         'map-1-1000-1000-objects
-        Dim Xcoord = FormSetup.PropRegionClass.CoordX(regionUUID) + X
-        Dim Ycoord = FormSetup.PropRegionClass.CoordY(regionUUID) + Y
+        Dim Xcoord = PropRegionClass.CoordX(regionUUID) + X
+        Dim Ycoord = PropRegionClass.CoordY(regionUUID) + Y
 
         Dim place As String = "map-1-" & Xcoord & "-".ToUpperInvariant & Ycoord & "-objects.jpg"
         Dim RegionPhoto = Settings.OpensimBinPath & "maptiles\00000000-0000-0000-0000-000000000000\" & place

@@ -60,7 +60,6 @@ Partial Class FormRegionlist
         Me.ListView1.FullRowSelect = True
         Me.ListView1.GridLines = True
         Me.ListView1.HideSelection = False
-
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
         Me.ListView1.Location = New System.Drawing.Point(21, 86)
         Me.ListView1.Margin = New System.Windows.Forms.Padding(4)

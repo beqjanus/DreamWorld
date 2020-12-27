@@ -4,8 +4,6 @@ Module CPUCounter
 
     Private OpensimProcesses() As Process
 
-    Private _ctrIsRunning1 As Boolean
-
     Private _counterList As New Dictionary(Of String, PerformanceCounter)
     Private _CPUValues As New Dictionary(Of String, Double)
 
@@ -21,18 +19,7 @@ Module CPUCounter
         End Get
     End Property
 
-    Public Property CtrIsRunning As Boolean
-        Get
-            Return _ctrIsRunning1
-        End Get
-        Set(value As Boolean)
-            _ctrIsRunning1 = value
-        End Set
-    End Property
-
     Public Sub CalcCPU()
-
-        If Not CtrIsRunning Then Return
 
         OpensimProcesses = Process.GetProcessesByName("Opensim")
         Try

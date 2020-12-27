@@ -248,7 +248,7 @@ Public Class FormRegion
         If Name Is Nothing Then Return
         Name = Name.Trim() ' remove spaces
 
-        FormSetup.PropRegionClass = RegionMaker.Instance()
+        PropRegionClass = RegionMaker.Instance()
 
         ' NEW REGION
         If Name.Length = 0 Then
@@ -257,9 +257,9 @@ Public Class FormRegion
             RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word
             UUID.Text = Guid.NewGuid().ToString
 
-            CoordX.Text = (FormSetup.PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
-            CoordY.Text = (FormSetup.PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
-            RegionPort.Text = (FormSetup.PropRegionClass.LargestPort() + 1).ToString(Globalization.CultureInfo.InvariantCulture)
+            CoordX.Text = (PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
+            CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
+            RegionPort.Text = (PropRegionClass.LargestPort() + 1).ToString(Globalization.CultureInfo.InvariantCulture)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
@@ -268,73 +268,73 @@ Public Class FormRegion
             ClampPrimSize.Checked = False
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
-            RegionUUID = FormSetup.PropRegionClass.CreateRegion("")
+            RegionUUID = PropRegionClass.CreateRegion("")
             Gods_Use_Default.Checked = True
         Else
             ' OLD REGION EDITED all this is required to be filled in!
             IsNew1 = False
-            RegionUUID = FormSetup.PropRegionClass.FindRegionByName(Name)
-            Oldname1 = FormSetup.PropRegionClass.RegionName(RegionUUID) ' backup in case of rename
-            EnabledCheckBox.Checked = FormSetup.PropRegionClass.RegionEnabled(RegionUUID)
+            RegionUUID = PropRegionClass.FindRegionByName(Name)
+            Oldname1 = PropRegionClass.RegionName(RegionUUID) ' backup in case of rename
+            EnabledCheckBox.Checked = PropRegionClass.RegionEnabled(RegionUUID)
             Me.Text = Name & " " & Global.Outworldz.My.Resources.Region_word ' on screen
             RegionName.Text = Name
             UUID.Text = RegionUUID
-            NonphysicalPrimMax.Text = CStr(FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID))
-            PhysicalPrimMax.Text = CStr(FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID))
-            ClampPrimSize.Checked = FormSetup.PropRegionClass.ClampPrimSize(RegionUUID)
-            MaxPrims.Text = FormSetup.PropRegionClass.MaxPrims(RegionUUID)
-            MaxAgents.Text = FormSetup.PropRegionClass.MaxAgents(RegionUUID)
-            RegionPort.Text = FormSetup.PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+            NonphysicalPrimMax.Text = CStr(PropRegionClass.NonPhysicalPrimMax(RegionUUID))
+            PhysicalPrimMax.Text = CStr(PropRegionClass.PhysicalPrimMax(RegionUUID))
+            ClampPrimSize.Checked = PropRegionClass.ClampPrimSize(RegionUUID)
+            MaxPrims.Text = PropRegionClass.MaxPrims(RegionUUID)
+            MaxAgents.Text = PropRegionClass.MaxAgents(RegionUUID)
+            RegionPort.Text = PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
             ' Size buttons can be zero
-            If FormSetup.PropRegionClass.SizeY(RegionUUID) = 0 Or FormSetup.PropRegionClass.SizeX(RegionUUID) = 0 Then
+            If PropRegionClass.SizeY(RegionUUID) = 0 Or PropRegionClass.SizeX(RegionUUID) = 0 Then
                 RadioButton1.Checked = True
                 BoxSize = 256
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 Then
                 RadioButton1.Checked = True
                 BoxSize = 256 * 1
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 2 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 2 Then
                 RadioButton2.Checked = True
                 BoxSize = 256 * 2
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 3 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 3 Then
                 RadioButton3.Checked = True
                 BoxSize = 256 * 3
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 4 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 4 Then
                 RadioButton4.Checked = True
                 BoxSize = 256 * 4
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 5 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 5 Then
                 RadioButton5.Checked = True
                 BoxSize = 256 * 5
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 6 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 6 Then
                 RadioButton6.Checked = True
                 BoxSize = 256 * 6
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 7 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 7 Then
                 RadioButton7.Checked = True
                 BoxSize = 256 * 7
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 8 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 8 Then
                 RadioButton8.Checked = True
                 BoxSize = 256 * 8
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 9 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 9 Then
                 RadioButton9.Checked = True
                 BoxSize = 256 * 9
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 10 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 10 Then
                 RadioButton10.Checked = True
                 BoxSize = 256 * 10
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 11 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 11 Then
                 RadioButton11.Checked = True
                 BoxSize = 256 * 11
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 12 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 12 Then
                 RadioButton12.Checked = True
                 BoxSize = 256 * 12
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 13 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 13 Then
                 RadioButton13.Checked = True
                 BoxSize = 256 * 14
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 14 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 14 Then
                 RadioButton14.Checked = True
                 BoxSize = 256 * 14
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 15 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 15 Then
                 RadioButton15.Checked = True
                 BoxSize = 256 * 15
-            ElseIf FormSetup.PropRegionClass.SizeY(RegionUUID) = 256 * 16 Then
+            ElseIf PropRegionClass.SizeY(RegionUUID) = 256 * 16 Then
                 RadioButton16.Checked = True
                 BoxSize = 256 * 16
             Else
@@ -357,36 +357,36 @@ Public Class FormRegion
             End If
 
             ' global coordinates
-            If FormSetup.PropRegionClass.CoordX(RegionUUID) <> 0 Then
-                CoordX.Text = FormSetup.PropRegionClass.CoordX(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+            If PropRegionClass.CoordX(RegionUUID) <> 0 Then
+                CoordX.Text = PropRegionClass.CoordX(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
 
-            If FormSetup.PropRegionClass.CoordY(RegionUUID) <> 0 Then
-                CoordY.Text = FormSetup.PropRegionClass.CoordY(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+            If PropRegionClass.CoordY(RegionUUID) <> 0 Then
+                CoordY.Text = PropRegionClass.CoordY(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
             End If
 
         End If
 
         ' The following are all options.
-        If FormSetup.PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
+        If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
             DisallowResidents.Checked = True
         End If
 
-        If FormSetup.PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
+        If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
             DisallowForeigners.Checked = True
         End If
 
-        ScriptTimerTextBox.Text = FormSetup.PropRegionClass.MinTimerInterval(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
-        FrametimeBox.Text = FormSetup.PropRegionClass.FrameTime(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+        ScriptTimerTextBox.Text = PropRegionClass.MinTimerInterval(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+        FrametimeBox.Text = PropRegionClass.FrameTime(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
 
-        If FormSetup.PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
+        If PropRegionClass.SkipAutobackup(RegionUUID) = "True" Then
             SkipAutoCheckBox.Checked = True
         End If
-        If FormSetup.PropRegionClass.SmartStart(RegionUUID) = "True" Then
+        If PropRegionClass.SmartStart(RegionUUID) = "True" Then
             SmartStartCheckBox.Checked = True
         End If
 
-        Select Case FormSetup.PropRegionClass.DisableGloebits(RegionUUID)
+        Select Case PropRegionClass.DisableGloebits(RegionUUID)
             Case ""
                 DisableGBCheckBox.Checked = False
             Case "False"
@@ -399,26 +399,26 @@ Public Class FormRegion
 
         ''''''''''''''''''''''''''''' DREAMGRID REGION LOAD '''''''''''''''''
 
-        If FormSetup.PropRegionClass.MapType(RegionUUID).Length = 0 Then
+        If PropRegionClass.MapType(RegionUUID).Length = 0 Then
             Maps_Use_Default.Checked = True
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "None" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "None" Then
             MapNone.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.blankbox
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Simple" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Simple" Then
             MapSimple.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Simple
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Good" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Good" Then
             MapGood.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Good
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Better" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Better" Then
             MapBetter.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Better
-        ElseIf FormSetup.PropRegionClass.MapType(RegionUUID) = "Best" Then
+        ElseIf PropRegionClass.MapType(RegionUUID) = "Best" Then
             MapBest.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Best
         End If
 
-        Select Case FormSetup.PropRegionClass.Physics(RegionUUID)
+        Select Case PropRegionClass.Physics(RegionUUID)
             Case "" : Physics_Default.Checked = True
             Case "-1" : Physics_Default.Checked = True
             Case "0" : Physics_Default.Checked = True
@@ -430,13 +430,13 @@ Public Class FormRegion
             Case Else : Physics_Default.Checked = True
         End Select
 
-        If FormSetup.PropRegionClass.GodDefault(RegionUUID) = "True" Then
+        If PropRegionClass.GodDefault(RegionUUID) = "True" Then
             AllowGods.Checked = False
             RegionGod.Checked = False
             ManagerGod.Checked = False
             Gods_Use_Default.Checked = True
         Else
-            Select Case FormSetup.PropRegionClass.AllowGods(RegionUUID)
+            Select Case PropRegionClass.AllowGods(RegionUUID)
                 Case ""
                     AllowGods.Checked = False
                 Case "False"
@@ -447,7 +447,7 @@ Public Class FormRegion
                     Gods_Use_Default.Checked = False
             End Select
 
-            Select Case FormSetup.PropRegionClass.RegionGod(RegionUUID)
+            Select Case PropRegionClass.RegionGod(RegionUUID)
                 Case ""
                     RegionGod.Checked = False
                 Case "False"
@@ -458,7 +458,7 @@ Public Class FormRegion
                     Gods_Use_Default.Checked = False
             End Select
 
-            Select Case FormSetup.PropRegionClass.ManagerGod(RegionUUID)
+            Select Case PropRegionClass.ManagerGod(RegionUUID)
                 Case ""
                     ManagerGod.Checked = False
                 Case "False"
@@ -471,14 +471,14 @@ Public Class FormRegion
 
             ' if none selected, turn default on. This updates old code to new GodDefault global
 
-            If FormSetup.PropRegionClass.AllowGods(RegionUUID).Length = 0 And
-                 FormSetup.PropRegionClass.RegionGod(RegionUUID).Length = 0 And
-                FormSetup.PropRegionClass.ManagerGod(RegionUUID).Length = 0 Then
+            If PropRegionClass.AllowGods(RegionUUID).Length = 0 And
+                 PropRegionClass.RegionGod(RegionUUID).Length = 0 And
+                PropRegionClass.ManagerGod(RegionUUID).Length = 0 Then
                 Gods_Use_Default.Checked = True
             End If
         End If
 
-        Select Case FormSetup.PropRegionClass.RegionSnapShot(RegionUUID)
+        Select Case PropRegionClass.RegionSnapShot(RegionUUID)
             Case ""
                 PublishDefault.Checked = True
                 NoPublish.Checked = False
@@ -493,7 +493,7 @@ Public Class FormRegion
                 Publish.Checked = True
         End Select
 
-        Select Case FormSetup.PropRegionClass.Birds(RegionUUID)
+        Select Case PropRegionClass.Birds(RegionUUID)
             Case ""
                 BirdsCheckBox.Checked = False
             Case "False"
@@ -502,7 +502,7 @@ Public Class FormRegion
                 BirdsCheckBox.Checked = True
         End Select
 
-        Select Case FormSetup.PropRegionClass.Tides(RegionUUID)
+        Select Case PropRegionClass.Tides(RegionUUID)
             Case ""
                 TidesCheckbox.Checked = False
             Case "False"
@@ -511,7 +511,7 @@ Public Class FormRegion
                 TidesCheckbox.Checked = True
         End Select
 
-        Select Case FormSetup.PropRegionClass.Teleport(RegionUUID)
+        Select Case PropRegionClass.Teleport(RegionUUID)
             Case ""
                 TPCheckBox1.Checked = False
             Case "False"
@@ -520,7 +520,7 @@ Public Class FormRegion
                 TPCheckBox1.Checked = True
         End Select
 
-        Select Case FormSetup.PropRegionClass.DisallowForeigners(RegionUUID)
+        Select Case PropRegionClass.DisallowForeigners(RegionUUID)
             Case ""
                 DisallowForeigners.Checked = False
             Case "False"
@@ -529,7 +529,7 @@ Public Class FormRegion
                 DisallowForeigners.Checked = True
         End Select
 
-        Select Case FormSetup.PropRegionClass.DisallowResidents(RegionUUID)
+        Select Case PropRegionClass.DisallowResidents(RegionUUID)
             Case ""
                 DisallowResidents.Checked = False
             Case "False"
@@ -538,7 +538,7 @@ Public Class FormRegion
                 DisallowResidents.Checked = True
         End Select
 
-        Select Case FormSetup.PropRegionClass.ScriptEngine(RegionUUID)
+        Select Case PropRegionClass.ScriptEngine(RegionUUID)
             Case ""
                 ScriptDefaultButton.Checked = True
             Case "XEngine"
@@ -595,14 +595,14 @@ Public Class FormRegion
             FormSetup.StartMySQL()
             FormSetup.StartRobust()
 
-            Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(RegionName.Text)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
-                If FormSetup.CheckPort(Settings.PrivateURL, FormSetup.PropRegionClass.GroupPort(RegionUUID)) Then
+                If FormSetup.CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) Then
                     FormSetup.SequentialPause()
                     FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 End If
                 Dim loopctr = 60 ' wait a minute
-                While FormSetup.CheckPort(Settings.PrivateURL, FormSetup.PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
+                While FormSetup.CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
                     FormSetup.Sleep(1000)
                     loopctr -= 1
                 End While
@@ -657,14 +657,14 @@ Public Class FormRegion
         If msg = vbYes Then
             FileStuff.DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
-                My.Computer.FileSystem.RenameFile(FormSetup.PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
+                My.Computer.FileSystem.RenameFile(PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
         End If
 
-        FormSetup.PropRegionClass.DeleteRegion(RegionUUID)
-        FormSetup.PropRegionClass.GetAllRegions()
+        PropRegionClass.DeleteRegion(RegionUUID)
+        PropRegionClass.GetAllRegions()
 
         FormSetup.PropUpdateView = True
 
@@ -1095,8 +1095,8 @@ Public Class FormRegion
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
 
-        Dim Filepath = FormSetup.PropRegionClass.RegionPath(RegionUUID)
-        Dim Folderpath = FormSetup.PropRegionClass.FolderPath(RegionUUID)
+        Dim Filepath = PropRegionClass.RegionPath(RegionUUID)
+        Dim Folderpath = PropRegionClass.FolderPath(RegionUUID)
 
         ' rename is possible
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
@@ -1109,7 +1109,7 @@ Public Class FormRegion
             End Try
 
             Filepath = Folderpath + "\" + RegionName.Text + ".ini"
-            FormSetup.PropRegionClass.RegionPath(RegionUUID) = Filepath
+            PropRegionClass.RegionPath(RegionUUID) = Filepath
 
         End If
 
@@ -1134,27 +1134,27 @@ Public Class FormRegion
                 End Try
             End If
 
-            FormSetup.PropRegionClass.RegionPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            PropRegionClass.RegionPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
             Filepath = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            FormSetup.PropRegionClass.FolderPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup
+            PropRegionClass.FolderPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup
 
         End If
 
         ' save the changes to the memory structure, then to disk
-        FormSetup.PropRegionClass.RegionUUID(RegionUUID) = UUID.Text
-        FormSetup.PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
-        FormSetup.PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
-        FormSetup.PropRegionClass.RegionPort(RegionUUID) = CInt("0" & RegionPort.Text)
-        FormSetup.PropRegionClass.SizeX(RegionUUID) = BoxSize
-        FormSetup.PropRegionClass.SizeY(RegionUUID) = BoxSize
-        FormSetup.PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
-        FormSetup.PropRegionClass.NonPhysicalPrimMax(RegionUUID) = NonphysicalPrimMax.Text
-        FormSetup.PropRegionClass.PhysicalPrimMax(RegionUUID) = PhysicalPrimMax.Text
-        FormSetup.PropRegionClass.ClampPrimSize(RegionUUID) = ClampPrimSize.Checked
-        FormSetup.PropRegionClass.MaxAgents(RegionUUID) = MaxAgents.Text
-        FormSetup.PropRegionClass.MaxPrims(RegionUUID) = MaxPrims.Text
-        FormSetup.PropRegionClass.MinTimerInterval(RegionUUID) = ScriptTimerTextBox.Text
-        FormSetup.PropRegionClass.FrameTime(RegionUUID) = FrametimeBox.Text
+        PropRegionClass.RegionUUID(RegionUUID) = UUID.Text
+        PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
+        PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
+        PropRegionClass.RegionPort(RegionUUID) = CInt("0" & RegionPort.Text)
+        PropRegionClass.SizeX(RegionUUID) = BoxSize
+        PropRegionClass.SizeY(RegionUUID) = BoxSize
+        PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
+        PropRegionClass.NonPhysicalPrimMax(RegionUUID) = NonphysicalPrimMax.Text
+        PropRegionClass.PhysicalPrimMax(RegionUUID) = PhysicalPrimMax.Text
+        PropRegionClass.ClampPrimSize(RegionUUID) = ClampPrimSize.Checked
+        PropRegionClass.MaxAgents(RegionUUID) = MaxAgents.Text
+        PropRegionClass.MaxPrims(RegionUUID) = MaxPrims.Text
+        PropRegionClass.MinTimerInterval(RegionUUID) = ScriptTimerTextBox.Text
+        PropRegionClass.FrameTime(RegionUUID) = FrametimeBox.Text
 
         Dim Snapshot As String = ""
         If PublishDefault.Checked Then
@@ -1165,7 +1165,7 @@ Public Class FormRegion
             Snapshot = "True"
         End If
 
-        FormSetup.PropRegionClass.RegionSnapShot(RegionUUID) = Snapshot
+        PropRegionClass.RegionSnapShot(RegionUUID) = Snapshot
 
         Dim Map As String = ""
         If MapNone.Checked Then
@@ -1182,7 +1182,7 @@ Public Class FormRegion
             Map = "Best"
         End If
 
-        FormSetup.PropRegionClass.MapType(RegionUUID) = Map
+        PropRegionClass.MapType(RegionUUID) = Map
 
         Dim Phys As Integer = 2
         If Physics_Default.Checked Then
@@ -1194,92 +1194,92 @@ Public Class FormRegion
         End If
 
         If Physics_Default.Checked Then
-            FormSetup.PropRegionClass.Physics(RegionUUID) = CStr(Phys)
+            PropRegionClass.Physics(RegionUUID) = CStr(Phys)
         End If
 
         If Gods_Use_Default.Checked Then
-            FormSetup.PropRegionClass.GodDefault(RegionUUID) = "True"
-            FormSetup.PropRegionClass.AllowGods(RegionUUID) = ""
-            FormSetup.PropRegionClass.RegionGod(RegionUUID) = ""
-            FormSetup.PropRegionClass.ManagerGod(RegionUUID) = ""
+            PropRegionClass.GodDefault(RegionUUID) = "True"
+            PropRegionClass.AllowGods(RegionUUID) = ""
+            PropRegionClass.RegionGod(RegionUUID) = ""
+            PropRegionClass.ManagerGod(RegionUUID) = ""
         Else
-            FormSetup.PropRegionClass.GodDefault(RegionUUID) = "False"
-            FormSetup.PropRegionClass.AllowGods(RegionUUID) = CStr(AllowGods.Checked)
-            FormSetup.PropRegionClass.RegionGod(RegionUUID) = CStr(RegionGod.Checked)
-            FormSetup.PropRegionClass.ManagerGod(RegionUUID) = CStr(ManagerGod.Checked)
+            PropRegionClass.GodDefault(RegionUUID) = "False"
+            PropRegionClass.AllowGods(RegionUUID) = CStr(AllowGods.Checked)
+            PropRegionClass.RegionGod(RegionUUID) = CStr(RegionGod.Checked)
+            PropRegionClass.ManagerGod(RegionUUID) = CStr(ManagerGod.Checked)
         End If
 
         Dim Host = Settings.ExternalHostName
 
         If DisallowForeigners.Checked Then
-            FormSetup.PropRegionClass.DisallowForeigners(RegionUUID) = "True"
+            PropRegionClass.DisallowForeigners(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.DisallowForeigners(RegionUUID) = ""
+            PropRegionClass.DisallowForeigners(RegionUUID) = ""
         End If
 
         If DisallowResidents.Checked Then
-            FormSetup.PropRegionClass.DisallowResidents(RegionUUID) = "True"
+            PropRegionClass.DisallowResidents(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.DisallowResidents(RegionUUID) = ""
+            PropRegionClass.DisallowResidents(RegionUUID) = ""
         End If
 
         If SkipAutoCheckBox.Checked Then
-            FormSetup.PropRegionClass.SkipAutobackup(RegionUUID) = "True"
+            PropRegionClass.SkipAutobackup(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.SkipAutobackup(RegionUUID) = ""
+            PropRegionClass.SkipAutobackup(RegionUUID) = ""
         End If
 
         If BirdsCheckBox.Checked Then
-            FormSetup.PropRegionClass.Birds(RegionUUID) = "True"
+            PropRegionClass.Birds(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.Birds(RegionUUID) = ""
+            PropRegionClass.Birds(RegionUUID) = ""
         End If
 
         If TidesCheckbox.Checked Then
-            FormSetup.PropRegionClass.Tides(RegionUUID) = "True"
+            PropRegionClass.Tides(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.Tides(RegionUUID) = ""
+            PropRegionClass.Tides(RegionUUID) = ""
         End If
 
         If TPCheckBox1.Checked Then
-            FormSetup.PropRegionClass.Teleport(RegionUUID) = "True"
+            PropRegionClass.Teleport(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.Teleport(RegionUUID) = ""
+            PropRegionClass.Teleport(RegionUUID) = ""
         End If
 
         If DisableGBCheckBox.Checked Then
-            FormSetup.PropRegionClass.DisableGloebits(RegionUUID) = "True"
+            PropRegionClass.DisableGloebits(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.DisableGloebits(RegionUUID) = ""
+            PropRegionClass.DisableGloebits(RegionUUID) = ""
         End If
 
         If NoPublish.Checked Then
-            FormSetup.PropRegionClass.GDPR(RegionUUID) = "False"
+            PropRegionClass.GDPR(RegionUUID) = "False"
         Else
-            FormSetup.PropRegionClass.GDPR(RegionUUID) = ""
+            PropRegionClass.GDPR(RegionUUID) = ""
         End If
 
         If Publish.Checked Then
-            FormSetup.PropRegionClass.GDPR(RegionUUID) = "True"
+            PropRegionClass.GDPR(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.GDPR(RegionUUID) = ""
+            PropRegionClass.GDPR(RegionUUID) = ""
         End If
 
         If SmartStartCheckBox.Checked Then
-            FormSetup.PropRegionClass.SmartStart(RegionUUID) = "True"
+            PropRegionClass.SmartStart(RegionUUID) = "True"
         Else
-            FormSetup.PropRegionClass.SmartStart(RegionUUID) = ""
+            PropRegionClass.SmartStart(RegionUUID) = ""
         End If
 
         Dim ScriptEngine As String = ""
-        FormSetup.PropRegionClass.ScriptEngine(RegionUUID) = ""
+        PropRegionClass.ScriptEngine(RegionUUID) = ""
         If XEngineButton.Checked = True Then
             ScriptEngine = "XEngine"
-            FormSetup.PropRegionClass.ScriptEngine(RegionUUID) = "XEngine"
+            PropRegionClass.ScriptEngine(RegionUUID) = "XEngine"
         End If
         If YEngineButton.Checked = True Then
             ScriptEngine = "YEngine"
-            FormSetup.PropRegionClass.ScriptEngine(RegionUUID) = "YEngine"
+            PropRegionClass.ScriptEngine(RegionUUID) = "YEngine"
         End If
 
         Dim Region = "; * Regions configuration file" &
@@ -1307,20 +1307,20 @@ Public Class FormRegion
                             "RegionSnapShot = " & Snapshot & vbCrLf &
                             "MapType = " & Map & vbCrLf &
                             "Physics = " & Phys & vbCrLf &
-                            "GodDefault = " & FormSetup.PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
-                            "AllowGods = " & FormSetup.PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
-                            "RegionGod = " & FormSetup.PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
-                            "ManagerGod = " & FormSetup.PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
-                            "Birds = " & FormSetup.PropRegionClass.Birds(RegionUUID) & vbCrLf &
-                            "Tides = " & FormSetup.PropRegionClass.Tides(RegionUUID) & vbCrLf &
-                            "Teleport = " & FormSetup.PropRegionClass.Teleport(RegionUUID) & vbCrLf &
-                            "DisableGloebits = " & FormSetup.PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
-                            "DisallowForeigners = " & FormSetup.PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
-                            "DisallowResidents = " & FormSetup.PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
-                            "SkipAutoBackup = " & FormSetup.PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
-                            "ScriptEngine = " & FormSetup.PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
-                            "Publicity = " & FormSetup.PropRegionClass.GDPR(RegionUUID) & vbCrLf &
-                            "SmartStart = " & FormSetup.PropRegionClass.SmartStart(RegionUUID) & vbCrLf
+                            "GodDefault = " & PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
+                            "AllowGods = " & PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
+                            "RegionGod = " & PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
+                            "ManagerGod = " & PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
+                            "Birds = " & PropRegionClass.Birds(RegionUUID) & vbCrLf &
+                            "Tides = " & PropRegionClass.Tides(RegionUUID) & vbCrLf &
+                            "Teleport = " & PropRegionClass.Teleport(RegionUUID) & vbCrLf &
+                            "DisableGloebits = " & PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
+                            "DisallowForeigners = " & PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
+                            "DisallowResidents = " & PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
+                            "SkipAutoBackup = " & PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
+                            "ScriptEngine = " & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
+                            "Publicity = " & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
+                            "SmartStart = " & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
 
         'Debug.Print(Region)
 
@@ -1334,7 +1334,7 @@ Public Class FormRegion
             MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
         End Try
 
-        If FormSetup.PropRegionClass.GetAllRegions() = -1 Then Return False
+        If PropRegionClass.GetAllRegions() = -1 Then Return False
         FormSetup.PropUpdateView = True
         Oldname1 = RegionName.Text
 

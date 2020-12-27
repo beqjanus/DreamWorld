@@ -2,6 +2,71 @@
 
 Module FileStuff
 
+    ''' <summary>Deletes old log files</summary>
+    '''
+    Public Sub ClearLogFiles()
+
+        Dim Logfiles = New List(Of String) From {
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Restart.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\UPnp.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\http.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHPLog.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "http.log")     ' an old mistake
+        }
+
+        For Each thing As String In Logfiles
+            ' clear out the log files
+            FileStuff.DeleteFile(thing)
+            Application.DoEvents()
+        Next
+
+        For Each UUID As String In PropRegionClass.RegionUuids
+            Dim GroupName = PropRegionClass.GroupName(UUID)
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
+            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
+        Next
+
+    End Sub
+
+    Public Sub ExpireApacheLogs()
+
+        ' Delete old Apache logs
+        Dim ApacheLogPath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\logs")
+
+        Dim currentdatetime As Date = Date.Now
+
+        Dim directory As New System.IO.DirectoryInfo(ApacheLogPath)
+        Dim File As System.IO.FileInfo() = directory.GetFiles()
+        Dim File1 As System.IO.FileInfo
+
+        ' get each file's last modified date
+        For Each File1 In File
+            Dim strLastModified As Date = System.IO.File.GetLastWriteTime(ApacheLogPath & "\" & File1.Name)
+            strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
+            Dim y = DateTime.Compare(currentdatetime, strLastModified)
+            If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
+                FileStuff.DeleteFile(File1.FullName)
+            End If
+        Next
+
+    End Sub
+
+    Sub FixUpdater()
+
+        CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.New"),
+                 IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe"),
+                True)
+
+    End Sub
+
     Sub DeleteOldHelpFiles()
 
         Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")

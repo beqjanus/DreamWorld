@@ -23,19 +23,19 @@ Public Module Firewall
 
         ' regions need both
 
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
+        For Each RegionUUID As String In GlobalSettings.PropRegionClass.RegionUuids
 
-            Dim X As Integer = CInt("0" & FormSetup.PropRegionClass.XmlRegionPort(RegionUUID))
+            Dim X As Integer = CInt("0" & PropRegionClass.XmlRegionPort(RegionUUID))
             If X > 0 Then
                 Command = Command & "netsh advfirewall firewall add rule name=""XMLRegionPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
             End If
 
-            Dim P As Integer = CInt("0" & FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID))
+            Dim P As Integer = CInt("0" & PropRegionClass.RemoteAdminPort(RegionUUID))
             If P > 0 Then
                 Command = Command & "netsh advfirewall firewall add rule name=""RemoteAdminPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
             End If
 
-            Dim R As Integer = CInt("0" & FormSetup.PropRegionClass.RegionPort(RegionUUID))
+            Dim R As Integer = CInt("0" & PropRegionClass.RegionPort(RegionUUID))
             If R > 0 Then
                 Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Port " & CStr(R) & """ dir=in action=allow protocol=TCP localport=" & CStr(R) & vbCrLf _
                           & "netsh advfirewall firewall add rule name=""Region UDP Port " & CStr(R) & """ dir=in action=allow protocol=UDP localport=" & CStr(R) & vbCrLf
@@ -74,19 +74,19 @@ Public Module Firewall
             Command = Command & "netsh advfirewall firewall delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
         End If
 
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUuids
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
 
-            Dim X As Integer = CInt("0" & FormSetup.PropRegionClass.XmlRegionPort(RegionUUID))
+            Dim X As Integer = CInt("0" & PropRegionClass.XmlRegionPort(RegionUUID))
             If X > 0 Then
                 Command = Command & "netsh advfirewall firewall delete rule name=""XMLRegionPort " & CStr(X) & """" & vbCrLf
             End If
 
-            Dim P As Integer = CInt("0" & FormSetup.PropRegionClass.RemoteAdminPort(RegionUUID))
+            Dim P As Integer = CInt("0" & PropRegionClass.RemoteAdminPort(RegionUUID))
             If P > 0 Then
                 Command = Command & "netsh advfirewall firewall delete rule name=""RemoteAdminPort " & CStr(X) & """" & vbCrLf
             End If
 
-            Dim R As Integer = CInt("0" & FormSetup.PropRegionClass.RegionPort(RegionUUID))
+            Dim R As Integer = CInt("0" & PropRegionClass.RegionPort(RegionUUID))
             If R > 0 Then
                 Command = Command & "netsh advfirewall firewall delete rule name=""Region TCP Port " & CStr(R) & """" & vbCrLf _
                               & "netsh advfirewall firewall delete rule name=""Region UDP Port " & CStr(R) & """" & vbCrLf

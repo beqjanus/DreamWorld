@@ -61,7 +61,7 @@ Public Class FormRegions
 
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
 
-        FormSetup.PropRegionClass.CreateRegion("")
+        PropRegionClass.CreateRegion("")
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope
@@ -80,21 +80,21 @@ Public Class FormRegions
             Dim chosen = FormSetup.ChooseRegion(False) ' all regions, running or not
 
             ' Check for illegal stuff
-            Dim RegionUUID As String = FormSetup.PropRegionClass.FindRegionByName(chosen)
-            Dim X = FormSetup.PropRegionClass.CoordX(RegionUUID)
-            Dim Y = FormSetup.PropRegionClass.CoordY(RegionUUID)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(chosen)
+            Dim X = PropRegionClass.CoordX(RegionUUID)
+            Dim Y = PropRegionClass.CoordY(RegionUUID)
             Dim Err As Boolean = False
             Dim Failed As String
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
-            For Each UUID As String In FormSetup.PropRegionClass.RegionUUIDs
-                If (FormSetup.PropRegionClass.CoordX(UUID) + DeltaX) <= 0 Then
+            For Each UUID As String In PropRegionClass.RegionUUIDs
+                If (PropRegionClass.CoordX(UUID) + DeltaX) <= 0 Then
                     Err = True
-                    Failed = FormSetup.PropRegionClass.RegionName(UUID)
+                    Failed = PropRegionClass.RegionName(UUID)
                 End If
-                If (FormSetup.PropRegionClass.CoordY(RegionUUID) + DeltaY) <= 0 Then
+                If (PropRegionClass.CoordY(RegionUUID) + DeltaY) <= 0 Then
                     Err = True
-                    Failed = FormSetup.PropRegionClass.RegionName(UUID)
+                    Failed = PropRegionClass.RegionName(UUID)
                 End If
             Next
 
@@ -103,10 +103,10 @@ Public Class FormRegions
                 Return
             End If
 
-            For Each UUID As String In FormSetup.PropRegionClass.RegionUUIDs
-                FormSetup.PropRegionClass.CoordX(RegionUUID) = FormSetup.PropRegionClass.CoordX(UUID) + DeltaX
-                FormSetup.PropRegionClass.CoordY(RegionUUID) = FormSetup.PropRegionClass.CoordY(UUID) + DeltaY
-                FormSetup.PropRegionClass.WriteRegionObject(FormSetup.PropRegionClass.RegionName(UUID))
+            For Each UUID As String In PropRegionClass.RegionUUIDs
+                PropRegionClass.CoordX(RegionUUID) = PropRegionClass.CoordX(UUID) + DeltaX
+                PropRegionClass.CoordY(RegionUUID) = PropRegionClass.CoordY(UUID) + DeltaY
+                PropRegionClass.WriteRegionObject(PropRegionClass.RegionName(UUID))
             Next
 
         End If
@@ -188,8 +188,8 @@ Public Class FormRegions
         ' All region load
         RegionBox.Items.Clear()
 
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
-            RegionBox.Items.Add(FormSetup.PropRegionClass.RegionName(RegionUUID))
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            RegionBox.Items.Add(PropRegionClass.RegionName(RegionUUID))
         Next
 
     End Sub
@@ -199,8 +199,8 @@ Public Class FormRegions
         ' Default welcome region load
         WelcomeBox1.Items.Clear()
 
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
-            WelcomeBox1.Items.Add(FormSetup.PropRegionClass.RegionName(RegionUUID))
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+            WelcomeBox1.Items.Add(PropRegionClass.RegionName(RegionUUID))
         Next
 
         Dim s = WelcomeBox1.FindString(Settings.WelcomeRegion)
@@ -235,9 +235,9 @@ Public Class FormRegions
         Dim Y As Integer = 200
         Dim counter As Integer = 0
 
-        For Each RegionUUID As String In FormSetup.PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
 
-            Dim RegionName = FormSetup.PropRegionClass.RegionName(RegionUUID)
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope

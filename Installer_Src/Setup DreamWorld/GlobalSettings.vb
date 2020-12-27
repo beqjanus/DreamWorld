@@ -1,6 +1,16 @@
 ﻿Module GlobalSettings
 
     Private _mySetting As New MySettings
+    Private _regionClass As RegionMaker
+
+    Public Property PropRegionClass As RegionMaker
+        Get
+            Return _regionClass
+        End Get
+        Set(value As RegionMaker)
+            _regionClass = value
+        End Set
+    End Property
 
     Public Property Settings As MySettings
         Get

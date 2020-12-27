@@ -111,8 +111,7 @@ Module Backups
 
         Dim Name As String = OP.ToString
 
-        Dim currentdatetime As Date = New DateTime()
-        currentdatetime = Date.Now()
+        Dim currentdatetime As Date = Date.Now()
         Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
 
         Dim what = Name & "_" & whenrun & ".sql"
@@ -204,8 +203,7 @@ Module Backups
 
     Public Sub RunBackups(Optional force As Boolean = False)
 
-        Dim currentdatetime As Date = New DateTime()
-        currentdatetime = Date.Now
+        Dim currentdatetime As Date = Date.Now
 
         If force Then
             FormSetup.Print(currentdatetime.ToLocalTime & " Backup Running")
