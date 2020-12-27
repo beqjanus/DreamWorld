@@ -1155,17 +1155,25 @@ Public Class FormRegionlist
             End If
 
         ElseIf chosen = "Console" Then
-            Dim PID = PropRegionClass.ProcessID(RegionUUID)
-            If PID > 0 Then
-                Dim hwnd = FormSetup.GetHwnd(PropRegionClass.GroupName(RegionUUID))
 
+            Dim hwnd = FormSetup.GetHwnd(PropRegionClass.GroupName(RegionUUID))
+
+            If hwnd = IntPtr.Zero Then
+                ' shut down all regions in the DOS box
+                For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+                    PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+                Next
+                PropUpdateView = True ' make form refresh
+            Else
                 Dim tmp As String = Settings.ConsoleShow
                 'temp show console
                 Settings.ConsoleShow = "True"
                 FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE)
                 Settings.ConsoleShow = tmp
-
             End If
+
+
 
         ElseIf chosen = "Edit" Then
 

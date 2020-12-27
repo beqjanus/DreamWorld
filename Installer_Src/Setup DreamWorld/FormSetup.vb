@@ -1049,7 +1049,6 @@ Public Class FormSetup
         ' Handle any process that exits by adding it to a dictionary. DoExitHandlerPoll will clean up.
 
         Dim pid = CType(sender.Id, Integer)
-        ' Diagnostics.Debug.Print("Pid quit:" & CStr(pid))
 
         If PropInstanceHandles.ContainsKey(pid) Then
             Dim name = PropInstanceHandles.Item(pid)
