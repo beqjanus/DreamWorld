@@ -33,7 +33,7 @@ Public Class UpdateGrid
 
         EnsureInitialized()
 
-        Label1.Text = "DreamGrid Updater"
+        Label1.Text = "DreamGrid Updater/Installer"
         Me.Text = "Outworldz DreamGrid Setup"
         Me.Show()
         Application.DoEvents()
@@ -68,6 +68,14 @@ Public Class UpdateGrid
                 Label1.Text = "Stopping Apache"
                 StopApache()
 
+                For Each p As Process In Process.GetProcessesByName("Robust")
+                    p.Kill()
+                Next
+
+                For Each p As Process In Process.GetProcessesByName("Opensim")
+                    p.Kill()
+                Next
+
                 Try
                     My.Computer.FileSystem.DeleteDirectory(MyFolder & "\Outworldzfiles\opensim\bin\addin-db-002", FileIO.DeleteDirectoryOption.DeleteAllContents)
                 Catch ex As Exception
@@ -80,16 +88,20 @@ Public Class UpdateGrid
                     extractPath += Path.DirectorySeparatorChar
                 End If
 
+                Dim ZipContains As Integer = 0
+
                 Try
+                    Dim counter As Integer = 0
                     Using zip As ZipArchive = ZipFile.Open(MyFolder & "\" & Filename, ZipArchiveMode.Read)
+                        ZipContains = zip.Entries.Count
                         For Each ZipEntry In zip.Entries
+                            counter += 1
                             fname = ZipEntry.Name
                             If fname.Length = 0 Then
                                 Continue For
                             End If
                             If ZipEntry.Name <> "DreamGridUpdater.exe" Then
-                                'If ZipEntry.Name <> "Ionic.Zip.dll" And ZipEntry.Name <> "DreamGridUpdater.exe" And ZipEntry.Name <> "DotNetZip.dll" Then
-                                TextPrint("Extracting " + Path.GetFileName(ZipEntry.Name))
+                                TextPrint(CStr(counter) & " of " & CStr(ZipContains) & ":" & Path.GetFileName(ZipEntry.Name))
                                 Application.DoEvents()
                                 Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
                                 If File.Exists(destinationPath) Then
@@ -101,9 +113,13 @@ Public Class UpdateGrid
                             End If
                         Next
                     End Using
+
+                    If counter <> ZipContains Then
+                        err += 1
+                        TextPrint("Aborting, did not extract all files. Perhaps Opensim is still running?")
+                    End If
                 Catch ex As Exception
                     TextPrint("Unable to extract file: " & fname & ":" & ex.Message)
-                    Thread.Sleep(3000)
                     err += 1
                 End Try
                 If Not err Then TextPrint("Completed!")
@@ -120,11 +136,10 @@ Public Class UpdateGrid
                     TextPrint("Could not start DreamGrid!")
                 End Try
 
-
                 End
             End If
         Else
-            TextPrint("Cancelled")
+            TextPrint("Canceled")
         End If
 
         End
