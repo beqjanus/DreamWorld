@@ -941,16 +941,19 @@ Public Class FormSetup
         Sleep(1000)
         Application.DoEvents()
         WindowCounter = 0
+        myProcess.Refresh()
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While True
             Dim status = SetWindowText(hwnd, windowName)
+            Application.DoEvents()
+            myProcess.Refresh()
 
             If status And myProcess.MainWindowTitle = windowName Then
                 Exit While
             End If
 
             WindowCounter += 1
-            If WindowCounter > 600 Then '  6 seconds
+            If WindowCounter > 600 Then '  60 seconds
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
@@ -1053,6 +1056,8 @@ Public Class FormSetup
         DoOpensimProtoINI()
         DoGloebits()
 
+        Application.DoEvents()
+
         If Not Timer1.Enabled Then
             Timer1.Interval = 1000
             Timer1.Start() 'Timer starts functioning
@@ -1075,9 +1080,12 @@ Public Class FormSetup
         If RegionMaker.CopyOpensimProto(RegionUUID) Then
             Return False
         End If
+
         Dim GP = PropRegionClass.GroupPort(RegionUUID)
         Diagnostics.Debug.Print("Group port =" & CStr(GP))
+
         Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
+        Application.DoEvents()
         If isRegionRunning Then
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
                 Logger("Suspended, Resuming it", BootName, "Restart")
@@ -1102,6 +1110,7 @@ Public Class FormSetup
         Try
             Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
             Settings.Grep(ini, Settings.OpensimBinPath() & "Regions\" & GroupName, Settings.LogLevel)
+            Application.DoEvents()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -1143,8 +1152,8 @@ Public Class FormSetup
                 PropRegionClass.ProcessID(UUID) = PID
             Next
             If PID > 0 Then
-                Log("Debug", "Created Process Number " & CStr(BootProcess.Id) & " in  RegionHandles(" & CStr(PropInstanceHandles.Count) & ") " & "Group:" & GroupName)
-                ' SaveProcess(BootProcess, GroupName)
+                Log("Debug", "Created Process Number " & CStr(BootProcess.Id) &
+                    " in  RegionHandles(" & CStr(PropInstanceHandles.Count) & ") " & "Group:" & GroupName)
                 SetWindowTextCall(BootProcess, GroupName)
             End If
             PropUpdateView = True ' make form refresh
@@ -3083,7 +3092,7 @@ Public Class FormSetup
                     Return PID
                 End If
             End If
-
+            Application.DoEvents()
             Sleep(1000)
             TooMany += 1
         Loop
@@ -4384,6 +4393,7 @@ Public Class FormSetup
                 End If
             Else
                 Logger("No UUID", GroupName, "Restart")
+                Continue While
             End If
 
             Dim Status = PropRegionClass.Status(RegionUUID)
