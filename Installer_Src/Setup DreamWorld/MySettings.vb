@@ -273,6 +273,15 @@ Public Class MySettings
 
 #Region "Properties"
 
+    Public Property KeepOnTop() As Boolean
+        Get
+            Return CType(GetMySetting("BacKeepOnTopkupOARs", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("KeepOnTop", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property BackupOARs() As Boolean
         Get
             Return CType(GetMySetting("BackupOARs", "True"), Boolean)

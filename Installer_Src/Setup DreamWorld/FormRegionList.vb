@@ -282,6 +282,7 @@ Public Class FormRegionlist
         RestartButton.Text = Global.Outworldz.My.Resources.Resources.Restart_All_word
         RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All_word
         StopAllButton.Text = Global.Outworldz.My.Resources.Resources.Stop_All_word
+        KOT.Text = Global.Outworldz.My.Resources.Resources.KeepOnTop_word
         ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Resources.Add_Region_word)
         ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Resources.Selectallnone)
         ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.Resources.ListAvatars)
@@ -295,6 +296,9 @@ Public Class FormRegionlist
         ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.Resources.StartAll)
         ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Resources.Stopsall)
         ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Resources.Row
+
+        KOT.Checked = Settings.KeepOnTop
+        Me.TopMost = KOT.Checked
 
         ViewBusy = True
         FormExists1 = True
@@ -1459,6 +1463,10 @@ Public Class FormRegionlist
             End If
         End If
         ofd.Dispose()
+
+    End Sub
+
+    Private Sub KOT_CheckedChanged(sender As Object, e As EventArgs) Handles KOT.CheckedChanged
 
     End Sub
 

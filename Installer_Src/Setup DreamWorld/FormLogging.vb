@@ -41,7 +41,6 @@
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         Settings.SaveSettings()
         FormSetup.SendMsg(Settings.LogLevel.ToUpperInvariant)
 

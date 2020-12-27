@@ -4469,6 +4469,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Keep On Top.
+        '''</summary>
+        Friend ReadOnly Property KeepOnTop_word() As String
+            Get
+                Return ResourceManager.GetString("KeepOnTop_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to You are using a LAN IP. This test is skipped..
         '''</summary>
         Friend ReadOnly Property LAN_IP() As String

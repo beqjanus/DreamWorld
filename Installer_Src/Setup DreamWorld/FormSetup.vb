@@ -925,6 +925,7 @@ Public Class FormSetup
         Try
             While myProcess.MainWindowHandle = CType(0, IntPtr)
                 Sleep(100)
+                Application.DoEvents()
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
@@ -938,7 +939,7 @@ Public Class FormSetup
         End Try
 
         Sleep(1000)
-
+        Application.DoEvents()
         WindowCounter = 0
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While True
@@ -954,6 +955,7 @@ Public Class FormSetup
                 Exit While
             End If
             Thread.Sleep(100)
+            Application.DoEvents()
         End While
         Return True
 
@@ -1775,7 +1777,7 @@ Public Class FormSetup
 
             While (counter > 0 And PropOpensimIsRunning())
                 Sleep(1000)
-
+                Application.DoEvents()
                 counter -= 1
                 Dim CountisRunning As Integer = 0
 
@@ -2038,13 +2040,18 @@ Public Class FormSetup
 
     Public Sub SendMsg(msg As String)
         Dim hwnd As IntPtr
+        Dim l As List(Of String)
         If PropOpensimIsRunning() Then
             For Each RegionUUID As String In PropRegionClass.RegionUuids
-                If PropRegionClass.IsBooted(RegionUUID) Then
-                    ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
-                    hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                    ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
+                If Not l.Contains(PropRegionClass.GroupName(RegionUUID)) Then
+                    l.Add(PropRegionClass.GroupName(RegionUUID))
+                    If PropRegionClass.IsBooted(RegionUUID) Then
+                        ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
+                        hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+                        ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
+                    End If
                 End If
+
             Next
             ConsoleCommand(RobustName, "set log level " & msg & "{ENTER}" & vbCrLf)
             ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
@@ -2094,6 +2101,7 @@ Public Class FormSetup
                     Exit While
                 End If
                 Sleep(100)
+                Application.DoEvents()
                 ctr -= 1
                 If ctr <= 0 Then Exit While
             End While
@@ -2313,7 +2321,7 @@ Public Class FormSetup
                 ApacheProcess.WaitForExit()
 
                 Sleep(5000)
-
+                Application.DoEvents()
                 Using ApacheProcess As New Process With {
                         .EnableRaisingEvents = False
                     }
@@ -2344,6 +2352,7 @@ Public Class FormSetup
                         Settings.OldInstallFolder = Settings.CurrentDirectory
                     End If
                     Sleep(1000)
+                    Application.DoEvents()
                 End Using
 
             End If
@@ -2552,6 +2561,7 @@ Public Class FormSetup
             ctr += 1
             ' check again
             Sleep(1000)
+            Application.DoEvents()
             MysqlOk = MysqlInterface.IsMySqlRunning()
         End While
 
@@ -2757,8 +2767,6 @@ Public Class FormSetup
             Sleep(100)
         End While
 
-        ' wait a bit for robust to stabilize
-        Thread.Sleep(2000)
         _RobustIsStarting = False
 
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
@@ -2915,7 +2923,8 @@ Public Class FormSetup
         Dim ctr As Integer = 0
         ' wait 60 seconds for robust to quit
         While IsRobustRunning() And ctr < 60
-            Sleep(100)
+            Application.DoEvents()
+            Sleep(1000)
             ctr += 1
         End While
 
@@ -3061,7 +3070,7 @@ Public Class FormSetup
         Dim p As Process = Nothing
 
         Do While TooMany < 5
-
+            Application.DoEvents()
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
@@ -5337,6 +5346,7 @@ Public Class FormSetup
             Catch ex As Exception
                 Print("Unable to extract file: " & fname & ":" & ex.Message)
                 Thread.Sleep(3000)
+                Application.DoEvents()
             End Try
 
         End If
@@ -6795,7 +6805,6 @@ Public Class FormSetup
     Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles All.Click
 
         Settings.LogLevel = "All"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
 
     End Sub
@@ -6803,7 +6812,6 @@ Public Class FormSetup
     Private Sub Debug_Click(sender As Object, e As EventArgs) Handles Debug.Click
 
         Settings.LogLevel = "DEBUG"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
 
     End Sub
@@ -6811,7 +6819,6 @@ Public Class FormSetup
     Private Sub Fatal1_Click(sender As Object, e As EventArgs) Handles Fatal1.Click
 
         Settings.LogLevel = "FATAL"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
 
     End Sub
@@ -6819,7 +6826,6 @@ Public Class FormSetup
     Private Sub Off1_Click(sender As Object, e As EventArgs) Handles Off1.Click
 
         Settings.LogLevel = "OFF"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
 
     End Sub
@@ -6827,7 +6833,6 @@ Public Class FormSetup
     Private Sub ErrorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ErrorToolStripMenuItem.Click
 
         Settings.LogLevel = "ERROR"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
 
     End Sub
@@ -6835,7 +6840,6 @@ Public Class FormSetup
     Private Sub Info_Click(sender As Object, e As EventArgs) Handles Info.Click
 
         Settings.LogLevel = "INFO"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
 
     End Sub
@@ -6843,7 +6847,6 @@ Public Class FormSetup
     Private Sub Warn_Click(sender As Object, e As EventArgs) Handles Warn.Click
 
         Settings.LogLevel = "WARN"
-        System.Environment.SetEnvironmentVariable("OSIM_LOGLEVEL", Settings.LogLevel.ToUpperInvariant)
         SendMsg(Settings.LogLevel)
 
     End Sub

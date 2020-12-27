@@ -46,6 +46,7 @@ Partial Class FormRegionlist
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.KOT = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -249,11 +250,22 @@ Partial Class FormRegionlist
         Me.Label1.Size = New System.Drawing.Size(0, 29)
         Me.Label1.TabIndex = 18606
         '
+        'KOT
+        '
+        Me.KOT.AutoSize = True
+        Me.KOT.Location = New System.Drawing.Point(842, 53)
+        Me.KOT.Name = "KOT"
+        Me.KOT.Size = New System.Drawing.Size(115, 21)
+        Me.KOT.TabIndex = 18607
+        Me.KOT.Text = "Keep On Top"
+        Me.KOT.UseVisualStyleBackColor = True
+        '
         'FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1365, 336)
+        Me.Controls.Add(Me.KOT)
         Me.Controls.Add(Me.ImportButton)
         Me.Controls.Add(Me.AvatarsButton)
         Me.Controls.Add(Me.MapsButton)
@@ -300,4 +312,5 @@ Partial Class FormRegionlist
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ImportButton As Button
     Friend WithEvents Label1 As Label
+    Friend WithEvents KOT As CheckBox
 End Class
