@@ -1141,7 +1141,7 @@ Public Class FormRegion
         End If
 
         ' save the changes to the memory structure, then to disk
-        PropRegionClass.RegionUUID(RegionUUID) = UUID.Text
+
         PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
         PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
         PropRegionClass.RegionPort(RegionUUID) = CInt("0" & RegionPort.Text)

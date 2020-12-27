@@ -167,9 +167,18 @@ Public Class FormRegionPopup
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles ViewLog.Click
 
+        Dim UUID = PropRegionClass.FindRegionByName(_RegionName)
+        Dim GroupName As String = PropRegionClass.GroupName(UUID)
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Regions\" & GroupName & "\OpenSim.log")
+
+        Dim Baretail As New Process
+        Baretail.StartInfo.UseShellExecute = True ' so we can redirect streams
+        Baretail.StartInfo.FileName = "baretail.exe"
+        Baretail.StartInfo.Arguments = """" & path & """"
+        Baretail.StartInfo.WorkingDirectory = Settings.CurrentDirectory
+        Baretail.StartInfo.WindowStyle = ProcessWindowStyle.Normal
         Try
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(_RegionName)
-            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe") & " " & """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+            Baretail.Start()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try

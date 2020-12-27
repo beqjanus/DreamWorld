@@ -904,10 +904,8 @@ Public Class FormSetup
         Try
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\" & file & ".log"), True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
-                Diagnostics.Debug.Print(message)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -963,9 +961,9 @@ Public Class FormSetup
 
     Public Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 
-        If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
-            Return True
-        End If
+        ' If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
+        'Return True
+        'End If
 
         Dim ctr = 50
         If handle <> IntPtr.Zero Then
@@ -1041,62 +1039,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub Quitter(ByVal sender As Object, ByVal e As System.EventArgs) ' Handles BootProcess.Exited
-        ' Handle any process that exits by adding it to a dictionary. DoExitHandlerPoll will clean up.
-
-        Dim pid = CType(sender.Id, Integer)
-        ' Diagnostics.Debug.Print("Pid quit:" & CStr(pid))
-
-        If PropInstanceHandles.ContainsKey(pid) Then
-            Dim name = PropInstanceHandles.Item(pid)
-            If name.Length > 0 Then
-                If Not PropExitList.ContainsKey(name) Then
-                    Logger("RegionReady", name & " DOS BOX Exit", "Restart")
-                    PropExitList.Add(name, "DOS Box exit")
-                End If
-            End If
-            PropInstanceHandles.Remove(pid)
-        End If
-
-    End Sub
-
-    ''' <summary>
-    ''' Saves Opensim process with an event handler
-    ''' if process is not located, also adds a exit event handler
-    ''' </summary>
-    ''' <param name="p"></param>
-    ''' <param name="Groupname"></param>
-    Private Sub SaveProcess(p As Process, Groupname As String)
-        Return
-        If Not PropInstanceHandles.ContainsKey(p.Id) Then
-            PropInstanceHandles.Add(p.Id, Groupname) ' save in the list of exit events in case it crashes or exits
-            p.EnableRaisingEvents = True
-            AddHandler p.Exited, AddressOf Quitter
-        End If
-
-        For Each RegionUUID In PropRegionClass.RegionUuidListByName(Groupname)
-            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.StartCounting
-            PropRegionClass.ProcessID(RegionUUID) = p.Id
-        Next
-
-    End Sub
-
-    Private Sub Addeventhandler(RegionUUID As String)
-        Return
-        If PropRegionClass.ProcessID(RegionUUID) = 0 Then
-            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-            Diagnostics.Debug.Print("Adding event for " & GroupName)
-            For Each p In Process.GetProcessesByName("Opensim")
-                If p.MainWindowTitle = GroupName Then
-                    SaveProcess(p, GroupName)
-                    Logger("Located, is already running", GroupName, "Restart")
-                    PropUpdateView = True ' make form refresh
-                    Exit For
-                End If
-            Next
-        End If
-    End Sub
-
     Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
@@ -1136,14 +1078,12 @@ Public Class FormSetup
         Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
         If isRegionRunning Then
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                'Addeventhandler(RegionUUID)
                 Logger("Suspended, Resuming it", BootName, "Restart")
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
                 PropUpdateView = True ' make form refresh
                 Return True
             Else    ' needs to be captured into the event handler
-                'Addeventhandler(RegionUUID)
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already up")
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
                 PropUpdateView = True ' make form refresh
@@ -1726,7 +1666,6 @@ Public Class FormSetup
         If Not KillAll() Then Return False
         Buttons(StartButton)
         Print(My.Resources.Stopped_word)
-        Buttons(StartButton)
         ToolBar(False)
         Return True
 
