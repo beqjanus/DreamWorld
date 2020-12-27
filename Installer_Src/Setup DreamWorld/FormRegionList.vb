@@ -1177,10 +1177,10 @@ Public Class FormRegionlist
             RegionForm.Visible = True
             RegionForm.Select()
 
-        ElseIf chosen = "Recycle" Then
+        ElseIf chosen = "Restart" Then
 
             FormSetup.SequentialPause()
-
+            'FormSetup.PropAborting = True
             ' shut down all regions in the DOS box
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             FormSetup.Logger("RecyclingDown", GroupName, "Restart")
