@@ -668,7 +668,7 @@ Public Class FormRegionlist
                     ' add estate name
                     Dim Estate = "-".ToUpperInvariant
                     If MysqlInterface.IsRunning() Then
-                        Estate = MysqlInterface.EstateName(PropRegionClass.RegionUUID(RegionUUID))
+                        Estate = MysqlInterface.EstateName(RegionUUID)
                     End If
                     item1.SubItems.Add(Estate)
 
@@ -787,7 +787,7 @@ Public Class FormRegionlist
                     If TheView1 = ViewType.Maps Then
 
                         If Status = RegionMaker.SIMSTATUSENUM.Booted Then
-                            Dim img As String = "http://127.0.0.1:" + PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + PropRegionClass.RegionUUID(RegionUUID).Replace("-".ToUpperInvariant, "")
+                            Dim img As String = "http://127.0.0.1:" + PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + RegionUUID.Replace("-".ToUpperInvariant, "")
                             Dim bmp As Image = Nothing
 
                             Try
@@ -1134,14 +1134,15 @@ Public Class FormRegionlist
                 If FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE) Then
                     FormSetup.SequentialPause()
 
+                    FormSetup.Print(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
+                    FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
+
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
                         PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
                     Next
 
-                    FormSetup.Print(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
-                    FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
                 Else
                     ' shut down all regions in the DOS box
                     For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
@@ -1179,6 +1180,7 @@ Public Class FormRegionlist
 
         ElseIf chosen = "Restart" Then
 
+            FormSetup.Buttons(FormSetup.BusyButton)
             FormSetup.SequentialPause()
             'FormSetup.PropAborting = True
             ' shut down all regions in the DOS box
@@ -1189,6 +1191,8 @@ Public Class FormRegionlist
                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                 FormSetup.Logger("RecyclingDown", PropRegionClass.RegionName(UUID), "Restart")
             Next
+
+            FormSetup.Buttons(FormSetup.StopButton)
 
             FormSetup.Print(My.Resources.Recycle1 & "  " + PropRegionClass.GroupName(RegionUUID))
             FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)

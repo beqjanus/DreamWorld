@@ -411,7 +411,6 @@ Public Class RegionMaker
                                 Return 0
                             End If
 
-                            RegionUUID(uuid) = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
                             SizeX(uuid) = CInt(Settings.GetIni(fName, "SizeX", "256", "Integer"))
                             SizeY(uuid) = CInt(Settings.GetIni(fName, "SizeY", "256", "Integer"))
                             RegionPort(uuid) = CInt(Settings.GetIni(fName, "InternalPort", "0", "Integer"))
@@ -607,7 +606,7 @@ Public Class RegionMaker
         & "; Rule2: Only one region per INI file." & vbCrLf _
         & ";" & vbCrLf _
         & "[" & name & "]" & vbCrLf _
-        & "RegionUUID = " & RegionUUID(uuid) & vbCrLf _
+        & "RegionUUID = " & uuid & vbCrLf _
         & "Location = " & CoordX(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
         & "InternalPort = " & RegionPort(uuid) & vbCrLf _
@@ -922,19 +921,7 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property RegionUUID(uuid As String) As String
-        Get
-            If uuid Is Nothing Then Return ""
-            If uuid Is Nothing Then Return ""
-            If Bad(uuid) Then Return ""
-            Return RegionList(uuid)._UUID
-        End Get
-        Set(ByVal Value As String)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._UUID = Value
-        End Set
-    End Property
+
 
 #End Region
 
@@ -1609,8 +1596,7 @@ Public Class RegionMaker
                         ' redirect to welcome
                         Dim wname = settings.WelcomeRegion
                         Dim WelcomeRegionUUID As String = FindRegionByName(wname)
-                        Debug.Print("Sending to " & RegionUUID(WelcomeRegionUUID))
-                        Return RegionUUID(WelcomeRegionUUID)
+                        Return WelcomeRegionUUID
                     End If
                     'other states we can ignore as eventually it will be Stopped or Running
                 End If

@@ -910,10 +910,8 @@ Public Class FormSetup
         Try
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\" & file & ".log"), True)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
-                Diagnostics.Debug.Print(message)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
         End Try
     End Sub
 
@@ -969,9 +967,9 @@ Public Class FormSetup
 
     Public Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 
-        If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
-            Return True
-        End If
+        ' If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
+        'Return True
+        'End If
 
         Dim ctr = 50
         If handle <> IntPtr.Zero Then
@@ -1732,7 +1730,6 @@ Public Class FormSetup
         If Not KillAll() Then Return False
         Buttons(StartButton)
         Print(My.Resources.Stopped_word)
-        Buttons(StartButton)
         ToolBar(False)
         Return True
 
