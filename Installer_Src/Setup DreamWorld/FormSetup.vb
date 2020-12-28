@@ -57,6 +57,8 @@ Public Class FormSetup
 
 #Region "Declarations"
 
+    Private ReadOnly _exitList As New Dictionary(Of String, String)
+
     Dim searcher As ManagementObjectSearcher
     Private WithEvents BootProcess As New Process '= GetNewProcess()
     Private WithEvents ApacheProcess As New Process()
@@ -166,6 +168,12 @@ Public Class FormSetup
 #End Region
 
 #Region "Public Properties"
+
+    Public ReadOnly Property PropExitList As Dictionary(Of String, String)
+        Get
+            Return _exitList
+        End Get
+    End Property
 
     Public ReadOnly Property BootedList1 As List(Of String)
         Get
@@ -622,6 +630,42 @@ Public Class FormSetup
 
     End Sub
 
+    Public Shared Function GetPIDofWindow(GroupName As String) As Integer
+
+        For Each pList As Process In Process.GetProcessesByName("Opensim")
+            If pList.MainWindowTitle = GroupName Then
+                Return pList.Id
+            End If
+        Next
+        Return 0
+
+    End Function
+
+    Public Shared Function GetHwnd(Groupname As String) As IntPtr
+
+        If Groupname = RobustName() Then
+            For Each pList As Process In Process.GetProcessesByName("Robust")
+                If pList.ProcessName = "Robust" Then
+                    Return pList.MainWindowHandle
+                End If
+            Next
+            Return IntPtr.Zero
+
+        End If
+
+        Dim AllProcesses = Process.GetProcessesByName("Opensim")
+        For Each p As Process In AllProcesses
+            If p.MainWindowTitle = Groupname Then
+                p.Refresh()
+                Return p.MainWindowHandle
+            End If
+            Application.DoEvents()
+        Next
+
+        Return IntPtr.Zero
+
+    End Function
+
     Public Shared Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
         Log(My.Resources.Info_word, "Checking port " & CStr(Port))
@@ -915,13 +959,13 @@ Public Class FormSetup
         Dim WindowCounter As Integer = 0
         Try
             While myProcess.MainWindowHandle = IntPtr.Zero
-                Sleep(100)
-
+                Application.DoEvents()
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
                     Return False
                 End If
+                Sleep(100)
             End While
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -934,9 +978,8 @@ Public Class FormSetup
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While True
             Dim status = SetWindowText(hwnd, windowName)
-
+            Application.DoEvents()
             myProcess.Refresh()
-
             If status And myProcess.MainWindowTitle = windowName Then
                 Exit While
             End If
@@ -946,8 +989,8 @@ Public Class FormSetup
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
+            Application.DoEvents()
             Thread.Sleep(100)
-
         End While
         Return True
 
@@ -955,9 +998,9 @@ Public Class FormSetup
 
     Public Shared Function ShowDOSWindow(handle As IntPtr, command As SHOWWINDOWENUM) As Boolean
 
-        ' If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
-        'Return True
-        'End If
+        If Settings.ConsoleShow = "None" And command <> SHOWWINDOWENUM.SWMINIMIZE Then
+            Return True
+        End If
 
         Dim ctr = 50
         If handle <> IntPtr.Zero Then
@@ -1861,6 +1904,7 @@ Public Class FormSetup
                         ctr -= 1
                         If ctr <= 0 Then Exit While
                         Sleep(1000)
+                        Application.DoEvents()
                     End While
                 End If
             Next
@@ -2840,7 +2884,7 @@ Public Class FormSetup
         Dim p As Process = Nothing
 
         Do While TooMany < 20
-            'Application.DoEvents()
+            Application.DoEvents()
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
@@ -2851,7 +2895,7 @@ Public Class FormSetup
                     Return myProcess.Id
                 End If
             End If
-            Application.DoEvents()
+
             Sleep(1000)
             TooMany += 1
         Loop
@@ -4662,8 +4706,6 @@ Public Class FormSetup
 
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
-
-        StartMonitorThread()
 
         Print(My.Resources.Version_word & " " & PropMyVersion)
         Print(My.Resources.Version_word & " " & _SimVersion)
@@ -7129,7 +7171,9 @@ Public Class FormSetup
                     Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                 Dim hwnd = GetHwnd(GroupName)
+
                 ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE)
+
                 SequentialPause()
 
                 ShutDown(RegionUUID)

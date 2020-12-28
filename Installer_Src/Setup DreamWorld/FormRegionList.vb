@@ -1156,7 +1156,7 @@ SetWindowOnTop_Err:
 
             If (StopIt) Then
 
-                Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+                Dim hwnd As IntPtr = FormSetup.GetHwnd(PropRegionClass.GroupName(RegionUUID))
                 If FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE) Then
                     FormSetup.SequentialPause()
 
@@ -1181,7 +1181,7 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Console" Then
 
-            Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+            Dim hwnd = FormSetup.GetHwnd(PropRegionClass.GroupName(RegionUUID))
 
             If hwnd = IntPtr.Zero Then
                 ' shut down all regions in the DOS box

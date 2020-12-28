@@ -245,7 +245,7 @@ Public Class RegionMaker
                     Next
 
                     If Settings.ConsoleShow = "False" Or Settings.ConsoleShow = "None" Then
-                        Dim hwnd = GetHwnd(GroupName(uuid))
+                        Dim hwnd = FormSetup.GetHwnd(GroupName(uuid))
                         FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
                     End If
 
@@ -257,9 +257,9 @@ Public Class RegionMaker
                     FormSetup.Print(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
                     Dim uuid = PropRegionClass.FindRegionByName(json.region_name)
                     Dim GName = PropRegionClass.GroupName(uuid)
-                    If Not PropExitList.ContainsKey(GName) Then
+                    If Not FormSetup.PropExitList.ContainsKey(GName) Then
                         FormSetup.Logger("Shutdown", GName, "Restart")
-                        PropExitList.Add(GName, "RegionReady: shutdown ")
+                        FormSetup.PropExitList.Add(GName, "RegionReady: shutdown ")
                     End If
 
                 ElseIf json.login = "disabled" Then

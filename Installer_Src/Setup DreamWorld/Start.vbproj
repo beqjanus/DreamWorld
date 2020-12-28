@@ -474,7 +474,6 @@
     <Compile Include="Help.vb" />
     <Compile Include="IP.vb" />
     <Compile Include="jOpensim.vb" />
-    <Compile Include="Monit.vb" />
     <Compile Include="My Project\Resources.cz.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
