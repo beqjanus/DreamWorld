@@ -96,6 +96,7 @@ Partial Class FormSetup
         Me.RestartRegionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestartOneRegionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestartTheInstanceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RestartAllRegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ScriptsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ScriptsStopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ScriptsStartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -173,7 +174,7 @@ Partial Class FormSetup
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.RestartAllRegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CreateUserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -552,7 +553,7 @@ Partial Class FormSetup
         '
         'UsersToolStripMenuItem
         '
-        Me.UsersToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddUserToolStripMenuItem, Me.ChangePasswordToolStripMenuItem, Me.ShowUserDetailsToolStripMenuItem})
+        Me.UsersToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddUserToolStripMenuItem, Me.ChangePasswordToolStripMenuItem, Me.ShowUserDetailsToolStripMenuItem, Me.CreateUserToolStripMenuItem})
         Me.UsersToolStripMenuItem.Name = "UsersToolStripMenuItem"
         Me.UsersToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.UsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Users_word
@@ -560,19 +561,19 @@ Partial Class FormSetup
         'AddUserToolStripMenuItem
         '
         Me.AddUserToolStripMenuItem.Name = "AddUserToolStripMenuItem"
-        Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(211, 26)
+        Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Add_User_word
         '
         'ChangePasswordToolStripMenuItem
         '
         Me.ChangePasswordToolStripMenuItem.Name = "ChangePasswordToolStripMenuItem"
-        Me.ChangePasswordToolStripMenuItem.Size = New System.Drawing.Size(211, 26)
+        Me.ChangePasswordToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.ChangePasswordToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Change_Password_word
         '
         'ShowUserDetailsToolStripMenuItem
         '
         Me.ShowUserDetailsToolStripMenuItem.Name = "ShowUserDetailsToolStripMenuItem"
-        Me.ShowUserDetailsToolStripMenuItem.Size = New System.Drawing.Size(211, 26)
+        Me.ShowUserDetailsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.ShowUserDetailsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Show_User_Details_word
         '
         'SendAlertToAllUsersToolStripMenuItem
@@ -661,6 +662,12 @@ Partial Class FormSetup
         Me.RestartTheInstanceToolStripMenuItem.Name = "RestartTheInstanceToolStripMenuItem"
         Me.RestartTheInstanceToolStripMenuItem.Size = New System.Drawing.Size(225, 26)
         Me.RestartTheInstanceToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Restart_one_instance_word
+        '
+        'RestartAllRegionsToolStripMenuItem
+        '
+        Me.RestartAllRegionsToolStripMenuItem.Name = "RestartAllRegionsToolStripMenuItem"
+        Me.RestartAllRegionsToolStripMenuItem.Size = New System.Drawing.Size(225, 26)
+        Me.RestartAllRegionsToolStripMenuItem.Text = "Restart All Regions"
         '
         'ScriptsToolStripMenuItem
         '
@@ -1104,7 +1111,7 @@ Partial Class FormSetup
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.Location = New System.Drawing.Point(0, 0)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox1.MaxLength = 15000
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
@@ -1155,7 +1162,7 @@ Partial Class FormSetup
         'BusyButton
         '
         Me.BusyButton.Location = New System.Drawing.Point(15, 39)
-        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4)
         Me.BusyButton.Name = "BusyButton"
         Me.BusyButton.Size = New System.Drawing.Size(105, 29)
         Me.BusyButton.TabIndex = 51
@@ -1165,7 +1172,7 @@ Partial Class FormSetup
         'StopButton
         '
         Me.StopButton.Location = New System.Drawing.Point(15, 39)
-        Me.StopButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StopButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(105, 29)
         Me.StopButton.TabIndex = 50
@@ -1175,7 +1182,7 @@ Partial Class FormSetup
         'StartButton
         '
         Me.StartButton.Location = New System.Drawing.Point(15, 39)
-        Me.StartButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StartButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(105, 29)
         Me.StartButton.TabIndex = 49
@@ -1226,7 +1233,7 @@ Partial Class FormSetup
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.Controls.Add(Me.TextBox1)
         Me.Panel1.Location = New System.Drawing.Point(15, 85)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(400, 426)
         Me.Panel1.TabIndex = 54
@@ -1238,18 +1245,18 @@ Partial Class FormSetup
         Me.GroupBox1.Controls.Add(Me.ChartWrapper1)
         Me.GroupBox1.Controls.Add(Me.ChartWrapper2)
         Me.GroupBox1.Location = New System.Drawing.Point(441, 32)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(425, 521)
         Me.GroupBox1.TabIndex = 55
         Me.GroupBox1.TabStop = False
         '
-        'RestartAllRegionsToolStripMenuItem
+        'CreateUserToolStripMenuItem
         '
-        Me.RestartAllRegionsToolStripMenuItem.Name = "RestartAllRegionsToolStripMenuItem"
-        Me.RestartAllRegionsToolStripMenuItem.Size = New System.Drawing.Size(225, 26)
-        Me.RestartAllRegionsToolStripMenuItem.Text = "Restart All Regions"
+        Me.CreateUserToolStripMenuItem.Name = "CreateUserToolStripMenuItem"
+        Me.CreateUserToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.CreateUserToolStripMenuItem.Text = "Create User"
         '
         'FormSetup
         '
@@ -1269,7 +1276,7 @@ Partial Class FormSetup
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimumSize = New System.Drawing.Size(445, 144)
         Me.Name = "FormSetup"
@@ -1286,10 +1293,7 @@ Partial Class FormSetup
 
     Public Sub New()
 
-        ' This call is required by the designer.
         InitializeComponent()
-
-        ' Add any initialization after the InitializeComponent() call.
 
     End Sub
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
@@ -1439,4 +1443,5 @@ Partial Class FormSetup
     Friend WithEvents SearchForOarsAtOutworldzToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadLocalOARToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RestartAllRegionsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CreateUserToolStripMenuItem As ToolStripMenuItem
 End Class

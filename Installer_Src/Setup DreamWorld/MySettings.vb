@@ -937,15 +937,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property FirstRemoteAdminPort() As Integer
-        Get
-            Return CInt(GetMySetting("FirstRemoteAdminPort", "0"))
-        End Get
-        Set
-            SetMySetting("FirstRemoteAdminPort", CStr(Value))
-        End Set
-    End Property
-
     Public Property FirstXMLRegionPort() As Integer
         Get
             Return CInt("0" & GetMySetting("XMLRegionStartPort", "0"))

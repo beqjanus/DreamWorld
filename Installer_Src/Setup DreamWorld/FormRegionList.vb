@@ -50,6 +50,29 @@ Public Class FormRegionlist
 
 #End Region
 
+    '// Constants
+    Const HWND_TOP As Integer = 0
+
+    'Const HWND_TOPMOST As Integer = -1
+    'Const HWND_NO_TOPMOST As Integer = -2
+    Const NOMOVE As Long = &H2
+
+    Const NOSIZE As Long = &H1
+
+    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Long)
+
+        On Error GoTo SetWindowOnTop_Err
+
+        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
+
+SetWindowOnTop_Exit:
+        Exit Sub
+
+SetWindowOnTop_Err:
+        Resume SetWindowOnTop_Exit
+
+    End Sub
+
 #Region "Properties"
 
     Public Shared Property FormExists1 As Boolean
@@ -400,9 +423,6 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.XMLRPC, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
-        ListView1.Columns.Add(My.Resources.Remote_Admin_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
-        ctr += 1
 
         ' optional
         ListView1.Columns.Add(My.Resources.Scripts_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 80), HorizontalAlignment.Center)
@@ -512,9 +532,12 @@ Public Class FormRegionlist
 
         If PropUpdateView() Then ' force a refresh
             If ViewBusy = True Then
+                Timer1.Interval = 5000 ' check for Form1.PropUpdateView immediately
                 Return
             End If
             LoadMyListView()
+            Application.DoEvents()
+            Timer1.Interval = 1000
         End If
 
     End Sub
@@ -556,7 +579,7 @@ Public Class FormRegionlist
 
             Try
                 For Each RegionUUID As String In PropRegionClass.RegionUuids
-
+                    'Application.DoEvents()
                     Dim Num As Integer = 0
                     Dim Groupname As String = PropRegionClass.GroupName(RegionUUID)
                     Dim Status = PropRegionClass.Status(RegionUUID)
@@ -678,7 +701,6 @@ Public Class FormRegionlist
 
                     item1.SubItems.Add(PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(PropRegionClass.XmlRegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-                    item1.SubItems.Add(PropRegionClass.RemoteAdminPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
                     'Scripts XEngine or YEngine
                     Select Case PropRegionClass.ScriptEngine(RegionUUID)
@@ -1139,7 +1161,7 @@ Public Class FormRegionlist
                     FormSetup.SequentialPause()
 
                     FormSetup.Print(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
-                    FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
+                    ShutDown(RegionUUID)
 
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
@@ -1173,6 +1195,8 @@ Public Class FormRegionlist
                 'temp show console
                 Settings.ConsoleShow = "True"
                 FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE)
+
+                SetWindowOnTop(hwnd.ToInt64)
                 Settings.ConsoleShow = tmp
             End If
 
@@ -1191,7 +1215,7 @@ Public Class FormRegionlist
 
             FormSetup.Buttons(FormSetup.BusyButton)
             FormSetup.SequentialPause()
-            'FormSetup.PropAborting = True
+
             ' shut down all regions in the DOS box
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             FormSetup.Logger("RecyclingDown", GroupName, "Restart")
@@ -1204,7 +1228,7 @@ Public Class FormRegionlist
             FormSetup.Buttons(FormSetup.StopButton)
 
             FormSetup.Print(My.Resources.Recycle1 & "  " + PropRegionClass.GroupName(RegionUUID))
-            FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
+            ShutDown(RegionUUID)
             PropUpdateView = True ' make form refresh
 
         ElseIf chosen = "Teleport" Then
@@ -1467,7 +1491,7 @@ Public Class FormRegionlist
     End Sub
 
     Private Sub KOT_CheckedChanged(sender As Object, e As EventArgs) Handles KOT.CheckedChanged
-
+        Me.TopMost = KOT.Checked
     End Sub
 
 #End Region

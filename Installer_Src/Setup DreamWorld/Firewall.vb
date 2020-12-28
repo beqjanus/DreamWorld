@@ -30,11 +30,6 @@ Public Module Firewall
                 Command = Command & "netsh advfirewall firewall add rule name=""XMLRegionPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
             End If
 
-            Dim P As Integer = CInt("0" & PropRegionClass.RemoteAdminPort(RegionUUID))
-            If P > 0 Then
-                Command = Command & "netsh advfirewall firewall add rule name=""RemoteAdminPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
-            End If
-
             Dim R As Integer = CInt("0" & PropRegionClass.RegionPort(RegionUUID))
             If R > 0 Then
                 Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Port " & CStr(R) & """ dir=in action=allow protocol=TCP localport=" & CStr(R) & vbCrLf _
@@ -79,11 +74,6 @@ Public Module Firewall
             Dim X As Integer = CInt("0" & PropRegionClass.XmlRegionPort(RegionUUID))
             If X > 0 Then
                 Command = Command & "netsh advfirewall firewall delete rule name=""XMLRegionPort " & CStr(X) & """" & vbCrLf
-            End If
-
-            Dim P As Integer = CInt("0" & PropRegionClass.RemoteAdminPort(RegionUUID))
-            If P > 0 Then
-                Command = Command & "netsh advfirewall firewall delete rule name=""RemoteAdminPort " & CStr(X) & """" & vbCrLf
             End If
 
             Dim R As Integer = CInt("0" & PropRegionClass.RegionPort(RegionUUID))

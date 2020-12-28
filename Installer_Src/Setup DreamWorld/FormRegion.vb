@@ -598,8 +598,7 @@ Public Class FormRegion
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName.Text)
             If RegionUUID.Length > 0 Then
                 If FormSetup.CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) Then
-                    FormSetup.SequentialPause()
-                    FormSetup.ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
+                    ShutDown(RegionUUID)
                 End If
                 Dim loopctr = 60 ' wait a minute
                 While FormSetup.CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0

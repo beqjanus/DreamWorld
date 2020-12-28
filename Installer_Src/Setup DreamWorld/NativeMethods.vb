@@ -22,5 +22,10 @@ Friend Module NativeMethods
     Public Function SetWindowText(ByVal hwnd As IntPtr, ByVal windowName As String) As Boolean
     End Function
 
+    Public Declare Function SetWindowPos Lib "user32" _
+            (ByVal hWnd As Long, ByVal hWndInsertAfter As Long,
+            ByVal x As Long, ByVal y As Long, ByVal cX As Long,
+            ByVal cY As Long, ByVal wFlags_ As Long) As Long
+
 #Enable Warning CA2101 ' Specify marshaling for P/Invoke string arguments
 End Module

@@ -106,9 +106,6 @@ Public Class FormPorts
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
         MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
-        FirstRemoteAdminPort.Text = CStr(Settings.FirstRemoteAdminPort)
-        MaxR.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxRemoteAdminPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-
         uPnPEnabled.Checked = Settings.UPnPEnabled
 
         'ports
@@ -182,7 +179,6 @@ Public Class FormPorts
 
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
         MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxRemoteAdminPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
@@ -224,28 +220,12 @@ Public Class FormPorts
         MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
         FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
         MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " + FormSetup.PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " + FormSetup.PropMaxRemoteAdminPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
 
         HelpManual("Ports")
-
-    End Sub
-
-    Private Sub RemoteAdminTextBox_TextChanged(sender As Object, e As EventArgs) Handles FirstRemoteAdminPort.TextChanged
-
-        If Not initted Then Return
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        FirstRemoteAdminPort.Text = digitsOnly.Replace(FirstRemoteAdminPort.Text, "")
-        Settings.FirstRemoteAdminPort() = CInt("0" & FirstRemoteAdminPort.Text)
-        Settings.SaveSettings()
-
-        RegionMaker.UpdateAllRegionPorts()
-        FirstRemoteAdminPort.Text = CStr(Settings.FirstRemoteAdminPort())
-        MaxR.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & FormSetup.PropMaxRemoteAdminPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 

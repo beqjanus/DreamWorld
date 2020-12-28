@@ -46,7 +46,7 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-    Private Const ExitInterval As Integer = 1
+    Private Const ExitInterval As Integer = 2
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.794"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
@@ -93,7 +93,6 @@ Public Class FormSetup
     Private _KillSource As Boolean
     Private _MaxPortUsed As Integer
     Private _MaxXMLPortUsed As Integer
-    Private _MaxRemoteAdminPortUsed As Integer
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
     Private _myUPnpMap As UPnp
@@ -115,6 +114,7 @@ Public Class FormSetup
     Private _UserName As String = ""
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
+
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
@@ -167,6 +167,12 @@ Public Class FormSetup
 
 #Region "Public Properties"
 
+    Public ReadOnly Property BootedList1 As List(Of String)
+        Get
+            Return BootedList
+        End Get
+    End Property
+
     Public Property Adv1 As FormSettings
         Get
             Return _Adv
@@ -174,12 +180,6 @@ Public Class FormSetup
         Set(value As FormSettings)
             _Adv = value
         End Set
-    End Property
-
-    Public ReadOnly Property BootedList1 As List(Of String)
-        Get
-            Return BootedList
-        End Get
     End Property
 
     Public Property ContentIAR As FormOAR
@@ -366,15 +366,6 @@ Public Class FormSetup
         End Get
         Set(value As Integer)
             _MaxPortUsed = value
-        End Set
-    End Property
-
-    Public Property PropMaxRemoteAdminPortUsed As Integer
-        Get
-            Return _MaxRemoteAdminPortUsed
-        End Get
-        Set(value As Integer)
-            _MaxRemoteAdminPortUsed = value
         End Set
     End Property
 
@@ -923,7 +914,7 @@ Public Class FormSetup
 
         Dim WindowCounter As Integer = 0
         Try
-            While myProcess.MainWindowHandle = CType(0, IntPtr)
+            While myProcess.MainWindowHandle = IntPtr.Zero
                 Sleep(100)
                 Application.DoEvents()
                 WindowCounter += 1
@@ -938,7 +929,6 @@ Public Class FormSetup
             Return False
         End Try
 
-        Sleep(1000)
         Application.DoEvents()
         WindowCounter = 0
         myProcess.Refresh()
@@ -1083,19 +1073,31 @@ Public Class FormSetup
 
         Dim GP = PropRegionClass.GroupPort(RegionUUID)
         Diagnostics.Debug.Print("Group port =" & CStr(GP))
-
-        Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
         Application.DoEvents()
+        Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
         If isRegionRunning Then
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
                 Logger("Suspended, Resuming it", BootName, "Restart")
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+
+                Dim PID As Integer = GetPIDofWindow(GroupName)
+                For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
+                    PropRegionClass.ProcessID(UUID) = PID
+                Next
+
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
                 PropUpdateView = True ' make form refresh
                 Return True
             Else    ' needs to be captured into the event handler
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already up")
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+
+                Dim PID As Integer = GetPIDofWindow(GroupName)
+                For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
+                    PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
+                    PropRegionClass.ProcessID(UUID) = PID
+                Next
+
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
@@ -1155,6 +1157,8 @@ Public Class FormSetup
                 Log("Debug", "Created Process Number " & CStr(BootProcess.Id) &
                     " in  RegionHandles(" & CStr(PropInstanceHandles.Count) & ") " & "Group:" & GroupName)
                 SetWindowTextCall(BootProcess, GroupName)
+            Else
+                BreakPoint.Show("No PID for " & GroupName)
             End If
             PropUpdateView = True ' make form refresh
             Buttons(StopButton)
@@ -1282,8 +1286,6 @@ Public Class FormSetup
                 End Try
             End If
 
-            'Application.DoEvents()
-
             'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
             command = command.Replace("+", "{+}")
             command = command.Replace("^", "{^}")
@@ -1291,10 +1293,13 @@ Public Class FormSetup
             command = command.Replace("(", "{(}")
             command = command.Replace(")", "{)}")
 
-            If PID > 0 Then
+            If PID = 0 Then
+                ' BreakPoint.Show("PID = 0")
+            Else
+
                 Try
                     AppActivate(PID)
-                    SendKeys.SendWait(ToLowercaseKeys("{ENTER}" & vbCrLf))
+                    SendKeys.SendWait(ToLowercaseKeys("{ENTER}"))
                     SendKeys.SendWait(ToLowercaseKeys(command))
 
                     Select Case Settings.ConsoleShow
@@ -1770,7 +1775,7 @@ Public Class FormSetup
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
                     PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                 Next
-                ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                ShutDown(RegionUUID)
                 Application.DoEvents()
             End If
             PropUpdateView = True ' make form refresh
@@ -2049,7 +2054,7 @@ Public Class FormSetup
 
     Public Sub SendMsg(msg As String)
         Dim hwnd As IntPtr
-        Dim l As List(Of String)
+        Dim l As List(Of String) = Nothing
         If PropOpensimIsRunning() Then
             For Each RegionUUID As String In PropRegionClass.RegionUuids
                 If Not l.Contains(PropRegionClass.GroupName(RegionUUID)) Then
@@ -3074,22 +3079,19 @@ Public Class FormSetup
 
         If myProcess Is Nothing Then Return 0
 
-        Dim PID As Integer
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
 
-        Do While TooMany < 5
+        Do While TooMany < 20
             Application.DoEvents()
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
-                'BreakPoint.Show(ex.Message)
             End Try
 
             If p IsNot Nothing Then
                 If p.ProcessName.Length > 0 Then
-                    PID = myProcess.Id
-                    Return PID
+                    Return myProcess.Id
                 End If
             End If
             Application.DoEvents()
@@ -4196,18 +4198,42 @@ Public Class FormSetup
         If PropExitHandlerIsBusy Then Return
         PropExitHandlerIsBusy = True
 
+        Dim GroupName As String = ""
+        Dim TimerValue As Integer
+
         While BootedList1.Count > 0
             Dim Ruuid As String = BootedList1(0)
             BootedList1.RemoveAt(0)
-            Logger("RegionReady Login Enabled:", PropRegionClass.RegionName(Ruuid), "Restart")
-            PropRegionClass.Timer(Ruuid) = RegionMaker.REGIONTIMER.StartCounting
-            PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
-            Print(PropRegionClass.RegionName(Ruuid) & " " & Global.Outworldz.My.Resources.Running_word)
+            Print(PropRegionClass.RegionName(Ruuid) & " " & My.Resources.Running_word)
+
+            Dim G = PropRegionClass.GroupName(Ruuid)
+            For Each UUID In PropRegionClass.RegionUuidListByName(G)
+                PropRegionClass.Timer(Ruuid) = RegionMaker.REGIONTIMER.StartCounting
+                PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
+            Next
             PropUpdateView = True
         End While
 
-        Dim GroupName As String = ""
-        Dim TimerValue As Integer
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
+            Application.DoEvents()
+
+            If CBool(PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
+                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
+                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
+                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
+                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended) Then
+
+                Dim G = PropRegionClass.GroupName(RegionUUID)
+
+                If GetHwnd(G) = IntPtr.Zero Then
+                    Dim RegionName As String = PropRegionClass.RegionName(RegionUUID)
+                    Try
+                        PropExitList.Add(G, "DOS Box exit")
+                    Catch
+                    End Try
+                End If
+            End If
+        Next
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
@@ -4218,7 +4244,6 @@ Public Class FormSetup
             End If
 
             GroupName = PropRegionClass.GroupName(RegionUUID)
-            Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
             Dim Status = PropRegionClass.Status(RegionUUID)
             ' Logger(GetStateString(Status), GroupName, "Restart")
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
@@ -4238,19 +4263,7 @@ Public Class FormSetup
                 '[Error] = 10
                 'RestartStage2 = 11
 
-                If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
-
-                    'Stopped = 0
-                    'Logger("State is Stopped", GroupName, "Restart")
-                    Continue For
-
-                ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
-
-                    'Booting = 1
-                    Logger("State is Booting", GroupName, "Restart")
-                    Continue For
-
-                ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted Then
+                If Status = RegionMaker.SIMSTATUSENUM.Booted Then
 
                     'Booted = 2
                     'Logger("State is Booted", GroupName, "Restart")
@@ -4282,37 +4295,17 @@ Public Class FormSetup
                             ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE)
                             SequentialPause()
                             ' shut down all regions in the DOS box
+                            Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                             For Each UUID As String In GroupList
                                 PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                             Next
                             Logger("State changed to RecyclingDown", GroupName, "Restart")
-                            ConsoleCommand(RegionUUID, "q{ENTER}" & vbCrLf)
+                            ShutDown(RegionUUID)
                             Print(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
                             PropUpdateView = True ' make form refresh
                         End If
                     End If
-                    Continue For
-
-                ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
-
-                    'RecyclingUp= 3
-                    Logger("State is RecyclingUp", GroupName, "Restart")
-                    Continue For
-
-                ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-
-                    Logger("State is RecyclingDown", GroupName, "Restart")
-                    Continue For
-
-                ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-
-                    'ShuttingDown = 5
-                    Logger("State is ShuttingDown", PropRegionClass.RegionName(RegionUUID), "Restart")
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                    StopGroup(GroupName)
-                    PropUpdateView = True
-                    Logger("State changed to Stopped", PropRegionClass.RegionName(RegionUUID), "Restart")
                     Continue For
 
                     ' if a RestartPending is signaled, boot it up
@@ -4329,6 +4322,7 @@ Public Class FormSetup
                     '[Resume] = 8
                     Logger("State is Resuming", GroupName, "Restart")
                     DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
+                    Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                     For Each R As String In GroupList
                         Logger("State changed to Booted", PropRegionClass.RegionName(R), "Restart")
                         PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
@@ -4338,23 +4332,12 @@ Public Class FormSetup
                     PropUpdateView = True
                     Continue For
 
-                ElseIf Status = RegionMaker.SIMSTATUSENUM.Suspended Then
-
-                    'Suspended = 9
-                    Logger("State is Suspended", GroupName, "Restart")
-                    Continue For
-
-                ElseIf Status = RegionMaker.SIMSTATUSENUM.Error Then
-
-                    'Error = 10
-                    Logger("State is Error", GroupName, "Restart")
-                    Continue For
-
                 ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
 
                     'RestartStage2 = 11
                     Logger("State is Restart Pending", GroupName, "Restart")
                     Print(GroupName & " " & Global.Outworldz.My.Resources.Restart_Pending_word)
+                    Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                     For Each R In GroupList
                         PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
                         PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
@@ -4362,9 +4345,6 @@ Public Class FormSetup
                     Next
 
                     PropUpdateView = True ' make form refresh
-                Else
-
-                    Logger("ExitHandlerPoll", "None of the above!", "Restart")
 
                 End If
             End If
@@ -4415,7 +4395,14 @@ Public Class FormSetup
             '[Error] = 10
             'RestartStage2 = 11
 
-            If Status = RegionMaker.SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
+            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                StopGroup(GroupName)
+                PropUpdateView = True
+                Logger("State changed to Stopped", PropRegionClass.RegionName(RegionUUID), "Restart")
+                Continue While
+
+            ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
                 'RecyclingDown = 4
                 Logger("State is RecyclingDown", GroupName, "Restart")
                 Print(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
@@ -5693,7 +5680,7 @@ Public Class FormSetup
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
 
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "q" & vbCrLf)
+            ShutDown(RegionUUID)
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
             Logger("RecyclingDown", PropRegionClass.RegionName(RegionUUID), "Restart")
@@ -5713,7 +5700,7 @@ Public Class FormSetup
         Dim name = ChooseRegion(True)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "q" & vbCrLf)
+            ShutDown(RegionUUID)
             PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
             Logger("RecyclingDown", PropRegionClass.RegionName(RegionUUID), "Restart")
@@ -7422,7 +7409,7 @@ Public Class FormSetup
                 ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE)
                 SequentialPause()
 
-                ConsoleCommand(RegionUUID, "q{ENTER}" + vbCrLf)
+                ShutDown(RegionUUID)
 
                 If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
                     For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)

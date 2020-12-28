@@ -48,6 +48,7 @@ Public Class RegionMaker
     End Enum
 
     Public Enum SIMSTATUSENUM As Integer
+
         Stopped = 0
         Booting = 1
         Booted = 2
@@ -116,7 +117,6 @@ Public Class RegionMaker
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
         Dim XMLPortnumber As Integer = CInt("0" & Settings.FirstXMLRegionPort())
-        Dim RemoteAdminPortnumber As Integer = CInt("0" & Settings.FirstRemoteAdminPort())
 
         For Each uuid As String In PropRegionClass.RegionUuids
             Dim RegionName = PropRegionClass.RegionName(uuid)
@@ -128,17 +128,14 @@ Public Class RegionMaker
             PropRegionClass.GroupPort(uuid) = Portnumber
 
             PropRegionClass.XmlRegionPort(uuid) = XMLPortnumber
-            PropRegionClass.RemoteAdminPort(uuid) = RemoteAdminPortnumber
 
             ' Self setting Region Ports
             FormSetup.PropMaxPortUsed = Portnumber
             FormSetup.PropMaxXMLPortUsed = XMLPortnumber
-            FormSetup.PropMaxRemoteAdminPortUsed = RemoteAdminPortnumber
 
             Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
             If XMLPortnumber > 0 Then XMLPortnumber += 1
-            If RemoteAdminPortnumber > 0 Then RemoteAdminPortnumber += 1
         Next
 
         FormSetup.Print(My.Resources.Setup_Firewall_word)
@@ -723,7 +720,6 @@ Public Class RegionMaker
         Public _Teleport As String = ""
         Public _Tides As String = ""
         Public _XMLRegionPort As Integer
-        Public _RemoteAdminPort As Integer
         Public _CrashCounter As Integer
 
 #End Region
@@ -920,8 +916,6 @@ Public Class RegionMaker
             RegionList(uuid)._Timer = Value
         End Set
     End Property
-
-
 
 #End Region
 
@@ -1327,19 +1321,6 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._XMLRegionPort = CInt(Value)
-        End Set
-    End Property
-
-    Public Property RemoteAdminPort(uuid As String) As Integer
-        Get
-            If uuid Is Nothing Then Return 0
-            If Bad(uuid) Then Return 0
-            Return CInt("0" & RegionList(uuid)._RemoteAdminPort)
-        End Get
-        Set(ByVal Value As Integer)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._RemoteAdminPort = Value
         End Set
     End Property
 
@@ -1803,7 +1784,7 @@ Public Class RegionMaker
         End If
 
         Settings.SetIni("XMLRPC", "XmlRpcPort", CStr(PropRegionClass.XmlRegionPort(uuid)))
-        Settings.SetIni("RemoteAdmin", "port", CStr(PropRegionClass.RemoteAdminPort(uuid)))
+        Settings.SetIni("RemoteAdmin", "port", CStr(PropRegionClass.GroupPort(uuid)))
 
         ' Autobackup
         Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
