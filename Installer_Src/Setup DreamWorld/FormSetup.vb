@@ -916,7 +916,7 @@ Public Class FormSetup
         Try
             While myProcess.MainWindowHandle = IntPtr.Zero
                 Sleep(100)
-                Application.DoEvents()
+
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
@@ -929,13 +929,12 @@ Public Class FormSetup
             Return False
         End Try
 
-        Application.DoEvents()
         WindowCounter = 0
         myProcess.Refresh()
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While True
             Dim status = SetWindowText(hwnd, windowName)
-            Application.DoEvents()
+
             myProcess.Refresh()
 
             If status And myProcess.MainWindowTitle = windowName Then
@@ -948,7 +947,7 @@ Public Class FormSetup
                 Exit While
             End If
             Thread.Sleep(100)
-            Application.DoEvents()
+
         End While
         Return True
 
@@ -1041,13 +1040,6 @@ Public Class FormSetup
 
         If RegionMaker.Instance Is Nothing Then Return False
 
-        ' Allow these to change w/o rebooting
-
-        DoOpensimProtoINI()
-        DoGloebits()
-
-        Application.DoEvents()
-
         If Not Timer1.Enabled Then
             Timer1.Interval = 1000
             Timer1.Start() 'Timer starts functioning
@@ -1066,6 +1058,8 @@ Public Class FormSetup
             Return False
         End If
         Log(My.Resources.Info_word, "Region: Starting Region " & BootName)
+
+        DoGloebits()
 
         If RegionMaker.CopyOpensimProto(RegionUUID) Then
             Return False
@@ -1106,7 +1100,7 @@ Public Class FormSetup
         Print(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
 
         BootProcess.EnableRaisingEvents = True
-        BootProcess.StartInfo.UseShellExecute = False ' Must be false
+        BootProcess.StartInfo.UseShellExecute = True
         BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 
         Try
@@ -1142,7 +1136,6 @@ Public Class FormSetup
         Dim ok As Boolean = False
         Try
             ok = BootProcess.Start
-            Application.DoEvents()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
@@ -1154,8 +1147,6 @@ Public Class FormSetup
                 PropRegionClass.ProcessID(UUID) = PID
             Next
             If PID > 0 Then
-                Log("Debug", "Created Process Number " & CStr(BootProcess.Id) &
-                    " in  RegionHandles(" & CStr(PropInstanceHandles.Count) & ") " & "Group:" & GroupName)
                 SetWindowTextCall(BootProcess, GroupName)
             Else
                 BreakPoint.Show("No PID for " & GroupName)
@@ -1448,232 +1439,6 @@ Public Class FormSetup
 
     End Function
 
-    Private Shared Sub SetupOpensimIM()
-
-        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort
-        If Settings.CMS = JOpensim Then
-            Settings.SetIni("Messaging", "OfflineMessageModule", "OfflineMessageModule")
-            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
-            Settings.SetIni("Messaging", "MuteListURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
-        Else
-            Settings.SetIni("Messaging", "OfflineMessageModule", "Offline Message Module V2")
-            Settings.SetIni("Messaging", "OfflineMessageURL", "")
-            Settings.SetIni("Messaging", "MuteListURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
-        End If
-    End Sub
-
-    Public Shared Function DoOpensimProtoINI() As Boolean
-
-        ' Opensim.Proto
-        Settings.LoadIni(GetOpensimProto(), ";")
-
-        Select Case Settings.ServerType
-            Case "Robust"
-                SetupOpensimSearchINI()
-                Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
-                Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
-                Settings.SetIni("Const", "GridName", Settings.SimName)
-                SetupOpensimIM()
-            Case "Region"
-                SetupOpensimSearchINI()
-                SetupOpensimIM()
-            Case "OSGrid"
-            Case "Metro"
-        End Select
-
-        If Settings.CMS = JOpensim Then
-            Settings.SetIni("UserProfiles", "ProfileServiceURL", "")
-        Else
-            Settings.SetIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
-        End If
-
-        If Settings.CMS = JOpensim Then
-            Settings.SetIni("Groups", "Module", "GroupsModule")
-            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface")
-            Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
-        Else
-            Settings.SetIni("Groups", "Module", "Groups Module V2")
-            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "Groups HG Service Connector" & """")
-            Settings.SetIni("Groups", "MessagingModule", "Groups Messaging Module V2")
-            If Settings.ServerType = "Robust" Then
-                Settings.SetIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
-            Else
-                Settings.SetIni("Groups", "GroupsServerURI", "${Const|BaseURL}:${Const|PrivatePort}")
-            End If
-        End If
-
-        Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
-
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
-        ' support this feature
-
-        Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
-
-        'ScriptEngine
-        Settings.SetIni("Startup", "DefaultScriptEngine", Settings.ScriptEngine)
-
-        If Settings.ScriptEngine = "XEngine" Then
-            Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
-            Settings.SetIni("XEngine", "Enabled", "True")
-            Settings.SetIni("YEngine", "Enabled", "False")
-        Else
-            Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
-            Settings.SetIni("XEngine", "Enabled", "False")
-            Settings.SetIni("YEngine", "Enabled", "True")
-        End If
-
-        ' set new Min Timer Interval for how fast a script can go.
-        Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
-        Settings.SetIni("YEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
-
-        ' all grids requires these setting in Opensim.ini
-        Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
-
-        ' Get Opensimulator Scripts to date if needed
-        If Settings.DeleteScriptsOnStartupLevel <> SimVersion Then
-
-            ClrCache.WipeScripts()
-            Settings.DeleteScriptsOnStartupLevel() = SimVersion ' we have scripts cleared to proper Opensim Version
-            Settings.SaveSettings()
-
-            Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
-        Else
-            Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
-        End If
-
-        If Settings.LSLHTTP Then
-            ' do nothing - let them edit it
-        Else
-            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateURL & "/32")
-        End If
-
-        Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))
-
-        If Settings.Primlimits Then
-            Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
-        Else
-            Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule")
-        End If
-
-        If Settings.GloebitsEnable Then
-            Settings.SetIni("Startup", "economymodule", "Gloebit")
-            Settings.SetIni("Economy", "CurrencyURL", "")
-        ElseIf Settings.CMS = JOpensim Then
-            Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
-            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface")
-        Else
-            Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
-            Settings.SetIni("Economy", "CurrencyURL", "")
-        End If
-
-        ' Main Frame time
-        ' This defines the rate of several simulation events.
-        ' Default value should meet most needs.
-        ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
-        'FrameTime = 0.0909
-
-        Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Globalization.CultureInfo.InvariantCulture))
-
-        ' LSL emails
-        Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
-        Settings.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort))
-        Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
-        Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
-        Settings.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName)
-
-        ' the old Clouds
-        If Settings.Clouds Then
-            Settings.SetIni("Cloud", "enabled", "True")
-            Settings.SetIni("Cloud", "density", Settings.Density.ToString(Globalization.CultureInfo.InvariantCulture))
-        Else
-            Settings.SetIni("Cloud", "enabled", "False")
-        End If
-
-        ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 = BulletSim with
-        ' threads 4 = ubODE
-
-        Select Case Settings.Physics
-            Case 0
-                Settings.SetIni("Startup", "meshing", "ZeroMesher")
-                Settings.SetIni("Startup", "physics", "basicphysics")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case 1
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case 2
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case 3
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-            Case 4
-                Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case 5
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case Else
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-        End Select
-
-        Settings.SetIni("Map", "RenderMaxHeight", Convert.ToString(Settings.RenderMaxHeight, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("Map", "RenderMinHeight", Convert.ToString(Settings.RenderMinHeight, Globalization.CultureInfo.InvariantCulture))
-
-        If Settings.MapType = "None" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "False")
-        ElseIf Settings.MapType = "Simple" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Settings.MapType = "Good" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Settings.MapType = "Better" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Settings.MapType = "Best" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
-            Settings.SetIni("Map", "TexturePrims", "True")
-            Settings.SetIni("Map", "RenderMeshes", "True")
-        End If
-
-        ' Voice
-        If Settings.VivoxEnabled Then
-            Settings.SetIni("VivoxVoice", "enabled", "True")
-        Else
-            Settings.SetIni("VivoxVoice", "enabled", "False")
-        End If
-        Settings.SetIni("VivoxVoice", "vivox_admin_user", Settings.VivoxUserName)
-        Settings.SetIni("VivoxVoice", "vivox_admin_password", Settings.VivoxPassword)
-
-        Settings.SaveINI(System.Text.Encoding.UTF8)
-
-        Return False
-
-    End Function
-
     Public Function DoStopActions() As Boolean
 
         Backups.ClearFlags()
@@ -1777,13 +1542,12 @@ Public Class FormSetup
                 Next
                 ShutDown(RegionUUID)
                 Application.DoEvents()
+                PropUpdateView = True ' make form refresh
             End If
-            PropUpdateView = True ' make form refresh
 
         Next
 
         Dim counter = 600 ' 10 minutes to quit all regions
-        Dim last As Integer = PropRegionClass.RegionUuids.Count
 
         ' only wait if the port 8001 is working
         If PropUseIcons Then
@@ -1800,36 +1564,29 @@ Public Class FormSetup
                         And PropRegionClass.RegionEnabled(RegionUUID) Then
 
                         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-                        If GroupName.Length > 0 Then
-                            For Each p In Process.GetProcessesByName("Opensim")
-                                Application.DoEvents()
-                                If p.MainWindowTitle = GroupName Then
-                                    CountisRunning += 1
-                                    Exit For
-                                End If
-                            Next
-                        End If
-
+                        For Each p In Process.GetProcessesByName("Opensim")
+                            Application.DoEvents()
+                            If p.MainWindowTitle = GroupName Then
+                                CountisRunning += 1
+                                Exit For
+                            End If
+                        Next
                     End If
                     Application.DoEvents()
-                    If CountisRunning = 0 Then Exit For
                 Next
+                ExitHandlerPoll()
 
-                If CountisRunning = 1 And last > 1 Then
+                If CountisRunning = 1 Then
                     Print(My.Resources.One_region)
-                    last = 1
-                    PropUpdateView = True ' make form refresh
                 Else
-                    If CountisRunning <> last Then
-                        Print(CStr(CountisRunning) & " " & Global.Outworldz.My.Resources.Regions_Are_Running)
-                        last = CountisRunning
-                        PropUpdateView = True ' make form refresh
-                    End If
+                    Print(CStr(CountisRunning) & " " & Global.Outworldz.My.Resources.Regions_Are_Running)
                 End If
 
                 If CountisRunning = 0 Then
                     counter = 0
                 End If
+
+                PropUpdateView = True ' make form refresh
 
             End While
             PropUpdateView = True ' make form refresh
@@ -3083,7 +2840,7 @@ Public Class FormSetup
         Dim p As Process = Nothing
 
         Do While TooMany < 20
-            Application.DoEvents()
+            'Application.DoEvents()
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
@@ -3265,39 +3022,6 @@ Public Class FormSetup
                 BreakPoint.Show(ex.Message)
             End Try
         End Using
-
-    End Sub
-
-    Private Shared Sub SetupOpensimSearchINI()
-
-        'Opensim.Proto RegionSnapShot
-        Settings.SetIni("DataSnapshot", "index_sims", "True")
-        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
-            Settings.SetIni("DataSnapshot", "data_services", "")
-        ElseIf Settings.JOpensimSearch = Hyperica Then
-            Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-        Else
-            Settings.SetIni("DataSnapshot", "data_services", "")
-        End If
-
-        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
-            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface"
-            Settings.SetIni("Search", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"), True)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"), True)
-        ElseIf Settings.JOpensimSearch = Hyperica Then
-            Dim SearchURL = "http://hyperica.com/Search/query.php"
-            Settings.SetIni("Search", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
-        Else
-            Settings.SetIni("Search", "SearchURL", "")
-            Settings.SetIni("LoginService", "SearchURL", "")
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
-        End If
 
     End Sub
 
@@ -4193,8 +3917,6 @@ Public Class FormSetup
 
     Private Sub ExitHandlerPoll()
 
-        If PropAborting Then Return ' not if we are aborting
-
         If PropExitHandlerIsBusy Then Return
         PropExitHandlerIsBusy = True
 
@@ -4453,9 +4175,11 @@ Public Class FormSetup
                         PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
                         PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
                     Next
-                    Logger("Crash", GroupName & " Crashed and was stopped", "Restart")
+                    Logger("Stopped", GroupName & "  was stopped", "Restart")
                     Continue While
                 Else
+
+                    If PropAborting Then Return ' not if we are aborting
                     Print(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, vbYesNo, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
@@ -6015,7 +5739,6 @@ Public Class FormSetup
         If DoEditForeigners() Then Return True
         If DelLibrary() Then Return True
         If DoFlotsamINI() Then Return True
-        If DoOpensimProtoINI() Then Return True
         If DoWifi() Then Return True
         If DoGloebits() Then Return True
         If DoWhoGotWhat() Then Return True

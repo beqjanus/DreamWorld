@@ -40,6 +40,8 @@ Public Class RegionMaker
     ReadOnly TeleportAvatarDict As New Dictionary(Of String, String)
     Private _RegionListIsInititalized As Boolean
     Dim json As New JSONresult
+    Private Const JOpensim As String = "JOpensim"
+    Private Const Hyperica As String = "Hyperica"
 
     Public Enum REGIONTIMER As Integer
         Paused = -2
@@ -1718,6 +1720,53 @@ Public Class RegionMaker
 
 #Region "Opensim.ini writers"
 
+    Private Shared Sub SetupOpensimSearchINI()
+
+        'Opensim.Proto RegionSnapShot
+        Settings.SetIni("DataSnapshot", "index_sims", "True")
+        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
+            Settings.SetIni("DataSnapshot", "data_services", "")
+        ElseIf Settings.JOpensimSearch = Hyperica Then
+            Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
+        Else
+            Settings.SetIni("DataSnapshot", "data_services", "")
+        End If
+
+        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface"
+            Settings.SetIni("Search", "SearchURL", SearchURL)
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"), True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"), True)
+        ElseIf Settings.JOpensimSearch = Hyperica Then
+            Dim SearchURL = "http://hyperica.com/Search/query.php"
+            Settings.SetIni("Search", "SearchURL", SearchURL)
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
+        Else
+            Settings.SetIni("Search", "SearchURL", "")
+            Settings.SetIni("LoginService", "SearchURL", "")
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
+        End If
+
+    End Sub
+
+    Private Shared Sub SetupOpensimIM()
+
+        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort
+        If Settings.CMS = JOpensim Then
+            Settings.SetIni("Messaging", "OfflineMessageModule", "OfflineMessageModule")
+            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
+            Settings.SetIni("Messaging", "MuteListURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
+        Else
+            Settings.SetIni("Messaging", "OfflineMessageModule", "Offline Message Module V2")
+            Settings.SetIni("Messaging", "OfflineMessageURL", "")
+            Settings.SetIni("Messaging", "MuteListURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+        End If
+    End Sub
+
     Public Shared Function CopyOpensimProto(uuid As String) As Boolean
 
         ' copy the prototype to the regions Opensim.ini
@@ -1737,10 +1786,213 @@ Public Class RegionMaker
             Return True
         End If
 
+        Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
+        Settings.SetIni("Const", "RegionFolderName", PropRegionClass.GroupName(uuid))
         Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
         Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
         Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
         Settings.SetIni("Const", "http_listener_port", CStr(PropRegionClass.GroupPort(uuid))) ' varies with region
+
+        Select Case Settings.ServerType
+            Case "Robust"
+                SetupOpensimSearchINI()
+                Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
+                Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
+                Settings.SetIni("Const", "GridName", Settings.SimName)
+                SetupOpensimIM()
+            Case "Region"
+                SetupOpensimSearchINI()
+                SetupOpensimIM()
+            Case "OSGrid"
+            Case "Metro"
+        End Select
+
+        If Settings.CMS = JOpensim Then
+            Settings.SetIni("UserProfiles", "ProfileServiceURL", "")
+        Else
+            Settings.SetIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
+        End If
+
+        If Settings.CMS = JOpensim Then
+            Settings.SetIni("Groups", "Module", "GroupsModule")
+            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
+            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface")
+            Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
+        Else
+            Settings.SetIni("Groups", "Module", "Groups Module V2")
+            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "Groups HG Service Connector" & """")
+            Settings.SetIni("Groups", "MessagingModule", "Groups Messaging Module V2")
+            If Settings.ServerType = "Robust" Then
+                Settings.SetIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
+            Else
+                Settings.SetIni("Groups", "GroupsServerURI", "${Const|BaseURL}:${Const|PrivatePort}")
+            End If
+        End If
+
+        Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
+
+        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
+        ' support this feature
+
+        Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
+
+        'ScriptEngine
+        Settings.SetIni("Startup", "DefaultScriptEngine", Settings.ScriptEngine)
+
+        If Settings.ScriptEngine = "XEngine" Then
+            Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
+            Settings.SetIni("XEngine", "Enabled", "True")
+            Settings.SetIni("YEngine", "Enabled", "False")
+        Else
+            Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
+            Settings.SetIni("XEngine", "Enabled", "False")
+            Settings.SetIni("YEngine", "Enabled", "True")
+        End If
+
+        ' set new Min Timer Interval for how fast a script can go.
+        Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
+        Settings.SetIni("YEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
+
+        ' all grids requires these setting in Opensim.ini
+        Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
+
+        ' Get Opensimulator Scripts to date if needed
+        If Settings.DeleteScriptsOnStartupLevel <> FormSetup.SimVersion Then
+
+            ClrCache.WipeScripts()
+            Settings.DeleteScriptsOnStartupLevel() = FormSetup.SimVersion ' we have scripts cleared to proper Opensim Version
+            Settings.SaveSettings()
+
+            Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
+        Else
+            Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
+        End If
+
+        If Settings.LSLHTTP Then
+            ' do nothing - let them edit it
+        Else
+            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateURL & "/32")
+        End If
+
+        Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))
+
+        If Settings.Primlimits Then
+            Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
+        Else
+            Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule")
+        End If
+
+        If Settings.GloebitsEnable Then
+            Settings.SetIni("Startup", "economymodule", "Gloebit")
+            Settings.SetIni("Economy", "CurrencyURL", "")
+        ElseIf Settings.CMS = JOpensim Then
+            Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
+            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface")
+        Else
+            Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
+            Settings.SetIni("Economy", "CurrencyURL", "")
+        End If
+
+        ' Main Frame time
+        ' This defines the rate of several simulation events.
+        ' Default value should meet most needs.
+        ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
+        'FrameTime = 0.0909
+
+        Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Globalization.CultureInfo.InvariantCulture))
+
+        ' LSL emails
+        Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
+        Settings.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort))
+        Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
+        Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
+        Settings.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName)
+
+        ' the old Clouds
+        If Settings.Clouds Then
+            Settings.SetIni("Cloud", "enabled", "True")
+            Settings.SetIni("Cloud", "density", Settings.Density.ToString(Globalization.CultureInfo.InvariantCulture))
+        Else
+            Settings.SetIni("Cloud", "enabled", "False")
+        End If
+
+        ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 = BulletSim with
+        ' threads 4 = ubODE
+
+        Select Case Settings.Physics
+            Case 0
+                Settings.SetIni("Startup", "meshing", "ZeroMesher")
+                Settings.SetIni("Startup", "physics", "basicphysics")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+            Case 1
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+            Case 2
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "BulletSim")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+            Case 3
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "BulletSim")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
+            Case 4
+                Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
+                Settings.SetIni("Startup", "physics", "ubODE")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+            Case 5
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "ubODE")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+            Case Else
+                Settings.SetIni("Startup", "meshing", "Meshmerizer")
+                Settings.SetIni("Startup", "physics", "BulletSim")
+                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
+        End Select
+
+        Settings.SetIni("Map", "RenderMaxHeight", Convert.ToString(Settings.RenderMaxHeight, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Map", "RenderMinHeight", Convert.ToString(Settings.RenderMinHeight, Globalization.CultureInfo.InvariantCulture))
+
+        If Settings.MapType = "None" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "False")
+        ElseIf Settings.MapType = "Simple" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
+            Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
+            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
+        ElseIf Settings.MapType = "Good" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
+            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
+        ElseIf Settings.MapType = "Better" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
+            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
+            Settings.SetIni("Map", "TexturePrims", "False")
+            Settings.SetIni("Map", "RenderMeshes", "False")
+        ElseIf Settings.MapType = "Best" Then
+            Settings.SetIni("Map", "GenerateMaptiles", "True")
+            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
+            Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus true
+            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
+            Settings.SetIni("Map", "TexturePrims", "True")
+            Settings.SetIni("Map", "RenderMeshes", "True")
+        End If
+
+        ' Voice
+        If Settings.VivoxEnabled Then
+            Settings.SetIni("VivoxVoice", "enabled", "True")
+        Else
+            Settings.SetIni("VivoxVoice", "enabled", "False")
+        End If
+        Settings.SetIni("VivoxVoice", "vivox_admin_user", Settings.VivoxUserName)
+        Settings.SetIni("VivoxVoice", "vivox_admin_password", Settings.VivoxPassword)
 
         ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
         Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
@@ -1751,12 +2003,6 @@ Public Class RegionMaker
         End If
         Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
         Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
-
-        ' save the http listener port away for the group
-        'PropRegionClass.GroupPort(uuid) = PropRegionClass.RegionPort(uuid)
-
-        Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
-        Settings.SetIni("Const", "RegionFolderName", PropRegionClass.GroupName(uuid))
 
         ' Gloebit
         Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))

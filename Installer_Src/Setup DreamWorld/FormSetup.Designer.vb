@@ -174,7 +174,6 @@ Partial Class FormSetup
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.CreateUserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -553,7 +552,7 @@ Partial Class FormSetup
         '
         'UsersToolStripMenuItem
         '
-        Me.UsersToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddUserToolStripMenuItem, Me.ChangePasswordToolStripMenuItem, Me.ShowUserDetailsToolStripMenuItem, Me.CreateUserToolStripMenuItem})
+        Me.UsersToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddUserToolStripMenuItem, Me.ChangePasswordToolStripMenuItem, Me.ShowUserDetailsToolStripMenuItem})
         Me.UsersToolStripMenuItem.Name = "UsersToolStripMenuItem"
         Me.UsersToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.UsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Users_word
@@ -586,13 +585,13 @@ Partial Class FormSetup
         'AllUsersAllSimsToolStripMenuItem
         '
         Me.AllUsersAllSimsToolStripMenuItem.Name = "AllUsersAllSimsToolStripMenuItem"
-        Me.AllUsersAllSimsToolStripMenuItem.Size = New System.Drawing.Size(209, 26)
+        Me.AllUsersAllSimsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.AllUsersAllSimsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.All_Users_All_Sims_word
         '
         'JustOneRegionToolStripMenuItem
         '
         Me.JustOneRegionToolStripMenuItem.Name = "JustOneRegionToolStripMenuItem"
-        Me.JustOneRegionToolStripMenuItem.Size = New System.Drawing.Size(209, 26)
+        Me.JustOneRegionToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.JustOneRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Just_one_region_word
         '
         'DebugToolStripMenuItem
@@ -1252,12 +1251,6 @@ Partial Class FormSetup
         Me.GroupBox1.TabIndex = 55
         Me.GroupBox1.TabStop = False
         '
-        'CreateUserToolStripMenuItem
-        '
-        Me.CreateUserToolStripMenuItem.Name = "CreateUserToolStripMenuItem"
-        Me.CreateUserToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.CreateUserToolStripMenuItem.Text = "Create User"
-        '
         'FormSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
@@ -1443,5 +1436,4 @@ Partial Class FormSetup
     Friend WithEvents SearchForOarsAtOutworldzToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadLocalOARToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RestartAllRegionsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CreateUserToolStripMenuItem As ToolStripMenuItem
 End Class
