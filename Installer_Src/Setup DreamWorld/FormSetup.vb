@@ -48,7 +48,7 @@ Public Class FormSetup
     Private Const Hyperica As String = "Hyperica"
     Private Const ExitInterval As Integer = 2
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.794"
+    Private Const _MyVersion As String = "3.795"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private _jRev As String = "3.9.23"
@@ -959,7 +959,7 @@ Public Class FormSetup
         Dim WindowCounter As Integer = 0
         Try
             While myProcess.MainWindowHandle = IntPtr.Zero
-                Application.DoEvents()
+
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
@@ -978,7 +978,7 @@ Public Class FormSetup
         Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While True
             Dim status = SetWindowText(hwnd, windowName)
-            Application.DoEvents()
+
             myProcess.Refresh()
             If status And myProcess.MainWindowTitle = windowName Then
                 Exit While
@@ -989,7 +989,7 @@ Public Class FormSetup
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
-            Application.DoEvents()
+
             Thread.Sleep(100)
         End While
         Return True
@@ -2884,7 +2884,7 @@ Public Class FormSetup
         Dim p As Process = Nothing
 
         Do While TooMany < 20
-            Application.DoEvents()
+
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
