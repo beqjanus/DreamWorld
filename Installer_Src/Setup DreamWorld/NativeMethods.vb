@@ -23,9 +23,9 @@ Friend Module NativeMethods
     End Function
 
     Public Declare Function SetWindowPos Lib "user32" _
-            (ByVal hWnd As Long, ByVal hWndInsertAfter As Long,
-            ByVal x As Long, ByVal y As Long, ByVal cX As Long,
-            ByVal cY As Long, ByVal wFlags_ As Long) As Long
+            (ByVal hWnd As Integer, ByVal hWndInsertAfter As Integer,
+            ByVal x As Integer, ByVal y As Integer, ByVal cX As Integer,
+            ByVal cY As Integer, ByVal wFlags_ As Integer) As Long
 
 #Enable Warning CA2101 ' Specify marshaling for P/Invoke string arguments
 End Module

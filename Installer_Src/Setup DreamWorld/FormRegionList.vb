@@ -59,7 +59,7 @@ Public Class FormRegionlist
 
     Const NOSIZE As Long = &H1
 
-    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Long)
+    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
 
         On Error GoTo SetWindowOnTop_Err
 
@@ -565,8 +565,6 @@ SetWindowOnTop_Err:
 
             ViewBusy = True
             ListView1.BeginUpdate()
-
-            'CalcCPU()
 
             ImageListLarge1 = New ImageList()
 
@@ -1196,7 +1194,7 @@ SetWindowOnTop_Err:
                 Settings.ConsoleShow = "True"
                 FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE)
 
-                SetWindowOnTop(hwnd.ToInt64)
+                SetWindowOnTop(hwnd.ToInt32)
                 Settings.ConsoleShow = tmp
             End If
 

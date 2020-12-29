@@ -46,7 +46,7 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-    Private Const ExitInterval As Integer = 2
+    Private Const ExitInterval As Integer = 5
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.795"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
@@ -55,11 +55,11 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Declarations"
+    Dim searcher As ManagementObjectSearcher
+
+#Region "Private Declarations"
 
     Private ReadOnly _exitList As New Dictionary(Of String, String)
-
-    Dim searcher As ManagementObjectSearcher
     Private WithEvents BootProcess As New Process '= GetNewProcess()
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents IcecastProcess As New Process()
@@ -72,6 +72,7 @@ Public Class FormSetup
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
+
     Private _Adv As FormSettings
     Private _ApacheCrashCounter As Integer
     Private _ApacheExited As Boolean
@@ -80,7 +81,7 @@ Public Class FormSetup
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
-    Private _DNS_is_registered As Boolean
+    Private _DNSisRgistered As Boolean
     Private _DNSSTimer As Integer
     Private _ExitHandlerIsBusy As Boolean
     Private _ForceMerge As Boolean
@@ -116,13 +117,12 @@ Public Class FormSetup
     Private _UserName As String = ""
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
+    Private _BackupsRunning As Boolean
+    Private ScreenPosition As ScreenPos
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
-    Private _BackupsRunning As Boolean
-
-    Private ScreenPosition As ScreenPos
 
 #End Region
 
@@ -525,11 +525,11 @@ Public Class FormSetup
 
     Public Property PropViewedSettings As Boolean
         Get
-            Return _viewedSettings
+            Return ViewedSettings
         End Get
         Set(value As Boolean)
             Diagnostics.Debug.Print("ViewedSettings =" & value)
-            _viewedSettings = value
+            ViewedSettings = value
         End Set
     End Property
 
@@ -609,6 +609,78 @@ Public Class FormSetup
         End Get
         Set(value As ManagementObjectSearcher)
             searcher = value
+        End Set
+    End Property
+
+    Public Property ApacheCrashCounter As Integer
+        Get
+            Return _ApacheCrashCounter
+        End Get
+        Set(value As Integer)
+            _ApacheCrashCounter = value
+        End Set
+    End Property
+
+    Public Property DNSisRgistered As Boolean
+        Get
+            Return _DNSisRgistered
+        End Get
+        Set(value As Boolean)
+            _DNSisRgistered = value
+        End Set
+    End Property
+
+    Public Property MysqlCrashCounter As Integer
+        Get
+            Return _MysqlCrashCounter
+        End Get
+        Set(value As Integer)
+            _MysqlCrashCounter = value
+        End Set
+    End Property
+
+    Public Property IcecastCrashCounter As Integer
+        Get
+            Return _IcecastCrashCounter
+        End Get
+        Set(value As Integer)
+            _IcecastCrashCounter = value
+        End Set
+    End Property
+
+    Public Property RobustCrashCounter As Integer
+        Get
+            Return _RobustCrashCounter
+        End Get
+        Set(value As Integer)
+            _RobustCrashCounter = value
+        End Set
+    End Property
+
+    Public Property RobustIsStarting As Boolean
+        Get
+            Return _RobustIsStarting
+        End Get
+        Set(value As Boolean)
+            _RobustIsStarting = value
+        End Set
+    End Property
+
+    Public Property ViewedSettings As Boolean
+        Get
+            Return _viewedSettings
+        End Get
+        Set(value As Boolean)
+            _viewedSettings = value
+        End Set
+    End Property
+
+    Public Property BackupsRunning As Boolean
+        Get
+            Return _BackupsRunning
+        End Get
+        Set(value As Boolean)
+            _BackupsRunning = value
         End Set
     End Property
 
@@ -1052,6 +1124,18 @@ Public Class FormSetup
 
 #Region "Public Function"
 
+    Public Sub Buttons(b As Button)
+
+        If b Is Nothing Then Return
+        ' Turns off all 3 stacked buttons, then enables one of them
+        BusyButton.Visible = False
+        StopButton.Visible = False
+        StartButton.Visible = False
+
+        b.Visible = True
+
+    End Sub
+
     Public Shared Function AvatarsIsInGroup(groupname As String) As Boolean
 
         Dim present As Integer = 0
@@ -1063,18 +1147,9 @@ Public Class FormSetup
 
     End Function
 
-    Public Sub BackupDB()
+#End Region
 
-        If Not StartMySQL() Then
-            ToolBar(False)
-            Buttons(StartButton)
-            Print(My.Resources.Stopped_word)
-            Return
-        End If
-
-        Backups.SQLBackup()
-
-    End Sub
+#Region "BootUp"
 
     Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
@@ -1186,14 +1261,16 @@ Public Class FormSetup
 
         If ok Then
             Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
-            For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                PropRegionClass.ProcessID(UUID) = PID
-            Next
+
             If PID > 0 Then
                 SetWindowTextCall(BootProcess, GroupName)
             Else
                 BreakPoint.Show("No PID for " & GroupName)
             End If
+            PropInstanceHandles.Add(PID, GroupName)
+            For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                PropRegionClass.ProcessID(UUID) = PID
+            Next
             PropUpdateView = True ' make form refresh
             Buttons(StopButton)
             Return True
@@ -1204,18 +1281,6 @@ Public Class FormSetup
         Return False
 
     End Function
-
-    Public Sub Buttons(b As Button)
-
-        If b Is Nothing Then Return
-        ' Turns off all 3 stacked buttons, then enables one of them
-        BusyButton.Visible = False
-        StopButton.Visible = False
-        StartButton.Visible = False
-
-        b.Visible = True
-
-    End Sub
 
 #Region "Updater"
 
@@ -1617,6 +1682,7 @@ Public Class FormSetup
                     End If
                     Application.DoEvents()
                 Next
+
                 ExitHandlerPoll()
 
                 If CountisRunning = 1 Then
@@ -1824,7 +1890,7 @@ Public Class FormSetup
             Return False
         End If
 
-        If _DNS_is_registered And Not force Then Return True
+        If DNSisRgistered And Not force Then Return True
 
         Dim client As New WebClient ' download client for web pages
         Try
@@ -1842,7 +1908,7 @@ Public Class FormSetup
         End Try
 
         If Checkname = "UPDATE" Then
-            _DNS_is_registered = True
+            DNSisRgistered = True
             Return True
         End If
         If Checkname = "NAK" Then
@@ -2451,7 +2517,7 @@ Public Class FormSetup
 
         If Not StartMySQL() Then Return False ' prerequsite
         ' prevent recursion
-        If _RobustIsStarting Then
+        If RobustIsStarting Then
             Return True
         End If
 
@@ -2497,7 +2563,7 @@ Public Class FormSetup
             Return True
         End If
 
-        _RobustIsStarting = True
+        RobustIsStarting = True
 
         PropRobustProcID = 0
 
@@ -2535,7 +2601,7 @@ Public Class FormSetup
             KillAll()
             Buttons(StartButton)
             RobustIs(False)
-            _RobustIsStarting = False
+            RobustIsStarting = False
             Return False
         End Try
 
@@ -2543,7 +2609,7 @@ Public Class FormSetup
         If PropRobustProcID = 0 Then
             RobustIs(False)
             Log("Error", Global.Outworldz.My.Resources.Robust_failed_to_start)
-            _RobustIsStarting = False
+            RobustIsStarting = False
             Return False
         End If
 
@@ -2575,14 +2641,14 @@ Public Class FormSetup
                 Buttons(StartButton)
 
                 RobustIs(False)
-                _RobustIsStarting = False
+                RobustIsStarting = False
                 Return False
             End If
 
             Sleep(100)
         End While
 
-        _RobustIsStarting = False
+        RobustIsStarting = False
 
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
 
@@ -2884,7 +2950,6 @@ Public Class FormSetup
         Dim p As Process = Nothing
 
         Do While TooMany < 20
-
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
@@ -3165,12 +3230,12 @@ Public Class FormSetup
         If PropAborting Then Return
         If PropApacheUninstalling Then Return
 
-        If Settings.RestartOnCrash And _ApacheCrashCounter < 10 Then
-            _ApacheCrashCounter += 1
+        If Settings.RestartOnCrash And ApacheCrashCounter < 10 Then
+            ApacheCrashCounter += 1
             PropApacheExited = True
             Return
         End If
-        _ApacheCrashCounter = 0
+        ApacheCrashCounter = 0
         PropgApacheProcessID = Nothing
 
         Dim yesno = MsgBox(My.Resources.Apache_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
@@ -4868,6 +4933,15 @@ Public Class FormSetup
 
 #Region "Help"
 
+    Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
+        Dim webAddress As String = PropDomain & "/Outworldz_installer/technical.htm"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+    End Sub
+
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
         If sender.Text.toupper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then HelpManual(CStr(sender.Text))
@@ -4930,12 +5004,12 @@ Public Class FormSetup
 
         If PropAborting Then Return
 
-        If Settings.RestartOnCrash And _IcecastCrashCounter < 10 Then
-            _IcecastCrashCounter += 1
+        If Settings.RestartOnCrash And IcecastCrashCounter < 10 Then
+            IcecastCrashCounter += 1
             PropIceCastExited = True
             Return
         End If
-        _IcecastCrashCounter = 0
+        IcecastCrashCounter = 0
 
         Dim yesno = MsgBox(My.Resources.Icecast_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
 
@@ -4973,7 +5047,7 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Exit"
+#Region "Kill"
 
     Private Sub KillOldFiles()
 
@@ -5170,12 +5244,12 @@ Public Class FormSetup
 
         If PropAborting Then Return
 
-        If Settings.RestartOnCrash And _MysqlCrashCounter < 10 Then
-            _MysqlCrashCounter += 1
+        If Settings.RestartOnCrash And MysqlCrashCounter < 10 Then
+            MysqlCrashCounter += 1
             PropMysqlExited = True
             Return
         End If
-        _MysqlCrashCounter = 0
+        MysqlCrashCounter = 0
         Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
         Dim files As Array = Nothing
         Try
@@ -5621,12 +5695,12 @@ Public Class FormSetup
             Return
         End If
 
-        If Settings.RestartOnCrash And _RobustCrashCounter < 10 Then
+        If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
             PropRobustExited = True
-            _RobustCrashCounter += 1
+            RobustCrashCounter += 1
             Return
         End If
-        _RobustCrashCounter = 0
+        RobustCrashCounter = 0
         RobustIs(False)
 
         Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
@@ -6038,14 +6112,7 @@ Public Class FormSetup
 
 #End Region
 
-    Private Sub TechnicalInfoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TechnicalInfoToolStripMenuItem.Click
-        Dim webAddress As String = PropDomain & "/Outworldz_installer/technical.htm"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-    End Sub
+#Region "Diagnostics"
 
     Private Sub TestAllRegionPorts()
 
@@ -6116,6 +6183,10 @@ Public Class FormSetup
 
     End Sub
 
+#End Region
+
+#Region "Scrolling textbox"
+
     Private Sub TextBox1_TextChanged(sender As System.Object, e As EventArgs) Handles TextBox1.TextChanged
         Dim ln As Integer = TextBox1.Text.Length
         TextBox1.SelectionStart = ln
@@ -6127,6 +6198,10 @@ Public Class FormSetup
             TextBox1.Text = Mid(TextBox1.Text, 500)
         End If
     End Sub
+
+#End Region
+
+#Region "Updater"
 
     Private Sub UpdaterGo(Filename As String)
 
@@ -6151,6 +6226,8 @@ Public Class FormSetup
 
     End Sub
 
+#End Region
+
 #Region "Timer"
 
     ''' <summary>
@@ -6168,6 +6245,7 @@ Public Class FormSetup
 
         Chart() ' do charts collection each second
         Application.DoEvents()
+
         If Not PropOpensimIsRunning() Then
             Timer1.Stop()
             TimerBusy = 0
@@ -6183,7 +6261,6 @@ Public Class FormSetup
         If PropDNSSTimer Mod 10 = 0 And PropDNSSTimer > 0 Then
             CalcCPU() ' get a list of running opensim processes
             Application.DoEvents()
-            CheckOnBackups()
         End If
 
         ' print hourly marks on console
@@ -6191,31 +6268,27 @@ Public Class FormSetup
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
-            Application.DoEvents()
             RegisterName(Settings.DNSName, True)
             Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
             For Each part As String In array
                 RegisterName(part, True)
-                Application.DoEvents()
             Next
             ExpireApacheLogs()
+            Application.DoEvents()
         End If
 
         If PropDNSSTimer Mod 60 = 0 Then
             ScanAgents() ' update agent count  seconds
-            Application.DoEvents()
             RegionListHTML() ' create HTML for older 2.4 region teleport
-            Application.DoEvents()
             Backups.RunBackups()
+            Application.DoEvents()
         End If
 
         If PropDNSSTimer Mod ExitInterval = 0 And PropDNSSTimer > 0 Then
             PropRegionClass.CheckPost() ' get the stack filled ASAP
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
-            Application.DoEvents()
             RestartDOSboxes()
             Application.DoEvents()
-            ExpireApacheLogs()
         End If
 
         PropDNSSTimer += 1
@@ -6226,10 +6299,10 @@ Public Class FormSetup
     Private Sub CheckOnBackups()
 
         Dim q = BackupRunning()
-        If q And Not _BackupsRunning Then
-            _BackupsRunning = True
-        ElseIf Not q And _BackupsRunning Then
-            _BackupsRunning = False
+        If q And Not BackupsRunning Then
+            BackupsRunning = True
+        ElseIf Not q And BackupsRunning Then
+            BackupsRunning = False
             Dim currentdatetime As Date
             currentdatetime = Date.Now
             Print(currentdatetime.ToLocalTime & " Backup Finished")

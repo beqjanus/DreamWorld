@@ -15,6 +15,19 @@ Module Backups
     Private _folder As String
     Private _filename As String
 
+    Public Sub BackupDB()
+
+        If Not FormSetup.StartMySQL() Then
+            FormSetup.ToolBar(False)
+            FormSetup.Buttons(FormSetup.StartButton)
+            FormSetup.Print(My.Resources.Stopped_word)
+            Return
+        End If
+
+        Backups.SQLBackup()
+
+    End Sub
+
     Public Sub ClearFlags()
 
         _Busy = False

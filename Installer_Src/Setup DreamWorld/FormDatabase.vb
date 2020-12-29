@@ -305,7 +305,7 @@ Public Class FormDatabase
 
     Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
 
-        FormSetup.BackupDB()
+        BackupDB()
 
     End Sub
 
