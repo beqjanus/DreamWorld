@@ -4,9 +4,9 @@ Imports Newtonsoft.Json
 
 Public Class FormOAR
 
+    Dim SearchBusy As Boolean
     Dim TimerBusy As Boolean
     Dim WebThread As Thread
-    Dim SearchBusy As Boolean
 
 #Region "JSON"
 
@@ -588,13 +588,13 @@ Public Class FormOAR
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
+
         If Not TimerBusy Then InitiateThread()
-        If TimerBusy Then Return
         TimerBusy = True
         If WebThread.IsAlive Then Return
         Timer1.Stop()
-        Search()
         TimerBusy = False
+        Search()
 
     End Sub
 
