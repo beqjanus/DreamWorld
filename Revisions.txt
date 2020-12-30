@@ -2,6 +2,18 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.795
+Intermittent crash popup at startup fixed. 
+Added a topmost setting for The Region list to keep it on top of everything
+Sorting of Region List both directions by clicking the header.
+Format RAM in Region List as Mib = 1024 bytes, reduce CPU usage and fix an inconsistency in Groups with more than one region in memory use.
+Want user if try to quit while qa backup is still running. Also prints that the backup has finished.
+Updater can be updated
+Apache logs expire with the "Keep For Days" setting
+Threw out three years of work on Restart logic and rebuilt it all using XMLRPC and detecting process Window names. 
+
+
+
 V3.794
 Auto Restart now handles region restarts if the GUI has been restarted. Users can reliably restart a region.
 Speedup: Only as many Performance counters as necessary, for umm, performance!
