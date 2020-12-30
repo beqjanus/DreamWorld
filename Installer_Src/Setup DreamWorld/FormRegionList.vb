@@ -52,8 +52,6 @@ Public Class FormRegionlist
 #End Region
 
 #Region "Const"
-    Dim _order As SortOrder
-    Private _SortColumn As Integer
 
     '// Constants
     Const HWND_TOP As Integer = 0
@@ -63,8 +61,10 @@ Public Class FormRegionlist
     Const NOMOVE As Long = &H2
 
     Const NOSIZE As Long = &H1
-#End Region
+    Dim _order As SortOrder
+    Private _SortColumn As Integer
 
+#End Region
 
 #Region "Properties"
 
@@ -271,6 +271,11 @@ Public Class FormRegionlist
 
 #Region "Loader"
 
+    Private Shared Sub DoubleBuff(ByVal control As Control, ByVal enable As Boolean)
+        Dim doubleBufferPropertyInfo = control.[GetType]().GetProperty("DoubleBuffered", BindingFlags.Instance Or BindingFlags.NonPublic)
+        doubleBufferPropertyInfo.SetValue(control, enable, Nothing)
+    End Sub
+
     Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
         Settings.RegionListVisible = False
@@ -281,13 +286,7 @@ Public Class FormRegionlist
 
     End Sub
 
-    Private Shared Sub DoubleBuff(ByVal control As Control, ByVal enable As Boolean)
-        Dim doubleBufferPropertyInfo = control.[GetType]().GetProperty("DoubleBuffered", BindingFlags.Instance Or BindingFlags.NonPublic)
-        doubleBufferPropertyInfo.SetValue(control, enable, Nothing)
-    End Sub
-
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
 
         AddRegionButton.Text = Global.Outworldz.My.Resources.Resources.Add_word
         AllNone.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
@@ -927,7 +926,7 @@ Public Class FormRegionlist
 
         '// Determine if clicked column Is already the column that is being sorted.
         If e.Column = _SortColumn Then
-            '   // Reverse the current sort direction for this column.
+            ' // Reverse the current sort direction for this column.
             If (_order = SortOrder.Ascending) Then
                 _order = SortOrder.Descending
             Else
@@ -1081,20 +1080,6 @@ Public Class FormRegionlist
 
 #Region "Private Methods"
 
-
-    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
-
-        On Error GoTo SetWindowOnTop_Err
-
-        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
-
-SetWindowOnTop_Exit:
-        Exit Sub
-
-SetWindowOnTop_Err:
-        Resume SetWindowOnTop_Exit
-
-    End Sub
     Private Shared Function LoadImage(S As String) As Image
 
         Dim bmp As Bitmap = Nothing
@@ -1122,6 +1107,20 @@ SetWindowOnTop_Err:
         Return bmp
 
     End Function
+
+    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
+
+        On Error GoTo SetWindowOnTop_Err
+
+        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
+
+SetWindowOnTop_Exit:
+        Exit Sub
+
+SetWindowOnTop_Err:
+        Resume SetWindowOnTop_Exit
+
+    End Sub
 
     Private Shared Sub StartStopEdit(RegionUUID As String, RegionName As String)
 
@@ -1415,6 +1414,7 @@ SetWindowOnTop_Err:
         AvatarView.Hide()
         ListView1.CheckBoxes = False
         Timer1.Stop()
+        ViewBusy = False
         LoadMyListView()
 
     End Sub
