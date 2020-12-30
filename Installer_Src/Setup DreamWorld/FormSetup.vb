@@ -1,4 +1,4 @@
-#Region "To do"
+﻿#Region "To do"
 
 #End Region
 
@@ -46,7 +46,6 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-    Private Const ExitInterval As Integer = 2
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.795"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
@@ -59,6 +58,7 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
+    Private ExitInterval As Integer = 2
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private WithEvents BootProcess As New Process '= GetNewProcess()
     Private WithEvents ApacheProcess As New Process()
@@ -725,19 +725,16 @@ Public Class FormSetup
 
         End If
 
-        Dim counter = 20
-        While counter > 0
-            Dim AllProcesses = Process.GetProcessesByName("Opensim")
-            For Each p As Process In AllProcesses
-                If p.MainWindowTitle = Groupname Then
-                    p.Refresh()
-                    Return p.MainWindowHandle
-                End If
-                Application.DoEvents()
-            Next
-            Sleep(100)
-            counter -= 1
-        End While
+
+        Dim AllProcesses = Process.GetProcessesByName("Opensim")
+        For Each p As Process In AllProcesses
+            If p.MainWindowTitle = Groupname Then
+                p.Refresh()
+                Return p.MainWindowHandle
+            End If
+            Application.DoEvents()
+        Next
+
         Return IntPtr.Zero
 
     End Function
@@ -751,6 +748,7 @@ Public Class FormSetup
             Try
                 result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
                 success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5))
+                Application.DoEvents()
                 ClientSocket.EndConnect(result)
             Catch ex As Exception
                 ' no Breakpoint needed
@@ -4032,8 +4030,20 @@ Public Class FormSetup
 
     Private Sub ExitHandlerPoll()
 
-        If PropExitHandlerIsBusy Then Return
+        If PropExitHandlerIsBusy Then
+            ExitInterval += 1
+            If ExitInterval > 15 Then
+                ExitInterval = 15
+            End If
+            Return
+        End If
         PropExitHandlerIsBusy = True
+
+        ExitInterval -= 1
+        If ExitInterval < 1 Then
+            ExitInterval = 1
+        End If
+
 
         Dim GroupName As String = ""
         Dim TimerValue As Integer
@@ -4053,7 +4063,6 @@ Public Class FormSetup
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
-
             If CBool(PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
@@ -4088,7 +4097,7 @@ Public Class FormSetup
             If PropOpensimIsRunning() Then
 
                 'Stopped = 0
-                'Booting = 1
+                'Booting = 1fv
                 'Booted = 2
                 'RecyclingUp = 3
                 'RecyclingDown = 4
@@ -4189,6 +4198,7 @@ Public Class FormSetup
         ' now look at the exit stack
         While PropExitList.Count > 0
 
+            Application.DoEvents()
             GroupName = PropExitList.Keys.First
             Dim Reason = PropExitList.Item(GroupName)
             PropExitList.Remove(GroupName)
@@ -7280,3 +7290,5 @@ Public Class FormSetup
 #End Region
 
 End Class
+
+
