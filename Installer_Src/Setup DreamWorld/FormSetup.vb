@@ -46,7 +46,7 @@ Public Class FormSetup
     Private Const MySqlRev = "5.6.5"
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
-    Private Const ExitInterval As Integer = 5
+    Private Const ExitInterval As Integer = 2
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.795"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
@@ -725,7 +725,7 @@ Public Class FormSetup
 
         End If
 
-        Dim counter = 10
+        Dim counter = 20
         While counter > 0
             Dim AllProcesses = Process.GetProcessesByName("Opensim")
             For Each p As Process In AllProcesses
@@ -735,7 +735,7 @@ Public Class FormSetup
                 End If
                 Application.DoEvents()
             Next
-            Sleep(1000)
+            Sleep(100)
             counter -= 1
         End While
         Return IntPtr.Zero

@@ -48,8 +48,6 @@ Public Class FormRegionlist
         Avatars = 3
     End Enum
 
-#End Region
-
     '// Constants
     Const HWND_TOP As Integer = 0
 
@@ -58,20 +56,10 @@ Public Class FormRegionlist
     Const NOMOVE As Long = &H2
 
     Const NOSIZE As Long = &H1
+#End Region
 
-    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
 
-        On Error GoTo SetWindowOnTop_Err
 
-        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
-
-SetWindowOnTop_Exit:
-        Exit Sub
-
-SetWindowOnTop_Err:
-        Resume SetWindowOnTop_Exit
-
-    End Sub
 
 #Region "Properties"
 
@@ -1073,6 +1061,20 @@ SetWindowOnTop_Err:
 
 #Region "Private Methods"
 
+
+    Private Shared Sub SetWindowOnTop(ByVal lhWnd As Int32)
+
+        On Error GoTo SetWindowOnTop_Err
+
+        SetWindowPos(lhWnd, HWND_TOP, 0, 0, 0, 0, NOMOVE Or NOSIZE)
+
+SetWindowOnTop_Exit:
+        Exit Sub
+
+SetWindowOnTop_Err:
+        Resume SetWindowOnTop_Exit
+
+    End Sub
     Private Shared Function LoadImage(S As String) As Image
 
         Dim bmp As Bitmap = Nothing
@@ -1082,14 +1084,14 @@ SetWindowOnTop_Err:
         Try
             response = request.GetResponse()
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            ' BreakPoint.Show(ex.Message)
         End Try
 
         Dim responseStream As System.IO.Stream = Nothing
         Try
             responseStream = response.GetResponseStream()
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            'BreakPoint.Show(ex.Message)
         End Try
 
         If responseStream IsNot Nothing Then
