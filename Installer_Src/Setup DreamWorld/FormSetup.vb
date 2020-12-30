@@ -725,15 +725,19 @@ Public Class FormSetup
 
         End If
 
-        Dim AllProcesses = Process.GetProcessesByName("Opensim")
-        For Each p As Process In AllProcesses
-            If p.MainWindowTitle = Groupname Then
-                p.Refresh()
-                Return p.MainWindowHandle
-            End If
-            Application.DoEvents()
-        Next
-
+        Dim counter = 10
+        While counter > 0
+            Dim AllProcesses = Process.GetProcessesByName("Opensim")
+            For Each p As Process In AllProcesses
+                If p.MainWindowTitle = Groupname Then
+                    p.Refresh()
+                    Return p.MainWindowHandle
+                End If
+                Application.DoEvents()
+            Next
+            Sleep(1000)
+            counter -= 1
+        End While
         Return IntPtr.Zero
 
     End Function
@@ -1192,6 +1196,7 @@ Public Class FormSetup
                 Logger("Suspended, Resuming it", BootName, "Restart")
 
                 Dim PID As Integer = GetPIDofWindow(GroupName)
+                If Not PropInstanceHandles.ContainsKey(PID) Then PropInstanceHandles.Add(PID, GroupName)
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
@@ -1204,6 +1209,7 @@ Public Class FormSetup
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already up")
 
                 Dim PID As Integer = GetPIDofWindow(GroupName)
+                If Not PropInstanceHandles.ContainsKey(PID) Then PropInstanceHandles.Add(PID, GroupName)
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
                     PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
@@ -1246,11 +1252,6 @@ Public Class FormSetup
         SequentialPause()   ' wait for previous region to give us some CPU
         Logger("Booting", GroupName, "Restart")
 
-        ' Mark them before we boot as a crash will immediately trigger the event that it exited
-        For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
-        Next
-
         Dim ok As Boolean = False
         Try
             ok = BootProcess.Start
@@ -1264,10 +1265,15 @@ Public Class FormSetup
 
             If PID > 0 Then
                 SetWindowTextCall(BootProcess, GroupName)
+                If Not PropInstanceHandles.ContainsKey(PID) Then PropInstanceHandles.Add(PID, GroupName)
+                ' Mark them before we boot as a crash will immediately trigger the event that it exited
+                For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
+                Next
             Else
                 BreakPoint.Show("No PID for " & GroupName)
             End If
-            PropInstanceHandles.Add(PID, GroupName)
+
             For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                 PropRegionClass.ProcessID(UUID) = PID
             Next
