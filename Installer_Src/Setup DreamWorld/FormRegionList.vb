@@ -21,6 +21,7 @@
 #End Region
 
 Imports System.IO
+Imports System.Reflection
 Imports System.Text.RegularExpressions
 
 Public Class FormRegionlist
@@ -280,7 +281,13 @@ Public Class FormRegionlist
 
     End Sub
 
+    Private Shared Sub DoubleBuff(ByVal control As Control, ByVal enable As Boolean)
+        Dim doubleBufferPropertyInfo = control.[GetType]().GetProperty("DoubleBuffered", BindingFlags.Instance Or BindingFlags.NonPublic)
+        doubleBufferPropertyInfo.SetValue(control, enable, Nothing)
+    End Sub
+
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
 
         AddRegionButton.Text = Global.Outworldz.My.Resources.Resources.Add_word
         AllNone.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
@@ -322,6 +329,7 @@ Public Class FormRegionlist
         AllNone.Checked = True
 
         ListView1.Visible = False
+        DoubleBuff(ListView1, True)
         ListView1.LabelWrap = True
         ListView1.AutoArrange = True
 

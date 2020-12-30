@@ -34,7 +34,9 @@ Module CPUCounter
                                 c.NextValue() ' start the counter
                             End Using
                         Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
+                            CounterList.Remove(Gname)
+                            CPUValues.Remove(Gname)
+                            Continue For
                         End Try
                     End If
 
