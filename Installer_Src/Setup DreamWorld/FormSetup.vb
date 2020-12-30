@@ -2573,7 +2573,7 @@ Public Class FormSetup
 
         PropRobustProcID = 0
 
-        DoRobust()
+        If DoRobust() Then Return False
 
         Log("INFO", "Setup Log levels")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
@@ -3715,7 +3715,7 @@ Public Class FormSetup
 
         Print("->Set Robust")
 
-        DoSetDefaultSims()
+        If DoSetDefaultSims() Then Return True
 
         ' Robust Process
         If Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";") Then
@@ -5061,7 +5061,9 @@ Public Class FormSetup
         "\Shoutcast", ' deprecated
         "\Icecast",   ' moved to Outworldzfiles
         "\Outworldzfiles\Opensim\bin\addins",' moved to Outworldzfiles
-        "\Outworldzfiles\Opensim\bin\addin-db-002" ' must be cleared or opensim updates can break.
+        "\Outworldzfiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
+        "\Outworldzfiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
+        "\Outworldzfiles\Opensim\bin\addin-db" ' must be cleared or opensim updates can break.
         }
 
         If PropKillSource Then
@@ -5495,7 +5497,7 @@ Public Class FormSetup
             PropRobustExited = False
             RobustIs(False)
             If Not IsRobustRunning() Then
-                StartRobust()
+                If Not StartRobust() Then Return
             End If
         End If
 
@@ -7226,8 +7228,8 @@ Public Class FormSetup
     Public Sub RestartAllRegions()
 
         PropOpensimIsRunning() = True
-        StartMySQL()
-        StartRobust()
+        If Not StartMySQL() Then Return
+        If Not StartRobust() Then Return
         Timer1.Interval = 1000
         Timer1.Start() 'Timer starts functioning
         TimerBusy = 0
