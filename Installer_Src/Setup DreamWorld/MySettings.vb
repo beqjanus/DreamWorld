@@ -192,7 +192,7 @@ Public Class MySettings
             End If
             Return bool
         ElseIf V = "String" Then
-            Return Variable
+            Return Variable.Trim
         ElseIf V = "Double" Then
             Dim DBL As Double
             If Not Double.TryParse(Variable, DBL) Then
@@ -223,7 +223,7 @@ Public Class MySettings
             Dim value = Stripqq(MyData("Data")(key))
             If value = Nothing Then value = D
 #Disable Warning CA1062 ' Validate arguments of public methods
-            Return value.ToString(Globalization.CultureInfo.InvariantCulture)
+            Return value.ToString(Globalization.CultureInfo.InvariantCulture).Trim
 #Enable Warning CA1062 ' Validate arguments of public methods
         Catch ex As Exception
             BreakPoint.Show(ex.Message)

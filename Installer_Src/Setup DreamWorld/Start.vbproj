@@ -534,6 +534,7 @@
     <Compile Include="FormVoice.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Sorter.vb" />
     <Compile Include="UploadImage.vb" />
     <Compile Include="WordWrap.vb" />
   </ItemGroup>

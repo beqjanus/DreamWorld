@@ -50,6 +50,9 @@ Public Class FormRegionlist
 
 #End Region
 
+    Dim _order As SortOrder
+    Private _SortColumn As Integer
+
     '// Constants
     Const HWND_TOP As Integer = 0
 
@@ -367,9 +370,6 @@ SetWindowOnTop_Err:
         ' Allow the user to rearrange columns.
         ListView1.AllowColumnReorder = True
         AvatarView.AllowColumnReorder = False
-
-        Me.ListView1.ListViewItemSorter = New ListViewItemComparer(2)
-        Me.AvatarView.ListViewItemSorter = New ListViewItemComparer(1)
 
         ' Select the item and sub items when selection is made.
         ListView1.FullRowSelect = True
@@ -928,12 +928,23 @@ SetWindowOnTop_Err:
     ' ColumnClick event handler.
     Private Sub ColumnClick(ByVal o As Object, ByVal e As ColumnClickEventArgs)
 
-        ListView1.SuspendLayout()
-        Me.ListView1.Sorting = SortOrder.None
+        '// Determine if clicked column Is already the column that is being sorted.
+        If e.Column = _SortColumn Then
+            '   // Reverse the current sort direction for this column.
+            If (_order = SortOrder.Ascending) Then
+                _order = SortOrder.Descending
+            Else
+                _order = SortOrder.Ascending
+            End If
+        Else
+            _order = SortOrder.Ascending
+        End If
 
-        ' Set the ListViewItemSorter property to a new ListViewItemComparer object. Setting this property immediately sorts the ListView using the ListViewItemComparer object.
-        Me.ListView1.ListViewItemSorter = New ListViewItemComparer(e.Column)
+        Me.ListView1.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
 
+        _SortColumn = e.Column
+
+        ListView1.Sort()
         ListView1.ResumeLayout()
 
     End Sub
@@ -1495,47 +1506,3 @@ SetWindowOnTop_Err:
 #End Region
 
 End Class
-
-#Region "Compare"
-
-' Implements the manual sorting of items by columns.
-Class ListViewItemComparer
-    Implements IComparer
-#Disable Warning IDE0044 ' Add readonly modifier
-
-#Region "Private Fields"
-
-    Private col As Integer
-
-#End Region
-
-#Enable Warning IDE0044 ' Add readonly modifier
-
-#Region "Public Constructors"
-
-    Public Sub New()
-        col = 1
-    End Sub
-
-    Public Sub New(ByVal column As Integer)
-        col = column
-    End Sub
-
-#End Region
-
-#Region "Public Methods"
-
-    Public Function Compare(ByVal x As Object, ByVal y As Object) As Integer Implements IComparer.Compare
-
-        Dim a = CType(x, ListViewItem).SubItems(col).Text
-        Dim b = CType(y, ListViewItem).SubItems(col).Text
-
-        Return [String].Compare(a, b, StringComparison.InvariantCultureIgnoreCase)
-
-    End Function
-
-#End Region
-
-End Class
-
-#End Region

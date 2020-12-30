@@ -73,6 +73,7 @@ Public Class RegionMaker
         Get
             If (FInstance Is Nothing) Then
                 FInstance = New RegionMaker()
+                FInstance.Init()
             End If
             Return FInstance
         End Get
@@ -82,25 +83,21 @@ Public Class RegionMaker
 
 #Region "Start/Stop"
 
-    ''' <summary>
-    ''' TO DO catch caller error
-    ''' </summary>
-    ''' <returns>-1 if fails</returns>
-    Private Sub New()
+    Public Function Init() As Boolean
 
-        If GetAllRegions() = -1 Then Return
+        If GetAllRegions() = -1 Then Return False
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
             Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome")
             Settings.WelcomeRegion = "Welcome"
             Settings.SaveSettings()
-            GetAllRegions()
+            If GetAllRegions() <= 0 Then Return False
         End If
         Debug.Print("Loaded " + CStr(RegionCount) + " Regions")
-        Return
+        Return True
 
-    End Sub
+    End Function
 
     Public Sub ClearStack()
 
@@ -369,6 +366,8 @@ Public Class RegionMaker
                 regionfolders = Directory.GetDirectories(FolderName)
                 For Each FileName As String In regionfolders
 
+                    If FileName.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Continue For
+
                     Dim fName = ""
                     Try
                         Dim inis() As String = Nothing
@@ -424,8 +423,8 @@ Public Class RegionMaker
                             ' Location is int,int format.
                             Dim C As String = CStr(Settings.GetIni(fName, "Location", RandomNumber.Between(1010, 990) & "," & RandomNumber.Between(2000, 1000)))
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
-                            CoordX(uuid) = CInt("0" & CStr(parts(0)))
-                            CoordY(uuid) = CInt("0" & CStr(parts(1)))
+                            CoordX(uuid) = CInt("0" & CStr(parts(0).Trim))
+                            CoordY(uuid) = CInt("0" & CStr(parts(1).Trim))
 
                             ' options parameters coming from INI file can be blank!
                             MinTimerInterval(uuid) = CStr(Settings.GetIni(fName, "MinTimerInterval", "", "String"))
