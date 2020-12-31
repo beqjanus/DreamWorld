@@ -241,11 +241,6 @@ Public Class RegionMaker
                         End Try
                     Next
 
-                    If Settings.ConsoleShow = "False" Or Settings.ConsoleShow = "None" Then
-                        Dim hwnd = FormSetup.GetHwnd(GroupName(uuid))
-                        FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
-                    End If
-
                 ElseIf json.login = "shutdown" Then
 
                     FormSetup.Logger("Shutdown", json.region_name, "Restart")

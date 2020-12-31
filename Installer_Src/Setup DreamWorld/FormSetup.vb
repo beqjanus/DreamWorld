@@ -931,6 +931,7 @@ Public Class FormSetup
         If Groupname = RobustName() Then
             For Each pList As Process In Process.GetProcessesByName("Robust")
                 If pList.ProcessName = "Robust" Then
+                    pList.Refresh()
                     Return pList.MainWindowHandle
                 End If
             Next
@@ -1030,17 +1031,17 @@ Public Class FormSetup
             ErrorLog("Process is nothing " & windowName)
             Return False
         End If
-
+        myProcess.Refresh()
         Dim WindowCounter As Integer = 0
         Try
             While myProcess.MainWindowHandle = IntPtr.Zero
-
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
                     Return False
                 End If
                 Sleep(100)
+                myProcess.Refresh()
             End While
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -1233,6 +1234,7 @@ Public Class FormSetup
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
+                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
 
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
                 PropUpdateView = True ' make form refresh
@@ -1247,7 +1249,7 @@ Public Class FormSetup
                     PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
-
+                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
@@ -1384,23 +1386,13 @@ Public Class FormSetup
         If command Is Nothing Then Return False
         If command.Length > 0 Then
 
-            Dim ShowDosBox As Boolean = True
-            Select Case Settings.ConsoleShow
-                Case "True"
-                    ShowDosBox = True
-                Case "False"
-                    ShowDosBox = True
-                Case ""
-                    ShowDosBox = False
-            End Select
-
             Dim PID As Integer
             If RegionUUID <> RobustName() And RegionUUID <> "Robust" Then
 
                 PID = PropRegionClass.ProcessID(RegionUUID)
                 Try
-                    If PID > 0 And ShowDosBox Then
-                        ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+                    If PID > 0 Then
+                        ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     End If
                 Catch ex As Exception
                     Return False
@@ -1408,7 +1400,7 @@ Public Class FormSetup
             Else ' Robust
                 PID = PropRobustProcID
                 Try
-                    If ShowDosBox Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWRESTORE)
+                    ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                     Return False
@@ -1431,14 +1423,7 @@ Public Class FormSetup
                     SendKeys.SendWait(ToLowercaseKeys("{ENTER}"))
                     SendKeys.SendWait(ToLowercaseKeys(command))
 
-                    Select Case Settings.ConsoleShow
-                        Case "True"
-                        ' do nothing, already up
-                        Case "False"
-                            ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
-                        Case ""
-                            ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
-                    End Select
+                    ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
                 Catch ex As Exception
                     Return False
                 End Try
@@ -1930,7 +1915,7 @@ Public Class FormSetup
     End Function
 
     Public Sub SendMsg(msg As String)
-        Dim hwnd As IntPtr
+
         Dim l As New List(Of String)
         If PropOpensimIsRunning() Then
             For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -1939,14 +1924,11 @@ Public Class FormSetup
                     l.Add(PropRegionClass.GroupName(RegionUUID))
                     If PropRegionClass.IsBooted(RegionUUID) Then
                         ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
-                        hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                        ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
                     End If
                 End If
 
             Next
             ConsoleCommand(RobustName, "set log level " & msg & "{ENTER}" & vbCrLf)
-            ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
         End If
 
         Settings.LogLevel = msg
@@ -2314,15 +2296,6 @@ Public Class FormSetup
         IcecastProcess.StartInfo.CreateNoWindow = False
         IcecastProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast")
 
-        Select Case Settings.ConsoleShow
-            Case "True"
-                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case "False"
-                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case "None"
-                IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-        End Select
-
         Try
             IcecastProcess.Start()
         Catch ex As Exception
@@ -2339,7 +2312,8 @@ Public Class FormSetup
         End If
 
         SetWindowTextCall(IcecastProcess, "Icecast")
-        ShowDOSWindow(IcecastProcess.MainWindowHandle, SHOWWINDOWENUM.SWMINIMIZE)
+
+        ShowDOSWindow(IcecastProcess.MainWindowHandle, MaybeHideWindow)
         IceCastIs(True)
 
         PropIceCastExited = False
@@ -2604,7 +2578,7 @@ Public Class FormSetup
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
 
-        Do While TooMany < 20
+        Do While TooMany < 60
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
@@ -2716,32 +2690,14 @@ Public Class FormSetup
 
                 p.EnableRaisingEvents = True
                 AddHandler p.Exited, AddressOf RobustProcess_Exited
-
-                Select Case Settings.ConsoleShow
-                    Case "True"
-                    ' Do nothing, Always Show
-                    Case "False"
-                        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
-                    Case "None"
-                        ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
-                End Select
-
+                ShowDOSWindow(GetHwnd(RobustName), MaybeShowWindow())
                 Return True
             End If
         Next
 
         ' Check the HTTP port
         If IsRobustRunning() Then
-
-            Select Case Settings.ConsoleShow
-                Case "True"
-                    ' Do nothing, Always Show
-                Case "False"
-                    ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
-                Case "None"
-                    ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
-            End Select
-
+            ShowDOSWindow(GetHwnd(RobustName), MaybeShowWindow())
             Return True
         End If
 
@@ -2832,18 +2788,8 @@ Public Class FormSetup
         End While
 
         RobustIsStarting = False
-
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
-
-        Select Case Settings.ConsoleShow
-            Case "True"
-                ' Do nothing, Always Show
-            Case "False"
-                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
-            Case "None"
-                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
-        End Select
-
+        ShowDOSWindow(GetHwnd(RobustName), MaybeShowWindow())
         RobustIs(True)
         Print(Global.Outworldz.My.Resources.Robust_running)
         PropRobustExited = False
@@ -2947,7 +2893,7 @@ Public Class FormSetup
 
                 ' Read the chosen sim name
                 ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email & "{Enter}{Enter}{Enter}{Enter}")
-                ShowDOSWindow(GetHwnd(RobustName), SHOWWINDOWENUM.SWMINIMIZE)
+
                 Settings.RunOnce = True
                 Settings.SaveSettings()
             End Using
@@ -3377,8 +3323,7 @@ Public Class FormSetup
                                ".oar" & """" & "{ENTER}" & vbCrLf)
 
                 SequentialPause()   ' wait for previous region to give us some CPU
-                Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWMINIMIZE)
+
             End If
         Next
 
@@ -4141,7 +4086,9 @@ Public Class FormSetup
 
                         ' shut down the group when AutoRestartInterval has gone by.
                         Logger("State is Time Exceeded, shutdown", RegionName, "Restart")
-                        ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE)
+
+                        ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
+
                         SequentialPause()
                         ' shut down all regions in the DOS box
                         ShutDown(RegionUUID)
@@ -6890,7 +6837,8 @@ Public Class FormSetup
                     Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                 Dim hwnd = GetHwnd(GroupName)
-                ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE)
+                ShowDOSWindow(hwnd, MaybeShowWindow())
+
                 SequentialPause()
                 ShutDown(RegionUUID)
 
@@ -7277,5 +7225,37 @@ Public Class FormSetup
     End Sub
 
 #End Region
+
+    Private Shared Function MaybeShowWindow() As FormSetup.SHOWWINDOWENUM
+
+        Dim w As FormSetup.SHOWWINDOWENUM
+        Select Case Settings.ConsoleShow
+            Case "True"
+                w = FormSetup.SHOWWINDOWENUM.SWRESTORE
+            Case "False"
+                w = FormSetup.SHOWWINDOWENUM.SWRESTORE
+            Case "None"
+                w = FormSetup.SHOWWINDOWENUM.SWMINIMIZE
+        End Select
+
+        Return w
+
+    End Function
+
+    Private Shared Function MaybeHideWindow() As FormSetup.SHOWWINDOWENUM
+
+        Dim w As FormSetup.SHOWWINDOWENUM
+        Select Case Settings.ConsoleShow
+            Case "True"
+                w = FormSetup.SHOWWINDOWENUM.SWRESTORE
+            Case "False"
+                w = FormSetup.SHOWWINDOWENUM.SWMINIMIZE
+            Case "None"
+                w = FormSetup.SHOWWINDOWENUM.SWMINIMIZE
+        End Select
+
+        Return w
+
+    End Function
 
 End Class
