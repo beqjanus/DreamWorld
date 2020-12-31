@@ -713,7 +713,7 @@ Public Class FormSetup
             Try
                 result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
                 success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5))
-                Application.DoEvents()
+
                 ClientSocket.EndConnect(result)
             Catch ex As Exception
                 ' no Breakpoint needed
@@ -1256,7 +1256,7 @@ Public Class FormSetup
         End If
 
         Print(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
-
+        Application.DoEvents()
         BootProcess.EnableRaisingEvents = True
         BootProcess.StartInfo.UseShellExecute = True
         BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
@@ -1281,6 +1281,7 @@ Public Class FormSetup
         Dim ok As Boolean = False
         Try
             ok = BootProcess.Start
+            Application.DoEvents()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
