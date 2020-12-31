@@ -126,7 +126,7 @@
 
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioError.CheckedChanged
         If Not initted Then Return
-        Settings.LogLevel = "OFF"
+        Settings.LogLevel = "ERROR"
     End Sub
 
     Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioFatal.CheckedChanged
@@ -136,7 +136,7 @@
 
     Private Sub RadioButton7_CheckedChanged(sender As Object, e As EventArgs) Handles RadioAll.CheckedChanged
         If Not initted Then Return
-        Settings.LogLevel = "All"
+        Settings.LogLevel = "ALL"
     End Sub
 
 #End Region
