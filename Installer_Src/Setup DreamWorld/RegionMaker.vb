@@ -1774,6 +1774,11 @@ Public Class RegionMaker
         Dim GroupName = PropRegionClass.GroupName(uuid)
 
         Try
+            Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
+            Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+            FileStuff.CopyFile(src, ini, True)
+            Settings.Grep(ini, Settings.OpensimBinPath() & "Regions\" & GroupName, Settings.LogLevel)
+
             My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), pathname & "Opensim.ini", True)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)

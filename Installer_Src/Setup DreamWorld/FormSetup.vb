@@ -1259,14 +1259,6 @@ Public Class FormSetup
         BootProcess.StartInfo.UseShellExecute = True
         BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 
-        Try
-            Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-            Settings.Grep(ini, Settings.OpensimBinPath() & "Regions\" & GroupName, Settings.LogLevel)
-            Application.DoEvents()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
         BootProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
         BootProcess.StartInfo.CreateNoWindow = False
 
@@ -2764,10 +2756,6 @@ Public Class FormSetup
 
         If DoRobust() Then Return False
 
-        Log("INFO", "Setup Log levels")
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
-        Settings.Grep(ini, "OSIM_LOGLEVEL", Settings.LogLevel)
-
         Print("Robust " & Global.Outworldz.My.Resources.Starting_word)
 
         RobustProcess.EnableRaisingEvents = True
@@ -3858,6 +3846,12 @@ Public Class FormSetup
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
 
+        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config.proto")
+        Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
+        FileStuff.CopyFile(src, Dest, True)
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
+        Settings.Grep(ini, "OSIM_LOGLEVEL", Settings.LogLevel)
+
         Return False
 
     End Function
@@ -4048,13 +4042,10 @@ Public Class FormSetup
 
     Private Sub ExitHandlerPoll()
 
-        'If PropExitHandlerIsBusy Then
-        'ExitInterval += 1
-        'If ExitInterval > 15 Then
-        'ExitInterval = 15
-        ' End If
-        ' Return
-        'End If
+        If PropExitHandlerIsBusy Then
+            ExitInterval += 1
+            Return
+        End If
         PropExitHandlerIsBusy = True
 
         ExitInterval -= 1
@@ -6270,8 +6261,9 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If TimerBusy < 120 And TimerBusy > 1 Then
+        If TimerBusy < 30 And TimerBusy > 1 Then
             Diagnostics.Debug.Print("Ticker busy")
+            TimerBusy += 1
             Return
         End If
         TimerBusy += 1
