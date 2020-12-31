@@ -706,7 +706,6 @@ Public Class FormSetup
 
     Public Shared Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
-
         Log(My.Resources.Info_word, "Checking port " & CStr(Port))
         Dim success As Boolean
         Dim result As IAsyncResult = Nothing
@@ -1940,9 +1939,10 @@ Public Class FormSetup
 
     Public Sub SendMsg(msg As String)
         Dim hwnd As IntPtr
-        Dim l As List(Of String) = Nothing
+        Dim l As New List(Of String)
         If PropOpensimIsRunning() Then
             For Each RegionUUID As String In PropRegionClass.RegionUuids
+
                 If Not l.Contains(PropRegionClass.GroupName(RegionUUID)) Then
                     l.Add(PropRegionClass.GroupName(RegionUUID))
                     If PropRegionClass.IsBooted(RegionUUID) Then
@@ -4048,13 +4048,13 @@ Public Class FormSetup
 
     Private Sub ExitHandlerPoll()
 
-        If PropExitHandlerIsBusy Then
-            ExitInterval += 1
-            If ExitInterval > 15 Then
-                ExitInterval = 15
-            End If
-            Return
-        End If
+        'If PropExitHandlerIsBusy Then
+        'ExitInterval += 1
+        'If ExitInterval > 15 Then
+        'ExitInterval = 15
+        ' End If
+        ' Return
+        'End If
         PropExitHandlerIsBusy = True
 
         ExitInterval -= 1
