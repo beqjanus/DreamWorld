@@ -21,6 +21,7 @@
 #End Region
 
 Imports System.IO
+Imports System.Threading
 Imports IniParser
 Imports IniParser.Model
 
@@ -144,8 +145,7 @@ Public Class MySettings
     ''' <returns></returns>
     Public Sub SetIni(section As String, key As String, value As String)
 
-        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section +
-        ' "] " + key + "=" + value)
+        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         Try
             Data(section)(key) = value
         Catch ex As Exception
@@ -234,98 +234,55 @@ Public Class MySettings
 
     Public Sub SaveINI(encoding As System.Text.Encoding)
 
-        'FormSetup.Log(My.Resources.Info_word, "Save INI " & INI)
-        Try
-            parser.WriteFile(INI, Data, encoding)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            FormSetup.ErrorLog("Error:" + ex.Message)
-        End Try
+        Dim Retry As Integer = 10
+        While Retry > 0
+            Try
+                parser.WriteFile(INI, Data, encoding)
+                Retry = 0
+            Catch ex As Exception
+                FormSetup.ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Thread.Sleep(100)
+            End Try
+        End While
 
     End Sub
 
     Public Sub SaveSettings()
 
-        FormSetup.Log(My.Resources.Info_word, "Save Settings " & myINI)
-        Try
-            Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            MsgBox(My.Resources.Unable_2_Save + myINI)
-            FormSetup.ErrorLog("Error:" + ex.Message)
-        End Try
+        Dim Retry As Integer = 10
+        While Retry > 0
+            Try
+                Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
+                Retry = 0
+            Catch ex As Exception
+                FormSetup.ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Thread.Sleep(100)
+            End Try
+        End While
 
     End Sub
 
     Public Sub SetMySetting(key As String, value As String)
-        Try
-#Disable Warning CA1062
-            SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
-#Enable Warning CA1062
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            FormSetup.Logger("Error", ex.Message, "Error")
-        End Try
+
+        Dim Retry As Integer = 10
+        While Retry > 0
+            Try
+                SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
+                Retry = 0
+            Catch ex As Exception
+                FormSetup.ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Thread.Sleep(100)
+            End Try
+        End While
 
     End Sub
 
 #End Region
 
 #Region "Properties"
-
-    Public Property KeepOnTop() As Boolean
-        Get
-            Return CType(GetMySetting("BacKeepOnTopkupOARs", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("KeepOnTop", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property BackupOARs() As Boolean
-        Get
-            Return CType(GetMySetting("BackupOARs", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("BackupOARs", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property BackupWifi() As Boolean
-        Get
-            Return CType(GetMySetting("BackupWifi", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("BackupWifi", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property BackupFSAssets() As Boolean
-        Get
-            Return CType(GetMySetting("BackupFSAssets", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("BackupFSAssets", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property BackupMysql() As Boolean
-        Get
-            Return CType(GetMySetting("BackupMysql", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("BackupMysql", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property BackupRegion() As Boolean
-        Get
-            Return CType(GetMySetting("BackupRegion", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("BackupRegion", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
 
     Public Property AccountConfirmationRequired() As Boolean
         Get
@@ -346,16 +303,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property MysqlRev() As String
-        Get
-            Dim mail As String = GetMySetting("MysqlRev", "")
-            Return mail
-        End Get
-        Set
-            SetMySetting("MysqlRev", Value)
-        End Set
-    End Property
-
     Public Property AdminFirst() As String
         Get
             Return GetMySetting("AdminFirst", "Wifi")
@@ -371,15 +318,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("AdminLast", Value)
-        End Set
-    End Property
-
-    Public Property JOpensimSearch() As String
-        Get
-            Return GetMySetting("JOpensimSearch", "")
-        End Get
-        Set
-            SetMySetting("JOpensimSearch", Value)
         End Set
     End Property
 
@@ -408,15 +346,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ApacheEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property SiteMap() As Boolean
-        Get
-            Return CType(GetMySetting("SiteMap", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("SiteMap", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -489,6 +418,51 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("BackupFolder", Value)
+        End Set
+    End Property
+
+    Public Property BackupFSAssets() As Boolean
+        Get
+            Return CType(GetMySetting("BackupFSAssets", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupFSAssets", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property BackupMysql() As Boolean
+        Get
+            Return CType(GetMySetting("BackupMysql", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupMysql", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property BackupOARs() As Boolean
+        Get
+            Return CType(GetMySetting("BackupOARs", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupOARs", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property BackupRegion() As Boolean
+        Get
+            Return CType(GetMySetting("BackupRegion", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupRegion", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property BackupWifi() As Boolean
+        Get
+            Return CType(GetMySetting("BackupWifi", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupWifi", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -653,9 +627,8 @@ Public Class MySettings
     End Property
 
     ''' <summary>
-    ''' By default the module will create a flock of plain wooden spheres, however this can be
-    ''' overridden to the name of an existing prim that needs to already exist in the scene - i.e.
-    ''' be rezzed in the region.
+    ''' By default the module will create a flock of plain wooden spheres, however this can be overridden to the name of an existing prim that needs to already exist in the scene - i.e. be rezzed in
+    ''' the region.
     ''' </summary>
     ''' <returns></returns>
     Public Property BirdsPrim() As String
@@ -815,24 +788,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property OldInstallFolder() As String
-        Get
-            Return GetMySetting("OldInstallFolder", "")
-        End Get
-        Set
-            SetMySetting("OldInstallFolder", Value)
-        End Set
-    End Property
-
-    Public Property LastDirectory() As String
-        Get
-            Return GetMySetting("LastDirectory") ' no default
-        End Get
-        Set
-            SetMySetting("LastDirectory", Value)
-        End Set
-    End Property
-
     Public Property CurrentDirectory() As String
         Get
             Return GetMySetting("Myfolder") ' no default
@@ -983,7 +938,7 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>Show  authorization Instant Message to user at session start?</summary>
+    ''' <summary>Show authorization Instant Message to user at session start?</summary>
     ''' <returns>False</returns>
     Public Property GLBShowNewSessionAuthIM() As Boolean
         Get
@@ -1106,6 +1061,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property JOpensimSearch() As String
+        Get
+            Return GetMySetting("JOpensimSearch", "")
+        End Get
+        Set
+            SetMySetting("JOpensimSearch", Value)
+        End Set
+    End Property
+
     Public Property KeepForDays() As Integer
         Get
             Return CInt("0" & GetMySetting("KeepForDays", "7"))
@@ -1115,12 +1079,30 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property KeepOnTop() As Boolean
+        Get
+            Return CType(GetMySetting("BacKeepOnTopkupOARs", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("KeepOnTop", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property Language() As String
         Get
             Return GetMySetting("Language")
         End Get
         Set
             SetMySetting("Language", Value)
+        End Set
+    End Property
+
+    Public Property LastDirectory() As String
+        Get
+            Return GetMySetting("LastDirectory") ' no default
+        End Get
+        Set
+            SetMySetting("LastDirectory", Value)
         End Set
     End Property
 
@@ -1226,6 +1208,16 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property MysqlRev() As String
+        Get
+            Dim mail As String = GetMySetting("MysqlRev", "")
+            Return mail
+        End Get
+        Set
+            SetMySetting("MysqlRev", Value)
+        End Set
+    End Property
+
     Public Property MySqlRobustDBPort() As Integer
         Get
             Return CInt("0" & GetMySetting("MySqlRobustDBPort", "3306"))
@@ -1250,6 +1242,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("MyY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property OldInstallFolder() As String
+        Get
+            Return GetMySetting("OldInstallFolder", "")
+        End Get
+        Set
+            SetMySetting("OldInstallFolder", Value)
         End Set
     End Property
 
@@ -1315,8 +1316,6 @@ Public Class MySettings
             SetMySetting("PrivatePort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
-
-#Disable Warning CA1056 ' Uri properties should not be strings
 
     Public Property PrivateURL() As String
 #Enable Warning CA1056 ' Uri properties should not be strings
@@ -1632,6 +1631,17 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SiteMap() As Boolean
+        Get
+            Return CType(GetMySetting("SiteMap", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("SiteMap", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+#Disable Warning CA1056 ' Uri properties should not be strings
+
     Public Property SizeX() As String
         Get
             Return GetMySetting("SizeX", "256")
@@ -1882,9 +1892,7 @@ Public Class MySettings
 
 #Region "Grep"
 
-    ''' <summary>
-    ''' Replaces .config file XML with log level and path info
-    ''' </summary>
+    ''' <summary>Replaces .config file XML with log level and path info</summary>
     ''' <param name="INI">Path to file</param>
     ''' <param name="bar">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="baz">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>

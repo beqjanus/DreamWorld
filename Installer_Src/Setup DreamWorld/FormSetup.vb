@@ -824,7 +824,7 @@ Public Class FormSetup
 
     Public Shared Sub ErrorLog(message As String)
         If Debugger.IsAttached Then
-            MsgBox(message, vbInformation)
+            BreakPoint.Show(message)
         End If
         Logger("Error", message, "Error")
     End Sub
@@ -4124,49 +4124,45 @@ Public Class FormSetup
                 '[Error] = 10
                 'RestartStage2 = 11
 
-                If Status = RegionMaker.SIMSTATUSENUM.Booted Then
+                ' May be too long running?
+                TimerValue = PropRegionClass.Timer(RegionUUID)
+                If TimerValue >= 0 Then
 
-                    'Booted = 2
-                    'Logger("State is Booted", GroupName, "Restart")
+                    'How Long Region ran in minutes
+                    Dim Expired As Double = TimerValue * ExitInterval / 60
 
-                    ' May be too long running?
-                    TimerValue = PropRegionClass.Timer(RegionUUID)
-                    If TimerValue >= 0 Then
-
-                        'How Long Region ran in minutes
-                        Dim Expired As Double = TimerValue * ExitInterval / 60
-
-                        ' if it is past time and no one is in the sim... Smart shutdown
-                        If PropRegionClass.SmartStart(RegionUUID) = "True" _
-                            And Settings.SmartStart _
-                            And Expired >= 1 _
-                            And Not AvatarsIsInGroup(GroupName) Then
-                            Logger("State Changed to Suspended", RegionName, "Restart")
-                            DoSuspend_Resume(RegionName)
-                            Continue For
-                        End If
-
-                        ' auto restart timer
-                        If Expired >= Settings.AutoRestartInterval() _
-                            And Settings.AutoRestartInterval() > 0 _
-                            And Not AvatarsIsInGroup(GroupName) Then
-
-                            ' shut down the group when AutoRestartInterval has gone by.
-                            Logger("State is Time Exceeded, shutdown", RegionName, "Restart")
-                            ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE)
-                            SequentialPause()
-                            ' shut down all regions in the DOS box
-                            Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
-                            For Each UUID As String In GroupList
-                                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
-                                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                            Next
-                            Logger("State changed to RecyclingDown", GroupName, "Restart")
-                            ShutDown(RegionUUID)
-                            Print(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
-                            PropUpdateView = True ' make form refresh
-                        End If
+                    ' if it is past time and no one is in the sim... Smart shutdown
+                    If PropRegionClass.SmartStart(RegionUUID) = "True" _
+                    And Settings.SmartStart _
+                    And Expired >= 1 _
+                    And Not AvatarsIsInGroup(GroupName) Then
+                        Logger("State Changed to Suspended", RegionName, "Restart")
+                        DoSuspend_Resume(RegionName)
+                        Continue For
                     End If
+
+                    ' auto restart timer
+                    If Expired >= Settings.AutoRestartInterval() _
+                    And Settings.AutoRestartInterval() > 0 _
+                    And Not AvatarsIsInGroup(GroupName) Then
+
+                        ' shut down the group when AutoRestartInterval has gone by.
+                        Logger("State is Time Exceeded, shutdown", RegionName, "Restart")
+                        ShowDOSWindow(GetHwnd(GroupName), SHOWWINDOWENUM.SWRESTORE)
+                        SequentialPause()
+                        ' shut down all regions in the DOS box
+                        ShutDown(RegionUUID)
+                        Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
+                        For Each UUID As String In GroupList
+                            PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
+                            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                        Next
+                        Logger("State changed to RecyclingDown", GroupName, "Restart")
+
+                        Print(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
+                        PropUpdateView = True ' make form refresh
+                    End If
+
                     Continue For
 
                     ' if a RestartPending is signaled, boot it up
