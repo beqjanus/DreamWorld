@@ -118,11 +118,12 @@ Public Class FormSetup
     Private _UserName As String = ""
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
-    Private cpu As New PerformanceCounter
+
     Private ExitInterval As Integer = 2
     Private ScreenPosition As ScreenPos
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
+    Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
 
 #End Region
@@ -704,6 +705,7 @@ Public Class FormSetup
     End Sub
 
     Public Shared Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
+
 
         Log(My.Resources.Info_word, "Checking port " & CStr(Port))
         Dim success As Boolean
@@ -6896,11 +6898,8 @@ Public Class FormSetup
                     Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
 
                 Dim hwnd = GetHwnd(GroupName)
-
                 ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE)
-
                 SequentialPause()
-
                 ShutDown(RegionUUID)
 
                 If Status = RegionMaker.SIMSTATUSENUM.Stopped Then

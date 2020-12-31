@@ -266,6 +266,8 @@ Public Class MySettings
 
     Public Sub SetMySetting(key As String, value As String)
 
+        If value Is Nothing Then Return
+
         Dim Retry As Integer = 10
         While Retry > 0
             Try
@@ -1317,13 +1319,15 @@ Public Class MySettings
         End Set
     End Property
 
+#Disable Warning CA1056 ' Uri properties should not be strings
+
     Public Property PrivateURL() As String
 #Enable Warning CA1056 ' Uri properties should not be strings
         Get
             Return GetMySetting("PrivateURL")   ' no default
         End Get
         Set
-            SetMySetting("PrivateURL", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("PrivateURL", Value)
         End Set
     End Property
 
