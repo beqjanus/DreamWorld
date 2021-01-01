@@ -945,7 +945,6 @@ Public Class FormSetup
                 p.Refresh()
                 Return p.MainWindowHandle
             End If
-            Application.DoEvents()
         Next
 
         Return IntPtr.Zero
@@ -1027,14 +1026,17 @@ Public Class FormSetup
         ''' </summary>
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
+        '''
         If myProcess Is Nothing Then
             ErrorLog("Process is nothing " & windowName)
             Return False
         End If
-        myProcess.Refresh()
+
         Dim WindowCounter As Integer = 0
+        myProcess.Refresh()
+        Dim myhandle As IntPtr = myProcess.MainWindowHandle
         Try
-            While myProcess.MainWindowHandle = IntPtr.Zero
+            While myhandle = IntPtr.Zero
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
                     ErrorLog("Cannot get MainWindowHandle for " & windowName)
@@ -1042,6 +1044,7 @@ Public Class FormSetup
                 End If
                 Sleep(100)
                 myProcess.Refresh()
+                myhandle = myProcess.MainWindowHandle
             End While
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -1050,23 +1053,19 @@ Public Class FormSetup
         End Try
 
         WindowCounter = 0
-        myProcess.Refresh()
-        Dim hwnd As IntPtr = myProcess.MainWindowHandle
         While True
-            Dim status = SetWindowText(hwnd, windowName)
-
+            Dim status = SetWindowText(myhandle, windowName)
             myProcess.Refresh()
             If status And myProcess.MainWindowTitle = windowName Then
                 Exit While
             End If
-
+            Application.DoEvents()
             WindowCounter += 1
             If WindowCounter > 600 Then '  60 seconds
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
-
-            Thread.Sleep(100)
+            Sleep(100)
         End While
         Return True
 
@@ -1234,7 +1233,6 @@ Public Class FormSetup
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
-                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
 
                 Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
                 PropUpdateView = True ' make form refresh
@@ -1249,7 +1247,7 @@ Public Class FormSetup
                     PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.StartCounting
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
-                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
+
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
