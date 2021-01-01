@@ -44,7 +44,7 @@ Public Class FormSetup
 #Region "Const"
 
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.8"
+    Private Const _MyVersion As String = "3.796"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private Const Hyperica As String = "Hyperica"
     Private Const JOpensim As String = "JOpensim"
@@ -1920,7 +1920,6 @@ Public Class FormSetup
         Dim l As New List(Of String)
         If PropOpensimIsRunning() Then
             For Each RegionUUID As String In PropRegionClass.RegionUuids
-
                 If Not l.Contains(PropRegionClass.GroupName(RegionUUID)) Then
                     l.Add(PropRegionClass.GroupName(RegionUUID))
                     If PropRegionClass.IsBooted(RegionUUID) Then
@@ -2463,17 +2462,7 @@ Public Class FormSetup
 
 #End Region
 
-#Region "StartOpensim"
-
-    Public Shared Sub StopGroup(Groupname As String)
-
-        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(Groupname)
-            Logger(My.Resources.Info_word, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Restart")
-            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
-        Next
-        Logger(My.Resources.Info_word, Groupname & " Group is now stopped", "Restart")
-    End Sub
+#Region "Upload"
 
     Public Shared Sub UploadCategory()
 
@@ -2652,28 +2641,25 @@ Public Class FormSetup
 
     End Function
 
-    Public Function StartOpensimulator() As Boolean
+#End Region
 
-        PropExitHandlerIsBusy = False
-        PropAborting = False
-        Backups.ClearFlags()
+#Region "Robust"
 
-        If Not StartRobust() Then Return False
+    Public Sub StopRobust()
 
-        ' Boot them up
-        For Each RegionUUID As String In PropRegionClass.RegionUuids()
-            If PropRegionClass.RegionEnabled(RegionUUID) Then
-                PropRegionClass.CrashCounter(RegionUUID) = 0
-                If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
-                    Exit For
-                End If
-            End If
+        Print("Robust " & Global.Outworldz.My.Resources.Stopping_word)
+        ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
+        Dim ctr As Integer = 0
+        ' wait 60 seconds for robust to quit
+        While IsRobustRunning() And ctr < 60
             Application.DoEvents()
-        Next
+            Sleep(1000)
+            ctr += 1
+        End While
 
-        Return True
+        RobustIs(False)
 
-    End Function
+    End Sub
 
     Public Function StartRobust() As Boolean
 
@@ -2691,14 +2677,14 @@ Public Class FormSetup
 
                 p.EnableRaisingEvents = True
                 AddHandler p.Exited, AddressOf RobustProcess_Exited
-                ShowDOSWindow(GetHwnd(RobustName), MaybeShowWindow())
+
                 Return True
             End If
         Next
 
         ' Check the HTTP port
         If IsRobustRunning() Then
-            ShowDOSWindow(GetHwnd(RobustName), MaybeShowWindow())
+
             Return True
         End If
 
@@ -2794,6 +2780,48 @@ Public Class FormSetup
         RobustIs(True)
         Print(Global.Outworldz.My.Resources.Robust_running)
         PropRobustExited = False
+
+        Return True
+
+    End Function
+
+#End Region
+
+#Region "StartOpensim"
+
+    Public Shared Sub StopGroup(Groupname As String)
+
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(Groupname)
+            Logger(My.Resources.Info_word, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Restart")
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+            PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
+        Next
+        Logger(My.Resources.Info_word, Groupname & " Group is now stopped", "Restart")
+    End Sub
+
+    Public Function StartOpensimulator() As Boolean
+
+        PropExitHandlerIsBusy = False
+        PropAborting = False
+        Backups.ClearFlags()
+
+        If Not StartRobust() Then Return False
+
+        Dim RegionName = Settings.WelcomeRegion
+        Dim UUID As String = PropRegionClass.FindRegionByName(RegionName)
+        PropRegionClass.CrashCounter(UUID) = 0
+        If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
+
+        ' Boot them up
+        For Each RegionUUID As String In PropRegionClass.RegionUuids()
+            If PropRegionClass.RegionEnabled(RegionUUID) Then
+                PropRegionClass.CrashCounter(RegionUUID) = 0
+                If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
+                    Exit For
+                End If
+            End If
+            Application.DoEvents()
+        Next
 
         Return True
 
@@ -2904,6 +2932,7 @@ Public Class FormSetup
 
         ' Launch the rockets
         Print(My.Resources.Start_Regions_word)
+
         If Not StartOpensimulator() Then
             Buttons(StartButton)
             Print(My.Resources.Stopped_word)
@@ -2917,21 +2946,9 @@ Public Class FormSetup
 
     End Sub
 
-    Public Sub StopRobust()
+#End Region
 
-        Print("Robust " & Global.Outworldz.My.Resources.Stopping_word)
-        ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
-        Dim ctr As Integer = 0
-        ' wait 60 seconds for robust to quit
-        While IsRobustRunning() And ctr < 60
-            Application.DoEvents()
-            Sleep(1000)
-            ctr += 1
-        End While
-
-        RobustIs(False)
-
-    End Sub
+#Region "Misc"
 
     Public Sub ToolBar(visible As Boolean)
 
@@ -3796,7 +3813,7 @@ Public Class FormSetup
         Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
         FileStuff.CopyFile(src, Dest, True)
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
-        Settings.Grep(ini, "OSIM_LOGLEVEL", Settings.LogLevel)
+        Settings.Grep(ini, "", Settings.LogLevel)
 
         Return False
 
@@ -4012,6 +4029,9 @@ Public Class FormSetup
                 PropRegionClass.Timer(Ruuid) = RegionMaker.REGIONTIMER.StartCounting
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
             Next
+
+            ShowDOSWindow(GetHwnd(G), MaybeHideWindow())
+
             PropUpdateView = True
         End While
 
