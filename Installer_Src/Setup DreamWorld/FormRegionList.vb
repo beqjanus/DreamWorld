@@ -398,9 +398,9 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 80), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
-        ListView1.Columns.Add(My.Resources.CPU_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 60), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
-        ctr += 1
+        '  ListView1.Columns.Add(My.Resources.CPU_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 60), HorizontalAlignment.Center)
+        ' ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
+        'ctr += 1
         ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
@@ -670,13 +670,13 @@ Public Class FormRegionlist
                         item1.SubItems.Add("0")
                     End If
 
-                    Dim cpupercent As Double = 0
+                    'Dim cpupercent As Double = 0
 
-                    If CPUValues.TryGetValue(Groupname, cpupercent) Then
-                    Else
-                        cpupercent = 0
-                    End If
-                    item1.SubItems.Add(CStr(cpupercent))
+                    'If CPUValues.TryGetValue(Groupname, cpupercent) Then
+                    'Else
+                    '   cpupercent = 0
+                    'End If
+                    ' item1.SubItems.Add(CStr(cpupercent))
 
                     item1.SubItems.Add(PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
