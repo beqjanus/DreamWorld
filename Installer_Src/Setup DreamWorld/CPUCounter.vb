@@ -21,6 +21,8 @@ Module CPUCounter
 
     Public Sub CalcCPU()
 
+        Return
+
         OpensimProcesses = Process.GetProcessesByName("Opensim")
         Try
             For Each p As Process In OpensimProcesses
@@ -51,7 +53,7 @@ Module CPUCounter
                         Try
                             a = CDbl(CounterList.Item(Gname).NextValue())
                         Catch ex As Exception
-                            a = 0
+                            CounterList.Item(Gname).RemoveInstance()
                         End Try
 
                         Dim b = (a / Environment.ProcessorCount)
