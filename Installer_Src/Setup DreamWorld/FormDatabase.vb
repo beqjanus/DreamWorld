@@ -305,11 +305,11 @@ Public Class FormDatabase
 
     Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
 
-        BackupDB()
-
-    End Sub
-
-    Private Sub Dbnameindex_Click(sender As Object, e As EventArgs) Handles Dbnameindex.Click
+        Dim A As New Backups
+        A.BackupSQLDB(Settings.RegionDBName)
+        FormSetup.Sleep(10000)
+        Dim B As New Backups
+        B.BackupSQLDB(Settings.RobustDataBaseName)
 
     End Sub
 

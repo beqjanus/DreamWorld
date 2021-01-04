@@ -23,6 +23,7 @@
 Public Class FormBackupCheckboxes
 
     Private initted As Boolean
+
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
@@ -126,14 +127,13 @@ Public Class FormBackupCheckboxes
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Button1.Text = My.Resources.Running_word
-        Backups.RunBackups(True)
+        Dim b As New Backups()
+        b.RunAllBackups(True)
         Application.DoEvents()
         Threading.Thread.Sleep(2000)
         Me.Close()
 
     End Sub
-
-
 
     Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
 
@@ -176,7 +176,7 @@ Public Class FormBackupCheckboxes
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles BackupOarsCheckBox.CheckedChanged
 
         If Not initted Then Return
-        Settings.BackupOARS = BackupOarsCheckBox.Checked
+        Settings.BackupOARs = BackupOarsCheckBox.Checked
         Settings.SaveSettings()
 
     End Sub

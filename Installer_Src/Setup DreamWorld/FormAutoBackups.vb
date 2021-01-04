@@ -117,7 +117,7 @@ Public Class FormAutoBackups
             AutoBackupInterval.SelectedIndex = 1
         End If
 
-        BaseFolder.Text = Backups.BackupPath
+        BaseFolder.Text = BackupPath()
         AutoBackup.Checked = Settings.AutoBackup
         HelpOnce("Backup")
         SetScreen()
@@ -226,7 +226,11 @@ Public Class FormAutoBackups
 
     Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
 
-        BackupDB()
+        Dim A As New Backups
+        A.BackupSQLDB(Settings.RegionDBName)
+        FormSetup.Sleep(10000)
+        Dim B As New Backups
+        B.BackupSQLDB(Settings.RobustDataBaseName)
 
     End Sub
 

@@ -44,7 +44,7 @@ Public Class FormSetup
 #Region "Const"
 
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.796"
+    Private Const _MyVersion As String = "3.797"
     Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
     Private Const Hyperica As String = "Hyperica"
     Private Const JOpensim As String = "JOpensim"
@@ -1077,7 +1077,7 @@ Public Class FormSetup
             Return True
         End If
 
-        Dim ctr = 50
+        Dim ctr = 50    ' 5 seconds
         If handle <> IntPtr.Zero Then
             Dim HandleValid As Boolean = False
 
@@ -1168,8 +1168,8 @@ Public Class FormSetup
         & "&Port=" & CStr(Settings.HttpPort()) _
         & "&Category=" & Settings.Categories _
         & "&Description=" & Settings.Description _
-        & "IP=" & Settings.PublicIP _
-        & "ServerType=" & Settings.ServerType _
+        & "&IP=" & Settings.PublicIP _
+        & "&ServerType=" & Settings.ServerType _
         & "&r=" & RandomNumber.Random()
         Return data
 
@@ -1563,7 +1563,6 @@ Public Class FormSetup
 
     Public Function DoStopActions() As Boolean
 
-        Backups.ClearFlags()
         Print(My.Resources.Stopping_word)
         Buttons(BusyButton)
         If Not KillAll() Then Return False
@@ -2801,7 +2800,6 @@ Public Class FormSetup
 
         PropExitHandlerIsBusy = False
         PropAborting = False
-        Backups.ClearFlags()
 
         If Not StartRobust() Then Return False
 
@@ -4300,7 +4298,7 @@ Public Class FormSetup
 
     Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) 'Handles MyBase.FormClosed
 
-        If BackupRunning() Then
+        If OpensimBackupRunning() > 0 Then
             Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
             If info = vbNo Then
                 Return
@@ -4311,7 +4309,7 @@ Public Class FormSetup
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
-        If BackupRunning() Then
+        If OpensimBackupRunning() > 0 Then
             Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
             If info = vbNo Then
                 e.Cancel = True
@@ -4381,8 +4379,6 @@ Public Class FormSetup
     End Sub
 
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
-
-        Backups.ClearFlags()
 
         FileStuff.DeleteOldHelpFiles()
 
@@ -6208,10 +6204,9 @@ Public Class FormSetup
 
     Private Sub CheckOnBackups()
 
-        Dim q = BackupRunning()
-        If q And Not BackupsRunning Then
+        If OpensimBackupRunning() > 0 And Not BackupsRunning Then
             BackupsRunning = True
-        ElseIf Not q And BackupsRunning Then
+        ElseIf BackupsRunning And (OpensimBackupRunning = 0) Then
             BackupsRunning = False
             Dim currentdatetime As Date
             currentdatetime = Date.Now
@@ -6234,6 +6229,7 @@ Public Class FormSetup
         End If
         TimerBusy += 1
         Chart() ' do charts collection each second
+        CheckOnBackups()
         Application.DoEvents()
 
         If Not PropOpensimIsRunning() Then
@@ -6270,7 +6266,8 @@ Public Class FormSetup
         If PropDNSSTimer Mod 60 = 0 Then
             ScanAgents() ' update agent count  seconds
             RegionListHTML() ' create HTML for older 2.4 region teleport
-            Backups.RunBackups()
+            Dim b As New Backups
+            b.RunAllBackups()
             Application.DoEvents()
         End If
 
@@ -6429,7 +6426,11 @@ Public Class FormSetup
 
     Private Sub BackupDatabaseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupDatabaseToolStripMenuItem.Click
 
-        BackupDB()
+        Dim A As New Backups
+        A.BackupSQLDB(Settings.RegionDBName)
+        FormSetup.Sleep(10000)
+        Dim B As New Backups
+        B.BackupSQLDB(Settings.RobustDataBaseName)
 
     End Sub
 
@@ -6547,7 +6548,7 @@ Public Class FormSetup
     ''' <summary>The main startup - done this way so languages can reload the entire form</summary>
     Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
 
-        If BackupRunning() Then
+        If OpensimBackupRunning() > 0 Then
             Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
             If info = vbNo Then
                 Return
@@ -6946,7 +6947,7 @@ Public Class FormSetup
 
     Private Sub LoadIarClick(sender As Object, e As EventArgs) ' event handler
 
-        Dim File As String = IO.Path.Combine(Backups.BackupPath, CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
         If LoadIARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If
@@ -7019,7 +7020,7 @@ Public Class FormSetup
 
         Dim AutoOARs As Array = Nothing
         Try
-            AutoOARs = Directory.GetFiles(Backups.BackupPath(), "*.OAR", SearchOption.TopDirectoryOnly)
+            AutoOARs = Directory.GetFiles(BackupPath(), "*.OAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -7078,7 +7079,7 @@ Public Class FormSetup
 
         Dim AutoIARs As Array = Nothing
         Try
-            AutoIARs = Directory.GetFiles(Backups.BackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
+            AutoIARs = Directory.GetFiles(BackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -7105,7 +7106,7 @@ Public Class FormSetup
 
     Private Sub LoadOarClick(sender As Object, e As EventArgs) ' event handler
 
-        Dim File As String = IO.Path.Combine(Backups.BackupPath, CStr(sender.Text)) 'make a real URL
+        Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
         If LoadOARContent(File) Then
             Print(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
         End If

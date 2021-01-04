@@ -2,20 +2,22 @@
 Imports System.IO
 Imports System.IO.Compression
 
-Module Backups
+Public Class Backups
 
     Private _WebThread1 As Thread
     Private _WebThread2 As Thread
     Private _WebThread3 As Thread
 
-    Private _OpensimBackupRunning As Boolean
     Private _startDate As Date
     Private _initted As Boolean
-    Private _Busy As Boolean
     Private _folder As String
     Private _filename As String
 
-    Public Sub BackupDB()
+    Public Sub New()
+
+    End Sub
+
+    Public Sub BackupSQLDB(DBName As String)
 
         If Not FormSetup.StartMySQL() Then
             FormSetup.ToolBar(False)
@@ -24,26 +26,11 @@ Module Backups
             Return
         End If
 
-        Backups.SQLBackup()
+        ' used to zip it, zip it good
+        _folder = IO.Path.Combine(Settings.CurrentDirectory, "tmp\" & CStr(RandomNumber.Random))
+        If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
 
-    End Sub
-
-    Public Sub ClearFlags()
-
-        _Busy = False
-        _OpensimBackupRunning = False
-
-    End Sub
-
-    Private Sub Zipup()
-
-        Dim f = _filename.Replace(".sql", ".zip")
-        Try
-            ZipFile.CreateFromDirectory(IO.Path.Combine(_folder, "tmp"), IO.Path.Combine(_folder, f), CompressionLevel.Optimal, False)
-        Catch
-        End Try
-        Thread.Sleep(5000)
-        FileStuff.DeleteDirectory(IO.Path.Combine(_folder, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+        SQLBackup(DBName)
 
     End Sub
 
@@ -68,79 +55,27 @@ Module Backups
 
     End Function
 
-    Public Sub SQLBackup()
+    Public Sub SQLBackup(DBName As String)
 
-        If _Busy = True Then
-            FormSetup.Print("Backup is already running")
-            Return
-        End If
-        _Busy = True
-        FormSetup.Print(My.Resources.Slow_Backup)
-        BackupMysql(Settings.RegionDBName)
+        Dim currentdatetime As Date = Date.Now()
+        FormSetup.Print(currentdatetime.ToLocalTime & vbCrLf & DBName & " " & My.Resources.Slow_Backup)
+        BackupMysql(DBName)
 
     End Sub
-
-    Private Sub Exited(sender As Object, e As System.EventArgs)
-
-        If Not _OpensimBackupRunning Then
-            _OpensimBackupRunning = True
-            Zipup()
-            BackupMysql(Settings.RobustDataBaseName)
-        Else
-            Zipup()
-            _OpensimBackupRunning = False
-            _Busy = False
-        End If
-
-    End Sub
-
-    Public Function BackupPath() As String
-
-        'Autobackup must exist. if not create it
-        ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
-            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/AutoBackup")
-            Settings.BackupFolder = BackupPath
-            If Not Directory.Exists(BackupPath) Then
-                MkDir(BackupPath)
-            End If
-        Else
-            BackupPath = Settings.BackupFolder
-            BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
-            Settings.BackupFolder = BackupPath
-            If Not Directory.Exists(BackupPath) Then
-                BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup")
-                If Not Directory.Exists(BackupPath) Then
-                    MkDir(BackupPath)
-                End If
-                MsgBox(My.Resources.Autobackup_cannot_be_located & BackupPath)
-            End If
-        End If
-        Return BackupPath
-
-    End Function
 
     Public Sub RunSQLBackup(OP As Object)
+
+        If OP Is Nothing Then Return
 
         Dim Name As String = OP.ToString
 
         Dim currentdatetime As Date = Date.Now()
         Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
 
-        Dim what = Name & "_" & whenrun & ".sql"
-        ' used to zip it, zip if good
-        _folder = Backups.BackupPath
-        _filename = what
-
-        ' make sure this is empty as we use it again and might have crashed
-        FileStuff.DeleteDirectory(_folder & "\tmp\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-        Try
-            MkDir(_folder & "\" & "tmp")
-        Catch
-        End Try
+        _filename = Name & "_" & whenrun & ".sql"
 
         ' we must write this to the file so it knows what database to use.
-        Using outputFile As New StreamWriter(_folder & "\tmp\" & what)
+        Using outputFile As New StreamWriter(IO.Path.Combine(_folder, _filename))
             outputFile.Write("use " & Name & ";" + vbCrLf)
         End Using
 
@@ -148,13 +83,11 @@ Module Backups
             .EnableRaisingEvents = True
         }
 
-        AddHandler ProcessSqlDump.Exited, AddressOf Exited
-
-        Dim port As String = ""
-        Dim host As String = ""
-        Dim password As String = ""
-        Dim user As String = ""
-        Dim dbname As String = ""
+        Dim port As String
+        Dim host As String
+        Dim password As String
+        Dim user As String
+        Dim dbname As String
         If OP = Settings.RobustDataBaseName Then
             port = CStr(Settings.MySqlRobustDBPort)
             host = Settings.RobustServer
@@ -174,7 +107,7 @@ Module Backups
         & " -u" & user _
         & " -p" & password _
         & " --verbose --log-error=Mysqldump.log " _
-        & " --result-file=" & """" & Backups.BackupPath & "\tmp\" & what & """" _
+        & " --result-file=" & """" & IO.Path.Combine(_folder, _filename) & """" _
         & " " & dbname
         Debug.Print(options)
         '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
@@ -195,13 +128,22 @@ Module Backups
         ProcessSqlDump.StartInfo = pi
         Try
             ProcessSqlDump.Start()
+            OpensimBackupRunning += 1
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Return
         End Try
 
         ProcessSqlDump.WaitForExit()
-        _Busy = False
+
+        Dim Bak = IO.Path.Combine(BackupPath, _filename & ".zip")
+        FileStuff.DeleteFile(Bak)
+
+        ZipFile.CreateFromDirectory(_folder, Bak, CompressionLevel.Optimal, False)
+        Thread.Sleep(1000)
+        FileStuff.DeleteDirectory(_folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
+
+        OpensimBackupRunning -= 1
 
     End Sub
 
@@ -214,10 +156,9 @@ Module Backups
 
     End Sub
 
-    Public Sub RunBackups(Optional force As Boolean = False)
+    Public Sub RunAllBackups(Optional force As Boolean = False)
 
         Dim currentdatetime As Date = Date.Now
-
         If force Then
             FormSetup.Print(currentdatetime.ToLocalTime & " Backup Running")
             _WebThread2 = New Thread(AddressOf FullBackup)
@@ -226,6 +167,7 @@ Module Backups
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
+
             _WebThread2.Start()
             _WebThread2.Priority = ThreadPriority.BelowNormal
             Return
@@ -253,6 +195,7 @@ Module Backups
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
+
                 _WebThread3.Start()
                 _WebThread3.Priority = ThreadPriority.BelowNormal
             End If
@@ -261,14 +204,14 @@ Module Backups
         ' delete old files
         originalBoottime = _startDate
 
-        Dim directory As New System.IO.DirectoryInfo(Backups.BackupPath)
+        Dim directory As New System.IO.DirectoryInfo(BackupPath)
         Dim File As System.IO.FileInfo() = directory.GetFiles()
         Dim File1 As System.IO.FileInfo
 
         ' get each file's last modified date
         For Each File1 In File
             If File1.Name.StartsWith("Full_Backup_", StringComparison.InvariantCultureIgnoreCase) Then
-                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(Backups.BackupPath & "\" & File1.Name)
+                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(BackupPath() & "\" & File1.Name)
                 strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
                 Dim y = DateTime.Compare(currentdatetime, strLastModified)
                 If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
@@ -281,10 +224,12 @@ Module Backups
 
     Private Sub FullBackup()
 
+        ' used to zip it, zip it good
+        _folder = IO.Path.Combine(Settings.CurrentDirectory, "tmp\" & CStr(RandomNumber.Random))
+        If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
+
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-
-        Dim Destination = IO.Path.Combine(Backups.BackupPath & "\tmp", Foldername)
-
+        Dim Destination = IO.Path.Combine(BackupPath() & "\tmp", Foldername)
         Try
             If Not Directory.Exists(Destination) Then
                 MkDir(Destination)
@@ -346,12 +291,12 @@ Module Backups
         FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(Destination, "Settings.ini"), True)
         FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), IO.Path.Combine(Destination, "Photo.png"), True)
 
-        Dim Bak = IO.Path.Combine(Backups.BackupPath, Foldername & ".zip")
+        Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
         FileStuff.DeleteFile(Bak)
-        ZipFile.CreateFromDirectory(Destination, Bak, CompressionLevel.Optimal, False)
+        ZipFile.CreateFromDirectory(_folder, Bak, CompressionLevel.Optimal, False)
         Thread.Sleep(1000)
-        FileStuff.DeleteDirectory(IO.Path.Combine(Backups.BackupPath, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+        FileStuff.DeleteDirectory(_folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub
 
-End Module
+End Class

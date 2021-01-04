@@ -2052,7 +2052,7 @@ Public Class RegionMaker
 
         Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
         Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("AutoBackupModule", "AutoBackupDir", Backups.BackupPath())
+        Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
         Select Case PropRegionClass.Physics(uuid)
             Case ""

@@ -69,7 +69,8 @@ Namespace My
             Dim desiredAssembly = New Reflection.AssemblyName(e.Name)
             Diagnostics.Debug.Print("Loading Assembly " & desiredAssembly.Name)
             If desiredAssembly.Name = "Ionic.Zip" Then
-                Return Reflection.Assembly.Load("") 'replace with your assembly's resource name
+                Return Nothing
+                '     Return Reflection.Assembly.Load("") 'replace with your assembly's resource name
             Else
                 Return Nothing
             End If
