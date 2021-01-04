@@ -17,7 +17,7 @@ Module RPC
             RPC.Invoke(url)
             Return True
         Catch ex As Exception
-            'BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex.Message)
         End Try
         Return False
 

@@ -95,8 +95,7 @@ Public Class FormSetup
     Private _IPv4Address As String
     Private _IsRunning As Boolean
     Private _KillSource As Boolean
-    Private _MaxPortUsed As Integer
-    Private _MaxXMLPortUsed As Integer
+
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
     Private _myUPnpMap As UPnp
@@ -455,24 +454,6 @@ Public Class FormSetup
         End Get
         Set(value As Boolean)
             _KillSource = value
-        End Set
-    End Property
-
-    Public Property PropMaxPortUsed As Integer
-        Get
-            Return _MaxPortUsed
-        End Get
-        Set(value As Integer)
-            _MaxPortUsed = value
-        End Set
-    End Property
-
-    Public Property PropMaxXMLPortUsed As Integer
-        Get
-            Return _MaxXMLPortUsed
-        End Get
-        Set(value As Integer)
-            _MaxXMLPortUsed = value
         End Set
     End Property
 
@@ -1215,7 +1196,7 @@ Public Class FormSetup
 
         DoGloebits()
 
-        If RegionMaker.CopyOpensimProto(RegionUUID) Then
+        If PropRegionClass.CopyOpensimProto(RegionUUID) Then
             Return False
         End If
 
@@ -2773,7 +2754,7 @@ Public Class FormSetup
 
         RobustIsStarting = False
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
-        ShowDOSWindow(GetHwnd(RobustName), MaybeShowWindow())
+        ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         RobustIs(True)
         Print(Global.Outworldz.My.Resources.Robust_running)
         PropRobustExited = False
@@ -4679,7 +4660,7 @@ Public Class FormSetup
 
         Print(My.Resources.Setup_Ports_word)
         Application.DoEvents()
-        RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
+        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
 
         'must start after region Class Is instantiated
         PropWebServer = NetServer.GetWebServer

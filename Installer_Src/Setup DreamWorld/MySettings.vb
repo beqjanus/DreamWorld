@@ -1907,17 +1907,19 @@ Public Class MySettings
 
         If INI Is Nothing Then Return
 
-        Dim file As System.IO.StreamWriter
-        file = My.Computer.FileSystem.OpenTextFileWriter(INI & ".bak", False)
-        Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
-            While Not Reader.EndOfStream
-                Dim line As String = Reader.ReadLine
-                line = line.Replace("OSIM_LOGPATH", LP)
-                line = line.Replace("OSIM_LOGLEVEL", LL)
-                file.WriteLine(line)
-            End While
+        Using file As New System.IO.StreamWriter(INI & ".bak")
+            ' Using file As New My.Computer.FileSystem.OpenTextFileWriter(INI & ".bak", False)
+            Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
+                While Not Reader.EndOfStream
+                    Dim line As String = Reader.ReadLine
+                    line = line.Replace("OSIM_LOGPATH", LP)
+                    line = line.Replace("OSIM_LOGLEVEL", LL)
+                    file.WriteLine(line)
+                End While
+            End Using
         End Using
-        file.Close()
+
+        ' file.Close()
 
         Dim f = System.IO.Path.GetFileName(INI)
         Dim ctr = 10
