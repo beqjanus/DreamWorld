@@ -2,8 +2,9 @@
 # AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
 
 use strict;
-use IO::All;
 no warnings;
+use IO::All;
+
 use 5.010;
 
 use File::Copy;
@@ -38,6 +39,15 @@ foreach my $lang (@languages)
 	JustDelete ($lang);
 }
 
+
+my @a = io->dir('.')->all;
+
+foreach my $f (@a)
+{	
+	if ($f->name =~ /tmp.*\.html/) {	
+		$f->unlink;
+	}
+}
 
 
 say("Clean up opensim");

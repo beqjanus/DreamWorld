@@ -1898,26 +1898,39 @@ Public Class MySettings
 
     ''' <summary>Replaces .config file XML with log level and path info</summary>
     ''' <param name="INI">Path to file</param>
-    ''' <param name="bar">OSIM_LOGPATH path to log file in regions folder</param>
-    ''' <param name="baz">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
+    ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
+    ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
 #Disable Warning CA1822 ' Mark members as static
 
-    Public Sub Grep(INI As String, bar As String, baz As String)
+    Public Sub Grep(INI As String, LP As String, LL As String)
 #Enable Warning CA1822 ' Mark members as static
 
         If INI Is Nothing Then Return
-        FileStuff.DeleteFile(INI)
+
         Dim file As System.IO.StreamWriter
-        file = My.Computer.FileSystem.OpenTextFileWriter(INI, False)
+        file = My.Computer.FileSystem.OpenTextFileWriter(INI & ".bak", False)
         Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
             While Not Reader.EndOfStream
                 Dim line As String = Reader.ReadLine
-                line = line.Replace("OSIM_LOGPATH", bar)
-                line = line.Replace("OSIM_LOGLEVEL", baz)
+                line = line.Replace("OSIM_LOGPATH", LP)
+                line = line.Replace("OSIM_LOGLEVEL", LL)
                 file.WriteLine(line)
             End While
         End Using
         file.Close()
+
+        Dim f = System.IO.Path.GetFileName(INI)
+        Dim ctr = 10
+        While ctr > 0
+            FileStuff.DeleteFile(INI)
+            Try
+                My.Computer.FileSystem.RenameFile(INI & ".bak", f)
+                ctr = 0
+            Catch
+                ctr -= 1
+            End Try
+
+        End While
 
     End Sub
 

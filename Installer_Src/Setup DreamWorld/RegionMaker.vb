@@ -241,11 +241,6 @@ Public Class RegionMaker
                         End Try
                     Next
 
-                    If Settings.ConsoleShow = "False" Or Settings.ConsoleShow = "None" Then
-                        Dim hwnd = FormSetup.GetHwnd(GroupName(uuid))
-                        FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWMINIMIZE)
-                    End If
-
                 ElseIf json.login = "shutdown" Then
 
                     FormSetup.Logger("Shutdown", json.region_name, "Restart")
@@ -1773,12 +1768,12 @@ Public Class RegionMaker
         Dim RegionName = PropRegionClass.RegionName(uuid)
         Dim GroupName = PropRegionClass.GroupName(uuid)
 
-        Try
-            Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
-            Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-            FileStuff.CopyFile(src, ini, True)
-            Settings.Grep(ini, Settings.OpensimBinPath() & "Regions\" & GroupName, Settings.LogLevel)
+        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+        FileStuff.CopyFile(src, ini, True)
+        Settings.Grep(ini, pathname, Settings.LogLevel)
 
+        Try
             My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), pathname & "Opensim.ini", True)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)

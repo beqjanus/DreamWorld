@@ -1144,6 +1144,10 @@ SetWindowOnTop_Err:
             FormSetup.StartRobust()
             FormSetup.Log("Starting", PropRegionClass.RegionName(RegionUUID))
 
+            If RegionMaker.CopyOpensimProto(RegionUUID) Then
+                Return
+            End If
+
             FormSetup.PropAborting = False
             PropRegionClass.CrashCounter(RegionUUID) = 0
             FormSetup.Boot(PropRegionClass.RegionName(RegionUUID))
