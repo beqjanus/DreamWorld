@@ -95,7 +95,7 @@ Public Class FormSetup
     Private _IPv4Address As String
     Private _IsRunning As Boolean
     Private _KillSource As Boolean
-    Private _backupthread As New Backups
+
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
     Private _myUPnpMap As UPnp
@@ -123,6 +123,7 @@ Public Class FormSetup
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
+    Private _backupthread As Backups
 #Enable Warning CA2213 ' Disposable fields should be disposed
 
 #End Region
@@ -4737,6 +4738,8 @@ Public Class FormSetup
             Buttons(StartButton)
         End If
 
+        _backupthread = New Backups
+
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
 
@@ -6243,17 +6246,16 @@ Public Class FormSetup
 
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
+
             RegionListHTML() ' create HTML for older 2.4 region teleport_
             Application.DoEvents()
         End If
 
-        ' 10 minute backup timer
-        If SecondsTicker Mod 600 = 0 And SecondsTicker < 0 Then
-            _backupthread.RunAllBackups()
-        End If
-
         ' print hourly marks on console, after boot
         If SecondsTicker Mod 3600 = 0 And SecondsTicker > 0 Then
+
+            _backupthread.RunAllBackups()
+
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
             Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
