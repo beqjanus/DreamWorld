@@ -5713,7 +5713,7 @@ Public Class FormSetup
             Dim Avatar = NameValue.Key
             Dim RegionName = NameValue.Value
 
-            If Not D.ContainsKey(Avatar) Then
+            If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
                 Print(Avatar & " is in " & RegionName)
                 D.Add(Avatar, RegionName)
             End If
@@ -5725,7 +5725,7 @@ Public Class FormSetup
             Dim RegionName = NameValue.Value
 
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 Then
+            If RegionUUID.Length > 0 And And RegionName.Length > 0 Then
                 PropRegionClass.AvatarCount(RegionUUID) += 1
                 Str += Avatar & " in " & RegionName & ", "
             End If
