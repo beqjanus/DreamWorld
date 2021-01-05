@@ -13,24 +13,13 @@ Public Class Backups
     Private _folder As String
     Private _filename As String
 
+#Region "Public"
+
     Public Sub New()
-
-    End Sub
-
-    Public Sub BackupSQLDB(DBName As String)
-
-        If Not FormSetup.StartMySQL() Then
-            FormSetup.ToolBar(False)
-            FormSetup.Buttons(FormSetup.StartButton)
-            FormSetup.Print(My.Resources.Stopped_word)
-            Return
-        End If
 
         ' used to zip it, zip it good
         _folder = IO.Path.Combine(Settings.CurrentDirectory, "tmp\" & CStr(RandomNumber.Random))
-        If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
-
-        SQLBackup(DBName)
+        If Not Directory.Exists(_folder) Then MkDir(_folder)
 
     End Sub
 
@@ -54,6 +43,23 @@ Public Class Backups
         Return isrunning
 
     End Function
+
+#End Region
+
+#Region "SQL Backup"
+
+    Public Sub BackupSQLDB(DBName As String)
+
+        If Not FormSetup.StartMySQL() Then
+            FormSetup.ToolBar(False)
+            FormSetup.Buttons(FormSetup.StartButton)
+            FormSetup.Print(My.Resources.Stopped_word)
+            Return
+        End If
+
+        SQLBackup(DBName)
+
+    End Sub
 
     Public Sub SQLBackup(DBName As String)
 
@@ -156,18 +162,17 @@ Public Class Backups
 
     End Sub
 
-    Public Sub RunAllBackups(Optional force As Boolean = False)
+#End Region
+
+#Region "File Backup"
+
+    Public Sub RunAllBackups(Optional TimerBased As Boolean = False)
 
         Dim currentdatetime As Date = Date.Now
-        If force Then
+        If TimerBased Then
             FormSetup.Print(currentdatetime.ToLocalTime & " Backup Running")
-            _WebThread2 = New Thread(AddressOf FullBackup)
-            Try
-                _WebThread2.SetApartmentState(ApartmentState.STA)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-
+            _WebThread2 = New Thread(AddressOf FullBackupThread)
+            _WebThread2.SetApartmentState(ApartmentState.STA)
             _WebThread2.Start()
             _WebThread2.Priority = ThreadPriority.BelowNormal
             Return
@@ -189,13 +194,8 @@ Public Class Backups
 
             If Settings.AutoBackup Then
                 FormSetup.Print(currentdatetime.ToLocalTime & " Auto Backup Running")
-                _WebThread3 = New Thread(AddressOf FullBackup)
-                Try
-                    _WebThread3.SetApartmentState(ApartmentState.STA)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-
+                _WebThread3 = New Thread(AddressOf FullBackupThread)
+                _WebThread3.SetApartmentState(ApartmentState.STA)
                 _WebThread3.Start()
                 _WebThread3.Priority = ThreadPriority.BelowNormal
             End If
@@ -222,46 +222,34 @@ Public Class Backups
 
     End Sub
 
-    Private Sub FullBackup()
-
-        ' used to zip it, zip it good
-        _folder = IO.Path.Combine(Settings.CurrentDirectory, "tmp\" & CStr(RandomNumber.Random))
-        If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
+    Private Sub FullBackupThread()
 
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-        Dim Destination = IO.Path.Combine(BackupPath() & "\tmp", Foldername)
-        Try
-            If Not Directory.Exists(Destination) Then
-                MkDir(Destination)
-            End If
-        Catch
-            Return
-        End Try
 
         If Settings.BackupMysql Then
             Try
-                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Destination, "Opensim_bin_Regions"))
+                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(_folder, "Opensim_bin_Regions"))
             Catch ex As Exception
             End Try
 
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), IO.Path.Combine(Destination, "Opensim_bin_Regions"))
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), IO.Path.Combine(_folder, "Opensim_bin_Regions"))
             Application.DoEvents()
 
         End If
 
         If Settings.BackupMysql Then
             Try
-                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Destination, "Mysql_Data"))
+                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(_folder, "Mysql_Data"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), IO.Path.Combine(Destination, "Mysql_Data"))
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), IO.Path.Combine(_folder, "Mysql_Data"))
             Application.DoEvents()
         End If
 
         If Settings.BackupFSAssets Then
             Try
-                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Destination, "FSAssets"))
+                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(_folder, "FSAssets"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -272,24 +260,24 @@ Public Class Backups
             Else
                 folder = Settings.BaseDirectory
             End If
-            FileStuff.CopyFolder(folder, IO.Path.Combine(Destination, "FSAssets"))
+            FileStuff.CopyFolder(folder, IO.Path.Combine(_folder, "FSAssets"))
             Application.DoEvents()
         End If
 
         If Settings.BackupWifi Then
             Try
-                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Destination, "Opensim_WifiPages-Custom"))
-                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(Destination, "Opensim_bin_WifiPages-Custom"))
+                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(_folder, "Opensim_WifiPages-Custom"))
+                My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(_folder, "Opensim_bin_WifiPages-Custom"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages\"), IO.Path.Combine(Destination, "Opensim_WifiPages-Custom"))
-            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\"), IO.Path.Combine(Destination, "Opensim_bin_WifiPages-Custom"))
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages\"), IO.Path.Combine(_folder, "Opensim_WifiPages-Custom"))
+            FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\"), IO.Path.Combine(_folder, "Opensim_bin_WifiPages-Custom"))
             Application.DoEvents()
         End If
 
-        FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(Destination, "Settings.ini"), True)
-        FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), IO.Path.Combine(Destination, "Photo.png"), True)
+        FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), IO.Path.Combine(_folder, "Settings.ini"), True)
+        FileStuff.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), IO.Path.Combine(_folder, "Photo.png"), True)
 
         Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
         FileStuff.DeleteFile(Bak)
@@ -298,5 +286,7 @@ Public Class Backups
         FileStuff.DeleteDirectory(_folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub
+
+#End Region
 
 End Class
