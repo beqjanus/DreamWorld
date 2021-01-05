@@ -1027,6 +1027,7 @@ Public Class FormSetup
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
         '''
+        Thread.Sleep(100)
         If myProcess Is Nothing Then
             ErrorLog("Process is nothing " & windowName)
             Return False
