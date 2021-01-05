@@ -3740,7 +3740,7 @@ Public Class FormSetup
         If Settings.Suitcase() Then
             Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
         Else
-            Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGInventoryService")
+            Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.InventoryService.dll:XInventoryService")
         End If
 
         ' LSL emails
