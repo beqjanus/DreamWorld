@@ -226,7 +226,7 @@ Public Class Backups
 
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
 
-        If Settings.BackupMysql Then
+        If Settings.BackupRegion Then
             Try
                 My.Computer.FileSystem.CreateDirectory(IO.Path.Combine(_folder, "Opensim_bin_Regions"))
             Catch ex As Exception

@@ -80,6 +80,7 @@ Public Class FormBackupCheckboxes
         Else
             FSAssetsCheckBox.Enabled = False
             FSAssetsCheckBox.Checked = False
+            Settings.BackupFSAssets = False
         End If
 
         RegionCheckBox.Checked = Settings.BackupRegion
