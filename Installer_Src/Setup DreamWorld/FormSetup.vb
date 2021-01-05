@@ -95,8 +95,7 @@ Public Class FormSetup
     Private _IPv4Address As String
     Private _IsRunning As Boolean
     Private _KillSource As Boolean
-    Private _MaxPortUsed As Integer
-    Private _MaxXMLPortUsed As Integer
+
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
     Private _myUPnpMap As UPnp
@@ -124,6 +123,7 @@ Public Class FormSetup
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
+    Private _backupthread As Backups
 #Enable Warning CA2213 ' Disposable fields should be disposed
 
 #End Region
@@ -347,7 +347,7 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropDNSSTimer() As Integer
+    Public Property SecondsTicker() As Integer
         Get
             Return _DNSSTimer
         End Get
@@ -455,24 +455,6 @@ Public Class FormSetup
         End Get
         Set(value As Boolean)
             _KillSource = value
-        End Set
-    End Property
-
-    Public Property PropMaxPortUsed As Integer
-        Get
-            Return _MaxPortUsed
-        End Get
-        Set(value As Integer)
-            _MaxPortUsed = value
-        End Set
-    End Property
-
-    Public Property PropMaxXMLPortUsed As Integer
-        Get
-            Return _MaxXMLPortUsed
-        End Get
-        Set(value As Integer)
-            _MaxXMLPortUsed = value
         End Set
     End Property
 
@@ -1216,7 +1198,7 @@ Public Class FormSetup
 
         DoGloebits()
 
-        If RegionMaker.CopyOpensimProto(RegionUUID) Then
+        If PropRegionClass.CopyOpensimProto(RegionUUID) Then
             Return False
         End If
 
@@ -2774,7 +2756,7 @@ Public Class FormSetup
 
         RobustIsStarting = False
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
-        ShowDOSWindow(GetHwnd(RobustName), MaybeShowWindow())
+        ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         RobustIs(True)
         Print(Global.Outworldz.My.Resources.Robust_running)
         PropRobustExited = False
@@ -4680,7 +4662,7 @@ Public Class FormSetup
 
         Print(My.Resources.Setup_Ports_word)
         Application.DoEvents()
-        RegionMaker.UpdateAllRegionPorts() ' must be after SetIniData
+        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
 
         'must start after region Class Is instantiated
         PropWebServer = NetServer.GetWebServer
@@ -4756,6 +4738,8 @@ Public Class FormSetup
             Application.DoEvents()
             Buttons(StartButton)
         End If
+
+        _backupthread = New Backups
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
@@ -6203,7 +6187,7 @@ Public Class FormSetup
 
 #Region "Timer"
 
-    Private Sub CheckOnBackups()
+    Private Sub CheckOnBackupsAndPrint()
 
         If OpensimBackupRunning() > 0 And Not BackupsRunning Then
             BackupsRunning = True
@@ -6223,14 +6207,15 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If TimerBusy < 30 And TimerBusy > 1 Then
+        If TimerBusy < 60 And TimerBusy > 1 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
             Return
         End If
+
         TimerBusy += 1
         Chart() ' do charts collection each second
-        CheckOnBackups()
+        CheckOnBackupsAndPrint()
         Application.DoEvents()
 
         If Not PropOpensimIsRunning() Then
@@ -6245,41 +6230,47 @@ Public Class FormSetup
             Return
         End If
 
-        If PropDNSSTimer Mod 10 = 0 And PropDNSSTimer > 0 Then
-            CalcCPU() ' get a list of running opensim processes
-            Application.DoEvents()
-        End If
-
-        ' print hourly marks on console
-        If PropDNSSTimer Mod 3600 = 0 And PropDNSSTimer > 0 Then
-            Dim thisDate As Date = Now
-            Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
-            Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((PropDNSSTimer / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
-            RegisterName(Settings.DNSName, True)
-            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
-            For Each part As String In array
-                RegisterName(part, True)
-            Next
-            ExpireApacheLogs()
-            Application.DoEvents()
-        End If
-
-        If PropDNSSTimer Mod 60 = 0 Then
-            ScanAgents() ' update agent count  seconds
-            RegionListHTML() ' create HTML for older 2.4 region teleport
-            Dim b As New Backups
-            b.RunAllBackups()
-            Application.DoEvents()
-        End If
-
-        If PropDNSSTimer Mod ExitInterval = 0 And PropDNSSTimer > 0 Then
+        ' variable speed, ranges from 1 to N second
+        If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
             PropRegionClass.CheckPost() ' get the stack filled ASAP
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             RestartDOSboxes()
             Application.DoEvents()
         End If
 
-        PropDNSSTimer += 1
+        ' 10 seconds, not at boot
+        If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
+            CalcCPU() ' get a list of running opensim processes
+            Application.DoEvents()
+            ScanAgents() ' update agent count seconds
+        End If
+
+        ' every minute
+        If SecondsTicker Mod 60 = 0 Then
+
+            RegionListHTML() ' create HTML for older 2.4 region teleport_
+            Application.DoEvents()
+        End If
+
+        ' print hourly marks on console, after boot
+        If SecondsTicker Mod 3600 = 0 And SecondsTicker > 0 Then
+
+            _backupthread.RunAllBackups()
+
+            Dim thisDate As Date = Now
+            Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
+            Print(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
+            RegisterName(Settings.DNSName, True)
+            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
+            For Each part As String In array
+                RegisterName(part, True)
+            Next
+
+            ExpireApacheLogs()
+            Application.DoEvents()
+        End If
+
+        SecondsTicker += 1
         TimerBusy = 0
 
     End Sub

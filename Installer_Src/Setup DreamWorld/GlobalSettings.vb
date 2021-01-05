@@ -5,6 +5,26 @@ Module GlobalSettings
     Private _mySetting As New MySettings
     Private _regionClass As RegionMaker
     Private _OpensimBackupRunning As Integer
+    Private _MaxPortUsed As Integer
+    Private _MaxXMLPortUsed As Integer
+
+    Public Property PropMaxPortUsed As Integer
+        Get
+            Return _MaxPortUsed
+        End Get
+        Set(value As Integer)
+            _MaxPortUsed = value
+        End Set
+    End Property
+
+    Public Property PropMaxXMLPortUsed As Integer
+        Get
+            Return _MaxXMLPortUsed
+        End Get
+        Set(value As Integer)
+            _MaxXMLPortUsed = value
+        End Set
+    End Property
 
     Public Function SafeFolderName() As String
 

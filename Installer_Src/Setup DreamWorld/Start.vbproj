@@ -803,6 +803,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\table.png" />
+    <None Include="Resources\earth_view.png" />
+    <None Include="Resources\chart.png" />
     <None Include="Resources\selection.png" />
     <None Include="Resources\replace2.png" />
     <None Include="Resources\navigate_up2.png" />

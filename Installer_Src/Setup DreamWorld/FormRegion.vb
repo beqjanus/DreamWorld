@@ -1334,6 +1334,7 @@ Public Class FormRegion
         End Try
 
         If PropRegionClass.GetAllRegions() = -1 Then Return False
+
         FormSetup.PropUpdateView = True
         Oldname1 = RegionName.Text
 
