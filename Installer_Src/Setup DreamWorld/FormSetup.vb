@@ -5725,7 +5725,7 @@ Public Class FormSetup
             Dim RegionName = NameValue.Value
 
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 And And RegionName.Length > 0 Then
+            If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                 PropRegionClass.AvatarCount(RegionUUID) += 1
                 Str += Avatar & " in " & RegionName & ", "
             End If
