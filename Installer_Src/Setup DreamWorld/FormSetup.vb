@@ -79,6 +79,7 @@ Public Class FormSetup
     Private _ApacheProcessID As Integer
     Private _ApacheUninstalling As Boolean
     Private _BackupsRunning As Boolean
+    Private _backupthread As Backups
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
@@ -118,12 +119,11 @@ Public Class FormSetup
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
 
+    Private cpu As New PerformanceCounter
     Private ExitInterval As Integer = 2
     Private ScreenPosition As ScreenPos
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
-    Private cpu As New PerformanceCounter
-    Private _backupthread As Backups
 #Enable Warning CA2213 ' Disposable fields should be disposed
 
 #End Region
@@ -344,15 +344,6 @@ Public Class FormSetup
         End Get
         Set(value As String)
             _CurSlashDir = value
-        End Set
-    End Property
-
-    Public Property SecondsTicker() As Integer
-        Get
-            Return _DNSSTimer
-        End Get
-        Set(ByVal Value As Integer)
-            _DNSSTimer = Value
         End Set
     End Property
 
@@ -641,6 +632,15 @@ Public Class FormSetup
         End Set
     End Property
 
+    Public Property SecondsTicker() As Integer
+        Get
+            Return _DNSSTimer
+        End Get
+        Set(ByVal Value As Integer)
+            _DNSSTimer = Value
+        End Set
+    End Property
+
     Public Property TimerBusy As Integer
         Get
             Return _timerBusy1
@@ -925,7 +925,11 @@ Public Class FormSetup
         For Each p As Process In AllProcesses
             If p.MainWindowTitle = Groupname Then
                 p.Refresh()
-                Return p.MainWindowHandle
+                Try
+                    Return p.MainWindowHandle
+                Catch
+                    Return IntPtr.Zero
+                End Try
             End If
         Next
 
@@ -1008,7 +1012,6 @@ Public Class FormSetup
         ''' </summary>
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
-        '''
         Thread.Sleep(100)
         If myProcess Is Nothing Then
             ErrorLog("Process is nothing " & windowName)
@@ -2625,22 +2628,6 @@ Public Class FormSetup
 
 #Region "Robust"
 
-    Public Sub StopRobust()
-
-        Print("Robust " & Global.Outworldz.My.Resources.Stopping_word)
-        ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
-        Dim ctr As Integer = 0
-        ' wait 60 seconds for robust to quit
-        While IsRobustRunning() And ctr < 60
-            Application.DoEvents()
-            Sleep(1000)
-            ctr += 1
-        End While
-
-        RobustIs(False)
-
-    End Sub
-
     Public Function StartRobust() As Boolean
 
         If Not StartMySQL() Then Return False ' prerequsite
@@ -2764,6 +2751,22 @@ Public Class FormSetup
         Return True
 
     End Function
+
+    Public Sub StopRobust()
+
+        Print("Robust " & Global.Outworldz.My.Resources.Stopping_word)
+        ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
+        Dim ctr As Integer = 0
+        ' wait 60 seconds for robust to quit
+        While IsRobustRunning() And ctr < 60
+            Application.DoEvents()
+            Sleep(1000)
+            ctr += 1
+        End While
+
+        RobustIs(False)
+
+    End Sub
 
 #End Region
 
@@ -7238,22 +7241,6 @@ Public Class FormSetup
 
 #End Region
 
-    Private Shared Function MaybeShowWindow() As FormSetup.SHOWWINDOWENUM
-
-        Dim w As FormSetup.SHOWWINDOWENUM
-        Select Case Settings.ConsoleShow
-            Case "True"
-                w = FormSetup.SHOWWINDOWENUM.SWRESTORE
-            Case "False"
-                w = FormSetup.SHOWWINDOWENUM.SWRESTORE
-            Case "None"
-                w = FormSetup.SHOWWINDOWENUM.SWMINIMIZE
-        End Select
-
-        Return w
-
-    End Function
-
     Private Shared Function MaybeHideWindow() As FormSetup.SHOWWINDOWENUM
 
         Dim w As FormSetup.SHOWWINDOWENUM
@@ -7262,6 +7249,22 @@ Public Class FormSetup
                 w = FormSetup.SHOWWINDOWENUM.SWRESTORE
             Case "False"
                 w = FormSetup.SHOWWINDOWENUM.SWMINIMIZE
+            Case "None"
+                w = FormSetup.SHOWWINDOWENUM.SWMINIMIZE
+        End Select
+
+        Return w
+
+    End Function
+
+    Private Shared Function MaybeShowWindow() As FormSetup.SHOWWINDOWENUM
+
+        Dim w As FormSetup.SHOWWINDOWENUM
+        Select Case Settings.ConsoleShow
+            Case "True"
+                w = FormSetup.SHOWWINDOWENUM.SWRESTORE
+            Case "False"
+                w = FormSetup.SHOWWINDOWENUM.SWRESTORE
             Case "None"
                 w = FormSetup.SHOWWINDOWENUM.SWMINIMIZE
         End Select
