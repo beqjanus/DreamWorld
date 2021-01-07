@@ -75,14 +75,11 @@ Public Class FormPorts
         DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         GroupBoxA.Text = Global.Outworldz.My.Resources.Resources.Ports
-        GroupBoxB.Text = Global.Outworldz.My.Resources.Resources.Ports
         Label26.Text = Global.Outworldz.My.Resources.Resources.Region_Port_Start
         Label4.Text = Global.Outworldz.My.Resources.Resources.Http_Port_word
         Label5.Text = Global.Outworldz.My.Resources.Resources.Diagnostics_port_word
         Label7.Text = Global.Outworldz.My.Resources.Resources.Private_Port_Word
         MaxP.Text = Global.Outworldz.My.Resources.Resources.Highest_Used_word
-        MaxX.Text = Global.Outworldz.My.Resources.Resources.Highest_Used_word
-        MaxXLabel.Text = Global.Outworldz.My.Resources.Resources.XMLRP_start
         MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
         OverrideNameLabel.Text = Global.Outworldz.My.Resources.Resources.External
         Text = Global.Outworldz.My.Resources.Resources.Region_Ports_word
@@ -102,9 +99,6 @@ Public Class FormPorts
 
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
         MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-
-        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
-        MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
         uPnPEnabled.Checked = Settings.UPnPEnabled
 
@@ -177,9 +171,6 @@ Public Class FormPorts
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
         MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
 
-        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
-        MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-
     End Sub
 
     Private Sub HTTPPort_TextChanged(sender As Object, e As EventArgs) Handles HTTPPort.TextChanged
@@ -206,26 +197,13 @@ Public Class FormPorts
 
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FirstXMLRegionPort.TextChanged
-
-        If Not initted Then Return
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        FirstXMLRegionPort.Text = digitsOnly.Replace(FirstXMLRegionPort.Text, "")
-        Settings.FirstXMLRegionPort() = CInt("0" & FirstXMLRegionPort.Text)
-        Settings.SaveSettings()
-
-        PropRegionClass.UpdateAllRegionPorts()
-        FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-        FirstXMLRegionPort.Text = CStr(Settings.FirstXMLRegionPort())
-        MaxX.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " + PropMaxXMLPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
-
-    End Sub
-
     Private Sub Upnp_Click(sender As Object, e As EventArgs) Handles Upnp.Click
 
         HelpManual("Ports")
+
+    End Sub
+
+    Private Sub OverrideNameLabel_Click(sender As Object, e As EventArgs) Handles OverrideNameLabel.Click
 
     End Sub
 

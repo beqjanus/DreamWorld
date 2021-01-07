@@ -54,7 +54,7 @@ Public Class UPnp
             UPnpnat = New NATUPNPLib.UPnPNAT
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.ErrorLog(ex.Message)
+            ErrorLog(ex.Message)
 
         End Try
 
@@ -278,18 +278,18 @@ Public Class UPnp
             staticMapping = UPnpnat.StaticPortMappingCollection()
             If staticMapping Is Nothing Then
                 staticEnabled = False
-                FormSetup.Log("WARN", "UPNP is not available")
+                Log("WARN", "UPNP is not available")
                 Debug.Print("No Static UPNP")
                 Return
             End If
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Log("WARN", "UPNP is not available")
+            Log("WARN", "UPNP is not available")
             staticEnabled = False
             Return
         End Try
         Debug.Print("Static UPNP available")
-        FormSetup.Log("INFO", "UPNP is available")
+        Log("INFO", "UPNP is available")
     End Sub
 
 #End Region

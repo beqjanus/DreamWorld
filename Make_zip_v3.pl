@@ -1,6 +1,11 @@
 # build Zipfile
 # AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
 
+BEGIN {
+	open STDERR, ">&STDOUT";
+}
+
+
 use strict;
 no warnings;
 use IO::All;
@@ -122,22 +127,6 @@ open (OUT, ">", 'dlls.txt');
 
 find({ wanted => \&process_file, no_chdir => 1 }, $dir . '/OutworldzFiles/Opensim/bin/');
 
-sub process_file {
-   # if (-f $_) {
-       # print "This is a file: $_\n";
-    #} else {
-       # print "This is not file: $_\n";
-   # }
-	if ($_ !~ /dll$/) {
-		return;
-	}
-	my $fullpath = $_;
-	$fullpath =~ s/$dir//g;
-	$fullpath =~ s/\//\\/g;
-	
-	print OUT $fullpath . "\n";	
-}
-
 # these are needed in this file even if deleted on disk.
 print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Profile.dll\n";
 print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Search.dll\n";
@@ -145,24 +134,10 @@ print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Money.dll\n";
 
 close OUT;
 
-my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
-sign($exes);
-
-use File::Copy::Recursive qw(dircopy);
-dircopy($exes,$dir) or die("$!\n");
-
-
 unlink "$dir/Start.exe.lastcodeanalysissucceeded";
 unlink "$dir/Start.exe.CodeAnalysisLog.xml";
 
-
-say("Signing");
-use IO::All;
-sign($dir);
-
-#
-
-if ($publish eq 'c') {
+if ($publish eq 'c' ) {
 	say("Mysql");
 	chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
 	print `mysqladmin.exe --port 3306 -u root shutdown`;
@@ -175,101 +150,111 @@ if ($publish eq 'c') {
 }
 
 
-print "Processing Main Zip\n";
+if ($publish eq 'p' ) {
+		
+	my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
+	sign($exes);
+	
+	use File::Copy::Recursive qw(dircopy);
+	dircopy($exes,$dir) or die("$!\n");
 
-JustDelete('\\Opensim\\Zip');
-
-my @files =   `cmd /c dir /b `;
-
-# Just do files, dirs are explicitly copied over
-foreach my $file (@files) {
-	chomp $file;
-	next if -d "$dir/$file";
-	next if $file =~ /^\./;
-	ProcessFile ("\"$dir\\$file\"" );
-}
-
-say("Adding folders");
-
-# just dirs
-ProcessDir ('MSFT_Runtimes');
-ProcessDir ('Licenses_to_Content');
-ProcessDir ('OutworldzFiles\\Apache');
-ProcessDir ("OutworldzFiles\\AutoBackup");
-ProcessDir ("OutworldzFiles\\Help");
-ProcessDir ("OutworldzFiles\\IAR");
-ProcessDir ("OutworldzFiles\\Icecast");
-ProcessDir ("OutworldzFiles\\Mysql");
-ProcessDir ("OutworldzFiles\\OAR");
-ProcessDir ("OutworldzFiles\\PHP7");
-ProcessDir ("OutworldzFiles\\Opensim");
-ProcessDir ("OutworldzFiles\\jOpensim_files");
-
-
-foreach my $lang (@languages)
-{
-	ProcessDir ($lang);
-}
-
-say("Drop mysql files from update");
-# now delete the mysql from the UPDATE
-
-say("Drop Mysql from update");
-DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\mysql\\Data');
-say("Drop Jopensim from update");
-DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim');
-if (!copy ('\\Opensim\\Zip\\Outworldzfiles\\jOpensim_Files\\default.htm', '\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim\\default.htm'))  {die $!;}
-
-
-say("Drop Opensim Source code from update");
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/bin/addin-db-002');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Doc');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Prebuild');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/share');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Thirdparty');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.git');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.gitignore');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.hgignore');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/compile.bat');	
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/makefile');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/nant-color');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');	
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim.sln');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim.build');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/prebuild.xml');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.bat');	
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.sh');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/TESTING.txt');
-JustDelete('/Opensim/Zip/Make_zip_v3.pl');
-JustDelete('/Opensim/Zip/Make_zip_v2.pl');
-JustDelete('/Opensim/Zip/Start.vshost.exe.manifest');
-JustDelete('/Opensim/Zip/Start.vshost.exe.config');
-JustDelete('/Opensim/Zip/Start.vshost.exe');
-JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
-
-print "Make zip\n";
-unlink "/Opensim/Zips/DreamGrid$type.zip";
-my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\\*.*`;
-
-sleep(1);
-
-unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
-unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;
-
-#!!!!!!!!!!!!!if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
-
-if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
-
-if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
-if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
-if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
+	say("Signing");
+	use IO::All;
+	sign($dir);	
+	
+	print "Processing Main Zip\n";
+	
+	JustDelete('\\Opensim\\Zip');
+	
+	my @files =   `cmd /c dir /b `;
+	
+	# Just do files, dirs are explicitly copied over
+	foreach my $file (@files) {
+		chomp $file;
+		next if -d "$dir/$file";
+		next if $file =~ /^\./;
+		ProcessFile ("\"$dir\\$file\"" );
+	}
+	
+	say("Adding folders");
+	
+	# just dirs
+	ProcessDir ('MSFT_Runtimes');
+	ProcessDir ('Licenses_to_Content');
+	ProcessDir ('OutworldzFiles\\Apache');
+	ProcessDir ("OutworldzFiles\\AutoBackup");
+	ProcessDir ("OutworldzFiles\\Help");
+	ProcessDir ("OutworldzFiles\\IAR");
+	ProcessDir ("OutworldzFiles\\Icecast");
+	ProcessDir ("OutworldzFiles\\Mysql");
+	ProcessDir ("OutworldzFiles\\OAR");
+	ProcessDir ("OutworldzFiles\\PHP7");
+	ProcessDir ("OutworldzFiles\\Opensim");
+	ProcessDir ("OutworldzFiles\\jOpensim_files");
+	
+	
+	foreach my $lang (@languages)
+	{
+		ProcessDir ($lang);
+	}
+	
+	say("Drop mysql files from update");
+	# now delete the mysql from the UPDATE
+	
+	say("Drop Mysql from update");
+	DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\mysql\\Data');
+	say("Drop Jopensim from update");
+	DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim');
+	if (!copy ('\\Opensim\\Zip\\Outworldzfiles\\jOpensim_Files\\default.htm', '\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim\\default.htm'))  {die $!;}
+	
+	
+	say("Drop Opensim Source code from update");
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/bin/addin-db-002');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Doc');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Prebuild');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/share');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Thirdparty');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.git');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.gitignore');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.hgignore');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/compile.bat');	
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/makefile');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/nant-color');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/BUILDING.md');	
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim.sln');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim.build');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/prebuild.xml');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.bat');	
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild.sh');
+	JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/TESTING.txt');
+	JustDelete('/Opensim/Zip/Make_zip_v3.pl');
+	JustDelete('/Opensim/Zip/Make_zip_v2.pl');
+	JustDelete('/Opensim/Zip/Start.vshost.exe.manifest');
+	JustDelete('/Opensim/Zip/Start.vshost.exe.config');
+	JustDelete('/Opensim/Zip/Start.vshost.exe');
+	JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
+	
+	print "Make zip\n";
+	unlink "/Opensim/Zips/DreamGrid$type.zip";
+	my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\\*.*`;
+	
+	sleep(1);
+	
+	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
+	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;
+	
+	#!!!!!!!!!!!!!if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
+	
+	if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
+	
+	if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Revisions.txt'))  {die $!;}
+	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
+	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
 	
 
 		
-if ($publish eq 'p')
-{
 	say ("Unlinking");	
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" ;
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip" ;	
@@ -464,3 +449,19 @@ sub sign
 	
 	say (join("\n",@signs));
 }
+sub process_file {
+   # if (-f $_) {
+       # print "This is a file: $_\n";
+    #} else {
+       # print "This is not file: $_\n";
+   # }
+	if ($_ !~ /dll$/) {
+		return;
+	}
+	my $fullpath = $_;
+	$fullpath =~ s/$dir//g;
+	$fullpath =~ s/\//\\/g;
+	
+	print OUT $fullpath . "\n";	
+}
+

@@ -307,7 +307,7 @@ Public Class FormBanList
         Catch ex As Exception
             ' Do not catch general exception types
             BreakPoint.Show(ex.Message)
-            FormSetup.ErrorLog("Banlist:" & ex.Message)
+            ErrorLog("Banlist:" & ex.Message)
         End Try
 
     End Sub

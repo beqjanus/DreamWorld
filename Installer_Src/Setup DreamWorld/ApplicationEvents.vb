@@ -32,6 +32,12 @@ Namespace My
 
 #Region "Private Methods"
 
+        Private Shared Sub Network_changed() Handles Me.NetworkAvailabilityChanged
+
+            SetPublicIP()
+
+        End Sub
+
         Private Sub MyApplication_UnhandledException(
                     ByVal sender As Object,
                     ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
@@ -48,8 +54,17 @@ Namespace My
                     Result &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
                 End If
             Next
-            FormSetup.ErrorLog(Result)
-            FormSetup.ErrorLog(DisplayObjectInfo(sender))
+            ErrorLog(Result)
+            ErrorLog(DisplayObjectInfo(sender))
+
+            Dim path = IO.Path.Combine(CurDir(), "OutworldzFiles\Error.log")
+            If System.IO.File.Exists(path) Then
+                Dim Logform As New FormErrorLogger
+                Logform.Show()
+                Logform.Select()
+                Logform.BringToFront()
+                Logform.ShowDialog()
+            End If
 
         End Sub
 

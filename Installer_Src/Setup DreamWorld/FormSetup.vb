@@ -83,7 +83,7 @@ Public Class FormSetup
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
-    Private _DNSisRgistered As Boolean
+
     Private _DNSSTimer As Integer
     Private _ExitHandlerIsBusy As Boolean
     Private _ForceMerge As Boolean
@@ -263,15 +263,6 @@ Public Class FormSetup
         End Get
         Set(value As Double)
             _speed = value
-        End Set
-    End Property
-
-    Public Property DNSisRgistered As Boolean
-        Get
-            Return _DNSisRgistered
-        End Get
-        Set(value As Boolean)
-            _DNSisRgistered = value
         End Set
     End Property
 
@@ -733,25 +724,10 @@ Public Class FormSetup
 
     End Function
 
-    Public Shared Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
-        If dll Is Nothing Then Return False
-        If tofind Is Nothing Then Return False
-        For Each filename In dll
-            If tofind.ToUpper(Globalization.CultureInfo.InvariantCulture) = filename.ToUpper(Globalization.CultureInfo.InvariantCulture) Then
-                Return True
-            End If
-        Next
-        Return False
-    End Function
-
     Public Shared Sub CopyWifi(Page As String)
 
-        If System.IO.Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages")) Then
-            System.IO.Directory.Delete(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"), True)
-        End If
-        If System.IO.Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages")) Then
-            System.IO.Directory.Delete(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"), True)
-        End If
+        FileStuff.DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
+        FileStuff.DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
 
         Try
             My.Computer.FileSystem.CopyDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Page), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"), True)
@@ -805,13 +781,6 @@ Public Class FormSetup
 
     End Function
 
-    Public Shared Sub ErrorLog(message As String)
-        If Debugger.IsAttached Then
-            BreakPoint.Show(message)
-        End If
-        Logger("Error", message, "Error")
-    End Sub
-
     Public Shared Function ExternLocalServerName() As String
         ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
         ''' <returns>Host for regions</returns>
@@ -824,67 +793,6 @@ Public Class FormSetup
         End If
         Return Host
 
-    End Function
-
-    Public Shared Function GetDlls(fname As String) As List(Of String)
-
-        Dim DllList As New List(Of String)
-
-        If System.IO.File.Exists(fname) Then
-            Dim line As String
-            Using reader As StreamReader = System.IO.File.OpenText(fname)
-                'now loop through each line
-                While reader.Peek <> -1
-                    line = reader.ReadLine()
-                    DllList.Add(line)
-                End While
-            End Using
-        End If
-        Return DllList
-
-    End Function
-
-    Public Shared Function GetFilesRecursive(ByVal initial As String) As List(Of String)
-        ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
-        ''' ' This list stores the results.
-        Dim result As New List(Of String)
-
-        ' This stack stores the directories to process.
-        Dim stack As New Stack(Of String)
-
-        ' Add the initial directory
-        stack.Push(initial)
-
-        ' Continue processing for each stacked directory
-        Do While (stack.Count > 0)
-            ' Get top directory string
-            Dim dir As String = stack.Pop
-
-            ' Add all immediate file paths
-            Try
-                result.AddRange(Directory.GetFiles(dir, "*.dll"))
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-
-            ' Loop through all subdirectories and add them to the stack.
-            Dim directoryName As String
-
-            'Save, but skip script engines
-            For Each directoryName In Directory.GetDirectories(dir)
-                If Not directoryName.Contains("ScriptEngines") And
-                    Not directoryName.Contains("fsassets") And
-                    Not directoryName.Contains("assetcache") And
-                    Not directoryName.Contains("j2kDecodeCache") Then
-                    stack.Push(directoryName)
-                End If
-                Application.DoEvents()
-            Next
-            Application.DoEvents()
-        Loop
-
-        ' Return the list
-        Return result
     End Function
 
     Public Shared Function GetHostAddresses(hostName As String) As String
@@ -937,23 +845,6 @@ Public Class FormSetup
 
     End Function
 
-    Public Shared Function GetNewDnsName() As String
-
-        Dim client As New WebClient
-        Dim Checkname As String
-        Try
-            Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            ErrorLog("Error:Cannot get new name:" & ex.Message)
-            client.Dispose()
-            Return ""
-        End Try
-        client.Dispose()
-        Return Checkname
-
-    End Function
-
     Public Shared Function GetOpensimProto() As String
         ''' <summary>Loads the INI file for the proper grid type for parsing</summary>
         ''' <returns>Returns the path to the proper Opensim.ini prototype.</returns>
@@ -987,23 +878,6 @@ Public Class FormSetup
         Return 0
 
     End Function
-
-    Public Shared Sub Log(category As String, message As String)
-
-        ''' <summary>Log(string) to Outworldz.log</summary>
-        ''' <param name="message"></param>
-        Logger(category, message, "Outworldz")
-
-    End Sub
-
-    Public Shared Sub Logger(category As String, message As String, file As String)
-        Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\" & file & ".log"), True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
-            End Using
-        Catch ex As Exception
-        End Try
-    End Sub
 
     Public Shared Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
         ''' <summary>
@@ -1140,7 +1014,11 @@ Public Class FormSetup
 
 #Region "BootUp"
 
-    Public Shared Function GetPostData() As String
+    Public Shared Function GetPostData(Optional Name As String = "") As String
+
+#Disable Warning CA1062 ' Validate arguments of public methods
+        If Name.Length = 0 Then Name = Settings.DNSName   ' optional Alt DNS name can come in
+#Enable Warning CA1062 ' Validate arguments of public methods
 
         Dim Grid As String = "Grid"
 
@@ -1150,7 +1028,7 @@ Public Class FormSetup
         & "&OV=" & WebUtility.UrlEncode(PropSimVersion) _
         & "&Type=" & CStr(Grid) _
         & "&isPublic=" & CStr(Settings.GDPR()) _
-        & "&GridName=" & Settings.DNSName _
+        & "&GridName=" & Name _
         & "&Port=" & CStr(Settings.HttpPort()) _
         & "&Category=" & Settings.Categories _
         & "&Description=" & Settings.Description _
@@ -1824,19 +1702,6 @@ Public Class FormSetup
                 Application.DoEvents()
                 If Not PropOpensimIsRunning() Then Return False
 
-                ' XMLRPC
-                Dim X As Integer = CInt("0" & PropRegionClass.XmlRegionPort(RegionUUID))
-                If X > 0 Then
-                    If PropMyUPnpMap.Exists(Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP) Then
-                        PropMyUPnpMap.Remove(Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP)
-                    End If
-                    If PropMyUPnpMap.Add(PropMyUPnpMap.LocalIP, Convert.ToInt16(X, Globalization.CultureInfo.InvariantCulture), UPnp.MyProtocol.TCP, "Opensim TCP Grid " & Settings.HttpPort) Then
-                        Print(PropRegionClass.RegionName(RegionUUID) & " " & My.Resources.XMLRPC_TCP_is_set_word & ":" & X.ToString(Globalization.CultureInfo.InvariantCulture))
-                    End If
-                    Application.DoEvents()
-                End If
-                If Not PropOpensimIsRunning() Then Return False
-
             Next
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -1854,49 +1719,6 @@ Public Class FormSetup
         Trim()
 
     End Sub
-
-    Public Function RegisterName(DNSName As String, force As Boolean) As Boolean
-
-        If DNSName Is Nothing Then Return False
-
-        If DNSName.Length < 3 Then Return False
-
-        Dim Checkname As String = String.Empty
-        If Settings.ServerType <> "Robust" Then
-            Return True
-        End If
-
-        If IPCheck.IsPrivateIP(DNSName) Then
-            Return False
-        End If
-
-        If DNSisRgistered And Not force Then Return True
-
-        Dim client As New WebClient ' download client for web pages
-        Try
-            Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx" & GetPostData())
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            Try
-                Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx" & GetPostData())
-            Catch
-                ErrorLog("Warn: Cannot register this DNS Name " & ex.Message)
-                Return False
-            End Try
-        Finally
-            client.Dispose()
-        End Try
-
-        If Checkname = "UPDATE" Then
-            DNSisRgistered = True
-            Return True
-        End If
-        If Checkname = "NAK" Then
-            MsgBox(My.Resources.DDNS_In_Use)
-        End If
-        Return False
-
-    End Function
 
     Public Sub SendMsg(msg As String)
 
@@ -1967,81 +1789,6 @@ Public Class FormSetup
         End If
 
     End Sub
-
-    Public Function SetPublicIP() As Boolean
-
-        ' LAN USE
-
-        If Settings.DNSName.Length > 0 Then
-            Settings.PublicIP = Settings.DNSName()
-            Settings.SaveSettings()
-            Print(My.Resources.Setup_Network)
-            Dim ret = RegisterName(Settings.PublicIP, False)
-            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
-            For Each part As String In array
-                If part.Length > 0 Then
-                    RegisterName(part, False)
-                End If
-            Next
-            Return ret
-        Else
-            Settings.PublicIP = PropMyUPnpMap.LocalIP
-            Print(My.Resources.Setup_Network)
-            Settings.SaveSettings()
-        End If
-
-        ' HG USE
-
-        If Not IPCheck.IsPrivateIP(Settings.DNSName) Then
-            Print(My.Resources.Public_IP_Setup_Word)
-            If Settings.DNSName.Length > 3 Then
-                Settings.PublicIP = Settings.DNSName
-                Settings.SaveSettings()
-            End If
-
-            Dim UC = Settings.PublicIP.ToUpperInvariant()
-            If UC.Contains("OUTWORLDZ.NET") Then
-                Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
-            End If
-
-            RegisterName(Settings.PublicIP, False)
-            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
-            For Each part As String In array
-                RegisterName(part, False)
-            Next
-
-        End If
-
-        If Settings.PublicIP = "localhost" Or Settings.PublicIP = "127.0.0.1" Then
-            RegisterName(Settings.PublicIP, False)
-            Return True
-        End If
-
-        Log(My.Resources.Info_word, "Public IP=" & Settings.PublicIP)
-        TestPublicLoopback()
-        If Settings.DiagFailed = "False" Then
-
-            Using client As New WebClient ' download client for web pages
-                Try
-                    ' Set Public IP
-                    Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                    ErrorLog(My.Resources.Wrong & "@ api.ipify.org")
-                    Settings.DiagFailed = "True"
-                End Try
-            End Using
-
-            Settings.SaveSettings()
-            Return True
-        End If
-
-        Settings.PublicIP = PropMyUPnpMap.LocalIP
-        Settings.SaveSettings()
-
-        Return False
-
-    End Function
 
     Public Sub ShowRegionMap()
 
@@ -2447,39 +2194,16 @@ Public Class FormSetup
 
 #Region "Upload"
 
-    Public Shared Sub UploadCategory()
-
-        If Settings.DNSName.Length = 0 Then Return
-
-        'PHASE 2, upload Description and Categories
-        Dim result As String = Nothing
-        If Settings.Categories.Length = 0 Then Return
-
-        Using client As New WebClient ' download client for web pages
-            Try
-                Dim str = PropDomain & "/cgi/UpdateCategory.plx" & GetPostData()
-                result = client.DownloadString(str)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            End Try
-        End Using
-
-        If result <> "OK" Then
-            ErrorLog(My.Resources.Wrong & " " & result)
-        End If
-
-    End Sub
-
     Public Shared Sub UploadPhoto()
 
         ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
         If Settings.GDPR() Then
-
-            UploadCategory()
+            Dim Myupload As New UploadImage
+            Myupload.UploadCategory()
             If System.IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")) Then
-                Dim Myupload As New UploadImage
-                Myupload.PostContentUploadFile()
+                Dim CGI As Uri = New Uri("https://outworldz.com/cgi/uploadphoto.plx")
+                Dim Photo As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
+                Myupload.PostContentUploadFile(Photo, CGI)
             End If
 
         End If
@@ -2964,24 +2688,6 @@ Public Class FormSetup
 
     End Function
 
-    Private Shared Sub CleanDLLs()
-
-        If Not Debugger.IsAttached Then
-            Dim dlls As List(Of String) = GetDlls(IO.Path.Combine(Settings.CurrentDirectory, "dlls.txt"))
-            Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath)
-            For Each localdllname In localdlls
-                Application.DoEvents()
-                Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
-                Dim newlocaldllname = Mid(localdllname, x)
-                If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
-                    Log(My.Resources.Info_word, "Deleting dll " & localdllname)
-                    FileStuff.DeleteFile(localdllname)
-                End If
-            Next
-        End If
-
-    End Sub
-
     Private Shared Sub Create_ShortCut(ByVal sTargetPath As String)
         ' Requires reference to Windows Script Host Object Model
         Dim WshShell As WshShellClass = New WshShellClass
@@ -3127,16 +2833,6 @@ Public Class FormSetup
 
         For Each filename As String In AL
             FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, filename))
-        Next
-
-    End Sub
-
-    Private Shared Sub KillFolder(AL As List(Of String))
-
-        For Each folder As String In AL
-            If IO.Directory.Exists(IO.Path.Combine(Settings.CurrentDirectory, folder)) Then
-                System.IO.Directory.Delete(IO.Path.Combine(Settings.CurrentDirectory, folder), True)
-            End If
         Next
 
     End Sub
@@ -3524,9 +3220,7 @@ Public Class FormSetup
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
-        If IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5")) Then
-            Directory.Delete(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5"), True)
-        End If
+        FileStuff.DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5"))
 
         ' lean rightward paths for Apache
         ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\conf\extra\httpd-ssl.conf")
@@ -4282,17 +3976,6 @@ Public Class FormSetup
 
 #Region "StartStop"
 
-    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) 'Handles MyBase.FormClosed
-
-        If OpensimBackupRunning() > 0 Then
-            Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
-            If info = vbNo Then
-                Return
-            End If
-        End If
-
-    End Sub
-
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         If OpensimBackupRunning() > 0 Then
@@ -4330,18 +4013,6 @@ Public Class FormSetup
             PropViewedSettings = True
         End If
 
-        ' cleanup old code and files
-        Dim ToDrop = New List(Of String) From {
-            _myFolder & "\Downloader.exe",
-            _myFolder & "\DreamGridSetup.exe",
-            _myFolder & "\Downloader.exe.config",
-            _myFolder & "\DreamGridSetup.exe.config"
-        }
-
-        For Each N As String In ToDrop
-            FileStuff.DeleteFile(N)
-        Next
-
         'Load Settings, if any
         Settings.Init(_myFolder)
 
@@ -4350,6 +4021,8 @@ Public Class FormSetup
 
         Log("Startup:", DisplayObjectInfo(Me))
         SetScreen()     ' move Form to fit screen from SetXY.ini
+
+        FileStuff.Cleanup() ' old files
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
@@ -4679,7 +4352,7 @@ Public Class FormSetup
         mnuSettings.Visible = True
 
         LoadHelp()      ' Help loads once
-        KillOldFiles()  ' wipe out DLL's and other oddities
+
         FixUpdater()    ' replace DreamGridUpdater.exe with DreamGridUpdater.new
 
         Print(My.Resources.RefreshingOAR)
@@ -4748,6 +4421,13 @@ Public Class FormSetup
         HelpOnce("Startup")
 
         Joomla.CheckForjOpensimUpdate()
+
+        'Dim Logform As New FormErrorLogger
+        'Logform.Show()
+        'Logform.Select()
+        'Logform.BringToFront()
+
+        'Throw New System.Exception("An exception has occurred.")
 
     End Sub
 
@@ -5048,57 +4728,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub KillOldFiles()
-
-        Dim files As New List(Of String) From {
-        "\Shoutcast", ' deprecated
-        "\Icecast",   ' moved to Outworldzfiles
-        "\Outworldzfiles\Opensim\bin\addins",' moved to Outworldzfiles
-        "\Outworldzfiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
-        "\Outworldzfiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
-        "\Outworldzfiles\Opensim\bin\addin-db" ' must be cleared or opensim updates can break.
-        }
-
-        If PropKillSource Then
-            files.Add("Outworldzfiles\Opensim\.nant")
-
-            files.Add("Outworldzfiles\Opensim\doc")
-            files.Add("Outworldzfiles\Opensim\Opensim")
-            files.Add("Outworldzfiles\Opensim\Prebuild")
-            files.Add("Outworldzfiles\Opensim\share")
-            files.Add("Outworldzfiles\Opensim\Thirdparty")
-
-        End If
-
-        KillFolder(files)   ' wipe these folders out
-        files.Clear() ' now do a list of files to clean up
-
-        ' necessary to kill these off as it is a badly behaved
-        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll")
-        files.Add("\Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb")
-        files.Add("\Outworldzfiles\Opensim\bin\config-include\Birds.ini") ' no need for birds yet
-        files.Add("SET_externalIP-Log.txt")
-
-        ' crap load of old DLLS have to be eliminated
-        CleanDLLs() ' drop old opensim Dll's
-
-        If PropKillSource Then
-            files.Add("\Outworldzfiles\Opensim\BUILDING.md")
-            files.Add("\Outworldzfiles\Opensim\compile.bat")
-            files.Add("\Outworldzfiles\Opensim\Makefile")
-            files.Add("\Outworldzfiles\Opensim\nant-color")
-            files.Add("\Outworldzfiles\Opensim\OpenSim.build")
-            files.Add("\Outworldzfiles\Opensim\OpenSim.sln")
-            files.Add("\Outworldzfiles\Opensim\prebuild.xml")
-            files.Add("\Outworldzfiles\Opensim\runprebuild.bat")
-            files.Add("\Outworldzfiles\Opensim\runprebuild.sh")
-            files.Add("\Outworldzfiles\Opensim\TESTING.txt")
-        End If
-
-        KillFiles(files)   ' wipe these files out
-
-    End Sub
-
     Private Sub LoadHelp()
 
         ' read help files for menu
@@ -5296,23 +4925,6 @@ Public Class FormSetup
             StopMysql()
         Else
             StartMySQL()
-        End If
-
-    End Sub
-
-    Private Sub NewDNSName()
-
-        If Settings.DNSName.Length = 0 And Settings.EnableHypergrid Then
-            Dim newname = GetNewDnsName()
-            If newname.Length >= 0 Then
-                If RegisterName(newname, True) Then
-                    Settings.DNSName = newname
-                    Settings.PublicIP = newname
-                    Settings.SaveSettings()
-                    MsgBox(My.Resources.NameAlreadySet, vbInformation, Global.Outworldz.My.Resources.Information_word)
-                End If
-            End If
-
         End If
 
     End Sub
@@ -6125,7 +5737,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub TestPublicLoopback()
+    Public Sub TestPublicLoopback()
 
         If IPCheck.IsPrivateIP(Settings.PublicIP) Then
             Logger("INFO", "Local LAN IP", "Diagnostics")

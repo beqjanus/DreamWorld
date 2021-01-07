@@ -1882,6 +1882,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The system has crashed and must exit.  What happened just before it crashed?.
+        '''</summary>
+        Friend ReadOnly Property Crash_Message() As String
+            Get
+                Return ResourceManager.GetString("Crash_Message", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Create Production Account.
         '''</summary>
         Friend ReadOnly Property Create_Account() As String
@@ -7355,6 +7364,15 @@ Namespace My.Resources
         Friend ReadOnly Property Send_Alert_Message_word() As String
             Get
                 Return ResourceManager.GetString("Send_Alert_Message_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Send and Quit?.
+        '''</summary>
+        Friend ReadOnly Property Send_and_quit_word() As String
+            Get
+                Return ResourceManager.GetString("Send_and_quit_word", resourceCulture)
             End Get
         End Property
         
