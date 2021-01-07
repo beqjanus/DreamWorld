@@ -115,7 +115,6 @@ Public Class RegionMaker
         FormSetup.Print(My.Resources.Updating_Ports_word)
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
-        Dim XMLPortnumber As Integer = CInt("0" & Settings.FirstXMLRegionPort())
 
         For Each uuid As String In RegionUuids()
             Dim Name = RegionName(uuid)
@@ -126,15 +125,11 @@ Public Class RegionMaker
 
             GroupPort(uuid) = Portnumber
 
-            XmlRegionPort(uuid) = XMLPortnumber
-
             ' Self setting Region Ports
             PropMaxPortUsed = Portnumber
-            PropMaxXMLPortUsed = XMLPortnumber
 
             Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
-            If XMLPortnumber > 0 Then XMLPortnumber += 1
         Next
 
         FormSetup.Print(My.Resources.Setup_Firewall_word)
@@ -161,7 +156,7 @@ Public Class RegionMaker
                 If first > -1 And last > -1 Then
                     rawJSON = POST.Substring(first, last - first + 1)
                 Else
-                    FormSetup.Logger("RegionReady", "Malformed Web request: " & POST, "Restart")
+                    Logger("RegionReady", "Malformed Web request: " & POST, "Restart")
                     Continue While
                 End If
 
@@ -170,7 +165,7 @@ Public Class RegionMaker
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                     Debug.Print(ex.Message)
-                    FormSetup.Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
+                    Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
                     Continue While
                 End Try
 
@@ -185,10 +180,10 @@ Public Class RegionMaker
 
                 If json.login = "enabled" Then
 
-                    FormSetup.Logger("RegionReady: Enabled", json.region_name, "Restart")
+                    Logger("RegionReady: Enabled", json.region_name, "Restart")
                     Dim uuid As String = FindRegionByName(json.region_name)
                     If uuid.Length = 0 Then
-                        FormSetup.Logger("RegionReady Error, no UUID!!", json.region_name, "Restart")
+                        Logger("RegionReady Error, no UUID!!", json.region_name, "Restart")
                         Continue While
                     End If
 
@@ -196,7 +191,7 @@ Public Class RegionMaker
 
                     Dim GroupList = RegionUuidListByName(GName)
                     For Each R As String In GroupList
-                        FormSetup.Logger("RegionReady Heard:", RegionName(R), "Restart")
+                        Logger("RegionReady Heard:", RegionName(R), "Restart")
                         FormSetup.BootedList1.Add(R)
                     Next
 
@@ -243,27 +238,27 @@ Public Class RegionMaker
 
                 ElseIf json.login = "shutdown" Then
 
-                    FormSetup.Logger("Shutdown", json.region_name, "Restart")
+                    Logger("Shutdown", json.region_name, "Restart")
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
 
                     FormSetup.Print(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
                     Dim uuid = FindRegionByName(json.region_name)
                     Dim GName = GroupName(uuid)
                     If Not FormSetup.PropExitList.ContainsKey(GName) Then
-                        FormSetup.Logger("Shutdown", GName, "Restart")
+                        Logger("Shutdown", GName, "Restart")
                         FormSetup.PropExitList.Add(GName, "RegionReady: shutdown ")
                     End If
 
                 ElseIf json.login = "disabled" Then
-                    FormSetup.Logger("RegionReady", json.region_name & " disabled login", "Restart")
+                    Logger("RegionReady", json.region_name & " disabled login", "Restart")
                     Continue While
                 Else
-                    FormSetup.Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
+                    Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
                     Continue While
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                FormSetup.Logger("RegionReady", "Exception:" & ex.Message, "Restart")
+                Logger("RegionReady", "Exception:" & ex.Message, "Restart")
             End Try
         End While
 
@@ -474,7 +469,7 @@ Public Class RegionMaker
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
-                        FormSetup.ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
+                        ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                         Return -1
                     End Try
                 Next
@@ -637,7 +632,6 @@ Public Class RegionMaker
         & "MinTimerInterval =" & MinTimerInterval(uuid) & vbCrLf _
         & "Frametime =" & FrameTime(uuid) & vbCrLf _
         & "ScriptEngine =" & ScriptEngine(uuid) & vbCrLf _
-        & "XmlRpcPort =" & XmlRegionPort(uuid) & vbCrLf _
         & "Publicity =" & GDPR(uuid) & vbCrLf _
         & "SmartStart =" & SmartStart(uuid) & vbCrLf
 
@@ -721,7 +715,7 @@ Public Class RegionMaker
         Public _Snapshot As String = ""
         Public _Teleport As String = ""
         Public _Tides As String = ""
-        Public _XMLRegionPort As Integer
+
         Public _CrashCounter As Integer
         Public _GroupPort As Integer
 
@@ -1314,19 +1308,6 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property XmlRegionPort(uuid As String) As Integer
-        Get
-            If uuid Is Nothing Then Return 0
-            If Bad(uuid) Then Return 0
-            Return CInt(RegionList(uuid)._XMLRegionPort)
-        End Get
-        Set(ByVal Value As Integer)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._XMLRegionPort = CInt(Value)
-        End Set
-    End Property
-
 #End Region
 
 #Region "Functions"
@@ -1341,7 +1322,7 @@ Public Class RegionMaker
 
     Public Sub DebugRegions(region As String)
 
-        FormSetup.Log("uuid", CStr(region) & vbCrLf &
+        Log("uuid", CStr(region) & vbCrLf &
             " PID:" & RegionList(region)._ProcessID & vbCrLf &
             " Group:" & RegionList(region)._Group & vbCrLf &
             " Region:" & RegionList(region)._RegionName & vbCrLf &
@@ -2035,7 +2016,6 @@ Public Class RegionMaker
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
         End If
 
-        Settings.SetIni("XMLRPC", "XmlRpcPort", CStr(XmlRegionPort(uuid)))
         Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
 
         ' Autobackup
@@ -2308,11 +2288,11 @@ Public Class RegionMaker
         End If
 
         If String.IsNullOrEmpty(uuid) Then
-            FormSetup.ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
+            ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
             Return True
         End If
 
-        FormSetup.ErrorLog("Region UUID does not exist. " & CStr(uuid))
+        ErrorLog("Region UUID does not exist. " & CStr(uuid))
         Return True
 
     End Function

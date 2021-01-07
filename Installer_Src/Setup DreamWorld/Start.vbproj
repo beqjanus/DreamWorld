@@ -260,6 +260,7 @@
     <Compile Include="BreakPoint.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="CPUCounter.vb" />
+    <Compile Include="DNS.vb" />
     <Compile Include="Dump.vb" />
     <Compile Include="FileStuff.vb" />
     <Compile Include="Firewall.vb" />
@@ -291,6 +292,12 @@
       <DependentUpon>FormDisplacement.vb</DependentUpon>
     </Compile>
     <Compile Include="FormDisplacement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormErrorLogger.Designer.vb">
+      <DependentUpon>FormErrorLogger.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormErrorLogger.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormFlotsamCache.Designer.vb">
@@ -474,6 +481,7 @@
     <Compile Include="Help.vb" />
     <Compile Include="IP.vb" />
     <Compile Include="jOpensim.vb" />
+    <Compile Include="Logging.vb" />
     <Compile Include="My Project\Resources.cz.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -556,6 +564,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplacement.resx">
       <DependentUpon>FormDisplacement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormErrorLogger.resx">
+      <DependentUpon>FormErrorLogger.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormFlotsamCache.resx">
       <DependentUpon>FormFlotsamCache.vb</DependentUpon>

@@ -2,12 +2,168 @@
 
 Module FileStuff
 
+    Public Sub Cleanup() ' old files
+
+        ' cleanup old code and files
+        Dim ToDrop = New List(Of String) From {
+            "Downloader.exe",
+            "DreamGridSetup.exe",
+            "Downloader.exe.config",
+            "DreamGridSetup.exe.config",
+            "Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll",
+            "Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb",
+            "Outworldzfiles\Opensim\bin\config-include\Birds.ini",
+            "SET_externalIP-Log.txt"
+        }
+
+        For Each N As String In ToDrop
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, N))
+        Next
+
+        Dim FoldersToDrop = New List(Of String) From {
+            IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"),
+            IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages")
+        }
+
+        For Each N As String In ToDrop
+            FileStuff.DeleteFolder(N)
+        Next
+
+        Dim files As New List(Of String) From {
+        "\Shoutcast", ' deprecated
+        "\Icecast",   ' moved to Outworldzfiles
+        "\Outworldzfiles\Opensim\bin\addins",' moved to Outworldzfiles
+        "\Outworldzfiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
+        "\Outworldzfiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
+        "\Outworldzfiles\Opensim\bin\addin-db" ' must be cleared or opensim updates can break.
+        }
+
+        If FormSetup.PropKillSource Then
+            files.Add("Outworldzfiles\Opensim\.nant")
+            files.Add("Outworldzfiles\Opensim\doc")
+            files.Add("Outworldzfiles\Opensim\Opensim")
+            files.Add("Outworldzfiles\Opensim\Prebuild")
+            files.Add("Outworldzfiles\Opensim\share")
+            files.Add("Outworldzfiles\Opensim\Thirdparty")
+        End If
+
+        For Each N In files
+            FileStuff.DeleteFolder(N)   ' wipe these folders out
+        Next
+
+        ' crap load of old DLLS have to be eliminated
+        CleanDLLs() ' drop old opensim Dll's
+
+    End Sub
+
+    Private Sub CleanDLLs()
+
+        If Not Debugger.IsAttached Then
+            Dim dlls As List(Of String) = GetDlls(IO.Path.Combine(Settings.CurrentDirectory, "dlls.txt"))
+            Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath)
+            For Each localdllname In localdlls
+                Application.DoEvents()
+                Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
+                Dim newlocaldllname = Mid(localdllname, x)
+                If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
+                    FileStuff.DeleteFile(localdllname)
+                End If
+            Next
+        End If
+
+    End Sub
+
+    Private Function GetFilesRecursive(ByVal initial As String) As List(Of String)
+        ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
+        ''' ' This list stores the results.
+        Dim result As New List(Of String)
+
+        ' This stack stores the directories to process.
+        Dim stack As New Stack(Of String)
+
+        ' Add the initial directory
+        stack.Push(initial)
+
+        ' Continue processing for each stacked directory
+        Do While (stack.Count > 0)
+            ' Get top directory string
+            Dim dir As String = stack.Pop
+
+            ' Add all immediate file paths
+            Try
+                result.AddRange(Directory.GetFiles(dir, "*.dll"))
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+
+            ' Loop through all subdirectories and add them to the stack.
+            Dim directoryName As String
+
+            'Save, but skip script engines
+            For Each directoryName In Directory.GetDirectories(dir)
+                If Not directoryName.Contains("ScriptEngines") And
+                    Not directoryName.Contains("fsassets") And
+                    Not directoryName.Contains("assetcache") And
+                    Not directoryName.Contains("j2kDecodeCache") Then
+                    stack.Push(directoryName)
+                End If
+                Application.DoEvents()
+            Next
+            Application.DoEvents()
+        Loop
+
+        ' Return the list
+        Return result
+    End Function
+
+    Private Function GetDlls(fname As String) As List(Of String)
+
+        Dim DllList As New List(Of String)
+
+        If System.IO.File.Exists(fname) Then
+            Dim line As String
+            Using reader As StreamReader = System.IO.File.OpenText(fname)
+                'now loop through each line
+                While reader.Peek <> -1
+                    line = reader.ReadLine()
+                    DllList.Add(line)
+                End While
+            End Using
+        End If
+        Return DllList
+
+    End Function
+
+    Private Function CompareDLLignoreCase(tofind As String, dll As List(Of String)) As Boolean
+        If dll Is Nothing Then Return False
+        If tofind Is Nothing Then Return False
+        For Each filename In dll
+            If tofind.ToUpper(Globalization.CultureInfo.InvariantCulture) = filename.ToUpper(Globalization.CultureInfo.InvariantCulture) Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
+    Public Sub DeleteFolder(n As String)
+
+        If System.IO.Directory.Exists(n) Then
+            Try
+                System.IO.Directory.Delete(n)
+            Catch ex As IOException
+            Catch ex As UnauthorizedAccessException
+            Catch ex As ArgumentException
+            End Try
+
+        End If
+
+    End Sub
+
     ''' <summary>Deletes old log files</summary>
     '''
     Public Sub ClearLogFiles()
 
         Dim Logfiles = New List(Of String) From {
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Restart.log"),

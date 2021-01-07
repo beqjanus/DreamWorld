@@ -87,7 +87,8 @@ Public Class FormPublicity
         Dim tmp = DescriptionBox.Text.Replace(vbCrLf, "<br>")
         Settings.Description = tmp
 
-        FormSetup.UploadCategory()
+        Dim Myupload As New UploadImage
+        Myupload.UploadCategory()
         Settings.SaveSettings()
 
     End Sub
@@ -182,7 +183,7 @@ Public Class FormPublicity
                     newBitmap.Dispose()
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
-                    FormSetup.ErrorLog("Save Photo " & ex.Message)
+                    ErrorLog("Save Photo " & ex.Message)
                     Return
                 End Try
 

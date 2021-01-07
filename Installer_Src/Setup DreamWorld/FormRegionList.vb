@@ -416,9 +416,6 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
-        ListView1.Columns.Add(My.Resources.XMLRPC, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
-        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
-        ctr += 1
 
         ' optional
         ListView1.Columns.Add(My.Resources.Scripts_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 80), HorizontalAlignment.Center)
@@ -694,7 +691,6 @@ Public Class FormRegionlist
                     item1.SubItems.Add(Estate)
 
                     item1.SubItems.Add(PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-                    item1.SubItems.Add(PropRegionClass.XmlRegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
                     'Scripts XEngine or YEngine
                     Select Case PropRegionClass.ScriptEngine(RegionUUID)
@@ -858,11 +854,11 @@ Public Class FormRegionlist
                 Me.ListView1.TabIndex = 0
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                FormSetup.Log(My.Resources.Error_word, " RegionList " & ex.Message)
+                Log(My.Resources.Error_word, " RegionList " & ex.Message)
             End Try
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Log(My.Resources.Error_word, " RegionList " & ex.Message)
+            Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
         ListView1.EndUpdate()
@@ -1071,7 +1067,7 @@ Public Class FormRegionlist
             PropUpdateView() = False
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Log(My.Resources.Error_word, " RegionList " & ex.Message)
+            Log(My.Resources.Error_word, " RegionList " & ex.Message)
         End Try
 
     End Sub
@@ -1142,7 +1138,7 @@ SetWindowOnTop_Err:
                 FormSetup.Print(My.Resources.Stopped_word)
             End If
             FormSetup.StartRobust()
-            FormSetup.Log("Starting", PropRegionClass.RegionName(RegionUUID))
+            Log("Starting", PropRegionClass.RegionName(RegionUUID))
 
             If PropRegionClass.CopyOpensimProto(RegionUUID) Then
                 Return
@@ -1241,11 +1237,11 @@ SetWindowOnTop_Err:
 
             ' shut down all regions in the DOS box
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-            FormSetup.Logger("RecyclingDown", GroupName, "Restart")
+            Logger("RecyclingDown", GroupName, "Restart")
             For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                 PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
-                FormSetup.Logger("RecyclingDown", PropRegionClass.RegionName(UUID), "Restart")
+                Logger("RecyclingDown", PropRegionClass.RegionName(UUID), "Restart")
             Next
 
             FormSetup.Buttons(FormSetup.StopButton)

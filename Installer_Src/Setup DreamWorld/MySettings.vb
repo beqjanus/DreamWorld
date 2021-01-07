@@ -105,7 +105,7 @@ Public Class MySettings
 
     Public Function LoadIni(arg As String, comment As String) As Boolean
 
-        'FormSetup.Log(My.Resources.Info_word, "Loading INI " & arg)
+        'Log(My.Resources.Info_word, "Loading INI " & arg)
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -115,7 +115,7 @@ Public Class MySettings
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             MsgBox(ex.Message)
-            FormSetup.Logger("Warn", ex.Message, "Error")
+            Logger("Warn", ex.Message, "Error")
             Return True
         End Try
         INI = arg
@@ -150,7 +150,7 @@ Public Class MySettings
             Data(section)(key) = value
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.ErrorLog(ex.Message)
+            ErrorLog(ex.Message)
         End Try
 
     End Sub
@@ -163,7 +163,7 @@ Public Class MySettings
             MyData(section)(key) = value
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.ErrorLog(ex.Message)
+            ErrorLog(ex.Message)
         End Try
 
     End Sub
@@ -240,7 +240,7 @@ Public Class MySettings
                 parser.WriteFile(INI, Data, encoding)
                 Retry = 0
             Catch ex As Exception
-                FormSetup.ErrorLog("Error:" + ex.Message)
+                ErrorLog("Error:" + ex.Message)
                 Retry -= 1
                 Thread.Sleep(100)
             End Try
@@ -256,7 +256,7 @@ Public Class MySettings
                 Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
                 Retry = 0
             Catch ex As Exception
-                FormSetup.ErrorLog("Error:" + ex.Message)
+                ErrorLog("Error:" + ex.Message)
                 Retry -= 1
                 Thread.Sleep(100)
             End Try
@@ -274,7 +274,7 @@ Public Class MySettings
                 SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
                 Retry = 0
             Catch ex As Exception
-                FormSetup.ErrorLog("Error:" + ex.Message)
+                ErrorLog("Error:" + ex.Message)
                 Retry -= 1
                 Thread.Sleep(100)
             End Try
@@ -891,15 +891,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("FirstRegionPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property FirstXMLRegionPort() As Integer
-        Get
-            Return CInt("0" & GetMySetting("XMLRegionStartPort", "0"))
-        End Get
-        Set
-            SetMySetting("XMLRegionStartPort", CStr(Value))
         End Set
     End Property
 

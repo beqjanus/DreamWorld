@@ -24,47 +24,87 @@ Imports System.IO
 Imports System.Net
 
 Public Class UploadImage
+    Implements IDisposable
 
-    'Private Delegate Sub UploadStateChange(ByVal Data As String, ByVal Info As UploadInfo)
+    Private _busy As Boolean
 
 #Region "Public Methods"
 
-    Shared Sub UploadComplete(ByVal data As String)
+    Sub UploadComplete(ByVal data As String)
         ' Your Upload Success Routine Goes here
         If data <> "1" Then
-            FormSetup.Log(My.Resources.Error_word, "Upload Failed. " & data)
+            Log(My.Resources.Error_word, "Upload Failed. " & data)
+        End If
+        Busy = False
+
+    End Sub
+
+    Sub UploadError(ByVal data As String)
+
+        ' Your Upload failure Routine Goes here
+        ErrorLog("Upload Error:" + data)
+
+        Busy = False
+
+    End Sub
+
+#Disable Warning CA1822 ' Mark members as static
+
+    Public Sub UploadCategory()
+#Enable Warning CA1822 ' Mark members as static
+
+        If Settings.DNSName.Length = 0 Then Return
+
+        'PHASE 2, upload Description and Categories
+        Dim result As String = Nothing
+        If Settings.Categories.Length = 0 Then Return
+
+        Using client As New WebClient ' download client for web pages
+            Try
+                Dim str = FormSetup.PropDomain & "/cgi/UpdateCategory.plx" & FormSetup.GetPostData()
+                result = client.DownloadString(str)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
+            End Try
+        End Using
+
+        If result <> "OK" Then
+            ErrorLog(My.Resources.Wrong & " " & result)
         End If
 
     End Sub
 
-    Shared Sub UploadError(ByVal data As String)
-        ' Your Upload failure Routine Goes here
-        FormSetup.ErrorLog("Upload Error:" + data)
-    End Sub
-
-    Public Sub PostContentUploadFile()
+    Public Sub PostContentUploadFile(File As String, CGI As Uri)
 
         Try
-            Dim URL = New Uri("https://outworldz.com/cgi/uploadphoto.plx")
-
-            Dim File = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
             Dim params As New Specialized.NameValueCollection From {
                 {"MachineID", Settings.MachineID()},
                 {"DnsName", Settings.PublicIP}
             }
 
-            Dim req As Net.HttpWebRequest = CType(HttpWebRequest.Create(URL), HttpWebRequest)
+            Dim req As Net.HttpWebRequest = CType(HttpWebRequest.Create(CGI), HttpWebRequest)
             req.Method = "POST"
             req.KeepAlive = True
             req.ReadWriteTimeout = System.Threading.Timeout.Infinite
             req.Credentials = System.Net.CredentialCache.DefaultCredentials
 
-            Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable,
-                New HttpRequestState(req, params, File))
+            Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable, New HttpRequestState(req, params, File))
+            Busy = True
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Log(My.Resources.Error_word, ex.Message)
+            Log(My.Resources.Error_word, ex.Message)
+            Busy = False
         End Try
+
+        Dim ctr = 600
+        While Busy And ctr > 0
+            Threading.Thread.Sleep(100)
+            Application.DoEvents()
+            ctr -= 1
+        End While
+
+        Busy = False
 
     End Sub
 
@@ -177,6 +217,7 @@ Public Class UploadImage
             Call UploadError(sData)
         End If
 
+        _busy = False
     End Sub
 
 #End Region
@@ -204,6 +245,46 @@ Public Class UploadImage
 #End Region
 
     End Class
+
+#Region "IDisposable Support"
+
+    Private disposedValue As Boolean ' To detect redundant calls
+
+    Public Property Busy As Boolean
+        Get
+            Return _busy
+        End Get
+        Set(value As Boolean)
+            _busy = value
+        End Set
+    End Property
+
+    ' This code added by Visual Basic to correctly implement the disposable pattern.
+    Public Sub Dispose() Implements IDisposable.Dispose
+        ' Do not change this code. Put cleanup code in Dispose(disposing As Boolean) above.
+        Dispose(True)
+
+        GC.SuppressFinalize(Me)
+    End Sub
+
+    ' IDisposable
+    Protected Overridable Sub Dispose(disposing As Boolean)
+        If Not disposedValue Then
+            If disposing Then
+
+            End If
+        End If
+        disposedValue = True
+    End Sub
+
+    '
+    'Protected Overrides Sub Finalize()
+    '    ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
+    '    Dispose(False)
+    '    MyBase.Finalize()
+    'End Sub
+
+#End Region
 
 #End Region
 

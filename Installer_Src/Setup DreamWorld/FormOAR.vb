@@ -248,7 +248,7 @@ Public Class FormOAR
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Log("Warn", ex.Message)
+            Log("Warn", ex.Message)
         End Try
 
         Return Nothing
@@ -263,7 +263,7 @@ Public Class FormOAR
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Log("Warn", ex.Message)
+            Log("Warn", ex.Message)
         End Try
         Return ""
 
@@ -279,7 +279,7 @@ Public Class FormOAR
             End If
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Log("Error", ex.Message)
+            Log("Error", ex.Message)
         End Try
 
     End Sub
@@ -406,7 +406,7 @@ Public Class FormOAR
             WebThread.SetApartmentState(ApartmentState.STA)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Log(My.Resources.Error_word, ex.Message)
+            Log(My.Resources.Error_word, ex.Message)
         End Try
         WebThread.Start()
 
@@ -425,7 +425,7 @@ Public Class FormOAR
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                FormSetup.ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return Nothing
             End Try
         End Using
@@ -587,7 +587,6 @@ Public Class FormOAR
     End Sub
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
-
 
         If Not TimerBusy Then InitiateThread()
         TimerBusy = True

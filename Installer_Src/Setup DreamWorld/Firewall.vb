@@ -25,11 +25,6 @@ Public Module Firewall
 
         For Each RegionUUID As String In GlobalSettings.PropRegionClass.RegionUuids
 
-            Dim X As Integer = CInt("0" & PropRegionClass.XmlRegionPort(RegionUUID))
-            If X > 0 Then
-                Command = Command & "netsh advfirewall firewall add rule name=""XMLRegionPort " & CStr(X) & """ dir=in action=allow protocol=TCP localport=" & CStr(X) & vbCrLf
-            End If
-
             Dim R As Integer = CInt("0" & PropRegionClass.RegionPort(RegionUUID))
             If R > 0 Then
                 Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Port " & CStr(R) & """ dir=in action=allow protocol=TCP localport=" & CStr(R) & vbCrLf _
@@ -70,11 +65,6 @@ Public Module Firewall
         End If
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
-
-            Dim X As Integer = CInt("0" & PropRegionClass.XmlRegionPort(RegionUUID))
-            If X > 0 Then
-                Command = Command & "netsh advfirewall firewall delete rule name=""XMLRegionPort " & CStr(X) & """" & vbCrLf
-            End If
 
             Dim R As Integer = CInt("0" & PropRegionClass.RegionPort(RegionUUID))
             If R > 0 Then
@@ -125,7 +115,7 @@ Public Module Firewall
                 ProcessFirewall.Start()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                FormSetup.Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
+                Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try
         End Using
 

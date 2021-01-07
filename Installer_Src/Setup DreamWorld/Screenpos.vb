@@ -155,7 +155,7 @@ Public Class ScreenPos
             Debug.Print("Y<" + ValueYOld.ToString(Globalization.CultureInfo.CurrentCulture))
             Return r
         Catch ex As Exception
-            FormSetup.Logger("Resize", ex.Message, "Error")
+            Logger("Resize", ex.Message, "Error")
             BreakPoint.Show(ex.Message)
         End Try
         Return New List(Of Integer) From {100, 100}
@@ -198,7 +198,7 @@ Public Class ScreenPos
             parser.WriteFile(MyIni, Data, System.Text.Encoding.UTF8)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.ErrorLog("Error:" + ex.Message)
+            ErrorLog("Error:" + ex.Message)
         End Try
 
     End Sub
@@ -242,7 +242,7 @@ Public Class ScreenPos
             Data(section)(key) = value ' replace it
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.ErrorLog(ex.Message)
+            ErrorLog(ex.Message)
         End Try
 
     End Sub
