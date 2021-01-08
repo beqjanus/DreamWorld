@@ -118,12 +118,11 @@ Public Class FormSetup
     Private _UserName As String = ""
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
-
-    Private cpu As New PerformanceCounter
     Private ExitInterval As Integer = 2
     Private ScreenPosition As ScreenPos
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
+    Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
 
 #End Region
@@ -921,10 +920,15 @@ Public Class FormSetup
         WindowCounter = 0
         While True
             Dim status = SetWindowText(myhandle, windowName)
-            myProcess.Refresh()
-            If status And myProcess.MainWindowTitle = windowName Then
-                Exit While
-            End If
+            Try
+                myProcess.Refresh()
+                If status And myProcess.MainWindowTitle = windowName Then
+                    Exit While
+                End If
+            Catch
+                Return False
+            End Try
+
             Application.DoEvents()
             WindowCounter += 1
             If WindowCounter > 600 Then '  60 seconds
@@ -3352,7 +3356,7 @@ Public Class FormSetup
 
         If Settings.LoadIni(Settings.OpensimBinPath & "config-include\FlotsamCache.ini", ";") Then Return True
         Print("->Set Flotsam Cache")
-        Settings.SetIni("AssetCache", "LogLevel     ", Settings.CacheLogLevel)
+        Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
         Settings.SetIni("AssetCache", "FileCacheEnabled", CStr(Settings.CacheEnabled))
         Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
@@ -3499,7 +3503,7 @@ Public Class FormSetup
         Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
         FileStuff.CopyFile(src, Dest, True)
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
-        '!!! Settings.Grep(ini, "", Settings.LogLevel)
+        Settings.Grep(ini, "", Settings.LogLevel)
 
         Return False
 
@@ -3743,6 +3747,8 @@ Public Class FormSetup
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
+
+            If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
             ' count up to auto restart, when high enough, restart the sim
             If PropRegionClass.Timer(RegionUUID) >= 0 Then
@@ -6465,6 +6471,10 @@ Public Class FormSetup
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
 
+            If Not PropRegionClass.RegionEnabled(RegionUUID) Then
+                Continue For
+            End If
+
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             Dim Status = PropRegionClass.Status(RegionUUID)
 
@@ -6472,8 +6482,7 @@ Public Class FormSetup
                 Print("People are in " & GroupName)
             End If
 
-            If PropRegionClass.RegionEnabled(RegionUUID) And
-                    Not AvatarsIsInGroup(GroupName) And
+            If Not AvatarsIsInGroup(GroupName) And
                     Not PropAborting And
                     (Status = RegionMaker.SIMSTATUSENUM.Booting _
                     Or Status = RegionMaker.SIMSTATUSENUM.Booted _

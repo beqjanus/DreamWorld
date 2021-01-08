@@ -75,7 +75,6 @@ Namespace My
 
         ''' <summary>
         ''' Sample of embedded DLL
-
         ''' </summary>
         ''' <param name="sender"></param>
         ''' <param name="e"></param>

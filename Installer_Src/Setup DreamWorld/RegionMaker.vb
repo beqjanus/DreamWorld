@@ -1759,7 +1759,7 @@ Public Class RegionMaker
         Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
         FileStuff.CopyFile(src, ini, True)
-        '!!! Settings.Grep(ini, pathname, Settings.LogLevel)
+        Settings.Grep(ini, pathname, Settings.LogLevel)
 
         Try
             My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), pathname & "Opensim.ini", True)

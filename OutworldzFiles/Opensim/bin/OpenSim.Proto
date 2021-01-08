@@ -743,7 +743,7 @@ shard="OpenSim"
 ;; will be registered with an external service via a configured uri
 ;XmlRpcRouterModule = "XmlRpcRouterModule"
 ;# {XmlRpcPort} {} {Port for incoming llRemoteData xmlrpc calls} {} 20800
-XmlRpcPort=20800
+;;XmlRpcPort=20800
 
 ;
 ;# {XmlRpcHubURI} {XmlRpcRouterModule} {URI for external service used to register xmlrpc channels created in the simulator. This depends on XmlRpcRouterModule being set to XmlRpcGridRouterModule} {} http://example.com
@@ -879,7 +879,7 @@ MuteListModule=MuteListModule
 ;# {MuteListURL} {OfflineMessageModule:OfflineMessageModule} {} {} http://yourserver/Mute.php
 ;; URL of the web service that serves mute lists. Not currently used, but
 ;; must be set to allow offline messaging to work.
-MuteListURL=http://192.168.2.139:8002
+MuteListURL=http://47.185.232.98:8002
 
 ;
 ;
