@@ -912,10 +912,15 @@ Public Class FormSetup
         WindowCounter = 0
         While True
             Dim status = SetWindowText(myhandle, windowName)
-            myProcess.Refresh()
-            If status And myProcess.MainWindowTitle = windowName Then
-                Exit While
-            End If
+            Try
+                myProcess.Refresh()
+                If status And myProcess.MainWindowTitle = windowName Then
+                    Exit While
+                End If
+            Catch
+                Return False
+            End Try
+
             Application.DoEvents()
             WindowCounter += 1
             If WindowCounter > 600 Then '  60 seconds
