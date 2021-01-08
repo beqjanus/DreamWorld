@@ -125,7 +125,23 @@
     <Key Name="assetType" Value="10" />
     <Key Name="fileName" Value="GrafittiBoard.lsl" />
   </Section>
+
+  <Section Name="DefaultSay">
+    <Key Name="assetID" Value="c5f02401-f08b-4519-952c-fdab017c10b7" />
+    <Key Name="name" Value="DefaultSay" />
+    <Key Name="assetType" Value="10" />
+    <Key Name="fileName" Value="DefaultSay.lsl" />
+  </Section>
   
+  <Section Name="DefaultSayAndTouch">
+    <Key Name="assetID" Value="9267e689-4f37-4ce5-b2c2-455ee2e1ab12" />
+    <Key Name="name" Value="DefaultSayAndTouch" />
+    <Key Name="assetType" Value="10" />
+    <Key Name="fileName" Value="DefaultSayAndTouch.lsl" />
+  </Section>
+
+
+
   <!-- Adding the Kan-ED tests to the Assets -->
 
   <Section Name="Kan-Ed Test1">

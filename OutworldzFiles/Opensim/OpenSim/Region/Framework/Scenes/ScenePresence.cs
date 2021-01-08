@@ -935,7 +935,7 @@ namespace OpenSim.Region.Framework.Scenes
         /// </summary>
         /// <remarks>A more readable way of testing presence sit status than ParentID == 0</remarks>
         public bool IsSatOnObject { get { return ParentID != 0; } }
-
+        public bool IsSitting { get {return SitGround || IsSatOnObject; }}
         /// <summary>
         /// If the avatar is sitting, the prim that it's sitting on.  If not sitting then null.
         /// </summary>
@@ -1620,7 +1620,7 @@ namespace OpenSim.Region.Framework.Scenes
 
         private static bool IsRealLogin(TeleportFlags teleportFlags)
         {
-            return ((teleportFlags & TeleportFlags.ViaLogin) != 0) && ((teleportFlags & TeleportFlags.ViaHGLogin) == 0);
+            return (teleportFlags & (TeleportFlags.ViaLogin | TeleportFlags.ViaHGLogin)) == TeleportFlags.ViaLogin;
         }
 
         /// <summary>
@@ -1770,8 +1770,8 @@ namespace OpenSim.Region.Framework.Scenes
             if(!CheckLocalTPLandingPoint(ref pos))
                     return;
 
-            if (ParentID != (uint)0)
-                StandUp();
+            if (IsSitting)
+                StandUp(false);
 
             bool isFlying = Flying;
             Vector3 vel = Velocity;
@@ -1792,8 +1792,8 @@ namespace OpenSim.Region.Framework.Scenes
 
         public void TeleportOnEject(Vector3 pos)
         {
-            if (ParentID != (uint)0)
-                StandUp();
+            if (IsSitting )
+                StandUp(false);
 
             bool isFlying = Flying;
             RemoveFromPhysicalScene();
@@ -1835,7 +1835,7 @@ namespace OpenSim.Region.Framework.Scenes
             if (!m_scene.TestLandRestrictions(UUID, out string reason, ref newpos.X, ref newpos.Y))
                 return ;
 
-            if (IsSatOnObject)
+            if (IsSitting)
                 StandUp();
 
             if(m_movingToTarget)
@@ -2849,7 +2849,7 @@ namespace OpenSim.Region.Framework.Scenes
                             // The UseClientAgentPosition is set if parcel ban is forcing the avatar to move to a
                             // certain position.  It's only check for tolerance on returning to that position is 0.2
                             // rather than 1, at which point it removes its force target.
-                            if (HandleMoveToTargetUpdate(agentData.UseClientAgentPosition ? 0.2f : 1f, ref agent_control_v3))
+                            if (HandleMoveToTargetUpdate(agentData.UseClientAgentPosition ? 0.2f : 0.5f, ref agent_control_v3))
                                 update_movementflag = true;
                         }
                     }
@@ -3197,7 +3197,7 @@ namespace OpenSim.Region.Framework.Scenes
         { 
             m_delayedStop = -1;
 
-            if (SitGround || IsSatOnObject)
+            if (IsSitting)
                 StandUp();
 
 //            m_log.DebugFormat(
@@ -3269,7 +3269,7 @@ namespace OpenSim.Region.Framework.Scenes
             Flying = shouldfly;
 
             Vector3 control = Vector3.Zero;
-            if(HandleMoveToTargetUpdate(1f, ref control))
+            if(HandleMoveToTargetUpdate(0.5f, ref control))
                 AddNewMovement(control);
         }
 
@@ -3291,13 +3291,15 @@ namespace OpenSim.Region.Framework.Scenes
             // However, the line is here rather than in the NPC module since it also appears necessary to stop a
             // viewer that uses "go here" from juddering on all subsequent avatar movements.
             AgentControlFlags = (uint)AgentManager.ControlFlags.NONE;
+            if(IsNPC)
+                Animator.UpdateMovementAnimations();
         }
 
         /// <summary>
         /// Perform the logic necessary to stand the avatar up.  This method also executes
         /// the stand animation.
         /// </summary>
-        public void StandUp()
+        public void StandUp(bool addPhys = true)
         {
 //            m_log.DebugFormat("[SCENE PRESENCE]: StandUp() for {0}", Name);
 
@@ -3386,7 +3388,7 @@ namespace OpenSim.Region.Framework.Scenes
                 m_pos = sitWorldPosition + adjustmentForSitPose;
             }
 
-            if (PhysicsActor == null)
+            if (addPhys && PhysicsActor == null)
                 AddToPhysicalScene(false);
 
             if (satOnObject)
@@ -3394,7 +3396,7 @@ namespace OpenSim.Region.Framework.Scenes
                 m_requestedSitTargetID = 0;
                 part.RemoveSittingAvatar(this);
                 part.ParentGroup.TriggerScriptChangedEvent(Changed.LINK);
-                
+
                 SendAvatarDataToAllAgents();
                 m_scene.EventManager.TriggerParcelPrimCountTainted(); // update select/ sat on
             }
@@ -3544,6 +3546,8 @@ namespace OpenSim.Region.Framework.Scenes
 
                 StandUp();
             }
+            else if(SitGround)
+                StandUp();
 
             SceneObjectPart part = FindNextAvailableSitTarget(targetID);
 
@@ -3687,7 +3691,7 @@ namespace OpenSim.Region.Framework.Scenes
             if (IsChildAgent)
                 return;
 
-            if(SitGround || IsSatOnObject)
+            if(IsSitting)
                 return;
 
             SceneObjectPart part = m_scene.GetSceneObjectPart(m_requestedSitTargetID);
@@ -3972,7 +3976,7 @@ namespace OpenSim.Region.Framework.Scenes
             {
                 m_delayedStop = -1;
                 Vector3 control = Vector3.Zero;
-                if(HandleMoveToTargetUpdate(1f, ref control))
+                if(HandleMoveToTargetUpdate(0.5f, ref control))
                     AddNewMovement(control);
             }
             else if(m_delayedStop > 0)

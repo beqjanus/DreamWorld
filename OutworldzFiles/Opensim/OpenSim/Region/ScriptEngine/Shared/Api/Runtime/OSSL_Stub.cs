@@ -521,6 +521,11 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
             return m_OSSL_Functions.osKey2Name(id);
         }
 
+        public string osSHA256(string input)
+        {
+            return m_OSSL_Functions.osSHA256(input);
+        }
+
         public string osGetGridNick()
         {
             return m_OSSL_Functions.osGetGridNick();
@@ -1423,6 +1428,11 @@ namespace OpenSim.Region.ScriptEngine.Shared.ScriptBase
         }
 
         public rotation osSlerp(rotation a, rotation b, LSL_Float amount)
+        {
+            return m_OSSL_Functions.osSlerp(a, b, amount);
+        }
+
+        public vector osSlerp(vector a, vector b, LSL_Float amount)
         {
             return m_OSSL_Functions.osSlerp(a, b, amount);
         }

@@ -283,6 +283,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
 
         string osAvatarName2Key(string firstname, string lastname);
         string osKey2Name(string id);
+        string osSHA256(string input);
 
         // Grid Info Functions
         string osGetGridNick();
@@ -560,6 +561,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api.Interfaces
         LSL_Key osGetLastChangedEventKey();
         LSL_Float osGetPSTWallclock();
         LSL_Rotation osSlerp(LSL_Rotation a, LSL_Rotation b, LSL_Float amount);
+        vector osSlerp(vector a, vector b, LSL_Float amount);
 
         void osResetAllScripts(LSL_Integer AllLinkset);
         LSL_Integer osIsNotValidNumber(LSL_Float v);

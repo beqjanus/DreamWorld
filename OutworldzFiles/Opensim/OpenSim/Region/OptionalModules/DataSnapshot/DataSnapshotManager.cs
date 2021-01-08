@@ -106,7 +106,7 @@ namespace OpenSim.Region.DataSnapshot
             if (!m_configLoaded)
             {
                 m_configLoaded = true;
-                m_log.Debug("[DATASNAPSHOT]: Loading configuration");
+                //m_log.Debug("[DATASNAPSHOT]: Loading configuration");
                 //Read from the config for options
                 lock (m_syncInit)
                 {
@@ -327,9 +327,7 @@ namespace OpenSim.Region.DataSnapshot
 
         public XmlDocument GetSnapshot(string regionName)
         {
-
-            m_log.Info("[DATASNAPSHOT]: GetSnapshot");
-            if (!Monitor.TryEnter(m_serializeGen,30000))
+            if(!Monitor.TryEnter(m_serializeGen,30000))
             {
                 return null;
             }
@@ -420,7 +418,6 @@ namespace OpenSim.Region.DataSnapshot
                     cli.AddQueryParameter("port", m_listener_port);
                     cli.AddQueryParameter("secret", m_Secret.ToString());
                     cli.RequestMethod = "GET";
-                    m_log.Info("[DATASNAPSHOT]: data service asked to contact  " + m_hostname + ":" + m_listener_port);
                     try
                     {
                         using(reply = cli.Request(null))
@@ -440,7 +437,6 @@ namespace OpenSim.Region.DataSnapshot
 
                     // This is not quite working, so...
                     // string responseStr = Util.UTF8.GetString(response);
-                    
                     m_log.Info("[DATASNAPSHOT]: data service " + url + " notified. Secret: " + m_Secret);
                 }
             }
@@ -459,8 +455,6 @@ namespace OpenSim.Region.DataSnapshot
         private void CheckStale()
         {
             // Wrap check
-            m_log.Info("[DATASNAPSHOT]: CheckStale()");
-
             if (Environment.TickCount < m_lastUpdate)
             {
                 m_lastUpdate = Environment.TickCount;

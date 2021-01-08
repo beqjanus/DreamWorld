@@ -45,7 +45,7 @@
       </layout>
     </appender>
     <root>
-      <level  value="OSIM_LOGLEVEL" />
+      <level  value="${OSIM_LOGLEVEL}" />
       <appender-ref ref="Console" />
       <appender-ref ref="LogFileAppender" />
     </root>

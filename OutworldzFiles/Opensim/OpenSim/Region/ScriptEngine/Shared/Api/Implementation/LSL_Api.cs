@@ -249,7 +249,14 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
         protected int m_SayShoutCount = 0;
         DateTime m_lastSayShoutCheck;
 
-        private Dictionary<string, string> MovementAnimationsForLSL =
+        private int m_whisperdistance = 10;
+        private int m_saydistance = 20;
+        private int m_shoutdistance = 100;
+
+        private string m_lsl_shard = "OpenSim";
+        private string m_lsl_user_agent = string.Empty;
+
+        private static readonly Dictionary<string, string> MovementAnimationsForLSL =
                 new Dictionary<string, string> {
                         {"CROUCH", "Crouching"},
                         {"CROUCHWALK", "CrouchWalking"},
@@ -276,7 +283,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
         //An array of HTTP/1.1 headers that are not allowed to be used
         //as custom headers by llHTTPRequest.
-        private HashSet<string> HttpStandardHeaders = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        private static readonly HashSet<string> HttpStandardHeaders = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         {
             "Accept", "Accept-Charset", "Accept-Encoding", "Accept-Language",
             "Accept-Ranges", "Age", "Allow", "Authorization", "Cache-Control",
@@ -289,6 +296,15 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             "Proxy-Authorization", "Range", "Referer", "Retry-After", "Server",
             "TE", "Trailer", "Transfer-Encoding", "Upgrade", "User-Agent",
             "Vary", "Via", "Warning", "WWW-Authenticate"
+        };
+
+        private static readonly HashSet<string> HttpForbiddenInHeaders = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        {
+            "x-secondlife-shard", "x-secondlife-object-name",  "x-secondlife-object-key",
+            "x-secondlife-region", "x-secondlife-local-position", "x-secondlife-local-velocity",
+            "x-secondlife-local-rotation",  "x-secondlife-owner-name", "x-secondlife-owner-key",
+            "connection", "content-length", "from", "host", "proxy-authorization",
+            "referer", "trailer", "transfer-encoding", "via", "authorization"
         };
 
         public void Initialize(
@@ -356,6 +372,13 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
             if (seConfigSource != null)
             {
+                IConfig netConfig = seConfigSource.Configs["Network"];
+                if (netConfig != null)
+                {
+                    m_lsl_shard = netConfig.GetString("shard", m_lsl_shard);
+                    m_lsl_user_agent = netConfig.GetString("user_agent", m_lsl_user_agent);
+                }
+
                 IConfig lslConfig = seConfigSource.Configs["LL-Functions"];
                 if (lslConfig != null)
                 {
@@ -416,6 +439,14 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                     EMAIL_PAUSE_TIME = smtpConfig.GetInt("email_pause_time", EMAIL_PAUSE_TIME);
 
                     m_internalObjectHost = smtpConfig.GetString("internal_object_host", m_internalObjectHost);
+                }
+
+                IConfig chatConfig = seConfigSource.Configs["SMTP"];
+                if(chatConfig != null)
+                {
+                    m_whisperdistance = chatConfig.GetInt("whisper_distance", m_whisperdistance);
+                    m_saydistance = chatConfig.GetInt("say_distance", m_saydistance);
+                    m_shoutdistance = chatConfig.GetInt("shout_distance", m_shoutdistance);
                 }
             }
             m_sleepMsOnEmail = EMAIL_PAUSE_TIME * 1000;
@@ -1894,8 +1925,11 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
             // Is it the embeded browser?
             string userAgent = m_UrlModule.GetHttpHeader(id, "user-agent");
+            if(string.IsNullOrEmpty(userAgent))
+                return;
+
             if (userAgent.IndexOf("SecondLife") < 0)
-                return; // Not the embedded browser. Is this check good enough?
+                return; // Not the embedded browser
 
             // Use the IP address of the client and check against the request
             // seperate logins from the same IP will allow all of them to get non-text/plain as long
@@ -4184,14 +4218,9 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
         public LSL_Integer llStringLength(string str)
         {
             m_host.AddScriptLPS(1);
-            if (str.Length > 0)
-            {
-                return str.Length;
-            }
-            else
-            {
+            if(str == null || str.Length <= 0)
                 return 0;
-            }
+            return str.Length;
         }
 
         public void llStartAnimation(string anim)
@@ -4586,56 +4615,50 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             if (linknum < ScriptBaseClass.LINK_THIS)
                 return;
 
-            SceneObjectGroup parentPrim = m_host.ParentGroup;
+            SceneObjectGroup parentSOG = m_host.ParentGroup;
 
-            if (parentPrim.AttachmentPoint != 0)
+            if (parentSOG.AttachmentPoint != 0)
                 return; // Fail silently if attached
             SceneObjectPart childPrim = null;
 
             switch (linknum)
             {
                 case ScriptBaseClass.LINK_ROOT:
-                    break;
                 case ScriptBaseClass.LINK_SET:
                 case ScriptBaseClass.LINK_ALL_OTHERS:
                 case ScriptBaseClass.LINK_ALL_CHILDREN:
-                case ScriptBaseClass.LINK_THIS:
-                    foreach (SceneObjectPart part in parentPrim.Parts)
-                    {
-                        if (part.UUID != m_host.UUID)
-                        {
-                            childPrim = part;
-                            break;
-                        }
-                    }
+                    break;
+                case ScriptBaseClass.LINK_THIS: // not as spec
+                    childPrim = m_host;
                     break;
                 default:
-                    childPrim = parentPrim.GetLinkNumPart(linknum);
-                    if (childPrim.UUID == m_host.UUID)
-                        childPrim = null;
+                    childPrim = parentSOG.GetLinkNumPart(linknum);
                     break;
             }
 
             if (linknum == ScriptBaseClass.LINK_ROOT)
             {
-                // Restructuring Multiple Prims.
-                List<SceneObjectPart> parts = new List<SceneObjectPart>(parentPrim.Parts);
-                parts.Remove(parentPrim.RootPart);
+                List<ScenePresence> avs = parentSOG.GetSittingAvatars();
+                foreach (ScenePresence av in avs)
+                    av.StandUp();
+
+                List<SceneObjectPart> parts = new List<SceneObjectPart>(parentSOG.Parts);
+                parts.Remove(parentSOG.RootPart);
                 if (parts.Count > 0)
                 {
                     try
                     {
                         foreach (SceneObjectPart part in parts)
                         {
-                            parentPrim.DelinkFromGroup(part.LocalId, true);
+                            parentSOG.DelinkFromGroup(part.LocalId, true);
                         }
                     }
                     finally { }
                  }
 
-                parentPrim.HasGroupChanged = true;
-                parentPrim.ScheduleGroupForFullUpdate();
-                parentPrim.TriggerScriptChangedEvent(Changed.LINK);
+                parentSOG.HasGroupChanged = true;
+                parentSOG.ScheduleGroupForFullUpdate();
+                parentSOG.TriggerScriptChangedEvent(Changed.LINK);
 
                 if (parts.Count > 0)
                 {
@@ -4661,10 +4684,11 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 if (childPrim == null)
                     return;
 
-                parentPrim.DelinkFromGroup(childPrim.LocalId, true);
-                parentPrim.HasGroupChanged = true;
-                parentPrim.ScheduleGroupForFullUpdate();
-                parentPrim.TriggerScriptChangedEvent(Changed.LINK);
+                List<ScenePresence> avs = parentSOG.GetSittingAvatars();
+                foreach (ScenePresence av in avs)
+                    av.StandUp();
+
+                parentSOG.DelinkFromGroup(childPrim.LocalId, true);
             }
         }
 
@@ -4704,6 +4728,16 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
         public LSL_Key llGetLinkKey(int linknum)
         {
             m_host.AddScriptLPS(1);
+            if(linknum < 0)
+            {
+                if (linknum == ScriptBaseClass.LINK_THIS)
+                    return m_host.UUID.ToString();
+                return ScriptBaseClass.NULL_KEY;
+            }
+
+            if (linknum < 2)
+                return m_host.ParentGroup.RootPart.UUID.ToString();
+
             SceneObjectPart part = m_host.ParentGroup.GetLinkNumPart(linknum);
             if (part != null)
             {
@@ -4711,12 +4745,9 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             }
             else
             {
-                if (linknum > m_host.ParentGroup.PrimCount || (linknum == 1 && m_host.ParentGroup.PrimCount == 1))
+                if (linknum > m_host.ParentGroup.PrimCount)
                 {
-                    linknum -= (m_host.ParentGroup.PrimCount) + 1;
-
-                    if (linknum < 0)
-                        return ScriptBaseClass.NULL_KEY;
+                    linknum -= m_host.ParentGroup.PrimCount + 1;
 
                     List<ScenePresence> avatars = GetLinkAvatars(ScriptBaseClass.LINK_SET);
                     if (avatars.Count > linknum)
@@ -5014,13 +5045,9 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                                             }
                                         }
                                     }
+                                    m_PresenceInfoCache.AddOrUpdate(uuid, pinfo, m_llRequestAgentDataCacheTimeout);
                                 }
-
-                                m_PresenceInfoCache.AddOrUpdate(uuid, pinfo, m_llRequestAgentDataCacheTimeout);
-                                if (pinfo != null && pinfo.RegionID != UUID.Zero)
-                                    reply = "1";
-                                else
-                                    reply = "0";
+                                reply = pinfo == null ? "0" : "1";
                             }
                         }
                     }
@@ -6345,7 +6372,9 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
         public LSL_String llGetEnv(LSL_String name)
         {
             m_host.AddScriptLPS(1);
-            switch(name)
+            string sname = name;
+            sname = sname.ToLower();
+            switch(sname)
             {
                 case "agent_limit":
                     return World.RegionInfo.RegionSettings.AgentLimit.ToString();
@@ -6399,6 +6428,15 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
                 case "region_object_bonus":
                     return World.RegionInfo.RegionSettings.ObjectBonus.ToString();
+
+                case "whisper_range":
+                    return m_whisperdistance.ToString();
+
+                case "chat_range":
+                    return m_saydistance.ToString();
+
+                case "shout_range":
+                    return m_shoutdistance.ToString();
 
                 default:
                     return "";
@@ -11059,7 +11097,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             catch
             {
                 Error("llBase64ToString", "Error encoding string");
-                return String.Empty;
+                return string.Empty;
             }
         }
 
@@ -11074,111 +11112,10 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             catch
             {
                 Error("llBase64ToString", "Error decoding string");
-                return String.Empty;
+                return string.Empty;
             }
         }
 
-        public LSL_String llXorBase64Strings(string str1, string str2)
-        {
-            int padding = 0;
-
-            string b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-            ScriptSleep(300);
-            m_host.AddScriptLPS(1);
-
-            if (str1 == String.Empty)
-                return String.Empty;
-            if (str2 == String.Empty)
-                return str1;
-
-            int len = str2.Length;
-            if ((len % 4) != 0) // LL is EVIL!!!!
-            {
-                while (str2.EndsWith("="))
-                    str2 = str2.Substring(0, str2.Length - 1);
-
-                len = str2.Length;
-                int mod = len % 4;
-
-                if (mod == 1)
-                    str2 = str2.Substring(0, str2.Length - 1);
-                else if (mod == 2)
-                    str2 += "==";
-                else if (mod == 3)
-                    str2 += "=";
-            }
-
-            byte[] data1;
-            byte[] data2;
-            try
-            {
-                data1 = Convert.FromBase64String(str1);
-                data2 = Convert.FromBase64String(str2);
-            }
-            catch (Exception)
-            {
-                return new LSL_String(String.Empty);
-            }
-
-            // For cases where the decoded length of s2 is greater
-            // than the decoded length of s1, simply perform a normal
-            // decode and XOR
-            //
-            /*
-            if (data2.Length >= data1.Length)
-            {
-                for (int pos = 0 ; pos < data1.Length ; pos++ )
-                    data1[pos] ^= data2[pos];
-
-                return Convert.ToBase64String(data1);
-            }
-            */
-
-            // Remove padding
-            while (str1.EndsWith("="))
-            {
-                str1 = str1.Substring(0, str1.Length - 1);
-                padding++;
-            }
-            while (str2.EndsWith("="))
-                str2 = str2.Substring(0, str2.Length - 1);
-
-            byte[] d1 = new byte[str1.Length];
-            byte[] d2 = new byte[str2.Length];
-
-            for (int i = 0 ; i < str1.Length ; i++)
-            {
-                int idx = b64.IndexOf(str1.Substring(i, 1));
-                if (idx == -1)
-                    idx = 0;
-                d1[i] = (byte)idx;
-            }
-
-            for (int i = 0 ; i < str2.Length ; i++)
-            {
-                int idx = b64.IndexOf(str2.Substring(i, 1));
-                if (idx == -1)
-                    idx = 0;
-                d2[i] = (byte)idx;
-            }
-
-            string output = String.Empty;
-
-            for (int pos = 0 ; pos < d1.Length ; pos++)
-                output += b64[d1[pos] ^ d2[pos % d2.Length]];
-
-            // Here's a funny thing: LL blithely violate the base64
-            // standard pretty much everywhere. Here, padding is
-            // added only if the first input string had it, rather
-            // than when the data actually needs it. This can result
-            // in invalid base64 being returned. Go figure.
-
-            while (padding-- > 0)
-                output += "=";
-
-            return output;
-        }
 
         public void llRemoteDataSetRegion()
         {
@@ -13307,6 +13244,24 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
         public void llLoadURL(string avatar_id, string message, string url)
         {
             m_host.AddScriptLPS(1);
+            if(m_host.OwnerID == m_host.GroupID)
+                return;
+            try
+            {
+                Uri m_checkuri = new Uri(url);
+                if (m_checkuri.Scheme != Uri.UriSchemeHttp && m_checkuri.Scheme != Uri.UriSchemeHttps)
+                {
+                    Error("llLoadURL","Invalid url schema");
+                    ScriptSleep(200);
+                    return;
+                }
+            }
+            catch
+            {
+                Error("llLoadURL","Invalid url");
+                ScriptSleep(200);
+                return;
+            }
 
             IDialogModule dm = World.RequestModuleInterface<IDialogModule>();
             if (null != dm)
@@ -13408,14 +13363,19 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                             if (commandList.Data[i + 1] is LSL_String)
                             {
                                 url = (LSL_String)commandList.Data[i + 1];
-                                try
+                                if(string.IsNullOrWhiteSpace(url))
+                                    url = string.Empty;
+                                else
                                 {
-                                    Uri dummy = new Uri(url, UriKind.Absolute);
-                                }
-                                catch
-                                {
-                                    Error("llParcelMediaCommandList", "invalid PARCEL_MEDIA_COMMAND_URL");
-                                    return;
+                                    try
+                                    {
+                                        Uri dummy = new Uri(url, UriKind.Absolute);
+                                    }
+                                    catch
+                                    {
+                                        Error("llParcelMediaCommandList", "invalid PARCEL_MEDIA_COMMAND_URL");
+                                        return;
+                                    }
                                 }
                                 update = true;
                             }
@@ -13640,7 +13600,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
         public LSL_Integer llModPow(int a, int b, int c)
         {
             m_host.AddScriptLPS(1);
-            Math.DivRem(Convert.ToInt64(Math.Pow(a, b)), c, out long tmp);
+            Math.DivRem((long)Math.Pow(a, b), c, out long tmp);
             ScriptSleep(m_sleepMsOnModPow);
             return (int)tmp;
         }
@@ -14099,13 +14059,18 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             return (int)estate.GetRegionFlags();
         }
 
-        public LSL_String llXorBase64StringsCorrect(string str1, string str2)
+        private const string b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+        public LSL_String llXorBase64Strings(string str1, string str2)
         {
+            int padding = 0;
+
+            ScriptSleep(300);
             m_host.AddScriptLPS(1);
 
-            if (str1 == String.Empty)
-                return String.Empty;
-            if (str2 == String.Empty)
+            if (str1 == string.Empty)
+                return string.Empty;
+            if (str2 == string.Empty)
                 return str1;
 
             int len = str2.Length;
@@ -14132,33 +14097,187 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 data1 = Convert.FromBase64String(str1);
                 data2 = Convert.FromBase64String(str2);
             }
+            catch
+            {
+                return string.Empty;
+            }
+
+            // Remove padding
+            while (str1.EndsWith("="))
+            {
+                str1 = str1.Substring(0, str1.Length - 1);
+                padding++;
+            }
+            while (str2.EndsWith("="))
+                str2 = str2.Substring(0, str2.Length - 1);
+
+            byte[] d1 = new byte[str1.Length];
+            byte[] d2 = new byte[str2.Length];
+
+            for (int i = 0; i < str1.Length; i++)
+            {
+                int idx = b64.IndexOf(str1.Substring(i, 1));
+                if (idx == -1)
+                    idx = 0;
+                d1[i] = (byte)idx;
+            }
+
+            for (int i = 0; i < str2.Length; i++)
+            {
+                int idx = b64.IndexOf(str2.Substring(i, 1));
+                if (idx == -1)
+                    idx = 0;
+                d2[i] = (byte)idx;
+            }
+
+            string output = string.Empty;
+
+            for (int pos = 0; pos < d1.Length; pos++)
+                output += b64[d1[pos] ^ d2[pos % d2.Length]];
+
+            // Here's a funny thing: LL blithely violate the base64
+            // standard pretty much everywhere. Here, padding is
+            // added only if the first input string had it, rather
+            // than when the data actually needs it. This can result
+            // in invalid base64 being returned. Go figure.
+
+            while (padding-- > 0)
+                output += "=";
+
+            return output;
+        }
+
+        public LSL_String llXorBase64StringsCorrect(string str1, string str2)
+        {
+            m_host.AddScriptLPS(1);
+
+            if (str1 == string.Empty)
+                return string.Empty;
+            if (str2 == string.Empty)
+                return str1;
+
+            int len = str2.Length;
+            if ((len % 4) != 0) // LL is EVIL!!!!
+            {
+                str2.TrimEnd(new char[] { '=' });
+
+                len = str2.Length;
+                if(len == 0)
+                    return str1;
+
+                int mod = len % 4;
+
+                if (mod == 1)
+                    str2 = str2.Substring(0, len - 1);
+                else if (mod == 2)
+                    str2 += "==";
+                else if (mod == 3)
+                    str2 += "=";
+            }
+
+            byte[] data1;
+            byte[] data2;
+            try
+            {
+                data1 = Convert.FromBase64String(str1);
+                data2 = Convert.FromBase64String(str2);
+            }
             catch (Exception)
             {
-                return new LSL_String(String.Empty);
+                return string.Empty;
             }
 
-            byte[] d2 = new Byte[data1.Length];
-            int pos = 0;
+            int len2 = data2.Length;
+            if (len2 == 0)
+                return str1;
 
-            if (data1.Length <= data2.Length)
+            for (int pos = 0, pos2 = 0; pos < data1.Length; pos++)
             {
-                Array.Copy(data2, 0, d2, 0, data1.Length);
+                data1[pos] ^= data2[pos2];
+                if (++pos2 >= len2)
+                    pos2 = 0;
             }
-            else
+
+            return Convert.ToBase64String(data1);
+        }
+
+        private string truncateBase64(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
+            int paddingPos = -1;
+            for (int i = 0; i < input.Length; i++)
             {
-                while (pos < data1.Length)
-                {
-                    len = data1.Length - pos;
-                    if (len > data2.Length)
-                        len = data2.Length;
-
-                    Array.Copy(data2, 0, d2, pos, len);
-                    pos += len;
-                }
+                char c = input[i];
+                if (c >= 'A' && c <= 'Z')
+                    continue;
+                if (c >= 'a' && c <= 'z')
+                    continue;
+                if (c >= '0' && c <= '9')
+                    continue;
+                if (c == '+' || c == '/')
+                    continue;
+                paddingPos = i;
+                break;
             }
 
-            for (pos = 0 ; pos < data1.Length ; pos++ )
-                data1[pos] ^= d2[pos];
+            if (paddingPos == 0)
+                return string.Empty;
+
+            if (paddingPos > 0)
+                input = input.Substring(0, paddingPos);
+
+            int remainder = input.Length % 4;
+            switch(remainder)
+            {
+                case 0:
+                    return input;
+                case 1:
+                    return input.Substring(0, input.Length - 1);
+                case 2:
+                    return input + "==";
+            }
+            return input + "=";
+        }
+
+        public LSL_String llXorBase64(string str1, string str2)
+        {
+            m_host.AddScriptLPS(1);
+
+            if (string.IsNullOrEmpty(str2))
+                return str1;
+
+            str1 = truncateBase64(str1);
+            if (string.IsNullOrEmpty(str1))
+                return string.Empty;
+
+            str2 = truncateBase64(str2);
+            if (string.IsNullOrEmpty(str2))
+                return str1;
+
+            byte[] data1;
+            byte[] data2;
+            try
+            {
+                data1 = Convert.FromBase64String(str1);
+                data2 = Convert.FromBase64String(str2);
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+
+            int len2 = data2.Length;
+            if (len2 == 0)
+                return str1;
+
+            for (int pos = 0, pos2 = 0; pos < data1.Length; pos++)
+            {
+                data1[pos] ^= data2[pos2];
+                if (++pos2 >= len2)
+                    pos2 = 0;
+            }
 
             return Convert.ToBase64String(data1);
         }
@@ -14168,11 +14287,27 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
             m_host.AddScriptLPS(1);
             IHttpRequestModule httpScriptMod = m_ScriptEngine.World.RequestModuleInterface<IHttpRequestModule>();
             if(httpScriptMod == null)
-                return "";
+                return string.Empty;
 
             if(!httpScriptMod.CheckThrottle(m_host.LocalId, m_host.OwnerID))
                 return ScriptBaseClass.NULL_KEY;
 
+            try
+            {
+                Uri m_checkuri = new Uri(url);
+                if (m_checkuri.Scheme != Uri.UriSchemeHttp && m_checkuri.Scheme != Uri.UriSchemeHttps)
+                {
+                    Error("llHTTPRequest", "Invalid url schema");
+                    ScriptSleep(200);
+                    return string.Empty;
+                }
+            }
+            catch
+            {
+                Error("llHTTPRequest", "Invalid url");
+                ScriptSleep(200);
+                return string.Empty;
+            }
             List<string> param = new List<string>();
             bool  ok;
             int nCustomHeaders = 0;
@@ -14238,8 +14373,9 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
             Vector3 position = m_host.AbsolutePosition;
             Vector3 velocity = m_host.Velocity;
-            Quaternion rotation = m_host.RotationOffset;
-            string ownerName = String.Empty;
+            Quaternion rotation = m_host.GetWorldRotation();
+
+            string ownerName = string.Empty;
             ScenePresence scenePresence = World.GetScenePresence(m_host.OwnerID);
             if (scenePresence == null)
                 ownerName = resolveName(m_host.OwnerID);
@@ -14250,25 +14386,18 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
 
             Dictionary<string, string> httpHeaders = new Dictionary<string, string>();
 
-            string shard = "OpenSim";
-            IConfigSource config = m_ScriptEngine.ConfigSource;
-            if (config.Configs["Network"] != null)
-            {
-                shard = config.Configs["Network"].GetString("shard", shard);
-            }
-
-            httpHeaders["X-SecondLife-Shard"] = shard;
+            if (!string.IsNullOrWhiteSpace(m_lsl_shard))
+                httpHeaders["X-SecondLife-Shard"] = m_lsl_shard;
             httpHeaders["X-SecondLife-Object-Name"] = m_host.Name;
             httpHeaders["X-SecondLife-Object-Key"] = m_host.UUID.ToString();
-            httpHeaders["X-SecondLife-Region"] = string.Format("{0} ({1}, {2})", regionInfo.RegionName, regionInfo.RegionLocX, regionInfo.RegionLocY);
+            httpHeaders["X-SecondLife-Region"] = string.Format("{0} ({1}, {2})", regionInfo.RegionName, regionInfo.WorldLocX, regionInfo.WorldLocY);
             httpHeaders["X-SecondLife-Local-Position"] = string.Format("({0:0.000000}, {1:0.000000}, {2:0.000000})", position.X, position.Y, position.Z);
             httpHeaders["X-SecondLife-Local-Velocity"] = string.Format("({0:0.000000}, {1:0.000000}, {2:0.000000})", velocity.X, velocity.Y, velocity.Z);
             httpHeaders["X-SecondLife-Local-Rotation"] = string.Format("({0:0.000000}, {1:0.000000}, {2:0.000000}, {3:0.000000})", rotation.X, rotation.Y, rotation.Z, rotation.W);
             httpHeaders["X-SecondLife-Owner-Name"] = ownerName;
             httpHeaders["X-SecondLife-Owner-Key"] = m_host.OwnerID.ToString();
-            string userAgent = config.Configs["Network"].GetString("user_agent", null);
-            if (userAgent != null)
-                httpHeaders["User-Agent"] = userAgent;
+            if (!string.IsNullOrWhiteSpace(m_lsl_user_agent))
+                httpHeaders["User-Agent"] = m_lsl_user_agent;
 
             // See if the URL contains any header hacks
             string[] urlParts = url.Split(new char[] {'\n'});
@@ -14279,7 +14408,7 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                 {
                     // The rest of those would be added to the body in SL.
                     // Let's not do that.
-                    if (urlParts[i] == String.Empty)
+                    if (urlParts[i] == string.Empty)
                         break;
 
                     // See if this could be a valid header
@@ -14288,32 +14417,11 @@ namespace OpenSim.Region.ScriptEngine.Shared.Api
                         continue;
 
                     string headerName = headerParts[0].Trim();
-                    string headerValue = headerParts[1].Trim();
-
-                    // Filter out headers that could be used to abuse
-                    // another system or cloak the request
-                    if (headerName.ToLower() == "x-secondlife-shard" ||
-                        headerName.ToLower() == "x-secondlife-object-name" ||
-                        headerName.ToLower() == "x-secondlife-object-key" ||
-                        headerName.ToLower() == "x-secondlife-region" ||
-                        headerName.ToLower() == "x-secondlife-local-position" ||
-                        headerName.ToLower() == "x-secondlife-local-velocity" ||
-                        headerName.ToLower() == "x-secondlife-local-rotation" ||
-                        headerName.ToLower() == "x-secondlife-owner-name" ||
-                        headerName.ToLower() == "x-secondlife-owner-key" ||
-                        headerName.ToLower() == "connection" ||
-                        headerName.ToLower() == "content-length" ||
-                        headerName.ToLower() == "from" ||
-                        headerName.ToLower() == "host" ||
-                        headerName.ToLower() == "proxy-authorization" ||
-                        headerName.ToLower() == "referer" ||
-                        headerName.ToLower() == "trailer" ||
-                        headerName.ToLower() == "transfer-encoding" ||
-                        headerName.ToLower() == "via" ||
-                        headerName.ToLower() == "authorization")
-                        continue;
-
-                    httpHeaders[headerName] = headerValue;
+                    if(!HttpForbiddenInHeaders.Contains(headerName))
+                    {
+                        string headerValue = headerParts[1].Trim();
+                        httpHeaders[headerName] = headerValue;
+                    }
                 }
 
                 // Finally, strip any protocol specifier from the URL
