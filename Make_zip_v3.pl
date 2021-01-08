@@ -128,9 +128,9 @@ open (OUT, ">", 'dlls.txt');
 find({ wanted => \&process_file, no_chdir => 1 }, $dir . '/OutworldzFiles/Opensim/bin/');
 
 # these are needed in this file even if deleted on disk.
-print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Profile.dll\n";
-print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Search.dll\n";
-print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensim.Money.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimProfile.Module.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimSearch.Module.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimMoney.Module.dll\n";
 
 close OUT;
 
