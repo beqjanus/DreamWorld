@@ -821,8 +821,11 @@ Public Class FormSetup
         If Groupname = RobustName() Then
             For Each pList As Process In Process.GetProcessesByName("Robust")
                 If pList.ProcessName = "Robust" Then
-                    pList.Refresh()
-                    Return pList.MainWindowHandle
+                    Try
+                        pList.Refresh()
+                        Return pList.MainWindowHandle
+                    Catch
+                    End Try
                 End If
             Next
             Return IntPtr.Zero
@@ -831,10 +834,13 @@ Public Class FormSetup
 
         Dim AllProcesses = Process.GetProcessesByName("Opensim")
         For Each p As Process In AllProcesses
-            If p.MainWindowTitle = Groupname Then
-                p.Refresh()
-                Return p.MainWindowHandle
-            End If
+            Try
+                If p.MainWindowTitle = Groupname Then
+                    p.Refresh()
+                    Return p.MainWindowHandle
+                End If
+            Catch
+            End Try
         Next
 
         Return IntPtr.Zero
@@ -867,9 +873,12 @@ Public Class FormSetup
     Public Shared Function GetPIDofWindow(GroupName As String) As Integer
 
         For Each pList As Process In Process.GetProcessesByName("Opensim")
-            If pList.MainWindowTitle = GroupName Then
-                Return pList.Id
-            End If
+            Try
+                If pList.MainWindowTitle = GroupName Then
+                    Return pList.Id
+                End If
+            Catch
+            End Try
         Next
         Return 0
 
@@ -1526,11 +1535,14 @@ Public Class FormSetup
 
                         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
                         For Each p In Process.GetProcessesByName("Opensim")
-                            Application.DoEvents()
-                            If p.MainWindowTitle = GroupName Then
-                                CountisRunning += 1
-                                Exit For
-                            End If
+                            Try
+                                Application.DoEvents()
+                                If p.MainWindowTitle = GroupName Then
+                                    CountisRunning += 1
+                                    Exit For
+                                End If
+                            Catch
+                            End Try
                         Next
                     End If
                     Application.DoEvents()
@@ -2374,16 +2386,17 @@ Public Class FormSetup
         End If
 
         For Each p In Process.GetProcessesByName("Robust")
-            If p.MainWindowTitle = RobustName() Then
-                PropRobustProcID = p.Id
-                Log(My.Resources.Info_word, Global.Outworldz.My.Resources.DosBoxRunning)
-                RobustIs(True)
-
-                p.EnableRaisingEvents = True
-                AddHandler p.Exited, AddressOf RobustProcess_Exited
-
-                Return True
-            End If
+            Try
+                If p.MainWindowTitle = RobustName() Then
+                    PropRobustProcID = p.Id
+                    Log(My.Resources.Info_word, Global.Outworldz.My.Resources.DosBoxRunning)
+                    RobustIs(True)
+                    p.EnableRaisingEvents = True
+                    AddHandler p.Exited, AddressOf RobustProcess_Exited
+                    Return True
+                End If
+            Catch ex As Exception
+            End Try
         Next
 
         ' Check the HTTP port
@@ -3339,7 +3352,7 @@ Public Class FormSetup
 
         If Settings.LoadIni(Settings.OpensimBinPath & "config-include\FlotsamCache.ini", ";") Then Return True
         Print("->Set Flotsam Cache")
-        Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
+        Settings.SetIni("AssetCache", "LogLevel     ", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
         Settings.SetIni("AssetCache", "FileCacheEnabled", CStr(Settings.CacheEnabled))
         Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
@@ -3486,7 +3499,7 @@ Public Class FormSetup
         Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
         FileStuff.CopyFile(src, Dest, True)
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
-        Settings.Grep(ini, "", Settings.LogLevel)
+        '!!! Settings.Grep(ini, "", Settings.LogLevel)
 
         Return False
 
@@ -3886,6 +3899,9 @@ Public Class FormSetup
             'Suspended = 9
             '[Error] = 10
             'RestartStage2 = 11
+            If Not PropRegionClass.RegionEnabled(RegionUUID) Then
+                Continue While
+            End If
 
             If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
@@ -3903,6 +3919,8 @@ Public Class FormSetup
                     PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
                 Next
                 Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Restart")
+                PropUpdateView = True
+                Continue While
 
             ElseIf (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
                 Status = RegionMaker.SIMSTATUSENUM.Booting Or
@@ -3946,6 +3964,7 @@ Public Class FormSetup
                         PropRegionClass.Timer(R) = RegionMaker.REGIONTIMER.Stopped
                     Next
                     Logger("Stopped", GroupName & "  was stopped", "Restart")
+                    PropUpdateView = True
                     Continue While
                 Else
 

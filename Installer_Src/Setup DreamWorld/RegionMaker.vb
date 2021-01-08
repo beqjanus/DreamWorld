@@ -1718,19 +1718,19 @@ Public Class RegionMaker
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface"
             Settings.SetIni("Search", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"), True)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"), True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"), True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modulesdll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modulesdll"), True)
         ElseIf Settings.JOpensimSearch = Hyperica Then
             Dim SearchURL = "http://hyperica.com/Search/query.php"
             Settings.SetIni("Search", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
         Else
             Settings.SetIni("Search", "SearchURL", "")
             Settings.SetIni("LoginService", "SearchURL", "")
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Profile.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Search.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
         End If
 
     End Sub
@@ -1759,7 +1759,7 @@ Public Class RegionMaker
         Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
         FileStuff.CopyFile(src, ini, True)
-        Settings.Grep(ini, pathname, Settings.LogLevel)
+        '!!! Settings.Grep(ini, pathname, Settings.LogLevel)
 
         Try
             My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), pathname & "Opensim.ini", True)
