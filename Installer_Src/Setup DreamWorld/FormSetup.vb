@@ -899,9 +899,10 @@ Public Class FormSetup
         End If
 
         Dim WindowCounter As Integer = 0
-        myProcess.Refresh()
-        Dim myhandle As IntPtr = myProcess.MainWindowHandle
+        Dim myhandle As IntPtr
         Try
+            myProcess.Refresh()
+            myhandle = IntPtr = myProcess.MainWindowHandle
             While myhandle = IntPtr.Zero
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
@@ -922,6 +923,7 @@ Public Class FormSetup
         While True
             Dim status = SetWindowText(myhandle, windowName)
             Try
+                Sleep(100)
                 myProcess.Refresh()
                 If status And myProcess.MainWindowTitle = windowName Then
                     Exit While
@@ -936,7 +938,7 @@ Public Class FormSetup
                 ErrorLog("Cannot get handle for " & windowName)
                 Exit While
             End If
-            Sleep(100)
+
         End While
         Return True
 
@@ -2389,7 +2391,6 @@ Public Class FormSetup
 
         ' Check the HTTP port
         If IsRobustRunning() Then
-
             Return True
         End If
 
@@ -3740,8 +3741,6 @@ Public Class FormSetup
             End If
         Next
 
-
-
         For Each RegionUUID As String In PropRegionClass.RegionUuids
 
             Application.DoEvents()
@@ -4412,7 +4411,6 @@ Public Class FormSetup
 
         Print(My.Resources.DeleteTmp_word)
         FileStuff.DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
-
 
         ContentOAR = New FormOAR
         ContentOAR.Init("OAR")

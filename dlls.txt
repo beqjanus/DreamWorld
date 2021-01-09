@@ -14,8 +14,11 @@
 \OutworldzFiles\Opensim\bin\Diva.Wifi.ScriptEngine.dll
 \OutworldzFiles\Opensim\bin\DotNetOpenId.dll
 \OutworldzFiles\Opensim\bin\DotNetOpenMail.dll
+\OutworldzFiles\Opensim\bin\Gloebit.dll
 \OutworldzFiles\Opensim\bin\ICSharpCode.SharpZipLib.dll
 \OutworldzFiles\Opensim\bin\Ionic.Zip.dll
+\OutworldzFiles\Opensim\bin\jOpenSimProfile.Modules.dll
+\OutworldzFiles\Opensim\bin\jOpenSimSearch.Modules.dll
 \OutworldzFiles\Opensim\bin\log4net.dll
 \OutworldzFiles\Opensim\bin\LukeSkywalker.IPNetwork.dll
 \OutworldzFiles\Opensim\bin\Mono.Addins.CecilReflector.dll
@@ -120,6 +123,7 @@
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Performance.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Permissions.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Stress.dll
+\OutworldzFiles\Opensim\bin\OpenSimBirds.Module.dll
 \OutworldzFiles\Opensim\bin\OpenSimSearch.Modules.dll
 \OutworldzFiles\Opensim\bin\OpenSimTide.Module.dll
 \OutworldzFiles\Opensim\bin\PrimMesher.dll
@@ -142,7 +146,12 @@
 \OutworldzFiles\Opensim\bin\lib64\BulletSim.dll
 \OutworldzFiles\Opensim\bin\lib64\ode.dll
 \OutworldzFiles\Opensim\bin\lib64\sqlite3.dll
+\OutworldzFiles\Opensim\bin\lib64\de\Diva.Wifi.resources.dll
+\OutworldzFiles\Opensim\bin\lib64\en\Diva.Wifi.resources.dll
+\OutworldzFiles\Opensim\bin\lib64\es\Diva.Wifi.resources.dll
+\OutworldzFiles\Opensim\bin\lib64\fr\Diva.Wifi.resources.dll
+\OutworldzFiles\Opensim\bin\lib64\pt\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\pt\Diva.Wifi.resources.dll
-\OutworldzFiles\opensim\bin\jOpensim.Profile.dll
-\OutworldzFiles\opensim\bin\jOpensim.Search.dll
-\OutworldzFiles\opensim\bin\jOpensim.Money.dll
+\OutworldzFiles\opensim\bin\jOpensimProfile.Module.dll
+\OutworldzFiles\opensim\bin\jOpensimSearch.Module.dll
+\OutworldzFiles\opensim\bin\jOpensimMoney.Module.dll
