@@ -1184,13 +1184,11 @@ SetWindowOnTop_Err:
 
                     ' shut down all regions in the DOS box
                     For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                        PropRegionClass.Timer(RegionUUID) = RegionMaker.REGIONTIMER.Stopped
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
                     Next
                 Else
                     ' shut down all regions in the DOS box
                     For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                        PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                     Next
                 End If
@@ -1205,7 +1203,6 @@ SetWindowOnTop_Err:
             If hwnd = IntPtr.Zero Then
                 ' shut down all regions in the DOS box
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                    PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                 Next
                 PropUpdateView = True ' make form refresh
@@ -1239,7 +1236,6 @@ SetWindowOnTop_Err:
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             Logger("RecyclingDown", GroupName, "Restart")
             For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                PropRegionClass.Timer(UUID) = RegionMaker.REGIONTIMER.Stopped
                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                 Logger("RecyclingDown", PropRegionClass.RegionName(UUID), "Restart")
             Next

@@ -2192,6 +2192,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Delete tmp folder.
+        '''</summary>
+        Friend ReadOnly Property DeleteTmp_word() As String
+            Get
+                Return ResourceManager.GetString("DeleteTmp_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Delete All Maps.
         '''</summary>
         Friend ReadOnly Property DelMaps() As String

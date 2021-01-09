@@ -146,7 +146,7 @@ Public Class Backups
         FileStuff.DeleteFile(Bak)
 
         ZipFile.CreateFromDirectory(_folder, Bak, CompressionLevel.Optimal, False)
-        Thread.Sleep(1000)
+        Thread.Sleep(10000)
         FileStuff.DeleteDirectory(_folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
 
         OpensimBackupRunning -= 1
@@ -187,9 +187,7 @@ Public Class Backups
         Dim originalBoottime As Date = _startDate
         originalBoottime = originalBoottime.AddMinutes(CDbl(Settings.AutobackupInterval))
 
-        Dim x = DateTime.Compare(currentdatetime, originalBoottime)
         If DateTime.Compare(currentdatetime, originalBoottime) > 0 Then
-
             _startDate = currentdatetime ' wait another interval
 
             If Settings.AutoBackup Then

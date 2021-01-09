@@ -43,11 +43,6 @@ Public Class RegionMaker
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
 
-    Public Enum REGIONTIMER As Integer
-        Paused = -2
-        Stopped = -1
-        StartCounting = 0
-    End Enum
 
     Public Enum SIMSTATUSENUM As Integer
 
@@ -283,7 +278,7 @@ Public Class RegionMaker
             ._ProcessID = 0,
             ._AvatarCount = 0,
             ._Status = SIMSTATUSENUM.Stopped,
-            ._Timer = 0,
+            ._Timer = Date.Now,
             ._NonPhysicalPrimMax = "1024",
             ._PhysicalPrimMax = "64",
             ._ClampPrimSize = False,
@@ -684,7 +679,7 @@ Public Class RegionMaker
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
         Public _Status As Integer
-        Public _Timer As Integer
+        Public _Timer As Date
         Public _UUID As String = ""
 
 #End Region
@@ -901,15 +896,11 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property Timer(uuid As String) As Integer
+    Public Property Timer(uuid As String) As Date
         Get
-            If uuid Is Nothing Then Return -1
-            If Bad(uuid) Then Return -1
             Return RegionList(uuid)._Timer
         End Get
-        Set(ByVal Value As Integer)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
+        Set(ByVal Value As Date)
             RegionList(uuid)._Timer = Value
         End Set
     End Property

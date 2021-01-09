@@ -3106,4 +3106,7 @@
     <value>Send and Quit?</value>
     <comment>new</comment>
   </data>
+  <data name="DeleteTmp_word" xml:space="preserve">
+    <value>Delete tmp folder</value>
+  </data>
 </root>
