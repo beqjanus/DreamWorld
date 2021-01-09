@@ -1909,8 +1909,6 @@ Public Class MySettings
             End Using
         End Using
 
-        ' file.Close()
-
         Dim f = System.IO.Path.GetFileName(INI)
         Dim ctr = 10
         While ctr > 0
