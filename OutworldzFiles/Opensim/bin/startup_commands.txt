@@ -1,0 +1,5 @@
+; Startup_commands.txt can run region console commands once the simulator has finished starting up
+; e.g. show stats
+
+show stats
+

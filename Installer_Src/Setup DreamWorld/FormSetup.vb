@@ -45,18 +45,19 @@ Public Class FormSetup
 
     Private Const _Domain As String = "http://outworldz.com"
     Private Const _MyVersion As String = "3.798"
-    Private Const _SimVersion As String = "#ba46b5bf8bd0 libomv master  0.9.2.dev 2020-09-21 2020-10-14 19:44"
+    Private Const _SimVersion As String = "#70e00a00ec ("fix creators user cache", 2021-01-07)"
     Private Const Hyperica As String = "Hyperica"
     Private Const JOpensim As String = "JOpensim"
     Private Const MySqlRev = "5.6.5"
-    Private _jRev As String = "3.9.23"
-    Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
 
 #End Region
 
     Dim searcher As ManagementObjectSearcher
 
 #Region "Private Declarations"
+
+    Private _jRev As String = "3.9.23"
+    Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
 
     Private WithEvents ApacheProcess As New Process()
     Private WithEvents BootProcess As New Process
