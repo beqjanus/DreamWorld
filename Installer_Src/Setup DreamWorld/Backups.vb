@@ -280,7 +280,7 @@ Public Class Backups
         Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
         FileStuff.DeleteFile(Bak)
         ZipFile.CreateFromDirectory(_folder, Bak, CompressionLevel.Optimal, False)
-        Thread.Sleep(1000)
+        Thread.Sleep(10000)
         FileStuff.DeleteDirectory(_folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub

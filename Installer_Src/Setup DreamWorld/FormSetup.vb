@@ -3789,6 +3789,7 @@ Public Class FormSetup
                 Logger("State Changed to Suspended", RegionName, "Restart")
                 DoSuspend_Resume(RegionName)
                 PropUpdateView = True
+                Continue For
             End If
 
             ' auto restart timer
@@ -3813,7 +3814,7 @@ Public Class FormSetup
 
                 Print(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
                 PropUpdateView = True
-
+                Continue For
             End If
 
             ' if a RestartPending is signaled, boot it up
@@ -3823,11 +3824,10 @@ Public Class FormSetup
                 Boot(RegionName)
                 Logger("State is now Booted", PropRegionClass.RegionName(RegionUUID), "Restart")
                 PropUpdateView = True
+                Continue For
             End If
 
-
             If Status = RegionMaker.SIMSTATUSENUM.Resume Then
-
                 '[Resume] = 8
                 Logger("State is Resuming", GroupName, "Restart")
                 DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
@@ -3836,12 +3836,11 @@ Public Class FormSetup
                     Logger("State changed to Booted", PropRegionClass.RegionName(R), "Restart")
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
                 Next
-
                 PropUpdateView = True
+                Continue For
             End If
 
             If Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
-
                 'RestartStage2 = 11
                 Logger("State is Restart Pending", GroupName, "Restart")
                 Print(GroupName & " " & Global.Outworldz.My.Resources.Restart_Pending_word)
@@ -3850,13 +3849,11 @@ Public Class FormSetup
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartPending
                     Logger("State changed to RestartPending", PropRegionClass.RegionName(R), "Restart")
                 Next
-
                 PropUpdateView = True ' make form refresh
-
+                Continue For
             End If
-
-
         Next
+
         ' now look at the exit stack
         While PropExitList.Count > 0
 
