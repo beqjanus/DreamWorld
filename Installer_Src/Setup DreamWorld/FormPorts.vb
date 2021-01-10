@@ -98,7 +98,7 @@ Public Class FormPorts
         SetScreen()
 
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropRegionClass.LargestPort.ToString(Globalization.CultureInfo.InvariantCulture)
 
         uPnPEnabled.Checked = Settings.UPnPEnabled
 
@@ -169,7 +169,7 @@ Public Class FormPorts
 
         PropRegionClass.UpdateAllRegionPorts()
         FirstRegionPort.Text = CStr(Settings.FirstRegionPort())
-        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropMaxPortUsed.ToString(Globalization.CultureInfo.InvariantCulture)
+        MaxP.Text = Global.Outworldz.My.Resources.Highest_Used_word & " " & PropRegionClass.LargestPort.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 

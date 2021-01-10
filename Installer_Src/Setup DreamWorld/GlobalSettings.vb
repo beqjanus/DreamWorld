@@ -7,15 +7,6 @@ Module GlobalSettings
     Private _OpensimBackupRunning As Integer
     Private _MaxPortUsed As Integer
 
-    Public Property PropMaxPortUsed As Integer
-        Get
-            Return _MaxPortUsed
-        End Get
-        Set(value As Integer)
-            _MaxPortUsed = value
-        End Set
-    End Property
-
     Public Function SafeFolderName() As String
 
         Dim destinationpath As String = IO.Path.Combine(Settings.CurrentDirectory(), "tmp/" & CStr(RandomNumber.Random))

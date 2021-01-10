@@ -112,7 +112,8 @@ Public Class FormPublicity
         GDPRCheckBox.Checked = Settings.GDPR()
 
         Try
-            PictureBox9.Image = Bitmap.FromFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"))
+            Dim p = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
+            If System.IO.File.Exists(p) Then PictureBox9.Image = Bitmap.FromFile(p)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto

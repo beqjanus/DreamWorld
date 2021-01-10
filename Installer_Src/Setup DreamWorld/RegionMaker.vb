@@ -43,7 +43,6 @@ Public Class RegionMaker
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
 
-
     Public Enum SIMSTATUSENUM As Integer
 
         Stopped = 0
@@ -119,9 +118,6 @@ Public Class RegionMaker
             RegionPort(uuid) = Portnumber
 
             GroupPort(uuid) = Portnumber
-
-            ' Self setting Region Ports
-            PropMaxPortUsed = Portnumber
 
             Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
@@ -453,8 +449,7 @@ Public Class RegionMaker
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
                                     GroupPort(uuid) = Backup(o)._GroupPort
                                     If GroupPort(uuid) = 0 Then
-                                        GroupPort(uuid) = PropMaxPortUsed
-                                        PropMaxPortUsed += 1
+                                        GroupPort(uuid) = PropRegionClass.LargestPort + 1
                                     End If
 
                                 End If
@@ -1328,8 +1323,7 @@ Public Class RegionMaker
 
         Dim pair As KeyValuePair(Of String, Region_data)
         For Each pair In RegionList
-            If name = pair.Value._RegionName Then
-                Debug.Print("Current Region is " + pair.Value._RegionName)
+            If name = pair.Value._RegionName Then               '
                 Return pair.Value._UUID
             End If
         Next
@@ -1742,25 +1736,21 @@ Public Class RegionMaker
 
     Public Function CopyOpensimProto(uuid As String) As Boolean
 
-        ' copy the prototype to the regions Opensim.ini
+        '============== Opensim.ini =====================
         Dim pathname = IniPath(uuid)
+
         Dim Name = RegionName(uuid)
         Dim Group = GroupName(uuid)
 
-        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-        FileStuff.CopyFile(src, ini, True)
-        Settings.Grep(ini, pathname, Settings.LogLevel)
-
+        ' copy the prototype to the regions Opensim.ini
         Try
-            My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), pathname & "Opensim.ini", True)
+            My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), IO.Path.Combine(pathname, "Opensim.ini"), True)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
 
-        '============== Opensim.ini =====================
-        ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & Group & "\Opensim.ini", ";") Then
+        ' Load Opensim.ini in Region Folder specific to this region
+        If Settings.LoadIni(IO.Path.Combine(pathname, "Opensim.ini"), ";") Then
             Return True
         End If
 
@@ -1839,7 +1829,6 @@ Public Class RegionMaker
 
             ClrCache.WipeScripts()
             Settings.DeleteScriptsOnStartupLevel() = FormSetup.SimVersion ' we have scripts cleared to proper Opensim Version
-            Settings.SaveSettings()
 
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
@@ -2161,7 +2150,7 @@ Public Class RegionMaker
 
         '============== Region.ini =====================
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(Settings.OpensimBinPath & "Regions\" & Group & "\Region\" & Name & ".ini", ";") Then
+        If Settings.LoadIni(RegionPath(uuid), ";") Then
             Return True
         End If
 
@@ -2267,6 +2256,13 @@ Public Class RegionMaker
         Settings.SetIni(Name, "FrameTime", FrameTime(uuid))
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
+
+        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+        FileStuff.CopyFile(src, ini, True)
+        Settings.Grep(ini, pathname, Settings.LogLevel)
+
+        Settings.SaveSettings()
 
         Return False
 

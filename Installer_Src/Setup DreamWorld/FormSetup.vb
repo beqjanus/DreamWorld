@@ -902,7 +902,7 @@ Public Class FormSetup
         Dim myhandle As IntPtr
         Try
             myProcess.Refresh()
-            myhandle = IntPtr = myProcess.MainWindowHandle
+            myhandle = myProcess.MainWindowHandle
             While myhandle = IntPtr.Zero
                 WindowCounter += 1
                 If WindowCounter > 600 Then '  60 seconds for process to start
@@ -3693,15 +3693,13 @@ Public Class FormSetup
     Private Sub ExitHandlerPoll()
 
         If PropExitHandlerIsBusy Then
+            Return
             ExitInterval += 1
-            If ExitInterval < 15 Then Return
         End If
-        PropExitHandlerIsBusy = True
-
         ExitInterval -= 1
-        If ExitInterval < 1 Then
-            ExitInterval = 1
-        End If
+        If ExitInterval < 2 Then ExitInterval = 2
+
+        PropExitHandlerIsBusy = True
 
         Dim GroupName As String = ""
         Dim TimerValue As Integer
@@ -3966,7 +3964,10 @@ Public Class FormSetup
                     Continue While
                 Else
 
-                    If PropAborting Then Return ' not if we are aborting
+                    If PropAborting Then
+                        PropExitHandlerIsBusy = False
+                        Return ' not if we are aborting
+                    End If
                     Print(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, vbYesNo, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
