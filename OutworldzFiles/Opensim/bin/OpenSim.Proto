@@ -730,6 +730,7 @@ shard="OpenSim"
 ; HttpAuthPassword = "some_password"
 ;;
 ;; Any of these 3 variables above can be overriden in any of the service sections.
+
 [XMLRPC]
 
 ;
@@ -751,6 +752,8 @@ shard="OpenSim"
 ;; will use this address to register xmlrpc channels on the external
 ;; service
 ; XmlRpcHubURI = http://example.com
+
+
 [ClientStack.LindenUDP]
 
 ;
@@ -1439,7 +1442,7 @@ XmlRpcServiceWriteKey=1234
 ;; Used for V2 in HG only. For example
 ;; http://mygridserver.com:9000 or http://mygridserver.com:8002
 ;; If you have this set under [Startup], no need to set it here, leave it commented
-HomeURI=${Const|BaseURL}:${Const|PublicPort}
+;HomeURI=${Const|BaseURL}:${Const|PublicPort}
 
 ;
 ;# {MessagingEnabled} {Module:GroupsModule Module:Groups Module V2} {Is groups messaging enabled?} {true false} true

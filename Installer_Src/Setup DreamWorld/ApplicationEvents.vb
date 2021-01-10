@@ -34,7 +34,7 @@ Namespace My
 
         Private Shared Sub Network_changed() Handles Me.NetworkAvailabilityChanged
 
-            SetPublicIP()
+            'SetPublicIP()
 
         End Sub
 
