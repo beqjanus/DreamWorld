@@ -2,4 +2,3 @@
 ; e.g. show stats
 ; Lines that start with ; are comments
 
-show stats
