@@ -28,7 +28,6 @@ Public Class FormIARSave
     Private _gBackupName As String = ""
     Private _gBackupPath As String = ""
     Private _gObject As String = "/"
-    Private _gPassword As String = ""
 
 #End Region
 
@@ -50,7 +49,6 @@ Public Class FormIARSave
         Label2.Text = Global.Outworldz.My.Resources.Backup_Name
         Label3.Text = Global.Outworldz.My.Resources.Avatar_Name_word
         PictureBox1.Image = Global.Outworldz.My.Resources.folder
-        Pwd.Text = Global.Outworldz.My.Resources.Password_word
         Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word
         ToolTip1.SetToolTip(AviName, Global.Outworldz.My.Resources.Avatar_First_and_Last_Name_word)
         ToolTip1.SetToolTip(ObjectNameBox, Global.Outworldz.My.Resources.Enter_Name)
@@ -99,15 +97,6 @@ Public Class FormIARSave
         End Set
     End Property
 
-    Public Property GPassword As String
-        Get
-            Return _gPassword
-        End Get
-        Set(value As String)
-            _gPassword = value
-        End Set
-    End Property
-
 #End Region
 
 #Region "Private Methods"
@@ -126,10 +115,6 @@ Public Class FormIARSave
             MsgBox(My.Resources.Enter_1_2)
             Return
         End If
-        ' If GPassword.Length = 0 Then
-        ' MsgBox(My.Resources.Password_word)
-        ' Return
-        '  End If
 
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
     End Sub
@@ -146,10 +131,6 @@ Public Class FormIARSave
 
     Private Sub ObjectNameBox_TextChanged_1(sender As Object, e As EventArgs) Handles ObjectNameBox.TextChanged
         GObject = ObjectNameBox.Text
-    End Sub
-
-    Private Sub Password_TextChanged_1(sender As Object, e As EventArgs) Handles Password.TextChanged
-        GPassword = Password.Text
     End Sub
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click

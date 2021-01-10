@@ -44,7 +44,7 @@ Public Class FormSetup
 #Region "Const"
 
     Private Const _Domain As String = "http://outworldz.com"
-    Private Const _MyVersion As String = "3.798"
+    Private Const _MyVersion As String = "3.799"
     Private Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
     Private Const Hyperica As String = "Hyperica"
     Private Const JOpensim As String = "JOpensim"
@@ -6816,7 +6816,6 @@ Public Class FormSetup
                     End If
 
                     Dim Name = SaveIAR.GAvatarName
-                    Dim Password = SaveIAR.GPassword
 
                     For Each RegionUUID As String In PropRegionClass.RegionUuids
                         If PropRegionClass.IsBooted(RegionUUID) Then
@@ -6824,7 +6823,7 @@ Public Class FormSetup
                                            "save iar " _
                                            & Name & " " _
                                            & """" & itemName & """" _
-                                           & " " & """" & Password & """" & " " _
+                                           & " " _
                                            & """" & ToBackup & """" _
                                            & "{ENTER}" & vbCrLf
                                       )

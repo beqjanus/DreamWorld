@@ -5,7 +5,6 @@ Module GlobalSettings
     Private _mySetting As New MySettings
     Private _regionClass As RegionMaker
     Private _OpensimBackupRunning As Integer
-    Private _MaxPortUsed As Integer
 
     Public Function SafeFolderName() As String
 

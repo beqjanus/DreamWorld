@@ -61,22 +61,28 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
         protected MemoryStream m_iarStream;
 
         protected UserAccount m_uaMT
-            = new UserAccount {
+            = new UserAccount
+            {
                 PrincipalID = UUID.Parse("00000000-0000-0000-0000-000000000555"),
                 FirstName = "Mr",
-                LastName = "Tiddles" };
+                LastName = "Tiddles"
+            };
 
         protected UserAccount m_uaLL1
-            = new UserAccount {
+            = new UserAccount
+            {
                 PrincipalID = UUID.Parse("00000000-0000-0000-0000-000000000666"),
                 FirstName = "Lord",
-                LastName = "Lucan" };
+                LastName = "Lucan"
+            };
 
         protected UserAccount m_uaLL2
-            = new UserAccount {
+            = new UserAccount
+            {
                 PrincipalID = UUID.Parse("00000000-0000-0000-0000-000000000777"),
                 FirstName = "Lord",
-                LastName = "Lucan" };
+                LastName = "Lucan"
+            };
 
         protected string m_item1Name = "Ray Gun Item";
         protected string m_coaItemName = "Coalesced Item";
@@ -108,7 +114,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
 
         protected void ConstructDefaultIarBytesForTestLoad()
         {
-//            log4net.Config.XmlConfigurator.Configure();
+            //            log4net.Config.XmlConfigurator.Configure();
 
             InventoryArchiverModule archiverModule = new InventoryArchiverModule();
             Scene scene = new SceneHelpers().SetupScene();
@@ -161,7 +167,7 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
             scene.AddInventoryItem(coaItem);
 
             archiverModule.ArchiveInventory(
-                UUID.Random(), m_uaLL1.FirstName, m_uaLL1.LastName, "/*", "hampshire", archiveWriteStream);
+                UUID.Random(), m_uaLL1.FirstName, m_uaLL1.LastName, "/*", archiveWriteStream);
 
             m_iarStreamBytes = archiveWriteStream.ToArray();
         }

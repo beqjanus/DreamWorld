@@ -1,8 +1,8 @@
 <?php 
 /* General Domain */
-$CONF_domain        = "47.185.232.98"; 
+$CONF_domain        = "24.173.0.66"; 
 $CONF_port          = "8002"; 
-$CONF_sim_domain    = "http://47.185.232.98/";
+$CONF_sim_domain    = "http://24.173.0.66/";
 $CONF_install_path  = "/Metromap";   // Installation path 
 /* MySQL Database */ 
 $CONF_db_server     = "127.0.0.1"; // Address Of Robust Server 
