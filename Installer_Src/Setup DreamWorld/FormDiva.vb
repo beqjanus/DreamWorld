@@ -176,7 +176,12 @@ Public Class FormDiva
             Dim Pic As Bitmap = My.Resources.NoImage
             PictureBox1.Image = Pic
         Else
-            PictureBox1.Image = Bitmap.FromFile(path)
+            Dim img As Image
+            Using bmpTemp As New Bitmap(path)
+                img = New Bitmap(bmpTemp)
+            End Using
+
+            PictureBox1.Image = img
         End If
 
     End Sub
@@ -207,9 +212,12 @@ Public Class FormDiva
                     Try
                         Using newBitmap As New Bitmap(PictureBox1.Image)
                             newBitmap.Save(path, Imaging.ImageFormat.Png)
+                            newBitmap.Dispose()
                         End Using
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
+                    Finally
+
                     End Try
 
                     LoadPhoto()
