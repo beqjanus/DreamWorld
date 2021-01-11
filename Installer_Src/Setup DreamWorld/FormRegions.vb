@@ -87,7 +87,7 @@ Public Class FormRegions
             Dim Failed As String
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
-            For Each UUID As String In PropRegionClass.RegionUUIDs
+            For Each UUID As String In PropRegionClass.RegionUuids
                 If (PropRegionClass.CoordX(UUID) + DeltaX) <= 0 Then
                     Err = True
                     Failed = PropRegionClass.RegionName(UUID)
@@ -103,7 +103,7 @@ Public Class FormRegions
                 Return
             End If
 
-            For Each UUID As String In PropRegionClass.RegionUUIDs
+            For Each UUID As String In PropRegionClass.RegionUuids
                 PropRegionClass.CoordX(RegionUUID) = PropRegionClass.CoordX(UUID) + DeltaX
                 PropRegionClass.CoordY(RegionUUID) = PropRegionClass.CoordY(UUID) + DeltaY
                 PropRegionClass.WriteRegionObject(PropRegionClass.RegionName(UUID))
@@ -114,7 +114,7 @@ Public Class FormRegions
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
 
-        FormSetup.StartMySQL()
+        StartMySQL()
         MysqlInterface.DeregisterRegions()
 
     End Sub
@@ -188,7 +188,7 @@ Public Class FormRegions
         ' All region load
         RegionBox.Items.Clear()
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             RegionBox.Items.Add(PropRegionClass.RegionName(RegionUUID))
         Next
 
@@ -199,7 +199,7 @@ Public Class FormRegions
         ' Default welcome region load
         WelcomeBox1.Items.Clear()
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             WelcomeBox1.Items.Add(PropRegionClass.RegionName(RegionUUID))
         Next
 
@@ -235,7 +235,7 @@ Public Class FormRegions
         Dim Y As Integer = 200
         Dim counter As Integer = 0
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
 
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 #Disable Warning CA2000 ' Dispose objects before losing scope

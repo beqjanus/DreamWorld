@@ -81,7 +81,7 @@ Partial Class FormPorts
         Me.OverrideNameLabel.Size = New System.Drawing.Size(256, 17)
         Me.OverrideNameLabel.TabIndex = 1864
         Me.OverrideNameLabel.Text = "External HostName For Region Servers"
-        Me.ToolTip1.SetToolTip(Me.OverrideNameLabel, Global.Outworldz.My.Resources.Resources.External_text)
+        Me.ToolTip1.SetToolTip(Me.OverrideNameLabel, Global.Outworldz.My.Resources.External_text)
         '
         'ExternalHostName
         '
@@ -90,11 +90,11 @@ Partial Class FormPorts
         Me.ExternalHostName.Name = "ExternalHostName"
         Me.ExternalHostName.Size = New System.Drawing.Size(272, 22)
         Me.ExternalHostName.TabIndex = 1863
-        Me.ToolTip1.SetToolTip(Me.ExternalHostName, Global.Outworldz.My.Resources.Resources.External_text)
+        Me.ToolTip1.SetToolTip(Me.ExternalHostName, Global.Outworldz.My.Resources.External_text)
         '
         'Upnp
         '
-        Me.Upnp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.Upnp.Image = Global.Outworldz.My.Resources.about
         Me.Upnp.Location = New System.Drawing.Point(228, 22)
         Me.Upnp.Margin = New System.Windows.Forms.Padding(4)
         Me.Upnp.Name = "Upnp"
@@ -110,8 +110,8 @@ Partial Class FormPorts
         Me.uPnPEnabled.Name = "uPnPEnabled"
         Me.uPnPEnabled.Size = New System.Drawing.Size(122, 21)
         Me.uPnPEnabled.TabIndex = 21
-        Me.uPnPEnabled.Text = Global.Outworldz.My.Resources.Resources.UPnP_Enabled_word
-        Me.ToolTip1.SetToolTip(Me.uPnPEnabled, Global.Outworldz.My.Resources.Resources.UPnP_Enabled_text)
+        Me.uPnPEnabled.Text = Global.Outworldz.My.Resources.UPnP_Enabled_word
+        Me.ToolTip1.SetToolTip(Me.uPnPEnabled, Global.Outworldz.My.Resources.UPnP_Enabled_text)
         Me.uPnPEnabled.UseVisualStyleBackColor = True
         '
         'Label7
@@ -141,7 +141,7 @@ Partial Class FormPorts
         Me.HTTPPort.Name = "HTTPPort"
         Me.HTTPPort.Size = New System.Drawing.Size(58, 22)
         Me.HTTPPort.TabIndex = 23
-        Me.ToolTip1.SetToolTip(Me.HTTPPort, Global.Outworldz.My.Resources.Resources.Default_8002_word)
+        Me.ToolTip1.SetToolTip(Me.HTTPPort, Global.Outworldz.My.Resources.Default_8002_word)
         '
         'PrivatePort
         '
@@ -150,7 +150,7 @@ Partial Class FormPorts
         Me.PrivatePort.Name = "PrivatePort"
         Me.PrivatePort.Size = New System.Drawing.Size(58, 22)
         Me.PrivatePort.TabIndex = 24
-        Me.ToolTip1.SetToolTip(Me.PrivatePort, Global.Outworldz.My.Resources.Resources.Default_8003_word)
+        Me.ToolTip1.SetToolTip(Me.PrivatePort, Global.Outworldz.My.Resources.Default_8003_word)
         '
         'DiagnosticPort
         '
@@ -159,7 +159,7 @@ Partial Class FormPorts
         Me.DiagnosticPort.Name = "DiagnosticPort"
         Me.DiagnosticPort.Size = New System.Drawing.Size(58, 22)
         Me.DiagnosticPort.TabIndex = 22
-        Me.ToolTip1.SetToolTip(Me.DiagnosticPort, Global.Outworldz.My.Resources.Resources.Default_8001_word)
+        Me.ToolTip1.SetToolTip(Me.DiagnosticPort, Global.Outworldz.My.Resources.Default_8001_word)
         '
         'Label4
         '
@@ -198,7 +198,7 @@ Partial Class FormPorts
         Me.FirstRegionPort.Name = "FirstRegionPort"
         Me.FirstRegionPort.Size = New System.Drawing.Size(58, 22)
         Me.FirstRegionPort.TabIndex = 25
-        Me.ToolTip1.SetToolTip(Me.FirstRegionPort, Global.Outworldz.My.Resources.Resources.Default_8004_word)
+        Me.ToolTip1.SetToolTip(Me.FirstRegionPort, Global.Outworldz.My.Resources.Default_8004_word)
         '
         'MenuStrip2
         '
@@ -214,17 +214,17 @@ Partial Class FormPorts
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(75, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(124, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormPorts
         '

@@ -2,6 +2,74 @@
 
 Module Logging
 
+    Public Sub Viewlog(name As String)
+        If name Is Nothing Then Return
+        Dim AllLogs As Boolean = False
+        Dim path As New List(Of String)
+
+        If name.StartsWith("Region ", StringComparison.InvariantCultureIgnoreCase) Then
+            name = Replace(name, "Region ", "", 1, 1)
+            name = PropRegionClass.GroupName(PropRegionClass.FindRegionByName(name))
+            path.Add("""" & Settings.OpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
+        Else
+            If name = "All Logs" Then AllLogs = True
+            If name = "Robust" Or AllLogs Then path.Add("""" & Settings.OpensimBinPath & "Robust.log" & """")
+            If name = "Outworldz" Or AllLogs Then path.Add("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Outworldz.log") & """")
+            If name = "Error" Or AllLogs Then path.Add("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Error.log") & """")
+            If name = "UPnP" Or AllLogs Then path.Add("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Upnp.log") & """")
+            If name = "Icecast" Or AllLogs Then path.Add(" " & """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log") & """")
+            If name = "All Settings" Or AllLogs Then path.Add("""" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Settings.ini") & """")
+            If name = "--- Regions ---" Then Return
+
+            If AllLogs Then
+                For Each UUID As String In PropRegionClass.RegionUuids
+                    name = PropRegionClass.GroupName(UUID)
+                    path.Add("""" & Settings.OpensimBinPath & "Regions\" & name & "\Opensim.log" & """")
+                    Application.DoEvents()
+                Next
+            End If
+
+            If name = "MySQL" Or AllLogs Then
+                Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
+                Dim files As Array
+                Try
+                    files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
+
+                    For Each FileName As String In files
+                        path.Add("""" & FileName & """")
+                    Next
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            End If
+        End If
+        ' Filter distinct elements, and convert back into list.
+        Dim result As List(Of String) = path.Distinct().ToList
+
+        Dim logs As String = ""
+        For Each item In result
+            Log("View", item)
+            logs = logs & " " & item
+        Next
+
+        Try
+            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), logs)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Public Sub ShowLog()
+        ''' <summary>Shows the log buttons if diags fail</summary>
+        Try
+            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log") & """")
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
     Public Sub ErrorLog(message As String)
         If Debugger.IsAttached Then
             BreakPoint.Show(message)

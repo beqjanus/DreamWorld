@@ -217,7 +217,7 @@ Public Class FormOAR
 
         Try
             Dim File As String = SearchArray(e.ColumnIndex + (NumColumns * e.RowIndex)).Name
-            File = FormSetup.PropDomain & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
+            File = PropDomain & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
             If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
@@ -379,12 +379,12 @@ Public Class FormOAR
 
     Private Sub Form_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-        MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
-        PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view
-        RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
-        RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
-        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        PictureBox1.Image = Global.Outworldz.My.Resources.view
+        RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.refresh
+        RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Refresh_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
 
         Me.Hide()
         SetScreen()
@@ -421,7 +421,7 @@ Public Class FormOAR
         Dim result As String = Nothing
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = FormSetup.PropDomain & "/outworldz_installer/JSON/" & _type & ".json"
+                Dim str = PropDomain & "/outworldz_installer/JSON/" & _type & ".json"
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
@@ -499,7 +499,7 @@ Public Class FormOAR
                 Else
                     Dim img As Image = Nothing
                     If item.Photo.Length > 0 Then
-                        Dim link As Uri = New Uri(FormSetup.PropDomain & "/Outworldz_installer/" & _type & "/" & item.Photo)
+                        Dim link As Uri = New Uri(PropDomain & "/Outworldz_installer/" & _type & "/" & item.Photo)
 #Disable Warning CA2000
                         img = GetImageFromURL(link)
 #Enable Warning CA2000

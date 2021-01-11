@@ -106,7 +106,7 @@ Public Class RegionMaker
     ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     Public Sub UpdateAllRegionPorts()
 
-        FormSetup.Print(My.Resources.Updating_Ports_word)
+        TextPrint(My.Resources.Updating_Ports_word)
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
 
@@ -123,7 +123,7 @@ Public Class RegionMaker
             Portnumber += 1
         Next
 
-        FormSetup.Print(My.Resources.Setup_Firewall_word)
+        TextPrint(My.Resources.Setup_Firewall_word)
         Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
 
     End Sub
@@ -201,12 +201,12 @@ Public Class RegionMaker
                             If Keypair.Value = json.region_name Then
                                 Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
                                 If AgentName.Length > 0 Then
-                                    FormSetup.Print(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
+                                    TextPrint(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
 
                                     Dim Welcome = Settings.WelcomeRegion
                                     Dim rUUID = FindRegionByName(Welcome)
-                                    FormSetup.ConsoleCommand(rUUID, "change region " & json.region_name & "{ENTER}")
-                                    FormSetup.ConsoleCommand(rUUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
+                                    ConsoleCommand(rUUID, "change region " & json.region_name & "{ENTER}")
+                                    ConsoleCommand(rUUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
                                         Removelist.Add(Keypair.Key)
                                     Catch ex As Exception
@@ -232,7 +232,7 @@ Public Class RegionMaker
                     Logger("Shutdown", json.region_name, "Restart")
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
 
-                    FormSetup.Print(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
+                    TextPrint(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
                     Dim uuid = FindRegionByName(json.region_name)
                     Dim GName = GroupName(uuid)
                     If Not FormSetup.PropExitList.ContainsKey(GName) Then
@@ -1529,11 +1529,11 @@ Public Class RegionMaker
                 Dim AgentUUID = match.Groups(2).Value
                 If uuid.Length > 0 And RegionEnabled(uuid) And SmartStart(uuid) = "True" Then
                     If Status(uuid) = SIMSTATUSENUM.Booted Then
-                        FormSetup.Print(My.Resources.Someone_is_in_word & " " & RegionName(uuid))
+                        TextPrint(My.Resources.Someone_is_in_word & " " & RegionName(uuid))
                         Debug.Print("Sending to " & uuid)
                         Return uuid
                     Else
-                        FormSetup.Print(My.Resources.Smart_Start_word & " " & RegionName(uuid))
+                        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(uuid))
                         Status(uuid) = SIMSTATUSENUM.Resume
                         Try
                             TeleportAvatarDict.Remove(RegionName(uuid))
@@ -1744,7 +1744,7 @@ Public Class RegionMaker
 
         ' copy the prototype to the regions Opensim.ini
         Try
-            My.Computer.FileSystem.CopyFile(FormSetup.GetOpensimProto(), IO.Path.Combine(pathname, "Opensim.ini"), True)
+            My.Computer.FileSystem.CopyFile(GetOpensimProto(), IO.Path.Combine(pathname, "Opensim.ini"), True)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -1825,10 +1825,10 @@ Public Class RegionMaker
         Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
 
         ' Get Opensimulator Scripts to date if needed
-        If Settings.DeleteScriptsOnStartupLevel <> FormSetup.SimVersion Then
+        If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
 
             ClrCache.WipeScripts()
-            Settings.DeleteScriptsOnStartupLevel() = FormSetup.SimVersion ' we have scripts cleared to proper Opensim Version
+            Settings.DeleteScriptsOnStartupLevel() = PropSimVersion ' we have scripts cleared to proper Opensim Version
 
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
@@ -2256,11 +2256,6 @@ Public Class RegionMaker
         Settings.SetIni(Name, "FrameTime", FrameTime(uuid))
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
-
-        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-        FileStuff.CopyFile(src, ini, True)
-        Settings.Grep(ini, pathname, Settings.LogLevel)
 
         Settings.SaveSettings()
 

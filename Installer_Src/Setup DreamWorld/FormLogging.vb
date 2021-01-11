@@ -42,7 +42,7 @@
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
         Settings.SaveSettings()
-        FormSetup.SendMsg(Settings.LogLevel.ToUpperInvariant)
+        SendMsg(Settings.LogLevel.ToUpperInvariant)
 
     End Sub
 

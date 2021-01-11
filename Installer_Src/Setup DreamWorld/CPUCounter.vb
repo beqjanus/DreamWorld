@@ -21,8 +21,6 @@ Module CPUCounter
 
     Public Sub CalcCPU()
 
-        Return
-
         OpensimProcesses = Process.GetProcessesByName("Opensim")
         Try
             For Each p As Process In OpensimProcesses

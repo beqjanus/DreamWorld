@@ -6227,7 +6227,7 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Print.
         '''</summary>
-        Friend ReadOnly Property Print() As String
+        Friend ReadOnly Property TextPrint() As String
             Get
                 Return ResourceManager.GetString("Print", resourceCulture)
             End Get

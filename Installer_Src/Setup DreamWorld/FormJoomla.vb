@@ -9,22 +9,22 @@ Public Class FormJoomla
 
     Public Sub LoadSub() Handles Me.Load
 
-        AdminButton.Text = Global.Outworldz.My.Resources.Resources.AdministerJoomla_word
-        ButtonBox.Text = Global.Outworldz.My.Resources.Resources.Settings_word
-        SearchBox.Text = Global.Outworldz.My.Resources.Resources.Options
-        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
-        InstallButton.Image = Global.Outworldz.My.Resources.Resources.gear_run
-        InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
-        JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
-        ViewButton.Image = Global.Outworldz.My.Resources.Resources.edge
-        ViewButton.Text = Global.Outworldz.My.Resources.Resources.ViewJoomla_word
-        ButtonBox.Text = Global.Outworldz.My.Resources.Resources.Settings_word
-        SearchBox.Text = Global.Outworldz.My.Resources.Resources.SearchOptions_word
-        ReinstallButton.Text = Global.Outworldz.My.Resources.Resources.Restore_word
-        UpdateButton.Text = Global.Outworldz.My.Resources.Resources.Update_word
-        BackupButton.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+        AdminButton.Text = Global.Outworldz.My.Resources.AdministerJoomla_word
+        ButtonBox.Text = Global.Outworldz.My.Resources.Settings_word
+        SearchBox.Text = Global.Outworldz.My.Resources.Options
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        HypericaRadioButton.Text = Global.Outworldz.My.Resources.HypericaSearch_word
+        InstallButton.Image = Global.Outworldz.My.Resources.gear_run
+        InstallButton.Text = Global.Outworldz.My.Resources.InstallJoomla_word
+        JOpensimRadioButton.Text = Global.Outworldz.My.Resources.JOpensimSearch_word
+        ViewButton.Image = Global.Outworldz.My.Resources.edge
+        ViewButton.Text = Global.Outworldz.My.Resources.ViewJoomla_word
+        ButtonBox.Text = Global.Outworldz.My.Resources.Settings_word
+        SearchBox.Text = Global.Outworldz.My.Resources.SearchOptions_word
+        ReinstallButton.Text = Global.Outworldz.My.Resources.Restore_word
+        UpdateButton.Text = Global.Outworldz.My.Resources.Update_word
+        BackupButton.Text = Global.Outworldz.My.Resources.Backup_word
 
         SetDefaults()
         HelpOnce(JOpensim)
@@ -59,13 +59,13 @@ Public Class FormJoomla
 
     Private Sub InstallJoomla()
 
-        FormSetup.StartMySQL()
+        StartMySQL()
 
         Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\jOpensim_Files\" & FormSetup.JOpensimRev1 & ".zip")
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
             InstallButton.Image = Nothing
-            FormSetup.StartApache()
+            StartApache()
 
             Dim JoomlaProcess As New Process()
             JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
@@ -107,7 +107,7 @@ Public Class FormJoomla
                     Next
                 End Using
             Catch ex As Exception
-                FormSetup.Print($"Unable to extract file: {fname}:{ex.Message}")
+                TextPrint($"Unable to extract file: {fname}:{ex.Message}")
                 Thread.Sleep(3000)
                 InstallButton.Text = Global.Outworldz.My.Resources.Error_word
                 Return

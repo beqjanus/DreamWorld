@@ -61,7 +61,7 @@ Public Class UploadImage
 
         Using client As New WebClient ' download client for web pages
             Try
-                Dim str = FormSetup.PropDomain & "/cgi/UpdateCategory.plx" & FormSetup.GetPostData()
+                Dim str = PropDomain & "/cgi/UpdateCategory.plx" & GetPostData()
                 result = client.DownloadString(str)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)

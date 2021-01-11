@@ -44,7 +44,7 @@ Partial Class FormPhysics
         Me.GroupBox1.Size = New System.Drawing.Size(215, 104)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Physics_Engine
+        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Physics_Engine
         '
         'PhysicsSeparate
         '
@@ -54,7 +54,7 @@ Partial Class FormPhysics
         Me.PhysicsSeparate.Size = New System.Drawing.Size(177, 17)
         Me.PhysicsSeparate.TabIndex = 13
         Me.PhysicsSeparate.TabStop = True
-        Me.PhysicsSeparate.Text = Global.Outworldz.My.Resources.Resources.BP
+        Me.PhysicsSeparate.Text = Global.Outworldz.My.Resources.BP
         Me.PhysicsSeparate.UseVisualStyleBackColor = True
         '
         'PhysicsNone
@@ -65,7 +65,7 @@ Partial Class FormPhysics
         Me.PhysicsNone.Size = New System.Drawing.Size(51, 17)
         Me.PhysicsNone.TabIndex = 9
         Me.PhysicsNone.TabStop = True
-        Me.PhysicsNone.Text = Global.Outworldz.My.Resources.Resources.None
+        Me.PhysicsNone.Text = Global.Outworldz.My.Resources.None
         Me.PhysicsNone.UseVisualStyleBackColor = True
         '
         'PhysicsubODE
@@ -76,7 +76,7 @@ Partial Class FormPhysics
         Me.PhysicsubODE.Size = New System.Drawing.Size(153, 17)
         Me.PhysicsubODE.TabIndex = 11
         Me.PhysicsubODE.TabStop = True
-        Me.PhysicsubODE.Text = Global.Outworldz.My.Resources.Resources.UBODE_words
+        Me.PhysicsubODE.Text = Global.Outworldz.My.Resources.UBODE_words
         Me.PhysicsubODE.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -88,22 +88,22 @@ Partial Class FormPhysics
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(236, 26)
         Me.MenuStrip2.TabIndex = 1891
-        Me.MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
+        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
         '
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormPhysics
         '
@@ -115,7 +115,7 @@ Partial Class FormPhysics
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "FormPhysics"
-        Me.Text = Global.Outworldz.My.Resources.Resources.Physics_word
+        Me.Text = Global.Outworldz.My.Resources.Physics_word
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)

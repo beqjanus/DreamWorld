@@ -38,7 +38,6 @@ Partial Class FormRegionlist
         Me.RestartButton = New System.Windows.Forms.Button()
         Me.DetailsButton = New System.Windows.Forms.Button()
         Me.IconsButton = New System.Windows.Forms.Button()
-        Me.MapsButton = New System.Windows.Forms.Button()
         Me.AvatarsButton = New System.Windows.Forms.Button()
         Me.ImportButton = New System.Windows.Forms.Button()
         Me.AvatarView = New System.Windows.Forms.ListView()
@@ -165,20 +164,9 @@ Partial Class FormRegionlist
         Me.ToolTip1.SetToolTip(Me.IconsButton, Global.Outworldz.My.Resources.Resources.View_as_Icons)
         Me.IconsButton.UseVisualStyleBackColor = True
         '
-        'MapsButton
-        '
-        Me.MapsButton.Location = New System.Drawing.Point(565, 10)
-        Me.MapsButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.MapsButton.Name = "MapsButton"
-        Me.MapsButton.Size = New System.Drawing.Size(116, 29)
-        Me.MapsButton.TabIndex = 18601
-        Me.MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
-        Me.ToolTip1.SetToolTip(Me.MapsButton, Global.Outworldz.My.Resources.Resources.View_Maps)
-        Me.MapsButton.UseVisualStyleBackColor = True
-        '
         'AvatarsButton
         '
-        Me.AvatarsButton.Location = New System.Drawing.Point(688, 10)
+        Me.AvatarsButton.Location = New System.Drawing.Point(561, 10)
         Me.AvatarsButton.Margin = New System.Windows.Forms.Padding(4)
         Me.AvatarsButton.Name = "AvatarsButton"
         Me.AvatarsButton.Size = New System.Drawing.Size(116, 29)
@@ -253,7 +241,7 @@ Partial Class FormRegionlist
         'KOT
         '
         Me.KOT.AutoSize = True
-        Me.KOT.Location = New System.Drawing.Point(842, 53)
+        Me.KOT.Location = New System.Drawing.Point(690, 12)
         Me.KOT.Name = "KOT"
         Me.KOT.Size = New System.Drawing.Size(115, 21)
         Me.KOT.TabIndex = 18607
@@ -268,7 +256,6 @@ Partial Class FormRegionlist
         Me.Controls.Add(Me.KOT)
         Me.Controls.Add(Me.ImportButton)
         Me.Controls.Add(Me.AvatarsButton)
-        Me.Controls.Add(Me.MapsButton)
         Me.Controls.Add(Me.IconsButton)
         Me.Controls.Add(Me.DetailsButton)
         Me.Controls.Add(Me.AvatarView)
@@ -307,7 +294,6 @@ Partial Class FormRegionlist
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DetailsButton As Button
     Friend WithEvents IconsButton As Button
-    Friend WithEvents MapsButton As Button
     Friend WithEvents AvatarsButton As Button
     Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ImportButton As Button

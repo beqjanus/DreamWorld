@@ -30,20 +30,17 @@ Public Class FormRegionlist
 
     Private Shared _FormExists As Boolean
     Private ReadOnly colsize As New ScreenPos("Region List")
-    Private _ImageListLarge As ImageList
+
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private _ImageListSmall As New ImageList
 #Enable Warning CA2213 ' Disposable fields should be disposed
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
-
     Private pixels As Integer = 70
     Private TheView As Integer = ViewType.Details
-
     Private ViewNotBusy As Boolean
 
     Private Enum ViewType As Integer
-        Maps = 0
         Icons = 1
         Details = 2
         Avatars = 3
@@ -83,15 +80,6 @@ Public Class FormRegionlist
             ' Access shared members through the Class name, not an instance.
             Return FormExists1
         End Get
-    End Property
-
-    Public Property ImageListLarge1 As ImageList
-        Get
-            Return _ImageListLarge
-        End Get
-        Set(value As ImageList)
-            _ImageListLarge = value
-        End Set
     End Property
 
     Public Property ImageListSmall1 As ImageList
@@ -218,22 +206,6 @@ Public Class FormRegionlist
 
     End Sub
 
-    Private Sub Panel1_MouseWheel(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles ListView1.MouseWheel
-
-        If TheView1 = ViewType.Maps And Not ViewBusy Then
-            ' Update the drawing based upon the mouse wheel scrolling.
-            Dim numberOfTextLinesToMove As Integer = CInt(e.Delta * SystemInformation.MouseWheelScrollLines / 120)
-
-            Pixels1 += numberOfTextLinesToMove
-            'Debug.Print(pixels.ToString)
-            If Pixels1 > 256 Then Pixels1 = 256
-            If Pixels1 < 10 Then Pixels1 = 10
-
-            LoadMyListView()
-        End If
-
-    End Sub
-
     Private Sub RegionList_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
 
         Dim X = Me.Width - 45
@@ -288,35 +260,33 @@ Public Class FormRegionlist
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        AddRegionButton.Text = Global.Outworldz.My.Resources.Resources.Add_word
-        AllNone.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
-        AvatarsButton.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
-        DetailsButton.Text = Global.Outworldz.My.Resources.Resources.Details_word
-        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        IconsButton.Text = Global.Outworldz.My.Resources.Resources.Icons_word
-        ImportButton.Text = Global.Outworldz.My.Resources.Resources.Import_word
-        MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
-        RefreshButton.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
-        RestartButton.Text = Global.Outworldz.My.Resources.Resources.Restart_All_word
-        RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All_word
-        StopAllButton.Text = Global.Outworldz.My.Resources.Resources.Stop_All_word
-        KOT.Text = Global.Outworldz.My.Resources.Resources.KeepOnTop_word
-        ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Resources.Add_Region_word)
-        ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Resources.Selectallnone)
-        ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.Resources.ListAvatars)
-        ToolTip1.SetToolTip(DetailsButton, Global.Outworldz.My.Resources.Resources.View_Details)
-        ToolTip1.SetToolTip(IconsButton, Global.Outworldz.My.Resources.Resources.View_as_Icons)
-        ToolTip1.SetToolTip(ImportButton, Global.Outworldz.My.Resources.Resources.Importtext)
-        ToolTip1.SetToolTip(ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
-        ToolTip1.SetToolTip(MapsButton, Global.Outworldz.My.Resources.Resources.View_Maps)
-        ToolTip1.SetToolTip(RefreshButton, Global.Outworldz.My.Resources.Resources.Reload)
-        ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Resources.Restart_All_Checked)
-        ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.Resources.StartAll)
-        ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Resources.Stopsall)
-        ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Resources.Row
+        AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
+        AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
+        AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
+        DetailsButton.Text = Global.Outworldz.My.Resources.Details_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
+        IconsButton.Text = Global.Outworldz.My.Resources.Icons_word
+        ImportButton.Text = Global.Outworldz.My.Resources.Import_word
+        RefreshButton.Text = Global.Outworldz.My.Resources.Refresh_word
+        RestartButton.Text = Global.Outworldz.My.Resources.Restart_All_word
+        RunAllButton.Text = Global.Outworldz.My.Resources.Run_All_word
+        StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
+        KOT.Text = Global.Outworldz.My.Resources.KeepOnTop_word
+        ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Add_Region_word)
+        ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Selectallnone)
+        ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.ListAvatars)
+        ToolTip1.SetToolTip(DetailsButton, Global.Outworldz.My.Resources.View_Details)
+        ToolTip1.SetToolTip(IconsButton, Global.Outworldz.My.Resources.View_as_Icons)
+        ToolTip1.SetToolTip(ImportButton, Global.Outworldz.My.Resources.Importtext)
+        ToolTip1.SetToolTip(ListView1, Global.Outworldz.My.Resources.ClickStartStoptxt)
+        ToolTip1.SetToolTip(RefreshButton, Global.Outworldz.My.Resources.Reload)
+        ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Restart_All_Checked)
+        ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.StartAll)
+        ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Stopsall)
+        ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row
 
         KOT.Checked = Settings.KeepOnTop
         Me.TopMost = KOT.Checked
@@ -351,9 +321,6 @@ Public Class FormRegionlist
         ElseIf TheView1 = ViewType.Icons Then
             W = View.SmallIcon
             ListView1.CheckBoxes = False
-        ElseIf TheView1 = ViewType.Maps Then
-            ListView1.CheckBoxes = False
-            W = View.LargeIcon
         End If
 
         ListView1.View = W
@@ -398,9 +365,9 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.RAM_Word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 80), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
-        '  ListView1.Columns.Add(My.Resources.CPU_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 60), HorizontalAlignment.Center)
-        ' ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
-        'ctr += 1
+        ListView1.Columns.Add(My.Resources.CPU_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 60), HorizontalAlignment.Center)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
+        ctr += 1
         ListView1.Columns.Add("X".ToUpperInvariant, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
@@ -558,12 +525,6 @@ Public Class FormRegionlist
 
             ViewBusy = True
             ListView1.BeginUpdate()
-
-            ImageListLarge1 = New ImageList()
-
-            If Pixels1 = 0 Then Pixels1 = 24
-            ImageListLarge1.ImageSize = New Size(Pixels1, Pixels1)
-
             ListView1.Items.Clear()
             ImageListSmall1.ImageSize = New Drawing.Size(20, 20)
             Dim p As PerformanceCounter = Nothing
@@ -667,13 +628,17 @@ Public Class FormRegionlist
                         item1.SubItems.Add("0")
                     End If
 
-                    'Dim cpupercent As Double = 0
+                    Dim cpupercent As Double = 0
 
-                    'If CPUValues.TryGetValue(Groupname, cpupercent) Then
-                    'Else
-                    '   cpupercent = 0
-                    'End If
-                    ' item1.SubItems.Add(CStr(cpupercent))
+                    If CPUValues.TryGetValue(Groupname, cpupercent) Then
+                    Else
+                        cpupercent = 0
+                    End If
+                    item1.SubItems.Add(CStr(cpupercent))
+                    Dim c As Color = SystemColors.ControlText
+                    If cpupercent > 1 Then
+                        c = Color.Red
+                    End If
 
                     item1.SubItems.Add(PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
                     item1.SubItems.Add(PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
@@ -799,29 +764,7 @@ Public Class FormRegionlist
                         item1.SubItems.Add("-".ToUpperInvariant)
                     End If
 
-                    ' maps
-                    If TheView1 = ViewType.Maps Then
-
-                        If Status = RegionMaker.SIMSTATUSENUM.Booted Then
-                            Dim img As String = "http://127.0.0.1:" + PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) + "/" + "index.php?method=regionImage" + RegionUUID.Replace("-".ToUpperInvariant, "")
-                            Dim bmp As Image = Nothing
-
-                            Try
-                                bmp = LoadImage(img)
-                            Catch ex As Exception
-                                BreakPoint.Show(ex.Message)
-                            End Try
-
-                            If bmp Is Nothing Then
-                                ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
-                            Else
-                                ImageListLarge1.Images.Add(bmp)
-                            End If
-                        Else
-                            ImageListLarge1.Images.Add(My.Resources.ResourceManager.GetObject("OfflineMap", Globalization.CultureInfo.InvariantCulture))
-                        End If
-
-                    End If
+                    item1.ForeColor = c
 
                     ListView1.Items.AddRange(New ListViewItem() {item1})
                 Next
@@ -835,20 +778,11 @@ Public Class FormRegionlist
                             If w > 0 Then col.Width = w
                         End Using
                     Next
-
-                    For i As Integer = 0 To ListView1.Items.Count - 1
-                        If ListView1.Items(i).Checked Then
-                            ListView1.Items(i).ForeColor = SystemColors.ControlText
-                        Else
-                            ListView1.Items(i).ForeColor = SystemColors.GrayText
-                        End If
-                    Next i
                 Else
                     ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
                 End If
 
                 'Assign the ImageList objects to the ListView.
-                ListView1.LargeImageList = ImageListLarge1
                 ListView1.SmallImageList = ImageListSmall1
 
                 Me.ListView1.TabIndex = 0
@@ -1134,24 +1068,24 @@ SetWindowOnTop_Err:
 
             FormSetup.Buttons(FormSetup.BusyButton)
 
-            If Not FormSetup.StartMySQL() Then
-                FormSetup.Print(My.Resources.Stopped_word)
+            If Not StartMySQL() Then
+                TextPrint(My.Resources.Stopped_word)
             End If
-            FormSetup.StartRobust()
+            StartRobust()
             Log("Starting", PropRegionClass.RegionName(RegionUUID))
 
             If PropRegionClass.CopyOpensimProto(RegionUUID) Then
                 Return
             End If
 
-            FormSetup.PropAborting = False
+            PropAborting = False
             PropRegionClass.CrashCounter(RegionUUID) = 0
             FormSetup.Boot(PropRegionClass.RegionName(RegionUUID))
             Application.DoEvents()
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Start() 'Timer starts functioning
             FormSetup.Buttons(FormSetup.StopButton)
-            FormSetup.PropOpensimIsRunning() = True
+            PropOpensimIsRunning() = True
             FormSetup.ToolBar(True)
 
         ElseIf chosen = "Stop" Then
@@ -1175,11 +1109,11 @@ SetWindowOnTop_Err:
 
             If (StopIt) Then
 
-                Dim hwnd As IntPtr = FormSetup.GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                If FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE) Then
+                Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+                If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
                     FormSetup.SequentialPause()
 
-                    FormSetup.Print(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
+                    TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
                     ShutDown(RegionUUID)
 
                     ' shut down all regions in the DOS box
@@ -1198,7 +1132,7 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Console" Then
 
-            Dim hwnd = FormSetup.GetHwnd(PropRegionClass.GroupName(RegionUUID))
+            Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
 
             If hwnd = IntPtr.Zero Then
                 ' shut down all regions in the DOS box
@@ -1210,7 +1144,7 @@ SetWindowOnTop_Err:
                 Dim tmp As String = Settings.ConsoleShow
                 'temp show console
                 Settings.ConsoleShow = "True"
-                FormSetup.ShowDOSWindow(hwnd, FormSetup.SHOWWINDOWENUM.SWRESTORE)
+                ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE)
 
                 SetWindowOnTop(hwnd.ToInt32)
                 Settings.ConsoleShow = tmp
@@ -1242,7 +1176,7 @@ SetWindowOnTop_Err:
 
             FormSetup.Buttons(FormSetup.StopButton)
 
-            FormSetup.Print(My.Resources.Recycle1 & "  " + PropRegionClass.GroupName(RegionUUID))
+            TextPrint(My.Resources.Recycle1 & "  " + PropRegionClass.GroupName(RegionUUID))
             ShutDown(RegionUUID)
             PropUpdateView = True ' make form refresh
 
@@ -1398,23 +1332,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub ViewMaps_Click(sender As Object, e As EventArgs) Handles MapsButton.Click
-
-        Settings.RegionListView() = ViewType.Maps
-        Settings.SaveSettings()
-        TheView1 = ViewType.Maps
-        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
-        SetScreen()
-        ListView1.View = View.LargeIcon
-        ListView1.Show()
-        AvatarView.Hide()
-        ListView1.CheckBoxes = False
-        Timer1.Stop()
-        ViewBusy = False
-        LoadMyListView()
-
-    End Sub
-
 #End Region
 
 #Region "Mysql"
@@ -1451,7 +1368,7 @@ SetWindowOnTop_Err:
 
                 Dim dirpathname = PickGroup()
                 If dirpathname.Length = 0 Then
-                    FormSetup.Print(My.Resources.Aborted_word)
+                    TextPrint(My.Resources.Aborted_word)
                     ofd.Dispose()
                     Return
                 End If
@@ -1494,7 +1411,7 @@ SetWindowOnTop_Err:
                         End If
                         File.Copy(ofdFilename, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
                     Else
-                        FormSetup.Print(My.Resources.Unrecognized & " " & extension & ". ")
+                        TextPrint(My.Resources.Unrecognized & " " & extension & ". ")
                     End If
                 Next
 

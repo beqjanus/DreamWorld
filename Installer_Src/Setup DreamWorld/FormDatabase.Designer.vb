@@ -96,7 +96,7 @@ Partial Class FormDatabase
         Me.ClearRegionTable.Name = "ClearRegionTable"
         Me.ClearRegionTable.Size = New System.Drawing.Size(226, 29)
         Me.ClearRegionTable.TabIndex = 1886
-        Me.ClearRegionTable.Text = Global.Outworldz.My.Resources.Resources.ClearRegion
+        Me.ClearRegionTable.Text = Global.Outworldz.My.Resources.ClearRegion
         Me.ClearRegionTable.UseVisualStyleBackColor = True
         '
         'MysqlRegionPort
@@ -135,7 +135,7 @@ Partial Class FormDatabase
         Me.RegionServer.Name = "RegionServer"
         Me.RegionServer.Size = New System.Drawing.Size(133, 22)
         Me.RegionServer.TabIndex = 46
-        Me.ToolTip1.SetToolTip(Me.RegionServer, Global.Outworldz.My.Resources.Resources.Region_ServerName)
+        Me.ToolTip1.SetToolTip(Me.RegionServer, Global.Outworldz.My.Resources.Region_ServerName)
         '
         'Label22
         '
@@ -164,7 +164,7 @@ Partial Class FormDatabase
         Me.RegionDbName.Name = "RegionDbName"
         Me.RegionDbName.Size = New System.Drawing.Size(133, 22)
         Me.RegionDbName.TabIndex = 42
-        Me.ToolTip1.SetToolTip(Me.RegionDbName, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionDbName, Global.Outworldz.My.Resources.Do_NotChange)
         '
         'RegionDBUsername
         '
@@ -173,7 +173,7 @@ Partial Class FormDatabase
         Me.RegionDBUsername.Name = "RegionDBUsername"
         Me.RegionDBUsername.Size = New System.Drawing.Size(133, 22)
         Me.RegionDBUsername.TabIndex = 43
-        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
         '
         'Label21
         '
@@ -192,7 +192,7 @@ Partial Class FormDatabase
         Me.RegionMySqlPassword.Name = "RegionMySqlPassword"
         Me.RegionMySqlPassword.Size = New System.Drawing.Size(133, 22)
         Me.RegionMySqlPassword.TabIndex = 44
-        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, Global.Outworldz.My.Resources.Do_NotChange)
         Me.RegionMySqlPassword.UseSystemPasswordChar = True
         '
         'GridGroup
@@ -236,7 +236,7 @@ Partial Class FormDatabase
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(134, 29)
         Me.Button1.TabIndex = 1884
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.FSassets_Server_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.FSassets_Server_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'RobustServer
@@ -246,11 +246,11 @@ Partial Class FormDatabase
         Me.RobustServer.Name = "RobustServer"
         Me.RobustServer.Size = New System.Drawing.Size(133, 22)
         Me.RobustServer.TabIndex = 37
-        Me.ToolTip1.SetToolTip(Me.RobustServer, Global.Outworldz.My.Resources.Resources.Region_ServerName)
+        Me.ToolTip1.SetToolTip(Me.RobustServer, Global.Outworldz.My.Resources.Region_ServerName)
         '
         'DBHelp
         '
-        Me.DBHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DBHelp.Image = Global.Outworldz.My.Resources.about
         Me.DBHelp.Location = New System.Drawing.Point(229, 15)
         Me.DBHelp.Margin = New System.Windows.Forms.Padding(4)
         Me.DBHelp.Name = "DBHelp"
@@ -295,7 +295,7 @@ Partial Class FormDatabase
         Me.RobustDbPort.Name = "RobustDbPort"
         Me.RobustDbPort.Size = New System.Drawing.Size(58, 22)
         Me.RobustDbPort.TabIndex = 41
-        Me.ToolTip1.SetToolTip(Me.RobustDbPort, Global.Outworldz.My.Resources.Resources.MySQL_Port_Default)
+        Me.ToolTip1.SetToolTip(Me.RobustDbPort, Global.Outworldz.My.Resources.MySQL_Port_Default)
         '
         'RobustDbName
         '
@@ -304,7 +304,7 @@ Partial Class FormDatabase
         Me.RobustDbName.Name = "RobustDbName"
         Me.RobustDbName.Size = New System.Drawing.Size(133, 22)
         Me.RobustDbName.TabIndex = 38
-        Me.ToolTip1.SetToolTip(Me.RobustDbName, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDbName, Global.Outworldz.My.Resources.Do_NotChange)
         '
         'Label15
         '
@@ -333,7 +333,7 @@ Partial Class FormDatabase
         Me.RobustDBPassword.Name = "RobustDBPassword"
         Me.RobustDBPassword.Size = New System.Drawing.Size(133, 22)
         Me.RobustDBPassword.TabIndex = 40
-        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDBPassword, Global.Outworldz.My.Resources.Do_NotChange)
         Me.RobustDBPassword.UseSystemPasswordChar = True
         '
         'RobustDBUsername
@@ -343,7 +343,7 @@ Partial Class FormDatabase
         Me.RobustDBUsername.Name = "RobustDBUsername"
         Me.RobustDBUsername.Size = New System.Drawing.Size(133, 22)
         Me.RobustDBUsername.TabIndex = 39
-        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, Global.Outworldz.My.Resources.Resources.Do_NotChange)
+        Me.ToolTip1.SetToolTip(Me.RobustDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
         '
         'MenuStrip2
         '
@@ -359,65 +359,65 @@ Partial Class FormDatabase
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(157, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Region_Database
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Region_Database
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(197, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Database_Setup_word
         '
         'BackupToolStripMenuItem
         '
         Me.BackupToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FullSQLBackupToolStripMenuItem, Me.DataOnlyToolStripMenuItem})
-        Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        Me.BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disks
         Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
         Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(91, 24)
-        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_word
+        Me.BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_word
         '
         'FullSQLBackupToolStripMenuItem
         '
-        Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        Me.FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
         Me.FullSQLBackupToolStripMenuItem.Name = "FullSQLBackupToolStripMenuItem"
         Me.FullSQLBackupToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
-        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Backup_Data_Files_word
+        Me.FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Data_Files_word
         '
         'DataOnlyToolStripMenuItem
         '
-        Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
+        Me.DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_yellow
         Me.DataOnlyToolStripMenuItem.Name = "DataOnlyToolStripMenuItem"
         Me.DataOnlyToolStripMenuItem.Size = New System.Drawing.Size(212, 26)
-        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Export_Backup_file_word
+        Me.DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Export_Backup_file_word
         '
         'ConnectToMySqlToolStripMenuItem
         '
         Me.ConnectToMySqlToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.StartToolStripMenuItem, Me.StopToolStripMenuItem, Me.ConsoleToolStripMenuItem})
-        Me.ConnectToMySqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.data
+        Me.ConnectToMySqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.data
         Me.ConnectToMySqlToolStripMenuItem.Name = "ConnectToMySqlToolStripMenuItem"
         Me.ConnectToMySqlToolStripMenuItem.Size = New System.Drawing.Size(160, 24)
         Me.ConnectToMySqlToolStripMenuItem.Text = "Connect to MySql"
         '
         'StartToolStripMenuItem
         '
-        Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.gear_run
         Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
         Me.StartToolStripMenuItem.Size = New System.Drawing.Size(145, 26)
         Me.StartToolStripMenuItem.Text = "Start"
         '
         'StopToolStripMenuItem
         '
-        Me.StopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_stop
+        Me.StopToolStripMenuItem.Image = Global.Outworldz.My.Resources.gear_stop
         Me.StopToolStripMenuItem.Name = "StopToolStripMenuItem"
         Me.StopToolStripMenuItem.Size = New System.Drawing.Size(145, 26)
         Me.StopToolStripMenuItem.Text = "Stop"
         '
         'ConsoleToolStripMenuItem
         '
-        Me.ConsoleToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.document_text
+        Me.ConsoleToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_text
         Me.ConsoleToolStripMenuItem.Name = "ConsoleToolStripMenuItem"
         Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(145, 26)
         Me.ConsoleToolStripMenuItem.Text = "Console"

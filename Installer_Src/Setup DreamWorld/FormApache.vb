@@ -76,21 +76,20 @@ Public Class FormApache
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        ApacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableApache
-        ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
-        ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
-        EnableDiva.Text = Global.Outworldz.My.Resources.Resources.EnableDiva
-        EnableJOpensim.Text = Global.Outworldz.My.Resources.Resources.JOpensim_word
-        EnableOther.Text = Global.Outworldz.My.Resources.Resources.EnableOther_Word
+        ApacheCheckbox.Text = Global.Outworldz.My.Resources.EnableApache
+        ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
+        ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Apache_word
+        EnableDiva.Text = Global.Outworldz.My.Resources.EnableDiva
+        EnableJOpensim.Text = Global.Outworldz.My.Resources.JOpensim_word
+        EnableOther.Text = Global.Outworldz.My.Resources.EnableOther_Word
         EnableWP.Text = My.Resources.WordPress_Word
         GroupBox2.Text = My.Resources.Apache_word
         GroupBox3.Text = My.Resources.Content_Manager_Word
-        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         Label3.Text = My.Resources.Web_Port
         Text = My.Resources.Apache_word
-        X86Button.Text = Global.Outworldz.My.Resources.Resources.InstallRuntime
-        Sitemap.Text = Global.Outworldz.My.Resources.Resources.Automatic_Site_map_word
+        Sitemap.Text = Global.Outworldz.My.Resources.Automatic_Site_map_word
 
         SetScreen()
 
@@ -134,7 +133,7 @@ Public Class FormApache
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
-            FormSetup.Sleep(1000)
+            Sleep(1000)
             ApacheProcess.StartInfo.Arguments = " delete  " & "ApacheHTTPServer"
             ApacheProcess.StartInfo.CreateNoWindow = True
             Try
@@ -144,7 +143,7 @@ Public Class FormApache
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
-            FormSetup.Print(My.Resources.Apache_has_been_removed)
+            TextPrint(My.Resources.Apache_has_been_removed)
         End Using
 
     End Sub
@@ -255,25 +254,6 @@ Public Class FormApache
 
         If Not initted Then Return
         Settings.CMS = Other.Text
-
-    End Sub
-
-    Private Sub X86Button_Click(sender As Object, e As EventArgs) Handles X86Button.Click
-
-        Using InstallProcess As New Process
-            InstallProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-            ' all of them
-            InstallProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\Visual C++ Redist Installer V56.exe")
-
-            InstallProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Try
-                InstallProcess.Start()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-
-            InstallProcess.WaitForExit()
-        End Using
 
     End Sub
 

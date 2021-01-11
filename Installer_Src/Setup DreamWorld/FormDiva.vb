@@ -29,6 +29,8 @@ Public Class FormDiva
     Dim initted As Boolean
     Dim setpassword As Boolean
 
+    Private path As String
+
 #End Region
 
 #Region "FormPos"
@@ -68,8 +70,8 @@ Public Class FormDiva
 
         Settings.SaveSettings()
         FormSetup.PropViewedSettings = True
-        If setpassword And FormSetup.PropOpensimIsRunning() And Settings.Password.Length > 5 Then
-            FormSetup.ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password & "{ENTER}" + vbCrLf)
+        If setpassword And PropOpensimIsRunning() And Settings.Password.Length > 5 Then
+            ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password & "{ENTER}" + vbCrLf)
         End If
 
     End Sub
@@ -80,7 +82,6 @@ Public Class FormDiva
         ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
         ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Apache_word
         BlackRadioButton.Text = Global.Outworldz.My.Resources.Black_word
-        CustomButton1.Text = Global.Outworldz.My.Resources.Custom_word
         GroupBox1.Text = Global.Outworldz.My.Resources.SplashScreen
         GroupBox6.Text = Global.Outworldz.My.Resources.SMTP
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
@@ -103,6 +104,7 @@ Public Class FormDiva
         ToolTip1.SetToolTip(AdminPassword, Global.Outworldz.My.Resources.Password_Text)
         Web.Text = Global.Outworldz.My.Resources.Wifi_interface
         WhiteRadioButton.Text = Global.Outworldz.My.Resources.White_word
+        CustomRadioButton.Text = Global.Outworldz.My.Resources.Custom_word
         WiFi.Image = Global.Outworldz.My.Resources.about
         WifiEnabled.Text = Global.Outworldz.My.Resources.Diva_Wifi_Enabled_word
 
@@ -121,7 +123,7 @@ Public Class FormDiva
 
         If Settings.Theme = "White" Then WhiteRadioButton.Checked = True
         If Settings.Theme = "Black" Then BlackRadioButton.Checked = True
-        If Settings.Theme = "Custom" Then CustomButton1.Checked = True
+        If Settings.Theme = "Custom" Then CustomRadioButton.Checked = True
 
         'Gmail
         'passwords are asterisks
@@ -134,20 +136,14 @@ Public Class FormDiva
         AdminFirst.Text = Settings.AdminFirst
 
         If Settings.Theme = "White" Then
-            BlackRadioButton.Checked = False
             WhiteRadioButton.Checked = True
-            CustomButton1.Checked = False
         ElseIf Settings.Theme = "Black" Then
             BlackRadioButton.Checked = True
-            WhiteRadioButton.Checked = False
-            CustomButton1.Checked = False
         ElseIf Settings.Theme = "Custom" Then
-            BlackRadioButton.Checked = False
-            WhiteRadioButton.Checked = False
-            CustomButton1.Checked = True
+            CustomRadioButton.Checked = True
         End If
 
-        If FormSetup.PropOpensimIsRunning Then
+        If PropOpensimIsRunning Then
             AdminPassword.Enabled = True
         Else
             AdminPassword.Enabled = False
@@ -156,7 +152,71 @@ Public Class FormDiva
         GreetingTextBox.Text = Settings.WelcomeMessage
         HelpOnce("Diva")
 
+        LoadPhoto()
+
         initted = True
+
+    End Sub
+
+#End Region
+
+#Region "Photo"
+
+    Private Sub LoadPhoto()
+
+        If Settings.Theme = "Black" Then
+            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Black.png")
+        ElseIf Settings.Theme = "White" Then
+            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\White.png")
+        ElseIf Settings.Theme = "Custom" Then
+            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Custom.png")
+        End If
+
+        If Not System.IO.File.Exists(path) Then
+            Dim Pic As Bitmap = My.Resources.NoImage
+            PictureBox1.Image = Pic
+        Else
+            PictureBox1.Image = Bitmap.FromFile(path)
+        End If
+
+    End Sub
+
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+
+        Using ofd As New OpenFileDialog With {
+                .Filter = Global.Outworldz.My.Resources.picfilter,
+                .FilterIndex = 1,
+                .Multiselect = False
+            }
+            If ofd.ShowDialog = DialogResult.OK Then
+                If ofd.FileName.Length > 0 Then
+
+                    Dim pattern As Regex = New Regex("PNG$|png$")
+                    Dim match As Match = pattern.Match(ofd.FileName)
+                    If Not match.Success Then
+                        MsgBox(My.Resources.Must_PNG, vbInformation)
+                        Return
+                    End If
+
+                    PictureBox1.Image = Nothing
+
+                    PictureBox1.Image = Bitmap.FromFile(ofd.FileName)
+
+                    DeleteFile(path)
+
+                    Try
+                        Using newBitmap As New Bitmap(PictureBox1.Image)
+                            newBitmap.Save(path, Imaging.ImageFormat.Png)
+                        End Using
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+
+                    LoadPhoto()
+
+                End If
+            End If
+        End Using
 
     End Sub
 
@@ -307,11 +367,15 @@ Public Class FormDiva
 #Region "Splash"
 
     Private Sub BlackRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles BlackRadioButton.CheckedChanged
+
         If Not initted Then Return
         If BlackRadioButton.Checked Then
-            FormSetup.CopyWifi("Black")
-            FormSetup.Print(My.Resources.Theme_Black)
             Settings.Theme = "Black"
+            Settings.SaveSettings()
+            CopyWifi()
+            LoadPhoto()
+            TextPrint(My.Resources.Theme_Black)
+
         End If
 
     End Sub
@@ -333,16 +397,6 @@ Public Class FormDiva
         HelpManual("Diva")
     End Sub
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles CustomButton1.CheckedChanged
-        If Not initted Then Return
-        If CustomButton1.Checked Then
-            FormSetup.CopyWifi("Custom")
-            FormSetup.Print(My.Resources.Theme_Custom)
-            Settings.Theme = "Custom"
-        End If
-
-    End Sub
-
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
 
         If Not initted Then Return
@@ -353,10 +407,27 @@ Public Class FormDiva
     Private Sub WhiteRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles WhiteRadioButton.CheckedChanged
 
         If Not initted Then Return
+
         If WhiteRadioButton.Checked Then
-            FormSetup.CopyWifi("White")
-            FormSetup.Print(My.Resources.Theme_White)
             Settings.Theme = "White"
+            Settings.SaveSettings()
+            CopyWifi()
+            LoadPhoto()
+            TextPrint(My.Resources.Theme_White)
+        End If
+
+    End Sub
+
+    Private Sub CustomRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles CustomRadioButton.CheckedChanged
+
+        If Not initted Then Return
+
+        If CustomRadioButton.Checked Then
+            Settings.Theme = "Custom"
+            Settings.SaveSettings()
+            CopyWifi()
+            LoadPhoto()
+            TextPrint(My.Resources.Theme_Custom)
         End If
 
     End Sub

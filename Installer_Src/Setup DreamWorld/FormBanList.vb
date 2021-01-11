@@ -58,8 +58,8 @@ Public Class FormBanList
 
     Public Sub LoadCollectionData() Handles Me.Load
 
-        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         Text = Global.Outworldz.My.Resources.Ban_List_word
 
         SetScreen()
@@ -170,12 +170,12 @@ Public Class FormBanList
 
                 Settings.SaveINI(System.Text.Encoding.UTF8)
 
-                If FormSetup.IsRobustRunning() Then
+                If IsRobustRunning() Then
                     Me.Hide()
-                    FormSetup.PropAborting = True
-                    FormSetup.StopRobust()
-                    FormSetup.StartRobust()
-                    FormSetup.PropAborting = False
+                    PropAborting = True
+                    StopRobust()
+                    StartRobust()
+                    PropAborting = False
                 End If
             End If
         Catch ex As Exception

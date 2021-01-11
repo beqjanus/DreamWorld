@@ -20,13 +20,36 @@
 
 #End Region
 
+Imports System.IO
+Imports System.IO.Compression
 Imports System.Net.Sockets
 Imports System.Text.RegularExpressions
+Imports System.Threading
 Imports MySql.Data.MySqlClient
 
 Public Module MysqlInterface
-
+    Private _MysqlExited As Boolean
     Private _IsRunning As Boolean
+    Private _MysqlCrashCounter As Integer
+    Private WithEvents ProcessMySql As Process = New Process()
+
+    Public Property MysqlCrashCounter As Integer
+        Get
+            Return _MysqlCrashCounter
+        End Get
+        Set(value As Integer)
+            _MysqlCrashCounter = value
+        End Set
+    End Property
+
+    Public Property PropMysqlExited() As Boolean
+        Get
+            Return _MysqlExited
+        End Get
+        Set(ByVal Value As Boolean)
+            _MysqlExited = Value
+        End Set
+    End Property
 
     Sub New()
         'nothing
@@ -41,27 +64,139 @@ Public Module MysqlInterface
         End Set
     End Property
 
-    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
+#Region "Mysql"
 
-        Dim iPort As Integer = Convert.ToInt16(Port)
-        Using ClientSocket As New TcpClient
-            Try
-                ClientSocket.Connect(ServerAddress, iPort)
-            Catch ex As Exception
+    Public Function StartMySQL() As Boolean
+        Log("INFO", "Checking Mysql")
+        If MysqlInterface.IsMySqlRunning() Then
+            MysqlInterface.IsRunning = True
+            MySQLIcon(True)
+            PropMysqlExited = False
+            Log("INFO", "Mysql is running")
+            Return True
+        End If
+
+        Log("INFO", "Mysql is not running")
+        ' Build data folder if it does not exist
+        MakeMysql()
+
+        MySQLIcon(False)
+        ' Start MySql in background.
+
+        TextPrint(My.Resources.Mysql_Starting)
+
+        ' SAVE INI file
+        If Settings.LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#") Then Return True
+        Settings.SetIni("mysqld", "basedir", """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
+        Settings.SetIni("mysqld", "datadir", """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
+        Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
+        Settings.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
+        Settings.SaveINI(System.Text.Encoding.ASCII)
+
+        ' create test program slants the other way:
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StartManually.bat")
+        FileStuff.DeleteFile(testProgram)
+
+        Try
+            Using outputFile As New StreamWriter(testProgram, True)
+                outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
+                             & "mysqld.exe --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """")
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+        CreateService()
+        CreateStopMySql()
+
+        Application.DoEvents()
+        ' Mysql was not running, so lets start it up.
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = "--defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """",
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqld.exe") & """"
+        }
+        ProcessMySql.StartInfo = pi
+        ProcessMySql.EnableRaisingEvents = True
+        Try
+            ProcessMySql.Start()
+            MysqlInterface.IsRunning = True
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+        ' wait for MySql to come up
+        Dim MysqlOk As Boolean
+        Dim ctr As Integer = 0
+        While Not MysqlOk
+
+            Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
+            If ctr = 60 Then ' about 60 seconds when it fails
+
+                Dim yesno = MsgBox(My.Resources.Mysql_Failed, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+                If (yesno = vbYes) Then
+                    Dim files As Array = Nothing
+                    Try
+                        files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+
+                    For Each FileName As String In files
+                        Try
+                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+                        Application.DoEvents()
+                    Next
+                End If
+                FormSetup.Buttons(FormSetup.StartButton)
                 Return False
-            End Try
-            If ClientSocket.Connected Then
-                Return True
             End If
-        End Using
+            ctr += 1
+            ' check again
+            Sleep(1000)
+            Application.DoEvents()
+            MysqlOk = MysqlInterface.IsMySqlRunning()
+        End While
 
-        Return False
+        If Not MysqlOk Then Return False
+
+        UpgradeMysql()
+
+        TextPrint(Global.Outworldz.My.Resources.Mysql_is_Running)
+        MysqlInterface.IsRunning = True
+        MySQLIcon(True)
+
+        PropMysqlExited = False
+
+        Return True
 
     End Function
 
+#End Region
+
+    Private Sub CreateService()
+
+        ' create test program slants the other way:
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\InstallAsAService.bat")
+        FileStuff.DeleteFile(testProgram)
+
+        Try
+            Using outputFile As New StreamWriter(testProgram, True)
+                outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
+            "mysqld.exe --install Mysql --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
     Public Sub DeregisterRegions()
 
-        If FormSetup.PropOpensimIsRunning Then
+        If PropOpensimIsRunning Then
             MsgBox("Opensim is running. Cannot clear the list of registered regions", vbInformation)
             Return
         End If
@@ -69,7 +204,7 @@ Public Module MysqlInterface
         Dim Mysql = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
         If Mysql Then
             QueryString("delete from robust.regions;")
-            FormSetup.Print(My.Resources.Deregister_All)
+            TextPrint(My.Resources.Deregister_All)
         End If
 
     End Sub
@@ -156,6 +291,57 @@ Public Module MysqlInterface
         Return Dict
 
     End Function
+
+    Private Sub MakeMysql()
+
+        Dim fname As String = ""
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\")
+        If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
+            TextPrint(My.Resources.Create_DB)
+            Try
+                Using zip As ZipArchive = ZipFile.Open(m & "\Blank-Mysql-Data-folder.zip", ZipArchiveMode.Read)
+                    Dim extractPath = Path.GetFullPath(Settings.CurrentDirectory) & "\OutworldzFiles\Mysql"
+                    If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
+                        extractPath += Path.DirectorySeparatorChar
+                    End If
+
+                    For Each ZipEntry In zip.Entries
+                        fname = ZipEntry.Name
+                        If fname.Length = 0 Then
+                            Continue For
+                        End If
+
+                        'TextPrint("Extracting " & Path.GetFileName(ZipEntry.Name))
+                        Application.DoEvents()
+                        Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
+                        If System.IO.File.Exists(destinationPath) Then
+                            FileStuff.DeleteFile(destinationPath)
+                        End If
+                        Dim folder = System.IO.Path.GetDirectoryName(destinationPath)
+                        Directory.CreateDirectory(folder)
+                        ZipEntry.ExtractToFile(folder & "\" & ZipEntry.Name)
+                    Next
+                End Using
+            Catch ex As Exception
+                TextPrint("Unable to extract file: " & fname & ":" & ex.Message)
+                Thread.Sleep(3000)
+                Application.DoEvents()
+            End Try
+
+        End If
+
+    End Sub
+
+    Public Sub MySQLIcon(Running As Boolean)
+
+        If Not Running Then
+            FormSetup.MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.nav_plain_red
+        Else
+            FormSetup.MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.check2
+        End If
+        Application.DoEvents()
+
+    End Sub
 
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
@@ -261,5 +447,58 @@ Public Module MysqlInterface
         Return Val
 
     End Function
+
+    Private Sub CreateStopMySql()
+
+        ' create test program slants the other way:
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StopMySQL.bat")
+        FileStuff.DeleteFile(testProgram)
+        Try
+            Using outputFile As New StreamWriter(testProgram, True)
+                outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
+            "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub Mysql_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ProcessMySql.Exited
+
+        If PropAborting Then Return
+
+        If Settings.RestartOnCrash And MysqlCrashCounter < 10 Then
+            MysqlCrashCounter += 1
+            PropMysqlExited = True
+            Return
+        End If
+        MysqlCrashCounter = 0
+        Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
+        Dim files As Array = Nothing
+        Try
+            files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+        If files.Length > 0 Then
+            Dim yesno = MsgBox(My.Resources.MySql_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+            If (yesno = vbYes) Then
+
+                For Each FileName As String In files
+                    Try
+                        System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+                Next
+            End If
+        Else
+            PropAborting = True
+            MsgBox(My.Resources.Error_word, vbInformation, Global.Outworldz.My.Resources.Error_word)
+        End If
+
+    End Sub
 
 End Module

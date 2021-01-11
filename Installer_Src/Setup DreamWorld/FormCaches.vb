@@ -85,10 +85,10 @@ Public Class FormCaches
             ClrCache.WipeMesh()
         End If
 
-        If Not FormSetup.PropOpensimIsRunning() Then
-            FormSetup.Print(My.Resources.All_Caches_Cleared_word)
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.All_Caches_Cleared_word)
         Else
-            FormSetup.Print(My.Resources.Cache_Most_Cleared)
+            TextPrint(My.Resources.Cache_Most_Cleared)
         End If
 
         Me.Close()
@@ -122,38 +122,38 @@ Public Class FormCaches
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Button1.Text = Global.Outworldz.My.Resources.Resources.Clear_Selected_Caches_word
-        ScriptCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Script_cache_word
-        AvatarCheckBox2.Text = Global.Outworldz.My.Resources.Resources.Avatar_Bakes_Cache_word
-        AssetCheckBox3.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache_word
-        ImageCheckBox4.Text = Global.Outworldz.My.Resources.Resources.Image_Cache_word
-        MeshCheckBox5.Text = Global.Outworldz.My.Resources.Resources.Mesh_Cache_word
+        Button1.Text = Global.Outworldz.My.Resources.Clear_Selected_Caches_word
+        ScriptCheckBox1.Text = Global.Outworldz.My.Resources.Script_cache_word
+        AvatarCheckBox2.Text = Global.Outworldz.My.Resources.Avatar_Bakes_Cache_word
+        AssetCheckBox3.Text = Global.Outworldz.My.Resources.Asset_Cache_word
+        ImageCheckBox4.Text = Global.Outworldz.My.Resources.Image_Cache_word
+        MeshCheckBox5.Text = Global.Outworldz.My.Resources.Mesh_Cache_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Choose_Cache ' "Choose which cache to empty"
         GroupBox2.Text = Global.Outworldz.My.Resources.Asset_Cache_word
         GroupBox3.Text = Global.Outworldz.My.Resources.Viewer_Cache_word
-        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         Label1.Text = Global.Outworldz.My.Resources.Cache_Directory_word
         Label2.Text = Global.Outworldz.My.Resources.Log_Level
         Label4.Text = Global.Outworldz.My.Resources.Cache_Enabled_word
         Label5.Text = Global.Outworldz.My.Resources.Timeout_in_hours_word
-        LogLevelBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.ErrorLevel0, Global.Outworldz.My.Resources.Resources.ErrorLevel1, Global.Outworldz.My.Resources.Resources.ErrorLevel2})
-        MapHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
-        PictureBox2.Image = Global.Outworldz.My.Resources.Resources.about
+        LogLevelBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.ErrorLevel0, Global.Outworldz.My.Resources.ErrorLevel1, Global.Outworldz.My.Resources.ErrorLevel2})
+        MapHelp.Image = Global.Outworldz.My.Resources.about
+        PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
+        PictureBox2.Image = Global.Outworldz.My.Resources.about
         Text = Global.Outworldz.My.Resources.Cache_Control_word
-        ToolTip1.SetToolTip(CacheEnabledBox, Global.Outworldz.My.Resources.Resources.Default_Checked_word)
-        ToolTip1.SetToolTip(CacheTimeout, Global.Outworldz.My.Resources.Resources.Timeout_in_hours_word)
-        ToolTip1.SetToolTip(MapHelp, Global.Outworldz.My.Resources.Resources.Click_For_Help)
-        ToolTip1.SetToolTip(PictureBox2, Global.Outworldz.My.Resources.Resources.Click_For_Help)
-        ToolTip1.SetToolTip(ViewerCacheCheckbox, Global.Outworldz.My.Resources.Resources.Viewer_Cache_text)
-        ViewerCacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
+        ToolTip1.SetToolTip(CacheEnabledBox, Global.Outworldz.My.Resources.Default_Checked_word)
+        ToolTip1.SetToolTip(CacheTimeout, Global.Outworldz.My.Resources.Timeout_in_hours_word)
+        ToolTip1.SetToolTip(MapHelp, Global.Outworldz.My.Resources.Click_For_Help)
+        ToolTip1.SetToolTip(PictureBox2, Global.Outworldz.My.Resources.Click_For_Help)
+        ToolTip1.SetToolTip(ViewerCacheCheckbox, Global.Outworldz.My.Resources.Viewer_Cache_text)
+        ViewerCacheCheckbox.Text = Global.Outworldz.My.Resources.Enabled_word
 
         SetScreen()
 
-        If Not FormSetup.PropOpensimIsRunning() Then
+        If Not PropOpensimIsRunning() Then
             ScriptCheckBox1.Enabled = True
             AvatarCheckBox2.Enabled = True
 
@@ -237,7 +237,6 @@ Public Class FormCaches
         Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
     End Sub
-
 
 #End Region
 

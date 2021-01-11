@@ -53,7 +53,7 @@ Partial Class FormIcecast
         Me.ShoutcastEnable.Name = "ShoutcastEnable"
         Me.ShoutcastEnable.Size = New System.Drawing.Size(74, 21)
         Me.ShoutcastEnable.TabIndex = 0
-        Me.ShoutcastEnable.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.ShoutcastEnable.Text = Global.Outworldz.My.Resources.Enable_word
         Me.ShoutcastEnable.UseVisualStyleBackColor = True
         '
         'ShoutcastPassword
@@ -110,7 +110,7 @@ Partial Class FormIcecast
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.about
         Me.PictureBox1.Location = New System.Drawing.Point(150, 14)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(50, 33)
@@ -124,7 +124,7 @@ Partial Class FormIcecast
         Me.LoadURL.Name = "LoadURL"
         Me.LoadURL.Size = New System.Drawing.Size(187, 37)
         Me.LoadURL.TabIndex = 6
-        Me.LoadURL.Text = Global.Outworldz.My.Resources.Resources.Admin_Web_Page_word
+        Me.LoadURL.Text = Global.Outworldz.My.Resources.Admin_Web_Page_word
         Me.LoadURL.UseVisualStyleBackColor = True
         '
         'Label3
@@ -177,17 +177,17 @@ Partial Class FormIcecast
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(75, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(124, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormIcecast
         '
@@ -199,7 +199,7 @@ Partial Class FormIcecast
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormIcecast"
         Me.Text = "Icecast"
-        Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.icecast_help)
+        Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.icecast_help)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

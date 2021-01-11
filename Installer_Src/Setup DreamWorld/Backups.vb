@@ -50,10 +50,10 @@ Public Class Backups
 
     Public Sub BackupSQLDB(DBName As String)
 
-        If Not FormSetup.StartMySQL() Then
+        If Not StartMySQL() Then
             FormSetup.ToolBar(False)
             FormSetup.Buttons(FormSetup.StartButton)
-            FormSetup.Print(My.Resources.Stopped_word)
+            TextPrint(My.Resources.Stopped_word)
             Return
         End If
 
@@ -64,7 +64,7 @@ Public Class Backups
     Public Sub SQLBackup(DBName As String)
 
         Dim currentdatetime As Date = Date.Now()
-        FormSetup.Print(currentdatetime.ToLocalTime & vbCrLf & DBName & " " & My.Resources.Slow_Backup)
+        TextPrint(currentdatetime.ToLocalTime & vbCrLf & DBName & " " & My.Resources.Slow_Backup)
         BackupMysql(DBName)
 
     End Sub
@@ -170,7 +170,7 @@ Public Class Backups
 
         Dim currentdatetime As Date = Date.Now
         If TimerBased Then
-            FormSetup.Print(currentdatetime.ToLocalTime & " Backup Running")
+            TextPrint(currentdatetime.ToLocalTime & " Backup Running")
             _WebThread2 = New Thread(AddressOf FullBackupThread)
             _WebThread2.SetApartmentState(ApartmentState.STA)
             _WebThread2.Start()
@@ -191,7 +191,7 @@ Public Class Backups
             _startDate = currentdatetime ' wait another interval
 
             If Settings.AutoBackup Then
-                FormSetup.Print(currentdatetime.ToLocalTime & " Auto Backup Running")
+                TextPrint(currentdatetime.ToLocalTime & " Auto Backup Running")
                 _WebThread3 = New Thread(AddressOf FullBackupThread)
                 _WebThread3.SetApartmentState(ApartmentState.STA)
                 _WebThread3.Start()
@@ -280,7 +280,7 @@ Public Class Backups
         Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
         FileStuff.DeleteFile(Bak)
         ZipFile.CreateFromDirectory(_folder, Bak, CompressionLevel.Optimal, False)
-        Thread.Sleep(10000)
+        Sleep(10000)
         FileStuff.DeleteDirectory(_folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub

@@ -307,7 +307,7 @@ Public Class FormDatabase
 
         Dim A As New Backups
         A.BackupSQLDB(Settings.RegionDBName)
-        FormSetup.Sleep(10000)
+        Sleep(10000)
         Dim B As New Backups
         B.BackupSQLDB(Settings.RobustDataBaseName)
 
@@ -349,7 +349,7 @@ Public Class FormDatabase
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
 
-        FormSetup.StartMySQL()
+        StartMySQL()
 
     End Sub
 

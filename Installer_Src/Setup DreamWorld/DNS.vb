@@ -32,11 +32,11 @@ Module DNS
 
         Using client As New WebClient ' download client for web pages
             Try
-                Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx" & FormSetup.GetPostData(DNSName))
+                Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx" & GetPostData(DNSName))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 Try
-                    Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx" & FormSetup.GetPostData(DNSName))
+                    Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx" & GetPostData(DNSName))
                 Catch ex1 As Exception
                     ErrorLog("Warn: Cannot register this DNS Name " & ex1.Message)
                     Return False
@@ -62,7 +62,7 @@ Module DNS
         If Settings.DNSName.Length > 0 Then
             Settings.PublicIP = Settings.DNSName()
             Settings.SaveSettings()
-            FormSetup.Print(My.Resources.Setup_Network)
+            TextPrint(My.Resources.Setup_Network)
             Dim ret = RegisterName(Settings.PublicIP, False)
             Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
             For Each part As String In array
@@ -72,15 +72,15 @@ Module DNS
             Next
             Return ret
         Else
-            Settings.PublicIP = FormSetup.PropMyUPnpMap.LocalIP
-            FormSetup.Print(My.Resources.Setup_Network)
+            Settings.PublicIP = PropMyUPnpMap.LocalIP
+            TextPrint(My.Resources.Setup_Network)
             Settings.SaveSettings()
         End If
 
         ' HG USE
 
         If Not IPCheck.IsPrivateIP(Settings.DNSName) Then
-            FormSetup.Print(My.Resources.Public_IP_Setup_Word)
+            TextPrint(My.Resources.Public_IP_Setup_Word)
             If Settings.DNSName.Length > 3 Then
                 Settings.PublicIP = Settings.DNSName
                 Settings.SaveSettings()
@@ -88,7 +88,7 @@ Module DNS
 
             Dim UC = Settings.PublicIP.ToUpperInvariant()
             If UC.Contains("OUTWORLDZ.NET") Or UC.Contains("INWORLDZ.NET") Then
-                FormSetup.Print(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+                TextPrint(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
             End If
 
             RegisterName(Settings.PublicIP, False)
@@ -105,7 +105,7 @@ Module DNS
         End If
 
         Log(My.Resources.Info_word, "Public IP=" & Settings.PublicIP)
-        FormSetup.TestPublicLoopback()
+        TestPublicLoopback()
         If Settings.DiagFailed = "False" Then
 
             Using client As New WebClient ' download client for web pages
@@ -123,7 +123,7 @@ Module DNS
             Return True
         End If
 
-        Settings.PublicIP = FormSetup.PropMyUPnpMap.LocalIP
+        Settings.PublicIP = PropMyUPnpMap.LocalIP
         Settings.SaveSettings()
 
         Return False

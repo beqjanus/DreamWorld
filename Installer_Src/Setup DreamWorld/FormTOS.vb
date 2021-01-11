@@ -75,7 +75,7 @@ Public Class TosForm
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles PreviewButton.Click
 
-        If FormSetup.PropOpensimIsRunning() Then
+        If PropOpensimIsRunning() Then
             Dim webAddress As String = "http://" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & "/wifi/termsofservice.html"
             Try
                 Process.Start(webAddress)

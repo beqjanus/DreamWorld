@@ -147,7 +147,7 @@ Public Class UPnp
             staticMapping.Add(port, protocol, port, localIP, True, desc & ":" & CStr(port))
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            FormSetup.Print("Cannot add port " & CStr(port) & " to router")
+            TextPrint("Cannot add port " & CStr(port) & " to router")
             Return False
 
         End Try

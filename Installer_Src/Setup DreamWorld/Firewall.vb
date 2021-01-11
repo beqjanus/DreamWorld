@@ -1,6 +1,25 @@
 ﻿Imports System.IO
+Imports System.Net.Sockets
 
 Public Module Firewall
+
+    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
+
+        Dim iPort As Integer = Convert.ToInt16(Port)
+        Using ClientSocket As New TcpClient
+            Try
+                ClientSocket.Connect(ServerAddress, iPort)
+            Catch ex As Exception
+                Return False
+            End Try
+            If ClientSocket.Connected Then
+                Return True
+            End If
+        End Using
+
+        Return False
+
+    End Function
 
     Function AddFirewallRules() As String
 

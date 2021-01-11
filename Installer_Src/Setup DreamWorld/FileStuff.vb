@@ -2,6 +2,26 @@
 
 Module FileStuff
 
+    Public Function DelLibrary() As Boolean
+
+        TextPrint("->Set Library")
+        FileStuff.DeleteFile(Settings.OpensimBinPath & "Library\Clothing Library (small).iar")
+        FileStuff.DeleteFile(Settings.OpensimBinPath & "Library\Objects Library (small).iar")
+        Return False
+
+    End Function
+
+    Public Sub CopyWifi()
+
+        DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
+        DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
+
+        CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
+        CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
+        CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\" & Settings.Theme() & ".png"), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages\images\Photo.png"), True)
+
+    End Sub
+
     Public Sub Cleanup() ' old files
 
         ' cleanup old code and files
@@ -248,7 +268,7 @@ Module FileStuff
         If source.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
 
         Try
-            My.Computer.FileSystem.CopyFile(source, dest, overwrite)
+            If File.Exists(source) Then My.Computer.FileSystem.CopyFile(source, dest, overwrite)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -282,7 +302,7 @@ Module FileStuff
             If File.Exists(fileSystemInfo.FullName) Then
                 ctr += 1
                 If ctr Mod 100 = 0 Then
-                    FormSetup.Print(CStr(ctr) & " copied")
+                    TextPrint(CStr(ctr) & " copied")
                 End If
 
                 Try

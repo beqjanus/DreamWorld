@@ -41,7 +41,7 @@ Partial Class TosForm
         Me.PreviewButton.Name = "PreviewButton"
         Me.PreviewButton.Size = New System.Drawing.Size(121, 23)
         Me.PreviewButton.TabIndex = 5
-        Me.PreviewButton.Text = Global.Outworldz.My.Resources.Resources.Preview_in_Browser
+        Me.PreviewButton.Text = Global.Outworldz.My.Resources.Preview_in_Browser
         Me.PreviewButton.UseVisualStyleBackColor = True
         '
         'Editor1
@@ -65,7 +65,7 @@ Partial Class TosForm
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(75, 23)
         Me.SaveButton.TabIndex = 8
-        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Ok
+        Me.SaveButton.Text = Global.Outworldz.My.Resources.Ok
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'ApplyButton
@@ -74,7 +74,7 @@ Partial Class TosForm
         Me.ApplyButton.Name = "ApplyButton"
         Me.ApplyButton.Size = New System.Drawing.Size(75, 23)
         Me.ApplyButton.TabIndex = 9
-        Me.ApplyButton.Text = Global.Outworldz.My.Resources.Resources.Apply_word
+        Me.ApplyButton.Text = Global.Outworldz.My.Resources.Apply_word
         Me.ApplyButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2
@@ -90,17 +90,17 @@ Partial Class TosForm
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'TosForm
         '

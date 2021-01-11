@@ -208,20 +208,20 @@ Public Class FormRegionPopup
 
     Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ViewLog.Image = Global.Outworldz.My.Resources.Resources.document_view
-        ViewLog.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
-        EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
-        EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
-        GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Region_Controls
-        Restart.Text = Global.Outworldz.My.Resources.Resources.Restart_word
-        ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
-        StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
-        Teleport.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
-        StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
-        StopButton.Text = Global.Outworldz.My.Resources.Resources.Stop_word
-        ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
-        LoadOAR.Text = Global.Outworldz.My.Resources.Resources.Load_Region_OAR
-        SaveOAR.Text = Global.Outworldz.My.Resources.Resources.Save_Region_OAR_word
+        ViewLog.Image = Global.Outworldz.My.Resources.document_view
+        ViewLog.Text = Global.Outworldz.My.Resources.View_Log_word
+        EditButton1.Image = Global.Outworldz.My.Resources.document_dirty
+        EditButton1.Text = Global.Outworldz.My.Resources.Edit_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Region_Controls
+        Restart.Text = Global.Outworldz.My.Resources.Restart_word
+        ShowConsoleButton.Text = Global.Outworldz.My.Resources.View_Console_word
+        StartButton.Text = Global.Outworldz.My.Resources.Start_word
+        Teleport.Text = Global.Outworldz.My.Resources.Teleport_word
+        StatsButton1.Text = Global.Outworldz.My.Resources.View_Statistics_Word
+        StopButton.Text = Global.Outworldz.My.Resources.Stop_word
+        ViewMapButton.Text = Global.Outworldz.My.Resources.View_Map_word
+        LoadOAR.Text = Global.Outworldz.My.Resources.Load_Region_OAR
+        SaveOAR.Text = Global.Outworldz.My.Resources.Save_Region_OAR_word
         SetScreen()
 
     End Sub

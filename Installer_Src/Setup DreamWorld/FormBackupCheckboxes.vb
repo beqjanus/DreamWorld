@@ -60,17 +60,17 @@ Public Class FormBackupCheckboxes
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Button1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
-        CustomCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Custom
-        FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_FSAssets
-        GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
-        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        MySqlCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Mysql
-        RegionCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Region
-        Text = Global.Outworldz.My.Resources.Resources.System_Backup_word
+        Button1.Text = Global.Outworldz.My.Resources.Backup_word
+        CustomCheckBox.Text = Global.Outworldz.My.Resources.Backup_Custom
+        FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Backup_FSAssets
+        GroupBox1.Text = Global.Outworldz.My.Resources.Backup_word
+        HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
+        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
+        MySqlCheckBox.Text = Global.Outworldz.My.Resources.Backup_Mysql
+        RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
+        Text = Global.Outworldz.My.Resources.System_Backup_word
 
         HelpOnce("Backup Manually")
 

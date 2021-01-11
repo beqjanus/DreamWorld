@@ -89,53 +89,53 @@ Public Class FormSettings
 
     Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ApacheButton.Text = Global.Outworldz.My.Resources.Resources.Apache_Webserver
-        BackupButton1.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
-        BanListButton.Text = Global.Outworldz.My.Resources.Resources.Ban_List_word
-        Birds.Text = Global.Outworldz.My.Resources.Resources.Bird_Settings_word
-        Button1.Text = Global.Outworldz.My.Resources.Resources.Server_Type_word
-        Button2.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
-        Button3.Text = Global.Outworldz.My.Resources.Resources.Restart_Settings_word
-        Button4.Text = Global.Outworldz.My.Resources.Resources.Publicity_Word
-        CacheButton1.Text = Global.Outworldz.My.Resources.Resources.Caches_word
-        DNSButton.Text = Global.Outworldz.My.Resources.Resources.Hypergrid
-        DatabaseButton2.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
-        DivaButton1.Text = Global.Outworldz.My.Resources.Resources.Web
-        CurrencyButton.Text = Global.Outworldz.My.Resources.Resources.Currency_word
-        LoggingButton.Text = Global.Outworldz.My.Resources.Resources.Logging_word
-        MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
-        PhysicsButton1.Text = Global.Outworldz.My.Resources.Resources.Physics_word
-        PortsButton1.Text = Global.Outworldz.My.Resources.Resources.Network_Ports
-        RegionsButton1.Text = Global.Outworldz.My.Resources.Resources.Regions_word
-        ScriptButton.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
-        Shoutcast.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
-        TOSButton.Text = Global.Outworldz.My.Resources.Resources.Terms_of_Service
-        TideButton.Text = Global.Outworldz.My.Resources.Resources.Tides_word
-        ToolTip1.SetToolTip(ApacheButton, Global.Outworldz.My.Resources.Resources.ApacheWebServer)
-        ToolTip1.SetToolTip(BackupButton1, Global.Outworldz.My.Resources.Resources.Backup_Schedule)
-        ToolTip1.SetToolTip(BanListButton, Global.Outworldz.My.Resources.Resources.BanList_string)
-        ToolTip1.SetToolTip(Birds, Global.Outworldz.My.Resources.Resources.Click_Birds)
-        ToolTip1.SetToolTip(Button1, Global.Outworldz.My.Resources.Resources.Click_Server)
-        ToolTip1.SetToolTip(Button2, Global.Outworldz.My.Resources.Resources.Click_for_God_Mode)
-        ToolTip1.SetToolTip(Button3, Global.Outworldz.My.Resources.Resources.Click_Restart)
-        ToolTip1.SetToolTip(Button4, Global.Outworldz.My.Resources.Resources.Click_Publicity)
-        ToolTip1.SetToolTip(Button5, Global.Outworldz.My.Resources.Resources.Click_Setup)
-        ToolTip1.SetToolTip(CacheButton1, Global.Outworldz.My.Resources.Resources.Click_Caches)
-        ToolTip1.SetToolTip(DNSButton, Global.Outworldz.My.Resources.Resources.Click_HG)
-        ToolTip1.SetToolTip(DatabaseButton2, Global.Outworldz.My.Resources.Resources.Click_Database)
-        ToolTip1.SetToolTip(DivaButton1, Global.Outworldz.My.Resources.Resources.Click_Web)
-        ToolTip1.SetToolTip(CurrencyButton, Global.Outworldz.My.Resources.Resources.Click_Currency)
-        ToolTip1.SetToolTip(LoggingButton, Global.Outworldz.My.Resources.Resources.Log_Level)
-        ToolTip1.SetToolTip(MapsButton, Global.Outworldz.My.Resources.Resources.Click_Maps)
-        ToolTip1.SetToolTip(PhysicsButton1, Global.Outworldz.My.Resources.Resources.Click_Physics)
-        ToolTip1.SetToolTip(PortsButton1, Global.Outworldz.My.Resources.Resources.Click_Ports)
-        ToolTip1.SetToolTip(RegionsButton1, Global.Outworldz.My.Resources.Resources.Click_Regions)
-        ToolTip1.SetToolTip(ScriptButton, Global.Outworldz.My.Resources.Resources.Click_to_View_this_word)
-        ToolTip1.SetToolTip(Shoutcast, Global.Outworldz.My.Resources.Resources.Click_Icecast)
-        ToolTip1.SetToolTip(TOSButton, Global.Outworldz.My.Resources.Resources.Setup_TOS)
-        ToolTip1.SetToolTip(TideButton, Global.Outworldz.My.Resources.Resources.Click_Tides)
-        ToolTip1.SetToolTip(VoiceButton1, Global.Outworldz.My.Resources.Resources.Click_Voice)
-        VoiceButton1.Text = Global.Outworldz.My.Resources.Resources.Vivox_Voice_word
+        ApacheButton.Text = Global.Outworldz.My.Resources.Apache_Webserver
+        BackupButton1.Text = Global.Outworldz.My.Resources.Backup_Settings_word
+        BanListButton.Text = Global.Outworldz.My.Resources.Ban_List_word
+        Birds.Text = Global.Outworldz.My.Resources.Bird_Settings_word
+        Button1.Text = Global.Outworldz.My.Resources.Server_Type_word
+        Button2.Text = Global.Outworldz.My.Resources.Permissions_word
+        Button3.Text = Global.Outworldz.My.Resources.Restart_Settings_word
+        Button4.Text = Global.Outworldz.My.Resources.Publicity_Word
+        CacheButton1.Text = Global.Outworldz.My.Resources.Caches_word
+        DNSButton.Text = Global.Outworldz.My.Resources.Hypergrid
+        DatabaseButton2.Text = Global.Outworldz.My.Resources.Database_Setup_word
+        DivaButton1.Text = Global.Outworldz.My.Resources.Web
+        CurrencyButton.Text = Global.Outworldz.My.Resources.Currency_word
+        LoggingButton.Text = Global.Outworldz.My.Resources.Logging_word
+        MapsButton.Text = Global.Outworldz.My.Resources.Maps_word
+        PhysicsButton1.Text = Global.Outworldz.My.Resources.Physics_word
+        PortsButton1.Text = Global.Outworldz.My.Resources.Network_Ports
+        RegionsButton1.Text = Global.Outworldz.My.Resources.Regions_word
+        ScriptButton.Text = Global.Outworldz.My.Resources.Scripts_word
+        Shoutcast.Text = Global.Outworldz.My.Resources.Icecast_word
+        TOSButton.Text = Global.Outworldz.My.Resources.Terms_of_Service
+        TideButton.Text = Global.Outworldz.My.Resources.Tides_word
+        ToolTip1.SetToolTip(ApacheButton, Global.Outworldz.My.Resources.ApacheWebServer)
+        ToolTip1.SetToolTip(BackupButton1, Global.Outworldz.My.Resources.Backup_Schedule)
+        ToolTip1.SetToolTip(BanListButton, Global.Outworldz.My.Resources.BanList_string)
+        ToolTip1.SetToolTip(Birds, Global.Outworldz.My.Resources.Click_Birds)
+        ToolTip1.SetToolTip(Button1, Global.Outworldz.My.Resources.Click_Server)
+        ToolTip1.SetToolTip(Button2, Global.Outworldz.My.Resources.Click_for_God_Mode)
+        ToolTip1.SetToolTip(Button3, Global.Outworldz.My.Resources.Click_Restart)
+        ToolTip1.SetToolTip(Button4, Global.Outworldz.My.Resources.Click_Publicity)
+        ToolTip1.SetToolTip(Button5, Global.Outworldz.My.Resources.Click_Setup)
+        ToolTip1.SetToolTip(CacheButton1, Global.Outworldz.My.Resources.Click_Caches)
+        ToolTip1.SetToolTip(DNSButton, Global.Outworldz.My.Resources.Click_HG)
+        ToolTip1.SetToolTip(DatabaseButton2, Global.Outworldz.My.Resources.Click_Database)
+        ToolTip1.SetToolTip(DivaButton1, Global.Outworldz.My.Resources.Click_Web)
+        ToolTip1.SetToolTip(CurrencyButton, Global.Outworldz.My.Resources.Click_Currency)
+        ToolTip1.SetToolTip(LoggingButton, Global.Outworldz.My.Resources.Log_Level)
+        ToolTip1.SetToolTip(MapsButton, Global.Outworldz.My.Resources.Click_Maps)
+        ToolTip1.SetToolTip(PhysicsButton1, Global.Outworldz.My.Resources.Click_Physics)
+        ToolTip1.SetToolTip(PortsButton1, Global.Outworldz.My.Resources.Click_Ports)
+        ToolTip1.SetToolTip(RegionsButton1, Global.Outworldz.My.Resources.Click_Regions)
+        ToolTip1.SetToolTip(ScriptButton, Global.Outworldz.My.Resources.Click_to_View_this_word)
+        ToolTip1.SetToolTip(Shoutcast, Global.Outworldz.My.Resources.Click_Icecast)
+        ToolTip1.SetToolTip(TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
+        ToolTip1.SetToolTip(TideButton, Global.Outworldz.My.Resources.Click_Tides)
+        ToolTip1.SetToolTip(VoiceButton1, Global.Outworldz.My.Resources.Click_Voice)
+        VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
 
         SetScreen()
 
@@ -150,7 +150,7 @@ Public Class FormSettings
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs)
 
-        Dim webAddress As String = FormSetup.PropDomain + "/Outworldz_installer/technical.htm#Regions"
+        Dim webAddress As String = PropDomain + "/Outworldz_installer/technical.htm#Regions"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

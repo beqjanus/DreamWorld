@@ -63,16 +63,16 @@ Public Class FormPhysics
 
     Private Sub Physics_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        GroupBox1.Text = Global.Outworldz.My.Resources.Resources.Physics_Engine
-        MenuStrip2.Text = Global.Outworldz.My.Resources.Resources._0
-        PhysicsNone.Text = Global.Outworldz.My.Resources.Resources.None
-        PhysicsSeparate.Text = Global.Outworldz.My.Resources.Resources.BP
-        PhysicsubODE.Text = Global.Outworldz.My.Resources.Resources.UBODE_words
-        Text = Global.Outworldz.My.Resources.Resources.Physics_word
-        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Physics_Engine
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        PhysicsNone.Text = Global.Outworldz.My.Resources.None
+        PhysicsSeparate.Text = Global.Outworldz.My.Resources.BP
+        PhysicsubODE.Text = Global.Outworldz.My.Resources.UBODE_words
+        Text = Global.Outworldz.My.Resources.Physics_word
+        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
 
         SetScreen()
 

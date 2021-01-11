@@ -54,10 +54,10 @@ Partial Class FormJoomla
         '
         'HelpToolStripMenuItem
         '
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(64, 24)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'ButtonBox
         '
@@ -76,7 +76,7 @@ Partial Class FormJoomla
         '
         'BackupButton
         '
-        Me.BackupButton.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.BackupButton.Image = Global.Outworldz.My.Resources.edge
         Me.BackupButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
         Me.BackupButton.Location = New System.Drawing.Point(24, 192)
         Me.BackupButton.Name = "BackupButton"
@@ -87,7 +87,7 @@ Partial Class FormJoomla
         '
         'ReinstallButton
         '
-        Me.ReinstallButton.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.ReinstallButton.Image = Global.Outworldz.My.Resources.edge
         Me.ReinstallButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
         Me.ReinstallButton.Location = New System.Drawing.Point(24, 232)
         Me.ReinstallButton.Name = "ReinstallButton"
@@ -98,7 +98,7 @@ Partial Class FormJoomla
         '
         'UpdateButton
         '
-        Me.UpdateButton.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.UpdateButton.Image = Global.Outworldz.My.Resources.edge
         Me.UpdateButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
         Me.UpdateButton.Location = New System.Drawing.Point(24, 152)
         Me.UpdateButton.Name = "UpdateButton"
@@ -115,29 +115,29 @@ Partial Class FormJoomla
         Me.AdminButton.Name = "AdminButton"
         Me.AdminButton.Size = New System.Drawing.Size(188, 36)
         Me.AdminButton.TabIndex = 4
-        Me.AdminButton.Text = Global.Outworldz.My.Resources.Resources.AdministerJoomla_word
+        Me.AdminButton.Text = Global.Outworldz.My.Resources.AdministerJoomla_word
         Me.AdminButton.UseVisualStyleBackColor = True
         '
         'ViewButton
         '
-        Me.ViewButton.Image = Global.Outworldz.My.Resources.Resources.edge
+        Me.ViewButton.Image = Global.Outworldz.My.Resources.edge
         Me.ViewButton.ImageAlign = System.Drawing.ContentAlignment.TopLeft
         Me.ViewButton.Location = New System.Drawing.Point(24, 112)
         Me.ViewButton.Name = "ViewButton"
         Me.ViewButton.Size = New System.Drawing.Size(188, 33)
         Me.ViewButton.TabIndex = 3
-        Me.ViewButton.Text = Global.Outworldz.My.Resources.Resources.ViewJoomla_word
+        Me.ViewButton.Text = Global.Outworldz.My.Resources.ViewJoomla_word
         Me.ViewButton.UseVisualStyleBackColor = True
         '
         'InstallButton
         '
-        Me.InstallButton.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        Me.InstallButton.Image = Global.Outworldz.My.Resources.gear_run
         Me.InstallButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.InstallButton.Location = New System.Drawing.Point(24, 33)
         Me.InstallButton.Name = "InstallButton"
         Me.InstallButton.Size = New System.Drawing.Size(188, 30)
         Me.InstallButton.TabIndex = 0
-        Me.InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
+        Me.InstallButton.Text = Global.Outworldz.My.Resources.InstallJoomla_word
         Me.InstallButton.UseVisualStyleBackColor = True
         '
         'SearchBox
@@ -175,7 +175,7 @@ Partial Class FormJoomla
         Me.JOpensimRadioButton.Size = New System.Drawing.Size(108, 17)
         Me.JOpensimRadioButton.TabIndex = 5
         Me.JOpensimRadioButton.TabStop = True
-        Me.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
+        Me.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.JOpensimSearch_word
         Me.JOpensimRadioButton.UseVisualStyleBackColor = True
         '
         'HypericaRadioButton
@@ -187,7 +187,7 @@ Partial Class FormJoomla
         Me.HypericaRadioButton.Size = New System.Drawing.Size(104, 17)
         Me.HypericaRadioButton.TabIndex = 4
         Me.HypericaRadioButton.TabStop = True
-        Me.HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
+        Me.HypericaRadioButton.Text = Global.Outworldz.My.Resources.HypericaSearch_word
         Me.HypericaRadioButton.UseVisualStyleBackColor = True
         '
         'FormJoomla

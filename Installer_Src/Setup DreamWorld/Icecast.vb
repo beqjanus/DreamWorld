@@ -1,0 +1,114 @@
+﻿Module Icecast
+
+    Private _IcecastProcID As Integer
+
+    Public Property PropIcecastProcID As Integer
+        Get
+            Return _IcecastProcID
+        End Get
+        Set(value As Integer)
+            _IcecastProcID = value
+        End Set
+    End Property
+
+#Region "Icecast"
+
+    Public Function StartIcecast() As Boolean
+
+        If Not Settings.SCEnable Then
+            TextPrint(Global.Outworldz.My.Resources.IceCast_disabled)
+            IceCastIcon(False)
+            Return True
+        End If
+
+        ' Check if DOS box exists, first, if so, its running.
+        For Each p In Process.GetProcesses
+            If p.MainWindowTitle = "Icecast" Then
+                PropIcecastProcID = p.Id
+
+                p.EnableRaisingEvents = True
+                AddHandler p.Exited, AddressOf FormSetup.IceCastExited
+
+                IceCastIcon(True)
+                Return True
+            End If
+        Next
+
+        DoIceCast()
+
+        FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
+
+        PropIcecastProcID = 0
+        TextPrint(My.Resources.Icecast_starting)
+        FormSetup.IcecastProcess.EnableRaisingEvents = True
+        FormSetup.IcecastProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+        FormSetup.IcecastProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast\icecast.bat")
+        FormSetup.IcecastProcess.StartInfo.CreateNoWindow = False
+        FormSetup.IcecastProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast")
+
+        Try
+            FormSetup.IcecastProcess.Start()
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+            TextPrint(My.Resources.Icecast_failed & ":" & ex.Message)
+            IceCastIcon(False)
+            Return False
+        End Try
+
+        PropIcecastProcID = WaitForPID(FormSetup.IcecastProcess)
+        If PropIcecastProcID = 0 Then
+            IceCastIcon(False)
+            Return False
+        End If
+
+        SetWindowTextCall(FormSetup.IcecastProcess, "Icecast")
+        ShowDOSWindow(FormSetup.IcecastProcess.MainWindowHandle, MaybeHideWindow)
+        IceCastIcon(True)
+
+        FormSetup.PropIceCastExited = False
+        Return True
+
+    End Function
+
+#End Region
+
+    Public Function CheckIcecast() As Boolean
+        ''' <summary>Check is Icecast port 8081 is up</summary>
+        ''' <returns>boolean</returns>
+        Using client As New Net.WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.SCPortBase & "/?_Opensim=" & RandomNumber.Random())
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                IceCastIcon(False)
+                Return False
+            End Try
+
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
+            End If
+        End Using
+        Return True
+
+    End Function
+
+    Public Sub IceCastIcon(Running As Boolean)
+
+        If Not Running Then
+            FormSetup.RestartIcecastItem.Image = Global.Outworldz.My.Resources.nav_plain_red
+        Else
+            FormSetup.RestartIcecastItem.Image = Global.Outworldz.My.Resources.check2
+        End If
+        Application.DoEvents()
+
+    End Sub
+
+    Public Sub StopIcecast()
+
+        Zap("icecast")
+        IceCastIcon(False)
+
+    End Sub
+
+End Module

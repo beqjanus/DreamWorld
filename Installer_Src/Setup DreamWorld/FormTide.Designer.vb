@@ -76,7 +76,7 @@ Partial Class FormTide
         '
         'RunOnBoot
         '
-        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.RunOnBoot.Image = Global.Outworldz.My.Resources.about
         Me.RunOnBoot.Location = New System.Drawing.Point(254, 74)
         Me.RunOnBoot.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RunOnBoot.Name = "RunOnBoot"
@@ -92,8 +92,8 @@ Partial Class FormTide
         Me.TideInfoDebugCheckBox.Name = "TideInfoDebugCheckBox"
         Me.TideInfoDebugCheckBox.Size = New System.Drawing.Size(212, 21)
         Me.TideInfoDebugCheckBox.TabIndex = 7
-        Me.TideInfoDebugCheckBox.Text = Global.Outworldz.My.Resources.Resources.Send_Debug_Info
-        Me.ToolTip1.SetToolTip(Me.TideInfoDebugCheckBox, Global.Outworldz.My.Resources.Resources.Provide_Info)
+        Me.TideInfoDebugCheckBox.Text = Global.Outworldz.My.Resources.Send_Debug_Info
+        Me.ToolTip1.SetToolTip(Me.TideInfoDebugCheckBox, Global.Outworldz.My.Resources.Provide_Info)
         Me.TideInfoDebugCheckBox.UseVisualStyleBackColor = True
         '
         'BroadcastTideInfo
@@ -104,8 +104,8 @@ Partial Class FormTide
         Me.BroadcastTideInfo.Name = "BroadcastTideInfo"
         Me.BroadcastTideInfo.Size = New System.Drawing.Size(153, 21)
         Me.BroadcastTideInfo.TabIndex = 4
-        Me.BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Info
-        Me.ToolTip1.SetToolTip(Me.BroadcastTideInfo, Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Chat)
+        Me.BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Broadcast_Tide_Info
+        Me.ToolTip1.SetToolTip(Me.BroadcastTideInfo, Global.Outworldz.My.Resources.Broadcast_Tide_Chat)
         Me.BroadcastTideInfo.UseVisualStyleBackColor = True
         '
         'Label5
@@ -161,7 +161,7 @@ Partial Class FormTide
         Me.CycleTimeTextBox.Name = "CycleTimeTextBox"
         Me.CycleTimeTextBox.Size = New System.Drawing.Size(59, 22)
         Me.CycleTimeTextBox.TabIndex = 3
-        Me.ToolTip1.SetToolTip(Me.CycleTimeTextBox, Global.Outworldz.My.Resources.Resources.Cycle_time_text)
+        Me.ToolTip1.SetToolTip(Me.CycleTimeTextBox, Global.Outworldz.My.Resources.Cycle_time_text)
         '
         'Label2
         '
@@ -180,7 +180,7 @@ Partial Class FormTide
         Me.TideLowLevelTextBox.Name = "TideLowLevelTextBox"
         Me.TideLowLevelTextBox.Size = New System.Drawing.Size(59, 22)
         Me.TideLowLevelTextBox.TabIndex = 2
-        Me.ToolTip1.SetToolTip(Me.TideLowLevelTextBox, Global.Outworldz.My.Resources.Resources.Low_High)
+        Me.ToolTip1.SetToolTip(Me.TideLowLevelTextBox, Global.Outworldz.My.Resources.Low_High)
         '
         'Label1
         '
@@ -199,7 +199,7 @@ Partial Class FormTide
         Me.TideHighLevelTextBox.Name = "TideHighLevelTextBox"
         Me.TideHighLevelTextBox.Size = New System.Drawing.Size(59, 22)
         Me.TideHighLevelTextBox.TabIndex = 1
-        Me.ToolTip1.SetToolTip(Me.TideHighLevelTextBox, Global.Outworldz.My.Resources.Resources.High_Water_Level_text)
+        Me.ToolTip1.SetToolTip(Me.TideHighLevelTextBox, Global.Outworldz.My.Resources.High_Water_Level_text)
         '
         'TideEnabledCheckbox
         '
@@ -209,13 +209,13 @@ Partial Class FormTide
         Me.TideEnabledCheckbox.Name = "TideEnabledCheckbox"
         Me.TideEnabledCheckbox.Size = New System.Drawing.Size(74, 21)
         Me.TideEnabledCheckbox.TabIndex = 0
-        Me.TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
+        Me.TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
         Me.TideEnabledCheckbox.UseVisualStyleBackColor = True
         '
         'ToolTip1
         '
         Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
-        Me.ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Resources.Tide_Enable
+        Me.ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Tide_Enable
         '
         'MenuStrip2
         '
@@ -231,17 +231,17 @@ Partial Class FormTide
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(75, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'DatabaseSetupToolStripMenuItem
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
         Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(124, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'FormTide
         '

@@ -76,9 +76,9 @@ Public Class FormHelp
         FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.File_word
         HomeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
 
-        PrintToolStripMenuItem.Text = Global.Outworldz.My.Resources.Print
+        PrintToolStripMenuItem.Text = Global.Outworldz.My.Resources.TextPrint
         PrintToolStripMenuItem1.Image = Global.Outworldz.My.Resources.printer3
-        PrintToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Print
+        PrintToolStripMenuItem1.Text = Global.Outworldz.My.Resources.TextPrint
         SourceCodeToolStripMenuItem.Image = Global.Outworldz.My.Resources.transform
         SourceCodeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Source_Code_word
         Text = Global.Outworldz.My.Resources.Help_word

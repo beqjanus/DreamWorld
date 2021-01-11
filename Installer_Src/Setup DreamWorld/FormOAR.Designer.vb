@@ -70,17 +70,17 @@ Partial Class FormOAR
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(75, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         '
         'RefreshToolStripMenuItem
         '
-        Me.RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.refresh
+        Me.RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.refresh
         Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
         Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(92, 24)
-        Me.RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
+        Me.RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Refresh_word
         '
         'TextBox1
         '
@@ -92,7 +92,7 @@ Partial Class FormOAR
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view
+        Me.PictureBox1.Image = Global.Outworldz.My.Resources.view
         Me.PictureBox1.Location = New System.Drawing.Point(253, 5)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.PictureBox1.Name = "PictureBox1"

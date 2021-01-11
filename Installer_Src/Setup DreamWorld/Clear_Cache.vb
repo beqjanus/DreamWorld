@@ -37,7 +37,7 @@ Module Clear_Cache
 
         Public Shared Sub WipeAssets()
 
-            FormSetup.Print(My.Resources.Clearing_Assets)
+            TextPrint(My.Resources.Clearing_Assets)
             Dim folders() = Nothing
             Dim Flotsam As String = Settings.CacheFolder
             If Flotsam.ToUpperInvariant = ".\ASSETCACHE" Then
@@ -54,11 +54,11 @@ Module Clear_Cache
                     FileStuff.DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
 
                     ctr += 1
-                    If ctr Mod 100 = 0 Then FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
+                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
                     Application.DoEvents()
                 Next
             End If
-            FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
+            TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
 
             Dim files() = Nothing
             Try
@@ -73,17 +73,17 @@ Module Clear_Cache
 
                     FileStuff.DeleteFile(file)
                     ctr += 1
-                    If ctr Mod 100 = 0 Then FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
                     Application.DoEvents()
                 Next
-                FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
             End If
 
         End Sub
 
         Public Shared Sub WipeBakes()
 
-            FormSetup.Print(My.Resources.Clearing_Bake_Cache_word)
+            TextPrint(My.Resources.Clearing_Bake_Cache_word)
             Dim files() = Nothing
             If Directory.Exists(Settings.OpensimBinPath & "bakes\") Then
                 Try
@@ -99,17 +99,17 @@ Module Clear_Cache
 
                     FileStuff.DeleteFile(file)
                     ctr += 1
-                    If ctr Mod 100 = 0 Then FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
                     Application.DoEvents()
                 Next
-                FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
             End If
 
         End Sub
 
         Public Shared Sub WipeImage()
 
-            FormSetup.Print(My.Resources.Clearing_Image_Cache_word)
+            TextPrint(My.Resources.Clearing_Image_Cache_word)
             Dim files() = Nothing
             If Directory.Exists(Settings.OpensimBinPath & "j2kDecodeCache\") Then
                 Try
@@ -124,17 +124,17 @@ Module Clear_Cache
                 For Each file As String In files
                     FileStuff.DeleteFile(file)
                     ctr += 1
-                    If ctr Mod 100 = 0 Then FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
                     Application.DoEvents()
                 Next
-                FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
             End If
 
         End Sub
 
         Public Shared Sub WipeMesh()
 
-            FormSetup.Print(My.Resources.Clearing_Mesh_Cache_word)
+            TextPrint(My.Resources.Clearing_Mesh_Cache_word)
 
             Dim files() = Nothing
             If Directory.Exists(Settings.OpensimBinPath & "MeshCache\") Then
@@ -150,36 +150,36 @@ Module Clear_Cache
                 For Each file As String In files
                     FileStuff.DeleteFile(file)
                     ctr += 1
-                    If ctr Mod 100 = 0 Then FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
                     Application.DoEvents()
                 Next
             End If
-            FormSetup.Print(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+            TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
         End Sub
 
         Public Shared Sub WipeScripts()
 
-            If Not FormSetup.PropOpensimIsRunning() Then
+            If Not PropOpensimIsRunning() Then
                 Dim ctr As Integer = 0
                 Dim folders() = Nothing
                 If Directory.Exists(Settings.OpensimBinPath & "ScriptEngines\") Then
                     folders = Directory.GetFiles(Settings.OpensimBinPath & "ScriptEngines\", "*", SearchOption.AllDirectories)
                     If folders IsNot Nothing Then
-                        FormSetup.Print(My.Resources.Clearing_Script)
+                        TextPrint(My.Resources.Clearing_Script)
 
                         For Each script As String In folders
                             Dim ext = Path.GetExtension(script)
                             If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
                                 FileStuff.DeleteFile(script)
                                 ctr += 1
-                                If ctr Mod 100 = 0 Then FormSetup.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+                                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
 
                                 Application.DoEvents()
                             End If
                         Next
                     End If
                 End If
-                FormSetup.Print(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+                TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
             End If
 
         End Sub

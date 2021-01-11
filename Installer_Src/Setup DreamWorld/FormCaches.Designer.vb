@@ -66,7 +66,7 @@ Partial Class FormCaches
         Me.ScriptCheckBox1.Name = "ScriptCheckBox1"
         Me.ScriptCheckBox1.Size = New System.Drawing.Size(108, 21)
         Me.ScriptCheckBox1.TabIndex = 0
-        Me.ScriptCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Script_cache_word
+        Me.ScriptCheckBox1.Text = Global.Outworldz.My.Resources.Script_cache_word
         Me.ScriptCheckBox1.UseVisualStyleBackColor = True
         '
         'AvatarCheckBox2
@@ -77,7 +77,7 @@ Partial Class FormCaches
         Me.AvatarCheckBox2.Name = "AvatarCheckBox2"
         Me.AvatarCheckBox2.Size = New System.Drawing.Size(158, 21)
         Me.AvatarCheckBox2.TabIndex = 1
-        Me.AvatarCheckBox2.Text = Global.Outworldz.My.Resources.Resources.Avatar_Bakes_Cache_word
+        Me.AvatarCheckBox2.Text = Global.Outworldz.My.Resources.Avatar_Bakes_Cache_word
         Me.AvatarCheckBox2.UseVisualStyleBackColor = True
         '
         'AssetCheckBox3
@@ -88,7 +88,7 @@ Partial Class FormCaches
         Me.AssetCheckBox3.Name = "AssetCheckBox3"
         Me.AssetCheckBox3.Size = New System.Drawing.Size(109, 21)
         Me.AssetCheckBox3.TabIndex = 2
-        Me.AssetCheckBox3.Text = Global.Outworldz.My.Resources.Resources.Asset_Cache_word
+        Me.AssetCheckBox3.Text = Global.Outworldz.My.Resources.Asset_Cache_word
         Me.AssetCheckBox3.UseVisualStyleBackColor = True
         '
         'ImageCheckBox4
@@ -99,7 +99,7 @@ Partial Class FormCaches
         Me.ImageCheckBox4.Name = "ImageCheckBox4"
         Me.ImageCheckBox4.Size = New System.Drawing.Size(112, 21)
         Me.ImageCheckBox4.TabIndex = 3
-        Me.ImageCheckBox4.Text = Global.Outworldz.My.Resources.Resources.Image_Cache_word
+        Me.ImageCheckBox4.Text = Global.Outworldz.My.Resources.Image_Cache_word
         Me.ImageCheckBox4.UseVisualStyleBackColor = True
         '
         'MeshCheckBox5
@@ -110,7 +110,7 @@ Partial Class FormCaches
         Me.MeshCheckBox5.Name = "MeshCheckBox5"
         Me.MeshCheckBox5.Size = New System.Drawing.Size(108, 21)
         Me.MeshCheckBox5.TabIndex = 4
-        Me.MeshCheckBox5.Text = Global.Outworldz.My.Resources.Resources.Mesh_Cache_word
+        Me.MeshCheckBox5.Text = Global.Outworldz.My.Resources.Mesh_Cache_word
         Me.MeshCheckBox5.UseVisualStyleBackColor = True
         '
         'GroupBox1
@@ -133,14 +133,14 @@ Partial Class FormCaches
         '
         'MapHelp
         '
-        Me.MapHelp.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.MapHelp.Image = Global.Outworldz.My.Resources.about
         Me.MapHelp.Location = New System.Drawing.Point(158, 24)
         Me.MapHelp.Margin = New System.Windows.Forms.Padding(4)
         Me.MapHelp.Name = "MapHelp"
         Me.MapHelp.Size = New System.Drawing.Size(35, 34)
         Me.MapHelp.TabIndex = 1858
         Me.MapHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.MapHelp, Global.Outworldz.My.Resources.Resources.Click_For_Help)
+        Me.ToolTip1.SetToolTip(Me.MapHelp, Global.Outworldz.My.Resources.Click_For_Help)
         '
         'Button1
         '
@@ -149,7 +149,7 @@ Partial Class FormCaches
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(162, 29)
         Me.Button1.TabIndex = 5
-        Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Clear_Selected_Caches_word
+        Me.Button1.Text = Global.Outworldz.My.Resources.Clear_Selected_Caches_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'MenuStrip1
@@ -165,17 +165,17 @@ Partial Class FormCaches
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(79, 28)
-        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
         Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(124, 26)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         '
         'GroupBox2
         '
@@ -200,7 +200,7 @@ Partial Class FormCaches
         '
         'PictureBox1
         '
-        Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
+        Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Location = New System.Drawing.Point(320, 87)
         Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4)
@@ -231,14 +231,14 @@ Partial Class FormCaches
         '
         'PictureBox2
         '
-        Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.PictureBox2.Image = Global.Outworldz.My.Resources.about
         Me.PictureBox2.Location = New System.Drawing.Point(184, 17)
         Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(26, 29)
         Me.PictureBox2.TabIndex = 1860
         Me.PictureBox2.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.PictureBox2, Global.Outworldz.My.Resources.Resources.Click_For_Help)
+        Me.ToolTip1.SetToolTip(Me.PictureBox2, Global.Outworldz.My.Resources.Click_For_Help)
         '
         'Label2
         '
@@ -257,7 +257,7 @@ Partial Class FormCaches
         Me.CacheTimeout.Name = "CacheTimeout"
         Me.CacheTimeout.Size = New System.Drawing.Size(55, 22)
         Me.CacheTimeout.TabIndex = 1868
-        Me.ToolTip1.SetToolTip(Me.CacheTimeout, Global.Outworldz.My.Resources.Resources.Timeout_in_hours_word)
+        Me.ToolTip1.SetToolTip(Me.CacheTimeout, Global.Outworldz.My.Resources.Timeout_in_hours_word)
         '
         'Label5
         '
@@ -277,7 +277,7 @@ Partial Class FormCaches
         Me.CacheEnabledBox.Name = "CacheEnabledBox"
         Me.CacheEnabledBox.Size = New System.Drawing.Size(18, 17)
         Me.CacheEnabledBox.TabIndex = 1867
-        Me.ToolTip1.SetToolTip(Me.CacheEnabledBox, Global.Outworldz.My.Resources.Resources.Default_Checked_word)
+        Me.ToolTip1.SetToolTip(Me.CacheEnabledBox, Global.Outworldz.My.Resources.Default_Checked_word)
         Me.CacheEnabledBox.UseVisualStyleBackColor = True
         '
         'CacheFolder
@@ -317,8 +317,8 @@ Partial Class FormCaches
         Me.ViewerCacheCheckbox.Name = "ViewerCacheCheckbox"
         Me.ViewerCacheCheckbox.Size = New System.Drawing.Size(82, 21)
         Me.ViewerCacheCheckbox.TabIndex = 1
-        Me.ViewerCacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
-        Me.ToolTip1.SetToolTip(Me.ViewerCacheCheckbox, Global.Outworldz.My.Resources.Resources.Viewer_Cache_text)
+        Me.ViewerCacheCheckbox.Text = Global.Outworldz.My.Resources.Enabled_word
+        Me.ToolTip1.SetToolTip(Me.ViewerCacheCheckbox, Global.Outworldz.My.Resources.Viewer_Cache_text)
         Me.ViewerCacheCheckbox.UseVisualStyleBackColor = True
         '
         'FormCaches
