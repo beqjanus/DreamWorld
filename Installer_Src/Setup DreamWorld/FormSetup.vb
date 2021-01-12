@@ -1143,7 +1143,6 @@ Public Class FormSetup
 
     Public Sub ToolBar(visible As Boolean)
 
-        AviLabel.Visible = visible
         AvatarLabel.Visible = visible
         PercentCPU.Visible = visible
         PercentRAM.Visible = visible
@@ -2886,8 +2885,7 @@ Public Class FormSetup
             PropRegionClass.AvatarCount(RegionUUID) = 0
         Next
 
-        ToolTip1.SetToolTip(AviLabel, "")
-        AvatarLabel.Text = CStr(0)
+        AvatarLabel.Text = ""
 
         For Each NameValue In C
             Dim Avatar = NameValue.Key
@@ -2911,8 +2909,6 @@ Public Class FormSetup
             End If
         Next
 
-        ToolTip1.SetToolTip(AviLabel, Str)
-
         Dim E As New List(Of String)
         For Each NameValue In D
             Dim Avatar = NameValue.Key
@@ -2928,7 +2924,7 @@ Public Class FormSetup
         Next
 
         Dim total As Integer = C.Count
-        AvatarLabel.Text = CStr(total)
+        AvatarLabel.Text = My.Resources.Avatars_word & ":" & CStr(total)
         Return sbttl
 
     End Function

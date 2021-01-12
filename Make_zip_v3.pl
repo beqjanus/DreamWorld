@@ -16,7 +16,7 @@ use File::Copy;
 use File::Path;
 
 
-my $contents = io->file('C:/Opensim/Outworldz_Dreamgrid/Installer_Src/Setup DreamWorld/FormSetup.vb')->slurp;
+my $contents = io->file('C:/Opensim/Outworldz_Dreamgrid/Installer_Src/Setup DreamWorld/GlobalSettings.vb')->slurp;
 $contents =~ s/\n//;
 $contents =~ /_MyVersion As String = "(.*?)"/;
 my $v = $1;

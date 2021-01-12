@@ -212,7 +212,6 @@ Public Class FormDiva
                     Try
                         Using newBitmap As New Bitmap(PictureBox1.Image)
                             newBitmap.Save(path, Imaging.ImageFormat.Png)
-                            newBitmap.Dispose()
                         End Using
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
@@ -380,8 +379,8 @@ Public Class FormDiva
         If BlackRadioButton.Checked Then
             Settings.Theme = "Black"
             Settings.SaveSettings()
-            CopyWifi()
             LoadPhoto()
+            CopyWifi()
             TextPrint(My.Resources.Theme_Black)
 
         End If
@@ -419,8 +418,8 @@ Public Class FormDiva
         If WhiteRadioButton.Checked Then
             Settings.Theme = "White"
             Settings.SaveSettings()
-            CopyWifi()
             LoadPhoto()
+            CopyWifi()
             TextPrint(My.Resources.Theme_White)
         End If
 
@@ -433,8 +432,7 @@ Public Class FormDiva
         If CustomRadioButton.Checked Then
             Settings.Theme = "Custom"
             Settings.SaveSettings()
-            CopyWifi()
-            LoadPhoto()
+            PictureBox1.Image = My.Resources.NoImage
             TextPrint(My.Resources.Theme_Custom)
         End If
 
