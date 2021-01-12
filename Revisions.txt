@@ -2,6 +2,15 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+
+V3.8 Release
+
+V3.799
+XMLRPC is deprecated.
+MaxPort prevented you from adding a region and restarting it.  Now adds Region port to the end of the list
+Save IAR does no longer ask for passwords.
+Server 2019 C++ Service Pack added.
+
 V3.798
 Opensim is latest build #70e00a00ec ("fix creators user cache", 2021-01-07)
  
