@@ -1815,6 +1815,9 @@ Public Class FormSetup
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
         FileStuff.Cleanup() ' old files
+        PropRegionClass = RegionMaker.Instance()
+
+        PropRegionClass.GetAllRegions()
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
@@ -1824,6 +1827,8 @@ Public Class FormSetup
 
         PropMyUPnpMap = New UPnp()
 
+        FileStuff.DeleteOldHelpFiles()
+
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be tradslated
@@ -1832,8 +1837,6 @@ Public Class FormSetup
     End Sub
 
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
-
-        FileStuff.DeleteOldHelpFiles()
 
         AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Add_User_word
         AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.earth_network
@@ -2078,7 +2081,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Getting_regions_word)
         Application.DoEvents()
-        PropRegionClass = RegionMaker.Instance()
+
         PropInitted = True
 
         ClearLogFiles() ' clear log files
@@ -2924,7 +2927,7 @@ Public Class FormSetup
         Next
 
         Dim total As Integer = C.Count
-        AvatarLabel.Text = My.Resources.Avatars_word & ":" & CStr(total)
+        AvatarLabel.Text = My.Resources.Avatars_word & " : " & CStr(total)
         Return sbttl
 
     End Function
@@ -3700,10 +3703,9 @@ Public Class FormSetup
 
         Dim user As String = InputBox(My.Resources.Enter_1_2)
 
-        Dim password = InputBox(My.Resources.Password_word)
-        If user.Length > 0 And password.Length > 0 Then
+        If user.Length > 0 Then
             ConsoleCommand(UUID,
-                           "load iar --merge " & user & " " & Path & " " & password & " " & """" & thing & """" & "{ENTER}" & vbCrLf &
+                           "load iar --merge " & user & " " & Path & " " & """" & thing & """" & "{ENTER}" & vbCrLf &
                             "alert IAR content Is loaded{ENTER}" & vbCrLf)
 
             TextPrint(My.Resources.isLoading & vbCrLf & Path)

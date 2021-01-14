@@ -9,7 +9,7 @@ set "fullstamp=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%"
 
 xcopy /s /i ..\..\Opensim\bin\Regions ..\..\Autobackup\Regions\Regions_%fullstamp%
 echo use Robust; > ..\..\Autobackup\MySQL\Robust_%fullstamp%.sql
-mysqldump.exe --opt --add-drop-database -uroot --verbose  Robust >> ..\..\Autobackup\MySQL\Robust_%fullstamp%.sql
+mysqldump.exe --opt --add-drop-database -uroot --max_allowed_packet=1G --verbose  Robust >> ..\..\Autobackup\MySQL\Robust_%fullstamp%.sql
 IF ERRORLEVEL 0 GOTO Label1
 @ECHO Something went wrong, your backup of Robust database  failed
 GOTO End

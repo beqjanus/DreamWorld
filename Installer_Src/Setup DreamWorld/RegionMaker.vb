@@ -86,7 +86,7 @@ Public Class RegionMaker
             WriteRegionObject("Welcome")
             Settings.WelcomeRegion = "Welcome"
             Settings.SaveSettings()
-            If GetAllRegions() <= 0 Then Return False
+
         End If
         Debug.Print("Loaded " + CStr(RegionCount) + " Regions")
         Return True
@@ -479,7 +479,7 @@ Public Class RegionMaker
     Public Function LargestPort() As Integer
 
         ' locate largest port
-        Dim MaxNum As Integer = 0
+        Dim MaxNum As Integer = Settings.FirstRegionPort
 
         Dim pair As KeyValuePair(Of String, Region_data)
 
@@ -490,6 +490,7 @@ Public Class RegionMaker
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
+                MaxNum = Settings.FirstRegionPort
             End Try
         Next
 
