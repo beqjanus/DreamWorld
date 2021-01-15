@@ -662,6 +662,9 @@ Public Class FormRegion
             End Try
         End If
 
+        If IsRobustRunning() Then
+            ConsoleCommand(RobustName(), "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
+        End If
         PropRegionClass.DeleteRegion(RegionUUID)
         PropRegionClass.GetAllRegions()
 
@@ -1144,7 +1147,7 @@ Public Class FormRegion
         PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
         PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
         PropRegionClass.RegionPort(RegionUUID) = CInt("0" & RegionPort.Text)
-        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.LargestPort + 1
+        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.LargestPort
         PropRegionClass.SizeX(RegionUUID) = BoxSize
         PropRegionClass.SizeY(RegionUUID) = BoxSize
         PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
