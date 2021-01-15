@@ -34,7 +34,7 @@ Module CPUCounter
                                 c.NextValue() ' start the counter
                             End Using
                         Catch ex As Exception
-                            CounterList.Item(Gname).RemoveInstance()
+                            CounterList.Item(Gname).Close()
                             CounterList.Remove(Gname)
                             CPUValues.Remove(Gname)
                             Continue For
@@ -52,7 +52,7 @@ Module CPUCounter
                         Try
                             a = CDbl(CounterList.Item(Gname).NextValue())
                         Catch ex As Exception
-                            CounterList.Item(Gname).RemoveInstance()
+                            CounterList.Item(Gname).Close()
                         End Try
 
                         Dim b = (a / Environment.ProcessorCount)
