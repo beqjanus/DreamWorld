@@ -135,8 +135,8 @@ Module WindowHandlers
         Dim rname = ChooseRegion(True)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "change region " & rname & "{ENTER}" & vbCrLf &
-                                        cmd & "{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "change region " & rname)
+            ConsoleCommand(RegionUUID, cmd)
         End If
 
     End Sub
@@ -168,12 +168,12 @@ Module WindowHandlers
                 If Not l.Contains(PropRegionClass.GroupName(RegionUUID)) Then
                     l.Add(PropRegionClass.GroupName(RegionUUID))
                     If PropRegionClass.IsBooted(RegionUUID) Then
-                        ConsoleCommand(RegionUUID, "set log level " & msg & "{ENTER}" & vbCrLf)
+                        ConsoleCommand(RegionUUID, "set log level " & msg)
                     End If
                 End If
 
             Next
-            ConsoleCommand(RobustName, "set log level " & msg & "{ENTER}" & vbCrLf)
+            ConsoleCommand(RobustName, "set log level " & msg)
         End If
 
         Settings.LogLevel = msg
@@ -228,7 +228,7 @@ Module WindowHandlers
                         AppActivate(PID)
                         SendKeys.SendWait(ToLowercaseKeys("{ENTER}"))
                         SendKeys.SendWait(ToLowercaseKeys(command))
-
+                        SendKeys.SendWait("{ENTER}" & vbCrLf)
                         ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
                     Catch ex As Exception
                         Return False

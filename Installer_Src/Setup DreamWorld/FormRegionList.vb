@@ -1195,11 +1195,11 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Load" Then
 
-            FormSetup.LoadOar(RegionName)
+            LoadOar(RegionName)
 
         ElseIf chosen = "Save" Then
 
-            FormSetup.SaveOar(RegionName)
+            SaveOar(RegionName)
 
         End If
 

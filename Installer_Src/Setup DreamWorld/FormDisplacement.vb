@@ -81,7 +81,7 @@ Public Class FormDisplacement
 
     Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
 
-        FormSetup.PropForceMerge = False
+        PropForceMerge = False
         MergeOARToolStripMenuItem.Checked = False
         ClearOARToolStripMenuItem.Checked = True
 
@@ -89,7 +89,7 @@ Public Class FormDisplacement
 
     Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
 
-        FormSetup.PropForceTerrain = True
+        PropForceTerrain = True
         ForceTerrainToolStripMenuItem.Checked = True
         OriginalTererainToolStripMenuItem.Checked = False
 
@@ -118,8 +118,8 @@ Public Class FormDisplacement
 
         SetScreen()
 
-        FormSetup.PropSelectedBox = ""
-        If FormSetup.PropForceParcel Then
+        PropSelectedBox = ""
+        If PropForceParcel Then
             LoadParcelToolStripMenuItem.Checked = True
             IgnoreParcelToolStripMenuItem.Checked = False
         Else
@@ -128,7 +128,7 @@ Public Class FormDisplacement
 
         End If
 
-        If FormSetup.PropForceTerrain Then
+        If PropForceTerrain Then
             ForceTerrainToolStripMenuItem.Checked = True
             OriginalTererainToolStripMenuItem.Checked = False
         Else
@@ -136,7 +136,7 @@ Public Class FormDisplacement
             OriginalTererainToolStripMenuItem.Checked = True
         End If
 
-        If FormSetup.PropForceMerge Then
+        If PropForceMerge Then
             MergeOARToolStripMenuItem.Checked = True
             ClearOARToolStripMenuItem.Checked = False
         Else
@@ -154,7 +154,7 @@ Public Class FormDisplacement
 
     Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
 
-        FormSetup.PropForceParcel = False
+        PropForceParcel = False
         LoadParcelToolStripMenuItem.Checked = False
         IgnoreParcelToolStripMenuItem.Checked = True
 
@@ -162,7 +162,7 @@ Public Class FormDisplacement
 
     Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
 
-        FormSetup.PropForceParcel = True
+        PropForceParcel = True
         LoadParcelToolStripMenuItem.Checked = True
         IgnoreParcelToolStripMenuItem.Checked = False
 
@@ -170,7 +170,7 @@ Public Class FormDisplacement
 
     Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
 
-        FormSetup.PropForceMerge = True
+        PropForceMerge = True
         MergeOARToolStripMenuItem.Checked = True
         ClearOARToolStripMenuItem.Checked = False
 
@@ -178,7 +178,7 @@ Public Class FormDisplacement
 
     Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
 
-        FormSetup.PropForceTerrain = False
+        PropForceTerrain = False
         ForceTerrainToolStripMenuItem.Checked = False
         OriginalTererainToolStripMenuItem.Checked = True
 
@@ -187,12 +187,12 @@ Public Class FormDisplacement
     Private Sub PictureBox_Click(sender As Object, e As EventArgs)
 
         Dim tag As String = sender.Tag.ToString
-        FormSetup.PropSelectedBox = " --displacement " & tag & " "
+        PropSelectedBox = " --displacement " & tag & " "
         Me.Close()
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
-        FormSetup.PropUserName = InputBox(My.Resources.UnassignedPerson, "")
+        PropUserName = InputBox(My.Resources.UnassignedPerson, "")
     End Sub
 
 #End Region

@@ -222,7 +222,7 @@ Public Class FormOAR
                 File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
                 File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
                 Me.Hide()
-                FormSetup.LoadOARContent(File)
+                LoadOARContent(File)
             ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
                 FormSetup.LoadIARContent(File)
             End If

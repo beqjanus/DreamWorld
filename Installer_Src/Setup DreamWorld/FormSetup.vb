@@ -70,9 +70,7 @@ Public Class FormSetup
 
     Private _DNSSTimer As Integer
     Private _ExitHandlerIsBusy As Boolean
-    Private _ForceMerge As Boolean
-    Private _ForceParcel As Boolean
-    Private _ForceTerrain As Boolean = True
+
     Private _IcecastCrashCounter As Integer
     Private _IceCastExited As Boolean
 
@@ -86,12 +84,11 @@ Public Class FormSetup
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
 
-    Private _SelectedBox As String = ""
     Private _speed As Double = 50
     Private _StopMysql As Boolean = True
     Private _timerBusy1 As Integer
     Private _UpdateView As Boolean = True
-    Private _UserName As String = ""
+
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
     Private ExitInterval As Integer = 2
@@ -237,33 +234,6 @@ Public Class FormSetup
         End Get
     End Property
 
-    Public Property PropForceMerge As Boolean
-        Get
-            Return _ForceMerge
-        End Get
-        Set(value As Boolean)
-            _ForceMerge = value
-        End Set
-    End Property
-
-    Public Property PropForceParcel As Boolean
-        Get
-            Return _ForceParcel
-        End Get
-        Set(value As Boolean)
-            _ForceParcel = value
-        End Set
-    End Property
-
-    Public Property PropForceTerrain As Boolean
-        Get
-            Return _ForceTerrain
-        End Get
-        Set(value As Boolean)
-            _ForceTerrain = value
-        End Set
-    End Property
-
     Public Property PropIceCastExited() As Boolean
         Get
             Return _IceCastExited
@@ -333,15 +303,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropSelectedBox As String
-        Get
-            Return _SelectedBox
-        End Get
-        Set(value As String)
-            _SelectedBox = value
-        End Set
-    End Property
-
     Public Property PropStopMysql As Boolean
         Get
             Return _StopMysql
@@ -361,15 +322,6 @@ Public Class FormSetup
     End Property
 
     Public Property PropUseIcons As Boolean
-
-    Public Property PropUserName As String
-        Get
-            Return _UserName
-        End Get
-        Set(value As String)
-            _UserName = value
-        End Set
-    End Property
 
     Public Property PropViewedSettings As Boolean
         Get
@@ -925,7 +877,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Sub ShowRegionMap()
+    Public Shared Sub ShowRegionMap()
 
         Dim region = ChooseRegion(False)
         If region.Length = 0 Then Return
@@ -1092,7 +1044,12 @@ Public Class FormSetup
                 End If
 
                 ' Read the chosen sim name
-                ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email & "{Enter}{Enter}{Enter}{Enter}")
+                '!!!
+                ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email)
+                ConsoleCommand(RobustName, "\n")
+                ConsoleCommand(RobustName, "\n")
+                ConsoleCommand(RobustName, "\n")
+                ConsoleCommand(RobustName, "\n")
 
                 Settings.RunOnce = True
                 Settings.SaveSettings()
@@ -1128,29 +1085,6 @@ Public Class FormSetup
         PercentRAM.Visible = visible
 
     End Sub
-
-    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
-
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-        Dim size = PropRegionClass.SizeX(RegionUUID)
-
-#Disable Warning CA2000
-        Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
-#Enable Warning CA2000
-        Dim span As Integer = CInt(Math.Ceiling(size / 256))
-        ' Show Dialog as a modal dialog
-        VarForm.Init(span, RegionUUID, Map)
-
-        If modal Then
-            VarForm.ShowDialog()
-            VarForm.Dispose()
-        Else
-            VarForm.Show()
-        End If
-
-        Return PropSelectedBox
-
-    End Function
 
     Private Shared Sub Create_ShortCut(ByVal sTargetPath As String)
         ' Requires reference to Windows Script Host Object Model
@@ -1273,12 +1207,10 @@ Public Class FormSetup
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             If PropRegionClass.IsBooted(RegionUUID) Then
 
-                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """" & "{ENTER}" & vbCrLf _
-                               & "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" &
-                               DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) &
-                               ".oar" & """" & "{ENTER}" & vbCrLf)
-
                 SequentialPause()   ' wait for previous region to give us some CPU
+                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID))
+                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" &
+                               DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
 
             End If
         Next
@@ -1796,7 +1728,7 @@ Public Class FormSetup
 
         FileStuff.Cleanup() ' old files
         PropRegionClass = RegionMaker.Instance()
-
+        PropRegionClass.Init()
         PropRegionClass.GetAllRegions()
 
         My.Application.ChangeUICulture(Settings.Language)
@@ -3076,7 +3008,7 @@ Public Class FormSetup
     Private Sub ShowUserDetailsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowUserDetailsToolStripMenuItem.Click
         Dim person = InputBox(My.Resources.Enter_1_2)
         If person.Length > 0 Then
-            ConsoleCommand(RobustName, "show account " & person & "{ENTER}")
+            ConsoleCommand(RobustName, "show account " & person)
         End If
     End Sub
 
@@ -3329,8 +3261,8 @@ Public Class FormSetup
     End Sub
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
-
-        ConsoleCommand(RobustName, "create user{ENTER}")
+        '!!!
+        ConsoleCommand(RobustName, "create user")
 
     End Sub
 
@@ -3423,6 +3355,7 @@ Public Class FormSetup
 
     Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
 
+        '!!!
         ConsoleCommand(RobustName, "reset user password{ENTER}")
 
     End Sub
@@ -3500,7 +3433,7 @@ Public Class FormSetup
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            ConsoleCommand(RegionUUID, "debug jobengine status{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "debug jobengine status")
         Next
     End Sub
 
@@ -3546,7 +3479,7 @@ Public Class FormSetup
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            ConsoleCommand(RegionUUID, "show threads{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "show threads")
         Next
     End Sub
 
@@ -3589,7 +3522,7 @@ Public Class FormSetup
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            ConsoleCommand(RegionUUID, "xengine status{ENTER}" & vbCrLf)
+            ConsoleCommand(RegionUUID, "xengine status")
             Application.DoEvents()
         Next
     End Sub
@@ -3679,135 +3612,12 @@ Public Class FormSetup
         Dim user As String = InputBox(My.Resources.Enter_1_2)
 
         If user.Length > 0 Then
-            ConsoleCommand(UUID,
-                           "load iar --merge " & user & " " & Path & " " & """" & thing & """" & "{ENTER}" & vbCrLf &
-                            "alert IAR content Is loaded{ENTER}" & vbCrLf)
-
+            ConsoleCommand(UUID, "load iar --merge " & user & " " & Path & " " & """" & thing & """")
+            SendMessage(UUID, "IAR content Is loaded")
             TextPrint(My.Resources.isLoading & vbCrLf & Path)
         Else
             TextPrint(My.Resources.Canceled_IAR)
         End If
-        Me.Focus()
-        Return True
-
-    End Function
-
-    Public Sub LoadOar(RegionName As String)
-
-        If RegionName Is Nothing Then Return
-        If PropOpensimIsRunning() Then
-            If RegionName.Length = 0 Then
-                RegionName = ChooseRegion(True)
-                If RegionName.Length = 0 Then Return
-            End If
-
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-
-            ' Create an instance of the open file dialog box. Set filter options and filter index.
-            Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
-                .InitialDirectory = BackupPath(),
-                .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
-                .FilterIndex = 1,
-                .Multiselect = False
-                }
-
-                ' Call the ShowDialog method to show the dialog box.
-                Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
-                ' Process input if the user clicked OK.
-                If UserClickedOK = DialogResult.OK Then
-
-                    Dim offset = VarChooser(RegionName)
-
-                    Dim thing = openFileDialog1.FileName
-                    If thing.Length > 0 Then
-                        thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
-
-                        Dim Group = PropRegionClass.GroupName(RegionUUID)
-                        For Each UUID In PropRegionClass.RegionUuidListByName(Group)
-
-                            Dim ForceParcel As String = ""
-                            If PropForceParcel() Then ForceParcel = " --force-parcels "
-                            Dim ForceTerrain As String = ""
-                            If PropForceTerrain Then ForceTerrain = " --force-terrain "
-                            Dim ForceMerge As String = ""
-                            If PropForceMerge Then ForceMerge = " --merge "
-                            Dim UserName As String = ""
-                            If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
-
-                            ConsoleCommand(UUID,
-                                           "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf &
-                                            "generate map {ENTER}" & vbCrLf)
-                        Next
-                    End If
-                End If
-
-            End Using
-        Else
-            TextPrint(My.Resources.Not_Running)
-        End If
-    End Sub
-
-    Public Function LoadOARContent(thing As String) As Boolean
-
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
-            Return False
-        End If
-
-        Dim region = ChooseRegion(True)
-        If region.Length = 0 Then Return False
-
-        Dim offset = VarChooser(region)
-        If offset.Length = 0 Then Return False
-
-        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNoCancel, Global.Outworldz.My.Resources.Backup_word)
-        If backMeUp = vbCancel Then Return False
-
-        Dim testRegionUUID As String = PropRegionClass.FindRegionByName(region)
-        If testRegionUUID.Length = 0 Then
-            MsgBox(My.Resources.Cannot_find_region_word)
-            Return False
-        End If
-        Dim GroupName = PropRegionClass.GroupName(testRegionUUID)
-        Dim once As Boolean = False
-        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-            Try
-                If Not once Then
-                    TextPrint(My.Resources.Opensimulator_is_loading & " " & thing)
-                    If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
-
-                    If backMeUp = vbYes Then
-                        ConsoleCommand(RegionUUID,
-                                   "change region " & region & "{ENTER}" & vbCrLf &
-                                    "alert " & Global.Outworldz.My.Resources.CPU_Intensive & "{Enter}" & vbCrLf &
-                                    "save oar " & BackupPath() & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """" & "{ENTER}" & vbCrLf &
-                                    "alert " & Global.Outworldz.My.Resources.New_Content & "{ENTER}" & vbCrLf)
-                    End If
-
-                    Dim ForceParcel As String = ""
-                    If PropForceParcel() Then ForceParcel = " --force-parcels "
-                    Dim ForceTerrain As String = ""
-                    If PropForceTerrain Then ForceTerrain = " --force-terrain "
-                    Dim ForceMerge As String = ""
-                    If PropForceMerge Then ForceMerge = " --merge "
-                    Dim UserName As String = ""
-                    If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
-
-                    ConsoleCommand(RegionUUID,
-                               "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """" & "{ENTER}" & vbCrLf &
-                                "alert " & Global.Outworldz.My.Resources.New_is_Done & "{ENTER}" & vbCrLf &
-                                "generate map {ENTER}" & vbCrLf)
-
-                    once = True
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ErrorLog(My.Resources.Error_word & ":" & ex.Message)
-            End Try
-            Application.DoEvents()
-        Next
-
         Me.Focus()
         Return True
 
@@ -3862,51 +3672,6 @@ Public Class FormSetup
                 PropUpdateView = True ' make form refresh
             End If
         Next
-
-    End Sub
-
-    Public Sub SaveOar(RegionName As String)
-
-        If RegionName Is Nothing Then Return
-        If PropOpensimIsRunning() Then
-
-            If RegionName.Length = 0 Then
-                RegionName = ChooseRegion(True)
-                If RegionName.Length = 0 Then Return
-            End If
-
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-
-            Dim Message, title, defaultValue As String
-            Dim myValue As String
-            ' Set prompt.
-            Message = Global.Outworldz.My.Resources.EnterName
-            title = "Backup to OAR"
-            defaultValue = RegionName & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar"
-
-            ' Display message, title, and default value.
-            myValue = InputBox(Message, title, defaultValue)
-            ' If user has clicked Cancel, set myValue to defaultValue
-            If myValue.Length = 0 Then Return
-
-            If myValue.EndsWith(".OAR", StringComparison.InvariantCulture) Or myValue.EndsWith(".oar", StringComparison.InvariantCulture) Then
-                ' nothing
-            Else
-                myValue += ".oar"
-            End If
-
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                Dim Group = PropRegionClass.GroupName(RegionUUID)
-                ConsoleCommand(RegionUUID,
-                                "alert CPU Intensive Backup Started{ENTER}" & vbCrLf &
-                                "change region " & """" & RegionName & """" & "{ENTER}" & vbCrLf &
-                                "save oar " & """" & BackupPath() & myValue & """" & "{ENTER}" & vbCrLf)
-            End If
-            Me.Focus()
-            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & myValue)
-        Else
-            TextPrint(My.Resources.Not_Running)
-        End If
 
     End Sub
 
@@ -4179,17 +3944,9 @@ Public Class FormSetup
 
                     For Each RegionUUID As String In PropRegionClass.RegionUuids
                         If PropRegionClass.IsBooted(RegionUUID) Then
-                            ConsoleCommand(RegionUUID,
-                                           "save iar " _
-                                           & Name & " " _
-                                           & """" & itemName & """" _
-                                           & " " _
-                                           & """" & ToBackup & """" _
-                                           & "{ENTER}" & vbCrLf
-                                      )
+                            ConsoleCommand(RegionUUID, "save iar " & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
+                            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & PropRegionClass.RegionName(RegionUUID))
                             Exit For
-                            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName)
-
                         End If
                     Next
                 End If

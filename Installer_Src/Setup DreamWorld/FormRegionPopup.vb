@@ -250,7 +250,7 @@ Public Class FormRegionPopup
 
     Private Sub ViewMapButton_Click(sender As Object, e As EventArgs) Handles ViewMapButton.Click
 
-        FormSetup.VarChooser(_RegionName, False, False)
+        VarChooser(_RegionName, False, False)
 
     End Sub
 

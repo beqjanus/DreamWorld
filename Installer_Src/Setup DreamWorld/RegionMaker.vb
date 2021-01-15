@@ -42,6 +42,7 @@ Public Class RegionMaker
     Dim json As New JSONresult
     Private Const JOpensim As String = "JOpensim"
     Private Const Hyperica As String = "Hyperica"
+    Private _GetAllRegionsIsBusy As Boolean
 
     Public Enum SIMSTATUSENUM As Integer
 
@@ -67,10 +68,22 @@ Public Class RegionMaker
         Get
             If (FInstance Is Nothing) Then
                 FInstance = New RegionMaker()
-                FInstance.Init()
             End If
             Return FInstance
         End Get
+    End Property
+
+#End Region
+
+#Region "Public Properties"
+
+    Public Property GetAllRegionsIsBusy As Boolean
+        Get
+            Return _GetAllRegionsIsBusy
+        End Get
+        Set(value As Boolean)
+            _GetAllRegionsIsBusy = value
+        End Set
     End Property
 
 #End Region
@@ -204,6 +217,7 @@ Public Class RegionMaker
 
                                     Dim Welcome = Settings.WelcomeRegion
                                     Dim rUUID = FindRegionByName(Welcome)
+                                    '!!!
                                     ConsoleCommand(rUUID, "change region " & json.region_name & "{ENTER}")
                                     ConsoleCommand(rUUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
                                     Try
@@ -327,6 +341,12 @@ Public Class RegionMaker
     End Function
 
     Public Function GetAllRegions() As Integer
+
+        While GetAllRegionsIsBusy
+            Sleep(100)
+        End While
+
+        GetAllRegionsIsBusy = True
         Try
             Backup.Clear()
             Dim pair As KeyValuePair(Of String, Region_data)
@@ -437,6 +457,10 @@ Public Class RegionMaker
                                     SmartStart(uuid) = ""
                             End Select
 
+                            If GroupPort(uuid) = 0 Then
+                                GroupPort(uuid) = PropRegionClass.LargestPort
+                            End If
+
                             If _RegionListIsInititalized Then
                                 ' restore backups of transient data
                                 Dim o = FindBackupByName(fName)
@@ -463,6 +487,7 @@ Public Class RegionMaker
                         BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
                         ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
+                        GetAllRegionsIsBusy = False
                         Return -1
                     End Try
                 Next
@@ -472,9 +497,10 @@ Public Class RegionMaker
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Debug.Print(ex.Message)
+            GetAllRegionsIsBusy = False
             Return -1
         End Try
-
+        GetAllRegionsIsBusy = False
         Return RegionList.Count
 
     End Function

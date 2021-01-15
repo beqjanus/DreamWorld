@@ -607,7 +607,7 @@ Public Class FormRegion
                 End While
 
                 If loopctr > 0 Then
-                    ConsoleCommand(RobustName(), "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
+                    ConsoleCommand(RobustName(), "deregister region id " + RegionUUID)
                     TextPrint(My.Resources.Region_Removed)
                 End If
             End If
@@ -663,7 +663,7 @@ Public Class FormRegion
         End If
 
         If IsRobustRunning() Then
-            ConsoleCommand(RobustName(), "deregister region id " + RegionUUID + "{ENTER}" + vbCrLf)
+            ConsoleCommand(RobustName(), "deregister region id " + RegionUUID)
         End If
         PropRegionClass.DeleteRegion(RegionUUID)
         PropRegionClass.GetAllRegions()

@@ -11,10 +11,26 @@ Module GlobalSettings
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
     Public Const MySqlRev = "5.6.5"
+
     Private _IsRunning As Boolean
     Private _PropAborting As Boolean
+    Private _mySetting As New MySettings
+    Private _regionClass As RegionMaker
+    Private _OpensimBackupRunning As Integer
+    Private _SelectedBox As String = ""
 
 #End Region
+
+#Region "Properties"
+
+    Public Property PropSelectedBox As String
+        Get
+            Return _SelectedBox
+        End Get
+        Set(value As String)
+            _SelectedBox = value
+        End Set
+    End Property
 
     Public Property PropAborting() As Boolean
         Get
@@ -53,20 +69,17 @@ Module GlobalSettings
         End Get
     End Property
 
-    Private _mySetting As New MySettings
-    Private _regionClass As RegionMaker
-    Private _OpensimBackupRunning As Integer
+#End Region
 
     Public Sub TextPrint(Value As String)
+
         Log(My.Resources.Info_word, Value)
         FormSetup.TextBox1.Text += Value & vbCrLf
-        FormSetup.TextBox1.Text = Trim(FormSetup.TextBox1.Text)
-    End Sub
+        If FormSetup.TextBox1.Text.Length > FormSetup.TextBox1.MaxLength - 1000 Then
+            FormSetup.TextBox1.Text = Mid(FormSetup.TextBox1.Text, 1000)
+        End If
 
-    Private Function Trim(T As String) As String
-        If T.Length > 1500 - 100 Then Return Mid(T, 1500)
-        Return T
-    End Function
+    End Sub
 
     Public Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
@@ -115,6 +128,29 @@ Module GlobalSettings
             End If
         End If
         Return BackupPath
+
+    End Function
+
+    Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
+
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+        Dim size = PropRegionClass.SizeX(RegionUUID)
+
+#Disable Warning CA2000
+        Dim VarForm As New FormDisplacement ' form for choosing a region in  a var
+#Enable Warning CA2000
+        Dim span As Integer = CInt(Math.Ceiling(size / 256))
+        ' Show Dialog as a modal dialog
+        VarForm.Init(span, RegionUUID, Map)
+
+        If modal Then
+            VarForm.ShowDialog()
+            VarForm.Dispose()
+        Else
+            VarForm.Show()
+        End If
+
+        Return PropSelectedBox
 
     End Function
 
