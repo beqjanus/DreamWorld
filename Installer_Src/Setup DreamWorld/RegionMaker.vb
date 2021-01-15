@@ -86,7 +86,6 @@ Public Class RegionMaker
             WriteRegionObject("Welcome")
             Settings.WelcomeRegion = "Welcome"
             Settings.SaveSettings()
-
         End If
         Debug.Print("Loaded " + CStr(RegionCount) + " Regions")
         Return True
@@ -447,9 +446,13 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
-                                    GroupPort(uuid) = Backup(o)._GroupPort
+
+                                    If Backup(o)._GroupPort > 0 Then
+                                        GroupPort(uuid) = Backup(o)._GroupPort
+                                    End If
+
                                     If GroupPort(uuid) = 0 Then
-                                        GroupPort(uuid) = PropRegionClass.LargestPort + 1
+                                        GroupPort(uuid) = PropRegionClass.LargestPort
                                     End If
 
                                 End If
@@ -948,6 +951,10 @@ Public Class RegionMaker
 
         Set(ByVal Value As Integer)
             Dim GN As String = GroupName(uuid)
+            If Value < Settings.FirstRegionPort Then
+                Return
+            End If
+
             If _Grouplist.ContainsKey(GN) Then
                 If Value > _Grouplist.Item(GN) Then
                     _Grouplist.Item(GN) = Value
