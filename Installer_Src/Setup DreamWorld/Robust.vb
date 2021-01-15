@@ -57,6 +57,26 @@ Module Robust
 
 #Region "Robust"
 
+    Public Function ChooseRegion(Optional JustRunning As Boolean = False) As String
+
+        ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+        Dim chosen As String = ""
+        Using Chooseform As New FormChooser ' form for choosing a set of regions
+            Chooseform.FillGrid("Region", JustRunning)  ' populate the grid with either Group or RegionName
+            Dim ret = Chooseform.ShowDialog()
+            If ret = DialogResult.Cancel Then Return ""
+            Try
+                ' Read the chosen sim name
+                chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
+            End Try
+        End Using
+        Return chosen
+
+    End Function
+
     Public Sub RobustIcon(Running As Boolean)
 
         If Not Running Then
