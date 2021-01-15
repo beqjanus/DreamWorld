@@ -165,11 +165,6 @@ Public Class FormRegions
         Y.Name = Global.Outworldz.My.Resources.Y
         Z.Name = Global.Outworldz.My.Resources.Z
 
-        '!!!remove for production
-        If Debugger.IsAttached = False Then
-            SmartStartEnabled.Enabled = False
-        End If
-
         LoadWelcomeBox()
         LoadRegionBox()
 

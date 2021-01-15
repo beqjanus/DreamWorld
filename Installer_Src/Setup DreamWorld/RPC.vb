@@ -34,18 +34,26 @@ Module RPC
 
     End Function
 
-    Public Function Teleport(FromRegionUUID As String, ToRegionName As String, Fname As String, LName As String) As Boolean
+    Public Function TeleportTo(ToRegionName As String, Name As String) As Boolean
 
         'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
+
+        Dim n() = Name.Split(New Char() {" "c})
 
         Dim ht As Hashtable = New Hashtable From {
             {"password", Settings.MachineID},
             {"region_id", ToRegionName},
-            {"agent_first_name", Fname},
-            {"agent_last_name", LName}
+            {"agent_first_name", n(0)},
+            {"agent_last_name", n(1)}
         }
-        Log("Info", "Teleport to " & ToRegionName)
-        Return SendRPC(FromRegionUUID, "admin_teleport_agent", ht)
+
+        Dim FromRegionUUID As String = WhereisAgent(Name)
+
+        If FromRegionUUID.Length > 0 Then
+            Log("Info", "Teleport to " & ToRegionName)
+            Return SendRPC(FromRegionUUID, "admin_teleport_agent", ht)
+        End If
+        Return False
 
     End Function
 

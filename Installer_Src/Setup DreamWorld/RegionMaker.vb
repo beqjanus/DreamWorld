@@ -37,7 +37,7 @@ Public Class RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of RegionMaker.Region_data)
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
-    ReadOnly TeleportAvatarDict As New Dictionary(Of String, String)
+
     Private _RegionListIsInititalized As Boolean
     Dim json As New JSONresult
     Private Const JOpensim As String = "JOpensim"
@@ -196,48 +196,6 @@ Public Class RegionMaker
                     For Each R As String In GroupList
                         Logger("RegionReady Heard:", RegionName(R), "Restart")
                         FormSetup.BootedList1.Add(R)
-                    Next
-
-                    If Debugger.IsAttached = True Then
-                        Try
-                            '! debug TeleportAvatarDict.Add("Test", "Test User")
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End If
-
-                    Dim Removelist As New List(Of String)
-                    If Settings.SmartStart Then
-                        For Each Keypair In TeleportAvatarDict
-                            Application.DoEvents()
-                            If Keypair.Value = json.region_name Then
-                                Dim AgentName As String = GetAgentNameByUUID(Keypair.Key)
-                                If AgentName.Length > 0 Then
-                                    TextPrint(My.Resources.Teleporting_word & " " & AgentName & " -> " & Keypair.Value)
-
-                                    Dim Welcome = Settings.WelcomeRegion
-                                    Dim rUUID = FindRegionByName(Welcome)
-                                    '!!!
-                                    ConsoleCommand(rUUID, "change region " & json.region_name & "{ENTER}")
-                                    ConsoleCommand(rUUID, "teleport user " & AgentName & " " & json.region_name & "{ENTER}")
-                                    Try
-                                        Removelist.Add(Keypair.Key)
-                                    Catch ex As Exception
-                                        BreakPoint.Show(ex.Message)
-                                    End Try
-                                End If
-
-                            End If
-                        Next
-                    End If
-
-                    ' now delete the avatars we just teleported
-                    For Each Name In Removelist
-                        Try
-                            TeleportAvatarDict.Remove(Name)
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
                     Next
 
                 ElseIf json.login = "shutdown" Then
@@ -1392,7 +1350,7 @@ Public Class RegionMaker
 
         Dim pair As KeyValuePair(Of String, Region_data)
         For Each pair In RegionList
-            If pair.Value._Group = Gname Then
+            If pair.Value._Group = Gname Or Gname = "*" Then
                 L.Add(pair.Value._UUID)
             End If
         Next
@@ -1553,29 +1511,23 @@ Public Class RegionMaker
             ' Smart Start AutoStart Region mode
             Debug.Print("Smart Start:" + post)
 
-            ' Auto Start Teleport, AKA Smart Start
+            ' Smart Start
             Dim uuid As String = ""
             Dim pattern As Regex = New Regex("ALT=(.*?)/AGENT=(.*)")
             Dim match As Match = pattern.Match(post)
 
             If match.Success Then
                 uuid = match.Groups(1).Value
-                Dim AgentUUID = match.Groups(2).Value
+                Dim AgentName = match.Groups(2).Value
                 If uuid.Length > 0 And RegionEnabled(uuid) And SmartStart(uuid) = "True" Then
                     If Status(uuid) = SIMSTATUSENUM.Booted Then
                         TextPrint(My.Resources.Someone_is_in_word & " " & RegionName(uuid))
-                        Debug.Print("Sending to " & uuid)
                         Return uuid
                     Else
                         TextPrint(My.Resources.Smart_Start_word & " " & RegionName(uuid))
                         Status(uuid) = SIMSTATUSENUM.Resume
-                        Try
-                            TeleportAvatarDict.Remove(RegionName(uuid))
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
 
-                        TeleportAvatarDict.Add(AgentUUID, RegionName(uuid))
+                        TeleportAvatarDict.Add(AgentName, uuid)
 
                         ' redirect to welcome
                         Dim wname = settings.WelcomeRegion

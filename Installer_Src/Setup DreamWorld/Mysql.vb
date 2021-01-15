@@ -177,6 +177,18 @@ Public Module MysqlInterface
 
 #End Region
 
+    Public Function WhereisAgent(agentName As String) As String
+
+        Dim agents = GetAgentList()
+
+        If agents.ContainsKey(agentName) Then
+            Return PropRegionClass.FindRegionByName(agents.Item(agentName))
+        End If
+
+        Return ""
+
+    End Function
+
     Private Sub CreateService()
 
         ' create test program slants the other way:
@@ -284,9 +296,9 @@ Public Module MysqlInterface
             End Try
         End Using
 
-        ' If Debugger.IsAttached Then
-        '    Dict.Add("Test User", "Welcome")
-        'End If
+        If Debugger.IsAttached Then
+            Dict.Add("Test User", "Welcome")
+        End If
 
         Return Dict
 

@@ -1044,12 +1044,10 @@ Public Class FormSetup
                 End If
 
                 ' Read the chosen sim name
-                '!!!
+
                 ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email)
-                ConsoleCommand(RobustName, "\n")
-                ConsoleCommand(RobustName, "\n")
-                ConsoleCommand(RobustName, "\n")
-                ConsoleCommand(RobustName, "\n")
+                ConsoleCommand(RobustName, "{ENTER}")
+                ConsoleCommand(RobustName, "{ENTER}")
 
                 Settings.RunOnce = True
                 Settings.SaveSettings()
@@ -1406,6 +1404,15 @@ Public Class FormSetup
             ShowDOSWindow(GetHwnd(G), MaybeHideWindow())
 
             PropUpdateView = True
+
+            If Debugger.IsAttached = True Then
+                If Not TeleportAvatarDict.ContainsKey("Test User") Then
+                    Dim WelcomeUUID = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+                    TeleportAvatarDict.Add("Test User", WelcomeUUID)
+                End If
+                TeleportAgents()
+            End If
+
         End While
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -3261,7 +3268,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub AddUserToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
-        '!!!
+
         ConsoleCommand(RobustName, "create user")
 
     End Sub
@@ -3355,8 +3362,7 @@ Public Class FormSetup
 
     Private Sub ChangePasswordToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangePasswordToolStripMenuItem.Click
 
-        '!!!
-        ConsoleCommand(RobustName, "reset user password{ENTER}")
+        ConsoleCommand(RobustName, "reset user password")
 
     End Sub
 
