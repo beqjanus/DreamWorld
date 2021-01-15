@@ -383,7 +383,9 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
         ctr += 1
-
+        ListView1.Columns.Add(My.Resources.Group_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 50), HorizontalAlignment.Center)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
+        ctr += 1
         ' optional
         ListView1.Columns.Add(My.Resources.Scripts_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(TheView), 80), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(TheView)
@@ -656,6 +658,7 @@ Public Class FormRegionlist
                     item1.SubItems.Add(Estate)
 
                     item1.SubItems.Add(PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                    item1.SubItems.Add(PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
 
                     'Scripts XEngine or YEngine
                     Select Case PropRegionClass.ScriptEngine(RegionUUID)
