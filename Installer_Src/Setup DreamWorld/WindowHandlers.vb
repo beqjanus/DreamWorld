@@ -132,7 +132,7 @@ Module WindowHandlers
             TextPrint(My.Resources.Not_Running)
             Return
         End If
-        Dim rname = FormSetup.ChooseRegion(True)
+        Dim rname = ChooseRegion(True)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "change region " & rname & "{ENTER}" & vbCrLf &
@@ -201,6 +201,10 @@ Module WindowHandlers
                 Catch ex As Exception
                     Return False
                 End Try
+
+                Dim result As Boolean = Console_command(RegionUUID, command)
+                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
+                Return result
             Else ' Robust
                 PID = PropRobustProcID
                 Try
@@ -209,28 +213,28 @@ Module WindowHandlers
                     BreakPoint.Show(ex.Message)
                     Return False
                 End Try
-            End If
+                'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
+                command = command.Replace("+", "{+}")
+                command = command.Replace("^", "{^}")
+                command = command.Replace("%", "{%}")
+                command = command.Replace("(", "{(}")
+                command = command.Replace(")", "{)}")
 
-            'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
-            command = command.Replace("+", "{+}")
-            command = command.Replace("^", "{^}")
-            command = command.Replace("%", "{%}")
-            command = command.Replace("(", "{(}")
-            command = command.Replace(")", "{)}")
+                If PID = 0 Then
+                    ' BreakPoint.Show("PID = 0")
+                Else
 
-            If PID = 0 Then
-                ' BreakPoint.Show("PID = 0")
-            Else
+                    Try
+                        AppActivate(PID)
+                        SendKeys.SendWait(ToLowercaseKeys("{ENTER}"))
+                        SendKeys.SendWait(ToLowercaseKeys(command))
 
-                Try
-                    AppActivate(PID)
-                    SendKeys.SendWait(ToLowercaseKeys("{ENTER}"))
-                    SendKeys.SendWait(ToLowercaseKeys(command))
+                        ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
+                    Catch ex As Exception
+                        Return False
+                    End Try
+                End If
 
-                    ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
-                Catch ex As Exception
-                    Return False
-                End Try
             End If
 
         End If
