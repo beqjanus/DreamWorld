@@ -962,7 +962,7 @@ access_ip_addresses="127.0.0.1"
 ;; enabled_methods = admin_broadcast|admin_save_oar|admin_save_xml
 ;; if this parameter is not specified but enabled = true, all methods
 ;; will be available
-enabled_methods=admin_broadcast|admin_get_opensim_version|admin_save_oar
+enabled_methods=all
 
 ;
 ;

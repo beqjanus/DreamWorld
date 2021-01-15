@@ -498,26 +498,6 @@ Public Class FormSetup
 
     End Function
 
-    Public Shared Function ChooseRegion(Optional JustRunning As Boolean = False) As String
-
-        ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-        Dim chosen As String = ""
-        Using Chooseform As New FormChooser ' form for choosing a set of regions
-            Chooseform.FillGrid("Region", JustRunning)  ' populate the grid with either Group or RegionName
-            Dim ret = Chooseform.ShowDialog()
-            If ret = DialogResult.Cancel Then Return ""
-            Try
-                ' Read the chosen sim name
-                chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ErrorLog("Warn: Could not choose a displayed region. " & ex.Message)
-            End Try
-        End Using
-        Return chosen
-
-    End Function
-
     Public Shared Function ExternLocalServerName() As String
         ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
         ''' <returns>Host for regions</returns>
@@ -3411,9 +3391,7 @@ Public Class FormSetup
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                ConsoleCommand(RegionUUID,
-                               "change region  " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf &
-                                "alert " & Message & "{ENTER}" & vbCrLf)
+                SendMessage(RegionUUID, Message)
             End If
 
         End If
@@ -3539,11 +3517,8 @@ Public Class FormSetup
             For Each RegionUUID As String In PropRegionClass.RegionUuids
                 If PropRegionClass.AvatarCount(RegionUUID) > 0 Then
                     HowManyAreOnline += 1
-                    ConsoleCommand(RegionUUID,
-                                   "change region " & PropRegionClass.RegionName(RegionUUID) & "{ENTER}" & vbCrLf &
-                                   "alert " & Message & "{ENTER}" & vbCrLf)
+                    SendMessage(RegionUUID, Message)
                 End If
-
             Next
             If HowManyAreOnline = 0 Then
                 TextPrint(My.Resources.Nobody_Online)
