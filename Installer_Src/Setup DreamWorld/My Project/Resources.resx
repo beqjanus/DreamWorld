@@ -3109,4 +3109,8 @@
   <data name="DeleteTmp_word" xml:space="preserve">
     <value>Delete tmp folder</value>
   </data>
+  <data name="Group_Ports_word" xml:space="preserve">
+    <value>Group Port</value>
+    <comment>new</comment>
+  </data>
 </root>

@@ -3677,6 +3677,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Group Port.
+        '''</summary>
+        Friend ReadOnly Property Group_Ports_word() As String
+            Get
+                Return ResourceManager.GetString("Group_Ports_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Group.
         '''</summary>
         Friend ReadOnly Property Group_word() As String
@@ -6227,7 +6236,7 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Print.
         '''</summary>
-        Friend ReadOnly Property TextPrint() As String
+        Friend ReadOnly Property Print() As String
             Get
                 Return ResourceManager.GetString("Print", resourceCulture)
             End Get
