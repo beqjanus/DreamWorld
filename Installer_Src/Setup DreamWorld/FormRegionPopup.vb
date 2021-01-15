@@ -84,15 +84,16 @@ Public Class FormRegionPopup
             ShowConsoleButton.Enabled = False
             StatsButton1.Enabled = False
             StartButton.Enabled = False
-            StopButton.Enabled = False
+            StopButton.Enabled = True
             SaveOAR.Enabled = False
             Teleport.Enabled = False
             LoadOAR.Enabled = False
+            MsgButton.Enabled = False
             EditButton1.Enabled = True
         Else
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                'TODO: un-suspend region
+                'TODO: unsuspend region
 
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
@@ -102,6 +103,8 @@ Public Class FormRegionPopup
                 LoadOAR.Enabled = True
                 Teleport.Enabled = True
                 EditButton1.Enabled = False
+                MsgButton.Enabled = False
+
             End If
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
@@ -113,6 +116,7 @@ Public Class FormRegionPopup
                 LoadOAR.Enabled = True
                 Teleport.Enabled = True
                 EditButton1.Enabled = True
+                MsgButton.Enabled = True
             End If
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
@@ -124,6 +128,7 @@ Public Class FormRegionPopup
                 LoadOAR.Enabled = False
                 SaveOAR.Enabled = False
                 Teleport.Enabled = False
+                MsgButton.Enabled = False
                 EditButton1.Enabled = True
             End If
 
@@ -136,6 +141,7 @@ Public Class FormRegionPopup
                 SaveOAR.Enabled = False
                 LoadOAR.Enabled = False
                 Teleport.Enabled = False
+                MsgButton.Enabled = False
                 EditButton1.Enabled = False
             End If
 
@@ -144,7 +150,7 @@ Public Class FormRegionPopup
                 ShowConsoleButton.Enabled = False
                 StatsButton1.Enabled = False
                 StartButton.Enabled = True
-                StopButton.Enabled = False
+                StopButton.Enabled = True
                 SaveOAR.Enabled = False
                 LoadOAR.Enabled = False
                 Teleport.Enabled = False
@@ -222,6 +228,7 @@ Public Class FormRegionPopup
         ViewMapButton.Text = Global.Outworldz.My.Resources.View_Map_word
         LoadOAR.Text = Global.Outworldz.My.Resources.Load_Region_OAR
         SaveOAR.Text = Global.Outworldz.My.Resources.Save_Region_OAR_word
+        MsgButton.Text = Global.Outworldz.My.Resources.Send_Alert_Message_word
         SetScreen()
 
     End Sub
@@ -255,6 +262,21 @@ Public Class FormRegionPopup
     Private Sub Button2_Click_2(sender As Object, e As EventArgs) Handles Restart.Click
         gPick = "Restart"
         DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub MsgButton_Click(sender As Object, e As EventArgs) Handles MsgButton.Click
+
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.Not_Running)
+            Return
+        End If
+
+        Dim Message = InputBox(My.Resources.What_to_say_2_region)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(_RegionName)
+        If RegionUUID.Length > 0 Then
+            SendMessage(RegionUUID, Message)
+        End If
+
     End Sub
 
 #End Region
