@@ -351,12 +351,15 @@ Module DoIni
             ' add this sim name as a default to the file as HG regions, and add the other regions as fallback it may have been deleted
             Dim WelcomeUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
+            Dim DefaultName = Settings.WelcomeRegion
+
             If WelcomeUUID.Length = 0 Then
                 MsgBox(My.Resources.Cannot_locate, vbInformation)
-                Return True
+                Dim RegionName = ChooseRegion(False)
+                If RegionName.Length > 0 Then
+                    Return False
+                End If
             End If
-
-            Dim DefaultName = Settings.WelcomeRegion
 
             FileStuff.DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
