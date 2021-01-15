@@ -32,6 +32,7 @@ Module CPUCounter
                             Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
                                 c = counter
                                 c.NextValue() ' start the counter
+                                CounterList.Add(Gname, c)
                             End Using
                         Catch ex As Exception
                             CounterList.Item(Gname).Close()
@@ -39,10 +40,6 @@ Module CPUCounter
                             CPUValues.Remove(Gname)
                             Continue For
                         End Try
-                    End If
-
-                    If Not CounterList.ContainsKey(Gname) Then
-                        CounterList.Add(Gname, c)
                     End If
 
                     If Not CPUValues.ContainsKey(Gname) Then
