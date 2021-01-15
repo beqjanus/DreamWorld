@@ -71,7 +71,7 @@ Partial Class FormHelp
         Me.PrintToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem1})
         Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
         Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(53, 24)
-        Me.PrintToolStripMenuItem.Text = Global.Outworldz.My.Resources.TextPrint
+
         Me.PrintToolStripMenuItem.Visible = False
         '
         'PrintToolStripMenuItem1
@@ -79,7 +79,7 @@ Partial Class FormHelp
         Me.PrintToolStripMenuItem1.Image = Global.Outworldz.My.Resources.printer3
         Me.PrintToolStripMenuItem1.Name = "PrintToolStripMenuItem1"
         Me.PrintToolStripMenuItem1.Size = New System.Drawing.Size(122, 26)
-        Me.PrintToolStripMenuItem1.Text = Global.Outworldz.My.Resources.TextPrint
+
         '
         'ToolStripMenuItem1
         '
