@@ -77,7 +77,7 @@ Public Class FormRegions
         Dim result As MsgBoxResult = MsgBox(My.Resources.This_Moves, vbYesNo)
         If result = vbYes Then
 
-            Dim chosen = FormSetup.ChooseRegion(False) ' all regions, running or not
+            Dim chosen = ChooseRegion(False) ' all regions, running or not
 
             ' Check for illegal stuff
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(chosen)
@@ -208,7 +208,7 @@ Public Class FormRegions
             WelcomeBox1.SelectedIndex = s
         Else
             MsgBox(My.Resources.Choose_Welcome, vbInformation, Global.Outworldz.My.Resources.Choose_Region_word)
-            Dim chosen = FormSetup.ChooseRegion(False)
+            Dim chosen = ChooseRegion(False)
             Dim Index = WelcomeBox1.FindString(chosen)
             WelcomeBox1.SelectedIndex = Index
         End If
