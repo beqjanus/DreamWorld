@@ -228,7 +228,7 @@ Module WindowHandlers
                         AppActivate(PID)
                         SendKeys.SendWait(ToLowercaseKeys("{ENTER}"))
                         SendKeys.SendWait(ToLowercaseKeys(command))
-                        SendKeys.SendWait("{ENTER}" & vbCrLf)
+                        SendKeys.SendWait("{ENTER}")
                         ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
                     Catch ex As Exception
                         Return False

@@ -71,7 +71,7 @@ Public Class FormDiva
         Settings.SaveSettings()
         FormSetup.PropViewedSettings = True
         If setpassword And PropOpensimIsRunning() And Settings.Password.Length > 5 Then
-            ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password & "{ENTER}" + vbCrLf)
+            ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password)
         End If
 
     End Sub
