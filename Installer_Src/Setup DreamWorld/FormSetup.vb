@@ -1405,13 +1405,13 @@ Public Class FormSetup
 
             PropUpdateView = True
 
-            If Debugger.IsAttached = True Then
-                If Not TeleportAvatarDict.ContainsKey("Test User") Then
-                    Dim WelcomeUUID = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
-                    TeleportAvatarDict.Add("Test User", WelcomeUUID)
-                End If
-                TeleportAgents()
-            End If
+            'If Debugger.IsAttached = True Then
+            'If Not TeleportAvatarDict.ContainsKey("Test User") Then
+            'Dim WelcomeUUID = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+            'TeleportAvatarDict.Add("Test User", WelcomeUUID)
+            'End If
+            'TeleportAgents()
+            'End If
 
         End While
 
@@ -2112,7 +2112,6 @@ Public Class FormSetup
         If MysqlInterface.IsMySqlRunning() Then PropStopMysql() = False
 
         TextPrint(My.Resources.DeleteTmp_word)
-        FileStuff.DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
 
         ContentOAR = New FormOAR
         ContentOAR.Init("OAR")
@@ -2140,6 +2139,8 @@ Public Class FormSetup
         HelpOnce("Startup")
 
         Joomla.CheckForjOpensimUpdate()
+
+        DeleteDirectoryTmp()
 
         'Dim Logform As New FormErrorLogger
         'Logform.Show()
@@ -2783,14 +2784,14 @@ Public Class FormSetup
         Dim B = GetHGAgentList()
         Dim C As New Dictionary(Of String, String)
 
-        If Debugger.IsAttached Then
-            Try
-                A.Add("Ferd Frederix", "Welcome")
-                B.Add("Nyira Machabelli", "Welcome")
-            Catch ex As Exception
-                ' BreakPoint.Show(ex.Message)
-            End Try
-        End If
+        'If Debugger.IsAttached Then
+        'Try
+        'A.Add("Ferd Frederix", "Welcome")
+        'B.Add("Nyira Machabelli", "Welcome")
+        'Catch ex As Exception
+        '' BreakPoint.Show(ex.Message)
+        'End Try
+        'End If
 
         ' Merge the two
         For Each keyname In A

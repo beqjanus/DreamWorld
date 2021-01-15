@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Threading
 
 Module FileStuff
 
@@ -164,6 +165,21 @@ Module FileStuff
         Next
         Return False
     End Function
+
+    Public Sub DeleteDirectoryTmp()
+
+
+        Dim WebThread = New Thread(AddressOf deltmp)
+        WebThread.SetApartmentState(ApartmentState.STA)
+
+        WebThread.Start()
+        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+
+    End Sub
+
+    Private Sub deltmp() ' thread
+        FileStuff.DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+    End Sub
 
     Public Sub DeleteFolder(n As String)
 

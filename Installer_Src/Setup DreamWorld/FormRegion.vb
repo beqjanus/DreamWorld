@@ -237,12 +237,6 @@ Public Class FormRegion
 
     Public Sub Init(Name As String)
 
-        '!!! remove for production
-        If Debugger.IsAttached = False Then
-            SmartStartCheckBox.Enabled = False
-            Settings.SmartStart = False
-        End If
-
         Me.Focus()
 
         If Name Is Nothing Then Return
