@@ -12,6 +12,11 @@ Module GlobalSettings
     Public Const JOpensim As String = "JOpensim"
     Public Const MySqlRev = "5.6.5"
 
+#End Region
+
+#Region "Private"
+
+    Private _UpdateView As Boolean = True
     Private _IsRunning As Boolean
     Private _PropAborting As Boolean
     Private _mySetting As New MySettings
@@ -69,7 +74,45 @@ Module GlobalSettings
         End Get
     End Property
 
+    Public Property PropRegionClass As RegionMaker
+        Get
+            Return _regionClass
+        End Get
+        Set(value As RegionMaker)
+            _regionClass = value
+        End Set
+    End Property
+
+    Public Property Settings As MySettings
+        Get
+            Return _mySetting
+        End Get
+        Set(value As MySettings)
+            _mySetting = value
+        End Set
+    End Property
+
+    Public Property OpensimBackupRunning As Integer
+        Get
+            Return _OpensimBackupRunning
+        End Get
+        Set(value As Integer)
+            _OpensimBackupRunning = value
+        End Set
+    End Property
+
+    Public Property PropUpdateView() As Boolean
+        Get
+            Return _UpdateView
+        End Get
+        Set(ByVal Value As Boolean)
+            _UpdateView = Value
+        End Set
+    End Property
+
 #End Region
+
+#Region "Subs"
 
     Public Sub TextPrint(Value As String)
 
@@ -93,6 +136,10 @@ Module GlobalSettings
             sleeptime -= 1
         End While
     End Sub
+
+#End Region
+
+#Region "Functions"
 
     Public Function SafeFolderName() As String
 
@@ -154,37 +201,12 @@ Module GlobalSettings
 
     End Function
 
-    Public Property PropRegionClass As RegionMaker
-        Get
-            Return _regionClass
-        End Get
-        Set(value As RegionMaker)
-            _regionClass = value
-        End Set
-    End Property
-
-    Public Property Settings As MySettings
-        Get
-            Return _mySetting
-        End Get
-        Set(value As MySettings)
-            _mySetting = value
-        End Set
-    End Property
-
-    Public Property OpensimBackupRunning As Integer
-        Get
-            Return _OpensimBackupRunning
-        End Get
-        Set(value As Integer)
-            _OpensimBackupRunning = value
-        End Set
-    End Property
-
     Public Function RobustName() As String
 
         Return "Robust " & Settings.PublicIP
 
     End Function
+
+#End Region
 
 End Module

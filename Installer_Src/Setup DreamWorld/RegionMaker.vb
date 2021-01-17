@@ -58,6 +58,8 @@ Public Class RegionMaker
         Suspended = 9
         [Error] = 10
         RestartStage2 = 11
+        NoLogin = 13
+
     End Enum
 
 #End Region
@@ -186,7 +188,7 @@ Public Class RegionMaker
                     Logger("RegionReady: Enabled", json.region_name, "Restart")
                     Dim uuid As String = FindRegionByName(json.region_name)
                     If uuid.Length = 0 Then
-                        Logger("RegionReady Error, no UUID!!", json.region_name, "Restart")
+                        Logger("RegionReady Error, no UUID", json.region_name, "Restart")
                         Continue While
                     End If
 
@@ -203,15 +205,8 @@ Public Class RegionMaker
                     Logger("Shutdown", json.region_name, "Restart")
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
 
-                    TextPrint(json.region_name & " " & Global.Outworldz.My.Resources.Stopped_word)
-                    Dim uuid = FindRegionByName(json.region_name)
-                    Dim GName = GroupName(uuid)
-                    If Not FormSetup.PropExitList.ContainsKey(GName) Then
-                        Logger("Shutdown", GName, "Restart")
-                        FormSetup.PropExitList.Add(GName, "RegionReady: shutdown ")
-                    End If
-
                 ElseIf json.login = "disabled" Then
+
                     Logger("RegionReady", json.region_name & " disabled login", "Restart")
                     Continue While
                 Else
@@ -224,7 +219,7 @@ Public Class RegionMaker
             End Try
         End While
 
-        FormSetup.PropUpdateView() = True
+        PropUpdateView() = True
 
     End Sub
 

@@ -136,15 +136,6 @@ Public Class FormRegionlist
         End Set
     End Property
 
-    Shared Property PropUpdateView() As Boolean
-        Get
-            Return FormSetup.PropUpdateView
-        End Get
-        Set(ByVal Value As Boolean)
-            FormSetup.PropUpdateView = Value
-        End Set
-    End Property
-
 #End Region
 
 #Region "ScreenSize"
@@ -237,6 +228,8 @@ Public Class FormRegionlist
         Pending = 13
         Suspended = 14
         ErrorIcon = 15
+        NoLogin = 16
+
     End Enum
 
 #End Region
@@ -455,7 +448,8 @@ Public Class FormRegionlist
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("replace2", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("error_icon", Globalization.CultureInfo.InvariantCulture))  '  15- Error
-        FormSetup.PropUpdateView = True ' make form refresh
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("cube_green_new", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
+        PropUpdateView = True ' make form refresh
 
         ViewBusy = False
         Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
@@ -564,6 +558,9 @@ Public Class FormRegionlist
                     ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
                         Letter = "Booting"
                         Num = DGICON.bootingup
+                    ElseIf Status = RegionMaker.SIMSTATUSENUM.NoLogin Then
+                        Letter = "No Login"
+                        Num = DGICON.NoLogin
                     ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                         Letter = "Stopping"
                         Num = DGICON.shuttingdown
@@ -1074,16 +1071,16 @@ SetWindowOnTop_Err:
             If Not StartMySQL() Then
                 TextPrint(My.Resources.Stopped_word)
             End If
-            StartRobust()
-            Log("Starting", PropRegionClass.RegionName(RegionUUID))
-
-            If PropRegionClass.CopyOpensimProto(RegionUUID) Then
-                Return
+            If Not StartRobust() Then
+                TextPrint(My.Resources.Stopped_word)
             End If
 
+            Log("Starting", PropRegionClass.RegionName(RegionUUID))
+
             PropAborting = False
-            PropRegionClass.CrashCounter(RegionUUID) = 0
-            FormSetup.Boot(PropRegionClass.RegionName(RegionUUID))
+
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
+
             Application.DoEvents()
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Start() 'Timer starts functioning

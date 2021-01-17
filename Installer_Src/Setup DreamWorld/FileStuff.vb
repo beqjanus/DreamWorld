@@ -168,8 +168,7 @@ Module FileStuff
 
     Public Sub DeleteDirectoryTmp()
 
-
-        Dim WebThread = New Thread(AddressOf deltmp)
+        Dim WebThread = New Thread(AddressOf Deltmp)
         WebThread.SetApartmentState(ApartmentState.STA)
 
         WebThread.Start()
@@ -177,7 +176,7 @@ Module FileStuff
 
     End Sub
 
-    Private Sub deltmp() ' thread
+    Private Sub Deltmp() ' thread
         FileStuff.DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
     End Sub
 

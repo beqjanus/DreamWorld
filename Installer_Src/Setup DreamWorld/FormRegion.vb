@@ -574,7 +574,7 @@ Public Class FormRegion
             FormSetup.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
             WriteRegion(RegionUUID)
             Firewall.SetFirewall()
-            FormSetup.PropUpdateView = True ' make form refresh
+            PropUpdateView = True ' make form refresh
             Changed1 = False
             Me.Close()
         End If
@@ -662,7 +662,7 @@ Public Class FormRegion
         PropRegionClass.DeleteRegion(RegionUUID)
         PropRegionClass.GetAllRegions()
 
-        FormSetup.PropUpdateView = True
+        PropUpdateView = True
 
         Me.Close()
 
@@ -695,7 +695,7 @@ Public Class FormRegion
                 Else
                     WriteRegion(RegionUUID)
                     Firewall.SetFirewall()
-                    FormSetup.PropUpdateView() = True
+                    PropUpdateView() = True
                     Changed1 = False
                 End If
             End If
@@ -1333,7 +1333,7 @@ Public Class FormRegion
 
         If PropRegionClass.GetAllRegions() = -1 Then Return False
 
-        FormSetup.PropUpdateView = True
+        PropUpdateView = True
         Oldname1 = RegionName.Text
 
         Return True

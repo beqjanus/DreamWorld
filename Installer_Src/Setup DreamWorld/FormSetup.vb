@@ -48,8 +48,6 @@ Public Class FormSetup
     Private _jRev As String = "3.9.23"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
 
-    Private WithEvents BootProcess As New Process
-
     '= GetNewProcess()
     Public WithEvents IcecastProcess As New Process()
 
@@ -61,34 +59,25 @@ Public Class FormSetup
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
     Private _Adv As FormSettings
-
     Private _BackupsRunning As Boolean
     Private _backupthread As Backups
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
-
     Private _DNSSTimer As Integer
     Private _ExitHandlerIsBusy As Boolean
-
     Private _IcecastCrashCounter As Integer
     Private _IceCastExited As Boolean
-
     Private _Initted As Boolean
     Private _IPv4Address As String
     Private _KillSource As Boolean
-
     Private _OpensimBinPath As String
-
     Private _regionForm As FormRegionlist
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
-
     Private _speed As Double = 50
     Private _StopMysql As Boolean = True
     Private _timerBusy1 As Integer
-    Private _UpdateView As Boolean = True
-
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
     Private ExitInterval As Integer = 2
@@ -312,15 +301,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropUpdateView As Boolean
-        Get
-            Return _UpdateView
-        End Get
-        Set(value As Boolean)
-            _UpdateView = value
-        End Set
-    End Property
-
     Public Property PropUseIcons As Boolean
 
     Public Property PropViewedSettings As Boolean
@@ -511,138 +491,6 @@ Public Class FormSetup
         b.Visible = True
 
     End Sub
-
-#End Region
-
-#Region "BootUp"
-
-    Public Function Boot(BootName As String) As Boolean
-        ''' <summary>Starts Opensim for a given name</summary>
-        ''' <param name="BootName">Name of region to start</param>
-        ''' <returns>success = true</returns>
-
-        If RegionMaker.Instance Is Nothing Then Return False
-
-        If Not Timer1.Enabled Then
-            Timer1.Interval = 1000
-            Timer1.Start() 'Timer starts functioning
-        End If
-
-        PropOpensimIsRunning() = True
-
-        If PropAborting Then Return True
-
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
-        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-
-        If String.IsNullOrEmpty(RegionUUID) Then
-            ErrorLog("Cannot find " & BootName & " to boot!")
-            Logger("Cannot find", BootName, "Restart")
-            Return False
-        End If
-        Log(My.Resources.Info_word, "Region: Starting Region " & BootName)
-
-        DoGloebits()
-
-        If PropRegionClass.CopyOpensimProto(RegionUUID) Then
-            Return False
-        End If
-
-        Dim GP = PropRegionClass.GroupPort(RegionUUID)
-        Diagnostics.Debug.Print("Group port =" & CStr(GP))
-        Application.DoEvents()
-        Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
-        If isRegionRunning Then
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                Logger("Suspended, Resuming it", BootName, "Restart")
-
-                Dim PID As Integer = GetPIDofWindow(GroupName)
-                If Not PropInstanceHandles.ContainsKey(PID) Then PropInstanceHandles.Add(PID, GroupName)
-                For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
-                    PropRegionClass.ProcessID(UUID) = PID
-                Next
-
-                Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is Suspended, Resuming it instead")
-                PropUpdateView = True ' make form refresh
-                Return True
-            Else    ' needs to be captured into the event handler
-                Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already up")
-
-                Dim PID As Integer = GetPIDofWindow(GroupName)
-                If Not PropInstanceHandles.ContainsKey(PID) Then PropInstanceHandles.Add(PID, GroupName)
-                For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
-                    PropRegionClass.Timer(UUID) = Date.Now
-                    PropRegionClass.ProcessID(UUID) = PID
-                Next
-
-                PropUpdateView = True ' make form refresh
-                Return True
-            End If
-        End If
-
-        TextPrint(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
-        Application.DoEvents()
-        BootProcess.EnableRaisingEvents = True
-        BootProcess.StartInfo.UseShellExecute = True
-        BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
-
-        BootProcess.StartInfo.FileName = """" & Settings.OpensimBinPath() & "OpenSim.exe" & """"
-        BootProcess.StartInfo.CreateNoWindow = False
-
-        Select Case Settings.ConsoleShow
-            Case "True"
-                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case "False"
-                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-            Case "None"
-                BootProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-        End Select
-
-        BootProcess.StartInfo.Arguments = " -inidirectory=" & """" & "./Regions/" & GroupName & """"
-
-        Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
-
-        SequentialPause()   ' wait for previous region to give us some CPU
-        Logger("Booting", GroupName, "Restart")
-
-        Dim ok As Boolean = False
-        Try
-            ok = BootProcess.Start
-            Application.DoEvents()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            ErrorLog(ex.Message)
-        End Try
-
-        If ok Then
-            Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
-
-            If PID > 0 Then
-                SetWindowTextCall(BootProcess, GroupName)
-                If Not PropInstanceHandles.ContainsKey(PID) Then PropInstanceHandles.Add(PID, GroupName)
-                ' Mark them before we boot as a crash will immediately trigger the event that it exited
-                For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
-                Next
-            Else
-                BreakPoint.Show("No PID for " & GroupName)
-            End If
-
-            For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                PropRegionClass.ProcessID(UUID) = PID
-            Next
-            PropUpdateView = True ' make form refresh
-            Buttons(StopButton)
-            Return True
-        End If
-        PropUpdateView = True ' make form refresh
-        Logger("Failed to boot ", BootName, "Restart")
-        TextPrint("Failed to boot region " & BootName)
-        Return False
-
-    End Function
 
 #End Region
 
@@ -914,7 +762,7 @@ Public Class FormSetup
             Logger(My.Resources.Info_word, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Restart")
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
         Next
-        Logger(My.Resources.Info_word, Groupname & " Group is now stopped", "Restart")
+        Logger("Info", Groupname & " Group is now stopped", "Restart")
     End Sub
 
     Public Function StartOpensimulator() As Boolean
@@ -1328,55 +1176,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub DoSuspend_Resume(RegionName As String, Optional ResumeSwitch As Boolean = False)
-
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-        Dim PID = PropRegionClass.ProcessID(RegionUUID)
-
-        Dim R As String
-        If ResumeSwitch Then
-            R = " -rpid "
-            TextPrint(My.Resources.Resuming_word & " " & RegionName)
-        Else
-            TextPrint(My.Resources.Suspending_word & " " & RegionName)
-            R = " -pid "
-        End If
-        Dim SuspendProcess As New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-              .Arguments = R & PID,
-              .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
-          }
-
-        If Debugger.IsAttached Then
-            pi.WindowStyle = ProcessWindowStyle.Normal
-        Else
-            pi.WindowStyle = ProcessWindowStyle.Minimized
-        End If
-
-        SuspendProcess.StartInfo = pi
-
-        Try
-            SuspendProcess.Start()
-            SuspendProcess.WaitForExit()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            TextPrint(My.Resources.NTSuspend)
-        Finally
-            SuspendProcess.Close()
-        End Try
-
-        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-            If ResumeSwitch Then
-                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
-            Else
-                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Suspended
-            End If
-        Next
-        PropUpdateView = True ' make form refresh
-
-    End Sub
-
     Private Sub ExitHandlerPoll()
 
         If PropExitHandlerIsBusy Then
@@ -1405,14 +1204,6 @@ Public Class FormSetup
 
             PropUpdateView = True
 
-            'If Debugger.IsAttached = True Then
-            'If Not TeleportAvatarDict.ContainsKey("Test User") Then
-            'Dim WelcomeUUID = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
-            'TeleportAvatarDict.Add("Test User", WelcomeUUID)
-            'End If
-            'TeleportAgents()
-            'End If
-
         End While
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -1428,7 +1219,7 @@ Public Class FormSetup
                 If GetHwnd(G) = IntPtr.Zero Then
                     Dim RegionName As String = PropRegionClass.RegionName(RegionUUID)
                     Try
-                        PropExitList.Add(G, "DOS Box exit")
+                        PropExitList.Add(G, "Exit")
                     Catch
                     End Try
                 End If
@@ -1438,46 +1229,34 @@ Public Class FormSetup
         For Each RegionUUID As String In PropRegionClass.RegionUuids
 
             Application.DoEvents()
-
+            If Not PropOpensimIsRunning() Then Exit For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
             GroupName = PropRegionClass.GroupName(RegionUUID)
             Dim Status = PropRegionClass.Status(RegionUUID)
-            ' Logger(GetStateString(Status), GroupName, "Restart")
+
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-            If Not PropOpensimIsRunning() Then Exit For
-
-            'Stopped = 0
-            'Booting = 1fv
-            'Booted = 2
-            'RecyclingUp = 3
-            'RecyclingDown = 4
-            'ShuttingDown = 5
-            'RestartPending = 6
-            'RetartingNow = 7
-            '[Resume] = 8
-            'Suspended = 9
-            '[Error] = 10
-            'RestartStage2 = 11
-
-            ' May be too long running?
-
             Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
-            Dim Expired = DateTime.Compare(Date.Now, time2restart)
+            Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
 
-            If Expired > 0 Then
-                PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+            Dim timesmartstart = PropRegionClass.Timer(RegionUUID).AddMinutes(1)
+            Dim SSExpired = DateTime.Compare(Date.Now, timesmartstart)
+
+            If (Expired > 0) Then
+                If (Settings.AutoRestartInterval > 0) Then
+                    If Settings.AutoRestartEnabled Then
+                        PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+                    End If
+                End If
             End If
 
             ' if it is past time and no one is in the sim... Smart shutdown
             If PropRegionClass.SmartStart(RegionUUID) = "True" _
                     And Settings.SmartStart _
-                    And Expired > 0 _
-                    And Settings.AutoRestartInterval() > 0 _
-                    And Settings.AutoRestartEnabled _
+                    And SSExpired > 0 _
                     And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
-                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended _
+                    And Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended _
                     And Not AvatarsIsInGroup(GroupName) Then
                 Logger("State Changed to Suspended", RegionName, "Restart")
                 DoSuspend_Resume(RegionName)
@@ -1552,10 +1331,9 @@ Public Class FormSetup
 
             Application.DoEvents()
             GroupName = PropExitList.Keys.First
-            Dim Reason = PropExitList.Item(GroupName)
+            Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
             PropExitList.Remove(GroupName)
 
-            Logger(Reason, GroupName & " Exited", "Restart")
             TextPrint(GroupName & " " & Reason)
 
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
@@ -1575,24 +1353,18 @@ Public Class FormSetup
                 Continue While
             End If
 
+            If Reason = "NoLogin" Then
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoLogin
+                PropUpdateView = True
+                Logger("State changed to NoLogin", PropRegionClass.RegionName(RegionUUID), "Restart")
+                Continue While
+            End If
+
             Dim Status = PropRegionClass.Status(RegionUUID)
-            ' Logger(GetStateString(Status), GroupName, "Restart")
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             Logger(GetStateString(Status), GroupName, "Restart")
 
-            'Stopped = 0
-            'Booting = 1
-            'Booted = 2
-            'RecyclingUp = 3
-            'RecyclingDown = 4
-            'ShuttingDown = 5
-            'RestartPending = 6
-            'RetartingNow = 7
-            '[Resume] = 8
-            'Suspended = 9
-            '[Error] = 10
-            'RestartStage2 = 11
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then
                 Continue While
             End If
