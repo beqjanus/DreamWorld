@@ -91,6 +91,12 @@ Public Class FormDNSName
 
         SetScreen()
 
+        If PropOpensimIsRunning Then
+            UniqueId.Enabled = False
+        Else
+            UniqueId.Enabled = True
+        End If
+
         DNSNameBox.Text = Settings.DNSName
         UniqueId.Text = Settings.MachineID()
         EnableHypergrid.Checked = Settings.EnableHypergrid
@@ -166,7 +172,8 @@ Public Class FormDNSName
         Settings.SaveSettings()
 
         FormSetup.PropViewedSettings = True
-        Me.Close()
+
+        If UniqueId.Text.Length > 0 Then Me.Close()
 
     End Sub
 
