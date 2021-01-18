@@ -1518,6 +1518,8 @@ Public Class FormSetup
 
         PropMyUPnpMap = New UPnp()
 
+        UpgradeDotNet()
+
         FileStuff.DeleteOldHelpFiles()
 
         Me.Controls.Clear() 'removes all the controls on the form

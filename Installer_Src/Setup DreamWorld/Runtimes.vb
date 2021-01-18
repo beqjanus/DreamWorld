@@ -30,6 +30,8 @@
 
     Public Sub UpgradeDotNet()
 
+        If Settings.DotnetUpgraded() Then Return
+
         TextPrint(My.Resources.Update_word & " Dot Net")
         Using UpgradeProcess As New Process()
 
@@ -44,6 +46,8 @@
             Try
                 UpgradeProcess.Start()
                 UpgradeProcess.WaitForExit()
+                Settings.DotnetUpgraded() = True
+                Settings.SaveSettings()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 TextPrint(My.Resources.Error_word)

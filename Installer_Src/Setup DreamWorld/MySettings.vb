@@ -35,7 +35,6 @@ Public Class MySettings
     Dim Apachein As New List(Of String)
     Dim Apacheout As New List(Of String)
 
-    Dim gFolder As String
     Dim INI As String = ""
 
     Dim myINI As String = ""
@@ -56,12 +55,10 @@ Public Class MySettings
     End Sub
 
     Public Sub Init(Folder As String)
-        gFolder = Folder
 
         myINI = Folder + "\OutworldzFiles\Settings.ini"
         If File.Exists(myINI) Then
             LoadSettingsIni(myINI)
-            Settings.CurrentDirectory = Folder
         Else
             Dim contents = "[Data]" + vbCrLf
             Try
@@ -73,8 +70,6 @@ Public Class MySettings
             End Try
 
             LoadSettingsIni(myINI)
-
-            Settings.CurrentDirectory = Folder
 
             Dim SCPasswordAdmin = New PassGen
             SCPassword() = SCPasswordAdmin.GeneratePass()
@@ -292,6 +287,15 @@ Public Class MySettings
 #End Region
 
 #Region "Properties"
+
+    Public Property DotnetUpgraded() As Boolean
+        Get
+            Return CType(GetMySetting("DotnetUpgraded", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("DotnetUpgraded", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
 
     Public Property AccountConfirmationRequired() As Boolean
         Get
