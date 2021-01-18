@@ -1,5 +1,7 @@
 ﻿Imports System.IO
 Imports System.Threading
+Imports IniParser
+Imports IniParser.Model
 
 Module GlobalSettings
 
@@ -23,10 +25,30 @@ Module GlobalSettings
     Private _regionClass As RegionMaker
     Private _OpensimBackupRunning As Integer
     Private _SelectedBox As String = ""
+    Private _XYINI As String ' global XY INI
+    Dim _Data As IniParser.Model.IniData
 
 #End Region
 
 #Region "Properties"
+
+    Public Property XYData As IniData
+        Get
+            Return _Data
+        End Get
+        Set(value As IniData)
+            _Data = value
+        End Set
+    End Property
+
+    Public Property XYINI As String
+        Get
+            Return _XYINI
+        End Get
+        Set(value As String)
+            _XYINI = value
+        End Set
+    End Property
 
     Public Property PropSelectedBox As String
         Get

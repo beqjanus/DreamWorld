@@ -24,16 +24,13 @@ Imports System.IO
 Imports IniParser
 Imports IniParser.Model
 
-
 Public Class ScreenPos
     Implements IDisposable
 
 #Region "Private Fields"
 
-    ReadOnly parser As IniParser.FileIniDataParser
-    Dim Data As IniParser.Model.IniData
     Dim gName As String
-    Dim my_ini As String
+    Private parser As IniParser.FileIniDataParser
 
 #End Region
 
@@ -49,14 +46,14 @@ Public Class ScreenPos
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-        MyIni = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini")
+        XYINI = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini")
 
-        If File.Exists(MyIni) Then
+        If File.Exists(XYINI) Then
             LoadXYIni()
         Else
             Dim contents = "[Data]" + vbCrLf
             Try
-                Using outputFile As New StreamWriter(MyIni, True)
+                Using outputFile As New StreamWriter(XYINI, True)
                     outputFile.WriteLine(contents)
                 End Using
             Catch ex As Exception
@@ -72,15 +69,50 @@ Public Class ScreenPos
 
 #Region "Public Methods"
 
+    Public Function ReadINIFile(MyIni As String) As IniData
+        Dim waiting As Integer = 50 ' 5 sec
+        While waiting > 0
+            Try
+                Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
+                Return Data
+            Catch ex As Exception
+                waiting -= 1
+                Sleep(100)
+            End Try
+        End While
+
+        Return Nothing
+
+    End Function
+
+    Public Sub SaveFormSettings()
+
+        Dim Retry As Integer = 10
+        While Retry > 0
+            Try
+                parser.WriteFile(XYINI, XYData, System.Text.Encoding.UTF8)
+                Retry = 0
+            Catch ex As Exception
+                ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Sleep(100)
+            End Try
+        End While
+
+    End Sub
+
+#Disable Warning CA1822 ' Mark members as static
+
     Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
+#Enable Warning CA1822 ' Mark members as static
 
         If name Is Nothing Then Return size
 
-        If Data Is Nothing Then
+        If XYData Is Nothing Then
             Return size
         End If
 
-        Dim w As Integer = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(name & "_width"), Integer)
+        Dim w As Integer = CType(XYData("Data".ToString(Globalization.CultureInfo.CurrentCulture))(name & "_width"), Integer)
         If w = 0 Then
             Return size
         End If
@@ -91,11 +123,11 @@ Public Class ScreenPos
 
     Public Function Exists() As Boolean
 
-        If Data Is Nothing Then
+        If XYData Is Nothing Then
             Return True
         End If
 
-        Dim Value = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_Initted"), Integer)
+        Dim Value = CType(XYData("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_Initted"), Integer)
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_Initted", "1")
         SaveFormSettings()
         If Value = 0 Then Return False
@@ -105,15 +137,15 @@ Public Class ScreenPos
 
     Public Function GetHW() As List(Of Integer)
 
-        If Data Is Nothing Then
+        If XYData Is Nothing Then
             Dim array = New List(Of Integer) From {
                 100,
                 100
             }
             Return array
         End If
-        Dim ValueHOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_H"), Integer)
-        Dim ValueWOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_W"), Integer)
+        Dim ValueHOld = CType(XYData("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_H"), Integer)
+        Dim ValueWOld = CType(XYData("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_W"), Integer)
 
         Dim r As New List(Of Integer) From {
             ValueHOld,
@@ -127,15 +159,15 @@ Public Class ScreenPos
 
     Public Function GetXY() As List(Of Integer)
 
-        If Data Is Nothing Then
+        If XYData Is Nothing Then
             Dim array = New List(Of Integer) From {100, 100}
             Return array
         End If
         Try
             Dim screenWidth As Integer = Screen.PrimaryScreen.Bounds.Width
             Dim screenHeight As Integer = Screen.PrimaryScreen.Bounds.Height
-            Dim ValueXOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_X"), Integer)
-            Dim ValueYOld = CType(Data("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_Y"), Integer)
+            Dim ValueXOld = CType(XYData("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_X"), Integer)
+            Dim ValueYOld = CType(XYData("Data".ToString(Globalization.CultureInfo.CurrentCulture))(GName1 + "_Y"), Integer)
             If ValueXOld <= 0 Then
                 ValueXOld = 100
             End If
@@ -162,49 +194,47 @@ Public Class ScreenPos
 
     End Function
 
-    Public Sub LoadXYIni()
+#Disable Warning CA1822 ' Mark members as static
 
-        Try
-            Data = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            Diagnostics.Debug.Print("Error:" & ex.Message)
-        End Try
+    Public Sub LoadXYIni()
+#Enable Warning CA1822 ' Mark members as static
+
+        Dim waiting As Integer = 50 ' 5 sec
+        While waiting > 0
+            Try
+                XYData = ReadINIFile(XYINI)
+                waiting = 0
+            Catch ex As Exception
+                waiting -= 1
+                Sleep(100)
+            End Try
+        End While
 
     End Sub
 
+#Disable Warning CA1822 ' Mark members as static
+
     Public Sub PutSize(name As String, size As Integer)
+#Enable Warning CA1822 ' Mark members as static
 
         If name Is Nothing Then Return
         name = name.Replace("\n", "")
         name = name.Replace("\r", "")
         name = name.Replace(" ", "_")
         If name Is Nothing Then Return
-        If Data Is Nothing Then
+        If XYData Is Nothing Then
             Return
         End If
 
         ' Debug.Print("Saving " & name & "=" & size.ToString(Globalization.CultureInfo.InvariantCulture))
 
         Dim s As String = name & "_width"
-        Data("Data")(s.ToString(Globalization.CultureInfo.CurrentCulture)) = size.ToString(Globalization.CultureInfo.InvariantCulture)
-
-    End Sub
-
-    Public Sub SaveFormSettings()
-
-        If Data Is Nothing Then Return
-        Try
-            parser.WriteFile(MyIni, Data, System.Text.Encoding.UTF8)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            ErrorLog("Error:" + ex.Message)
-        End Try
+        XYData("Data")(s.ToString(Globalization.CultureInfo.CurrentCulture)) = size.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
 
     Public Sub SaveHW(valueH As Integer, valueW As Integer)
-        If Data Is Nothing Then
+        If XYData Is Nothing Then
             Return
         End If
         SetXYIni("Data".ToString(Globalization.CultureInfo.InvariantCulture), GName1 + "_H", valueH.ToString(Globalization.CultureInfo.CurrentCulture))
@@ -229,9 +259,12 @@ Public Class ScreenPos
 
 #Region "Private Methods"
 
-    Private Sub SetXYIni(section As String, key As String, value As String)
+#Disable Warning CA1822 ' Mark members as static
 
-        If Data Is Nothing Then
+    Private Sub SetXYIni(section As String, key As String, value As String)
+#Enable Warning CA1822 ' Mark members as static
+
+        If XYData Is Nothing Then
             Return
         End If
 
@@ -239,7 +272,7 @@ Public Class ScreenPos
         key = key.ToString(Globalization.CultureInfo.CurrentCulture)
         ' sets values into any INI file
         Try
-            Data(section)(key) = value ' replace it
+            XYData(section)(key) = value ' replace it
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
@@ -288,15 +321,6 @@ Public Class ScreenPos
         End Get
         Set(value As String)
             gName = value
-        End Set
-    End Property
-
-    Public Property MyIni As String
-        Get
-            Return my_ini
-        End Get
-        Set(value As String)
-            my_ini = value
         End Set
     End Property
 

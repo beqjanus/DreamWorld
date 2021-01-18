@@ -40,8 +40,7 @@ Public Class MySettings
 
     Dim myINI As String = ""
     Dim Myparser As IniParser.FileIniDataParser
-
-    Dim Data As IniParser.Model.IniData
+    Dim SettingsData As IniParser.Model.IniData
     Dim MyData As IniParser.Model.IniData
     Dim parser As IniParser.FileIniDataParser
 
@@ -49,6 +48,7 @@ Public Class MySettings
 
     Public Sub New()
 
+        MyData = New IniData
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -60,10 +60,9 @@ Public Class MySettings
 
         myINI = Folder + "\OutworldzFiles\Settings.ini"
         If File.Exists(myINI) Then
-            LoadSettingsIni()
+            LoadSettingsIni(myINI)
             Settings.CurrentDirectory = Folder
         Else
-            myINI = Folder + "\OutworldzFiles\Settings.ini"
             Dim contents = "[Data]" + vbCrLf
             Try
                 Using outputFile As New StreamWriter(myINI, False)
@@ -73,7 +72,7 @@ Public Class MySettings
                 BreakPoint.Show(ex.Message)
             End Try
 
-            LoadSettingsIni()
+            LoadSettingsIni(myINI)
 
             Settings.CurrentDirectory = Folder
 
@@ -101,7 +100,7 @@ Public Class MySettings
 
     Public Function GetIni(section As String, key As String, Value As String, Optional V As String = Nothing) As Object
 
-        Dim Variable = Stripqq(Data(section)(key))
+        Dim Variable = Stripqq(SettingsData(section)(key))
         If Variable = Nothing Then Variable = Value
         If Variable Is Nothing Then Return Value
 
@@ -154,12 +153,28 @@ Public Class MySettings
 
 #End Region
 
+    Private Function ReadINIFile(MyIni As String) As IniData
+        Dim waiting As Integer = 50 ' 5 sec
+        While waiting > 0
+            Try
+                Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
+                Return Data
+            Catch ex As Exception
+                waiting -= 1
+                Sleep(100)
+            End Try
+        End While
+
+        Return Nothing
+
+    End Function
+
     Public Sub SaveINI(encoding As System.Text.Encoding)
 
         Dim Retry As Integer = 10
         While Retry > 0
             Try
-                parser.WriteFile(INI, Data, encoding)
+                parser.WriteFile(INI, SettingsData, encoding)
                 Retry = 0
             Catch ex As Exception
                 ErrorLog("Error:" + ex.Message)
@@ -212,7 +227,7 @@ Public Class MySettings
         parser.Parser.Configuration.AssigmentSpacer = ""
         parser.Parser.Configuration.CommentString = comment ' Opensim uses semicolons
         Try
-            Data = parser.ReadFile(arg, System.Text.Encoding.UTF8)
+            SettingsData = ReadINIFile(arg)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             MsgBox(ex.Message)
@@ -223,7 +238,7 @@ Public Class MySettings
         Return False
     End Function
 
-    Public Sub LoadSettingsIni()
+    Public Sub LoadSettingsIni(File As String)
 
         Myparser = New FileIniDataParser()
 
@@ -231,11 +246,16 @@ Public Class MySettings
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
 
-        Try
-            MyData = Myparser.ReadFile(gFolder + "\OutworldzFiles\Settings.ini", System.Text.Encoding.UTF8)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+        Dim waiting As Integer = 50 ' 5 sec
+        While waiting > 0
+            Try
+                MyData = ReadINIFile(File)
+                waiting = 0
+            Catch ex As Exception
+                waiting -= 1
+                Sleep(100)
+            End Try
+        End While
 
     End Sub
 
@@ -248,7 +268,7 @@ Public Class MySettings
 
         ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         Try
-            Data(section)(key) = value
+            SettingsData(section)(key) = value
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
