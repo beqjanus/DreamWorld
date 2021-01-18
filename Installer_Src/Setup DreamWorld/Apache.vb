@@ -3,17 +3,19 @@
 Module Apache
 
     Private WithEvents ApacheProcess As New Process()
-    Private _ApacheUninstalling As Boolean
     Private _ApacheCrashCounter As Integer
     Private _ApacheExited As Boolean
     Private _ApacheProcessID As Integer
+    Private _ApacheUninstalling As Boolean
 
-    Public Property PropApacheProcessID As Integer
+#Region "Properties"
+
+    Public Property ApacheCrashCounter As Integer
         Get
-            Return _ApacheProcessID
+            Return _ApacheCrashCounter
         End Get
         Set(value As Integer)
-            _ApacheProcessID = value
+            _ApacheCrashCounter = value
         End Set
     End Property
 
@@ -26,12 +28,12 @@ Module Apache
         End Set
     End Property
 
-    Public Property ApacheCrashCounter As Integer
+    Public Property PropApacheProcessID As Integer
         Get
-            Return _ApacheCrashCounter
+            Return _ApacheProcessID
         End Get
         Set(value As Integer)
-            _ApacheCrashCounter = value
+            _ApacheProcessID = value
         End Set
     End Property
 
@@ -44,43 +46,40 @@ Module Apache
         End Set
     End Property
 
-    Private Sub SetPath()
+    Public Sub ApacheIcon(Running As Boolean)
 
-        Dim DLLList As New List(Of String) From {"libeay32.dll", "libssh2.dll", "ssleay32.dll"}
-
-        For Each item In DLLList
-            If Not IO.File.Exists("C:/Windows/System32/" & item) Then
-                My.Computer.FileSystem.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), IO.Path.Combine("C:\Windows\System32\" & item))
-            End If
-        Next
+        If Not Running Then
+            FormSetup.RestartApacheItem.Image = Global.Outworldz.My.Resources.nav_plain_red
+        Else
+            FormSetup.RestartApacheItem.Image = Global.Outworldz.My.Resources.check2
+        End If
+        Application.DoEvents()
 
     End Sub
 
-    'Handle Exited Event And display process information.
-    Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ApacheProcess.Exited
+#End Region
 
-        If PropAborting Then Return
-        If PropApacheUninstalling Then Return
-
-        If Settings.RestartOnCrash And ApacheCrashCounter < 10 Then
-            ApacheCrashCounter += 1
-            PropApacheExited = True
-            Return
-        End If
-        ApacheCrashCounter = 0
-        PropApacheProcessID = Nothing
-
-        Dim yesno = MsgBox(My.Resources.Apache_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
-        If (yesno = vbYes) Then
-            Dim Apachelog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\logs\error*.log")
+    Public Function CheckApache() As Boolean
+        ''' <summary>Check is Apache port 80 or 8000 is up</summary>
+        ''' <returns>boolean</returns>
+        Using client As New Net.WebClient ' download client for web pages
+            Dim Up As String
             Try
-                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & Apachelog & """")
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
+                If ex.Message.Contains("200 OK") Then Return True
+                Return False
             End Try
-        End If
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
+            End If
 
-    End Sub
+        End Using
+
+        Return True
+
+    End Function
 
     Public Sub StartApache()
 
@@ -140,7 +139,7 @@ Module Apache
             ApacheProcess.WaitForExit()
         End If
 
-        If Settings.CurrentDirectory <> Settings.LastDirectory Then
+        If Settings.CurrentDirectory <> Settings.LastDirectory Or Not ApacheExists() Then
 
             Settings.LastDirectory = Settings.CurrentDirectory
             Settings.SaveSettings()
@@ -172,66 +171,62 @@ Module Apache
             ApacheProcess.WaitForExit()
             ApacheIcon(False)
 
-            If Settings.OldInstallFolder <> Settings.CurrentDirectory Then
+            'delete really old service
+            ApacheProcess.StartInfo.FileName = "sc"
+            ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
 
-                'delete really old service
-                ApacheProcess.StartInfo.FileName = "sc"
-                ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
+            Try
+                ApacheProcess.Start()
+            Catch ex As Exception
+            End Try
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+
+            ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
+            Try
+                ApacheProcess.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Application.DoEvents()
+            ApacheProcess.WaitForExit()
+
+            Sleep(5000)
+            Application.DoEvents()
+            Using ApacheProcess As New Process With {
+                    .EnableRaisingEvents = False
+                }
+                ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\httpd.exe")
+                ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
                 ApacheProcess.StartInfo.CreateNoWindow = True
+                ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\")
                 ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
 
-                Try
-                    ApacheProcess.Start()
-                Catch ex As Exception
-                End Try
-                Application.DoEvents()
-                ApacheProcess.WaitForExit()
+                DoApache()
 
-                ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
                 Try
                     ApacheProcess.Start()
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
+                    ApacheIcon(False)
+                    TextPrint(My.Resources.ApacheFailed & ":" & ex.Message)
                 End Try
                 Application.DoEvents()
                 ApacheProcess.WaitForExit()
 
-                Sleep(5000)
+                If ApacheProcess.ExitCode <> 0 Then
+                    TextPrint(My.Resources.ApacheFailed)
+                    ApacheIcon(False)
+                Else
+                    PropApacheUninstalling = False ' installed now, trap errors
+                    Settings.OldInstallFolder = Settings.CurrentDirectory
+                End If
+                Sleep(1000)
                 Application.DoEvents()
-                Using ApacheProcess As New Process With {
-                        .EnableRaisingEvents = False
-                    }
-                    ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                    ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\httpd.exe")
-                    ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
-                    ApacheProcess.StartInfo.CreateNoWindow = True
-                    ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\")
-                    ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-                    DoApache()
-
-                    Try
-                        ApacheProcess.Start()
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                        ApacheIcon(False)
-                        TextPrint(My.Resources.ApacheFailed & ":" & ex.Message)
-                    End Try
-                    Application.DoEvents()
-                    ApacheProcess.WaitForExit()
-
-                    If ApacheProcess.ExitCode <> 0 Then
-                        TextPrint(My.Resources.ApacheFailed)
-                        ApacheIcon(False)
-                    Else
-                        PropApacheUninstalling = False ' installed now, trap errors
-                        Settings.OldInstallFolder = Settings.CurrentDirectory
-                    End If
-                    Sleep(1000)
-                    Application.DoEvents()
-                End Using
-
-            End If
+            End Using
 
         End If
 
@@ -302,36 +297,70 @@ Module Apache
 
     End Sub
 
-    Public Function CheckApache() As Boolean
-        ''' <summary>Check is Apache port 80 or 8000 is up</summary>
-        ''' <returns>boolean</returns>
-        Using client As New Net.WebClient ' download client for web pages
-            Dim Up As String
+    Private Function ApacheExists() As Boolean
+
+        Using ApacheProcess As New Process()
+            ApacheProcess.StartInfo.RedirectStandardOutput = True
+            ApacheProcess.StartInfo.RedirectStandardError = True
+            ApacheProcess.StartInfo.RedirectStandardInput = True
+            ApacheProcess.StartInfo.UseShellExecute = False
+            ApacheProcess.StartInfo.FileName = "sc.exe"
+            ApacheProcess.StartInfo.Arguments = "query ApacheHTTPServer"
+            ApacheProcess.StartInfo.CreateNoWindow = True
+            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+
+            Dim console As String = ""
             Try
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & CStr(Settings.ApachePort) & "/?_Opensim=" & RandomNumber.Random)
+                ApacheProcess.Start()
+                console = ApacheProcess.StandardOutput.ReadToEnd()
+
+                ApacheProcess.WaitForExit()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                If ex.Message.Contains("200 OK") Then Return True
-                Return False
+                TextPrint(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
             End Try
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Return False
-            End If
+            If console.Contains("does not exist") Then Return False
+            Return True
 
         End Using
 
-        Return True
-
     End Function
 
-    Public Sub ApacheIcon(Running As Boolean)
+    'Handle Exited Event And display process information.
+    Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ApacheProcess.Exited
 
-        If Not Running Then
-            FormSetup.RestartApacheItem.Image = Global.Outworldz.My.Resources.nav_plain_red
-        Else
-            FormSetup.RestartApacheItem.Image = Global.Outworldz.My.Resources.check2
+        If PropAborting Then Return
+        If PropApacheUninstalling Then Return
+
+        If Settings.RestartOnCrash And ApacheCrashCounter < 10 Then
+            ApacheCrashCounter += 1
+            PropApacheExited = True
+            Return
         End If
-        Application.DoEvents()
+        ApacheCrashCounter = 0
+        PropApacheProcessID = Nothing
+
+        Dim yesno = MsgBox(My.Resources.Apache_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+        If (yesno = vbYes) Then
+            Dim Apachelog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\logs\error*.log")
+            Try
+                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & Apachelog & """")
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
+
+    End Sub
+
+    Private Sub SetPath()
+
+        Dim DLLList As New List(Of String) From {"libeay32.dll", "libssh2.dll", "ssleay32.dll"}
+
+        For Each item In DLLList
+            If Not IO.File.Exists("C:/Windows/System32/" & item) Then
+                My.Computer.FileSystem.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), IO.Path.Combine("C:\Windows\System32\" & item))
+            End If
+        Next
 
     End Sub
 
