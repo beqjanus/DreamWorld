@@ -21,11 +21,11 @@
 #End Region
 
 Imports System.IO
-Imports System.IO.Compression
 Imports System.Net.Sockets
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports MySql.Data.MySqlClient
+Imports Ionic.Zip
 
 Public Module MysqlInterface
     Private _MysqlExited As Boolean
@@ -311,28 +311,12 @@ Public Module MysqlInterface
         If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
             TextPrint(My.Resources.Create_DB)
             Try
-                Using zip As ZipArchive = ZipFile.Open(m & "\Blank-Mysql-Data-folder.zip", ZipArchiveMode.Read)
+                Using zip As ZipFile = New ZipFile(m & "\Blank-Mysql-Data-folder.zip")
                     Dim extractPath = Path.GetFullPath(Settings.CurrentDirectory) & "\OutworldzFiles\Mysql"
                     If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
                         extractPath += Path.DirectorySeparatorChar
                     End If
-
-                    For Each ZipEntry In zip.Entries
-                        fname = ZipEntry.Name
-                        If fname.Length = 0 Then
-                            Continue For
-                        End If
-
-                        'TextPrint("Extracting " & Path.GetFileName(ZipEntry.Name))
-                        Application.DoEvents()
-                        Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
-                        If System.IO.File.Exists(destinationPath) Then
-                            FileStuff.DeleteFile(destinationPath)
-                        End If
-                        Dim folder = System.IO.Path.GetDirectoryName(destinationPath)
-                        Directory.CreateDirectory(folder)
-                        ZipEntry.ExtractToFile(folder & "\" & ZipEntry.Name)
-                    Next
+                    zip.ExtractAll(extractPath)
                 End Using
             Catch ex As Exception
                 TextPrint("Unable to extract file: " & fname & ":" & ex.Message)

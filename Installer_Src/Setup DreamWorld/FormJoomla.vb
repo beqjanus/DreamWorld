@@ -1,6 +1,6 @@
 ﻿Imports System.Threading
 Imports System.IO
-Imports System.IO.Compression
+Imports Ionic.Zip
 Imports System.Text.RegularExpressions
 
 Public Class FormJoomla
@@ -82,37 +82,19 @@ Public Class FormJoomla
             JoomlaProcess.Dispose()
             Dim ctr As Integer = 0
             Dim extractPath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\JOpensim")
-            Dim fname As String = ""
-
+            InstallButton.Text = Global.Outworldz.My.Resources.Busy_word
+            Application.DoEvents()
             Try
-                Using zip As ZipArchive = ZipFile.Open(m, ZipArchiveMode.Read)
-
-                    For Each ZipEntry In zip.Entries
-
-                        fname = ZipEntry.Name
-                        If fname.Length = 0 Then
-                            Continue For
-                        End If
-
-                        Application.DoEvents()
-                        Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
-
-                        FileStuff.DeleteFile(destinationPath)
-
-                        Dim folder = System.IO.Path.GetDirectoryName(destinationPath)
-                        Directory.CreateDirectory(folder)
-                        InstallButton.Text = Global.Outworldz.My.Resources.Install_word & " " & CStr(ctr) & " of " & CStr(zip.Entries.Count)
-                        ZipEntry.ExtractToFile(folder & "\" & ZipEntry.Name)
-                        ctr += 1
-                    Next
+                Using zip As ZipFile = New ZipFile(m)
+                    zip.ExtractAll(extractPath)
                 End Using
             Catch ex As Exception
-                TextPrint($"Unable to extract file: {fname}:{ex.Message}")
+                TextPrint($"Unable to extract file {ex.Message}")
                 Thread.Sleep(3000)
                 InstallButton.Text = Global.Outworldz.My.Resources.Error_word
                 Return
             End Try
-
+            Application.DoEvents()
             InstallButton.Text = Global.Outworldz.My.Resources.Installed_word
 
             HelpManual(JOpensim)
