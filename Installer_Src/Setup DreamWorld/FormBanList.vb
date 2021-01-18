@@ -40,12 +40,12 @@ Public Class FormBanList
         Dim hw As List(Of Integer) = ScreenPosition.GetHW()
 
         If hw.Item(0) = 0 Then
-            Me.Height = 356
+            Me.Height = 340
         Else
             Me.Height = hw.Item(0)
         End If
         If hw.Item(1) = 0 Then
-            Me.Width = 826
+            Me.Width = 680
         Else
             Me.Width = hw.Item(1)
         End If
@@ -215,7 +215,7 @@ Public Class FormBanList
 
         colsize.PutSize(name, w)
         Diagnostics.Debug.Print(name & " " & w.ToString(Globalization.CultureInfo.InvariantCulture))
-        colsize.SaveFormSettings()
+        ScreenPosition.SaveFormSettings()
 
     End Sub
 
