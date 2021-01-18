@@ -488,12 +488,12 @@ Public Class FormRegionlist
 
         If PropUpdateView() Then ' force a refresh
             If ViewBusy = True Then
-                Timer1.Interval = 5000 ' check for Form1.PropUpdateView immediately
+                Timer1.Interval = 5000 ' check for Form1.PropUpdateView later
                 Return
             End If
             LoadMyListView()
             Application.DoEvents()
-            Timer1.Interval = 1000
+            Timer1.Interval = 100
         End If
 
     End Sub
