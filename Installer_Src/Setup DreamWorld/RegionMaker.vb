@@ -1724,16 +1724,18 @@ Public Class RegionMaker
         Dim Group = GroupName(uuid)
 
         ' copy the prototype to the regions Opensim.ini
-        Try
-            My.Computer.FileSystem.CopyFile(GetOpensimProto(), IO.Path.Combine(pathname, "Opensim.ini"), True)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+
+        CopyFile(GetOpensimProto(), IO.Path.Combine(pathname, "Opensim.ini"), True)
 
         ' Load Opensim.ini in Region Folder specific to this region
         If Settings.LoadIni(IO.Path.Combine(pathname, "Opensim.ini"), ";") Then
             Return True
         End If
+
+
+        Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
+        Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
+
 
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
         Settings.SetIni("Const", "RegionFolderName", GroupName(uuid))
@@ -1745,7 +1747,6 @@ Public Class RegionMaker
         Select Case Settings.ServerType
             Case "Robust"
                 SetupOpensimSearchINI()
-                Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
                 Settings.SetIni("Const", "GridName", Settings.SimName)
                 SetupOpensimIM()
@@ -1977,7 +1978,6 @@ Public Class RegionMaker
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
         End If
 
-        Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
 
         ' Autobackup
         Settings.SetIni("AutoBackupModule", "AutoBackup", "True")

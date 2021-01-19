@@ -85,8 +85,6 @@ Public Class MySettings
             Theme() = "White"
         End If
 
-        CopyWifi()
-
     End Sub
 
 #End Region

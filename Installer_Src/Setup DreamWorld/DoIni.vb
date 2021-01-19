@@ -651,21 +651,14 @@ Module DoIni
         ''' <returns>Returns the path to the proper Opensim.ini prototype.</returns>
         Select Case Settings.ServerType
             Case "Robust"
-                Settings.LoadIni(Settings.OpensimBinPath & "Opensim.proto", ";")
                 Return Settings.OpensimBinPath & "Opensim.proto"
             Case "Region"
-                Settings.LoadIni(Settings.OpensimBinPath & "OpensimRegion.proto", ";")
                 Return Settings.OpensimBinPath & "OpensimRegion.proto"
             Case "OsGrid"
-                Settings.LoadIni(Settings.OpensimBinPath & "OpensimOsGrid.proto", ";")
                 Return Settings.OpensimBinPath & "OpensimOsGrid.proto"
             Case "Metro"
-                Settings.LoadIni(Settings.OpensimBinPath & "OpensimMetro.proto", ";")
                 Return Settings.OpensimBinPath & "OpensimMetro.proto"
         End Select
-        ' just in case...
-        Settings.LoadIni(Settings.OpensimBinPath & "Opensim.proto", ";")
-        Return Settings.OpensimBinPath & "Opensim.proto"
 
     End Function
 

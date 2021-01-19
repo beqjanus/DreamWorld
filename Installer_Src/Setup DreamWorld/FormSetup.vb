@@ -48,9 +48,6 @@ Public Class FormSetup
     Private _jRev As String = "3.9.23"
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
 
-    '= GetNewProcess()
-    Public WithEvents IcecastProcess As New Process()
-
     Private WithEvents UpdateProcess As New Process()
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
@@ -1502,6 +1499,8 @@ Public Class FormSetup
         Settings.CurrentDirectory = _myFolder
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
 
+        CopyWifi()
+
         Log("Startup:", DisplayObjectInfo(Me))
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
@@ -2130,7 +2129,7 @@ Public Class FormSetup
 
 #End Region
 
-    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs) Handles IcecastProcess.Exited
+    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
 
         If PropAborting Then Return
 

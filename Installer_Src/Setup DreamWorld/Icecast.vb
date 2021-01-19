@@ -1,6 +1,7 @@
 ﻿Module Icecast
 
     Private _IcecastProcID As Integer
+    Public WithEvents IcecastProcess As New Process()
 
     Public Property PropIcecastProcID As Integer
         Get
@@ -37,17 +38,19 @@
         DoIceCast()
 
         FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
+        '.\bin\icecast.exe -c .\icecast_run.xml
 
         PropIcecastProcID = 0
         TextPrint(My.Resources.Icecast_starting)
-        FormSetup.IcecastProcess.EnableRaisingEvents = True
-        FormSetup.IcecastProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-        FormSetup.IcecastProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast\icecast.bat")
-        FormSetup.IcecastProcess.StartInfo.CreateNoWindow = False
-        FormSetup.IcecastProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast")
+        IcecastProcess.EnableRaisingEvents = True
+        IcecastProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+        IcecastProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast\bin\icecast.exe")
+        IcecastProcess.StartInfo.CreateNoWindow = False
+        IcecastProcess.StartInfo.Arguments = "-c .\icecast_run.xml"
+        IcecastProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast")
 
         Try
-            FormSetup.IcecastProcess.Start()
+            IcecastProcess.Start()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             TextPrint(My.Resources.Icecast_failed & ":" & ex.Message)
@@ -55,14 +58,14 @@
             Return False
         End Try
 
-        PropIcecastProcID = WaitForPID(FormSetup.IcecastProcess)
+        PropIcecastProcID = WaitForPID(IcecastProcess)
         If PropIcecastProcID = 0 Then
             IceCastIcon(False)
             Return False
         End If
 
-        SetWindowTextCall(FormSetup.IcecastProcess, "Icecast")
-        ShowDOSWindow(FormSetup.IcecastProcess.MainWindowHandle, MaybeHideWindow)
+        SetWindowTextCall(IcecastProcess, "Icecast")
+        ShowDOSWindow(IcecastProcess.MainWindowHandle, MaybeHideWindow)
         IceCastIcon(True)
 
         FormSetup.PropIceCastExited = False
