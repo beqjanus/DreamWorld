@@ -80,9 +80,9 @@ Module Robust
     Public Sub RobustIcon(Running As Boolean)
 
         If Not Running Then
-            FormSetup.RobustToolStripMenuItem.Image = Global.Outworldz.My.Resources.nav_plain_red
+            FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
         Else
-            FormSetup.RobustToolStripMenuItem.Image = Global.Outworldz.My.Resources.check2
+            FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.check2
         End If
         Application.DoEvents()
 
@@ -261,6 +261,9 @@ Module Robust
     End Function
 
     Private Sub RobustProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles RobustProcess.Exited
+
+        FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
+
         ' Handle Exited event and display process information.
         PropRobustProcID = Nothing
         If PropAborting Then Return

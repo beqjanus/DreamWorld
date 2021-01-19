@@ -49,9 +49,9 @@ Module Apache
     Public Sub ApacheIcon(Running As Boolean)
 
         If Not Running Then
-            FormSetup.RestartApacheItem.Image = Global.Outworldz.My.Resources.nav_plain_red
+            FormSetup.RestartApacheIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
         Else
-            FormSetup.RestartApacheItem.Image = Global.Outworldz.My.Resources.check2
+            FormSetup.RestartApacheIcon.Image = Global.Outworldz.My.Resources.check2
         End If
         Application.DoEvents()
 
@@ -329,12 +329,15 @@ Module Apache
     'Handle Exited Event And display process information.
     Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ApacheProcess.Exited
 
+        FormSetup.RestartApacheIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
+
         If PropAborting Then Return
         If PropApacheUninstalling Then Return
 
         If Settings.RestartOnCrash And ApacheCrashCounter < 10 Then
             ApacheCrashCounter += 1
             PropApacheExited = True
+            ApacheIcon(False)
             Return
         End If
         ApacheCrashCounter = 0

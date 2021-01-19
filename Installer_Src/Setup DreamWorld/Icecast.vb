@@ -24,7 +24,7 @@
 
         ' Check if DOS box exists, first, if so, its running.
         For Each p In Process.GetProcesses
-            If p.MainWindowTitle = "Icecast" Then
+            If p.ProcessName = "icecast" Then
                 PropIcecastProcID = p.Id
 
                 p.EnableRaisingEvents = True
@@ -38,16 +38,18 @@
         DoIceCast()
 
         FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
-        '.\bin\icecast.exe -c .\icecast_run.xml
+        'Launch .\bin\icecast.exe -c .\icecast_run.xml
 
         PropIcecastProcID = 0
         TextPrint(My.Resources.Icecast_starting)
         IcecastProcess.EnableRaisingEvents = True
-        IcecastProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+        IcecastProcess.StartInfo.UseShellExecute = True
         IcecastProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast\bin\icecast.exe")
-        IcecastProcess.StartInfo.CreateNoWindow = False
+        IcecastProcess.StartInfo.CreateNoWindow = True
+        IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
         IcecastProcess.StartInfo.Arguments = "-c .\icecast_run.xml"
         IcecastProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast")
+        AddHandler IcecastProcess.Exited, AddressOf FormSetup.IceCastExited
 
         Try
             IcecastProcess.Start()
@@ -64,8 +66,6 @@
             Return False
         End If
 
-        SetWindowTextCall(IcecastProcess, "Icecast")
-        ShowDOSWindow(IcecastProcess.MainWindowHandle, MaybeHideWindow)
         IceCastIcon(True)
 
         FormSetup.PropIceCastExited = False
@@ -99,9 +99,9 @@
     Public Sub IceCastIcon(Running As Boolean)
 
         If Not Running Then
-            FormSetup.RestartIcecastItem.Image = Global.Outworldz.My.Resources.nav_plain_red
+            FormSetup.RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
         Else
-            FormSetup.RestartIcecastItem.Image = Global.Outworldz.My.Resources.check2
+            FormSetup.RestartIcecastIcon.Image = Global.Outworldz.My.Resources.check2
         End If
         Application.DoEvents()
 

@@ -1642,8 +1642,8 @@ Public Class FormSetup
         MoreFreeIslandsandPartsContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.download
         MoreFreeIslandsandPartsContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.More_Free_Islands_and_Parts_word
         MoreFreeIslandsandPartsContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Free_DLC_word
-        MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.gear_run
-        MysqlToolStripMenuItem.Text = Global.Outworldz.My.Resources.Mysql_Word
+        RestartMysqlIcon.Image = Global.Outworldz.My.Resources.gear_run
+        RestartMysqlIcon.Text = Global.Outworldz.My.Resources.Mysql_Word
         NorwegianToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_norway
         NorwegianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Norwegian
 
@@ -1656,12 +1656,12 @@ Public Class FormSetup
         PortgueseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Portuguese
         RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Server_Client
         RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Regions_word
-        RestartApacheItem.Image = Global.Outworldz.My.Resources.gear_run
-        RestartApacheItem.Text = Global.Outworldz.My.Resources.Apache_word
+        RestartApacheIcon.Image = Global.Outworldz.My.Resources.gear_run
+        RestartApacheIcon.Text = Global.Outworldz.My.Resources.Apache_word
         RestartIceCastItem2.Image = Global.Outworldz.My.Resources.recycle
         RestartIceCastItem2.Text = Global.Outworldz.My.Resources.Restart_word
-        RestartIcecastItem.Image = Global.Outworldz.My.Resources.gear_run
-        RestartIcecastItem.Text = Global.Outworldz.My.Resources.Icecast_word
+        RestartIcecastIcon.Image = Global.Outworldz.My.Resources.gear_run
+        RestartIcecastIcon.Text = Global.Outworldz.My.Resources.Icecast_word
         RestartMysqlItem.Image = Global.Outworldz.My.Resources.recycle
         RestartMysqlItem.Text = Global.Outworldz.My.Resources.Restart_word
         RestartOneRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Restart_one_region_word
@@ -1675,8 +1675,8 @@ Public Class FormSetup
         RestoreDatabaseToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Restore_Database_word
         RevisionHistoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_dirty
         RevisionHistoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Revision_History_word
-        RobustToolStripMenuItem.Image = Global.Outworldz.My.Resources.gear_run
-        RobustToolStripMenuItem.Text = Global.Outworldz.My.Resources.Robust_word
+        RestartRobustIcon.Image = Global.Outworldz.My.Resources.gear_run
+        RestartRobustIcon.Text = Global.Outworldz.My.Resources.Robust_word
         RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_russia1
         RussianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Russian
         ScriptsResumeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Scripts_Resume_word
@@ -2130,6 +2130,8 @@ Public Class FormSetup
 #End Region
 
     Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
+
+        RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
 
         If PropAborting Then Return
 

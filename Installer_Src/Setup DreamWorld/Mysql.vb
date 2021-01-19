@@ -28,10 +28,14 @@ Imports MySql.Data.MySqlClient
 Imports Ionic.Zip
 
 Public Module MysqlInterface
-    Private _MysqlExited As Boolean
+    Private WithEvents ProcessMySql As Process = New Process()
     Private _IsRunning As Boolean
     Private _MysqlCrashCounter As Integer
-    Private WithEvents ProcessMySql As Process = New Process()
+    Private _MysqlExited As Boolean
+
+    Sub New()
+        'nothing
+    End Sub
 
     Public Property MysqlCrashCounter As Integer
         Get
@@ -50,10 +54,6 @@ Public Module MysqlInterface
             _MysqlExited = Value
         End Set
     End Property
-
-    Sub New()
-        'nothing
-    End Sub
 
     Public Property IsRunning As Boolean
         Get
@@ -177,35 +177,6 @@ Public Module MysqlInterface
 
 #End Region
 
-    Public Function WhereisAgent(agentName As String) As String
-
-        Dim agents = GetAgentList()
-
-        If agents.ContainsKey(agentName) Then
-            Return PropRegionClass.FindRegionByName(agents.Item(agentName))
-        End If
-
-        Return ""
-
-    End Function
-
-    Private Sub CreateService()
-
-        ' create test program slants the other way:
-        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\InstallAsAService.bat")
-        FileStuff.DeleteFile(testProgram)
-
-        Try
-            Using outputFile As New StreamWriter(testProgram, True)
-                outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
-            "mysqld.exe --install Mysql --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
     Public Sub DeregisterRegions()
 
         If PropOpensimIsRunning Then
@@ -304,41 +275,6 @@ Public Module MysqlInterface
 
     End Function
 
-    Private Sub MakeMysql()
-
-        Dim fname As String = ""
-        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\")
-        If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
-            TextPrint(My.Resources.Create_DB)
-            Try
-                Using zip As ZipFile = New ZipFile(m & "\Blank-Mysql-Data-folder.zip")
-                    Dim extractPath = Path.GetFullPath(Settings.CurrentDirectory) & "\OutworldzFiles\Mysql"
-                    If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
-                        extractPath += Path.DirectorySeparatorChar
-                    End If
-                    zip.ExtractAll(extractPath)
-                End Using
-            Catch ex As Exception
-                TextPrint("Unable to extract file: " & fname & ":" & ex.Message)
-                Thread.Sleep(3000)
-                Application.DoEvents()
-            End Try
-
-        End If
-
-    End Sub
-
-    Public Sub MySQLIcon(Running As Boolean)
-
-        If Not Running Then
-            FormSetup.MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.nav_plain_red
-        Else
-            FormSetup.MysqlToolStripMenuItem.Image = Global.Outworldz.My.Resources.check2
-        End If
-        Application.DoEvents()
-
-    End Sub
-
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
@@ -401,6 +337,17 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Sub MySQLIcon(Running As Boolean)
+
+        If Not Running Then
+            FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
+        Else
+            FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.check2
+        End If
+        Application.DoEvents()
+
+    End Sub
+
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
         Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
@@ -418,6 +365,51 @@ Public Module MysqlInterface
         Return ""
 
     End Function
+
+    Public Function WhereisAgent(agentName As String) As String
+
+        Dim agents = GetAgentList()
+
+        If agents.ContainsKey(agentName) Then
+            Return PropRegionClass.FindRegionByName(agents.Item(agentName))
+        End If
+
+        Return ""
+
+    End Function
+
+    Private Sub CreateService()
+
+        ' create test program slants the other way:
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\InstallAsAService.bat")
+        FileStuff.DeleteFile(testProgram)
+
+        Try
+            Using outputFile As New StreamWriter(testProgram, True)
+                outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
+            "mysqld.exe --install Mysql --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub CreateStopMySql()
+
+        ' create test program slants the other way:
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StopMySQL.bat")
+        FileStuff.DeleteFile(testProgram)
+        Try
+            Using outputFile As New StreamWriter(testProgram, True)
+                outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
+            "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
 
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
@@ -444,23 +436,33 @@ Public Module MysqlInterface
 
     End Function
 
-    Private Sub CreateStopMySql()
+    Private Sub MakeMysql()
 
-        ' create test program slants the other way:
-        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StopMySQL.bat")
-        FileStuff.DeleteFile(testProgram)
-        Try
-            Using outputFile As New StreamWriter(testProgram, True)
-                outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
-            "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+        Dim fname As String = ""
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\")
+        If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
+            TextPrint(My.Resources.Create_DB)
+            Try
+                Using zip As ZipFile = New ZipFile(m & "\Blank-Mysql-Data-folder.zip")
+                    Dim extractPath = Path.GetFullPath(Settings.CurrentDirectory) & "\OutworldzFiles\Mysql"
+                    If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
+                        extractPath += Path.DirectorySeparatorChar
+                    End If
+                    zip.ExtractAll(extractPath)
+                End Using
+            Catch ex As Exception
+                TextPrint("Unable to extract file: " & fname & ":" & ex.Message)
+                Thread.Sleep(3000)
+                Application.DoEvents()
+            End Try
+
+        End If
 
     End Sub
 
     Private Sub Mysql_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ProcessMySql.Exited
+
+        FormSetup.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
 
         If PropAborting Then Return
 
