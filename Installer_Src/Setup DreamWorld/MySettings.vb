@@ -37,11 +37,11 @@ Public Class MySettings
 
     Dim INI As String = ""
 
+    Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
     Dim Myparser As IniParser.FileIniDataParser
-    Dim SettingsData As IniParser.Model.IniData
-    Dim MyData As IniParser.Model.IniData
     Dim parser As IniParser.FileIniDataParser
+    Dim SettingsData As IniParser.Model.IniData
 
 #Region "New"
 
@@ -146,72 +146,6 @@ Public Class MySettings
 
 #End Region
 
-    Private Function ReadINIFile(MyIni As String) As IniData
-        Dim waiting As Integer = 50 ' 5 sec
-        While waiting > 0
-            Try
-                Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
-                Return Data
-            Catch ex As Exception
-                waiting -= 1
-                Sleep(100)
-            End Try
-        End While
-
-        Return Nothing
-
-    End Function
-
-    Public Sub SaveINI(encoding As System.Text.Encoding)
-
-        Dim Retry As Integer = 10
-        While Retry > 0
-            Try
-                parser.WriteFile(INI, SettingsData, encoding)
-                Retry = 0
-            Catch ex As Exception
-                ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Thread.Sleep(100)
-            End Try
-        End While
-
-    End Sub
-
-    Public Sub SaveSettings()
-
-        Dim Retry As Integer = 10
-        While Retry > 0
-            Try
-                Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
-                Retry = 0
-            Catch ex As Exception
-                ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Thread.Sleep(100)
-            End Try
-        End While
-
-    End Sub
-
-    Public Sub SetMySetting(key As String, value As String)
-
-        If value Is Nothing Then Return
-
-        Dim Retry As Integer = 10
-        While Retry > 0
-            Try
-                SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
-                Retry = 0
-            Catch ex As Exception
-                ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Thread.Sleep(100)
-            End Try
-        End While
-
-    End Sub
-
     Public Function LoadIni(arg As String, comment As String) As Boolean
 
         'Log(My.Resources.Info_word, "Loading INI " & arg)
@@ -252,6 +186,38 @@ Public Class MySettings
 
     End Sub
 
+    Public Sub SaveINI(encoding As System.Text.Encoding)
+
+        Dim Retry As Integer = 10
+        While Retry > 0
+            Try
+                parser.WriteFile(INI, SettingsData, encoding)
+                Retry = 0
+            Catch ex As Exception
+                ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Thread.Sleep(100)
+            End Try
+        End While
+
+    End Sub
+
+    Public Sub SaveSettings()
+
+        Dim Retry As Integer = 10
+        While Retry > 0
+            Try
+                Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
+                Retry = 0
+            Catch ex As Exception
+                ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Thread.Sleep(100)
+            End Try
+        End While
+
+    End Sub
+
     ''' <summary>writes to the ini the name value pair.</summary>
     ''' <param name="section"></param>
     ''' <param name="key"></param>
@@ -282,18 +248,43 @@ Public Class MySettings
 
     End Sub
 
+    Public Sub SetMySetting(key As String, value As String)
+
+        If value Is Nothing Then Return
+
+        Dim Retry As Integer = 10
+        While Retry > 0
+            Try
+                SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
+                Retry = 0
+            Catch ex As Exception
+                ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Thread.Sleep(100)
+            End Try
+        End While
+
+    End Sub
+
+    Private Function ReadINIFile(MyIni As String) As IniData
+        Dim waiting As Integer = 50 ' 5 sec
+        While waiting > 0
+            Try
+                Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
+                Return Data
+            Catch ex As Exception
+                waiting -= 1
+                Sleep(100)
+            End Try
+        End While
+
+        Return Nothing
+
+    End Function
+
 #End Region
 
 #Region "Properties"
-
-    Public Property DotnetUpgraded() As Boolean
-        Get
-            Return CType(GetMySetting("DotnetUpgraded", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("DotnetUpgraded", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
 
     Public Property AccountConfirmationRequired() As Boolean
         Get
@@ -876,6 +867,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property DotnetUpgraded() As Boolean
+        Get
+            Return CType(GetMySetting("DotnetUpgraded", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("DotnetUpgraded", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property EnableHypergrid() As Boolean
         Get
             Return CType(GetMySetting("EnableHypergrid", "True"), Boolean)
@@ -1061,6 +1061,16 @@ Public Class MySettings
         Set
             SetMySetting("HttpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
+    End Property
+
+    Public Property InstalledRuntime() As Boolean
+        Get
+            Return CType(GetMySetting("InstalledRuntime", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("InstalledRuntime", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+
     End Property
 
     Public Property JOpensimSearch() As String
@@ -1644,8 +1654,6 @@ Public Class MySettings
         End Set
     End Property
 
-#Disable Warning CA1056 ' Uri properties should not be strings
-
     Public Property SizeX() As String
         Get
             Return GetMySetting("SizeX", "256")
@@ -1828,16 +1836,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property InstalledRuntime() As Boolean
-        Get
-            Return CType(GetMySetting("InstalledRuntime", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("InstalledRuntime", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-
-    End Property
-
     Public Property UPnPEnabled() As Boolean
         Get
             Return CType(GetMySetting("UPnPEnabled", "True"), Boolean)
@@ -1901,6 +1899,9 @@ Public Class MySettings
             SetMySetting("WifiEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
+
+#Disable Warning CA1056 ' Uri properties should not be strings
+#Disable Warning CA1056 ' Uri properties should not be strings
 
 #End Region
 
@@ -2041,7 +2042,8 @@ Public Class MySettings
             & ";User ID=" & RobustUsername _
             & ";Password=" & RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
-            & ";Connect Timeout=28800;Command Timeout=28800;" _
+            & ";Connect Timeout=28800;Command Timeout=28800" _
+            & ";default command timeout=300;" _
             & """"
 
     End Function
@@ -2053,7 +2055,9 @@ Public Class MySettings
             & ";port=" & CStr(MySqlRobustDBPort) _
             & ";user=" & RobustUsername _
             & ";password=" & RobustPassword _
-            & ";Old Guids=true;Allow Zero Datetime=true"
+            & ";Old Guids=true;Allow Zero Datetime=true" _
+            & ";Connect Timeout=28800;Command Timeout=28800" _
+            & ";default command timeout=300;"
 
     End Function
 
