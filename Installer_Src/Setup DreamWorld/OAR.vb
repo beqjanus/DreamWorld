@@ -13,15 +13,6 @@
         End Set
     End Property
 
-    Public Property PropUserName As String
-        Get
-            Return _UserName
-        End Get
-        Set(value As String)
-            _UserName = value
-        End Set
-    End Property
-
     Public Property PropForceParcel As Boolean
         Get
             Return _ForceParcel
@@ -37,6 +28,15 @@
         End Get
         Set(value As Boolean)
             _ForceTerrain = value
+        End Set
+    End Property
+
+    Public Property PropUserName As String
+        Get
+            Return _UserName
+        End Get
+        Set(value As String)
+            _UserName = value
         End Set
     End Property
 
@@ -84,7 +84,6 @@
                             If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
 
                             ConsoleCommand(UUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
-                            ConsoleCommand(UUID, "generate map")
                         Next
                     End If
                 End If
@@ -141,8 +140,6 @@
                     If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
 
                     ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
-                    ConsoleCommand(RegionUUID, "generate map")
-                    ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.New_is_Done)
 
                     once = True
                 End If
