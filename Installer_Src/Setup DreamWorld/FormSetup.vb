@@ -45,9 +45,6 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
-    Private _jRev As String = "3.9.23"
-    Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
-
     Private WithEvents UpdateProcess As New Process()
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
@@ -67,6 +64,7 @@ Public Class FormSetup
     Private _IceCastExited As Boolean
     Private _Initted As Boolean
     Private _IPv4Address As String
+    Private _jRev As String = "3.9.23"
     Private _KillSource As Boolean
     Private _OpensimBinPath As String
     Private _regionForm As FormRegionlist
@@ -77,11 +75,14 @@ Public Class FormSetup
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
     Private BootedList As New List(Of String)
+#Disable Warning CA2213 ' Disposable fields should be disposed
+    Private cpu As New PerformanceCounter
+#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ExitInterval As Integer = 2
+    Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private ScreenPosition As ScreenPos
 
 #Disable Warning CA2213 ' Disposable fields should be disposed
-    Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
 
 #End Region
@@ -193,6 +194,15 @@ Public Class FormSetup
         End Get
         Set(value As String)
             _jRev = value
+        End Set
+    End Property
+
+    Public Property OpensimBinPath As String
+        Get
+            Return _OpensimBinPath
+        End Get
+        Set(value As String)
+            _OpensimBinPath = value
         End Set
     End Property
 
@@ -373,15 +383,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property OpensimBinPath As String
-        Get
-            Return _OpensimBinPath
-        End Get
-        Set(value As String)
-            _OpensimBinPath = value
-        End Set
-    End Property
-
 #End Region
 
 #Region "Public Shared"
@@ -554,6 +555,15 @@ Public Class FormSetup
 
 #End Region
 
+    Public Shared Sub ShowRegionMap()
+
+        Dim region = ChooseRegion(False)
+        If region.Length = 0 Then Return
+
+        VarChooser(region, False, False)
+
+    End Sub
+
     Public Function DoStopActions() As Boolean
 
         TextPrint(My.Resources.Stopping_word)
@@ -565,6 +575,32 @@ Public Class FormSetup
         Return True
 
     End Function
+
+    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
+
+        RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
+
+        If PropAborting Then Return
+
+        If Settings.RestartOnCrash And IcecastCrashCounter < 10 Then
+            IcecastCrashCounter += 1
+            PropIceCastExited = True
+            Return
+        End If
+        IcecastCrashCounter = 0
+
+        Dim yesno = MsgBox(My.Resources.Icecast_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+
+        If (yesno = vbYes) Then
+            Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
+            Try
+                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IceCastLog & """")
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
+
+    End Sub
 
     Public Function KillAll() As Boolean
 
@@ -719,15 +755,6 @@ Public Class FormSetup
             End While
 
         End If
-
-    End Sub
-
-    Public Shared Sub ShowRegionMap()
-
-        Dim region = ChooseRegion(False)
-        If region.Length = 0 Then Return
-
-        VarChooser(region, False, False)
 
     End Sub
 
@@ -1474,6 +1501,8 @@ Public Class FormSetup
     ''' <param name="e">Unused</param>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
 
+        ' Throw New System.Exception("An exception has occurred.")
+
         Application.EnableVisualStyles()
 
         Dim _myFolder As String = My.Application.Info.DirectoryPath
@@ -1523,8 +1552,10 @@ Public Class FormSetup
 
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
-        FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be tradslated
+
         SetScreen()     ' move Form to fit screen from SetXY.ini
+        Application.DoEvents()
+        FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be traslated
 
     End Sub
 
@@ -1743,16 +1774,12 @@ Public Class FormSetup
         SaveInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word
         SaveRegionOARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Save_Region_OAR_word
 
-        TextBox1.BackColor = Me.BackColor
-        ' initialize the scrolling text box
-        TextBox1.SelectionStart = 0
-        TextBox1.ScrollToCaret()
-        TextBox1.SelectionStart = TextBox1.Text.Length
-        TextBox1.ScrollToCaret()
-
         ' show box styled nicely.
         Application.EnableVisualStyles()
         Buttons(BusyButton)
+
+        TextBox1.BackColor = Me.BackColor
+        ' initialize the scrolling text box
 
         ToolBar(False)
 
@@ -1914,13 +1941,6 @@ Public Class FormSetup
         Joomla.CheckForjOpensimUpdate()
 
         DeleteDirectoryTmp()
-
-        'Dim Logform As New FormErrorLogger
-        'Logform.Show()
-        'Logform.Select()
-        'Logform.BringToFront()
-
-        'Throw New System.Exception("An exception has occurred.")
 
     End Sub
 
@@ -2129,32 +2149,6 @@ Public Class FormSetup
 
 #End Region
 
-    Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
-
-        RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
-
-        If PropAborting Then Return
-
-        If Settings.RestartOnCrash And IcecastCrashCounter < 10 Then
-            IcecastCrashCounter += 1
-            PropIceCastExited = True
-            Return
-        End If
-        IcecastCrashCounter = 0
-
-        Dim yesno = MsgBox(My.Resources.Icecast_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
-
-        If (yesno = vbYes) Then
-            Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
-            Try
-                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IceCastLog & """")
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
-
-    End Sub
-
 #Region "Kill"
 
     '' makes a list of teleports for the prims to use
@@ -2195,6 +2189,32 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
+
+    End Sub
+
+    Private Shared Sub SetLoopback()
+
+        Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
+        For Each adapter As NetworkInterface In Adapters
+            Diagnostics.Debug.Print(adapter.Name)
+
+            If adapter.Name = "Loopback" Then
+                TextPrint(My.Resources.Setting_Loopback)
+                Using LoopbackProcess As New Process
+                    LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                    LoopbackProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "NAT_Loopback_Tool.bat")
+                    LoopbackProcess.StartInfo.CreateNoWindow = True
+                    LoopbackProcess.StartInfo.Arguments = "Loopback"
+                    LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                    Try
+                        LoopbackProcess.Start()
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+                    Exit For
+                End Using
+            End If
+        Next
 
     End Sub
 
@@ -2658,32 +2678,6 @@ Public Class FormSetup
                 BreakPoint.Show(ex.Message)
             End Try
         End Using
-
-    End Sub
-
-    Private Shared Sub SetLoopback()
-
-        Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
-        For Each adapter As NetworkInterface In Adapters
-            Diagnostics.Debug.Print(adapter.Name)
-
-            If adapter.Name = "Loopback" Then
-                TextPrint(My.Resources.Setting_Loopback)
-                Using LoopbackProcess As New Process
-                    LoopbackProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                    LoopbackProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "NAT_Loopback_Tool.bat")
-                    LoopbackProcess.StartInfo.CreateNoWindow = True
-                    LoopbackProcess.StartInfo.Arguments = "Loopback"
-                    LoopbackProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                    Try
-                        LoopbackProcess.Start()
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                    End Try
-                    Exit For
-                End Using
-            End If
-        Next
 
     End Sub
 
