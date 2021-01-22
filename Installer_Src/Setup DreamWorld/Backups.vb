@@ -5,13 +5,12 @@ Imports Ionic.Zip
 
 Public Class Backups
 
+    Private _folder As String
+    Private _initted As Boolean
+    Private _startDate As Date
     Private _WebThread1 As Thread
     Private _WebThread2 As Thread
     Private _WebThread3 As Thread
-
-    Private _startDate As Date
-    Private _initted As Boolean
-    Private _folder As String
 
 #Region "Public"
 
@@ -61,17 +60,6 @@ Public Class Backups
 
     End Sub
 
-    Public Sub SQLBackup(DBName As String)
-
-        Dim currentdatetime As Date = Date.Now()
-        TextPrint(currentdatetime.ToLocalTime & vbCrLf & DBName & " " & My.Resources.Slow_Backup)
-        _WebThread1 = New Thread(AddressOf RunSQLBackup)
-        _WebThread1.SetApartmentState(ApartmentState.STA)
-        _WebThread1.Start(DBName)
-        _WebThread1.Priority = ThreadPriority.BelowNormal
-
-    End Sub
-
     Public Sub RunSQLBackup(OP As Object)
 
         If OP Is Nothing Then Return
@@ -82,9 +70,10 @@ Public Class Backups
         Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
 
         Dim _filename = Name & "_" & whenrun & ".sql"
+        Dim SQLFile = IO.Path.Combine(_folder, _filename)
 
         ' we must write this to the file so it knows what database to use.
-        Using outputFile As New StreamWriter(IO.Path.Combine(_folder, _filename))
+        Using outputFile As New StreamWriter(SQLFile)
             outputFile.Write("use " & Name & ";" + vbCrLf)
         End Using
 
@@ -116,7 +105,7 @@ Public Class Backups
         & " -u" & user _
         & " -p" & password _
         & " --verbose --log-error=Mysqldump.log " _
-        & " --result-file=" & """" & IO.Path.Combine(_folder, _filename) & """" _
+        & " --result-file=" & """" & SQLFile & """" _
         & " " & dbname
         Debug.Print(options)
         '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
@@ -149,13 +138,26 @@ Public Class Backups
         FileStuff.DeleteFile(Bak)
 
         Using Zip As ZipFile = New ZipFile(Bak)
-            Zip.AddDirectory(IO.Path.Combine(_folder))
+            Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
+            Zip.AddFile(SQLFile)
+            Zip.Save()
         End Using
 
         Sleep(5000)
-        FileStuff.DeleteDirectory(_folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
+        FileStuff.DeleteFile(SQLFile)
 
         OpensimBackupRunning -= 1
+
+    End Sub
+
+    Public Sub SQLBackup(DBName As String)
+
+        Dim currentdatetime As Date = Date.Now()
+        TextPrint(currentdatetime.ToLocalTime & vbCrLf & DBName & " " & My.Resources.Slow_Backup)
+        _WebThread1 = New Thread(AddressOf RunSQLBackup)
+        _WebThread1.SetApartmentState(ApartmentState.STA)
+        _WebThread1.Start(DBName)
+        _WebThread1.Priority = ThreadPriority.BelowNormal
 
     End Sub
 
@@ -224,6 +226,7 @@ Public Class Backups
         FileStuff.DeleteFile(Bak)
 
         Using Z As ZipFile = New ZipFile(Bak)
+            Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
             Try
                 If Settings.BackupRegion Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
