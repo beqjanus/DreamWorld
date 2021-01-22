@@ -110,8 +110,10 @@ Public Class NetServer
                 Else
                     If (request.HasEntityBody) Then
                         Dim POST As String = reader.ReadToEnd()
+                        Log("POST", POST)
                         responseString = PropRegionClass1.ParsePost(POST, Setting)
                     Else
+                        Log("URI", Uri)
                         responseString = PropRegionClass1.ParsePost(Uri, Setting)
                     End If
 
