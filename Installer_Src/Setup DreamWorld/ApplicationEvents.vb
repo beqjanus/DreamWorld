@@ -38,12 +38,21 @@ Namespace My
 
         End Sub
 
+        Private Sub AppStart(ByVal sender As Object,
+      ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
+            AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
+        End Sub
+
         Private Sub MyApplication_UnhandledException(
-                    ByVal sender As Object,
+                            ByVal sender As Object,
                     ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs
          ) Handles Me.UnhandledException
 
             Dim ex = e.Exception
+
+            e.ExitApplication = False
+
+            MsgBox(ex.Message, vbInformation)
 
             Dim Result As String
             Dim hr As Integer = Runtime.InteropServices.Marshal.GetHRForException(ex)
@@ -54,23 +63,13 @@ Namespace My
                     Result &= "Line:" & sf.GetFileLineNumber() & " Filename: " & IO.Path.GetFileName(sf.GetFileName) & Environment.NewLine
                 End If
             Next
+
+            Result += DisplayObjectInfo(sender)
             ErrorLog(Result)
-            ErrorLog(DisplayObjectInfo(sender))
 
-            Dim path = IO.Path.Combine(CurDir(), "OutworldzFiles\Error.log")
-            If System.IO.File.Exists(path) Then
-                Dim Logform As New FormErrorLogger
-                Logform.Show()
-                Logform.Select()
-                Logform.BringToFront()
-                Logform.ShowDialog()
-            End If
+            Dim Logform As New FormErrorLogger
+            Logform.ShowDialog()
 
-        End Sub
-
-        Private Sub AppStart(ByVal sender As Object,
-      ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
-            AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
         End Sub
 
         ''' <summary>
