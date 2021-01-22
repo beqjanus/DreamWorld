@@ -2,22 +2,12 @@
 
 Module Robust
 
-    Private _RobustIconStarting As Boolean
-    Private _RobustExited As Boolean
-    Private _RobustProcID As Integer
+    Private WithEvents RobustProcess As New Process()
     Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer
-
-    Private WithEvents RobustProcess As New Process()
-
-    Public Property RobustCrashCounter As Integer
-        Get
-            Return _RobustCrashCounter
-        End Get
-        Set(value As Integer)
-            _RobustCrashCounter = value
-        End Set
-    End Property
+    Private _RobustExited As Boolean
+    Private _RobustIconStarting As Boolean
+    Private _RobustProcID As Integer
 
     Public Property PropRestartRobust As Boolean
         Get
@@ -43,6 +33,15 @@ Module Robust
         End Get
         Set(value As Integer)
             _RobustProcID = value
+        End Set
+    End Property
+
+    Public Property RobustCrashCounter As Integer
+        Get
+            Return _RobustCrashCounter
+        End Get
+        Set(value As Integer)
+            _RobustCrashCounter = value
         End Set
     End Property
 
@@ -231,68 +230,6 @@ Module Robust
 
 #End Region
 
-    ''' <summary>Check is Robust port 8002 is up</summary>
-    ''' <returns>boolean</returns>
-    Public Function IsRobustRunning() As Boolean
-
-        Log("INFO", "Checking Robust")
-        Using client As New WebClient ' download client for web pages
-            Dim Up As String
-            Try
-                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
-            Catch ex As Exception
-                Log("INFO", "Robust is running")
-                If ex.Message.Contains("404") Then
-                    Log("INFO", "Robust is running")
-                    Return True
-                End If
-                Log("INFO", "Robust is not running")
-                Return False
-            End Try
-
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Log("INFO", "Robust is not running")
-                Return False
-            End If
-        End Using
-        Log("INFO", "Robust is running")
-        Return True
-
-    End Function
-
-    Private Sub RobustProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles RobustProcess.Exited
-
-        FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
-
-        ' Handle Exited event and display process information.
-        PropRobustProcID = Nothing
-        If PropAborting Then Return
-
-        If PropRestartRobust Then
-            PropRobustExited = True
-            Return
-        End If
-
-        If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
-            PropRobustExited = True
-            RobustCrashCounter += 1
-            Return
-        End If
-        RobustCrashCounter = 0
-        RobustIcon(False)
-
-        Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
-        If (yesno = vbYes) Then
-            Dim MysqlLog As String = Settings.OpensimBinPath & "Robust.log"
-            Try
-                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & MysqlLog & """")
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
-
-    End Sub
-
     Public Function DoRobust() As Boolean
 
         TextPrint("->Set Robust")
@@ -379,18 +316,64 @@ Module Robust
 
     End Function
 
-    Private Sub SetupRobustSearchINI()
+    ''' <summary>Check is Robust port 8002 is up</summary>
+    ''' <returns>boolean</returns>
+    Public Function IsRobustRunning() As Boolean
 
-        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
-            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
-            Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
-        ElseIf Settings.JOpensimSearch = Hyperica Then
-            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-            Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
-        Else
-            Settings.SetIni("LoginService", "SearchURL", "")
-            Settings.SetIni("LoginService", "DestinationGuide", "")
+        Log("INFO", "Checking Robust")
+        Using client As New WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+            Catch ex As Exception
+                Log("INFO", "Robust is running")
+                If ex.Message.Contains("404") Then
+                    Log("INFO", "Robust is running")
+                    Return True
+                End If
+                Log("INFO", "Robust is not running")
+                Return False
+            End Try
+
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Log("INFO", "Robust is not running")
+                Return False
+            End If
+        End Using
+        Log("INFO", "Robust is running")
+        Return True
+
+    End Function
+
+    Private Sub RobustProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles RobustProcess.Exited
+
+        FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
+
+        ' Handle Exited event and display process information.
+        PropRobustProcID = Nothing
+        If PropAborting Then Return
+
+        If PropRestartRobust Then
+            PropRobustExited = True
+            Return
+        End If
+
+        If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
+            PropRobustExited = True
+            RobustCrashCounter += 1
+            Return
+        End If
+        RobustCrashCounter = 0
+        RobustIcon(False)
+
+        Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+        If (yesno = vbYes) Then
+            Dim MysqlLog As String = Settings.OpensimBinPath & "Robust.log"
+            Try
+                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & MysqlLog & """")
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
         End If
 
     End Sub
@@ -409,6 +392,22 @@ Module Robust
             Settings.SetIni("LoginService", "Currency", "$")
             FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
             'FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
+        End If
+
+    End Sub
+
+    Private Sub SetupRobustSearchINI()
+
+        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            Settings.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
+        ElseIf Settings.JOpensimSearch = Hyperica Then
+            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+            Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
+        Else
+            Settings.SetIni("LoginService", "SearchURL", "")
+            Settings.SetIni("LoginService", "DestinationGuide", "")
         End If
 
     End Sub
