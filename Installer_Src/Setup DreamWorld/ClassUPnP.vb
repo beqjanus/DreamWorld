@@ -161,10 +161,14 @@ Public Class UPnp
     ''' <remarks></remarks>
     <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")>
     Public Sub Dispose() Implements IDisposable.Dispose
-        Marshal.ReleaseComObject(staticMapping)
-        Marshal.ReleaseComObject(UPnpnat)
-        Dispose(True)
-        GC.SuppressFinalize(Me)
+        Try
+            Marshal.ReleaseComObject(staticMapping)
+            Marshal.ReleaseComObject(UPnpnat)
+            Dispose(True)
+            GC.SuppressFinalize(Me)
+        Catch
+        End Try
+
         Return
     End Sub
 
