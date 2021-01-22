@@ -33,16 +33,16 @@ Public Class RegionMaker
 #Disable Warning CA1051 ' Do not declare visible instance fields
     Public WebserverList As New List(Of String)
 #Enable Warning CA1051 ' Do not declare visible instance fields
+    Private Const Hyperica As String = "Hyperica"
+    Private Const JOpensim As String = "JOpensim"
     Private Shared FInstance As RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of RegionMaker.Region_data)
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
 
+    Private _GetAllRegionsIsBusy As Boolean
     Private _RegionListIsInititalized As Boolean
     Dim json As New JSONresult
-    Private Const JOpensim As String = "JOpensim"
-    Private Const Hyperica As String = "Hyperica"
-    Private _GetAllRegionsIsBusy As Boolean
 
     Public Enum SIMSTATUSENUM As Integer
 
@@ -92,6 +92,12 @@ Public Class RegionMaker
 
 #Region "Start/Stop"
 
+    Public Sub ClearStack()
+
+        WebserverList.Clear()
+
+    End Sub
+
     Public Function Init() As Boolean
 
         If GetAllRegions() = -1 Then Return False
@@ -107,40 +113,9 @@ Public Class RegionMaker
 
     End Function
 
-    Public Sub ClearStack()
-
-        WebserverList.Clear()
-
-    End Sub
-
 #End Region
 
 #Region "Subs"
-
-    ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
-    Public Sub UpdateAllRegionPorts()
-
-        TextPrint(My.Resources.Updating_Ports_word)
-
-        Dim Portnumber As Integer = Settings.FirstRegionPort()
-
-        For Each uuid As String In RegionUuids()
-            Dim Name = RegionName(uuid)
-            Settings.LoadIni(RegionPath(uuid), ";")
-
-            Settings.SetIni(Name, "InternalPort", CStr(Portnumber))
-            RegionPort(uuid) = Portnumber
-
-            GroupPort(uuid) = Portnumber
-
-            Settings.SaveINI(System.Text.Encoding.UTF8)
-            Portnumber += 1
-        Next
-
-        TextPrint(My.Resources.Setup_Firewall_word)
-        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
-
-    End Sub
 
     Public Sub CheckPost()
 
@@ -543,6 +518,31 @@ Public Class RegionMaker
         Return Min
     End Function
 
+    ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
+    Public Sub UpdateAllRegionPorts()
+
+        TextPrint(My.Resources.Updating_Ports_word)
+
+        Dim Portnumber As Integer = Settings.FirstRegionPort()
+
+        For Each uuid As String In RegionUuids()
+            Dim Name = RegionName(uuid)
+            Settings.LoadIni(RegionPath(uuid), ";")
+
+            Settings.SetIni(Name, "InternalPort", CStr(Portnumber))
+            RegionPort(uuid) = Portnumber
+
+            GroupPort(uuid) = Portnumber
+
+            Settings.SaveINI(System.Text.Encoding.UTF8)
+            Portnumber += 1
+        Next
+
+        TextPrint(My.Resources.Setup_Firewall_word)
+        Firewall.SetFirewall()   ' must be after UpdateAllRegionPorts
+
+    End Sub
+
     Public Sub WriteRegionObject(name As String)
 
         Dim uuid As String = FindRegionByName(name)
@@ -668,10 +668,12 @@ Public Class RegionMaker
 
         Public _AllowGods As String = ""
         Public _Birds As String = ""
+        Public _CrashCounter As Integer
         Public _DisableGloebits As String = ""
         Public _FrameTime As String = ""
         Public _GDPR As String = ""
         Public _GodDefault As String = ""
+        Public _GroupPort As Integer
         Public _ManagerGod As String = ""
         Public _MapType As String = ""
         Public _MaxAgents As String = ""
@@ -688,9 +690,6 @@ Public Class RegionMaker
         Public _Snapshot As String = ""
         Public _Teleport As String = ""
         Public _Tides As String = ""
-
-        Public _CrashCounter As Integer
-        Public _GroupPort As Integer
 
 #End Region
 
@@ -749,6 +748,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._CoordY = Value
+        End Set
+    End Property
+
+    Public Property CrashCounter(uuid As String) As Integer
+        Get
+            If uuid Is Nothing Then Return -1
+            If Bad(uuid) Then Return -1
+            Return RegionList(uuid)._CrashCounter
+        End Get
+        Set(ByVal Value As Integer)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._CrashCounter = Value
         End Set
     End Property
 
@@ -845,19 +857,6 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._SizeY = Value
-        End Set
-    End Property
-
-    Public Property CrashCounter(uuid As String) As Integer
-        Get
-            If uuid Is Nothing Then Return -1
-            If Bad(uuid) Then Return -1
-            Return RegionList(uuid)._CrashCounter
-        End Get
-        Set(ByVal Value As Integer)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._CrashCounter = Value
         End Set
     End Property
 
@@ -1082,19 +1081,6 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property GodDefault(uuid As String) As String
-        Get
-            If uuid Is Nothing Then Return "True"
-            If Bad(uuid) Then Return "True"
-            Return RegionList(uuid)._GodDefault
-        End Get
-        Set(ByVal Value As String)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._GodDefault = Value
-        End Set
-    End Property
-
     Public Property GDPR(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
@@ -1105,6 +1091,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._GDPR = Value
+        End Set
+    End Property
+
+    Public Property GodDefault(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return "True"
+            If Bad(uuid) Then Return "True"
+            Return RegionList(uuid)._GodDefault
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._GodDefault = Value
         End Set
     End Property
 
@@ -1508,7 +1507,7 @@ Public Class RegionMaker
 
             ' Smart Start
             Dim uuid As String = ""
-            Dim pattern As Regex = New Regex("ALT=(.*?)/AGENT=(.*)")
+            Dim pattern As Regex = New Regex("ALT=(.*?)&AGENT=(.*)")
             Dim match As Match = pattern.Match(post)
 
             If match.Success Then
@@ -1668,53 +1667,6 @@ Public Class RegionMaker
 
 #Region "Opensim.ini writers"
 
-    Private Shared Sub SetupOpensimSearchINI()
-
-        'Opensim.Proto RegionSnapShot
-        Settings.SetIni("DataSnapshot", "index_sims", "True")
-        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
-            Settings.SetIni("DataSnapshot", "data_services", "")
-        ElseIf Settings.JOpensimSearch = Hyperica Then
-            Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-        Else
-            Settings.SetIni("DataSnapshot", "data_services", "")
-        End If
-
-        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
-            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface"
-            Settings.SetIni("Search", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"), True)
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modulesdll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modulesdll"), True)
-        ElseIf Settings.JOpensimSearch = Hyperica Then
-            Dim SearchURL = "http://hyperica.com/Search/query.php"
-            Settings.SetIni("Search", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
-        Else
-            Settings.SetIni("Search", "SearchURL", "")
-            Settings.SetIni("LoginService", "SearchURL", "")
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
-        End If
-
-    End Sub
-
-    Private Shared Sub SetupOpensimIM()
-
-        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort
-        If Settings.CMS = JOpensim Then
-            Settings.SetIni("Messaging", "OfflineMessageModule", "OfflineMessageModule")
-            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
-            Settings.SetIni("Messaging", "MuteListURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
-        Else
-            Settings.SetIni("Messaging", "OfflineMessageModule", "Offline Message Module V2")
-            Settings.SetIni("Messaging", "OfflineMessageURL", "")
-            Settings.SetIni("Messaging", "MuteListURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
-        End If
-    End Sub
-
     Public Function CopyOpensimProto(uuid As String) As Boolean
 
         '============== Opensim.ini =====================
@@ -1732,10 +1684,8 @@ Public Class RegionMaker
             Return True
         End If
 
-
         Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
         Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
-
 
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
         Settings.SetIni("Const", "RegionFolderName", GroupName(uuid))
@@ -1977,7 +1927,6 @@ Public Class RegionMaker
         Else
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
         End If
-
 
         ' Autobackup
         Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
@@ -2243,6 +2192,53 @@ Public Class RegionMaker
         Return False
 
     End Function
+
+    Private Shared Sub SetupOpensimIM()
+
+        Dim URL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort
+        If Settings.CMS = JOpensim Then
+            Settings.SetIni("Messaging", "OfflineMessageModule", "OfflineMessageModule")
+            Settings.SetIni("Messaging", "OfflineMessageURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
+            Settings.SetIni("Messaging", "MuteListURL", URL & "/jOpensim/index.php?option=com_opensim&view=interface&messaging=")
+        Else
+            Settings.SetIni("Messaging", "OfflineMessageModule", "Offline Message Module V2")
+            Settings.SetIni("Messaging", "OfflineMessageURL", "")
+            Settings.SetIni("Messaging", "MuteListURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+        End If
+    End Sub
+
+    Private Shared Sub SetupOpensimSearchINI()
+
+        'Opensim.Proto RegionSnapShot
+        Settings.SetIni("DataSnapshot", "index_sims", "True")
+        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
+            Settings.SetIni("DataSnapshot", "data_services", "")
+        ElseIf Settings.JOpensimSearch = Hyperica Then
+            Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
+        Else
+            Settings.SetIni("DataSnapshot", "data_services", "")
+        End If
+
+        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface"
+            Settings.SetIni("Search", "SearchURL", SearchURL)
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"), True)
+            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modulesdll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modulesdll"), True)
+        ElseIf Settings.JOpensimSearch = Hyperica Then
+            Dim SearchURL = "http://hyperica.com/Search/query.php"
+            Settings.SetIni("Search", "SearchURL", SearchURL)
+            Settings.SetIni("LoginService", "SearchURL", SearchURL)
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+        Else
+            Settings.SetIni("Search", "SearchURL", "")
+            Settings.SetIni("LoginService", "SearchURL", "")
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
+            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+        End If
+
+    End Sub
 
     Private Function Bad(uuid As String) As Boolean
 

@@ -8,7 +8,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.81"
+    Public Const _MyVersion As String = "3.82"
     Public Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
@@ -18,44 +18,26 @@ Module GlobalSettings
 
 #Region "Private"
 
-    Private _UpdateView As Boolean = True
-    Private _IsRunning As Boolean
-    Private _PropAborting As Boolean
-    Private _mySetting As New MySettings
-    Private _regionClass As RegionMaker
-    Private _OpensimBackupRunning As Integer
-    Private _SelectedBox As String = ""
-    Private _XYINI As String ' global XY INI
     Dim _Data As IniParser.Model.IniData
+    Private _IsRunning As Boolean
+    Private _mySetting As New MySettings
+    Private _OpensimBackupRunning As Integer
+    Private _PropAborting As Boolean
+    Private _regionClass As RegionMaker
+    Private _SelectedBox As String = ""
+    Private _UpdateView As Boolean = True
+    Private _XYINI As String ' global XY INI
 
 #End Region
 
 #Region "Properties"
 
-    Public Property XYData As IniData
+    Public Property OpensimBackupRunning As Integer
         Get
-            Return _Data
+            Return _OpensimBackupRunning
         End Get
-        Set(value As IniData)
-            _Data = value
-        End Set
-    End Property
-
-    Public Property XYINI As String
-        Get
-            Return _XYINI
-        End Get
-        Set(value As String)
-            _XYINI = value
-        End Set
-    End Property
-
-    Public Property PropSelectedBox As String
-        Get
-            Return _SelectedBox
-        End Get
-        Set(value As String)
-            _SelectedBox = value
+        Set(value As Integer)
+            _OpensimBackupRunning = value
         End Set
     End Property
 
@@ -75,6 +57,12 @@ Module GlobalSettings
 
     End Property
 
+    Public ReadOnly Property PropMyVersion As String
+        Get
+            Return _MyVersion
+        End Get
+    End Property
+
     Public Property PropOpensimIsRunning() As Boolean
         Get
             Return _IsRunning
@@ -84,10 +72,22 @@ Module GlobalSettings
         End Set
     End Property
 
-    Public ReadOnly Property PropMyVersion As String
+    Public Property PropRegionClass As RegionMaker
         Get
-            Return _MyVersion
+            Return _regionClass
         End Get
+        Set(value As RegionMaker)
+            _regionClass = value
+        End Set
+    End Property
+
+    Public Property PropSelectedBox As String
+        Get
+            Return _SelectedBox
+        End Get
+        Set(value As String)
+            _SelectedBox = value
+        End Set
     End Property
 
     Public ReadOnly Property PropSimVersion As String
@@ -96,12 +96,12 @@ Module GlobalSettings
         End Get
     End Property
 
-    Public Property PropRegionClass As RegionMaker
+    Public Property PropUpdateView() As Boolean
         Get
-            Return _regionClass
+            Return _UpdateView
         End Get
-        Set(value As RegionMaker)
-            _regionClass = value
+        Set(ByVal Value As Boolean)
+            _UpdateView = Value
         End Set
     End Property
 
@@ -114,37 +114,27 @@ Module GlobalSettings
         End Set
     End Property
 
-    Public Property OpensimBackupRunning As Integer
+    Public Property XYData As IniData
         Get
-            Return _OpensimBackupRunning
+            Return _Data
         End Get
-        Set(value As Integer)
-            _OpensimBackupRunning = value
+        Set(value As IniData)
+            _Data = value
         End Set
     End Property
 
-    Public Property PropUpdateView() As Boolean
+    Public Property XYINI As String
         Get
-            Return _UpdateView
+            Return _XYINI
         End Get
-        Set(ByVal Value As Boolean)
-            _UpdateView = Value
+        Set(value As String)
+            _XYINI = value
         End Set
     End Property
 
 #End Region
 
 #Region "Subs"
-
-    Public Sub TextPrint(Value As String)
-
-        Log(My.Resources.Info_word, Value)
-        FormSetup.TextBox1.Text += Value & vbCrLf
-        If FormSetup.TextBox1.Text.Length > FormSetup.TextBox1.MaxLength - 1000 Then
-            FormSetup.TextBox1.Text = Mid(FormSetup.TextBox1.Text, 1000)
-        End If
-
-    End Sub
 
     Public Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
@@ -159,20 +149,19 @@ Module GlobalSettings
         End While
     End Sub
 
+    Public Sub TextPrint(Value As String)
+
+        Log(My.Resources.Info_word, Value)
+        FormSetup.TextBox1.Text += Value & vbCrLf
+        If FormSetup.TextBox1.Text.Length > FormSetup.TextBox1.MaxLength - 1000 Then
+            FormSetup.TextBox1.Text = Mid(FormSetup.TextBox1.Text, 1000)
+        End If
+
+    End Sub
+
 #End Region
 
 #Region "Functions"
-
-    Public Function SafeFolderName() As String
-
-        Dim destinationpath As String = IO.Path.Combine(Settings.CurrentDirectory(), "tmp/" & CStr(RandomNumber.Random))
-        If Not System.IO.Directory.Exists(destinationpath) Then
-            System.IO.Directory.CreateDirectory(destinationpath)
-        End If
-
-        Return destinationpath
-
-    End Function
 
     Public Function BackupPath() As String
 
@@ -200,6 +189,23 @@ Module GlobalSettings
 
     End Function
 
+    Public Function RobustName() As String
+
+        Return "Robust " & Settings.PublicIP
+
+    End Function
+
+    Public Function SafeFolderName() As String
+
+        Dim destinationpath As String = IO.Path.Combine(Settings.CurrentDirectory(), "tmp/" & CStr(RandomNumber.Random))
+        If Not System.IO.Directory.Exists(destinationpath) Then
+            System.IO.Directory.CreateDirectory(destinationpath)
+        End If
+
+        Return destinationpath
+
+    End Function
+
     Public Function VarChooser(RegionName As String, Optional modal As Boolean = True, Optional Map As Boolean = True) As String
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
@@ -220,12 +226,6 @@ Module GlobalSettings
         End If
 
         Return PropSelectedBox
-
-    End Function
-
-    Public Function RobustName() As String
-
-        Return "Robust " & Settings.PublicIP
 
     End Function
 

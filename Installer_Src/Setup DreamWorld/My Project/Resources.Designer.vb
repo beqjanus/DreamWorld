@@ -1882,15 +1882,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The system has crashed and must exit.  What happened just before it crashed?.
-        '''</summary>
-        Friend ReadOnly Property Crash_Message() As String
-            Get
-                Return ResourceManager.GetString("Crash_Message", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Create Production Account.
         '''</summary>
         Friend ReadOnly Property Create_Account() As String
@@ -2679,6 +2670,15 @@ Namespace My.Resources
         Friend ReadOnly Property EditRegion() As String
             Get
                 Return ResourceManager.GetString("EditRegion", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Your email address will allow us to contact you in case we need more information..
+        '''</summary>
+        Friend ReadOnly Property Email_Address_words() As String
+            Get
+                Return ResourceManager.GetString("Email_Address_words", resourceCulture)
             End Get
         End Property
         
@@ -6263,6 +6263,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Privacy Policy.
+        '''</summary>
+        Friend ReadOnly Property Privacy_policy() As String
+            Get
+                Return ResourceManager.GetString("Privacy_policy", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Private Port.
         '''</summary>
         Friend ReadOnly Property Private_Port_Word() As String
@@ -6345,6 +6354,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The Appication has quit unexpectedly..
+        '''</summary>
+        Friend ReadOnly Property Quit_Message1() As String
+            Get
+                Return ResourceManager.GetString("Quit_Message1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Quit Now.
         '''</summary>
         Friend ReadOnly Property Quit_Now_Word() As String
@@ -6354,7 +6372,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to quit unexpectedly..
+        '''  Looks up a localized string similar to The system and other applictions have not been affected. A report has been created that you can send to Outworldz, LLC to help identify this problem..
         '''</summary>
         Friend ReadOnly Property Quit_unexpectedly() As String
             Get
@@ -7396,20 +7414,20 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Send and Quit?.
-        '''</summary>
-        Friend ReadOnly Property Send_and_quit_word() As String
-            Get
-                Return ResourceManager.GetString("Send_and_quit_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Send Debug Info To Console.
         '''</summary>
         Friend ReadOnly Property Send_Debug_Info() As String
             Get
                 Return ResourceManager.GetString("Send_Debug_Info", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Send Report.
+        '''</summary>
+        Friend ReadOnly Property Send_report() As String
+            Get
+                Return ResourceManager.GetString("Send_report", resourceCulture)
             End Get
         End Property
         

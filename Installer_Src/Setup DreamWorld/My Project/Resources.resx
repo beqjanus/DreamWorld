@@ -2362,7 +2362,8 @@
     <value>Mesh Cache</value>
   </data>
   <data name="Quit_unexpectedly" xml:space="preserve">
-    <value>quit unexpectedly.</value>
+    <value>The system and other applictions have not been affected. A report has been created that you can send to Outworldz, LLC to help identify this problem.</value>
+    <comment>new</comment>
   </data>
   <data name="Num_Birds" xml:space="preserve">
     <value>The number of birds to flock</value>
@@ -3098,12 +3099,8 @@
   <data name="table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Crash_Message" xml:space="preserve">
-    <value>The system has crashed and must exit.  What happened just before it crashed?</value>
-    <comment>new</comment>
-  </data>
-  <data name="Send_and_quit_word" xml:space="preserve">
-    <value>Send and Quit?</value>
+  <data name="Quit_Message1" xml:space="preserve">
+    <value>The Appication has quit unexpectedly.</value>
     <comment>new</comment>
   </data>
   <data name="DeleteTmp_word" xml:space="preserve">
@@ -3115,5 +3112,14 @@
   </data>
   <data name="cube_green_new" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cube_green_new.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Email_Address_words" xml:space="preserve">
+    <value>Your email address will allow us to contact you in case we need more information.</value>
+  </data>
+  <data name="Privacy_policy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Send_report" xml:space="preserve">
+    <value>Send Report</value>
   </data>
 </root>

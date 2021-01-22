@@ -285,7 +285,7 @@ namespace OpenSim.Services.HypergridService
             {              
                 // http://127.0.0.1:8001/ALT=regionUUID/AGENTID=AgentUUID]  
                 // !!!
-                string url = m_PrivURL + ":" + m_DiagnosticsPort + "/ALT=" + regionID + "/AGENT=" + agentID;
+                string url = m_PrivURL + ":" + m_DiagnosticsPort + "?ALT=" + regionID + "&AGENT=" + agentID;
                 m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
@@ -554,6 +554,10 @@ namespace OpenSim.Services.HypergridService
                 return false;
             }
 
+            
+            destination= GetALTRegion(destination, agentID);      // DreamGrid fkb
+            
+            
             m_log.DebugFormat(
                 "[GATEKEEPER SERVICE]: Destination {0} is ok for {1}", destination.RegionName, aCircuit.Name);
 
