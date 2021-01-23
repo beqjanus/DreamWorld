@@ -102,8 +102,7 @@ Public Class NetServer
             Dim responseString As String = ""
             Using reader As System.IO.StreamReader = New System.IO.StreamReader(body, request.ContentEncoding)
 
-                Dim Uri = request.Url.OriginalString
-                Dim lcUri = LCase(Uri)
+                Dim lcUri = LCase(request.Url.OriginalString)
 
                 If lcUri.Contains("teleports.htm") Then
                     responseString = RegionListHTML(Setting, PropRegionClass1)
@@ -113,8 +112,8 @@ Public Class NetServer
                         Log("POST", POST)
                         responseString = PropRegionClass1.ParsePost(POST, Setting)
                     Else
-                        Log("URI", Uri)
-                        responseString = PropRegionClass1.ParsePost(Uri, Setting)
+                        Log("URI", lcUri)
+                        responseString = PropRegionClass1.ParsePost(lcUri, Setting)
                     End If
 
                 End If

@@ -846,10 +846,10 @@ LandingPointBehavior=LandingPointBehavior_OS
 ;# {OfflineMessageModule} {} {Module to use for offline message storage} {OfflineMessageModule "Offline Message Module V2" *}
 ;; Module to handle offline messaging. The core module requires an external
 ;; web service to do this. See OpenSim wiki.
-;OfflineMessageModule = OfflineMessageModule
+OfflineMessageModule = OfflineMessageModule
 ;
 ;; Or, alternatively, use this one, which works for both standalones and grids
-OfflineMessageModule="Offline Message Module V2"
+;;OfflineMessageModule="Offline Message Module V2"
 
 ;
 ;

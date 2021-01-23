@@ -2361,7 +2361,7 @@
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Mesh Cache</value>
   </data>
-  <data name="Quit_unexpectedly" xml:space="preserve">
+  <data name="Quit_Message0" xml:space="preserve">
     <value>The system and other applictions have not been affected. A report has been created that you can send to Outworldz, LLC to help identify this problem.</value>
     <comment>new</comment>
   </data>
@@ -3121,5 +3121,8 @@
   </data>
   <data name="Send_report" xml:space="preserve">
     <value>Send Report</value>
+  </data>
+  <data name="Quit_unexpectedly" xml:space="preserve">
+    <value>has stopped.</value>
   </data>
 </root>

@@ -6354,6 +6354,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to The system and other applictions have not been affected. A report has been created that you can send to Outworldz, LLC to help identify this problem..
+        '''</summary>
+        Friend ReadOnly Property Quit_Message0() As String
+            Get
+                Return ResourceManager.GetString("Quit_Message0", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to The Appication has quit unexpectedly..
         '''</summary>
         Friend ReadOnly Property Quit_Message1() As String
@@ -6372,7 +6381,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to The system and other applictions have not been affected. A report has been created that you can send to Outworldz, LLC to help identify this problem..
+        '''  Looks up a localized string similar to has stopped..
         '''</summary>
         Friend ReadOnly Property Quit_unexpectedly() As String
             Get

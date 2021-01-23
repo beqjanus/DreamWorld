@@ -75,7 +75,6 @@
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
 
-
         FormSetup.Timer1.Interval = 1000
         FormSetup.Timer1.Start() 'Timer starts functioning
 
@@ -88,7 +87,6 @@
 
         If String.IsNullOrEmpty(RegionUUID) Then
             ErrorLog("Cannot find " & BootName & " to boot!")
-            Logger("Cannot find", BootName, "Restart")
             Return False
         End If
         Logger("Info", "Region: Starting Region " & BootName, "Restart")

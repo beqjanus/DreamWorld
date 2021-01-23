@@ -277,15 +277,15 @@
       <summary>Exports a specified property with the specified configuration.</summary>
       <param name="propertySelector">A function that selects the property to export.</param>
       <param name="exportConfiguration">An action that configures the exported property.</param>
-      <returns>An object that can be used to further configure the part.</returns>
       <exception cref="T:System.ArgumentException">The <paramref name="propertySelector" /> expression must be a <see cref="T:System.Linq.Expressions.MemberExpression" /> for accessing a property.</exception>
+      <returns>An object that can be used to further configure the part.</returns>
     </member>
     <member name="M:System.Composition.Convention.PartConventionBuilder`1.ExportProperty``1(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">
       <summary>Exports a specified property as a specified contract type.</summary>
       <param name="propertySelector">A function that selects the property to export.</param>
       <typeparam name="TContract">The contract type.</typeparam>
-      <returns>An object that can be used to further configure the part.</returns>
       <exception cref="T:System.ArgumentException">The <paramref name="propertySelector" /> expression must be a <see cref="T:System.Linq.Expressions.MemberExpression" /> for accessing a property.</exception>
+      <returns>An object that can be used to further configure the part.</returns>
     </member>
     <member name="M:System.Composition.Convention.PartConventionBuilder`1.ExportProperty``1(System.Linq.Expressions.Expression{System.Func{`0,System.Object}},System.Action{System.Composition.Convention.ExportConventionBuilder})">
       <summary>Exports a specified property as a specified contract type by using the specified configuration.</summary>
@@ -303,8 +303,8 @@
       <summary>Imports a specified property by using the specified configuration.</summary>
       <param name="propertySelector">A function that selects the property to import.</param>
       <param name="importConfiguration">An action that configures the imported property.</param>
-      <returns>An object that can be used to further configure the part.</returns>
       <exception cref="T:System.ArgumentException">The <paramref name="propertySelector" /> expression must be a <see cref="T:System.Linq.Expressions.MemberExpression" /> for accessing a property.</exception>
+      <returns>An object that can be used to further configure the part.</returns>
     </member>
     <member name="M:System.Composition.Convention.PartConventionBuilder`1.ImportProperty``1(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">
       <summary>Imports a specified property with the specified contract type.</summary>
@@ -317,20 +317,20 @@
       <param name="propertySelector">A function that selects the property to import.</param>
       <param name="importConfiguration">An action that configures the imported property.</param>
       <typeparam name="TContract">The contract type.</typeparam>
-      <returns>An object that can be used to further configure the part.</returns>
       <exception cref="T:System.ArgumentException">The <paramref name="propertySelector" /> expression must be a <see cref="T:System.Linq.Expressions.MemberExpression" /> for accessing a property.</exception>
+      <returns>An object that can be used to further configure the part.</returns>
     </member>
     <member name="M:System.Composition.Convention.PartConventionBuilder`1.NotifyImportsSatisfied(System.Linq.Expressions.Expression{System.Action{`0}})">
       <summary>Selects a method to be called when composition is complete.</summary>
       <param name="methodSelector">An action that selects the method to call.</param>
-      <returns>An object that can be used to further configure the part.</returns>
       <exception cref="T:System.ArgumentException">The <paramref name="methodSelector" /> expression must be a <see langword="void" /> method with no arguments.</exception>
+      <returns>An object that can be used to further configure the part.</returns>
     </member>
     <member name="M:System.Composition.Convention.PartConventionBuilder`1.SelectConstructor(System.Linq.Expressions.Expression{System.Func{System.Composition.Convention.ParameterImportConventionBuilder,`0}})">
       <summary>Selects a constructor to be used in composition.</summary>
       <param name="constructorSelector">A function that selects a constructor.</param>
-      <returns>An object that can be used to further configure the part.</returns>
       <exception cref="T:System.ArgumentException">The <paramref name="constructorSelector" /> expression must use the <see langword="new" /> operator.</exception>
+      <returns>An object that can be used to further configure the part.</returns>
     </member>
   </members>
 </doc>

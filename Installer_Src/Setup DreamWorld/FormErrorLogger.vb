@@ -32,7 +32,7 @@
 
         QuitButton.Text = My.Resources.Cancel_word
         SendButton.Text = My.Resources.Send_report '
-        TextBox2.Text = My.Resources.Quit_unexpectedly
+        TextBox2.Text = My.Resources.Quit_Message0
         Label1.Text = My.Resources.Quit_Message1
         PrivacyButton.Text = My.Resources.Privacy_policy
 

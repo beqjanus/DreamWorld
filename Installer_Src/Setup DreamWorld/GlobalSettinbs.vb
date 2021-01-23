@@ -1,3 +1,0 @@
-﻿Module GlobalSettinbs
-
-End Module
