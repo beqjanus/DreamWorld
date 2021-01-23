@@ -7,3 +7,5 @@ Upon completion of setup, the program displays a Start button which boots up MyS
 A third click will close everything down.
 
 Download binaries and much help at http://www.outworldz.com/Outworldz_installer/
+
+This project follows the Microsoft Code of Conduct at https://opensource.microsoft.com/codeofconduct/
