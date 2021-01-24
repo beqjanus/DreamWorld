@@ -1424,7 +1424,10 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub KOT_CheckedChanged(sender As Object, e As EventArgs) Handles KOT.CheckedChanged
+
         Me.TopMost = KOT.Checked
+        Settings.KeepOnTop = KOT.Checked
+
     End Sub
 
 #End Region

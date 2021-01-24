@@ -1528,6 +1528,9 @@ Public Class FormSetup
         Settings.CurrentDirectory = _myFolder
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
 
+        KOT.Checked = Settings.KeepOnTopMain
+        Me.TopMost = KOT.Checked
+
         CopyWifi()
 
         Log("Startup:", DisplayObjectInfo(Me))
@@ -3459,6 +3462,13 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
+
+    End Sub
+
+    Private Sub KOT_CheckedChanged(sender As Object, e As EventArgs) Handles KOT.CheckedChanged
+
+        Me.TopMost = KOT.Checked
+        Settings.KeepOnTopMain = KOT.Checked
 
     End Sub
 
