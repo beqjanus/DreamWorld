@@ -51,14 +51,22 @@ Public Class ScreenPos
         If File.Exists(XYINI) Then
             LoadXYIni()
         Else
-            Dim contents = "[Data]" + vbCrLf
-            Try
-                Using outputFile As New StreamWriter(XYINI, True)
-                    outputFile.WriteLine(contents)
-                End Using
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
+            Dim Retry = 100
+            While Retry > 0
+                Dim contents = "[Data]" + vbCrLf
+                Try
+                    Using outputFile As New StreamWriter(XYINI, True)
+                        outputFile.WriteLine(contents)
+                        Retry = 0
+                    End Using
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                    Sleep(100)
+                    Retry -= 1
+                End Try
+
+            End While
+
             LoadXYIni()
 
         End If
@@ -87,7 +95,7 @@ Public Class ScreenPos
 
     Public Sub SaveFormSettings()
 
-        Dim Retry As Integer = 10
+        Dim Retry As Integer = 100
         While Retry > 0
             Try
                 parser.WriteFile(XYINI, XYData, System.Text.Encoding.UTF8)

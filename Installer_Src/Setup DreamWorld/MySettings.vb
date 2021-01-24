@@ -218,7 +218,7 @@ Public Class MySettings
 
     End Sub
 
-    ''' <summary>writes to the ini the name value pair.</summary>
+    ''' <summary>Save to the ini the name value pair.</summary>
     ''' <param name="section"></param>
     ''' <param name="key"></param>
     ''' <param name="value"></param>
@@ -763,24 +763,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property CPUMAX As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
@@ -1093,10 +1075,19 @@ Public Class MySettings
 
     Public Property KeepOnTop() As Boolean
         Get
-            Return CType(GetMySetting("BacKeepOnTopkupOARs", "False"), Boolean)
+            Return CType(GetMySetting("KeepOnTopRegionList", "False"), Boolean)
         End Get
         Set
-            SetMySetting("KeepOnTop", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("KeepOnTopRegionList", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property KeepOnTopMain() As Boolean
+        Get
+            Return CType(GetMySetting("KeepOnTopMain", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("KeepOnTopMain", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1328,8 +1319,6 @@ Public Class MySettings
             SetMySetting("PrivatePort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
-
-#Disable Warning CA1056 ' Uri properties should not be strings
 
     Public Property PrivateURL() As String
 #Enable Warning CA1056 ' Uri properties should not be strings
@@ -1900,6 +1889,25 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+#Disable Warning CA1056 ' Uri properties should not be strings
 #Disable Warning CA1056 ' Uri properties should not be strings
 #Disable Warning CA1056 ' Uri properties should not be strings
 
@@ -1929,16 +1937,15 @@ Public Class MySettings
         End Using
 
         Dim f = System.IO.Path.GetFileName(INI)
-        Dim ctr = 10
-        While ctr > 0
+        Dim Retry = 10
+        While Retry > 0
             FileStuff.DeleteFile(INI)
             Try
                 My.Computer.FileSystem.RenameFile(INI & ".bak", f)
-                ctr = 0
+                Retry = 0
             Catch
-                ctr -= 1
+                Retry -= 1
             End Try
-
         End While
 
     End Sub
