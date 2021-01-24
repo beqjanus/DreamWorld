@@ -26,6 +26,8 @@ if (! $v)
 	exit;
 }
 
+use File::Copy::Recursive qw(dircopy);
+	
 
 my $type  = '-V' . $v; 
 use Cwd;
@@ -151,6 +153,9 @@ if ($publish eq 'c' ) {
 
 
 if ($publish eq 'p' ) {
+
+	#say('Copy Manuals');
+	#if (!dircopy ($dir . '/OutworldzFiles/Help/', "Y:/Inetpub/Secondlife/Outworldz_Installer/Help"))  {die $!;}
 		
 	my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
 	sign($exes);
@@ -245,7 +250,6 @@ if ($publish eq 'p' ) {
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;
 	
-	#!!!!!!!!!!!!!if (!copy ('outworldzfiles\\Help\\Revisions.rtf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.rtf'))  {die $!;}
 	
 	if (!copy ('Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
 	
@@ -264,11 +268,15 @@ if ($publish eq 'p' ) {
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "G:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
+		
+	
 	
 	print "Revisions\n";
 	
 	if (!copy ('outworldzfiles\\Help\\Dreamgrid Manual.pdf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))  {die $!;}
 	$v > io("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
+	
+	
 	
 }
 
