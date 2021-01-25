@@ -1919,9 +1919,7 @@ Public Class MySettings
         End Set
     End Property
 
-#Disable Warning CA1056 ' Uri properties should not be strings
-#Disable Warning CA1056 ' Uri properties should not be strings
-#Disable Warning CA1056 ' Uri properties should not be strings
+
 
 #End Region
 

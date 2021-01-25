@@ -82,8 +82,6 @@ Public Class FormSetup
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private ScreenPosition As ScreenPos
 
-#Disable Warning CA2213 ' Disposable fields should be disposed
-#Enable Warning CA2213 ' Disposable fields should be disposed
 
 #End Region
 
