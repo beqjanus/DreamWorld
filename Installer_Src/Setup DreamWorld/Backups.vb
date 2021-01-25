@@ -204,60 +204,86 @@ Public Class Backups
 
     Private Sub FullBackupThread()
 
-        Try
-            Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-            Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
-            FileStuff.DeleteFile(Bak)
 
-            Using Z As ZipFile = New ZipFile(Bak)
+        Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
+        Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
+        FileStuff.DeleteFile(Bak)
 
-                Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
-                Try
+        Using Z As ZipFile = New ZipFile(Bak)
+            Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
 
-                    If Settings.BackupWifi Then
-                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
-                        Z.Save()
+            Try
+                If Settings.BackupWifi Then
+                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
+                    Z.Save()
+                End If
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+
+            Try
+                If Settings.BackupRegion Then
+                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
+                    Z.Save()
+                End If
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+
+            Try
+                If Settings.BackupMysql Then
+                    FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"),
+                                        IO.Path.Combine(_folder, "MySQLData"))
+
+                    Z.AddDirectory(IO.Path.Combine(_folder, "MySQLData"))
+                    Z.Save()
+                    Sleep(5000)
+                    FileStuff.DeleteDirectory(IO.Path.Combine(_folder, "MySQLData"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+                End If
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+
+            Try
+                If Settings.BackupFSAssets Then
+                    Dim f As String
+                    If Settings.BaseDirectory = "./fsassets" Then
+                        f = Settings.OpensimBinPath & "\FSAssets"
+                    Else
+                        f = Settings.BaseDirectory
                     End If
 
-                    If Settings.BackupRegion Then
-                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
-                        Z.Save()
-                    End If
+                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
+                    Z.Save()
+                End If
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
 
-                    If Settings.BackupMysql Then
-                        FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"),
-                                             IO.Path.Combine(_folder, "MySQLData"))
+            Try
+                If Settings.BackupSQL Then
+                    Dim A As New Backups
+                    A.BackupSQLDB(Settings.RegionDBName)
+                    Dim B As New Backups
+                    B.BackupSQLDB(Settings.RobustDataBaseName)
+                End If
 
-                        Z.AddDirectory(IO.Path.Combine(_folder, "MySQLData"))
-                        Z.Save()
-                        Sleep(5000)
-                        FileStuff.DeleteDirectory(IO.Path.Combine(_folder, "MySQLData"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
 
-                    End If
-
-                    If Settings.BackupFSAssets Then
-                        Dim f As String
-                        If Settings.BaseDirectory = "./fsassets" Then
-                            f = Settings.OpensimBinPath & "\FSAssets"
-                        Else
-                            f = Settings.BaseDirectory
-                        End If
-
-                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
-                        Z.Save()
-                    End If
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
+            Try
                 Z.Save()
                 Sleep(5000)
                 FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
                 Sleep(5000)
                 FileStuff.DeleteFolder(_folder)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+
+        End Using
+
 
     End Sub
 
