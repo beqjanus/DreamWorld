@@ -21,7 +21,7 @@ Module GlobalSettings
     Dim _Data As IniParser.Model.IniData
     Private _IsRunning As Boolean
     Private _mySetting As New MySettings
-    Private _OpensimBackupRunning As Integer
+
     Private _PropAborting As Boolean
     Private _regionClass As RegionMaker
     Private _SelectedBox As String = ""
@@ -31,15 +31,6 @@ Module GlobalSettings
 #End Region
 
 #Region "Properties"
-
-    Public Property OpensimBackupRunning As Integer
-        Get
-            Return _OpensimBackupRunning
-        End Get
-        Set(value As Integer)
-            _OpensimBackupRunning = value
-        End Set
-    End Property
 
     Public Property PropAborting() As Boolean
         Get

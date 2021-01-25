@@ -1484,13 +1484,6 @@ Public Class FormSetup
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
-        If OpensimBackupRunning() > 0 Then
-            Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
-            If info = vbNo Then
-                e.Cancel = True
-                Return
-            End If
-        End If
         ReallyQuit()
 
     End Sub
@@ -2906,19 +2899,6 @@ Public Class FormSetup
 
 #Region "Timer"
 
-    Private Sub CheckOnBackupsAndPrint()
-
-        If OpensimBackupRunning() > 0 And Not BackupsRunning Then
-            BackupsRunning = True
-        ElseIf BackupsRunning And (OpensimBackupRunning = 0) Then
-            BackupsRunning = False
-            Dim currentdatetime As Date
-            currentdatetime = Date.Now
-            TextPrint(currentdatetime.ToLocalTime & " Backup Finished")
-        End If
-
-    End Sub
-
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
@@ -2934,7 +2914,7 @@ Public Class FormSetup
 
         TimerBusy += 1
         Chart() ' do charts collection each second
-        CheckOnBackupsAndPrint()
+
         Application.DoEvents()
 
         If Not PropOpensimIsRunning() Then
@@ -3243,12 +3223,6 @@ Public Class FormSetup
     ''' <summary>The main startup - done this way so languages can reload the entire form</summary>
     Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
 
-        If OpensimBackupRunning() > 0 Then
-            Dim info = MsgBox("Backups are running. They will stop running.  Do you want to Quit?", vbYesNo)
-            If info = vbNo Then
-                Return
-            End If
-        End If
         TextPrint("Zzzz...")
         Thread.Sleep(100)
         End
