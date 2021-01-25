@@ -231,7 +231,7 @@ Public Class Backups
                         Z.AddDirectory(IO.Path.Combine(_folder, "MySQLData"))
                         Z.Save()
                         Sleep(5000)
-                        FileStuff.DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+                        FileStuff.DeleteDirectory(IO.Path.Combine(_folder, "MySQLData"), FileIO.DeleteDirectoryOption.DeleteAllContents)
 
                     End If
 
