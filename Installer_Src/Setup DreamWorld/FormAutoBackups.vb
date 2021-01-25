@@ -228,7 +228,6 @@ Public Class FormAutoBackups
 
         Dim A As New Backups
         A.BackupSQLDB(Settings.RegionDBName)
-        Sleep(10000)
         Dim B As New Backups
         B.BackupSQLDB(Settings.RobustDataBaseName)
 

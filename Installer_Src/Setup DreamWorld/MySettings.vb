@@ -425,7 +425,7 @@ Public Class MySettings
 
     Public Property BackupFSAssets() As Boolean
         Get
-            Return CType(GetMySetting("BackupFSAssets", "True"), Boolean)
+            Return CType(GetMySetting("BackupFSAssets", "False"), Boolean)
         End Get
         Set
             SetMySetting("BackupFSAssets", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
@@ -440,6 +440,16 @@ Public Class MySettings
             SetMySetting("BackupMysql", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
+
+    Public Property BackupSQL() As Boolean
+        Get
+            Return CType(GetMySetting("BackupSQL", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupSQL", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
 
     Public Property BackupOARs() As Boolean
         Get

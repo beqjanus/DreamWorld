@@ -89,6 +89,8 @@ Public Class FormBackupCheckboxes
         CustomCheckBox.Checked = Settings.BackupWifi
         BackupOarsCheckBox.Checked = Settings.BackupOARs
 
+        BackupSQlCheckBox.Checked = Settings.BackupSQL
+
         initted = True
 
     End Sub
@@ -178,6 +180,14 @@ Public Class FormBackupCheckboxes
 
         If Not initted Then Return
         Settings.BackupOARs = BackupOarsCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub BackupSQlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BackupSQlCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupSQL = BackupSQlCheckBox.Checked
         Settings.SaveSettings()
 
     End Sub
