@@ -63,57 +63,59 @@ Public Class Backups
     Public Sub RunSQLBackup(OP As Object)
 
         If OP Is Nothing Then Return
+        OpensimBackupRunning += 1
 
-        Dim Name As String = OP.ToString
+        Try
+            Dim Name As String = OP.ToString
 
-        Dim currentdatetime As Date = Date.Now()
-        Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
+            Dim currentdatetime As Date = Date.Now()
+            Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
 
-        Dim _filename = Name & "_" & whenrun & ".sql"
-        Dim SQLFile = IO.Path.Combine(_folder, _filename)
+            Dim _filename = Name & "_" & whenrun & ".sql"
+            Dim SQLFile = IO.Path.Combine(_folder, _filename)
 
-        ' we must write this to the file so it knows what database to use.
-        Using outputFile As New StreamWriter(SQLFile)
-            outputFile.Write("use " & Name & ";" + vbCrLf)
-        End Using
+            ' we must write this to the file so it knows what database to use.
+            Using outputFile As New StreamWriter(SQLFile)
+                outputFile.Write("use " & Name & ";" + vbCrLf)
+            End Using
 
-        Dim ProcessSqlDump As Process = New Process With {
+            Dim ProcessSqlDump As Process = New Process With {
             .EnableRaisingEvents = True
         }
 
-        Dim port As String
-        Dim host As String
-        Dim password As String
-        Dim user As String
-        Dim dbname As String
-        If OP = Settings.RobustDataBaseName Then
-            port = CStr(Settings.MySqlRobustDBPort)
-            host = Settings.RobustServer
-            user = Settings.RobustUsername
-            password = Settings.RobustPassword
-            dbname = Settings.RobustDataBaseName
-        Else
-            port = CStr(Settings.MySqlRegionDBPort)
-            host = Settings.RegionServer
-            user = Settings.RegionDBUsername
-            password = Settings.RegionDbPassword
-            dbname = Settings.RegionDBName
-        End If
+            Dim port As String
+            Dim host As String
+            Dim password As String
+            Dim user As String
+            Dim dbname As String
+            If OP = Settings.RobustDataBaseName Then
+                port = CStr(Settings.MySqlRobustDBPort)
+                host = Settings.RobustServer
+                user = Settings.RobustUsername
+                password = Settings.RobustPassword
+                dbname = Settings.RobustDataBaseName
+            Else
+                port = CStr(Settings.MySqlRegionDBPort)
+                host = Settings.RegionServer
+                user = Settings.RegionDBUsername
+                password = Settings.RegionDbPassword
+                dbname = Settings.RegionDBName
+            End If
 
-        Dim options = " --host=" & host & " --port=" & port _
+            Dim options = " --host=" & host & " --port=" & port _
         & " --opt --hex-blob --add-drop-table --allow-keywords  " _
         & " -u" & user _
         & " -p" & password _
         & " --verbose --log-error=Mysqldump.log " _
         & " --result-file=" & """" & SQLFile & """" _
         & " " & dbname
-        Debug.Print(options)
-        '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
-        ' --verbose --log-error=Mysqldump.log
-        ' --result-file="C:\Opensim\Outworldz_Dreamgrid\OutworldzFiles\AutoBackup\tmp\opensim_2020-12-09_00_25_24.sql"
-        ' opensim
+            Debug.Print(options)
+            '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
+            ' --verbose --log-error=Mysqldump.log
+            ' --result-file="C:\Opensim\Outworldz_Dreamgrid\OutworldzFiles\AutoBackup\tmp\opensim_2020-12-09_00_25_24.sql"
+            ' opensim
 
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = options,
             .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqldump.exe") & """",
             .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"),
@@ -123,28 +125,30 @@ Public Class Backups
             .CreateNoWindow = True
             }
 
-        ProcessSqlDump.StartInfo = pi
-        Try
-            ProcessSqlDump.Start()
-            OpensimBackupRunning += 1
+            ProcessSqlDump.StartInfo = pi
+            Try
+                ProcessSqlDump.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                Return
+            End Try
+
+            ProcessSqlDump.WaitForExit()
+
+            Dim Bak = IO.Path.Combine(BackupPath, _filename & ".zip")
+            FileStuff.DeleteFile(Bak)
+
+            Using Zip As ZipFile = New ZipFile(Bak)
+                Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
+                Zip.AddFile(SQLFile)
+                Zip.Save()
+            End Using
+
+            Sleep(5000)
+            FileStuff.DeleteFile(SQLFile)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Return
         End Try
-
-        ProcessSqlDump.WaitForExit()
-
-        Dim Bak = IO.Path.Combine(BackupPath, _filename & ".zip")
-        FileStuff.DeleteFile(Bak)
-
-        Using Zip As ZipFile = New ZipFile(Bak)
-            Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
-            Zip.AddFile(SQLFile)
-            Zip.Save()
-        End Using
-
-        Sleep(5000)
-        FileStuff.DeleteFile(SQLFile)
 
         OpensimBackupRunning -= 1
 
@@ -221,41 +225,45 @@ Public Class Backups
 
     Private Sub FullBackupThread()
 
-        Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-        Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
-        FileStuff.DeleteFile(Bak)
+        Try
+            Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
+            Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
+            FileStuff.DeleteFile(Bak)
 
-        Using Z As ZipFile = New ZipFile(Bak)
-            Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
-            Try
-                If Settings.BackupRegion Then
-                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
-                End If
-
-                If Settings.BackupMysql Then
-                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), "Data")
-                End If
-
-                If Settings.BackupFSAssets Then
-                    Dim f As String
-                    If Settings.BaseDirectory = "./fsassets" Then
-                        f = Settings.OpensimBinPath & "\FSAssets"
-                    Else
-                        f = Settings.BaseDirectory
+            Using Z As ZipFile = New ZipFile(Bak)
+                Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
+                Try
+                    If Settings.BackupRegion Then
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
                     End If
 
-                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
-                End If
+                    If Settings.BackupMysql Then
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), "Data")
+                    End If
 
-                If Settings.BackupWifi Then
-                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            Finally
-                Z.Save()
-            End Try
-        End Using
+                    If Settings.BackupFSAssets Then
+                        Dim f As String
+                        If Settings.BaseDirectory = "./fsassets" Then
+                            f = Settings.OpensimBinPath & "\FSAssets"
+                        Else
+                            f = Settings.BaseDirectory
+                        End If
+
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
+                    End If
+
+                    If Settings.BackupWifi Then
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
+                    End If
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                Finally
+                    Z.Save()
+                End Try
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
     End Sub
 

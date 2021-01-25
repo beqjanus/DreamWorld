@@ -154,6 +154,7 @@ Public Class FormDisplacement
 
     Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
 
+        If sender Is Nothing Then Return
         PropForceParcel = False
         LoadParcelToolStripMenuItem.Checked = False
         IgnoreParcelToolStripMenuItem.Checked = True
@@ -162,6 +163,7 @@ Public Class FormDisplacement
 
     Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
 
+        If sender Is Nothing Then Return
         PropForceParcel = True
         LoadParcelToolStripMenuItem.Checked = True
         IgnoreParcelToolStripMenuItem.Checked = False
@@ -170,6 +172,7 @@ Public Class FormDisplacement
 
     Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
 
+        If sender Is Nothing Then Return
         PropForceMerge = True
         MergeOARToolStripMenuItem.Checked = True
         ClearOARToolStripMenuItem.Checked = False
@@ -178,6 +181,7 @@ Public Class FormDisplacement
 
     Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
 
+        If sender Is Nothing Then Return
         PropForceTerrain = False
         ForceTerrainToolStripMenuItem.Checked = False
         OriginalTererainToolStripMenuItem.Checked = True
@@ -186,6 +190,7 @@ Public Class FormDisplacement
 
     Private Sub PictureBox_Click(sender As Object, e As EventArgs)
 
+        If sender Is Nothing Then Return
         Dim tag As String = sender.Tag.ToString
         PropSelectedBox = " --displacement " & tag & " "
         Me.Close()
@@ -265,6 +270,10 @@ Public Class FormDisplacement
             Next
             OffsetY += 256
         Next
+
+    End Sub
+
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
 
     End Sub
 
