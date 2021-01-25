@@ -206,18 +206,33 @@ Public Class Backups
 
         Try
             Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-            Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
+            Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
             FileStuff.DeleteFile(Bak)
 
             Using Z As ZipFile = New ZipFile(Bak)
+
                 Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
                 Try
+
+                    If Settings.BackupWifi Then
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
+                        Z.Save()
+                    End If
+
                     If Settings.BackupRegion Then
                         Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
+                        Z.Save()
                     End If
 
                     If Settings.BackupMysql Then
-                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), "Data")
+                        FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"),
+                                             IO.Path.Combine(_folder, "MySQLData"))
+
+                        Z.AddDirectory(IO.Path.Combine(_folder, "MySQLData"))
+                        Z.Save()
+                        Sleep(5000)
+                        FileStuff.DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+
                     End If
 
                     If Settings.BackupFSAssets Then
@@ -229,22 +244,19 @@ Public Class Backups
                         End If
 
                         Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
-                    End If
-
-                    If Settings.BackupWifi Then
-                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
+                        Z.Save()
                     End If
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
-                Finally
-                    Z.Save()
-                    Sleep(5000)
-                    FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
-                    Sleep(5000)
-                    FileStuff.DeleteFolder(_folder)
                 End Try
+                Z.Save()
+                Sleep(5000)
+                FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+                Sleep(5000)
+                FileStuff.DeleteFolder(_folder)
             End Using
-        Catch
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub
