@@ -121,7 +121,7 @@ Public Class Backups
                 Zip.AddFile(SQLFile)
                 Zip.Save()
             End Using
-            Sleep(5000)
+            Sleep(10000)
             FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
             Sleep(5000)
             FileStuff.DeleteFile(SQLFile)
