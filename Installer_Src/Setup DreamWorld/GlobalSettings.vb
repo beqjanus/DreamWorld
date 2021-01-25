@@ -8,7 +8,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.82"
+    Public Const _MyVersion As String = "3.83"
     Public Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
@@ -21,7 +21,7 @@ Module GlobalSettings
     Dim _Data As IniParser.Model.IniData
     Private _IsRunning As Boolean
     Private _mySetting As New MySettings
-    Private _OpensimBackupRunning As Integer
+
     Private _PropAborting As Boolean
     Private _regionClass As RegionMaker
     Private _SelectedBox As String = ""
@@ -31,15 +31,6 @@ Module GlobalSettings
 #End Region
 
 #Region "Properties"
-
-    Public Property OpensimBackupRunning As Integer
-        Get
-            Return _OpensimBackupRunning
-        End Get
-        Set(value As Integer)
-            _OpensimBackupRunning = value
-        End Set
-    End Property
 
     Public Property PropAborting() As Boolean
         Get

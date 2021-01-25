@@ -119,8 +119,6 @@ unlink "$dir/OutworldzFiles/Error.log" ;
 unlink "../Zips/DreamGrid$type.zip" ;
 unlink "../Zips/Outworldz-Update$type.zip" ;
 
-DeleteandKeep("$dir/OutworldzFiles/AutoBackup/MySQL");
-
 
 say "DLL List Build";
 use File::Find;
@@ -153,6 +151,7 @@ if ($publish eq 'c' ) {
 
 
 if ($publish eq 'p' ) {
+
 
 	#say('Copy Manuals');
 	#if (!dircopy ($dir . '/OutworldzFiles/Help/', "Y:/Inetpub/Secondlife/Outworldz_Installer/Help"))  {die $!;}

@@ -58,6 +58,87 @@ Public Class FormBackupCheckboxes
 
 #Region "Private Methods"
 
+    Private Shared Sub CpyFile(From As String, Dest As String)
+
+        If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
+        If From.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
+
+        'Create the file stream for the source file
+        Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
+        'Create the file stream for the destination file
+        Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
+        'Determine the size in bytes of the source file (-1 as our position starts at 0)
+        Dim lngLen As Long = streamRead.Length - 1
+        Dim byteBuffer(1048576) As Byte   'our stream buffer
+        Dim intBytesRead As Integer    'number of bytes read
+
+        While streamRead.Position < lngLen    'keep streaming until EOF
+            'Read from the Source
+            intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
+            'Write to the Target
+            streamWrite.Write(byteBuffer, 0, intBytesRead)
+            Application.DoEvents()    'do it
+        End While
+
+        'Clean up
+        streamWrite.Flush()
+        streamWrite.Close()
+        streamRead.Close()
+
+    End Sub
+
+    Private Sub BackupSQlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BackupSQlCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupSQL = BackupSQlCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Button1.Text = My.Resources.Running_word
+        Dim b As New Backups()
+        b.RunAllBackups(True)
+        Application.DoEvents()
+        Threading.Thread.Sleep(2000)
+        Me.Close()
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles BackupOarsCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupOARs = BackupOarsCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub CustomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CustomCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupWifi = CustomCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub FSAssetsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles FSAssetsCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupFSAssets = FSAssetsCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+
+        HelpManual("Backup Manually")
+
+    End Sub
+
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         Button1.Text = Global.Outworldz.My.Resources.Backup_word
@@ -95,52 +176,11 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Shared Sub CpyFile(From As String, Dest As String)
+    Private Sub MySqlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles MySqlCheckBox.CheckedChanged
 
-        If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
-
-        'Create the file stream for the source file
-        Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
-        'Create the file stream for the destination file
-        Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
-        'Determine the size in bytes of the source file (-1 as our position starts at 0)
-        Dim lngLen As Long = streamRead.Length - 1
-        Dim byteBuffer(1048576) As Byte   'our stream buffer
-        Dim intBytesRead As Integer    'number of bytes read
-
-        While streamRead.Position < lngLen    'keep streaming until EOF
-            'Read from the Source
-            intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
-            'Write to the Target
-            streamWrite.Write(byteBuffer, 0, intBytesRead)
-            Application.DoEvents()    'do it
-        End While
-
-        'Clean up
-        streamWrite.Flush()
-        streamWrite.Close()
-        streamRead.Close()
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        Button1.Text = My.Resources.Running_word
-        Dim b As New Backups()
-        b.RunAllBackups(True)
-        Application.DoEvents()
-        Threading.Thread.Sleep(2000)
-        Me.Close()
-
-    End Sub
-
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-
-        HelpManual("Backup Manually")
+        If Not initted Then Return
+        Settings.BackupMysql = MySqlCheckBox.Checked
+        Settings.SaveSettings()
 
     End Sub
 
@@ -148,46 +188,6 @@ Public Class FormBackupCheckboxes
 
         If Not initted Then Return
         Settings.BackupRegion = RegionCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub MySqlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles MySqlCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.BackupMysql = RegionCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub FSAssetsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles FSAssetsCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.BackupFSAssets = FSAssetsCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub CustomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CustomCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.BackupWifi = CustomCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles BackupOarsCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.BackupOARs = BackupOarsCheckBox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
-    Private Sub BackupSQlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BackupSQlCheckBox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.BackupSQL = BackupSQlCheckBox.Checked
         Settings.SaveSettings()
 
     End Sub

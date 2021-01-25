@@ -172,11 +172,14 @@ Partial Class FormSetup
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.KOT = New System.Windows.Forms.CheckBox()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         Me.SuspendLayout()
         '
         'FileToolStripMenuItem
@@ -830,7 +833,7 @@ Partial Class FormSetup
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(704, 26)
+        Me.MenuStrip1.Size = New System.Drawing.Size(640, 26)
         Me.MenuStrip1.TabIndex = 21
         '
         'MnuContent
@@ -1113,7 +1116,7 @@ Partial Class FormSetup
         Me.TextBox1.MaxLength = 15000
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(320, 338)
+        Me.TextBox1.Size = New System.Drawing.Size(320, 318)
         Me.TextBox1.TabIndex = 29
         Me.TextBox1.Text = ""
         '
@@ -1174,38 +1177,43 @@ Partial Class FormSetup
         'ChartWrapper2
         '
         Me.ChartWrapper2.AddMarkers = True
-        Me.ChartWrapper2.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.ChartWrapper2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChartWrapper2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
         Me.ChartWrapper2.AxisYTitle = "% Memory"
         Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(7, 210)
+        Me.ChartWrapper2.Location = New System.Drawing.Point(0, 6)
         Me.ChartWrapper2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ChartWrapper2.MarkerCount = 15
         Me.ChartWrapper2.MarkerFreq = 0
         Me.ChartWrapper2.MarkerSize = 8
         Me.ChartWrapper2.Name = "ChartWrapper2"
         Me.ChartWrapper2.SideLegendVisible = True
-        Me.ChartWrapper2.Size = New System.Drawing.Size(317, 187)
+        Me.ChartWrapper2.Size = New System.Drawing.Size(298, 162)
         Me.ChartWrapper2.TabIndex = 33
         Me.ChartWrapper2.Title = ""
         '
         'ChartWrapper1
         '
         Me.ChartWrapper1.AddMarkers = True
-        Me.ChartWrapper1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.ChartWrapper1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ChartWrapper1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
         Me.ChartWrapper1.AxisYTitle = "% CPU"
         Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
         Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(7, 20)
+        Me.ChartWrapper1.Location = New System.Drawing.Point(0, 5)
         Me.ChartWrapper1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
         Me.ChartWrapper1.MarkerSize = 8
         Me.ChartWrapper1.Name = "ChartWrapper1"
         Me.ChartWrapper1.SideLegendVisible = True
-        Me.ChartWrapper1.Size = New System.Drawing.Size(317, 170)
+        Me.ChartWrapper1.Size = New System.Drawing.Size(298, 162)
         Me.ChartWrapper1.TabIndex = 31
         Me.ChartWrapper1.Title = ""
         '
@@ -1216,40 +1224,48 @@ Partial Class FormSetup
         Me.Panel1.Controls.Add(Me.TextBox1)
         Me.Panel1.Location = New System.Drawing.Point(12, 68)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(320, 341)
+        Me.Panel1.Size = New System.Drawing.Size(320, 322)
         Me.Panel1.TabIndex = 54
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.AutoSize = True
-        Me.GroupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.GroupBox1.Controls.Add(Me.ChartWrapper1)
-        Me.GroupBox1.Controls.Add(Me.ChartWrapper2)
-        Me.GroupBox1.Location = New System.Drawing.Point(353, 26)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(340, 418)
-        Me.GroupBox1.TabIndex = 55
-        Me.GroupBox1.TabStop = False
         '
         'KOT
         '
         Me.KOT.AutoSize = True
-        Me.KOT.Location = New System.Drawing.Point(587, 4)
-        Me.KOT.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.KOT.Location = New System.Drawing.Point(520, 9)
+        Me.KOT.Margin = New System.Windows.Forms.Padding(2)
         Me.KOT.Name = "KOT"
         Me.KOT.Size = New System.Drawing.Size(90, 17)
         Me.KOT.TabIndex = 18608
         Me.KOT.Text = "Keep On Top"
         Me.KOT.UseVisualStyleBackColor = True
         '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.Location = New System.Drawing.Point(338, 36)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.ChartWrapper1)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.ChartWrapper2)
+        Me.SplitContainer1.Size = New System.Drawing.Size(302, 354)
+        Me.SplitContainer1.SplitterDistance = 177
+        Me.SplitContainer1.TabIndex = 18609
+        '
         'FormSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(704, 421)
+        Me.ClientSize = New System.Drawing.Size(640, 402)
+        Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.KOT)
-        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.BusyButton)
         Me.Controls.Add(Me.AvatarLabel)
@@ -1261,14 +1277,17 @@ Partial Class FormSetup
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(359, 123)
+        Me.MinimumSize = New System.Drawing.Size(358, 121)
         Me.Name = "FormSetup"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "DreamGrid"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1407,7 +1426,6 @@ Partial Class FormSetup
     Friend WithEvents IslandToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ClothingInventoryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadLocalOARSToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents BrazilToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ArabicToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FarsiToolStripMenuItem As ToolStripMenuItem
@@ -1426,4 +1444,5 @@ Partial Class FormSetup
     Friend WithEvents LoadLocalOARToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RestartAllRegionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents KOT As CheckBox
+    Friend WithEvents SplitContainer1 As SplitContainer
 End Class
