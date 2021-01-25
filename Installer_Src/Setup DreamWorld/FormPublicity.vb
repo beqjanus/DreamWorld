@@ -178,7 +178,7 @@ Public Class FormPublicity
                 Try
                     PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
 
-                    FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"))
+                    DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"))
                     Dim newBitmap = New Bitmap(PictureBox9.Image)
                     newBitmap.Save(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), Imaging.ImageFormat.Png)
                     newBitmap.Dispose()

@@ -51,7 +51,7 @@ Public Class FormMaps
         TextPrint(My.Resources.Clearing_Map_tiles_word)
         Dim f As String = Settings.OpensimBinPath & "Maptiles\00000000-0000-0000-0000-000000000000"
         Try
-            FileStuff.DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
+            DeleteDirectory(f, FileIO.DeleteDirectoryOption.DeleteAllContents)
             My.Computer.FileSystem.CreateDirectory(f)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)

@@ -95,7 +95,7 @@ Public Module MysqlInterface
 
         ' create test program slants the other way:
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StartManually.bat")
-        FileStuff.DeleteFile(testProgram)
+        DeleteFile(testProgram)
 
         Try
             Using outputFile As New StreamWriter(testProgram, True)
@@ -382,7 +382,7 @@ Public Module MysqlInterface
 
         ' create test program slants the other way:
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\InstallAsAService.bat")
-        FileStuff.DeleteFile(testProgram)
+        DeleteFile(testProgram)
 
         Try
             Using outputFile As New StreamWriter(testProgram, True)
@@ -399,7 +399,7 @@ Public Module MysqlInterface
 
         ' create test program slants the other way:
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StopMySQL.bat")
-        FileStuff.DeleteFile(testProgram)
+        DeleteFile(testProgram)
         Try
             Using outputFile As New StreamWriter(testProgram, True)
                 outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +

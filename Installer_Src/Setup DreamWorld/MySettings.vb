@@ -1949,7 +1949,7 @@ Public Class MySettings
         Dim f = System.IO.Path.GetFileName(INI)
         Dim Retry = 10
         While Retry > 0
-            FileStuff.DeleteFile(INI)
+            DeleteFile(INI)
             Try
                 My.Computer.FileSystem.RenameFile(INI & ".bak", f)
                 Retry = 0
@@ -1981,7 +1981,7 @@ Public Class MySettings
 
         ' make a backup
 
-        FileStuff.DeleteFile(ini & ".bak")
+        DeleteFile(ini & ".bak")
 
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")
@@ -1989,7 +1989,7 @@ Public Class MySettings
             BreakPoint.Show(ex.Message)
         End Try
 
-        FileStuff.DeleteFile(ini)
+        DeleteFile(ini)
 
         Dim file As System.IO.StreamWriter
         file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)

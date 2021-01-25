@@ -25,7 +25,7 @@ Module DoIni
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
-        FileStuff.DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5"))
+        DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5"))
 
         ' lean rightward paths for Apache
         ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\conf\extra\httpd-ssl.conf")
@@ -45,7 +45,7 @@ Module DoIni
         TextPrint("->Set Birds")
         Dim BirdFile = Settings.OpensimBinPath & "addon-modules\OpenSimBirds\config\OpenSimBirds.ini"
 
-        FileStuff.DeleteFile(BirdFile)
+        DeleteFile(BirdFile)
 
         Dim BirdData As String = ""
 
@@ -166,7 +166,7 @@ Module DoIni
         End Select
 
         ' Put that gridcommon.ini file in place
-        FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath & "config-include\", GridCommon), IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini"), True)
+        CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath & "config-include\", GridCommon), IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini"))
 
         If Settings.LoadIni(Settings.OpensimBinPath & "config-include\GridCommon.ini", ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
@@ -309,7 +309,7 @@ Module DoIni
                 End If
             End If
 
-            FileStuff.DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
+            DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
 
             ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
             ' enabled Region_Name = FallbackRegion if not a SmartStart
@@ -499,7 +499,7 @@ Module DoIni
             'close the reader
             reader.Close()
 
-            FileStuff.DeleteFile(Settings.OpensimBinPath & "config-include\GridCommon.ini")
+            DeleteFile(Settings.OpensimBinPath & "config-include\GridCommon.ini")
 
             Using outputFile As New StreamWriter(CType(Settings.OpensimBinPath & "config-include\Gridcommon.ini", String))
                 outputFile.Write(Output)
@@ -545,7 +545,7 @@ Module DoIni
         Dim TideData As String = ""
         Dim TideFile = Settings.OpensimBinPath & "addon-modules\OpenSimTide\config\OpenSimTide.ini"
 
-        FileStuff.DeleteFile(TideFile)
+        DeleteFile(TideFile)
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)

@@ -37,7 +37,7 @@
 
         DoIceCast()
 
-        FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
+        DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
         'Launch .\bin\icecast.exe -c .\icecast_run.xml
 
         PropIcecastProcID = 0

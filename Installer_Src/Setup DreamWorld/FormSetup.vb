@@ -800,7 +800,7 @@ Public Class FormSetup
 
         Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-        FileStuff.CopyFile(src, ini, True)
+        CopyFileFast(src, ini)
         Settings.Grep(ini, Settings.LogLevel)
 
         If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
@@ -1003,7 +1003,7 @@ Public Class FormSetup
     Private Shared Sub KillFiles(AL As List(Of String))
 
         For Each filename As String In AL
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, filename))
+            DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, filename))
         Next
 
     End Sub
@@ -1013,7 +1013,7 @@ Public Class FormSetup
         If Settings.BirdsModuleStartup Then
             Try
                 If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.dll") Then
-                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
+                    CopyFileFast(Settings.OpensimBinPath & "OpenSimBirds.Module.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
@@ -1021,12 +1021,12 @@ Public Class FormSetup
         Else
             Try
                 If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.bak") Then
-                    My.Computer.FileSystem.CopyFile(Settings.OpensimBinPath & "OpenSimBirds.Module.dll", Settings.OpensimBinPath & "OpenSimBirds.Module.bak")
+                    CopyFileFast(Settings.OpensimBinPath & "OpenSimBirds.Module.dll", Settings.OpensimBinPath & "OpenSimBirds.Module.bak")
                 End If
             Catch
             End Try
 
-            FileStuff.DeleteFile(Settings.OpensimBinPath & "\OpenSimBirds.Module.dll")
+            DeleteFile(Settings.OpensimBinPath & "\OpenSimBirds.Module.dll")
         End If
 
     End Sub
@@ -1526,7 +1526,7 @@ Public Class FormSetup
         Log("Startup:", DisplayObjectInfo(Me))
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
-        FileStuff.Cleanup() ' old files
+        Cleanup() ' old files
         PropRegionClass = RegionMaker.Instance()
         PropRegionClass.Init()
         PropRegionClass.GetAllRegions()
@@ -1541,7 +1541,7 @@ Public Class FormSetup
 
         UpgradeDotNet()
 
-        FileStuff.DeleteOldHelpFiles()
+        DeleteOldHelpFiles()
 
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
@@ -2173,7 +2173,7 @@ Public Class FormSetup
             HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
         Next
 
-        FileStuff.DeleteFile(HTMLFILE)
+        DeleteFile(HTMLFILE)
 
         Try
             Using outputFile As New StreamWriter(HTMLFILE, True)
@@ -2504,7 +2504,7 @@ Public Class FormSetup
                 Dim yesno = MsgBox(My.Resources.Are_You_Sure, vbYesNo, Global.Outworldz.My.Resources.Restore_word)
                 If yesno = vbYes Then
 
-                    FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat"))
+                    DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat"))
 
                     Try
                         Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")

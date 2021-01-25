@@ -58,38 +58,6 @@ Public Class FormBackupCheckboxes
 
 #Region "Private Methods"
 
-    Private Shared Sub CpyFile(From As String, Dest As String)
-
-        If From.EndsWith("Opensim.ini", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
-        If From.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
-
-        'Create the file stream for the source file
-        Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
-        'Create the file stream for the destination file
-        Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
-        'Determine the size in bytes of the source file (-1 as our position starts at 0)
-        Dim lngLen As Long = streamRead.Length - 1
-        Dim byteBuffer(1048576) As Byte   'our stream buffer
-        Dim intBytesRead As Integer    'number of bytes read
-
-        While streamRead.Position < lngLen    'keep streaming until EOF
-            'Read from the Source
-            intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
-            'Write to the Target
-            streamWrite.Write(byteBuffer, 0, intBytesRead)
-            Application.DoEvents()    'do it
-        End While
-
-        'Clean up
-        streamWrite.Flush()
-        streamWrite.Close()
-        streamRead.Close()
-
-    End Sub
-
     Private Sub BackupSQlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BackupSQlCheckBox.CheckedChanged
 
         If Not initted Then Return

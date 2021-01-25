@@ -12,6 +12,11 @@ Public Class Backups
     Private _WebThread2 As Thread
     Private _WebThread3 As Thread
 
+    Private Sub Break(msg As String)
+        Diagnostics.Debug.Print(msg)
+    End Sub
+
+
 #Region "Public"
 
     Public Sub New()
@@ -38,6 +43,7 @@ Public Class Backups
         SQLBackup(DBName)
 
     End Sub
+
 
     Public Sub RunSQLBackup(OP As Object)
 
@@ -107,14 +113,13 @@ Public Class Backups
             Try
                 ProcessSqlDump.Start()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                Return
+                Break(ex.Message)
             End Try
 
             ProcessSqlDump.WaitForExit()
 
             Dim Bak = IO.Path.Combine(_folder, _filename & ".zip")
-            FileStuff.DeleteFile(Bak)
+            DeleteFile(Bak)
 
             Using Zip As ZipFile = New ZipFile(Bak)
                 Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
@@ -122,13 +127,13 @@ Public Class Backups
                 Zip.Save()
             End Using
             Sleep(10000)
-            FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
+            MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
             Sleep(5000)
-            FileStuff.DeleteFile(SQLFile)
+            DeleteFile(SQLFile)
             Sleep(1000)
-            FileStuff.DeleteFolder(_folder)
+            DeleteFolder(_folder)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            Break(ex.Message)
         End Try
 
     End Sub
@@ -147,6 +152,7 @@ Public Class Backups
 #End Region
 
 #Region "File Backup"
+
 
     Public Sub RunAllBackups(Optional TimerBased As Boolean = False)
 
@@ -195,7 +201,7 @@ Public Class Backups
                 strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
                 Dim y = DateTime.Compare(currentdatetime, strLastModified)
                 If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
-                    FileStuff.DeleteFile(File1.FullName)
+                    DeleteFile(File1.FullName)
                 End If
             End If
         Next
@@ -204,9 +210,9 @@ Public Class Backups
 
     Private Sub FullBackupThread()
 
-        Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
+        Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
-        FileStuff.DeleteFile(Bak)
+        DeleteFile(Bak)
         Sleep(1000)
         Using Z As ZipFile = New ZipFile(Bak)
             Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
@@ -218,7 +224,7 @@ Public Class Backups
                     Sleep(1000)
                 End If
             Catch ex As Exception
-                Dim a = 1
+                Break(ex.Message)
             End Try
 
             Try
@@ -228,21 +234,21 @@ Public Class Backups
                     Sleep(1000)
                 End If
             Catch ex As Exception
-                Dim a = 1
+                Break(ex.Message)
             End Try
 
             Try
                 If Settings.BackupMysql Then
-                    FileStuff.CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"),
-                                        IO.Path.Combine(_folder, "MySQLData"))
+                    MkDir(IO.Path.Combine(_folder, "MySQL"))
+                    CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), IO.Path.Combine(_folder, "MySQL\MysqlData"))
 
-                    Z.AddDirectory(IO.Path.Combine(_folder, "MySQLData"))
+                    Z.AddDirectory(IO.Path.Combine(_folder, "MySQL"))
                     Z.Save()
                     Sleep(5000)
-                    FileStuff.DeleteDirectory(IO.Path.Combine(_folder, "MySQLData"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+                    DeleteDirectory(IO.Path.Combine(_folder, "MySQL"), FileIO.DeleteDirectoryOption.DeleteAllContents)
                 End If
             Catch ex As Exception
-                Dim a = 1
+                Break(ex.Message)
             End Try
 
             Try
@@ -259,17 +265,17 @@ Public Class Backups
                     Sleep(1000)
                 End If
             Catch ex As Exception
-                Dim a = 1
+                Break(ex.Message)
             End Try
 
             Try
                 Z.Save()
                 Sleep(5000)
-                FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+                MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
                 Sleep(5000)
-                FileStuff.DeleteFolder(_folder)
+                DeleteFolder(_folder)
             Catch ex As Exception
-                Dim a = 1
+                Break(ex.Message)
             End Try
 
             Try
@@ -280,7 +286,7 @@ Public Class Backups
                     B.BackupSQLDB(Settings.RobustDataBaseName)
                 End If
             Catch ex As Exception
-                Dim a = 1
+                Break(ex.Message)
             End Try
 
 

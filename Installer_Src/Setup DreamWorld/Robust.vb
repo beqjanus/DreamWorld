@@ -308,7 +308,7 @@ Module Robust
 
         Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config.proto")
         Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
-        FileStuff.CopyFile(src, Dest, True)
+        CopyFileFast(src, Dest)
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
         Settings.Grep(ini, Settings.LogLevel)
 
@@ -382,16 +382,16 @@ Module Robust
 
         If Settings.GloebitsEnable Then
             Settings.SetIni("LoginService", "Currency", "G$")
-            FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"), True)
-            'FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+            'DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
             Settings.SetIni("LoginService", "Currency", "jO$")
-            'FileStuff.CopyFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Money.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Money.dll"), True)
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Money.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensim.Money.dll"))
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         Else
             Settings.SetIni("LoginService", "Currency", "$")
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
-            'FileStuff.DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+            'DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         End If
 
     End Sub

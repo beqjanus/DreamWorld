@@ -23,7 +23,7 @@
         Dim CGI = New Uri("https://outworldz.com/cgi/uploadcrash.plx")
         Myupload.PostContentUploadFile(path, CGI)
 
-        FileStuff.DeleteFile(path)
+        DeleteFile(path)
         End
 
     End Sub

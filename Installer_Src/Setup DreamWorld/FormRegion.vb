@@ -648,7 +648,7 @@ Public Class FormRegion
 
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
-            FileStuff.DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
+            DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
                 My.Computer.FileSystem.RenameFile(PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
             Catch ex As Exception

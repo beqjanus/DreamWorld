@@ -361,7 +361,7 @@ Module Apache
 
         For Each item In DLLList
             If Not IO.File.Exists("C:/Windows/System32/" & item) Then
-                My.Computer.FileSystem.CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), IO.Path.Combine("C:\Windows\System32\" & item))
+                CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), IO.Path.Combine("C:\Windows\System32\" & item))
             End If
         Next
 
