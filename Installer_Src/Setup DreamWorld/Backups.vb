@@ -132,6 +132,7 @@ Public Class Backups
                 BreakPoint.Show(ex.Message)
                 Return
             End Try
+<<<<<<< HEAD
 
             ProcessSqlDump.WaitForExit()
 
@@ -149,6 +150,24 @@ Public Class Backups
             FileStuff.DeleteFile(SQLFile)
             FileStuff.DeleteFolder(_folder)
         Catch
+=======
+
+            ProcessSqlDump.WaitForExit()
+
+            Dim Bak = IO.Path.Combine(BackupPath, _filename & ".zip")
+            FileStuff.DeleteFile(Bak)
+
+            Using Zip As ZipFile = New ZipFile(Bak)
+                Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
+                Zip.AddFile(SQLFile)
+                Zip.Save()
+            End Using
+
+            Sleep(5000)
+            FileStuff.DeleteFile(SQLFile)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+>>>>>>> cf2285f09753d739ee990a12dde172f0f401fc6c
         End Try
 
         OpensimBackupRunning -= 1
@@ -226,6 +245,7 @@ Public Class Backups
 
     Private Sub FullBackupThread()
 
+<<<<<<< HEAD
 
         OpensimBackupRunning += 1
         Try
@@ -268,6 +288,35 @@ Public Class Backups
                         Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
                     End If
 
+=======
+        Try
+            Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
+            Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
+            FileStuff.DeleteFile(Bak)
+
+            Using Z As ZipFile = New ZipFile(Bak)
+                Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
+                Try
+                    If Settings.BackupRegion Then
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
+                    End If
+
+                    If Settings.BackupMysql Then
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), "Data")
+                    End If
+
+                    If Settings.BackupFSAssets Then
+                        Dim f As String
+                        If Settings.BaseDirectory = "./fsassets" Then
+                            f = Settings.OpensimBinPath & "\FSAssets"
+                        Else
+                            f = Settings.BaseDirectory
+                        End If
+
+                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
+                    End If
+
+>>>>>>> cf2285f09753d739ee990a12dde172f0f401fc6c
                     If Settings.BackupWifi Then
                         Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
                     End If
@@ -275,6 +324,7 @@ Public Class Backups
                     BreakPoint.Show(ex.Message)
                 Finally
                     Z.Save()
+<<<<<<< HEAD
                     Sleep(5000)
                     FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
                     Sleep(5000)
@@ -285,6 +335,13 @@ Public Class Backups
         End Try
 
         OpensimBackupRunning -= 1
+=======
+                End Try
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+>>>>>>> cf2285f09753d739ee990a12dde172f0f401fc6c
 
     End Sub
 
