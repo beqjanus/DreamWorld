@@ -18,7 +18,7 @@ Module FileStuff
         }
 
         For Each N As String In ToDrop
-            FileStuff.DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, N))
+            DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, N))
         Next
 
         Dim FoldersToDrop = New List(Of String) From {
@@ -27,7 +27,7 @@ Module FileStuff
         }
 
         For Each N As String In ToDrop
-            FileStuff.DeleteFolder(N)
+            DeleteFolder(N)
         Next
 
         Dim files As New List(Of String) From {
@@ -49,7 +49,7 @@ Module FileStuff
         End If
 
         For Each N In files
-            FileStuff.DeleteFolder(N)   ' wipe these folders out
+            DeleteFolder(N)   ' wipe these folders out
         Next
 
         ' crap load of old DLLS have to be eliminated
@@ -76,36 +76,20 @@ Module FileStuff
 
         For Each thing As String In Logfiles
             ' clear out the log files
-            FileStuff.DeleteFile(thing)
+            DeleteFile(thing)
             Application.DoEvents()
         Next
 
         For Each UUID As String In PropRegionClass.RegionUuids
             Dim GroupName = PropRegionClass.GroupName(UUID)
-            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
-            FileStuff.DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
-            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
-            FileStuff.DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
+            DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
+            DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
+            DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
+            DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
         Next
 
     End Sub
 
-    Sub CopyFile(source As String, dest As String, overwrite As Boolean)
-
-        If source.EndsWith("\Opensim.ini", StringComparison.InvariantCulture) Then Return
-        If source.EndsWith("/Opensim.ini", StringComparison.InvariantCulture) Then Return
-        If source.EndsWith("OpenSim.log", StringComparison.InvariantCulture) Then Return
-        If source.EndsWith("OpenSimStats.log", StringComparison.InvariantCulture) Then Return
-        If source.EndsWith("PID.pid", StringComparison.InvariantCulture) Then Return
-        If source.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Return
-
-        Try
-            If File.Exists(source) Then My.Computer.FileSystem.CopyFile(source, dest, overwrite)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
 
     Public Sub CopyFolder(ByVal sourcePath As String, ByVal destinationPath As String)
 
@@ -138,7 +122,7 @@ Module FileStuff
                 End If
 
                 Try
-                    CopyFile(fileSystemInfo.FullName, destinationFileName, True)
+                    CopyFileFast(fileSystemInfo.FullName, destinationFileName)
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
@@ -165,7 +149,7 @@ Module FileStuff
 
         CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
         CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
-        CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\" & Settings.Theme() & ".png"), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages\images\Photo.png"), True)
+        CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\" & Settings.Theme() & ".png"), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages\images\Photo.png"))
 
     End Sub
 
@@ -233,8 +217,8 @@ Module FileStuff
     Public Function DelLibrary() As Boolean
 
         TextPrint("->Set Library")
-        FileStuff.DeleteFile(Settings.OpensimBinPath & "Library\Clothing Library (small).iar")
-        FileStuff.DeleteFile(Settings.OpensimBinPath & "Library\Objects Library (small).iar")
+        DeleteFile(Settings.OpensimBinPath & "Library\Clothing Library (small).iar")
+        DeleteFile(Settings.OpensimBinPath & "Library\Objects Library (small).iar")
         Return False
 
     End Function
@@ -256,7 +240,7 @@ Module FileStuff
             strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
             Dim y = DateTime.Compare(currentdatetime, strLastModified)
             If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
-                FileStuff.DeleteFile(File1.FullName)
+                DeleteFile(File1.FullName)
             End If
         Next
 
@@ -264,9 +248,7 @@ Module FileStuff
 
     Sub FixUpdater()
 
-        CopyFile(IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.New"),
-                 IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe"),
-                True)
+        CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.New"), IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe"))
 
     End Sub
 
@@ -290,7 +272,7 @@ Module FileStuff
                 Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
                 Dim newlocaldllname = Mid(localdllname, x)
                 If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
-                    FileStuff.DeleteFile(localdllname)
+                    DeleteFile(localdllname)
                 End If
             Next
         End If
@@ -309,7 +291,7 @@ Module FileStuff
     End Function
 
     Private Sub Deltmp() ' thread
-        FileStuff.DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+        DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
     End Sub
 
     Private Function GetDlls(fname As String) As List(Of String)
@@ -330,6 +312,31 @@ Module FileStuff
 
     End Function
 
+    Public Sub CopyFileFast(From As String, Dest As String)
+
+        'Create the file stream for the source file
+        Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
+        'Create the file stream for the destination file
+        Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
+        'Determine the size in bytes of the source file (-1 as our position starts at 0)
+        Dim lngLen As Long = streamRead.Length - 1
+        Dim byteBuffer(1048576) As Byte   'our stream buffer
+        Dim intBytesRead As Integer    'number of bytes read
+
+        While streamRead.Position < lngLen    'keep streaming until EOF
+            'Read from the Source
+            intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
+            'Write to the Target
+            streamWrite.Write(byteBuffer, 0, intBytesRead)
+            Application.DoEvents()    'do it
+        End While
+
+        'Clean up
+        streamWrite.Flush()
+        streamWrite.Close()
+        streamRead.Close()
+
+    End Sub
     Private Function GetFilesRecursive(ByVal initial As String) As List(Of String)
         ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
         ''' ' This list stores the results.
