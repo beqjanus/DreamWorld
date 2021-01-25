@@ -1,5 +1,5 @@
 <icecast>
-<hostname>www.outworldz.com</hostname>
+<hostname>47.185.232.98</hostname>
 <location>DreamGrid</location>
 <admin>not@set.yet</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>Eylz9kekeilMclS</source-password>
-<relay-password>Eylz9kekeilMclS</relay-password>
+<source-password>UMWfNKj3YH9X0Q4</source-password>
+<relay-password>UMWfNKj3YH9X0Q4</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>Hkj86rcIqJzUUQo</admin-password>
+<admin-password>8qDdwaCIPS0XgkP</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>
