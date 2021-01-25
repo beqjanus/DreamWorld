@@ -63,7 +63,7 @@ Public Class Backups
     Public Sub RunSQLBackup(OP As Object)
 
         If OP Is Nothing Then Return
-
+        OpensimBackupRunning += 1
         Dim Name As String = OP.ToString
 
         Dim currentdatetime As Date = Date.Now()
@@ -126,7 +126,6 @@ Public Class Backups
         ProcessSqlDump.StartInfo = pi
         Try
             ProcessSqlDump.Start()
-            OpensimBackupRunning += 1
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Return
@@ -134,7 +133,7 @@ Public Class Backups
 
         ProcessSqlDump.WaitForExit()
 
-        Dim Bak = IO.Path.Combine(BackupPath, _filename & ".zip")
+        Dim Bak = IO.Path.Combine(_folder, _filename & ".zip")
         FileStuff.DeleteFile(Bak)
 
         Using Zip As ZipFile = New ZipFile(Bak)
@@ -142,9 +141,11 @@ Public Class Backups
             Zip.AddFile(SQLFile)
             Zip.Save()
         End Using
-
+        Sleep(5000)
+        FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
         Sleep(5000)
         FileStuff.DeleteFile(SQLFile)
+        FileStuff.DeleteFolder(_folder)
 
         OpensimBackupRunning -= 1
 
@@ -222,8 +223,9 @@ Public Class Backups
     Private Sub FullBackupThread()
 
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
-        Dim Bak = IO.Path.Combine(BackupPath, Foldername & ".zip")
-        FileStuff.DeleteFile(Bak)
+        Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
+
+        OpensimBackupRunning += 1
 
         Using Z As ZipFile = New ZipFile(Bak)
             Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
@@ -254,8 +256,14 @@ Public Class Backups
                 BreakPoint.Show(ex.Message)
             Finally
                 Z.Save()
+                Sleep(5000)
+                FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+                Sleep(5000)
+                FileStuff.DeleteFolder(_folder)
             End Try
         End Using
+
+        OpensimBackupRunning -= 1
 
     End Sub
 

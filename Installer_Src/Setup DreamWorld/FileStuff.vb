@@ -3,6 +3,15 @@ Imports System.Threading
 
 Module FileStuff
 
+    Public Sub MoveFile(Src As String, Dest As String)
+
+        Try
+            File.Move(Src, Dest)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
     Public Function DelLibrary() As Boolean
 
         TextPrint("->Set Library")
@@ -186,8 +195,11 @@ Module FileStuff
             Try
                 System.IO.Directory.Delete(n)
             Catch ex As IOException
+                BreakPoint.Show(ex.Message)
             Catch ex As UnauthorizedAccessException
+                BreakPoint.Show(ex.Message)
             Catch ex As ArgumentException
+                BreakPoint.Show(ex.Message)
             End Try
 
         End If
