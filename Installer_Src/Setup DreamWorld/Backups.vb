@@ -207,7 +207,7 @@ Public Class Backups
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
         FileStuff.DeleteFile(Bak)
-
+        Sleep(1000)
         Using Z As ZipFile = New ZipFile(Bak)
             Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
             Sleep(1000)
@@ -215,6 +215,7 @@ Public Class Backups
                 If Settings.BackupWifi Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
                     Z.Save()
+                    Sleep(1000)
                 End If
             Catch ex As Exception
                 Dim a = 1
@@ -224,6 +225,7 @@ Public Class Backups
                 If Settings.BackupRegion Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
                     Z.Save()
+                    Sleep(1000)
                 End If
             Catch ex As Exception
                 Dim a = 1
@@ -254,7 +256,18 @@ Public Class Backups
 
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
                     Z.Save()
+                    Sleep(1000)
                 End If
+            Catch ex As Exception
+                Dim a = 1
+            End Try
+
+            Try
+                Z.Save()
+                Sleep(5000)
+                FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+                Sleep(5000)
+                FileStuff.DeleteFolder(_folder)
             Catch ex As Exception
                 Dim a = 1
             End Try
@@ -270,15 +283,7 @@ Public Class Backups
                 Dim a = 1
             End Try
 
-            Try
-                Z.Save()
-                Sleep(5000)
-                FileStuff.MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
-                Sleep(5000)
-                FileStuff.DeleteFolder(_folder)
-            Catch ex As Exception
-                Dim a = 1
-            End Try
+
 
         End Using
 
