@@ -8,7 +8,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.83"
+    Public Const _MyVersion As String = "3.84"
     Public Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"

@@ -1557,7 +1557,6 @@ Public Class FormSetup
         AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.earth_network
         AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Settings_word
         AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.All_Global_Settings_word
-        All.Text = Global.Outworldz.My.Resources.All_word
 
         AllUsersAllSimsToolStripMenuItem.Text = Global.Outworldz.My.Resources.All_Users_All_Sims_word
         ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_saudi_arabia1
@@ -3284,13 +3283,6 @@ Public Class FormSetup
 #End Region
 
 #Region "Logging"
-
-    Private Sub AllToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles All.Click
-
-        Settings.LogLevel = "All"
-        SendMsg(Settings.LogLevel)
-
-    End Sub
 
     Private Sub Debug_Click(sender As Object, e As EventArgs) Handles Debug.Click
 

@@ -1,4 +1,5 @@
 ﻿Imports System.Net
+Imports System.Text.RegularExpressions
 
 Module Robust
 
@@ -230,6 +231,83 @@ Module Robust
 
 #End Region
 
+    Public Sub DoBanList()
+
+        Dim MACString As String = ""
+        Dim ViewerString As String = ""
+        Dim GridString As String = ""
+        Dim Bans As String = Settings.BanList
+
+        Dim Banlist As String()
+        Banlist = Bans.Split("|".ToCharArray())
+        For Each str As String In Banlist
+
+            Dim a() = str.Split("=".ToCharArray())
+            Dim s = a(0)
+
+            Dim pattern1 As Regex = New Regex("^#")
+            Dim match1 As Match = pattern1.Match(s)
+            If match1.Success Then
+                Continue For
+            End If
+
+            ' ban grid Addresses
+            Dim pattern2 As Regex = New Regex("^http")
+            Dim match2 As Match = pattern2.Match(s)
+            If match2.Success Then
+                GridString += s & ","   ' delimiter is a comma for grids
+                Continue For
+            End If
+
+            ' Ban IP's
+
+            Dim pattern3 As Regex = New Regex("^\d+\.\d+\.\d+\.\d+")
+            Dim match3 As Match = pattern3.Match(s)
+            If match3.Success Then
+                Firewall.BlockIP(s)
+                Continue For
+            End If
+
+            ' ban MAC Addresses with and without caps and :
+            Dim pattern4 As Regex = New Regex("^[a-f0-9A-F]{32}")
+            Dim match4 As Match = pattern4.Match(s)
+            If match4.Success Then
+                MACString += s & " " ' delimiter is a " " and  not a pipe
+                Continue For
+            End If
+
+            ' none of the above
+            If s.Length > 0 Then
+                ViewerString += s & "|"
+            End If
+
+        Next
+
+        ' Ban grids
+        If GridString.Length > 0 Then
+            GridString = Mid(GridString, 1, GridString.Length - 1)
+        End If
+        Settings.SetIni("GatekeeperService", "AllowExcept", GridString)
+
+        ' Ban Macs
+        If MACString.Length > 0 Then
+            MACString = Mid(MACString, 1, MACString.Length - 1)
+        End If
+        Settings.SetIni("LoginService", "DeniedMacs", MACString)
+        Settings.SetIni("GatekeeperService", "DeniedMacs", MACString)
+
+        'Ban Viewers
+        If ViewerString.Length > 0 Then
+            ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
+        End If
+        If ViewerString.Length > 0 Then
+            ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
+        End If
+
+        Settings.SetIni("AccessControl", "DeniedClients", ViewerString)
+
+    End Sub
+
     Public Function DoRobust() As Boolean
 
         TextPrint("->Set Robust")
@@ -248,6 +326,8 @@ Module Robust
 
         Settings.SetIni("Const", "GridName", Settings.SimName)
         Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
+
+        DoBanList()
 
         Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
         Settings.SetIni("Const", "PublicPort", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture)) ' 8002

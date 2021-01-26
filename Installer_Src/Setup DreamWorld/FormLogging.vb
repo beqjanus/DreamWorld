@@ -53,7 +53,6 @@
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         LoggingToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
         LoggingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Logging_word
-        RadioAll.Text = Global.Outworldz.My.Resources.All_word
         RadioDebug.Text = Global.Outworldz.My.Resources.Debug_word
         RadioError.Text = Global.Outworldz.My.Resources.Error_word
         RadioFatal.Text = Global.Outworldz.My.Resources.Fatal_word
@@ -77,8 +76,6 @@
                 RadioError.Checked = True
             Case "FATAL"
                 RadioFatal.Checked = True
-            Case "ALL"
-                RadioAll.Checked = True
             Case Else
                 RadioInfo.Checked = True
         End Select
@@ -132,11 +129,6 @@
     Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioFatal.CheckedChanged
         If Not initted Then Return
         Settings.LogLevel = "FATAL"
-    End Sub
-
-    Private Sub RadioButton7_CheckedChanged(sender As Object, e As EventArgs) Handles RadioAll.CheckedChanged
-        If Not initted Then Return
-        Settings.LogLevel = "ALL"
     End Sub
 
 #End Region

@@ -2,6 +2,12 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.84 Post fixes
+Another crash in Black and White Diva Wifi Image on boot.
+Systems running with a merged database where robust and region files are in the same db would backup twice.
+Ban Lists did not reload automatically. It required you to click the Ban list after a reboot.
+
+
 V3.83 Post Fixes
 GUI Crash may be happening when running backup tasks. Added code to help spot the issue.
 Added SQL backup to the backup scheduler. Caution ! FSAssets and SQL backups will fill up a disk quickly. Most useful if you want all  backups with one click, or have lots of disk space and a small number of days to keep.

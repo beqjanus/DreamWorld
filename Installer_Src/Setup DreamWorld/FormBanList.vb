@@ -74,9 +74,6 @@ Public Class FormBanList
 
         If Saveneeded = False Then Return
 
-        Dim MACString As String = ""
-        Dim ViewerString As String = ""
-        Dim GridString As String = ""
         Dim BanListString As String = ""
         Try
 
@@ -102,81 +99,22 @@ Public Class FormBanList
                         BanListString += s & "=" & t & "|"
                     End If
                     Debug.Print(s)
-
-                    ' ban grid Addresses
-                    Dim pattern2 As Regex = New Regex("^https?\:\/\/.*?\:\d+$")
-                    Dim match2 As Match = pattern2.Match(s)
-                    If match2.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
-                        GridString += s & ","   ' delimiter is a comma for grids
-                        Continue For
-                    End If
-
-                    ' Ban IP's
-
-                    Dim pattern3 As Regex = New Regex("^\d+\.\d+\.\d+\.\d+")
-                    Dim match3 As Match = pattern3.Match(s)
-                    If match3.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
-                        Firewall.BlockIP(s)
-                        Continue For
-                    End If
-
-                    ' ban MAC Addresses with and without caps and :
-                    Dim pattern1 As Regex = New Regex("^[a-f0-9A-F]{32}")
-                    Dim match1 As Match = pattern1.Match(s)
-                    If match1.Success And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
-                        MACString += s & " " ' delimiter is a " " and  not a pipe
-                        Continue For
-                    End If
-
-                    ' none of the above
-                    If s.Length > 0 And Not s.StartsWith("#", System.StringComparison.InvariantCulture) Then
-                        ViewerString += s & "|"
-                    End If
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                Catch
                 End Try
 
             Next
 
-            If Settings.ServerType = "Robust" Then
-                ' Robust Process only
-                If Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini.proto", ";") Then
-                    MsgBox(My.Resources.Error_word)
-                    Return
-                End If
+            Settings.BanList = BanListString
+            Settings.SaveSettings()
+            '"# Examples are below.=You can ban a viewer, an IP and/or a MAC address.|# 34.206.39.153=This IP from 'junk.com' is banned.|# 01:23:45:67:89:A=This MAC address is banned. Get MACs from the Robust log.|# HydraStorm=HydraStorm Copybotter|# SolarStorm=Singularity Solar Storm Copybot|#=Delete or modify any rules then close this window. Robust will restart if running.|1.1.1.1"
+            DoBanList()
 
-                ' Ban grids
-                If GridString.Length > 0 Then
-                    GridString = Mid(GridString, 1, GridString.Length - 1)
-                End If
-                Settings.SetIni("GatekeeperService", "AllowExcept", GridString)
-
-                ' Ban Macs
-                If MACString.Length > 0 Then
-                    MACString = Mid(MACString, 1, MACString.Length - 1)
-                End If
-                Settings.SetIni("LoginService", "DeniedMacs", MACString)
-                Settings.SetIni("GatekeeperService", "DeniedMacs", MACString)
-
-                'Ban Viewers
-                If ViewerString.Length > 0 Then
-                    ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
-                End If
-                If ViewerString.Length > 0 Then
-                    ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
-                End If
-
-                Settings.SetIni("AccessControl", "DeniedClients", ViewerString)
-
-                Settings.SaveINI(System.Text.Encoding.UTF8)
-
-                If IsRobustRunning() Then
-                    Me.Hide()
-                    PropAborting = True
-                    StopRobust()
-                    StartRobust()
-                    PropAborting = False
-                End If
+            If IsRobustRunning() Then
+                Me.Hide()
+                PropAborting = True
+                StopRobust()
+                StartRobust()
+                PropAborting = False
             End If
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
