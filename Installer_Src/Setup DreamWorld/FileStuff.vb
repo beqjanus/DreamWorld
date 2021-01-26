@@ -90,6 +90,34 @@ Module FileStuff
 
     End Sub
 
+    Public Sub CopyFileFast(From As String, Dest As String)
+
+        Try
+            'Create the file stream for the source file
+            Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
+            'Create the file stream for the destination file
+            Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
+            'Determine the size in bytes of the source file (-1 as our position starts at 0)
+            Dim lngLen As Long = streamRead.Length - 1
+            Dim byteBuffer(1048576) As Byte   'our stream buffer
+            Dim intBytesRead As Integer    'number of bytes read
+
+            While streamRead.Position < lngLen    'keep streaming until EOF
+                'Read from the Source
+                intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
+                'Write to the Target
+                streamWrite.Write(byteBuffer, 0, intBytesRead)
+                Application.DoEvents()    'do it
+            End While
+
+            'Clean up
+            streamWrite.Flush()
+            streamWrite.Close()
+            streamRead.Close()
+        Catch
+        End Try
+
+    End Sub
 
     Public Sub CopyFolder(ByVal sourcePath As String, ByVal destinationPath As String)
 
@@ -312,31 +340,6 @@ Module FileStuff
 
     End Function
 
-    Public Sub CopyFileFast(From As String, Dest As String)
-
-        'Create the file stream for the source file
-        Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
-        'Create the file stream for the destination file
-        Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
-        'Determine the size in bytes of the source file (-1 as our position starts at 0)
-        Dim lngLen As Long = streamRead.Length - 1
-        Dim byteBuffer(1048576) As Byte   'our stream buffer
-        Dim intBytesRead As Integer    'number of bytes read
-
-        While streamRead.Position < lngLen    'keep streaming until EOF
-            'Read from the Source
-            intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
-            'Write to the Target
-            streamWrite.Write(byteBuffer, 0, intBytesRead)
-            Application.DoEvents()    'do it
-        End While
-
-        'Clean up
-        streamWrite.Flush()
-        streamWrite.Close()
-        streamRead.Close()
-
-    End Sub
     Private Function GetFilesRecursive(ByVal initial As String) As List(Of String)
         ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
         ''' ' This list stores the results.

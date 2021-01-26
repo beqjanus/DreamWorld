@@ -441,16 +441,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property BackupSQL() As Boolean
-        Get
-            Return CType(GetMySetting("BackupSQL", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("BackupSQL", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-
     Public Property BackupOARs() As Boolean
         Get
             Return CType(GetMySetting("BackupOARs", "True"), Boolean)
@@ -466,6 +456,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("BackupRegion", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property BackupSQL() As Boolean
+        Get
+            Return CType(GetMySetting("BackupSQL", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupSQL", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 
@@ -1919,7 +1918,7 @@ Public Class MySettings
         End Set
     End Property
 
-
+#Disable Warning CA1056 ' Uri properties should not be strings
 
 #End Region
 
@@ -1935,19 +1934,28 @@ Public Class MySettings
 #Enable Warning CA1822 ' Mark members as static
 
         If INI Is Nothing Then Return
+        Dim Retry = 10 ' 1 sec
 
-        Using file As New System.IO.StreamWriter(INI & ".bak")
-            Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
-                While Not Reader.EndOfStream
-                    Dim line As String = Reader.ReadLine
-                    line = line.Replace("${OSIM_LOGLEVEL}", LL)
-                    file.WriteLine(line)
-                End While
-            End Using
-        End Using
+        While Retry > 0
+            Try
+                Using file As New System.IO.StreamWriter(INI & ".bak")
+                    Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
+                        While Not Reader.EndOfStream
+                            Dim line As String = Reader.ReadLine
+                            line = line.Replace("${OSIM_LOGLEVEL}", LL)
+                            file.WriteLine(line)
+                        End While
+                    End Using
+                End Using
+                Retry = 0
+            Catch
+                Retry -= 1
+                Sleep(100)
+            End Try
+        End While
 
         Dim f = System.IO.Path.GetFileName(INI)
-        Dim Retry = 10
+        Retry = 10 ' 1 sec
         While Retry > 0
             DeleteFile(INI)
             Try
@@ -1955,6 +1963,7 @@ Public Class MySettings
                 Retry = 0
             Catch
                 Retry -= 1
+                Sleep(100)
             End Try
         End While
 

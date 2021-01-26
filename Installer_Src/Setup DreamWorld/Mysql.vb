@@ -329,7 +329,7 @@ Public Module MysqlInterface
 
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
-            Debug.Print("MySQL version: " & version)
+            'Debug.Print("MySQL version: " & version)
             IsRunning() = True
             Return True
         End If

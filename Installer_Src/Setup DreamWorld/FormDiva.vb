@@ -27,9 +27,8 @@ Public Class FormDiva
 #Region "Private Fields"
 
     Dim initted As Boolean
-    Dim setpassword As Boolean
-
     Private path As String
+    Dim setpassword As Boolean
 
 #End Region
 
@@ -165,11 +164,11 @@ Public Class FormDiva
     Private Sub LoadPhoto()
 
         If Settings.Theme = "Black" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Black.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "Black.png")
         ElseIf Settings.Theme = "White" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\White.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "White.png")
         ElseIf Settings.Theme = "Custom" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Custom.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "Custom.png")
         End If
 
         If Not System.IO.File.Exists(path) Then
@@ -387,6 +386,19 @@ Public Class FormDiva
 
     End Sub
 
+    Private Sub CustomRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles CustomRadioButton.CheckedChanged
+
+        If Not initted Then Return
+
+        If CustomRadioButton.Checked Then
+            Settings.Theme = "Custom"
+            Settings.SaveSettings()
+            PictureBox1.Image = My.Resources.NoImage
+            TextPrint(My.Resources.Theme_Custom)
+        End If
+
+    End Sub
+
     Private Sub GreetingTextBox_TextChanged(sender As Object, e As EventArgs) Handles GreetingTextBox.TextChanged
 
         If Not initted Then Return
@@ -421,19 +433,6 @@ Public Class FormDiva
             LoadPhoto()
             CopyWifi()
             TextPrint(My.Resources.Theme_White)
-        End If
-
-    End Sub
-
-    Private Sub CustomRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles CustomRadioButton.CheckedChanged
-
-        If Not initted Then Return
-
-        If CustomRadioButton.Checked Then
-            Settings.Theme = "Custom"
-            Settings.SaveSettings()
-            PictureBox1.Image = My.Resources.NoImage
-            TextPrint(My.Resources.Theme_Custom)
         End If
 
     End Sub

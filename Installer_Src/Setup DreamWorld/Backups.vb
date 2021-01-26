@@ -12,10 +12,9 @@ Public Class Backups
     Private _WebThread2 As Thread
     Private _WebThread3 As Thread
 
-    Private Sub Break(msg As String)
+    Private Shared Sub Break(msg As String)
         Diagnostics.Debug.Print(msg)
     End Sub
-
 
 #Region "Public"
 
@@ -43,7 +42,6 @@ Public Class Backups
         SQLBackup(DBName)
 
     End Sub
-
 
     Public Sub RunSQLBackup(OP As Object)
 
@@ -152,7 +150,6 @@ Public Class Backups
 #End Region
 
 #Region "File Backup"
-
 
     Public Sub RunAllBackups(Optional TimerBased As Boolean = False)
 
@@ -282,14 +279,15 @@ Public Class Backups
                 If Settings.BackupSQL Then
                     Dim A As New Backups
                     A.BackupSQLDB(Settings.RegionDBName)
-                    Dim B As New Backups
-                    B.BackupSQLDB(Settings.RobustDataBaseName)
+                    If Settings.RegionDBName <> Settings.RobustDataBaseName Then
+                        Dim B As New Backups
+                        B.BackupSQLDB(Settings.RobustDataBaseName)
+                    End If
+
                 End If
             Catch ex As Exception
                 Break(ex.Message)
             End Try
-
-
 
         End Using
 

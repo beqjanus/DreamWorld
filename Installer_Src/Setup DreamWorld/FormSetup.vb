@@ -82,7 +82,6 @@ Public Class FormSetup
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private ScreenPosition As ScreenPos
 
-
 #End Region
 
 #Region "Globals"
@@ -2904,9 +2903,11 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If TimerBusy < 60 And TimerBusy > 1 Then
+        If TimerBusy < 60 And TimerBusy > 0 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
+            Timer1.Interval += 1000
+            Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
             Return
         End If
 
@@ -2957,6 +2958,7 @@ Public Class FormSetup
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
             TextPrint(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
+
             RegisterName(Settings.DNSName, True)
             Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
             For Each part As String In array
@@ -2967,6 +2969,7 @@ Public Class FormSetup
             Application.DoEvents()
         End If
 
+        Timer1.Interval = 1000
         SecondsTicker += 1
         TimerBusy = 0
 
@@ -3104,9 +3107,10 @@ Public Class FormSetup
 
         Dim A As New Backups
         A.BackupSQLDB(Settings.RegionDBName)
-        Sleep(10000)
-        Dim B As New Backups
-        B.BackupSQLDB(Settings.RobustDataBaseName)
+        If Settings.RegionDBName <> Settings.RobustDataBaseName Then
+            Dim B As New Backups
+            B.BackupSQLDB(Settings.RobustDataBaseName)
+        End If
 
     End Sub
 

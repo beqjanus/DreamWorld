@@ -299,6 +299,24 @@ Public Class FormDatabase
 
     End Sub
 
+    Private Sub ConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsoleToolStripMenuItem.Click
+
+        Dim p As Process = New Process()
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .Arguments = " -u root ",
+            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysql.exe") & """",
+            .UseShellExecute = True, ' so we can redirect streams and minimize
+            .WindowStyle = ProcessWindowStyle.Normal
+        }
+        p.StartInfo = pi
+        Try
+            p.Start()
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
         HelpManual("Database")
     End Sub
@@ -307,9 +325,10 @@ Public Class FormDatabase
 
         Dim A As New Backups
         A.BackupSQLDB(Settings.RegionDBName)
-        Sleep(10000)
-        Dim B As New Backups
-        B.BackupSQLDB(Settings.RobustDataBaseName)
+        If Settings.RegionDBName <> Settings.RobustDataBaseName Then
+            Dim B As New Backups
+            B.BackupSQLDB(Settings.RobustDataBaseName)
+        End If
 
     End Sub
 
@@ -341,12 +360,6 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
-
-        HelpManual("Database")
-
-    End Sub
-
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
 
         StartMySQL()
@@ -360,21 +373,9 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub ConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsoleToolStripMenuItem.Click
+    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
 
-        Dim p As Process = New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = " -u root ",
-            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysql.exe") & """",
-            .UseShellExecute = True, ' so we can redirect streams and minimize
-            .WindowStyle = ProcessWindowStyle.Normal
-        }
-        p.StartInfo = pi
-        Try
-            p.Start()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+        HelpManual("Database")
 
     End Sub
 

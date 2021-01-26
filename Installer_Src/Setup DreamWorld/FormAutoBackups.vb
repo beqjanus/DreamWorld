@@ -198,12 +198,6 @@ Public Class FormAutoBackups
 
 #Region "Help"
 
-    Private Sub AutoBackupHelp_Click(sender As Object, e As EventArgs) Handles AutoBackupHelp.Click
-
-        HelpManual("Backup")
-
-    End Sub
-
     Private Shared Sub Backup()
 
         'Create an instance of the open file dialog box.
@@ -224,12 +218,40 @@ Public Class FormAutoBackups
 
     End Sub
 
+    Private Sub AutoBackupHelp_Click(sender As Object, e As EventArgs) Handles AutoBackupHelp.Click
+
+        HelpManual("Backup")
+
+    End Sub
+
+    Private Sub BaseFolder_TextChanged(sender As Object, e As EventArgs) Handles BaseFolder.TextChanged
+
+        Settings.BackupFolder = BaseFolder.Text
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim CriticalForm As New FormBackupCheckboxes
+#Enable Warning CA2000 ' Dispose objects before losing scope
+
+        CriticalForm.Activate()
+        CriticalForm.Visible = True
+        CriticalForm.Select()
+        CriticalForm.BringToFront()
+
+    End Sub
+
     Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
 
         Dim A As New Backups
         A.BackupSQLDB(Settings.RegionDBName)
-        Dim B As New Backups
-        B.BackupSQLDB(Settings.RobustDataBaseName)
+        If Settings.RegionDBName <> Settings.RobustDataBaseName Then
+            Dim B As New Backups
+            B.BackupSQLDB(Settings.RobustDataBaseName)
+        End If
 
     End Sub
 
@@ -252,26 +274,6 @@ Public Class FormAutoBackups
 
     Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
         HelpManual("Backup")
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim CriticalForm As New FormBackupCheckboxes
-#Enable Warning CA2000 ' Dispose objects before losing scope
-
-        CriticalForm.Activate()
-        CriticalForm.Visible = True
-        CriticalForm.Select()
-        CriticalForm.BringToFront()
-
-    End Sub
-
-    Private Sub BaseFolder_TextChanged(sender As Object, e As EventArgs) Handles BaseFolder.TextChanged
-
-        Settings.BackupFolder = BaseFolder.Text
-        Settings.SaveSettings()
-
     End Sub
 
 #End Region
