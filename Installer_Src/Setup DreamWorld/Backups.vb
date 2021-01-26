@@ -204,21 +204,20 @@ Public Class Backups
 
     Private Sub FullBackupThread()
 
-
         Dim Foldername = "Full_backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
         FileStuff.DeleteFile(Bak)
 
         Using Z As ZipFile = New ZipFile(Bak)
             Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
-
+            Sleep(1000)
             Try
                 If Settings.BackupWifi Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
                     Z.Save()
                 End If
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                Dim a = 1
             End Try
 
             Try
@@ -227,7 +226,7 @@ Public Class Backups
                     Z.Save()
                 End If
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                Dim a = 1
             End Try
 
             Try
@@ -241,7 +240,7 @@ Public Class Backups
                     FileStuff.DeleteDirectory(IO.Path.Combine(_folder, "MySQLData"), FileIO.DeleteDirectoryOption.DeleteAllContents)
                 End If
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                Dim a = 1
             End Try
 
             Try
@@ -257,7 +256,7 @@ Public Class Backups
                     Z.Save()
                 End If
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                Dim a = 1
             End Try
 
             Try
@@ -267,9 +266,8 @@ Public Class Backups
                     Dim B As New Backups
                     B.BackupSQLDB(Settings.RobustDataBaseName)
                 End If
-
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                Dim a = 1
             End Try
 
             Try
@@ -279,11 +277,10 @@ Public Class Backups
                 Sleep(5000)
                 FileStuff.DeleteFolder(_folder)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                Dim a = 1
             End Try
 
         End Using
-
 
     End Sub
 
