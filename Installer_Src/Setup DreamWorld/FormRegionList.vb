@@ -264,10 +264,10 @@ Public Class FormRegionlist
         IconsButton.Text = Global.Outworldz.My.Resources.Icons_word
         ImportButton.Text = Global.Outworldz.My.Resources.Import_word
         RefreshButton.Text = Global.Outworldz.My.Resources.Refresh_word
-        RestartButton.Text = Global.Outworldz.My.Resources.Restart_All_word
+        RestartButton.Text = Global.Outworldz.My.Resources.Restart_word
         RunAllButton.Text = Global.Outworldz.My.Resources.Run_All_word
         StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
-        KOT.Text = Global.Outworldz.My.Resources.KeepOnTop_word
+        KOT.Text = Global.Outworldz.My.Resources.Window_Word
         ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Add_Region_word)
         ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Selectallnone)
         ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.ListAvatars)
@@ -280,9 +280,6 @@ Public Class FormRegionlist
         ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.StartAll)
         ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Stopsall)
         ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row
-
-        KOT.Checked = Settings.KeepOnTop
-        Me.TopMost = KOT.Checked
 
         ViewBusy = True
         FormExists1 = True
@@ -340,6 +337,16 @@ Public Class FormRegionlist
         AvatarView.Sorting = SortOrder.Ascending
 
         ListView1.AllowColumnReorder = True
+
+        If Settings.KeepOnTop Then
+            Me.TopMost = True
+            OnTopToolStripMenuItem.Checked = True
+            FloatToolStripMenuItem.Checked = False
+        Else
+            Me.TopMost = False
+            OnTopToolStripMenuItem.Checked = False
+            FloatToolStripMenuItem.Checked = True
+        End If
 
         Dim ctr = 0
 
@@ -434,9 +441,9 @@ Public Class FormRegionlist
         ' index to display icons
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("check2", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop_red", Globalization.CultureInfo.InvariantCulture)) ' 3 disabled
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("package_ok", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("package_new", Globalization.CultureInfo.InvariantCulture)) ' 3 disabled
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("package_preferences", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Globalization.CultureInfo.InvariantCulture))  ' 5 Recycling down
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Globalization.CultureInfo.InvariantCulture))  ' 6 Recycling Up
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  ' 7 Unknown
@@ -447,8 +454,8 @@ Public Class FormRegionlist
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("replace2", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("error_icon", Globalization.CultureInfo.InvariantCulture))  '  15- Error
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("cube_green_new", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("package_delete", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
         PropUpdateView = True ' make form refresh
 
         ViewBusy = False
@@ -965,7 +972,7 @@ Public Class FormRegionlist
 
             ' Hypergrid
             '
-            ' Create items and subitems for each item.
+            ' Create items and sub items for each item.
             Dim M As New Dictionary(Of String, String)
             If MysqlInterface.IsMySqlRunning() Then
                 M = GetHGAgentList()
@@ -1358,7 +1365,7 @@ SetWindowOnTop_Err:
         Dim ofd As New OpenFileDialog With {
             .InitialDirectory = "\",
             .Filter = Global.Outworldz.My.Resources.INI_Filter,
-            .FilterIndex = 2,
+            .FilterIndex = 1,
             .RestoreDirectory = True,
             .Multiselect = True
         }
@@ -1423,10 +1430,23 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub KOT_CheckedChanged(sender As Object, e As EventArgs) Handles KOT.CheckedChanged
+    Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
 
-        Me.TopMost = KOT.Checked
-        Settings.KeepOnTop = KOT.Checked
+        FloatToolStripMenuItem.Checked = True
+        OnTopToolStripMenuItem.Checked = False
+        Me.TopMost = False
+        Settings.KeepOnTop = False
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
+
+        OnTopToolStripMenuItem.Checked = True
+        FloatToolStripMenuItem.Checked = False
+        Me.TopMost = True
+        Settings.KeepOnTop = True
+        Settings.SaveSettings()
 
     End Sub
 

@@ -5871,16 +5871,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property OfflineMap() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("OfflineMap", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Ok.
         '''</summary>
         Friend ReadOnly Property Ok() As String
@@ -6002,16 +5992,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property package_add1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("package_add1", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property package_delete() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("package_delete", resourceCulture)
@@ -6075,16 +6055,6 @@ Namespace My.Resources
         Friend ReadOnly Property package_view() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("package_view", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property package1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("package1", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -9142,6 +9112,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("window_environment", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Window.
+        '''</summary>
+        Friend ReadOnly Property Window_Word() As String
+            Get
+                Return ResourceManager.GetString("Window_Word", resourceCulture)
             End Get
         End Property
         
