@@ -443,7 +443,7 @@ Public Class FormRegionlist
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_check", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_cross", Globalization.CultureInfo.InvariantCulture)) ' 3 disabled
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_stop", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("cube_blue", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Globalization.CultureInfo.InvariantCulture))  ' 5 Recycling down
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Globalization.CultureInfo.InvariantCulture))  ' 6 Recycling Up
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  ' 7 Unknown
@@ -452,9 +452,9 @@ Public Class FormRegionlist
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home", Globalization.CultureInfo.InvariantCulture))  '  11- home
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("replace2", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
-        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  '  15- Error
+        ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
         PropUpdateView = True ' make form refresh
 
