@@ -89,7 +89,7 @@ Public Class FormFsAssets
 
         If Changed Then
 
-            Dim result As MsgBoxResult = MsgBox(My.Resources.Changes_Made, vbYesNo)
+            Dim result As MsgBoxResult = MsgBox(My.Resources.Changes_Made, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
             If result = vbOK Then
                 FormSetup.PropViewedSettings = True
                 Settings.SaveSettings()

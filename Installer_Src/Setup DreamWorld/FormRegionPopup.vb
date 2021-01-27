@@ -155,6 +155,7 @@ Public Class FormRegionPopup
                 LoadOAR.Enabled = False
                 Teleport.Enabled = False
                 EditButton1.Enabled = True
+                MsgButton.Enabled = False
             End If
         End If
 
@@ -207,9 +208,34 @@ Public Class FormRegionPopup
         DialogResult = DialogResult.OK
     End Sub
 
+    Private Sub Button2_Click_2(sender As Object, e As EventArgs) Handles Restart.Click
+        gPick = "Restart"
+        DialogResult = DialogResult.OK
+    End Sub
+
     Private Sub EditButton1_Click(sender As Object, e As EventArgs) Handles EditButton1.Click
         gPick = "Edit"
         DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub Load_Click(sender As Object, e As EventArgs) Handles LoadOAR.Click
+        gPick = "Load"
+        DialogResult = DialogResult.OK
+    End Sub
+
+    Private Sub MsgButton_Click(sender As Object, e As EventArgs) Handles MsgButton.Click
+
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.Not_Running)
+            Return
+        End If
+
+        Dim Message = InputBox(My.Resources.What_to_say_2_region)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(_RegionName)
+        If RegionUUID.Length > 0 Then
+            SendMessage(RegionUUID, Message)
+        End If
+
     End Sub
 
     Private Sub Popup_load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -251,31 +277,6 @@ Public Class FormRegionPopup
     Private Sub ViewMapButton_Click(sender As Object, e As EventArgs) Handles ViewMapButton.Click
 
         VarChooser(_RegionName, False, False)
-
-    End Sub
-
-    Private Sub Load_Click(sender As Object, e As EventArgs) Handles LoadOAR.Click
-        gPick = "Load"
-        DialogResult = DialogResult.OK
-    End Sub
-
-    Private Sub Button2_Click_2(sender As Object, e As EventArgs) Handles Restart.Click
-        gPick = "Restart"
-        DialogResult = DialogResult.OK
-    End Sub
-
-    Private Sub MsgButton_Click(sender As Object, e As EventArgs) Handles MsgButton.Click
-
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
-            Return
-        End If
-
-        Dim Message = InputBox(My.Resources.What_to_say_2_region)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(_RegionName)
-        If RegionUUID.Length > 0 Then
-            SendMessage(RegionUUID, Message)
-        End If
 
     End Sub
 

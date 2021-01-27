@@ -75,7 +75,7 @@ Public Class FormRegions
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles NormalizeButton1.Click
 
-        Dim result As MsgBoxResult = MsgBox(My.Resources.This_Moves, vbYesNo)
+        Dim result As MsgBoxResult = MsgBox(My.Resources.This_Moves, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
         If result = vbYes Then
 
             Dim chosen = ChooseRegion(False) ' all regions, running or not
@@ -198,7 +198,7 @@ Public Class FormRegions
         If s > -1 Then
             WelcomeBox1.SelectedIndex = s
         Else
-            MsgBox(My.Resources.Choose_Welcome, vbInformation, Global.Outworldz.My.Resources.Choose_Region_word)
+            MsgBox(My.Resources.Choose_Welcome, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Choose_Region_word)
             Dim chosen = ChooseRegion(False)
             Dim Index = WelcomeBox1.FindString(chosen)
             WelcomeBox1.SelectedIndex = Index

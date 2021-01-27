@@ -133,7 +133,7 @@ Public Module MysqlInterface
             Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
             If ctr = 60 Then ' about 60 seconds when it fails
 
-                Dim yesno = MsgBox(My.Resources.Mysql_Failed, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+                Dim yesno = MsgBox(My.Resources.Mysql_Failed, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                 If (yesno = vbYes) Then
                     Dim files As Array = Nothing
                     Try
@@ -180,7 +180,7 @@ Public Module MysqlInterface
     Public Sub DeregisterRegions()
 
         If PropOpensimIsRunning Then
-            MsgBox("Opensim is running. Cannot clear the list of registered regions", vbInformation)
+            MsgBox("Opensim is running. Cannot clear the list of registered regions", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             Return
         End If
 
@@ -481,7 +481,7 @@ Public Module MysqlInterface
         End Try
 
         If files.Length > 0 Then
-            Dim yesno = MsgBox(My.Resources.MySql_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+            Dim yesno = MsgBox(My.Resources.MySql_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
             If (yesno = vbYes) Then
 
                 For Each FileName As String In files
@@ -494,7 +494,7 @@ Public Module MysqlInterface
             End If
         Else
             PropAborting = True
-            MsgBox(My.Resources.Error_word, vbInformation, Global.Outworldz.My.Resources.Error_word)
+            MsgBox(My.Resources.Error_word, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         End If
 
     End Sub

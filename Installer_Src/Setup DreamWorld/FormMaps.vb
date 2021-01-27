@@ -229,7 +229,7 @@ Public Class FormMaps
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
         If Not Integer.TryParse(MapXStart.Text, Settings.MapCenterX) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
     End Sub
@@ -239,7 +239,7 @@ Public Class FormMaps
         Dim digitsOnly As Regex = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
         If Not Integer.TryParse(MapYStart.Text, Settings.MapCenterY) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
     End Sub
@@ -249,7 +249,7 @@ Public Class FormMaps
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
         If Not Integer.TryParse(RenderMaxH.Text, CInt("0" & Settings.RenderMaxHeight)) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
     End Sub
@@ -258,7 +258,7 @@ Public Class FormMaps
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
         If Not Integer.TryParse(RenderMinH.Text, Settings.RenderMinHeight) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
     End Sub

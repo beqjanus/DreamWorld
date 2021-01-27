@@ -413,7 +413,7 @@ Public Class RegionMaker
                         Next
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
-                        MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, vbInformation, Global.Outworldz.My.Resources.Error_word)
+                        MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                         GetAllRegionsIsBusy = False
                         Return -1
@@ -547,7 +547,7 @@ Public Class RegionMaker
 
         Dim uuid As String = FindRegionByName(name)
         If uuid.Length = 0 Then
-            MsgBox(My.Resources.Cannot_find_region_word & " " & name, vbInformation, Global.Outworldz.My.Resources.Error_word)
+            MsgBox(My.Resources.Cannot_find_region_word & " " & name, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
             Return
         End If
 

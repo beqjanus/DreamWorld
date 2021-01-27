@@ -90,7 +90,7 @@ Public Class FormChooser
             DataGridView.Rows.Add("! Add New Name")
         End If
 
-        For Each RegionUUID As String In PropRegionClass.RegionUUIDs
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             Dim name As String
             If type = "Group" Then
                 name = PropRegionClass.GroupName(RegionUUID)
@@ -126,7 +126,7 @@ Public Class FormChooser
 
         Dim selectedRowCount = DataGridView.Rows.GetRowCount(DataGridViewElementStates.Selected)
         If selectedRowCount > 1 Then
-            MsgBox(My.Resources.Please_select_only_one_row, vbInformation, Global.Outworldz.My.Resources.Info_word)
+            MsgBox(My.Resources.Please_select_only_one_row, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         End If
         If selectedRowCount = 1 Then
             DialogResult = DialogResult.OK

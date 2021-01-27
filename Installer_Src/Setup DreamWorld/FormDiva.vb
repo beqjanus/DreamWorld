@@ -198,7 +198,7 @@ Public Class FormDiva
                     Dim pattern As Regex = New Regex("PNG$|png$")
                     Dim match As Match = pattern.Match(ofd.FileName)
                     If Not match.Success Then
-                        MsgBox(My.Resources.Must_PNG, vbInformation)
+                        MsgBox(My.Resources.Must_PNG, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
                         Return
                     End If
 
@@ -337,7 +337,7 @@ Public Class FormDiva
             Settings.SaveSettings()
             setpassword = True
         Else
-            MsgBox(My.Resources.Passwordtooshort_word, vbInformation)
+            MsgBox(My.Resources.Passwordtooshort_word, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
     End Sub

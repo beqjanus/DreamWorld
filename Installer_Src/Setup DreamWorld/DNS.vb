@@ -13,6 +13,40 @@ Module DNS
         End Set
     End Property
 
+    Public Function GetNewDnsName() As String
+
+        Dim client As New WebClient
+        Dim Checkname As String
+        Try
+            Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+            ErrorLog("Error:Cannot get new name:" & ex.Message)
+            client.Dispose()
+            Return ""
+        End Try
+        client.Dispose()
+        Return Checkname
+
+    End Function
+
+    Public Sub NewDNSName()
+
+        If Settings.DNSName.Length = 0 And Settings.EnableHypergrid Then
+            Dim newname = GetNewDnsName()
+            If newname.Length >= 0 Then
+                If RegisterName(newname, True) Then
+                    Settings.DNSName = newname
+                    Settings.PublicIP = newname
+                    Settings.SaveSettings()
+                    MsgBox(My.Resources.NameAlreadySet, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Information_word)
+                End If
+            End If
+
+        End If
+
+    End Sub
+
     Public Function RegisterName(DNSName As String, force As Boolean) As Boolean
 
         If DNSName Is Nothing Then Return False
@@ -129,39 +163,5 @@ Module DNS
         Return False
 
     End Function
-
-    Public Function GetNewDnsName() As String
-
-        Dim client As New WebClient
-        Dim Checkname As String
-        Try
-            Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            ErrorLog("Error:Cannot get new name:" & ex.Message)
-            client.Dispose()
-            Return ""
-        End Try
-        client.Dispose()
-        Return Checkname
-
-    End Function
-
-    Public Sub NewDNSName()
-
-        If Settings.DNSName.Length = 0 And Settings.EnableHypergrid Then
-            Dim newname = GetNewDnsName()
-            If newname.Length >= 0 Then
-                If RegisterName(newname, True) Then
-                    Settings.DNSName = newname
-                    Settings.PublicIP = newname
-                    Settings.SaveSettings()
-                    MsgBox(My.Resources.NameAlreadySet, vbInformation, Global.Outworldz.My.Resources.Information_word)
-                End If
-            End If
-
-        End If
-
-    End Sub
 
 End Module

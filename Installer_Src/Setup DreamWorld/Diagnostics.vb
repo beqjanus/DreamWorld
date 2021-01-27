@@ -34,7 +34,7 @@ Module Diags
 
         If Settings.DiagFailed = "True" Then
             Logger("Error", Global.Outworldz.My.Resources.Diags_Failed, "Diagnostics")
-            Dim answer = MsgBox(My.Resources.Diags_Failed, vbYesNo)
+            Dim answer = MsgBox(My.Resources.Diags_Failed, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
             If answer = vbYes Then
                 ShowLog()
             End If
@@ -42,96 +42,6 @@ Module Diags
             NewDNSName()
         End If
         TextPrint("__________")
-
-    End Sub
-
-    Private Sub TestAllRegionPorts()
-
-        Dim result As String = ""
-        Dim Len = PropRegionClass.RegionCount()
-
-        Dim Used As New List(Of String)
-        ' Boot them up
-        For Each RegionUUID As String In PropRegionClass.RegionUuids()
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-
-                If Used.Contains(RegionName) Then Continue For
-                Used.Add(RegionName)
-                Logger("INFO", "Testing region " & RegionName, "Diagnostics")
-                Dim Port = PropRegionClass.GroupPort(RegionUUID)
-                TextPrint(My.Resources.Checking_Loopback_word & " " & RegionName)
-                Logger("INFO", Global.Outworldz.My.Resources.Checking_Loopback_word & " " & RegionName, "Diagnostics")
-                PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
-            End If
-        Next
-
-    End Sub
-
-    Private Sub TestPrivateLoopback()
-
-        Dim result As String = ""
-        TextPrint(My.Resources.Checking_LAN_Loopback_word)
-        Logger("Info", Global.Outworldz.My.Resources.Checking_LAN_Loopback_word, "Diagnostics")
-        Dim weblink = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
-        Logger("Info", "URL= " & weblink, "Diagnostics")
-        Using client As New WebClient
-            Try
-                result = client.DownloadString(weblink)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                Logger("Error", ex.Message, "Diagnostics")
-            End Try
-        End Using
-
-        If result = "Test Completed" Then
-            Logger("INFO", Global.Outworldz.My.Resources.Passed_LAN, "Diagnostics")
-            TextPrint(My.Resources.Passed_LAN)
-        Else
-            Logger("INFO", Global.Outworldz.My.Resources.Failed_LAN & " " & weblink & " result was " & result, "Diagnostics")
-            TextPrint(My.Resources.Failed_LAN & " " & weblink)
-            Settings.LoopBackDiag = False
-            Settings.DiagFailed = "True"
-        End If
-
-    End Sub
-
-    Private Sub ProbePublicPort()
-
-        If Settings.ServerType <> "Robust" Then
-
-            Logger("INFO", "Server Is Not Robust", "Diagnostics")
-
-            Return
-        End If
-
-        Dim isPortOpen As String = ""
-        Using client As New WebClient ' download client for web pages
-
-            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
-            ' results See my privacy policy at https://outworldz.com/privacy.htm
-
-            TextPrint(My.Resources.Checking_Router_word)
-            Dim Url = PropDomain & "/cgi/probetest.plx" & GetPostData()
-            Logger("INFO", "Using URL " & Url, "Diagnostics")
-            Try
-                isPortOpen = client.DownloadString(Url)
-            Catch ex As WebException  ' not an error as could be a 404 from Diva being off
-                BreakPoint.Show(ex.Message)
-                Logger("Error", Global.Outworldz.My.Resources.Wrong & " " & ex.Message, "Diagnostics")
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            End Try
-        End Using
-
-        If isPortOpen = "yes" Then
-            Logger("INFO", Global.Outworldz.My.Resources.Incoming_Works, "Diagnostics")
-            TextPrint(My.Resources.Incoming_Works)
-        Else
-            Settings.LoopBackDiag = False
-            Settings.DiagFailed = "True"
-            Logger("INFO", Global.Outworldz.My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded, "Diagnostics")
-            TextPrint(My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded)
-        End If
 
     End Sub
 
@@ -180,50 +90,6 @@ Module Diags
         End If
 
     End Function
-
-    Public Sub PortTest(Weblink As String, Port As Integer)
-
-        Dim result As String = ""
-        Using client As New WebClient
-            Try
-                result = client.DownloadString(Weblink)
-            Catch ex As WebException  ' not an error as could be a 404 from Diva being off
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
-                Logger("Error", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
-            End Try
-        End Using
-
-        If result.Contains("DOCTYPE") Or result.Contains("Ooops!") Or result.Length = 0 Then
-            Logger("INFO", Global.Outworldz.My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture), "Diagnostics")
-            TextPrint(My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture))
-        Else
-            TextPrint(My.Resources.Loopback_Failed & " " & Weblink)
-            Logger("INFO", Global.Outworldz.My.Resources.Loopback_Failed & " " & Weblink, "Diagnostics")
-            Settings.LoopBackDiag = False
-            Settings.DiagFailed = "True"
-        End If
-
-    End Sub
-
-    Public Sub TestPublicLoopback()
-
-        If IPCheck.IsPrivateIP(Settings.PublicIP) Then
-            Logger("INFO", "Local LAN IP", "Diagnostics")
-            Return
-        End If
-
-        If Settings.ServerType <> "Robust" Then
-            Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
-            Return
-        End If
-
-        TextPrint(My.Resources.Checking_Loopback_word)
-        'Logger("INFO", Global.Outworldz.My.Resources.Checking_Loopback_word, "Diagnostics")
-        PortTest("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random, Settings.HttpPort)
-
-    End Sub
 
     Public Function OpenRouterPorts() As Boolean
 
@@ -365,5 +231,139 @@ Module Diags
         Return True 'successfully added
 
     End Function
+
+    Public Sub PortTest(Weblink As String, Port As Integer)
+
+        Dim result As String = ""
+        Using client As New WebClient
+            Try
+                result = client.DownloadString(Weblink)
+            Catch ex As WebException  ' not an error as could be a 404 from Diva being off
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog("Err:Loopback fail:" & result & ":" & ex.Message)
+                Logger("Error", "Loopback fail: " & result & ":" & ex.Message, "Diagnostics")
+            End Try
+        End Using
+
+        If result.Contains("DOCTYPE") Or result.Contains("Ooops!") Or result.Length = 0 Then
+            Logger("INFO", Global.Outworldz.My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture), "Diagnostics")
+            TextPrint(My.Resources.Loopback_Passed & " " & Port.ToString(Globalization.CultureInfo.InvariantCulture))
+        Else
+            TextPrint(My.Resources.Loopback_Failed & " " & Weblink)
+            Logger("INFO", Global.Outworldz.My.Resources.Loopback_Failed & " " & Weblink, "Diagnostics")
+            Settings.LoopBackDiag = False
+            Settings.DiagFailed = "True"
+        End If
+
+    End Sub
+
+    Public Sub TestPublicLoopback()
+
+        If IPCheck.IsPrivateIP(Settings.PublicIP) Then
+            Logger("INFO", "Local LAN IP", "Diagnostics")
+            Return
+        End If
+
+        If Settings.ServerType <> "Robust" Then
+            Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
+            Return
+        End If
+
+        TextPrint(My.Resources.Checking_Loopback_word)
+        'Logger("INFO", Global.Outworldz.My.Resources.Checking_Loopback_word, "Diagnostics")
+        PortTest("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/?_TestLoopback=" & RandomNumber.Random, Settings.HttpPort)
+
+    End Sub
+
+    Private Sub ProbePublicPort()
+
+        If Settings.ServerType <> "Robust" Then
+
+            Logger("INFO", "Server Is Not Robust", "Diagnostics")
+
+            Return
+        End If
+
+        Dim isPortOpen As String = ""
+        Using client As New WebClient ' download client for web pages
+
+            ' collect some stats and test loopback with a HTTP_ GET to the webserver. Send unique, anonymous random ID, both of the versions of Opensim and this program, and the diagnostics test
+            ' results See my privacy policy at https://outworldz.com/privacy.htm
+
+            TextPrint(My.Resources.Checking_Router_word)
+            Dim Url = PropDomain & "/cgi/probetest.plx" & GetPostData()
+            Logger("INFO", "Using URL " & Url, "Diagnostics")
+            Try
+                isPortOpen = client.DownloadString(Url)
+            Catch ex As WebException  ' not an error as could be a 404 from Diva being off
+                BreakPoint.Show(ex.Message)
+                Logger("Error", Global.Outworldz.My.Resources.Wrong & " " & ex.Message, "Diagnostics")
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
+            End Try
+        End Using
+
+        If isPortOpen = "yes" Then
+            Logger("INFO", Global.Outworldz.My.Resources.Incoming_Works, "Diagnostics")
+            TextPrint(My.Resources.Incoming_Works)
+        Else
+            Settings.LoopBackDiag = False
+            Settings.DiagFailed = "True"
+            Logger("INFO", Global.Outworldz.My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded, "Diagnostics")
+            TextPrint(My.Resources.Internet_address & " " & Settings.PublicIP & ":" & Settings.HttpPort & Global.Outworldz.My.Resources.Not_Forwarded)
+        End If
+
+    End Sub
+
+    Private Sub TestAllRegionPorts()
+
+        Dim result As String = ""
+        Dim Len = PropRegionClass.RegionCount()
+
+        Dim Used As New List(Of String)
+        ' Boot them up
+        For Each RegionUUID As String In PropRegionClass.RegionUuids()
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+
+                If Used.Contains(RegionName) Then Continue For
+                Used.Add(RegionName)
+                Logger("INFO", "Testing region " & RegionName, "Diagnostics")
+                Dim Port = PropRegionClass.GroupPort(RegionUUID)
+                TextPrint(My.Resources.Checking_Loopback_word & " " & RegionName)
+                Logger("INFO", Global.Outworldz.My.Resources.Checking_Loopback_word & " " & RegionName, "Diagnostics")
+                PortTest("http://" & Settings.PublicIP & ":" & Port & "/?_TestLoopback=" & RandomNumber.Random, Port)
+            End If
+        Next
+
+    End Sub
+
+    Private Sub TestPrivateLoopback()
+
+        Dim result As String = ""
+        TextPrint(My.Resources.Checking_LAN_Loopback_word)
+        Logger("Info", Global.Outworldz.My.Resources.Checking_LAN_Loopback_word, "Diagnostics")
+        Dim weblink = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
+        Logger("Info", "URL= " & weblink, "Diagnostics")
+        Using client As New WebClient
+            Try
+                result = client.DownloadString(weblink)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                Logger("Error", ex.Message, "Diagnostics")
+            End Try
+        End Using
+
+        If result = "Test Completed" Then
+            Logger("INFO", Global.Outworldz.My.Resources.Passed_LAN, "Diagnostics")
+            TextPrint(My.Resources.Passed_LAN)
+        Else
+            Logger("INFO", Global.Outworldz.My.Resources.Failed_LAN & " " & weblink & " result was " & result, "Diagnostics")
+            TextPrint(My.Resources.Failed_LAN & " " & weblink)
+            Settings.LoopBackDiag = False
+            Settings.DiagFailed = "True"
+        End If
+
+    End Sub
 
 End Module

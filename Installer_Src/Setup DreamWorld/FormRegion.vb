@@ -566,7 +566,7 @@ Public Class FormRegion
 
         Dim message = RegionValidate()
         If Len(message) > 0 Then
-            Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, vbYesNo, Global.Outworldz.My.Resources.Info_word)
+            Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If v = vbYes Then
                 Me.Close()
             End If
@@ -583,7 +583,7 @@ Public Class FormRegion
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles DeregisterButton.Click
 
-        Dim response As MsgBoxResult = MsgBox(My.Resources.Another_Region, vbYesNo)
+        Dim response As MsgBoxResult = MsgBox(My.Resources.Another_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
         If response = vbYes Then
 
             StartMySQL()
@@ -646,7 +646,7 @@ Public Class FormRegion
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
-        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, vbYesNo, Global.Outworldz.My.Resources.Info_word)
+        Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
             DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
@@ -684,11 +684,11 @@ Public Class FormRegion
 
         If Changed1 Then
             FormSetup.PropViewedSettings = True
-            Dim v = MsgBox(My.Resources.Save_changes_word, vbYesNo, Global.Outworldz.My.Resources.Save_changes_word)
+            Dim v = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Save_changes_word)
             If v = vbYes Then
                 Dim message = RegionValidate()
                 If Len(message) > 0 Then
-                    v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, vbYesNo, Global.Outworldz.My.Resources.Info_word)
+                    v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                     If v = vbYes Then
                         Me.Close()
                     End If
@@ -968,21 +968,12 @@ Public Class FormRegion
     Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
         If Len(RegionName.Text) > 0 And Initted1 Then
             If Not FilenameIsOK(RegionName.Text) Then
-                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", vbInformation, Global.Outworldz.My.Resources.Info_word)
+                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                 Return
             End If
 
             Changed1 = True
         End If
-    End Sub
-
-    Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
-
-        If Initted1 Then Changed1 = True
-
     End Sub
 
     Private Sub ScriptTimerTextBox_focusChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.LostFocus
@@ -993,6 +984,15 @@ Public Class FormRegion
         Catch ex As Exception
             ScriptTimerTextBox.Text = ""
         End Try
+
+    End Sub
+
+    Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
+
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
+
+        If Initted1 Then Changed1 = True
 
     End Sub
 
@@ -1014,13 +1014,6 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        FrametimeBox.Text = digitsOnly.Replace(FrametimeBox.Text, "")
-
-    End Sub
-
     Private Sub TextBox1_FocusChanged(sender As Object, e As EventArgs) Handles FrametimeBox.LostFocus
 
         Try
@@ -1031,6 +1024,13 @@ Public Class FormRegion
         End Try
 
         If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
+
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        FrametimeBox.Text = digitsOnly.Replace(FrametimeBox.Text, "")
 
     End Sub
 
@@ -1061,13 +1061,13 @@ Public Class FormRegion
     Private Sub UUID_LostFocus(sender As Object, e As EventArgs) Handles UUID.LostFocus
 
         If UUID.Text <> UUID.Text And Initted1 Then
-            Dim resp = MsgBox(My.Resources.Change_UUID, vbYesNo, Global.Outworldz.My.Resources.Info_word)
+            Dim resp = MsgBox(My.Resources.Change_UUID, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If resp = vbYes Then
                 Changed1 = True
                 Dim result As Guid
                 If Guid.TryParse(UUID.Text, result) Then
                 Else
-                    Dim ok = MsgBox(My.Resources.NotValidUUID, vbOKCancel, Global.Outworldz.My.Resources.Info_word)
+                    Dim ok = MsgBox(My.Resources.NotValidUUID, MsgBoxStyle.OkCancel Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                     If ok = vbOK Then
                         UUID.Text = System.Guid.NewGuid.ToString
                     End If
@@ -1328,7 +1328,7 @@ Public Class FormRegion
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Return False
-            MsgBox(My.Resources.Cannot_save_region_word + ex.Message)
+            MsgBox(My.Resources.Cannot_save_region_word + ex.Message, MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
 
         If PropRegionClass.GetAllRegions() = -1 Then Return False

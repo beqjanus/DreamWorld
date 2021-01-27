@@ -77,7 +77,7 @@ Public Class FormBird
         BirdsBorderSizeTextBox.Text = digitsOnly.Replace(BirdsBorderSizeTextBox.Text, "")
 
         If Not Double.TryParse(BirdsBorderSizeTextBox.Text, Settings.BirdsBorderSize) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
         changed = True
@@ -91,7 +91,7 @@ Public Class FormBird
         BirdsMaxHeightTextBox.Text = digitsOnly.Replace(BirdsMaxHeightTextBox.Text, "")
 
         If Not Double.TryParse(BirdsMaxHeightTextBox.Text, Settings.BirdsMaxHeight) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
         changed = True
@@ -116,7 +116,7 @@ Public Class FormBird
         BirdsNeighbourDistanceTextBox.Text = digitsOnly.Replace(BirdsNeighbourDistanceTextBox.Text, "")
 
         If Not Double.TryParse(BirdsNeighbourDistanceTextBox.Text, Settings.BirdsNeighbourDistance) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
         changed = True
 
@@ -128,7 +128,7 @@ Public Class FormBird
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         BirdsToleranceTextBox.Text = digitsOnly.Replace(BirdsToleranceTextBox.Text, "")
         If Not Double.TryParse(BirdsToleranceTextBox.Text, Settings.BirdsTolerance) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
         changed = True
     End Sub
@@ -147,7 +147,7 @@ Public Class FormBird
         ChatChanelTextBox.Text = digitsOnly.Replace(ChatChanelTextBox.Text, "")
 
         If Not Integer.TryParse(ChatChanelTextBox.Text, Settings.BirdsChatChannel) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
         changed = True
 
@@ -166,7 +166,7 @@ Public Class FormBird
         DesiredSeparationTextBox.Text = digitsOnly.Replace(DesiredSeparationTextBox.Text, "")
 
         If Double.TryParse(DesiredSeparationTextBox.Text, Settings.BirdsDesiredSeparation) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
         changed = True
 
@@ -252,7 +252,7 @@ Public Class FormBird
         MaxForceTextBox.Text = digitsOnly.Replace(MaxForceTextBox.Text, "")
 
         If Not Double.TryParse(MaxForceTextBox.Text, Settings.BirdsMaxForce) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
         changed = True
 
@@ -265,7 +265,7 @@ Public Class FormBird
         MaxSpeedTextBox.Text = digitsOnly.Replace(MaxSpeedTextBox.Text, "")
 
         If Not Double.TryParse(MaxSpeedTextBox.Text, Settings.BirdsMaxSpeed) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
         changed = True

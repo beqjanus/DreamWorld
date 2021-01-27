@@ -181,7 +181,7 @@ Public Class FormAutoBackups
         AutoBackupKeepFilesForDays.Text = digitsOnly.Replace(AutoBackupKeepFilesForDays.Text, "")
 
         If Not Integer.TryParse(AutoBackupKeepFilesForDays.Text, Settings.KeepForDays) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             Settings.SaveSettings()
         End If
         ' TODO:  Implement PropViewedSettings as a dictionary in a module we can prompt for restart with

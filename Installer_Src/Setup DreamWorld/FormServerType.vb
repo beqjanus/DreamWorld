@@ -46,7 +46,7 @@
 
     Private Sub Form_exit() Handles Me.Closed
         If Changed Then
-            Dim result = MsgBox(My.Resources.Save_changes_word, vbYesNo)
+            Dim result = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
             If result = vbYes Then
                 FormSetup.PropViewedSettings = True
                 SaveAll()

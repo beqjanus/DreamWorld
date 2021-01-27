@@ -184,7 +184,7 @@ Public Class FormCaches
         End If
 
         If Not IO.Directory.Exists(tmp) Then
-            MsgBox(My.Resources.No_Locate_FSassets & tmp & Global.Outworldz.My.Resources.Reset_To_Default, vbInformation)
+            MsgBox(My.Resources.No_Locate_FSassets & tmp & Global.Outworldz.My.Resources.Reset_To_Default, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             CacheFolder.Text = ".\assetcache".ToString(Globalization.CultureInfo.InvariantCulture)
         End If
 

@@ -133,7 +133,7 @@ Module FileStuff
         End If
 
         If Not System.IO.Directory.Exists(sourcePath) Then
-            MsgBox("Cannot locate folder " & sourcePath, vbInformation)
+            MsgBox("Cannot locate folder " & sourcePath, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             Return
         End If
         Dim ctr = 0

@@ -170,7 +170,7 @@ Public Class FormPublicity
                 Dim pattern As Regex = New Regex("PNG$|png$")
                 Dim match As Match = pattern.Match(ofd.FileName)
                 If Not match.Success Then
-                    MsgBox(My.Resources.Must_PNG, vbInformation)
+                    MsgBox(My.Resources.Must_PNG, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
                     Return
                 End If
 

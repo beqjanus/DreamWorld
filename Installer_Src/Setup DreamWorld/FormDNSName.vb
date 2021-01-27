@@ -131,7 +131,7 @@ Public Class FormDNSName
         Dim newname = GetNewDnsName()
         NextNameButton.Text = Global.Outworldz.My.Resources.Next1
         If newname.Length = 0 Then
-            MsgBox(My.Resources.Please_enter, vbInformation, Global.Outworldz.My.Resources.Info_word)
+            MsgBox(My.Resources.Please_enter, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             NextNameButton.Enabled = False
         Else
             NextNameButton.Enabled = True
@@ -209,16 +209,16 @@ Public Class FormDNSName
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
                     Dim IP = FormSetup.GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
-                        MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, Global.Outworldz.My.Resources.Error_word)
+                        MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     Else
-                        MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, vbInformation, Global.Outworldz.My.Resources.Info_word)
+                        MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                     End If
                 Else
                     Dim IP = FormSetup.GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
-                        MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, vbInformation, Global.Outworldz.My.Resources.Error_word)
+                        MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     Else
-                        MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, vbInformation, Global.Outworldz.My.Resources.Info_word)
+                        MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                     End If
                 End If
             Catch ex As Exception
@@ -234,13 +234,13 @@ Public Class FormDNSName
                         RegisterName(part, False)
 
                         If IPAddress.TryParse(part, address) Then
-                            MsgBox(Global.Outworldz.My.Resources.resolved & " " & part, vbInformation, Global.Outworldz.My.Resources.Info_word)
+                            MsgBox(Global.Outworldz.My.Resources.resolved & " " & part, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                         Else
                             Dim IP = FormSetup.GetHostAddresses(part)
                             If IP.Length = 0 Then
-                                MsgBox(My.Resources.Cannot_resolve_word & " " & part, vbInformation, Global.Outworldz.My.Resources.Error_word)
+                                MsgBox(My.Resources.Cannot_resolve_word & " " & part, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                             Else
-                                MsgBox(part + " " & Global.Outworldz.My.Resources.resolved & " " & IP, vbInformation, Global.Outworldz.My.Resources.Info_word)
+                                MsgBox(part + " " & Global.Outworldz.My.Resources.resolved & " " & IP, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                             End If
                         End If
                     Next

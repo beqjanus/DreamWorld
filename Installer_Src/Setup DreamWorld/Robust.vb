@@ -183,7 +183,7 @@ Module Robust
             If counter > 600 Then
                 TextPrint(My.Resources.Robust_failed_to_start)
                 FormSetup.Buttons(FormSetup.StartButton)
-                Dim yesno = MsgBox(My.Resources.See_Log, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+                Dim yesno = MsgBox(My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                 If (yesno = vbYes) Then
                     Dim Log As String = """" & Settings.OpensimBinPath & "Robust.log" & """"
                     Try
@@ -446,7 +446,7 @@ Module Robust
         RobustCrashCounter = 0
         RobustIcon(False)
 
-        Dim yesno = MsgBox(My.Resources.Robust_exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+        Dim yesno = MsgBox(My.Resources.Robust_exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then
             Dim MysqlLog As String = Settings.OpensimBinPath & "Robust.log"
             Try

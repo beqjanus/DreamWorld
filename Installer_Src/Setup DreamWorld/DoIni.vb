@@ -302,7 +302,7 @@ Module DoIni
             Dim DefaultName = Settings.WelcomeRegion
 
             If WelcomeUUID.Length = 0 Then
-                MsgBox(My.Resources.Cannot_locate, vbInformation)
+                MsgBox(My.Resources.Cannot_locate, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
                 Dim RegionName = ChooseRegion(False)
                 If RegionName.Length > 0 Then
                     Return False
@@ -362,7 +362,7 @@ Module DoIni
             reader.Close()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            MsgBox(My.Resources.no_Default_sim, vbInformation, Global.Outworldz.My.Resources.Settings_word)
+            MsgBox(My.Resources.no_Default_sim, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Settings_word)
             Return True
         End Try
 

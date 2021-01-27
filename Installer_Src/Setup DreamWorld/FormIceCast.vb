@@ -160,7 +160,7 @@ Public Class FormIcecast
         ShoutcastPort.Text = digitsOnly.Replace(ShoutcastPort.Text, "")
 
         If Not Integer.TryParse(ShoutcastPort.Text, Settings.SCPortBase) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
     End Sub
@@ -171,7 +171,7 @@ Public Class FormIcecast
         ShoutcastPort1.Text = digitsOnly.Replace(ShoutcastPort1.Text, "")
 
         If Not Integer.TryParse(ShoutcastPort1.Text, Settings.SCPortBase1) Then
-            MsgBox(My.Resources.Must_be_A_Number, vbInformation)
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
     End Sub
