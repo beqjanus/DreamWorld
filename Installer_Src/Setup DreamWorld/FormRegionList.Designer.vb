@@ -74,6 +74,7 @@ Partial Class FormRegionlist
         '
         'RefreshButton
         '
+        Me.RefreshButton.AutoSize = True
         Me.RefreshButton.Image = Global.Outworldz.My.Resources.Resources.refresh
         Me.RefreshButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.RefreshButton.Location = New System.Drawing.Point(245, 13)
@@ -92,6 +93,7 @@ Partial Class FormRegionlist
         '
         'AddRegionButton
         '
+        Me.AddRegionButton.AutoSize = True
         Me.AddRegionButton.Image = Global.Outworldz.My.Resources.Resources.package_add
         Me.AddRegionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.AddRegionButton.Location = New System.Drawing.Point(118, 47)
@@ -117,6 +119,7 @@ Partial Class FormRegionlist
         '
         'RunAllButton
         '
+        Me.RunAllButton.AutoSize = True
         Me.RunAllButton.Image = Global.Outworldz.My.Resources.Resources.media_play
         Me.RunAllButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.RunAllButton.Location = New System.Drawing.Point(245, 47)
@@ -130,6 +133,7 @@ Partial Class FormRegionlist
         '
         'StopAllButton
         '
+        Me.StopAllButton.AutoSize = True
         Me.StopAllButton.Image = Global.Outworldz.My.Resources.Resources.media_stop
         Me.StopAllButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.StopAllButton.Location = New System.Drawing.Point(381, 48)
@@ -143,6 +147,7 @@ Partial Class FormRegionlist
         '
         'RestartButton
         '
+        Me.RestartButton.AutoSize = True
         Me.RestartButton.Image = Global.Outworldz.My.Resources.Resources.replace2
         Me.RestartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.RestartButton.Location = New System.Drawing.Point(517, 47)
@@ -156,6 +161,7 @@ Partial Class FormRegionlist
         '
         'DetailsButton
         '
+        Me.DetailsButton.AutoSize = True
         Me.DetailsButton.Image = Global.Outworldz.My.Resources.Resources.text_marked
         Me.DetailsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.DetailsButton.Location = New System.Drawing.Point(381, 14)
@@ -169,6 +175,7 @@ Partial Class FormRegionlist
         '
         'IconsButton
         '
+        Me.IconsButton.AutoSize = True
         Me.IconsButton.Image = Global.Outworldz.My.Resources.Resources.transform
         Me.IconsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.IconsButton.Location = New System.Drawing.Point(517, 13)
@@ -182,6 +189,7 @@ Partial Class FormRegionlist
         '
         'AvatarsButton
         '
+        Me.AvatarsButton.AutoSize = True
         Me.AvatarsButton.Image = Global.Outworldz.My.Resources.Resources.users2
         Me.AvatarsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.AvatarsButton.Location = New System.Drawing.Point(653, 13)
@@ -195,6 +203,7 @@ Partial Class FormRegionlist
         '
         'ImportButton
         '
+        Me.ImportButton.AutoSize = True
         Me.ImportButton.Image = Global.Outworldz.My.Resources.Resources.package
         Me.ImportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ImportButton.Location = New System.Drawing.Point(653, 46)
@@ -258,14 +267,14 @@ Partial Class FormRegionlist
         '
         Me.OnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
-        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(228, 30)
+        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(140, 26)
         Me.OnTopToolStripMenuItem.Text = "On Top"
         '
         'FloatToolStripMenuItem
         '
         Me.FloatToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.table
         Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
-        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(228, 30)
+        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(140, 26)
         Me.FloatToolStripMenuItem.Text = "Float"
         '
         'Label1
