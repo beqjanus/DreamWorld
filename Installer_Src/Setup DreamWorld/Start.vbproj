@@ -823,6 +823,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\tables.png" />
+    <None Include="Resources\package_view.png" />
+    <None Include="Resources\package_preferences.png" />
+    <None Include="Resources\package_ok.png" />
+    <None Include="Resources\package_new.png" />
+    <None Include="Resources\package_find.png" />
+    <None Include="Resources\package_error.png" />
+    <None Include="Resources\package_delete.png" />
+    <None Include="Resources\package_add1.png" />
+    <None Include="Resources\package1.png" />
     <None Include="Resources\cube_green_new.png" />
     <None Include="Resources\table.png" />
     <None Include="Resources\earth_view.png" />
