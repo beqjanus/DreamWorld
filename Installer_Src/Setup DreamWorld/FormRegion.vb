@@ -594,7 +594,7 @@ Public Class FormRegion
                 If FormSetup.CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) Then
                     ShutDown(RegionUUID)
                 End If
-                Dim loopctr = 60 ' wait a minute
+                Dim loopctr = 120 ' wait 2 minutes
                 While FormSetup.CheckPort(Settings.PrivateURL, PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
                     Sleep(1000)
                     loopctr -= 1
@@ -1083,9 +1083,7 @@ Public Class FormRegion
 
     End Sub
 
-    ''' <summary>
-    ''' !!! TODO catch errors by callers
-    ''' </summary>
+    ''' <summary>!!! TODO catch errors by callers</summary>
     ''' <returns>false if it fails</returns>
     Private Function WriteRegion(RegionUUID As String) As Boolean
 

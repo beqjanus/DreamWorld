@@ -30,51 +30,6 @@ Public Class UploadImage
 
 #Region "Public Methods"
 
-    Sub UploadComplete(ByVal data As String)
-        ' Your Upload Success Routine Goes here
-        If data <> "1" Then
-            Log(My.Resources.Error_word, "Upload Failed. " & data)
-        End If
-        Busy = False
-
-    End Sub
-
-    Sub UploadError(ByVal data As String)
-
-        ' Your Upload failure Routine Goes here
-        ErrorLog("Upload Error:" + data)
-
-        Busy = False
-
-    End Sub
-
-#Disable Warning CA1822 ' Mark members as static
-
-    Public Sub UploadCategory()
-#Enable Warning CA1822 ' Mark members as static
-
-        If Settings.DNSName.Length = 0 Then Return
-
-        'PHASE 2, upload Description and Categories
-        Dim result As String = Nothing
-        If Settings.Categories.Length = 0 Then Return
-
-        Using client As New WebClient ' download client for web pages
-            Try
-                Dim str = PropDomain & "/cgi/UpdateCategory.plx" & GetPostData()
-                result = client.DownloadString(str)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-            End Try
-        End Using
-
-        If result <> "OK" Then
-            ErrorLog(My.Resources.Wrong & " " & result)
-        End If
-
-    End Sub
-
     Public Sub PostContentUploadFile(File As String, CGI As Uri)
 
         Try
@@ -107,6 +62,53 @@ Public Class UploadImage
         Busy = False
 
     End Sub
+
+#Disable Warning CA1822 ' Mark members as static
+
+    Public Sub UploadCategory()
+#Enable Warning CA1822 ' Mark members as static
+
+        If Settings.DNSName.Length = 0 Then Return
+
+        'PHASE 2, upload Description and Categories
+        Dim result As String = Nothing
+        If Settings.Categories.Length = 0 Then Return
+
+        Using client As New WebClient ' download client for web pages
+            Try
+                Dim str = PropDomain & "/cgi/UpdateCategory.plx" & GetPostData()
+                result = client.DownloadString(str)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog(My.Resources.Wrong & " " & ex.Message)
+            End Try
+        End Using
+
+        If result <> "OK" Then
+            ErrorLog(My.Resources.Wrong & " " & result)
+        End If
+
+    End Sub
+
+    Sub UploadComplete(ByVal data As String)
+        ' Your Upload Success Routine Goes here
+        If data <> "1" Then
+            Log(My.Resources.Error_word, "Upload Failed. " & data)
+        End If
+        Busy = False
+
+    End Sub
+
+    Sub UploadError(ByVal data As String)
+
+        ' Your Upload failure Routine Goes here
+        ErrorLog("Upload Error:" + data)
+
+        Busy = False
+
+    End Sub
+
+#Disable Warning CA1822 ' Mark members as static
 
 #End Region
 
@@ -177,7 +179,9 @@ Public Class UploadImage
             sw.Write(vbNewLine & "--" & boundary & "--" & vbNewLine)
             Debug.Print(vbNewLine & "--" & boundary & "--" & vbNewLine)
 
-            sw.Flush() : sw.Close()
+            sw.Flush()
+            sw.Close()
+            sw.Dispose()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -213,6 +217,7 @@ Public Class UploadImage
                 Call UploadError(sData)
             End If
             webResp.Close()
+            webResp.Dispose()
         Else
             Call UploadError(sData)
         End If
