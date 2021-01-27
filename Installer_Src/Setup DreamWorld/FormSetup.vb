@@ -393,7 +393,7 @@ Public Class FormSetup
             Settings.HttpPort = 8002
             Settings.PrivatePort = 8003
 
-            MsgBox(My.Resources.Port_Error, vbInformation, Global.Outworldz.My.Resources.Error_word)
+            MsgBox(My.Resources.Port_Error, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         End If
 
     End Sub
@@ -525,7 +525,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Update_is_available & ":" & Update_version)
 
-        Dim doUpdate = MsgBox(My.Resources.Update_is_available, vbInformation)
+        Dim doUpdate = MsgBox(My.Resources.Update_is_available, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
         If doUpdate = vbOK Then
 
             If DoStopActions() = False Then Return
@@ -586,7 +586,7 @@ Public Class FormSetup
         End If
         IcecastCrashCounter = 0
 
-        Dim yesno = MsgBox(My.Resources.Icecast_Exited, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
 
         If (yesno = vbYes) Then
             Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
@@ -602,7 +602,7 @@ Public Class FormSetup
     Public Function KillAll() As Boolean
 
         If ScanAgents() > 0 Then
-            Dim response = MsgBox(My.Resources.Avatars_in_World, vbYesNo)
+            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
             If response = vbNo Then Return False
         End If
 
@@ -828,7 +828,7 @@ Public Class FormSetup
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
         If RegionUUID.Length = 0 Then
-            MsgBox(My.Resources.Default_Welcome, vbInformation)
+            MsgBox(My.Resources.Default_Welcome, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
             TextPrint(My.Resources.Stopped_word)
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormRegions = New FormRegions
@@ -873,7 +873,7 @@ Public Class FormSetup
         End If
 
         If SetIniData() Then
-            MsgBox("Failed to setup")
+            MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
             Buttons(StartButton)
             TextPrint(My.Resources.Stopped_word)
             Return
@@ -1172,7 +1172,7 @@ Public Class FormSetup
         TextPrint(My.Resources.Check_Diag)
         Dim wsstarted = CheckPort("127.0.0.1", CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
-            MsgBox(My.Resources.Diag_Port_word & " " & Settings.DiagnosticPort & ". " & Global.Outworldz.My.Resources.Diag_Broken)
+            MsgBox(My.Resources.Diag_Port_word & " " & Settings.DiagnosticPort & ". " & Global.Outworldz.My.Resources.Diag_Broken, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground)
             PropUseIcons = False
         End If
 
@@ -1423,7 +1423,7 @@ Public Class FormSetup
                     If PropRegionClass.CrashCounter(RegionUUID) > 3 Then
                         Logger("Crash", GroupName & " Crashed 4 times", "Restart")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                        Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+                        Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         If (yesno = vbYes) Then
                             Try
                                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
@@ -1457,7 +1457,8 @@ Public Class FormSetup
                         Return ' not if we are aborting
                     End If
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                    Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, vbYesNo, Global.Outworldz.My.Resources.Error_word)
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                    Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
                         Try
                             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
@@ -1833,7 +1834,7 @@ Public Class FormSetup
         End Select
 
         If SetIniData() Then
-            MsgBox("Failed to setup")
+            MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
             Buttons(StartButton)
             TextPrint(My.Resources.Stopped_word)
             Return
@@ -2268,7 +2269,7 @@ Public Class FormSetup
 
     Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click
 
-        TextPrint("(c) 2017 Outworldz,LLC" & vbCrLf & "Version " & PropMyVersion)
+        TextPrint("(c) AGPL 3.0 Outworldz,LLC" & vbCrLf & "Version " & PropMyVersion)
         Dim webAddress As String = PropDomain & "/Outworldz_Installer"
         Try
             Process.Start(webAddress)
@@ -2504,7 +2505,7 @@ Public Class FormSetup
             Dim thing = openFileDialog1.FileName
             If thing.Length > 0 Then
 
-                Dim yesno = MsgBox(My.Resources.Are_You_Sure, vbYesNo, Global.Outworldz.My.Resources.Restore_word)
+                Dim yesno = MsgBox(My.Resources.Are_You_Sure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Restore_word)
                 If yesno = vbYes Then
 
                     DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat"))
@@ -3355,7 +3356,7 @@ Public Class FormSetup
             Application.DoEvents()
         Next
         If UUID.Length = 0 Then
-            MsgBox(My.Resources.No_Regions_Ready, vbInformation, Global.Outworldz.My.Resources.Info_word)
+            MsgBox(My.Resources.No_Regions_Ready, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             Return False
         End If
 
@@ -3435,20 +3436,6 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
-
-    End Sub
-
-    Private Sub KeepOnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KeepOnTopToolStripMenuItem.Click
-
-        If Settings.KeepOnTopMain Then
-            Me.TopMost = False
-            Settings.KeepOnTopMain = False
-            KeepOnTopToolStripMenuItem.Image = My.Resources.table
-        Else
-            Me.TopMost = True
-            Settings.KeepOnTopMain = True
-            KeepOnTopToolStripMenuItem.Image = My.Resources.tables
-        End If
 
     End Sub
 
@@ -3687,7 +3674,7 @@ Public Class FormSetup
 
                     Dim itemName = SaveIAR.GObject
                     If itemName.Length = 0 Then
-                        MsgBox(My.Resources.MustHaveName)
+                        MsgBox(My.Resources.MustHaveName, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
                         Return
                     End If
 
@@ -3751,5 +3738,25 @@ Public Class FormSetup
     End Sub
 
 #End Region
+
+    Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
+
+        Me.TopMost = False
+        Settings.KeepOnTopMain = False
+        KeepOnTopToolStripMenuItem.Image = My.Resources.table
+        OnTopToolStripMenuItem.Checked = False
+        FloatToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
+
+        Me.TopMost = True
+        Settings.KeepOnTopMain = True
+        KeepOnTopToolStripMenuItem.Image = My.Resources.tables
+        OnTopToolStripMenuItem.Checked = True
+        FloatToolStripMenuItem.Checked = False
+
+    End Sub
 
 End Class

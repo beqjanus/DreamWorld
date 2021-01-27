@@ -39,6 +39,8 @@ Partial Class FormSetup
         Me.mnuShow = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHideAllways = New System.Windows.Forms.ToolStripMenuItem()
         Me.KeepOnTopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OnTopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FloatToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LanguageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ArabicToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EnglishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -252,10 +254,25 @@ Partial Class FormSetup
         '
         'KeepOnTopToolStripMenuItem
         '
+        Me.KeepOnTopToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnTopToolStripMenuItem, Me.FloatToolStripMenuItem})
         Me.KeepOnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.KeepOnTopToolStripMenuItem.Name = "KeepOnTopToolStripMenuItem"
         Me.KeepOnTopToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.KeepOnTopToolStripMenuItem.Text = "Keep On Top"
+        Me.KeepOnTopToolStripMenuItem.Text = "Window"
+        '
+        'OnTopToolStripMenuItem
+        '
+        Me.OnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
+        Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
+        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.OnTopToolStripMenuItem.Text = " On Top"
+        '
+        'FloatToolStripMenuItem
+        '
+        Me.FloatToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.table
+        Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
+        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.FloatToolStripMenuItem.Text = "Float"
         '
         'LanguageToolStripMenuItem
         '
@@ -1198,7 +1215,7 @@ Partial Class FormSetup
         Me.ChartWrapper2.MarkerSize = 8
         Me.ChartWrapper2.Name = "ChartWrapper2"
         Me.ChartWrapper2.SideLegendVisible = True
-        Me.ChartWrapper2.Size = New System.Drawing.Size(372, 200)
+        Me.ChartWrapper2.Size = New System.Drawing.Size(372, 198)
         Me.ChartWrapper2.TabIndex = 33
         Me.ChartWrapper2.Title = ""
         '
@@ -1443,4 +1460,6 @@ Partial Class FormSetup
     Friend WithEvents RestartAllRegionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents KeepOnTopToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OnTopToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents FloatToolStripMenuItem As ToolStripMenuItem
 End Class

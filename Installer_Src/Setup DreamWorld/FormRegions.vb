@@ -74,6 +74,7 @@ Public Class FormRegions
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles NormalizeButton1.Click
+
         Dim result As MsgBoxResult = MsgBox(My.Resources.This_Moves, vbYesNo)
         If result = vbYes Then
 
@@ -132,10 +133,6 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        HelpManual("Regions")
-    End Sub
-
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
         Settings.SaveSettings()
@@ -146,21 +143,20 @@ Public Class FormRegions
 
         AddRegion.Text = Global.Outworldz.My.Resources.Add_Region_word
         Button1.Text = Global.Outworldz.My.Resources.ClearReg
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        GroupBox2.Text = Global.Outworldz.My.Resources.Region_word
+
+        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        GroupBox2.Text = Global.Outworldz.My.Resources.Default_Region_word
         Label1.Text = Global.Outworldz.My.Resources.EditRegion
         Label2.Text = Global.Outworldz.My.Resources.New_User_Home
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         NormalizeButton1.Text = Global.Outworldz.My.Resources.NormalizeRegions
         RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
         RegionButton.Text = Global.Outworldz.My.Resources.Configger
-        RegionHelp.Image = Global.Outworldz.My.Resources.about
         SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
         Text = Global.Outworldz.My.Resources.Region_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-        WelcomeRegion.Text = Global.Outworldz.My.Resources.Default_Region_word
+
         X.Name = Global.Outworldz.My.Resources.X
         Y.Name = Global.Outworldz.My.Resources.Y
         Z.Name = Global.Outworldz.My.Resources.Z
@@ -251,14 +247,14 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub RegionHelp_Click(sender As Object, e As EventArgs) Handles RegionHelp.Click
-        HelpManual("Regions")
-    End Sub
-
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d]")
         X.Text = digitsOnly.Replace(X.Text, "")
         Settings.HomeVectorX = X.Text
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Regions")
     End Sub
 
     Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
