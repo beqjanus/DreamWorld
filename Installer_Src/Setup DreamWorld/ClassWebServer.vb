@@ -74,8 +74,9 @@ Public Class NetServer
             BreakPoint.Show(ex.Message)
             Log(My.Resources.Error_word, ex.Message)
         End Try
-        WebThread.Start()
         WebThread.Priority = ThreadPriority.Highest
+        WebThread.Start()
+
         running = True
 
     End Sub

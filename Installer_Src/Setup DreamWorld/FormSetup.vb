@@ -3108,6 +3108,7 @@ Public Class FormSetup
         A.BackupSQLDB(Settings.RegionDBName)
         If Settings.RegionDBName <> Settings.RobustDataBaseName Then
             Dim B As New Backups
+            Sleep(5000)
             B.BackupSQLDB(Settings.RobustDataBaseName)
         End If
 
@@ -3658,9 +3659,8 @@ Public Class FormSetup
 
         Dim WebThread = New Thread(AddressOf Backupper)
         WebThread.SetApartmentState(ApartmentState.STA)
-
-        WebThread.Start()
         WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        WebThread.Start()
 
     End Sub
 

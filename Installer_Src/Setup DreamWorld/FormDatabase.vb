@@ -327,6 +327,7 @@ Public Class FormDatabase
         A.BackupSQLDB(Settings.RegionDBName)
         If Settings.RegionDBName <> Settings.RobustDataBaseName Then
             Dim B As New Backups
+            Sleep(5000)
             B.BackupSQLDB(Settings.RobustDataBaseName)
         End If
 

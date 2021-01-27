@@ -142,8 +142,8 @@ Public Class Backups
         TextPrint(currentdatetime.ToLocalTime & vbCrLf & DBName & " " & My.Resources.Slow_Backup)
         _WebThread1 = New Thread(AddressOf RunSQLBackup)
         _WebThread1.SetApartmentState(ApartmentState.STA)
-        _WebThread1.Start(DBName)
         _WebThread1.Priority = ThreadPriority.BelowNormal
+        _WebThread1.Start(DBName)
 
     End Sub
 
@@ -158,8 +158,9 @@ Public Class Backups
             TextPrint(currentdatetime.ToLocalTime & " Backup Running")
             _WebThread2 = New Thread(AddressOf FullBackupThread)
             _WebThread2.SetApartmentState(ApartmentState.STA)
-            _WebThread2.Start()
             _WebThread2.Priority = ThreadPriority.BelowNormal
+            _WebThread2.Start()
+
             Return
         End If
 
@@ -179,8 +180,9 @@ Public Class Backups
                 TextPrint(currentdatetime.ToLocalTime & " Auto Backup Running")
                 _WebThread3 = New Thread(AddressOf FullBackupThread)
                 _WebThread3.SetApartmentState(ApartmentState.STA)
-                _WebThread3.Start()
                 _WebThread3.Priority = ThreadPriority.BelowNormal
+                _WebThread3.Start()
+
             End If
         End If
 
@@ -281,6 +283,7 @@ Public Class Backups
                     A.BackupSQLDB(Settings.RegionDBName)
                     If Settings.RegionDBName <> Settings.RobustDataBaseName Then
                         Dim B As New Backups
+                        Sleep(5000)
                         B.BackupSQLDB(Settings.RobustDataBaseName)
                     End If
 

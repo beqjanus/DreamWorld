@@ -191,11 +191,13 @@ Module FileStuff
 
     Public Sub DeleteDirectoryTmp()
 
-        Dim WebThread = New Thread(AddressOf Deltmp)
-        WebThread.SetApartmentState(ApartmentState.STA)
-
-        WebThread.Start()
-        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        Try
+            Dim WebThread = New Thread(AddressOf Deltmp)
+            WebThread.SetApartmentState(ApartmentState.STA)
+            WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+            WebThread.Start()
+        Catch
+        End Try
 
     End Sub
 

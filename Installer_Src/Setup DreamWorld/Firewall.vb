@@ -3,24 +3,6 @@ Imports System.Net.Sockets
 
 Public Module Firewall
 
-    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
-
-        Dim iPort As Integer = Convert.ToInt16(Port)
-        Using ClientSocket As New TcpClient
-            Try
-                ClientSocket.Connect(ServerAddress, iPort)
-            Catch ex As Exception
-                Return False
-            End Try
-            If ClientSocket.Connected Then
-                Return True
-            End If
-        End Using
-
-        Return False
-
-    End Function
-
     Function AddFirewallRules() As String
 
         ' TCP only for 8001 (DiagnosticPort) and both for 8002
@@ -59,11 +41,29 @@ Public Module Firewall
     Public Sub BlockIP(ipaddress As String)
 
         Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & ipaddress & vbCrLf
-        Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & ipaddress & """ dir=in profile=any action=block protocol=any remoteip=" & IP() & vbCrLf
+        Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & ipaddress & """ dir=in profile=any action=block protocol=any remoteip=" & ipaddress & vbCrLf
 
         Write(Command)
 
     End Sub
+
+    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
+
+        Dim iPort As Integer = Convert.ToInt16(Port)
+        Using ClientSocket As New TcpClient
+            Try
+                ClientSocket.Connect(ServerAddress, iPort)
+            Catch ex As Exception
+                Return False
+            End Try
+            If ClientSocket.Connected Then
+                Return True
+            End If
+        End Using
+
+        Return False
+
+    End Function
 
     Function DeleteFirewallRules() As String
 

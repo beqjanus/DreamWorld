@@ -1,6 +1,6 @@
 ﻿# Examples are below.|You can ban a viewer, an IP and/or a MAC address.
 # 34.206.39.153|This IP from 'junk.com' is banned.
-# 01:23:45:67:89:A|This MAC address is banned. Get MACs from the Robust log.
-# HydraStorm|HydraStorm Copybotter
 # SolarStorm|Singularity Solar Storm Copybot
-# |Delete or modify any rules then close this window. Robust will restart if running.
+# bacbf6d9e97686d38d6fc1c2b335f126|This MAC address is banned. Get MACs from the Robust log.
+# http://griefergrid.com|Ban the grid
+# The # is a comment|Delete or modify any rules then close this window. Robust will restart if running.
