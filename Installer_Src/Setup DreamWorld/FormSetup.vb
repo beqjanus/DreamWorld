@@ -1517,8 +1517,13 @@ Public Class FormSetup
         Settings.CurrentDirectory = _myFolder
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
 
-        KOT.Checked = Settings.KeepOnTopMain
-        Me.TopMost = KOT.Checked
+        If Settings.KeepOnTopMain Then
+            Me.TopMost = True
+            KeepOnTopToolStripMenuItem.Image = My.Resources.tables
+        Else
+            Me.TopMost = False
+            KeepOnTopToolStripMenuItem.Image = My.Resources.table
+        End If
 
         CopyWifi()
 
@@ -3433,10 +3438,17 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub KOT_CheckedChanged(sender As Object, e As EventArgs) Handles KOT.CheckedChanged
+    Private Sub KeepOnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles KeepOnTopToolStripMenuItem.Click
 
-        Me.TopMost = KOT.Checked
-        Settings.KeepOnTopMain = KOT.Checked
+        If Settings.KeepOnTopMain Then
+            Me.TopMost = False
+            Settings.KeepOnTopMain = False
+            KeepOnTopToolStripMenuItem.Image = My.Resources.table
+        Else
+            Me.TopMost = True
+            Settings.KeepOnTopMain = True
+            KeepOnTopToolStripMenuItem.Image = My.Resources.tables
+        End If
 
     End Sub
 

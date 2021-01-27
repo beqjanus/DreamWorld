@@ -50,6 +50,7 @@ Partial Class FormDiva
         Me.Label19 = New System.Windows.Forms.Label()
         Me.SplashPage = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CustomRadioButton = New System.Windows.Forms.RadioButton()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.GreetingTextBox = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -61,7 +62,6 @@ Partial Class FormDiva
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.CustomRadioButton = New System.Windows.Forms.RadioButton()
         Me.Web.SuspendLayout()
         CType(Me.WiFi, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
@@ -347,6 +347,18 @@ Partial Class FormDiva
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Splash Screen"
         '
+        'CustomRadioButton
+        '
+        Me.CustomRadioButton.AutoSize = True
+        Me.CustomRadioButton.Location = New System.Drawing.Point(228, 187)
+        Me.CustomRadioButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.CustomRadioButton.Name = "CustomRadioButton"
+        Me.CustomRadioButton.Size = New System.Drawing.Size(76, 21)
+        Me.CustomRadioButton.TabIndex = 1877
+        Me.CustomRadioButton.TabStop = True
+        Me.CustomRadioButton.Text = "Custom"
+        Me.CustomRadioButton.UseVisualStyleBackColor = False
+        '
         'Label4
         '
         Me.Label4.AutoSize = True
@@ -439,18 +451,6 @@ Partial Class FormDiva
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 186740
         Me.PictureBox1.TabStop = False
-        '
-        'CustomRadioButton
-        '
-        Me.CustomRadioButton.AutoSize = True
-        Me.CustomRadioButton.Location = New System.Drawing.Point(228, 187)
-        Me.CustomRadioButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.CustomRadioButton.Name = "CustomRadioButton"
-        Me.CustomRadioButton.Size = New System.Drawing.Size(76, 21)
-        Me.CustomRadioButton.TabIndex = 1877
-        Me.CustomRadioButton.TabStop = True
-        Me.CustomRadioButton.Text = "Custom"
-        Me.CustomRadioButton.UseVisualStyleBackColor = False
         '
         'FormDiva
         '

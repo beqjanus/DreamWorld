@@ -38,6 +38,7 @@ Partial Class FormSetup
         Me.mnuHide = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuShow = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuHideAllways = New System.Windows.Forms.ToolStripMenuItem()
+        Me.KeepOnTopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LanguageToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ArabicToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EnglishToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -171,7 +172,6 @@ Partial Class FormSetup
         Me.ChartWrapper2 = New MSChartWrapper.ChartWrapper()
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.KOT = New System.Windows.Forms.CheckBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -205,7 +205,7 @@ Partial Class FormSetup
         '
         'mnuSettings
         '
-        Me.mnuSettings.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RegionsToolStripMenuItem, Me.ConsoleToolStripMenuItem1, Me.LanguageToolStripMenuItem, Me.AdvancedSettingsToolStripMenuItem})
+        Me.mnuSettings.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RegionsToolStripMenuItem, Me.ConsoleToolStripMenuItem1, Me.KeepOnTopToolStripMenuItem, Me.LanguageToolStripMenuItem, Me.AdvancedSettingsToolStripMenuItem})
         Me.mnuSettings.Name = "mnuSettings"
         Me.mnuSettings.Size = New System.Drawing.Size(61, 24)
         Me.mnuSettings.Text = Global.Outworldz.My.Resources.Resources.Setup_word
@@ -215,7 +215,7 @@ Partial Class FormSetup
         Me.RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.Server_Client
         Me.RegionsToolStripMenuItem.Name = "RegionsToolStripMenuItem"
         Me.RegionsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R), System.Windows.Forms.Keys)
-        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(196, 26)
+        Me.RegionsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Regions_word
         '
         'ConsoleToolStripMenuItem1
@@ -223,7 +223,7 @@ Partial Class FormSetup
         Me.ConsoleToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuHide, Me.mnuShow, Me.mnuHideAllways})
         Me.ConsoleToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.window_add
         Me.ConsoleToolStripMenuItem1.Name = "ConsoleToolStripMenuItem1"
-        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(196, 26)
+        Me.ConsoleToolStripMenuItem1.Size = New System.Drawing.Size(224, 26)
         Me.ConsoleToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Consoles_word
         Me.ConsoleToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Resources.Consoletext
         '
@@ -250,12 +250,19 @@ Partial Class FormSetup
         Me.mnuHideAllways.Size = New System.Drawing.Size(281, 26)
         Me.mnuHideAllways.Text = Global.Outworldz.My.Resources.Resources.Hide_Allways_word
         '
+        'KeepOnTopToolStripMenuItem
+        '
+        Me.KeepOnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
+        Me.KeepOnTopToolStripMenuItem.Name = "KeepOnTopToolStripMenuItem"
+        Me.KeepOnTopToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.KeepOnTopToolStripMenuItem.Text = "Keep On Top"
+        '
         'LanguageToolStripMenuItem
         '
         Me.LanguageToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ArabicToolStripMenuItem, Me.EnglishToolStripMenuItem, Me.BasqueToolStripMenuItem, Me.BrazilToolStripMenuItem, Me.CatalanToolStripMenuItem, Me.CzechToolStripMenuItem, Me.ChineseSimplifedToolStripMenuItem, Me.ChineseTraditionalToolStripMenuItem, Me.DutchToolStripMenuItem, Me.FrenchToolStripMenuItem, Me.FinnishToolStripMenuItem, Me.GermanToolStripMenuItem, Me.GreekToolStripMenuItem, Me.HebrewToolStripMenuItem, Me.IcelandicToolStripMenuItem, Me.IrishToolStripMenuItem, Me.NorwegianToolStripMenuItem, Me.FarsiToolStripMenuItem, Me.PolishToolStripMenuItem, Me.PortgueseToolStripMenuItem, Me.RussianToolStripMenuItem, Me.SpanishToolStripMenuItem, Me.SwedishToolStripMenuItem})
         Me.LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.LanguageToolStripMenuItem.Name = "LanguageToolStripMenuItem"
-        Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(196, 26)
+        Me.LanguageToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Language
         '
         'ArabicToolStripMenuItem
@@ -427,7 +434,7 @@ Partial Class FormSetup
         Me.AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_network
         Me.AdvancedSettingsToolStripMenuItem.Name = "AdvancedSettingsToolStripMenuItem"
         Me.AdvancedSettingsToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(196, 26)
+        Me.AdvancedSettingsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Settings_word
         Me.AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Resources.All_Global_Settings_word
         '
@@ -556,7 +563,7 @@ Partial Class FormSetup
         '
         Me.UsersToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddUserToolStripMenuItem, Me.ChangePasswordToolStripMenuItem, Me.ShowUserDetailsToolStripMenuItem})
         Me.UsersToolStripMenuItem.Name = "UsersToolStripMenuItem"
-        Me.UsersToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.UsersToolStripMenuItem.Size = New System.Drawing.Size(223, 26)
         Me.UsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Users_word
         '
         'AddUserToolStripMenuItem
@@ -581,7 +588,7 @@ Partial Class FormSetup
         '
         Me.SendAlertToAllUsersToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AllUsersAllSimsToolStripMenuItem, Me.JustOneRegionToolStripMenuItem})
         Me.SendAlertToAllUsersToolStripMenuItem.Name = "SendAlertToAllUsersToolStripMenuItem"
-        Me.SendAlertToAllUsersToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.SendAlertToAllUsersToolStripMenuItem.Size = New System.Drawing.Size(223, 26)
         Me.SendAlertToAllUsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Send_Alert_Message_word
         '
         'AllUsersAllSimsToolStripMenuItem
@@ -600,51 +607,50 @@ Partial Class FormSetup
         '
         Me.DebugToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Debug, Me.Info, Me.Warn, Me.ErrorToolStripMenuItem, Me.Fatal1, Me.Off1})
         Me.DebugToolStripMenuItem.Name = "DebugToolStripMenuItem"
-        Me.DebugToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.DebugToolStripMenuItem.Size = New System.Drawing.Size(223, 26)
         Me.DebugToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Log_Level
-        '
         '
         'Debug
         '
         Me.Debug.Name = "Debug"
-        Me.Debug.Size = New System.Drawing.Size(224, 26)
+        Me.Debug.Size = New System.Drawing.Size(137, 26)
         Me.Debug.Text = Global.Outworldz.My.Resources.Resources.Debug_word
         '
         'Info
         '
         Me.Info.Name = "Info"
-        Me.Info.Size = New System.Drawing.Size(224, 26)
+        Me.Info.Size = New System.Drawing.Size(137, 26)
         Me.Info.Text = Global.Outworldz.My.Resources.Resources.Info_word
         '
         'Warn
         '
         Me.Warn.Name = "Warn"
-        Me.Warn.Size = New System.Drawing.Size(224, 26)
+        Me.Warn.Size = New System.Drawing.Size(137, 26)
         Me.Warn.Text = Global.Outworldz.My.Resources.Resources.Warn_word
         '
         'ErrorToolStripMenuItem
         '
         Me.ErrorToolStripMenuItem.Name = "ErrorToolStripMenuItem"
-        Me.ErrorToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ErrorToolStripMenuItem.Size = New System.Drawing.Size(137, 26)
         Me.ErrorToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Error_word
         '
         'Fatal1
         '
         Me.Fatal1.Name = "Fatal1"
-        Me.Fatal1.Size = New System.Drawing.Size(224, 26)
+        Me.Fatal1.Size = New System.Drawing.Size(137, 26)
         Me.Fatal1.Text = Global.Outworldz.My.Resources.Resources.Fatal_word
         '
         'Off1
         '
         Me.Off1.Name = "Off1"
-        Me.Off1.Size = New System.Drawing.Size(224, 26)
+        Me.Off1.Size = New System.Drawing.Size(137, 26)
         Me.Off1.Text = Global.Outworldz.My.Resources.Resources.Off
         '
         'RestartRegionToolStripMenuItem
         '
         Me.RestartRegionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RestartOneRegionToolStripMenuItem, Me.RestartTheInstanceToolStripMenuItem, Me.RestartAllRegionsToolStripMenuItem})
         Me.RestartRegionToolStripMenuItem.Name = "RestartRegionToolStripMenuItem"
-        Me.RestartRegionToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.RestartRegionToolStripMenuItem.Size = New System.Drawing.Size(223, 26)
         Me.RestartRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Restart_Region_word
         '
         'RestartOneRegionToolStripMenuItem
@@ -669,7 +675,7 @@ Partial Class FormSetup
         '
         Me.ScriptsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ScriptsStopToolStripMenuItem, Me.ScriptsStartToolStripMenuItem, Me.ScriptsSuspendToolStripMenuItem, Me.ScriptsResumeToolStripMenuItem})
         Me.ScriptsToolStripMenuItem.Name = "ScriptsToolStripMenuItem"
-        Me.ScriptsToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ScriptsToolStripMenuItem.Size = New System.Drawing.Size(223, 26)
         Me.ScriptsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
         '
         'ScriptsStopToolStripMenuItem
@@ -700,7 +706,7 @@ Partial Class FormSetup
         '
         Me.ShowStatusToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ThreadpoolsToolStripMenuItem, Me.XengineToolStripMenuItem, Me.JobEngineToolStripMenuItem})
         Me.ShowStatusToolStripMenuItem.Name = "ShowStatusToolStripMenuItem"
-        Me.ShowStatusToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ShowStatusToolStripMenuItem.Size = New System.Drawing.Size(223, 26)
         Me.ShowStatusToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Show_Status_word
         '
         'ThreadpoolsToolStripMenuItem
@@ -1107,7 +1113,7 @@ Partial Class FormSetup
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox1.Font = New System.Drawing.Font("Verdana", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.Location = New System.Drawing.Point(0, 0)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.TextBox1.MaxLength = 15000
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
@@ -1148,7 +1154,7 @@ Partial Class FormSetup
         'BusyButton
         '
         Me.BusyButton.Location = New System.Drawing.Point(15, 39)
-        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4)
         Me.BusyButton.Name = "BusyButton"
         Me.BusyButton.Size = New System.Drawing.Size(105, 29)
         Me.BusyButton.TabIndex = 51
@@ -1158,7 +1164,7 @@ Partial Class FormSetup
         'StopButton
         '
         Me.StopButton.Location = New System.Drawing.Point(15, 39)
-        Me.StopButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StopButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(105, 29)
         Me.StopButton.TabIndex = 50
@@ -1168,7 +1174,7 @@ Partial Class FormSetup
         'StartButton
         '
         Me.StartButton.Location = New System.Drawing.Point(15, 39)
-        Me.StartButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StartButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(105, 29)
         Me.StartButton.TabIndex = 49
@@ -1192,7 +1198,7 @@ Partial Class FormSetup
         Me.ChartWrapper2.MarkerSize = 8
         Me.ChartWrapper2.Name = "ChartWrapper2"
         Me.ChartWrapper2.SideLegendVisible = True
-        Me.ChartWrapper2.Size = New System.Drawing.Size(372, 202)
+        Me.ChartWrapper2.Size = New System.Drawing.Size(372, 200)
         Me.ChartWrapper2.TabIndex = 33
         Me.ChartWrapper2.Title = ""
         '
@@ -1224,21 +1230,10 @@ Partial Class FormSetup
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Panel1.Controls.Add(Me.TextBox1)
         Me.Panel1.Location = New System.Drawing.Point(15, 85)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(4)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(400, 402)
         Me.Panel1.TabIndex = 54
-        '
-        'KOT
-        '
-        Me.KOT.AutoSize = True
-        Me.KOT.Location = New System.Drawing.Point(650, 11)
-        Me.KOT.Margin = New System.Windows.Forms.Padding(2)
-        Me.KOT.Name = "KOT"
-        Me.KOT.Size = New System.Drawing.Size(115, 21)
-        Me.KOT.TabIndex = 18608
-        Me.KOT.Text = "Keep On Top"
-        Me.KOT.UseVisualStyleBackColor = True
         '
         'SplitContainer1
         '
@@ -1246,7 +1241,7 @@ Partial Class FormSetup
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer1.Location = New System.Drawing.Point(422, 45)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -1269,7 +1264,6 @@ Partial Class FormSetup
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(800, 502)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.KOT)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.BusyButton)
         Me.Controls.Add(Me.AvatarLabel)
@@ -1280,7 +1274,7 @@ Partial Class FormSetup
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimumSize = New System.Drawing.Size(443, 139)
         Me.Name = "FormSetup"
@@ -1447,6 +1441,6 @@ Partial Class FormSetup
     Friend WithEvents SearchForOarsAtOutworldzToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoadLocalOARToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents RestartAllRegionsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents KOT As CheckBox
     Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents KeepOnTopToolStripMenuItem As ToolStripMenuItem
 End Class

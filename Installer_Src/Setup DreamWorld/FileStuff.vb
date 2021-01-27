@@ -177,7 +177,7 @@ Module FileStuff
 
         CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
         CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
-        CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\" & Settings.Theme() & ".png"), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages\images\Photo.png"))
+        CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, Settings.Theme() & ".png"), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages\images\Photo.png"))
 
     End Sub
 
