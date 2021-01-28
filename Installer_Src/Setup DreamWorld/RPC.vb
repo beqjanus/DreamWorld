@@ -105,7 +105,7 @@ Module RPC
             If o Is Nothing Then Return True
 #Disable Warning BC42016 ' Implicit conversion
             For Each s In o
-                Log("Info", s.Key & ":" & s.Value)
+                'Log("Info", s.Key & ":" & s.Value)
                 If s.Key = "success" And s.Value = "True" Then Return True
                 If s.Key = "error" Then ErrorLog(s.Value)
             Next

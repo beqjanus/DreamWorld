@@ -57,6 +57,7 @@ Public Module Firewall
                 Return False
             End Try
             If ClientSocket.Connected Then
+                ClientSocket.Close()
                 Return True
             End If
         End Using

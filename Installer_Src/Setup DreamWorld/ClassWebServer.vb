@@ -184,7 +184,7 @@ Public Class NetServer
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Diagnostics.Debug.Print("Conn:" & Settings.RobustMysqlConnection)
-            Dim UserStmt = "SELECT regionName from REGIONS"
+            Dim UserStmt = "SELECT regionName from REGIONS order by regionName ASC"
             Try
                 NewSQLConn.Open()
             Catch ex As Exception
@@ -199,7 +199,8 @@ Public Class NetServer
                     Dim LongName = reader.GetString(0)
                     Dim RegionUUID As String = PropRegionClass.FindRegionByName(LongName)
                     If RegionUUID.Length > 0 Then
-                        If PropRegionClass.Teleport(RegionUUID) = "True" Then
+                        If PropRegionClass.Teleport(RegionUUID) = "True" And
+                           PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                             ToSort.Add(LongName)
                         End If
                     End If

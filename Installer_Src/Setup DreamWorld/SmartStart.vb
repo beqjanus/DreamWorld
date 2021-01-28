@@ -121,7 +121,7 @@ Module SmartStart
 
         Dim GP = PropRegionClass.GroupPort(RegionUUID)
         Diagnostics.Debug.Print("Group port =" & CStr(GP))
-        Application.DoEvents()
+
         Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
         If isRegionRunning Then
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
@@ -138,7 +138,7 @@ Module SmartStart
                 PropUpdateView = True ' make form refresh
                 Return True
             Else    ' needs to be captured into the event handler
-                TextPrint("Region " & BootName & " skipped as it is already up")
+                TextPrint(BootName & " " & My.Resources.Running_word)
                 Dim PID As Integer = GetPIDofWindow(GroupName)
                 If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then FormSetup.PropInstanceHandles.Add(PID, GroupName)
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
