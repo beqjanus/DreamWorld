@@ -1696,13 +1696,13 @@ Public Class RegionMaker
         Settings.SetIni("Const", "RegionFolderName", GroupName(uuid))
         Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
         Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
-        Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateURL)) ' local IP
+        Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateIP())) ' local IP
         Settings.SetIni("Const", "http_listener_port", CStr(GroupPort(uuid))) ' varies with region
 
         Select Case Settings.ServerType
             Case "Robust"
                 SetupOpensimSearchINI()
-                Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateURL)
+                Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateIP())
                 Settings.SetIni("Const", "GridName", Settings.SimName)
                 SetupOpensimIM()
             Case "Region"
@@ -1775,7 +1775,7 @@ Public Class RegionMaker
         If Settings.LSLHTTP Then
             ' do nothing - let them edit it
         Else
-            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateURL & "/32")
+            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateIP() & "/32")
         End If
 
         Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))

@@ -772,24 +772,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property CPUMAX As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
@@ -1338,21 +1320,21 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property PrivateIP As String
+        Get
+            Return GetMySetting("PrivateURL")   ' no default
+        End Get
+        Set
+            SetMySetting("PrivateIP()", Value)
+        End Set
+    End Property
+
     Public Property PrivatePort() As Integer
         Get
             Return CInt("0" & GetMySetting("PrivatePort", "8003"))
         End Get
         Set
             SetMySetting("PrivatePort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property PrivateURL() As String
-        Get
-            Return GetMySetting("PrivateURL")   ' no default
-        End Get
-        Set
-            SetMySetting("PrivateURL", Value)
         End Set
     End Property
 
@@ -1912,6 +1894,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
         End Set
     End Property
 

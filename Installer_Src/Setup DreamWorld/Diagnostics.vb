@@ -343,7 +343,7 @@ Module Diags
         Dim result As String = ""
         TextPrint(My.Resources.Checking_LAN_Loopback_word)
         Logger("Info", Global.Outworldz.My.Resources.Checking_LAN_Loopback_word, "Diagnostics")
-        Dim weblink = "http://" & Settings.PrivateURL & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
+        Dim weblink = "http://" & Settings.PrivateIP() & ":" & Settings.DiagnosticPort & "/?_TestLoopback=" & RandomNumber.Random()
         Logger("Info", "URL= " & weblink, "Diagnostics")
         Using client As New WebClient
             Try

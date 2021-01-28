@@ -10,7 +10,7 @@
 
         ' all private in case of local mode
         Settings.PublicIP = PropMyUPnpMap.LocalIP
-        Settings.PrivateURL = Settings.PublicIP
+        Settings.PrivateIP = Settings.PublicIP
         Settings.BaseHostName = Settings.PublicIP
 
         ' Set them back to the DNS name if there is one
@@ -48,7 +48,7 @@
         If n.Length = 0 Then n = "(none)"
 
         TextPrint("WAN IP   = " & PublicIP.IP)
-        TextPrint("LAN IP   = " & Settings.PrivateURL)
+        TextPrint("LAN IP   = " & Settings.PrivateIP())
         TextPrint("DNS = " & n)
         TextPrint("Region = " & Settings.ExternalHostName)
         TextPrint("Hostname = " & Settings.BaseHostName)
