@@ -170,9 +170,10 @@ Public Class RegionMaker
                     Dim GName = GroupName(uuid)
 
                     Dim GroupList = RegionUuidListByName(GName)
-                    For Each R As String In GroupList
-                        Logger("RegionReady Heard:", RegionName(R), "Restart")
-                        FormSetup.BootedList1.Add(R)
+                    For Each RUUID As String In GroupList
+                        If Not FormSetup.BootedList1.Contains(RUUID) Then
+                            FormSetup.BootedList1.Add(RUUID)
+                        End If
                     Next
 
                 ElseIf json.login = "shutdown" Then
@@ -191,6 +192,7 @@ Public Class RegionMaker
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 Logger("RegionReady", "Exception:" & ex.Message, "Restart")
+                WebserverList.Clear()
             End Try
         End While
 
@@ -270,8 +272,10 @@ Public Class RegionMaker
 
     Public Function GetAllRegions() As Integer
 
-        While GetAllRegionsIsBusy
+        Dim ctr = 600
+        While GetAllRegionsIsBusy And ctr > 0
             Sleep(100)
+            ctr -= 1
         End While
 
         GetAllRegionsIsBusy = True
@@ -1578,6 +1582,7 @@ Public Class RegionMaker
                     myCommand1.Parameters.AddWithValue("p1", uid.ToString())
                     myCommand1.ExecuteScalar()
                     myConnection.Close()
+                    myConnection.Dispose()
                     Return "<html><head></head><body>Welcome! You can close this window.</html>"
                 Else
                     Return "<html><head></head><body>Test Passed</html>"

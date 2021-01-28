@@ -1,5 +1,34 @@
 ﻿Module Runtimes
 
+    Public Sub UpgradeDotNet()
+
+        If Settings.DotnetUpgraded() Then Return
+
+        TextPrint(My.Resources.Update_word & " Dot Net")
+        Using UpgradeProcess As New Process()
+
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+              .Arguments = "",
+              .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\VisualCppRedist_AIO_x86_x64.exe") & """"
+            }
+
+            pi.WindowStyle = ProcessWindowStyle.Normal
+            UpgradeProcess.StartInfo = pi
+
+            Try
+                UpgradeProcess.Start()
+                Settings.DotnetUpgraded() = True
+                Settings.SaveSettings()
+                End
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                TextPrint(My.Resources.Error_word)
+            End Try
+
+        End Using
+
+    End Sub
+
     Public Sub UpgradeMysql()
 
         If MySqlRev = Settings.MysqlRev Then Return
@@ -26,35 +55,6 @@
             End Try
 
         End Using
-    End Sub
-
-    Public Sub UpgradeDotNet()
-
-        If Settings.DotnetUpgraded() Then Return
-
-        TextPrint(My.Resources.Update_word & " Dot Net")
-        Using UpgradeProcess As New Process()
-
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-              .Arguments = "",
-              .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\VisualCppRedist_AIO_x86_x64.exe") & """"
-            }
-
-            pi.WindowStyle = ProcessWindowStyle.Normal
-            UpgradeProcess.StartInfo = pi
-
-            Try
-                UpgradeProcess.Start()
-                UpgradeProcess.WaitForExit()
-                Settings.DotnetUpgraded() = True
-                Settings.SaveSettings()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                TextPrint(My.Resources.Error_word)
-            End Try
-
-        End Using
-
     End Sub
 
 End Module

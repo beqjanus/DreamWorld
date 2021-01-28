@@ -53,6 +53,7 @@
                 TextPrint(My.Resources.NTSuspend)
             Finally
                 SuspendProcess.Close()
+                SuspendProcess.Dispose()
             End Try
 
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)

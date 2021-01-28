@@ -728,19 +728,21 @@ Public Class FormSetup
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
                                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) Then
+
+                            ctr -= 1
+                            If ctr <= 0 Then Exit While
+                            Sleep(1000)
+                            Application.DoEvents()
                         Else
                             Exit While
                         End If
-                        ctr -= 1
-                        If ctr <= 0 Then Exit While
-                        Sleep(1000)
-                        Application.DoEvents()
+
                     End While
                 End If
             Next
         Else
-            Dim ctr = 600 ' 1 minute max to start a region
 
+            Dim ctr = 600 ' 1 minute max to start a region
             While True
                 If CPUAverageSpeed < Settings.CPUMAX Then
                     Exit While
@@ -1066,8 +1068,6 @@ Public Class FormSetup
 
     End Sub
 
-    '
-
     Private Sub Backupper()
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -1210,22 +1210,18 @@ Public Class FormSetup
         Dim GroupName As String = ""
         Dim TimerValue As Integer
 
+        ' booted regions from web server
         While BootedList1.Count > 0
             Dim Ruuid As String = BootedList1(0)
             BootedList1.RemoveAt(0)
-            TextPrint(PropRegionClass.RegionName(Ruuid) & " " & My.Resources.Running_word)
-
-            Dim G = PropRegionClass.GroupName(Ruuid)
-            For Each UUID In PropRegionClass.RegionUuidListByName(G)
-                PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
-            Next
-
-            ShowDOSWindow(GetHwnd(G), MaybeHideWindow())
-
+            Dim RegionName = PropRegionClass.RegionName(Ruuid)
+            TextPrint(RegionName & " " & My.Resources.Running_word)
+            PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
+            ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
-
         End While
 
+        ' check to see if a handle to all regions exists
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
             If CBool(PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
@@ -1246,9 +1242,9 @@ Public Class FormSetup
             End If
         Next
 
+        ' now check for expired timers
         For Each RegionUUID As String In PropRegionClass.RegionUuids
 
-            Application.DoEvents()
             If Not PropOpensimIsRunning() Then Exit For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
@@ -2845,7 +2841,7 @@ Public Class FormSetup
         Application.DoEvents()
         p.WaitForExit()
         p.Close()
-
+        p.Dispose()
         MySQLIcon(False)
         If MysqlInterface.IsMySqlRunning() Then
             MysqlInterface.IsRunning = True    ' mark all as  running

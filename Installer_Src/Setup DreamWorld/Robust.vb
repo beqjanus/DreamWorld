@@ -46,7 +46,7 @@ Module Robust
         End Set
     End Property
 
-    Public Property RobustIconStarting As Boolean
+    Public Property RobustIsStarting As Boolean
         Get
             Return _RobustIconStarting
         End Get
@@ -92,8 +92,10 @@ Module Robust
 
         If Not StartMySQL() Then Return False ' prerequsite
         ' prevent recursion
-        While RobustIconStarting
+        Dim ctr = 300
+        While RobustIsStarting And ctr > 0
             Sleep(1000)
+            ctr -= 1
         End While
 
         For Each p In Process.GetProcessesByName("Robust")
@@ -121,7 +123,7 @@ Module Robust
             Return True
         End If
 
-        RobustIconStarting = True
+        RobustIsStarting = True
 
         PropRobustProcID = 0
 
@@ -155,7 +157,7 @@ Module Robust
             FormSetup.KillAll()
             FormSetup.Buttons(FormSetup.StartButton)
             RobustIcon(False)
-            RobustIconStarting = False
+            RobustIsStarting = False
             Return False
         End Try
 
@@ -163,7 +165,7 @@ Module Robust
         If PropRobustProcID = 0 Then
             RobustIcon(False)
             Log("Error", Global.Outworldz.My.Resources.Robust_failed_to_start)
-            RobustIconStarting = False
+            RobustIsStarting = False
             Return False
         End If
 
@@ -195,14 +197,14 @@ Module Robust
                 FormSetup.Buttons(FormSetup.StartButton)
 
                 RobustIcon(False)
-                RobustIconStarting = False
+                RobustIsStarting = False
                 Return False
             End If
 
             Sleep(100)
         End While
 
-        RobustIconStarting = False
+        RobustIsStarting = False
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         RobustIcon(True)

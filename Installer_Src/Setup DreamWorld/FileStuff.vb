@@ -58,7 +58,6 @@ Module FileStuff
     End Sub
 
     ''' <summary>Deletes old log files</summary>
-    '''
     Public Sub ClearLogFiles()
 
         Dim Logfiles = New List(Of String) From {
@@ -113,7 +112,10 @@ Module FileStuff
             'Clean up
             streamWrite.Flush()
             streamWrite.Close()
+            streamWrite.Dispose()
+
             streamRead.Close()
+            streamRead.Dispose()
         Catch
         End Try
 

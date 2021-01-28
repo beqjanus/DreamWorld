@@ -173,7 +173,7 @@ Public Class MySettings
         parser.Parser.Configuration.AssigmentSpacer = ""
         Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
 
-        Dim waiting As Integer = 50 ' 5 sec
+        Dim waiting As Integer = 100 ' 10 sec
         While waiting > 0
             Try
                 MyData = ReadINIFile(File)
@@ -188,7 +188,7 @@ Public Class MySettings
 
     Public Sub SaveINI(encoding As System.Text.Encoding)
 
-        Dim Retry As Integer = 10
+        Dim Retry As Integer = 100 ' 10 sec
         While Retry > 0
             Try
                 parser.WriteFile(INI, SettingsData, encoding)
@@ -204,7 +204,7 @@ Public Class MySettings
 
     Public Sub SaveSettings()
 
-        Dim Retry As Integer = 10
+        Dim Retry As Integer = 100 ' 10 sec
         While Retry > 0
             Try
                 Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
@@ -251,8 +251,7 @@ Public Class MySettings
     Public Sub SetMySetting(key As String, value As String)
 
         If value Is Nothing Then Return
-
-        Dim Retry As Integer = 10
+        Dim Retry As Integer = 100 ' 10 sec
         While Retry > 0
             Try
                 SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
@@ -267,7 +266,8 @@ Public Class MySettings
     End Sub
 
     Private Function ReadINIFile(MyIni As String) As IniData
-        Dim waiting As Integer = 50 ' 5 sec
+
+        Dim waiting As Integer = 100 ' 10 sec
         While waiting > 0
             Try
                 Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
@@ -1347,10 +1347,7 @@ Public Class MySettings
         End Set
     End Property
 
-#Disable Warning CA1056 ' Uri properties should not be strings
-
     Public Property PrivateURL() As String
-#Enable Warning CA1056 ' Uri properties should not be strings
         Get
             Return GetMySetting("PrivateURL")   ' no default
         End Get
@@ -1919,6 +1916,8 @@ Public Class MySettings
     End Property
 
 #Disable Warning CA1056 ' Uri properties should not be strings
+#Disable Warning CA1056 ' Uri properties should not be strings
+#Disable Warning CA1056 ' Uri properties should not be strings
 
 #End Region
 
@@ -1934,7 +1933,7 @@ Public Class MySettings
 #Enable Warning CA1822 ' Mark members as static
 
         If INI Is Nothing Then Return
-        Dim Retry = 10 ' 1 sec
+        Dim Retry = 100 ' 10 sec
 
         While Retry > 0
             Try
@@ -1955,7 +1954,7 @@ Public Class MySettings
         End While
 
         Dim f = System.IO.Path.GetFileName(INI)
-        Retry = 10 ' 1 sec
+        Retry = 100 ' 10 sec
         While Retry > 0
             DeleteFile(INI)
             Try
@@ -1989,7 +1988,6 @@ Public Class MySettings
     Public Sub SaveLiteralIni(ini As String, name As String)
 
         ' make a backup
-
         DeleteFile(ini & ".bak")
 
         Try
@@ -2006,7 +2004,7 @@ Public Class MySettings
             file.WriteLine(Item)
         Next
         file.Close()
-
+        file.Dispose()
     End Sub
 
     Public Sub SetLiteralIni(Name As String, value As String)
