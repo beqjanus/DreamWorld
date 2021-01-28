@@ -112,10 +112,7 @@ Module FileStuff
             'Clean up
             streamWrite.Flush()
             streamWrite.Close()
-            streamWrite.Dispose()
-
             streamRead.Close()
-            streamRead.Dispose()
         Catch
         End Try
 

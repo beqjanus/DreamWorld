@@ -1208,7 +1208,6 @@ Public Class FormSetup
             ExitInterval = 5
         End If
 
-
         PropExitHandlerIsBusy = True
 
         Dim GroupName As String = ""
@@ -2753,7 +2752,6 @@ Public Class FormSetup
 
     Private Sub ShowRegionform()
 
-
         PropRegionForm = New FormRegionlist
         PropRegionForm.Show()
         PropRegionForm.Activate()
@@ -2840,7 +2838,6 @@ Public Class FormSetup
         Application.DoEvents()
         p.WaitForExit()
         p.Close()
-        p.Dispose()
         MySQLIcon(False)
         If MysqlInterface.IsMySqlRunning() Then
             MysqlInterface.IsRunning = True    ' mark all as  running

@@ -181,8 +181,6 @@ Public Class UploadImage
             Debug.Print(vbNewLine & "--" & boundary & "--" & vbNewLine)
 
             sw.Flush()
-            sw.Close()
-            sw.Dispose()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -218,7 +216,6 @@ Public Class UploadImage
                 Call UploadError(sData)
             End If
             webResp.Close()
-            webResp.Dispose()
         Else
             Call UploadError(sData)
         End If

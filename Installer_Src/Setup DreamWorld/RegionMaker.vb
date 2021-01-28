@@ -24,6 +24,7 @@
 Imports System.IO
 
 Imports System.Text.RegularExpressions
+Imports MySql.Data
 Imports MySql.Data.MySqlClient
 Imports Newtonsoft.Json
 

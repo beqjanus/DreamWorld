@@ -431,7 +431,6 @@ Public Module MysqlInterface
             Console.WriteLine("Error: " & ex.ToString())
         Finally
             MysqlConn.Close()
-            MysqlConn.Dispose()
         End Try
 
         Return Val

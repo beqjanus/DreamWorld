@@ -359,7 +359,6 @@ Module DoIni
             End Using
             'close your reader
             reader.Close()
-            reader.Dispose()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             MsgBox(My.Resources.no_Default_sim, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Settings_word)
@@ -498,7 +497,7 @@ Module DoIni
 
             'close the reader
             reader.Close()
-            reader.Dispose()
+
             DeleteFile(Settings.OpensimBinPath & "config-include\GridCommon.ini")
 
             Using outputFile As New StreamWriter(CType(Settings.OpensimBinPath & "config-include\Gridcommon.ini", String))
@@ -606,7 +605,6 @@ Module DoIni
                 HTML = HTML + reader.ReadLine() + vbCrLf
             End While
             reader.Close()
-            reader.Dispose()
 
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory + "\Outworldzfiles\Opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(HTML)
