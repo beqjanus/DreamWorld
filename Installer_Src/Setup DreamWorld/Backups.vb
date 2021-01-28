@@ -44,7 +44,7 @@ Public Class Backups
     Public Sub New()
 
         ' used to zip it, zip it good
-        _folder = IO.Path.Combine(Settings.CurrentDirectory, "tmp\" & CStr(RandomNumber.Random))
+        _folder = IO.Path.Combine(Settings.CurrentDirectory, "tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
         If Not Directory.Exists(_folder) Then MkDir(_folder)
 
     End Sub
@@ -305,8 +305,8 @@ Public Class Backups
                     Dim A As New Backups
                     A.BackupSQLDB(Settings.RegionDBName)
                     If Settings.RegionDBName <> Settings.RobustDataBaseName Then
-                        Dim B As New Backups
                         Sleep(5000)
+                        Dim B As New Backups
                         B.BackupSQLDB(Settings.RobustDataBaseName)
                     End If
 
