@@ -2749,18 +2749,12 @@ Public Class FormSetup
 
     Private Sub ShowRegionform()
 
-        If FormRegionlist.InstanceExists = False Then
-            PropRegionForm = New FormRegionlist
-            PropRegionForm.Show()
-            PropRegionForm.Activate()
-            PropRegionForm.Select()
-            PropRegionForm.BringToFront()
-        Else
-            PropRegionForm.Show()
-            PropRegionForm.Activate()
-            PropRegionForm.Select()
 
-        End If
+        PropRegionForm = New FormRegionlist
+        PropRegionForm.Show()
+        PropRegionForm.Activate()
+        PropRegionForm.Select()
+        PropRegionForm.BringToFront()
 
     End Sub
 

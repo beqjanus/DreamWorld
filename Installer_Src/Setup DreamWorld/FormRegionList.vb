@@ -29,12 +29,8 @@ Public Class FormRegionlist
 
 #Region "Declarations"
 
-    Private Shared _FormExists As Boolean
     Private ReadOnly colsize As New ScreenPos("Region List")
-
-#Disable Warning CA2213 ' Disposable fields should be disposed
     Private _ImageListSmall As New ImageList
-#Enable Warning CA2213 ' Disposable fields should be disposed
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
     Private pixels As Integer = 70
@@ -65,23 +61,6 @@ Public Class FormRegionlist
 #End Region
 
 #Region "Properties"
-
-    Public Shared Property FormExists1 As Boolean
-        Get
-            Return _FormExists
-        End Get
-        Set(value As Boolean)
-            _FormExists = value
-        End Set
-    End Property
-
-    ' property exposing FormExists
-    Public Shared ReadOnly Property InstanceExists() As Boolean
-        Get
-            ' Access shared members through the Class name, not an instance.
-            Return FormExists1
-        End Get
-    End Property
 
     Public Property ImageListSmall1 As ImageList
         Get
@@ -245,11 +224,10 @@ Public Class FormRegionlist
     Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
 
         Settings.RegionListVisible = False
-        Settings.SaveSettings()
-        FormExists1 = False
+
         _ImageListSmall.Dispose()
         colsize.Dispose()
-
+        Me.Close()
     End Sub
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -281,7 +259,7 @@ Public Class FormRegionlist
         ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row
 
         ViewBusy = True
-        FormExists1 = True
+
         Pixels1 = 70
 
         AllNone.Checked = True
@@ -292,7 +270,6 @@ Public Class FormRegionlist
         ListView1.AutoArrange = True
 
         Settings.RegionListVisible = True
-        Settings.SaveSettings()
 
         Me.Name = "Region List"
         Me.Text = Global.Outworldz.My.Resources.Region_List
@@ -498,7 +475,6 @@ Public Class FormRegionlist
                 Return
             End If
             LoadMyListView()
-            Application.DoEvents()
             Timer1.Interval = 100
         End If
 
@@ -533,7 +509,7 @@ Public Class FormRegionlist
 
             Try
                 For Each RegionUUID As String In PropRegionClass.RegionUuids
-                    'Application.DoEvents()
+                    Application.DoEvents()
                     Dim Num As Integer = 0
                     Dim Groupname As String = PropRegionClass.GroupName(RegionUUID)
                     Dim Status = PropRegionClass.Status(RegionUUID)

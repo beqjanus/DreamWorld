@@ -245,6 +245,7 @@ Module WindowHandlers
                     Return False
                 End If
                 Sleep(100)
+                Application.DoEvents()
                 myProcess.Refresh()
                 myhandle = myProcess.MainWindowHandle
             End While
@@ -259,6 +260,7 @@ Module WindowHandlers
             Dim status = SetWindowText(myhandle, windowName)
             Try
                 Sleep(100)
+                Application.DoEvents()
                 myProcess.Refresh()
                 If status And myProcess.MainWindowTitle = windowName Then
                     Exit While

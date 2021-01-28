@@ -138,8 +138,7 @@ Module SmartStart
                 PropUpdateView = True ' make form refresh
                 Return True
             Else    ' needs to be captured into the event handler
-                Log(My.Resources.Info_word, "Region " & BootName & " skipped as it is already up")
-
+                TextPrint("Region " & BootName & " skipped as it is already up")
                 Dim PID As Integer = GetPIDofWindow(GroupName)
                 If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then FormSetup.PropInstanceHandles.Add(PID, GroupName)
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
@@ -149,6 +148,7 @@ Module SmartStart
                 Next
 
                 PropUpdateView = True ' make form refresh
+                Application.DoEvents()
                 Return True
             End If
         End If
