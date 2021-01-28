@@ -1,15 +1,12 @@
-﻿#Region "To do"
+﻿#Region "Copyright AGPL3.0"
 
-#End Region
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
 
-#Region "Copyright"
-
-' Copyright 2014 Fred Beckhusen for Outworldz.com https://opensource.org/licenses/AGPL
-
-'Permission is hereby granted, free Of charge, to any person obtaining a copy of this software
+'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sub license,
-'And/Or sell copies Of the Software ad To permit persons To whom the Software Is furnished To
+'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
+'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
 'Do so, subject To the following conditions:
 
 'The above copyright notice And this permission notice shall be included In all copies Or '
@@ -20,7 +17,11 @@
 'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
 'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
 'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.
+'DEALINGS IN THE SOFTWARE.Imports System
+
+#End Region
+
+#Region "To do"
 
 #End Region
 
@@ -2904,8 +2905,6 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-
-
         If TimerBusy < 60 And TimerBusy > 0 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
@@ -3744,6 +3743,10 @@ Public Class FormSetup
         KeepOnTopToolStripMenuItem.Image = My.Resources.table
         OnTopToolStripMenuItem.Checked = False
         FloatToolStripMenuItem.Checked = True
+
+    End Sub
+
+    Private Sub MnuContent_Click(sender As Object, e As EventArgs) Handles MnuContent.Click
 
     End Sub
 

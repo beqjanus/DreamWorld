@@ -267,14 +267,14 @@ Partial Class FormRegionlist
         '
         Me.OnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
-        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
         Me.OnTopToolStripMenuItem.Text = "On Top"
         '
         'FloatToolStripMenuItem
         '
         Me.FloatToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.table
         Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
-        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
         Me.FloatToolStripMenuItem.Text = "Float"
         '
         'Label1

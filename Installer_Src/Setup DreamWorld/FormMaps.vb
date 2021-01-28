@@ -1,6 +1,7 @@
-#Region "Copyright"
+#Region "Copyright AGPL3.0"
 
-' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -84,9 +85,7 @@ Public Class FormMaps
         End Try
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-
-        HelpManual("Maps")
+    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -109,8 +108,7 @@ Public Class FormMaps
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         Button2.Text = Global.Outworldz.My.Resources.View_Maps
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+
         GroupBox2.Text = Global.Outworldz.My.Resources.Maps_word
         Label1.Text = Global.Outworldz.My.Resources.Map_Center_Location_word
         Label2.Text = Global.Outworldz.My.Resources.X
@@ -122,7 +120,7 @@ Public Class FormMaps
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         MapBox.Text = Global.Outworldz.My.Resources.Maps_word
         MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
-        MapHelp.Image = Global.Outworldz.My.Resources.about
+
         MapNone.Text = Global.Outworldz.My.Resources.None
         MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
@@ -204,12 +202,6 @@ Public Class FormMaps
 
     End Sub
 
-    Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
-
-        HelpManual("Maps")
-
-    End Sub
-
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
         Settings.MapType = "None"
@@ -276,6 +268,10 @@ Public Class FormMaps
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
         Me.Top = xy.Item(1)
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Maps")
     End Sub
 
 #End Region

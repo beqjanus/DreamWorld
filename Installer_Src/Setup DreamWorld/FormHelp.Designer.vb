@@ -56,64 +56,62 @@ Partial Class FormHelp
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
-        Me.FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.File_word
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 24)
+        Me.FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.File_word
         '
         'ExitToolStripMenuItem
         '
-        Me.ExitToolStripMenuItem.Image = Global.Outworldz.My.Resources.exit_icon
+        Me.ExitToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.exit_icon
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(116, 26)
-        Me.ExitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Exit__word
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.ExitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Exit__word
         '
         'PrintToolStripMenuItem
         '
         Me.PrintToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrintToolStripMenuItem1})
         Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
-        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(53, 24)
-
+        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(12, 24)
         Me.PrintToolStripMenuItem.Visible = False
         '
         'PrintToolStripMenuItem1
         '
-        Me.PrintToolStripMenuItem1.Image = Global.Outworldz.My.Resources.printer3
+        Me.PrintToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.printer3
         Me.PrintToolStripMenuItem1.Name = "PrintToolStripMenuItem1"
-        Me.PrintToolStripMenuItem1.Size = New System.Drawing.Size(122, 26)
-
+        Me.PrintToolStripMenuItem1.Size = New System.Drawing.Size(67, 22)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(14, 24)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(12, 24)
         '
         'WebSiteToolStripMenuItem
         '
         Me.WebSiteToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HomeToolStripMenuItem, Me.DreamgridToolStripMenuItem, Me.SourceCodeToolStripMenuItem})
-        Me.WebSiteToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        Me.WebSiteToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.WebSiteToolStripMenuItem.Name = "WebSiteToolStripMenuItem"
-        Me.WebSiteToolStripMenuItem.Size = New System.Drawing.Size(275, 24)
-        Me.WebSiteToolStripMenuItem.Text = Global.Outworldz.My.Resources.More_Help
+        Me.WebSiteToolStripMenuItem.Size = New System.Drawing.Size(224, 24)
+        Me.WebSiteToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.More_Help
         '
         'HomeToolStripMenuItem
         '
-        Me.HomeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
+        Me.HomeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HomeToolStripMenuItem.Name = "HomeToolStripMenuItem"
-        Me.HomeToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.HomeToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
         Me.HomeToolStripMenuItem.Text = "Outworldz.com"
         '
         'DreamgridToolStripMenuItem
         '
-        Me.DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_blue
+        Me.DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.DreamgridToolStripMenuItem.Name = "DreamgridToolStripMenuItem"
-        Me.DreamgridToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.DreamgridToolStripMenuItem.Text = Global.Outworldz.My.Resources.Home_word
+        Me.DreamgridToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.DreamgridToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Home_word
         '
         'SourceCodeToolStripMenuItem
         '
-        Me.SourceCodeToolStripMenuItem.Image = Global.Outworldz.My.Resources.transform
+        Me.SourceCodeToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.transform
         Me.SourceCodeToolStripMenuItem.Name = "SourceCodeToolStripMenuItem"
-        Me.SourceCodeToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
-        Me.SourceCodeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Source_Code_word
+        Me.SourceCodeToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
+        Me.SourceCodeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Source_Code_word
         '
         'RichTextBox1
         '

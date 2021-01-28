@@ -32,6 +32,6 @@ services to collect data from your virtual world, in the following manner:
 
 - During updates Outworldz.com is invoked via an HTTP call to 
   get new release information and a new updater. The updater, in turn fetches a zip file.
-  The only data collected is the public IP address that comes in the HTTP call, and is stored in web
+  Data collected is the public IP address that comes in the HTTP call, and is stored in web
   server logs anonymously.   Diagnostic passed/failed is also stored to help with quality purposes.
   

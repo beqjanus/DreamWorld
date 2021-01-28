@@ -1,6 +1,7 @@
-#Region "Copyright"
+#Region "Copyright AGPL3.0"
 
-' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -880,7 +881,6 @@ Public Class FormRegionlist
 
     End Sub
 
-
     Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
 
         Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
@@ -1432,6 +1432,10 @@ SetWindowOnTop_Err:
         Me.TopMost = False
         Settings.KeepOnTop = False
         Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub KOT_Click(sender As Object, e As EventArgs) Handles KOT.Click
 
     End Sub
 

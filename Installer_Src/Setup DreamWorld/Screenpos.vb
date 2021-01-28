@@ -1,6 +1,7 @@
-﻿#Region "Copyright"
+﻿#Region "Copyright AGPL3.0"
 
-' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -76,38 +77,6 @@ Public Class ScreenPos
 #End Region
 
 #Region "Public Methods"
-
-    Public Function ReadINIFile(MyIni As String) As IniData
-        Dim waiting As Integer = 50 ' 5 sec
-        While waiting > 0
-            Try
-                Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
-                Return Data
-            Catch ex As Exception
-                waiting -= 1
-                Sleep(100)
-            End Try
-        End While
-
-        Return Nothing
-
-    End Function
-
-    Public Sub SaveFormSettings()
-
-        Dim Retry As Integer = 100
-        While Retry > 0
-            Try
-                parser.WriteFile(XYINI, XYData, System.Text.Encoding.UTF8)
-                Retry = 0
-            Catch ex As Exception
-                ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Sleep(100)
-            End Try
-        End While
-
-    End Sub
 
 #Disable Warning CA1822 ' Mark members as static
 
@@ -202,8 +171,6 @@ Public Class ScreenPos
 
     End Function
 
-#Disable Warning CA1822 ' Mark members as static
-
     Public Sub LoadXYIni()
 #Enable Warning CA1822 ' Mark members as static
 
@@ -240,6 +207,42 @@ Public Class ScreenPos
         XYData("Data")(s.ToString(Globalization.CultureInfo.CurrentCulture)) = size.ToString(Globalization.CultureInfo.InvariantCulture)
 
     End Sub
+
+    Public Function ReadINIFile(MyIni As String) As IniData
+        Dim waiting As Integer = 50 ' 5 sec
+        While waiting > 0
+            Try
+                Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
+                Return Data
+            Catch ex As Exception
+                waiting -= 1
+                Sleep(100)
+            End Try
+        End While
+
+        Return Nothing
+
+    End Function
+
+    Public Sub SaveFormSettings()
+
+        Dim Retry As Integer = 100
+        While Retry > 0
+            Try
+                parser.WriteFile(XYINI, XYData, System.Text.Encoding.UTF8)
+                Retry = 0
+            Catch ex As Exception
+                ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Sleep(100)
+            End Try
+        End While
+
+    End Sub
+
+#Disable Warning CA1822 ' Mark members as static
+#Disable Warning CA1822 ' Mark members as static
+#Disable Warning CA1822 ' Mark members as static
 
     Public Sub SaveHW(valueH As Integer, valueW As Integer)
         If XYData Is Nothing Then

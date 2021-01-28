@@ -6,6 +6,7 @@ author: Fred Beckhusen, aka Ferd Frederix fred@outworldz.com, Outworld, LLC.
 The vast majority of this project is made from Opensimulator, which is made by an enormous number of dedicated volunteers.  This is especially true for Diva Canto. Thank you very much!
 
 Dreamgrid code is AGPL licensed, see AGPL 3.0 at https://www.gnu.org/licenses/agpl-3.0.en.html
+Among other things the license coverts,  AGPl 3.0 means any change you make or copy from the DreamGrid application musst be republished in source form even if you never publish your results.
 
 INTRODUCTION 
 

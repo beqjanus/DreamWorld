@@ -1,6 +1,7 @@
-#Region "Copyright"
+#Region "Copyright AGPL3.0"
 
-' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -329,6 +330,18 @@ Public Class FormSettings
 
     End Sub
 
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+
+        FormJoomla.Close()
+        FormJoomla.Dispose()
+        FormJoomla = New FormJoomla
+        FormJoomla.Activate()
+        FormJoomla.Visible = True
+        FormJoomla.Select()
+        FormJoomla.BringToFront()
+
+    End Sub
+
     Private Sub CacheButton1_Click(sender As Object, e As EventArgs) Handles CacheButton1.Click
 
         FormCache.Close()
@@ -483,18 +496,6 @@ Public Class FormSettings
         Voice.Visible = True
         Voice.Select()
         Voice.BringToFront()
-
-    End Sub
-
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-
-        FormJoomla.Close()
-        FormJoomla.Dispose()
-        FormJoomla = New FormJoomla
-        FormJoomla.Activate()
-        FormJoomla.Visible = True
-        FormJoomla.Select()
-        FormJoomla.BringToFront()
 
     End Sub
 

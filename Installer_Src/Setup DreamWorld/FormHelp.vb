@@ -1,6 +1,7 @@
-﻿#Region "Copyright"
+﻿#Region "Copyright AGPL3.0"
 
-' Copyright 2014 Fred Beckhusen for outworldz.com https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
 
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
 ' And associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -24,13 +25,27 @@ Public Class FormHelp
 
 #Region "ScreenSize"
 
-    Private Document As String
-
     Private _screenPosition As ScreenPos
+    Private Document As String
     Private Handler As New EventHandler(AddressOf Resize_page)
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+    End Sub
+
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
 
     Private Sub SetScreen(Webpage As String)
@@ -44,21 +59,6 @@ Public Class FormHelp
         Me.Left = xy.Item(0) + 25
         Me.Top = xy.Item(1) + 25
 
-    End Sub
-
-    Public Property ScreenPosition As ScreenPos
-        Get
-            Return _screenPosition
-        End Get
-        Set(value As ScreenPos)
-            _screenPosition = value
-        End Set
-    End Property
-
-    'The following detects  the location of the form in screen coordinates
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
-        'Me.Text = "Form screen position = " + Me.Location.ToString
-        ScreenPosition.SaveXY(Me.Left, Me.Top)
     End Sub
 
 #End Region
@@ -104,6 +104,10 @@ Public Class FormHelp
         Me.Close()
     End Sub
 
+    Private Sub FileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FileToolStripMenuItem.Click
+
+    End Sub
+
     Private Sub HomeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HomeToolStripMenuItem.Click
         Dim webAddress As String = "https://outworldz.com"
         Try
@@ -135,6 +139,10 @@ Public Class FormHelp
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
+
+    End Sub
+
+    Private Sub WebSiteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WebSiteToolStripMenuItem.Click
 
     End Sub
 
