@@ -259,8 +259,6 @@ Public Class FormRegionlist
         DetailsButton.Text = Global.Outworldz.My.Resources.Details_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         IconsButton.Text = Global.Outworldz.My.Resources.Icons_word
         ImportButton.Text = Global.Outworldz.My.Resources.Import_word
         RefreshButton.Text = Global.Outworldz.My.Resources.Refresh_word
@@ -882,11 +880,6 @@ Public Class FormRegionlist
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-
-        HelpManual("RegionList")
-
-    End Sub
 
     Private Sub ListClick(sender As Object, e As EventArgs) Handles ListView1.Click
 
@@ -1277,7 +1270,9 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+
         HelpManual("RegionList")
+
     End Sub
 
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
