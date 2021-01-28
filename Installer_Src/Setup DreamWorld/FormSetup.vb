@@ -79,7 +79,7 @@ Public Class FormSetup
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
-    Private ExitInterval As Integer = 2
+    Private ExitInterval As Integer = 5
     Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Private ScreenPosition As ScreenPos
 
@@ -1204,7 +1204,10 @@ Public Class FormSetup
             ExitInterval += 1
         End If
         ExitInterval -= 1
-        If ExitInterval < 2 Then ExitInterval = 2
+        If ExitInterval < 5 Then
+            ExitInterval = 5
+        End If
+
 
         PropExitHandlerIsBusy = True
 
@@ -2906,8 +2909,10 @@ Public Class FormSetup
             Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
             Return
         End If
+        Diagnostics.Debug.Print("Timer Is Now at 1000 ms")
 
         TimerBusy += 1
+
         Chart() ' do charts collection each second
 
         Application.DoEvents()

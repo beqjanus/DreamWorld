@@ -227,7 +227,7 @@ Public Class FormRegionlist
 
         _ImageListSmall.Dispose()
         colsize.Dispose()
-        Me.Close()
+
     End Sub
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -509,7 +509,7 @@ Public Class FormRegionlist
 
             Try
                 For Each RegionUUID As String In PropRegionClass.RegionUuids
-                    Application.DoEvents()
+                    ' Application.DoEvents() ' bad idea
                     Dim Num As Integer = 0
                     Dim Groupname As String = PropRegionClass.GroupName(RegionUUID)
                     Dim Status = PropRegionClass.Status(RegionUUID)
