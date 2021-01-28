@@ -2908,6 +2908,8 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
+
+
         If TimerBusy < 60 And TimerBusy > 0 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1

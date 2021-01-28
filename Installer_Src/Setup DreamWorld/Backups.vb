@@ -219,8 +219,8 @@ Public Class Backups
             Try
                 If Settings.BackupWifi Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
-                    Z.Save()
-                    Sleep(1000)
+                    '   Z.Save()
+                    '   Sleep(1000)
                 End If
             Catch ex As Exception
                 Break(ex.Message)
@@ -229,8 +229,8 @@ Public Class Backups
             Try
                 If Settings.BackupRegion Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
-                    Z.Save()
-                    Sleep(1000)
+                    '   Z.Save()
+                    '  Sleep(1000)
                 End If
             Catch ex As Exception
                 Break(ex.Message)
@@ -242,8 +242,8 @@ Public Class Backups
                     CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), IO.Path.Combine(_folder, "MySQL\MysqlData"))
 
                     Z.AddDirectory(IO.Path.Combine(_folder, "MySQL"))
-                    Z.Save()
-                    Sleep(5000)
+                    '   Z.Save()
+                    '   Sleep(5000)
                     DeleteDirectory(IO.Path.Combine(_folder, "MySQL"), FileIO.DeleteDirectoryOption.DeleteAllContents)
                 End If
             Catch ex As Exception
@@ -260,8 +260,8 @@ Public Class Backups
                     End If
 
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
-                    Z.Save()
-                    Sleep(1000)
+                    '   Z.Save()
+                    '  Sleep(1000)
                 End If
             Catch ex As Exception
                 Break(ex.Message)
