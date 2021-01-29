@@ -213,9 +213,9 @@ Public Class RegionMaker
             ._UUID = UUID,
             ._SizeX = 256,
             ._SizeY = 256,
-            ._CoordX = LargestX() + 4,
+            ._CoordX = LargestX() + 8,
             ._CoordY = LargestY() + 0,
-            ._RegionPort = Settings.PrivatePort + 1, '8003 + 1
+            ._RegionPort = PropRegionClass.LargestPort,
             ._ProcessID = 0,
             ._AvatarCount = 0,
             ._Status = SIMSTATUSENUM.Stopped,
@@ -226,7 +226,7 @@ Public Class RegionMaker
             ._MaxPrims = "15000",
             ._MaxAgents = "100",
             ._MapType = "",
-            ._MinTimerInterval = 0.2.ToString(Globalization.CultureInfo.InvariantCulture),
+            ._MinTimerInterval = "",
             ._GodDefault = "",
             ._AllowGods = "",
             ._RegionGod = "",
@@ -236,7 +236,7 @@ Public Class RegionMaker
             ._Teleport = "",
             ._RegionSnapShot = "",
             ._DisableGloebits = "",
-            ._FrameTime = 0.090909.ToString(Globalization.CultureInfo.InvariantCulture),
+            ._FrameTime = "",
             ._SkipAutobackup = "",
             ._ScriptEngine = "",
             ._RegionSmartStart = "0",
@@ -274,6 +274,8 @@ Public Class RegionMaker
 
     Public Function GetAllRegions() As Integer
 
+        If PropOpensimIsRunning Then Return 0
+
         Dim ctr = 600
         While GetAllRegionsIsBusy And ctr > 0
             Sleep(100)
@@ -291,13 +293,13 @@ Public Class RegionMaker
 
             RegionList.Clear()
 
-            Dim folders() As String
-            Dim regionfolders() As String
             Dim uuid As String = ""
-            folders = Directory.GetDirectories(Settings.OpensimBinPath + "Regions")
+            Dim folders() = Directory.GetDirectories(Settings.OpensimBinPath + "Regions")
+            System.Array.Sort(folders)
+
             For Each FolderName As String In folders
 
-                regionfolders = Directory.GetDirectories(FolderName)
+                Dim regionfolders = Directory.GetDirectories(FolderName)
                 For Each FileName As String In regionfolders
 
                     If FileName.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Continue For
@@ -345,7 +347,6 @@ Public Class RegionMaker
 
                             SizeX(uuid) = CInt(Settings.GetIni(fName, "SizeX", "256", "Integer"))
                             SizeY(uuid) = CInt(Settings.GetIni(fName, "SizeY", "256", "Integer"))
-                            RegionPort(uuid) = CInt(Settings.GetIni(fName, "InternalPort", "0", "Integer"))
 
                             ' extended props V2.1
                             NonPhysicalPrimMax(uuid) = CStr(Settings.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer"))
@@ -391,7 +392,10 @@ Public Class RegionMaker
                                     SmartStart(uuid) = ""
                             End Select
 
+                            RegionPort(uuid) = PropRegionClass.LargestPort
                             GroupPort(uuid) = PropRegionClass.LargestPort
+
+                            Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
 
                             If _RegionListIsInititalized Then
                                 ' restore backups of transient data
@@ -402,8 +406,7 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
-                                    GroupPort(uuid) = Backup(o)._GroupPort
-
+                                    'GroupPort(uuid) = Backup(o)._GroupPort
                                 End If
                             End If
                             Application.DoEvents()
@@ -530,6 +533,7 @@ Public Class RegionMaker
             RegionPort(uuid) = Portnumber
 
             GroupPort(uuid) = Portnumber
+            Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
 
             Settings.SaveINI(System.Text.Encoding.UTF8)
             Portnumber += 1
@@ -921,7 +925,7 @@ Public Class RegionMaker
             If _Grouplist.ContainsKey(GN) Then
                 Return _Grouplist.Item(GN)
             End If
-            Return 0
+            Return LargestPort()
         End Get
 
         Set(ByVal Value As Integer)
@@ -931,10 +935,9 @@ Public Class RegionMaker
             End If
 
             If _Grouplist.ContainsKey(GN) Then
-                ' do not update an existing group port.
-                'If Value > _Grouplist.Item(GN) Then
-                '_Grouplist.Item(GN) = Value
-                'End If
+                If Value > _Grouplist.Item(GN) Then
+                    _Grouplist.Item(GN) = Value
+                End If
             Else
                 _Grouplist.Add(GN, Value)
             End If

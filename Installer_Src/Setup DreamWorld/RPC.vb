@@ -111,8 +111,8 @@ Module RPC
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            ErrorLog("Cannot send XMLRPC command to " & PropRegionClass.RegionName(RegionUUID))
+            ' BreakPoint.Show(ex.Message)
+            'ErrorLog("Cannot send XMLRPC command to " & PropRegionClass.RegionName(RegionUUID))
         End Try
         Return False
 

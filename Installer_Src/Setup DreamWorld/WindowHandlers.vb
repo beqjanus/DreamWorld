@@ -64,7 +64,6 @@ Module WindowHandlers
                 End If
 
                 DoType(RegionUUID, command)
-
                 ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
             Else ' Robust
                 DoType("Robust", command)
