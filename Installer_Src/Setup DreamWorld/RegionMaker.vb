@@ -391,9 +391,7 @@ Public Class RegionMaker
                                     SmartStart(uuid) = ""
                             End Select
 
-                            If GroupPort(uuid) = 0 Then
-                                GroupPort(uuid) = PropRegionClass.LargestPort
-                            End If
+                            GroupPort(uuid) = PropRegionClass.LargestPort
 
                             If _RegionListIsInititalized Then
                                 ' restore backups of transient data
@@ -404,14 +402,7 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
-
-                                    If Backup(o)._GroupPort > 0 Then
-                                        GroupPort(uuid) = Backup(o)._GroupPort
-                                    End If
-
-                                    If GroupPort(uuid) = 0 Then
-                                        GroupPort(uuid) = PropRegionClass.LargestPort
-                                    End If
+                                    GroupPort(uuid) = Backup(o)._GroupPort
 
                                 End If
                             End If
@@ -448,7 +439,7 @@ Public Class RegionMaker
 
         For Each pair In RegionList
             Try
-                If pair.Value._RegionPort > MaxNum Then
+                If pair.Value._RegionPort >= MaxNum Then
                     MaxNum = pair.Value._RegionPort
                 End If
             Catch ex As Exception
@@ -940,9 +931,10 @@ Public Class RegionMaker
             End If
 
             If _Grouplist.ContainsKey(GN) Then
-                If Value > _Grouplist.Item(GN) Then
-                    _Grouplist.Item(GN) = Value
-                End If
+                ' do not update an existing group port.
+                'If Value > _Grouplist.Item(GN) Then
+                '_Grouplist.Item(GN) = Value
+                'End If
             Else
                 _Grouplist.Add(GN, Value)
             End If

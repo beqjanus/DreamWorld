@@ -119,6 +119,9 @@ Module SmartStart
 
         PropRegionClass.CopyOpensimProto(RegionUUID)
 
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+        Settings.Grep(ini, Settings.LogLevel)
+
         Dim GP = PropRegionClass.GroupPort(RegionUUID)
         Diagnostics.Debug.Print("Group port =" & CStr(GP))
 

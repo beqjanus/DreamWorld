@@ -3193,7 +3193,7 @@ Public Class FormSetup
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            ConsoleCommand(RegionUUID, "debug jobengine status")
+            RPC_Region_Command(RegionUUID, "debug jobengine status")
         Next
     End Sub
 
@@ -3233,7 +3233,7 @@ Public Class FormSetup
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            ConsoleCommand(RegionUUID, "show threads")
+            RPC_Region_Command(RegionUUID, "show threads")
         Next
     End Sub
 
@@ -3276,7 +3276,7 @@ Public Class FormSetup
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            ConsoleCommand(RegionUUID, "xengine status")
+            RPC_Region_Command(RegionUUID, "xengine status")
             Application.DoEvents()
         Next
     End Sub
@@ -3360,7 +3360,7 @@ Public Class FormSetup
 
         If user.Length > 0 Then
             ConsoleCommand(UUID, "load iar --merge " & user & " " & Path & " " & """" & thing & """")
-            SendMessage(UUID, "IAR content Is loaded")
+            SendMessage(UUID, "IAR content Is loading")
             TextPrint(My.Resources.isLoading & vbCrLf & Path)
         Else
             TextPrint(My.Resources.Canceled_IAR)

@@ -30,12 +30,7 @@ Public Class ListViewColumnSorter
     Private ColumnToSort As Integer
     Private ObjectCompare As CaseInsensitiveComparer
     Private OrderOfSort As SortOrder
-    ''' <summary>
-    ''' Compares two items in the List view of regions, and returns a  >, < or equal.
 
-    ''' </summary>
-    ''' <param name="col"></param>
-    ''' <param name="o"></param>
     Public Sub New(ByVal col As Integer, o As SortOrder)
         ColumnToSort = col
         Order = o

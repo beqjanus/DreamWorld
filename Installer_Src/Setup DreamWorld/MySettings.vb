@@ -1131,7 +1131,7 @@ Public Class MySettings
 
     Public Property LogLevel() As String
         Get
-            Return GetMySetting("LogLevel", "ERROR")
+            Return GetMySetting("LogLevel", "INFO")
         End Get
         Set
             SetMySetting("LogLevel", Value)

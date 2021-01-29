@@ -27,7 +27,7 @@ Module RPC
 
     'http://opensimulator.org/wiki/RemoteAdmin
 
-    Public Function Console_command(RegionUUID As String, Message As String) As Boolean
+    Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
         Dim ht As Hashtable = New Hashtable From {
            {"password", Settings.MachineID},
