@@ -54,8 +54,6 @@ Public Class FormSetup
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
     Private _Adv As FormSettings
-    Private _BackupsRunning As Boolean
-    Private _backupthread As Backups
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
@@ -67,6 +65,7 @@ Public Class FormSetup
     Private _IPv4Address As String
     Private _jRev As String = "3.9.23"
     Private _KillSource As Boolean
+
     Private _OpensimBinPath As String
     Private _regionForm As FormRegionlist
     Private _RestartApache As Boolean
@@ -114,15 +113,6 @@ Public Class FormSetup
         End Get
         Set(value As FormSettings)
             _Adv = value
-        End Set
-    End Property
-
-    Public Property BackupsRunning As Boolean
-        Get
-            Return _BackupsRunning
-        End Get
-        Set(value As Boolean)
-            _BackupsRunning = value
         End Set
     End Property
 
@@ -1930,8 +1920,6 @@ Public Class FormSetup
             Buttons(StartButton)
         End If
 
-        _backupthread = New Backups
-
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
 
@@ -2900,14 +2888,13 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If TimerBusy < 60 And TimerBusy > 0 Then
+        If TimerBusy < 300 And TimerBusy > 0 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
             Timer1.Interval += 1000
             Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
             Return
         End If
-        Diagnostics.Debug.Print("Timer Is Now at 1000 ms")
 
         TimerBusy += 1
 
@@ -2921,10 +2908,13 @@ Public Class FormSetup
             Return
         End If
 
-        If PropAborting Then
-            Timer1.Stop()
-            TimerBusy = 0
-            Return
+        Dim thisDate As Date = Now
+        Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
+
+        ' print how many backups are running
+        Dim t = BackupsRunning(dt)
+        If t.Length > 0 Then
+            TextPrint(t)
         End If
 
         ' variable speed, ranges from 1 to N second
@@ -2944,7 +2934,8 @@ Public Class FormSetup
 
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
-
+            Dim BackupThread As New Backups
+            BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML() ' create HTML for older 2.4 region teleport_
             Application.DoEvents()
         End If
@@ -2952,10 +2943,6 @@ Public Class FormSetup
         ' print hourly marks on console, after boot
         If SecondsTicker Mod 3600 = 0 And SecondsTicker > 0 Then
 
-            _backupthread.RunAllBackups()
-
-            Dim thisDate As Date = Now
-            Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
             TextPrint(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
 
             RegisterName(Settings.DNSName, True)

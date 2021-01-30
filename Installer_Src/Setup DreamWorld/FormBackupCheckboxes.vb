@@ -71,7 +71,7 @@ Public Class FormBackupCheckboxes
 
         Button1.Text = My.Resources.Running_word
         Dim b As New Backups()
-        b.RunAllBackups(True)
+        b.RunAllBackups(True) 'run backup right now
         Application.DoEvents()
         Threading.Thread.Sleep(2000)
         Me.Close()

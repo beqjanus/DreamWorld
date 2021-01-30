@@ -23,7 +23,6 @@
 
 Imports System.Threading
 Imports System.IO
-
 Imports Ionic.Zip
 
 Public Class Backups
@@ -42,10 +41,6 @@ Public Class Backups
 #Region "Public"
 
     Public Sub New()
-
-        ' used to zip it, zip it good
-        _folder = IO.Path.Combine(Settings.CurrentDirectory, "tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
-        If Not Directory.Exists(_folder) Then MkDir(_folder)
 
     End Sub
 
@@ -75,6 +70,10 @@ Public Class Backups
 
             Dim currentdatetime As Date = Date.Now()
             Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
+
+            'used to zip it, zip it good
+            _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\tmp_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
+            If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
 
             Dim _filename = Name & "_" & whenrun & ".sql"
             Dim SQLFile = IO.Path.Combine(_folder, _filename)
@@ -162,7 +161,7 @@ Public Class Backups
     Public Sub SQLBackup(DBName As String)
 
         Dim currentdatetime As Date = Date.Now()
-        TextPrint(currentdatetime.ToLocalTime & vbCrLf & DBName & " " & My.Resources.Slow_Backup)
+
         _WebThread1 = New Thread(AddressOf RunSQLBackup)
         _WebThread1.SetApartmentState(ApartmentState.STA)
         _WebThread1.Priority = ThreadPriority.BelowNormal
@@ -174,11 +173,11 @@ Public Class Backups
 
 #Region "File Backup"
 
-    Public Sub RunAllBackups(Optional TimerBased As Boolean = False)
+    Public Sub RunAllBackups(RunNow As Boolean)
 
         Dim currentdatetime As Date = Date.Now
-        If TimerBased Then
-            TextPrint(currentdatetime.ToLocalTime & " Backup Running")
+        If RunNow Then
+
             _WebThread2 = New Thread(AddressOf FullBackupThread)
             _WebThread2.SetApartmentState(ApartmentState.STA)
             _WebThread2.Priority = ThreadPriority.BelowNormal
@@ -200,7 +199,7 @@ Public Class Backups
             _startDate = currentdatetime ' wait another interval
 
             If Settings.AutoBackup Then
-                TextPrint(currentdatetime.ToLocalTime & " Auto Backup Running")
+                TextPrint(currentdatetime.ToLocalTime & " auto backup running")
                 _WebThread3 = New Thread(AddressOf FullBackupThread)
                 _WebThread3.SetApartmentState(ApartmentState.STA)
                 _WebThread3.Priority = ThreadPriority.BelowNormal
@@ -218,7 +217,7 @@ Public Class Backups
 
         ' get each file's last modified date
         For Each File1 In File
-            If File1.Name.StartsWith("Full_Backup_", StringComparison.InvariantCultureIgnoreCase) Then
+            If File1.Name.StartsWith("Backup_", StringComparison.InvariantCultureIgnoreCase) Then
                 Dim strLastModified As Date = System.IO.File.GetLastWriteTime(BackupPath() & "\" & File1.Name)
                 strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
                 Dim y = DateTime.Compare(currentdatetime, strLastModified)
@@ -232,18 +231,19 @@ Public Class Backups
 
     Private Sub FullBackupThread()
 
+        'used to zip it, zip it good
+        _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\tmp_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
+        If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
+
         Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
-        DeleteFile(Bak)
-        Sleep(1000)
+
         Using Z As ZipFile = New ZipFile(Bak)
             Z.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
-            Sleep(1000)
+
             Try
                 If Settings.BackupWifi Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
-                    '   Z.Save()
-                    '   Sleep(1000)
                 End If
             Catch ex As Exception
                 Break(ex.Message)
@@ -252,8 +252,6 @@ Public Class Backups
             Try
                 If Settings.BackupRegion Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
-                    '   Z.Save()
-                    '  Sleep(1000)
                 End If
             Catch ex As Exception
                 Break(ex.Message)
@@ -265,9 +263,6 @@ Public Class Backups
                     CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), IO.Path.Combine(_folder, "MySQL\MysqlData"))
 
                     Z.AddDirectory(IO.Path.Combine(_folder, "MySQL"))
-                    '   Z.Save()
-                    '   Sleep(5000)
-                    DeleteDirectory(IO.Path.Combine(_folder, "MySQL"), FileIO.DeleteDirectoryOption.DeleteAllContents)
                 End If
             Catch ex As Exception
                 Break(ex.Message)
@@ -283,8 +278,6 @@ Public Class Backups
                     End If
 
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
-                    '   Z.Save()
-                    '  Sleep(1000)
                 End If
             Catch ex As Exception
                 Break(ex.Message)
@@ -292,20 +285,22 @@ Public Class Backups
 
             Try
                 Z.Save()
-                Sleep(5000)
+                Z.Dispose()
+
                 MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
-                Sleep(5000)
                 DeleteFolder(_folder)
             Catch ex As Exception
                 Break(ex.Message)
             End Try
+
+            DeleteDirectory(IO.Path.Combine(_folder, "MySQL"), FileIO.DeleteDirectoryOption.DeleteAllContents)
 
             Try
                 If Settings.BackupSQL Then
                     Dim A As New Backups
                     A.BackupSQLDB(Settings.RegionDBName)
                     If Settings.RegionDBName <> Settings.RobustDataBaseName Then
-                        Sleep(5000)
+                        Sleep(60000)
                         Dim B As New Backups
                         B.BackupSQLDB(Settings.RobustDataBaseName)
                     End If

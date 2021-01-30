@@ -254,7 +254,7 @@ Public Class FormRegion
 
             CoordX.Text = (PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
             CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
-            RegionPort.Text = (PropRegionClass.LargestPort() + 1).ToString(Globalization.CultureInfo.InvariantCulture)
+            RegionPort.Text = CStr(PropRegionClass.LargestPort())
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
@@ -1139,7 +1139,7 @@ Public Class FormRegion
         PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
         PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
         PropRegionClass.RegionPort(RegionUUID) = CInt("0" & RegionPort.Text)
-        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.LargestPort + 1
+        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.LargestPort
         PropRegionClass.SizeX(RegionUUID) = BoxSize
         PropRegionClass.SizeY(RegionUUID) = BoxSize
         PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked

@@ -215,7 +215,7 @@ Public Class RegionMaker
             ._SizeY = 256,
             ._CoordX = LargestX() + 8,
             ._CoordY = LargestY() + 0,
-            ._RegionPort = PropRegionClass.LargestPort,
+            ._RegionPort = 0,
             ._ProcessID = 0,
             ._AvatarCount = 0,
             ._Status = SIMSTATUSENUM.Stopped,
@@ -393,7 +393,7 @@ Public Class RegionMaker
                             End Select
 
                             RegionPort(uuid) = PropRegionClass.LargestPort
-                            GroupPort(uuid) = PropRegionClass.LargestPort
+                            GroupPort(uuid) = RegionPort(uuid)
 
                             Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
 
@@ -406,8 +406,11 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
-                                    'GroupPort(uuid) = Backup(o)._GroupPort
+                                    If Backup(o)._GroupPort > 0 Then
+                                        GroupPort(uuid) = Backup(o)._GroupPort
+                                    End If
                                 End If
+
                             End If
                             Application.DoEvents()
                         Next
@@ -436,22 +439,16 @@ Public Class RegionMaker
     Public Function LargestPort() As Integer
 
         ' locate largest port
-        Dim MaxNum As Integer = Settings.FirstRegionPort
-
+        Dim MaxNum As Integer = Settings.FirstRegionPort - 1
         Dim pair As KeyValuePair(Of String, Region_data)
 
         For Each pair In RegionList
-            Try
-                If pair.Value._RegionPort >= MaxNum Then
-                    MaxNum = pair.Value._RegionPort
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                MaxNum = Settings.FirstRegionPort
-            End Try
+            If pair.Value._RegionPort > MaxNum Then
+                MaxNum = pair.Value._RegionPort
+            End If
         Next
 
-        Return MaxNum
+        Return MaxNum + 1
 
     End Function
 
@@ -929,20 +926,14 @@ Public Class RegionMaker
         End Get
 
         Set(ByVal Value As Integer)
-            Dim GN As String = GroupName(uuid)
-            If Value < Settings.FirstRegionPort Then
-                Return
-            End If
 
+            Dim GN As String = GroupName(uuid)
             If _Grouplist.ContainsKey(GN) Then
-                If Value > _Grouplist.Item(GN) Then
-                    _Grouplist.Item(GN) = Value
-                End If
+                _Grouplist.Item(GN) = Value
             Else
                 _Grouplist.Add(GN, Value)
             End If
 
-            'DebugGroup
         End Set
     End Property
 
