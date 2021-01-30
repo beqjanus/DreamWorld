@@ -25,7 +25,7 @@ Partial Class FormPhysics
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPhysics))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Physics1_ODE = New System.Windows.Forms.RadioButton()
-        Me.Physics_4UbODE = New System.Windows.Forms.RadioButton()
+        Me.Physics4_UbODE = New System.Windows.Forms.RadioButton()
         Me.NinjaRagdoll = New System.Windows.Forms.CheckBox()
         Me.Physics5_Hybrid = New System.Windows.Forms.RadioButton()
         Me.Physics2_Bullet = New System.Windows.Forms.RadioButton()
@@ -33,16 +33,16 @@ Partial Class FormPhysics
         Me.Physics0_None = New System.Windows.Forms.RadioButton()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.Physics1_ODE)
-        Me.GroupBox1.Controls.Add(Me.Physics_4UbODE)
-        Me.GroupBox1.Controls.Add(Me.NinjaRagdoll)
+        Me.GroupBox1.Controls.Add(Me.Physics4_UbODE)
         Me.GroupBox1.Controls.Add(Me.Physics5_Hybrid)
         Me.GroupBox1.Controls.Add(Me.Physics2_Bullet)
         Me.GroupBox1.Controls.Add(Me.Physics3_Separate)
@@ -51,7 +51,7 @@ Partial Class FormPhysics
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(323, 258)
+        Me.GroupBox1.Size = New System.Drawing.Size(323, 226)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics Engine"
@@ -68,24 +68,24 @@ Partial Class FormPhysics
         Me.Physics1_ODE.Text = "Open Dynamic Engine"
         Me.Physics1_ODE.UseVisualStyleBackColor = True
         '
-        'Physics_4UbODE
+        'Physics4_UbODE
         '
-        Me.Physics_4UbODE.AutoSize = True
-        Me.Physics_4UbODE.Location = New System.Drawing.Point(9, 94)
-        Me.Physics_4UbODE.Margin = New System.Windows.Forms.Padding(4)
-        Me.Physics_4UbODE.Name = "Physics_4UbODE"
-        Me.Physics_4UbODE.Size = New System.Drawing.Size(225, 24)
-        Me.Physics_4UbODE.TabIndex = 21
-        Me.Physics_4UbODE.TabStop = True
-        Me.Physics_4UbODE.Text = Global.Outworldz.My.Resources.Resources.UBODE_words
-        Me.Physics_4UbODE.UseVisualStyleBackColor = True
+        Me.Physics4_UbODE.AutoSize = True
+        Me.Physics4_UbODE.Location = New System.Drawing.Point(9, 94)
+        Me.Physics4_UbODE.Margin = New System.Windows.Forms.Padding(4)
+        Me.Physics4_UbODE.Name = "Physics4_UbODE"
+        Me.Physics4_UbODE.Size = New System.Drawing.Size(225, 24)
+        Me.Physics4_UbODE.TabIndex = 21
+        Me.Physics4_UbODE.TabStop = True
+        Me.Physics4_UbODE.Text = Global.Outworldz.My.Resources.Resources.UBODE_words
+        Me.Physics4_UbODE.UseVisualStyleBackColor = True
         '
         'NinjaRagdoll
         '
         Me.NinjaRagdoll.AutoSize = True
-        Me.NinjaRagdoll.Location = New System.Drawing.Point(9, 234)
+        Me.NinjaRagdoll.Location = New System.Drawing.Point(14, 36)
         Me.NinjaRagdoll.Name = "NinjaRagdoll"
-        Me.NinjaRagdoll.Size = New System.Drawing.Size(89, 24)
+        Me.NinjaRagdoll.Size = New System.Drawing.Size(128, 24)
         Me.NinjaRagdoll.TabIndex = 20
         Me.NinjaRagdoll.Text = "Ninja Ragdoll"
         Me.NinjaRagdoll.UseVisualStyleBackColor = True
@@ -151,24 +151,27 @@ Partial Class FormPhysics
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(89, 29)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'DatabaseSetupToolStripMenuItem
+        'GroupBox2
         '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(151, 34)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        Me.GroupBox2.Controls.Add(Me.NinjaRagdoll)
+        Me.GroupBox2.Location = New System.Drawing.Point(19, 283)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(322, 66)
+        Me.GroupBox2.TabIndex = 1893
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "ODE"
         '
         'FormPhysics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(354, 321)
+        Me.ClientSize = New System.Drawing.Size(354, 361)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -180,6 +183,8 @@ Partial Class FormPhysics
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -190,10 +195,10 @@ Partial Class FormPhysics
     Friend WithEvents Physics0_None As RadioButton
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
-    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents NinjaRagdoll As CheckBox
     Friend WithEvents Physics5_Hybrid As RadioButton
     Friend WithEvents Physics2_Bullet As RadioButton
-    Friend WithEvents Physics_4UbODE As RadioButton
+    Friend WithEvents Physics4_UbODE As RadioButton
     Friend WithEvents Physics1_ODE As RadioButton
+    Friend WithEvents GroupBox2 As GroupBox
 End Class
