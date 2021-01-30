@@ -1344,7 +1344,7 @@ Public Class MySettings
             Return GetMySetting("PrivateURL")   ' no default
         End Get
         Set
-            SetMySetting("PrivateIP()", Value)
+            SetMySetting("PrivateURL", Value)
         End Set
     End Property
 
