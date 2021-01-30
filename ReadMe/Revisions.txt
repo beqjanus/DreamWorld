@@ -2,6 +2,18 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.85 Post fixes
+Backups chat how many are running and a message when they are finished.
+Themes would not save the image to the running theme, just to the next running theme.
+Windows on Top control moved to a Menu and added to the main form
+Large fonts and High DPI sscreens would cause icon sizes to change and the Graphs to not fit
+Changed many icons to just blue
+One of two ways to make a sign showed all regions, instead of just online regions
+Adding a region or deleting one could cause the Region HTTP Port (Group Port) to collide with another region.
+Brought back all Physics Engines.
+Added Ninja (Ragdoll) prim physics enable for ODE.
+
+
 V3.84 Post fixes
 Another crash in Black and White Diva Wifi Image on boot.
 Systems running with a merged database where robust and region files are in the same db would backup twice.
