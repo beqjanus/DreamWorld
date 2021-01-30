@@ -913,11 +913,12 @@ UseSeparatePhysicsThread=true
 ;; (messages such as "Decoded image with unhandled number of components: 0 shortly followed by a physcs exception")
 ;; then you might want to try setting this to false.
 ; mesh_sculpted_prim = true
+;
 ;# {use_NINJA_physics_joints} {[Startup]physics:OpenDynamicsEngine} {Use jointed (NINJA) physics?} {true false} false
 ;; If you would like physics joints to be enabled through a special naming
 ;; convention in the client, set this to true.
 ;; (see NINJA Physics, http://opensimulator.org/wiki/NINJA_Physics)
-; use_NINJA_physics_joints = false
+use_NINJA_physics_joints = false
 ;
 ;
 [RemoteAdmin]
@@ -968,7 +969,7 @@ access_ip_addresses="127.0.0.1"
 ;; enabled_methods = admin_broadcast|admin_save_oar|admin_save_xml
 ;; if this parameter is not specified but enabled = true, all methods
 ;; will be available
-enabled_methods=admin_console_command|admin_shutdown|admin_teleport_agent|admin_broadcast|admin_save_oar
+enabled_methods=admin_console_command|admin_shutdown|admin_teleport_agent|admin_broadcast
 
 ;
 ;
@@ -996,31 +997,25 @@ default_appearance=default_appearance.xml
 ;
 ;
 [Sun]
-
 ;
 ; number of wall clock hours for an opensim day.  24.0 would mean realtime
 day_length=24
-
 ;
 ;
 ; Year length in days
 year_length=365
-
 ;
 ;
 ; Day to Night Ratio
 day_night_offset=0.45
-
 ;
 ;
 ; send a Sun update every update_interval # of frames.  A lower number will
 ; make for smoother sun transition at the cost of network
 update_interval=100
-
 ;
 ;
 [Wind]
-
 ;
 ;
 ;# {enabled} {} {Enable wind module?} {true false} true
