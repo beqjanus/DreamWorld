@@ -24,12 +24,13 @@ Partial Class FormPhysics
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormPhysics))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.PhysicsUbODE = New System.Windows.Forms.RadioButton()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.HybridPhysics = New System.Windows.Forms.RadioButton()
-        Me.BulletPhysics = New System.Windows.Forms.RadioButton()
-        Me.PhysicsSeparate = New System.Windows.Forms.RadioButton()
-        Me.PhysicsNone = New System.Windows.Forms.RadioButton()
+        Me.Physics1_ODE = New System.Windows.Forms.RadioButton()
+        Me.Physics_4UbODE = New System.Windows.Forms.RadioButton()
+        Me.NinjaRagdoll = New System.Windows.Forms.CheckBox()
+        Me.Physics5_Hybrid = New System.Windows.Forms.RadioButton()
+        Me.Physics2_Bullet = New System.Windows.Forms.RadioButton()
+        Me.Physics3_Separate = New System.Windows.Forms.RadioButton()
+        Me.Physics0_None = New System.Windows.Forms.RadioButton()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -39,12 +40,13 @@ Partial Class FormPhysics
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.PhysicsUbODE)
-        Me.GroupBox1.Controls.Add(Me.CheckBox3)
-        Me.GroupBox1.Controls.Add(Me.HybridPhysics)
-        Me.GroupBox1.Controls.Add(Me.BulletPhysics)
-        Me.GroupBox1.Controls.Add(Me.PhysicsSeparate)
-        Me.GroupBox1.Controls.Add(Me.PhysicsNone)
+        Me.GroupBox1.Controls.Add(Me.Physics1_ODE)
+        Me.GroupBox1.Controls.Add(Me.Physics_4UbODE)
+        Me.GroupBox1.Controls.Add(Me.NinjaRagdoll)
+        Me.GroupBox1.Controls.Add(Me.Physics5_Hybrid)
+        Me.GroupBox1.Controls.Add(Me.Physics2_Bullet)
+        Me.GroupBox1.Controls.Add(Me.Physics3_Separate)
+        Me.GroupBox1.Controls.Add(Me.Physics0_None)
         Me.GroupBox1.Location = New System.Drawing.Point(18, 50)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
@@ -54,75 +56,87 @@ Partial Class FormPhysics
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics Engine"
         '
-        'PhysicsUbODE
+        'Physics1_ODE
         '
-        Me.PhysicsUbODE.AutoSize = True
-        Me.PhysicsUbODE.Location = New System.Drawing.Point(9, 62)
-        Me.PhysicsUbODE.Margin = New System.Windows.Forms.Padding(4)
-        Me.PhysicsUbODE.Name = "PhysicsUbODE"
-        Me.PhysicsUbODE.Size = New System.Drawing.Size(225, 24)
-        Me.PhysicsUbODE.TabIndex = 21
-        Me.PhysicsUbODE.TabStop = True
-        Me.PhysicsUbODE.Text = Global.Outworldz.My.Resources.Resources.UBODE_words
-        Me.PhysicsUbODE.UseVisualStyleBackColor = True
+        Me.Physics1_ODE.AutoSize = True
+        Me.Physics1_ODE.Location = New System.Drawing.Point(9, 62)
+        Me.Physics1_ODE.Margin = New System.Windows.Forms.Padding(4)
+        Me.Physics1_ODE.Name = "Physics1_ODE"
+        Me.Physics1_ODE.Size = New System.Drawing.Size(192, 24)
+        Me.Physics1_ODE.TabIndex = 22
+        Me.Physics1_ODE.TabStop = True
+        Me.Physics1_ODE.Text = "Open Dynamic Engine"
+        Me.Physics1_ODE.UseVisualStyleBackColor = True
         '
-        'CheckBox3
+        'Physics_4UbODE
         '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(9, 227)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(89, 24)
-        Me.CheckBox3.TabIndex = 20
-        Me.CheckBox3.Text = "Ragdoll"
-        Me.CheckBox3.UseVisualStyleBackColor = True
+        Me.Physics_4UbODE.AutoSize = True
+        Me.Physics_4UbODE.Location = New System.Drawing.Point(9, 94)
+        Me.Physics_4UbODE.Margin = New System.Windows.Forms.Padding(4)
+        Me.Physics_4UbODE.Name = "Physics_4UbODE"
+        Me.Physics_4UbODE.Size = New System.Drawing.Size(225, 24)
+        Me.Physics_4UbODE.TabIndex = 21
+        Me.Physics_4UbODE.TabStop = True
+        Me.Physics_4UbODE.Text = Global.Outworldz.My.Resources.Resources.UBODE_words
+        Me.Physics_4UbODE.UseVisualStyleBackColor = True
         '
-        'HybridPhysics
+        'NinjaRagdoll
         '
-        Me.HybridPhysics.AutoSize = True
-        Me.HybridPhysics.Location = New System.Drawing.Point(9, 158)
-        Me.HybridPhysics.Margin = New System.Windows.Forms.Padding(4)
-        Me.HybridPhysics.Name = "HybridPhysics"
-        Me.HybridPhysics.Size = New System.Drawing.Size(79, 24)
-        Me.HybridPhysics.TabIndex = 16
-        Me.HybridPhysics.TabStop = True
-        Me.HybridPhysics.Text = "Hybrid"
-        Me.HybridPhysics.UseVisualStyleBackColor = True
+        Me.NinjaRagdoll.AutoSize = True
+        Me.NinjaRagdoll.Location = New System.Drawing.Point(9, 234)
+        Me.NinjaRagdoll.Name = "NinjaRagdoll"
+        Me.NinjaRagdoll.Size = New System.Drawing.Size(89, 24)
+        Me.NinjaRagdoll.TabIndex = 20
+        Me.NinjaRagdoll.Text = "Ninja Ragdoll"
+        Me.NinjaRagdoll.UseVisualStyleBackColor = True
         '
-        'BulletPhysics
+        'Physics5_Hybrid
         '
-        Me.BulletPhysics.AutoSize = True
-        Me.BulletPhysics.Location = New System.Drawing.Point(9, 94)
-        Me.BulletPhysics.Margin = New System.Windows.Forms.Padding(4)
-        Me.BulletPhysics.Name = "BulletPhysics"
-        Me.BulletPhysics.Size = New System.Drawing.Size(134, 24)
-        Me.BulletPhysics.TabIndex = 15
-        Me.BulletPhysics.TabStop = True
-        Me.BulletPhysics.Text = "Bullet physics "
-        Me.BulletPhysics.UseVisualStyleBackColor = True
+        Me.Physics5_Hybrid.AutoSize = True
+        Me.Physics5_Hybrid.Location = New System.Drawing.Point(9, 190)
+        Me.Physics5_Hybrid.Margin = New System.Windows.Forms.Padding(4)
+        Me.Physics5_Hybrid.Name = "Physics5_Hybrid"
+        Me.Physics5_Hybrid.Size = New System.Drawing.Size(79, 24)
+        Me.Physics5_Hybrid.TabIndex = 16
+        Me.Physics5_Hybrid.TabStop = True
+        Me.Physics5_Hybrid.Text = "Hybrid"
+        Me.Physics5_Hybrid.UseVisualStyleBackColor = True
         '
-        'PhysicsSeparate
+        'Physics2_Bullet
         '
-        Me.PhysicsSeparate.AutoSize = True
-        Me.PhysicsSeparate.Location = New System.Drawing.Point(9, 126)
-        Me.PhysicsSeparate.Margin = New System.Windows.Forms.Padding(4)
-        Me.PhysicsSeparate.Name = "PhysicsSeparate"
-        Me.PhysicsSeparate.Size = New System.Drawing.Size(263, 24)
-        Me.PhysicsSeparate.TabIndex = 13
-        Me.PhysicsSeparate.TabStop = True
-        Me.PhysicsSeparate.Text = Global.Outworldz.My.Resources.Resources.BP
-        Me.PhysicsSeparate.UseVisualStyleBackColor = True
+        Me.Physics2_Bullet.AutoSize = True
+        Me.Physics2_Bullet.Location = New System.Drawing.Point(9, 126)
+        Me.Physics2_Bullet.Margin = New System.Windows.Forms.Padding(4)
+        Me.Physics2_Bullet.Name = "Physics2_Bullet"
+        Me.Physics2_Bullet.Size = New System.Drawing.Size(134, 24)
+        Me.Physics2_Bullet.TabIndex = 15
+        Me.Physics2_Bullet.TabStop = True
+        Me.Physics2_Bullet.Text = "Bullet physics "
+        Me.Physics2_Bullet.UseVisualStyleBackColor = True
         '
-        'PhysicsNone
+        'Physics3_Separate
         '
-        Me.PhysicsNone.AutoSize = True
-        Me.PhysicsNone.Location = New System.Drawing.Point(9, 30)
-        Me.PhysicsNone.Margin = New System.Windows.Forms.Padding(4)
-        Me.PhysicsNone.Name = "PhysicsNone"
-        Me.PhysicsNone.Size = New System.Drawing.Size(72, 24)
-        Me.PhysicsNone.TabIndex = 9
-        Me.PhysicsNone.TabStop = True
-        Me.PhysicsNone.Text = Global.Outworldz.My.Resources.Resources.None
-        Me.PhysicsNone.UseVisualStyleBackColor = True
+        Me.Physics3_Separate.AutoSize = True
+        Me.Physics3_Separate.Location = New System.Drawing.Point(9, 158)
+        Me.Physics3_Separate.Margin = New System.Windows.Forms.Padding(4)
+        Me.Physics3_Separate.Name = "Physics3_Separate"
+        Me.Physics3_Separate.Size = New System.Drawing.Size(263, 24)
+        Me.Physics3_Separate.TabIndex = 13
+        Me.Physics3_Separate.TabStop = True
+        Me.Physics3_Separate.Text = Global.Outworldz.My.Resources.Resources.BP
+        Me.Physics3_Separate.UseVisualStyleBackColor = True
+        '
+        'Physics0_None
+        '
+        Me.Physics0_None.AutoSize = True
+        Me.Physics0_None.Location = New System.Drawing.Point(9, 30)
+        Me.Physics0_None.Margin = New System.Windows.Forms.Padding(4)
+        Me.Physics0_None.Name = "Physics0_None"
+        Me.Physics0_None.Size = New System.Drawing.Size(72, 24)
+        Me.Physics0_None.TabIndex = 9
+        Me.Physics0_None.TabStop = True
+        Me.Physics0_None.Text = Global.Outworldz.My.Resources.Resources.None
+        Me.Physics0_None.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
@@ -172,13 +186,14 @@ Partial Class FormPhysics
     End Sub
 
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents PhysicsSeparate As RadioButton
-    Friend WithEvents PhysicsNone As RadioButton
+    Friend WithEvents Physics3_Separate As RadioButton
+    Friend WithEvents Physics0_None As RadioButton
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents CheckBox3 As CheckBox
-    Friend WithEvents HybridPhysics As RadioButton
-    Friend WithEvents BulletPhysics As RadioButton
-    Friend WithEvents PhysicsUbODE As RadioButton
+    Friend WithEvents NinjaRagdoll As CheckBox
+    Friend WithEvents Physics5_Hybrid As RadioButton
+    Friend WithEvents Physics2_Bullet As RadioButton
+    Friend WithEvents Physics_4UbODE As RadioButton
+    Friend WithEvents Physics1_ODE As RadioButton
 End Class

@@ -1803,7 +1803,7 @@ Public Class RegionMaker
         ' the old Clouds
         If Settings.Clouds Then
             Settings.SetIni("Cloud", "enabled", "True")
-            Settings.SetIni("Cloud", "density", Settings.Density.ToString(Globalization.CultureInfo.InvariantCulture))
+            Settings.SetIni("Cloud", "density", CStr(Settings.Density))
         Else
             Settings.SetIni("Cloud", "enabled", "False")
         End If
@@ -1816,34 +1816,41 @@ Public Class RegionMaker
                 Settings.SetIni("Startup", "meshing", "ZeroMesher")
                 Settings.SetIni("Startup", "physics", "basicphysics")
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False")
             Case 1
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll))
             Case 2
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False")
             Case 3
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
+                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False")
             Case 4
                 Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
                 Settings.SetIni("Startup", "physics", "ubODE")
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll))
             Case 5
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "ubODE")
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
+                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll))
             Case Else
                 Settings.SetIni("Startup", "meshing", "Meshmerizer")
                 Settings.SetIni("Startup", "physics", "BulletSim")
                 Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
+                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False")
         End Select
 
-        Settings.SetIni("Map", "RenderMaxHeight", Convert.ToString(Settings.RenderMaxHeight, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("Map", "RenderMinHeight", Convert.ToString(Settings.RenderMinHeight, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Map", "RenderMaxHeight", CStr(Settings.RenderMaxHeight))
+        Settings.SetIni("Map", "RenderMinHeight", CStr(Settings.RenderMinHeight))
 
         If Settings.MapType = "None" Then
             Settings.SetIni("Map", "GenerateMaptiles", "False")
@@ -1893,8 +1900,8 @@ Public Class RegionMaker
                 Xtime = 1.0 / 11.0
             End If
         End If
-        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("XEngine", "MinTimerInterval", CStr(Xtime))
+        Settings.SetIni("YEngine", "MinTimerInterval", CStr(Xtime))
 
         ' Gloebit
         Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
@@ -1941,7 +1948,7 @@ Public Class RegionMaker
         End If
 
         Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
-        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", Convert.ToString(Settings.KeepForDays, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
         Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
 
         Select Case Physics(uuid)
@@ -2016,27 +2023,27 @@ Public Class RegionMaker
         ' Prims
 
         If NonPhysicalPrimMax(uuid).Length > 0 Then
-            Settings.SetIni("Startup", "NonPhysicalPrimMax", Convert.ToString(NonPhysicalPrimMax(uuid), Globalization.CultureInfo.InvariantCulture))
+            Settings.SetIni("Startup", "NonPhysicalPrimMax", CStr(NonPhysicalPrimMax(uuid)))
         End If
 
         If PhysicalPrimMax(uuid).Length > 0 Then
-            Settings.SetIni("Startup", "PhysicalPrimMax", Convert.ToString(PhysicalPrimMax(uuid), Globalization.CultureInfo.InvariantCulture))
+            Settings.SetIni("Startup", "PhysicalPrimMax", CStr(PhysicalPrimMax(uuid)))
         End If
 
         If MinTimerInterval(uuid).Length > 0 Then
-            Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(MinTimerInterval(uuid), Globalization.CultureInfo.InvariantCulture))
+            Settings.SetIni("XEngine", "MinTimerInterval", CStr(MinTimerInterval(uuid)))
         End If
 
         If FrameTime(uuid).Length > 0 Then
-            Settings.SetIni("Startup", "FrameTime", Convert.ToString(FrameTime(uuid), Globalization.CultureInfo.InvariantCulture))
+            Settings.SetIni("Startup", "FrameTime", CStr(FrameTime(uuid)))
         End If
 
         If DisallowForeigners(uuid) = "True" Then
-            Settings.SetIni("DisallowForeigners", "Enabled", Convert.ToString(DisallowForeigners(uuid), Globalization.CultureInfo.InvariantCulture))
+            Settings.SetIni("DisallowForeigners", "Enabled", CStr(DisallowForeigners(uuid)))
         End If
 
         If DisallowResidents(uuid) = "True" Then
-            Settings.SetIni("DisallowResidents", "Enabled", Convert.ToString(DisallowResidents(uuid), Globalization.CultureInfo.InvariantCulture))
+            Settings.SetIni("DisallowResidents", "Enabled", CStr(DisallowResidents(uuid)))
         End If
 
         ' replace with a PHP module
@@ -2077,10 +2084,10 @@ Public Class RegionMaker
             Return True
         End If
 
-        Settings.SetIni(Name, "InternalPort", Convert.ToString(RegionPort(uuid), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid)))
         Settings.SetIni(Name, "ExternalHostName", FormSetup.ExternLocalServerName())
 
-        Settings.SetIni(Name, "ClampPrimSize", Convert.ToString(ClampPrimSize(uuid), Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid)))
 
         ' not a standard INI, only use by the Dreamers
         If RegionEnabled(uuid) Then
@@ -2091,14 +2098,14 @@ Public Class RegionMaker
 
         Select Case NonPhysicalPrimMax(uuid)
             Case ""
-                Settings.SetIni(Name, "NonPhysicalPrimMax", 1024.ToString(Globalization.CultureInfo.InvariantCulture))
+                Settings.SetIni(Name, "NonPhysicalPrimMax", CStr(1024))
             Case Else
                 Settings.SetIni(Name, "NonPhysicalPrimMax", NonPhysicalPrimMax(uuid))
         End Select
 
         Select Case PhysicalPrimMax(uuid)
             Case ""
-                Settings.SetIni(Name, "PhysicalPrimMax", 64.ToString(Globalization.CultureInfo.InvariantCulture))
+                Settings.SetIni(Name, "PhysicalPrimMax", CStr(64))
             Case Else
                 Settings.SetIni(Name, "PhysicalPrimMax", PhysicalPrimMax(uuid))
         End Select
@@ -2106,14 +2113,14 @@ Public Class RegionMaker
         If Settings.Primlimits Then
             Select Case MaxPrims(uuid)
                 Case ""
-                    Settings.SetIni(Name, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
+                    Settings.SetIni(Name, "MaxPrims", CStr(45000))
                 Case Else
                     Settings.SetIni(Name, "MaxPrims", MaxPrims(uuid))
             End Select
         Else
             Select Case MaxPrims(uuid)
                 Case ""
-                    Settings.SetIni(Name, "MaxPrims", 45000.ToString(Globalization.CultureInfo.InvariantCulture))
+                    Settings.SetIni(Name, "MaxPrims", CStr(45000))
                 Case Else
                     Settings.SetIni(Name, "MaxPrims", MaxPrims(uuid))
             End Select
@@ -2121,7 +2128,7 @@ Public Class RegionMaker
 
         Select Case MaxAgents(uuid)
             Case ""
-                Settings.SetIni(Name, "MaxAgents", 100.ToString(Globalization.CultureInfo.InvariantCulture))
+                Settings.SetIni(Name, "MaxAgents", CStr(100))
             Case Else
                 Settings.SetIni(Name, "MaxAgents", MaxAgents(uuid))
         End Select

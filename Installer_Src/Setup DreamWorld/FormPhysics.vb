@@ -68,9 +68,9 @@ Public Class FormPhysics
         DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Physics_Engine
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
-        PhysicsNone.Text = Global.Outworldz.My.Resources.None
-        PhysicsSeparate.Text = Global.Outworldz.My.Resources.BP
-        PhysicsUbODE.Text = Global.Outworldz.My.Resources.UBODE_words
+        Physics0_None.Text = Global.Outworldz.My.Resources.None
+        Physics3_Separate.Text = Global.Outworldz.My.Resources.BP
+        Physics_4UbODE.Text = Global.Outworldz.My.Resources.UBODE_words
         Text = Global.Outworldz.My.Resources.Physics_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
@@ -78,13 +78,13 @@ Public Class FormPhysics
         SetScreen()
 
         Select Case Settings.Physics
-            Case 0 : PhysicsNone.Checked = True
-            Case 1 : PhysicsUbODE.Checked = True    ' deprecated is now 4
-            Case 2 : BulletPhysics.Checked = True
-            Case 3 : PhysicsSeparate.Checked = True
-            Case 4 : PhysicsUbODE.Checked = True
-            Case 5 : HybridPhysics.Checked = True
-            Case Else : PhysicsSeparate.Checked = True
+            Case 0 : Physics0_None.Checked = True
+            Case 1 : Physics1_ODE.Checked = True
+            Case 2 : Physics2_Bullet.Checked = True
+            Case 3 : Physics3_Separate.Checked = True
+            Case 4 : Physics_4UbODE.Checked = True
+            Case 5 : Physics5_Hybrid.Checked = True
+            Case Else : Physics3_Separate.Checked = True
         End Select
 
         HelpOnce("Physics")
@@ -94,14 +94,27 @@ Public Class FormPhysics
 
 #End Region
 
-#Region "Physics"
+#Region "Help"
 
     Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
         HelpManual("Physics")
     End Sub
 
-    Private Sub GodHelp_Click(sender As Object, e As EventArgs)
-        HelpManual("Physics")
+#End Region
+
+#Region "Physics"
+
+    Private Sub CheckBox3_CheckedChanged(sender As Object, e As EventArgs) Handles NinjaRagdoll.CheckedChanged
+        If Not initted Then Return
+        Settings.NinjaRagdoll = NinjaRagdoll.Checked
+    End Sub
+
+    Private Sub Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics5_Hybrid.CheckedChanged
+        If Not initted Then Return
+        If Physics5_Hybrid.Checked Then
+            Settings.Physics = 5
+            Settings.SaveSettings()
+        End If
     End Sub
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
@@ -111,42 +124,46 @@ Public Class FormPhysics
 
     End Sub
 
-    Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsNone.CheckedChanged
+    Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles Physics0_None.CheckedChanged
         If Not initted Then Return
-        If PhysicsNone.Checked Then
+        If Physics0_None.Checked Then
             Settings.Physics = 0
             Settings.SaveSettings()
         End If
     End Sub
 
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles BulletPhysics.CheckedChanged
+    Private Sub PhysicsODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics1_ODE.CheckedChanged
+
         If Not initted Then Return
-        If BulletPhysics.Checked Then
-            Settings.Physics = 2
+        If Physics1_ODE.Checked Then
+            NinjaRagdoll.Enabled = True
+            Settings.Physics = 1
             Settings.SaveSettings()
+        Else
+            NinjaRagdoll.Enabled = False
         End If
     End Sub
 
-    Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
+    Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics3_Separate.CheckedChanged
         If Not initted Then Return
-        If PhysicsSeparate.Checked Then
+        If Physics3_Separate.Checked Then
             Settings.Physics = 3
             Settings.SaveSettings()
         End If
     End Sub
 
-    Private Sub PhysicsUbODE_CheckedChanged_1(sender As Object, e As EventArgs) Handles PhysicsUbODE.CheckedChanged
+    Private Sub PhysicsUbODE_CheckedChanged_1(sender As Object, e As EventArgs) Handles Physics_4UbODE.CheckedChanged
 
-        If PhysicsUbODE.Checked Then
+        If Physics_4UbODE.Checked Then
             Settings.Physics = 4
             Settings.SaveSettings()
         End If
     End Sub
 
-    Private Sub Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles HybridPhysics.CheckedChanged
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles Physics2_Bullet.CheckedChanged
         If Not initted Then Return
-        If HybridPhysics.Checked Then
-            Settings.Physics = 5
+        If Physics2_Bullet.Checked Then
+            Settings.Physics = 2
             Settings.SaveSettings()
         End If
     End Sub
