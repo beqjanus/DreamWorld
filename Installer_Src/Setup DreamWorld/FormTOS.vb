@@ -89,12 +89,6 @@ Public Class TosForm
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-
-        HelpManual("TOS")
-
-    End Sub
-
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         SaveButton.Text = My.Resources.Save_changes_word
@@ -134,6 +128,8 @@ Public Class TosForm
         Me.Close()
 
     End Sub
+
+
 
 #End Region
 

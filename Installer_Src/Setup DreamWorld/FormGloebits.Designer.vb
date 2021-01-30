@@ -69,10 +69,10 @@ Partial Class FormGloebits
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(31, 73)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(5)
+        Me.Button4.Location = New System.Drawing.Point(36, 85)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(601, 41)
+        Me.Button4.Size = New System.Drawing.Size(701, 48)
         Me.Button4.TabIndex = 1
         Me.Button4.Text = Global.Outworldz.My.Resources.Resources.Free_Account
         Me.Button4.UseVisualStyleBackColor = True
@@ -86,11 +86,11 @@ Partial Class FormGloebits
         Me.GroupBox3.Controls.Add(Me.Label4)
         Me.GroupBox3.Controls.Add(Me.ContactEmailTextBox)
         Me.GroupBox3.Controls.Add(Me.Label5)
-        Me.GroupBox3.Location = New System.Drawing.Point(19, 467)
-        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(5)
+        Me.GroupBox3.Location = New System.Drawing.Point(22, 545)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(5)
-        Me.GroupBox3.Size = New System.Drawing.Size(698, 238)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.GroupBox3.Size = New System.Drawing.Size(814, 278)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Currency"
@@ -98,10 +98,10 @@ Partial Class FormGloebits
         'GLBShowNewSessionPurchaseIMCheckBox
         '
         Me.GLBShowNewSessionPurchaseIMCheckBox.AutoSize = True
-        Me.GLBShowNewSessionPurchaseIMCheckBox.Location = New System.Drawing.Point(29, 191)
-        Me.GLBShowNewSessionPurchaseIMCheckBox.Margin = New System.Windows.Forms.Padding(5)
+        Me.GLBShowNewSessionPurchaseIMCheckBox.Location = New System.Drawing.Point(34, 223)
+        Me.GLBShowNewSessionPurchaseIMCheckBox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GLBShowNewSessionPurchaseIMCheckBox.Name = "GLBShowNewSessionPurchaseIMCheckBox"
-        Me.GLBShowNewSessionPurchaseIMCheckBox.Size = New System.Drawing.Size(505, 24)
+        Me.GLBShowNewSessionPurchaseIMCheckBox.Size = New System.Drawing.Size(609, 29)
         Me.GLBShowNewSessionPurchaseIMCheckBox.TabIndex = 19
         Me.GLBShowNewSessionPurchaseIMCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowNewSessionPurchaseIM_text
         Me.GLBShowNewSessionPurchaseIMCheckBox.UseVisualStyleBackColor = True
@@ -109,10 +109,10 @@ Partial Class FormGloebits
         'GLBShowNewSessionAuthIMCheckBox
         '
         Me.GLBShowNewSessionAuthIMCheckBox.AutoSize = True
-        Me.GLBShowNewSessionAuthIMCheckBox.Location = New System.Drawing.Point(29, 156)
-        Me.GLBShowNewSessionAuthIMCheckBox.Margin = New System.Windows.Forms.Padding(5)
+        Me.GLBShowNewSessionAuthIMCheckBox.Location = New System.Drawing.Point(34, 182)
+        Me.GLBShowNewSessionAuthIMCheckBox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GLBShowNewSessionAuthIMCheckBox.Name = "GLBShowNewSessionAuthIMCheckBox"
-        Me.GLBShowNewSessionAuthIMCheckBox.Size = New System.Drawing.Size(531, 24)
+        Me.GLBShowNewSessionAuthIMCheckBox.Size = New System.Drawing.Size(639, 29)
         Me.GLBShowNewSessionAuthIMCheckBox.TabIndex = 18
         Me.GLBShowNewSessionAuthIMCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowNewSessionAuthIM_text
         Me.GLBShowNewSessionAuthIMCheckBox.UseVisualStyleBackColor = True
@@ -120,57 +120,57 @@ Partial Class FormGloebits
         'GLBShowWelcomeMessageCheckBox
         '
         Me.GLBShowWelcomeMessageCheckBox.AutoSize = True
-        Me.GLBShowWelcomeMessageCheckBox.Location = New System.Drawing.Point(29, 121)
-        Me.GLBShowWelcomeMessageCheckBox.Margin = New System.Windows.Forms.Padding(5)
+        Me.GLBShowWelcomeMessageCheckBox.Location = New System.Drawing.Point(34, 141)
+        Me.GLBShowWelcomeMessageCheckBox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GLBShowWelcomeMessageCheckBox.Name = "GLBShowWelcomeMessageCheckBox"
-        Me.GLBShowWelcomeMessageCheckBox.Size = New System.Drawing.Size(447, 24)
+        Me.GLBShowWelcomeMessageCheckBox.Size = New System.Drawing.Size(544, 29)
         Me.GLBShowWelcomeMessageCheckBox.TabIndex = 17
         Me.GLBShowWelcomeMessageCheckBox.Text = Global.Outworldz.My.Resources.Resources.GLBShowWelcomeMessage_text
         Me.GLBShowWelcomeMessageCheckBox.UseVisualStyleBackColor = True
         '
         'OwnerNameTextbox
         '
-        Me.OwnerNameTextbox.Location = New System.Drawing.Point(155, 29)
-        Me.OwnerNameTextbox.Margin = New System.Windows.Forms.Padding(5)
+        Me.OwnerNameTextbox.Location = New System.Drawing.Point(181, 34)
+        Me.OwnerNameTextbox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.OwnerNameTextbox.Name = "OwnerNameTextbox"
-        Me.OwnerNameTextbox.Size = New System.Drawing.Size(317, 26)
+        Me.OwnerNameTextbox.Size = New System.Drawing.Size(369, 29)
         Me.OwnerNameTextbox.TabIndex = 14
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(24, 29)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label4.Location = New System.Drawing.Point(28, 34)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(111, 20)
+        Me.Label4.Size = New System.Drawing.Size(137, 25)
         Me.Label4.TabIndex = 10
         Me.Label4.Text = "Contact Name"
         '
         'ContactEmailTextBox
         '
-        Me.ContactEmailTextBox.Location = New System.Drawing.Point(155, 67)
-        Me.ContactEmailTextBox.Margin = New System.Windows.Forms.Padding(5)
+        Me.ContactEmailTextBox.Location = New System.Drawing.Point(181, 78)
+        Me.ContactEmailTextBox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ContactEmailTextBox.Name = "ContactEmailTextBox"
-        Me.ContactEmailTextBox.Size = New System.Drawing.Size(317, 26)
+        Me.ContactEmailTextBox.Size = New System.Drawing.Size(369, 29)
         Me.ContactEmailTextBox.TabIndex = 15
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(24, 67)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label5.Location = New System.Drawing.Point(28, 78)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(108, 20)
+        Me.Label5.Size = New System.Drawing.Size(133, 25)
         Me.Label5.TabIndex = 12
         Me.Label5.Text = "Contact Email"
         '
         'GloebitsEnabled
         '
         Me.GloebitsEnabled.AutoSize = True
-        Me.GloebitsEnabled.Location = New System.Drawing.Point(48, 715)
-        Me.GloebitsEnabled.Margin = New System.Windows.Forms.Padding(5)
+        Me.GloebitsEnabled.Location = New System.Drawing.Point(56, 834)
+        Me.GloebitsEnabled.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GloebitsEnabled.Name = "GloebitsEnabled"
-        Me.GloebitsEnabled.Size = New System.Drawing.Size(140, 24)
+        Me.GloebitsEnabled.Size = New System.Drawing.Size(165, 29)
         Me.GloebitsEnabled.TabIndex = 16
         Me.GloebitsEnabled.Text = Global.Outworldz.My.Resources.Resources.EnableGloebit_word
         Me.GloebitsEnabled.UseVisualStyleBackColor = True
@@ -189,11 +189,11 @@ Partial Class FormGloebits
         Me.GroupBox2.Controls.Add(Me.ProductionReqAppButton)
         Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.ProductionCreateButton)
-        Me.GroupBox2.Location = New System.Drawing.Point(382, 143)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5)
+        Me.GroupBox2.Location = New System.Drawing.Point(446, 167)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5)
-        Me.GroupBox2.Size = New System.Drawing.Size(337, 314)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.GroupBox2.Size = New System.Drawing.Size(393, 366)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Production Mode"
@@ -201,10 +201,10 @@ Partial Class FormGloebits
         'ProductionButton
         '
         Me.ProductionButton.AutoSize = True
-        Me.ProductionButton.Location = New System.Drawing.Point(89, 35)
-        Me.ProductionButton.Margin = New System.Windows.Forms.Padding(5)
+        Me.ProductionButton.Location = New System.Drawing.Point(104, 41)
+        Me.ProductionButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ProductionButton.Name = "ProductionButton"
-        Me.ProductionButton.Size = New System.Drawing.Size(154, 24)
+        Me.ProductionButton.Size = New System.Drawing.Size(185, 29)
         Me.ProductionButton.TabIndex = 8
         Me.ProductionButton.TabStop = True
         Me.ProductionButton.Text = Global.Outworldz.My.Resources.Resources.Production_Mode_Word
@@ -213,84 +213,84 @@ Partial Class FormGloebits
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(2, 271)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label12.Location = New System.Drawing.Point(2, 316)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(56, 20)
+        Me.Label12.Size = New System.Drawing.Size(69, 25)
         Me.Label12.TabIndex = 21
         Me.Label12.Text = "Secret"
         '
         'ProdKeyTextBox
         '
-        Me.ProdKeyTextBox.Location = New System.Drawing.Point(94, 226)
-        Me.ProdKeyTextBox.Margin = New System.Windows.Forms.Padding(5)
+        Me.ProdKeyTextBox.Location = New System.Drawing.Point(110, 264)
+        Me.ProdKeyTextBox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ProdKeyTextBox.Name = "ProdKeyTextBox"
-        Me.ProdKeyTextBox.Size = New System.Drawing.Size(233, 26)
+        Me.ProdKeyTextBox.Size = New System.Drawing.Size(271, 29)
         Me.ProdKeyTextBox.TabIndex = 12
         '
         'ProdSecretTextBox
         '
-        Me.ProdSecretTextBox.Location = New System.Drawing.Point(94, 271)
-        Me.ProdSecretTextBox.Margin = New System.Windows.Forms.Padding(5)
+        Me.ProdSecretTextBox.Location = New System.Drawing.Point(110, 316)
+        Me.ProdSecretTextBox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ProdSecretTextBox.Name = "ProdSecretTextBox"
-        Me.ProdSecretTextBox.Size = New System.Drawing.Size(233, 26)
+        Me.ProdSecretTextBox.Size = New System.Drawing.Size(271, 29)
         Me.ProdSecretTextBox.TabIndex = 13
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(2, 229)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label13.Location = New System.Drawing.Point(2, 267)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(85, 20)
+        Me.Label13.Size = New System.Drawing.Size(109, 25)
         Me.Label13.TabIndex = 20
         Me.Label13.Text = "OAuth Key"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(10, 180)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label9.Location = New System.Drawing.Point(12, 210)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(60, 20)
+        Me.Label9.Size = New System.Drawing.Size(75, 25)
         Me.Label9.TabIndex = 17
         Me.Label9.Text = "Step 3:"
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(10, 132)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label10.Location = New System.Drawing.Point(12, 154)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(0, 20)
+        Me.Label10.Size = New System.Drawing.Size(0, 25)
         Me.Label10.TabIndex = 22
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(10, 84)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label11.Location = New System.Drawing.Point(12, 98)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(60, 20)
+        Me.Label11.Size = New System.Drawing.Size(75, 25)
         Me.Label11.TabIndex = 15
         Me.Label11.Text = "Step 1:"
         '
         'ProductionCreateAppButton
         '
-        Me.ProductionCreateAppButton.Location = New System.Drawing.Point(89, 169)
-        Me.ProductionCreateAppButton.Margin = New System.Windows.Forms.Padding(5)
+        Me.ProductionCreateAppButton.Location = New System.Drawing.Point(104, 197)
+        Me.ProductionCreateAppButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ProductionCreateAppButton.Name = "ProductionCreateAppButton"
-        Me.ProductionCreateAppButton.Size = New System.Drawing.Size(227, 41)
+        Me.ProductionCreateAppButton.Size = New System.Drawing.Size(265, 48)
         Me.ProductionCreateAppButton.TabIndex = 11
         Me.ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
         Me.ProductionCreateAppButton.UseVisualStyleBackColor = True
         '
         'ProductionReqAppButton
         '
-        Me.ProductionReqAppButton.Location = New System.Drawing.Point(85, 122)
-        Me.ProductionReqAppButton.Margin = New System.Windows.Forms.Padding(5)
+        Me.ProductionReqAppButton.Location = New System.Drawing.Point(99, 142)
+        Me.ProductionReqAppButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ProductionReqAppButton.Name = "ProductionReqAppButton"
-        Me.ProductionReqAppButton.Size = New System.Drawing.Size(227, 37)
+        Me.ProductionReqAppButton.Size = New System.Drawing.Size(265, 43)
         Me.ProductionReqAppButton.TabIndex = 10
         Me.ProductionReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
         Me.ProductionReqAppButton.UseVisualStyleBackColor = True
@@ -298,19 +298,19 @@ Partial Class FormGloebits
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(10, 41)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label14.Location = New System.Drawing.Point(12, 48)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(49, 20)
+        Me.Label14.Size = New System.Drawing.Size(62, 25)
         Me.Label14.TabIndex = 8
         Me.Label14.Text = "Mode"
         '
         'ProductionCreateButton
         '
-        Me.ProductionCreateButton.Location = New System.Drawing.Point(85, 73)
-        Me.ProductionCreateButton.Margin = New System.Windows.Forms.Padding(5)
+        Me.ProductionCreateButton.Location = New System.Drawing.Point(99, 85)
+        Me.ProductionCreateButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ProductionCreateButton.Name = "ProductionCreateButton"
-        Me.ProductionCreateButton.Size = New System.Drawing.Size(227, 41)
+        Me.ProductionCreateButton.Size = New System.Drawing.Size(265, 48)
         Me.ProductionCreateButton.TabIndex = 9
         Me.ProductionCreateButton.Text = Global.Outworldz.My.Resources.Resources.Create_Account
         Me.ProductionCreateButton.UseVisualStyleBackColor = True
@@ -329,11 +329,11 @@ Partial Class FormGloebits
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.SandBoxSignUpButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(19, 143)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5)
+        Me.GroupBox1.Location = New System.Drawing.Point(22, 167)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5)
-        Me.GroupBox1.Size = New System.Drawing.Size(353, 314)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.GroupBox1.Size = New System.Drawing.Size(412, 366)
         Me.GroupBox1.TabIndex = 1860
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Sandbox Mode"
@@ -341,10 +341,10 @@ Partial Class FormGloebits
         'SandboxButton
         '
         Me.SandboxButton.AutoSize = True
-        Me.SandboxButton.Location = New System.Drawing.Point(84, 37)
-        Me.SandboxButton.Margin = New System.Windows.Forms.Padding(5)
+        Me.SandboxButton.Location = New System.Drawing.Point(98, 43)
+        Me.SandboxButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.SandboxButton.Name = "SandboxButton"
-        Me.SandboxButton.Size = New System.Drawing.Size(141, 24)
+        Me.SandboxButton.Size = New System.Drawing.Size(171, 29)
         Me.SandboxButton.TabIndex = 2
         Me.SandboxButton.TabStop = True
         Me.SandboxButton.Text = Global.Outworldz.My.Resources.Resources.Sandbox_Mode_word
@@ -353,105 +353,105 @@ Partial Class FormGloebits
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(7, 182)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label8.Location = New System.Drawing.Point(8, 212)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(60, 20)
+        Me.Label8.Size = New System.Drawing.Size(75, 25)
         Me.Label8.TabIndex = 17
         Me.Label8.Text = "Step 3:"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(7, 134)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label7.Location = New System.Drawing.Point(8, 156)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(60, 20)
+        Me.Label7.Size = New System.Drawing.Size(75, 25)
         Me.Label7.TabIndex = 16
         Me.Label7.Text = "Step 2:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(0, 266)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label2.Location = New System.Drawing.Point(0, 310)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(56, 20)
+        Me.Label2.Size = New System.Drawing.Size(69, 25)
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Secret"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(7, 86)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label6.Location = New System.Drawing.Point(8, 100)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(60, 20)
+        Me.Label6.Size = New System.Drawing.Size(75, 25)
         Me.Label6.TabIndex = 15
         Me.Label6.Text = "Step 1:"
         '
         'SandBoxCreateAppButton
         '
-        Me.SandBoxCreateAppButton.Location = New System.Drawing.Point(86, 173)
-        Me.SandBoxCreateAppButton.Margin = New System.Windows.Forms.Padding(5)
+        Me.SandBoxCreateAppButton.Location = New System.Drawing.Point(100, 202)
+        Me.SandBoxCreateAppButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.SandBoxCreateAppButton.Name = "SandBoxCreateAppButton"
-        Me.SandBoxCreateAppButton.Size = New System.Drawing.Size(227, 41)
+        Me.SandBoxCreateAppButton.Size = New System.Drawing.Size(265, 48)
         Me.SandBoxCreateAppButton.TabIndex = 5
         Me.SandBoxCreateAppButton.Text = Global.Outworldz.My.Resources.Resources.CreateApp
         Me.SandBoxCreateAppButton.UseVisualStyleBackColor = True
         '
         'SandKeyTextBox
         '
-        Me.SandKeyTextBox.Location = New System.Drawing.Point(90, 221)
-        Me.SandKeyTextBox.Margin = New System.Windows.Forms.Padding(5)
+        Me.SandKeyTextBox.Location = New System.Drawing.Point(105, 258)
+        Me.SandKeyTextBox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.SandKeyTextBox.Name = "SandKeyTextBox"
-        Me.SandKeyTextBox.Size = New System.Drawing.Size(233, 26)
+        Me.SandKeyTextBox.Size = New System.Drawing.Size(271, 29)
         Me.SandKeyTextBox.TabIndex = 6
         '
         'SandBoxReqAppButton
         '
-        Me.SandBoxReqAppButton.Location = New System.Drawing.Point(84, 126)
-        Me.SandBoxReqAppButton.Margin = New System.Windows.Forms.Padding(5)
+        Me.SandBoxReqAppButton.Location = New System.Drawing.Point(98, 147)
+        Me.SandBoxReqAppButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.SandBoxReqAppButton.Name = "SandBoxReqAppButton"
-        Me.SandBoxReqAppButton.Size = New System.Drawing.Size(227, 37)
+        Me.SandBoxReqAppButton.Size = New System.Drawing.Size(265, 43)
         Me.SandBoxReqAppButton.TabIndex = 4
         Me.SandBoxReqAppButton.Text = Global.Outworldz.My.Resources.Resources.Request_App
         Me.SandBoxReqAppButton.UseVisualStyleBackColor = True
         '
         'SandSecretTextBox
         '
-        Me.SandSecretTextBox.Location = New System.Drawing.Point(90, 266)
-        Me.SandSecretTextBox.Margin = New System.Windows.Forms.Padding(5)
+        Me.SandSecretTextBox.Location = New System.Drawing.Point(105, 310)
+        Me.SandSecretTextBox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.SandSecretTextBox.Name = "SandSecretTextBox"
-        Me.SandSecretTextBox.Size = New System.Drawing.Size(233, 26)
+        Me.SandSecretTextBox.Size = New System.Drawing.Size(271, 29)
         Me.SandSecretTextBox.TabIndex = 7
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(13, 37)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label3.Location = New System.Drawing.Point(15, 43)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(49, 20)
+        Me.Label3.Size = New System.Drawing.Size(62, 25)
         Me.Label3.TabIndex = 8
         Me.Label3.Text = "Mode"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(0, 226)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label1.Location = New System.Drawing.Point(0, 264)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(85, 20)
+        Me.Label1.Size = New System.Drawing.Size(109, 25)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "OAuth Key"
         '
         'SandBoxSignUpButton
         '
-        Me.SandBoxSignUpButton.Location = New System.Drawing.Point(84, 77)
-        Me.SandBoxSignUpButton.Margin = New System.Windows.Forms.Padding(5)
+        Me.SandBoxSignUpButton.Location = New System.Drawing.Point(98, 90)
+        Me.SandBoxSignUpButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.SandBoxSignUpButton.Name = "SandBoxSignUpButton"
-        Me.SandBoxSignUpButton.Size = New System.Drawing.Size(227, 41)
+        Me.SandBoxSignUpButton.Size = New System.Drawing.Size(265, 48)
         Me.SandBoxSignUpButton.TabIndex = 3
         Me.SandBoxSignUpButton.Text = Global.Outworldz.My.Resources.Resources.Create_Sandbox_word
         Me.SandBoxSignUpButton.UseVisualStyleBackColor = True
@@ -463,23 +463,22 @@ Partial Class FormGloebits
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(769, 36)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(7, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(897, 42)
         Me.MenuStrip1.TabIndex = 18600
         '
         'HelpToolStripMenuItem
         '
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
-        Me.HelpToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(81, 34)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(98, 40)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormGloebits
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(168.0!, 168.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(769, 781)
+        Me.ClientSize = New System.Drawing.Size(897, 911)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GloebitsEnabled)
         Me.Controls.Add(Me.Button4)
@@ -487,7 +486,7 @@ Partial Class FormGloebits
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5)
+        Me.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.MaximizeBox = False
         Me.Name = "FormGloebits"
         Me.Text = "Gloebit"

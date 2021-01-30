@@ -43,28 +43,28 @@ Partial Class FormIARSave
         '
         'AviName
         '
-        Me.AviName.Location = New System.Drawing.Point(8, 119)
-        Me.AviName.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.AviName.Location = New System.Drawing.Point(10, 143)
+        Me.AviName.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(266, 26)
+        Me.AviName.Size = New System.Drawing.Size(324, 29)
         Me.AviName.TabIndex = 14
         Me.ToolTip1.SetToolTip(Me.AviName, Global.Outworldz.My.Resources.Resources.Avatar_First_and_Last_Name_word)
         '
         'BackupNameTextBox
         '
-        Me.BackupNameTextBox.Location = New System.Drawing.Point(8, 79)
-        Me.BackupNameTextBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.BackupNameTextBox.Location = New System.Drawing.Point(10, 95)
+        Me.BackupNameTextBox.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.BackupNameTextBox.Name = "BackupNameTextBox"
-        Me.BackupNameTextBox.Size = New System.Drawing.Size(266, 26)
+        Me.BackupNameTextBox.Size = New System.Drawing.Size(324, 29)
         Me.BackupNameTextBox.TabIndex = 13
         Me.ToolTip1.SetToolTip(Me.BackupNameTextBox, "/Path/To/Backup.IAR")
         '
         'ObjectNameBox
         '
-        Me.ObjectNameBox.Location = New System.Drawing.Point(8, 39)
-        Me.ObjectNameBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ObjectNameBox.Location = New System.Drawing.Point(10, 47)
+        Me.ObjectNameBox.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.ObjectNameBox.Name = "ObjectNameBox"
-        Me.ObjectNameBox.Size = New System.Drawing.Size(313, 26)
+        Me.ObjectNameBox.Size = New System.Drawing.Size(382, 29)
         Me.ObjectNameBox.TabIndex = 12
         Me.ObjectNameBox.Text = "/ =everything, /Objects/Folder, etc."
         Me.ToolTip1.SetToolTip(Me.ObjectNameBox, Global.Outworldz.My.Resources.Resources.Enter_Name)
@@ -80,31 +80,31 @@ Partial Class FormIARSave
         Me.GroupBox1.Controls.Add(Me.AviName)
         Me.GroupBox1.Controls.Add(Me.BackupNameTextBox)
         Me.GroupBox1.Controls.Add(Me.ObjectNameBox)
-        Me.GroupBox1.Location = New System.Drawing.Point(18, 58)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox1.Location = New System.Drawing.Point(22, 70)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox1.Size = New System.Drawing.Size(554, 283)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.GroupBox1.Size = New System.Drawing.Size(677, 340)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Save Inventory IAR"
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(10, 216)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button2.Location = New System.Drawing.Point(12, 259)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(161, 35)
+        Me.Button2.Size = New System.Drawing.Size(197, 42)
         Me.Button2.TabIndex = 22
         Me.Button2.Text = Global.Outworldz.My.Resources.Resources.Cancel_word
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(9, 171)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Button1.Location = New System.Drawing.Point(11, 205)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(162, 35)
+        Me.Button1.Size = New System.Drawing.Size(198, 42)
         Me.Button1.TabIndex = 21
         Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save_IAR_word
         Me.Button1.UseVisualStyleBackColor = True
@@ -112,68 +112,69 @@ Partial Class FormIARSave
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.folder
-        Me.PictureBox1.Location = New System.Drawing.Point(288, 82)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.PictureBox1.Location = New System.Drawing.Point(352, 98)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(36, 26)
+        Me.PictureBox1.Size = New System.Drawing.Size(44, 31)
         Me.PictureBox1.TabIndex = 20
         Me.PictureBox1.TabStop = False
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(332, 122)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(406, 146)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(101, 20)
+        Me.Label3.Size = New System.Drawing.Size(126, 25)
         Me.Label3.TabIndex = 18
         Me.Label3.Text = "Avatar Name"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(332, 82)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(406, 98)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(109, 20)
+        Me.Label2.Size = New System.Drawing.Size(135, 25)
         Me.Label2.TabIndex = 17
         Me.Label2.Text = "Backup Name"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(332, 42)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(406, 50)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(167, 20)
+        Me.Label1.Size = New System.Drawing.Size(206, 25)
         Me.Label1.TabIndex = 16
         Me.Label1.Text = "Object Path and name"
         '
         'MenuStrip1
         '
         Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(28, 28)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(590, 31)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(7, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(721, 36)
         Me.MenuStrip1.TabIndex = 18599
         '
         'HelpToolStripMenuItem
         '
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(81, 29)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(102, 34)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormIARSave
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(590, 380)
+        Me.ClientSize = New System.Drawing.Size(721, 456)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Name = "FormIARSave"
         Me.Text = "Save Inventory IAR"
         Me.GroupBox1.ResumeLayout(False)

@@ -66,9 +66,6 @@ Public Class FormTide
         Settings.SaveINI(System.Text.Encoding.UTF8)
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        HelpManual("Tides")
-    End Sub
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
@@ -80,9 +77,6 @@ Public Class FormTide
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Broadcast_Tide_Info
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        RunOnBoot.Image = Global.Outworldz.My.Resources.about
         TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
         TideInfoDebugCheckBox.Text = Global.Outworldz.My.Resources.Send_Debug_Info
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
@@ -107,7 +101,7 @@ Public Class FormTide
 
     End Sub
 
-    Private Sub RunOnBoot_Click(sender As Object, e As EventArgs) Handles RunOnBoot.Click
+    Private Sub RunOnBoot_Click(sender As Object, e As EventArgs)
         HelpManual("Tides")
     End Sub
 
@@ -139,6 +133,10 @@ Public Class FormTide
     Private Sub TideLowLevelTextBox_TextChanged(sender As Object, e As EventArgs) Handles TideLowLevelTextBox.TextChanged
         Settings.TideLowLevel() = CType(TideLowLevelTextBox.Text, Single)
         Settings.SaveINI(System.Text.Encoding.UTF8)
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Tides")
     End Sub
 
 #End Region

@@ -58,8 +58,6 @@ Public Class FormRegions
 
 #End Region
 
-#Region "Private Methods"
-
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
 
         PropRegionClass.CreateRegion("")
@@ -269,7 +267,5 @@ Public Class FormRegions
         Z.Text = digitsOnly.Replace(Z.Text, "")
         Settings.HomeVectorZ = Z.Text
     End Sub
-
-#End Region
 
 End Class

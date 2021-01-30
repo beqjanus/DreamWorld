@@ -45,11 +45,11 @@ Partial Class FormPublicity
         '
         Me.GroupBox11.Controls.Add(Me.GDPRCheckBox)
         Me.GroupBox11.Controls.Add(Me.PictureBox9)
-        Me.GroupBox11.Location = New System.Drawing.Point(18, 45)
-        Me.GroupBox11.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox11.Location = New System.Drawing.Point(21, 52)
+        Me.GroupBox11.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox11.Name = "GroupBox11"
-        Me.GroupBox11.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox11.Size = New System.Drawing.Size(332, 282)
+        Me.GroupBox11.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox11.Size = New System.Drawing.Size(387, 329)
         Me.GroupBox11.TabIndex = 1866
         Me.GroupBox11.TabStop = False
         Me.GroupBox11.Text = "Photo"
@@ -57,10 +57,10 @@ Partial Class FormPublicity
         'GDPRCheckBox
         '
         Me.GDPRCheckBox.AutoSize = True
-        Me.GDPRCheckBox.Location = New System.Drawing.Point(9, 28)
-        Me.GDPRCheckBox.Margin = New System.Windows.Forms.Padding(4)
+        Me.GDPRCheckBox.Location = New System.Drawing.Point(10, 33)
+        Me.GDPRCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GDPRCheckBox.Name = "GDPRCheckBox"
-        Me.GDPRCheckBox.Size = New System.Drawing.Size(238, 24)
+        Me.GDPRCheckBox.Size = New System.Drawing.Size(288, 29)
         Me.GDPRCheckBox.TabIndex = 7
         Me.GDPRCheckBox.Text = Global.Outworldz.My.Resources.Resources.Publish_grid
         Me.GDPRCheckBox.UseVisualStyleBackColor = True
@@ -68,10 +68,10 @@ Partial Class FormPublicity
         'PictureBox9
         '
         Me.PictureBox9.InitialImage = Global.Outworldz.My.Resources.Resources.ClicktoInsertPhoto
-        Me.PictureBox9.Location = New System.Drawing.Point(9, 66)
-        Me.PictureBox9.Margin = New System.Windows.Forms.Padding(4)
+        Me.PictureBox9.Location = New System.Drawing.Point(10, 77)
+        Me.PictureBox9.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.PictureBox9.Name = "PictureBox9"
-        Me.PictureBox9.Size = New System.Drawing.Size(304, 184)
+        Me.PictureBox9.Size = New System.Drawing.Size(355, 215)
         Me.PictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox9.TabIndex = 1864
         Me.PictureBox9.TabStop = False
@@ -83,24 +83,26 @@ Partial Class FormPublicity
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(1052, 33)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
+        Me.MenuStrip2.Size = New System.Drawing.Size(1227, 38)
         Me.MenuStrip2.TabIndex = 1889
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
         '
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(65, 29)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(98, 34)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.CategoryCheckbox)
-        Me.GroupBox1.Location = New System.Drawing.Point(358, 45)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Location = New System.Drawing.Point(418, 52)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(324, 282)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Size = New System.Drawing.Size(378, 329)
         Me.GroupBox1.TabIndex = 1892
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Category"
@@ -109,10 +111,10 @@ Partial Class FormPublicity
         '
         Me.CategoryCheckbox.FormattingEnabled = True
         Me.CategoryCheckbox.Items.AddRange(New Object() {"Adult", "Art", "Charity", "Child Friendly", "Commercial", "Educational", "Education - School", "Education - College", "Experimental", "Fantasy", "Freebies", "Free Land", "Furry", "Hideout", "Hyperport", "Gaming", "LGBT", "Personal", "Newcomer Friendly", "Parks & Nature", "R-Rated", "Rental", "Residential", "Role play", "Romance", "Sandbox", "Sci-Fi", "Science", "Scripting", "Shopping", "Testing", "X-Rated"})
-        Me.CategoryCheckbox.Location = New System.Drawing.Point(16, 28)
-        Me.CategoryCheckbox.Margin = New System.Windows.Forms.Padding(4)
+        Me.CategoryCheckbox.Location = New System.Drawing.Point(19, 33)
+        Me.CategoryCheckbox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CategoryCheckbox.Name = "CategoryCheckbox"
-        Me.CategoryCheckbox.Size = New System.Drawing.Size(304, 234)
+        Me.CategoryCheckbox.Size = New System.Drawing.Size(354, 264)
         Me.CategoryCheckbox.TabIndex = 1897
         '
         'FileSystemWatcher1
@@ -123,36 +125,36 @@ Partial Class FormPublicity
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.DescriptionBox)
-        Me.GroupBox2.Location = New System.Drawing.Point(690, 40)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox2.Location = New System.Drawing.Point(805, 47)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox2.Size = New System.Drawing.Size(332, 287)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox2.Size = New System.Drawing.Size(387, 335)
         Me.GroupBox2.TabIndex = 1896
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Description"
         '
         'DescriptionBox
         '
-        Me.DescriptionBox.Location = New System.Drawing.Point(4, 32)
-        Me.DescriptionBox.Margin = New System.Windows.Forms.Padding(4)
+        Me.DescriptionBox.Location = New System.Drawing.Point(5, 37)
+        Me.DescriptionBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.DescriptionBox.Multiline = True
         Me.DescriptionBox.Name = "DescriptionBox"
         Me.DescriptionBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.DescriptionBox.Size = New System.Drawing.Size(320, 230)
+        Me.DescriptionBox.Size = New System.Drawing.Size(373, 268)
         Me.DescriptionBox.TabIndex = 1893
         '
         'FormPublicity
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(168.0!, 168.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1052, 345)
+        Me.ClientSize = New System.Drawing.Size(1227, 402)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox11)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MaximizeBox = False
         Me.Name = "FormPublicity"
         Me.Text = "Publicity"

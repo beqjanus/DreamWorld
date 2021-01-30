@@ -87,8 +87,6 @@ Public Class FormServerType
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         MetroRadioButton2.Text = Global.Outworldz.My.Resources.MetroOrg
         SaveButton.Text = Global.Outworldz.My.Resources.Save_word
-        ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Server_Type_word
         Text = Global.Outworldz.My.Resources.Server_Type_word
         osGridRadioButton1.Text = Global.Outworldz.My.Resources.OSGrid_Region_Server
 
@@ -186,10 +184,9 @@ Public Class FormServerType
 
     End Sub
 
-    Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
         HelpManual("ServerType")
-
     End Sub
 
 #End Region

@@ -35,8 +35,6 @@ Public Class FormScripts
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Script_Engine_word '"Script Engine"
         GroupBox8.Text = Global.Outworldz.My.Resources.Allow_LSL
         LSLCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
@@ -106,10 +104,6 @@ Public Class FormScripts
             _screenPosition = value
         End Set
     End Property
-
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        HelpManual("Scripts")
-    End Sub
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)

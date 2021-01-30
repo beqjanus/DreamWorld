@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormFsAssets
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class FormFsAssets
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.EnableFsAssetsCheckbox = New System.Windows.Forms.CheckBox()
         Me.b = New System.Windows.Forms.GroupBox()
@@ -32,7 +32,6 @@ Partial Class FormFsAssets
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.b.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip1.SuspendLayout()
@@ -41,10 +40,10 @@ Partial Class FormFsAssets
         'EnableFsAssetsCheckbox
         '
         Me.EnableFsAssetsCheckbox.AutoSize = True
-        Me.EnableFsAssetsCheckbox.Location = New System.Drawing.Point(32, 43)
-        Me.EnableFsAssetsCheckbox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.EnableFsAssetsCheckbox.Location = New System.Drawing.Point(39, 52)
+        Me.EnableFsAssetsCheckbox.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.EnableFsAssetsCheckbox.Name = "EnableFsAssetsCheckbox"
-        Me.EnableFsAssetsCheckbox.Size = New System.Drawing.Size(85, 24)
+        Me.EnableFsAssetsCheckbox.Size = New System.Drawing.Size(99, 29)
         Me.EnableFsAssetsCheckbox.TabIndex = 43
         Me.EnableFsAssetsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.EnableFsAssetsCheckbox.UseVisualStyleBackColor = True
@@ -57,21 +56,21 @@ Partial Class FormFsAssets
         Me.b.Controls.Add(Me.PictureBox2)
         Me.b.Controls.Add(Me.DataFolder)
         Me.b.Controls.Add(Me.EnableFsAssetsCheckbox)
-        Me.b.Location = New System.Drawing.Point(13, 68)
-        Me.b.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.b.Location = New System.Drawing.Point(16, 82)
+        Me.b.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.b.Name = "b"
-        Me.b.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.b.Size = New System.Drawing.Size(420, 233)
+        Me.b.Padding = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.b.Size = New System.Drawing.Size(513, 280)
         Me.b.TabIndex = 44
         Me.b.TabStop = False
         Me.b.Text = "Fie System Assets Server"
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(34, 181)
-        Me.SaveButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.SaveButton.Location = New System.Drawing.Point(42, 217)
+        Me.SaveButton.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(151, 35)
+        Me.SaveButton.Size = New System.Drawing.Size(185, 42)
         Me.SaveButton.TabIndex = 1893
         Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save_word
         Me.SaveButton.UseVisualStyleBackColor = True
@@ -79,10 +78,10 @@ Partial Class FormFsAssets
         'ShowStatsCheckBox
         '
         Me.ShowStatsCheckBox.AutoSize = True
-        Me.ShowStatsCheckBox.Location = New System.Drawing.Point(32, 78)
-        Me.ShowStatsCheckBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ShowStatsCheckBox.Location = New System.Drawing.Point(39, 94)
+        Me.ShowStatsCheckBox.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.ShowStatsCheckBox.Name = "ShowStatsCheckBox"
-        Me.ShowStatsCheckBox.Size = New System.Drawing.Size(195, 24)
+        Me.ShowStatsCheckBox.Size = New System.Drawing.Size(234, 29)
         Me.ShowStatsCheckBox.TabIndex = 1892
         Me.ShowStatsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Show_Stats
         Me.ShowStatsCheckBox.UseVisualStyleBackColor = True
@@ -90,10 +89,10 @@ Partial Class FormFsAssets
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(29, 120)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Location = New System.Drawing.Point(35, 144)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(93, 20)
+        Me.Label6.Size = New System.Drawing.Size(113, 25)
         Me.Label6.TabIndex = 1888
         Me.Label6.Text = "Data Folder"
         '
@@ -101,19 +100,19 @@ Partial Class FormFsAssets
         '
         Me.PictureBox2.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
         Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox2.Location = New System.Drawing.Point(332, 145)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.PictureBox2.Location = New System.Drawing.Point(406, 174)
+        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(34, 26)
+        Me.PictureBox2.Size = New System.Drawing.Size(42, 31)
         Me.PictureBox2.TabIndex = 1887
         Me.PictureBox2.TabStop = False
         '
         'DataFolder
         '
-        Me.DataFolder.Location = New System.Drawing.Point(34, 145)
-        Me.DataFolder.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.DataFolder.Location = New System.Drawing.Point(42, 174)
+        Me.DataFolder.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.DataFolder.Name = "DataFolder"
-        Me.DataFolder.Size = New System.Drawing.Size(290, 26)
+        Me.DataFolder.Size = New System.Drawing.Size(354, 29)
         Me.DataFolder.TabIndex = 44
         '
         'MenuStrip1
@@ -123,32 +122,25 @@ Partial Class FormFsAssets
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(460, 33)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(562, 38)
         Me.MenuStrip1.TabIndex = 18601
         '
         'HelpToolStripMenuItem
         '
-        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1})
-        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(89, 29)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(98, 34)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        '
-        'HelpToolStripMenuItem1
-        '
-        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(270, 34)
-        Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormFsAssets
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(460, 332)
+        Me.ClientSize = New System.Drawing.Size(562, 398)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.b)
-        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Name = "FormFsAssets"
         Me.Text = "Fie System Assets Server"
         Me.b.ResumeLayout(False)
@@ -171,5 +163,4 @@ Partial Class FormFsAssets
     Friend WithEvents SaveButton As Button
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
 End Class

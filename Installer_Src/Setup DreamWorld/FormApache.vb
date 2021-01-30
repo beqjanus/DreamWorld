@@ -78,8 +78,6 @@ Public Class FormApache
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         ApacheCheckbox.Text = Global.Outworldz.My.Resources.EnableApache
-        ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
-        ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Apache_word
         EnableDiva.Text = Global.Outworldz.My.Resources.EnableDiva
         EnableJOpensim.Text = Global.Outworldz.My.Resources.JOpensim_word
         EnableOther.Text = Global.Outworldz.My.Resources.EnableOther_Word
@@ -165,12 +163,6 @@ Public Class FormApache
         If ApachePort.Text.Length > 0 Then
             Settings.ApachePort = CType(ApachePort.Text, Integer)
         End If
-
-    End Sub
-
-    Private Sub ApacheToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApacheToolStripMenuItem.Click
-
-        HelpManual("Apache")
 
     End Sub
 
@@ -263,6 +255,10 @@ Public Class FormApache
         If Not initted Then Return
         Settings.SiteMap = Sitemap.Checked
 
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        HelpManual("Apache")
     End Sub
 
 #End Region

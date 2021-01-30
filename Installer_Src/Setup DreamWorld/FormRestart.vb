@@ -72,12 +72,9 @@ Public Class FormRestart
         ARTimerBox.Text = Global.Outworldz.My.Resources.Restart_Periodically_word
         AutoStart.Text = Global.Outworldz.My.Resources.Auto_Startup_word
         AutoStartCheckbox.Text = Global.Outworldz.My.Resources.EnableOneClickStart_word
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         Label25.Text = Global.Outworldz.My.Resources.Restart_Interval
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         RestartOnCrash.Text = Global.Outworldz.My.Resources.Restart_On_Crash
-        RunOnBoot.Image = Global.Outworldz.My.Resources.about
         SequentialCheckBox1.Text = Global.Outworldz.My.Resources.StartSequentially
         Text = Global.Outworldz.My.Resources.Restart_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
@@ -150,16 +147,14 @@ Public Class FormRestart
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
+    Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs)
 
         HelpManual("Restart")
 
     End Sub
 
-    Private Sub RunOnBoot_Click_1(sender As Object, e As EventArgs) Handles RunOnBoot.Click
-
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Restart")
-
     End Sub
 
 #End Region

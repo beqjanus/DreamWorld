@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class FormScripts
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -30,7 +30,6 @@ Partial Class FormScripts
         Me.LSLCheckbox = New System.Windows.Forms.CheckBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
@@ -40,91 +39,91 @@ Partial Class FormScripts
         '
         Me.GroupBox1.Controls.Add(Me.YengineButton)
         Me.GroupBox1.Controls.Add(Me.XengineButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(12, 50)
+        Me.GroupBox1.Location = New System.Drawing.Point(22, 92)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(255, 92)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.GroupBox1.Size = New System.Drawing.Size(468, 170)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = Global.Outworldz.My.Resources.Script_Engine_word '"Script Engine"
+        Me.GroupBox1.Text = "Script Engine"
         '
         'YengineButton
         '
         Me.YengineButton.AutoSize = True
-        Me.YengineButton.Location = New System.Drawing.Point(12, 54)
+        Me.YengineButton.Location = New System.Drawing.Point(22, 100)
+        Me.YengineButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.YengineButton.Name = "YengineButton"
-        Me.YengineButton.Size = New System.Drawing.Size(65, 17)
+        Me.YengineButton.Size = New System.Drawing.Size(116, 29)
         Me.YengineButton.TabIndex = 1
         Me.YengineButton.TabStop = True
-        Me.YengineButton.Text = Global.Outworldz.My.Resources.YEngine_word
+        Me.YengineButton.Text = Global.Outworldz.My.Resources.Resources.YEngine_word
         Me.YengineButton.UseVisualStyleBackColor = True
         '
         'XengineButton
         '
         Me.XengineButton.AutoSize = True
-        Me.XengineButton.Location = New System.Drawing.Point(12, 31)
+        Me.XengineButton.Location = New System.Drawing.Point(22, 57)
+        Me.XengineButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.XengineButton.Name = "XengineButton"
-        Me.XengineButton.Size = New System.Drawing.Size(65, 17)
+        Me.XengineButton.Size = New System.Drawing.Size(117, 29)
         Me.XengineButton.TabIndex = 0
         Me.XengineButton.TabStop = True
-        Me.XengineButton.Text = Global.Outworldz.My.Resources.XEngine_word
+        Me.XengineButton.Text = Global.Outworldz.My.Resources.Resources.XEngine_word
         Me.XengineButton.UseVisualStyleBackColor = True
         '
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.LSLCheckbox)
-        Me.GroupBox8.Location = New System.Drawing.Point(12, 148)
+        Me.GroupBox8.Location = New System.Drawing.Point(22, 273)
+        Me.GroupBox8.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(255, 48)
+        Me.GroupBox8.Padding = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.GroupBox8.Size = New System.Drawing.Size(468, 89)
         Me.GroupBox8.TabIndex = 1863
         Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = Global.Outworldz.My.Resources.Allow_LSL
+        Me.GroupBox8.Text = "Allow LSL to contact the server"
         '
         'LSLCheckbox
         '
         Me.LSLCheckbox.AutoSize = True
-        Me.LSLCheckbox.Location = New System.Drawing.Point(12, 19)
+        Me.LSLCheckbox.Location = New System.Drawing.Point(22, 35)
+        Me.LSLCheckbox.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.LSLCheckbox.Name = "LSLCheckbox"
-        Me.LSLCheckbox.Size = New System.Drawing.Size(59, 17)
+        Me.LSLCheckbox.Size = New System.Drawing.Size(99, 29)
         Me.LSLCheckbox.TabIndex = 210
-        Me.LSLCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
+        Me.LSLCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.LSLCheckbox.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(16, 16)
+        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(279, 26)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(11, 2, 0, 2)
+        Me.MenuStrip2.Size = New System.Drawing.Size(512, 38)
         Me.MenuStrip2.TabIndex = 1890
-        Me.MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-        '
-        'DatabaseSetupToolStripMenuItem
-        '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(90, 34)
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormScripts
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(279, 216)
+        Me.ClientSize = New System.Drawing.Size(512, 399)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.Name = "FormScripts"
-        Me.Text = Global.Outworldz.My.Resources.Scripts_word
+        Me.Text = "Scripts"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox8.ResumeLayout(False)
@@ -143,5 +142,4 @@ Partial Class FormScripts
     Friend WithEvents LSLCheckbox As CheckBox
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
-    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

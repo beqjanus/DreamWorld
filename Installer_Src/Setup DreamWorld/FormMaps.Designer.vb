@@ -64,18 +64,21 @@ Partial Class FormMaps
         Me.MapBox.Controls.Add(Me.MapBetter)
         Me.MapBox.Controls.Add(Me.MapBest)
         Me.MapBox.Controls.Add(Me.MapGood)
-        Me.MapBox.Location = New System.Drawing.Point(15, 32)
+        Me.MapBox.Location = New System.Drawing.Point(26, 56)
+        Me.MapBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapBox.Name = "MapBox"
-        Me.MapBox.Size = New System.Drawing.Size(171, 294)
+        Me.MapBox.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.MapBox.Size = New System.Drawing.Size(299, 514)
         Me.MapBox.TabIndex = 1866
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
         '
         'ViewMap
         '
-        Me.ViewMap.Location = New System.Drawing.Point(7, 259)
+        Me.ViewMap.Location = New System.Drawing.Point(12, 453)
+        Me.ViewMap.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.ViewMap.Name = "ViewMap"
-        Me.ViewMap.Size = New System.Drawing.Size(143, 23)
+        Me.ViewMap.Size = New System.Drawing.Size(250, 40)
         Me.ViewMap.TabIndex = 1858
         Me.ViewMap.Text = Global.Outworldz.My.Resources.Resources.DelMaps
         Me.ToolTip1.SetToolTip(Me.ViewMap, Global.Outworldz.My.Resources.Resources.Regen_Map)
@@ -84,9 +87,10 @@ Partial Class FormMaps
         'MapPicture
         '
         Me.MapPicture.InitialImage = CType(resources.GetObject("MapPicture.InitialImage"), System.Drawing.Image)
-        Me.MapPicture.Location = New System.Drawing.Point(7, 132)
+        Me.MapPicture.Location = New System.Drawing.Point(12, 231)
+        Me.MapPicture.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapPicture.Name = "MapPicture"
-        Me.MapPicture.Size = New System.Drawing.Size(142, 115)
+        Me.MapPicture.Size = New System.Drawing.Size(248, 201)
         Me.MapPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.MapPicture.TabIndex = 138
         Me.MapPicture.TabStop = False
@@ -94,9 +98,10 @@ Partial Class FormMaps
         'MapNone
         '
         Me.MapNone.AutoSize = True
-        Me.MapNone.Location = New System.Drawing.Point(6, 29)
+        Me.MapNone.Location = New System.Drawing.Point(10, 51)
+        Me.MapNone.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapNone.Name = "MapNone"
-        Me.MapNone.Size = New System.Drawing.Size(59, 20)
+        Me.MapNone.Size = New System.Drawing.Size(84, 29)
         Me.MapNone.TabIndex = 7
         Me.MapNone.TabStop = True
         Me.MapNone.Text = Global.Outworldz.My.Resources.Resources.None
@@ -105,9 +110,10 @@ Partial Class FormMaps
         'MapSimple
         '
         Me.MapSimple.AutoSize = True
-        Me.MapSimple.Location = New System.Drawing.Point(6, 48)
+        Me.MapSimple.Location = New System.Drawing.Point(10, 84)
+        Me.MapSimple.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapSimple.Name = "MapSimple"
-        Me.MapSimple.Size = New System.Drawing.Size(113, 20)
+        Me.MapSimple.Size = New System.Drawing.Size(165, 29)
         Me.MapSimple.TabIndex = 8
         Me.MapSimple.TabStop = True
         Me.MapSimple.Text = Global.Outworldz.My.Resources.Resources.Simple_but_Fast_word
@@ -116,9 +122,10 @@ Partial Class FormMaps
         'MapBetter
         '
         Me.MapBetter.AutoSize = True
-        Me.MapBetter.Location = New System.Drawing.Point(7, 87)
+        Me.MapBetter.Location = New System.Drawing.Point(12, 152)
+        Me.MapBetter.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapBetter.Name = "MapBetter"
-        Me.MapBetter.Size = New System.Drawing.Size(141, 20)
+        Me.MapBetter.Size = New System.Drawing.Size(209, 29)
         Me.MapBetter.TabIndex = 10
         Me.MapBetter.TabStop = True
         Me.MapBetter.Text = Global.Outworldz.My.Resources.Resources.Better_Prims
@@ -128,9 +135,10 @@ Partial Class FormMaps
         'MapBest
         '
         Me.MapBest.AutoSize = True
-        Me.MapBest.Location = New System.Drawing.Point(5, 105)
+        Me.MapBest.Location = New System.Drawing.Point(9, 184)
+        Me.MapBest.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapBest.Name = "MapBest"
-        Me.MapBest.Size = New System.Drawing.Size(210, 20)
+        Me.MapBest.Size = New System.Drawing.Size(314, 29)
         Me.MapBest.TabIndex = 11
         Me.MapBest.TabStop = True
         Me.MapBest.Text = Global.Outworldz.My.Resources.Resources.Best_Prims
@@ -139,9 +147,10 @@ Partial Class FormMaps
         'MapGood
         '
         Me.MapGood.AutoSize = True
-        Me.MapGood.Location = New System.Drawing.Point(7, 67)
+        Me.MapGood.Location = New System.Drawing.Point(12, 117)
+        Me.MapGood.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapGood.Name = "MapGood"
-        Me.MapGood.Size = New System.Drawing.Size(121, 20)
+        Me.MapGood.Size = New System.Drawing.Size(177, 29)
         Me.MapGood.TabIndex = 9
         Me.MapGood.TabStop = True
         Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
@@ -149,9 +158,10 @@ Partial Class FormMaps
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(31, 23)
+        Me.Button2.Location = New System.Drawing.Point(54, 40)
+        Me.Button2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(141, 23)
+        Me.Button2.Size = New System.Drawing.Size(247, 40)
         Me.Button2.TabIndex = 1859
         Me.Button2.Text = Global.Outworldz.My.Resources.Resources.View_Maps
         Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Resources.WifiMap)
@@ -159,18 +169,20 @@ Partial Class FormMaps
         '
         'LargeMapButton
         '
-        Me.LargeMapButton.Location = New System.Drawing.Point(29, 80)
+        Me.LargeMapButton.Location = New System.Drawing.Point(51, 140)
+        Me.LargeMapButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.LargeMapButton.Name = "LargeMapButton"
-        Me.LargeMapButton.Size = New System.Drawing.Size(140, 23)
+        Me.LargeMapButton.Size = New System.Drawing.Size(245, 40)
         Me.LargeMapButton.TabIndex = 1860
         Me.LargeMapButton.Text = Global.Outworldz.My.Resources.Resources.LargeMap
         Me.LargeMapButton.UseVisualStyleBackColor = True
         '
         'SmallMapButton
         '
-        Me.SmallMapButton.Location = New System.Drawing.Point(29, 51)
+        Me.SmallMapButton.Location = New System.Drawing.Point(51, 89)
+        Me.SmallMapButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.SmallMapButton.Name = "SmallMapButton"
-        Me.SmallMapButton.Size = New System.Drawing.Size(141, 23)
+        Me.SmallMapButton.Size = New System.Drawing.Size(247, 40)
         Me.SmallMapButton.TabIndex = 1867
         Me.SmallMapButton.Text = Global.Outworldz.My.Resources.Resources.Small_Map
         Me.SmallMapButton.UseVisualStyleBackColor = True
@@ -189,9 +201,11 @@ Partial Class FormMaps
         Me.GroupBox2.Controls.Add(Me.Label1)
         Me.GroupBox2.Controls.Add(Me.SmallMapButton)
         Me.GroupBox2.Controls.Add(Me.LargeMapButton)
-        Me.GroupBox2.Location = New System.Drawing.Point(192, 32)
+        Me.GroupBox2.Location = New System.Drawing.Point(336, 56)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(184, 294)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox2.Size = New System.Drawing.Size(322, 514)
         Me.GroupBox2.TabIndex = 1869
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Maps"
@@ -199,108 +213,118 @@ Partial Class FormMaps
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(15, 166)
+        Me.Label5.Location = New System.Drawing.Point(26, 290)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(119, 16)
+        Me.Label5.Size = New System.Drawing.Size(173, 25)
         Me.Label5.TabIndex = 1876
         Me.Label5.Text = "Render Min Height"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 140)
+        Me.Label4.Location = New System.Drawing.Point(21, 245)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(123, 16)
+        Me.Label4.Size = New System.Drawing.Size(179, 25)
         Me.Label4.TabIndex = 1875
         Me.Label4.Text = "Render Max Height"
         '
         'RenderMinH
         '
-        Me.RenderMinH.Location = New System.Drawing.Point(133, 161)
+        Me.RenderMinH.Location = New System.Drawing.Point(233, 282)
+        Me.RenderMinH.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RenderMinH.Name = "RenderMinH"
-        Me.RenderMinH.Size = New System.Drawing.Size(39, 22)
+        Me.RenderMinH.Size = New System.Drawing.Size(65, 29)
         Me.RenderMinH.TabIndex = 1874
         Me.ToolTip1.SetToolTip(Me.RenderMinH, "Min -100, Max +100")
         '
         'RenderMaxH
         '
-        Me.RenderMaxH.Location = New System.Drawing.Point(133, 138)
+        Me.RenderMaxH.Location = New System.Drawing.Point(233, 242)
+        Me.RenderMaxH.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RenderMaxH.Name = "RenderMaxH"
-        Me.RenderMaxH.Size = New System.Drawing.Size(39, 22)
+        Me.RenderMaxH.Size = New System.Drawing.Size(65, 29)
         Me.RenderMaxH.TabIndex = 1873
         Me.ToolTip1.SetToolTip(Me.RenderMaxH, Global.Outworldz.My.Resources.Resources.Max4096)
         '
         'MapYStart
         '
-        Me.MapYStart.Location = New System.Drawing.Point(117, 241)
+        Me.MapYStart.Location = New System.Drawing.Point(205, 422)
+        Me.MapYStart.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapYStart.Name = "MapYStart"
-        Me.MapYStart.Size = New System.Drawing.Size(39, 22)
+        Me.MapYStart.Size = New System.Drawing.Size(65, 29)
         Me.MapYStart.TabIndex = 1872
         Me.ToolTip1.SetToolTip(Me.MapYStart, Global.Outworldz.My.Resources.Resources.CenterMap)
         '
         'MapXStart
         '
-        Me.MapXStart.Location = New System.Drawing.Point(48, 241)
+        Me.MapXStart.Location = New System.Drawing.Point(84, 422)
+        Me.MapXStart.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapXStart.Name = "MapXStart"
-        Me.MapXStart.Size = New System.Drawing.Size(39, 22)
+        Me.MapXStart.Size = New System.Drawing.Size(65, 29)
         Me.MapXStart.TabIndex = 1871
         Me.ToolTip1.SetToolTip(Me.MapXStart, Global.Outworldz.My.Resources.Resources.CenterMap)
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(97, 241)
+        Me.Label3.Location = New System.Drawing.Point(170, 422)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(17, 16)
+        Me.Label3.Size = New System.Drawing.Size(25, 25)
         Me.Label3.TabIndex = 1870
         Me.Label3.Text = "Y"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(27, 241)
+        Me.Label2.Location = New System.Drawing.Point(47, 422)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(17, 16)
+        Me.Label2.Size = New System.Drawing.Size(25, 25)
         Me.Label2.TabIndex = 1869
         Me.Label2.Text = "Y"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(27, 220)
+        Me.Label1.Location = New System.Drawing.Point(47, 385)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(134, 16)
+        Me.Label1.Size = New System.Drawing.Size(200, 25)
         Me.Label1.TabIndex = 1868
         Me.Label1.Text = "Map Center Location:"
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(16, 16)
+        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(400, 26)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(7, 2, 0, 2)
+        Me.MenuStrip2.Size = New System.Drawing.Size(700, 38)
         Me.MenuStrip2.TabIndex = 1890
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(90, 34)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormMaps
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(168.0!, 168.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(400, 345)
+        Me.ClientSize = New System.Drawing.Size(700, 604)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MapBox)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MaximizeBox = False
         Me.Name = "FormMaps"
         Me.Text = "Maps"

@@ -50,11 +50,11 @@ Partial Class FormPermissions
         Me.GroupBox4.Controls.Add(Me.AllowGods)
         Me.GroupBox4.Controls.Add(Me.ManagerGod)
         Me.GroupBox4.Controls.Add(Me.RegionGod)
-        Me.GroupBox4.Location = New System.Drawing.Point(18, 48)
-        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox4.Location = New System.Drawing.Point(22, 58)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox4.Size = New System.Drawing.Size(288, 182)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.GroupBox4.Size = New System.Drawing.Size(352, 218)
         Me.GroupBox4.TabIndex = 49
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Permissions"
@@ -62,10 +62,10 @@ Partial Class FormPermissions
         'AllowGods
         '
         Me.AllowGods.AutoSize = True
-        Me.AllowGods.Location = New System.Drawing.Point(22, 54)
-        Me.AllowGods.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.AllowGods.Location = New System.Drawing.Point(27, 65)
+        Me.AllowGods.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.AllowGods.Name = "AllowGods"
-        Me.AllowGods.Size = New System.Drawing.Size(201, 24)
+        Me.AllowGods.Size = New System.Drawing.Size(246, 29)
         Me.AllowGods.TabIndex = 14
         Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
         Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
@@ -74,10 +74,10 @@ Partial Class FormPermissions
         'ManagerGod
         '
         Me.ManagerGod.AutoSize = True
-        Me.ManagerGod.Location = New System.Drawing.Point(22, 126)
-        Me.ManagerGod.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.ManagerGod.Location = New System.Drawing.Point(27, 151)
+        Me.ManagerGod.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.ManagerGod.Name = "ManagerGod"
-        Me.ManagerGod.Size = New System.Drawing.Size(208, 24)
+        Me.ManagerGod.Size = New System.Drawing.Size(249, 29)
         Me.ManagerGod.TabIndex = 16
         Me.ManagerGod.Text = Global.Outworldz.My.Resources.Resources.Region_manager_god
         Me.ToolTip1.SetToolTip(Me.ManagerGod, Global.Outworldz.My.Resources.Resources.Region_Manager_is_God)
@@ -86,10 +86,10 @@ Partial Class FormPermissions
         'RegionGod
         '
         Me.RegionGod.AutoSize = True
-        Me.RegionGod.Location = New System.Drawing.Point(22, 89)
-        Me.RegionGod.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.RegionGod.Location = New System.Drawing.Point(27, 107)
+        Me.RegionGod.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.RegionGod.Name = "RegionGod"
-        Me.RegionGod.Size = New System.Drawing.Size(213, 24)
+        Me.RegionGod.Size = New System.Drawing.Size(257, 29)
         Me.RegionGod.TabIndex = 15
         Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Allow_Region_Owner_Gods_word
         Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
@@ -98,11 +98,11 @@ Partial Class FormPermissions
         'LimitsBox
         '
         Me.LimitsBox.Controls.Add(Me.EnableMaxPrims)
-        Me.LimitsBox.Location = New System.Drawing.Point(14, 238)
-        Me.LimitsBox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.LimitsBox.Location = New System.Drawing.Point(17, 286)
+        Me.LimitsBox.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.LimitsBox.Name = "LimitsBox"
-        Me.LimitsBox.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.LimitsBox.Size = New System.Drawing.Size(292, 75)
+        Me.LimitsBox.Padding = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.LimitsBox.Size = New System.Drawing.Size(357, 90)
         Me.LimitsBox.TabIndex = 1861
         Me.LimitsBox.TabStop = False
         Me.LimitsBox.Text = "Prim Limits"
@@ -110,10 +110,10 @@ Partial Class FormPermissions
         'EnableMaxPrims
         '
         Me.EnableMaxPrims.AutoSize = True
-        Me.EnableMaxPrims.Location = New System.Drawing.Point(18, 29)
-        Me.EnableMaxPrims.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.EnableMaxPrims.Location = New System.Drawing.Point(22, 35)
+        Me.EnableMaxPrims.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.EnableMaxPrims.Name = "EnableMaxPrims"
-        Me.EnableMaxPrims.Size = New System.Drawing.Size(214, 24)
+        Me.EnableMaxPrims.Size = New System.Drawing.Size(259, 29)
         Me.EnableMaxPrims.TabIndex = 19
         Me.EnableMaxPrims.Text = Global.Outworldz.My.Resources.Resources.Max_Prims
         Me.ToolTip1.SetToolTip(Me.EnableMaxPrims, Global.Outworldz.My.Resources.Resources.Max_PrimLimit)
@@ -122,10 +122,10 @@ Partial Class FormPermissions
         'Clouds
         '
         Me.Clouds.AutoSize = True
-        Me.Clouds.Location = New System.Drawing.Point(18, 29)
-        Me.Clouds.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Clouds.Location = New System.Drawing.Point(22, 35)
+        Me.Clouds.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.Clouds.Name = "Clouds"
-        Me.Clouds.Size = New System.Drawing.Size(85, 24)
+        Me.Clouds.Size = New System.Drawing.Size(99, 29)
         Me.Clouds.TabIndex = 17
         Me.Clouds.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.ToolTip1.SetToolTip(Me.Clouds, Global.Outworldz.My.Resources.Resources.Allow_cloud)
@@ -134,10 +134,10 @@ Partial Class FormPermissions
         'OutBoundPermissionsCheckbox
         '
         Me.OutBoundPermissionsCheckbox.AutoSize = True
-        Me.OutBoundPermissionsCheckbox.Location = New System.Drawing.Point(22, 29)
-        Me.OutBoundPermissionsCheckbox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.OutBoundPermissionsCheckbox.Location = New System.Drawing.Point(27, 35)
+        Me.OutBoundPermissionsCheckbox.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.OutBoundPermissionsCheckbox.Name = "OutBoundPermissionsCheckbox"
-        Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(173, 24)
+        Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(209, 29)
         Me.OutBoundPermissionsCheckbox.TabIndex = 18
         Me.OutBoundPermissionsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Allow_Items_to_leave_word
         Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Resources.Allow_objects)
@@ -147,11 +147,11 @@ Partial Class FormPermissions
         '
         Me.GroupBox7.Controls.Add(Me.DomainUpDown1)
         Me.GroupBox7.Controls.Add(Me.Clouds)
-        Me.GroupBox7.Location = New System.Drawing.Point(18, 323)
-        Me.GroupBox7.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox7.Location = New System.Drawing.Point(22, 388)
+        Me.GroupBox7.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox7.Size = New System.Drawing.Size(288, 86)
+        Me.GroupBox7.Padding = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.GroupBox7.Size = New System.Drawing.Size(352, 103)
         Me.GroupBox7.TabIndex = 1863
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Clouds"
@@ -170,54 +170,55 @@ Partial Class FormPermissions
         Me.DomainUpDown1.Items.Add("80%")
         Me.DomainUpDown1.Items.Add("90%")
         Me.DomainUpDown1.Items.Add("100%")
-        Me.DomainUpDown1.Location = New System.Drawing.Point(116, 28)
-        Me.DomainUpDown1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.DomainUpDown1.Location = New System.Drawing.Point(142, 34)
+        Me.DomainUpDown1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.DomainUpDown1.Name = "DomainUpDown1"
-        Me.DomainUpDown1.Size = New System.Drawing.Size(99, 26)
+        Me.DomainUpDown1.Size = New System.Drawing.Size(121, 29)
         Me.DomainUpDown1.TabIndex = 18
         '
         'MenuStrip2
         '
         Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(28, 28)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(9, 2, 0, 2)
-        Me.MenuStrip2.Size = New System.Drawing.Size(325, 33)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(11, 2, 0, 2)
+        Me.MenuStrip2.Size = New System.Drawing.Size(397, 38)
         Me.MenuStrip2.TabIndex = 1889
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(81, 29)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(102, 34)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.OutBoundPermissionsCheckbox)
-        Me.GroupBox1.Location = New System.Drawing.Point(14, 418)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.GroupBox1.Location = New System.Drawing.Point(17, 502)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 5, 4, 5)
-        Me.GroupBox1.Size = New System.Drawing.Size(292, 69)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 6, 5, 6)
+        Me.GroupBox1.Size = New System.Drawing.Size(357, 83)
         Me.GroupBox1.TabIndex = 1864
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Export Permission"
         '
         'FormPermissions
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(325, 503)
+        Me.ClientSize = New System.Drawing.Size(397, 604)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox7)
         Me.Controls.Add(Me.LimitsBox)
         Me.Controls.Add(Me.GroupBox4)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.MaximizeBox = False
         Me.Name = "FormPermissions"
         Me.Text = "Permissions"

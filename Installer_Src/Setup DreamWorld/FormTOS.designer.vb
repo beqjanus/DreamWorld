@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class TosForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -31,17 +31,17 @@ Partial Class TosForm
         Me.ApplyButton = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DatabaseSetupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'PreviewButton
         '
-        Me.PreviewButton.Location = New System.Drawing.Point(251, 489)
+        Me.PreviewButton.Location = New System.Drawing.Point(439, 856)
+        Me.PreviewButton.Margin = New System.Windows.Forms.Padding(5)
         Me.PreviewButton.Name = "PreviewButton"
-        Me.PreviewButton.Size = New System.Drawing.Size(121, 23)
+        Me.PreviewButton.Size = New System.Drawing.Size(212, 40)
         Me.PreviewButton.TabIndex = 5
-        Me.PreviewButton.Text = Global.Outworldz.My.Resources.Preview_in_Browser
+        Me.PreviewButton.Text = Global.Outworldz.My.Resources.Resources.Preview_in_Browser
         Me.PreviewButton.UseVisualStyleBackColor = True
         '
         'Editor1
@@ -54,65 +54,62 @@ Partial Class TosForm
         Me.Editor1.EditorForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.Editor1.FontSize = LiveSwitch.TextControl.FontSize.Three
         Me.Editor1.Html = Nothing
-        Me.Editor1.Location = New System.Drawing.Point(2, 48)
+        Me.Editor1.Location = New System.Drawing.Point(4, 84)
+        Me.Editor1.Margin = New System.Windows.Forms.Padding(10)
         Me.Editor1.Name = "Editor1"
-        Me.Editor1.Size = New System.Drawing.Size(636, 415)
+        Me.Editor1.Size = New System.Drawing.Size(1113, 726)
         Me.Editor1.TabIndex = 7
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(10, 489)
+        Me.SaveButton.Location = New System.Drawing.Point(18, 856)
+        Me.SaveButton.Margin = New System.Windows.Forms.Padding(5)
         Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(75, 23)
+        Me.SaveButton.Size = New System.Drawing.Size(131, 40)
         Me.SaveButton.TabIndex = 8
-        Me.SaveButton.Text = Global.Outworldz.My.Resources.Ok
+        Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Ok
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'ApplyButton
         '
-        Me.ApplyButton.Location = New System.Drawing.Point(109, 489)
+        Me.ApplyButton.Location = New System.Drawing.Point(191, 856)
+        Me.ApplyButton.Margin = New System.Windows.Forms.Padding(5)
         Me.ApplyButton.Name = "ApplyButton"
-        Me.ApplyButton.Size = New System.Drawing.Size(75, 23)
+        Me.ApplyButton.Size = New System.Drawing.Size(131, 40)
         Me.ApplyButton.TabIndex = 9
-        Me.ApplyButton.Text = Global.Outworldz.My.Resources.Apply_word
+        Me.ApplyButton.Text = Global.Outworldz.My.Resources.Resources.Apply_word
         Me.ApplyButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(16, 16)
+        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(28, 28)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(660, 28)
+        Me.MenuStrip2.Size = New System.Drawing.Size(1155, 38)
         Me.MenuStrip2.TabIndex = 1887
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
         '
-        Me.ToolStripMenuItem30.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DatabaseSetupToolStripMenuItem})
-        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
+        Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(64, 24)
-        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-        '
-        'DatabaseSetupToolStripMenuItem
-        '
-        Me.DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        Me.DatabaseSetupToolStripMenuItem.Name = "DatabaseSetupToolStripMenuItem"
-        Me.DatabaseSetupToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(102, 34)
+        Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'TosForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(168.0!, 168.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(660, 541)
+        Me.ClientSize = New System.Drawing.Size(1155, 947)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.ApplyButton)
         Me.Controls.Add(Me.SaveButton)
         Me.Controls.Add(Me.Editor1)
         Me.Controls.Add(Me.PreviewButton)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.MaximizeBox = False
         Me.Name = "TosForm"
         Me.Text = "Terms of Service"
@@ -128,5 +125,4 @@ Partial Class TosForm
     Friend WithEvents ApplyButton As Button
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
-    Friend WithEvents DatabaseSetupToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -104,8 +104,6 @@ Public Class FormFsAssets
         EnableFsAssetsCheckbox.Text = Global.Outworldz.My.Resources.Enable_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         Label6.Text = Global.Outworldz.My.Resources.Data_Folder_word
         PictureBox2.BackgroundImage = Global.Outworldz.My.Resources.folder
         SaveButton.Text = Global.Outworldz.My.Resources.Save_word

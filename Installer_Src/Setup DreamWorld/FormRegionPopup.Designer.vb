@@ -24,6 +24,7 @@ Partial Class FormRegionPopup
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionPopup))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.MsgButton = New System.Windows.Forms.Button()
         Me.LoadOAR = New System.Windows.Forms.Button()
         Me.Restart = New System.Windows.Forms.Button()
         Me.ViewMapButton = New System.Windows.Forms.Button()
@@ -35,7 +36,6 @@ Partial Class FormRegionPopup
         Me.StartButton = New System.Windows.Forms.Button()
         Me.SaveOAR = New System.Windows.Forms.Button()
         Me.StopButton = New System.Windows.Forms.Button()
-        Me.MsgButton = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -53,23 +53,35 @@ Partial Class FormRegionPopup
         Me.GroupBox1.Controls.Add(Me.StartButton)
         Me.GroupBox1.Controls.Add(Me.SaveOAR)
         Me.GroupBox1.Controls.Add(Me.StopButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 14)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Location = New System.Drawing.Point(22, 21)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(467, 324)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.GroupBox1.Size = New System.Drawing.Size(576, 410)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Region Controls"
+        '
+        'MsgButton
+        '
+        Me.MsgButton.Image = Global.Outworldz.My.Resources.Resources.document_text
+        Me.MsgButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MsgButton.Location = New System.Drawing.Point(34, 327)
+        Me.MsgButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.MsgButton.Name = "MsgButton"
+        Me.MsgButton.Size = New System.Drawing.Size(240, 44)
+        Me.MsgButton.TabIndex = 11
+        Me.MsgButton.Text = "Message"
+        Me.MsgButton.UseVisualStyleBackColor = True
         '
         'LoadOAR
         '
         Me.LoadOAR.Image = Global.Outworldz.My.Resources.Resources.package_add
         Me.LoadOAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LoadOAR.Location = New System.Drawing.Point(239, 76)
-        Me.LoadOAR.Margin = New System.Windows.Forms.Padding(4)
+        Me.LoadOAR.Location = New System.Drawing.Point(306, 98)
+        Me.LoadOAR.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.LoadOAR.Name = "LoadOAR"
-        Me.LoadOAR.Size = New System.Drawing.Size(211, 39)
+        Me.LoadOAR.Size = New System.Drawing.Size(240, 44)
         Me.LoadOAR.TabIndex = 6
         Me.LoadOAR.Text = "Load"
         Me.LoadOAR.UseVisualStyleBackColor = True
@@ -78,10 +90,10 @@ Partial Class FormRegionPopup
         '
         Me.Restart.Image = Global.Outworldz.My.Resources.Resources.recycle
         Me.Restart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Restart.Location = New System.Drawing.Point(25, 123)
-        Me.Restart.Margin = New System.Windows.Forms.Padding(4)
+        Me.Restart.Location = New System.Drawing.Point(34, 155)
+        Me.Restart.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.Restart.Name = "Restart"
-        Me.Restart.Size = New System.Drawing.Size(205, 39)
+        Me.Restart.Size = New System.Drawing.Size(240, 44)
         Me.Restart.TabIndex = 3
         Me.Restart.Text = Global.Outworldz.My.Resources.Resources.Restart_word
         Me.Restart.UseVisualStyleBackColor = True
@@ -90,10 +102,10 @@ Partial Class FormRegionPopup
         '
         Me.ViewMapButton.Image = Global.Outworldz.My.Resources.Resources.table
         Me.ViewMapButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ViewMapButton.Location = New System.Drawing.Point(239, 216)
-        Me.ViewMapButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.ViewMapButton.Location = New System.Drawing.Point(306, 272)
+        Me.ViewMapButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ViewMapButton.Name = "ViewMapButton"
-        Me.ViewMapButton.Size = New System.Drawing.Size(205, 39)
+        Me.ViewMapButton.Size = New System.Drawing.Size(240, 44)
         Me.ViewMapButton.TabIndex = 9
         Me.ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
         Me.ViewMapButton.UseVisualStyleBackColor = True
@@ -102,10 +114,10 @@ Partial Class FormRegionPopup
         '
         Me.ShowConsoleButton.Image = Global.Outworldz.My.Resources.Resources.document_view
         Me.ShowConsoleButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ShowConsoleButton.Location = New System.Drawing.Point(25, 30)
-        Me.ShowConsoleButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.ShowConsoleButton.Location = New System.Drawing.Point(34, 45)
+        Me.ShowConsoleButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ShowConsoleButton.Name = "ShowConsoleButton"
-        Me.ShowConsoleButton.Size = New System.Drawing.Size(205, 39)
+        Me.ShowConsoleButton.Size = New System.Drawing.Size(240, 44)
         Me.ShowConsoleButton.TabIndex = 1
         Me.ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
         Me.ShowConsoleButton.UseVisualStyleBackColor = True
@@ -114,10 +126,10 @@ Partial Class FormRegionPopup
         '
         Me.ViewLog.Image = Global.Outworldz.My.Resources.Resources.document_view
         Me.ViewLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ViewLog.Location = New System.Drawing.Point(239, 169)
-        Me.ViewLog.Margin = New System.Windows.Forms.Padding(4)
+        Me.ViewLog.Location = New System.Drawing.Point(306, 213)
+        Me.ViewLog.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.ViewLog.Name = "ViewLog"
-        Me.ViewLog.Size = New System.Drawing.Size(205, 39)
+        Me.ViewLog.Size = New System.Drawing.Size(240, 44)
         Me.ViewLog.TabIndex = 8
         Me.ViewLog.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
         Me.ViewLog.UseVisualStyleBackColor = True
@@ -126,10 +138,10 @@ Partial Class FormRegionPopup
         '
         Me.StatsButton1.Image = Global.Outworldz.My.Resources.Resources.chart
         Me.StatsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StatsButton1.Location = New System.Drawing.Point(239, 30)
-        Me.StatsButton1.Margin = New System.Windows.Forms.Padding(4)
+        Me.StatsButton1.Location = New System.Drawing.Point(306, 46)
+        Me.StatsButton1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.StatsButton1.Name = "StatsButton1"
-        Me.StatsButton1.Size = New System.Drawing.Size(205, 39)
+        Me.StatsButton1.Size = New System.Drawing.Size(240, 44)
         Me.StatsButton1.TabIndex = 4
         Me.StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
         Me.StatsButton1.UseVisualStyleBackColor = True
@@ -138,10 +150,10 @@ Partial Class FormRegionPopup
         '
         Me.Teleport.Image = Global.Outworldz.My.Resources.Resources.earth_view
         Me.Teleport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Teleport.Location = New System.Drawing.Point(26, 216)
-        Me.Teleport.Margin = New System.Windows.Forms.Padding(4)
+        Me.Teleport.Location = New System.Drawing.Point(36, 271)
+        Me.Teleport.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.Teleport.Name = "Teleport"
-        Me.Teleport.Size = New System.Drawing.Size(205, 39)
+        Me.Teleport.Size = New System.Drawing.Size(240, 44)
         Me.Teleport.TabIndex = 5
         Me.Teleport.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
         Me.Teleport.UseVisualStyleBackColor = True
@@ -150,10 +162,10 @@ Partial Class FormRegionPopup
         '
         Me.EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
         Me.EditButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.EditButton1.Location = New System.Drawing.Point(239, 263)
-        Me.EditButton1.Margin = New System.Windows.Forms.Padding(4)
+        Me.EditButton1.Location = New System.Drawing.Point(306, 328)
+        Me.EditButton1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.EditButton1.Name = "EditButton1"
-        Me.EditButton1.Size = New System.Drawing.Size(205, 39)
+        Me.EditButton1.Size = New System.Drawing.Size(240, 44)
         Me.EditButton1.TabIndex = 10
         Me.EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
         Me.EditButton1.UseVisualStyleBackColor = True
@@ -162,10 +174,10 @@ Partial Class FormRegionPopup
         '
         Me.StartButton.Image = Global.Outworldz.My.Resources.Resources.media_play
         Me.StartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StartButton.Location = New System.Drawing.Point(25, 76)
-        Me.StartButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.StartButton.Location = New System.Drawing.Point(34, 97)
+        Me.StartButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.StartButton.Name = "StartButton"
-        Me.StartButton.Size = New System.Drawing.Size(205, 39)
+        Me.StartButton.Size = New System.Drawing.Size(240, 44)
         Me.StartButton.TabIndex = 2
         Me.StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
         Me.StartButton.UseVisualStyleBackColor = True
@@ -174,10 +186,10 @@ Partial Class FormRegionPopup
         '
         Me.SaveOAR.Image = Global.Outworldz.My.Resources.Resources.package
         Me.SaveOAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.SaveOAR.Location = New System.Drawing.Point(239, 122)
-        Me.SaveOAR.Margin = New System.Windows.Forms.Padding(4)
+        Me.SaveOAR.Location = New System.Drawing.Point(306, 155)
+        Me.SaveOAR.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.SaveOAR.Name = "SaveOAR"
-        Me.SaveOAR.Size = New System.Drawing.Size(211, 39)
+        Me.SaveOAR.Size = New System.Drawing.Size(240, 44)
         Me.SaveOAR.TabIndex = 7
         Me.SaveOAR.Text = "Save"
         Me.SaveOAR.UseVisualStyleBackColor = True
@@ -186,34 +198,22 @@ Partial Class FormRegionPopup
         '
         Me.StopButton.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
         Me.StopButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StopButton.Location = New System.Drawing.Point(25, 170)
-        Me.StopButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.StopButton.Location = New System.Drawing.Point(34, 213)
+        Me.StopButton.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.StopButton.Name = "StopButton"
-        Me.StopButton.Size = New System.Drawing.Size(205, 39)
+        Me.StopButton.Size = New System.Drawing.Size(240, 44)
         Me.StopButton.TabIndex = 5
         Me.StopButton.Text = Global.Outworldz.My.Resources.Resources.Stop_word
         Me.StopButton.UseVisualStyleBackColor = True
         '
-        'MsgButton
-        '
-        Me.MsgButton.Image = Global.Outworldz.My.Resources.Resources.document_text
-        Me.MsgButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MsgButton.Location = New System.Drawing.Point(25, 263)
-        Me.MsgButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.MsgButton.Name = "MsgButton"
-        Me.MsgButton.Size = New System.Drawing.Size(205, 39)
-        Me.MsgButton.TabIndex = 11
-        Me.MsgButton.Text = "Message"
-        Me.MsgButton.UseVisualStyleBackColor = True
-        '
         'FormRegionPopup
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(11.0!, 24.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(499, 352)
+        Me.ClientSize = New System.Drawing.Size(629, 447)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "FormRegionPopup"
