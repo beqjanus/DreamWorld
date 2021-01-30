@@ -48,7 +48,6 @@ Partial Class FormRegion
         Me.BirdsCheckBox = New System.Windows.Forms.CheckBox()
         Me.TidesCheckbox = New System.Windows.Forms.CheckBox()
         Me.TPCheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.MapHelp = New System.Windows.Forms.PictureBox()
         Me.AllowGods = New System.Windows.Forms.CheckBox()
         Me.ManagerGod = New System.Windows.Forms.CheckBox()
         Me.RegionGod = New System.Windows.Forms.CheckBox()
@@ -118,7 +117,6 @@ Partial Class FormRegion
         Me.DeregisterButton = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.Advanced.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -152,10 +150,10 @@ Partial Class FormRegion
         '
         'RegionName
         '
-        Me.RegionName.Location = New System.Drawing.Point(23, 74)
+        Me.RegionName.Location = New System.Drawing.Point(23, 84)
         Me.RegionName.Margin = New System.Windows.Forms.Padding(5)
         Me.RegionName.Name = "RegionName"
-        Me.RegionName.Size = New System.Drawing.Size(214, 26)
+        Me.RegionName.Size = New System.Drawing.Size(272, 26)
         Me.RegionName.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.RegionName, Global.Outworldz.My.Resources.Resources.Region_Name)
         '
@@ -348,17 +346,6 @@ Partial Class FormRegion
         Me.TPCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Teleporter_Enable_word
         Me.ToolTip1.SetToolTip(Me.TPCheckBox1, Global.Outworldz.My.Resources.Resources.Teleport_Tooltip)
         Me.TPCheckBox1.UseVisualStyleBackColor = True
-        '
-        'MapHelp
-        '
-        Me.MapHelp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.MapHelp.Location = New System.Drawing.Point(247, 74)
-        Me.MapHelp.Margin = New System.Windows.Forms.Padding(5)
-        Me.MapHelp.Name = "MapHelp"
-        Me.MapHelp.Size = New System.Drawing.Size(35, 37)
-        Me.MapHelp.TabIndex = 1857
-        Me.MapHelp.TabStop = False
-        Me.ToolTip1.SetToolTip(Me.MapHelp, Global.Outworldz.My.Resources.Resources.OverridesMap)
         '
         'AllowGods
         '
@@ -767,7 +754,7 @@ Partial Class FormRegion
         Me.Advanced.Margin = New System.Windows.Forms.Padding(5)
         Me.Advanced.Name = "Advanced"
         Me.Advanced.Padding = New System.Windows.Forms.Padding(5)
-        Me.Advanced.Size = New System.Drawing.Size(458, 454)
+        Me.Advanced.Size = New System.Drawing.Size(458, 437)
         Me.Advanced.TabIndex = 26
         Me.Advanced.TabStop = False
         Me.Advanced.Text = "Regions"
@@ -823,7 +810,7 @@ Partial Class FormRegion
         'NameTip
         '
         Me.NameTip.AutoSize = True
-        Me.NameTip.Location = New System.Drawing.Point(18, 50)
+        Me.NameTip.Location = New System.Drawing.Point(32, 114)
         Me.NameTip.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.NameTip.Name = "NameTip"
         Me.NameTip.Size = New System.Drawing.Size(374, 20)
@@ -900,7 +887,7 @@ Partial Class FormRegion
         'EnabledCheckBox
         '
         Me.EnabledCheckBox.AutoSize = True
-        Me.EnabledCheckBox.Location = New System.Drawing.Point(36, 118)
+        Me.EnabledCheckBox.Location = New System.Drawing.Point(23, 50)
         Me.EnabledCheckBox.Margin = New System.Windows.Forms.Padding(5)
         Me.EnabledCheckBox.Name = "EnabledCheckBox"
         Me.EnabledCheckBox.Size = New System.Drawing.Size(94, 24)
@@ -923,7 +910,7 @@ Partial Class FormRegion
         Me.GroupBox6.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Padding = New System.Windows.Forms.Padding(5)
-        Me.GroupBox6.Size = New System.Drawing.Size(725, 788)
+        Me.GroupBox6.Size = New System.Drawing.Size(725, 771)
         Me.GroupBox6.TabIndex = 1879
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Region Specific Settings"
@@ -988,7 +975,7 @@ Partial Class FormRegion
         Me.GroupBox7.Controls.Add(Me.TPCheckBox1)
         Me.GroupBox7.Controls.Add(Me.TidesCheckbox)
         Me.GroupBox7.Controls.Add(Me.BirdsCheckBox)
-        Me.GroupBox7.Location = New System.Drawing.Point(386, 410)
+        Me.GroupBox7.Location = New System.Drawing.Point(382, 423)
         Me.GroupBox7.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Padding = New System.Windows.Forms.Padding(5)
@@ -1213,7 +1200,7 @@ Partial Class FormRegion
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(1229, 31)
+        Me.MenuStrip2.Size = New System.Drawing.Size(1214, 31)
         Me.MenuStrip2.TabIndex = 1888
         Me.MenuStrip2.Text = "0"
         '
@@ -1229,11 +1216,10 @@ Partial Class FormRegion
         Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1229, 889)
+        Me.ClientSize = New System.Drawing.Size(1214, 831)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.DeregisterButton)
         Me.Controls.Add(Me.GroupBox6)
-        Me.Controls.Add(Me.MapHelp)
         Me.Controls.Add(Me.EnabledCheckBox)
         Me.Controls.Add(Me.DeleteButton)
         Me.Controls.Add(Me.Button1)
@@ -1247,7 +1233,6 @@ Partial Class FormRegion
         Me.MaximizeBox = False
         Me.Name = "FormRegion"
         Me.Text = "Regions"
-        CType(Me.MapHelp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.Advanced.ResumeLayout(False)
@@ -1315,7 +1300,6 @@ Partial Class FormRegion
     Friend WithEvents RegionGod As CheckBox
     Friend WithEvents MapBox As GroupBox
     Friend WithEvents Maps_Use_Default As RadioButton
-    Friend WithEvents MapHelp As PictureBox
     Friend WithEvents MapPicture As PictureBox
     Friend WithEvents MapNone As RadioButton
     Friend WithEvents MapSimple As RadioButton

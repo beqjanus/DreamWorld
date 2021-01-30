@@ -73,8 +73,6 @@ Public Class FormPorts
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         GroupBoxA.Text = Global.Outworldz.My.Resources.Ports
         Label26.Text = Global.Outworldz.My.Resources.Region_Port_Start
         Label4.Text = Global.Outworldz.My.Resources.Http_Port_word
@@ -133,10 +131,6 @@ Public Class FormPorts
 #End Region
 
 #Region "Ports"
-
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        HelpManual("Ports")
-    End Sub
 
     Private Sub DiagnosticPort_TextChanged(sender As Object, e As EventArgs) Handles DiagnosticPort.TextChanged
 
@@ -206,6 +200,10 @@ Public Class FormPorts
 
         HelpManual("Ports")
 
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Ports")
     End Sub
 
 #End Region

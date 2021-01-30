@@ -79,7 +79,7 @@ Public Class FormRegion
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         MapBox.Text = Global.Outworldz.My.Resources.Maps_word
         MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
-        MapHelp.Image = Global.Outworldz.My.Resources.about
+
         MapNone.Text = Global.Outworldz.My.Resources.None
         MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
         Maps_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
@@ -119,7 +119,6 @@ Public Class FormRegion
         ToolTip1.SetToolTip(Label5, Global.Outworldz.My.Resources.Max_NonPhys)
         ToolTip1.SetToolTip(Label9, Global.Outworldz.My.Resources.Max_Phys)
         ToolTip1.SetToolTip(ManagerGod, Global.Outworldz.My.Resources.EMGod)
-        ToolTip1.SetToolTip(MapHelp, Global.Outworldz.My.Resources.OverridesMap)
         ToolTip1.SetToolTip(MaxAgents, Global.Outworldz.My.Resources.Max_Agents)
         ToolTip1.SetToolTip(MaxPrims, Global.Outworldz.My.Resources.Not_Normal)
         ToolTip1.SetToolTip(NonphysicalPrimMax, Global.Outworldz.My.Resources.Normal_Prim)
@@ -742,12 +741,6 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
-
-        HelpManual("Region")
-
-    End Sub
-
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
 
         If MapNone.Checked Then
@@ -831,6 +824,7 @@ Public Class FormRegion
 #End Region
 
 #Region "Physics"
+
     Private Sub Physics_Default_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
@@ -842,7 +836,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
-
 
     Private Sub PhysicsSeparate_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
 
@@ -870,9 +863,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
-
-
-
 
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 
@@ -1589,10 +1579,10 @@ Public Class FormRegion
 
     End Sub
 
-
 #End Region
 
 #Region "Physics"
+
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
@@ -1604,7 +1594,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
-
 
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
 
@@ -1628,6 +1617,6 @@ Public Class FormRegion
 
     End Sub
 
-
 #End Region
+
 End Class

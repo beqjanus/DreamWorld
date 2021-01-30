@@ -96,15 +96,12 @@ Public Class FormPublicity
 
     Private Sub Publicity_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         GDPRCheckBox.Text = Global.Outworldz.My.Resources.Publish_grid
         GroupBox1.Text = Global.Outworldz.My.Resources.Category_word
         GroupBox11.Text = Global.Outworldz.My.Resources.Photo_Word
         GroupBox2.Text = Global.Outworldz.My.Resources.Description_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         PictureBox9.InitialImage = Global.Outworldz.My.Resources.ClicktoInsertPhoto
-        PublicPhoto.Image = Global.Outworldz.My.Resources.about
         Text = Global.Outworldz.My.Resources.Publicity_Word
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
 
@@ -155,10 +152,6 @@ Public Class FormPublicity
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        HelpManual("Publicity")
-    End Sub
-
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
         Dim ofd As New OpenFileDialog With {
             .Filter = Global.Outworldz.My.Resources.picfilter,
@@ -196,16 +189,16 @@ Public Class FormPublicity
 
     End Sub
 
-    Private Sub PublicPhoto_Click(sender As Object, e As EventArgs) Handles PublicPhoto.Click
-        HelpManual("Publicity")
-    End Sub
-
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles DescriptionBox.TextChanged
 
         If (DescriptionBox.Text.Length > 1024) Then
             DescriptionBox.Text = Mid(DescriptionBox.Text, 1024)
         End If
 
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Publicity")
     End Sub
 
 #End Region

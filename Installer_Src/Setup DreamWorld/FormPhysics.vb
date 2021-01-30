@@ -64,8 +64,6 @@ Public Class FormPhysics
 
     Private Sub Physics_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Physics_Engine
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         Physics0_None.Text = Global.Outworldz.My.Resources.None
