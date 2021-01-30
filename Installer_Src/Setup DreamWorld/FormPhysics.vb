@@ -70,7 +70,7 @@ Public Class FormPhysics
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         PhysicsNone.Text = Global.Outworldz.My.Resources.None
         PhysicsSeparate.Text = Global.Outworldz.My.Resources.BP
-        PhysicsubODE.Text = Global.Outworldz.My.Resources.UBODE_words
+        PhysicsUbODE.Text = Global.Outworldz.My.Resources.UBODE_words
         Text = Global.Outworldz.My.Resources.Physics_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
@@ -79,11 +79,11 @@ Public Class FormPhysics
 
         Select Case Settings.Physics
             Case 0 : PhysicsNone.Checked = True
-            Case 1 : PhysicsSeparate.Checked = True
-            Case 2 : PhysicsSeparate.Checked = True
+            Case 1 : PhysicsUbODE.Checked = True    ' deprecated is now 4
+            Case 2 : BulletPhysics.Checked = True
             Case 3 : PhysicsSeparate.Checked = True
-            Case 4 : PhysicsubODE.Checked = True
-            Case 5 : PhysicsubODE.Checked = True
+            Case 4 : PhysicsUbODE.Checked = True
+            Case 5 : HybridPhysics.Checked = True
             Case Else : PhysicsSeparate.Checked = True
         End Select
 
@@ -119,6 +119,14 @@ Public Class FormPhysics
         End If
     End Sub
 
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles BulletPhysics.CheckedChanged
+        If Not initted Then Return
+        If BulletPhysics.Checked Then
+            Settings.Physics = 2
+            Settings.SaveSettings()
+        End If
+    End Sub
+
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
         If Not initted Then Return
         If PhysicsSeparate.Checked Then
@@ -127,10 +135,18 @@ Public Class FormPhysics
         End If
     End Sub
 
-    Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsubODE.CheckedChanged
-        If Not initted Then Return
-        If PhysicsubODE.Checked Then
+    Private Sub PhysicsUbODE_CheckedChanged_1(sender As Object, e As EventArgs) Handles PhysicsUbODE.CheckedChanged
+
+        If PhysicsUbODE.Checked Then
             Settings.Physics = 4
+            Settings.SaveSettings()
+        End If
+    End Sub
+
+    Private Sub Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles HybridPhysics.CheckedChanged
+        If Not initted Then Return
+        If HybridPhysics.Checked Then
+            Settings.Physics = 5
             Settings.SaveSettings()
         End If
     End Sub

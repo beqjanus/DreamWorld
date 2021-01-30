@@ -107,18 +107,9 @@ Public Class FormDatabase
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disks
-        BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_word
         Button1.Text = Global.Outworldz.My.Resources.FSassets_Server_word
         ClearRegionTable.Text = Global.Outworldz.My.Resources.ClearRegion
-        DBHelp.Image = Global.Outworldz.My.Resources.about
-        DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_yellow
-        DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Export_Backup_file_word
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Database_Setup_word
         Dbnameindex.Text = Global.Outworldz.My.Resources.DBName_word
-        FullSQLBackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
-        FullSQLBackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Data_Files_word
         GridGroup.Text = Global.Outworldz.My.Resources.Robust_word
         Label1.Text = Global.Outworldz.My.Resources.Region_Server_word
         Label15.Text = Global.Outworldz.My.Resources.User_Name_word
@@ -133,8 +124,8 @@ Public Class FormDatabase
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         StandaloneGroup.Text = Global.Outworldz.My.Resources.Region_Database
         Text = Global.Outworldz.My.Resources.Database_word
-        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
-        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Region_Database
+        HelpMenu.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpMenu.Text = Global.Outworldz.My.Resources.Help_word
         ToolTip1.SetToolTip(RegionDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
         ToolTip1.SetToolTip(RegionDbName, Global.Outworldz.My.Resources.Do_NotChange)
         ToolTip1.SetToolTip(RegionMySqlPassword, Global.Outworldz.My.Resources.Do_NotChange)
@@ -179,7 +170,7 @@ Public Class FormDatabase
 
 #Region "Database"
 
-    Private Sub Database_Click(sender As Object, e As EventArgs) Handles DBHelp.Click
+    Private Sub Database_Click(sender As Object, e As EventArgs)
 
         HelpManual("Database")
 
@@ -318,50 +309,6 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-        HelpManual("Database")
-    End Sub
-
-    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
-
-        Dim A As New Backups
-        A.BackupSQLDB(Settings.RegionDBName)
-        If Settings.RegionDBName <> Settings.RobustDataBaseName Then
-            Sleep(5000)
-            Dim B As New Backups
-            B.BackupSQLDB(Settings.RobustDataBaseName)
-        End If
-
-    End Sub
-
-    Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullSQLBackupToolStripMenuItem.Click
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim CriticalForm = New FormBackupCheckboxes
-#Enable Warning CA2000 ' Dispose objects before losing scope
-        CriticalForm.Activate()
-        CriticalForm.Visible = True
-        CriticalForm.Select()
-        CriticalForm.BringToFront()
-
-    End Sub
-
-    Private Sub Label15_Click(sender As Object, e As EventArgs) Handles Label15.Click
-
-    End Sub
-
-    Private Sub Label16_Click(sender As Object, e As EventArgs) Handles Label16.Click
-
-    End Sub
-
-    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles Label8.Click
-
-    End Sub
-
-    Private Sub Label9_Click(sender As Object, e As EventArgs) Handles Label9.Click
-
-    End Sub
-
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
 
         StartMySQL()
@@ -375,10 +322,8 @@ Public Class FormDatabase
 
     End Sub
 
-    Private Sub ToolStripLabel1_Click(sender As Object, e As EventArgs)
-
+    Private Sub HelpMenu_Click(sender As Object, e As EventArgs) Handles HelpMenu.Click
         HelpManual("Database")
-
     End Sub
 
 #End Region

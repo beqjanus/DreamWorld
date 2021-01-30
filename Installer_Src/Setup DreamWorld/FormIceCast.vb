@@ -70,12 +70,6 @@ Public Class FormIcecast
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-
-        HelpManual("Icecast")
-
-    End Sub
-
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
         FormSetup.PropViewedSettings = True
@@ -101,7 +95,7 @@ Public Class FormIcecast
 
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
 
         HelpManual("Icecast")
 
@@ -109,8 +103,6 @@ Public Class FormIcecast
 
     Private Sub SC_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         GroupBox1.Text = Global.Outworldz.My.Resources.IceCast_Server_word
         Label1.Text = Global.Outworldz.My.Resources.Password_word
         Label2.Text = Global.Outworldz.My.Resources.Port1
@@ -118,7 +110,6 @@ Public Class FormIcecast
         Label4.Text = Global.Outworldz.My.Resources.port2
         LoadURL.Text = Global.Outworldz.My.Resources.Admin_Web_Page_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
-        PictureBox1.Image = Global.Outworldz.My.Resources.about
         ShoutcastEnable.Text = Global.Outworldz.My.Resources.Enable_word
         Text = Global.Outworldz.My.Resources.Icecast_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
@@ -174,6 +165,27 @@ Public Class FormIcecast
         If Not Integer.TryParse(ShoutcastPort1.Text, Settings.SCPortBase1) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
+
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Icecast")
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If Not Settings.SCEnable Then
+            Settings.SCEnable = True
+        End If
+
+        PropAborting = True
+        StopIcecast()
+        StartIcecast()
+        PropAborting = False
+
+    End Sub
+
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
 
     End Sub
 

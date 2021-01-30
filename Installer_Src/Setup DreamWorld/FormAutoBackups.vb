@@ -61,19 +61,13 @@ Public Class FormAutoBackups
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         AutoBackup.Text = Global.Outworldz.My.Resources.Enabled_word
-        AutoBackupHelp.Image = Global.Outworldz.My.Resources.about
-        BackupToolStripMenuItem.Image = Global.Outworldz.My.Resources.disks
-        BackupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_word
-        DataOnlyToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_yellow
-        DataOnlyToolStripMenuItem.Text = Global.Outworldz.My.Resources.Export_SQL_file_word
+
         GroupBox3.Text = Global.Outworldz.My.Resources.Auto_Backup_word
         Label6.Text = Global.Outworldz.My.Resources.Backup_Folder
         Label8.Text = Global.Outworldz.My.Resources.Interval_word
         Label9.Text = Global.Outworldz.My.Resources.Keep_for_Days_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
-        ServerTypeToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        ServerTypeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         Text = Global.Outworldz.My.Resources.Auto_Backup_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
@@ -191,7 +185,7 @@ Public Class FormAutoBackups
 
     Private Sub BackupFolder_clicked(sender As Object, e As EventArgs) Handles BaseFolder.Click
 
-        Backup()
+        BackupFolderDialog()
 
     End Sub
 
@@ -199,7 +193,7 @@ Public Class FormAutoBackups
 
 #Region "Help"
 
-    Private Shared Sub Backup()
+    Private Shared Sub BackupFolderDialog()
 
         'Create an instance of the open file dialog box.
         Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
@@ -219,7 +213,7 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub AutoBackupHelp_Click(sender As Object, e As EventArgs) Handles AutoBackupHelp.Click
+    Private Sub AutoBackupHelp_Click(sender As Object, e As EventArgs)
 
         HelpManual("Backup")
 
@@ -245,7 +239,7 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DataOnlyToolStripMenuItem.Click
+    Private Sub DataOnlyToolStripMenuItem_Click(sender As Object, e As EventArgs)
 
         Dim A As New Backups
         A.BackupSQLDB(Settings.RegionDBName)
@@ -257,24 +251,13 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub FullSQLBackupToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim CriticalForm = New FormBackupCheckboxes
-#Enable Warning CA2000 ' Dispose objects before losing scope
-        CriticalForm.Activate()
-        CriticalForm.Visible = True
-        CriticalForm.Select()
-        CriticalForm.BringToFront()
-    End Sub
-
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
-        Backup()
+        BackupFolderDialog()
 
     End Sub
 
-    Private Sub ServerTypeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ServerTypeToolStripMenuItem.Click
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Backup")
     End Sub
 

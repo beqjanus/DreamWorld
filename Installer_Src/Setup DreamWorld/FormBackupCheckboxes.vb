@@ -102,12 +102,6 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-
-        HelpManual("Backup Manually")
-
-    End Sub
-
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         Button1.Text = Global.Outworldz.My.Resources.Backup_word
@@ -116,8 +110,7 @@ Public Class FormBackupCheckboxes
         GroupBox1.Text = Global.Outworldz.My.Resources.Backup_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
+
         MySqlCheckBox.Text = Global.Outworldz.My.Resources.Backup_Mysql
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
         Text = Global.Outworldz.My.Resources.System_Backup_word
@@ -158,6 +151,12 @@ Public Class FormBackupCheckboxes
         If Not initted Then Return
         Settings.BackupRegion = RegionCheckBox.Checked
         Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+
+        HelpManual("Backup Manually")
 
     End Sub
 

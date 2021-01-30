@@ -107,7 +107,6 @@ Public Class FormFsAssets
         HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
         HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         Label6.Text = Global.Outworldz.My.Resources.Data_Folder_word
-        PictureBox1.Image = Global.Outworldz.My.Resources.about
         PictureBox2.BackgroundImage = Global.Outworldz.My.Resources.folder
         SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         ShowStatsCheckBox.Text = Global.Outworldz.My.Resources.Show_Stats
@@ -142,14 +141,6 @@ Public Class FormFsAssets
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        HelpManual("FSAssets")
-    End Sub
-
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
-        HelpManual("FSAssets")
-    End Sub
-
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
 
         'Create an instance of the open file dialog box.
@@ -176,6 +167,10 @@ Public Class FormFsAssets
 
         Settings.SaveSettings()
         Me.Close()
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        HelpManual("FSAssets")
     End Sub
 
 #End Region

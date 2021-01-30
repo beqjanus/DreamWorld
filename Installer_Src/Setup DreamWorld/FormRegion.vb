@@ -55,7 +55,7 @@ Public Class FormRegion
         DisallowForeigners.Text = Global.Outworldz.My.Resources.Disable_Foreigners_word
         DisallowResidents.Text = Global.Outworldz.My.Resources.Disable_Residents
         EnabledCheckBox.Text = Global.Outworldz.My.Resources.Enabled_word
-        GodHelp.Image = Global.Outworldz.My.Resources.about
+
         Gods_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Physics_word
         GroupBox2.Text = Global.Outworldz.My.Resources.Sim_Size_word
@@ -86,9 +86,9 @@ Public Class FormRegion
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         NameTip.Text = Global.Outworldz.My.Resources.AlphaNum
         NoPublish.Text = Global.Outworldz.My.Resources.No_Publish_Items
-        PhysicsSeparate.Text = Global.Outworldz.My.Resources.BP
+        Physics_Separate.Text = Global.Outworldz.My.Resources.BP
         Physics_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
-        PhysicsubODE.Text = Global.Outworldz.My.Resources.UBODE_words
+        Physics_ubODE.Text = Global.Outworldz.My.Resources.UBODE_words
         Publish.Text = Global.Outworldz.My.Resources.Publish_Items
         PublishDefault.Text = Global.Outworldz.My.Resources.Use_Default_word
         RegionGod.Text = Global.Outworldz.My.Resources.Region_Owner_Is_God_word
@@ -109,7 +109,7 @@ Public Class FormRegion
         ToolTip1.SetToolTip(DisallowForeigners, Global.Outworldz.My.Resources.No_HG)
         ToolTip1.SetToolTip(DisallowResidents, Global.Outworldz.My.Resources.Only_Owners)
         ToolTip1.SetToolTip(FrametimeBox, Global.Outworldz.My.Resources.FrameTime)
-        ToolTip1.SetToolTip(GodHelp, Global.Outworldz.My.Resources.Help_word)
+
         ToolTip1.SetToolTip(GroupBox1, Global.Outworldz.My.Resources.Sim_Rate)
         ToolTip1.SetToolTip(Label10, Global.Outworldz.My.Resources.ClampSize)
         ToolTip1.SetToolTip(Label11, Global.Outworldz.My.Resources.Viewer_Stops_Counting)
@@ -417,10 +417,10 @@ Public Class FormRegion
             Case "" : Physics_Default.Checked = True
             Case "-1" : Physics_Default.Checked = True
             Case "0" : Physics_Default.Checked = True
-            Case "1" : Physics_Default.Checked = True
-            Case "2" : Physics_Default.Checked = True
-            Case "3" : PhysicsSeparate.Checked = True
-            Case "4" : PhysicsubODE.Checked = True
+            Case "1" : Physics_ubODE.Checked = True
+            Case "2" : Physics_Bullet.Checked = True
+            Case "3" : Physics_Separate.Checked = True
+            Case "4" : Physics_ubODE.Checked = True
             Case "5" : Physics_Default.Checked = True
             Case Else : Physics_Default.Checked = True
         End Select
@@ -708,7 +708,7 @@ Public Class FormRegion
 
 #Region "Private Methods"
 
-    Private Sub GodHelp_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
+    Private Sub GodHelp_Click(sender As Object, e As EventArgs)
         HelpManual("Permissions")
     End Sub
 
@@ -828,35 +828,51 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
+#End Region
+
+#Region "Physics"
+    Private Sub Physics_Default_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
             Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to default")
-            PhysicsubODE.Checked = False
-            PhysicsSeparate.Checked = False
+            Physics_ubODE.Checked = False
+            Physics_Separate.Checked = False
         End If
 
         If Initted1 Then Changed1 = True
 
     End Sub
 
-    Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsSeparate.CheckedChanged
 
-        If PhysicsSeparate.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to Bullet in a Thread")
+    Private Sub PhysicsSeparate_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
+
+        If Physics_Separate.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet in a Thread")
         End If
         If Initted1 Then Changed1 = True
 
     End Sub
 
-    Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles PhysicsubODE.CheckedChanged
+    Private Sub PhysicsubODE_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
 
-        If PhysicsubODE.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to Ubit's ODE")
+        If Physics_ubODE.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to UbitODE")
         End If
         If Initted1 Then Changed1 = True
 
     End Sub
+
+    Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
+
+        If Physics_Bullet.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+
+
 
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 
@@ -1182,9 +1198,9 @@ Public Class FormRegion
         Dim Phys As Integer = 2
         If Physics_Default.Checked Then
             Phys = -1
-        ElseIf PhysicsSeparate.Checked Then
+        ElseIf Physics_Separate.Checked Then
             Phys = 3
-        ElseIf PhysicsubODE.Checked Then
+        ElseIf Physics_ubODE.Checked Then
             Phys = 4
         End If
 
@@ -1573,6 +1589,45 @@ Public Class FormRegion
 
     End Sub
 
+
 #End Region
 
+#Region "Physics"
+    Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
+
+        If Physics_Default.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to default")
+            Physics_ubODE.Checked = False
+            Physics_Separate.Checked = False
+        End If
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+
+    Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
+
+        If Physics_Separate.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet in a Thread")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
+
+        If Physics_ubODE.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Ubit ODE")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub RadioButton17_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
+
+    End Sub
+
+
+#End Region
 End Class

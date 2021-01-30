@@ -70,8 +70,6 @@ Public Class FormDNSName
         EnableHypergrid.Text = Global.Outworldz.My.Resources.Enable_Hypergrid_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         Label1.Text = Global.Outworldz.My.Resources.DynDNS_password_word
         Label2.Text = Global.Outworldz.My.Resources.DNSNameText
         Label3.Text = Global.Outworldz.My.Resources.DNSNameText
@@ -118,10 +116,6 @@ Public Class FormDNSName
         If Not initted Then Return
         Settings.EnableHypergrid = EnableHypergrid.Checked
 
-    End Sub
-
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        HelpManual("DNS")
     End Sub
 
     Private Sub NextNameButton_Click(sender As Object, e As EventArgs) Handles NextNameButton.Click
@@ -294,6 +288,10 @@ Public Class FormDNSName
         If Not initted Then Return
         Settings.MachineID() = UniqueId.Text
 
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        HelpManual("DNS")
     End Sub
 
 #End Region

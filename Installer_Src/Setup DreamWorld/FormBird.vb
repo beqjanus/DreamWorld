@@ -65,7 +65,7 @@ Public Class FormBird
 
 #Region "Private Methods"
 
-    Private Sub BirdHelp_Click(sender As Object, e As EventArgs) Handles BirdHelp.Click
+    Private Sub BirdHelp_Click(sender As Object, e As EventArgs)
 
         HelpManual("Birds")
 
@@ -154,12 +154,6 @@ Public Class FormBird
 
     End Sub
 
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DatabaseSetupToolStripMenuItem.Click
-
-        HelpManual("Birds")
-
-    End Sub
-
     Private Sub DesiredSeparationTextBox_TextChanged(sender As Object, e As EventArgs) Handles DesiredSeparationTextBox.TextChanged
 
         If Not initted Then Return
@@ -186,11 +180,8 @@ Public Class FormBird
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        BirdHelp.Image = Global.Outworldz.My.Resources.about
         BirdsModuleStartupbox.Text = Global.Outworldz.My.Resources.Enable_Birds_word
         Button1.Text = Global.Outworldz.My.Resources.Load_Bird_IAR_word
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Bird_Module_word
         Label1.Text = Global.Outworldz.My.Resources.Bird_Flock_Size_word
         Label10.Text = Global.Outworldz.My.Resources.Max_Height
@@ -206,7 +197,6 @@ Public Class FormBird
         Text = Global.Outworldz.My.Resources.Bird_Module_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-        ToolTip1.SetToolTip(BirdHelp, Global.Outworldz.My.Resources.Bird_help)
         ToolTip1.SetToolTip(BirdsModuleStartupbox, Global.Outworldz.My.Resources.Determines)
         ToolTip1.SetToolTip(BirdsNeighbourDistanceTextBox, Global.Outworldz.My.Resources.Max_Dist)
         ToolTip1.SetToolTip(DesiredSeparationTextBox, Global.Outworldz.My.Resources.How_Far)
@@ -278,6 +268,11 @@ Public Class FormBird
         If Not initted Then Return
         Settings.BirdsPrim = PrimNameTextBox.Text
         changed = True
+
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Birds")
 
     End Sub
 

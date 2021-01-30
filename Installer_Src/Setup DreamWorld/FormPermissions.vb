@@ -58,7 +58,6 @@ Public Class FormPermissions
         AllowGods.Text = Global.Outworldz.My.Resources.Allow_Or_Disallow_Gods_word
         Clouds.Text = Global.Outworldz.My.Resources.Enable_word
         EnableMaxPrims.Text = Global.Outworldz.My.Resources.Max_Prims
-        GodHelp.Image = Global.Outworldz.My.Resources.about
         GroupBox1.Text = Global.Outworldz.My.Resources.Export_Permission_word '"Export Permission"
         GroupBox4.Text = Global.Outworldz.My.Resources.Permissions_word '"Permissions"
         GroupBox7.Text = Global.Outworldz.My.Resources.Clouds_word '"Clouds"
@@ -73,7 +72,6 @@ Public Class FormPermissions
         ToolTip1.SetToolTip(AllowGods, Global.Outworldz.My.Resources.AllowGodsTooltip)
         ToolTip1.SetToolTip(Clouds, Global.Outworldz.My.Resources.Allow_cloud)
         ToolTip1.SetToolTip(EnableMaxPrims, Global.Outworldz.My.Resources.Max_PrimLimit)
-        ToolTip1.SetToolTip(GodHelp, Global.Outworldz.My.Resources.Help_Godmodes)
         ToolTip1.SetToolTip(ManagerGod, Global.Outworldz.My.Resources.Region_Manager_is_God)
         ToolTip1.SetToolTip(OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Allow_objects)
         ToolTip1.SetToolTip(RegionGod, Global.Outworldz.My.Resources.Region_Owner_Is_God_word)
@@ -180,7 +178,7 @@ Public Class FormPermissions
 
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles GodHelp.Click
+    Private Sub PictureBox1_Click(sender As Object, e As EventArgs)
 
         HelpManual("Permissions")
 

@@ -105,7 +105,6 @@ Public Class FormDiva
         Web.Text = Global.Outworldz.My.Resources.Wifi_interface
         WhiteRadioButton.Text = Global.Outworldz.My.Resources.White_word
         CustomRadioButton.Text = Global.Outworldz.My.Resources.Custom_word
-        WiFi.Image = Global.Outworldz.My.Resources.about
         WifiEnabled.Text = Global.Outworldz.My.Resources.Diva_Wifi_Enabled_word
 
         SetScreen()
@@ -215,12 +214,10 @@ Public Class FormDiva
                         End Using
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
-                    Finally
-
                     End Try
 
                     LoadPhoto()
-
+                    CopyWifi()
                 End If
             End If
         End Using
@@ -239,7 +236,7 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles WiFi.Click
+    Private Sub PictureBox4_Click(sender As Object, e As EventArgs)
 
         HelpManual("Diva")
 

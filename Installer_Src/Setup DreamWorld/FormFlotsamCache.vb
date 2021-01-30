@@ -38,8 +38,6 @@ Public Class FormFlotsamCache
     Private Sub Form_Load() Handles Me.Load
 
         Button1.Text = Global.Outworldz.My.Resources.Clear_Cache_word
-        DatabaseSetupToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
-        DatabaseSetupToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Asset_Cache_word
         Label1.Text = Global.Outworldz.My.Resources.Cache_Directory_word
         Label2.Text = Global.Outworldz.My.Resources.Log_Level
@@ -88,6 +86,12 @@ Public Class FormFlotsamCache
         Settings.CacheTimeout = CacheTimeout.Text
         FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+
+        HelpManual("Flotsam Cache")
 
     End Sub
 

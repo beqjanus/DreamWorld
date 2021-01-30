@@ -29,8 +29,11 @@ Public Class FormRegionlist
 
 #Region "Declarations"
 
-    Private ReadOnly colsize As New ScreenPos("Region List")
+#Disable Warning CA2213
     Private _ImageListSmall As New ImageList
+#Enable Warning CA2213
+
+    Private ReadOnly colsize As New ScreenPos("Region List")
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
     Private pixels As Integer = 70

@@ -74,8 +74,6 @@ Public Class FormLogging
         GroupBox1.Text = Global.Outworldz.My.Resources.Logging_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        LoggingToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
-        LoggingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Logging_word
         RadioDebug.Text = Global.Outworldz.My.Resources.Debug_word
         RadioError.Text = Global.Outworldz.My.Resources.Error_word
         RadioFatal.Text = Global.Outworldz.My.Resources.Fatal_word
@@ -113,10 +111,6 @@ Public Class FormLogging
 #Region "Help"
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        HelpManual("Logging")
-    End Sub
-
-    Private Sub LoggingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoggingToolStripMenuItem.Click
         HelpManual("Logging")
     End Sub
 

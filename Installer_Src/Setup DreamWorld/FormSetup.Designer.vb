@@ -844,11 +844,10 @@ Partial Class FormSetup
         'MenuStrip1
         '
         Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
-        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(16, 16)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem, Me.RestartMysqlIcon, Me.RestartRobustIcon, Me.RestartApacheIcon, Me.RestartIcecastIcon})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 2, 0, 2)
         Me.MenuStrip1.Size = New System.Drawing.Size(816, 33)
         Me.MenuStrip1.TabIndex = 21
         '
@@ -1158,7 +1157,7 @@ Partial Class FormSetup
         '
         Me.BusyButton.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BusyButton.Location = New System.Drawing.Point(18, 46)
-        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4)
         Me.BusyButton.Name = "BusyButton"
         Me.BusyButton.Size = New System.Drawing.Size(126, 34)
         Me.BusyButton.TabIndex = 51
@@ -1168,7 +1167,7 @@ Partial Class FormSetup
         'StopButton
         '
         Me.StopButton.Location = New System.Drawing.Point(18, 46)
-        Me.StopButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StopButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(126, 34)
         Me.StopButton.TabIndex = 50
@@ -1178,7 +1177,7 @@ Partial Class FormSetup
         'StartButton
         '
         Me.StartButton.Location = New System.Drawing.Point(18, 46)
-        Me.StartButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StartButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(126, 34)
         Me.StartButton.TabIndex = 49
@@ -1188,43 +1187,39 @@ Partial Class FormSetup
         'ChartWrapper2
         '
         Me.ChartWrapper2.AddMarkers = True
-        Me.ChartWrapper2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChartWrapper2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
         Me.ChartWrapper2.AxisYTitle = "% Memory"
+        Me.ChartWrapper2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ChartWrapper2.LegendVisible = False
-        Me.ChartWrapper2.Location = New System.Drawing.Point(0, 9)
+        Me.ChartWrapper2.Location = New System.Drawing.Point(0, 0)
         Me.ChartWrapper2.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
         Me.ChartWrapper2.MarkerCount = 15
         Me.ChartWrapper2.MarkerFreq = 0
         Me.ChartWrapper2.MarkerSize = 8
         Me.ChartWrapper2.Name = "ChartWrapper2"
         Me.ChartWrapper2.SideLegendVisible = True
-        Me.ChartWrapper2.Size = New System.Drawing.Size(298, 297)
+        Me.ChartWrapper2.Size = New System.Drawing.Size(304, 315)
         Me.ChartWrapper2.TabIndex = 33
         Me.ChartWrapper2.Title = ""
         '
         'ChartWrapper1
         '
         Me.ChartWrapper1.AddMarkers = True
-        Me.ChartWrapper1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ChartWrapper1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Resources.Minutes_word
         Me.ChartWrapper1.AxisYTitle = "% CPU"
         Me.ChartWrapper1.BackColor = System.Drawing.SystemColors.Control
+        Me.ChartWrapper1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ChartWrapper1.LegendVisible = False
-        Me.ChartWrapper1.Location = New System.Drawing.Point(0, 8)
+        Me.ChartWrapper1.Location = New System.Drawing.Point(0, 0)
         Me.ChartWrapper1.Margin = New System.Windows.Forms.Padding(6, 8, 6, 8)
         Me.ChartWrapper1.MarkerCount = 15
         Me.ChartWrapper1.MarkerFreq = 0
         Me.ChartWrapper1.MarkerSize = 8
         Me.ChartWrapper1.Name = "ChartWrapper1"
         Me.ChartWrapper1.SideLegendVisible = True
-        Me.ChartWrapper1.Size = New System.Drawing.Size(298, 305)
+        Me.ChartWrapper1.Size = New System.Drawing.Size(304, 313)
         Me.ChartWrapper1.TabIndex = 31
         Me.ChartWrapper1.Title = ""
         '
@@ -1234,7 +1229,7 @@ Partial Class FormSetup
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer1.Location = New System.Drawing.Point(498, 44)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -1246,7 +1241,7 @@ Partial Class FormSetup
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.ChartWrapper2)
         Me.SplitContainer1.Size = New System.Drawing.Size(304, 634)
-        Me.SplitContainer1.SplitterDistance = 314
+        Me.SplitContainer1.SplitterDistance = 313
         Me.SplitContainer1.SplitterWidth = 6
         Me.SplitContainer1.TabIndex = 18609
         '
@@ -1281,7 +1276,7 @@ Partial Class FormSetup
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimumSize = New System.Drawing.Size(523, 142)
         Me.Name = "FormSetup"

@@ -8,22 +8,26 @@
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles SendButton.Click
 
-        Dim path = IO.Path.Combine(CurDir(), "OutworldzFiles\Error.log")
+        Try
+            Dim path = IO.Path.Combine(CurDir(), "OutworldzFiles\Error.log")
 
-        Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"), True)
-            outputFile.WriteLine("[Reason]" & vbCrLf)
-            outputFile.WriteLine(ReasonText.Text & vbCrLf)
-            If (EmailTextBox.Text.Length > 0) Then
-                outputFile.WriteLine("[Email]" & vbCrLf)
-                outputFile.WriteLine(EmailTextBox.Text & vbCrLf)
-            End If
-        End Using
+            Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"), True)
+                outputFile.WriteLine("[Reason]" & vbCrLf)
+                outputFile.WriteLine(ReasonText.Text & vbCrLf)
+                If (EmailTextBox.Text.Length > 0) Then
+                    outputFile.WriteLine("[Email]" & vbCrLf)
+                    outputFile.WriteLine(EmailTextBox.Text & vbCrLf)
+                End If
+            End Using
 
-        Dim Myupload As New UploadImage
-        Dim CGI = New Uri("https://outworldz.com/cgi/uploadcrash.plx")
-        Myupload.PostContentUploadFile(path, CGI)
+            Dim Myupload As New UploadImage
+            Dim CGI = New Uri("https://outworldz.com/cgi/uploadcrash.plx")
+            Myupload.PostContentUploadFile(path, CGI)
 
-        DeleteFile(path)
+            DeleteFile(path)
+        Catch
+        End Try
+
         End
 
     End Sub

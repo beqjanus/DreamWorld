@@ -134,21 +134,16 @@ Public Class FormCaches
         GroupBox3.Text = Global.Outworldz.My.Resources.Viewer_Cache_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         Label1.Text = Global.Outworldz.My.Resources.Cache_Directory_word
         Label2.Text = Global.Outworldz.My.Resources.Log_Level
         Label4.Text = Global.Outworldz.My.Resources.Cache_Enabled_word
         Label5.Text = Global.Outworldz.My.Resources.Timeout_in_hours_word
         LogLevelBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.ErrorLevel0, Global.Outworldz.My.Resources.ErrorLevel1, Global.Outworldz.My.Resources.ErrorLevel2})
-        MapHelp.Image = Global.Outworldz.My.Resources.about
         PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
-        PictureBox2.Image = Global.Outworldz.My.Resources.about
         Text = Global.Outworldz.My.Resources.Cache_Control_word
         ToolTip1.SetToolTip(CacheEnabledBox, Global.Outworldz.My.Resources.Default_Checked_word)
         ToolTip1.SetToolTip(CacheTimeout, Global.Outworldz.My.Resources.Timeout_in_hours_word)
-        ToolTip1.SetToolTip(MapHelp, Global.Outworldz.My.Resources.Click_For_Help)
-        ToolTip1.SetToolTip(PictureBox2, Global.Outworldz.My.Resources.Click_For_Help)
+
         ToolTip1.SetToolTip(ViewerCacheCheckbox, Global.Outworldz.My.Resources.Viewer_Cache_text)
         ViewerCacheCheckbox.Text = Global.Outworldz.My.Resources.Enabled_word
 
@@ -196,14 +191,6 @@ Public Class FormCaches
         HelpOnce("Cache")
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        HelpManual("Cache")
-    End Sub
-
-    Private Sub MapHelp_Click(sender As Object, e As EventArgs) Handles MapHelp.Click
-        HelpManual("Cache")
-    End Sub
-
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
         'Create an instance of the open file dialog box.
@@ -226,10 +213,6 @@ Public Class FormCaches
 
     End Sub
 
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
-        HelpManual("Flotsam Cache")
-    End Sub
-
     Private Sub ViewerCacheCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ViewerCacheCheckbox.CheckedChanged
 
         ' Support viewers object cache, default true Users may need to reduce viewer bandwidth if
@@ -237,6 +220,11 @@ Public Class FormCaches
         ' that do not support this feature
         Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        HelpManual("Cache")
+        HelpManual("Flotsam Cache")
     End Sub
 
 #End Region

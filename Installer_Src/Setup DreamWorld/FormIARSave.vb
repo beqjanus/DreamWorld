@@ -44,8 +44,6 @@ Public Class FormIARSave
         GroupBox1.Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word '"Save Inventory IAR"
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
         Label1.Text = Global.Outworldz.My.Resources.Object_Path_and_name
         Label2.Text = Global.Outworldz.My.Resources.Backup_Name
         Label3.Text = Global.Outworldz.My.Resources.Avatar_Name_word
@@ -124,9 +122,7 @@ Public Class FormIARSave
         Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-
-        HelpManual("SaveIar")
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -146,6 +142,10 @@ Public Class FormIARSave
         End If
         ofd.Dispose()
 
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        HelpManual("SaveIar")
     End Sub
 
 #End Region

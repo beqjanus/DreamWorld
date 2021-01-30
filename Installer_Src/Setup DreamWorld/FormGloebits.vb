@@ -20,6 +20,7 @@
 'DEALINGS IN THE SOFTWARE.Imports System
 
 #End Region
+
 Public Class FormGloebits
 
 #Region "ScreenSize"
@@ -71,9 +72,6 @@ Public Class FormGloebits
         GloebitsEnabled.Text = Global.Outworldz.My.Resources.EnableGloebit_word
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.about
-        HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Help_word
-        PictureBox3.Image = Global.Outworldz.My.Resources.about
         ProductionButton.Text = Global.Outworldz.My.Resources.Production_Mode_Word
         ProductionCreateAppButton.Text = Global.Outworldz.My.Resources.CreateApp
         ProductionCreateButton.Text = Global.Outworldz.My.Resources.Create_Account
@@ -287,15 +285,13 @@ Public Class FormGloebits
 
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         Dim webAddress As String = "http://dev.gloebit.com/opensim/"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
-
     End Sub
 
 #End Region
