@@ -345,7 +345,6 @@ Module WindowHandlers
                 SendKeys.SendWait("{ENTER}")
                 ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
             End Try
         End If
 

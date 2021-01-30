@@ -185,7 +185,7 @@ Partial Class FormSetup
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.JustQuitToolStripMenuItem, Me.mnuExit})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(54, 32)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(54, 29)
         Me.FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.File_word
         '
         'JustQuitToolStripMenuItem
@@ -207,7 +207,7 @@ Partial Class FormSetup
         '
         Me.mnuSettings.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RegionsToolStripMenuItem, Me.ConsoleToolStripMenuItem1, Me.KeepOnTopToolStripMenuItem, Me.LanguageToolStripMenuItem, Me.AdvancedSettingsToolStripMenuItem})
         Me.mnuSettings.Name = "mnuSettings"
-        Me.mnuSettings.Size = New System.Drawing.Size(74, 32)
+        Me.mnuSettings.Size = New System.Drawing.Size(74, 29)
         Me.mnuSettings.Text = Global.Outworldz.My.Resources.Resources.Setup_word
         '
         'RegionsToolStripMenuItem
@@ -457,7 +457,7 @@ Partial Class FormSetup
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHyperGridAddressToolStripMenuItem, Me.ToolStripSeparator1, Me.HelpStartingUpToolStripMenuItem1, Me.HelpOnSettingsToolStripMenuItem, Me.LoopBackToolStripMenuItem, Me.ToolStripMenuItem1, Me.HelpOnIARSToolStripMenuItem, Me.HelpOnOARsToolStripMenuItem, Me.TroubleshootingToolStripMenuItem, Me.TechnicalInfoToolStripMenuItem, Me.ConsoleCOmmandsToolStripMenuItem1, Me.ToolStripSeparator7, Me.CommonConsoleCommandsToolStripMenuItem, Me.ToolStripSeparator2, Me.ViewLogsToolStripMenuItem, Me.SimulatorStatsToolStripMenuItem, Me.ViewWebUI, Me.ViewRegionMapToolStripMenuItem, Me.ViewIcecastWebPageToolStripMenuItem, Me.ToolStripSeparator4, Me.DiagnosticsToolStripMenuItem, Me.SeePortsInUseToolStripMenuItem, Me.CHeckForUpdatesToolStripMenuItem, Me.ToolStripSeparator5, Me.RevisionHistoryToolStripMenuItem, Me.mnuAbout})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(65, 32)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(65, 29)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'ShowHyperGridAddressToolStripMenuItem
@@ -848,14 +848,15 @@ Partial Class FormSetup
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.mnuSettings, Me.MnuContent, Me.HelpToolStripMenuItem, Me.RestartMysqlIcon, Me.RestartRobustIcon, Me.RestartApacheIcon, Me.RestartIcecastIcon})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(816, 36)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(816, 33)
         Me.MenuStrip1.TabIndex = 21
         '
         'MnuContent
         '
         Me.MnuContent.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.IslandToolStripMenuItem, Me.ClothingInventoryToolStripMenuItem, Me.LoadLocalOARSToolStripMenuItem, Me.LoadIARsToolMenuItem, Me.MoreFreeIslandsandPartsContentToolStripMenuItem, Me.SearchForObjectsMenuItem, Me.SearchForGridsMenuItem, Me.ToolStripSeparator3, Me.CheckAndRepairDatbaseToolStripMenuItem, Me.BackupRestoreToolStripMenuItem, Me.BackupCriticalFilesToolStripMenuItem, Me.ToolStripSeparator6})
         Me.MnuContent.Name = "MnuContent"
-        Me.MnuContent.Size = New System.Drawing.Size(91, 32)
+        Me.MnuContent.Size = New System.Drawing.Size(91, 29)
         Me.MnuContent.Text = Global.Outworldz.My.Resources.Resources.Content_word
         '
         'IslandToolStripMenuItem
@@ -1026,7 +1027,7 @@ Partial Class FormSetup
         Me.RestartMysqlIcon.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.RestartMysqlItem})
         Me.RestartMysqlIcon.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.RestartMysqlIcon.Name = "RestartMysqlIcon"
-        Me.RestartMysqlIcon.Size = New System.Drawing.Size(96, 32)
+        Me.RestartMysqlIcon.Size = New System.Drawing.Size(96, 29)
         Me.RestartMysqlIcon.Text = Global.Outworldz.My.Resources.Resources.Mysql_Word
         '
         'HelpToolStripMenuItem1
@@ -1048,7 +1049,7 @@ Partial Class FormSetup
         Me.RestartRobustIcon.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem2, Me.RestartRobustItem})
         Me.RestartRobustIcon.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.RestartRobustIcon.Name = "RestartRobustIcon"
-        Me.RestartRobustIcon.Size = New System.Drawing.Size(104, 32)
+        Me.RestartRobustIcon.Size = New System.Drawing.Size(104, 29)
         Me.RestartRobustIcon.Text = Global.Outworldz.My.Resources.Resources.Robust_word
         '
         'HelpToolStripMenuItem2
@@ -1070,7 +1071,7 @@ Partial Class FormSetup
         Me.RestartApacheIcon.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem3, Me.RestartToolStripMenuItem2})
         Me.RestartApacheIcon.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.RestartApacheIcon.Name = "RestartApacheIcon"
-        Me.RestartApacheIcon.Size = New System.Drawing.Size(107, 32)
+        Me.RestartApacheIcon.Size = New System.Drawing.Size(107, 29)
         Me.RestartApacheIcon.Text = Global.Outworldz.My.Resources.Resources.Apache_word
         '
         'HelpToolStripMenuItem3
@@ -1092,7 +1093,7 @@ Partial Class FormSetup
         Me.RestartIcecastIcon.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem4, Me.RestartIceCastItem2})
         Me.RestartIcecastIcon.Image = Global.Outworldz.My.Resources.Resources.gear_run
         Me.RestartIcecastIcon.Name = "RestartIcecastIcon"
-        Me.RestartIcecastIcon.Size = New System.Drawing.Size(101, 32)
+        Me.RestartIcecastIcon.Size = New System.Drawing.Size(101, 29)
         Me.RestartIcecastIcon.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
         '
         'HelpToolStripMenuItem4
@@ -1157,7 +1158,7 @@ Partial Class FormSetup
         '
         Me.BusyButton.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BusyButton.Location = New System.Drawing.Point(18, 46)
-        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.BusyButton.Name = "BusyButton"
         Me.BusyButton.Size = New System.Drawing.Size(126, 34)
         Me.BusyButton.TabIndex = 51
@@ -1167,7 +1168,7 @@ Partial Class FormSetup
         'StopButton
         '
         Me.StopButton.Location = New System.Drawing.Point(18, 46)
-        Me.StopButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.StopButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(126, 34)
         Me.StopButton.TabIndex = 50
@@ -1177,7 +1178,7 @@ Partial Class FormSetup
         'StartButton
         '
         Me.StartButton.Location = New System.Drawing.Point(18, 46)
-        Me.StartButton.Margin = New System.Windows.Forms.Padding(4)
+        Me.StartButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(126, 34)
         Me.StartButton.TabIndex = 49
@@ -1201,7 +1202,7 @@ Partial Class FormSetup
         Me.ChartWrapper2.MarkerSize = 8
         Me.ChartWrapper2.Name = "ChartWrapper2"
         Me.ChartWrapper2.SideLegendVisible = True
-        Me.ChartWrapper2.Size = New System.Drawing.Size(299, 268)
+        Me.ChartWrapper2.Size = New System.Drawing.Size(298, 297)
         Me.ChartWrapper2.TabIndex = 33
         Me.ChartWrapper2.Title = ""
         '
@@ -1223,7 +1224,7 @@ Partial Class FormSetup
         Me.ChartWrapper1.MarkerSize = 8
         Me.ChartWrapper1.Name = "ChartWrapper1"
         Me.ChartWrapper1.SideLegendVisible = True
-        Me.ChartWrapper1.Size = New System.Drawing.Size(305, 282)
+        Me.ChartWrapper1.Size = New System.Drawing.Size(298, 305)
         Me.ChartWrapper1.TabIndex = 31
         Me.ChartWrapper1.Title = ""
         '
@@ -1232,8 +1233,8 @@ Partial Class FormSetup
         Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer1.Location = New System.Drawing.Point(498, 94)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4)
+        Me.SplitContainer1.Location = New System.Drawing.Point(498, 44)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -1244,8 +1245,8 @@ Partial Class FormSetup
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.ChartWrapper2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(305, 584)
-        Me.SplitContainer1.SplitterDistance = 291
+        Me.SplitContainer1.Size = New System.Drawing.Size(304, 634)
+        Me.SplitContainer1.SplitterDistance = 314
         Me.SplitContainer1.SplitterWidth = 6
         Me.SplitContainer1.TabIndex = 18609
         '
@@ -1259,7 +1260,7 @@ Partial Class FormSetup
         Me.TextBox1.Location = New System.Drawing.Point(12, 94)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.TextBox1.Size = New System.Drawing.Size(483, 569)
+        Me.TextBox1.Size = New System.Drawing.Size(483, 568)
         Me.TextBox1.TabIndex = 18610
         Me.TextBox1.Text = ""
         '
@@ -1280,9 +1281,9 @@ Partial Class FormSetup
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.MaximizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(526, 150)
+        Me.MinimumSize = New System.Drawing.Size(523, 142)
         Me.Name = "FormSetup"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "DreamGrid"
