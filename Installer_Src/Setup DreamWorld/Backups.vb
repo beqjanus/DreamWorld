@@ -258,16 +258,16 @@ Public Class Backups
             Break(ex.Message)
         End Try
 
-        Try
-            If Settings.BackupMysql Then
-                MkDir(IO.Path.Combine(_folder, "MySQL"))
-                CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), IO.Path.Combine(_folder, "MySQL\MysqlData"))
+        'Try
+        'If Settings.BackupMysql Then
+        'MkDir(IO.Path.Combine(_folder, "MySQL"))
+        'CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), IO.Path.Combine(_folder, "MySQL\MysqlData"))
 
-                Z.AddDirectory(IO.Path.Combine(_folder, "MySQL"))
-            End If
-        Catch ex As Exception
-            Break(ex.Message)
-        End Try
+        'Z.AddDirectory(IO.Path.Combine(_folder, "MySQL"))
+        'End If
+        'Catch ex As Exception
+        '   Break(ex.Message)
+        'End Try
 
         Try
             If Settings.BackupFSAssets Then

@@ -2824,8 +2824,13 @@ Public Class FormSetup
             BreakPoint.Show(ex.Message)
         End Try
         Application.DoEvents()
-        p.WaitForExit()
-        p.Close()
+        Try
+            p.WaitForExit()
+            p.Close()
+        Catch
+
+        End Try
+
         MySQLIcon(False)
         If MysqlInterface.IsMySqlRunning() Then
             MysqlInterface.IsRunning = True    ' mark all as  running

@@ -45,18 +45,21 @@ Module Icecast
             Return True
         End If
 
-        ' Check if DOS box exists, first, if so, its running.
-        For Each p In Process.GetProcesses
-            If p.ProcessName = "icecast" Then
-                PropIcecastProcID = p.Id
+        Try
+            ' Check if DOS box exists, first, if so, its running.
+            For Each p In Process.GetProcesses
+                If p.ProcessName = "icecast" Then
+                    PropIcecastProcID = p.Id
 
-                p.EnableRaisingEvents = True
-                AddHandler p.Exited, AddressOf FormSetup.IceCastExited
+                    p.EnableRaisingEvents = True
+                    AddHandler p.Exited, AddressOf FormSetup.IceCastExited
 
-                IceCastIcon(True)
-                Return True
-            End If
-        Next
+                    IceCastIcon(True)
+                    Return True
+                End If
+            Next
+        Catch
+        End Try
 
         DoIceCast()
 

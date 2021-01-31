@@ -262,7 +262,7 @@ Public Class FormRegion
             ClampPrimSize.Checked = False
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
-            RegionUUID = PropRegionClass.CreateRegion("")
+            RegionUUID = PropRegionClass.CreateRegion("New Region")
             Gods_Use_Default.Checked = True
         Else
             ' OLD REGION EDITED all this is required to be filled in!
@@ -917,7 +917,7 @@ Public Class FormRegion
         If Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
             Message = Global.Outworldz.My.Resources.Region_Coordinate_Y_cannot_be_less_than_32
             Return Message
-        ElseIf Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
+        ElseIf Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65535 Then
             Message = Global.Outworldz.My.Resources.Region_Coordinate_Y_Is_too_large
             Return Message
         End If
@@ -977,7 +977,7 @@ Public Class FormRegion
         RegionName.Text = RegionName.Text.Trim() ' remove spaces
     End Sub
 
-    Private Sub RLostFocus(sender As Object, e As EventArgs) Handles RegionName.TextChanged
+    Private Sub RChanged(sender As Object, e As EventArgs) Handles RegionName.TextChanged
         If Len(RegionName.Text) > 0 And Initted1 Then
             If Not FilenameIsOK(RegionName.Text) Then
                 MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
