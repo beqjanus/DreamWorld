@@ -155,6 +155,7 @@ Partial Class FormErrorLogger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(603, 472)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)

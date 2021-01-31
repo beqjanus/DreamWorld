@@ -157,7 +157,7 @@ Partial Class FormInitialSetup
         Me.GroupBox1.Controls.Add(Me.Password2TextBox)
         Me.GroupBox1.Location = New System.Drawing.Point(21, 35)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(454, 285)
+        Me.GroupBox1.Size = New System.Drawing.Size(436, 285)
         Me.GroupBox1.TabIndex = 13
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Enter the Grid Owner Information"
@@ -166,7 +166,8 @@ Partial Class FormInitialSetup
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(548, 351)
+        Me.AutoSize = True
+        Me.ClientSize = New System.Drawing.Size(479, 351)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FormInitialSetup"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -888,6 +888,11 @@ Public Class FormRegion
 
         Dim Message As String
 
+        If RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word Then
+            Message = Global.Outworldz.My.Resources.Region_Name
+            Return Message
+        End If
+
         If Len(RegionName.Text) = 0 Then
             Message = Global.Outworldz.My.Resources.Region_name_must_not_be_blank_word
             Return Message
