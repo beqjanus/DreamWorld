@@ -62,7 +62,6 @@ Public Class FormRestart
         Settings.RestartOnCrash = RestartOnCrash.Checked
         Settings.Sequential = SequentialCheckBox1.Checked
 
-        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub

@@ -170,9 +170,7 @@ Public Class FormBird
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
         If Not initted Then Return
-        If changed Then
-            FormSetup.PropViewedSettings = True
-        End If
+
         Settings.BirdsFlockSize = CInt("0" & BirdsFlockSizeDomain.Text)
         Settings.SaveSettings()
 

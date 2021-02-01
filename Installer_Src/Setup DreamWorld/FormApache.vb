@@ -71,7 +71,7 @@ Public Class FormApache
 
         Settings.SaveSettings()
 
-        FormSetup.PropViewedSettings = True
+        FormSetup.PropChangedRegionSettings = True
 
     End Sub
 

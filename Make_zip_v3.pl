@@ -36,7 +36,7 @@ my $dir = getcwd;
 say ("Building DreamGrid$type.zip");
 
 
-say ('Server Publish $v ? <p = publish, c = clean, enter = make the zip only>');
+say ('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
@@ -137,20 +137,19 @@ close OUT;
 unlink "$dir/Start.exe.lastcodeanalysissucceeded";
 unlink "$dir/Start.exe.CodeAnalysisLog.xml";
 
-if ($publish eq 'c' ) {
+if ($publish =~ /c/ ) {
 	say("Mysql");
 	chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
 	print `mysqladmin.exe --port 3306 -u root shutdown`;
-
+	sleep(2);
 	chdir ($dir);
 	DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 
-	say ("Cleaned");
-	exit;
+	say ("Cleaned");	
 }
 
 
-if ($publish eq 'p' ) {
+if ($publish =~ /p/ ) {
 
 
 	#say('Copy Manuals');
@@ -285,7 +284,6 @@ foreach my $lang (@languages)
 {
 	JustDelete ($lang);
 }
-
 
 
 

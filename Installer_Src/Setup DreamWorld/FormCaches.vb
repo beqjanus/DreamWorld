@@ -98,14 +98,14 @@ Public Class FormCaches
 
     Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
         If Not gInitted Then Return
-        FormSetup.PropViewedSettings = True
+
     End Sub
 
     Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
         If Not gInitted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
-        FormSetup.PropViewedSettings = True
+
     End Sub
 
     Private Sub Form_unload() Handles Me.Closing
@@ -116,7 +116,6 @@ Public Class FormCaches
         Settings.CacheTimeout = CacheTimeout.Text
         Settings.SupportViewerObjectsCache = ViewerCacheCheckbox.Checked
 
-        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub
@@ -207,7 +206,7 @@ Public Class FormCaches
                 Settings.CacheFolder = thing
                 Settings.SaveSettings()
                 CacheFolder.Text = thing
-                FormSetup.PropViewedSettings = True
+
             End If
         End If
 

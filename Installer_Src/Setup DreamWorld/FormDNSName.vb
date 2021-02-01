@@ -166,8 +166,6 @@ Public Class FormDNSName
 
         Settings.SaveSettings()
 
-        FormSetup.PropViewedSettings = True
-
         If UniqueId.Text.Length > 0 Then Me.Close()
 
     End Sub

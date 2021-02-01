@@ -125,7 +125,6 @@ Public Class FormAutoBackups
 
     Private Sub ABEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles AutoBackup.CheckedChanged
 
-        FormSetup.PropViewedSettings = True
         Settings.AutoBackup = AutoBackup.Checked
         Settings.SaveSettings()
 
@@ -166,8 +165,8 @@ Public Class FormAutoBackups
         End If
 
         Settings.AutobackupInterval = CStr(Interval)
-        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub AutoBackupKeepFilesForDays_TextChanged(sender As Object, e As EventArgs) Handles AutoBackupKeepFilesForDays.TextChanged
@@ -179,8 +178,7 @@ Public Class FormAutoBackups
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             Settings.SaveSettings()
         End If
-        ' TODO:  Implement PropViewedSettings as a dictionary in a module we can prompt for restart with
-        FormSetup.PropViewedSettings = True
+
     End Sub
 
     Private Sub BackupFolder_clicked(sender As Object, e As EventArgs) Handles BaseFolder.Click

@@ -72,7 +72,6 @@ Public Class FormIcecast
 
     Private Sub FormisClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
-        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
         DoIceCast()
 

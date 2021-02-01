@@ -91,7 +91,6 @@ Public Class FormMaps
 
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
-        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
 
     End Sub

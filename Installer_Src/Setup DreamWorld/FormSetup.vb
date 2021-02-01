@@ -298,7 +298,8 @@ Public Class FormSetup
 
     Public Property PropUseIcons As Boolean
 
-    Public Property PropViewedSettings As Boolean
+    ' TODO:  Implement PropChangedRegionSettings as a dictionary in a module we can prompt for restart with
+    Public Property PropChangedRegionSettings As Boolean
         Get
             Return ViewedSettings
         End Get
@@ -685,6 +686,7 @@ Public Class FormSetup
 
         ClearAllRegions()
 
+
         StopRobust()
 
         Timer1.Stop()
@@ -792,6 +794,13 @@ Public Class FormSetup
 
         Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+
+        ' Reload
+        If PropChangedRegionSettings Then
+            PropRegionClass.GetAllRegions()
+            PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
+        End If
+
         CopyFileFast(src, ini)
         Settings.Grep(ini, Settings.LogLevel)
 
@@ -1066,7 +1075,7 @@ Public Class FormSetup
 
                 SequentialPause()   ' wait for previous region to give us some CPU
                 ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID))
-                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & PropRegionClass.RegionName(RegionUUID) & "_" &
+                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "\" & PropRegionClass.RegionName(RegionUUID) & "_" &
                                DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
 
             End If
@@ -1184,6 +1193,8 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
+
+        MysqlInterface.DeregisterRegions()
 
     End Sub
 
@@ -1499,7 +1510,6 @@ Public Class FormSetup
 
         If Not System.IO.File.Exists(_myFolder & "\OutworldzFiles\Settings.ini") Then
             Create_ShortCut(_myFolder & "\Start.exe")
-            PropViewedSettings = True
         End If
 
         'Load Settings, if any
@@ -1525,6 +1535,7 @@ Public Class FormSetup
         PropRegionClass = RegionMaker.Instance()
         PropRegionClass.Init()
         PropRegionClass.GetAllRegions()
+        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)

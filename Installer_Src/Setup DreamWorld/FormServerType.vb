@@ -71,7 +71,7 @@ Public Class FormServerType
         If Changed Then
             Dim result = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
             If result = vbYes Then
-                FormSetup.PropViewedSettings = True
+
                 SaveAll()
                 DoGridCommon()
             End If
@@ -116,7 +116,6 @@ Public Class FormServerType
         Settings.BaseHostName = BaseHostName
         Settings.DNSName = DNSName
 
-        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
         Changed = False ' do not trigger the save a second time
 

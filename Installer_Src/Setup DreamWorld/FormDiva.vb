@@ -69,7 +69,6 @@ Public Class FormDiva
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
         Settings.SaveSettings()
-        FormSetup.PropViewedSettings = True
         If setpassword And PropOpensimIsRunning() And Settings.Password.Length > 5 Then
             ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password)
         End If

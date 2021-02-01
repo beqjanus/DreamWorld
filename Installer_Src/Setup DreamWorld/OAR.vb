@@ -126,7 +126,7 @@
                     If backMeUp = vbYes Then
                         ConsoleCommand(RegionUUID, "change region " & region)
                         ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive)
-                        ConsoleCommand(RegionUUID, "save oar " & BackupPath() & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
+                        ConsoleCommand(RegionUUID, "save oar " & BackupPath() & "/" & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
                         ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.New_Content)
                     End If
 
@@ -188,10 +188,10 @@
                 Dim Group = PropRegionClass.GroupName(RegionUUID)
                 ConsoleCommand(RegionUUID, "alert CPU Intensive Backup Started")
                 ConsoleCommand(RegionUUID, "change region " & RegionName)
-                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & myValue)
+                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & myValue)
             End If
 
-            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & myValue)
+            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "/" & myValue)
         Else
             TextPrint(My.Resources.Not_Running)
         End If

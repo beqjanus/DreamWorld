@@ -571,7 +571,7 @@ Public Class FormRegion
                 Me.Close()
             End If
         Else
-            FormSetup.PropViewedSettings = True ' set this so it will force a rescan of the regions on startup
+            FormSetup.PropChangedRegionSettings = True ' set this so it will force a rescan of the regions on startup
             WriteRegion(RegionUUID)
             Firewall.SetFirewall()
             PropUpdateView = True ' make form refresh
@@ -661,7 +661,7 @@ Public Class FormRegion
         End If
         PropRegionClass.DeleteRegion(RegionUUID)
         PropRegionClass.GetAllRegions()
-
+        Changed1 = False
         PropUpdateView = True
 
         Me.Close()
@@ -683,7 +683,7 @@ Public Class FormRegion
     Private Sub FormRegion_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         If Changed1 Then
-            FormSetup.PropViewedSettings = True
+            FormSetup.PropChangedRegionSettings = True
             Dim v = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Save_changes_word)
             If v = vbYes Then
                 Dim message = RegionValidate()
@@ -975,6 +975,7 @@ Public Class FormRegion
 
     Private Sub RLost(sender As Object, e As EventArgs) Handles RegionName.LostFocus
         RegionName.Text = RegionName.Text.Trim() ' remove spaces
+        If Initted1 Then Changed1 = True
     End Sub
 
     Private Sub RChanged(sender As Object, e As EventArgs) Handles RegionName.TextChanged
@@ -983,8 +984,7 @@ Public Class FormRegion
                 MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                 Return
             End If
-
-            Changed1 = True
+            If Initted1 Then Changed1 = True
         End If
     End Sub
 
@@ -997,6 +997,7 @@ Public Class FormRegion
             ScriptTimerTextBox.Text = ""
         End Try
 
+        If Initted1 Then Changed1 = True
     End Sub
 
     Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
@@ -1043,6 +1044,7 @@ Public Class FormRegion
 
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         FrametimeBox.Text = digitsOnly.Replace(FrametimeBox.Text, "")
+        If Initted1 Then Changed1 = True
 
     End Sub
 
@@ -1100,21 +1102,21 @@ Public Class FormRegion
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
 
-        Dim Filepath = PropRegionClass.RegionPath(RegionUUID)
+        Dim RegionINIFilePath = PropRegionClass.RegionPath(RegionUUID)
         Dim Folderpath = PropRegionClass.FolderPath(RegionUUID)
 
         ' rename is possible
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
-                My.Computer.FileSystem.RenameFile(Filepath, RegionName.Text + ".ini")
+                My.Computer.FileSystem.RenameFile(RegionINIFilePath, RegionName.Text + ".ini")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 TextPrint(My.Resources.Aborted_word)
                 Return False
             End Try
 
-            Filepath = Folderpath + "\" + RegionName.Text + ".ini"
-            PropRegionClass.RegionPath(RegionUUID) = Filepath
+            RegionINIFilePath = Folderpath + "\" + RegionName.Text + ".ini"
+            PropRegionClass.RegionPath(RegionUUID) = RegionINIFilePath
 
         End If
 
@@ -1129,7 +1131,7 @@ Public Class FormRegion
                 Return False
             End If
 
-            If Not Directory.Exists(Filepath) Or Filepath.Length = 0 Then
+            If Not Directory.Exists(RegionINIFilePath) Or RegionINIFilePath.Length = 0 Then
                 Try
                     Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
                 Catch ex As Exception
@@ -1140,7 +1142,7 @@ Public Class FormRegion
             End If
 
             PropRegionClass.RegionPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            Filepath = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            RegionINIFilePath = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
             PropRegionClass.FolderPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup
 
         End If
@@ -1149,6 +1151,9 @@ Public Class FormRegion
 
         PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
         PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
+
+        PropRegionClass.RegionName(RegionUUID) = RegionName.Text
+
         PropRegionClass.RegionPort(RegionUUID) = CInt("0" & RegionPort.Text)
         PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.LargestPort
         PropRegionClass.SizeX(RegionUUID) = BoxSize
@@ -1331,7 +1336,7 @@ Public Class FormRegion
         'Debug.Print(Region)
 
         Try
-            Using outputFile As New StreamWriter(Filepath, False)
+            Using outputFile As New StreamWriter(RegionINIFilePath, False)
                 outputFile.Write(Region)
             End Using
         Catch ex As Exception
@@ -1619,6 +1624,20 @@ Public Class FormRegion
     End Sub
 
     Private Sub RadioButton17_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
+
+        If Physics_Bullet.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
+
+        If Physics_Hybrid.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Hybrid")
+        End If
+        If Initted1 Then Changed1 = True
 
     End Sub
 

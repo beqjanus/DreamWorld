@@ -100,7 +100,6 @@ Public Class FormDatabase
 
     Private Sub Form_exit() Handles Me.Closed
         If Changed1 Then
-            FormSetup.PropViewedSettings = True
             SaveAll()
         End If
     End Sub
@@ -160,7 +159,6 @@ Public Class FormDatabase
 
     Private Sub SaveAll()
 
-        FormSetup.PropViewedSettings = True
         Settings.SaveSettings()
         Changed1 = False ' do not trigger the save a second time
 
