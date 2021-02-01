@@ -275,7 +275,7 @@ Public Class FormDatabase
 
     Private Shared Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
 
-        MysqlInterface.DeregisterRegions()
+        MysqlInterface.DeregisterRegions(False)
 
     End Sub
 

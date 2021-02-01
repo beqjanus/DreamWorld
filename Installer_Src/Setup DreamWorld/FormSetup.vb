@@ -686,7 +686,6 @@ Public Class FormSetup
 
         ClearAllRegions()
 
-
         StopRobust()
 
         Timer1.Stop()
@@ -1194,7 +1193,7 @@ Public Class FormSetup
             BreakPoint.Show(ex.Message)
         End Try
 
-        MysqlInterface.DeregisterRegions()
+        MysqlInterface.DeregisterRegions(True)
 
     End Sub
 

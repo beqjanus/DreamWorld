@@ -178,9 +178,9 @@ Public Module MysqlInterface
 
 #End Region
 
-    Public Sub DeregisterRegions()
+    Public Sub DeregisterRegions(force As Boolean)
 
-        If PropOpensimIsRunning Then
+        If PropOpensimIsRunning And Not force Then
             MsgBox("Opensim is running. Cannot clear the list of registered regions", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             Return
         End If

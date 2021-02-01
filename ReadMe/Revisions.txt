@@ -2,8 +2,9 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V3.86 Release candidit
+V3.86 Release candidite
 Cuteulala Artis spotted that OARS were saving in th wrong folder due to a missing slash. Thanks for the tip!
+A pop up could occur when closing out a grid telling yuou it cannot deregister regions.
 
 V3.85 Post fixes
 Backups chat how many are running and a message when they are finished.
