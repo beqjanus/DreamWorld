@@ -296,6 +296,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CPUPatched() As Boolean
+        Get
+            Return CType(GetMySetting("CPUPatched", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("CPUPatched", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+        End Set
+    End Property
+
     Public Property AdminEmail() As String
         Get
             Dim mail As String = GetMySetting("AdminEmail", "not@set.yet")

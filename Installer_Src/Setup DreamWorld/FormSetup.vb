@@ -1109,16 +1109,19 @@ Public Class FormSetup
                 speed = Me.Cpu1.NextValue()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
+                If Not Settings.CPUPatched Then
+                    Dim pUpdate As Process = New Process()
+                    Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                        .Arguments = "/ R",
+                        .FileName = "loadctr"
+                    }
+                    pUpdate.StartInfo = pi
+                    pUpdate.Start()
+                    pUpdate.WaitForExit()
+                    pUpdate.Dispose()
+                    Settings.CPUPatched = True
+                End If
 
-                Dim pUpdate As Process = New Process()
-                Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                    .Arguments = "/ R",
-                    .FileName = "loadctr"
-                }
-                pUpdate.StartInfo = pi
-                pUpdate.Start()
-                pUpdate.WaitForExit()
-                pUpdate.Dispose()
             End Try
 
             CPUAverageSpeed = (speed + speed1 + speed2 + speed3) / 4
@@ -1128,22 +1131,19 @@ Public Class FormSetup
             If MyCPUCollection.Count > 180 Then MyCPUCollection.RemoveAt(0)
 
             PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
+
+            ''reverse series
+
+            ChartWrapper1.ClearChart()
+            Dim CPU1() As Double = MyCPUCollection.ToArray()
+            ChartWrapper1.AddLinePlot("CPU", CPU1)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            ' ErrorLog(ex.Message)
+            ErrorLog(ex.Message)
         End Try
-
-        ''reverse series
-
-        ChartWrapper1.ClearChart()
-        Dim CPU1() As Double = MyCPUCollection.ToArray()
-        ChartWrapper1.AddLinePlot("CPU", CPU1)
-
         'RAM
 
-        Dim results As ManagementObjectCollection = Searcher1.Get()
-
         Try
+            Dim results As ManagementObjectCollection = Searcher1.Get()
             For Each result In results
                 Dim value As Double = (CDbl(result("TotalVisibleMemorySize").ToString) - CDbl(result("FreePhysicalMemory").ToString)) / CDbl(result("TotalVisibleMemorySize").ToString) * 100
                 MyRAMCollection.Add(value)
@@ -1151,17 +1151,14 @@ Public Class FormSetup
 
                 value = Math.Round(value)
                 PercentRAM.Text = CStr(value) & "% RAM"
-
             Next
+            ChartWrapper2.ClearChart()
+            Dim RAM() As Double = MyRAMCollection.ToArray()
+            ChartWrapper2.AddLinePlot("RAM", RAM)
+            results.Dispose()
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
         End Try
-        results.Dispose()
-
-        ChartWrapper2.ClearChart()
-        Dim RAM() As Double = MyRAMCollection.ToArray()
-        ChartWrapper2.AddLinePlot("RAM", RAM)
 
     End Sub
 
