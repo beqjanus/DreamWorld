@@ -427,7 +427,6 @@ Module DoIni
         If DoGrid() Then Return True ' Grid.ini
         If DoGridCommon() Then Return True ' GridCommon.ini
         If DoGridHyperGrid() Then Return True ' GridHypergrid.ini
-
         If DoTos() Then Return True         ' term of service
         If DoFlotsamINI() Then Return True  ' cache
         If DoWifi() Then Return True        ' Diva Wifi

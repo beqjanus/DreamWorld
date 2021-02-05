@@ -34,7 +34,6 @@ Module Teleport
                 Dim RegionToUUID = Keypair.Value
 
                 If AgentName.Length > 0 Then
-
                     Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
                     If DestinationName.Length > 0 Then
                         TextPrint(My.Resources.Teleporting_word & " " & AgentName & " -> " & PropRegionClass.RegionName(RegionToUUID))
