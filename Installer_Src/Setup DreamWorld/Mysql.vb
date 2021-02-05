@@ -248,7 +248,7 @@ Public Module MysqlInterface
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
-        If Settings.ServerType <> "Robust" Then Return Dict
+        If Settings.ServerType <> RobustServer Then Return Dict
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
@@ -322,7 +322,7 @@ Public Module MysqlInterface
     Public Function IsMySqlRunning() As Boolean
 
         Dim Mysql As Boolean
-        If (Settings.ServerType = "Robust") Then
+        If (Settings.ServerType = RobustServer) Then
             Mysql = CheckPort(Settings.RobustServer, Settings.MySqlRobustDBPort)
         Else
             Mysql = CheckPort(Settings.RegionServer, Settings.MySqlRegionDBPort)

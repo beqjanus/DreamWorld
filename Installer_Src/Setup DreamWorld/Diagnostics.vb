@@ -50,14 +50,13 @@ Module Diags
 #Disable Warning CA1062 ' Validate arguments of public methods
         If Name.Length = 0 Then Name = Settings.DNSName   ' optional Alt DNS name can come in
 #Enable Warning CA1062 ' Validate arguments of public methods
-
-        Dim Grid As String = "Grid"
+        Dim fs = CreateObject("Scripting.FileSystemObject")
+        Dim d As Object = fs.GetDrive(fs.GetDriveName(fs.GetAbsolutePathName("C:")))
 
         Dim data As String = "?MachineID=" & Settings.MachineID() _
         & "&FriendlyName=" & WebUtility.UrlEncode(Settings.SimName) _
         & "&V=" & WebUtility.UrlEncode(PropMyVersion) _
         & "&OV=" & WebUtility.UrlEncode(PropSimVersion) _
-        & "&Type=" & CStr(Grid) _
         & "&isPublic=" & CStr(Settings.GDPR()) _
         & "&GridName=" & Name _
         & "&Port=" & CStr(Settings.HttpPort()) _
@@ -65,6 +64,8 @@ Module Diags
         & "&Description=" & Settings.Description _
         & "&IP=" & Settings.PublicIP _
         & "&ServerType=" & Settings.ServerType _
+        & "&MAC=" & Settings.MacAddress _
+        & "&ID0=" & CreateMD5(CStr(d.SerialNumber)) _
         & "&r=" & RandomNumber.Random()
         Return data
 
@@ -265,7 +266,7 @@ Module Diags
             Return
         End If
 
-        If Settings.ServerType <> "Robust" Then
+        If Settings.ServerType <> RobustServer Then
             Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
             Return
         End If
@@ -278,10 +279,8 @@ Module Diags
 
     Private Sub ProbePublicPort()
 
-        If Settings.ServerType <> "Robust" Then
-
+        If Settings.ServerType <> RobustServer Then
             Logger("INFO", "Server Is Not Robust", "Diagnostics")
-
             Return
         End If
 

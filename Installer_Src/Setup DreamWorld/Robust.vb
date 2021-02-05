@@ -114,6 +114,7 @@ Module Robust
     Public Function StartRobust() As Boolean
 
         If Not StartMySQL() Then Return False ' prerequsite
+
         ' prevent recursion
         Dim ctr = 300
         While RobustIsStarting And ctr > 0
@@ -141,7 +142,7 @@ Module Robust
             Return True
         End If
 
-        If Settings.ServerType <> "Robust" Then
+        If Settings.ServerType <> RobustServer Then
             RobustIcon(True)
             Return True
         End If
@@ -239,6 +240,8 @@ Module Robust
     End Function
 
     Public Sub StopRobust()
+
+        If Settings.ServerType <> RobustServer Then Return
 
         TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
         ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)

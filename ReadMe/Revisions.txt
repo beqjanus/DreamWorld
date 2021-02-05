@@ -2,11 +2,21 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V3.86 Release candidite
+V3.87 
+Your avatars library is now loaded with a set of objects and clothing. 
+The INI files have been reorganized into a folder for each type - Robust Grid, Region Addon, OsGrid and Metropolis in the Config-include/Proto folder for easier editing.
+Physics Hybrid selecion when editing a single region could be set but did not show as selected when re-edited.
+Added a Perl example that can take large numbers of OARs and keep just 1 per month, moving the extras to a different folder.
+Backups Settings and Photo.
+Use Hashed MAC addess and Disk ID of PC for DNS security
+Don't bitch about missing a Welcome region on region servers
+Backup folder: if missing, would cause a complaint loop and possible crash.
+
+V3.86 
 Cuteulala Artis spotted that OARS were saving in th wrong folder due to a missing slash. Thanks for the tip!
 A pop up could occur when closing out a grid telling yuou it cannot deregister regions.
 
-V3.85 Post fixes
+V3.85 
 Backups chat how many are running and a message when they are finished.
 Themes would not save the image to the running theme, just to the next running theme.
 Windows on Top control moved to a Menu and added to the main form

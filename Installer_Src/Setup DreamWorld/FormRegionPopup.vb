@@ -69,7 +69,7 @@ Public Class FormRegionPopup
 
     Public Sub Init(RegionName As String)
 
-        If Settings.ServerType = "Robust" Then
+        If Settings.ServerType = RobustServer Then
             ViewMapButton.Enabled = True
         Else
             ViewMapButton.Enabled = False

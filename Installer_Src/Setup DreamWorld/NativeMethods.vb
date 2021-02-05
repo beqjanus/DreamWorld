@@ -25,6 +25,11 @@ Imports System.Runtime.InteropServices
 
 Friend Module NativeMethods
 
+    <DllImport("iphlpapi.dll", ExactSpelling:=True)>
+    Public Function SendARP(ByVal DestIP As UInteger, ByVal SrcIP As UInteger, ByVal pMacAddr As Byte(), ByRef PhyAddrLen As UInteger) As Integer
+
+    End Function
+
     Public Declare Function ShowWindow Lib "user32.dll" (ByVal hWnd As IntPtr, ByVal nCmdShow As SHOWWINDOWENUM) As Boolean
 
 #Disable Warning CA2101 ' Specify marshaling for P/Invoke string arguments

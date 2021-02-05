@@ -54,7 +54,7 @@ Module DNS
         If DNSName.Length < 3 Then Return False
 
         Dim Checkname As String = String.Empty
-        If Settings.ServerType <> "Robust" Then
+        If Settings.ServerType <> RobustServer Then
             Return True
         End If
 
@@ -108,6 +108,7 @@ Module DNS
         Else
             Settings.PublicIP = PropMyUPnpMap.LocalIP
             TextPrint(My.Resources.Setup_Network)
+            Settings.MacAddress = GetMacByIp(Settings.PublicIP)
             Settings.SaveSettings()
         End If
 
@@ -158,6 +159,7 @@ Module DNS
         End If
 
         Settings.PublicIP = PropMyUPnpMap.LocalIP
+        Settings.MacAddress = GetMacByIp(Settings.PublicIP)
         Settings.SaveSettings()
 
         Return False

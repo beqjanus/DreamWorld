@@ -420,7 +420,7 @@ Public Class FormRegion
             Case "2" : Physics_Bullet.Checked = True
             Case "3" : Physics_Separate.Checked = True
             Case "4" : Physics_ubODE.Checked = True
-            Case "5" : Physics_Default.Checked = True
+            Case "5" : Physics_Hybrid.Checked = True
             Case Else : Physics_Default.Checked = True
         End Select
 

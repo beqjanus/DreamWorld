@@ -100,6 +100,7 @@ Module DoIni
     Public Function DoGloebits() As Boolean
 
         'Gloebits.ini
+
         If Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";") Then Return True
 
         Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
@@ -120,13 +121,30 @@ Module DoIni
         Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
         Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
-        If Settings.ServerType = "Robust" Then
+        If Settings.ServerType = RobustServer Then
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
         Else
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
         End If
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
+
+        Return False
+
+    End Function
+
+    Public Function DoGrid() As Boolean
+
+        TextPrint("->Set Grid.ini")
+
+        ' Put that grid.ini file in place
+        Dim Src = IO.Path.Combine(Settings.OpensimBinPath & "config-include\Proto")
+        Src = IO.Path.Combine(Src, Settings.ServerType)
+        Src = IO.Path.Combine(Src, "Grid.ini")
+
+        Dim dest = IO.Path.Combine(Settings.OpensimBinPath, "config-include\Grid.ini")
+
+        CopyFileFast(Src, dest)
         Return False
 
     End Function
@@ -136,39 +154,35 @@ Module DoIni
         TextPrint("->Set GridCommon.ini")
 
         'Choose a GridCommon.ini to use.
-        Dim GridCommon As String = "Gridcommon-GridServer.ini"
+        Dim GridCommon As String = ""
 
         Select Case Settings.ServerType
-            Case "Robust"
-                Try
-                    My.Computer.FileSystem.CopyDirectory(Settings.OpensimBinPath & "Library.proto", Settings.OpensimBinPath & "Library", True)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
+            Case RobustServer
                 If Settings.CMS = JOpensim Then
-                    GridCommon = "Gridcommon-GridServer-JOpensim.ini"
+                    GridCommon = "jOpensim\Gridcommon.ini"
                 Else
-                    GridCommon = "Gridcommon-GridServer.ini"
+                    GridCommon = "Robust\Gridcommon.ini"
                 End If
-
-            Case "Region"
-                Try
-                    My.Computer.FileSystem.CopyDirectory(Settings.OpensimBinPath & "Library.proto", Settings.OpensimBinPath & "Library", True)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-                GridCommon = "Gridcommon-RegionServer.ini"
-            Case "OsGrid"
-                GridCommon = "Gridcommon-OsGridServer.ini"
-            Case "Metro"
-                GridCommon = "Gridcommon-MetroServer.ini"
-
+            Case RegionServer
+                GridCommon = "Region\Gridcommon.ini"
+            Case OsgridServer
+                GridCommon = "OsGrid\Gridcommon.ini"
+            Case MetroServer
+                GridCommon = "Metro\Gridcommon.ini"
         End Select
 
         ' Put that gridcommon.ini file in place
-        CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath & "config-include\", GridCommon), IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini"))
+        Dim s = IO.Path.Combine(Settings.OpensimBinPath & "config-include\Proto")
+        s = IO.Path.Combine(s, GridCommon)
 
-        If Settings.LoadIni(Settings.OpensimBinPath & "config-include\GridCommon.ini", ";") Then Return True
+        Dim d = IO.Path.Combine(Settings.OpensimBinPath, "config-include\")
+        d = IO.Path.Combine(d, "GridCommon.ini")
+
+        CopyFileFast(s, d)
+
+        DoEditForeigners()
+
+        If Settings.LoadIni(d, ";") Then Return True
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
@@ -180,6 +194,21 @@ Module DoIni
         End If
 
         Settings.SaveINI(System.Text.Encoding.UTF8)
+        Return False
+
+    End Function
+
+    Public Function DoGridHyperGrid() As Boolean
+
+        TextPrint("->Set GridHypergrid.ini")
+
+        Dim src = IO.Path.Combine(Settings.OpensimBinPath & "config-include\Proto")
+        src = IO.Path.Combine(src, Settings.ServerType)
+        src = IO.Path.Combine(src, "GridHypergrid.ini")
+
+        Dim dest = IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridHypergrid.ini")
+        'Put that gridhypergrid.ini file in place
+        CopyFileFast(src, dest)
         Return False
 
     End Function
@@ -252,8 +281,7 @@ Module DoIni
 "$CONF_domain        = " & """" & Settings.PublicIP & """" & "; " & vbCrLf &
 "$CONF_port          = " & """" & Settings.HttpPort & """" & "; " & vbCrLf &
 "$CONF_sim_domain    = " & """" & "http://" & Settings.PublicIP & "/" & """" & ";" & vbCrLf &
-"$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf &
-"/* MySQL Database */ " & vbCrLf &
+"$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf & "/* MySQL Database */ " & vbCrLf &
 "$CONF_db_server     = " & """" & Settings.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
 "$CONF_db_port       = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
 "$CONF_db_user       = " & """" & Settings.RobustUsername & """" & ";  // login " & vbCrLf &
@@ -301,7 +329,7 @@ Module DoIni
 
             Dim DefaultName = Settings.WelcomeRegion
 
-            If WelcomeUUID.Length = 0 Then
+            If WelcomeUUID.Length = 0 And Settings.ServerType = RobustServer Then
                 MsgBox(My.Resources.Cannot_locate, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
                 Dim RegionName = ChooseRegion(False)
                 If RegionName.Length > 0 Then
@@ -381,17 +409,11 @@ Module DoIni
     Public Function GetOpensimProto() As String
         ''' <summary>Loads the INI file for the proper grid type for parsing</summary>
         ''' <returns>Returns the path to the proper Opensim.ini prototype.</returns>
-        Select Case Settings.ServerType
-            Case "Robust"
-                Return Settings.OpensimBinPath & "Opensim.proto"
-            Case "Region"
-                Return Settings.OpensimBinPath & "OpensimRegion.proto"
-            Case "OsGrid"
-                Return Settings.OpensimBinPath & "OpensimOsGrid.proto"
-            Case "Metro"
-                Return Settings.OpensimBinPath & "OpensimMetro.proto"
-        End Select
-        Return Settings.OpensimBinPath & "Opensim.proto"
+
+        Dim Path = IO.Path.Combine(Settings.OpensimBinPath, "config-include\Proto")
+        Path = IO.Path.Combine(Path, Settings.ServerType)
+        Path = IO.Path.Combine(Path, "Opensim.ini")
+        Return Path
 
     End Function
 
@@ -401,21 +423,24 @@ Module DoIni
 
         TextPrint(My.Resources.Creating_INI_Files_word)
 
-        If DoRobust() Then Return True
-        If DoTos() Then Return True
-        If DoGridCommon() Then Return True
-        If DoEditForeigners() Then Return True
-        If DelLibrary() Then Return True
-        If DoFlotsamINI() Then Return True
-        If DoWifi() Then Return True
-        If DoGloebits() Then Return True
-        If DoWhoGotWhat() Then Return True
-        If DoTides() Then Return True
-        If DoBirds() Then Return True
-        If DoPHPDBSetup() Then Return True
-        If DoPHP() Then Return True
-        If DoApache() Then Return True
-        If DoIceCast() Then Return True
+        If MakeLibrary() Then Return True  ' Library runs once.
+
+        If DoRobust() Then Return True  ' Robust
+        If DoGrid() Then Return True ' Grid.ini
+        If DoGridCommon() Then Return True ' GridCommon.ini
+        If DoGridHyperGrid() Then Return True ' GridHypergrid.ini
+
+        If DoTos() Then Return True         ' term of service
+        If DoFlotsamINI() Then Return True  ' cache
+        If DoWifi() Then Return True        ' Diva Wifi
+        If DoGloebits() Then Return True    ' Gloebits
+        If DoWhoGotWhat() Then Return True  ' add on for scripts to save events to a CSV file
+        If DoTides() Then Return True       ' tides
+        If DoBirds() Then Return True       ' birds
+        If DoPHPDBSetup() Then Return True  ' PHP Database
+        If DoPHP() Then Return True         ' PHP.ini
+        If DoApache() Then Return True      ' Apache.conf
+        If DoIceCast() Then Return True     ' Icecast
 
         Return False
 
@@ -476,21 +501,18 @@ Module DoIni
         Dim Output As String = ""
 
         Try
-            reader = System.IO.File.OpenText(Settings.OpensimBinPath & "config-include\GridCommon.ini")
+            Dim Read = IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini")
+
+            reader = System.IO.File.OpenText(Read)
             'now loop through each line
             Dim skip As Boolean = False
             While reader.Peek <> -1
                 line = reader.ReadLine()
-
                 If line.StartsWith("; START", StringComparison.InvariantCulture) Then
                     Output += line & vbCrLf
                     Output += Authorizationlist
-                    skip = True
-                ElseIf line.StartsWith("; END", StringComparison.InvariantCulture) Then
-                    Output += line & vbCrLf
-                    skip = False
                 Else
-                    If Not skip Then Output += line & vbCrLf
+                    Output += line & vbCrLf
                 End If
 
             End While
@@ -498,9 +520,10 @@ Module DoIni
             'close the reader
             reader.Close()
 
-            DeleteFile(Settings.OpensimBinPath & "config-include\GridCommon.ini")
+            Dim dest = IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini")
+            DeleteFile(dest)
 
-            Using outputFile As New StreamWriter(CType(Settings.OpensimBinPath & "config-include\Gridcommon.ini", String))
+            Using outputFile As New StreamWriter(dest)
                 outputFile.Write(Output)
             End Using
         Catch ex As Exception
@@ -553,13 +576,13 @@ Module DoIni
 
                 TideData = TideData & ";; Set the Tide settings per named region" & vbCrLf &
                     "[" & RegionName & "]" & vbCrLf &
-                ";this determines whether the module does anything in this region" & vbCrLf &
-                ";# {TideEnabled} {} {Enable the tide to come in And out?} {true false} false" & vbCrLf &
+                ";this determines whether the Module does anything In this region" & vbCrLf &
+                ";# {TideEnabled} {} {Enable the tide To come In And out?} {True False} False" & vbCrLf &
                 "TideEnabled = True" & vbCrLf &
                     vbCrLf &
-                ";; Tides currently only work on single regions And varregions (non megaregions) " & vbCrLf &
+                ";; Tides currently only work On Single regions And varregions (non megaregions) " & vbCrLf &
                 ";# surrounded completely by water" & vbCrLf &
-                ";; Anything else will produce weird results where you may see a big" & vbCrLf &
+                ";; Anything Else will produce weird results where you may see a big" & vbCrLf &
                 ";; vertical 'step' in the ocean" & vbCrLf &
                 ";; update the tide every x simulator frames" & vbCrLf &
                 "TideUpdateRate = 50" & vbCrLf &
@@ -630,7 +653,7 @@ Module DoIni
 
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
-        If Settings.ServerType = "Robust" Then ' wifi could be on or off
+        If Settings.ServerType = RobustServer Then ' wifi could be on or off
             If (Settings.WifiEnabled) Then
                 Settings.SetIni("WifiService", "Enabled", "True")
             Else

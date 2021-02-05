@@ -177,12 +177,10 @@ Public Class Backups
 
         Dim currentdatetime As Date = Date.Now
         If RunNow Then
-
             _WebThread2 = New Thread(AddressOf FullBackupThread)
             _WebThread2.SetApartmentState(ApartmentState.STA)
             _WebThread2.Priority = ThreadPriority.BelowNormal
             _WebThread2.Start()
-
             Return
         End If
 
@@ -249,6 +247,9 @@ Public Class Backups
         Catch ex As Exception
             Break(ex.Message)
         End Try
+
+        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
+        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), "Settings")
 
         Try
             If Settings.BackupRegion Then

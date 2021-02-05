@@ -33,29 +33,34 @@ Module GridNames
 
         ' all private in case of local mode
         Settings.PublicIP = PropMyUPnpMap.LocalIP
+        Settings.MacAddress = GetMacByIp(Settings.PublicIP)
         Settings.PrivateIP = Settings.PublicIP
         Settings.BaseHostName = Settings.PublicIP
 
-        ' Set them back to the DNS name if there is one
-        If Settings.DNSName.Length > 0 Then
-            Settings.PublicIP = Settings.DNSName
-            Settings.BaseHostName = Settings.DNSName
-            TextPrint("DNS Name=" & Settings.PublicIP)
-        End If
+        If Settings.ServerType = RobustServer Then
+            ' Set them back to the DNS name if there is one
+            If Settings.DNSName.Length > 0 Then
+                Settings.PublicIP = Settings.DNSName
+                Settings.BaseHostName = Settings.DNSName
+                TextPrint("DNS Name=" & Settings.PublicIP)
+            End If
 
-        If Settings.ServerType = "Robust" Then
             Settings.ExternalHostName = Settings.PublicIP
             TextPrint(My.Resources.Server_Type_is & " Robust")
-        ElseIf Settings.ServerType = "OsGrid" Then
+
+        ElseIf Settings.ServerType = OsgridServer Then
+            Settings.DNSName = "hg.osgrid.org"
             Settings.PublicIP = "hg.osgrid.org"
             Settings.ExternalHostName = PublicIP.IP()
             Settings.BaseHostName = Settings.PublicIP
             TextPrint(My.Resources.Server_Type_is & " OSGrid")
-        ElseIf Settings.ServerType = "Region" Then
+        ElseIf Settings.ServerType = RegionServer Then
             TextPrint(My.Resources.Server_Type_is & " Region")
+            ' NO Settings.DNSName,  comes from the person
             Settings.ExternalHostName = Settings.PublicIP
             Settings.BaseHostName = Settings.PublicIP
-        ElseIf Settings.ServerType = "Metro" Then
+        ElseIf Settings.ServerType = MetroServer Then
+            Settings.DNSName = "hg.osgrid.org"
             Settings.PublicIP = "hg.osgrid.org"
             Settings.ExternalHostName = PublicIP.IP()
             Settings.BaseHostName = Settings.PublicIP
@@ -70,11 +75,11 @@ Module GridNames
         Dim n = Settings.DNSName
         If n.Length = 0 Then n = "(none)"
 
-        TextPrint("WAN IP   = " & PublicIP.IP)
-        TextPrint("LAN IP   = " & Settings.PrivateIP())
-        TextPrint("DNS = " & n)
-        TextPrint("Region = " & Settings.ExternalHostName)
-        TextPrint("Hostname = " & Settings.BaseHostName)
+        TextPrint("WAN IP  = " & PublicIP.IP)
+        TextPrint("LAN IP  = " & Settings.PrivateIP())
+        TextPrint("DNS     = " & n)
+        TextPrint("Region  = " & Settings.ExternalHostName)
+        TextPrint("Login   = " & Settings.BaseHostName)
 
     End Sub
 

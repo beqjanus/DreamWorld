@@ -10,9 +10,18 @@ Module GlobalSettings
     Public Const _Domain As String = "http://outworldz.com"
     Public Const _MyVersion As String = "3.87"
     Public Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
+    Public Const MySqlRev = "5.6.5"
+
+#End Region
+
+#Region "Global Strings"
+
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
-    Public Const MySqlRev = "5.6.5"
+    Public Const RobustServer As String = "Robust"
+    Public Const RegionServer As String = "Region"
+    Public Const OsgridServer As String = "OsGrid"
+    Public Const MetroServer As String = "Metro"
 
 #End Region
 
@@ -186,24 +195,17 @@ Module GlobalSettings
 
         'Autobackup must exist. if not create it
         ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        If Settings.BackupFolder.ToUpper(Globalization.CultureInfo.InvariantCulture) = "AUTOBACKUP" Then
-            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/AutoBackup")
-            Settings.BackupFolder = BackupPath
+        BackupPath = Settings.BackupFolder
+        BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
+
+        If Not Directory.Exists(BackupPath) Then
+            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup")
             If Not Directory.Exists(BackupPath) Then
                 MkDir(BackupPath)
             End If
-        Else
-            BackupPath = Settings.BackupFolder
-            BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
             Settings.BackupFolder = BackupPath
-            If Not Directory.Exists(BackupPath) Then
-                BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup")
-                If Not Directory.Exists(BackupPath) Then
-                    MkDir(BackupPath)
-                End If
-                MsgBox(My.Resources.Autobackup_cannot_be_located & BackupPath)
-            End If
         End If
+
         Return BackupPath
 
     End Function

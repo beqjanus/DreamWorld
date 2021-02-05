@@ -230,7 +230,7 @@ Public Class FormSettings
 
     Private Sub BanListButton_Click(sender As Object, e As EventArgs) Handles BanListButton.Click
 
-        If Settings.ServerType = "Robust" Then
+        If Settings.ServerType = RobustServer Then
             Banlist.Close()
             Banlist.Dispose()
             Banlist = New FormBanList

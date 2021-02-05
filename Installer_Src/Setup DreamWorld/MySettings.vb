@@ -292,16 +292,7 @@ Public Class MySettings
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
         End Get
         Set
-            SetMySetting("AccountConfirmationRequired", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
-    Public Property CPUPatched() As Boolean
-        Get
-            Return CType(GetMySetting("CPUPatched", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("CPUPatched", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("AccountConfirmationRequired", CStr(Value))
         End Set
     End Property
 
@@ -338,7 +329,7 @@ Public Class MySettings
             Return CType(GetMySetting("Allow_grid_gods", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Allow_grid_gods", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Allow_grid_gods", CStr(Value))
         End Set
     End Property
 
@@ -357,7 +348,7 @@ Public Class MySettings
             Return CType(GetMySetting("ApacheEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ApacheEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("ApacheEnabled", CStr(Value))
         End Set
     End Property
 
@@ -375,7 +366,7 @@ Public Class MySettings
             Return CType(GetMySetting("ApacheService", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ApacheService", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("ApacheService", CStr(Value))
         End Set
     End Property
 
@@ -384,7 +375,7 @@ Public Class MySettings
             Return CType(GetMySetting("AutoBackup", "True"), Boolean)
         End Get
         Set
-            SetMySetting("AutoBackup", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("AutoBackup", CStr(Value))
         End Set
     End Property
 
@@ -402,7 +393,7 @@ Public Class MySettings
             Return CType(GetMySetting("AutoRestartEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("AutoRestartEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("AutoRestartEnabled", CStr(Value))
         End Set
     End Property
 
@@ -411,7 +402,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("AutoRestartInterval", "0".ToUpperInvariant))
         End Get
         Set
-            SetMySetting("AutoRestartInterval", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("AutoRestartInterval", CStr(Value))
         End Set
     End Property
 
@@ -420,7 +411,7 @@ Public Class MySettings
             Return CType(GetMySetting("Autostart", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Autostart", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Autostart", CStr(Value))
         End Set
     End Property
 
@@ -438,7 +429,7 @@ Public Class MySettings
             Return CType(GetMySetting("BackupFSAssets", "False"), Boolean)
         End Get
         Set
-            SetMySetting("BackupFSAssets", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BackupFSAssets", CStr(Value))
         End Set
     End Property
 
@@ -447,7 +438,7 @@ Public Class MySettings
             Return CType(GetMySetting("BackupMysql", "True"), Boolean)
         End Get
         Set
-            SetMySetting("BackupMysql", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BackupMysql", CStr(Value))
         End Set
     End Property
 
@@ -456,7 +447,7 @@ Public Class MySettings
             Return CType(GetMySetting("BackupOARs", "True"), Boolean)
         End Get
         Set
-            SetMySetting("BackupOARs", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BackupOARs", CStr(Value))
         End Set
     End Property
 
@@ -465,7 +456,7 @@ Public Class MySettings
             Return CType(GetMySetting("BackupRegion", "True"), Boolean)
         End Get
         Set
-            SetMySetting("BackupRegion", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BackupRegion", CStr(Value))
         End Set
     End Property
 
@@ -474,7 +465,7 @@ Public Class MySettings
             Return CType(GetMySetting("BackupSQL", "False"), Boolean)
         End Get
         Set
-            SetMySetting("BackupSQL", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BackupSQL", CStr(Value))
         End Set
     End Property
 
@@ -483,7 +474,7 @@ Public Class MySettings
             Return CType(GetMySetting("BackupWifi", "True"), Boolean)
         End Get
         Set
-            SetMySetting("BackupWifi", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BackupWifi", CStr(Value))
         End Set
     End Property
 
@@ -520,14 +511,14 @@ Public Class MySettings
     Public Property BirdsBorderSize() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsBorderSize", "25"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("BirdsBorderSize", "25"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 25
         End Get
         Set
-            SetMySetting("BirdsBorderSize", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsBorderSize", CStr(Value))
         End Set
     End Property
 
@@ -538,7 +529,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("BirdsChatChannel", "118"))
         End Get
         Set
-            SetMySetting("BirdsChatChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsChatChannel", CStr(Value))
         End Set
     End Property
 
@@ -547,14 +538,14 @@ Public Class MySettings
     Public Property BirdsDesiredSeparation() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsDesiredSeparation", "5"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("BirdsDesiredSeparation", "5"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 5
         End Get
         Set
-            SetMySetting("BirdsDesiredSeparation", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsDesiredSeparation", CStr(Value))
         End Set
     End Property
 
@@ -563,7 +554,7 @@ Public Class MySettings
             Return CType(GetMySetting("BirdsEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("BirdsEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsEnabled", CStr(Value))
         End Set
     End Property
 
@@ -572,21 +563,21 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("BirdsFlockSize", "25"))
         End Get
         Set
-            SetMySetting("BirdsFlockSize", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsFlockSize", CStr(Value))
         End Set
     End Property
 
     Public Property BirdsMaxForce() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsMaxForce", "0.2"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("BirdsMaxForce", "0.2"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 0.2
         End Get
         Set
-            SetMySetting("BirdsMaxForce", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsMaxForce", CStr(Value))
         End Set
     End Property
 
@@ -595,14 +586,14 @@ Public Class MySettings
     Public Property BirdsMaxHeight() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsMaxHeight", "25"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("BirdsMaxHeight", "25"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 25
         End Get
         Set
-            SetMySetting("BirdsMaxHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsMaxHeight", CStr(Value))
         End Set
     End Property
 
@@ -611,14 +602,14 @@ Public Class MySettings
     Public Property BirdsMaxSpeed() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsMaxSpeed", "1.0"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("BirdsMaxSpeed", "1.0"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 1.0
         End Get
         Set
-            SetMySetting("BirdsMaxSpeed", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsMaxSpeed", CStr(Value))
         End Set
     End Property
 
@@ -627,7 +618,7 @@ Public Class MySettings
             Return CType(GetMySetting("BirdsModuleStartup", "False"), Boolean)
         End Get
         Set
-            SetMySetting("BirdsModuleStartup", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsModuleStartup", CStr(Value))
         End Set
     End Property
 
@@ -636,14 +627,14 @@ Public Class MySettings
     Public Property BirdsNeighbourDistance() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsNeighbourDistance", "25"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("BirdsNeighbourDistance", "25"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 25
         End Get
         Set
-            SetMySetting("BirdsNeighbourDistance", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsNeighbourDistance", CStr(Value))
         End Set
     End Property
 
@@ -666,14 +657,14 @@ Public Class MySettings
     Public Property BirdsTolerance() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("BirdsTolerance", "25"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("BirdsTolerance", "25"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 25
         End Get
         Set
-            SetMySetting("BirdsTolerance", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BirdsTolerance", CStr(Value))
         End Set
     End Property
 
@@ -682,7 +673,7 @@ Public Class MySettings
             Return CType(GetMySetting("BroadcastTideInfo", "True"), Boolean)
         End Get
         Set
-            SetMySetting("BroadcastTideInfo", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("BroadcastTideInfo", CStr(Value))
         End Set
     End Property
 
@@ -691,7 +682,7 @@ Public Class MySettings
             Return CType(GetMySetting("CacheEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("CacheEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("CacheEnabled", CStr(Value))
         End Set
     End Property
 
@@ -736,7 +727,7 @@ Public Class MySettings
             Return CType(GetMySetting("Clouds", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Clouds", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Clouds", CStr(Value))
         End Set
     End Property
 
@@ -751,7 +742,7 @@ Public Class MySettings
             Return var
         End Get
         Set
-            SetMySetting("CMS", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("CMS", CStr(Value))
         End Set
     End Property
 
@@ -787,7 +778,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
         End Get
         Set
-            SetMySetting("CoordX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("CoordX", CStr(Value))
         End Set
     End Property
 
@@ -796,7 +787,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
         End Get
         Set
-            SetMySetting("CoordY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -806,6 +797,15 @@ Public Class MySettings
         End Get
         Set(value As Single)
             SetMySetting("CPUMax", CStr(value))
+        End Set
+    End Property
+
+    Public Property CPUPatched() As Boolean
+        Get
+            Return CType(GetMySetting("CPUPatched", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("CPUPatched", CStr(Value))
         End Set
     End Property
 
@@ -823,7 +823,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("CycleTime", "900"))
         End Get
         Set
-            SetMySetting("CycleTime", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("CycleTime", CStr(Value))
         End Set
     End Property
 
@@ -839,14 +839,14 @@ Public Class MySettings
     Public Property Density() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("Density", "0.5"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("Density", "0.5"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 0.5
         End Get
         Set
-            SetMySetting("Density", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Density", CStr(Value))
         End Set
     End Property
 
@@ -873,7 +873,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("DiagnosticPort", "8001"))
         End Get
         Set
-            SetMySetting("DiagnosticPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("DiagnosticPort", CStr(Value))
         End Set
     End Property
 
@@ -891,7 +891,7 @@ Public Class MySettings
             Return CType(GetMySetting("DotnetUpgraded", "False"), Boolean)
         End Get
         Set
-            SetMySetting("DotnetUpgraded", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("DotnetUpgraded", CStr(Value))
         End Set
     End Property
 
@@ -900,7 +900,7 @@ Public Class MySettings
             Return CType(GetMySetting("EnableHypergrid", "True"), Boolean)
         End Get
         Set
-            SetMySetting("EnableHypergrid", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("EnableHypergrid", CStr(Value))
         End Set
     End Property
 
@@ -918,7 +918,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("FirstRegionPort", "8004"))
         End Get
         Set
-            SetMySetting("FirstRegionPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("FirstRegionPort", CStr(Value))
         End Set
     End Property
 
@@ -928,7 +928,7 @@ Public Class MySettings
             Return CType(GetMySetting("FsAssetsEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("FsAssetsEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("FsAssetsEnabled", CStr(Value))
         End Set
     End Property
 
@@ -937,7 +937,7 @@ Public Class MySettings
             Return CType(GetMySetting("GDPR", "False"), Boolean)
         End Get
         Set
-            SetMySetting("GDPR", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("GDPR", CStr(Value))
         End Set
     End Property
 
@@ -966,7 +966,7 @@ Public Class MySettings
             Return CType(GetMySetting("GLBShowNewSessionAuthIM", "False"), Boolean)
         End Get
         Set
-            SetMySetting("GLBShowNewSessionAuthIM", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("GLBShowNewSessionAuthIM", CStr(Value))
         End Set
     End Property
 
@@ -977,7 +977,7 @@ Public Class MySettings
             Return CType(GetMySetting("GLBShowNewSessionPurchaseIM", "False"), Boolean)
         End Get
         Set
-            SetMySetting("GLBShowNewSessionPurchaseIM", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("GLBShowNewSessionPurchaseIM", CStr(Value))
         End Set
     End Property
 
@@ -988,7 +988,7 @@ Public Class MySettings
             Return CType(GetMySetting("GLBShowWelcomeMessage", "True"), Boolean)
         End Get
         Set
-            SetMySetting("GLBShowWelcomeMessage", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("GLBShowWelcomeMessage", CStr(Value))
         End Set
     End Property
 
@@ -997,7 +997,7 @@ Public Class MySettings
             Return CType(GetMySetting("GloebitsEnable", "False"), Boolean)
         End Get
         Set
-            SetMySetting("GloebitsEnable", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("GloebitsEnable", CStr(Value))
         End Set
     End Property
 
@@ -1006,7 +1006,7 @@ Public Class MySettings
             Return CType(GetMySetting("GloebitsMode", "False"), Boolean)
         End Get
         Set
-            SetMySetting("GloebitsMode", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("GloebitsMode", CStr(Value))
         End Set
     End Property
 
@@ -1078,7 +1078,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("HttpPort", "8002"))
         End Get
         Set
-            SetMySetting("HttpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("HttpPort", CStr(Value))
         End Set
     End Property
 
@@ -1087,7 +1087,7 @@ Public Class MySettings
             Return CType(GetMySetting("InstalledRuntime", "True"), Boolean)
         End Get
         Set
-            SetMySetting("InstalledRuntime", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("InstalledRuntime", CStr(Value))
         End Set
 
     End Property
@@ -1106,7 +1106,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("KeepForDays", "7"))
         End Get
         Set
-            SetMySetting("KeepForDays", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("KeepForDays", CStr(Value))
         End Set
     End Property
 
@@ -1115,7 +1115,7 @@ Public Class MySettings
             Return CType(GetMySetting("KeepOnTopRegionList", "False"), Boolean)
         End Get
         Set
-            SetMySetting("KeepOnTopRegionList", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("KeepOnTopRegionList", CStr(Value))
         End Set
     End Property
 
@@ -1124,13 +1124,13 @@ Public Class MySettings
             Return CType(GetMySetting("KeepOnTopMain", "False"), Boolean)
         End Get
         Set
-            SetMySetting("KeepOnTopMain", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("KeepOnTopMain", CStr(Value))
         End Set
     End Property
 
     Public Property Language() As String
         Get
-            Return GetMySetting("Language")
+            Return GetMySetting("Language", "en")
         End Get
         Set
             SetMySetting("Language", Value)
@@ -1143,6 +1143,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("LastDirectory", Value)
+        End Set
+    End Property
+
+    Public Property Library() As Boolean
+        Get
+            Return CType(GetMySetting("Library", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("Library", CStr(Value))
         End Set
     End Property
 
@@ -1170,7 +1179,7 @@ Public Class MySettings
             Return CType(GetMySetting("LoopBackDiag", "True"), Boolean)
         End Get
         Set
-            SetMySetting("LoopBackDiag", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("LoopBackDiag", CStr(Value))
         End Set
     End Property
 
@@ -1179,7 +1188,16 @@ Public Class MySettings
             Return CType(GetMySetting("LSL_HTTP", "False"), Boolean)
         End Get
         Set
-            SetMySetting("LSL_HTTP", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("LSL_HTTP", CStr(Value))
+        End Set
+    End Property
+
+    Public Property MacAddress() As String
+        Get
+            Return GetMySetting("MacAddress", "Admin")
+        End Get
+        Set
+            SetMySetting("MacAddress", Value)
         End Set
     End Property
 
@@ -1194,23 +1212,33 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = CStr(PropRegionClass.CoordX(RegionUUID))
-            Return CInt("0" & GetMySetting("MapCenterX", Center))
+            If Settings.ServerType = RobustServer Then
+                Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
+                Dim Center As String = CStr(PropRegionClass.CoordX(RegionUUID))
+                Return CInt("0" & GetMySetting("MapCenterX", Center))
+            Else
+                Return 128
+            End If
+
         End Get
         Set
-            SetMySetting("MapCenterX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("MapCenterX", CStr(Value))
         End Set
     End Property
 
     Public Property MapCenterY() As Integer
         Get
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
-            Dim Center As String = CStr(PropRegionClass.CoordY(RegionUUID))
-            Return CInt("0" & GetMySetting("MapCenterY", Center))
+            If Settings.ServerType = RobustServer Then
+                Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
+                Dim Center As String = CStr(PropRegionClass.CoordY(RegionUUID))
+                Return CInt("0" & GetMySetting("MapCenterY", Center))
+            Else
+                Return 128
+            End If
+
         End Get
         Set
-            SetMySetting("MapCenterY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("MapCenterY", CStr(Value))
         End Set
     End Property
 
@@ -1226,7 +1254,7 @@ Public Class MySettings
     Public Property MinTimerInterval() As Double
         Get
             Try
-                Dim value = Convert.ToDouble(GetMySetting("MinTimerInterval", "0.2"), Globalization.CultureInfo.InvariantCulture)
+                Dim value = CDbl(GetMySetting("MinTimerInterval", "0.2"))
                 If value < 0.05 Or value > 1 Then value = 0.2
                 Return value
             Catch ex As Exception
@@ -1235,7 +1263,7 @@ Public Class MySettings
             Return 0.2
         End Get
         Set
-            SetMySetting("MinTimerInterval", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("MinTimerInterval", CStr(Value))
         End Set
     End Property
 
@@ -1244,7 +1272,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("MySqlRegionDBPort", "3306"))
         End Get
         Set
-            SetMySetting("MySqlRegionDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("MySqlRegionDBPort", CStr(Value))
         End Set
     End Property
 
@@ -1263,7 +1291,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("MySqlRobustDBPort", "3306"))
         End Get
         Set
-            SetMySetting("MySqlRobustDBPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("MySqlRobustDBPort", CStr(Value))
         End Set
     End Property
 
@@ -1272,7 +1300,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("MyX", "0".ToUpperInvariant))
         End Get
         Set
-            SetMySetting("MyX", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("MyX", CStr(Value))
         End Set
     End Property
 
@@ -1281,7 +1309,16 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("MyY", "0".ToUpperInvariant))
         End Get
         Set
-            SetMySetting("MyY", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("MyY", CStr(Value))
+        End Set
+    End Property
+
+    Public Property NinjaRagdoll() As Boolean
+        Get
+            Return CType(GetMySetting("NinjaRagdoll", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("NinjaRagdoll", CStr(Value))
         End Set
     End Property
 
@@ -1308,7 +1345,7 @@ Public Class MySettings
             Return CType(GetMySetting("OutBoundPermissions", "True"), Boolean)
         End Get
         Set
-            SetMySetting("OutBoundPermissions", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("OutBoundPermissions", CStr(Value))
         End Set
     End Property
 
@@ -1344,7 +1381,7 @@ Public Class MySettings
             Return CType(GetMySetting("Primlimits", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Primlimits", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Primlimits", CStr(Value))
         End Set
     End Property
 
@@ -1362,7 +1399,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("PrivatePort", "8003"))
         End Get
         Set
-            SetMySetting("PrivatePort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("PrivatePort", CStr(Value))
         End Set
     End Property
 
@@ -1375,21 +1412,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property NinjaRagdoll() As Boolean
-        Get
-            Return CType(GetMySetting("NinjaRagdoll", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("NinjaRagdoll", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
-        End Set
-    End Property
-
     Public Property RanAllDiags() As Boolean
         Get
             Return CType(GetMySetting("RanAllDiags", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RanAllDiags", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RanAllDiags", CStr(Value))
         End Set
     End Property
 
@@ -1425,7 +1453,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("RegionListView", "2"))
         End Get
         Set
-            SetMySetting("RegionListView", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RegionListView", CStr(Value))
         End Set
     End Property
 
@@ -1434,7 +1462,7 @@ Public Class MySettings
             Return CType(GetMySetting("RegionListVisible", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RegionListVisible", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RegionListVisible", CStr(Value))
         End Set
     End Property
 
@@ -1443,7 +1471,7 @@ Public Class MySettings
             Return CType(GetMySetting("Region_manager_is_god", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Region_manager_is_god", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Region_manager_is_god", CStr(Value))
         End Set
     End Property
 
@@ -1452,7 +1480,7 @@ Public Class MySettings
             Return CType(GetMySetting("Region_owner_is_god", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Region_owner_is_god", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Region_owner_is_god", CStr(Value))
         End Set
     End Property
 
@@ -1468,7 +1496,7 @@ Public Class MySettings
     Public Property RenderMaxHeight() As Double
         Get
             Try
-                Return Convert.ToDouble(GetMySetting("RenderMaxHeight", "4096"), Globalization.CultureInfo.InvariantCulture)
+                Return CDbl(GetMySetting("RenderMaxHeight", "4096"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -1476,7 +1504,7 @@ Public Class MySettings
 
         End Get
         Set
-            SetMySetting("RenderMaxHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RenderMaxHeight", CStr(Value))
         End Set
     End Property
 
@@ -1485,7 +1513,7 @@ Public Class MySettings
             Return CInt(GetMySetting("RenderMinHeight", "-100"))
         End Get
         Set
-            SetMySetting("RenderMinHeight", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RenderMinHeight", CStr(Value))
         End Set
     End Property
 
@@ -1494,7 +1522,7 @@ Public Class MySettings
             Return CType(GetMySetting("RestartOnCrash", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RestartOnCrash", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RestartOnCrash", CStr(Value))
         End Set
     End Property
 
@@ -1503,7 +1531,7 @@ Public Class MySettings
             Return CType(GetMySetting("RestartonPhysics", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RestartonPhysics", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RestartonPhysics", CStr(Value))
         End Set
     End Property
 
@@ -1530,7 +1558,7 @@ Public Class MySettings
             Return GetMySetting("RobustServer", "127.0.0.1")
         End Get
         Set
-            SetMySetting("RobustServer", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RobustServer", CStr(Value))
         End Set
     End Property
 
@@ -1548,7 +1576,7 @@ Public Class MySettings
             Return CType(GetMySetting("RunOnce", "False"), Boolean)
         End Get
         Set
-            SetMySetting("RunOnce", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("RunOnce", CStr(Value))
         End Set
     End Property
 
@@ -1566,7 +1594,7 @@ Public Class MySettings
             Return CType(GetMySetting("SC_Enable", "False"), Boolean)
         End Get
         Set
-            SetMySetting("SC_Enable", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SC_Enable", CStr(Value))
         End Set
     End Property
 
@@ -1584,7 +1612,7 @@ Public Class MySettings
             Return CType(GetMySetting("SC_PortBase", "8100"), Integer)
         End Get
         Set
-            SetMySetting("SC_PortBase", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SC_PortBase", CStr(Value))
         End Set
     End Property
 
@@ -1593,7 +1621,7 @@ Public Class MySettings
             Return CType(GetMySetting("SC_PortBase1", "8101"), Integer)
         End Get
         Set
-            SetMySetting("SC_PortBase1", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SC_PortBase1", CStr(Value))
         End Set
     End Property
 
@@ -1611,7 +1639,7 @@ Public Class MySettings
             Return CType(GetMySetting("SearchEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("SearchEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SearchEnabled", CStr(Value))
         End Set
     End Property
 
@@ -1620,7 +1648,7 @@ Public Class MySettings
             Return CType(GetMySetting("SearchMigration", "0".ToUpperInvariant), Integer)
         End Get
         Set
-            SetMySetting("SearchMigration", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SearchMigration", CStr(Value))
         End Set
     End Property
 
@@ -1629,7 +1657,7 @@ Public Class MySettings
             Return CType(GetMySetting("Sequential", "False"), Boolean)
         End Get
         Set
-            SetMySetting("Sequential", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Sequential", CStr(Value))
         End Set
     End Property
 
@@ -1657,7 +1685,7 @@ Public Class MySettings
             Return CType(GetMySetting("ShowToForeignUsers", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ShowToForeignUsers", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("ShowToForeignUsers", CStr(Value))
         End Set
     End Property
 
@@ -1666,7 +1694,7 @@ Public Class MySettings
             Return CType(GetMySetting("ShowToLocalUsers", "False"), Boolean)
         End Get
         Set
-            SetMySetting("ShowToLocalUsers", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("ShowToLocalUsers", CStr(Value))
         End Set
     End Property
 
@@ -1684,7 +1712,7 @@ Public Class MySettings
             Return CType(GetMySetting("SiteMap", "True"), Boolean)
         End Get
         Set
-            SetMySetting("SiteMap", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SiteMap", CStr(Value))
         End Set
     End Property
 
@@ -1720,7 +1748,7 @@ Public Class MySettings
             Return CType(GetMySetting("SmartStart", "False"), Boolean)
         End Get
         Set
-            SetMySetting("SmartStart", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SmartStart", CStr(Value))
         End Set
 
     End Property
@@ -1748,7 +1776,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("SmtpPort", "587"))
         End Get
         Set
-            SetMySetting("SmtpPort", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SmtpPort", CStr(Value))
         End Set
     End Property
 
@@ -1775,7 +1803,7 @@ Public Class MySettings
             Return CType(GetMySetting("Suitcase", "True"), Boolean)
         End Get
         Set
-            SetMySetting("Suitcase", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("Suitcase", CStr(Value))
         End Set
     End Property
 
@@ -1784,7 +1812,7 @@ Public Class MySettings
             Return CType(GetMySetting("SupportViewerObjectsCache", "True"), Boolean)
         End Get
         Set
-            SetMySetting("SupportViewerObjectsCache", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("SupportViewerObjectsCache", CStr(Value))
         End Set
     End Property
 
@@ -1802,7 +1830,7 @@ Public Class MySettings
             Return CType(GetMySetting("TideEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("TideEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("TideEnabled", CStr(Value))
         End Set
     End Property
 
@@ -1811,7 +1839,7 @@ Public Class MySettings
             Return CSng(GetMySetting("TideHighLevel", "20"))
         End Get
         Set
-            SetMySetting("TideHighLevel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("TideHighLevel", CStr(Value))
         End Set
     End Property
 
@@ -1820,7 +1848,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("TideInfoChannel", "5555"))
         End Get
         Set
-            SetMySetting("TideInfoChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("TideInfoChannel", CStr(Value))
         End Set
     End Property
 
@@ -1830,7 +1858,7 @@ Public Class MySettings
             Return CType(GetMySetting("TideInfoDebug", "False"), Boolean)
         End Get
         Set
-            SetMySetting("TideInfoDebug", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("TideInfoDebug", CStr(Value))
         End Set
     End Property
 
@@ -1839,7 +1867,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("TideLevelChannel", "5556"))
         End Get
         Set
-            SetMySetting("TideLevelChannel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("TideLevelChannel", CStr(Value))
         End Set
     End Property
 
@@ -1848,7 +1876,7 @@ Public Class MySettings
             Return CInt("0" & GetMySetting("TideLowLevel", "17"))
         End Get
         Set
-            SetMySetting("TideLowLevel", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("TideLowLevel", CStr(Value))
         End Set
     End Property
 
@@ -1857,7 +1885,7 @@ Public Class MySettings
             Return CType(GetMySetting("TOSEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("TOSEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("TOSEnabled", CStr(Value))
         End Set
     End Property
 
@@ -1866,7 +1894,7 @@ Public Class MySettings
             Return CType(GetMySetting("UPnpDiag", "False"), Boolean)
         End Get
         Set
-            SetMySetting("UPnpDiag", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("UPnpDiag", CStr(Value))
         End Set
     End Property
 
@@ -1875,7 +1903,7 @@ Public Class MySettings
             Return CType(GetMySetting("UPnPEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("UPnPEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("UPnPEnabled", CStr(Value))
         End Set
     End Property
 
@@ -1884,7 +1912,7 @@ Public Class MySettings
             Return CType(GetMySetting("VivoxEnabled", "False"), Boolean)
         End Get
         Set
-            SetMySetting("VivoxEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("VivoxEnabled", CStr(Value))
         End Set
     End Property
 
@@ -1930,7 +1958,7 @@ Public Class MySettings
             Return CType(GetMySetting("WifiEnabled", "True"), Boolean)
         End Get
         Set
-            SetMySetting("WifiEnabled", Convert.ToString(Value, Globalization.CultureInfo.InvariantCulture))
+            SetMySetting("WifiEnabled", CStr(Value))
         End Set
     End Property
 

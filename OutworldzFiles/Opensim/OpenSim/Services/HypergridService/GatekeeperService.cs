@@ -555,7 +555,7 @@ namespace OpenSim.Services.HypergridService
             }
 
             
-            destination= GetALTRegion(destination, agentID);      // DreamGrid fkb
+            // destination= GetALTRegion(destination, agentID);      // DreamGrid fkb
             
             
             m_log.DebugFormat(

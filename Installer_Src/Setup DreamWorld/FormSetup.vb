@@ -785,14 +785,12 @@ Public Class FormSetup
         PropExitHandlerIsBusy = False
         PropAborting = False
 
-        If Not StartRobust() Then Return False
+        Buttons(BusyButton)
 
-        Dim RegionName = Settings.WelcomeRegion
-        Dim UUID As String = PropRegionClass.FindRegionByName(RegionName)
-        PropRegionClass.CrashCounter(UUID) = 0
-
-        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+        If Not StartRobust() Then
+            Buttons(StopButton)
+            Return False
+        End If
 
         ' Reload
         If PropChangedRegionSettings Then
@@ -800,10 +798,18 @@ Public Class FormSetup
             PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
         End If
 
+        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+
         CopyFileFast(src, ini)
         Settings.Grep(ini, Settings.LogLevel)
 
-        If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
+        If Settings.ServerType = RobustServer Then
+            Dim RegionName = Settings.WelcomeRegion
+            Dim UUID As String = PropRegionClass.FindRegionByName(RegionName)
+            PropRegionClass.CrashCounter(UUID) = 0
+            If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
+        End If
 
         ' Boot them up
         For Each RegionUUID As String In PropRegionClass.RegionUuids()
@@ -828,7 +834,7 @@ Public Class FormSetup
         Dim DefaultName As String = ""
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
-        If RegionUUID.Length = 0 Then
+        If RegionUUID.Length = 0 And Settings.ServerType = RobustServer Then
             MsgBox(My.Resources.Default_Welcome, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
             TextPrint(My.Resources.Stopped_word)
 #Disable Warning CA2000 ' Dispose objects before losing scope
@@ -843,7 +849,8 @@ Public Class FormSetup
         End If
 
         TextPrint(My.Resources.Starting_word)
-        PropRegionClass.RegionEnabled(RegionUUID) = True
+
+        'PropRegionClass.RegionEnabled(RegionUUID) = True
 
         PropExitHandlerIsBusy = False
         PropAborting = False  ' suppress exit warning messages
@@ -903,7 +910,7 @@ Public Class FormSetup
             Return
         End If
 
-        If Not Settings.RunOnce And Settings.ServerType = "Robust" Then
+        If Not Settings.RunOnce And Settings.ServerType = RobustServer Then
 
             Using InitialSetup As New FormInitialSetup ' form for use and password
                 Dim ret = InitialSetup.ShowDialog()
@@ -1219,6 +1226,7 @@ Public Class FormSetup
             PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
+            Settings.Library = True ' no more need to load a library
         End While
 
         ' check to see if a handle to all regions exists
@@ -1234,7 +1242,6 @@ Public Class FormSetup
                 Dim G = PropRegionClass.GroupName(RegionUUID)
 
                 If GetHwnd(G) = IntPtr.Zero Then
-
                     Try
                         PropExitList.Add(G, "Exit")
                     Catch
@@ -2711,7 +2718,7 @@ Public Class FormSetup
 
     Private Shared Sub SetupWordPress()
 
-        If Settings.ServerType <> "Robust" Then Return
+        If Settings.ServerType <> RobustServer Then Return
         If Settings.CMS = "WordPress" Then
             'TextPrint(My.Resources.Setup_Wordpress)
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {

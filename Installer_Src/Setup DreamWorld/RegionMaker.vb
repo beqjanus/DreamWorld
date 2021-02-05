@@ -1393,7 +1393,7 @@ Public Class RegionMaker
     'TODO: Move to Mysql
     Shared Function GetAgentNameByUUID(uuid As String) As String
 
-        If Settings.ServerType <> "Robust" Then Return ""
+        If Settings.ServerType <> RobustServer Then Return ""
         Dim name As String = ""
         Using myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
             Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
@@ -1688,38 +1688,24 @@ Public Class RegionMaker
         Settings.SetIni("Const", "http_listener_port", CStr(GroupPort(uuid))) ' varies with region
 
         Select Case Settings.ServerType
-            Case "Robust"
+            Case RobustServer
                 SetupOpensimSearchINI()
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateIP())
                 Settings.SetIni("Const", "GridName", Settings.SimName)
                 SetupOpensimIM()
-            Case "Region"
+            Case RegionServer
                 SetupOpensimSearchINI()
                 SetupOpensimIM()
-            Case "OSGrid"
-            Case "Metro"
+            Case OsgridServer
+            Case MetroServer
         End Select
 
-        If Settings.CMS = JOpensim Then
+        If Settings.CMS = JOpensim And Settings.ServerType = RobustServer Then
             Settings.SetIni("UserProfiles", "ProfileServiceURL", "")
-        Else
-            Settings.SetIni("UserProfiles", "ProfileServiceURL", "${Const|BaseURL}:${Const|PublicPort}")
-        End If
-
-        If Settings.CMS = JOpensim Then
             Settings.SetIni("Groups", "Module", "GroupsModule")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface")
             Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
-        Else
-            Settings.SetIni("Groups", "Module", "Groups Module V2")
-            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "Groups HG Service Connector" & """")
-            Settings.SetIni("Groups", "MessagingModule", "Groups Messaging Module V2")
-            If Settings.ServerType = "Robust" Then
-                Settings.SetIni("Groups", "GroupsServerURI", "${Const|PrivURL}:${Const|PrivatePort}")
-            Else
-                Settings.SetIni("Groups", "GroupsServerURI", "${Const|BaseURL}:${Const|PrivatePort}")
-            End If
+            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface")
         End If
 
         Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
@@ -1763,7 +1749,7 @@ Public Class RegionMaker
         If Settings.LSLHTTP Then
             ' do nothing - let them edit it
         Else
-            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateIP() & "/32")
+            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateIP() & ":" & Settings.DiagnosticPort)
         End If
 
         Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))
@@ -1922,7 +1908,7 @@ Public Class RegionMaker
         Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
         Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
-        If Settings.ServerType = "Robust" Then
+        If Settings.ServerType = RobustServer Then
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
         Else
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
@@ -2209,7 +2195,7 @@ Public Class RegionMaker
 
     Private Shared Sub SetupOpensimSearchINI()
 
-        'Opensim.Proto RegionSnapShot
+        ' RegionSnapShot
         Settings.SetIni("DataSnapshot", "index_sims", "True")
         If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
             Settings.SetIni("DataSnapshot", "data_services", "")

@@ -25,9 +25,7 @@ Public Class FormServerType
 
 #Region "Private Fields"
 
-    Dim BaseHostName As String = ""
     Dim Changed As Boolean
-    Dim DNSName As String = ""
     Dim initted As Boolean
     Dim ServerType As String = ""
 
@@ -93,13 +91,13 @@ Public Class FormServerType
         SetScreen()
 
         Select Case Settings.ServerType
-            Case "Robust"
+            Case RobustServer
                 GridServerButton.Checked = True
-            Case "Region"
+            Case RegionServer
                 GridRegionButton.Checked = True
-            Case "OsGrid"
+            Case OsgridServer
                 osGridRadioButton1.Checked = True
-            Case "Metro"
+            Case MetroServer
                 MetroRadioButton2.Checked = True
             Case Else
                 GridServerButton.Checked = True
@@ -113,9 +111,6 @@ Public Class FormServerType
     Private Sub SaveAll()
 
         Settings.ServerType = ServerType
-        Settings.BaseHostName = BaseHostName
-        Settings.DNSName = DNSName
-
         Settings.SaveSettings()
         Changed = False ' do not trigger the save a second time
 
@@ -130,7 +125,7 @@ Public Class FormServerType
         If Not initted Then Return
         If Not GridRegionButton.Checked Then Return
 
-        ServerType = "Region"
+        ServerType = RegionServer
         ' do not override for grid servers
         Changed = True
 
@@ -142,11 +137,7 @@ Public Class FormServerType
         If Not GridServerButton.Checked Then Return
 
         Changed = True
-        ServerType = "Robust"
-
-    End Sub
-
-    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+        ServerType = RobustServer
 
     End Sub
 
@@ -155,9 +146,7 @@ Public Class FormServerType
         If Not initted Then Return
         If Not MetroRadioButton2.Checked Then Return
 
-        ServerType = "Metro"
-        DNSName = "hg.metro.land"
-        BaseHostName = "hg.metro.land"
+        ServerType = MetroServer
 
         Changed = True
 
@@ -168,9 +157,7 @@ Public Class FormServerType
         If Not initted Then Return
         If Not osGridRadioButton1.Checked Then Return
 
-        ServerType = "OsGrid"
-        DNSName = "hg.osgrid.org"
-        BaseHostName = "hg.osgrid.org"
+        ServerType = OsgridServer
 
         Changed = True
 
@@ -184,7 +171,6 @@ Public Class FormServerType
     End Sub
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-
         HelpManual("ServerType")
     End Sub
 

@@ -107,7 +107,7 @@ Public Class FormPorts
 
         ' only used for region servers that are not behind a NAT
         ExternalHostName.Text = Settings.OverrideName
-        If Settings.ServerType <> "Robust" Then
+        If Settings.ServerType <> RobustServer Then
             ExternalHostName.Enabled = True
         Else
             ExternalHostName.Text = ""

@@ -243,11 +243,16 @@ Module FileStuff
 
     End Sub
 
-    Public Function DelLibrary() As Boolean
+    Public Function MakeLibrary() As Boolean
 
         TextPrint("->Set Library")
-        DeleteFile(Settings.OpensimBinPath & "Library\Clothing Library (small).iar")
-        DeleteFile(Settings.OpensimBinPath & "Library\Objects Library (small).iar")
+
+        If Not Settings.Library Then
+            CopyFolder(Settings.OpensimBinPath & "Library.proto", Settings.OpensimBinPath & "Library")
+        Else
+            DeleteFile(Settings.OpensimBinPath & "Library\Clothing Library (small).iar")
+            DeleteFile(Settings.OpensimBinPath & "Library\Objects Library (small).iar")
+        End If
         Return False
 
     End Function

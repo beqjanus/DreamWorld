@@ -112,6 +112,7 @@ Public Class UPnp
     ''' <returns>String</returns>
     ''' <remarks></remarks>
     Public Shared Function LocalIPForced() As String
+
         Dim IPList As System.Net.IPHostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName)
 
         For Each IPaddress In IPList.AddressList
@@ -120,6 +121,7 @@ Public Class UPnp
                 Return ip
             End If
         Next
+
         Return String.Empty
     End Function
 
@@ -231,6 +233,7 @@ Public Class UPnp
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
+
         Return LIP
 
     End Function
