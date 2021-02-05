@@ -92,6 +92,7 @@ Module DNS
     Public Function SetPublicIP() As Boolean
 
         ' LAN USE
+        Settings.MacAddress = GetMacByIp(Settings.PublicIP)
 
         If Settings.DNSName.Length > 0 Then
             Settings.PublicIP = Settings.DNSName()
@@ -108,7 +109,6 @@ Module DNS
         Else
             Settings.PublicIP = PropMyUPnpMap.LocalIP
             TextPrint(My.Resources.Setup_Network)
-            Settings.MacAddress = GetMacByIp(Settings.PublicIP)
             Settings.SaveSettings()
         End If
 
@@ -159,7 +159,7 @@ Module DNS
         End If
 
         Settings.PublicIP = PropMyUPnpMap.LocalIP
-        Settings.MacAddress = GetMacByIp(Settings.PublicIP)
+
         Settings.SaveSettings()
 
         Return False

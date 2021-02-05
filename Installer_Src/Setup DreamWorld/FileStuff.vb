@@ -208,6 +208,7 @@ Module FileStuff
             End If
         Catch ex As Exception
         End Try
+        Sleep(100)
 
     End Sub
 
@@ -242,20 +243,6 @@ Module FileStuff
         Next
 
     End Sub
-
-    Public Function MakeLibrary() As Boolean
-
-        TextPrint("->Set Library")
-
-        If Not Settings.Library Then
-            CopyFolder(Settings.OpensimBinPath & "Library.proto", Settings.OpensimBinPath & "Library")
-        Else
-            DeleteFile(Settings.OpensimBinPath & "Library\Clothing Library (small).iar")
-            DeleteFile(Settings.OpensimBinPath & "Library\Objects Library (small).iar")
-        End If
-        Return False
-
-    End Function
 
     Public Sub ExpireApacheLogs()
 

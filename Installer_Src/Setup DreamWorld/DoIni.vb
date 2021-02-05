@@ -423,8 +423,6 @@ Module DoIni
 
         TextPrint(My.Resources.Creating_INI_Files_word)
 
-        If MakeLibrary() Then Return True  ' Library runs once.
-
         If DoRobust() Then Return True  ' Robust
         If DoGrid() Then Return True ' Grid.ini
         If DoGridCommon() Then Return True ' GridCommon.ini

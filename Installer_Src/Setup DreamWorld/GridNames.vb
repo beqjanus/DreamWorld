@@ -33,7 +33,6 @@ Module GridNames
 
         ' all private in case of local mode
         Settings.PublicIP = PropMyUPnpMap.LocalIP
-        Settings.MacAddress = GetMacByIp(Settings.PublicIP)
         Settings.PrivateIP = Settings.PublicIP
         Settings.BaseHostName = Settings.PublicIP
 
@@ -49,21 +48,23 @@ Module GridNames
             TextPrint(My.Resources.Server_Type_is & " Robust")
 
         ElseIf Settings.ServerType = OsgridServer Then
+
             Settings.DNSName = "hg.osgrid.org"
-            Settings.PublicIP = "hg.osgrid.org"
-            Settings.ExternalHostName = PublicIP.IP()
-            Settings.BaseHostName = Settings.PublicIP
-            TextPrint(My.Resources.Server_Type_is & " OSGrid")
-        ElseIf Settings.ServerType = RegionServer Then
-            TextPrint(My.Resources.Server_Type_is & " Region")
-            ' NO Settings.DNSName,  comes from the person
+            Settings.BaseHostName = "hg.osgrid.org"
             Settings.ExternalHostName = Settings.PublicIP
-            Settings.BaseHostName = Settings.PublicIP
+            TextPrint(My.Resources.Server_Type_is & " OSGrid")
+
+        ElseIf Settings.ServerType = RegionServer Then
+
+            ' Leave DNS Name alone - its the robust machine
+            Settings.ExternalHostName = Settings.PublicIP
+            Settings.BaseHostName = Settings.DNSName
+            TextPrint(My.Resources.Server_Type_is & " Region")
+
         ElseIf Settings.ServerType = MetroServer Then
-            Settings.DNSName = "hg.osgrid.org"
-            Settings.PublicIP = "hg.osgrid.org"
-            Settings.ExternalHostName = PublicIP.IP()
-            Settings.BaseHostName = Settings.PublicIP
+            Settings.DNSName = "metro.land"
+            Settings.ExternalHostName = Settings.PublicIP
+            Settings.BaseHostName = "metro.land"
             TextPrint(My.Resources.Server_Type_is & " Metro")
         End If
 
@@ -75,7 +76,7 @@ Module GridNames
         Dim n = Settings.DNSName
         If n.Length = 0 Then n = "(none)"
 
-        TextPrint("WAN IP  = " & PublicIP.IP)
+        TextPrint("WAN IP  = " & Settings.PublicIP)
         TextPrint("LAN IP  = " & Settings.PrivateIP())
         TextPrint("DNS     = " & n)
         TextPrint("Region  = " & Settings.ExternalHostName)

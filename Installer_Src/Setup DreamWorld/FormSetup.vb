@@ -194,6 +194,17 @@ Public Class FormSetup
         End Set
     End Property
 
+    ' TODO:  Implement PropChangedRegionSettings as a dictionary in a module we can prompt for restart with
+    Public Property PropChangedRegionSettings As Boolean
+        Get
+            Return ViewedSettings
+        End Get
+        Set(value As Boolean)
+            Diagnostics.Debug.Print("ViewedSettings =" & value)
+            ViewedSettings = value
+        End Set
+    End Property
+
     Public Property PropCurSlashDir As String
         Get
             Return _CurSlashDir
@@ -297,17 +308,6 @@ Public Class FormSetup
     End Property
 
     Public Property PropUseIcons As Boolean
-
-    ' TODO:  Implement PropChangedRegionSettings as a dictionary in a module we can prompt for restart with
-    Public Property PropChangedRegionSettings As Boolean
-        Get
-            Return ViewedSettings
-        End Get
-        Set(value As Boolean)
-            Diagnostics.Debug.Print("ViewedSettings =" & value)
-            ViewedSettings = value
-        End Set
-    End Property
 
     Public Property PropWebServer As NetServer
         Get
@@ -1226,7 +1226,7 @@ Public Class FormSetup
             PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
-            Settings.Library = True ' no more need to load a library
+
         End While
 
         ' check to see if a handle to all regions exists

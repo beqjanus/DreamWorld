@@ -90,7 +90,7 @@ Public Class ListViewColumnSorter
     ''' </summary>
     ''' <param name="x"></param>
     ''' <param name="y"></param>
-    ''' <returns> 1 if >, -1 if <, 0 if the ssame </returns>
+    ''' <returns> 1 if >, -1 if <, 0 if the same </returns>
     Private Function IComparer_Compare(x As Object, y As Object) As Integer Implements IComparer.Compare
 
         If x Is Nothing Then Return 0
