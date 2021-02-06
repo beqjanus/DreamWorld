@@ -3,30 +3,13 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
 Imports System.IO
-Imports System.Net.Sockets
 Imports System.Text.RegularExpressions
 Imports System.Threading
-Imports MySql.Data.MySqlClient
 Imports Ionic.Zip
+Imports MySql.Data.MySqlClient
 
 Public Module MysqlInterface
     Private WithEvents ProcessMySql As Process = New Process()
@@ -87,12 +70,12 @@ Public Module MysqlInterface
         TextPrint(My.Resources.Mysql_Starting)
 
         ' SAVE INI file
-        If Settings.LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#") Then Return True
+        Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#")
         Settings.SetIni("mysqld", "basedir", """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
         Settings.SetIni("mysqld", "datadir", """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
         Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
         Settings.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
-        Settings.SaveINI(System.Text.Encoding.ASCII)
+        Settings.SaveINI(INI, System.Text.Encoding.ASCII)
 
         ' create test program slants the other way:
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StartManually.bat")
@@ -366,6 +349,58 @@ Public Module MysqlInterface
         Return ""
 
     End Function
+
+    Public Sub SetupMutelist()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .FileName = "Create_Mutelist.bat",
+                .UseShellExecute = True,
+                .CreateNoWindow = False,
+                .WindowStyle = ProcessWindowStyle.Minimized,
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
+            }
+        Using Mutelist As Process = New Process With {
+                .StartInfo = pi
+            }
+
+            Try
+                Mutelist.Start()
+                Mutelist.WaitForExit()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog("Could not create Mutelist Database: " & ex.Message)
+                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                Return
+            End Try
+        End Using
+
+    End Sub
+
+    Public Sub SetupWordPress()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .FileName = "Create_WordPress.bat",
+            .UseShellExecute = True,
+            .CreateNoWindow = False,
+            .WindowStyle = ProcessWindowStyle.Minimized,
+            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
+        }
+        Using MysqlWordpress As Process = New Process With {
+            .StartInfo = pi
+        }
+
+            Try
+                MysqlWordpress.Start()
+                MysqlWordpress.WaitForExit()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog("Could not create WordPress Database: " & ex.Message)
+                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                Return
+            End Try
+        End Using
+
+    End Sub
 
     Public Function WhereisAgent(agentName As String) As String
 

@@ -1,6 +1,6 @@
 <icecast>
-<hostname>192.168.2.139</hostname>
-<location>DreamGrid</location>
+<hostname>hg.osgrid.org</hostname>
+<location>ALT</location>
 <admin>not@set.yet</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
 <listen-socket>

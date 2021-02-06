@@ -3,28 +3,11 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
 Imports System.IO
 
 Imports System.Text.RegularExpressions
-Imports MySql.Data
 Imports MySql.Data.MySqlClient
 Imports Newtonsoft.Json
 
@@ -316,7 +299,7 @@ Public Class RegionMaker
                         For Each ini As String In inis
                             fName = System.IO.Path.GetFileNameWithoutExtension(ini)
 
-                            Settings.LoadIni(ini, ";")
+                            Dim i = Settings.LoadIni(ini, ";")
 
                             uuid = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
                             Dim SomeUUID As New Guid
@@ -412,6 +395,7 @@ Public Class RegionMaker
                                 End If
 
                             End If
+                            Settings.SaveINI(ini, System.Text.Encoding.UTF8)
                             Application.DoEvents()
                         Next
                     Catch ex As Exception
@@ -421,6 +405,7 @@ Public Class RegionMaker
                         GetAllRegionsIsBusy = False
                         Return -1
                     End Try
+
                 Next
             Next
 
@@ -524,7 +509,7 @@ Public Class RegionMaker
 
         For Each uuid As String In RegionUuids()
             Dim Name = RegionName(uuid)
-            Settings.LoadIni(RegionPath(uuid), ";")
+            Dim ini = Settings.LoadIni(RegionPath(uuid), ";")
 
             Settings.SetIni(Name, "InternalPort", CStr(Portnumber))
             RegionPort(uuid) = Portnumber
@@ -532,7 +517,7 @@ Public Class RegionMaker
             GroupPort(uuid) = Portnumber
             Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
 
-            Settings.SaveINI(System.Text.Encoding.UTF8)
+            Settings.SaveINI(ini, System.Text.Encoding.UTF8)
             Portnumber += 1
         Next
 
@@ -1673,9 +1658,7 @@ Public Class RegionMaker
         CopyFileFast(GetOpensimProto(), IO.Path.Combine(pathname, "Opensim.ini"))
 
         ' Load Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(IO.Path.Combine(pathname, "Opensim.ini"), ";") Then
-            Return True
-        End If
+        Dim INI = Settings.LoadIni(IO.Path.Combine(pathname, "Opensim.ini"), ";")
 
         Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
         Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
@@ -1738,7 +1721,7 @@ Public Class RegionMaker
         ' Get Opensimulator Scripts to date if needed
         If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
 
-            ClrCache.WipeScripts()
+            WipeScripts()
             Settings.DeleteScriptsOnStartupLevel() = PropSimVersion ' we have scripts cleared to proper Opensim Version
 
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
@@ -2062,20 +2045,18 @@ Public Class RegionMaker
 
         Settings.SetIni("SmartStart", "Enabled", SmartStart(uuid))
 
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.SaveINI(INI, System.Text.Encoding.UTF8)
 
         '============== Region.ini =====================
         ' Opensim.ini in Region Folder specific to this region
-        If Settings.LoadIni(RegionPath(uuid), ";") Then
-            Return True
-        End If
+        INI = Settings.LoadIni(RegionPath(uuid), ";")
 
         Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid)))
         Settings.SetIni(Name, "ExternalHostName", FormSetup.ExternLocalServerName())
 
         Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid)))
 
-        ' not a standard INI, only use by the Dreamers
+        ' not a standard  only use by the Dreamers
         If RegionEnabled(uuid) Then
             Settings.SetIni(Name, "Enabled", "True")
         Else
@@ -2171,7 +2152,7 @@ Public Class RegionMaker
         Settings.SetIni(Name, "Physics", Physics(uuid))
         Settings.SetIni(Name, "FrameTime", FrameTime(uuid))
 
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.SaveINI(INI, System.Text.Encoding.UTF8)
 
         Settings.SaveSettings()
 

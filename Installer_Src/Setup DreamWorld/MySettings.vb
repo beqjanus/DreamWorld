@@ -3,22 +3,6 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
 Imports System.IO
@@ -33,11 +17,9 @@ Public Class MySettings
     Private Const DreamGrid As String = "DreamGrid"
     Private Const JOpensim As String = "JOpensim"
 
-    Dim Apachein As New List(Of String)
-    Dim Apacheout As New List(Of String)
-
-    Dim INI As String = ""
-
+    Private ReadOnly Apachein As New List(Of String)
+    Private ReadOnly Apacheout As New List(Of String)
+    Dim _INIBusy As Integer
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
     Dim Myparser As IniParser.FileIniDataParser
@@ -147,9 +129,23 @@ Public Class MySettings
 
 #End Region
 
-    Public Function LoadIni(arg As String, comment As String) As Boolean
+    Public Function LoadIni(arg As String, comment As String) As String
 
-        'Log(My.Resources.Info_word, "Loading INI " & arg)
+        Dim ctr = 50 ' 5 seconds
+        If _INIBusy > 0 Then
+            BreakPoint.Show("INI IN use!")
+            Return ""
+            While _INIBusy > 0 And ctr > 0
+                Sleep(10)
+                Application.DoEvents()
+                ctr -= 1
+            End While
+        End If
+        If ctr <= 0 Then
+            _INIBusy = 0
+        End If
+        _INIBusy += 1
+
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -160,10 +156,10 @@ Public Class MySettings
             BreakPoint.Show(ex.Message)
             MsgBox(ex.Message)
             Logger("Warn", ex.Message, "Error")
-            Return True
+            Return ""
         End Try
-        INI = arg
-        Return False
+
+        Return arg
     End Function
 
     Public Sub LoadSettingsIni(File As String)
@@ -187,12 +183,12 @@ Public Class MySettings
 
     End Sub
 
-    Public Sub SaveINI(encoding As System.Text.Encoding)
+    Public Sub SaveINI(Filename As String, encoding As System.Text.Encoding)
 
         Dim Retry As Integer = 100 ' 10 sec
         While Retry > 0
             Try
-                parser.WriteFile(INI, SettingsData, encoding)
+                parser.WriteFile(Filename, SettingsData, encoding)
                 Retry = 0
             Catch ex As Exception
                 ErrorLog("Error:" + ex.Message)
@@ -200,6 +196,7 @@ Public Class MySettings
                 Thread.Sleep(100)
             End Try
         End While
+        _INIBusy -= 1
 
     End Sub
 
@@ -770,6 +767,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -1935,24 +1950,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
-        End Set
-    End Property
-
 #End Region
 
 #Region "Grep"
@@ -1981,7 +1978,7 @@ Public Class MySettings
                     End Using
                 End Using
                 Retry = 0
-            Catch
+            Catch ex As Exception
                 Retry -= 1
                 Sleep(100)
             End Try

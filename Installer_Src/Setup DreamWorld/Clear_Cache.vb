@@ -1,185 +1,161 @@
-﻿Imports System.IO
+﻿#Region "Copyright AGPL3.0"
+
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
+
+Imports System.IO
 
 Module Clear_Cache
 
-#Region "Copyright AGPL3.0"
-
-    ' Copyright Outworldz, LLC.
-    ' AGPL3.0  https://opensource.org/licenses/AGPL
-
-    'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-    ' And associated documentation files (the "Software"), to deal in the Software without restriction,
-    'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-    'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-    'Do so, subject To the following conditions:
-
-    'The above copyright notice And this permission notice shall be included In all copies Or '
-    'substantial portions Of the Software.
-
-    'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-    ' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-    'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-    'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-    'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-    'DEALINGS IN THE SOFTWARE.Imports System
-
-#End Region
-
-    Public Class ClrCache
-
-#Region "Public Constructors"
-
-#End Region
-
 #Region "Public Methods"
 
-        Public Shared Sub WipeAssets()
+    Public Sub WipeAssets()
 
-            TextPrint(My.Resources.Clearing_Assets)
-            Dim folders() = Nothing
-            Dim Flotsam As String = Settings.CacheFolder
-            If Flotsam.ToUpperInvariant = ".\ASSETCACHE" Then
-                Flotsam = Settings.OpensimBinPath & "assetcache"
-            End If
-            If Directory.Exists(Flotsam) Then
-                folders = Directory.GetDirectories(Flotsam, "*", SearchOption.TopDirectoryOnly)
-            End If
-            Dim ctr As Integer = 0
-            If folders IsNot Nothing Then
+        TextPrint(My.Resources.Clearing_Assets)
+        Dim folders() = Nothing
+        Dim Flotsam As String = Settings.CacheFolder
+        If Flotsam.ToUpperInvariant = ".\ASSETCACHE" Then
+            Flotsam = Settings.OpensimBinPath & "assetcache"
+        End If
+        If Directory.Exists(Flotsam) Then
+            folders = Directory.GetDirectories(Flotsam, "*", SearchOption.TopDirectoryOnly)
+        End If
+        Dim ctr As Integer = 0
+        If folders IsNot Nothing Then
 
-                For Each folder As String In folders
-                    DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
-                    ctr += 1
-                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
-                    Application.DoEvents()
-                Next
-            End If
-            TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
+            For Each folder As String In folders
+                DeleteDirectory(folder, FileIO.DeleteDirectoryOption.DeleteAllContents)
+                ctr += 1
+                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
+                Application.DoEvents()
+            Next
+        End If
+        TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " folders")
 
-            Dim files() = Nothing
+        Dim files() = Nothing
+        Try
+            files = IO.Directory.GetFiles(Flotsam)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+        ctr = 0
+        If files IsNot Nothing Then
+            For Each file As String In files
+                DeleteFile(file)
+                ctr += 1
+                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                Application.DoEvents()
+            Next
+            TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+        End If
+
+    End Sub
+
+    Public Sub WipeBakes()
+
+        TextPrint(My.Resources.Clearing_Bake_Cache_word)
+        Dim files() = Nothing
+        If Directory.Exists(Settings.OpensimBinPath & "bakes\") Then
             Try
-                files = IO.Directory.GetFiles(Flotsam)
+                files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
+        End If
 
-            ctr = 0
-            If files IsNot Nothing Then
-                For Each file As String In files
-                    DeleteFile(file)
-                    ctr += 1
-                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-                    Application.DoEvents()
-                Next
-                TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-            End If
-
-        End Sub
-
-        Public Shared Sub WipeBakes()
-
-            TextPrint(My.Resources.Clearing_Bake_Cache_word)
-            Dim files() = Nothing
-            If Directory.Exists(Settings.OpensimBinPath & "bakes\") Then
-                Try
-                    files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            End If
-
-            If files IsNot Nothing Then
-                Dim ctr As Integer = 0
-                For Each file As String In files
-                    DeleteFile(file)
-                    ctr += 1
-                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-                    Application.DoEvents()
-                Next
-                TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-            End If
-
-        End Sub
-
-        Public Shared Sub WipeImage()
-
-            TextPrint(My.Resources.Clearing_Image_Cache_word)
-            Dim files() = Nothing
-            If Directory.Exists(Settings.OpensimBinPath & "j2kDecodeCache\") Then
-                Try
-                    files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            End If
-
-            If files IsNot Nothing Then
-                Dim ctr As Integer = 0
-                For Each file As String In files
-                    DeleteFile(file)
-                    ctr += 1
-                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-                    Application.DoEvents()
-                Next
-                TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-            End If
-
-        End Sub
-
-        Public Shared Sub WipeMesh()
-
-            TextPrint(My.Resources.Clearing_Mesh_Cache_word)
-
-            Dim files() = Nothing
-            If Directory.Exists(Settings.OpensimBinPath & "MeshCache\") Then
-                Try
-                    files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            End If
-
+        If files IsNot Nothing Then
             Dim ctr As Integer = 0
-            If files IsNot Nothing Then
-                For Each file As String In files
-                    DeleteFile(file)
-                    ctr += 1
-                    If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-                    Application.DoEvents()
-                Next
-            End If
+            For Each file As String In files
+                DeleteFile(file)
+                ctr += 1
+                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                Application.DoEvents()
+            Next
             TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
-        End Sub
+        End If
 
-        Public Shared Sub WipeScripts()
+    End Sub
 
-            If Not PropOpensimIsRunning() Then
-                Dim ctr As Integer = 0
-                Dim folders() = Nothing
-                If Directory.Exists(Settings.OpensimBinPath & "ScriptEngines\") Then
-                    folders = Directory.GetFiles(Settings.OpensimBinPath & "ScriptEngines\", "*", SearchOption.AllDirectories)
-                    If folders IsNot Nothing Then
-                        TextPrint(My.Resources.Clearing_Script)
+    Public Sub WipeImage()
 
-                        For Each script As String In folders
-                            Dim ext = Path.GetExtension(script)
-                            If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
-                                DeleteFile(script)
-                                ctr += 1
-                                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+        TextPrint(My.Resources.Clearing_Image_Cache_word)
+        Dim files() = Nothing
+        If Directory.Exists(Settings.OpensimBinPath & "j2kDecodeCache\") Then
+            Try
+                files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
 
-                                Application.DoEvents()
-                            End If
-                        Next
-                    End If
+        If files IsNot Nothing Then
+            Dim ctr As Integer = 0
+            For Each file As String In files
+                DeleteFile(file)
+                ctr += 1
+                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                Application.DoEvents()
+            Next
+            TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+        End If
+
+    End Sub
+
+    Public Sub WipeMesh()
+
+        TextPrint(My.Resources.Clearing_Mesh_Cache_word)
+
+        Dim files() = Nothing
+        If Directory.Exists(Settings.OpensimBinPath & "MeshCache\") Then
+            Try
+                files = IO.Directory.GetFiles(Settings.OpensimBinPath & "j2kDecodeCache\")
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
+
+        Dim ctr As Integer = 0
+        If files IsNot Nothing Then
+            For Each file As String In files
+                DeleteFile(file)
+                ctr += 1
+                If ctr Mod 100 = 0 Then TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+                Application.DoEvents()
+            Next
+        End If
+        TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
+    End Sub
+
+    Public Sub WipeScripts()
+
+        If Not PropOpensimIsRunning() Then
+            Dim ctr As Integer = 0
+            Dim folders() = Nothing
+            If Directory.Exists(Settings.OpensimBinPath & "ScriptEngines\") Then
+                folders = Directory.GetFiles(Settings.OpensimBinPath & "ScriptEngines\", "*", SearchOption.AllDirectories)
+                If folders IsNot Nothing Then
+                    TextPrint(My.Resources.Clearing_Script)
+
+                    For Each script As String In folders
+                        Dim ext = Path.GetExtension(script)
+                        If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
+                            DeleteFile(script)
+                            ctr += 1
+                            If ctr Mod 100 = 0 Then TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+
+                            Application.DoEvents()
+                        End If
+                    Next
                 End If
-                TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
             End If
+            TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
+        End If
 
-        End Sub
+    End Sub
 
 #End Region
-
-    End Class
 
 End Module

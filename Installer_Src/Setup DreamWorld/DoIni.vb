@@ -54,8 +54,6 @@ Module DoIni
             Application.DoEvents()
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-            If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then Return True
-
             If Settings.BirdsModuleStartup And PropRegionClass.Birds(RegionUUID) = "True" Then
 
                 BirdData = BirdData & "[" & RegionName & "]" & vbCrLf &
@@ -90,6 +88,7 @@ Module DoIni
             "BirdsAllowedControllers = ESTATE_OWNER, ESTATE_MANAGER" & vbCrLf & vbCrLf & vbCrLf
 
             End If
+
         Next
         IO.File.WriteAllText(BirdFile, BirdData, System.Text.Encoding.Default) 'The text file will be created if it does not already exist
 
@@ -101,7 +100,7 @@ Module DoIni
 
         'Gloebits.ini
 
-        If Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";") Then Return True
+        Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";")
 
         Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
         Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
@@ -127,7 +126,7 @@ Module DoIni
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
         End If
 
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
 
         Return False
 
@@ -182,7 +181,7 @@ Module DoIni
 
         DoEditForeigners()
 
-        If Settings.LoadIni(d, ";") Then Return True
+        Dim filename = Settings.LoadIni(d, ";")
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
@@ -193,7 +192,7 @@ Module DoIni
             Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "false")
         End If
 
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
         Return False
 
     End Function
@@ -399,9 +398,9 @@ Module DoIni
 
     Public Function DoWhoGotWhat() As Boolean
 
-        If Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";") Then Return True
+        Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";")
         Settings.SetIni("WhoGotWhat", "MachineID", Settings.MachineID)
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
         Return False
 
     End Function
@@ -446,11 +445,9 @@ Module DoIni
     Public Function SetRegionINI(regionname As String, key As String, value As String) As Boolean
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(regionname)
-        If Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";") Then
-            Return True
-        End If
+        Dim filename = Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";")
         Settings.SetIni(regionname, key, value)
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
         Return False
 
     End Function
@@ -534,13 +531,13 @@ Module DoIni
 
     Private Function DoFlotsamINI() As Boolean
 
-        If Settings.LoadIni(Settings.OpensimBinPath & "config-include\FlotsamCache.ini", ";") Then Return True
+        Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-include\FlotsamCache.ini", ";")
         TextPrint("->Set Flotsam Cache")
         Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
         Settings.SetIni("AssetCache", "FileCacheEnabled", CStr(Settings.CacheEnabled))
         Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
-        Settings.SaveINI(System.Text.Encoding.ASCII)
+        Settings.SaveINI(filename, System.Text.Encoding.ASCII)
         Return False
 
     End Function
@@ -641,13 +638,12 @@ Module DoIni
 
         ' There are two Wifi's so search will work
 
-        If Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Wifi.ini", ";") Then Return True
+        Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Wifi.ini", ";")
         TextPrint("->Set Diva Wifi page")
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
 
-        If Settings.LoadIni(Settings.OpensimBinPath & "Wifi.ini", ";") Then Return True
-
+        filename = Settings.LoadIni(Settings.OpensimBinPath & "Wifi.ini", ";")
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         If Settings.ServerType = RobustServer Then ' wifi could be on or off
@@ -686,7 +682,7 @@ Module DoIni
             Settings.SetIni("WifiService", "AccountConfirmationRequired", "False")
         End If
 
-        Settings.SaveINI(System.Text.Encoding.UTF8)
+        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
         Return False
 
     End Function

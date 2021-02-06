@@ -3,33 +3,25 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
 Imports System.IO
 Imports System.Net
 
-Public Class UploadImage
-    Implements IDisposable
+Module UploadImage
 
     Private _busy As Boolean
 
-#Region "Public Methods"
+    Public Property Busy As Boolean
+        Get
+            Return _busy
+        End Get
+        Set(value As Boolean)
+            _busy = value
+        End Set
+    End Property
+
+#Region "Upload File"
 
     Public Sub PostContentUploadFile(File As String, CGI As Uri)
 
@@ -64,14 +56,10 @@ Public Class UploadImage
 
     End Sub
 
-#Disable Warning CA1822 ' Mark members as static
-
     Public Sub UploadCategory()
-#Enable Warning CA1822 ' Mark members as static
 
         If Settings.DNSName.Length = 0 Then Return
 
-        'PHASE 2, upload Description and Categories
         Dim result As String = Nothing
         If Settings.Categories.Length = 0 Then Return
 
@@ -109,11 +97,19 @@ Public Class UploadImage
 
     End Sub
 
-#Disable Warning CA1822 ' Mark members as static
+    Public Sub UploadPhoto()
 
-#End Region
+        ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
+        If Settings.GDPR() Then
+            UploadCategory()
+            If System.IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")) Then
+                Dim CGI As Uri = New Uri("https://outworldz.com/cgi/uploadphoto.plx")
+                Dim Photo As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
+                PostContentUploadFile(Photo, CGI)
+            End If
+        End If
 
-#Region "Private Methods"
+    End Sub
 
     Private Sub RequestStreamAvailable(ByVal ar As IAsyncResult)
         Dim r_State As HttpRequestState = TryCast(ar.AsyncState, HttpRequestState)
@@ -131,56 +127,57 @@ Public Class UploadImage
         End Try
 
         Try
-            Dim sw As StreamWriter = New StreamWriter(reqStream)
+            Using sw As StreamWriter = New StreamWriter(reqStream)
 
-            ' blank line
-            sw.WriteLine()
-            Debug.Print("")
+                ' blank line
+                sw.WriteLine()
+                Debug.Print("")
 
-            For Each key As String In r_State.Params.Keys
+                For Each key As String In r_State.Params.Keys
+                    sw.WriteLine("--" & boundary)
+                    Debug.Print("--" & boundary)
+
+                    sw.WriteLine(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", key))
+                    Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", key))
+                    sw.WriteLine()
+                    Debug.Print("")
+                    sw.WriteLine(WebUtility.UrlEncode(r_State.Params(key)))
+                    Debug.Print(WebUtility.UrlEncode(r_State.Params(key)))
+                Next
+
                 sw.WriteLine("--" & boundary)
                 Debug.Print("--" & boundary)
 
-                sw.WriteLine(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", key))
-                Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", key))
+                sw.WriteLine(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
+                Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
+
+                sw.Write(String.Format(Globalization.CultureInfo.InvariantCulture, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
+                Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
+
                 sw.WriteLine()
                 Debug.Print("")
-                sw.WriteLine(WebUtility.UrlEncode(r_State.Params(key)))
-                Debug.Print(WebUtility.UrlEncode(r_State.Params(key)))
-            Next
+                sw.WriteLine("Content-Type: application/octet-stream")
+                Debug.Print("Content-Type: application/octet-stream")
+                sw.WriteLine()
+                Debug.Print("")
+                Dim buffer(1024) As Byte, bytesRead As Integer
+                sw.Flush()
 
-            sw.WriteLine("--" & boundary)
-            Debug.Print("--" & boundary)
+                Using fileStream As FileStream = New FileStream(r_State.FileName, FileMode.Open, FileAccess.Read)
+                    Do
+                        bytesRead = fileStream.Read(buffer, 0, buffer.Length)
+                        If bytesRead > 0 Then
+                            sw.BaseStream.Write(buffer, 0, bytesRead)
+                        End If
+                    Loop While (bytesRead > 0)
+                End Using
 
-            sw.WriteLine(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
-            Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "Content-Disposition: form-data; name=""{0}""", "FILE1"))
+                sw.BaseStream.Flush()
+                sw.Write(vbNewLine & "--" & boundary & "--" & vbNewLine)
+                Debug.Print(vbNewLine & "--" & boundary & "--" & vbNewLine)
 
-            sw.Write(String.Format(Globalization.CultureInfo.InvariantCulture, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
-            Debug.Print(String.Format(Globalization.CultureInfo.InvariantCulture, "filename=""{0}""", WebUtility.UrlEncode(IO.Path.GetFileName(r_State.FileName))))
-
-            sw.WriteLine()
-            Debug.Print("")
-            sw.WriteLine("Content-Type: application/octet-stream")
-            Debug.Print("Content-Type: application/octet-stream")
-            sw.WriteLine()
-            Debug.Print("")
-            Dim buffer(1024) As Byte, bytesRead As Integer
-            sw.Flush()
-
-            Using fileStream As FileStream = New FileStream(r_State.FileName, FileMode.Open, FileAccess.Read)
-                Do
-                    bytesRead = fileStream.Read(buffer, 0, buffer.Length)
-                    If bytesRead > 0 Then
-                        sw.BaseStream.Write(buffer, 0, bytesRead)
-                    End If
-                Loop While (bytesRead > 0)
+                sw.Flush()
             End Using
-
-            sw.BaseStream.Flush()
-            sw.Write(vbNewLine & "--" & boundary & "--" & vbNewLine)
-            Debug.Print(vbNewLine & "--" & boundary & "--" & vbNewLine)
-
-            sw.Flush()
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -225,19 +222,13 @@ Public Class UploadImage
 
 #End Region
 
-#Region "Private Classes"
+#Region "HttpRequestState  Class"
 
     Private Class HttpRequestState
-
-#Region "Public Fields"
 
         Public FileName As String
         Public Params As Specialized.NameValueCollection
         Public Request As HttpWebRequest
-
-#End Region
-
-#Region "Public Constructors"
 
         Public Sub New(ByRef _req As HttpWebRequest, ByVal _param As Specialized.NameValueCollection, ByVal _file As String)
             Me.Request = _req
@@ -249,49 +240,7 @@ Public Class UploadImage
 
     End Class
 
-#Region "IDisposable Support"
-
-    Private disposedValue As Boolean ' To detect redundant calls
-
-    Public Property Busy As Boolean
-        Get
-            Return _busy
-        End Get
-        Set(value As Boolean)
-            _busy = value
-        End Set
-    End Property
-
-    ' This code added by Visual Basic to correctly implement the disposable pattern.
-    Public Sub Dispose() Implements IDisposable.Dispose
-        ' Do not change this code. Put cleanup code in Dispose(disposing As Boolean) above.
-        Dispose(True)
-
-        GC.SuppressFinalize(Me)
-    End Sub
-
-    ' IDisposable
-    Protected Overridable Sub Dispose(disposing As Boolean)
-        If Not disposedValue Then
-            If disposing Then
-
-            End If
-        End If
-        disposedValue = True
-    End Sub
-
-    '
-    'Protected Overrides Sub Finalize()
-    '    ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
-    '    Dispose(False)
-    '    MyBase.Finalize()
-    'End Sub
-
-#End Region
-
-#End Region
-
-End Class
+End Module
 
 'multipart/form-data; boundary=--------------------20190207-0157
 '----------------------20190207-0157

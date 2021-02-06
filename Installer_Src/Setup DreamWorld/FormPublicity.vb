@@ -3,25 +3,10 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
 Imports System.Text.RegularExpressions
+Imports System.IO
 
 Public Class FormPublicity
 
@@ -33,8 +18,8 @@ Public Class FormPublicity
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
@@ -88,8 +73,7 @@ Public Class FormPublicity
         Dim tmp = DescriptionBox.Text.Replace(vbCrLf, "<br>")
         Settings.Description = tmp
 
-        Dim Myupload As New UploadImage
-        Myupload.UploadCategory()
+        UploadCategory()
         Settings.SaveSettings()
 
     End Sub
@@ -101,17 +85,22 @@ Public Class FormPublicity
         GroupBox11.Text = Global.Outworldz.My.Resources.Photo_Word
         GroupBox2.Text = Global.Outworldz.My.Resources.Description_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
-        PictureBox9.InitialImage = Global.Outworldz.My.Resources.ClicktoInsertPhoto
+        PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto
         Text = Global.Outworldz.My.Resources.Publicity_Word
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        ViewHyperica.Text = Global.Outworldz.My.Resources.View_word
 
         SetScreen()
 
         GDPRCheckBox.Checked = Settings.GDPR()
 
+        Dim p = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
         Try
-            Dim p = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
-            If System.IO.File.Exists(p) Then PictureBox9.Image = Bitmap.FromFile(p)
+            If File.Exists(p) Then
+                Using stream As New IO.FileStream(p, FileMode.Open, FileAccess.Read)
+                    PictureBox9.Image = Image.FromStream(stream)
+                End Using
+            End If
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             PictureBox9.Image = Global.Outworldz.My.Resources.ClicktoInsertPhoto
@@ -120,9 +109,7 @@ Public Class FormPublicity
         tmp = tmp.Replace("<br>", vbCrLf)
         DescriptionBox.Text = tmp
 
-#Disable Warning BC42016 ' Implicit conversion
-        Dim cats = Settings.Categories.Split(",")
-#Enable Warning BC42016 ' Implicit conversion
+        Dim cats = Settings.Categories.Split(",".ToCharArray())
 
         For Each itemname In cats
             Dim Index = CategoryCheckbox.FindStringExact(itemname)
@@ -140,6 +127,16 @@ Public Class FormPublicity
 
 #Region "Clicks"
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewHyperica.Click
+
+        Dim webAddress As String = "https://hyperica.com"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+    End Sub
+
     Private Sub CategoryCheckbox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CategoryCheckbox.SelectedIndexChanged
 
         Dim Index = CategoryCheckbox.SelectedIndex
@@ -153,41 +150,46 @@ Public Class FormPublicity
     End Sub
 
     Private Sub PictureBox9_Click(sender As Object, e As EventArgs) Handles PictureBox9.Click
-        Dim ofd As New OpenFileDialog With {
+        Using ofd As New OpenFileDialog With {
             .Filter = Global.Outworldz.My.Resources.picfilter,
             .FilterIndex = 1,
             .Multiselect = False
         }
-        If ofd.ShowDialog = DialogResult.OK Then
-            If ofd.FileName.Length > 0 Then
+            If ofd.ShowDialog = DialogResult.OK Then
+                If ofd.FileName.Length > 0 Then
 
-                Dim pattern As Regex = New Regex("PNG$|png$")
-                Dim match As Match = pattern.Match(ofd.FileName)
-                If Not match.Success Then
-                    MsgBox(My.Resources.Must_PNG, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-                    Return
+                    Dim pattern As Regex = New Regex("PNG$|png$")
+                    Dim match As Match = pattern.Match(ofd.FileName)
+                    If Not match.Success Then
+                        MsgBox(My.Resources.Must_PNG, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+                        Return
+                    End If
+
+                    PictureBox9.Image = Nothing
+                    Try
+
+                        PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
+
+                        DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"))
+                        Dim newBitmap = New Bitmap(PictureBox9.Image)
+                        newBitmap.Save(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), Imaging.ImageFormat.Png)
+                        newBitmap.Dispose()
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                        ErrorLog("Save Photo " & ex.Message)
+                        Return
+                    End Try
+
+                    UploadPhoto()
                 End If
-
-                PictureBox9.Image = Nothing
-                Try
-                    PictureBox9.Image = Bitmap.FromFile(ofd.FileName)
-
-                    DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"))
-                    Dim newBitmap = New Bitmap(PictureBox9.Image)
-                    newBitmap.Save(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), Imaging.ImageFormat.Png)
-                    newBitmap.Dispose()
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                    ErrorLog("Save Photo " & ex.Message)
-                    Return
-                End Try
-
-                FormSetup.UploadPhoto()
-
             End If
-        End If
+        End Using
 
     End Sub
+
+#Region "Upload"
+
+#End Region
 
     Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles DescriptionBox.TextChanged
 

@@ -3,22 +3,6 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
 #Region "To do"
@@ -29,16 +13,12 @@
 
 Imports System.Globalization
 Imports System.IO
-Imports System.IO.Compression
 Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
 Imports System.Net.Sockets
-Imports System.Text
-Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
-Imports System.Diagnostics.Process
 
 Public Class FormSetup
 
@@ -49,6 +29,7 @@ Public Class FormSetup
     Private WithEvents UpdateProcess As New Process()
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
+    Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private ReadOnly MyCPUCollection As New List(Of Double)
@@ -74,7 +55,6 @@ Public Class FormSetup
     Private _StopMysql As Boolean = True
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
-    Private BootedList As New List(Of String)
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
@@ -749,26 +729,6 @@ Public Class FormSetup
 
     End Sub
 
-#Region "Upload"
-
-    Public Shared Sub UploadPhoto()
-
-        ''' <summary>Upload in a separate thread the photo, if any. Cannot be called unless main web server is known to be on line.</summary>
-        If Settings.GDPR() Then
-            Dim Myupload As New UploadImage
-            Myupload.UploadCategory()
-            If System.IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")) Then
-                Dim CGI As Uri = New Uri("https://outworldz.com/cgi/uploadphoto.plx")
-                Dim Photo As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
-                Myupload.PostContentUploadFile(Photo, CGI)
-            End If
-
-        End If
-
-    End Sub
-
-#End Region
-
 #Region "StartOpensim"
 
     Public Shared Sub StopGroup(Groupname As String)
@@ -798,10 +758,7 @@ Public Class FormSetup
             PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
         End If
 
-        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config.proto")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-
-        CopyFileFast(src, ini)
         Settings.Grep(ini, Settings.LogLevel)
 
         If Settings.ServerType = RobustServer Then
@@ -894,10 +851,11 @@ Public Class FormSetup
             Return
         End If
 
+        ' create tables in case we need them
         SetupWordPress()
+        SetupMutelist()
 
         StartApache()
-
         StartIcecast()
 
         UploadPhoto()
@@ -2716,36 +2674,6 @@ Public Class FormSetup
 
 #Region "Things"
 
-    Private Shared Sub SetupWordPress()
-
-        If Settings.ServerType <> RobustServer Then Return
-        If Settings.CMS = "WordPress" Then
-            'TextPrint(My.Resources.Setup_Wordpress)
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .FileName = "Create_WordPress.bat",
-                .UseShellExecute = True,
-                .CreateNoWindow = False,
-                .WindowStyle = ProcessWindowStyle.Minimized,
-                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
-            }
-            Using MysqlWordpress As Process = New Process With {
-                .StartInfo = pi
-            }
-
-                Try
-                    MysqlWordpress.Start()
-                    MysqlWordpress.WaitForExit()
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                    ErrorLog("Could not create WordPress Database: " & ex.Message)
-                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                    Return
-                End Try
-            End Using
-        End If
-
-    End Sub
-
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
         TextPrint(My.Resources.Grid_Address_is_word & vbCrLf & "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
@@ -2822,28 +2750,29 @@ Public Class FormSetup
 
         TextPrint("MySQL " & Global.Outworldz.My.Resources.Stopping_word)
 
-        Dim p As Process = New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+        Using p As Process = New Process()
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "--port " & CStr(Settings.MySqlRobustDBPort) & " -u root shutdown",
             .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqladmin.exe") & """",
             .UseShellExecute = True, ' so we can redirect streams and minimize
             .WindowStyle = ProcessWindowStyle.Hidden
         }
-        p.StartInfo = pi
+            p.StartInfo = pi
 
-        Try
-            p.Start()
-            MysqlInterface.IsRunning = False    ' mark all as not running
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-        Application.DoEvents()
-        Try
-            p.WaitForExit()
-            p.Close()
-        Catch
+            Try
+                p.Start()
+                MysqlInterface.IsRunning = False    ' mark all as not running
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Application.DoEvents()
+            Try
+                p.WaitForExit()
+                p.Close()
+            Catch
 
-        End Try
+            End Try
+        End Using
 
         MySQLIcon(False)
         If MysqlInterface.IsMySqlRunning() Then

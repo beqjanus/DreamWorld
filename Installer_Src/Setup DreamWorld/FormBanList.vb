@@ -1,6 +1,5 @@
 ﻿Imports System.Globalization
 Imports System.Net
-Imports System.Text.RegularExpressions
 
 Public Class FormBanList
 

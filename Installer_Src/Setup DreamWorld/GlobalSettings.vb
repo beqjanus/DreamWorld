@@ -1,6 +1,5 @@
 ﻿Imports System.IO
 Imports System.Threading
-Imports IniParser
 Imports IniParser.Model
 
 Module GlobalSettings
@@ -18,10 +17,10 @@ Module GlobalSettings
 
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
-    Public Const RobustServer As String = "Robust"
-    Public Const RegionServer As String = "Region"
-    Public Const OsgridServer As String = "OsGrid"
     Public Const MetroServer As String = "Metro"
+    Public Const OsgridServer As String = "OsGrid"
+    Public Const RegionServer As String = "Region"
+    Public Const RobustServer As String = "Robust"
 
 #End Region
 
@@ -29,13 +28,13 @@ Module GlobalSettings
 
     Dim _Data As IniParser.Model.IniData
     Private _IsRunning As Boolean
+    Private _lastbackup As Integer
     Private _mySetting As New MySettings
     Private _PropAborting As Boolean
     Private _regionClass As RegionMaker
     Private _SelectedBox As String = ""
     Private _UpdateView As Boolean = True
     Private _XYINI As String ' global XY INI
-    Private _lastbackup As Integer
 
 #End Region
 

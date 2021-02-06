@@ -3,22 +3,6 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
 Public Class FormRegionPopup
@@ -179,17 +163,19 @@ Public Class FormRegionPopup
         Dim GroupName As String = PropRegionClass.GroupName(UUID)
         Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Regions\" & GroupName & "\OpenSim.log")
 
-        Dim Baretail As New Process
-        Baretail.StartInfo.UseShellExecute = True ' so we can redirect streams
-        Baretail.StartInfo.FileName = "baretail.exe"
-        Baretail.StartInfo.Arguments = """" & path & """"
-        Baretail.StartInfo.WorkingDirectory = Settings.CurrentDirectory
-        Baretail.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-        Try
-            Baretail.Start()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+        Using Baretail As New Process
+            Baretail.StartInfo.UseShellExecute = True ' so we can redirect streams
+            Baretail.StartInfo.FileName = "baretail.exe"
+            Baretail.StartInfo.Arguments = """" & path & """"
+            Baretail.StartInfo.WorkingDirectory = Settings.CurrentDirectory
+            Baretail.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Try
+                Baretail.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles StatsButton1.Click

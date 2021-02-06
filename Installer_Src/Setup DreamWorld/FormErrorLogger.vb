@@ -20,10 +20,8 @@
                 End If
             End Using
 
-            Dim Myupload As New UploadImage
             Dim CGI = New Uri("https://outworldz.com/cgi/uploadcrash.plx")
-            Myupload.PostContentUploadFile(path, CGI)
-
+            PostContentUploadFile(path, CGI)
             DeleteFile(path)
         Catch
         End Try

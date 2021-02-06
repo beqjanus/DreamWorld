@@ -1,4 +1,11 @@
-﻿Module OAR
+﻿#Region "Copyright AGPL3.0"
+
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
+
+Module OAR
     Private _ForceMerge As Boolean
     Private _ForceParcel As Boolean
     Private _ForceTerrain As Boolean = True

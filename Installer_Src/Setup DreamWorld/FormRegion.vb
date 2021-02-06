@@ -3,22 +3,6 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
 Imports System.ComponentModel
@@ -825,6 +809,15 @@ Public Class FormRegion
 
 #Region "Physics"
 
+    Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
+
+        If Physics_Bullet.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
     Private Sub Physics_Default_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then
@@ -855,15 +848,6 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
-
-        If Physics_Bullet.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 
         If Publish.Checked Then
@@ -882,6 +866,16 @@ Public Class FormRegion
         End If
         If Initted1 Then Changed1 = True
 
+    End Sub
+
+    Private Sub RChanged(sender As Object, e As EventArgs) Handles RegionName.TextChanged
+        If Len(RegionName.Text) > 0 And Initted1 Then
+            If Not FilenameIsOK(RegionName.Text) Then
+                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+                Return
+            End If
+            If Initted1 Then Changed1 = True
+        End If
     End Sub
 
     Private Function RegionValidate() As String
@@ -976,16 +970,6 @@ Public Class FormRegion
     Private Sub RLost(sender As Object, e As EventArgs) Handles RegionName.LostFocus
         RegionName.Text = RegionName.Text.Trim() ' remove spaces
         If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub RChanged(sender As Object, e As EventArgs) Handles RegionName.TextChanged
-        If Len(RegionName.Text) > 0 And Initted1 Then
-            If Not FilenameIsOK(RegionName.Text) Then
-                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-                Return
-            End If
-            If Initted1 Then Changed1 = True
-        End If
     End Sub
 
     Private Sub ScriptTimerTextBox_focusChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.LostFocus
@@ -1605,6 +1589,15 @@ Public Class FormRegion
 
     End Sub
 
+    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
+
+        If Physics_Hybrid.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Hybrid")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
 
         If Physics_Separate.Checked Then
@@ -1627,15 +1620,6 @@ Public Class FormRegion
 
         If Physics_Bullet.Checked Then
             Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
-
-        If Physics_Hybrid.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Hybrid")
         End If
         If Initted1 Then Changed1 = True
 

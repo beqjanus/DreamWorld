@@ -3,26 +3,10 @@
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL
 
-'Permission Is hereby granted, free Of charge, to any person obtaining a copy of this software
-' And associated documentation files (the "Software"), to deal in the Software without restriction,
-'including without limitation the rights To use, copy, modify, merge, publish, distribute, sublicense,
-'And/Or sell copies Of the Software, And To permit persons To whom the Software Is furnished To
-'Do so, subject To the following conditions:
-
-'The above copyright notice And this permission notice shall be included In all copies Or '
-'substantial portions Of the Software.
-
-'THE SOFTWARE Is PROVIDED "AS IS", WITHOUT WARRANTY Of ANY KIND, EXPRESS Or IMPLIED,
-' INCLUDING BUT Not LIMITED To THE WARRANTIES Of MERCHANTABILITY, FITNESS For A PARTICULAR
-'PURPOSE And NONINFRINGEMENT.In NO Event SHALL THE AUTHORS Or COPYRIGHT HOLDERS BE LIABLE
-'For ANY CLAIM, DAMAGES Or OTHER LIABILITY, WHETHER In AN ACTION Of CONTRACT, TORT Or
-'OTHERWISE, ARISING FROM, OUT Of Or In CONNECTION With THE SOFTWARE Or THE USE Or OTHER
-'DEALINGS IN THE SOFTWARE.Imports System
-
 #End Region
 
-Imports System.Threading
 Imports System.IO
+Imports System.Threading
 Imports Ionic.Zip
 
 Public Class Backups
@@ -83,9 +67,9 @@ Public Class Backups
                 outputFile.Write("use " & Name & ";" + vbCrLf)
             End Using
 
-            Dim ProcessSqlDump As Process = New Process With {
-            .EnableRaisingEvents = True
-        }
+            Dim ProcessSqlDump = New Process With {
+                .EnableRaisingEvents = True
+            }
 
             Dim port As String
             Dim host As String
@@ -107,12 +91,12 @@ Public Class Backups
             End If
 
             Dim options = " --host=" & host & " --port=" & port _
-        & " --opt --hex-blob --add-drop-table --allow-keywords  " _
-        & " -u" & user _
-        & " -p" & password _
-        & " --verbose --log-error=Mysqldump.log " _
-        & " --result-file=" & """" & SQLFile & """" _
-        & " " & dbname
+                & " --opt --hex-blob --add-drop-table --allow-keywords  " _
+                & " -u" & user _
+                & " -p" & password _
+                & " --verbose --log-error=Mysqldump.log " _
+                & " --result-file=" & """" & SQLFile & """" _
+                & " " & dbname
             Debug.Print(options)
             '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
             ' --verbose --log-error=Mysqldump.log
@@ -137,13 +121,14 @@ Public Class Backups
             End Try
 
             ProcessSqlDump.WaitForExit()
+            ProcessSqlDump.Close()
 
             Dim Bak = IO.Path.Combine(_folder, _filename & ".zip")
             DeleteFile(Bak)
 
             Using Zip As ZipFile = New ZipFile(Bak)
                 Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
-                Zip.AddFile(SQLFile)
+                Zip.AddFile(SQLFile, "/")
                 Zip.Save()
             End Using
             Sleep(10000)
@@ -279,7 +264,7 @@ Public Class Backups
                     f = Settings.BaseDirectory
                 End If
 
-                Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f))
+                Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f), "FSAssets")
             End If
         Catch ex As Exception
             Break(ex.Message)

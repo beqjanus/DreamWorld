@@ -2,10 +2,9 @@
 
 Module CPUCounter
 
+    Private ReadOnly _counterList As New Dictionary(Of String, PerformanceCounter)
+    Private ReadOnly _CPUValues As New Dictionary(Of String, Double)
     Private OpensimProcesses() As Process
-
-    Private _counterList As New Dictionary(Of String, PerformanceCounter)
-    Private _CPUValues As New Dictionary(Of String, Double)
 
     Public ReadOnly Property CounterList As Dictionary(Of String, PerformanceCounter)
         Get
@@ -66,14 +65,6 @@ Module CPUCounter
         End Try
     End Sub
 
-    Public Function GetPerfCounterForProcessId(ByVal processId As Integer, ByVal Optional processCounterName As String = "% Processor Time") As PerformanceCounter
-
-        Dim instance As String = GetInstanceNameForProcessId(processId)
-        If String.IsNullOrEmpty(instance) Then Return Nothing
-        Return New PerformanceCounter("Process", processCounterName, instance)
-
-    End Function
-
     Public Function GetInstanceNameForProcessId(ByVal processId As Integer) As String
 
         Try
@@ -96,6 +87,14 @@ Module CPUCounter
         End Try
 
         Return Nothing
+    End Function
+
+    Public Function GetPerfCounterForProcessId(ByVal processId As Integer, ByVal Optional processCounterName As String = "% Processor Time") As PerformanceCounter
+
+        Dim instance As String = GetInstanceNameForProcessId(processId)
+        If String.IsNullOrEmpty(instance) Then Return Nothing
+        Return New PerformanceCounter("Process", processCounterName, instance)
+
     End Function
 
 End Module
