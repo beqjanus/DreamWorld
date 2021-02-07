@@ -6,7 +6,6 @@
 #End Region
 
 Imports System.IO
-Imports System.Net.Sockets
 
 Public Module Firewall
 

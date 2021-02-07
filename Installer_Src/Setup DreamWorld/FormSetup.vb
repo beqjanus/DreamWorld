@@ -16,7 +16,6 @@ Imports System.IO
 Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
-Imports System.Net.Sockets
 Imports System.Threading
 Imports IWshRuntimeLibrary
 
@@ -535,14 +534,15 @@ Public Class FormSetup
 
         Next
 
-        Dim counter = 600 ' 10 minutes to quit all regions
+        Dim LastCount As Integer = 0
+        Dim counter As Integer = 6000 ' 10 minutes to quit all regions
 
         ' only wait if the port 8001 is working
         If PropUseIcons Then
             If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
 
             While (counter > 0 And PropOpensimIsRunning())
-                Sleep(1000)
+                Sleep(100)
                 Application.DoEvents()
                 counter -= 1
                 Dim CountisRunning As Integer = 0
@@ -568,11 +568,15 @@ Public Class FormSetup
 
                 ExitHandlerPoll()
 
-                If CountisRunning = 1 Then
-                    TextPrint(My.Resources.One_region)
-                Else
-                    TextPrint(CStr(CountisRunning) & " " & Global.Outworldz.My.Resources.Regions_Are_Running)
+                If CountisRunning <> LastCount Then
+                    If CountisRunning = 1 Then
+                        TextPrint(My.Resources.One_region)
+                    Else
+                        TextPrint(CStr(CountisRunning) & " " & Global.Outworldz.My.Resources.Regions_Are_Running)
+                    End If
                 End If
+
+                LastCount = CountisRunning
 
                 If CountisRunning = 0 Then
                     counter = 0
@@ -1068,8 +1072,6 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
-
-        MysqlInterface.DeregisterRegions(True)
 
     End Sub
 
@@ -2675,22 +2677,17 @@ Public Class FormSetup
 
             Try
                 p.Start()
-                MysqlInterface.IsRunning = False    ' mark all as not running
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-            Application.DoEvents()
-            Try
+                MysqlInterface.IsRunning = False
+                Application.DoEvents()
                 p.WaitForExit()
-                p.Close()
             Catch
-
             End Try
+
         End Using
 
         MySQLIcon(False)
         If MysqlInterface.IsMySqlRunning() Then
-            MysqlInterface.IsRunning = True    ' mark all as  running
+            MysqlInterface.IsRunning = True    ' mark all as running
             MySQLIcon(True)
         End If
 

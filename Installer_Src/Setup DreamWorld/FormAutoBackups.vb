@@ -175,7 +175,7 @@ Public Class FormAutoBackups
 
 #Region "Help"
 
-    Private Shared Sub BackupFolderDialog()
+    Private Sub BackupFolderDialog()
 
         'Create an instance of the open file dialog box.
         Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
@@ -188,6 +188,7 @@ Public Class FormAutoBackups
                 Dim thing = openFileDialog1.SelectedPath
                 If thing.Length > 0 Then
                     Settings.BackupFolder = thing
+                    BaseFolder.Text = thing
                     Settings.SaveSettings()
                 End If
             End If

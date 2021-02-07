@@ -137,7 +137,7 @@ Public Class FormDNSName
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton1.Click
 
         SaveAll()
-
+        Close()
     End Sub
 
     Private Sub SuitcaseCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles SuitcaseCheckbox.CheckedChanged
