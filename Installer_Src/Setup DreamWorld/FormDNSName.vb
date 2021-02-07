@@ -126,33 +126,9 @@ Public Class FormDNSName
     Private Sub SaveAll()
 
         NextNameButton.Text = Global.Outworldz.My.Resources.Saving_word
-        Dim address As System.Net.IPAddress = Nothing
-
-        If DNSNameBox.Text.Length = 0 Then
-            Settings.PublicIP = IP()
-            Settings.DNSName = ""
-        Else
-
-            Settings.DNSName = DNSNameBox.Text
-            RegisterName(DNSNameBox.Text, True)
-
-            Try
-                If IPAddress.TryParse(DNSNameBox.Text, address) Then
-                    Settings.PublicIP = IP()
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
-
-        If DNSAliasTextBox.Text.Length > 0 Then
-            Dim L() = DNSAliasTextBox.Text.Split(Convert.ToChar(",", Globalization.CultureInfo.InvariantCulture))
-            For Each N In L
-                RegisterName(N, True)
-            Next
-        End If
 
         Settings.SaveSettings()
+        SetPublicIP()
 
         If UniqueId.Text.Length > 0 Then Me.Close()
 
@@ -181,21 +157,21 @@ Public Class FormDNSName
 
         Dim address As System.Net.IPAddress = Nothing
         If DNSNameBox.Text.Length = 0 Then
-            Settings.PublicIP = IP()
+            Settings.PublicIP = WANIP()
         Else
             Settings.PublicIP = DNSNameBox.Text
-            RegisterName(Settings.PublicIP, True)    ' force it to register
+            RegisterName(Settings.PublicIP)    ' force it to register
 
             Try
                 If IPAddress.TryParse(DNSNameBox.Text, address) Then
-                    Dim IP = FormSetup.GetHostAddresses(DNSNameBox.Text)
+                    Dim IP = GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
                         MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     Else
                         MsgBox(DNSNameBox.Text + " " & Global.Outworldz.My.Resources.resolved & " " & IP, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                     End If
                 Else
-                    Dim IP = FormSetup.GetHostAddresses(DNSNameBox.Text)
+                    Dim IP = GetHostAddresses(DNSNameBox.Text)
                     If IP.Length = 0 Then
                         MsgBox(My.Resources.Cannot_resolve_word & " " & DNSNameBox.Text, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     Else
@@ -212,12 +188,12 @@ Public Class FormDNSName
                     Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
                     For Each part As String In array
 
-                        RegisterName(part, False)
+                        RegisterName(part)
 
                         If IPAddress.TryParse(part, address) Then
                             MsgBox(Global.Outworldz.My.Resources.resolved & " " & part, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
                         Else
-                            Dim IP = FormSetup.GetHostAddresses(part)
+                            Dim IP = GetHostAddresses(part)
                             If IP.Length = 0 Then
                                 MsgBox(My.Resources.Cannot_resolve_word & " " & part, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                             Else
@@ -251,6 +227,7 @@ Public Class FormDNSName
             DNSNameBox.Text = DNSNameBox.Text.Replace("https://", "")
 
         End If
+        Settings.DNSName = DNSNameBox.Text
 
     End Sub
 

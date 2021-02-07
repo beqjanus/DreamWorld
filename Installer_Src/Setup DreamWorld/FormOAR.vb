@@ -230,7 +230,7 @@ Public Class FormOAR
                 Me.Hide()
                 LoadOARContent(File)
             ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
-                FormSetup.LoadIARContent(File)
+                LoadIARContent(File)
             End If
         Catch ex As Exception
             BreakPoint.Show(ex.Message)

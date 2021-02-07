@@ -124,7 +124,7 @@ Public Class FormPorts
 
         Settings.DiagnosticPort = CInt("0" & DiagnosticPort.Text)
         Settings.SaveSettings()
-        FormSetup.CheckDefaultPorts()
+        CheckDefaultPorts()
 
     End Sub
 
@@ -159,7 +159,7 @@ Public Class FormPorts
         HTTPPort.Text = digitsOnly.Replace(HTTPPort.Text, "")
         Settings.HttpPort = CInt("0" & HTTPPort.Text)
         Settings.SaveSettings()
-        FormSetup.CheckDefaultPorts()
+        CheckDefaultPorts()
 
     End Sub
 
@@ -175,7 +175,7 @@ Public Class FormPorts
         PrivatePort.Text = digitsOnly.Replace(PrivatePort.Text, "")
         Settings.PrivatePort = CInt("0" & PrivatePort.Text)
         Settings.SaveSettings()
-        FormSetup.CheckDefaultPorts()
+        CheckDefaultPorts()
 
     End Sub
 

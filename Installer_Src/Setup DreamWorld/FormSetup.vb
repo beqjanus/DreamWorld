@@ -354,86 +354,6 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Public Shared"
-
-    Public Shared Sub CheckDefaultPorts()
-
-        If Settings.DiagnosticPort = Settings.HttpPort _
-        Or Settings.DiagnosticPort = Settings.PrivatePort _
-        Or Settings.HttpPort = Settings.PrivatePort Then
-            Settings.DiagnosticPort = 8001
-            Settings.HttpPort = 8002
-            Settings.PrivatePort = 8003
-
-            MsgBox(My.Resources.Port_Error, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
-        End If
-
-    End Sub
-
-    Public Shared Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
-
-        Log(My.Resources.Info_word, "Checking port " & CStr(Port))
-        Dim success As Boolean
-        Dim result As IAsyncResult = Nothing
-        Using ClientSocket As New TcpClient
-            Try
-                result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
-                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5))
-
-                ClientSocket.EndConnect(result)
-            Catch ex As Exception
-                ' no Breakpoint needed
-                success = False
-            End Try
-
-            If success Then
-                Log(My.Resources.Info_word, " port probe success on port " & CStr(Port))
-                Return True
-            End If
-
-        End Using
-        Log(My.Resources.Info_word, " port probe fail on port " & CStr(Port))
-        Return False
-
-    End Function
-
-    Public Shared Function ExternLocalServerName() As String
-        ''' <summary>Gets the External Host name which can be either the Public IP or a Host name.</summary>
-        ''' <returns>Host for regions</returns>
-        Dim Host As String
-
-        If Settings.ExternalHostName.Length > 0 Then
-            Host = Settings.ExternalHostName
-        Else
-            Host = Settings.PublicIP
-        End If
-        Return Host
-
-    End Function
-
-    Public Shared Function GetHostAddresses(hostName As String) As String
-
-        Try
-            Dim IPList As IPHostEntry = System.Net.Dns.GetHostEntry(hostName)
-
-            For Each IPaddress In IPList.AddressList
-                If (IPaddress.AddressFamily = Sockets.AddressFamily.InterNetwork) Then
-                    Dim ip = IPaddress.ToString()
-                    Return ip
-                End If
-                Application.DoEvents()
-            Next
-            Return String.Empty
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            ErrorLog("Warn:Unable to resolve name: " & ex.Message)
-        End Try
-        Return String.Empty
-
-    End Function
-
-#End Region
-
 #Region "Public Function"
 
     Public Shared Function AvatarsIsInGroup(groupname As String) As Boolean
@@ -755,9 +675,9 @@ Public Class FormSetup
         ' Reload
         If PropChangedRegionSettings Then
             PropRegionClass.GetAllRegions()
-            PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
+            PropRegionClass.UpdateAllRegionPorts()
         End If
-
+        Application.DoEvents()
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
         Settings.Grep(ini, Settings.LogLevel)
 
@@ -767,6 +687,7 @@ Public Class FormSetup
             PropRegionClass.CrashCounter(UUID) = 0
             If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
         End If
+        Application.DoEvents()
 
         ' Boot them up
         For Each RegionUUID As String In PropRegionClass.RegionUuids()
@@ -814,8 +735,6 @@ Public Class FormSetup
 
         ToolBar(False)
 
-        GridNames.SetServerNames()
-
         If Settings.Language.Length = 0 Then
             Settings.Language = "en-US"
         End If
@@ -830,11 +749,6 @@ Public Class FormSetup
                 Settings.AutoRestartInterval = BTime + 30
                 TextPrint(My.Resources.AutorestartTime & " " & CStr(BTime) & " + 30 min.")
             End If
-        End If
-
-        TextPrint("DNS")
-        If SetPublicIP() Then
-            OpenPorts()
         End If
 
         If SetIniData() Then
@@ -1768,9 +1682,10 @@ Public Class FormSetup
             IO.File.Copy(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm.bak"), IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm"))
         End If
 
-        GridNames.SetServerNames()
-
         CheckDefaultPorts()
+
+        SetPublicIP()
+        OpenPorts()
 
         Application.DoEvents()
         SetQuickEditOff()
@@ -2168,7 +2083,6 @@ Public Class FormSetup
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                     End Try
-                    Exit For
                 End Using
             End If
         Next
@@ -2892,13 +2806,7 @@ Public Class FormSetup
         If SecondsTicker Mod 3600 = 0 And SecondsTicker > 0 Then
 
             TextPrint(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
-
-            RegisterName(Settings.DNSName, True)
-            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
-            For Each part As String In array
-                RegisterName(part, True)
-            Next
-
+            SetPublicIP()
             ExpireApacheLogs()
             Application.DoEvents()
         End If
@@ -3265,45 +3173,6 @@ Public Class FormSetup
 #End Region
 
 #Region "IAR OAR"
-
-    Public Function LoadIARContent(thing As String) As Boolean
-
-        ' handles IARS clicks
-        If Not PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
-            Return False
-        End If
-
-        Dim UUID As String = ""
-
-        ' find one that is running
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                UUID = RegionUUID
-                Exit For
-            End If
-            Application.DoEvents()
-        Next
-        If UUID.Length = 0 Then
-            MsgBox(My.Resources.No_Regions_Ready, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-            Return False
-        End If
-
-        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"",  ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
-
-        Dim user As String = InputBox(My.Resources.Enter_1_2)
-
-        If user.Length > 0 Then
-            ConsoleCommand(UUID, "load iar --merge " & user & " " & Path & " " & """" & thing & """")
-            SendMessage(UUID, "IAR content Is loading")
-            TextPrint(My.Resources.isLoading & vbCrLf & Path)
-        Else
-            TextPrint(My.Resources.Canceled_IAR)
-        End If
-        Me.Focus()
-        Return True
-
-    End Function
 
     Public Sub RestartAllRegions()
 

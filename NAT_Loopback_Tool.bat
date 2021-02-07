@@ -5,7 +5,7 @@ REM Mods for Dreamgrid by Fred Beckhusen
 REM The network interface that needs to be set to the external IP
 REM Adjust this! 
 REM (You will receive help if you start the script with a non-existent interface.)
-set Interface=%1%
+set Interface=%*
 
 REM Thanks to this internet service, we can get the IP without frills
 Set URL="http://api.ipify.org/"
@@ -27,8 +27,9 @@ echo Found: %NewIP%
 REM Fire up the Loopback adapter with the external IP address
 echo Setting interface %Interface% to external IP (OS is %OS%)
 REM netsh needs OS differentiation
-IF "%OS%"=="Windows_NT" netsh interface ip set address name=%Interface% source=static addr=%NewIP%  mask=255.255.255.0
-IF NOT "%OS%"=="Windows_NT" netsh interface ipv4 set address name=%Interface% source=static addr=%NewIP%  mask=255.255.255.0
+echo netsh interface ip set address name="%Interface%" source=static addr=%NewIP%  mask=255.255.255.0
+IF "%OS%"=="Windows_NT" netsh interface ip set address name="%Interface%" source=static addr=%NewIP%  mask=255.255.255.0
+IF NOT "%OS%"=="Windows_NT" netsh interface ipv4 set address name="%Interface%" source=static addr=%NewIP%  mask=255.255.255.0
 goto end
 
 errorNoIP:

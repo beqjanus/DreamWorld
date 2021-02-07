@@ -5,14 +5,78 @@
 
 #End Region
 
+Imports System.Net
+Imports System.Net.Sockets
+
 Module PublicIP
 
-    Public Function IP() As String
+    Public Sub CheckDefaultPorts()
+
+        If Settings.DiagnosticPort = Settings.HttpPort _
+        Or Settings.DiagnosticPort = Settings.PrivatePort _
+        Or Settings.HttpPort = Settings.PrivatePort Then
+            Settings.DiagnosticPort = 8001
+            Settings.HttpPort = 8002
+            Settings.PrivatePort = 8003
+
+            MsgBox(My.Resources.Port_Error, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+        End If
+
+    End Sub
+
+    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
+
+        Log(My.Resources.Info_word, "Checking port " & CStr(Port))
+        Dim success As Boolean
+        Dim result As IAsyncResult = Nothing
+        Using ClientSocket As New TcpClient
+            Try
+                result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
+                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5))
+                ClientSocket.EndConnect(result)
+            Catch ex As Exception
+                ' no Breakpoint needed
+                success = False
+            End Try
+
+            If success Then
+                Log(My.Resources.Info_word, " port probe success on port " & CStr(Port))
+                Return True
+            End If
+
+        End Using
+        Log(My.Resources.Info_word, " port probe fail on port " & CStr(Port))
+        Return False
+
+    End Function
+
+    Public Function GetHostAddresses(hostName As String) As String
+
+        Try
+            Dim IPList As IPHostEntry = System.Net.Dns.GetHostEntry(hostName)
+
+            For Each IPaddress In IPList.AddressList
+                If (IPaddress.AddressFamily = Sockets.AddressFamily.InterNetwork) Then
+                    Dim ip = IPaddress.ToString()
+                    Return ip
+                End If
+                Application.DoEvents()
+            Next
+            Return String.Empty
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+            ErrorLog("Warn:Unable to resolve name: " & ex.Message)
+        End Try
+        Return String.Empty
+
+    End Function
+
+    Public Function WANIP() As String
 
         Dim ipaddress As String = "127.0.0.1"
-        Dim client As New System.Net.WebClient ' downloadclient for web page
+        Dim client As New System.Net.WebClient ' download client for web page
         Try
-            ipaddress = client.DownloadString("http://api.ipify.org/?r=" + RandomNumber.Random())
+            ipaddress = client.DownloadString("https://api.ipify.org")
         Catch ex As Exception
         Finally
             client.Dispose()

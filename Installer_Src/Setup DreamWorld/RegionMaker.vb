@@ -561,7 +561,7 @@ Public Class RegionMaker
         & "InternalAddress = 0.0.0.0" & vbCrLf _
         & "InternalPort = " & RegionPort(uuid) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
-        & "ExternalHostName = " & FormSetup.ExternLocalServerName() & vbCrLf _
+        & "ExternalHostName = " & Settings.ExternalHostName() & vbCrLf _
         & "SizeX = " & CStr(SizeX(uuid)) & vbCrLf _
         & "SizeY = " & CStr(SizeY(uuid)) & vbCrLf _
         & "Enabled = " & CStr(RegionEnabled(uuid)) & vbCrLf _
@@ -2052,7 +2052,7 @@ Public Class RegionMaker
         INI = Settings.LoadIni(RegionPath(uuid), ";")
 
         Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid)))
-        Settings.SetIni(Name, "ExternalHostName", FormSetup.ExternLocalServerName())
+        Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName())
 
         Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid)))
 

@@ -75,15 +75,12 @@ Module Diags
 
         If OpenRouterPorts() Then ' open UPnp port
 
-            Logger("INFO",
-                   "UPNP OK",
-                   "Diagnostics")
+            Logger("INFO", "UPNP OK", "Diagnostics")
 
             Settings.UPnpDiag = True
             Settings.SaveSettings()
             Return True
         Else
-
             TextPrint(My.Resources.UPNP_Disabled)
             Settings.UPnpDiag = False
             Settings.SaveSettings()

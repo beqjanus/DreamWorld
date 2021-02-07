@@ -2,17 +2,6 @@
 
 Module DNS
 
-    Private _DNSisRgistered As Boolean
-
-    Private Property DNSisRgistered As Boolean
-        Get
-            Return _DNSisRgistered
-        End Get
-        Set(value As Boolean)
-            _DNSisRgistered = value
-        End Set
-    End Property
-
     Public Function GetNewDnsName() As String
 
         Dim client As New WebClient
@@ -35,7 +24,7 @@ Module DNS
         If Settings.DNSName.Length = 0 And Settings.EnableHypergrid Then
             Dim newname = GetNewDnsName()
             If newname.Length >= 0 Then
-                If RegisterName(newname, True) Then
+                If RegisterName(newname) Then
                     Settings.DNSName = newname
                     Settings.PublicIP = newname
                     Settings.SaveSettings()
@@ -47,22 +36,19 @@ Module DNS
 
     End Sub
 
-    Public Function RegisterName(DNSName As String, force As Boolean) As Boolean
+    Public Function RegisterName(DNSName As String) As Boolean
+
+        DNSName = DNSName.Trim
 
         If DNSName Is Nothing Then Return False
 
-        If DNSName.Length < 3 Then Return False
+        If DNSName.Length = 0 Then Return False
 
         Dim Checkname As String = String.Empty
-        If Settings.ServerType <> RobustServer Then
-            Return True
-        End If
 
         If IPCheck.IsPrivateIP(DNSName) Then
             Return False
         End If
-
-        If DNSisRgistered And Not force Then Return True
 
         Using client As New WebClient ' download client for web pages
             Try
@@ -79,7 +65,6 @@ Module DNS
         End Using
 
         If Checkname = "UPDATE" Then
-            DNSisRgistered = True
             Return True
         End If
         If Checkname = "NAK" Then
@@ -89,81 +74,46 @@ Module DNS
 
     End Function
 
-    Public Function SetPublicIP() As Boolean
+    Public Sub SetPublicIP()
 
-        ' LAN USE
-        Settings.MacAddress = GetMacByIp(Settings.PublicIP)
+        TextPrint(My.Resources.Setup_Network)
 
-        If Settings.DNSName.Length > 0 Then
+        Settings.WANIP = WANIP()
+        Settings.LANIP = PropMyUPnpMap.LocalIP
+        Settings.MacAddress = GetMacByIp(Settings.LANIP)
+
+        ' Region Name override
+        If Settings.OverrideName.Length > 0 Then
+            RegisterName(Settings.OverrideName)
+        End If
+
+        ' set up the alternate DNS names
+        Dim a As String() = Settings.AltDnsName.Split(",".ToCharArray())
+        For Each part As String In a
+            If part.Length > 0 Then
+                RegisterName(part)
+            End If
+        Next
+
+        ' WAN USE
+        If Settings.DNSName.Length = 0 Then
+            Settings.PublicIP = Settings.LANIP
+        ElseIf Settings.DNSName.Length > 0 Then
             Settings.PublicIP = Settings.DNSName()
-            Settings.SaveSettings()
-            TextPrint(My.Resources.Setup_Network)
-            Dim ret = RegisterName(Settings.PublicIP, False)
-            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
-            For Each part As String In array
-                If part.Length > 0 Then
-                    RegisterName(part, False)
-                End If
-            Next
-            Return ret
+        ElseIf IsPrivateIP(Settings.PublicIP) Then
+            ' NAT'd ROUTER
+            Settings.PublicIP = Settings.LANIP
         Else
-            Settings.PublicIP = PropMyUPnpMap.LocalIP
-            TextPrint(My.Resources.Setup_Network)
-            Settings.SaveSettings()
+            ' WAN IP such as Contabo without a NAT
+            Settings.PublicIP = Settings.WANIP
         End If
 
-        ' HG USE
+        Settings.BaseHostName = Settings.PublicIP
+        Settings.ExternalHostName = Settings.PublicIP
 
-        If Not IPCheck.IsPrivateIP(Settings.DNSName) Then
-            TextPrint(My.Resources.Public_IP_Setup_Word)
-            If Settings.DNSName.Length > 3 Then
-                Settings.PublicIP = Settings.DNSName
-                Settings.SaveSettings()
-            End If
+        RegisterName(Settings.PublicIP)
+        SetServerType()
 
-            Dim UC = Settings.PublicIP.ToUpperInvariant()
-            If UC.Contains("OUTWORLDZ.NET") Or UC.Contains("INWORLDZ.NET") Then
-                TextPrint(My.Resources.DynDNS & " http://" & Settings.PublicIP & ":" & Settings.HttpPort)
-            End If
-
-            RegisterName(Settings.PublicIP, False)
-            Dim array As String() = Settings.AltDnsName.Split(",".ToCharArray())
-            For Each part As String In array
-                RegisterName(part, False)
-            Next
-
-        End If
-
-        If Settings.PublicIP.ToUpperInvariant() = "LOCALHOST" Or Settings.PublicIP = "127.0.0.1" Then
-            RegisterName(Settings.PublicIP, False)
-            Return True
-        End If
-
-        Log(My.Resources.Info_word, "Public IP=" & Settings.PublicIP)
-        TestPublicLoopback()
-        If Settings.DiagFailed = "False" Then
-
-            Using client As New WebClient ' download client for web pages
-                Try
-                    ' Set Public IP
-                    Settings.PublicIP = client.DownloadString("http://api.ipify.org/?r=" & RandomNumber.Random())
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                    ErrorLog(My.Resources.Wrong & "@ api.ipify.org")
-                    Settings.DiagFailed = "True"
-                End Try
-            End Using
-
-            Settings.SaveSettings()
-            Return True
-        End If
-
-        Settings.PublicIP = PropMyUPnpMap.LocalIP
-
-        Settings.SaveSettings()
-
-        Return False
-
-    End Function
+    End Sub
 
 End Module

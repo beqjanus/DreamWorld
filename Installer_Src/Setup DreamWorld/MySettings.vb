@@ -26,6 +26,12 @@ Public Class MySettings
     Dim parser As IniParser.FileIniDataParser
     Dim SettingsData As IniParser.Model.IniData
 
+    Private _PublicIP As String
+    Private _LANIP As String
+    Private _WANIP As String
+    Private _MacAddress As String
+    Private _ExternalHostName As String
+
 #Region "New"
 
     Public Sub New()
@@ -300,6 +306,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("AdminEmail", Value)
+        End Set
+    End Property
+
+    Public Property LANIP() As String
+        Get
+            Return _LANIP
+        End Get
+        Set
+            _LANIP = Value
         End Set
     End Property
 
@@ -770,24 +785,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
-        End Set
-    End Property
-
     Public Property CPUMAX As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
@@ -903,10 +900,10 @@ Public Class MySettings
 
     Public Property ExternalHostName() As String
         Get
-            Return GetMySetting("ExternalHostName", DNSName)
+            Return _ExternalHostName
         End Get
         Set
-            SetMySetting("ExternalHostName", Value)
+            _ExternalHostName = Value
         End Set
     End Property
 
@@ -1182,10 +1179,10 @@ Public Class MySettings
 
     Public Property MacAddress() As String
         Get
-            Return GetMySetting("MacAddress", "Admin")
+            Return _MacAddress
         End Get
         Set
-            SetMySetting("MacAddress", Value)
+            _MacAddress = Value
         End Set
     End Property
 
@@ -1393,10 +1390,10 @@ Public Class MySettings
 
     Public Property PublicIP() As String
         Get
-            Return GetMySetting("PublicIP")
+            Return _PublicIP
         End Get
         Set
-            SetMySetting("PublicIP", Value)
+            _PublicIP = Value
         End Set
     End Property
 
@@ -1922,6 +1919,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property WANIP() As String
+        Get
+            Return _WANIP
+        End Get
+        Set
+            _WANIP = Value
+        End Set
+    End Property
+
     Public Property WelcomeMessage() As String
         Get
             Return GetMySetting("WelcomeMessage", "Welcome to " & SimName() & ", <USERNAME>")
@@ -1947,6 +1953,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 

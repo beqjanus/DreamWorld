@@ -54,24 +54,6 @@ Public Module Firewall
 
     End Sub
 
-    Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
-
-        Dim iPort As Integer = Convert.ToInt16(Port)
-        Using ClientSocket As New TcpClient
-            Try
-                ClientSocket.Connect(ServerAddress, iPort)
-            Catch ex As Exception
-                Return False
-            End Try
-            If ClientSocket.Connected Then
-                Return True
-            End If
-        End Using
-
-        Return False
-
-    End Function
-
     Function DeleteFirewallRules() As String
 
         Dim Command As String = "netsh advfirewall firewall delete rule name=""Diagnostics TCP Port " & CStr(Settings.DiagnosticPort) & """" & vbCrLf _

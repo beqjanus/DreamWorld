@@ -47,6 +47,45 @@ Module OAR
         End Set
     End Property
 
+    Public Function LoadIARContent(thing As String) As Boolean
+
+        ' handles IARS clicks
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.Not_Running)
+            Return False
+        End If
+
+        Dim UUID As String = ""
+
+        ' find one that is running
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
+            If PropRegionClass.IsBooted(RegionUUID) Then
+                UUID = RegionUUID
+                Exit For
+            End If
+            Application.DoEvents()
+        Next
+        If UUID.Length = 0 Then
+            MsgBox(My.Resources.No_Regions_Ready, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+            Return False
+        End If
+
+        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"",  ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
+
+        Dim user As String = InputBox(My.Resources.Enter_1_2)
+
+        If user.Length > 0 Then
+            ConsoleCommand(UUID, "load iar --merge " & user & " " & Path & " " & """" & thing & """")
+            SendMessage(UUID, "IAR content Is loading")
+            TextPrint(My.Resources.isLoading & vbCrLf & Path)
+        Else
+            TextPrint(My.Resources.Canceled_IAR)
+        End If
+
+        Return True
+
+    End Function
+
     Public Sub LoadOar(RegionName As String)
 
         If RegionName Is Nothing Then Return
