@@ -352,7 +352,7 @@ Module Apache
 
         Dim yesno = MsgBox(My.Resources.Apache_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then
-            Dim Apachelog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\logs\error*.log")
+            Dim Apachelog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache\error*.log")
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & Apachelog & """")
             Catch ex As Exception

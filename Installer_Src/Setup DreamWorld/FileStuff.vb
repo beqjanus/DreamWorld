@@ -70,6 +70,15 @@ Module FileStuff
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\http.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHPLog.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Diagnostics.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Outworldz.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Restart.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Opensim\bin\OpenSimConsoleHistory.txt"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Diagnostics.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\UPnp.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Opensim\bin\Robust.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\http.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\PHPLog.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "http.log")     ' an old mistake
         }
 
@@ -258,7 +267,7 @@ Module FileStuff
     Public Sub ExpireApacheLogs()
 
         ' Delete old Apache logs
-        Dim ApacheLogPath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\logs")
+        Dim ApacheLogPath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache")
 
         Dim currentdatetime As Date = Date.Now
 

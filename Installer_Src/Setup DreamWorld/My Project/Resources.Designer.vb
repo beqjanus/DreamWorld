@@ -5110,7 +5110,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Hypergrid.org Region Server.
+        '''  Looks up a localized string similar to Metro.land Region Server.
         '''</summary>
         Friend ReadOnly Property MetroOrg() As String
             Get

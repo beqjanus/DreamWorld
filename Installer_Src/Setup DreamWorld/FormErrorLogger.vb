@@ -9,9 +9,9 @@
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles SendButton.Click
 
         Try
-            Dim path = IO.Path.Combine(CurDir(), "OutworldzFiles\Error.log")
+            Dim path = IO.Path.Combine(CurDir(), "OutworldzFiles\Logs\Error.log")
 
-            Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Error.log"), True)
+            Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Error.log"), True)
                 outputFile.WriteLine("[Reason]" & vbCrLf)
                 outputFile.WriteLine(ReasonText.Text & vbCrLf)
                 If (EmailTextBox.Text.Length > 0) Then

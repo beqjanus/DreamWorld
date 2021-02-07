@@ -19,8 +19,8 @@ Module DoIni
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
         Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & ">")
-        Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Apache/logs/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
-        Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Apache/logs/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog")
+        Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Logs/Apache/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Logs/Apache/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog")
         Settings.SetLiteralIni("LoadModule php7_module", "LoadModule php7_module " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/PHP7/php7apache2_4.dll" & """")
 
         Settings.SaveLiteralIni(ini, "httpd.conf")

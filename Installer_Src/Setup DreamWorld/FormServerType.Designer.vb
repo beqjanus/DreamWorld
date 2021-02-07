@@ -40,9 +40,9 @@ Partial Class FormServerType
         Me.GroupBox1.Controls.Add(Me.osGridRadioButton1)
         Me.GroupBox1.Controls.Add(Me.GridServerButton)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 38)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(285, 179)
         Me.GroupBox1.TabIndex = 1885
         Me.GroupBox1.TabStop = False
@@ -52,18 +52,18 @@ Partial Class FormServerType
         '
         Me.MetroRadioButton2.AutoSize = True
         Me.MetroRadioButton2.Location = New System.Drawing.Point(23, 122)
-        Me.MetroRadioButton2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MetroRadioButton2.Margin = New System.Windows.Forms.Padding(4)
         Me.MetroRadioButton2.Name = "MetroRadioButton2"
-        Me.MetroRadioButton2.Size = New System.Drawing.Size(211, 21)
+        Me.MetroRadioButton2.Size = New System.Drawing.Size(191, 21)
         Me.MetroRadioButton2.TabIndex = 1882
-        Me.MetroRadioButton2.Text = Global.Outworldz.My.Resources.Resources.MetroOrg
+        Me.MetroRadioButton2.Text = "Metro.land Region Server"
         Me.MetroRadioButton2.UseVisualStyleBackColor = True
         '
         'GridRegionButton
         '
         Me.GridRegionButton.AutoSize = True
         Me.GridRegionButton.Location = New System.Drawing.Point(23, 68)
-        Me.GridRegionButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GridRegionButton.Margin = New System.Windows.Forms.Padding(4)
         Me.GridRegionButton.Name = "GridRegionButton"
         Me.GridRegionButton.Size = New System.Drawing.Size(120, 21)
         Me.GridRegionButton.TabIndex = 1880
@@ -74,7 +74,7 @@ Partial Class FormServerType
         '
         Me.osGridRadioButton1.AutoSize = True
         Me.osGridRadioButton1.Location = New System.Drawing.Point(23, 94)
-        Me.osGridRadioButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.osGridRadioButton1.Margin = New System.Windows.Forms.Padding(4)
         Me.osGridRadioButton1.Name = "osGridRadioButton1"
         Me.osGridRadioButton1.Size = New System.Drawing.Size(171, 21)
         Me.osGridRadioButton1.TabIndex = 1881
@@ -86,7 +86,7 @@ Partial Class FormServerType
         Me.GridServerButton.AutoSize = True
         Me.GridServerButton.Checked = True
         Me.GridServerButton.Location = New System.Drawing.Point(23, 38)
-        Me.GridServerButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GridServerButton.Margin = New System.Windows.Forms.Padding(4)
         Me.GridServerButton.Name = "GridServerButton"
         Me.GridServerButton.Size = New System.Drawing.Size(183, 21)
         Me.GridServerButton.TabIndex = 1879
@@ -120,7 +120,7 @@ Partial Class FormServerType
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormServerType"
         Me.Text = "Server Type"
         Me.GroupBox1.ResumeLayout(False)

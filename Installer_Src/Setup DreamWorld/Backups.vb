@@ -234,7 +234,16 @@ Public Class Backups
         End Try
 
         Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
-        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), "Settings")
+        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "XYSettings")
+
+        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), "Photo")
+
+        Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewBlack.png")
+        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+        fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewWhite.png")
+        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+        fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewCustom.png")
+        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
 
         Try
             If Settings.BackupRegion Then
@@ -243,17 +252,6 @@ Public Class Backups
         Catch ex As Exception
             Break(ex.Message)
         End Try
-
-        'Try
-        'If Settings.BackupMysql Then
-        'MkDir(IO.Path.Combine(_folder, "MySQL"))
-        'CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\Data"), IO.Path.Combine(_folder, "MySQL\MysqlData"))
-
-        'Z.AddDirectory(IO.Path.Combine(_folder, "MySQL"))
-        'End If
-        'Catch ex As Exception
-        '   Break(ex.Message)
-        'End Try
 
         Try
             If Settings.BackupFSAssets Then
