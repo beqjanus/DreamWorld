@@ -171,12 +171,23 @@ Module FileStuff
 
     Public Sub CopyWifi()
 
-        'DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
-        'DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
-
         CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
         CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
-        CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, Settings.Theme() & ".png"), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages\images\Photo.png"))
+
+        Dim Path As String = ""
+        If Settings.Theme = "Black" Then
+            Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewBlack.png")
+        ElseIf Settings.Theme = "White" Then
+            Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewWhite.png")
+        ElseIf Settings.Theme = "Custom" Then
+            Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewCustom.png")
+        End If
+
+        If Not System.IO.File.Exists(Path) Then
+            Path = Path.Replace("New", "")
+        End If
+
+        CopyFileFast(Path, IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages\images\Photo.png"))
 
     End Sub
 

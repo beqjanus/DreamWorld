@@ -50,14 +50,15 @@ Public Class FormServerType
 #Region "Private Methods"
 
     Private Sub Form_exit() Handles Me.Closed
-        If Changed Then
-            Dim result = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
-            If result = vbYes Then
 
+        If Changed Then
+            Dim result = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Save_changes_word)
+            If result = vbYes Then
                 SaveAll()
                 DoGridCommon()
             End If
         End If
+
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -148,13 +149,6 @@ Public Class FormServerType
         ServerType = OsgridServer
 
         Changed = True
-
-    End Sub
-
-    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
-
-        SaveAll()
-        Close()
 
     End Sub
 

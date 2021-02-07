@@ -146,14 +146,14 @@ Public Class FormDiva
 
     Private Sub LoadPhoto()
 
-        'Black at first, then can save a NewBlack later date ane we will use it
+        'Black at first, then can save a NewBlack later date and we will use it
 
         If Settings.Theme = "Black" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "NewBlack.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewBlack.png")
         ElseIf Settings.Theme = "White" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "NewWhite.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewWhite.png")
         ElseIf Settings.Theme = "Custom" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "NewCustom.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewCustom.png")
         End If
 
         Dim newpath = path
