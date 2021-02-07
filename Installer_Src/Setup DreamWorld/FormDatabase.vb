@@ -53,7 +53,7 @@ Public Class FormDatabase
     'The following detects  the location of the form in screen coordinates
     Private _screenPosition As ScreenPos
 
-    Private Handler As New EventHandler(AddressOf Resize_page)
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get
