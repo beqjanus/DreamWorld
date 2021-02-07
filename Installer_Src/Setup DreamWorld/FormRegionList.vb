@@ -596,11 +596,11 @@ Public Class FormRegionlist
                     End If
 
                     Dim cpupercent As Double = 0
-
-                    If CPUValues.TryGetValue(Groupname, cpupercent) Then
-                    Else
-                        cpupercent = 0
+                    If Not Status = RegionMaker.SIMSTATUSENUM.Stopped _
+                        And Not Status = RegionMaker.SIMSTATUSENUM.Error Then
+                        CPUValues.TryGetValue(Groupname, cpupercent)
                     End If
+
                     item1.SubItems.Add(CStr(cpupercent))
                     Dim c As Color = SystemColors.ControlText
                     If cpupercent > 1 Then

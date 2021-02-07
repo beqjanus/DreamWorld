@@ -228,7 +228,7 @@ Module FileStuff
             End If
         Catch ex As Exception
         End Try
-        Sleep(10)
+
 
     End Sub
 
