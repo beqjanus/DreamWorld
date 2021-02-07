@@ -146,25 +146,26 @@ Public Class FormDiva
 
     Private Sub LoadPhoto()
 
+        'Black at first, then can save a NewBlack later date ane we will use it
+
         If Settings.Theme = "Black" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "Black.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "NewBlack.png")
         ElseIf Settings.Theme = "White" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "White.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "NewWhite.png")
         ElseIf Settings.Theme = "Custom" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "Custom.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "NewCustom.png")
         End If
 
+        Dim newpath = path
         If Not System.IO.File.Exists(path) Then
-            Dim Pic As Bitmap = My.Resources.NoImage
-            PictureBox1.Image = Pic
-        Else
-            Dim img As Image
-            Using bmpTemp As New Bitmap(path)
-                img = New Bitmap(bmpTemp)
-            End Using
-
-            PictureBox1.Image = img
+            newpath = path.Replace("New", "")
         End If
+
+        Dim img As Image
+        Using bmpTemp As New Bitmap(newpath)
+            img = New Bitmap(bmpTemp)
+        End Using
+        PictureBox1.Image = img
 
     End Sub
 
