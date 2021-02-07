@@ -197,7 +197,7 @@ Public Class MySettings
                 parser.WriteFile(Filename, SettingsData, encoding)
                 Retry = 0
             Catch ex As Exception
-                ErrorLog("Error:" + ex.Message)
+                'ErrorLog("Error:" + ex.Message)
                 Retry -= 1
                 Thread.Sleep(100)
             End Try
