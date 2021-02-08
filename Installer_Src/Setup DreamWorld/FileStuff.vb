@@ -21,14 +21,7 @@ Module FileStuff
             DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, N))
         Next
 
-        Dim FoldersToDrop = New List(Of String) From {
-            IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"),
-            IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages")
-        }
 
-        For Each N As String In ToDrop
-            DeleteFolder(N)
-        Next
 
         Dim files As New List(Of String) From {
         "\Shoutcast", ' deprecated
@@ -332,7 +325,10 @@ Module FileStuff
     End Function
 
     Private Sub Deltmp() ' thread
+
+        TextPrint(My.Resources.DeleteTmp_word)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+
     End Sub
 
     Private Function GetDlls(fname As String) As List(Of String)

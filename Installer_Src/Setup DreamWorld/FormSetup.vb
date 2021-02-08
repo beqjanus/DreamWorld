@@ -41,9 +41,9 @@ Public Class FormSetup
     Private _ExitHandlerIsBusy As Boolean
     Private _IcecastCrashCounter As Integer
     Private _IceCastExited As Boolean
-    Private _Initted As Boolean
+
     Private _IPv4Address As String
-    Private _jRev As String = "3.9.23"
+
     Private _KillSource As Boolean
 
     Private _OpensimBinPath As String
@@ -58,7 +58,7 @@ Public Class FormSetup
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
     Private ExitInterval As Integer = 5
-    Private jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
+
     Private ScreenPosition As ScreenPos
 
 #End Region
@@ -145,25 +145,6 @@ Public Class FormSetup
             _IcecastCrashCounter = value
         End Set
     End Property
-
-    Public Property JOpensimRev1 As String
-        Get
-            Return jOpensimRev
-        End Get
-        Set(value As String)
-            jOpensimRev = value
-        End Set
-    End Property
-
-    Public Property JRev As String
-        Get
-            Return _jRev
-        End Get
-        Set(value As String)
-            _jRev = value
-        End Set
-    End Property
-
     Public Property OpensimBinPath As String
         Get
             Return _OpensimBinPath
@@ -217,14 +198,7 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropInitted() As Boolean
-        Get
-            Return _Initted
-        End Get
-        Set(ByVal Value As Boolean)
-            _Initted = Value
-        End Set
-    End Property
+
 
     Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
         Get
@@ -1409,10 +1383,6 @@ Public Class FormSetup
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
         Cleanup() ' old files
-        PropRegionClass = RegionMaker.Instance()
-        PropRegionClass.Init()
-        PropRegionClass.GetAllRegions()
-        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
@@ -1662,6 +1632,21 @@ Public Class FormSetup
 
         Me.Show()
 
+        TextPrint(My.Resources.Getting_regions_word)
+        PropRegionClass = RegionMaker.Instance()
+        PropRegionClass.Init()
+
+        TextPrint(My.Resources.Setup_Ports_word)
+        Application.DoEvents()
+        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
+
+        TextPrint(My.Resources.Starting_WebServer_word)
+        'must start after region Class Is instantiated
+        PropWebServer = NetServer.GetWebServer
+        PropWebServer.StartServer(Settings.CurrentDirectory, Settings)
+        Application.DoEvents()
+        CheckDiagPort()
+
         ' Save a random machine ID - we don't want any data to be sent that's personal or identifiable, but it needs to be unique
         Randomize()
         If Settings.MachineID().Length = 0 Then Settings.MachineID() = RandomNumber.Random  ' a random machine ID may be generated.  Happens only once
@@ -1673,10 +1658,7 @@ Public Class FormSetup
 
         PropOpensimIsRunning() = False ' true when opensim is running
 
-        TextPrint(My.Resources.Getting_regions_word)
         Application.DoEvents()
-
-        PropInitted = True
 
         ClearLogFiles() ' clear log files
 
@@ -1687,6 +1669,8 @@ Public Class FormSetup
         CheckDefaultPorts()
 
         SetPublicIP()
+        SetServerType()
+
         OpenPorts()
 
         Application.DoEvents()
@@ -1728,18 +1712,7 @@ Public Class FormSetup
         CheckForUpdates()
         Application.DoEvents()
 
-        TextPrint(My.Resources.Setup_Ports_word)
-        Application.DoEvents()
-        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
 
-        'must start after region Class Is instantiated
-        PropWebServer = NetServer.GetWebServer
-
-        TextPrint(My.Resources.Starting_WebServer_word)
-        Application.DoEvents()
-        PropWebServer.StartServer(Settings.CurrentDirectory, Settings)
-
-        CheckDiagPort()
 
         mnuSettings.Visible = True
 
@@ -1747,7 +1720,6 @@ Public Class FormSetup
 
         FixUpdater()    ' replace DreamGridUpdater.exe with DreamGridUpdater.new
 
-        TextPrint(My.Resources.RefreshingOAR)
         Application.DoEvents()
         LoadLocalIAROAR() ' load IAR and OAR local content
 
@@ -1787,8 +1759,7 @@ Public Class FormSetup
         Application.DoEvents()
         If MysqlInterface.IsMySqlRunning() Then PropStopMysql() = False
 
-        TextPrint(My.Resources.DeleteTmp_word)
-
+        TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
         ContentOAR.Init("OAR")
 
@@ -1804,7 +1775,7 @@ Public Class FormSetup
             Startup()
         Else
             Settings.SaveSettings()
-            TextPrint(My.Resources.Ready_to_Launch & vbCrLf & Global.Outworldz.My.Resources.Click_Start_2_Begin & vbCrLf)
+            TextPrint(My.Resources.Ready_to_Launch & vbCrLf & "------------------" & vbCrLf & Global.Outworldz.My.Resources.Click_Start_2_Begin & vbCrLf)
             Application.DoEvents()
             Buttons(StartButton)
         End If
@@ -2902,12 +2873,11 @@ Public Class FormSetup
 
     Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
 
-        If PropInitted Then
-            Adv1.Activate()
-            Adv1.Visible = True
-            Adv1.Select()
-            Adv1.BringToFront()
-        End If
+
+        Adv1.Activate()
+        Adv1.Visible = True
+        Adv1.Select()
+        Adv1.BringToFront()
 
     End Sub
 
@@ -2998,12 +2968,12 @@ Public Class FormSetup
     End Sub
 
     Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
-        If PropInitted Then
-            ContentIAR.Activate()
-            ContentIAR.ShowForm()
-            ContentIAR.Select()
-            ContentIAR.BringToFront()
-        End If
+
+        ContentIAR.Activate()
+        ContentIAR.ShowForm()
+        ContentIAR.Select()
+        ContentIAR.BringToFront()
+
     End Sub
 
     Private Sub ConsoleCOmmandsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ConsoleCOmmandsToolStripMenuItem1.Click
@@ -3232,12 +3202,12 @@ Public Class FormSetup
     End Sub
 
     Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
-        If PropInitted Then
-            ContentOAR.Activate()
-            ContentOAR.ShowForm()
-            ContentOAR.Select()
-            ContentOAR.BringToFront()
-        End If
+
+        ContentOAR.Activate()
+        ContentOAR.ShowForm()
+        ContentOAR.Select()
+        ContentOAR.BringToFront()
+
     End Sub
 
     Private Sub LoadIarClick(sender As Object, e As EventArgs) ' event handler

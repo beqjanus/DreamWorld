@@ -11,7 +11,7 @@ Module Joomla
 
         Dim installed As Boolean = IsjOpensimInstalled()
 
-        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\jOpensim\" & FormSetup.JRev)
+        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\jOpensim\" & jRev)
 
         If Not IO.File.Exists(file) And installed Then
             HelpManual("Joomla Update")

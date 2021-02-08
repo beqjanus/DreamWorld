@@ -77,7 +77,7 @@ Public Class FormJoomla
 
         StartMySQL()
 
-        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\jOpensim_Files\" & FormSetup.JOpensimRev1 & ".zip")
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\jOpensim_Files\" & jOpensimRev & ".zip")
         If System.IO.File.Exists(m) Then
             InstallButton.Text = Global.Outworldz.My.Resources.Installing_word
             InstallButton.Image = Nothing

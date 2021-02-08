@@ -112,7 +112,7 @@ Module DNS
         Settings.ExternalHostName = Settings.PublicIP
 
         RegisterName(Settings.PublicIP)
-        SetServerType()
+
 
     End Sub
 
