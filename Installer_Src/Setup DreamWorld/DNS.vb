@@ -76,7 +76,6 @@ Module DNS
 
     Public Sub SetPublicIP()
 
-        TextPrint(My.Resources.Setup_Network)
 
         Settings.WANIP = WANIP()
         Settings.LANIP = PropMyUPnpMap.LocalIP

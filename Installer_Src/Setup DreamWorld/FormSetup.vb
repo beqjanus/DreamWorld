@@ -1668,6 +1668,8 @@ Public Class FormSetup
 
         CheckDefaultPorts()
 
+
+        TextPrint(My.Resources.Setup_Network)
         SetPublicIP()
         SetServerType()
 
