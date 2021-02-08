@@ -7,7 +7,6 @@
 \OutworldzFiles\Opensim\bin\Diva.Data.MySQL.dll
 \OutworldzFiles\Opensim\bin\Diva.Data.SQLite.dll
 \OutworldzFiles\Opensim\bin\Diva.Interfaces.dll
-\OutworldzFiles\Opensim\bin\Diva.OnLook.dll
 \OutworldzFiles\Opensim\bin\Diva.OpenSimServices.dll
 \OutworldzFiles\Opensim\bin\Diva.Utils.dll
 \OutworldzFiles\Opensim\bin\Diva.Wifi.dll
@@ -120,6 +119,7 @@
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Performance.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Permissions.dll
 \OutworldzFiles\Opensim\bin\OpenSim.Tests.Stress.dll
+\OutworldzFiles\Opensim\bin\OpenSimMutelist.Modules.dll
 \OutworldzFiles\Opensim\bin\OpenSimSearch.Modules.dll
 \OutworldzFiles\Opensim\bin\OpenSimTide.Module.dll
 \OutworldzFiles\Opensim\bin\PrimMesher.dll
@@ -148,6 +148,6 @@
 \OutworldzFiles\Opensim\bin\lib64\fr\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\lib64\pt\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\pt\Diva.Wifi.resources.dll
-\OutworldzFiles\opensim\bin\jOpensimProfile.Module.dll
-\OutworldzFiles\opensim\bin\jOpensimSearch.Module.dll
-\OutworldzFiles\opensim\bin\jOpensimMoney.Module.dll
+\OutworldzFiles\opensim\bin\jOpensimProfile.Modules.dll
+\OutworldzFiles\opensim\bin\jOpensimSearch.Modules.dll
+\OutworldzFiles\opensim\bin\jOpensimMoney.Modules.dll

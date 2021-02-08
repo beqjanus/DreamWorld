@@ -79,14 +79,14 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/Regions",
 	"$dir/OutworldzFiles/Opensim/bin/bakes",	
 	"$dir/OutworldzFiles/Opensim/bin/fsassets",	
-	"$dir/OutworldzFiles/Apache/logs/",
-    "$dir/OutworldzFiles/Apache/htdocs/jOpensim/",
+	"$dir/OutworldzFiles/Apache/logs/",    
 );
 
 foreach my $path ( @deletions) {
 	say ($path);
 	DeleteandKeep($path);
 }
+
 
 DelZips();
 DelMaps();

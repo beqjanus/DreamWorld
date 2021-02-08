@@ -1,6 +1,6 @@
 <icecast>
-<hostname>hg.osgrid.org</hostname>
-<location>ALT</location>
+<hostname>blue.outworldz.net</hostname>
+<location>DreamGrid</location>
 <admin>not@set.yet</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
 <listen-socket>
@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>FJKb9YkficZiwZ7</source-password>
-<relay-password>FJKb9YkficZiwZ7</relay-password>
+<source-password>oG8OtABfLKGFlTp</source-password>
+<relay-password>oG8OtABfLKGFlTp</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>1LaUjfcav6rwXFb</admin-password>
+<admin-password>Cs98r4elwRnaxs8</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>
