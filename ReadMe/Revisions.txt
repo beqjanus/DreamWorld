@@ -2,18 +2,26 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.88
+Minor problem in printing every hour
+
 V3.87 
-The INI files have been reorganized into a folder for each type - Robust Grid, Region Addon, OsGrid and Metropolis in the Config-include/Proto folder for easier editing.
 OsGrid boots once again. Had to change some of the files to match the latest version.
 Physics Hybrid selection in a Region could be set but did not show as selected when re-edited.
 Added a Perl example that can go through a folder of large numbers of OARs and keep just 1 per month, moving the extras to a different folder. Requires Strawberry Perl.
-Backups of Settings and Photos.
-Use Hashed MAC address of PC for DNS security.
-Don't bitch about missing a Welcome region on region servers.
-Backup folder: if missing, would cause a complaint loop and possible crash.
-Handle NAT and non-NAT routers situations more gracefully. 
+The INI files have been reorganized into a folder for each type of server - Robust Grid, Region Addon, OsGrid and Metropolis in the Config-include/Proto folder for easier editing.
+Backups of Settings and Photos added to zips.
+Splash screen photos got stepped on in an update. This is the last update that will do so. They are also backed up in the zip file.
+Use Hashed MAC address of PC for DNS security. Log4Net has a security issue that a review shows does not affect Opensim.
+Don't bitch aboutWelcome region on region servers.
+Backup folder if missing, would cause a complaint loop and possible crash. 
+Handle NAT and non-NAT routers situations gracefully. 
 "Go.bat Some DOS Box Name" now handles DOS boxes with spaces in their names.
-Most Log files moved to Outworldzfiles\Logs
+Log files moved to Outworldzfiles\Logs.
+The countdown timer of regions that are still running shows only changes.
+CPU use set to zero if region is shut off or suspended.
+Saving of INI files should be more reliable, with retry logic.
+Saving of new region or renaming could cause the region to become blank or not start.
 
 V3.86 
 Cuteulala Artis spotted that OARS were saving in the wrong folder due to a missing slash. Thanks for the tip!
