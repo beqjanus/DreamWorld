@@ -39,7 +39,7 @@ Module GridNames
         If n.Length = 0 Then n = "(none)"
 
         TextPrint("WAN     = " & Settings.PublicIP)
-        TextPrint("LAN IP  = " & Settings.PrivateIP())
+        TextPrint("LAN IP  = " & Settings.LANIP())
         TextPrint("DNS     = " & n)
         TextPrint("Region  = " & Settings.ExternalHostName)
         TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)

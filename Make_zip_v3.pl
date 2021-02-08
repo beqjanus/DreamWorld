@@ -26,6 +26,12 @@ if (! $v)
 	exit;
 }
 
+my $Version = `git rev-parse --short HEAD`;
+chomp $Version;
+$Version > io('GitVersion'); 
+say ("GitVersion $Version");
+
+
 use File::Copy::Recursive qw(dircopy);
 	
 
@@ -85,22 +91,11 @@ DelZips();
 DelMaps();
 
 unlink "$dir/BareTail.udm";
-unlink "$dir/DreamGrid.zip";
-unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
-unlink "$dir/OutworldzFiles/PHP5/flog.log" ;
-unlink "$dir/OutworldzFiles/Opensim/bin/Error.log" ;
-unlink "$dir/OutworldzFiles/Opensim/bin/Opensim.log" ;
-unlink "$dir/OutworldzFiles/Opensim/bin/Robust.log" ;
-unlink "$dir/OutworldzFiles/Opensim/bin/RobustStats.log" ;
-unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;
-unlink "$dir/OutworldzFiles/PHPLog.log" ;
-unlink "$dir/OutworldzFiles/Restart.log" ;
+
+
 unlink "$dir/SET_externalIP-log.txt";
 unlink "$dir/OutworldzFiles/Photo.png";
 unlink "$dir/OutworldzFiles/XYSettings.ini";
-unlink "$dir/Outworldzfiles/Icecast/log/error.log" ;
-unlink "$dir/Outworldzfiles/Icecast/log/access.log" ;
-unlink "$dir/UpdateGrid.log";
 unlink "$dir/OutworldzFiles/Opensim/bin/OpensimConsoleHistory.txt" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db" ;
 unlink "$dir/OutworldzFiles/BanList.txt" ;
@@ -110,15 +105,26 @@ unlink "$dir/Outworldzfiles/Settings.ini" ;
 
 
 #logs
-unlink "$dir/OutworldzFiles/Diagnostics.log" ;
-unlink "$dir/OutworldzFiles/Outworldz.log" ;
-unlink "$dir/OutworldzFiles/Init.txt" ;
-unlink "$dir/OutworldzFiles/upnp.log" ;
-unlink "$dir/OutworldzFiles/http.log" ;
-unlink "$dir/OutworldzFiles/Error.log" ;
+unlink "$dir/Outworldzfiles/Icecast/log/error.log" ;
+unlink "$dir/Outworldzfiles/Icecast/log/access.log" ;
+unlink "$dir/UpdateGrid.log";
+unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
+unlink "$dir/OutworldzFiles/Opensim/bin/Robust.log" ;
+unlink "$dir/OutworldzFiles/Opensim/bin/RobustStats.log" ;
+unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;
+###
+
+unlink "$dir/OutworldzFiles/Logs/Restart.log" ;
+unlink "$dir/OutworldzFiles/Logs/Diagnostics.log" ;
+unlink "$dir/OutworldzFiles/Logs/Outworldz.log" ;
+unlink "$dir/OutworldzFiles/Logs/upnp.log" ;
+unlink "$dir/OutworldzFiles/Logs/http.log" ;
+unlink "$dir/OutworldzFiles/Logs/Error.log" ;
+
+#zips
 unlink "../Zips/DreamGrid$type.zip" ;
 unlink "../Zips/Outworldz-Update$type.zip" ;
-
+unlink "$dir/DreamGrid.zip";
 
 say "DLL List Build";
 use File::Find;
@@ -128,9 +134,9 @@ open (OUT, ">", 'dlls.txt');
 find({ wanted => \&process_file, no_chdir => 1 }, $dir . '/OutworldzFiles/Opensim/bin/');
 
 # these are needed in this file even if deleted on disk.
-print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimProfile.Module.dll\n";
-print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimSearch.Module.dll\n";
-print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimMoney.Module.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimProfile.Modules.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimSearch.Modules.dll\n";
+print OUT "\\OutworldzFiles\\opensim\\bin\\jOpensimMoney.Modules.dll\n";
 
 close OUT;
 
@@ -147,6 +153,7 @@ if ($publish =~ /c/ ) {
 
 	say ("Cleaned");	
 }
+
 
 
 if ($publish =~ /p/ ) {

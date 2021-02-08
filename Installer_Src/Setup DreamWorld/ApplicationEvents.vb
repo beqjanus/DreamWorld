@@ -41,8 +41,12 @@ Namespace My
                 End If
             Next
 
-            Result += DisplayObjectInfo(sender)
+            ErrorLog("Git Version: #" & GitVersion())
+            ErrorLog("Version: " & PropMyVersion())
+            ErrorLog("Version: " & PropSimVersion())
+
             ErrorLog(Result)
+            ErrorLog(DisplayObjectInfo(sender))
 
             Using Logform As New FormErrorLogger
                 Logform.ShowDialog()

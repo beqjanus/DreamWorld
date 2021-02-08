@@ -176,13 +176,21 @@ Public Class FormDisplacement
     Private Sub PictureBox_Click(sender As Object, e As EventArgs)
 
         If sender Is Nothing Then Return
-        Dim tag As String = sender.Tag.ToString
-        PropSelectedBox = " --displacement " & tag & " "
+
+        Try
+            Dim tag As String = sender.Tag.ToString
+            PropSelectedBox = " --displacement " & tag & " "
+        Catch
+        End Try
+
         Me.Close()
+
     End Sub
 
     Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
+
         PropUserName = InputBox(My.Resources.UnassignedPerson, "")
+
     End Sub
 
 #End Region
@@ -255,10 +263,6 @@ Public Class FormDisplacement
             Next
             OffsetY += 256
         Next
-
-    End Sub
-
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
 
     End Sub
 

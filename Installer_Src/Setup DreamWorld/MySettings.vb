@@ -1370,15 +1370,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property PrivateIP As String
-        Get
-            Return GetMySetting("PrivateURL")   ' no default
-        End Get
-        Set
-            SetMySetting("PrivateURL", Value)
-        End Set
-    End Property
-
     Public Property PrivatePort() As Integer
         Get
             Return CInt("0" & GetMySetting("PrivatePort", "8003"))

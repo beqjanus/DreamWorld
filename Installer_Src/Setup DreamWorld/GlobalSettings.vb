@@ -7,7 +7,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.87"
+    Public Const _MyVersion As String = "3.88"
     Public Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
     Public Const MySqlRev = "5.6.5"
     Public Const jRev As String = "3.9.23"
@@ -98,6 +98,24 @@ Module GlobalSettings
         Set(ByVal Value As Boolean)
             _IsRunning = Value
         End Set
+    End Property
+
+    Public ReadOnly Property GitVersion As String
+        ' output of    git log --pretty=format'%h' -n 1
+        Get
+            Dim line As String = "None"
+            Dim fname = IO.Path.Combine(Settings.CurrentDirectory, "GitVersion")
+            If System.IO.File.Exists(fname) Then
+                Using reader As StreamReader = System.IO.File.OpenText(fname)
+                    'now loop through each line
+                    While reader.Peek <> -1
+                        line = reader.ReadLine()
+                    End While
+                End Using
+            End If
+            Return line
+        End Get
+
     End Property
 
     Public Property PropRegionClass As RegionMaker

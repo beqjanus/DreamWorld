@@ -145,6 +145,7 @@ Public Class FormSetup
             _IcecastCrashCounter = value
         End Set
     End Property
+
     Public Property OpensimBinPath As String
         Get
             Return _OpensimBinPath
@@ -197,8 +198,6 @@ Public Class FormSetup
             _IceCastExited = Value
         End Set
     End Property
-
-
 
     Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
         Get
@@ -1631,7 +1630,9 @@ Public Class FormSetup
         Adv1 = New FormSettings
 
         Me.Show()
-
+        TextPrint("GitVersion: #" & GitVersion())
+        TextPrint(My.Resources.Version_word & " " & PropMyVersion)
+        TextPrint(My.Resources.Version_word & " " & PropSimVersion)
         TextPrint(My.Resources.Getting_regions_word)
         PropRegionClass = RegionMaker.Instance()
         PropRegionClass.Init()
@@ -1668,9 +1669,9 @@ Public Class FormSetup
 
         CheckDefaultPorts()
 
-
         TextPrint(My.Resources.Setup_Network)
         SetPublicIP()
+
         SetServerType()
 
         OpenPorts()
@@ -1713,8 +1714,6 @@ Public Class FormSetup
 
         CheckForUpdates()
         Application.DoEvents()
-
-
 
         mnuSettings.Visible = True
 
@@ -1767,9 +1766,6 @@ Public Class FormSetup
 
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
-
-        TextPrint(My.Resources.Version_word & " " & PropMyVersion)
-        TextPrint(My.Resources.Version_word & " " & _SimVersion)
 
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)
@@ -2874,7 +2870,6 @@ Public Class FormSetup
     End Sub
 
     Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
-
 
         Adv1.Activate()
         Adv1.Visible = True

@@ -503,7 +503,7 @@ Public Class RegionMaker
     ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     Public Sub UpdateAllRegionPorts()
 
-        TextPrint(My.Resources.Updating_Ports_word)
+        TextPrint("-> " & My.Resources.Updating_Ports_word)
 
         Dim Portnumber As Integer = Settings.FirstRegionPort()
 
@@ -1667,13 +1667,13 @@ Public Class RegionMaker
         Settings.SetIni("Const", "RegionFolderName", GroupName(uuid))
         Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
         Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
-        Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.PrivateIP())) ' local IP
+        Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.LANIP())) ' local IP
         Settings.SetIni("Const", "http_listener_port", CStr(GroupPort(uuid))) ' varies with region
 
         Select Case Settings.ServerType
             Case RobustServer
                 SetupOpensimSearchINI()
-                Settings.SetIni("Const", "PrivURL", "http://" & Settings.PrivateIP())
+                Settings.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
                 Settings.SetIni("Const", "GridName", Settings.SimName)
                 SetupOpensimIM()
             Case RegionServer
@@ -1732,7 +1732,7 @@ Public Class RegionMaker
         If Settings.LSLHTTP Then
             ' do nothing - let them edit it
         Else
-            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.PrivateIP() & ":" & Settings.DiagnosticPort)
+            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.LANIP() & ":" & Settings.DiagnosticPort)
         End If
 
         Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))

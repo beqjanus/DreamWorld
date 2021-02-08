@@ -30,7 +30,7 @@ Module DoIni
         ' lean rightward paths for Apache
         ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\conf\extra\httpd-ssl.conf")
         Settings.LoadLiteralIni(ini)
-        Settings.SetLiteralIni("Listen", "Listen " & Settings.PrivateIP() & ":" & "443")
+        Settings.SetLiteralIni("Listen", "Listen " & Settings.LANIP() & ":" & "443")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
 
         Settings.SaveLiteralIni(ini, "httpd-ssl.conf")
