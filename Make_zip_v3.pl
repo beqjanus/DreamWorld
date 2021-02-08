@@ -80,6 +80,7 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/bakes",	
 	"$dir/OutworldzFiles/Opensim/bin/fsassets",	
 	"$dir/OutworldzFiles/Apache/logs/",
+    "$dir/OutworldzFiles/Apache/htdocs/jOpensim/",
 );
 
 foreach my $path ( @deletions) {
