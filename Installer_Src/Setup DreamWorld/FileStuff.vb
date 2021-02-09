@@ -3,6 +3,21 @@ Imports System.Threading
 
 Module FileStuff
 
+    Sub DeleteOldFiles()
+
+        Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")
+        Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)
+
+        Dim fileSystemInfo As System.IO.FileSystemInfo
+        For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
+            If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
+                DeleteFile(fileSystemInfo.FullName)
+            End If
+
+        Next
+
+    End Sub
+
     Public Sub Cleanup() ' old files
 
         ' cleanup old code and files
@@ -14,14 +29,20 @@ Module FileStuff
             "Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll",
             "Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb",
             "Outworldzfiles\Opensim\bin\config-include\Birds.ini",
-            "SET_externalIP-Log.txt"
+            "SET_externalIP-Log.txt",
+            "Outworldzfiles\Opensim\bin\Opensim.proto",
+            "Outworldzfiles\Opensim\bin\OpenSimRegion.proto",
+            "Outworldzfiles\Opensim\bin\OpensimMetro.proto",
+            "Outworldzfiles\Opensim\bin\OpensimOsGrid.proto",
+            "How_to_Start_and_Login.txt",
+            "How_to_Compile.txt",
+            "PRIVACYNOTICE.txt",
+            "Revisions.txt"
         }
 
         For Each N As String In ToDrop
             DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, N))
         Next
-
-
 
         Dim files As New List(Of String) From {
         "\Shoutcast", ' deprecated
@@ -29,7 +50,8 @@ Module FileStuff
         "\Outworldzfiles\Opensim\bin\addins",' moved to Outworldzfiles
         "\Outworldzfiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
         "\Outworldzfiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
-        "\Outworldzfiles\Opensim\bin\addin-db" ' must be cleared or opensim updates can break.
+        "\Outworldzfiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
+        "\Outworldzfiles\Opensim\bin\Library.proto" ' old Diva library for standalone only
         }
 
         If FormSetup.PropKillSource Then
@@ -222,7 +244,6 @@ Module FileStuff
         Catch ex As Exception
         End Try
 
-
     End Sub
 
     Public Sub DeleteFolder(n As String)
@@ -239,21 +260,6 @@ Module FileStuff
             End Try
 
         End If
-
-    End Sub
-
-    Sub DeleteOldHelpFiles()
-
-        Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")
-        Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)
-
-        Dim fileSystemInfo As System.IO.FileSystemInfo
-        For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
-            If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
-                DeleteFile(fileSystemInfo.FullName)
-            End If
-
-        Next
 
     End Sub
 

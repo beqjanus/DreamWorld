@@ -7,7 +7,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.88"
+    Public Const _MyVersion As String = "3.882"
     Public Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
     Public Const MySqlRev = "5.6.5"
     Public Const jRev As String = "3.9.23"
@@ -209,6 +209,18 @@ Module GlobalSettings
 #End Region
 
 #Region "Functions"
+
+    Public Sub Logit(message As String)
+
+        Return
+
+        Try
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Crash.log"), True)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & " : " & message)
+            End Using
+        Catch ex As Exception
+        End Try
+    End Sub
 
     Public Function BackupPath() As String
 

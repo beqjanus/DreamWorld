@@ -198,6 +198,7 @@ if ($publish =~ /p/ ) {
 	ProcessDir ("OutworldzFiles\\IAR");
 	ProcessDir ("OutworldzFiles\\Icecast");
 	ProcessDir ("OutworldzFiles\\Mysql");
+    ProcessDir ("OutworldzFiles\\Logs");
 	ProcessDir ("OutworldzFiles\\OAR");
 	ProcessDir ("OutworldzFiles\\PHP7");
 	ProcessDir ("OutworldzFiles\\Opensim");
@@ -249,8 +250,10 @@ if ($publish =~ /p/ ) {
 	
 	print "Make zip\n";
 	unlink "/Opensim/Zips/DreamGrid$type.zip";
-	my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\\*.*`;
 	
+	my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\* -x!*.*`;
+    #my $y = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\*`;
+    
 	sleep(1);
 	
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;

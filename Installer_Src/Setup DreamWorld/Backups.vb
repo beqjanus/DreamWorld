@@ -191,24 +191,27 @@ Public Class Backups
             End If
         End If
 
-        ' delete old files
-        originalBoottime = _startDate
+        Try
+            ' delete old files
+            originalBoottime = _startDate
 
-        Dim directory As New System.IO.DirectoryInfo(BackupPath)
-        Dim File As System.IO.FileInfo() = directory.GetFiles()
-        Dim File1 As System.IO.FileInfo
+            Dim directory As New System.IO.DirectoryInfo(BackupPath)
+            Dim File As System.IO.FileInfo() = directory.GetFiles()
+            Dim File1 As System.IO.FileInfo
 
-        ' get each file's last modified date
-        For Each File1 In File
-            If File1.Name.StartsWith("Backup_", StringComparison.InvariantCultureIgnoreCase) Then
-                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(BackupPath() & "\" & File1.Name)
-                strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
-                Dim y = DateTime.Compare(currentdatetime, strLastModified)
-                If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
-                    DeleteFile(File1.FullName)
+            ' get each file's last modified date
+            For Each File1 In File
+                If File1.Name.StartsWith("Backup_", StringComparison.InvariantCultureIgnoreCase) Then
+                    Dim strLastModified As Date = System.IO.File.GetLastWriteTime(BackupPath() & "\" & File1.Name)
+                    strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
+                    Dim y = DateTime.Compare(currentdatetime, strLastModified)
+                    If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
+                        DeleteFile(File1.FullName)
+                    End If
                 End If
-            End If
-        Next
+            Next
+        Catch
+        End Try
 
     End Sub
 
@@ -233,17 +236,20 @@ Public Class Backups
             Break(ex.Message)
         End Try
 
-        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
-        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "XYSettings")
+        Try
+            Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
+            Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "XYSettings")
 
-        Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), "Photo")
+            Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), "Photo")
 
-        Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewBlack.png")
-        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
-        fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewWhite.png")
-        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
-        fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewCustom.png")
-        If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+            Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewBlack.png")
+            If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+            fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewWhite.png")
+            If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+            fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewCustom.png")
+            If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+        Catch
+        End Try
 
         Try
             If Settings.BackupRegion Then
@@ -268,11 +274,14 @@ Public Class Backups
             Break(ex.Message)
         End Try
 
-        Z.Save()
-        Z.Dispose()
-        MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
-        DeleteFolder(_folder)
-        DeleteDirectory(IO.Path.Combine(_folder, "MySQL"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+        Try
+            Z.Save()
+            Z.Dispose()
+            MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+            DeleteFolder(_folder)
+            DeleteDirectory(IO.Path.Combine(_folder, "MySQL"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+        Catch
+        End Try
 
         Try
             If Settings.BackupSQL Then

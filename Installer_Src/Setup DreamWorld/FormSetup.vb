@@ -1393,7 +1393,7 @@ Public Class FormSetup
 
         UpgradeDotNet()
 
-        DeleteOldHelpFiles()
+        DeleteOldFiles()
 
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
@@ -1992,7 +1992,7 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Kill"
+#Region "Teleport"
 
     '' makes a list of teleports for the prims to use
     Private Shared Sub RegionListHTML()
@@ -2035,6 +2035,12 @@ Public Class FormSetup
 
     End Sub
 
+#End Region
+
+#Region "Loopback"
+
+#End Region
+
     Private Shared Sub SetLoopback()
 
         Dim Adapters = NetworkInterface.GetAllNetworkInterfaces()
@@ -2059,6 +2065,8 @@ Public Class FormSetup
         Next
 
     End Sub
+
+#Region "Help"
 
     Private Sub LoadHelp()
 
@@ -2099,6 +2107,10 @@ Public Class FormSetup
         Next
 
     End Sub
+
+#End Region
+
+#Region "Clicks"
 
     Private Sub LogViewClick(sender As Object, e As EventArgs)
 
