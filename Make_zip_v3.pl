@@ -14,6 +14,10 @@ use 5.010;
 
 use File::Copy;
 use File::Path;
+use File::Basename;
+
+use File::Find;
+
 
 
 my $contents = io->file('C:/Opensim/Outworldz_Dreamgrid/Installer_Src/Setup DreamWorld/GlobalSettings.vb')->slurp;
@@ -251,9 +255,22 @@ if ($publish =~ /p/ ) {
 	print "Make zip\n";
 	unlink "/Opensim/Zips/DreamGrid$type.zip";
 	
-	my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\* -x!*.*`;
-    #my $y = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\*`;
+    my @fs = glob('/Opensim/Zip');
+	my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\Outworldzfiles\\Apache\\conf\magic`;
     
+    find({ wanted => \&add_file, no_chdir => 1 }, '/Opensim/zip');
+
+sub add_file {
+    if (-f $_) {
+        my $f = $_;
+        if ($f !~ /\..*/)
+        {
+            my $y = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip $f`;
+        }
+    }
+}
+
+
 	sleep(1);
 	
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
