@@ -256,26 +256,24 @@ if ($publish =~ /p/ ) {
 	unlink "/Opensim/Zips/DreamGrid$type.zip";
 	
     my @fs = glob('/Opensim/Zip');
-	my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\Outworldzfiles\\Apache\\conf\magic`;
+    my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\\*.*`;
     
     find({ wanted => \&add_file, no_chdir => 1 }, '/Opensim/zip');
 
-sub add_file {
-    if (-f $_) {
-        my $f = $_;
-        if ($f !~ /\..*/)
-        {
-            my $y = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip $f`;
+    sub add_file {
+        if (-f $_) {
+            my $f = $_;
+            if ($f !~ /\..*/)
+            {
+                my $y = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip $f`;
+            }
         }
     }
-}
-
 
 	sleep(1);
 	
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
-	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;
-	
+	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;	
 	
 	if (!copy ('ReadMe/Revisions.txt', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Revisions.txt'))  {die $!;}
 	
@@ -283,8 +281,6 @@ sub add_file {
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
 	
-
-		
 	say ("Unlinking");	
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid.zip" ;
 	unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip" ;	
@@ -301,8 +297,7 @@ sub add_file {
 	
 	if (!copy ('outworldzfiles\\Help\\Dreamgrid Manual.pdf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))  {die $!;}
 	$v > io("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
-	
-	
+
 	
 }
 

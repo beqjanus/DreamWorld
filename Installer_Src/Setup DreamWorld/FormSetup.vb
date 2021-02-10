@@ -1637,10 +1637,6 @@ Public Class FormSetup
         PropRegionClass = RegionMaker.Instance()
         PropRegionClass.Init()
 
-        TextPrint(My.Resources.Setup_Ports_word)
-        Application.DoEvents()
-        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
-
         TextPrint(My.Resources.Starting_WebServer_word)
         'must start after region Class Is instantiated
         PropWebServer = NetServer.GetWebServer
@@ -1766,6 +1762,10 @@ Public Class FormSetup
 
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
+
+        TextPrint(My.Resources.Setup_Ports_word)
+        Application.DoEvents()
+        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
 
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)

@@ -24,9 +24,9 @@ Module Runtimes
 
             Try
                 UpgradeProcess.Start()
+                UpgradeProcess.WaitForExit()
                 Settings.DotnetUpgraded() = True
                 Settings.SaveSettings()
-                End
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 TextPrint(My.Resources.Error_word)
