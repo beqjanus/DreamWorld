@@ -51,7 +51,7 @@ Public Class FormCaches
     Private Sub B_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         If ScriptCheckBox1.Checked Then
-            WipeScripts()
+            WipeScripts(False)
         End If
 
         If AvatarCheckBox2.Checked Then

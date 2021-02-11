@@ -1720,11 +1720,8 @@ Public Class RegionMaker
 
         ' Get Opensimulator Scripts to date if needed
         If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
-
-            WipeScripts()
+            WipeScripts(True)
             Settings.DeleteScriptsOnStartupLevel() = PropSimVersion ' we have scripts cleared to proper Opensim Version
-
-            Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "True")
         Else
             Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
         End If

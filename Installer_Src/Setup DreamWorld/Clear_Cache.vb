@@ -129,9 +129,9 @@ Module Clear_Cache
         TextPrint(My.Resources.Deleted_word & " " & CStr(ctr) & " files")
     End Sub
 
-    Public Sub WipeScripts()
+    Public Sub WipeScripts(now As Boolean)
 
-        If Not PropOpensimIsRunning() Then
+        If Not PropOpensimIsRunning() Or now Then
             Dim ctr As Integer = 0
             Dim folders() = Nothing
             If Directory.Exists(Settings.OpensimBinPath & "ScriptEngines\") Then
