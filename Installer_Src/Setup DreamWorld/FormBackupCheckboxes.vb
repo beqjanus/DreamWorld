@@ -101,7 +101,7 @@ Public Class FormBackupCheckboxes
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
 
-        MySqlCheckBox.Text = Global.Outworldz.My.Resources.Backup_Mysql
+        SettingsCheckbox.Text = Global.Outworldz.My.Resources.Backup_Mysql
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
         Text = Global.Outworldz.My.Resources.System_Backup_word
 
@@ -117,7 +117,7 @@ Public Class FormBackupCheckboxes
         End If
 
         RegionCheckBox.Checked = Settings.BackupRegion
-        MySqlCheckBox.Checked = Settings.BackupMysql
+        SettingsCheckbox.Checked = Settings.BackupSettings
         FSAssetsCheckBox.Checked = Settings.BackupFSAssets
         CustomCheckBox.Checked = Settings.BackupWifi
         BackupOarsCheckBox.Checked = Settings.BackupOARs
@@ -128,10 +128,10 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub MySqlCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles MySqlCheckBox.CheckedChanged
+    Private Sub SettingsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SettingsCheckbox.CheckedChanged
 
         If Not initted Then Return
-        Settings.BackupMysql = MySqlCheckBox.Checked
+        Settings.BackupSettings = SettingsCheckbox.Checked
         Settings.SaveSettings()
 
     End Sub

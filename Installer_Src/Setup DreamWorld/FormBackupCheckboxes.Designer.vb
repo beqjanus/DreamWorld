@@ -29,7 +29,7 @@ Partial Class FormBackupCheckboxes
         Me.Button1 = New System.Windows.Forms.Button()
         Me.CustomCheckBox = New System.Windows.Forms.CheckBox()
         Me.FSAssetsCheckBox = New System.Windows.Forms.CheckBox()
-        Me.MySqlCheckBox = New System.Windows.Forms.CheckBox()
+        Me.SettingsCheckbox = New System.Windows.Forms.CheckBox()
         Me.RegionCheckBox = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -44,12 +44,12 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.CustomCheckBox)
         Me.GroupBox1.Controls.Add(Me.FSAssetsCheckBox)
-        Me.GroupBox1.Controls.Add(Me.MySqlCheckBox)
+        Me.GroupBox1.Controls.Add(Me.SettingsCheckbox)
         Me.GroupBox1.Controls.Add(Me.RegionCheckBox)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 33)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(295, 253)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
@@ -60,8 +60,8 @@ Partial Class FormBackupCheckboxes
         Me.BackupSQlCheckBox.AutoSize = True
         Me.BackupSQlCheckBox.Checked = True
         Me.BackupSQlCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.BackupSQlCheckBox.Location = New System.Drawing.Point(31, 154)
-        Me.BackupSQlCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BackupSQlCheckBox.Location = New System.Drawing.Point(31, 169)
+        Me.BackupSQlCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.BackupSQlCheckBox.Name = "BackupSQlCheckBox"
         Me.BackupSQlCheckBox.Size = New System.Drawing.Size(109, 21)
         Me.BackupSQlCheckBox.TabIndex = 12
@@ -73,8 +73,8 @@ Partial Class FormBackupCheckboxes
         Me.BackupOarsCheckBox.AutoSize = True
         Me.BackupOarsCheckBox.Checked = True
         Me.BackupOarsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.BackupOarsCheckBox.Location = New System.Drawing.Point(31, 125)
-        Me.BackupOarsCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BackupOarsCheckBox.Location = New System.Drawing.Point(31, 140)
+        Me.BackupOarsCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.BackupOarsCheckBox.Name = "BackupOarsCheckBox"
         Me.BackupOarsCheckBox.Size = New System.Drawing.Size(118, 21)
         Me.BackupOarsCheckBox.TabIndex = 11
@@ -83,10 +83,10 @@ Partial Class FormBackupCheckboxes
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(31, 217)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button1.Location = New System.Drawing.Point(50, 198)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(191, 28)
+        Me.Button1.Size = New System.Drawing.Size(161, 28)
         Me.Button1.TabIndex = 10
         Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
         Me.Button1.UseVisualStyleBackColor = True
@@ -96,8 +96,8 @@ Partial Class FormBackupCheckboxes
         Me.CustomCheckBox.AutoSize = True
         Me.CustomCheckBox.Checked = True
         Me.CustomCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CustomCheckBox.Location = New System.Drawing.Point(31, 96)
-        Me.CustomCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CustomCheckBox.Location = New System.Drawing.Point(31, 111)
+        Me.CustomCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.CustomCheckBox.Name = "CustomCheckBox"
         Me.CustomCheckBox.Size = New System.Drawing.Size(205, 21)
         Me.CustomCheckBox.TabIndex = 9
@@ -109,33 +109,34 @@ Partial Class FormBackupCheckboxes
         Me.FSAssetsCheckBox.AutoSize = True
         Me.FSAssetsCheckBox.Checked = True
         Me.FSAssetsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.FSAssetsCheckBox.Location = New System.Drawing.Point(31, 68)
-        Me.FSAssetsCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.FSAssetsCheckBox.Location = New System.Drawing.Point(31, 83)
+        Me.FSAssetsCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.FSAssetsCheckBox.Name = "FSAssetsCheckBox"
         Me.FSAssetsCheckBox.Size = New System.Drawing.Size(180, 21)
         Me.FSAssetsCheckBox.TabIndex = 8
         Me.FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_FSAssets
         Me.FSAssetsCheckBox.UseVisualStyleBackColor = True
         '
-        'MySqlCheckBox
+        'SettingsCheckbox
         '
-        Me.MySqlCheckBox.AutoSize = True
-        Me.MySqlCheckBox.Location = New System.Drawing.Point(77, 10)
-        Me.MySqlCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.MySqlCheckBox.Name = "MySqlCheckBox"
-        Me.MySqlCheckBox.Size = New System.Drawing.Size(191, 21)
-        Me.MySqlCheckBox.TabIndex = 7
-        Me.MySqlCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Mysql
-        Me.MySqlCheckBox.UseVisualStyleBackColor = True
-        Me.MySqlCheckBox.Visible = False
+        Me.SettingsCheckbox.AutoSize = True
+        Me.SettingsCheckbox.Checked = True
+        Me.SettingsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.SettingsCheckbox.Location = New System.Drawing.Point(31, 25)
+        Me.SettingsCheckbox.Margin = New System.Windows.Forms.Padding(4)
+        Me.SettingsCheckbox.Name = "SettingsCheckbox"
+        Me.SettingsCheckbox.Size = New System.Drawing.Size(132, 21)
+        Me.SettingsCheckbox.TabIndex = 7
+        Me.SettingsCheckbox.Text = "Backup Settings"
+        Me.SettingsCheckbox.UseVisualStyleBackColor = True
         '
         'RegionCheckBox
         '
         Me.RegionCheckBox.AutoSize = True
         Me.RegionCheckBox.Checked = True
         Me.RegionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.RegionCheckBox.Location = New System.Drawing.Point(31, 39)
-        Me.RegionCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RegionCheckBox.Location = New System.Drawing.Point(31, 54)
+        Me.RegionCheckBox.Margin = New System.Windows.Forms.Padding(4)
         Me.RegionCheckBox.Name = "RegionCheckBox"
         Me.RegionCheckBox.Size = New System.Drawing.Size(175, 21)
         Me.RegionCheckBox.TabIndex = 6
@@ -168,7 +169,7 @@ Partial Class FormBackupCheckboxes
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormBackupCheckboxes"
         Me.Text = "System Backup"
         Me.GroupBox1.ResumeLayout(False)
@@ -184,7 +185,7 @@ Partial Class FormBackupCheckboxes
     Friend WithEvents Button1 As Button
     Friend WithEvents CustomCheckBox As CheckBox
     Friend WithEvents FSAssetsCheckBox As CheckBox
-    Friend WithEvents MySqlCheckBox As CheckBox
+    Friend WithEvents SettingsCheckbox As CheckBox
     Friend WithEvents RegionCheckBox As CheckBox
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
