@@ -41,12 +41,11 @@ Namespace My
                 End If
             Next
 
-            ErrorLog("Git Version: #" & GitVersion())
-            ErrorLog("Version: " & PropMyVersion())
-            ErrorLog("Version: " & PropSimVersion())
-
-            ErrorLog(Result)
-            ErrorLog(DisplayObjectInfo(sender))
+            Logger("Error", "Git Version: #" & GitVersion(), "Error")
+            Logger("Error", "Version: " & PropMyVersion(), "Error")
+            Logger("Error", "Version: " & PropSimVersion(), "Error")
+            Logger("Error", Result, "Error")
+            Logger("Error", DisplayObjectInfo(sender), "Error")
 
             Using Logform As New FormErrorLogger
                 Logform.ShowDialog()
