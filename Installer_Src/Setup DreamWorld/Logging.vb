@@ -14,6 +14,19 @@ Module Logging
             BreakPoint.Show(message)
         End If
         Logger("Error", message, "Error")
+
+        ' Create a StackTrace that captures
+        'filename, line number, And column
+        'information for the current thread.
+        Dim st As StackTrace = New StackTrace(True)
+        Dim i As Integer
+        For i = 0 To st.FrameCount - 1 Step 1
+            'Note that high up the call stack, there Is only
+            ' one stack frame.
+            Dim sf As StackFrame = st.GetFrame(i)
+            Logger("StackFrame", sf.GetFileLineNumber().ToString(Globalization.CultureInfo.InvariantCulture) & ":" & sf.GetMethod().ToString, "Error")
+        Next
+
     End Sub
 
     Public Sub Log(category As String, message As String)

@@ -5952,6 +5952,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Outworldz_ad_by_Marianna_Monentes() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Outworldz_ad_by_Marianna_Monentes", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Overrides the global Map Settings for this one region.
         '''</summary>
         Friend ReadOnly Property OverridesMap() As String

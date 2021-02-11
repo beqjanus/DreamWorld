@@ -90,8 +90,8 @@ Public Class RegionMaker
             CreateRegion("Welcome")
             Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome")
-            Settings.WelcomeRegion = "Welcome"
             Settings.SaveSettings()
+            If GetAllRegions() = -1 Then Return False
         End If
         Debug.Print("Loaded " + CStr(RegionCount) + " Regions")
         Return True
