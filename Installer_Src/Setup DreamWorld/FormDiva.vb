@@ -162,10 +162,13 @@ Public Class FormDiva
         End If
 
         Dim img As Image
-        Using bmpTemp As New Bitmap(newpath)
-            img = New Bitmap(bmpTemp)
-        End Using
-        PictureBox1.Image = img
+        Try
+            Using bmpTemp As New Bitmap(newpath)
+                img = New Bitmap(bmpTemp)
+                PictureBox1.Image = img
+            End Using
+        Catch
+        End Try
 
     End Sub
 
