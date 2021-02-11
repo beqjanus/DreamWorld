@@ -7,7 +7,7 @@ Module DNS
         Dim client As New WebClient
         Dim Checkname As String
         Try
-            Checkname = client.DownloadString("http://outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
+            Checkname = client.DownloadString("http://ns1.outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             ErrorLog("Error:Cannot get new name:" & ex.Message)
@@ -76,7 +76,6 @@ Module DNS
 
     Public Sub SetPublicIP()
 
-
         Settings.WANIP = WANIP()
         Settings.LANIP = PropMyUPnpMap.LocalIP
         Settings.MacAddress = GetMacByIp(Settings.LANIP)
@@ -111,7 +110,6 @@ Module DNS
         Settings.ExternalHostName = Settings.PublicIP
 
         RegisterName(Settings.PublicIP)
-
 
     End Sub
 
