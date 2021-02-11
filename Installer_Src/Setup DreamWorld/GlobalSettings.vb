@@ -8,7 +8,7 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://outworldz.com"
     Public Const _MyVersion As String = "3.89"
-    Public Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
+    Public Const _SimVersion As String = "#be49d426d9=>1610c3f741 (mantis 8862: do cancel negative cache on valid store"
     Public Const MySqlRev = "5.6.5"
     Public Const jRev As String = "3.9.23"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
@@ -101,7 +101,7 @@ Module GlobalSettings
     End Property
 
     Public ReadOnly Property GitVersion As String
-        ' output of    git log --pretty=format'%h' -n 1
+        ' output of  git rev-parse --short HEAD   from Perl
         Get
             Dim line As String = "None"
             Dim fname = IO.Path.Combine(Settings.CurrentDirectory, "GitVersion")
