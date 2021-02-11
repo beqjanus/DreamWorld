@@ -7,7 +7,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.882"
+    Public Const _MyVersion As String = "3.89"
     Public Const _SimVersion As String = "#70e00a00ec (fix creators user cache, 2021-01-07)"
     Public Const MySqlRev = "5.6.5"
     Public Const jRev As String = "3.9.23"

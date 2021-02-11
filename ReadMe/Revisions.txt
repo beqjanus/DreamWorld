@@ -2,6 +2,19 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+
+V3.9
+Released  2/11/2020
+
+V3.89 
+Backups run on Calendar time now, not on runtime.  So if set for daily, and you shut down for a day it will make a backup when you start it. Previous versions required the sim to run for a day or longer before a backup occurred.
+Backups run in a single thread, sequentially to keep from overwhelming slow CPU's
+Error Logger now reports the stack contents and line number where the error was logged. 
+Possible crash fix in Web page settings if an image had been deleted manually.
+Problem in Group Settings for IM "MessageOnlineOnlyUsers=true"
+Add XYSettings.ini to backups
+Added a formal Copyright screen with links to the AGPL 3.0 copyright
+
 V3.88
 Minor problem in printing every hour
 

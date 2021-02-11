@@ -178,7 +178,9 @@ Module SmartStart
 
             If PID > 0 Then
                 SetWindowTextCall(BootProcess, GroupName)
-                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then
+                    FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                End If
                 ' Mark them before we boot as a crash will immediately trigger the event that it exited
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting

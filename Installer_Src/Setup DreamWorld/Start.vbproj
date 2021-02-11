@@ -241,6 +241,12 @@
     <Compile Include="Backups.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="Clear_Cache.vb" />
+    <Compile Include="FormCopyright.Designer.vb">
+      <DependentUpon>FormCopyright.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormCopyright.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CPUCounter.vb" />
     <Compile Include="Diagnostics.vb" />
     <Compile Include="DNS.vb" />
@@ -536,6 +542,9 @@
     <Compile Include="WordWrap.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormCopyright.resx">
+      <DependentUpon>FormCopyright.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormApache.resx">
       <DependentUpon>FormApache.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -803,6 +812,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cubes.ico" />
+    <None Include="Resources\Outworldz ad by Marianna Monentes.png" />
     <None Include="Resources\ClicktoInsertPhoto.png" />
     <None Include="Resources\tables.png" />
     <None Include="Resources\package_view.png" />
