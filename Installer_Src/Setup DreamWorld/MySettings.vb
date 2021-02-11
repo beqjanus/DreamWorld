@@ -445,12 +445,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property BackupMysql() As Boolean
+    Public Property BackupSettings() As Boolean
         Get
-            Return CType(GetMySetting("BackupMysql", "True"), Boolean)
+            Return CType(GetMySetting("BackupSettings", "True"), Boolean)
         End Get
         Set
-            SetMySetting("BackupMysql", CStr(Value))
+            SetMySetting("BackupSettings", CStr(Value))
         End Set
     End Property
 
@@ -499,7 +499,20 @@ Public Class MySettings
         End Set
     End Property
 
-    'BaseDirectory
+    Public Property StartDate() As DateTime
+        Get
+            Dim parsedDate As DateTime
+            If DateTime.TryParse(GetMySetting("StartDate", ""), parsedDate) Then
+                Return parsedDate
+            End If
+            Return Now
+        End Get
+        Set
+            Dim Datestring = CStr(Value)
+            SetMySetting("StartDate", Datestring)
+        End Set
+    End Property
+
     Public Property BaseDirectory() As String
         Get
             Return GetMySetting("BaseDirectory", "./fsassets")
