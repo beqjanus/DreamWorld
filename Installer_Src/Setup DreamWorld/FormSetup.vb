@@ -25,6 +25,7 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
+    Dim BackupThread As New Backups
     Private WithEvents UpdateProcess As New Process()
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
@@ -1342,8 +1343,6 @@ Public Class FormSetup
     ''' <param name="e">Unused</param>
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
 
-        ' Throw New System.Exception("An exception has occurred.")
-
         Application.EnableVisualStyles()
 
         Dim _myFolder As String = My.Application.Info.DirectoryPath
@@ -1785,6 +1784,10 @@ Public Class FormSetup
 
         DeleteDirectoryTmp()
 
+        If Debugger.IsAttached Then
+            ErrorLog("Test Error Handler")
+        End If
+
     End Sub
 
 #End Region
@@ -2126,13 +2129,13 @@ Public Class FormSetup
 
     Private Sub MnuAbout_Click(sender As System.Object, e As EventArgs) Handles mnuAbout.Click
 
-        TextPrint("(c) AGPL 3.0 Outworldz,LLC" & vbCrLf & "Version " & PropMyVersion)
-        Dim webAddress As String = PropDomain & "/Outworldz_Installer"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim HelpAbout = New FormCopyright
+#Enable Warning CA2000 ' Dispose objects before losing scope
+        HelpAbout.Show()
+        HelpAbout.Activate()
+        HelpAbout.Select()
+        HelpAbout.BringToFront()
 
     End Sub
 
@@ -2774,7 +2777,6 @@ Public Class FormSetup
 
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
-            Dim BackupThread As New Backups
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML() ' create HTML for older 2.4 region teleport_
             Application.DoEvents()

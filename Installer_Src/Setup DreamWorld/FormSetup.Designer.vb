@@ -1158,7 +1158,7 @@ Partial Class FormSetup
         '
         Me.BusyButton.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BusyButton.Location = New System.Drawing.Point(15, 39)
-        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BusyButton.Margin = New System.Windows.Forms.Padding(4)
         Me.BusyButton.Name = "BusyButton"
         Me.BusyButton.Size = New System.Drawing.Size(105, 29)
         Me.BusyButton.TabIndex = 51
@@ -1168,7 +1168,7 @@ Partial Class FormSetup
         'StopButton
         '
         Me.StopButton.Location = New System.Drawing.Point(15, 39)
-        Me.StopButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StopButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(105, 29)
         Me.StopButton.TabIndex = 50
@@ -1178,7 +1178,7 @@ Partial Class FormSetup
         'StartButton
         '
         Me.StartButton.Location = New System.Drawing.Point(15, 39)
-        Me.StartButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.StartButton.Margin = New System.Windows.Forms.Padding(4)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(105, 29)
         Me.StartButton.TabIndex = 49
@@ -1232,7 +1232,7 @@ Partial Class FormSetup
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer1.Location = New System.Drawing.Point(415, 45)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(4)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -1256,7 +1256,7 @@ Partial Class FormSetup
         Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.HideSelection = False
         Me.TextBox1.Location = New System.Drawing.Point(10, 79)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
         Me.TextBox1.Size = New System.Drawing.Size(402, 474)
@@ -1280,7 +1280,7 @@ Partial Class FormSetup
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.MinimumSize = New System.Drawing.Size(438, 124)
         Me.Name = "FormSetup"
