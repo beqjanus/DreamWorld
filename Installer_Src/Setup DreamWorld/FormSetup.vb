@@ -25,7 +25,7 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
-    Dim BackupThread As New Backups
+    ReadOnly BackupThread As New Backups
     Private WithEvents UpdateProcess As New Process()
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
