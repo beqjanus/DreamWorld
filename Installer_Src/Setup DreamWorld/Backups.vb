@@ -56,10 +56,10 @@ Public Class Backups
             Dim whenrun As String = currentdatetime.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)
 
             'used to zip it, zip it good
-            _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\tmp_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
+            _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Name_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
             If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
 
-            Dim _filename = Name & "_" & whenrun & ".sql"
+            Dim _filename = "Backup_" & Name & "_" & whenrun & ".sql"
             Dim SQLFile = IO.Path.Combine(_folder, _filename)
 
             ' we must write this to the file so it knows what database to use.
@@ -238,11 +238,11 @@ Public Class Backups
 
         Try
             Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
-            Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "XYSettings")
+            Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini"), "Settings")
 
-            Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png"), "Photo")
-
-            Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewBlack.png")
+            Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
+            If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+            fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewBlack.png")
             If File.Exists(fs) Then Z.AddFile(fs, "Photos")
             fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewWhite.png")
             If File.Exists(fs) Then Z.AddFile(fs, "Photos")
