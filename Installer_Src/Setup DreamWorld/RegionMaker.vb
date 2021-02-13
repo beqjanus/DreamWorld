@@ -310,14 +310,13 @@ Public Class RegionMaker
 
                             CreateRegion(fName, uuid)
 
-                            ' we do not save the above as we are making a new one.
                             RegionEnabled(uuid) = CBool(Settings.GetIni(fName, "Enabled", "True", "Boolean"))
 
-                            RegionPath(uuid) = ini ' save the path
-                            FolderPath(uuid) = System.IO.Path.GetDirectoryName(ini)
+                            RegionIniFilePath(uuid) = ini ' save the path
+                            RegionIniFolderPath(uuid) = System.IO.Path.GetDirectoryName(ini)
 
-                            Dim theEnd As Integer = FolderPath(uuid).LastIndexOf("\", StringComparison.InvariantCulture)
-                            IniPath(uuid) = FolderPath(uuid).Substring(0, theEnd + 1)
+                            Dim theEnd As Integer = RegionIniFolderPath(uuid).LastIndexOf("\", StringComparison.InvariantCulture)
+                            OpensimIniPath(uuid) = RegionIniFolderPath(uuid).Substring(0, theEnd + 1)
 
                             Dim M As Match = Regex.Match(FolderName, ".*\\(.*)$")
                             If M.Groups(1).Success Then
@@ -509,7 +508,7 @@ Public Class RegionMaker
 
         For Each uuid As String In RegionUuids()
             Dim Name = RegionName(uuid)
-            Dim ini = Settings.LoadIni(RegionPath(uuid), ";")
+            Dim ini = Settings.LoadIni(RegionIniFilePath(uuid), ";")
 
             Settings.SetIni(Name, "InternalPort", CStr(Portnumber))
             RegionPort(uuid) = Portnumber
@@ -875,7 +874,7 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Public Property FolderPath(uuid As String) As String
+    Public Property RegionIniFolderPath(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
             If Bad(uuid) Then Return ""
@@ -922,7 +921,7 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property IniPath(uuid As String) As String
+    Public Property OpensimIniPath(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
             If Bad(uuid) Then Return ""
@@ -948,7 +947,7 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property RegionPath(uuid As String) As String
+    Public Property RegionIniFilePath(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
             If Bad(uuid) Then Return ""
@@ -1648,17 +1647,16 @@ Public Class RegionMaker
     Public Function CopyOpensimProto(uuid As String) As Boolean
 
         '============== Opensim.ini =====================
-        Dim pathname = IniPath(uuid)
-
+        Dim OpensimPathName = OpensimIniPath(uuid)
         Dim Name = RegionName(uuid)
         Dim Group = GroupName(uuid)
 
         ' copy the prototype to the regions Opensim.ini
 
-        CopyFileFast(GetOpensimProto(), IO.Path.Combine(pathname, "Opensim.ini"))
+        CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
 
         ' Load Opensim.ini in Region Folder specific to this region
-        Dim INI = Settings.LoadIni(IO.Path.Combine(pathname, "Opensim.ini"), ";")
+        Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
 
         Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
         Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
@@ -2046,7 +2044,7 @@ Public Class RegionMaker
 
         '============== Region.ini =====================
         ' Opensim.ini in Region Folder specific to this region
-        INI = Settings.LoadIni(RegionPath(uuid), ";")
+        INI = Settings.LoadIni(RegionIniFilePath(uuid), ";")
 
         Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid)))
         Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName())

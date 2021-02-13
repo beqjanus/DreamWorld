@@ -634,7 +634,7 @@ Public Class FormRegion
         If msg = vbYes Then
             DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
             Try
-                My.Computer.FileSystem.RenameFile(PropRegionClass.RegionPath(RegionUUID), RegionName.Text + ".bak")
+                My.Computer.FileSystem.RenameFile(PropRegionClass.RegionIniFilePath(RegionUUID), RegionName.Text + ".bak")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -1086,21 +1086,20 @@ Public Class FormRegion
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
 
-        Dim RegionINIFilePath = PropRegionClass.RegionPath(RegionUUID)
-        Dim Folderpath = PropRegionClass.FolderPath(RegionUUID)
-
         ' rename is possible
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
-                My.Computer.FileSystem.RenameFile(RegionINIFilePath, RegionName.Text + ".ini")
+                My.Computer.FileSystem.RenameFile(PropRegionClass.RegionIniFilePath(RegionUUID), RegionName.Text + ".ini")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 TextPrint(My.Resources.Aborted_word)
                 Return False
             End Try
 
-            RegionINIFilePath = Folderpath + "\" + RegionName.Text + ".ini"
-            PropRegionClass.RegionPath(RegionUUID) = RegionINIFilePath
+            ' rename it
+            Dim RegionIniFolderPath = PropRegionClass.RegionIniFolderPath(RegionUUID)
+
+            PropRegionClass.RegionIniFilePath(RegionUUID) = RegionIniFolderPath + "/" + RegionName.Text + ".ini"
 
         End If
 
@@ -1115,7 +1114,7 @@ Public Class FormRegion
                 Return False
             End If
 
-            If Not Directory.Exists(RegionINIFilePath) Or RegionINIFilePath.Length = 0 Then
+            If Not Directory.Exists(PropRegionClass.RegionIniFilePath(RegionUUID)) Or PropRegionClass.RegionIniFilePath(RegionUUID).Length = 0 Then
                 Try
                     Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region")
                 Catch ex As Exception
@@ -1125,9 +1124,12 @@ Public Class FormRegion
                 End Try
             End If
 
-            PropRegionClass.RegionPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            RegionINIFilePath = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
-            PropRegionClass.FolderPath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup
+            PropRegionClass.RegionIniFilePath(RegionUUID) = Settings.OpensimBinPath & "Regions\" + NewGroup + "\Region\" + RegionName.Text + ".ini"
+            PropRegionClass.RegionIniFolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(PropRegionClass.RegionIniFilePath(RegionUUID))
+            PropRegionClass.GroupName(RegionUUID) = NewGroup
+
+            Dim theEnd As Integer = PropRegionClass.RegionIniFolderPath(RegionUUID).LastIndexOf("\", StringComparison.InvariantCulture)
+            PropRegionClass.OpensimIniPath(RegionUUID) = PropRegionClass.RegionIniFolderPath(RegionUUID).Substring(0, theEnd + 1)
 
         End If
 
@@ -1320,7 +1322,7 @@ Public Class FormRegion
         'Debug.Print(Region)
 
         Try
-            Using outputFile As New StreamWriter(RegionINIFilePath, False)
+            Using outputFile As New StreamWriter(PropRegionClass.RegionIniFilePath(RegionUUID), False)
                 outputFile.Write(Region)
             End Using
         Catch ex As Exception

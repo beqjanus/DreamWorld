@@ -445,7 +445,7 @@ Module DoIni
     Public Function SetRegionINI(regionname As String, key As String, value As String) As Boolean
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(regionname)
-        Dim filename = Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";")
+        Dim filename = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
         Settings.SetIni(regionname, key, value)
         Settings.SaveINI(filename, System.Text.Encoding.UTF8)
         Return False

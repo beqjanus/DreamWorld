@@ -659,23 +659,30 @@ Public Class FormSetup
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
         Settings.Grep(ini, Settings.LogLevel)
 
+        Dim l = PropRegionClass.RegionUuids()
+
         If Settings.ServerType = RobustServer Then
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = PropRegionClass.FindRegionByName(RegionName)
             PropRegionClass.CrashCounter(UUID) = 0
             If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
+            l.Remove(UUID)
         End If
         Application.DoEvents()
 
         ' Boot them up
-        For Each RegionUUID As String In PropRegionClass.RegionUuids()
+        For Each RegionUUID As String In l
+
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 PropRegionClass.CrashCounter(RegionUUID) = 0
+
                 If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
                     Exit For
                 End If
+
             End If
             Application.DoEvents()
+
         Next
 
         Return True
@@ -1278,7 +1285,7 @@ Public Class FormSetup
                         Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         If (yesno = vbYes) Then
                             Try
-                                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+                                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.OpensimIniPath(RegionUUID) & "Opensim.log" & """")
                             Catch ex As Exception
                                 BreakPoint.Show(ex.Message)
                             End Try
@@ -1313,7 +1320,7 @@ Public Class FormSetup
                     Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
                         Try
-                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.IniPath(RegionUUID) & "Opensim.log" & """")
+                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.OpensimIniPath(RegionUUID) & "Opensim.log" & """")
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
@@ -1781,10 +1788,6 @@ Public Class FormSetup
         Joomla.CheckForjOpensimUpdate()
 
         DeleteDirectoryTmp()
-
-        If Debugger.IsAttached Then
-            ErrorLog("Test Error Handler")
-        End If
 
     End Sub
 

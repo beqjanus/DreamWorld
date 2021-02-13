@@ -878,7 +878,7 @@ Public Class FormRegionlist
             Else
                 PropRegionClass.RegionEnabled(RegionUUID) = True
             End If
-            Dim INI = Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";")
+            Dim INI = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
             Settings.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
             Settings.SaveINI(INI, System.Text.Encoding.UTF8)
         Next
@@ -1207,7 +1207,7 @@ SetWindowOnTop_Err:
                 'Dim name = X.SubItems(1).Text
                 RegionUUID = PropRegionClass.FindRegionByName(name)
                 PropRegionClass.RegionEnabled(RegionUUID) = X.Checked
-                Dim INI = Settings.LoadIni(PropRegionClass.RegionPath(RegionUUID), ";")
+                Dim INI = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
                 Settings.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(X.Checked))
                 Settings.SaveINI(INI, System.Text.Encoding.UTF8)
             End If
