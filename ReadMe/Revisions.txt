@@ -5,6 +5,8 @@ This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are re
 
 V3.892
 Maps have a print preview and print button.
+Loading or saving IARS has autocomplete for avatar name.
+Once again fixed the Add Region while running logic.
 
 V3.891
 IARs required a password again due to update of Opensim. This sets it back to no password.
@@ -543,7 +545,7 @@ God Mode fixes where region overrides could get stuck on or off
 Disable Residents fixes where region overrides could get stuck on or off
 Lots of tweaks to region restart.
 Made it so the chooser and other important dialogs pop to the front. It was not really possible to edit two regions, before this. 
-Can now add multiple regions at the same time withou breakage.
+Can now add multiple regions at the same time without breakage.
 A Diagnostics log to show the details.
 Added uncaught exception error handler/logger. See Error.log if it just quits.
 Use HTTP with redirects at server in case SSL fails.
@@ -551,7 +553,7 @@ A new "Pausing" icon/state when Region Recycling is used. Restarts will be about
 Allow_osMessageObject and Allow_osGetNotecard set true for Satyr farming by non estate managers.
 Updates to Nuget repos.
 Updated Apache to latest version 2.4.1 so it can handle TLS1.3.
-Generate graphic titles to all web-downloadble IAR and OARs. 
+Generate graphic titles to all web-downloadable IAR and OARs. 
 Reworked Cache on main server to load much faster. My server's SSD needs upgrading due to all the 3D crap you peeps get for free. Its 385 GB used out of 400. Eeep!
 SSL added to Hyperica.com content. What a pain. Should be "Future-proof" for both SSL and non-SSL versions of Hyperica.com and Outworldz.com by not using SSL at all except thru server-side redirects.
 Checked every possible web access, and no it does not break your grid if Hyperica or Outworldz.com is down. Grid-wide Search and load OAR and IAR will obviously be offline. Deal with it.
