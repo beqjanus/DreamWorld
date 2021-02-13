@@ -10,10 +10,12 @@ Imports System.IO
 Module Logging
 
     Public Sub ErrorLog(message As String)
+
+        Logger("Error", message, "Error")
+
         If Debugger.IsAttached Then
             BreakPoint.Show(message)
         End If
-        Logger("Error", message, "Error")
 
         ' Create a StackTrace that captures
         'filename, line number, And column
@@ -26,6 +28,7 @@ Module Logging
             Dim sf As StackFrame = st.GetFrame(i)
             Logger("StackFrame", sf.GetFileLineNumber().ToString(Globalization.CultureInfo.InvariantCulture) & ":" & sf.GetMethod().ToString, "Error")
         Next
+
 
     End Sub
 

@@ -22,7 +22,6 @@
                     End If
 
                     Dim ToBackup As String
-
                     Dim BackupName = SaveIAR.GBackupName
 
                     If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
@@ -128,22 +127,23 @@
             Return False
         End If
 
-        ' Dim loadIarBox = New FormIARLoad
-        'loadIarBox.Activate
-        'loadIarBox.Dialog
+        Using LoadIAR As New FormIARLoad
+            LoadIAR.ShowDialog()
+            Dim chosen = LoadIAR.DialogResult()
+            If chosen = DialogResult.OK Then
+                Dim p As String = LoadIAR.GFolder
+                Dim u As String = LoadIAR.GAvatar
 
-        Dim Path As String = InputBox(My.Resources.Folder_To_Save_To_word & " (""/"",  ""/Objects/Somefolder..."")", "Folder Name", "/Objects")
+                If u.Length > 0 Then
+                    ConsoleCommand(UUID, "load iar --merge " & u & " " & p & " " & """" & thing & """")
+                    SendMessage(UUID, "IAR content Is loading")
+                    TextPrint(My.Resources.isLoading & vbCrLf & p)
+                Else
+                    TextPrint(My.Resources.Canceled_IAR)
+                End If
+            End If
 
-        Dim user As String = InputBox(My.Resources.Enter_1_2)
-
-        If user.Length > 0 Then
-            ConsoleCommand(UUID, "load iar --merge " & user & " " & Path & " " & """" & thing & """")
-            SendMessage(UUID, "IAR content Is loading")
-            TextPrint(My.Resources.isLoading & vbCrLf & Path)
-        Else
-            TextPrint(My.Resources.Canceled_IAR)
-        End If
-
+        End Using
         Return True
 
     End Function

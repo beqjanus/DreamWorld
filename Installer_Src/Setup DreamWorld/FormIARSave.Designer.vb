@@ -77,8 +77,6 @@ Partial Class FormIARSave
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.FilterGroupBox)
-        Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.PictureBox1)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -90,7 +88,7 @@ Partial Class FormIARSave
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(492, 263)
+        Me.GroupBox1.Size = New System.Drawing.Size(492, 141)
         Me.GroupBox1.TabIndex = 12
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Save Inventory IAR"
@@ -100,9 +98,9 @@ Partial Class FormIARSave
         Me.FilterGroupBox.Controls.Add(Me.CopyCheckBox)
         Me.FilterGroupBox.Controls.Add(Me.TransferCheckBox)
         Me.FilterGroupBox.Controls.Add(Me.ModifyCheckBox)
-        Me.FilterGroupBox.Location = New System.Drawing.Point(7, 124)
+        Me.FilterGroupBox.Location = New System.Drawing.Point(527, 55)
         Me.FilterGroupBox.Name = "FilterGroupBox"
-        Me.FilterGroupBox.Size = New System.Drawing.Size(237, 132)
+        Me.FilterGroupBox.Size = New System.Drawing.Size(151, 132)
         Me.FilterGroupBox.TabIndex = 26
         Me.FilterGroupBox.TabStop = False
         Me.FilterGroupBox.Text = "Filter"
@@ -110,6 +108,8 @@ Partial Class FormIARSave
         'CopyCheckBox
         '
         Me.CopyCheckBox.AutoSize = True
+        Me.CopyCheckBox.Checked = True
+        Me.CopyCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.CopyCheckBox.Location = New System.Drawing.Point(16, 33)
         Me.CopyCheckBox.Name = "CopyCheckBox"
         Me.CopyCheckBox.Size = New System.Drawing.Size(62, 21)
@@ -143,7 +143,7 @@ Partial Class FormIARSave
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(298, 211)
+        Me.Button1.Location = New System.Drawing.Point(527, 205)
         Me.Button1.Margin = New System.Windows.Forms.Padding(4)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(144, 28)
@@ -199,7 +199,7 @@ Partial Class FormIARSave
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(524, 34)
+        Me.MenuStrip1.Size = New System.Drawing.Size(707, 34)
         Me.MenuStrip1.TabIndex = 18599
         '
         'HelpToolStripMenuItem
@@ -214,8 +214,10 @@ Partial Class FormIARSave
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(524, 322)
+        Me.ClientSize = New System.Drawing.Size(707, 247)
+        Me.Controls.Add(Me.FilterGroupBox)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormIARSave"
