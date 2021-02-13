@@ -180,7 +180,7 @@ Public Class FormDisplacement
         Try
             Dim tag As String = sender.Tag.ToString
             PropSelectedBox = " --displacement " & tag & " "
-        Catch
+        Catch ex As Exception
         End Try
 
         Me.Close()
@@ -263,6 +263,54 @@ Public Class FormDisplacement
             Next
             OffsetY += 256
         Next
+
+    End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+
+        PrintToolStripMenuItem.Visible = False
+        Dim x As FormBorderStyle = Me.FormBorderStyle
+        Me.FormBorderStyle = FormBorderStyle.None
+
+        Dim preview As New PrintPreviewDialog
+        Dim pd As New System.Drawing.Printing.PrintDocument
+        pd.DefaultPageSettings.Landscape = True
+        AddHandler pd.PrintPage, AddressOf OnPrintPage
+        preview.Document = pd
+        preview.ShowDialog()
+
+        preview.Dispose()
+        PrintToolStripMenuItem.Visible = True
+        Me.FormBorderStyle = x
+
+    End Sub
+
+    Private Sub OnPrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs)
+
+        'create a memory bitmap and size to the form
+        Using bmp As Bitmap = New Bitmap(Me.Width, Me.Height)
+
+            'draw the form on the memory bitmap
+            Me.DrawToBitmap(bmp, New Rectangle(0, 0, Me.Width, Me.Height))
+
+            'draw the form image on the printer graphics sized and centered to margins
+            Dim ratio As Single = CSng(bmp.Width / bmp.Height)
+
+            If ratio > e.MarginBounds.Width / e.MarginBounds.Height Then
+                e.Graphics.DrawImage(bmp,
+                e.MarginBounds.Left,
+                CInt(e.MarginBounds.Top + (e.MarginBounds.Height / 2) - ((e.MarginBounds.Width / ratio) / 2)),
+                e.MarginBounds.Width,
+                CInt(e.MarginBounds.Width / ratio))
+            Else
+                e.Graphics.DrawImage(bmp,
+                CInt(e.MarginBounds.Left + (e.MarginBounds.Width / 2) - (e.MarginBounds.Height * ratio / 2)),
+                e.MarginBounds.Top,
+                CInt(e.MarginBounds.Height * ratio),
+                e.MarginBounds.Height)
+            End If
+
+        End Using
 
     End Sub
 

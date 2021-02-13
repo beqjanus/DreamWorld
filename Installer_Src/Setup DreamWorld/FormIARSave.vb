@@ -12,6 +12,10 @@ Public Class FormIARSave
     Private _gAvatarName As String = ""
     Private _gBackupName As String = ""
     Private _gBackupPath As String = ""
+    Private _GCopy As Boolean
+    Private _GTransfer As Boolean
+    Private _GModify As Boolean
+
     Private _gObject As String = "/"
 
 #End Region
@@ -24,7 +28,11 @@ Public Class FormIARSave
         InitializeComponent()
 
         Button1.Text = Global.Outworldz.My.Resources.Save_IAR_word
-        Button2.Text = Global.Outworldz.My.Resources.Cancel_word
+
+        ModifyCheckBox.Text = Global.Outworldz.My.Resources.Modify_word
+        TransferCheckBox.Text = Global.Outworldz.My.Resources.Transfer_word
+        CopyCheckBox.Text = Global.Outworldz.My.Resources.Copy_Word
+
         GroupBox1.Text = Global.Outworldz.My.Resources.Save_Inventory_IAR_word '"Save Inventory IAR"
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
@@ -38,11 +46,48 @@ Public Class FormIARSave
 
         BackupNameTextBox.Text = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) + ".iar"
 
+        GModify = ModifyCheckBox.Checked
+        GTransfer = TransferCheckBox.Checked
+        GCopy = CopyCheckBox.Checked
+
+        With AviName
+            .AutoCompleteCustomSource = MysqlInterface.GetAvatarList()
+            .AutoCompleteMode = AutoCompleteMode.Suggest
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+        End With
+
     End Sub
 
 #End Region
 
 #Region "Public Properties"
+
+    Public Property GCopy As Boolean
+        Get
+            Return _GCopy
+        End Get
+        Set(value As Boolean)
+            _GCopy = value
+        End Set
+    End Property
+
+    Public Property GTransfer As Boolean
+        Get
+            Return _GTransfer
+        End Get
+        Set(value As Boolean)
+            _GTransfer = value
+        End Set
+    End Property
+
+    Public Property GModify As Boolean
+        Get
+            Return _GModify
+        End Get
+        Set(value As Boolean)
+            _GModify = value
+        End Set
+    End Property
 
     Public Property GAvatarName As String
         Get
@@ -85,6 +130,9 @@ Public Class FormIARSave
 #Region "Private Methods"
 
     Private Sub AviName_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
+        If AviName.Text.Length > 0 Then
+            AviName.BackColor = Color.White
+        End If
         GAvatarName = AviName.Text
     End Sub
 
@@ -93,25 +141,21 @@ Public Class FormIARSave
     End Sub
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
-
         If GAvatarName.Length = 0 Or Not GAvatarName.Contains(" ") Then
-            MsgBox(My.Resources.Enter_1_2)
+            AviName.BackColor = Color.Red
             Return
         End If
-
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
-    End Sub
-
-    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
-        Me.DialogResult = System.Windows.Forms.DialogResult.Cancel
     End Sub
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         HelpManual("SaveIar")
     End Sub
 
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs)
-
+    Private Sub ObjectNameBox_TextClicks(sender As Object, e As EventArgs) Handles ObjectNameBox.Click
+        If ObjectNameBox.Text = "/=everything, /Objects/Folder, etc." Then
+            ObjectNameBox.Text = "/"
+        End If
     End Sub
 
     Private Sub ObjectNameBox_TextChanged_1(sender As Object, e As EventArgs) Handles ObjectNameBox.TextChanged
@@ -119,9 +163,7 @@ Public Class FormIARSave
     End Sub
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click
-
         Dim ofd As New FolderBrowserDialog
-
         If ofd.ShowDialog = DialogResult.OK Then
             If ofd.SelectedPath.Length > 0 Then
                 GBackupPath = ofd.SelectedPath
@@ -129,7 +171,18 @@ Public Class FormIARSave
             End If
         End If
         ofd.Dispose()
+    End Sub
 
+    Private Sub CopyCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CopyCheckBox.CheckedChanged
+        GCopy = CopyCheckBox.Checked
+    End Sub
+
+    Private Sub ModifyCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ModifyCheckBox.CheckedChanged
+        GModify = ModifyCheckBox.Checked
+    End Sub
+
+    Private Sub TransferCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TransferCheckBox.CheckedChanged
+        GTransfer = TransferCheckBox.Checked
     End Sub
 
 #End Region

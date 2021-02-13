@@ -176,6 +176,32 @@ Public Module MysqlInterface
 
     End Sub
 
+    Public Function GetAvatarList() As AutoCompleteStringCollection
+        Dim A As New AutoCompleteStringCollection
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "Select firstname, lastname from useraccounts"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim f = reader.GetString(0)
+                            Dim l = reader.GetString(1)
+                            Debug.Print("ID = {0} {1}", f, l)
+                            If f <> "GRID" And l <> "SERVICES" Then
+                                A.Add(f & " " & l)
+                            End If
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+        End Try
+
+        Return A
+
+    End Function
+
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID"></param>
     ''' <returns>Name as string</returns>

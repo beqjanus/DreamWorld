@@ -1864,6 +1864,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Copy.
+        '''</summary>
+        Friend ReadOnly Property Copy_Word() As String
+            Get
+                Return ResourceManager.GetString("Copy_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to CPU Intensive Backup Started.
         '''</summary>
         Friend ReadOnly Property CPU_Intensive() As String
@@ -5147,6 +5156,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Modify.
+        '''</summary>
+        Friend ReadOnly Property Modify_word() As String
+            Get
+                Return ResourceManager.GetString("Modify_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Modules.
         '''</summary>
         Friend ReadOnly Property Modules_word() As String
@@ -8415,6 +8433,15 @@ Namespace My.Resources
         Friend ReadOnly Property TOS() As String
             Get
                 Return ResourceManager.GetString("TOS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Transfer.
+        '''</summary>
+        Friend ReadOnly Property Transfer_word() As String
+            Get
+                Return ResourceManager.GetString("Transfer_word", resourceCulture)
             End Get
         End Property
         

@@ -467,6 +467,7 @@
     <Compile Include="GlobalSettings.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="Help.vb" />
+    <Compile Include="IAR.vb" />
     <Compile Include="Icecast.vb" />
     <Compile Include="IP.vb" />
     <Compile Include="jOpensim.vb" />

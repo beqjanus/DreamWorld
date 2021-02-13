@@ -931,7 +931,7 @@ Public Class FormSetup
 
                 SequentialPause()   ' wait for previous region to give us some CPU
                 ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID))
-                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "\" & PropRegionClass.RegionName(RegionUUID) & "_" &
+                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
                                DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
 
             End If
@@ -1676,8 +1676,6 @@ Public Class FormSetup
         Application.DoEvents()
         SetLoopback()
         Application.DoEvents()
-        LoadLocalIAROAR() ' refresh the pull downs.
-        Application.DoEvents()
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
             Case "True"
@@ -1715,9 +1713,6 @@ Public Class FormSetup
         LoadHelp()      ' Help loads once
 
         FixUpdater()    ' replace DreamGridUpdater.exe with DreamGridUpdater.new
-
-        Application.DoEvents()
-        LoadLocalIAROAR() ' load IAR and OAR local content
 
         If Settings.Password = "secret" Or Settings.Password.Length = 0 Then
             Dim Password = New PassGen
@@ -1761,6 +1756,9 @@ Public Class FormSetup
 
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
+
+        Application.DoEvents()
+        LoadLocalIAROAR() ' load IAR and OAR local content
 
         TextPrint(My.Resources.Setup_Ports_word)
         Application.DoEvents()
@@ -3232,32 +3230,7 @@ Public Class FormSetup
 
     Private Sub LoadInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LoadInventoryIARToolStripMenuItem1.Click
 
-        If PropOpensimIsRunning() Then
-            ' Create an instance of the open file dialog box. Set filter options and filter index.
-            Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
-                        .InitialDirectory = """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles") & """",
-                        .Filter = Global.Outworldz.My.Resources.IAR_Load_and_Save_word & " (*.iar)|*.iar|All Files (*.*)|*.*",
-                        .FilterIndex = 1,
-                        .Multiselect = False
-                    }
-
-            ' Call the ShowDialog method to show the dialog box.
-            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
-
-            ' Process input if the user clicked OK.
-            If UserClickedOK = DialogResult.OK Then
-                Dim thing = openFileDialog1.FileName
-                If thing.Length > 0 Then
-                    thing = thing.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
-                    If LoadIARContent(thing) Then
-                        TextPrint(My.Resources.isLoading & " " & thing)
-                    End If
-                End If
-            End If
-            openFileDialog1.Dispose()
-        Else
-            TextPrint(My.Resources.Not_Running)
-        End If
+        LoadIAR()
 
     End Sub
 
@@ -3438,47 +3411,7 @@ Public Class FormSetup
 
     Private Sub SaveInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem1.Click
 
-        If PropOpensimIsRunning() Then
-
-            Using SaveIAR As New FormIARSave
-                SaveIAR.ShowDialog()
-                Dim chosen = SaveIAR.DialogResult()
-                If chosen = DialogResult.OK Then
-
-                    Dim itemName = SaveIAR.GObject
-                    If itemName.Length = 0 Then
-                        MsgBox(My.Resources.MustHaveName, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-                        Return
-                    End If
-
-                    Dim ToBackup As String
-
-                    Dim BackupName = SaveIAR.GBackupName
-
-                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
-                        BackupName += ".iar"
-                    End If
-
-                    If String.IsNullOrEmpty(SaveIAR.GBackupPath) Or SaveIAR.GBackupPath = "AutoBackup" Then
-                        ToBackup = IO.Path.Combine(BackupPath(), BackupName)
-                    Else
-                        ToBackup = BackupName
-                    End If
-
-                    Dim Name = SaveIAR.GAvatarName
-
-                    For Each RegionUUID As String In PropRegionClass.RegionUuids
-                        If PropRegionClass.IsBooted(RegionUUID) Then
-                            ConsoleCommand(RegionUUID, "save iar " & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
-                            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & PropRegionClass.RegionName(RegionUUID))
-                            Exit For
-                        End If
-                    Next
-                End If
-            End Using
-        Else
-            TextPrint(My.Resources.Not_Running)
-        End If
+        saveIARTask()
 
     End Sub
 
