@@ -73,7 +73,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             }
         }
 
-        bool disposed;
+        private bool disposed;
+
         private void Dispose(bool disposing)
         {
             if (!disposed)
@@ -174,11 +175,11 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             {
                 if (m_bannedRegions.TryGetValue(pAgentID, out Dictionary<ulong, double> idCache))
                 {
-                    lock(idCache)
+                    lock (idCache)
                     {
                         if (idCache.TryGetValue(pRegionHandle, out double exp))
                         {
-                            if(exp < Util.GetTimeStamp())
+                            if (exp < Util.GetTimeStamp())
                                 return true;
                             else
                                 idCache.Remove(pRegionHandle);
@@ -199,7 +200,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 }
                 else
                 {
-                    lock(idCache)
+                    lock (idCache)
                     {
                         idCache[pRegionHandle] = Util.GetTimeStamp() + newTime;
                         m_bannedRegions.AddOrUpdate(pAgentID, idCache, newTime);
@@ -376,7 +377,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             m_eqModule = Scene.RequestModuleInterface<IEventQueue>();
         }
 
-        #endregion
+        #endregion ISharedRegionModule
 
         #region Agent Teleports
 
@@ -406,7 +407,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 // This user will be a God in the destination scene, too
                 teleportFlags |= (uint)TeleportFlags.Godlike;
             }
-
             else if (!sp.Scene.Permissions.CanTeleport(sp.UUID))
                 return;
 
@@ -429,7 +429,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             {
                 if (regionHandle == sp.Scene.RegionInfo.RegionHandle)
                 {
-                    if(!sp.AllowMovement)
+                    if (!sp.AllowMovement)
                     {
                         sp.ControllingClient.SendTeleportFailed("You are frozen");
                         m_entityTransferStateMachine.ResetFromTransit(sp.UUID);
@@ -457,12 +457,11 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             }
             catch (Exception e)
             {
-                
                 m_log.ErrorFormat(
                     "[ENTITY TRANSFER MODULE]: Exception on teleport of {0} from {1}@{2} to {3}@{4}: {5}{6}",
                     sp.Name, sp.AbsolutePosition, sp.Scene.RegionInfo.RegionName, position, destinationRegionName,
                     e.Message, e.StackTrace);
-                if(sp != null && sp.ControllingClient != null && !sp.IsDeleted)
+                if (sp != null && sp.ControllingClient != null && !sp.IsDeleted)
                     sp.ControllingClient.SendTeleportFailed("Internal error");
             }
             finally
@@ -516,13 +515,13 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             {
                 position.Z = posZLimit;
             }
-/*
-            if(!sp.CheckLocalTPLandingPoint(ref position))
-            {
-                sp.ControllingClient.SendTeleportFailed("Not allowed at destination");
-                return;
-            }
-*/
+            /*
+                        if(!sp.CheckLocalTPLandingPoint(ref position))
+                        {
+                            sp.ControllingClient.SendTeleportFailed("Not allowed at destination");
+                            return;
+                        }
+            */
             if (sp.Flying)
                 teleportFlags |= (uint)TeleportFlags.IsFlying;
 
@@ -531,7 +530,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             sp.ControllingClient.SendTeleportStart(teleportFlags);
             lookAt.Z = 0f;
 
-            if(Math.Abs(lookAt.X) < 0.01f && Math.Abs(lookAt.Y) < 0.01f)
+            if (Math.Abs(lookAt.X) < 0.01f && Math.Abs(lookAt.Y) < 0.01f)
             {
                 lookAt.X = 1.0f;
                 lookAt.Y = 0;
@@ -571,7 +570,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             //     region inside a varregion.
             GridRegion reg = GetTeleportDestinationRegion(sp.Scene.GridService, sp.Scene.RegionInfo.ScopeID, regionHandle, ref position);
 
-            if( reg == null)
+            if (reg == null)
             {
                 finalDestination = null;
 
@@ -601,7 +600,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             if (finalDestination == null)
             {
-                m_log.WarnFormat( "{0} Unable to teleport {1} {2}: {3}",
+                m_log.WarnFormat("{0} Unable to teleport {1} {2}: {3}",
                                         LogHeader, sp.Name, sp.UUID, reason);
 
                 sp.ControllingClient.SendTeleportFailed(reason);
@@ -632,7 +631,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             // handle legacy HG. linked regions are mapped into y = 0 and have no size information
             // so we can only search by base handle
-            if( y == 0)
+            if (y == 0)
             {
                 reg = gridService.GetRegionByPosition(scope, (int)x, (int)y);
                 return reg;
@@ -724,7 +723,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             ulong destinationHandle = finalDestination.RegionHandle;
 
-            if(destinationHandle == sourceRegion.RegionHandle)
+            if (destinationHandle == sourceRegion.RegionHandle)
             {
                 sp.ControllingClient.SendTeleportFailed("Can't teleport to a region on same map position. Try going to another region first, then retry from there");
                 return;
@@ -790,14 +789,13 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             sp.IsInLocalTransit = reg.RegionLocY != 0; // HG
             sp.IsInTransit = true;
 
-
             if (DisableInterRegionTeleportCancellation)
                 teleportFlags |= (uint)TeleportFlags.DisableCancel;
 
             // At least on LL 3.3.4, this is not strictly necessary - a teleport will succeed without sending this to
             // the viewer.  However, it might mean that the viewer does not see the black teleport screen (untested).
             sp.ControllingClient.SendTeleportStart(teleportFlags);
-  
+
             AgentCircuitData currentAgentCircuit = sp.Scene.AuthenticateHandler.GetAgentCircuitData(sp.ControllingClient.CircuitCode);
             AgentCircuitData agentCircuit = sp.ControllingClient.RequestClientInfo();
             agentCircuit.startpos = position;
@@ -831,7 +829,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             {
                 m_log.DebugFormat(
                     "[ENTITY TRANSFER MODULE]: Determined that region {0} at {1},{2} size {3},{4} needs new child agent for agent {5} from {6}",
-                    finalDestination.RegionName, newRegionX, newRegionY,newSizeX, newSizeY, sp.Name, Scene.Name);
+                    finalDestination.RegionName, newRegionX, newRegionY, newSizeX, newSizeY, sp.Name, Scene.Name);
 
                 //sp.ControllingClient.SendTeleportProgress(teleportFlags, "Creating agent...");
                 agentCircuit.CapsPath = CapsUtil.GetRandomCapsObjectPath();
@@ -845,7 +843,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             // We're going to fallback to V1 if the destination gives us anything smaller than 0.2
             if (ctx.OutboundVersion >= 0.2f)
-                TransferAgent_V2(sp, agentCircuit, reg, finalDestination, endPoint, teleportFlags, OutSideViewRange , ctx, out reason);
+                TransferAgent_V2(sp, agentCircuit, reg, finalDestination, endPoint, teleportFlags, OutSideViewRange, ctx, out reason);
             else
                 TransferAgent_V1(sp, agentCircuit, reg, finalDestination, endPoint, teleportFlags, OutSideViewRange, ctx, out reason);
         }
@@ -862,9 +860,9 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             string capsPath = finalDestination.ServerURI + CapsUtil.GetCapsSeedPath(agentCircuit.CapsPath);
             List<ulong> childRegionsToClose = sp.GetChildAgentsToClose(destinationHandle, finalDestination.RegionSizeX, finalDestination.RegionSizeY);
-            if(agentCircuit.ChildrenCapSeeds != null)
+            if (agentCircuit.ChildrenCapSeeds != null)
             {
-                foreach(ulong handler in childRegionsToClose)
+                foreach (ulong handler in childRegionsToClose)
                 {
                     agentCircuit.ChildrenCapSeeds.Remove(handler);
                 }
@@ -946,7 +944,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             // Let's send a full update of the agent. This is a synchronous call.
             AgentData agent = new AgentData();
-            sp.CopyTo(agent,false);
+            sp.CopyTo(agent, false);
 
             if ((teleportFlags & (uint)TeleportFlags.IsFlying) != 0)
                 agent.ControlFlags |= (uint)AgentManager.ControlFlags.AGENT_CONTROL_FLY;
@@ -1054,7 +1052,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             m_entityTransferStateMachine.UpdateInTransit(sp.UUID, AgentTransferState.CleaningUp);
 
-            if(logout)
+            if (logout)
                 sp.closeAllChildAgents();
             else
                 sp.CloseChildAgents(childRegionsToClose);
@@ -1064,9 +1062,9 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             sp.HasMovedAway(!(OutSideViewRange || logout));
 
-//            ulong sourceRegionHandle = sp.RegionHandle;
+            //            ulong sourceRegionHandle = sp.RegionHandle;
 
-             // Now let's make it officially a child agent
+            // Now let's make it officially a child agent
             sp.MakeChildAgent(destinationHandle);
 
             // Finally, let's close this previously-known-as-root agent, when the jump is outside the view zone
@@ -1100,9 +1098,9 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             {
                 childRegionsToClose = sp.GetChildAgentsToClose(destinationHandle, finalDestination.RegionSizeX, finalDestination.RegionSizeY);
 
-                if(agentCircuit.ChildrenCapSeeds != null)
+                if (agentCircuit.ChildrenCapSeeds != null)
                 {
-                    foreach(ulong handler in childRegionsToClose)
+                    foreach (ulong handler in childRegionsToClose)
                     {
                         agentCircuit.ChildrenCapSeeds.Remove(handler);
                     }
@@ -1112,7 +1110,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             if (OutSideViewRange && agentCircuit.ChildrenCapSeeds != null)
                 agentCircuit.ChildrenCapSeeds.Remove(sp.RegionHandle);
 
-            string capsPath = finalDestination.ServerURI + CapsUtil.GetCapsSeedPath(agentCircuit.CapsPath);;
+            string capsPath = finalDestination.ServerURI + CapsUtil.GetCapsSeedPath(agentCircuit.CapsPath); ;
 
             // Let's create an agent there if one doesn't exist yet.
             // NOTE: logout will always be false for a non-HG teleport.
@@ -1175,7 +1173,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             // Let's send a full update of the agent.
             AgentData agent = new AgentData();
-            sp.CopyTo(agent,false);
+            sp.CopyTo(agent, false);
             agent.Position = agentCircuit.startpos;
 
             if ((teleportFlags & (uint)TeleportFlags.IsFlying) != 0)
@@ -1183,7 +1181,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             agent.SenderWantsToWaitForRoot = true;
 
-            if(OutSideViewRange)
+            if (OutSideViewRange)
                 SetNewCallbackURL(agent, sp.Scene.RegionInfo);
 
             // Reset the do not close flag.  This must be done before the destination opens child connections (here
@@ -1235,14 +1233,13 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             // Now let's make it officially a child agent
             sp.MakeChildAgent(destinationHandle);
 
-            if(localclose)
+            if (localclose)
             {
                 if (logout)
                     sp.closeAllChildAgents();
                 else
                     sp.CloseChildAgents(childRegionsToClose);
             }
-
 
             // if far jump we do need to close anyways
             if (NeedsClosing(reg, OutSideViewRange))
@@ -1251,16 +1248,16 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 do
                 {
                     Thread.Sleep(250);
-                    if(sp.IsDeleted)
+                    if (sp.IsDeleted)
                         return;
-                    if(!sp.IsInTransit)
+                    if (!sp.IsInTransit)
                         break;
                 } while (--count > 0);
 
                 if (!sp.IsDeleted)
                 {
                     m_log.DebugFormat(
-                        "[ENTITY TRANSFER MODULE]: Closing agent {0} in {1} after teleport {2}", sp.Name, Scene.Name, sp.IsInTransit?"timeout":"");
+                        "[ENTITY TRANSFER MODULE]: Closing agent {0} in {1} after teleport {2}", sp.Name, Scene.Name, sp.IsInTransit ? "timeout" : "");
                     sp.Scene.CloseAgent(sp.UUID, false);
                 }
                 return;
@@ -1360,8 +1357,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
         /// now just a HG hook
         protected virtual void AgentHasMovedAway(ScenePresence sp, bool logout)
         {
-//            if (sp.Scene.AttachmentsModule != null)
-//                sp.Scene.AttachmentsModule.DeleteAttachmentsFromScene(sp, logout);
+            //            if (sp.Scene.AttachmentsModule != null)
+            //                sp.Scene.AttachmentsModule.DeleteAttachmentsFromScene(sp, logout);
         }
 
         protected void KillEntity(Scene scene, uint localID)
@@ -1393,9 +1390,10 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             return OutViewRange;
         }
 
-        #endregion
+        #endregion Agent Teleports
 
         #region Landmark Teleport
+
         /// <summary>
         /// Tries to teleport agent to landmark.
         /// </summary>
@@ -1404,6 +1402,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
         /// <param name="position"></param>
         public virtual void RequestTeleportLandmark(IClientAPI remoteClient, AssetLandmark lm)
         {
+            // fkb Teleport LandMark
+
             GridRegion info = Scene.GridService.GetRegionByUUID(UUID.Zero, lm.RegionID);
 
             if (info == null)
@@ -1416,7 +1416,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 Vector3.Zero, (uint)(Constants.TeleportFlags.SetLastToTarget | Constants.TeleportFlags.ViaLandmark));
         }
 
-        #endregion
+        #endregion Landmark Teleport
 
         #region Teleport Home
 
@@ -1427,6 +1427,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
         public virtual bool TeleportHome(UUID id, IClientAPI client)
         {
+            // fkb teleport home
+
             bool notsame = false;
             if (client == null)
             {
@@ -1469,7 +1471,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             //OpenSim.Services.Interfaces.PresenceInfo pinfo = Scene.PresenceService.GetAgent(client.SessionId);
             GridUserInfo uinfo = Scene.GridUserService.GetGridUserInfo(id.ToString());
-            if(uinfo == null)
+            if (uinfo == null)
             {
                 m_log.ErrorFormat("[ENTITY TRANSFER MODULE] Griduser info not found for {1}. Cannot send home.", id);
                 if (notsame)
@@ -1505,8 +1507,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             return true;
         }
 
-        #endregion
-
+        #endregion Teleport Home
 
         #region Agent Crossings
 
@@ -1526,7 +1527,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             Scene ascene = agent.Scene;
             string homeURI = ascene.GetAgentHomeURI(agentID);
 
-
             if (!ascene.SimulationService.QueryAccess(destiny, agentID, homeURI, false, position,
                    agent.Scene.GetFormatsOffered(), ctx, out reason))
             {
@@ -1543,7 +1543,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             return true;
         }
 
-
         // Given a position relative to the current region and outside of it
         // find the new region that the point is actually in
         // returns 'null' if new region not found or if agent as no access
@@ -1556,8 +1555,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             newpos = pos;
             failureReason = string.Empty;
 
-//            m_log.DebugFormat(
-//                "[ENTITY TRANSFER MODULE]: Crossing agent {0} at pos {1} in {2}", agent.Name, pos, scene.Name);
+            //            m_log.DebugFormat(
+            //                "[ENTITY TRANSFER MODULE]: Crossing agent {0} at pos {1} in {2}", agent.Name, pos, scene.Name);
 
             // Compute world location of the agent's position
             double presenceWorldX = (double)scene.RegionInfo.WorldLocX + pos.X;
@@ -1583,14 +1582,14 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                                       pos.Z);
 
             string homeURI = scene.GetAgentHomeURI(agentID);
-           
+
             if (!scene.SimulationService.QueryAccess(
                     neighbourRegion, agentID, homeURI, false, newpos,
                     scene.GetFormatsOffered(), ctx, out failureReason))
             {
                 // remember the fail
                 m_bannedRegionCache.Add(neighbourRegion.RegionHandle, agentID, 45);
-                if(String.IsNullOrWhiteSpace(failureReason))
+                if (String.IsNullOrWhiteSpace(failureReason))
                     failureReason = "Access Denied";
                 return null;
             }
@@ -1611,10 +1610,10 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             CrossAsyncDelegate icon = (CrossAsyncDelegate)iar.AsyncState;
             ScenePresence agent = icon.EndInvoke(iar);
 
-            if(agent == null || agent.IsDeleted)
+            if (agent == null || agent.IsDeleted)
                 return;
 
-            if(!agent.IsChildAgent)
+            if (!agent.IsChildAgent)
             {
                 // crossing failed
                 agent.CrossToNewRegionFail();
@@ -1627,7 +1626,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
         public ScenePresence CrossAsync(ScenePresence agent, bool isFlying)
         {
-            if(agent.RegionViewDistance == 0)
+            if (agent.RegionViewDistance == 0)
                 return agent;
 
             Vector3 newpos;
@@ -1660,11 +1659,10 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             return agent;
         }
 
-        public delegate void InformClientToInitiateTeleportToLocationDelegate(ScenePresence agent, uint regionX,            uint regionY, Vector3 position, Scene initiatingScene);
+        public delegate void InformClientToInitiateTeleportToLocationDelegate(ScenePresence agent, uint regionX, uint regionY, Vector3 position, Scene initiatingScene);
 
         private void InformClientToInitiateTeleportToLocation(ScenePresence agent, uint regionX, uint regionY, Vector3 position, Scene initiatingScene)
         {
-
             // This assumes that we know what our neighbours are.
 
             InformClientToInitiateTeleportToLocationDelegate d = InformClientToInitiateTeleportToLocationAsync;
@@ -1718,7 +1716,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 {
                     m_log.DebugFormat("[ENTITY TRANSFER MODULE]: Client Initiating Teleport sending IM success = {0}", success);
                 });
-
             }
             */
         }
@@ -1734,14 +1731,14 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
         {
             ulong regionhandler = neighbourRegion.RegionHandle;
 
-            if(agent.knowsNeighbourRegion(regionhandler))
+            if (agent.knowsNeighbourRegion(regionhandler))
                 return true;
 
             string reason;
             ulong currentRegionHandler = agent.Scene.RegionInfo.RegionHandle;
             GridRegion source = new GridRegion(agent.Scene.RegionInfo);
 
-            AgentCircuitData currentAgentCircuit = 
+            AgentCircuitData currentAgentCircuit =
                     agent.Scene.AuthenticateHandler.GetAgentCircuitData(agent.ControllingClient.CircuitCode);
             AgentCircuitData agentCircuit = agent.ControllingClient.RequestClientInfo();
             agentCircuit.startpos = pos;
@@ -1764,7 +1761,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             agent.AddNeighbourRegion(neighbourRegion, agentCircuit.CapsPath);
 
             IPEndPoint endPoint = neighbourRegion.ExternalEndPoint;
-            if(endPoint == null)
+            if (endPoint == null)
             {
                 m_log.DebugFormat("CrossAgentCreateFarChild failed to resolve neighbour address {0}", neighbourRegion.ExternalHostName);
                 return false;
@@ -1784,7 +1781,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 m_log.DebugFormat("{0} {1} is sending {2} EnableSimulator for neighbour region {3}(loc=<{4},{5}>,siz=<{6},{7}>) " +
                     "and EstablishAgentCommunication with seed cap {8}", LogHeader,
                     source.RegionName, agent.Name,
-                    neighbourRegion.RegionName, neighbourRegion.RegionLocX, neighbourRegion.RegionLocY, newSizeX, newSizeY , capsPath);
+                    neighbourRegion.RegionName, neighbourRegion.RegionLocX, neighbourRegion.RegionLocY, newSizeX, newSizeY, capsPath);
 
                 m_eqModule.EnableSimulator(regionhandler,
                         endPoint, agent.UUID, newSizeX, newSizeY);
@@ -1818,9 +1815,9 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 }
 
                 IPEndPoint endpoint = neighbourRegion.ExternalEndPoint;
-                if(endpoint == null)
+                if (endpoint == null)
                 {
-                    m_log.DebugFormat("{0}: CrossAgentToNewRegionAsync: failed to resolve neighbour address {0} ",neighbourRegion.ExternalHostName);
+                    m_log.DebugFormat("{0}: CrossAgentToNewRegionAsync: failed to resolve neighbour address {0} ", neighbourRegion.ExternalHostName);
                     return agent;
                 }
 
@@ -1850,17 +1847,17 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             try
             {
                 AgentData cAgent = new AgentData();
-                agent.CopyTo(cAgent,true);
+                agent.CopyTo(cAgent, true);
 
                 cAgent.Position = pos;
                 cAgent.ChildrenCapSeeds = agent.KnownRegions;
 
-                if(ctx.OutboundVersion < 0.7f)
+                if (ctx.OutboundVersion < 0.7f)
                 {
                     childRegionsToClose = agent.GetChildAgentsToClose(neighbourRegion.RegionHandle, neighbourRegion.RegionSizeX, neighbourRegion.RegionSizeY);
-                    if(cAgent.ChildrenCapSeeds != null)
+                    if (cAgent.ChildrenCapSeeds != null)
                     {
-                        foreach(ulong regh in childRegionsToClose)
+                        foreach (ulong regh in childRegionsToClose)
                             cAgent.ChildrenCapSeeds.Remove(regh);
                     }
                 }
@@ -1880,7 +1877,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                     reason = "agent update failed";
                 }
 
-                if(!sucess)
+                if (!sucess)
                 {
                     // region doesn't take it
                     m_entityTransferStateMachine.UpdateInTransit(agent.UUID, AgentTransferState.CleaningUp);
@@ -1890,7 +1887,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                         agent.Name, neighbourRegion.RegionName, reason);
 
                     ReInstantiateScripts(agent);
-                    if(agent.ParentID == 0 && agent.ParentUUID == UUID.Zero)
+                    if (agent.ParentID == 0 && agent.ParentUUID == UUID.Zero)
                     {
                         agent.AddToPhysicalScene(isFlying);
                     }
@@ -1898,7 +1895,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                     return false;
                 }
 
-            m_log.DebugFormat("[CrossAgentIntoNewRegionMain] ok, time {0}ms",Util.EnvironmentTickCountSubtract(ts));
+                m_log.DebugFormat("[CrossAgentIntoNewRegionMain] ok, time {0}ms", Util.EnvironmentTickCountSubtract(ts));
             }
             catch (Exception e)
             {
@@ -1927,7 +1924,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             m_log.DebugFormat("[ENTITY TRANSFER MODULE]: Sending new CAPS seed url {0} to client {1}", capsPath, agent.UUID);
 
             Vector3 vel2 = Vector3.Zero;
-            if((agent.m_crossingFlags & 2) != 0)
+            if ((agent.m_crossingFlags & 2) != 0)
                 vel2 = new Vector3(agent.Velocity.X, agent.Velocity.Y, 0);
 
             if (m_eqModule != null)
@@ -1941,7 +1938,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             {
                 m_log.ErrorFormat("{0} Using old CrossRegion packet. Varregion will not work!!", LogHeader);
                 agent.ControllingClient.CrossRegion(neighbourRegion.RegionHandle, pos, agent.Velocity,
-                        endpoint,capsPath);
+                        endpoint, capsPath);
             }
 
             // SUCCESS!
@@ -1950,10 +1947,10 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             // Unlike a teleport, here we do not wait for the destination region to confirm the receipt.
             m_entityTransferStateMachine.UpdateInTransit(agent.UUID, AgentTransferState.CleaningUp);
 
-            if(childRegionsToClose != null)
+            if (childRegionsToClose != null)
                 agent.CloseChildAgents(childRegionsToClose);
 
-            if((agent.m_crossingFlags & 8) == 0)
+            if ((agent.m_crossingFlags & 8) == 0)
                 agent.ClearControls(); // don't let attachments delete (called in HasMovedAway) disturb taken controls on viewers
 
             agent.HasMovedAway((agent.m_crossingFlags & 8) == 0);
@@ -1981,10 +1978,10 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             // In any case
             agent.IsInTransit = false;
 
-//            m_log.DebugFormat("[ENTITY TRANSFER MODULE]: Crossing agent {0} {1} completed.", agent.Firstname, agent.Lastname);
+            //            m_log.DebugFormat("[ENTITY TRANSFER MODULE]: Crossing agent {0} {1} completed.", agent.Firstname, agent.Lastname);
         }
 
-        #endregion
+        #endregion Agent Crossings
 
         #region Enable Child Agent
 
@@ -2023,7 +2020,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             seeds.Add(regionhandler, agent.CapsPath);
 
-//            agent.ChildrenCapSeeds = new Dictionary<ulong, string>(seeds);
+            //            agent.ChildrenCapSeeds = new Dictionary<ulong, string>(seeds);
             agent.ChildrenCapSeeds = null;
 
             if (sp.Scene.CapsModule != null)
@@ -2054,17 +2051,17 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             }
         }
 
-        #endregion
+        #endregion Enable Child Agent
 
         #region Enable Child Agents
 
         private delegate void InformClientOfNeighbourDelegate(
             ScenePresence avatar, AgentCircuitData a, GridRegion reg, IPEndPoint endPoint, bool newAgent);
 
-        List<GridRegion> RegionsInView(Vector3 pos, RegionInfo curregion, List<GridRegion> fullneighbours, float viewrange)
+        private List<GridRegion> RegionsInView(Vector3 pos, RegionInfo curregion, List<GridRegion> fullneighbours, float viewrange)
         {
             List<GridRegion> ret = new List<GridRegion>();
-            if(fullneighbours.Count == 0 || viewrange == 0)
+            if (fullneighbours.Count == 0 || viewrange == 0)
                 return ret;
 
             int curX = (int)Util.RegionToWorldLoc(curregion.RegionLocX) + (int)pos.X;
@@ -2215,8 +2212,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             else
                 toclose = new List<ulong>();
             /// Update all child agent with everyone's seeds
-                //            foreach (AgentCircuitData a in cagents)
-                //                a.ChildrenCapSeeds = new Dictionary<ulong, string>(seeds);
+            //            foreach (AgentCircuitData a in cagents)
+            //                a.ChildrenCapSeeds = new Dictionary<ulong, string>(seeds);
 
             if (capsModule != null)
                 capsModule.SetChildrenSeed(sp.UUID, seeds);
@@ -2244,8 +2241,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 {
                     int count = 0;
                     IPEndPoint ipe;
- 
-                    if(toclose.Count > 0)
+
+                    if (toclose.Count > 0)
                         sp.CloseChildAgents(toclose);
 
                     foreach (GridRegion neighbour in neighbours)
@@ -2372,7 +2369,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             }
             else
                 toclose = new List<ulong>();
- 
+
             ICapabilitiesModule capsModule = spScene.CapsModule;
             if (capsModule != null)
                 capsModule.SetChildrenSeed(sp.UUID, sp.KnownRegions);
@@ -2497,15 +2494,17 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
         // Computes the difference between two region bases.
         // Returns a vector of world coordinates (meters) from base of first region to the second.
         // The first region is the home region of the passed scene presence.
-        Vector3 CalculateOffset(ScenePresence sp, GridRegion neighbour)
+        private Vector3 CalculateOffset(ScenePresence sp, GridRegion neighbour)
         {
-              return new Vector3(sp.Scene.RegionInfo.WorldLocX - neighbour.RegionLocX,
-                                sp.Scene.RegionInfo.WorldLocY - neighbour.RegionLocY,
-                                0f);
+            return new Vector3(sp.Scene.RegionInfo.WorldLocX - neighbour.RegionLocX,
+                              sp.Scene.RegionInfo.WorldLocY - neighbour.RegionLocY,
+                              0f);
         }
-        #endregion
+
+        #endregion Enable Child Agents
 
         #region NotFoundLocationCache class
+
         // A collection of not found locations to make future lookups 'not found' lookups quick.
         // A simple expiring cache that keeps not found locations for some number of seconds.
         // A 'not found' location is presumed to be anywhere in the minimum sized region that
@@ -2513,9 +2512,11 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
         private class NotFoundLocationCache
         {
             private Dictionary<ulong, DateTime> m_notFoundLocations = new Dictionary<ulong, DateTime>();
+
             public NotFoundLocationCache()
             {
             }
+
             // just use normal regions handlers and sizes
             public void Add(double pX, double pY)
             {
@@ -2526,6 +2527,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 lock (m_notFoundLocations)
                     m_notFoundLocations[psh] = DateTime.UtcNow + TimeSpan.FromSeconds(30);
             }
+
             // Test to see of this point is in any of the 'not found' areas.
             // Return 'true' if the point is found inside the 'not found' areas.
             public bool Contains(double pX, double pY)
@@ -2536,9 +2538,9 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
                 lock (m_notFoundLocations)
                 {
-                    if(m_notFoundLocations.ContainsKey(psh))
+                    if (m_notFoundLocations.ContainsKey(psh))
                     {
-                        if(m_notFoundLocations[psh] > DateTime.UtcNow)
+                        if (m_notFoundLocations[psh] > DateTime.UtcNow)
                             return true;
                         m_notFoundLocations.Remove(psh);
                     }
@@ -2548,7 +2550,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
             private void DoExpiration()
             {
-                List<ulong> m_toRemove = new List<ulong>();;
+                List<ulong> m_toRemove = new List<ulong>(); ;
                 DateTime now = DateTime.UtcNow;
                 lock (m_notFoundLocations)
                 {
@@ -2568,17 +2570,19 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             }
         }
 
-        #endregion // NotFoundLocationCache class
+        #endregion NotFoundLocationCache class
+
         #region getregions
+
         private NotFoundLocationCache m_notFoundLocationCache = new NotFoundLocationCache();
 
         protected GridRegion GetRegionContainingWorldLocation(IGridService pGridService, UUID pScopeID, double px, double py)
         {
-         // Given a world position, get the GridRegion info for
-         //   the region containing that point.
-         // for compatibility with old grids it does a scan to find large regions
-         // 0.9 grids to that
-//            m_log.DebugFormat("{0} GetRegionContainingWorldLocation: call, XY=<{1},{2}>", LogHeader, px, py);
+            // Given a world position, get the GridRegion info for
+            //   the region containing that point.
+            // for compatibility with old grids it does a scan to find large regions
+            // 0.9 grids to that
+            //            m_log.DebugFormat("{0} GetRegionContainingWorldLocation: call, XY=<{1},{2}>", LogHeader, px, py);
             GridRegion ret = null;
 
             // check if we already found it does not exist
@@ -2592,7 +2596,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             ret = pGridService.GetRegionByPosition(pScopeID, (int)possibleX, (int)possibleY);
             if (ret != null)
                 return ret;
- 
+
             // for 0.8 regions just make a BIG area request. old code whould do it plus 4 more smaller on region open edges
             // this is what 0.9 grids now do internally
             List<GridRegion> possibleRegions = pGridService.GetRegionRange(pScopeID,
@@ -2640,8 +2644,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             if (newAgent)
             {
                 // we may already had lost this sp
-                if(sp == null || sp.IsDeleted || sp.ControllingClient == null) // something bad already happened
-                   return;
+                if (sp == null || sp.IsDeleted || sp.ControllingClient == null) // something bad already happened
+                    return;
 
                 Scene scene = sp.Scene;
 
@@ -2663,7 +2667,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
                     if (m_eqModule != null)
                     {
-                        if(sp == null || sp.IsDeleted || sp.ControllingClient == null) // something bad already happened
+                        if (sp == null || sp.IsDeleted || sp.ControllingClient == null) // something bad already happened
                             return;
 
                         m_log.DebugFormat("{0} {1} is sending {2} EnableSimulator for neighbour region {3}(loc=<{4},{5}>,siz=<{6},{7}>) " +
@@ -2682,7 +2686,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
                     m_log.DebugFormat("[ENTITY TRANSFER MODULE]: Completed inform {0} {1} about neighbour {2}", sp.Name, sp.UUID, endPoint);
                 }
-
                 else
                 {
                     sp.RemoveNeighbourRegion(reg.RegionHandle);
@@ -2691,13 +2694,13 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                         reg.RegionName, sp.Name, sp.UUID, reason);
                 }
             }
-
         }
 
         // all this code should be moved to scene replacing the now bad one there
         // cache Neighbors
-        List<GridRegion> Neighbors = null;
-        DateTime LastNeighborsTime = DateTime.MinValue;
+        private List<GridRegion> Neighbors = null;
+
+        private DateTime LastNeighborsTime = DateTime.MinValue;
 
         /// <summary>
         /// Return the list of online regions that are considered to be neighbours to the given scene.
@@ -2711,7 +2714,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             Scene pScene = avatar.Scene;
 
             uint dd = (uint)pScene.MaxRegionViewDistance;
-            if(dd <= 1)
+            if (dd <= 1)
                 return new List<GridRegion>();
 
             if (Neighbors != null && (DateTime.UtcNow - LastNeighborsTime).TotalSeconds < 30)
@@ -2738,19 +2741,20 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                     regionInfo.ScopeID, (int)startX, (int)endX, (int)startY, (int)endY);
 
             // The r.RegionFlags == null check only needs to be made for simulators before 2015-01-14 (pre 0.8.1).
-            neighbours.RemoveAll( r => r.RegionID == regionInfo.RegionID );
+            neighbours.RemoveAll(r => r.RegionID == regionInfo.RegionID);
             Neighbors = neighbours;
             LastNeighborsTime = DateTime.UtcNow;
             return neighbours;
         }
-        #endregion
+
+        #endregion getregions
 
         #region Agent Arrived
 
         public void AgentArrivedAtDestination(UUID id)
         {
             ScenePresence sp = Scene.GetScenePresence(id);
-            if(sp == null || sp.IsDeleted || !sp.IsInTransit)
+            if (sp == null || sp.IsDeleted || !sp.IsInTransit)
                 return;
 
             //Scene.CloseAgent(sp.UUID, false);
@@ -2758,11 +2762,11 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             //m_entityTransferStateMachine.SetAgentArrivedAtDestination(id);
         }
 
-        #endregion
+        #endregion Agent Arrived
 
         #region Object Transfers
 
-        public GridRegion GetObjectDestination(SceneObjectGroup grp, Vector3 targetPosition,out Vector3 newpos)
+        public GridRegion GetObjectDestination(SceneObjectGroup grp, Vector3 targetPosition, out Vector3 newpos)
         {
             newpos = targetPosition;
 
@@ -2782,7 +2786,7 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             else
                 y--;
 
-            GridRegion neighbourRegion = scene.GridService.GetRegionByPosition(scene.RegionInfo.ScopeID,x,y);
+            GridRegion neighbourRegion = scene.GridService.GetRegionByPosition(scene.RegionInfo.ScopeID, x, y);
             if (neighbourRegion == null)
             {
                 return null;
@@ -2880,9 +2884,9 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
         {
             List<SceneObjectGroup> attachments = sp.GetAttachments();
 
-//            m_log.DebugFormat(
-//                "[ENTITY TRANSFER MODULE]: Crossing {0} attachments into {1} for {2}",
-//                m_attachments.Count, destination.RegionName, sp.Name);
+            //            m_log.DebugFormat(
+            //                "[ENTITY TRANSFER MODULE]: Crossing {0} attachments into {1} for {2}",
+            //                m_attachments.Count, destination.RegionName, sp.Name);
 
             foreach (SceneObjectGroup gobj in attachments)
             {
@@ -2898,14 +2902,14 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                         "[ENTITY TRANSFER MODULE]: Sending attachment {0} to region {1}",
                         clone.UUID, destination.RegionName);
 
-                    CrossPrimGroupIntoNewRegion(destination, Vector3.Zero, clone, silent,true);
+                    CrossPrimGroupIntoNewRegion(destination, Vector3.Zero, clone, silent, true);
                 }
             }
 
             sp.ClearAttachments();
         }
 
-        #endregion
+        #endregion Object Transfers
 
         #region Misc
 
@@ -2938,7 +2942,8 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 sp.InTransitScriptStates.Clear();
             }
         }
-        #endregion
+
+        #endregion Misc
 
         public virtual bool HandleIncomingSceneObject(SceneObjectGroup so, Vector3 newPosition)
         {
