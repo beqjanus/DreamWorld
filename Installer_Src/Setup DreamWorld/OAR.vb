@@ -131,9 +131,9 @@ Module OAR
                     If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                     If backMeUp = vbYes Then
-                        ConsoleCommand(RegionUUID, "change region " & region)
+                        ConsoleCommand(RegionUUID, "change region " & """" & region & """")
                         ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive)
-                        ConsoleCommand(RegionUUID, "save oar " & BackupPath() & "/" & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
+                        ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
                         ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.New_Content)
                     End If
 
@@ -194,8 +194,8 @@ Module OAR
             If PropRegionClass.IsBooted(RegionUUID) Then
                 Dim Group = PropRegionClass.GroupName(RegionUUID)
                 ConsoleCommand(RegionUUID, "alert CPU Intensive Backup Started")
-                ConsoleCommand(RegionUUID, "change region " & RegionName)
-                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & myValue)
+                ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
+                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & myValue & """")
             End If
 
             TextPrint(My.Resources.Saving_word & " " & BackupPath() & "/" & myValue)

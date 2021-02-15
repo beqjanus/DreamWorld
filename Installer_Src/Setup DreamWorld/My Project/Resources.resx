@@ -3164,4 +3164,7 @@
     <value>Transfer</value>
     <comment>yes</comment>
   </data>
+  <data name="Slash" xml:space="preserve">
+    <value>/</value>
+  </data>
 </root>

@@ -101,7 +101,7 @@ Public Class FormBackupCheckboxes
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
 
-        SettingsCheckbox.Text = Global.Outworldz.My.Resources.Backup_Mysql
+        SettingsCheckbox.Text = Global.Outworldz.My.Resources.Backup_Settings_word
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
         Text = Global.Outworldz.My.Resources.System_Backup_word
 

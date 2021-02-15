@@ -7820,6 +7820,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to /.
+        '''</summary>
+        Friend ReadOnly Property Slash() As String
+            Get
+                Return ResourceManager.GetString("Slash", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Starting a slow but extensive Database Backup.
         '''</summary>
         Friend ReadOnly Property Slow_Backup() As String

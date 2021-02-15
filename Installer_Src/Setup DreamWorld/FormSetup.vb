@@ -937,7 +937,7 @@ Public Class FormSetup
             If PropRegionClass.IsBooted(RegionUUID) Then
 
                 SequentialPause()   ' wait for previous region to give us some CPU
-                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID))
+                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """")
                 ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
                                DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
 

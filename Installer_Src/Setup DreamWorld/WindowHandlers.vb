@@ -163,7 +163,7 @@ Module WindowHandlers
         Dim rname = ChooseRegion(True)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
-            ConsoleCommand(RegionUUID, "change region " & rname)
+            ConsoleCommand(RegionUUID, "change region " & """" & rname & """")
             ConsoleCommand(RegionUUID, cmd)
         End If
 

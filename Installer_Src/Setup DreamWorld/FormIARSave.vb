@@ -154,7 +154,7 @@ Public Class FormIARSave
 
     Private Sub ObjectNameBox_TextClicks(sender As Object, e As EventArgs) Handles ObjectNameBox.Click
         If ObjectNameBox.Text = "/=everything, /Objects/Folder, etc." Then
-            ObjectNameBox.Text = "/"
+            ObjectNameBox.Text = My.Resources.Slash
         End If
     End Sub
 
