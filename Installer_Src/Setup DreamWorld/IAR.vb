@@ -38,7 +38,7 @@
 
                     Dim opt As String = " -c "
                     If Settings.DNSName.Length > 0 Then
-                        opt += " -h " & Settings.DNSName
+                        opt += " -h " & Settings.DNSName & " "
                     End If
 
                     Dim Perm As String = ""
