@@ -106,7 +106,7 @@ Module FileStuff
         For Each UUID As String In PropRegionClass.RegionUuids
             Dim GroupName = PropRegionClass.GroupName(UUID)
             DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
-            DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
+            'DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
             DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
             DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
         Next

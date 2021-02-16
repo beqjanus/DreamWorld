@@ -5,6 +5,7 @@
 
 #End Region
 
+Imports System.IO
 Imports System.Threading
 
 Module WindowHandlers
@@ -89,6 +90,16 @@ Module WindowHandlers
     End Function
 
     Public Function GetPIDofWindow(GroupName As String) As Integer
+
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Opensim/bin/Regions/" & GroupName & "/PID.pid")
+
+        If IO.File.Exists(path) Then
+            Using reader As StreamReader = System.IO.File.OpenText(path)
+                While reader.Peek <> -1
+                    Return CInt(reader.ReadLine())
+                End While
+            End Using
+        End If
 
         For Each pList As Process In Process.GetProcessesByName("Opensim")
             Try
