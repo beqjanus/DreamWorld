@@ -214,16 +214,23 @@ Module WindowHandlers
             ErrorLog(windowName & ":" & ex.Message)
             Return False
         End Try
-
+        ' so we now have a window handle. The trick is to write it and get it back, which is unreliable!
         WindowCounter = 0
+        Dim rtry = 0
         While True
             Dim status = SetWindowText(myhandle, windowName)
+
             Try
                 Sleep(100)
                 Application.DoEvents()
                 myProcess.Refresh()
                 If status And myProcess.MainWindowTitle = windowName Then
-                    Exit While
+                    rtry += 1
+                    If rtry = 4 Then
+                        Exit While
+                    End If
+                Else
+                    rtry = 0
                 End If
             Catch
                 Return False

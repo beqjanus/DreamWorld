@@ -24,7 +24,7 @@ Public Class FormEmail
             End If
         Next
 
-        Me.Text = CStr(counter) & " " & "emails selected"
+        Me.Text = CStr(counter) & " " & My.Resources.Emails_Selected
 
         If counter = 0 Then
             MsgBox(My.Resources.No_Emails_Selected, vbInformation, "Oops")
@@ -73,18 +73,25 @@ Public Class FormEmail
                 client.Connect(Settings.SmtpHost, Settings.SmtpPort, False)
             Catch ex As Exception
                 MsgBox("Could Not Connect:" & ex.Message, vbExclamation, "Error")
+                Return
             End Try
             Try
                 client.Authenticate(Settings.SmtPropUserName, Settings.SmtpPassword)
             Catch ex As Exception
                 MsgBox("Could Not Log In:" & ex.Message, vbExclamation, "Error")
+                Return
             End Try
             Try
                 client.Send(Message)
             Catch ex As Exception
                 MsgBox("Could Not Send:" & ex.Message, vbExclamation, "Error")
+                Return
             End Try
-            client.Disconnect(True)
+            Try
+                client.Disconnect(True)
+            Catch
+            End Try
+
         End Using
 
         Me.Close()

@@ -2181,22 +2181,28 @@ Public Class RegionMaker
             Settings.SetIni("DataSnapshot", "data_services", "")
         End If
 
-        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
-            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface"
+        If Settings.CMS = JOpensim Then
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll.bak"),
+                         IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
+        Else
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
+        End If
+
+        If Settings.JOpensimSearch = JOpensim Then
+            Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort &
+                "/jOpensim/index.php?option=com_opensim&view=interface"
             Settings.SetIni("Search", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modulesdll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modulesdll"))
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll.bak"),
+                         IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
         ElseIf Settings.JOpensimSearch = Hyperica Then
             Dim SearchURL = "http://hyperica.com/Search/query.php"
             Settings.SetIni("Search", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
         Else
             Settings.SetIni("Search", "SearchURL", "")
             Settings.SetIni("LoginService", "SearchURL", "")
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
         End If
 
