@@ -3167,4 +3167,56 @@
   <data name="Slash" xml:space="preserve">
     <value>/</value>
   </data>
+  <data name="cubes_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cubes_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cubes_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cubes_yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cube_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cube_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cube_yellow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cube_yellow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Emails_Selected" xml:space="preserve">
+    <value>emails selected</value>
+    <comment>yes</comment>
+  </data>
+  <data name="Float" xml:space="preserve">
+    <value>Float</value>
+    <comment>yes</comment>
+  </data>
+  <data name="No_Email" xml:space="preserve">
+    <value>Email Server not yet set up</value>
+    <comment>yes</comment>
+  </data>
+  <data name="No_Emails_Selected" xml:space="preserve">
+    <value>No emails were selected</value>
+    <comment>yes</comment>
+  </data>
+  <data name="No_Subject" xml:space="preserve">
+    <value>There is no Subject!</value>
+    <comment>yes</comment>
+  </data>
+  <data name="On_Top" xml:space="preserve">
+    <value>On Top</value>
+    <comment>yes</comment>
+  </data>
+  <data name="Send_word" xml:space="preserve">
+    <value>Send</value>
+    <comment>yes</comment>
+  </data>
+  <data name="Subject_word" xml:space="preserve">
+    <value>Subject</value>
+    <comment>yes</comment>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+    <comment>yes</comment>
+  </data>
+  <data name="Window" xml:space="preserve">
+    <value>Window</value>
+    <comment>yes</comment>
+  </data>
 </root>

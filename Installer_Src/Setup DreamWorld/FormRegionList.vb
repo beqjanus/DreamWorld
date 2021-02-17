@@ -27,6 +27,7 @@ Public Class FormRegionlist
         Icons = 1
         Details = 2
         Avatars = 3
+        Users = 4
     End Enum
 
 #End Region
@@ -158,6 +159,7 @@ Public Class FormRegionlist
         Dim name = ListView1.Columns(e.ColumnIndex).Name
         If name.Length = 0 Or w = 0 Then Return
         If TheView1 = ViewType.Icons Then Return
+
         ScreenPosition.PutSize(name, w)
         ScreenPosition.SaveFormSettings()
 
@@ -169,6 +171,7 @@ Public Class FormRegionlist
         Dim Y = Me.Height - 150
         ListView1.Size = New System.Drawing.Size(X, Y)
         AvatarView.Size = New System.Drawing.Size(X, Y)
+        UserView.Size = New System.Drawing.Size(X, Y)
 
     End Sub
 
@@ -231,6 +234,10 @@ Public Class FormRegionlist
         RunAllButton.Text = Global.Outworldz.My.Resources.Run_All_word
         StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
         KOT.Text = Global.Outworldz.My.Resources.Window_Word
+        Users.Text = Global.Outworldz.My.Resources.Users_word
+        OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.On_Top
+        FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Float
+
         ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Add_Region_word)
         ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Selectallnone)
         ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.ListAvatars)
@@ -260,45 +267,42 @@ Public Class FormRegionlist
         Me.Name = "Region List"
         Me.Text = Global.Outworldz.My.Resources.Region_List
         AvatarView.Hide()
+        UserView.Hide()
+
         AvatarView.CheckBoxes = False
 
         ' Set the view to show details.
         TheView1 = Settings.RegionListView()
         SetScreen()
 
-        Dim W As View
         If TheView1 = ViewType.Details Then
-            W = View.Details
             ListView1.CheckBoxes = True
+            ListView1.View = View.Details
+            ListView1.LabelEdit = True
+            ListView1.AllowColumnReorder = True
+            ListView1.FullRowSelect = True
+            ListView1.GridLines = True
+            ListView1.AllowColumnReorder = True
+            ListView1.Sorting = SortOrder.Ascending
+            AllNone.Visible = True
         ElseIf TheView1 = ViewType.Icons Then
-            W = View.SmallIcon
+            ListView1.View = View.SmallIcon
             ListView1.CheckBoxes = False
+            ListView1.FullRowSelect = False
+            ListView1.GridLines = False
+            ListView1.AllowColumnReorder = False
+            ListView1.Sorting = SortOrder.Ascending
+            AllNone.Visible = False
+        ElseIf TheView1 = ViewType.Users Then
+            UserView.View = View.Details
+            UserView.CheckBoxes = True
+            UserView.FullRowSelect = True
+            UserView.AllowColumnReorder = True
+            UserView.GridLines = True
+            UserView.AllowColumnReorder = True
+            UserView.Sorting = SortOrder.Ascending
+            AllNone.Visible = True
         End If
-
-        ListView1.View = W
-        AvatarView.View = View.Details
-
-        ' Allow the user to edit item text.
-        ListView1.LabelEdit = True
-        AvatarView.LabelEdit = False
-
-        ' Allow the user to rearrange columns.
-        ListView1.AllowColumnReorder = True
-        AvatarView.AllowColumnReorder = False
-
-        ' Select the item and sub items when selection is made.
-        ListView1.FullRowSelect = True
-        AvatarView.FullRowSelect = True
-
-        ' Display grid lines.
-        ListView1.GridLines = True
-        AvatarView.GridLines = True
-
-        ' Sort the items in the list in ascending order.
-        ListView1.Sorting = SortOrder.Ascending
-        AvatarView.Sorting = SortOrder.Ascending
-
-        ListView1.AllowColumnReorder = True
 
         If Settings.KeepOnTop Then
             Me.TopMost = True
@@ -400,6 +404,11 @@ Public Class FormRegionlist
         AvatarView.Columns.Add(My.Resources.Region_word, 150, HorizontalAlignment.Center)
         AvatarView.Columns.Add(My.Resources.Type_word, 80, HorizontalAlignment.Center)
 
+        UserView.Columns.Add(My.Resources.Avatar_Name_word, 250, HorizontalAlignment.Left)
+        UserView.Columns.Add(My.Resources.Email_word, 250, HorizontalAlignment.Left)
+
+        AddHandler Me.UserView.ColumnClick, AddressOf ColumnClick
+
         ' index to display icons
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
         ImageListSmall1.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
@@ -421,10 +430,14 @@ Public Class FormRegionlist
         PropUpdateView = True ' make form refresh
 
         ViewBusy = False
-        Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
-        Timer1.Start() 'Timer starts functioning
+
+        If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
+            Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
+            Timer1.Start() 'Timer starts functioning
+        End If
 
         ShowTitle()
+
         initted = True
 
     End Sub
@@ -436,6 +449,9 @@ Public Class FormRegionlist
     End Sub
 
     Private Sub ShowTitle()
+
+        If TheView1 = ViewType.Users Then Return
+        If TheView1 = ViewType.Avatars Then Return
 
         Dim TotalSize As Double
         Dim RegionCount As Integer
@@ -455,9 +471,14 @@ Public Class FormRegionlist
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
+        If TheView1 = ViewType.Users Then
+            Timer1.Stop()
+            Return
+        End If
+
         If PropUpdateView() Then ' force a refresh
             If ViewBusy = True Then
-                Timer1.Interval = 5000 ' check for Form1.PropUpdateView later
+                Timer1.Interval = 1000 ' check for Form1.PropUpdateView later
                 Return
             End If
             LoadMyListView()
@@ -473,10 +494,74 @@ Public Class FormRegionlist
     Private Sub LoadMyListView()
         BringToFront()
         If TheView1 = ViewType.Avatars Then
+            Users.Text = My.Resources.Users_word
             ShowAvatars()
-        Else
+            AllNone.Visible = False
+        ElseIf TheView1 = ViewType.Users Then
+            Users.Text = My.Resources.Email_word
+            ShowUsers()
+            AllNone.Visible = True
+        ElseIf TheView1 = viewtype.Details Then
+            Users.Text = My.Resources.Users_word
             ShowRegions()
+            AllNone.Visible = True
+        ElseIf TheView1 = viewtype.Icons Then
+            Users.Text = My.Resources.Users_word
+            ShowRegions()
+            AllNone.Visible = False
         End If
+
+    End Sub
+
+    Private Sub ShowUsers()
+
+        Try
+            ViewBusy = True
+            UserView.Show()
+            ListView1.Hide()
+            AvatarView.Hide()
+
+            UserView.BeginUpdate()
+            UserView.Items.Clear()
+            UserView.CheckBoxes = True
+            Dim Index = 0
+
+            ' Create items and sub items for each item.
+            Dim M As New Dictionary(Of String, String)
+
+            If MysqlInterface.IsMySqlRunning() Then
+                M = MysqlInterface.GetEmailList()
+            End If
+
+            For Each Agent In M
+                If Agent.Value.Length > 0 Then
+                    Dim item1 As New ListViewItem(Agent.Key, Index)
+                    item1.SubItems.Add(Agent.Value)
+                    UserView.Items.AddRange(New ListViewItem() {item1})
+                    Index += 1
+                End If
+            Next
+
+            Me.Text = M.Count & "Users"
+
+            If Index = 0 Then
+                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                item1.SubItems.Add("-".ToUpperInvariant)
+                item1.SubItems.Add(My.Resources.Hypergrid_word)
+                UserView.Items.AddRange(New ListViewItem() {item1})
+            End If
+
+            UserView.TabIndex = 0
+            UserView.EndUpdate()
+
+            UserView.Show()
+            UserView.Visible = True
+            ViewBusy = False
+            PropUpdateView() = False
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+            Log(My.Resources.Error_word, " RegionList " & ex.Message)
+        End Try
 
     End Sub
 
@@ -768,6 +853,7 @@ Public Class FormRegionlist
         ViewBusy = False
         ListView1.Show()
         AvatarView.Hide()
+        UserView.Hide()
 
     End Sub
 
@@ -815,6 +901,7 @@ Public Class FormRegionlist
 
         PropRegionClass.GetAllRegions()
         LoadMyListView()
+
         ShowTitle()
 
     End Sub
@@ -834,12 +921,21 @@ Public Class FormRegionlist
             _order = SortOrder.Ascending
         End If
 
-        Me.ListView1.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
+        If TheView1 = ViewType.Details Then
+            Me.ListView1.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
+            _SortColumn = e.Column
 
-        _SortColumn = e.Column
+            ListView1.Sort()
+            ListView1.ResumeLayout()
+        End If
 
-        ListView1.Sort()
-        ListView1.ResumeLayout()
+        If TheView1 = ViewType.Users Then
+            Me.UserView.ListViewItemSorter = New ListViewColumnSorter(e.Column, _order)
+            _SortColumn = e.Column
+
+            UserView.Sort()
+            UserView.ResumeLayout()
+        End If
 
     End Sub
 
@@ -892,6 +988,7 @@ Public Class FormRegionlist
             ViewBusy = True
             AvatarView.Show()
             ListView1.Hide()
+            UserView.Hide()
 
             AvatarView.BeginUpdate()
             AvatarView.Items.Clear()
@@ -1186,7 +1283,6 @@ SetWindowOnTop_Err:
         End Try
 
         Chooseform.Dispose()
-
         Return chosen
 
     End Function
@@ -1195,24 +1291,36 @@ SetWindowOnTop_Err:
 
         If Not initted Then Return
 
-        For Each X As ListViewItem In ListView1.Items
-            Dim RegionUUID As String
-            If ItemsAreChecked1 Then
-                X.Checked = CType(CheckState.Checked, Boolean)
-            Else
-                X.Checked = CType(CheckState.Unchecked, Boolean)
-            End If
-            Dim name = X.Text
-            If name.Length > 0 Then
-                'Dim name = X.SubItems(1).Text
-                RegionUUID = PropRegionClass.FindRegionByName(name)
-                PropRegionClass.RegionEnabled(RegionUUID) = X.Checked
-                Dim INI = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
-                Settings.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(X.Checked))
-                Settings.SaveINI(INI, System.Text.Encoding.UTF8)
-            End If
+        If TheView1 = ViewType.Users Then
 
-        Next
+            For Each X As ListViewItem In UserView.Items
+                If ItemsAreChecked1 Then
+                    X.Checked = CType(CheckState.Checked, Boolean)
+                Else
+                    X.Checked = CType(CheckState.Unchecked, Boolean)
+                End If
+            Next
+
+        ElseIf TheView1 = ViewType.Details Then
+
+            For Each X As ListViewItem In ListView1.Items
+                Dim RegionUUID As String
+                If ItemsAreChecked1 Then
+                    X.Checked = CType(CheckState.Checked, Boolean)
+                Else
+                    X.Checked = CType(CheckState.Unchecked, Boolean)
+                End If
+                Dim name = X.Text
+                If name.Length > 0 Then
+                    RegionUUID = PropRegionClass.FindRegionByName(name)
+                    PropRegionClass.RegionEnabled(RegionUUID) = X.Checked
+                    Dim INI = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
+                    Settings.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(X.Checked))
+                    Settings.SaveINI(INI, System.Text.Encoding.UTF8)
+                End If
+
+            Next
+        End If
 
         ShowTitle()
 
@@ -1257,7 +1365,10 @@ SetWindowOnTop_Err:
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         SetScreen()
         ListView1.View = View.Details
+
         ListView1.Hide()
+        UserView.Hide()
+
         AvatarView.Show()
         LoadMyListView()
         Timer1.Start()
@@ -1274,6 +1385,8 @@ SetWindowOnTop_Err:
         ListView1.View = View.SmallIcon
         ListView1.Show()
         AvatarView.Hide()
+        UserView.Hide()
+
         ListView1.CheckBoxes = False
         Timer1.Start()
         LoadMyListView()
@@ -1290,6 +1403,8 @@ SetWindowOnTop_Err:
         ListView1.View = View.Details
         ListView1.Show()
         AvatarView.Hide()
+        UserView.Hide()
+
         ListView1.CheckBoxes = True
         Timer1.Start()
         LoadMyListView()
@@ -1397,10 +1512,6 @@ SetWindowOnTop_Err:
 
     End Sub
 
-    Private Sub KOT_Click(sender As Object, e As EventArgs) Handles KOT.Click
-
-    End Sub
-
     Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
 
         OnTopToolStripMenuItem.Checked = True
@@ -1409,6 +1520,48 @@ SetWindowOnTop_Err:
         Settings.KeepOnTop = True
         Settings.SaveSettings()
 
+    End Sub
+
+    Private Sub Users_Click(sender As Object, e As EventArgs) Handles Users.Click
+
+        If Users.Text = My.Resources.Email_word Then
+
+            Try
+#Disable Warning CA2000
+                Dim EmailForm = New FormEmail
+#Enable Warning CA2000
+                EmailForm.BringToFront()
+                EmailForm.Init(UserView)
+                EmailForm.Visible = True
+                EmailForm.Select()
+                EmailForm.Activate()
+                Return
+            Catch
+            End Try
+        End If
+
+        Settings.RegionListView() = ViewType.Users
+        Settings.SaveSettings()
+        TheView1 = ViewType.Users
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+        SetScreen()
+        ListView1.View = View.List
+        ListView1.Hide()
+        UserView.Show()
+        AvatarView.Hide()
+        LoadMyListView()
+    End Sub
+
+    Private Sub Button2_Click_2(sender As Object, e As EventArgs)
+
+#Disable Warning CA2000
+        Dim EmailForm = New FormEmail
+#Enable Warning CA2000
+        EmailForm.BringToFront()
+        EmailForm.Init(UserView)
+        EmailForm.Activate()
+        EmailForm.Visible = True
+        EmailForm.Select()
     End Sub
 
 #End Region

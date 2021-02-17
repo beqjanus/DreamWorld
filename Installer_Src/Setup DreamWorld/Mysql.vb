@@ -202,6 +202,33 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Function GetEmailList() As Dictionary(Of String, String)
+        Dim A As New Dictionary(Of String, String)
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "Select firstname, lastname , email from useraccounts"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim f = reader.GetString(0)
+                            Dim l = reader.GetString(1)
+                            Dim e = reader.GetString(2)
+                            Debug.Print("{0} {1} {2}", f, l, e)
+                            If f <> "GRID" And l <> "SERVICES" Then
+                                A.Add(f & " " & l, e)
+                            End If
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+        End Try
+
+        Return A
+
+    End Function
+
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID"></param>
     ''' <returns>Name as string</returns>

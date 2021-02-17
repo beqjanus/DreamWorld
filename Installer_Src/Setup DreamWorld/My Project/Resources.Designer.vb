@@ -1957,9 +1957,29 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property cube_green() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("cube_green", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property cube_green_new() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("cube_green_new", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property cube_yellow() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("cube_yellow", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -1971,6 +1991,26 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("cubes_blue", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property cubes_green() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("cubes_green", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property cubes_yellow() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("cubes_yellow", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -2701,6 +2741,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to emails selected.
+        '''</summary>
+        Friend ReadOnly Property Emails_Selected() As String
+            Get
+                Return ResourceManager.GetString("Emails_Selected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Estate  Manager is God - Estate managers can become gods, but just for this estate.
         '''</summary>
         Friend ReadOnly Property EMGod() As String
@@ -3354,6 +3403,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("flash", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Float.
+        '''</summary>
+        Friend ReadOnly Property Float() As String
+            Get
+                Return ResourceManager.GetString("Float", resourceCulture)
             End Get
         End Property
         
@@ -5582,6 +5640,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Email Server not yet set up.
+        '''</summary>
+        Friend ReadOnly Property No_Email() As String
+            Get
+                Return ResourceManager.GetString("No_Email", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No emails were selected.
+        '''</summary>
+        Friend ReadOnly Property No_Emails_Selected() As String
+            Get
+                Return ResourceManager.GetString("No_Emails_Selected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to No Hypergrid visitors will be allowed in this region.
         '''</summary>
         Friend ReadOnly Property No_HG() As String
@@ -5614,6 +5690,15 @@ Namespace My.Resources
         Friend ReadOnly Property No_Regions_Ready() As String
             Get
                 Return ResourceManager.GetString("No_Regions_Ready", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to There is no Subject!.
+        '''</summary>
+        Friend ReadOnly Property No_Subject() As String
+            Get
+                Return ResourceManager.GetString("No_Subject", resourceCulture)
             End Get
         End Property
         
@@ -5894,6 +5979,15 @@ Namespace My.Resources
         Friend ReadOnly Property Ok() As String
             Get
                 Return ResourceManager.GetString("Ok", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to On Top.
+        '''</summary>
+        Friend ReadOnly Property On_Top() As String
+            Get
+                Return ResourceManager.GetString("On_Top", resourceCulture)
             End Get
         End Property
         
@@ -7529,6 +7623,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Send.
+        '''</summary>
+        Friend ReadOnly Property Send_word() As String
+            Get
+                Return ResourceManager.GetString("Send_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Desired Separation (default=5.0).
         '''</summary>
         Friend ReadOnly Property Separation() As String
@@ -8162,6 +8265,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Subject.
+        '''</summary>
+        Friend ReadOnly Property Subject_word() As String
+            Get
+                Return ResourceManager.GetString("Subject_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Enable Inventory Suitcase.
         '''</summary>
         Friend ReadOnly Property Suitcase_enable() As String
@@ -8686,6 +8798,15 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized string similar to Users.
         '''</summary>
+        Friend ReadOnly Property Users() As String
+            Get
+                Return ResourceManager.GetString("Users", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Users.
+        '''</summary>
         Friend ReadOnly Property Users_word() As String
             Get
                 Return ResourceManager.GetString("Users_word", resourceCulture)
@@ -9118,6 +9239,15 @@ Namespace My.Resources
         Friend ReadOnly Property WillNotSave() As String
             Get
                 Return ResourceManager.GetString("WillNotSave", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Window.
+        '''</summary>
+        Friend ReadOnly Property Window() As String
+            Get
+                Return ResourceManager.GetString("Window", resourceCulture)
             End Get
         End Property
         

@@ -63,7 +63,7 @@ Partial Class FormFsAssets
         Me.b.Size = New System.Drawing.Size(420, 233)
         Me.b.TabIndex = 44
         Me.b.TabStop = False
-        Me.b.Text = "Fie System Assets Server"
+        Me.b.Text = "File System Assets Server"
         '
         'SaveButton
         '
