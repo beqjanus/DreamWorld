@@ -2,7 +2,8 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-
+V3.894
+Send emails to any or all local users
 
 V3.893
 Glitch in Save IAR
@@ -35,7 +36,7 @@ The INI files have been reorganized into a folder for each type of server - Robu
 Backups of Settings and Photos added to zips.
 Splash screen photos got stepped on in an update. This is the last update that will do so. They are also backed up in the zip file.
 Use Hashed MAC address of PC for DNS security. Log4Net has a security issue that a review shows does not affect Opensim.
-Don't bitch aboutWelcome region on region servers.
+Don't bitch about Welcome region on region servers.
 Backup folder if missing, would cause a complaint loop and possible crash. 
 Handle NAT and non-NAT routers situations gracefully. 
 "Go.bat Some DOS Box Name" now handles DOS boxes with spaces in their names.
