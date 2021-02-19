@@ -4,7 +4,7 @@ Imports EmailValidation
 
 Public Class FormEmail
 
-    Private Contacts As New Dictionary(Of String, String)
+    Private ReadOnly Contacts As New Dictionary(Of String, String)
 
     Private Sub Email_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -64,9 +64,10 @@ Public Class FormEmail
 
         Message.Subject = SubjectTextBox.Text
 
-        Dim builder = New BodyBuilder()
-        builder.TextBody = EditorBox.BodyText
-        builder.HtmlBody = EditorBox.BodyHtml
+        Dim builder = New BodyBuilder With {
+            .TextBody = EditorBox.BodyText,
+            .HtmlBody = EditorBox.BodyHtml
+        }
         Message.Body = builder.ToMessageBody()
         Using client As New SmtpClient()
             Try
