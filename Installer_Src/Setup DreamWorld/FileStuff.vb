@@ -100,13 +100,11 @@ Module FileStuff
         For Each thing As String In Logfiles
             ' clear out the log files
             DeleteFile(thing)
-            Application.DoEvents()
         Next
 
         For Each UUID As String In PropRegionClass.RegionUuids
             Dim GroupName = PropRegionClass.GroupName(UUID)
             DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
-            'DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\PID.pid")
             DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
             DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
         Next
@@ -381,16 +379,21 @@ Module FileStuff
             ' Loop through all subdirectories and add them to the stack.
             Dim directoryName As String
 
-            'Save, but skip script engines
-            For Each directoryName In Directory.GetDirectories(dir)
-                If Not directoryName.Contains("ScriptEngines") And
+            Try
+                'Save, but skip script engines
+                For Each directoryName In Directory.GetDirectories(dir)
+                    If Not directoryName.Contains("ScriptEngines") And
                     Not directoryName.Contains("fsassets") And
                     Not directoryName.Contains("assetcache") And
                     Not directoryName.Contains("j2kDecodeCache") Then
-                    stack.Push(directoryName)
-                End If
-                Application.DoEvents()
-            Next
+                        stack.Push(directoryName)
+                    End If
+
+                    Application.DoEvents()
+                Next
+            Catch
+            End Try
+
             Application.DoEvents()
         Loop
 

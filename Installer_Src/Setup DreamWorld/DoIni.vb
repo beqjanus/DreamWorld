@@ -158,7 +158,7 @@ Module DoIni
         Select Case Settings.ServerType
             Case RobustServer
                 If Settings.CMS = JOpensim Then
-                    GridCommon = "jOpensim\Gridcommon.ini"
+                    GridCommon = "Joomla\Gridcommon.ini"
                 Else
                     GridCommon = "Robust\Gridcommon.ini"
                 End If

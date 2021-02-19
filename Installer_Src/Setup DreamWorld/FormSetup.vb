@@ -3253,106 +3253,105 @@ Public Class FormSetup
             BreakPoint.Show(ex.Message)
         End Try
 
-        For Each OAR As String In OARs
-            counter -= 1
-            If counter > 0 Then
-                Dim Name = Path.GetFileName(OAR)
-                Dim OarMenu As New ToolStripMenuItem With {
+        Try
+            For Each OAR As String In OARs
+                counter -= 1
+
+                If counter > 0 Then
+                    Dim Name = Path.GetFileName(OAR)
+                    Dim OarMenu As New ToolStripMenuItem With {
                     .Text = Name,
                     .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
                     .DisplayStyle = ToolStripItemDisplayStyle.Text,
                     .Image = My.Resources.box_new
                 }
-                AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
-                LoadLocalOARToolStripMenuItem.Visible = True
-                LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-            End If
+                    AddHandler OarMenu.Click, New EventHandler(AddressOf LocalOarClick)
+                    LoadLocalOARToolStripMenuItem.Visible = True
+                    LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
+                End If
 
-        Next
+            Next
+        Catch
+        End Try
 
         Dim AutoOARs As Array = Nothing
         Try
             AutoOARs = Directory.GetFiles(BackupPath(), "*.OAR", SearchOption.TopDirectoryOnly)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
 
-        counter = MaxFileNum
+            counter = MaxFileNum
 
-        If AutoOARs IsNot Nothing Then
-            For Each OAR As String In AutoOARs
-                counter -= 1
-                If counter > 0 Then
-                    Dim Name = Path.GetFileName(OAR)
-                    Dim OarMenu As New ToolStripMenuItem With {
+            If AutoOARs IsNot Nothing Then
+                For Each OAR As String In AutoOARs
+                    counter -= 1
+                    If counter > 0 Then
+                        Dim Name = Path.GetFileName(OAR)
+                        Dim OarMenu As New ToolStripMenuItem With {
                         .Text = Name,
                         .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
                         .DisplayStyle = ToolStripItemDisplayStyle.Text,
                         .Image = My.Resources.box_new
                     }
-                    AddHandler OarMenu.Click, New EventHandler(AddressOf LoadOarClick)
-                    LoadLocalOARToolStripMenuItem.Visible = True
-                    LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
-                End If
-            Next
-        End If
-
-        ' now for the IARs
-
-        Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\IAR\")
-        Dim IARs As Array = Nothing
-
-        Try
-            IARs = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-        LoadLocalIARToolStripMenuItem.DropDownItems.Clear()
-
-        counter = MaxFileNum
-        For Each IAR As String In IARs
-            counter -= 1
-            If counter > 0 Then
-                Dim Name = Path.GetFileName(IAR)
-                Dim IarMenu As New ToolStripMenuItem With {
-                    .Text = Name,
-                    .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                    .Image = My.Resources.box_new
-                }
-                AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
-                LoadLocalIARToolStripMenuItem.Visible = True
-                LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-
+                        AddHandler OarMenu.Click, New EventHandler(AddressOf LoadOarClick)
+                        LoadLocalOARToolStripMenuItem.Visible = True
+                        LoadLocalOARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {OarMenu})
+                    End If
+                Next
             End If
-
-        Next
-
-        Dim AutoIARs As Array = Nothing
-        Try
-            AutoIARs = Directory.GetFiles(BackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
-        If AutoIARs IsNot Nothing Then
+
+        Dim IARs As Array = Nothing
+        ' now for the IARs
+        Try
+            Filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\IAR\")
+            IARs = Directory.GetFiles(Filename, "*.IAR", SearchOption.TopDirectoryOnly)
+
+            LoadLocalIARToolStripMenuItem.DropDownItems.Clear()
             counter = MaxFileNum
-            For Each IAR As String In AutoIARs
+            For Each IAR As String In IARs
                 counter -= 1
                 If counter > 0 Then
                     Dim Name = Path.GetFileName(IAR)
                     Dim IarMenu As New ToolStripMenuItem With {
                         .Text = Name,
                         .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                        .DisplayStyle = ToolStripItemDisplayStyle.Text
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                        .Image = My.Resources.box_new
                     }
-                    AddHandler IarMenu.Click, New EventHandler(AddressOf LoadIarClick)
+                    AddHandler IarMenu.Click, New EventHandler(AddressOf LocalIarClick)
                     LoadLocalIARToolStripMenuItem.Visible = True
                     LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
-                End If
 
+                End If
             Next
-        End If
+        Catch
+        End Try
+
+        Dim AutoIARs As Array = Nothing
+        Try
+            AutoIARs = Directory.GetFiles(BackupPath, "*.IAR", SearchOption.TopDirectoryOnly)
+
+            If AutoIARs IsNot Nothing Then
+                counter = MaxFileNum
+                For Each IAR As String In AutoIARs
+                    counter -= 1
+                    If counter > 0 Then
+                        Dim Name = Path.GetFileName(IAR)
+                        Dim IarMenu As New ToolStripMenuItem With {
+                            .Text = Name,
+                            .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                            .DisplayStyle = ToolStripItemDisplayStyle.Text
+                        }
+                        AddHandler IarMenu.Click, New EventHandler(AddressOf LoadIarClick)
+                        LoadLocalIARToolStripMenuItem.Visible = True
+                        LoadLocalIARToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {IarMenu})
+                    End If
+
+                Next
+            End If
+        Catch
+        End Try
 
     End Sub
 
