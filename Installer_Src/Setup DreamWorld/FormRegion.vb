@@ -548,20 +548,7 @@ Public Class FormRegion
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim message = RegionValidate()
-        If Len(message) > 0 Then
-            Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-            If v = vbYes Then
-                Me.Close()
-            End If
-        Else
-            FormSetup.PropChangedRegionSettings = True ' set this so it will force a rescan of the regions on startup
-            WriteRegion(RegionUUID)
-            Firewall.SetFirewall()
-            PropUpdateView = True ' make form refresh
-            Changed1 = False
-            Me.Close()
-        End If
+        Me.Close()
 
     End Sub
 

@@ -436,6 +436,8 @@ Public Class FormRegionlist
             Timer1.Start() 'Timer starts functioning
         End If
 
+        LoadMyListView()
+
         ShowTitle()
 
         initted = True
@@ -501,11 +503,11 @@ Public Class FormRegionlist
             Users.Text = My.Resources.Email_word
             ShowUsers()
             AllNone.Visible = True
-        ElseIf TheView1 = viewtype.Details Then
+        ElseIf TheView1 = ViewType.Details Then
             Users.Text = My.Resources.Users_word
             ShowRegions()
             AllNone.Visible = True
-        ElseIf TheView1 = viewtype.Icons Then
+        ElseIf TheView1 = ViewType.Icons Then
             Users.Text = My.Resources.Users_word
             ShowRegions()
             AllNone.Visible = False
