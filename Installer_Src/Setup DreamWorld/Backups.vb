@@ -289,7 +289,7 @@ Public Class Backups
                     End If
                     If Directory.Exists(f) Then
                         Dim dest = IO.Path.Combine(BackupPath, "FSassets")
-                        Dim args = f & " " & dest & " /MIR /TBD /LFSM:50M /IM /M  /J "
+                        Dim args = """" & f & """" & " " & """" & dest & """" & " /MIR /TBD /LFSM:50M /IM /M  /J "
 
                         Using ProcessRobocopy As New Process With {
                             .EnableRaisingEvents = True
@@ -337,10 +337,7 @@ Public Class Backups
 
     End Sub
 
-    '///////////////////
-    '/ Standard Output /
-    '///////////////////
-    Private Delegate Sub consoleOutputDelegate(ByVal outputString As String)
+
 
 #End Region
 

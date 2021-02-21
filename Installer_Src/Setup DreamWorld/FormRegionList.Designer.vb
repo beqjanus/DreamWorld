@@ -231,7 +231,7 @@ Partial Class FormRegionlist
         Me.AvatarView.FullRowSelect = True
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
-        Me.AvatarView.Location = New System.Drawing.Point(13, 93)
+        Me.AvatarView.Location = New System.Drawing.Point(13, 90)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
@@ -335,7 +335,7 @@ Partial Class FormRegionlist
         Me.UserView.FullRowSelect = True
         Me.UserView.GridLines = True
         Me.UserView.HideSelection = False
-        Me.UserView.Location = New System.Drawing.Point(13, 93)
+        Me.UserView.Location = New System.Drawing.Point(13, 90)
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
