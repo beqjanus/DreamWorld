@@ -22,6 +22,7 @@ Partial Class FormLogging
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormLogging))
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -43,14 +44,14 @@ Partial Class FormLogging
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(208, 36)
+        Me.MenuStrip1.Size = New System.Drawing.Size(208, 34)
         Me.MenuStrip1.TabIndex = 186741
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(93, 34)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(93, 32)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'GroupBox1
@@ -65,7 +66,7 @@ Partial Class FormLogging
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GroupBox1.Size = New System.Drawing.Size(144, 278)
+        Me.GroupBox1.Size = New System.Drawing.Size(161, 278)
         Me.GroupBox1.TabIndex = 186742
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Logging"
@@ -76,7 +77,7 @@ Partial Class FormLogging
         Me.RadioFatal.Location = New System.Drawing.Point(20, 185)
         Me.RadioFatal.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.RadioFatal.Name = "RadioFatal"
-        Me.RadioFatal.Size = New System.Drawing.Size(70, 24)
+        Me.RadioFatal.Size = New System.Drawing.Size(63, 20)
         Me.RadioFatal.TabIndex = 5
         Me.RadioFatal.TabStop = True
         Me.RadioFatal.Text = Global.Outworldz.My.Resources.Resources.Fatal_word
@@ -88,7 +89,7 @@ Partial Class FormLogging
         Me.RadioError.Location = New System.Drawing.Point(20, 150)
         Me.RadioError.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.RadioError.Name = "RadioError"
-        Me.RadioError.Size = New System.Drawing.Size(69, 24)
+        Me.RadioError.Size = New System.Drawing.Size(62, 20)
         Me.RadioError.TabIndex = 4
         Me.RadioError.TabStop = True
         Me.RadioError.Text = Global.Outworldz.My.Resources.Resources.Error_word
@@ -100,7 +101,7 @@ Partial Class FormLogging
         Me.RadioWarn.Location = New System.Drawing.Point(20, 115)
         Me.RadioWarn.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.RadioWarn.Name = "RadioWarn"
-        Me.RadioWarn.Size = New System.Drawing.Size(72, 24)
+        Me.RadioWarn.Size = New System.Drawing.Size(65, 20)
         Me.RadioWarn.TabIndex = 3
         Me.RadioWarn.TabStop = True
         Me.RadioWarn.Text = Global.Outworldz.My.Resources.Resources.Warn_word
@@ -112,7 +113,7 @@ Partial Class FormLogging
         Me.RadioInfo.Location = New System.Drawing.Point(20, 80)
         Me.RadioInfo.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.RadioInfo.Name = "RadioInfo"
-        Me.RadioInfo.Size = New System.Drawing.Size(62, 24)
+        Me.RadioInfo.Size = New System.Drawing.Size(54, 20)
         Me.RadioInfo.TabIndex = 2
         Me.RadioInfo.TabStop = True
         Me.RadioInfo.Text = Global.Outworldz.My.Resources.Resources.Info_word
@@ -124,7 +125,7 @@ Partial Class FormLogging
         Me.RadioDebug.Location = New System.Drawing.Point(20, 44)
         Me.RadioDebug.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.RadioDebug.Name = "RadioDebug"
-        Me.RadioDebug.Size = New System.Drawing.Size(82, 24)
+        Me.RadioDebug.Size = New System.Drawing.Size(74, 20)
         Me.RadioDebug.TabIndex = 1
         Me.RadioDebug.TabStop = True
         Me.RadioDebug.Text = Global.Outworldz.My.Resources.Resources.Debug_word
@@ -136,7 +137,7 @@ Partial Class FormLogging
         Me.RadioOff.Location = New System.Drawing.Point(20, 221)
         Me.RadioOff.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.RadioOff.Name = "RadioOff"
-        Me.RadioOff.Size = New System.Drawing.Size(56, 24)
+        Me.RadioOff.Size = New System.Drawing.Size(49, 20)
         Me.RadioOff.TabIndex = 0
         Me.RadioOff.TabStop = True
         Me.RadioOff.Text = Global.Outworldz.My.Resources.Resources.Off
@@ -150,9 +151,9 @@ Partial Class FormLogging
         Me.ClientSize = New System.Drawing.Size(208, 366)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormLogging"
-        Me.Text = "Logging"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)

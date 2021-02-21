@@ -2,6 +2,16 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.6 or 3.8 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.895
+jOpensim fixes for profiles and many other settings.  Many thanks to Rich Dennis for his help and good ideas.
+PHP has OpenSSL enabled so jOpensim can send emails via PHP.
+Modern viewers will bypass the Region bottleneck and get textures directly from the Robust service.
+FSAssets: Backups of FSassets are no longer compressed into a zip instead there is a Mirrored copy to Autobackup/FSAssets.  This makes it more efficient to backup files over a network as only files that have changed need to be copied or moved.
+FSAssets: Backups can be done over a \\shared name, and it will wait for the share to be initialized.
+FSAssets:If destination free disk space is < 50 MB, the backup of FSAssets will stop.
+FSAssets:It should run very quickly after the first run as it only copies assets with the A bit set, then it resets it. The A bit is set if a file is created or modified.
+Much faster way to get the PID of running processes which speeds up booting.
+
 V3.894
 Send emails to any or all local users
 
@@ -10,7 +20,7 @@ Glitch in Save IAR
 
 V3.892
 Maps have a print preview and print button.
-Loading or saving IARS has autocomplete for avatar name.
+Loading or saving IARS has auto complete for avatar name.
 Once again fixed the Add Region while running logic.
 
 V3.891

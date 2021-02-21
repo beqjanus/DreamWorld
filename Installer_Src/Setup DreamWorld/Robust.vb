@@ -377,15 +377,14 @@ Module Robust
         Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
 
         Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
+        Settings.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
 
         If Settings.CMS = JOpensim Then
-            Settings.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
             Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "")
             Settings.SetIni("UserProfilesService", "Enabled", "False")
             Settings.SetIni("GridInfoService", "welcome", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim")
             Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/components/com_opensim/")
         Else
-            Settings.SetIni("ServiceList", "GetTextureConnector", "")
             Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "${Const|PublicPort}/OpenSim.Server.Handlers.dll:UserProfilesConnector")
             Settings.SetIni("UserProfilesService", "Enabled", "True")
             Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
@@ -488,11 +487,11 @@ Module Robust
 
     Private Sub SetupRobustSearchINI()
 
-        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
+        If Settings.CMS = JOpensim And Settings.SearchOptions = JOpensim Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
-        ElseIf Settings.JOpensimSearch = Hyperica Then
+        ElseIf Settings.SearchOptions = Hyperica Then
             Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
             Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
         Else

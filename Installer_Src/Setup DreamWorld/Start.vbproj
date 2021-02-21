@@ -137,15 +137,19 @@
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.8.9\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="DotNetZip, Version=1.15.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.15.0\lib\net40\DotNetZip.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="EmailValidation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=60f3df2f38e92638, processorArchitecture=MSIL">
       <HintPath>..\packages\EmailValidation.1.0.4\lib\net45\EmailValidation.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="Humanizer, Version=2.8.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.8.26\lib\netstandard2.0\Humanizer.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
@@ -195,7 +199,12 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
-    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
@@ -466,6 +475,12 @@
     <Compile Include="FormScripts.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormSearch.Designer.vb">
+      <DependentUpon>FormSearch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSearch.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormServerType.Designer.vb">
       <DependentUpon>FormServerType.vb</DependentUpon>
     </Compile>
@@ -679,6 +694,9 @@
     <EmbeddedResource Include="FormScripts.resx">
       <DependentUpon>FormScripts.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormSearch.resx">
+      <DependentUpon>FormSearch.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormServerType.resx">
       <DependentUpon>FormServerType.vb</DependentUpon>
     </EmbeddedResource>
@@ -844,24 +862,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cubes.ico" />
     <None Include="Resources\cubes_yellow.png" />
     <None Include="Resources\cubes_green.png" />
     <None Include="Resources\cube_yellow.png" />
     <None Include="Resources\cube_green.png" />
-    <None Include="Resources\Outworldz ad by Marianna Monentes.png" />
-    <None Include="Resources\ClicktoInsertPhoto.png" />
     <None Include="Resources\tables.png" />
-    <None Include="Resources\package_view.png" />
-    <None Include="Resources\package_preferences.png" />
-    <None Include="Resources\package_ok.png" />
-    <None Include="Resources\package_new.png" />
     <None Include="Resources\package_find.png" />
-    <None Include="Resources\package_error.png" />
     <None Include="Resources\package_delete.png" />
-    <None Include="Resources\cube_green_new.png" />
     <None Include="Resources\table.png" />
-    <None Include="Resources\earth_view.png" />
     <None Include="Resources\chart.png" />
     <None Include="Resources\selection.png" />
     <None Include="Resources\replace2.png" />
@@ -873,14 +881,10 @@
     <None Include="Resources\window_colors.png" />
     <None Include="Resources\text_find.png" />
     <None Include="Resources\package_add.png" />
-    <None Include="Resources\microsoft-edge.png" />
-    <None Include="Resources\edge.png" />
     <None Include="Resources\flag_iran.png" />
-    <None Include="Resources\flag_saudi_arabia1.png" />
     <None Include="Resources\flag_brazil.png" />
     <None Include="Resources\flag_saudi_arabia.png" />
     <None Include="Resources\basque.png" />
-    <None Include="Resources\view.png" />
     <None Include="Resources\selection_view.png" />
     <None Include="Resources\Blank256.jpg" />
     <None Include="Resources\Image1.jpg" />
@@ -906,13 +910,11 @@
     <None Include="Resources\flag_france.png" />
     <None Include="Resources\flag_usa.png" />
     <None Include="Resources\Better.jpg" />
-    <None Include="Resources\map-1-9510-10006-objects.jpg" />
     <None Include="Resources\data.png" />
     <None Include="Resources\BuiltbyFred.jpg" />
     <None Include="Resources\document_chart.png" />
     <None Include="Resources\Best.jpg" />
     <None Include="Resources\Good.jpg" />
-    <None Include="Resources\Simple.jpg" />
     <None Include="Resources\transform.png" />
     <None Include="Resources\media_play_green.png" />
     <None Include="Resources\media_pause.png" />
@@ -931,12 +933,10 @@
     <None Include="Resources\media_stop_red.png" />
     <None Include="Resources\water.jpg" />
     <None Include="Resources\blankbox.jpg" />
-    <Content Include="cubes_blue.ico" />
     <None Include="Resources\cubes_blue.ico" />
     <None Include="Resources\folder.png" />
     <None Include="Resources\gear.png" />
     <None Include="Resources\gear_run.png" />
-    <None Include="Resources\delete2.png" />
     <None Include="Resources\document_dirty.png" />
     <None Include="Resources\disks.png" />
     <None Include="Resources\text_marked.png" />
@@ -957,8 +957,6 @@
     <None Include="Resources\home.png" />
     <None Include="Resources\home_02.png" />
     <None Include="Resources\user1_into.png" />
-    <None Include="Resources\flash.png" />
-    <None Include="Resources\refresh.png" />
     <None Include="Resources\recycle.png" />
     <None Include="Resources\earth_network.png" />
     <None Include="Resources\download.png" />
@@ -972,8 +970,6 @@
     <None Include="Resources\window_environment.png" />
     <None Include="Resources\users3.png" />
     <None Include="packages.config" />
-    <None Include="Resources\gear_pause.png" />
-    <None Include="Resources\exit.png" />
     <None Include="Resources\about.png" />
     <None Include="Resources\question_and_answer.png" />
     <None Include="Resources\window_edit.png" />
@@ -995,6 +991,87 @@
     <Analyzer Include="..\packages\Microsoft.NetCore.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.NetCore.VisualBasic.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.NetFramework.VisualBasic.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\book_blue.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\books.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cube_yellow.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cubes.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cubes_green.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cubes_yellow.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\data_into.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendar.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\currency_dollar.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\data_copy.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\earth_location.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icecube.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mail_into.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cubes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cubes_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map-1-9510-10006-objects.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Outworldz ad by Marianna Monentes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Simple.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\earth_view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_preferences.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\microsoft-edge.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_ok.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

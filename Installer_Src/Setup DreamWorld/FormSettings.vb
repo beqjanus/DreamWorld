@@ -29,6 +29,7 @@ Public Class FormSettings
     Dim FormServerType As New FormServerType
     Dim Gloebits As New FormGloebits
     Dim Icecast As New FormIcecast
+    Dim Search As New FormSearch
     Dim Logging As New FormLogging
     Dim Maps As New FormMaps
     Dim Scripts As New FormScripts
@@ -96,6 +97,7 @@ Public Class FormSettings
         Shoutcast.Text = Global.Outworldz.My.Resources.Icecast_word
         TOSButton.Text = Global.Outworldz.My.Resources.Terms_of_Service
         TideButton.Text = Global.Outworldz.My.Resources.Tides_word
+        SearchButton.Text = Global.Outworldz.My.Resources.SearchOptions_word
         ToolTip1.SetToolTip(ApacheButton, Global.Outworldz.My.Resources.ApacheWebServer)
         ToolTip1.SetToolTip(BackupButton1, Global.Outworldz.My.Resources.Backup_Schedule)
         ToolTip1.SetToolTip(BanListButton, Global.Outworldz.My.Resources.BanList_string)
@@ -480,6 +482,18 @@ Public Class FormSettings
         Voice.Visible = True
         Voice.Select()
         Voice.BringToFront()
+
+    End Sub
+
+    Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
+
+        Search.Close()
+        Search.Dispose()
+        Search = New FormSearch
+        Search.Activate()
+        Search.Visible = True
+        Search.Select()
+        Search.BringToFront()
 
     End Sub
 

@@ -234,7 +234,6 @@ Public Class FormOAR
             End If
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-
         End Try
 
     End Sub

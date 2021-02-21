@@ -168,7 +168,7 @@ Public Class FormIcecast
 
     End Sub
 
-    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+    Private Sub HelpToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem4.Click
         HelpManual("Icecast")
     End Sub
 

@@ -65,7 +65,7 @@ Partial Class FormPermissions
         Me.AllowGods.Location = New System.Drawing.Point(22, 54)
         Me.AllowGods.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.AllowGods.Name = "AllowGods"
-        Me.AllowGods.Size = New System.Drawing.Size(201, 24)
+        Me.AllowGods.Size = New System.Drawing.Size(179, 21)
         Me.AllowGods.TabIndex = 14
         Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
         Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
@@ -77,7 +77,7 @@ Partial Class FormPermissions
         Me.ManagerGod.Location = New System.Drawing.Point(22, 126)
         Me.ManagerGod.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.ManagerGod.Name = "ManagerGod"
-        Me.ManagerGod.Size = New System.Drawing.Size(208, 24)
+        Me.ManagerGod.Size = New System.Drawing.Size(182, 21)
         Me.ManagerGod.TabIndex = 16
         Me.ManagerGod.Text = Global.Outworldz.My.Resources.Resources.Region_manager_god
         Me.ToolTip1.SetToolTip(Me.ManagerGod, Global.Outworldz.My.Resources.Resources.Region_Manager_is_God)
@@ -89,7 +89,7 @@ Partial Class FormPermissions
         Me.RegionGod.Location = New System.Drawing.Point(22, 89)
         Me.RegionGod.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.RegionGod.Name = "RegionGod"
-        Me.RegionGod.Size = New System.Drawing.Size(213, 24)
+        Me.RegionGod.Size = New System.Drawing.Size(186, 21)
         Me.RegionGod.TabIndex = 15
         Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Allow_Region_Owner_Gods_word
         Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
@@ -113,7 +113,7 @@ Partial Class FormPermissions
         Me.EnableMaxPrims.Location = New System.Drawing.Point(18, 29)
         Me.EnableMaxPrims.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.EnableMaxPrims.Name = "EnableMaxPrims"
-        Me.EnableMaxPrims.Size = New System.Drawing.Size(214, 24)
+        Me.EnableMaxPrims.Size = New System.Drawing.Size(183, 21)
         Me.EnableMaxPrims.TabIndex = 19
         Me.EnableMaxPrims.Text = Global.Outworldz.My.Resources.Resources.Max_Prims
         Me.ToolTip1.SetToolTip(Me.EnableMaxPrims, Global.Outworldz.My.Resources.Resources.Max_PrimLimit)
@@ -125,7 +125,7 @@ Partial Class FormPermissions
         Me.Clouds.Location = New System.Drawing.Point(18, 29)
         Me.Clouds.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Clouds.Name = "Clouds"
-        Me.Clouds.Size = New System.Drawing.Size(85, 24)
+        Me.Clouds.Size = New System.Drawing.Size(77, 21)
         Me.Clouds.TabIndex = 17
         Me.Clouds.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.ToolTip1.SetToolTip(Me.Clouds, Global.Outworldz.My.Resources.Resources.Allow_cloud)
@@ -137,7 +137,7 @@ Partial Class FormPermissions
         Me.OutBoundPermissionsCheckbox.Location = New System.Drawing.Point(22, 29)
         Me.OutBoundPermissionsCheckbox.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.OutBoundPermissionsCheckbox.Name = "OutBoundPermissionsCheckbox"
-        Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(173, 24)
+        Me.OutBoundPermissionsCheckbox.Size = New System.Drawing.Size(152, 21)
         Me.OutBoundPermissionsCheckbox.TabIndex = 18
         Me.OutBoundPermissionsCheckbox.Text = Global.Outworldz.My.Resources.Resources.Allow_Items_to_leave_word
         Me.ToolTip1.SetToolTip(Me.OutBoundPermissionsCheckbox, Global.Outworldz.My.Resources.Resources.Allow_objects)
@@ -173,7 +173,7 @@ Partial Class FormPermissions
         Me.DomainUpDown1.Location = New System.Drawing.Point(116, 28)
         Me.DomainUpDown1.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.DomainUpDown1.Name = "DomainUpDown1"
-        Me.DomainUpDown1.Size = New System.Drawing.Size(99, 26)
+        Me.DomainUpDown1.Size = New System.Drawing.Size(99, 22)
         Me.DomainUpDown1.TabIndex = 18
         '
         'MenuStrip2

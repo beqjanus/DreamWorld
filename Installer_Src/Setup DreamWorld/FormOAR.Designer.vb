@@ -86,16 +86,16 @@ Partial Class FormOAR
         'TextBox1
         '
         Me.TextBox1.Location = New System.Drawing.Point(289, 10)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(5)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(321, 26)
+        Me.TextBox1.Size = New System.Drawing.Size(321, 22)
         Me.TextBox1.TabIndex = 1891
         '
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.view
         Me.PictureBox1.Location = New System.Drawing.Point(249, 6)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(5)
         Me.PictureBox1.MinimumSize = New System.Drawing.Size(24, 24)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(31, 30)

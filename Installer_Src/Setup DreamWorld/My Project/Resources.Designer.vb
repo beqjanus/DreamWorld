@@ -422,7 +422,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Are you sure? Your database will rloaded from the backup and all existing content replaced. Avatars, sims, inventory, everyting will be written over..
+        '''  Looks up a localized string similar to Are you sure? Your database will loaded from the backup and all existing content replaced. Avatars, sims, inventory, everyting will be written over..
         '''</summary>
         Friend ReadOnly Property Are_You_Sure() As String
             Get
@@ -877,6 +877,26 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property book_blue() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("book_blue", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property books() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("books", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Border Size (default=25.0).
         '''</summary>
         Friend ReadOnly Property Border_Size() As String
@@ -1020,6 +1040,16 @@ Namespace My.Resources
         Friend ReadOnly Property Caches_word() As String
             Get
                 Return ResourceManager.GetString("Caches_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property calendar() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("calendar", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -1965,22 +1995,22 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
-        Friend ReadOnly Property cube_green_new() As System.Drawing.Bitmap
+        Friend ReadOnly Property cube_yellow() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("cube_green_new", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Dim obj As Object = ResourceManager.GetObject("cube_yellow", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
-        Friend ReadOnly Property cube_yellow() As System.Drawing.Bitmap
+        Friend ReadOnly Property cubes() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("cube_yellow", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Dim obj As Object = ResourceManager.GetObject("cubes", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -1995,22 +2025,32 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
-        Friend ReadOnly Property cubes_green() As System.Drawing.Bitmap
+        Friend ReadOnly Property cubes_green() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("cubes_green", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         '''</summary>
-        Friend ReadOnly Property cubes_yellow() As System.Drawing.Bitmap
+        Friend ReadOnly Property cubes_yellow() As System.Drawing.Icon
             Get
                 Dim obj As Object = ResourceManager.GetObject("cubes_yellow", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property currency_dollar() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("currency_dollar", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -2079,11 +2119,31 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property data_copy() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("data_copy", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Data Folder.
         '''</summary>
         Friend ReadOnly Property Data_Folder_word() As String
             Get
                 Return ResourceManager.GetString("Data_Folder_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property data_into() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("data_into", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -2219,16 +2279,6 @@ Namespace My.Resources
         Friend ReadOnly Property Delete_word() As String
             Get
                 Return ResourceManager.GetString("Delete_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property delete2() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("delete2", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -2671,6 +2721,16 @@ Namespace My.Resources
         Friend ReadOnly Property DynDNS_password_word() As String
             Get
                 Return ResourceManager.GetString("DynDNS_password_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property earth_location() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("earth_location", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -3329,29 +3389,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property flag_russia1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("flag_russia1", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property flag_saudi_arabia() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_saudi_arabia", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property flag_saudi_arabia1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("flag_saudi_arabia1", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -3392,16 +3432,6 @@ Namespace My.Resources
         Friend ReadOnly Property flag_usa() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_usa", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property flash() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("flash", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -3566,16 +3596,6 @@ Namespace My.Resources
         Friend ReadOnly Property gear() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("gear", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property gear_run() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("gear_run", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -4251,6 +4271,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property icecube() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("icecube", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Icelandic.
         '''</summary>
         Friend ReadOnly Property Icelandic() As String
@@ -4539,6 +4569,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property jar() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("jar", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Job Engine.
         '''</summary>
         Friend ReadOnly Property JobEngine_word() As String
@@ -4634,6 +4674,16 @@ Namespace My.Resources
         Friend ReadOnly Property Last_Name_Word() As String
             Get
                 Return ResourceManager.GetString("Last_Name_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property layout_north() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("layout_north", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -4881,6 +4931,26 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property mail() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("mail", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property mail_into() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("mail_into", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Make a backup?.
         '''</summary>
         Friend ReadOnly Property Make_a_backup_word() As String
@@ -4950,6 +5020,16 @@ Namespace My.Resources
         Friend ReadOnly Property Mapx() As String
             Get
                 Return ResourceManager.GetString("Mapx", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property Martin_Berube_Flat_Animal_Bird() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Martin_Berube_Flat_Animal_Bird", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -6144,16 +6224,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property package_new() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("package_new", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property package_ok() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("package_ok", resourceCulture)
@@ -6167,16 +6237,6 @@ Namespace My.Resources
         Friend ReadOnly Property package_preferences() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("package_preferences", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property package_view() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("package_view", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -6935,6 +6995,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property registry() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("registry", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Reload the grid.
         '''</summary>
         Friend ReadOnly Property Reload() As String
@@ -6976,16 +7046,6 @@ Namespace My.Resources
         Friend ReadOnly Property Repeat_Password_word() As String
             Get
                 Return ResourceManager.GetString("Repeat_Password_word", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property replace2() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("replace2", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -8058,6 +8118,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property spy() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("spy", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to SQL Database Backup/Restore.
         '''</summary>
         Friend ReadOnly Property SQL_Database_Backup_Restore() As String
@@ -8316,6 +8386,16 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("table", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property table_sql() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("table_sql", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
@@ -9306,6 +9386,16 @@ Namespace My.Resources
         Friend ReadOnly Property WordPress_Word() As String
             Get
                 Return ResourceManager.GetString("WordPress_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property workplace() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("workplace", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         

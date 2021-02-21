@@ -57,7 +57,7 @@ Partial Class FormCaches
         '
         Me.ScriptCheckBox1.AutoSize = True
         Me.ScriptCheckBox1.Location = New System.Drawing.Point(46, 50)
-        Me.ScriptCheckBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ScriptCheckBox1.Margin = New System.Windows.Forms.Padding(5)
         Me.ScriptCheckBox1.Name = "ScriptCheckBox1"
         Me.ScriptCheckBox1.Size = New System.Drawing.Size(123, 24)
         Me.ScriptCheckBox1.TabIndex = 0
@@ -68,7 +68,7 @@ Partial Class FormCaches
         '
         Me.AvatarCheckBox2.AutoSize = True
         Me.AvatarCheckBox2.Location = New System.Drawing.Point(46, 85)
-        Me.AvatarCheckBox2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.AvatarCheckBox2.Margin = New System.Windows.Forms.Padding(5)
         Me.AvatarCheckBox2.Name = "AvatarCheckBox2"
         Me.AvatarCheckBox2.Size = New System.Drawing.Size(180, 24)
         Me.AvatarCheckBox2.TabIndex = 1
@@ -79,7 +79,7 @@ Partial Class FormCaches
         '
         Me.AssetCheckBox3.AutoSize = True
         Me.AssetCheckBox3.Location = New System.Drawing.Point(46, 120)
-        Me.AssetCheckBox3.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.AssetCheckBox3.Margin = New System.Windows.Forms.Padding(5)
         Me.AssetCheckBox3.Name = "AssetCheckBox3"
         Me.AssetCheckBox3.Size = New System.Drawing.Size(126, 24)
         Me.AssetCheckBox3.TabIndex = 2
@@ -90,7 +90,7 @@ Partial Class FormCaches
         '
         Me.ImageCheckBox4.AutoSize = True
         Me.ImageCheckBox4.Location = New System.Drawing.Point(46, 155)
-        Me.ImageCheckBox4.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ImageCheckBox4.Margin = New System.Windows.Forms.Padding(5)
         Me.ImageCheckBox4.Name = "ImageCheckBox4"
         Me.ImageCheckBox4.Size = New System.Drawing.Size(130, 24)
         Me.ImageCheckBox4.TabIndex = 3
@@ -101,7 +101,7 @@ Partial Class FormCaches
         '
         Me.MeshCheckBox5.AutoSize = True
         Me.MeshCheckBox5.Location = New System.Drawing.Point(46, 190)
-        Me.MeshCheckBox5.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.MeshCheckBox5.Margin = New System.Windows.Forms.Padding(5)
         Me.MeshCheckBox5.Name = "MeshCheckBox5"
         Me.MeshCheckBox5.Size = New System.Drawing.Size(124, 24)
         Me.MeshCheckBox5.TabIndex = 4
@@ -117,9 +117,9 @@ Partial Class FormCaches
         Me.GroupBox1.Controls.Add(Me.ImageCheckBox4)
         Me.GroupBox1.Controls.Add(Me.AssetCheckBox3)
         Me.GroupBox1.Location = New System.Drawing.Point(18, 46)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5)
         Me.GroupBox1.Size = New System.Drawing.Size(275, 306)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
@@ -128,7 +128,7 @@ Partial Class FormCaches
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(36, 234)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(5)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(194, 35)
         Me.Button1.TabIndex = 5
@@ -165,9 +165,9 @@ Partial Class FormCaches
         Me.GroupBox2.Controls.Add(Me.CacheFolder)
         Me.GroupBox2.Controls.Add(Me.LogLevelBox)
         Me.GroupBox2.Location = New System.Drawing.Point(307, 121)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5)
         Me.GroupBox2.Size = New System.Drawing.Size(499, 230)
         Me.GroupBox2.TabIndex = 18602
         Me.GroupBox2.TabStop = False
@@ -178,7 +178,7 @@ Partial Class FormCaches
         Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.PictureBox1.Location = New System.Drawing.Point(384, 104)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(5)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(50, 35)
         Me.PictureBox1.TabIndex = 1872
@@ -217,7 +217,7 @@ Partial Class FormCaches
         'CacheTimeout
         '
         Me.CacheTimeout.Location = New System.Drawing.Point(31, 191)
-        Me.CacheTimeout.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.CacheTimeout.Margin = New System.Windows.Forms.Padding(5)
         Me.CacheTimeout.Name = "CacheTimeout"
         Me.CacheTimeout.Size = New System.Drawing.Size(65, 26)
         Me.CacheTimeout.TabIndex = 1868
@@ -237,7 +237,7 @@ Partial Class FormCaches
         '
         Me.CacheEnabledBox.AutoSize = True
         Me.CacheEnabledBox.Location = New System.Drawing.Point(31, 35)
-        Me.CacheEnabledBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.CacheEnabledBox.Margin = New System.Windows.Forms.Padding(5)
         Me.CacheEnabledBox.Name = "CacheEnabledBox"
         Me.CacheEnabledBox.Size = New System.Drawing.Size(22, 21)
         Me.CacheEnabledBox.TabIndex = 1867
@@ -247,7 +247,7 @@ Partial Class FormCaches
         'CacheFolder
         '
         Me.CacheFolder.Location = New System.Drawing.Point(31, 107)
-        Me.CacheFolder.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.CacheFolder.Margin = New System.Windows.Forms.Padding(5)
         Me.CacheFolder.Name = "CacheFolder"
         Me.CacheFolder.Size = New System.Drawing.Size(342, 26)
         Me.CacheFolder.TabIndex = 1862
@@ -256,7 +256,7 @@ Partial Class FormCaches
         '
         Me.LogLevelBox.FormattingEnabled = True
         Me.LogLevelBox.Location = New System.Drawing.Point(31, 146)
-        Me.LogLevelBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.LogLevelBox.Margin = New System.Windows.Forms.Padding(5)
         Me.LogLevelBox.Name = "LogLevelBox"
         Me.LogLevelBox.Size = New System.Drawing.Size(339, 28)
         Me.LogLevelBox.TabIndex = 1860
@@ -265,9 +265,9 @@ Partial Class FormCaches
         '
         Me.GroupBox3.Controls.Add(Me.ViewerCacheCheckbox)
         Me.GroupBox3.Location = New System.Drawing.Point(307, 36)
-        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(5)
         Me.GroupBox3.Size = New System.Drawing.Size(499, 77)
         Me.GroupBox3.TabIndex = 18603
         Me.GroupBox3.TabStop = False
@@ -277,7 +277,7 @@ Partial Class FormCaches
         '
         Me.ViewerCacheCheckbox.AutoSize = True
         Me.ViewerCacheCheckbox.Location = New System.Drawing.Point(29, 34)
-        Me.ViewerCacheCheckbox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ViewerCacheCheckbox.Margin = New System.Windows.Forms.Padding(5)
         Me.ViewerCacheCheckbox.Name = "ViewerCacheCheckbox"
         Me.ViewerCacheCheckbox.Size = New System.Drawing.Size(94, 24)
         Me.ViewerCacheCheckbox.TabIndex = 1
@@ -296,7 +296,7 @@ Partial Class FormCaches
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.MaximizeBox = False
         Me.Name = "FormCaches"
         Me.Text = "Cache Control"

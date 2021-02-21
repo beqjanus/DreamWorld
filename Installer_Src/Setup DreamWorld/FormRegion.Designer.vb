@@ -132,38 +132,38 @@ Partial Class FormRegion
         '
         'CoordY
         '
-        Me.CoordY.Location = New System.Drawing.Point(204, 16)
-        Me.CoordY.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CoordY.Location = New System.Drawing.Point(245, 19)
+        Me.CoordY.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CoordY.Name = "CoordY"
-        Me.CoordY.Size = New System.Drawing.Size(46, 22)
+        Me.CoordY.Size = New System.Drawing.Size(54, 22)
         Me.CoordY.TabIndex = 13
         Me.ToolTip1.SetToolTip(Me.CoordY, Global.Outworldz.My.Resources.Resources.CoordY)
         '
         'CoordX
         '
-        Me.CoordX.Location = New System.Drawing.Point(121, 16)
-        Me.CoordX.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CoordX.Location = New System.Drawing.Point(145, 19)
+        Me.CoordX.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CoordX.Name = "CoordX"
-        Me.CoordX.Size = New System.Drawing.Size(49, 22)
+        Me.CoordX.Size = New System.Drawing.Size(58, 22)
         Me.CoordX.TabIndex = 12
         Me.ToolTip1.SetToolTip(Me.CoordX, Global.Outworldz.My.Resources.Resources.Coordx)
         '
         'RegionName
         '
-        Me.RegionName.Location = New System.Drawing.Point(19, 70)
-        Me.RegionName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RegionName.Location = New System.Drawing.Point(23, 84)
+        Me.RegionName.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RegionName.Name = "RegionName"
-        Me.RegionName.Size = New System.Drawing.Size(227, 22)
+        Me.RegionName.Size = New System.Drawing.Size(272, 22)
         Me.RegionName.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.RegionName, Global.Outworldz.My.Resources.Resources.Region_Name)
         '
         'RadioButton4
         '
         Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(25, 106)
-        Me.RadioButton4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton4.Location = New System.Drawing.Point(30, 127)
+        Me.RadioButton4.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton4.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton4.TabIndex = 6
         Me.RadioButton4.TabStop = True
         Me.RadioButton4.Text = "4 X 4"
@@ -173,10 +173,10 @@ Partial Class FormRegion
         'RadioButton3
         '
         Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(25, 78)
-        Me.RadioButton3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton3.Location = New System.Drawing.Point(30, 94)
+        Me.RadioButton3.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton3.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton3.TabIndex = 5
         Me.RadioButton3.TabStop = True
         Me.RadioButton3.Text = "3 X 3"
@@ -186,10 +186,10 @@ Partial Class FormRegion
         'RadioButton2
         '
         Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(25, 49)
-        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton2.Location = New System.Drawing.Point(30, 59)
+        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton2.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton2.TabIndex = 4
         Me.RadioButton2.TabStop = True
         Me.RadioButton2.Text = "2 X 2"
@@ -199,10 +199,10 @@ Partial Class FormRegion
         'RadioButton1
         '
         Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(25, 20)
-        Me.RadioButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton1.Location = New System.Drawing.Point(30, 24)
+        Me.RadioButton1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton1.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton1.TabIndex = 3
         Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "1 X 1"
@@ -211,20 +211,20 @@ Partial Class FormRegion
         '
         'MaxAgents
         '
-        Me.MaxAgents.Location = New System.Drawing.Point(15, 251)
-        Me.MaxAgents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MaxAgents.Location = New System.Drawing.Point(18, 301)
+        Me.MaxAgents.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MaxAgents.Name = "MaxAgents"
-        Me.MaxAgents.Size = New System.Drawing.Size(49, 22)
+        Me.MaxAgents.Size = New System.Drawing.Size(58, 22)
         Me.MaxAgents.TabIndex = 20
         Me.ToolTip1.SetToolTip(Me.MaxAgents, Global.Outworldz.My.Resources.Resources.Max_Agents)
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(81, 130)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Location = New System.Drawing.Point(97, 156)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(148, 17)
+        Me.Label5.Size = New System.Drawing.Size(142, 16)
         Me.Label5.TabIndex = 30
         Me.Label5.Text = "Nonphysical Prim Size"
         Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.Resources.Max_NonPhys)
@@ -232,30 +232,30 @@ Partial Class FormRegion
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(86, 160)
-        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label9.Location = New System.Drawing.Point(103, 192)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(152, 17)
+        Me.Label9.Size = New System.Drawing.Size(146, 16)
         Me.Label9.TabIndex = 31
         Me.Label9.Text = "Physical Prim Max Size"
         Me.ToolTip1.SetToolTip(Me.Label9, Global.Outworldz.My.Resources.Resources.Max_Phys)
         '
         'PhysicalPrimMax
         '
-        Me.PhysicalPrimMax.Location = New System.Drawing.Point(15, 156)
-        Me.PhysicalPrimMax.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PhysicalPrimMax.Location = New System.Drawing.Point(18, 187)
+        Me.PhysicalPrimMax.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.PhysicalPrimMax.Name = "PhysicalPrimMax"
-        Me.PhysicalPrimMax.Size = New System.Drawing.Size(49, 22)
+        Me.PhysicalPrimMax.Size = New System.Drawing.Size(58, 22)
         Me.PhysicalPrimMax.TabIndex = 17
         Me.ToolTip1.SetToolTip(Me.PhysicalPrimMax, Global.Outworldz.My.Resources.Resources.Max_Phys)
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(86, 191)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Location = New System.Drawing.Point(103, 229)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(110, 17)
+        Me.Label10.Size = New System.Drawing.Size(106, 16)
         Me.Label10.TabIndex = 34
         Me.Label10.Text = "Clamp Prim Size"
         Me.ToolTip1.SetToolTip(Me.Label10, Global.Outworldz.My.Resources.Resources.ClampSize)
@@ -263,39 +263,39 @@ Partial Class FormRegion
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(86, 220)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Location = New System.Drawing.Point(103, 264)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(213, 17)
+        Me.Label11.Size = New System.Drawing.Size(201, 16)
         Me.Label11.TabIndex = 36
         Me.Label11.Text = "Max Number of Prims in a Parcel"
         Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Resources.Viewer_Stops_Counting)
         '
         'MaxPrims
         '
-        Me.MaxPrims.Location = New System.Drawing.Point(15, 215)
-        Me.MaxPrims.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MaxPrims.Location = New System.Drawing.Point(18, 258)
+        Me.MaxPrims.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MaxPrims.Name = "MaxPrims"
-        Me.MaxPrims.Size = New System.Drawing.Size(49, 22)
+        Me.MaxPrims.Size = New System.Drawing.Size(58, 22)
         Me.MaxPrims.TabIndex = 19
         Me.ToolTip1.SetToolTip(Me.MaxPrims, Global.Outworldz.My.Resources.Resources.Not_Normal)
         '
         'NonphysicalPrimMax
         '
-        Me.NonphysicalPrimMax.Location = New System.Drawing.Point(15, 125)
-        Me.NonphysicalPrimMax.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.NonphysicalPrimMax.Location = New System.Drawing.Point(18, 150)
+        Me.NonphysicalPrimMax.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.NonphysicalPrimMax.Name = "NonphysicalPrimMax"
-        Me.NonphysicalPrimMax.Size = New System.Drawing.Size(49, 22)
+        Me.NonphysicalPrimMax.Size = New System.Drawing.Size(58, 22)
         Me.NonphysicalPrimMax.TabIndex = 16
         Me.ToolTip1.SetToolTip(Me.NonphysicalPrimMax, Global.Outworldz.My.Resources.Resources.Normal_Prim)
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(86, 251)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Location = New System.Drawing.Point(103, 301)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(204, 17)
+        Me.Label12.Size = New System.Drawing.Size(192, 16)
         Me.Label12.TabIndex = 38
         Me.Label12.Text = "Max number of Avatars + NPCs"
         Me.ToolTip1.SetToolTip(Me.Label12, Global.Outworldz.My.Resources.Resources.Max_Agents)
@@ -303,10 +303,10 @@ Partial Class FormRegion
         'ClampPrimSize
         '
         Me.ClampPrimSize.AutoSize = True
-        Me.ClampPrimSize.Location = New System.Drawing.Point(15, 190)
-        Me.ClampPrimSize.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ClampPrimSize.Location = New System.Drawing.Point(18, 228)
+        Me.ClampPrimSize.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.ClampPrimSize.Name = "ClampPrimSize"
-        Me.ClampPrimSize.Size = New System.Drawing.Size(18, 17)
+        Me.ClampPrimSize.Size = New System.Drawing.Size(22, 21)
         Me.ClampPrimSize.TabIndex = 18
         Me.ToolTip1.SetToolTip(Me.ClampPrimSize, Global.Outworldz.My.Resources.Resources.ClampSize)
         Me.ClampPrimSize.UseVisualStyleBackColor = True
@@ -314,10 +314,10 @@ Partial Class FormRegion
         'BirdsCheckBox
         '
         Me.BirdsCheckBox.AutoSize = True
-        Me.BirdsCheckBox.Location = New System.Drawing.Point(19, 24)
-        Me.BirdsCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BirdsCheckBox.Location = New System.Drawing.Point(23, 29)
+        Me.BirdsCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.BirdsCheckBox.Name = "BirdsCheckBox"
-        Me.BirdsCheckBox.Size = New System.Drawing.Size(105, 21)
+        Me.BirdsCheckBox.Size = New System.Drawing.Size(106, 21)
         Me.BirdsCheckBox.TabIndex = 21
         Me.BirdsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Bird_Module_word
         Me.ToolTip1.SetToolTip(Me.BirdsCheckBox, Global.Outworldz.My.Resources.Resources.GBoids)
@@ -326,10 +326,10 @@ Partial Class FormRegion
         'TidesCheckbox
         '
         Me.TidesCheckbox.AutoSize = True
-        Me.TidesCheckbox.Location = New System.Drawing.Point(19, 52)
-        Me.TidesCheckbox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TidesCheckbox.Location = New System.Drawing.Point(23, 62)
+        Me.TidesCheckbox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TidesCheckbox.Name = "TidesCheckbox"
-        Me.TidesCheckbox.Size = New System.Drawing.Size(254, 21)
+        Me.TidesCheckbox.Size = New System.Drawing.Size(241, 21)
         Me.TidesCheckbox.TabIndex = 21
         Me.TidesCheckbox.Text = Global.Outworldz.My.Resources.Resources.Tide_Enable
         Me.ToolTip1.SetToolTip(Me.TidesCheckbox, Global.Outworldz.My.Resources.Resources.GTide)
@@ -338,10 +338,10 @@ Partial Class FormRegion
         'TPCheckBox1
         '
         Me.TPCheckBox1.AutoSize = True
-        Me.TPCheckBox1.Location = New System.Drawing.Point(19, 81)
-        Me.TPCheckBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TPCheckBox1.Location = New System.Drawing.Point(23, 97)
+        Me.TPCheckBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.TPCheckBox1.Name = "TPCheckBox1"
-        Me.TPCheckBox1.Size = New System.Drawing.Size(163, 21)
+        Me.TPCheckBox1.Size = New System.Drawing.Size(161, 21)
         Me.TPCheckBox1.TabIndex = 22
         Me.TPCheckBox1.Text = Global.Outworldz.My.Resources.Resources.Teleporter_Enable_word
         Me.ToolTip1.SetToolTip(Me.TPCheckBox1, Global.Outworldz.My.Resources.Resources.Teleport_Tooltip)
@@ -350,8 +350,8 @@ Partial Class FormRegion
         'AllowGods
         '
         Me.AllowGods.AutoSize = True
-        Me.AllowGods.Location = New System.Drawing.Point(18, 65)
-        Me.AllowGods.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AllowGods.Location = New System.Drawing.Point(22, 78)
+        Me.AllowGods.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.AllowGods.Name = "AllowGods"
         Me.AllowGods.Size = New System.Drawing.Size(179, 21)
         Me.AllowGods.TabIndex = 1858
@@ -362,10 +362,10 @@ Partial Class FormRegion
         'ManagerGod
         '
         Me.ManagerGod.AutoSize = True
-        Me.ManagerGod.Location = New System.Drawing.Point(18, 124)
-        Me.ManagerGod.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ManagerGod.Location = New System.Drawing.Point(22, 149)
+        Me.ManagerGod.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.ManagerGod.Name = "ManagerGod"
-        Me.ManagerGod.Size = New System.Drawing.Size(172, 21)
+        Me.ManagerGod.Size = New System.Drawing.Size(169, 21)
         Me.ManagerGod.TabIndex = 6
         Me.ManagerGod.Text = Global.Outworldz.My.Resources.Resources.EstateManagerIsGod_word
         Me.ToolTip1.SetToolTip(Me.ManagerGod, Global.Outworldz.My.Resources.Resources.EMGod)
@@ -374,10 +374,10 @@ Partial Class FormRegion
         'RegionGod
         '
         Me.RegionGod.AutoSize = True
-        Me.RegionGod.Location = New System.Drawing.Point(18, 94)
-        Me.RegionGod.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RegionGod.Location = New System.Drawing.Point(22, 113)
+        Me.RegionGod.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RegionGod.Name = "RegionGod"
-        Me.RegionGod.Size = New System.Drawing.Size(165, 21)
+        Me.RegionGod.Size = New System.Drawing.Size(161, 21)
         Me.RegionGod.TabIndex = 1855
         Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word
         Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
@@ -386,10 +386,10 @@ Partial Class FormRegion
         'SmartStartCheckBox
         '
         Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(20, 214)
-        Me.SmartStartCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(24, 257)
+        Me.SmartStartCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
-        Me.SmartStartCheckBox.Size = New System.Drawing.Size(101, 21)
+        Me.SmartStartCheckBox.Size = New System.Drawing.Size(99, 21)
         Me.SmartStartCheckBox.TabIndex = 23
         Me.SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_word
         Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, Global.Outworldz.My.Resources.Resources.GTide)
@@ -398,28 +398,28 @@ Partial Class FormRegion
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(86, 286)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label14.Location = New System.Drawing.Point(103, 343)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(152, 17)
+        Me.Label14.Size = New System.Drawing.Size(140, 16)
         Me.Label14.TabIndex = 41
         Me.Label14.Text = "Script Timer Rate (0.2)"
         Me.ToolTip1.SetToolTip(Me.Label14, Global.Outworldz.My.Resources.Resources.Script_Timer_Text)
         '
         'ScriptTimerTextBox
         '
-        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(15, 286)
-        Me.ScriptTimerTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(18, 343)
+        Me.ScriptTimerTextBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
-        Me.ScriptTimerTextBox.Size = New System.Drawing.Size(49, 22)
+        Me.ScriptTimerTextBox.Size = New System.Drawing.Size(58, 22)
         Me.ScriptTimerTextBox.TabIndex = 40
         Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, Global.Outworldz.My.Resources.Resources.STComment)
         '
         'DisableGBCheckBox
         '
         Me.DisableGBCheckBox.AutoSize = True
-        Me.DisableGBCheckBox.Location = New System.Drawing.Point(19, 106)
-        Me.DisableGBCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DisableGBCheckBox.Location = New System.Drawing.Point(23, 127)
+        Me.DisableGBCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.DisableGBCheckBox.Name = "DisableGBCheckBox"
         Me.DisableGBCheckBox.Size = New System.Drawing.Size(152, 21)
         Me.DisableGBCheckBox.TabIndex = 24
@@ -430,10 +430,10 @@ Partial Class FormRegion
         'DisallowForeigners
         '
         Me.DisallowForeigners.AutoSize = True
-        Me.DisallowForeigners.Location = New System.Drawing.Point(19, 131)
-        Me.DisallowForeigners.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DisallowForeigners.Location = New System.Drawing.Point(23, 157)
+        Me.DisallowForeigners.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.DisallowForeigners.Name = "DisallowForeigners"
-        Me.DisallowForeigners.Size = New System.Drawing.Size(179, 21)
+        Me.DisallowForeigners.Size = New System.Drawing.Size(177, 21)
         Me.DisallowForeigners.TabIndex = 25
         Me.DisallowForeigners.Text = Global.Outworldz.My.Resources.Resources.Disable_Foreigners_word
         Me.ToolTip1.SetToolTip(Me.DisallowForeigners, Global.Outworldz.My.Resources.Resources.No_HG)
@@ -442,10 +442,10 @@ Partial Class FormRegion
         'DisallowResidents
         '
         Me.DisallowResidents.AutoSize = True
-        Me.DisallowResidents.Location = New System.Drawing.Point(19, 158)
-        Me.DisallowResidents.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DisallowResidents.Location = New System.Drawing.Point(23, 190)
+        Me.DisallowResidents.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.DisallowResidents.Name = "DisallowResidents"
-        Me.DisallowResidents.Size = New System.Drawing.Size(167, 21)
+        Me.DisallowResidents.Size = New System.Drawing.Size(166, 21)
         Me.DisallowResidents.TabIndex = 26
         Me.DisallowResidents.Text = Global.Outworldz.My.Resources.Resources.Disable_Residents
         Me.ToolTip1.SetToolTip(Me.DisallowResidents, Global.Outworldz.My.Resources.Resources.Only_Owners)
@@ -453,20 +453,20 @@ Partial Class FormRegion
         '
         'FrametimeBox
         '
-        Me.FrametimeBox.Location = New System.Drawing.Point(15, 321)
-        Me.FrametimeBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.FrametimeBox.Location = New System.Drawing.Point(18, 385)
+        Me.FrametimeBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.FrametimeBox.Name = "FrametimeBox"
-        Me.FrametimeBox.Size = New System.Drawing.Size(49, 22)
+        Me.FrametimeBox.Size = New System.Drawing.Size(58, 22)
         Me.FrametimeBox.TabIndex = 42
         Me.ToolTip1.SetToolTip(Me.FrametimeBox, Global.Outworldz.My.Resources.Resources.FrameTime)
         '
         'SkipAutoCheckBox
         '
         Me.SkipAutoCheckBox.AutoSize = True
-        Me.SkipAutoCheckBox.Location = New System.Drawing.Point(19, 186)
-        Me.SkipAutoCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SkipAutoCheckBox.Location = New System.Drawing.Point(23, 223)
+        Me.SkipAutoCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.SkipAutoCheckBox.Name = "SkipAutoCheckBox"
-        Me.SkipAutoCheckBox.Size = New System.Drawing.Size(207, 21)
+        Me.SkipAutoCheckBox.Size = New System.Drawing.Size(203, 21)
         Me.SkipAutoCheckBox.TabIndex = 27
         Me.SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Resources.Skip_Autobackup_word
         Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, Global.Outworldz.My.Resources.Resources.WillNotSave)
@@ -475,10 +475,10 @@ Partial Class FormRegion
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(86, 321)
-        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label15.Location = New System.Drawing.Point(103, 385)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(140, 17)
+        Me.Label15.Size = New System.Drawing.Size(128, 16)
         Me.Label15.TabIndex = 43
         Me.Label15.Text = "Frame Rate (0.0909)"
         Me.ToolTip1.SetToolTip(Me.Label15, Global.Outworldz.My.Resources.Resources.FRText)
@@ -486,10 +486,10 @@ Partial Class FormRegion
         'RadioButton8
         '
         Me.RadioButton8.AutoSize = True
-        Me.RadioButton8.Location = New System.Drawing.Point(112, 104)
-        Me.RadioButton8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton8.Location = New System.Drawing.Point(134, 125)
+        Me.RadioButton8.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton8.Name = "RadioButton8"
-        Me.RadioButton8.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton8.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton8.TabIndex = 10
         Me.RadioButton8.TabStop = True
         Me.RadioButton8.Text = "8 X 8"
@@ -499,10 +499,10 @@ Partial Class FormRegion
         'RadioButton7
         '
         Me.RadioButton7.AutoSize = True
-        Me.RadioButton7.Location = New System.Drawing.Point(112, 75)
-        Me.RadioButton7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton7.Location = New System.Drawing.Point(134, 90)
+        Me.RadioButton7.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton7.Name = "RadioButton7"
-        Me.RadioButton7.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton7.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton7.TabIndex = 9
         Me.RadioButton7.TabStop = True
         Me.RadioButton7.Text = "7 X 7"
@@ -512,10 +512,10 @@ Partial Class FormRegion
         'RadioButton6
         '
         Me.RadioButton6.AutoSize = True
-        Me.RadioButton6.Location = New System.Drawing.Point(112, 46)
-        Me.RadioButton6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton6.Location = New System.Drawing.Point(134, 55)
+        Me.RadioButton6.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton6.Name = "RadioButton6"
-        Me.RadioButton6.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton6.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton6.TabIndex = 8
         Me.RadioButton6.TabStop = True
         Me.RadioButton6.Text = "6 X 6"
@@ -525,10 +525,10 @@ Partial Class FormRegion
         'RadioButton5
         '
         Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Location = New System.Drawing.Point(112, 18)
-        Me.RadioButton5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton5.Location = New System.Drawing.Point(134, 22)
+        Me.RadioButton5.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton5.Name = "RadioButton5"
-        Me.RadioButton5.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton5.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton5.TabIndex = 7
         Me.RadioButton5.TabStop = True
         Me.RadioButton5.Text = "5 X 5"
@@ -538,10 +538,10 @@ Partial Class FormRegion
         'RadioButton10
         '
         Me.RadioButton10.AutoSize = True
-        Me.RadioButton10.Location = New System.Drawing.Point(191, 46)
-        Me.RadioButton10.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton10.Location = New System.Drawing.Point(229, 55)
+        Me.RadioButton10.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton10.Name = "RadioButton10"
-        Me.RadioButton10.Size = New System.Drawing.Size(78, 21)
+        Me.RadioButton10.Size = New System.Drawing.Size(75, 20)
         Me.RadioButton10.TabIndex = 12
         Me.RadioButton10.TabStop = True
         Me.RadioButton10.Text = "10 X 10"
@@ -551,10 +551,10 @@ Partial Class FormRegion
         'RadioButton9
         '
         Me.RadioButton9.AutoSize = True
-        Me.RadioButton9.Location = New System.Drawing.Point(191, 18)
-        Me.RadioButton9.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton9.Location = New System.Drawing.Point(229, 22)
+        Me.RadioButton9.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton9.Name = "RadioButton9"
-        Me.RadioButton9.Size = New System.Drawing.Size(62, 21)
+        Me.RadioButton9.Size = New System.Drawing.Size(61, 20)
         Me.RadioButton9.TabIndex = 11
         Me.RadioButton9.TabStop = True
         Me.RadioButton9.Text = "9 X 9"
@@ -564,10 +564,10 @@ Partial Class FormRegion
         'RadioButton12
         '
         Me.RadioButton12.AutoSize = True
-        Me.RadioButton12.Location = New System.Drawing.Point(194, 104)
-        Me.RadioButton12.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton12.Location = New System.Drawing.Point(233, 125)
+        Me.RadioButton12.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton12.Name = "RadioButton12"
-        Me.RadioButton12.Size = New System.Drawing.Size(78, 21)
+        Me.RadioButton12.Size = New System.Drawing.Size(75, 20)
         Me.RadioButton12.TabIndex = 14
         Me.RadioButton12.TabStop = True
         Me.RadioButton12.Text = "12 X 12"
@@ -577,10 +577,10 @@ Partial Class FormRegion
         'RadioButton11
         '
         Me.RadioButton11.AutoSize = True
-        Me.RadioButton11.Location = New System.Drawing.Point(194, 75)
-        Me.RadioButton11.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton11.Location = New System.Drawing.Point(233, 90)
+        Me.RadioButton11.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton11.Name = "RadioButton11"
-        Me.RadioButton11.Size = New System.Drawing.Size(78, 21)
+        Me.RadioButton11.Size = New System.Drawing.Size(75, 20)
         Me.RadioButton11.TabIndex = 13
         Me.RadioButton11.TabStop = True
         Me.RadioButton11.Text = "11 X 11"
@@ -590,10 +590,10 @@ Partial Class FormRegion
         'RadioButton16
         '
         Me.RadioButton16.AutoSize = True
-        Me.RadioButton16.Location = New System.Drawing.Point(280, 104)
-        Me.RadioButton16.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton16.Location = New System.Drawing.Point(336, 125)
+        Me.RadioButton16.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton16.Name = "RadioButton16"
-        Me.RadioButton16.Size = New System.Drawing.Size(78, 21)
+        Me.RadioButton16.Size = New System.Drawing.Size(75, 20)
         Me.RadioButton16.TabIndex = 18
         Me.RadioButton16.TabStop = True
         Me.RadioButton16.Text = "16 X 16"
@@ -603,10 +603,10 @@ Partial Class FormRegion
         'RadioButton15
         '
         Me.RadioButton15.AutoSize = True
-        Me.RadioButton15.Location = New System.Drawing.Point(280, 75)
-        Me.RadioButton15.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton15.Location = New System.Drawing.Point(336, 90)
+        Me.RadioButton15.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton15.Name = "RadioButton15"
-        Me.RadioButton15.Size = New System.Drawing.Size(78, 21)
+        Me.RadioButton15.Size = New System.Drawing.Size(75, 20)
         Me.RadioButton15.TabIndex = 17
         Me.RadioButton15.TabStop = True
         Me.RadioButton15.Text = "15 X 15"
@@ -616,10 +616,10 @@ Partial Class FormRegion
         'RadioButton14
         '
         Me.RadioButton14.AutoSize = True
-        Me.RadioButton14.Location = New System.Drawing.Point(278, 46)
-        Me.RadioButton14.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton14.Location = New System.Drawing.Point(334, 55)
+        Me.RadioButton14.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton14.Name = "RadioButton14"
-        Me.RadioButton14.Size = New System.Drawing.Size(78, 21)
+        Me.RadioButton14.Size = New System.Drawing.Size(75, 20)
         Me.RadioButton14.TabIndex = 16
         Me.RadioButton14.TabStop = True
         Me.RadioButton14.Text = "14 X 14"
@@ -629,10 +629,10 @@ Partial Class FormRegion
         'RadioButton13
         '
         Me.RadioButton13.AutoSize = True
-        Me.RadioButton13.Location = New System.Drawing.Point(278, 18)
-        Me.RadioButton13.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RadioButton13.Location = New System.Drawing.Point(334, 22)
+        Me.RadioButton13.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RadioButton13.Name = "RadioButton13"
-        Me.RadioButton13.Size = New System.Drawing.Size(78, 21)
+        Me.RadioButton13.Size = New System.Drawing.Size(75, 20)
         Me.RadioButton13.TabIndex = 15
         Me.RadioButton13.TabStop = True
         Me.RadioButton13.Text = "13 X 13"
@@ -646,11 +646,11 @@ Partial Class FormRegion
         Me.GroupBox1.Controls.Add(Me.Physics_Default)
         Me.GroupBox1.Controls.Add(Me.Physics_Separate)
         Me.GroupBox1.Controls.Add(Me.Physics_ubODE)
-        Me.GroupBox1.Location = New System.Drawing.Point(25, 348)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Location = New System.Drawing.Point(30, 418)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(285, 162)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Size = New System.Drawing.Size(342, 194)
         Me.GroupBox1.TabIndex = 1879
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics"
@@ -659,10 +659,10 @@ Partial Class FormRegion
         'Physics_Hybrid
         '
         Me.Physics_Hybrid.AutoSize = True
-        Me.Physics_Hybrid.Location = New System.Drawing.Point(6, 134)
-        Me.Physics_Hybrid.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics_Hybrid.Location = New System.Drawing.Point(7, 161)
+        Me.Physics_Hybrid.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Physics_Hybrid.Name = "Physics_Hybrid"
-        Me.Physics_Hybrid.Size = New System.Drawing.Size(70, 21)
+        Me.Physics_Hybrid.Size = New System.Drawing.Size(73, 20)
         Me.Physics_Hybrid.TabIndex = 139
         Me.Physics_Hybrid.TabStop = True
         Me.Physics_Hybrid.Text = "Hybrid"
@@ -671,10 +671,10 @@ Partial Class FormRegion
         'Physics_Bullet
         '
         Me.Physics_Bullet.AutoSize = True
-        Me.Physics_Bullet.Location = New System.Drawing.Point(6, 78)
-        Me.Physics_Bullet.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics_Bullet.Location = New System.Drawing.Point(7, 94)
+        Me.Physics_Bullet.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Physics_Bullet.Name = "Physics_Bullet"
-        Me.Physics_Bullet.Size = New System.Drawing.Size(119, 21)
+        Me.Physics_Bullet.Size = New System.Drawing.Size(118, 20)
         Me.Physics_Bullet.TabIndex = 138
         Me.Physics_Bullet.TabStop = True
         Me.Physics_Bullet.Text = "Bullet physics "
@@ -683,10 +683,10 @@ Partial Class FormRegion
         'Physics_Default
         '
         Me.Physics_Default.AutoSize = True
-        Me.Physics_Default.Location = New System.Drawing.Point(6, 22)
-        Me.Physics_Default.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics_Default.Location = New System.Drawing.Point(7, 26)
+        Me.Physics_Default.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Physics_Default.Name = "Physics_Default"
-        Me.Physics_Default.Size = New System.Drawing.Size(103, 21)
+        Me.Physics_Default.Size = New System.Drawing.Size(103, 20)
         Me.Physics_Default.TabIndex = 137
         Me.Physics_Default.TabStop = True
         Me.Physics_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
@@ -695,10 +695,10 @@ Partial Class FormRegion
         'Physics_Separate
         '
         Me.Physics_Separate.AutoSize = True
-        Me.Physics_Separate.Location = New System.Drawing.Point(6, 106)
-        Me.Physics_Separate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics_Separate.Location = New System.Drawing.Point(7, 127)
+        Me.Physics_Separate.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Physics_Separate.Name = "Physics_Separate"
-        Me.Physics_Separate.Size = New System.Drawing.Size(235, 21)
+        Me.Physics_Separate.Size = New System.Drawing.Size(226, 20)
         Me.Physics_Separate.TabIndex = 37
         Me.Physics_Separate.TabStop = True
         Me.Physics_Separate.Text = Global.Outworldz.My.Resources.Resources.BP
@@ -707,10 +707,10 @@ Partial Class FormRegion
         'Physics_ubODE
         '
         Me.Physics_ubODE.AutoSize = True
-        Me.Physics_ubODE.Location = New System.Drawing.Point(6, 49)
-        Me.Physics_ubODE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics_ubODE.Location = New System.Drawing.Point(7, 59)
+        Me.Physics_ubODE.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Physics_ubODE.Name = "Physics_ubODE"
-        Me.Physics_ubODE.Size = New System.Drawing.Size(199, 21)
+        Me.Physics_ubODE.Size = New System.Drawing.Size(194, 20)
         Me.Physics_ubODE.TabIndex = 35
         Me.Physics_ubODE.TabStop = True
         Me.Physics_ubODE.Text = Global.Outworldz.My.Resources.Resources.UBODE_words
@@ -719,10 +719,10 @@ Partial Class FormRegion
         'RegionPort
         '
         Me.RegionPort.Enabled = False
-        Me.RegionPort.Location = New System.Drawing.Point(121, 49)
-        Me.RegionPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.RegionPort.Location = New System.Drawing.Point(145, 59)
+        Me.RegionPort.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.RegionPort.Name = "RegionPort"
-        Me.RegionPort.Size = New System.Drawing.Size(49, 22)
+        Me.RegionPort.Size = New System.Drawing.Size(58, 22)
         Me.RegionPort.TabIndex = 39
         '
         'Advanced
@@ -750,11 +750,11 @@ Partial Class FormRegion
         Me.Advanced.Controls.Add(Me.UUID)
         Me.Advanced.Controls.Add(Me.CoordY)
         Me.Advanced.Controls.Add(Me.CoordX)
-        Me.Advanced.Location = New System.Drawing.Point(19, 320)
-        Me.Advanced.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Advanced.Location = New System.Drawing.Point(23, 384)
+        Me.Advanced.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Advanced.Name = "Advanced"
-        Me.Advanced.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.Advanced.Size = New System.Drawing.Size(382, 364)
+        Me.Advanced.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Advanced.Size = New System.Drawing.Size(458, 437)
         Me.Advanced.TabIndex = 26
         Me.Advanced.TabStop = False
         Me.Advanced.Text = "Regions"
@@ -762,58 +762,58 @@ Partial Class FormRegion
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(179, 54)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label16.Location = New System.Drawing.Point(215, 65)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(83, 17)
+        Me.Label16.Size = New System.Drawing.Size(79, 16)
         Me.Label16.TabIndex = 44
         Me.Label16.Text = "Region Port"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(8, 69)
-        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label6.Location = New System.Drawing.Point(10, 83)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(41, 17)
+        Me.Label6.Size = New System.Drawing.Size(41, 16)
         Me.Label6.TabIndex = 22
         Me.Label6.Text = "UUID"
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(8, 20)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Location = New System.Drawing.Point(10, 24)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(56, 17)
+        Me.Label4.Size = New System.Drawing.Size(52, 16)
         Me.Label4.TabIndex = 16
         Me.Label4.Text = "Map  X:"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(179, 20)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(215, 24)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(0, 17)
+        Me.Label1.Size = New System.Drawing.Size(0, 16)
         Me.Label1.TabIndex = 17
         '
         'UUID
         '
         Me.UUID.Enabled = False
-        Me.UUID.Location = New System.Drawing.Point(11, 89)
-        Me.UUID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.UUID.Location = New System.Drawing.Point(13, 107)
+        Me.UUID.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.UUID.Name = "UUID"
-        Me.UUID.Size = New System.Drawing.Size(268, 22)
+        Me.UUID.Size = New System.Drawing.Size(321, 22)
         Me.UUID.TabIndex = 15
         '
         'NameTip
         '
         Me.NameTip.AutoSize = True
-        Me.NameTip.Location = New System.Drawing.Point(27, 95)
-        Me.NameTip.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.NameTip.Location = New System.Drawing.Point(32, 114)
+        Me.NameTip.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.NameTip.Name = "NameTip"
-        Me.NameTip.Size = New System.Drawing.Size(336, 17)
+        Me.NameTip.Size = New System.Drawing.Size(317, 16)
         Me.NameTip.TabIndex = 25
         Me.NameTip.Text = "Alpha-Numeric plus minus sign and space character"
         '
@@ -837,11 +837,11 @@ Partial Class FormRegion
         Me.GroupBox2.Controls.Add(Me.RadioButton1)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Location = New System.Drawing.Point(19, 126)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Location = New System.Drawing.Point(23, 151)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox2.Size = New System.Drawing.Size(371, 142)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox2.Size = New System.Drawing.Size(445, 170)
         Me.GroupBox2.TabIndex = 23
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Sim Size"
@@ -849,37 +849,37 @@ Partial Class FormRegion
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(185, 59)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(222, 71)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(0, 17)
+        Me.Label3.Size = New System.Drawing.Size(0, 16)
         Me.Label3.TabIndex = 3
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(185, 32)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(222, 38)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(0, 17)
+        Me.Label2.Size = New System.Drawing.Size(0, 16)
         Me.Label2.TabIndex = 2
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(30, 275)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button1.Location = New System.Drawing.Point(36, 330)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(74, 29)
+        Me.Button1.Size = New System.Drawing.Size(89, 35)
         Me.Button1.TabIndex = 10
         Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Save_word
         Me.Button1.UseVisualStyleBackColor = True
         '
         'DeleteButton
         '
-        Me.DeleteButton.Location = New System.Drawing.Point(296, 279)
-        Me.DeleteButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DeleteButton.Location = New System.Drawing.Point(355, 335)
+        Me.DeleteButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.DeleteButton.Name = "DeleteButton"
-        Me.DeleteButton.Size = New System.Drawing.Size(72, 29)
+        Me.DeleteButton.Size = New System.Drawing.Size(86, 35)
         Me.DeleteButton.TabIndex = 11
         Me.DeleteButton.Text = Global.Outworldz.My.Resources.Resources.Delete_word
         Me.DeleteButton.UseVisualStyleBackColor = True
@@ -887,10 +887,10 @@ Partial Class FormRegion
         'EnabledCheckBox
         '
         Me.EnabledCheckBox.AutoSize = True
-        Me.EnabledCheckBox.Location = New System.Drawing.Point(19, 42)
-        Me.EnabledCheckBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.EnabledCheckBox.Location = New System.Drawing.Point(23, 50)
+        Me.EnabledCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.EnabledCheckBox.Name = "EnabledCheckBox"
-        Me.EnabledCheckBox.Size = New System.Drawing.Size(82, 21)
+        Me.EnabledCheckBox.Size = New System.Drawing.Size(85, 21)
         Me.EnabledCheckBox.TabIndex = 2
         Me.EnabledCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
         Me.EnabledCheckBox.UseVisualStyleBackColor = True
@@ -906,11 +906,11 @@ Partial Class FormRegion
         Me.GroupBox6.Controls.Add(Me.MapBox)
         Me.GroupBox6.Controls.Add(Me.GroupBox5)
         Me.GroupBox6.Controls.Add(Me.GroupBox1)
-        Me.GroupBox6.Location = New System.Drawing.Point(396, 42)
-        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox6.Location = New System.Drawing.Point(475, 50)
+        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox6.Size = New System.Drawing.Size(604, 642)
+        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox6.Size = New System.Drawing.Size(725, 770)
         Me.GroupBox6.TabIndex = 1879
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Region Specific Settings"
@@ -920,11 +920,11 @@ Partial Class FormRegion
         Me.GroupBox8.Controls.Add(Me.ScriptDefaultButton)
         Me.GroupBox8.Controls.Add(Me.XEngineButton)
         Me.GroupBox8.Controls.Add(Me.YEngineButton)
-        Me.GroupBox8.Location = New System.Drawing.Point(25, 519)
-        Me.GroupBox8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox8.Location = New System.Drawing.Point(30, 623)
+        Me.GroupBox8.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox8.Size = New System.Drawing.Size(295, 111)
+        Me.GroupBox8.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox8.Size = New System.Drawing.Size(354, 133)
         Me.GroupBox8.TabIndex = 1887
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Script Engine"
@@ -932,10 +932,10 @@ Partial Class FormRegion
         'ScriptDefaultButton
         '
         Me.ScriptDefaultButton.AutoSize = True
-        Me.ScriptDefaultButton.Location = New System.Drawing.Point(18, 31)
-        Me.ScriptDefaultButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ScriptDefaultButton.Location = New System.Drawing.Point(22, 37)
+        Me.ScriptDefaultButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.ScriptDefaultButton.Name = "ScriptDefaultButton"
-        Me.ScriptDefaultButton.Size = New System.Drawing.Size(103, 21)
+        Me.ScriptDefaultButton.Size = New System.Drawing.Size(103, 20)
         Me.ScriptDefaultButton.TabIndex = 1858
         Me.ScriptDefaultButton.TabStop = True
         Me.ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
@@ -944,10 +944,10 @@ Partial Class FormRegion
         'XEngineButton
         '
         Me.XEngineButton.AutoSize = True
-        Me.XEngineButton.Location = New System.Drawing.Point(16, 59)
-        Me.XEngineButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.XEngineButton.Location = New System.Drawing.Point(19, 71)
+        Me.XEngineButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.XEngineButton.Name = "XEngineButton"
-        Me.XEngineButton.Size = New System.Drawing.Size(86, 21)
+        Me.XEngineButton.Size = New System.Drawing.Size(86, 20)
         Me.XEngineButton.TabIndex = 7
         Me.XEngineButton.TabStop = True
         Me.XEngineButton.Text = Global.Outworldz.My.Resources.Resources.XEngine_word
@@ -956,10 +956,10 @@ Partial Class FormRegion
         'YEngineButton
         '
         Me.YEngineButton.AutoSize = True
-        Me.YEngineButton.Location = New System.Drawing.Point(18, 86)
-        Me.YEngineButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.YEngineButton.Location = New System.Drawing.Point(22, 103)
+        Me.YEngineButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.YEngineButton.Name = "YEngineButton"
-        Me.YEngineButton.Size = New System.Drawing.Size(86, 21)
+        Me.YEngineButton.Size = New System.Drawing.Size(87, 20)
         Me.YEngineButton.TabIndex = 9
         Me.YEngineButton.TabStop = True
         Me.YEngineButton.Text = Global.Outworldz.My.Resources.Resources.YEngine_word
@@ -975,11 +975,11 @@ Partial Class FormRegion
         Me.GroupBox7.Controls.Add(Me.TPCheckBox1)
         Me.GroupBox7.Controls.Add(Me.TidesCheckbox)
         Me.GroupBox7.Controls.Add(Me.BirdsCheckBox)
-        Me.GroupBox7.Location = New System.Drawing.Point(318, 352)
-        Me.GroupBox7.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox7.Location = New System.Drawing.Point(382, 422)
+        Me.GroupBox7.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox7.Size = New System.Drawing.Size(278, 246)
+        Me.GroupBox7.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox7.Size = New System.Drawing.Size(334, 295)
         Me.GroupBox7.TabIndex = 1881
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Modules"
@@ -987,10 +987,10 @@ Partial Class FormRegion
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(39, 25)
-        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label13.Location = New System.Drawing.Point(47, 30)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(161, 17)
+        Me.Label13.Size = New System.Drawing.Size(154, 16)
         Me.Label13.TabIndex = 1884
         Me.Label13.Text = "Region Specific Settings"
         '
@@ -999,11 +999,11 @@ Partial Class FormRegion
         Me.GroupBox3.Controls.Add(Me.Publish)
         Me.GroupBox3.Controls.Add(Me.NoPublish)
         Me.GroupBox3.Controls.Add(Me.PublishDefault)
-        Me.GroupBox3.Location = New System.Drawing.Point(25, 55)
-        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox3.Location = New System.Drawing.Point(30, 66)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox3.Size = New System.Drawing.Size(289, 126)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox3.Size = New System.Drawing.Size(347, 151)
         Me.GroupBox3.TabIndex = 1883
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Publicity"
@@ -1011,10 +1011,10 @@ Partial Class FormRegion
         'Publish
         '
         Me.Publish.AutoSize = True
-        Me.Publish.Location = New System.Drawing.Point(14, 92)
-        Me.Publish.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Publish.Location = New System.Drawing.Point(17, 110)
+        Me.Publish.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Publish.Name = "Publish"
-        Me.Publish.Size = New System.Drawing.Size(231, 21)
+        Me.Publish.Size = New System.Drawing.Size(223, 20)
         Me.Publish.TabIndex = 1881
         Me.Publish.TabStop = True
         Me.Publish.Text = Global.Outworldz.My.Resources.Resources.Publish_Items
@@ -1023,10 +1023,10 @@ Partial Class FormRegion
         'NoPublish
         '
         Me.NoPublish.AutoSize = True
-        Me.NoPublish.Location = New System.Drawing.Point(14, 64)
-        Me.NoPublish.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.NoPublish.Location = New System.Drawing.Point(17, 77)
+        Me.NoPublish.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.NoPublish.Name = "NoPublish"
-        Me.NoPublish.Size = New System.Drawing.Size(190, 21)
+        Me.NoPublish.Size = New System.Drawing.Size(182, 20)
         Me.NoPublish.TabIndex = 1880
         Me.NoPublish.TabStop = True
         Me.NoPublish.Text = Global.Outworldz.My.Resources.Resources.No_Publish_Items
@@ -1035,10 +1035,10 @@ Partial Class FormRegion
         'PublishDefault
         '
         Me.PublishDefault.AutoSize = True
-        Me.PublishDefault.Location = New System.Drawing.Point(14, 34)
-        Me.PublishDefault.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.PublishDefault.Location = New System.Drawing.Point(17, 41)
+        Me.PublishDefault.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.PublishDefault.Name = "PublishDefault"
-        Me.PublishDefault.Size = New System.Drawing.Size(103, 21)
+        Me.PublishDefault.Size = New System.Drawing.Size(103, 20)
         Me.PublishDefault.TabIndex = 1879
         Me.PublishDefault.TabStop = True
         Me.PublishDefault.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
@@ -1050,11 +1050,11 @@ Partial Class FormRegion
         Me.GroupBox4.Controls.Add(Me.AllowGods)
         Me.GroupBox4.Controls.Add(Me.ManagerGod)
         Me.GroupBox4.Controls.Add(Me.RegionGod)
-        Me.GroupBox4.Location = New System.Drawing.Point(25, 188)
-        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox4.Location = New System.Drawing.Point(30, 226)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox4.Size = New System.Drawing.Size(285, 152)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox4.Size = New System.Drawing.Size(342, 182)
         Me.GroupBox4.TabIndex = 1882
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Permissions"
@@ -1062,8 +1062,8 @@ Partial Class FormRegion
         'Gods_Use_Default
         '
         Me.Gods_Use_Default.AutoSize = True
-        Me.Gods_Use_Default.Location = New System.Drawing.Point(18, 34)
-        Me.Gods_Use_Default.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Gods_Use_Default.Location = New System.Drawing.Point(22, 41)
+        Me.Gods_Use_Default.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Gods_Use_Default.Name = "Gods_Use_Default"
         Me.Gods_Use_Default.Size = New System.Drawing.Size(104, 21)
         Me.Gods_Use_Default.TabIndex = 1859
@@ -1079,11 +1079,11 @@ Partial Class FormRegion
         Me.MapBox.Controls.Add(Me.MapBetter)
         Me.MapBox.Controls.Add(Me.MapBest)
         Me.MapBox.Controls.Add(Me.MapGood)
-        Me.MapBox.Location = New System.Drawing.Point(318, 20)
-        Me.MapBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MapBox.Location = New System.Drawing.Point(382, 24)
+        Me.MapBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapBox.Name = "MapBox"
-        Me.MapBox.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.MapBox.Size = New System.Drawing.Size(278, 309)
+        Me.MapBox.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.MapBox.Size = New System.Drawing.Size(334, 371)
         Me.MapBox.TabIndex = 1881
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
@@ -1091,10 +1091,10 @@ Partial Class FormRegion
         'Maps_Use_Default
         '
         Me.Maps_Use_Default.AutoSize = True
-        Me.Maps_Use_Default.Location = New System.Drawing.Point(18, 29)
-        Me.Maps_Use_Default.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Maps_Use_Default.Location = New System.Drawing.Point(22, 35)
+        Me.Maps_Use_Default.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Maps_Use_Default.Name = "Maps_Use_Default"
-        Me.Maps_Use_Default.Size = New System.Drawing.Size(103, 21)
+        Me.Maps_Use_Default.Size = New System.Drawing.Size(103, 20)
         Me.Maps_Use_Default.TabIndex = 1858
         Me.Maps_Use_Default.TabStop = True
         Me.Maps_Use_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
@@ -1103,10 +1103,10 @@ Partial Class FormRegion
         'MapPicture
         '
         Me.MapPicture.InitialImage = CType(resources.GetObject("MapPicture.InitialImage"), System.Drawing.Image)
-        Me.MapPicture.Location = New System.Drawing.Point(38, 185)
-        Me.MapPicture.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MapPicture.Location = New System.Drawing.Point(46, 222)
+        Me.MapPicture.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapPicture.Name = "MapPicture"
-        Me.MapPicture.Size = New System.Drawing.Size(142, 116)
+        Me.MapPicture.Size = New System.Drawing.Size(170, 139)
         Me.MapPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.MapPicture.TabIndex = 138
         Me.MapPicture.TabStop = False
@@ -1114,10 +1114,10 @@ Partial Class FormRegion
         'MapNone
         '
         Me.MapNone.AutoSize = True
-        Me.MapNone.Location = New System.Drawing.Point(16, 52)
-        Me.MapNone.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MapNone.Location = New System.Drawing.Point(19, 62)
+        Me.MapNone.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapNone.Name = "MapNone"
-        Me.MapNone.Size = New System.Drawing.Size(63, 21)
+        Me.MapNone.Size = New System.Drawing.Size(66, 20)
         Me.MapNone.TabIndex = 7
         Me.MapNone.TabStop = True
         Me.MapNone.Text = Global.Outworldz.My.Resources.Resources.None
@@ -1126,10 +1126,10 @@ Partial Class FormRegion
         'MapSimple
         '
         Me.MapSimple.AutoSize = True
-        Me.MapSimple.Location = New System.Drawing.Point(16, 76)
-        Me.MapSimple.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MapSimple.Location = New System.Drawing.Point(19, 91)
+        Me.MapSimple.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapSimple.Name = "MapSimple"
-        Me.MapSimple.Size = New System.Drawing.Size(122, 21)
+        Me.MapSimple.Size = New System.Drawing.Size(120, 20)
         Me.MapSimple.TabIndex = 8
         Me.MapSimple.TabStop = True
         Me.MapSimple.Text = Global.Outworldz.My.Resources.Resources.Simple_but_Fast_word
@@ -1138,10 +1138,10 @@ Partial Class FormRegion
         'MapBetter
         '
         Me.MapBetter.AutoSize = True
-        Me.MapBetter.Location = New System.Drawing.Point(18, 125)
-        Me.MapBetter.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MapBetter.Location = New System.Drawing.Point(22, 150)
+        Me.MapBetter.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapBetter.Name = "MapBetter"
-        Me.MapBetter.Size = New System.Drawing.Size(153, 21)
+        Me.MapBetter.Size = New System.Drawing.Size(148, 20)
         Me.MapBetter.TabIndex = 10
         Me.MapBetter.TabStop = True
         Me.MapBetter.Text = Global.Outworldz.My.Resources.Resources.Better_Prims
@@ -1151,10 +1151,10 @@ Partial Class FormRegion
         'MapBest
         '
         Me.MapBest.AutoSize = True
-        Me.MapBest.Location = New System.Drawing.Point(16, 152)
-        Me.MapBest.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MapBest.Location = New System.Drawing.Point(19, 182)
+        Me.MapBest.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapBest.Name = "MapBest"
-        Me.MapBest.Size = New System.Drawing.Size(226, 21)
+        Me.MapBest.Size = New System.Drawing.Size(217, 20)
         Me.MapBest.TabIndex = 11
         Me.MapBest.TabStop = True
         Me.MapBest.Text = Global.Outworldz.My.Resources.Resources.Best_Prims
@@ -1163,10 +1163,10 @@ Partial Class FormRegion
         'MapGood
         '
         Me.MapGood.AutoSize = True
-        Me.MapGood.Location = New System.Drawing.Point(18, 100)
-        Me.MapGood.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MapGood.Location = New System.Drawing.Point(22, 120)
+        Me.MapGood.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MapGood.Name = "MapGood"
-        Me.MapGood.Size = New System.Drawing.Size(130, 21)
+        Me.MapGood.Size = New System.Drawing.Size(128, 20)
         Me.MapGood.TabIndex = 9
         Me.MapGood.TabStop = True
         Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
@@ -1175,31 +1175,32 @@ Partial Class FormRegion
         'GroupBox5
         '
         Me.GroupBox5.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox5.Size = New System.Drawing.Size(250, 125)
+        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox5.Size = New System.Drawing.Size(300, 150)
         Me.GroupBox5.TabIndex = 1885
         Me.GroupBox5.TabStop = False
         '
         'DeregisterButton
         '
-        Me.DeregisterButton.Location = New System.Drawing.Point(152, 275)
-        Me.DeregisterButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DeregisterButton.Location = New System.Drawing.Point(182, 330)
+        Me.DeregisterButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.DeregisterButton.Name = "DeregisterButton"
-        Me.DeregisterButton.Size = New System.Drawing.Size(94, 29)
+        Me.DeregisterButton.Size = New System.Drawing.Size(113, 35)
         Me.DeregisterButton.TabIndex = 1880
         Me.DeregisterButton.Text = Global.Outworldz.My.Resources.Resources.Deregister_word
         Me.DeregisterButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
+        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(5, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(1012, 30)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
+        Me.MenuStrip2.Size = New System.Drawing.Size(1214, 31)
         Me.MenuStrip2.TabIndex = 1888
         Me.MenuStrip2.Text = "0"
         '
@@ -1207,16 +1208,16 @@ Partial Class FormRegion
         '
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(79, 28)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(89, 29)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormRegion
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1012, 692)
+        Me.ClientSize = New System.Drawing.Size(1214, 830)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.DeregisterButton)
         Me.Controls.Add(Me.GroupBox6)
@@ -1229,7 +1230,7 @@ Partial Class FormRegion
         Me.Controls.Add(Me.GroupBox2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MaximizeBox = False
         Me.Name = "FormRegion"
         Me.Text = "Regions"

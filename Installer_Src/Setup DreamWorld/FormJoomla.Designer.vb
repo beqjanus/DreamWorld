@@ -33,13 +33,8 @@ Partial Class FormJoomla
         Me.AdminButton = New System.Windows.Forms.Button()
         Me.ViewButton = New System.Windows.Forms.Button()
         Me.InstallButton = New System.Windows.Forms.Button()
-        Me.SearchBox = New System.Windows.Forms.GroupBox()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.JOpensimRadioButton = New System.Windows.Forms.RadioButton()
-        Me.HypericaRadioButton = New System.Windows.Forms.RadioButton()
         Me.MenuStrip1.SuspendLayout()
         Me.ButtonBox.SuspendLayout()
-        Me.SearchBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -50,7 +45,7 @@ Partial Class FormJoomla
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 3, 0, 3)
-        Me.MenuStrip1.Size = New System.Drawing.Size(590, 38)
+        Me.MenuStrip1.Size = New System.Drawing.Size(330, 38)
         Me.MenuStrip1.TabIndex = 0
         '
         'HelpToolStripMenuItem
@@ -139,7 +134,7 @@ Partial Class FormJoomla
         '
         'InstallButton
         '
-        Me.InstallButton.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        Me.InstallButton.Image = Global.Outworldz.My.Resources.Resources.gear
         Me.InstallButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.InstallButton.Location = New System.Drawing.Point(36, 51)
         Me.InstallButton.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
@@ -149,58 +144,12 @@ Partial Class FormJoomla
         Me.InstallButton.Text = Global.Outworldz.My.Resources.Resources.InstallJoomla_word
         Me.InstallButton.UseVisualStyleBackColor = True
         '
-        'SearchBox
-        '
-        Me.SearchBox.Controls.Add(Me.RadioButton2)
-        Me.SearchBox.Controls.Add(Me.JOpensimRadioButton)
-        Me.SearchBox.Controls.Add(Me.HypericaRadioButton)
-        Me.SearchBox.Location = New System.Drawing.Point(314, 82)
-        Me.SearchBox.Name = "SearchBox"
-        Me.SearchBox.Size = New System.Drawing.Size(254, 174)
-        Me.SearchBox.TabIndex = 3
-        Me.SearchBox.TabStop = False
-        Me.SearchBox.Text = "Search Options"
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(33, 51)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(109, 24)
-        Me.RadioButton2.TabIndex = 6
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "No Search"
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        '
-        'JOpensimRadioButton
-        '
-        Me.JOpensimRadioButton.AutoSize = True
-        Me.JOpensimRadioButton.Location = New System.Drawing.Point(33, 123)
-        Me.JOpensimRadioButton.Name = "JOpensimRadioButton"
-        Me.JOpensimRadioButton.Size = New System.Drawing.Size(160, 24)
-        Me.JOpensimRadioButton.TabIndex = 5
-        Me.JOpensimRadioButton.TabStop = True
-        Me.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
-        Me.JOpensimRadioButton.UseVisualStyleBackColor = True
-        '
-        'HypericaRadioButton
-        '
-        Me.HypericaRadioButton.AutoSize = True
-        Me.HypericaRadioButton.Location = New System.Drawing.Point(33, 89)
-        Me.HypericaRadioButton.Name = "HypericaRadioButton"
-        Me.HypericaRadioButton.Size = New System.Drawing.Size(151, 24)
-        Me.HypericaRadioButton.TabIndex = 4
-        Me.HypericaRadioButton.TabStop = True
-        Me.HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
-        Me.HypericaRadioButton.UseVisualStyleBackColor = True
-        '
         'FormJoomla
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(590, 518)
-        Me.Controls.Add(Me.SearchBox)
+        Me.ClientSize = New System.Drawing.Size(330, 518)
         Me.Controls.Add(Me.ButtonBox)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -211,8 +160,6 @@ Partial Class FormJoomla
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.ButtonBox.ResumeLayout(False)
-        Me.SearchBox.ResumeLayout(False)
-        Me.SearchBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -224,11 +171,7 @@ Partial Class FormJoomla
     Friend WithEvents InstallButton As Button
     Friend WithEvents ViewButton As Button
     Friend WithEvents AdminButton As Button
-    Friend WithEvents SearchBox As GroupBox
-    Friend WithEvents JOpensimRadioButton As RadioButton
-    Friend WithEvents HypericaRadioButton As RadioButton
     Friend WithEvents ReinstallButton As Button
     Friend WithEvents UpdateButton As Button
-    Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents BackupButton As Button
 End Class

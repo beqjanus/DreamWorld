@@ -7,7 +7,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.894"
+    Public Const _MyVersion As String = "3.895"
     Public Const _SimVersion As String = "#be49d426d9=>1610c3f741 (mantis 8862: do cancel negative cache on valid store"
     Public Const MySqlRev = "5.6.5"
     Public Const jRev As String = "3.9.23"

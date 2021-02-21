@@ -53,7 +53,7 @@ Partial Class FormDNSName
         '
         Me.SuitcaseCheckbox.AutoSize = True
         Me.SuitcaseCheckbox.Location = New System.Drawing.Point(24, 63)
-        Me.SuitcaseCheckbox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SuitcaseCheckbox.Margin = New System.Windows.Forms.Padding(4)
         Me.SuitcaseCheckbox.Name = "SuitcaseCheckbox"
         Me.SuitcaseCheckbox.Size = New System.Drawing.Size(220, 24)
         Me.SuitcaseCheckbox.TabIndex = 1877
@@ -65,7 +65,7 @@ Partial Class FormDNSName
         '
         Me.EnableHypergrid.AutoSize = True
         Me.EnableHypergrid.Location = New System.Drawing.Point(24, 28)
-        Me.EnableHypergrid.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.EnableHypergrid.Margin = New System.Windows.Forms.Padding(4)
         Me.EnableHypergrid.Name = "EnableHypergrid"
         Me.EnableHypergrid.Size = New System.Drawing.Size(157, 24)
         Me.EnableHypergrid.TabIndex = 1873
@@ -76,7 +76,7 @@ Partial Class FormDNSName
         'UniqueId
         '
         Me.UniqueId.Location = New System.Drawing.Point(26, 278)
-        Me.UniqueId.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.UniqueId.Margin = New System.Windows.Forms.Padding(4)
         Me.UniqueId.Name = "UniqueId"
         Me.UniqueId.Size = New System.Drawing.Size(196, 26)
         Me.UniqueId.TabIndex = 1875
@@ -85,7 +85,7 @@ Partial Class FormDNSName
         'TestButton1
         '
         Me.TestButton1.Location = New System.Drawing.Point(214, 348)
-        Me.TestButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TestButton1.Margin = New System.Windows.Forms.Padding(4)
         Me.TestButton1.Name = "TestButton1"
         Me.TestButton1.Size = New System.Drawing.Size(146, 34)
         Me.TestButton1.TabIndex = 1872
@@ -96,7 +96,7 @@ Partial Class FormDNSName
         'NextNameButton
         '
         Me.NextNameButton.Location = New System.Drawing.Point(38, 348)
-        Me.NextNameButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.NextNameButton.Margin = New System.Windows.Forms.Padding(4)
         Me.NextNameButton.Name = "NextNameButton"
         Me.NextNameButton.Size = New System.Drawing.Size(153, 34)
         Me.NextNameButton.TabIndex = 1870
@@ -107,7 +107,7 @@ Partial Class FormDNSName
         'DNSNameBox
         '
         Me.DNSNameBox.Location = New System.Drawing.Point(24, 130)
-        Me.DNSNameBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DNSNameBox.Margin = New System.Windows.Forms.Padding(4)
         Me.DNSNameBox.Name = "DNSNameBox"
         Me.DNSNameBox.Size = New System.Drawing.Size(442, 26)
         Me.DNSNameBox.TabIndex = 1869
@@ -116,7 +116,7 @@ Partial Class FormDNSName
         'SaveButton1
         '
         Me.SaveButton1.Location = New System.Drawing.Point(382, 348)
-        Me.SaveButton1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SaveButton1.Margin = New System.Windows.Forms.Padding(4)
         Me.SaveButton1.Name = "SaveButton1"
         Me.SaveButton1.Size = New System.Drawing.Size(136, 34)
         Me.SaveButton1.TabIndex = 1879
@@ -127,7 +127,7 @@ Partial Class FormDNSName
         'DNSAliasTextBox
         '
         Me.DNSAliasTextBox.Location = New System.Drawing.Point(26, 201)
-        Me.DNSAliasTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DNSAliasTextBox.Margin = New System.Windows.Forms.Padding(4)
         Me.DNSAliasTextBox.Name = "DNSAliasTextBox"
         Me.DNSAliasTextBox.Size = New System.Drawing.Size(442, 26)
         Me.DNSAliasTextBox.TabIndex = 1880
@@ -147,9 +147,9 @@ Partial Class FormDNSName
         Me.OsGridButton.Controls.Add(Me.NextNameButton)
         Me.OsGridButton.Controls.Add(Me.DNSNameBox)
         Me.OsGridButton.Location = New System.Drawing.Point(32, 51)
-        Me.OsGridButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.OsGridButton.Margin = New System.Windows.Forms.Padding(4)
         Me.OsGridButton.Name = "OsGridButton"
-        Me.OsGridButton.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.OsGridButton.Padding = New System.Windows.Forms.Padding(4)
         Me.OsGridButton.Size = New System.Drawing.Size(536, 392)
         Me.OsGridButton.TabIndex = 1869
         Me.OsGridButton.TabStop = False
@@ -191,7 +191,6 @@ Partial Class FormDNSName
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 2, 0, 2)
         Me.MenuStrip1.Size = New System.Drawing.Size(580, 36)
         Me.MenuStrip1.TabIndex = 18600
         '
@@ -212,7 +211,7 @@ Partial Class FormDNSName
         Me.Controls.Add(Me.OsGridButton)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormDNSName"
         Me.Text = "DNS Name & Hypergrid"
         Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.Help_word)

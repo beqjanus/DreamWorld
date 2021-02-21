@@ -1418,7 +1418,7 @@ Public Class FormSetup
         AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.All_Global_Settings_word
 
         AllUsersAllSimsToolStripMenuItem.Text = Global.Outworldz.My.Resources.All_Users_All_Sims_word
-        ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_saudi_arabia1
+        ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_saudi_arabia
         BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
         BackupCriticalFilesToolStripMenuItem.Text = Global.Outworldz.My.Resources.System_Backup_word
         BackupDatabaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
@@ -1506,7 +1506,7 @@ Public Class FormSetup
         IslandToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Free_DreamGrid_OARs_word
         JobEngineToolStripMenuItem.Text = Global.Outworldz.My.Resources.JobEngine_word
         JustOneRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Just_one_region_word
-        JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.flash
+        JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.exit_icon
         JustQuitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Quit_Now_Word
         LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.users3
         LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Language
@@ -1523,7 +1523,7 @@ Public Class FormSetup
         MoreFreeIslandsandPartsContentToolStripMenuItem.Image = Global.Outworldz.My.Resources.download
         MoreFreeIslandsandPartsContentToolStripMenuItem.Text = Global.Outworldz.My.Resources.More_Free_Islands_and_Parts_word
         MoreFreeIslandsandPartsContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Free_DLC_word
-        RestartMysqlIcon.Image = Global.Outworldz.My.Resources.gear_run
+        RestartMysqlIcon.Image = Global.Outworldz.My.Resources.gear
         RestartMysqlIcon.Text = Global.Outworldz.My.Resources.Mysql_Word
         NorwegianToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_norway
         NorwegianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Norwegian
@@ -1537,11 +1537,11 @@ Public Class FormSetup
         PortgueseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Portuguese
         RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Server_Client
         RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Regions_word
-        RestartApacheIcon.Image = Global.Outworldz.My.Resources.gear_run
+        RestartApacheIcon.Image = Global.Outworldz.My.Resources.gear
         RestartApacheIcon.Text = Global.Outworldz.My.Resources.Apache_word
         RestartIceCastItem2.Image = Global.Outworldz.My.Resources.recycle
         RestartIceCastItem2.Text = Global.Outworldz.My.Resources.Restart_word
-        RestartIcecastIcon.Image = Global.Outworldz.My.Resources.gear_run
+        RestartIcecastIcon.Image = Global.Outworldz.My.Resources.gear
         RestartIcecastIcon.Text = Global.Outworldz.My.Resources.Icecast_word
         RestartMysqlItem.Image = Global.Outworldz.My.Resources.recycle
         RestartMysqlItem.Text = Global.Outworldz.My.Resources.Restart_word
@@ -1556,9 +1556,9 @@ Public Class FormSetup
         RestoreDatabaseToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Restore_Database_word
         RevisionHistoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_dirty
         RevisionHistoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Revision_History_word
-        RestartRobustIcon.Image = Global.Outworldz.My.Resources.gear_run
+        RestartRobustIcon.Image = Global.Outworldz.My.Resources.gear
         RestartRobustIcon.Text = Global.Outworldz.My.Resources.Robust_word
-        RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_russia1
+        RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_russia
         RussianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Russian
         ScriptsResumeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Scripts_Resume_word
         ScriptsStartToolStripMenuItem.Text = Global.Outworldz.My.Resources.Scripts_Start_word
@@ -2338,12 +2338,11 @@ Public Class FormSetup
     Private Sub RestoreDatabaseToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles RestoreDatabaseToolStripMenuItem1.Click
 
         If PropOpensimIsRunning() Then
-            TextPrint(My.Resources.Not_Running)
+            TextPrint(My.Resources.Aborted_word)
             Return
         End If
 
         If Not StartMySQL() Then
-
             ToolBar(False)
             Buttons(StartButton)
             TextPrint(My.Resources.Stopped_word)
@@ -2366,6 +2365,13 @@ Public Class FormSetup
             Dim thing = openFileDialog1.FileName
             If thing.Length > 0 Then
 
+                Dim db As String
+                If thing.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains("ROBUST") Then
+                    db = Settings.RobustDataBaseName
+                Else
+                    db = Settings.RegionDBName
+                End If
+
                 Dim yesno = MsgBox(My.Resources.Are_You_Sure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Restore_word)
                 If yesno = vbYes Then
 
@@ -2375,7 +2381,7 @@ Public Class FormSetup
                         Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
                         Using outputFile As New StreamWriter(filename, True)
                             outputFile.WriteLine("@REM A program to restore Mysql from a backup" & vbCrLf _
-                                & "mysql -u root opensim <  " & """" & thing & """" _
+                                & "mysql -u root " & db & " < " & """" & thing & """" _
                                 & vbCrLf & "@pause" & vbCrLf)
                         End Using
                     Catch ex As Exception
@@ -2384,26 +2390,24 @@ Public Class FormSetup
                         Return
                     End Try
 
-                    TextPrint(My.Resources.Do_Not_Interrupt_word)
-                    Dim pMySqlRestore As Process = New Process()
-                    ' pi.Arguments = thing
-                    Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                        .WindowStyle = ProcessWindowStyle.Normal,
-                        .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
-                        .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
-                    }
-                    pMySqlRestore.StartInfo = pi
+                    Using pMySqlRestore As Process = New Process()
+                        ' pi.Arguments = thing
+                        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                            .WindowStyle = ProcessWindowStyle.Normal,
+                            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
+                            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
+                        }
+                        pMySqlRestore.StartInfo = pi
+                        TextPrint(My.Resources.Do_Not_Interrupt_word)
+                        Try
+                            pMySqlRestore.Start()
+                            pMySqlRestore.WaitForExit()
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
 
-                    Try
-                        pMySqlRestore.Start()
-                        pMySqlRestore.WaitForExit()
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                    Finally
-                        pMySqlRestore.Dispose()
-                    End Try
-
-                    TextPrint(My.Resources.Do_Not_Interrupt_word)
+                        TextPrint(My.Resources.Finished_with_backup_word)
+                    End Using
                 End If
             Else
                 TextPrint(My.Resources.Cancelled_word)

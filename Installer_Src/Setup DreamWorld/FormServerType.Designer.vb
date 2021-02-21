@@ -39,7 +39,7 @@ Partial Class FormServerType
         Me.GroupBox1.Controls.Add(Me.GridRegionButton)
         Me.GroupBox1.Controls.Add(Me.osGridRadioButton1)
         Me.GroupBox1.Controls.Add(Me.GridServerButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 38)
+        Me.GroupBox1.Location = New System.Drawing.Point(22, 47)
         Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
@@ -54,7 +54,7 @@ Partial Class FormServerType
         Me.MetroRadioButton2.Location = New System.Drawing.Point(23, 122)
         Me.MetroRadioButton2.Margin = New System.Windows.Forms.Padding(4)
         Me.MetroRadioButton2.Name = "MetroRadioButton2"
-        Me.MetroRadioButton2.Size = New System.Drawing.Size(191, 21)
+        Me.MetroRadioButton2.Size = New System.Drawing.Size(186, 20)
         Me.MetroRadioButton2.TabIndex = 1882
         Me.MetroRadioButton2.Text = "Metro.land Region Server"
         Me.MetroRadioButton2.UseVisualStyleBackColor = True
@@ -65,7 +65,7 @@ Partial Class FormServerType
         Me.GridRegionButton.Location = New System.Drawing.Point(23, 68)
         Me.GridRegionButton.Margin = New System.Windows.Forms.Padding(4)
         Me.GridRegionButton.Name = "GridRegionButton"
-        Me.GridRegionButton.Size = New System.Drawing.Size(120, 21)
+        Me.GridRegionButton.Size = New System.Drawing.Size(120, 20)
         Me.GridRegionButton.TabIndex = 1880
         Me.GridRegionButton.Text = Global.Outworldz.My.Resources.Resources.Region_Server_word
         Me.GridRegionButton.UseVisualStyleBackColor = True
@@ -76,7 +76,7 @@ Partial Class FormServerType
         Me.osGridRadioButton1.Location = New System.Drawing.Point(23, 94)
         Me.osGridRadioButton1.Margin = New System.Windows.Forms.Padding(4)
         Me.osGridRadioButton1.Name = "osGridRadioButton1"
-        Me.osGridRadioButton1.Size = New System.Drawing.Size(171, 21)
+        Me.osGridRadioButton1.Size = New System.Drawing.Size(167, 20)
         Me.osGridRadioButton1.TabIndex = 1881
         Me.osGridRadioButton1.Text = Global.Outworldz.My.Resources.Resources.OSGrid_Region_Server
         Me.osGridRadioButton1.UseVisualStyleBackColor = True
@@ -88,7 +88,7 @@ Partial Class FormServerType
         Me.GridServerButton.Location = New System.Drawing.Point(23, 38)
         Me.GridServerButton.Margin = New System.Windows.Forms.Padding(4)
         Me.GridServerButton.Name = "GridServerButton"
-        Me.GridServerButton.Size = New System.Drawing.Size(183, 21)
+        Me.GridServerButton.Size = New System.Drawing.Size(176, 20)
         Me.GridServerButton.TabIndex = 1879
         Me.GridServerButton.TabStop = True
         Me.GridServerButton.Text = Global.Outworldz.My.Resources.Resources.Grid_Server_With_Robust_word
@@ -96,6 +96,7 @@ Partial Class FormServerType
         '
         'MenuStrip1
         '
+        Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(28, 28)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
@@ -108,7 +109,7 @@ Partial Class FormServerType
         '
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(83, 32)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(93, 32)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormServerType
@@ -122,7 +123,6 @@ Partial Class FormServerType
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormServerType"
-        Me.Text = "Server Type"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)

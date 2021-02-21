@@ -23,6 +23,7 @@ Partial Class FormScripts
     <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="System.Windows.Forms.Control.set_Text(System.String)")>
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormScripts))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.YengineButton = New System.Windows.Forms.RadioButton()
         Me.XengineButton = New System.Windows.Forms.RadioButton()
@@ -39,11 +40,11 @@ Partial Class FormScripts
         '
         Me.GroupBox1.Controls.Add(Me.YengineButton)
         Me.GroupBox1.Controls.Add(Me.XengineButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(18, 77)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Location = New System.Drawing.Point(16, 62)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
-        Me.GroupBox1.Size = New System.Drawing.Size(383, 142)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Size = New System.Drawing.Size(340, 114)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Script Engine"
@@ -51,10 +52,10 @@ Partial Class FormScripts
         'YengineButton
         '
         Me.YengineButton.AutoSize = True
-        Me.YengineButton.Location = New System.Drawing.Point(18, 83)
-        Me.YengineButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.YengineButton.Location = New System.Drawing.Point(16, 66)
+        Me.YengineButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.YengineButton.Name = "YengineButton"
-        Me.YengineButton.Size = New System.Drawing.Size(99, 24)
+        Me.YengineButton.Size = New System.Drawing.Size(87, 20)
         Me.YengineButton.TabIndex = 1
         Me.YengineButton.TabStop = True
         Me.YengineButton.Text = Global.Outworldz.My.Resources.Resources.YEngine_word
@@ -63,10 +64,10 @@ Partial Class FormScripts
         'XengineButton
         '
         Me.XengineButton.AutoSize = True
-        Me.XengineButton.Location = New System.Drawing.Point(18, 47)
-        Me.XengineButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.XengineButton.Location = New System.Drawing.Point(16, 38)
+        Me.XengineButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.XengineButton.Name = "XengineButton"
-        Me.XengineButton.Size = New System.Drawing.Size(99, 24)
+        Me.XengineButton.Size = New System.Drawing.Size(86, 20)
         Me.XengineButton.TabIndex = 0
         Me.XengineButton.TabStop = True
         Me.XengineButton.Text = Global.Outworldz.My.Resources.Resources.XEngine_word
@@ -75,11 +76,11 @@ Partial Class FormScripts
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.LSLCheckbox)
-        Me.GroupBox8.Location = New System.Drawing.Point(18, 227)
-        Me.GroupBox8.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox8.Location = New System.Drawing.Point(16, 182)
+        Me.GroupBox8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
-        Me.GroupBox8.Size = New System.Drawing.Size(383, 74)
+        Me.GroupBox8.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox8.Size = New System.Drawing.Size(340, 59)
         Me.GroupBox8.TabIndex = 1863
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Allow LSL to contact the server"
@@ -87,10 +88,10 @@ Partial Class FormScripts
         'LSLCheckbox
         '
         Me.LSLCheckbox.AutoSize = True
-        Me.LSLCheckbox.Location = New System.Drawing.Point(18, 29)
-        Me.LSLCheckbox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.LSLCheckbox.Location = New System.Drawing.Point(16, 23)
+        Me.LSLCheckbox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.LSLCheckbox.Name = "LSLCheckbox"
-        Me.LSLCheckbox.Size = New System.Drawing.Size(85, 24)
+        Me.LSLCheckbox.Size = New System.Drawing.Size(77, 21)
         Me.LSLCheckbox.TabIndex = 210
         Me.LSLCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.LSLCheckbox.UseVisualStyleBackColor = True
@@ -102,8 +103,8 @@ Partial Class FormScripts
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(9, 2, 0, 2)
-        Me.MenuStrip2.Size = New System.Drawing.Size(419, 33)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(8, 2, 0, 2)
+        Me.MenuStrip2.Size = New System.Drawing.Size(372, 33)
         Me.MenuStrip2.TabIndex = 1890
         Me.MenuStrip2.Text = "0"
         '
@@ -116,14 +117,15 @@ Partial Class FormScripts
         '
         'FormScripts
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(419, 332)
+        Me.ClientSize = New System.Drawing.Size(372, 266)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormScripts"
         Me.Text = "Scripts"
         Me.GroupBox1.ResumeLayout(False)

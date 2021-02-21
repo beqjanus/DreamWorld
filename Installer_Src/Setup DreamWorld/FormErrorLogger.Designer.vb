@@ -22,6 +22,7 @@ Partial Class FormErrorLogger
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormErrorLogger))
         Me.QuitButton = New System.Windows.Forms.Button()
         Me.ReasonText = New System.Windows.Forms.TextBox()
         Me.SendButton = New System.Windows.Forms.Button()
@@ -37,28 +38,31 @@ Partial Class FormErrorLogger
         '
         'QuitButton
         '
-        Me.QuitButton.Location = New System.Drawing.Point(175, 327)
+        Me.QuitButton.Location = New System.Drawing.Point(197, 409)
+        Me.QuitButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.QuitButton.Name = "QuitButton"
-        Me.QuitButton.Size = New System.Drawing.Size(131, 37)
+        Me.QuitButton.Size = New System.Drawing.Size(147, 46)
         Me.QuitButton.TabIndex = 0
         Me.QuitButton.Text = "Cancel"
         Me.QuitButton.UseVisualStyleBackColor = True
         '
         'ReasonText
         '
-        Me.ReasonText.Location = New System.Drawing.Point(12, 155)
+        Me.ReasonText.Location = New System.Drawing.Point(14, 180)
+        Me.ReasonText.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.ReasonText.MaxLength = 5000
         Me.ReasonText.Multiline = True
         Me.ReasonText.Name = "ReasonText"
-        Me.ReasonText.Size = New System.Drawing.Size(498, 90)
+        Me.ReasonText.Size = New System.Drawing.Size(560, 126)
         Me.ReasonText.TabIndex = 1
-        Me.ReasonText.Text = "What happened?"
+        Me.ReasonText.Text = "Please tell us what may have caused this."
         '
         'SendButton
         '
-        Me.SendButton.Location = New System.Drawing.Point(25, 327)
+        Me.SendButton.Location = New System.Drawing.Point(28, 409)
+        Me.SendButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.SendButton.Name = "SendButton"
-        Me.SendButton.Size = New System.Drawing.Size(124, 37)
+        Me.SendButton.Size = New System.Drawing.Size(140, 46)
         Me.SendButton.TabIndex = 2
         Me.SendButton.Text = "Send Report"
         Me.SendButton.UseVisualStyleBackColor = True
@@ -67,9 +71,9 @@ Partial Class FormErrorLogger
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(100, 30)
+        Me.Label1.Location = New System.Drawing.Point(112, 38)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(351, 20)
+        Me.Label1.Size = New System.Drawing.Size(438, 25)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "The system has crashed and must exit.  "
         '
@@ -78,9 +82,10 @@ Partial Class FormErrorLogger
         Me.PictureBox1.ErrorImage = Global.Outworldz.My.Resources.Resources.warning
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.warning
         Me.PictureBox1.InitialImage = Global.Outworldz.My.Resources.Resources.warning
-        Me.PictureBox1.Location = New System.Drawing.Point(31, 13)
+        Me.PictureBox1.Location = New System.Drawing.Point(35, 16)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(57, 38)
+        Me.PictureBox1.Size = New System.Drawing.Size(64, 48)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 6
         Me.PictureBox1.TabStop = False
@@ -89,27 +94,29 @@ Partial Class FormErrorLogger
         '
         Me.PrivacyButton.Image = Global.Outworldz.My.Resources.Resources.edge
         Me.PrivacyButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.PrivacyButton.Location = New System.Drawing.Point(331, 327)
+        Me.PrivacyButton.Location = New System.Drawing.Point(372, 409)
+        Me.PrivacyButton.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PrivacyButton.Name = "PrivacyButton"
-        Me.PrivacyButton.Size = New System.Drawing.Size(155, 37)
+        Me.PrivacyButton.Size = New System.Drawing.Size(174, 46)
         Me.PrivacyButton.TabIndex = 10
         Me.PrivacyButton.Text = "Privacy Policy"
         Me.PrivacyButton.UseVisualStyleBackColor = True
         '
         'EmailTextBox
         '
-        Me.EmailTextBox.Location = New System.Drawing.Point(129, 300)
+        Me.EmailTextBox.Location = New System.Drawing.Point(145, 375)
+        Me.EmailTextBox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.EmailTextBox.Name = "EmailTextBox"
-        Me.EmailTextBox.Size = New System.Drawing.Size(305, 22)
+        Me.EmailTextBox.Size = New System.Drawing.Size(343, 26)
         Me.EmailTextBox.TabIndex = 11
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(48, 301)
+        Me.Label5.Location = New System.Drawing.Point(54, 376)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(51, 20)
+        Me.Label5.Size = New System.Drawing.Size(65, 25)
         Me.Label5.TabIndex = 12
         Me.Label5.Text = "Email"
         '
@@ -119,11 +126,12 @@ Partial Class FormErrorLogger
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.ForeColor = System.Drawing.SystemColors.MenuText
-        Me.TextBox1.Location = New System.Drawing.Point(12, 251)
+        Me.TextBox1.Location = New System.Drawing.Point(14, 314)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox1.MaxLength = 5000
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(498, 47)
+        Me.TextBox1.Size = New System.Drawing.Size(560, 59)
         Me.TextBox1.TabIndex = 14
         Me.TextBox1.Text = "Your email address will allow us to contact you in case we need more information." &
     ""
@@ -134,21 +142,22 @@ Partial Class FormErrorLogger
         Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox2.ForeColor = System.Drawing.SystemColors.MenuText
-        Me.TextBox2.Location = New System.Drawing.Point(12, 69)
+        Me.TextBox2.Location = New System.Drawing.Point(14, 86)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.TextBox2.MaxLength = 5000
         Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(498, 69)
+        Me.TextBox2.Size = New System.Drawing.Size(560, 86)
         Me.TextBox2.TabIndex = 15
         Me.TextBox2.Text = "The system and other applictions have not been affected. A report has been create" &
     "d that you can send to Outworldz, LLC to help identify this problem."
         '
         'FormErrorLogger
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(536, 378)
+        Me.ClientSize = New System.Drawing.Size(603, 472)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Label5)
@@ -159,6 +168,8 @@ Partial Class FormErrorLogger
         Me.Controls.Add(Me.SendButton)
         Me.Controls.Add(Me.ReasonText)
         Me.Controls.Add(Me.QuitButton)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "FormErrorLogger"
         Me.Text = "Help us out"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

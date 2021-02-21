@@ -23,6 +23,7 @@ Partial Class FormApache
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormApache))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Sitemap = New System.Windows.Forms.CheckBox()
         Me.ApachePort = New System.Windows.Forms.TextBox()
@@ -191,6 +192,7 @@ Partial Class FormApache
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox2)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "FormApache"
         Me.Text = "Apache"

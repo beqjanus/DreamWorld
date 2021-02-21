@@ -54,4 +54,7 @@ Public Class FormErrorLogger
         End Try
     End Sub
 
+    Private Sub ReasonText_TextChanged(sender As Object, e As EventArgs) Handles ReasonText.TextChanged
+
+    End Sub
 End Class

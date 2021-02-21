@@ -9,24 +9,22 @@ Imports System.Threading
 Imports Ionic.Zip
 
 Public Class FormJoomla
-    Private Const Hyperica As String = "Hyperica"
-    Private Const JOpensim As String = "JOpensim"
 
     Public Sub LoadSub() Handles Me.Load
 
         AdminButton.Text = Global.Outworldz.My.Resources.AdministerJoomla_word
         ButtonBox.Text = Global.Outworldz.My.Resources.Settings_word
-        SearchBox.Text = Global.Outworldz.My.Resources.Options
+
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        HypericaRadioButton.Text = Global.Outworldz.My.Resources.HypericaSearch_word
-        InstallButton.Image = Global.Outworldz.My.Resources.gear_run
+
+        InstallButton.Image = Global.Outworldz.My.Resources.gear
         InstallButton.Text = Global.Outworldz.My.Resources.InstallJoomla_word
-        JOpensimRadioButton.Text = Global.Outworldz.My.Resources.JOpensimSearch_word
+
         ViewButton.Image = Global.Outworldz.My.Resources.edge
         ViewButton.Text = Global.Outworldz.My.Resources.ViewJoomla_word
         ButtonBox.Text = Global.Outworldz.My.Resources.Settings_word
-        SearchBox.Text = Global.Outworldz.My.Resources.SearchOptions_word
+
         ReinstallButton.Text = Global.Outworldz.My.Resources.Restore_word
         UpdateButton.Text = Global.Outworldz.My.Resources.Update_word
         BackupButton.Text = Global.Outworldz.My.Resources.Backup_word
@@ -128,32 +126,6 @@ Public Class FormJoomla
 
     End Sub
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
-
-        If HypericaRadioButton.Checked Then
-            Settings.JOpensimSearch = Hyperica
-            Settings.SaveSettings()
-
-        End If
-
-    End Sub
-
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles JOpensimRadioButton.CheckedChanged
-
-        If JOpensimRadioButton.Checked Then
-            Settings.JOpensimSearch = JOpensim
-            Settings.SaveSettings()
-        End If
-
-    End Sub
-
-    Private Sub RadioButton2_CheckedChanged_1(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-
-        Settings.JOpensimSearch = ""
-        Settings.SaveSettings()
-
-    End Sub
-
     Private Sub ReinstallButton_Click(sender As Object, e As EventArgs) Handles ReinstallButton.Click
 
         Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles")
@@ -174,15 +146,6 @@ Public Class FormJoomla
 
         Dim installed As Boolean = Joomla.IsjOpensimInstalled()
 
-        Select Case Settings.JOpensimSearch
-            Case ""
-                RadioButton2.Checked = True
-            Case JOpensim
-                JOpensimRadioButton.Checked = True
-            Case "Hyperica"
-                HypericaRadioButton.Checked = True
-        End Select
-
         InstallButton.Enabled = False
 
         If Not Settings.ApacheEnable Then
@@ -193,14 +156,10 @@ Public Class FormJoomla
             BackupButton.Enabled = False
             ReinstallButton.Enabled = False
             MsgBox(My.Resources.Apache_Disabled)
-            JOpensimRadioButton.Checked = False
-            JOpensimRadioButton.Enabled = False
             Return
         End If
 
         If Not installed Then
-            HypericaRadioButton.Checked = True
-            JOpensimRadioButton.Enabled = False
             InstallButton.Enabled = True
             AdminButton.Enabled = False
             ViewButton.Enabled = False
@@ -208,7 +167,6 @@ Public Class FormJoomla
             BackupButton.Enabled = False
             ReinstallButton.Enabled = False
         Else
-            JOpensimRadioButton.Enabled = True
             AdminButton.Enabled = True
             ViewButton.Enabled = True
             UpdateButton.Enabled = True

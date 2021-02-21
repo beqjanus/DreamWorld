@@ -70,7 +70,7 @@ Partial Class FormGloebits
         'Button4
         '
         Me.Button4.Location = New System.Drawing.Point(30, 100)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Button4.Margin = New System.Windows.Forms.Padding(5)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(601, 41)
         Me.Button4.TabIndex = 1
@@ -87,9 +87,9 @@ Partial Class FormGloebits
         Me.GroupBox3.Controls.Add(Me.ContactEmailTextBox)
         Me.GroupBox3.Controls.Add(Me.Label5)
         Me.GroupBox3.Location = New System.Drawing.Point(30, 497)
-        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(5)
         Me.GroupBox3.Size = New System.Drawing.Size(698, 238)
         Me.GroupBox3.TabIndex = 1863
         Me.GroupBox3.TabStop = False
@@ -99,7 +99,7 @@ Partial Class FormGloebits
         '
         Me.GLBShowNewSessionPurchaseIMCheckBox.AutoSize = True
         Me.GLBShowNewSessionPurchaseIMCheckBox.Location = New System.Drawing.Point(29, 191)
-        Me.GLBShowNewSessionPurchaseIMCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GLBShowNewSessionPurchaseIMCheckBox.Margin = New System.Windows.Forms.Padding(5)
         Me.GLBShowNewSessionPurchaseIMCheckBox.Name = "GLBShowNewSessionPurchaseIMCheckBox"
         Me.GLBShowNewSessionPurchaseIMCheckBox.Size = New System.Drawing.Size(505, 24)
         Me.GLBShowNewSessionPurchaseIMCheckBox.TabIndex = 19
@@ -110,7 +110,7 @@ Partial Class FormGloebits
         '
         Me.GLBShowNewSessionAuthIMCheckBox.AutoSize = True
         Me.GLBShowNewSessionAuthIMCheckBox.Location = New System.Drawing.Point(29, 156)
-        Me.GLBShowNewSessionAuthIMCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GLBShowNewSessionAuthIMCheckBox.Margin = New System.Windows.Forms.Padding(5)
         Me.GLBShowNewSessionAuthIMCheckBox.Name = "GLBShowNewSessionAuthIMCheckBox"
         Me.GLBShowNewSessionAuthIMCheckBox.Size = New System.Drawing.Size(531, 24)
         Me.GLBShowNewSessionAuthIMCheckBox.TabIndex = 18
@@ -121,7 +121,7 @@ Partial Class FormGloebits
         '
         Me.GLBShowWelcomeMessageCheckBox.AutoSize = True
         Me.GLBShowWelcomeMessageCheckBox.Location = New System.Drawing.Point(29, 121)
-        Me.GLBShowWelcomeMessageCheckBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GLBShowWelcomeMessageCheckBox.Margin = New System.Windows.Forms.Padding(5)
         Me.GLBShowWelcomeMessageCheckBox.Name = "GLBShowWelcomeMessageCheckBox"
         Me.GLBShowWelcomeMessageCheckBox.Size = New System.Drawing.Size(447, 24)
         Me.GLBShowWelcomeMessageCheckBox.TabIndex = 17
@@ -131,7 +131,7 @@ Partial Class FormGloebits
         'OwnerNameTextbox
         '
         Me.OwnerNameTextbox.Location = New System.Drawing.Point(155, 29)
-        Me.OwnerNameTextbox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.OwnerNameTextbox.Margin = New System.Windows.Forms.Padding(5)
         Me.OwnerNameTextbox.Name = "OwnerNameTextbox"
         Me.OwnerNameTextbox.Size = New System.Drawing.Size(317, 26)
         Me.OwnerNameTextbox.TabIndex = 14
@@ -149,7 +149,7 @@ Partial Class FormGloebits
         'ContactEmailTextBox
         '
         Me.ContactEmailTextBox.Location = New System.Drawing.Point(155, 67)
-        Me.ContactEmailTextBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ContactEmailTextBox.Margin = New System.Windows.Forms.Padding(5)
         Me.ContactEmailTextBox.Name = "ContactEmailTextBox"
         Me.ContactEmailTextBox.Size = New System.Drawing.Size(317, 26)
         Me.ContactEmailTextBox.TabIndex = 15
@@ -168,7 +168,7 @@ Partial Class FormGloebits
         '
         Me.GloebitsEnabled.AutoSize = True
         Me.GloebitsEnabled.Location = New System.Drawing.Point(34, 66)
-        Me.GloebitsEnabled.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GloebitsEnabled.Margin = New System.Windows.Forms.Padding(5)
         Me.GloebitsEnabled.Name = "GloebitsEnabled"
         Me.GloebitsEnabled.Size = New System.Drawing.Size(140, 24)
         Me.GloebitsEnabled.TabIndex = 16
@@ -190,9 +190,9 @@ Partial Class FormGloebits
         Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.ProductionCreateButton)
         Me.GroupBox2.Location = New System.Drawing.Point(393, 173)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(5)
         Me.GroupBox2.Size = New System.Drawing.Size(337, 314)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
@@ -202,7 +202,7 @@ Partial Class FormGloebits
         '
         Me.ProductionButton.AutoSize = True
         Me.ProductionButton.Location = New System.Drawing.Point(89, 35)
-        Me.ProductionButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ProductionButton.Margin = New System.Windows.Forms.Padding(5)
         Me.ProductionButton.Name = "ProductionButton"
         Me.ProductionButton.Size = New System.Drawing.Size(154, 24)
         Me.ProductionButton.TabIndex = 8
@@ -223,7 +223,7 @@ Partial Class FormGloebits
         'ProdKeyTextBox
         '
         Me.ProdKeyTextBox.Location = New System.Drawing.Point(94, 226)
-        Me.ProdKeyTextBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ProdKeyTextBox.Margin = New System.Windows.Forms.Padding(5)
         Me.ProdKeyTextBox.Name = "ProdKeyTextBox"
         Me.ProdKeyTextBox.Size = New System.Drawing.Size(233, 26)
         Me.ProdKeyTextBox.TabIndex = 12
@@ -231,7 +231,7 @@ Partial Class FormGloebits
         'ProdSecretTextBox
         '
         Me.ProdSecretTextBox.Location = New System.Drawing.Point(94, 271)
-        Me.ProdSecretTextBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ProdSecretTextBox.Margin = New System.Windows.Forms.Padding(5)
         Me.ProdSecretTextBox.Name = "ProdSecretTextBox"
         Me.ProdSecretTextBox.Size = New System.Drawing.Size(233, 26)
         Me.ProdSecretTextBox.TabIndex = 13
@@ -278,7 +278,7 @@ Partial Class FormGloebits
         'ProductionCreateAppButton
         '
         Me.ProductionCreateAppButton.Location = New System.Drawing.Point(89, 169)
-        Me.ProductionCreateAppButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ProductionCreateAppButton.Margin = New System.Windows.Forms.Padding(5)
         Me.ProductionCreateAppButton.Name = "ProductionCreateAppButton"
         Me.ProductionCreateAppButton.Size = New System.Drawing.Size(227, 41)
         Me.ProductionCreateAppButton.TabIndex = 11
@@ -288,7 +288,7 @@ Partial Class FormGloebits
         'ProductionReqAppButton
         '
         Me.ProductionReqAppButton.Location = New System.Drawing.Point(85, 122)
-        Me.ProductionReqAppButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ProductionReqAppButton.Margin = New System.Windows.Forms.Padding(5)
         Me.ProductionReqAppButton.Name = "ProductionReqAppButton"
         Me.ProductionReqAppButton.Size = New System.Drawing.Size(227, 37)
         Me.ProductionReqAppButton.TabIndex = 10
@@ -308,7 +308,7 @@ Partial Class FormGloebits
         'ProductionCreateButton
         '
         Me.ProductionCreateButton.Location = New System.Drawing.Point(85, 73)
-        Me.ProductionCreateButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ProductionCreateButton.Margin = New System.Windows.Forms.Padding(5)
         Me.ProductionCreateButton.Name = "ProductionCreateButton"
         Me.ProductionCreateButton.Size = New System.Drawing.Size(227, 41)
         Me.ProductionCreateButton.TabIndex = 9
@@ -330,9 +330,9 @@ Partial Class FormGloebits
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.SandBoxSignUpButton)
         Me.GroupBox1.Location = New System.Drawing.Point(30, 173)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5)
         Me.GroupBox1.Size = New System.Drawing.Size(353, 314)
         Me.GroupBox1.TabIndex = 1860
         Me.GroupBox1.TabStop = False
@@ -342,7 +342,7 @@ Partial Class FormGloebits
         '
         Me.SandboxButton.AutoSize = True
         Me.SandboxButton.Location = New System.Drawing.Point(84, 37)
-        Me.SandboxButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.SandboxButton.Margin = New System.Windows.Forms.Padding(5)
         Me.SandboxButton.Name = "SandboxButton"
         Me.SandboxButton.Size = New System.Drawing.Size(141, 24)
         Me.SandboxButton.TabIndex = 2
@@ -393,7 +393,7 @@ Partial Class FormGloebits
         'SandBoxCreateAppButton
         '
         Me.SandBoxCreateAppButton.Location = New System.Drawing.Point(86, 173)
-        Me.SandBoxCreateAppButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.SandBoxCreateAppButton.Margin = New System.Windows.Forms.Padding(5)
         Me.SandBoxCreateAppButton.Name = "SandBoxCreateAppButton"
         Me.SandBoxCreateAppButton.Size = New System.Drawing.Size(227, 41)
         Me.SandBoxCreateAppButton.TabIndex = 5
@@ -403,7 +403,7 @@ Partial Class FormGloebits
         'SandKeyTextBox
         '
         Me.SandKeyTextBox.Location = New System.Drawing.Point(90, 221)
-        Me.SandKeyTextBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.SandKeyTextBox.Margin = New System.Windows.Forms.Padding(5)
         Me.SandKeyTextBox.Name = "SandKeyTextBox"
         Me.SandKeyTextBox.Size = New System.Drawing.Size(233, 26)
         Me.SandKeyTextBox.TabIndex = 6
@@ -411,7 +411,7 @@ Partial Class FormGloebits
         'SandBoxReqAppButton
         '
         Me.SandBoxReqAppButton.Location = New System.Drawing.Point(84, 126)
-        Me.SandBoxReqAppButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.SandBoxReqAppButton.Margin = New System.Windows.Forms.Padding(5)
         Me.SandBoxReqAppButton.Name = "SandBoxReqAppButton"
         Me.SandBoxReqAppButton.Size = New System.Drawing.Size(227, 37)
         Me.SandBoxReqAppButton.TabIndex = 4
@@ -421,7 +421,7 @@ Partial Class FormGloebits
         'SandSecretTextBox
         '
         Me.SandSecretTextBox.Location = New System.Drawing.Point(90, 266)
-        Me.SandSecretTextBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.SandSecretTextBox.Margin = New System.Windows.Forms.Padding(5)
         Me.SandSecretTextBox.Name = "SandSecretTextBox"
         Me.SandSecretTextBox.Size = New System.Drawing.Size(233, 26)
         Me.SandSecretTextBox.TabIndex = 7
@@ -449,7 +449,7 @@ Partial Class FormGloebits
         'SandBoxSignUpButton
         '
         Me.SandBoxSignUpButton.Location = New System.Drawing.Point(84, 77)
-        Me.SandBoxSignUpButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.SandBoxSignUpButton.Margin = New System.Windows.Forms.Padding(5)
         Me.SandBoxSignUpButton.Name = "SandBoxSignUpButton"
         Me.SandBoxSignUpButton.Size = New System.Drawing.Size(227, 41)
         Me.SandBoxSignUpButton.TabIndex = 3
@@ -487,7 +487,7 @@ Partial Class FormGloebits
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.MaximizeBox = False
         Me.Name = "FormGloebits"
         Me.Text = "Gloebit"

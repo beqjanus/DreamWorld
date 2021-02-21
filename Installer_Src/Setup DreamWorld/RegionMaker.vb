@@ -18,8 +18,7 @@ Public Class RegionMaker
 #Disable Warning CA1051 ' Do not declare visible instance fields
     Public WebserverList As New List(Of String)
 #Enable Warning CA1051 ' Do not declare visible instance fields
-    Private Const Hyperica As String = "Hyperica"
-    Private Const JOpensim As String = "JOpensim"
+
     Private Shared FInstance As RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of RegionMaker.Region_data)
@@ -1681,7 +1680,7 @@ Public Class RegionMaker
             Case MetroServer
         End Select
 
-        If Settings.CMS = JOpensim And Settings.ServerType = RobustServer Then
+        If Settings.CMS = JOpensim Then
             Settings.SetIni("UserProfiles", "ProfileServiceURL", "")
             Settings.SetIni("Groups", "Module", "GroupsModule")
             Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
@@ -2173,9 +2172,9 @@ Public Class RegionMaker
 
         ' RegionSnapShot
         Settings.SetIni("DataSnapshot", "index_sims", "True")
-        If Settings.CMS = JOpensim And Settings.JOpensimSearch = JOpensim Then
+        If Settings.CMS = JOpensim And Settings.SearchOptions = JOpensim Then
             Settings.SetIni("DataSnapshot", "data_services", "")
-        ElseIf Settings.JOpensimSearch = Hyperica Then
+        ElseIf Settings.SearchOptions = Hyperica Then
             Settings.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
         Else
             Settings.SetIni("DataSnapshot", "data_services", "")
@@ -2188,14 +2187,14 @@ Public Class RegionMaker
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
         End If
 
-        If Settings.JOpensimSearch = JOpensim Then
+        If Settings.SearchOptions = JOpensim Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort &
                 "/jOpensim/index.php?option=com_opensim&view=interface"
             Settings.SetIni("Search", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "SearchURL", SearchURL)
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll.bak"),
                          IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
-        ElseIf Settings.JOpensimSearch = Hyperica Then
+        ElseIf Settings.SearchOptions = Hyperica Then
             Dim SearchURL = "http://hyperica.com/Search/query.php"
             Settings.SetIni("Search", "SearchURL", SearchURL)
             Settings.SetIni("LoginService", "SearchURL", SearchURL)

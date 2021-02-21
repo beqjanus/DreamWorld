@@ -75,9 +75,9 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Controls.Add(Me.Label21)
         Me.StandaloneGroup.Controls.Add(Me.RegionMySqlPassword)
         Me.StandaloneGroup.Location = New System.Drawing.Point(477, 55)
-        Me.StandaloneGroup.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.StandaloneGroup.Margin = New System.Windows.Forms.Padding(5)
         Me.StandaloneGroup.Name = "StandaloneGroup"
-        Me.StandaloneGroup.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.StandaloneGroup.Padding = New System.Windows.Forms.Padding(5)
         Me.StandaloneGroup.Size = New System.Drawing.Size(415, 314)
         Me.StandaloneGroup.TabIndex = 56
         Me.StandaloneGroup.TabStop = False
@@ -86,7 +86,7 @@ Partial Class FormDatabase
         'ClearRegionTable
         '
         Me.ClearRegionTable.Location = New System.Drawing.Point(25, 247)
-        Me.ClearRegionTable.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.ClearRegionTable.Margin = New System.Windows.Forms.Padding(5)
         Me.ClearRegionTable.Name = "ClearRegionTable"
         Me.ClearRegionTable.Size = New System.Drawing.Size(160, 57)
         Me.ClearRegionTable.TabIndex = 1886
@@ -96,7 +96,7 @@ Partial Class FormDatabase
         'MysqlRegionPort
         '
         Me.MysqlRegionPort.Location = New System.Drawing.Point(115, 203)
-        Me.MysqlRegionPort.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.MysqlRegionPort.Margin = New System.Windows.Forms.Padding(5)
         Me.MysqlRegionPort.Name = "MysqlRegionPort"
         Me.MysqlRegionPort.Size = New System.Drawing.Size(69, 26)
         Me.MysqlRegionPort.TabIndex = 43
@@ -125,7 +125,7 @@ Partial Class FormDatabase
         'RegionServer
         '
         Me.RegionServer.Location = New System.Drawing.Point(26, 37)
-        Me.RegionServer.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RegionServer.Margin = New System.Windows.Forms.Padding(5)
         Me.RegionServer.Name = "RegionServer"
         Me.RegionServer.Size = New System.Drawing.Size(159, 26)
         Me.RegionServer.TabIndex = 46
@@ -154,7 +154,7 @@ Partial Class FormDatabase
         'RegionDbName
         '
         Me.RegionDbName.Location = New System.Drawing.Point(26, 78)
-        Me.RegionDbName.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RegionDbName.Margin = New System.Windows.Forms.Padding(5)
         Me.RegionDbName.Name = "RegionDbName"
         Me.RegionDbName.Size = New System.Drawing.Size(159, 26)
         Me.RegionDbName.TabIndex = 42
@@ -163,7 +163,7 @@ Partial Class FormDatabase
         'RegionDBUsername
         '
         Me.RegionDBUsername.Location = New System.Drawing.Point(26, 115)
-        Me.RegionDBUsername.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RegionDBUsername.Margin = New System.Windows.Forms.Padding(5)
         Me.RegionDBUsername.Name = "RegionDBUsername"
         Me.RegionDBUsername.Size = New System.Drawing.Size(159, 26)
         Me.RegionDBUsername.TabIndex = 43
@@ -182,7 +182,7 @@ Partial Class FormDatabase
         'RegionMySqlPassword
         '
         Me.RegionMySqlPassword.Location = New System.Drawing.Point(26, 161)
-        Me.RegionMySqlPassword.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RegionMySqlPassword.Margin = New System.Windows.Forms.Padding(5)
         Me.RegionMySqlPassword.Name = "RegionMySqlPassword"
         Me.RegionMySqlPassword.Size = New System.Drawing.Size(159, 26)
         Me.RegionMySqlPassword.TabIndex = 44
@@ -204,9 +204,9 @@ Partial Class FormDatabase
         Me.GridGroup.Controls.Add(Me.RobustDBPassword)
         Me.GridGroup.Controls.Add(Me.RobustDBUsername)
         Me.GridGroup.Location = New System.Drawing.Point(37, 55)
-        Me.GridGroup.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GridGroup.Margin = New System.Windows.Forms.Padding(5)
         Me.GridGroup.Name = "GridGroup"
-        Me.GridGroup.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GridGroup.Padding = New System.Windows.Forms.Padding(5)
         Me.GridGroup.Size = New System.Drawing.Size(415, 314)
         Me.GridGroup.TabIndex = 55
         Me.GridGroup.TabStop = False
@@ -225,7 +225,7 @@ Partial Class FormDatabase
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(40, 247)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(5)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(161, 57)
         Me.Button1.TabIndex = 1884
@@ -235,7 +235,7 @@ Partial Class FormDatabase
         'RobustServer
         '
         Me.RobustServer.Location = New System.Drawing.Point(41, 53)
-        Me.RobustServer.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RobustServer.Margin = New System.Windows.Forms.Padding(5)
         Me.RobustServer.Name = "RobustServer"
         Me.RobustServer.Size = New System.Drawing.Size(159, 26)
         Me.RobustServer.TabIndex = 37
@@ -274,7 +274,7 @@ Partial Class FormDatabase
         'RobustDbPort
         '
         Me.RobustDbPort.Location = New System.Drawing.Point(131, 203)
-        Me.RobustDbPort.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RobustDbPort.Margin = New System.Windows.Forms.Padding(5)
         Me.RobustDbPort.Name = "RobustDbPort"
         Me.RobustDbPort.Size = New System.Drawing.Size(69, 26)
         Me.RobustDbPort.TabIndex = 41
@@ -283,7 +283,7 @@ Partial Class FormDatabase
         'RobustDbName
         '
         Me.RobustDbName.Location = New System.Drawing.Point(41, 90)
-        Me.RobustDbName.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RobustDbName.Margin = New System.Windows.Forms.Padding(5)
         Me.RobustDbName.Name = "RobustDbName"
         Me.RobustDbName.Size = New System.Drawing.Size(159, 26)
         Me.RobustDbName.TabIndex = 38
@@ -312,7 +312,7 @@ Partial Class FormDatabase
         'RobustDBPassword
         '
         Me.RobustDBPassword.Location = New System.Drawing.Point(41, 168)
-        Me.RobustDBPassword.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RobustDBPassword.Margin = New System.Windows.Forms.Padding(5)
         Me.RobustDBPassword.Name = "RobustDBPassword"
         Me.RobustDBPassword.Size = New System.Drawing.Size(159, 26)
         Me.RobustDBPassword.TabIndex = 40
@@ -322,7 +322,7 @@ Partial Class FormDatabase
         'RobustDBUsername
         '
         Me.RobustDBUsername.Location = New System.Drawing.Point(41, 131)
-        Me.RobustDBUsername.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.RobustDBUsername.Margin = New System.Windows.Forms.Padding(5)
         Me.RobustDBUsername.Name = "RobustDBUsername"
         Me.RobustDBUsername.Size = New System.Drawing.Size(159, 26)
         Me.RobustDBUsername.TabIndex = 39
@@ -357,7 +357,7 @@ Partial Class FormDatabase
         '
         'StartToolStripMenuItem
         '
-        Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear_run
+        Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.gear
         Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
         Me.StartToolStripMenuItem.Size = New System.Drawing.Size(178, 34)
         Me.StartToolStripMenuItem.Text = "Start"
@@ -386,7 +386,7 @@ Partial Class FormDatabase
         Me.Controls.Add(Me.StandaloneGroup)
         Me.Controls.Add(Me.GridGroup)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.MaximizeBox = False
         Me.Name = "FormDatabase"
         Me.Text = "Database"

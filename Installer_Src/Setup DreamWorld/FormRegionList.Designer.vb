@@ -159,7 +159,7 @@ Partial Class FormRegionlist
         'RestartButton
         '
         Me.RestartButton.AutoSize = True
-        Me.RestartButton.Image = Global.Outworldz.My.Resources.Resources.replace2
+        Me.RestartButton.Image = Global.Outworldz.My.Resources.Resources.refresh
         Me.RestartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.RestartButton.Location = New System.Drawing.Point(385, 44)
         Me.RestartButton.Margin = New System.Windows.Forms.Padding(4)

@@ -761,7 +761,7 @@ Public Class MySettings
             Dim var = GetMySetting("CMS", DreamGrid)
             If var = "Joomla" Then var = JOpensim
             Dim installed As Boolean = Joomla.IsjOpensimInstalled()
-            If (Not installed) & Settings.JOpensimSearch = JOpensim Then
+            If (Not installed) & Settings.SearchOptions = JOpensim Then
                 Return DreamGrid
             End If
             Return var
@@ -1099,7 +1099,7 @@ Public Class MySettings
 
     End Property
 
-    Public Property JOpensimSearch() As String
+    Public Property SearchOptions() As String
         Get
             Return GetMySetting("JOpensimSearch", "")
         End Get
@@ -1662,7 +1662,7 @@ Public Class MySettings
     'ShowConsoleStats
     Public Property ShowConsoleStats() As String
         Get
-            Return GetMySetting("ShowConsoleStats", "True")
+            Return GetMySetting("ShowConsoleStats", "False")
         End Get
         Set
             SetMySetting("ShowConsoleStats", Value)

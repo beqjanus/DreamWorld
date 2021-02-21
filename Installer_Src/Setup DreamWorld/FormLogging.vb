@@ -64,7 +64,7 @@ Public Class FormLogging
         RadioInfo.Text = Global.Outworldz.My.Resources.Info_word
         RadioOff.Text = Global.Outworldz.My.Resources.Off
         RadioWarn.Text = Global.Outworldz.My.Resources.Warn_word
-        Text = Global.Outworldz.My.Resources.Logging_word
+
 
         SetScreen()
 

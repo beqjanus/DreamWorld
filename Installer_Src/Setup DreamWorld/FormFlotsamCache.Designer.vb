@@ -24,6 +24,7 @@ Partial Class FormFlotsamCache
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormFlotsamCache))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -193,7 +194,6 @@ Partial Class FormFlotsamCache
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 2, 0, 2)
         Me.MenuStrip2.Size = New System.Drawing.Size(518, 36)
         Me.MenuStrip2.TabIndex = 1889
         Me.MenuStrip2.Text = "0"
@@ -213,6 +213,7 @@ Partial Class FormFlotsamCache
         Me.ClientSize = New System.Drawing.Size(518, 349)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormFlotsamCache"
         Me.Text = "Asset Cache"

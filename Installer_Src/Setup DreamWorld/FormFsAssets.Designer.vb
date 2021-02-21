@@ -22,6 +22,7 @@ Partial Class FormFsAssets
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormFsAssets))
         Me.EnableFsAssetsCheckbox = New System.Windows.Forms.CheckBox()
         Me.b = New System.Windows.Forms.GroupBox()
         Me.SaveButton = New System.Windows.Forms.Button()
@@ -122,7 +123,6 @@ Partial Class FormFsAssets
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 2, 0, 2)
         Me.MenuStrip1.Size = New System.Drawing.Size(460, 33)
         Me.MenuStrip1.TabIndex = 18601
         '
@@ -141,6 +141,7 @@ Partial Class FormFsAssets
         Me.ClientSize = New System.Drawing.Size(460, 332)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.b)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.Name = "FormFsAssets"
         Me.Text = "Fie System Assets Server"

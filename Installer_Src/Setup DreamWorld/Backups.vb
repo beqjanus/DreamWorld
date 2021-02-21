@@ -226,7 +226,7 @@ Public Class Backups
 
         Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
-
+        Dim zipused As Boolean
         Using Z As ZipFile = New ZipFile(Bak) With {
             .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
         }
@@ -234,6 +234,7 @@ Public Class Backups
             Try
                 If Settings.BackupWifi Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
+                    zipused = True
                 End If
             Catch ex As Exception
                 Break(ex.Message)
@@ -252,6 +253,7 @@ Public Class Backups
                     If File.Exists(fs) Then Z.AddFile(fs, "Photos")
                     fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewCustom.png")
                     If File.Exists(fs) Then Z.AddFile(fs, "Photos")
+                    zipused = True
                 Catch
                 End Try
             End If
@@ -259,35 +261,68 @@ Public Class Backups
             Try
                 If Settings.BackupRegion Then
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
+                    zipused = True
                 End If
             Catch ex As Exception
                 Break(ex.Message)
+            End Try
+
+            Try
+                If zipused = True Then
+                    Z.Save()
+                    Sleep(1000)
+                    MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
+                    Sleep(1000)
+                End If
+
+                DeleteFolder(_folder)
+            Catch
             End Try
 
             Try
                 If Settings.BackupFSAssets Then
                     Dim f As String
                     If Settings.BaseDirectory.ToUpper(Globalization.CultureInfo.InvariantCulture) = "./FSASSETS" Then
-                        f = Settings.OpensimBinPath & "\FSAssets"
+                        f = IO.Path.Combine(Settings.OpensimBinPath, "FSAssets")
                     Else
                         f = Settings.BaseDirectory
                     End If
                     If Directory.Exists(f) Then
-                        Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, f), "FSAssets")
-                    End If
+                        Dim dest = IO.Path.Combine(BackupPath, "FSassets")
+                        Dim args = f & " " & dest & " /MIR /TBD /LFSM:50M /IM /M  /J "
 
+                        Using ProcessRobocopy As New Process With {
+                            .EnableRaisingEvents = True
+                        }
+                            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                            .Arguments = args,
+                            .FileName = "robocopy.exe",
+                            .UseShellExecute = False
+                            }
+
+                            ProcessRobocopy.StartInfo = pi
+
+                            Select Case Settings.ConsoleShow
+                                Case "True"
+                                    ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                                Case "False"
+                                    ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                                Case "None"
+                                    ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                            End Select
+
+                            Try
+                                ProcessRobocopy.Start()
+                            Catch ex As Exception
+                                Break(ex.Message)
+                            End Try
+
+                            ProcessRobocopy.WaitForExit()
+                        End Using
+                    End If
                 End If
             Catch ex As Exception
                 Break(ex.Message)
-            End Try
-
-            Try
-                Z.Save()
-                Sleep(1000)
-                MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
-                Sleep(1000)
-                DeleteFolder(_folder)
-            Catch
             End Try
 
             Try
@@ -301,6 +336,11 @@ Public Class Backups
         End Using
 
     End Sub
+
+    '///////////////////
+    '/ Standard Output /
+    '///////////////////
+    Private Delegate Sub consoleOutputDelegate(ByVal outputString As String)
 
 #End Region
 

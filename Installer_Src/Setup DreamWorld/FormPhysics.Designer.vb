@@ -48,9 +48,9 @@ Partial Class FormPhysics
         Me.GroupBox1.Controls.Add(Me.Physics3_Separate)
         Me.GroupBox1.Controls.Add(Me.Physics0_None)
         Me.GroupBox1.Location = New System.Drawing.Point(18, 50)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(323, 226)
         Me.GroupBox1.TabIndex = 43
         Me.GroupBox1.TabStop = False
@@ -60,9 +60,9 @@ Partial Class FormPhysics
         '
         Me.Physics1_ODE.AutoSize = True
         Me.Physics1_ODE.Location = New System.Drawing.Point(9, 62)
-        Me.Physics1_ODE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics1_ODE.Margin = New System.Windows.Forms.Padding(4)
         Me.Physics1_ODE.Name = "Physics1_ODE"
-        Me.Physics1_ODE.Size = New System.Drawing.Size(192, 24)
+        Me.Physics1_ODE.Size = New System.Drawing.Size(167, 20)
         Me.Physics1_ODE.TabIndex = 22
         Me.Physics1_ODE.TabStop = True
         Me.Physics1_ODE.Text = "Open Dynamic Engine"
@@ -72,9 +72,9 @@ Partial Class FormPhysics
         '
         Me.Physics4_UbODE.AutoSize = True
         Me.Physics4_UbODE.Location = New System.Drawing.Point(9, 94)
-        Me.Physics4_UbODE.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics4_UbODE.Margin = New System.Windows.Forms.Padding(4)
         Me.Physics4_UbODE.Name = "Physics4_UbODE"
-        Me.Physics4_UbODE.Size = New System.Drawing.Size(225, 24)
+        Me.Physics4_UbODE.Size = New System.Drawing.Size(194, 20)
         Me.Physics4_UbODE.TabIndex = 21
         Me.Physics4_UbODE.TabStop = True
         Me.Physics4_UbODE.Text = Global.Outworldz.My.Resources.Resources.UBODE_words
@@ -84,9 +84,9 @@ Partial Class FormPhysics
         '
         Me.Physics5_Hybrid.AutoSize = True
         Me.Physics5_Hybrid.Location = New System.Drawing.Point(9, 190)
-        Me.Physics5_Hybrid.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics5_Hybrid.Margin = New System.Windows.Forms.Padding(4)
         Me.Physics5_Hybrid.Name = "Physics5_Hybrid"
-        Me.Physics5_Hybrid.Size = New System.Drawing.Size(79, 24)
+        Me.Physics5_Hybrid.Size = New System.Drawing.Size(73, 20)
         Me.Physics5_Hybrid.TabIndex = 16
         Me.Physics5_Hybrid.TabStop = True
         Me.Physics5_Hybrid.Text = "Hybrid"
@@ -96,9 +96,9 @@ Partial Class FormPhysics
         '
         Me.Physics2_Bullet.AutoSize = True
         Me.Physics2_Bullet.Location = New System.Drawing.Point(9, 126)
-        Me.Physics2_Bullet.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics2_Bullet.Margin = New System.Windows.Forms.Padding(4)
         Me.Physics2_Bullet.Name = "Physics2_Bullet"
-        Me.Physics2_Bullet.Size = New System.Drawing.Size(134, 24)
+        Me.Physics2_Bullet.Size = New System.Drawing.Size(118, 20)
         Me.Physics2_Bullet.TabIndex = 15
         Me.Physics2_Bullet.TabStop = True
         Me.Physics2_Bullet.Text = "Bullet physics "
@@ -108,9 +108,9 @@ Partial Class FormPhysics
         '
         Me.Physics3_Separate.AutoSize = True
         Me.Physics3_Separate.Location = New System.Drawing.Point(9, 158)
-        Me.Physics3_Separate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics3_Separate.Margin = New System.Windows.Forms.Padding(4)
         Me.Physics3_Separate.Name = "Physics3_Separate"
-        Me.Physics3_Separate.Size = New System.Drawing.Size(263, 24)
+        Me.Physics3_Separate.Size = New System.Drawing.Size(226, 20)
         Me.Physics3_Separate.TabIndex = 13
         Me.Physics3_Separate.TabStop = True
         Me.Physics3_Separate.Text = Global.Outworldz.My.Resources.Resources.BP
@@ -120,9 +120,9 @@ Partial Class FormPhysics
         '
         Me.Physics0_None.AutoSize = True
         Me.Physics0_None.Location = New System.Drawing.Point(9, 30)
-        Me.Physics0_None.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Physics0_None.Margin = New System.Windows.Forms.Padding(4)
         Me.Physics0_None.Name = "Physics0_None"
-        Me.Physics0_None.Size = New System.Drawing.Size(72, 24)
+        Me.Physics0_None.Size = New System.Drawing.Size(66, 20)
         Me.Physics0_None.TabIndex = 9
         Me.Physics0_None.TabStop = True
         Me.Physics0_None.Text = Global.Outworldz.My.Resources.Resources.None
@@ -133,7 +133,7 @@ Partial Class FormPhysics
         Me.NinjaRagdoll.AutoSize = True
         Me.NinjaRagdoll.Location = New System.Drawing.Point(14, 36)
         Me.NinjaRagdoll.Name = "NinjaRagdoll"
-        Me.NinjaRagdoll.Size = New System.Drawing.Size(78, 24)
+        Me.NinjaRagdoll.Size = New System.Drawing.Size(71, 21)
         Me.NinjaRagdoll.TabIndex = 20
         Me.NinjaRagdoll.Text = "Ninja  "
         Me.NinjaRagdoll.UseVisualStyleBackColor = True
@@ -145,7 +145,6 @@ Partial Class FormPhysics
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 2, 0, 2)
         Me.MenuStrip2.Size = New System.Drawing.Size(354, 33)
         Me.MenuStrip2.TabIndex = 1891
         Me.MenuStrip2.Text = "0"
@@ -177,7 +176,7 @@ Partial Class FormPhysics
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.MaximizeBox = False
         Me.Name = "FormPhysics"
         Me.Text = "Physics"

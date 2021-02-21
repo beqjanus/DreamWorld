@@ -23,6 +23,7 @@ Partial Class FormBanList
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormBanList))
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,7 +39,7 @@ Partial Class FormBanList
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(0, 37)
-        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.DataGridView1.Margin = New System.Windows.Forms.Padding(5)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowHeadersWidth = 51
         Me.DataGridView1.Size = New System.Drawing.Size(1153, 393)
@@ -70,8 +71,9 @@ Partial Class FormBanList
         Me.ClientSize = New System.Drawing.Size(1153, 432)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "FormBanList"
         Me.Text = "Ban List"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -49,6 +49,7 @@ Partial Class FormDiva
         Me.Label19 = New System.Windows.Forms.Label()
         Me.SplashPage = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.CustomRadioButton = New System.Windows.Forms.RadioButton()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.GreetingTextBox = New System.Windows.Forms.TextBox()
@@ -60,12 +61,11 @@ Partial Class FormDiva
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ApacheToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Web.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Web
@@ -80,11 +80,11 @@ Partial Class FormDiva
         Me.Web.Controls.Add(Me.Label11)
         Me.Web.Controls.Add(Me.Label10)
         Me.Web.Controls.Add(Me.AdminPassword)
-        Me.Web.Location = New System.Drawing.Point(6, 46)
-        Me.Web.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Web.Location = New System.Drawing.Point(7, 55)
+        Me.Web.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Web.Name = "Web"
-        Me.Web.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.Web.Size = New System.Drawing.Size(349, 245)
+        Me.Web.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Web.Size = New System.Drawing.Size(419, 294)
         Me.Web.TabIndex = 48
         Me.Web.TabStop = False
         Me.Web.Text = "Wifi Interface Admin"
@@ -92,95 +92,95 @@ Partial Class FormDiva
         'WifiEnabled
         '
         Me.WifiEnabled.AutoSize = True
-        Me.WifiEnabled.Location = New System.Drawing.Point(24, 35)
-        Me.WifiEnabled.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.WifiEnabled.Location = New System.Drawing.Point(29, 42)
+        Me.WifiEnabled.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.WifiEnabled.Name = "WifiEnabled"
-        Me.WifiEnabled.Size = New System.Drawing.Size(141, 21)
+        Me.WifiEnabled.Size = New System.Drawing.Size(159, 24)
         Me.WifiEnabled.TabIndex = 26
-        Me.WifiEnabled.Text = Global.Outworldz.My.Resources.Resources.Diva_Wifi_Enabled_word
+        Me.WifiEnabled.Text = Global.Outworldz.My.Resources.Diva_Wifi_Enabled_word
         Me.WifiEnabled.UseVisualStyleBackColor = True
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(5, 174)
-        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label17.Location = New System.Drawing.Point(6, 209)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(82, 17)
+        Me.Label17.Size = New System.Drawing.Size(92, 20)
         Me.Label17.TabIndex = 15
         Me.Label17.Text = "Notify Email"
         '
         'AdminEmail
         '
-        Me.AdminEmail.Location = New System.Drawing.Point(137, 172)
-        Me.AdminEmail.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AdminEmail.Location = New System.Drawing.Point(164, 206)
+        Me.AdminEmail.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.AdminEmail.Name = "AdminEmail"
-        Me.AdminEmail.Size = New System.Drawing.Size(204, 22)
+        Me.AdminEmail.Size = New System.Drawing.Size(244, 26)
         Me.AdminEmail.TabIndex = 30
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(5, 111)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label12.Location = New System.Drawing.Point(6, 133)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(76, 17)
+        Me.Label12.Size = New System.Drawing.Size(86, 20)
         Me.Label12.TabIndex = 13
         Me.Label12.Text = "Last Name"
         '
         'AccountConfirmationRequired
         '
         Me.AccountConfirmationRequired.AutoSize = True
-        Me.AccountConfirmationRequired.Location = New System.Drawing.Point(24, 216)
-        Me.AccountConfirmationRequired.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AccountConfirmationRequired.Location = New System.Drawing.Point(29, 259)
+        Me.AccountConfirmationRequired.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.AccountConfirmationRequired.Name = "AccountConfirmationRequired"
-        Me.AccountConfirmationRequired.Size = New System.Drawing.Size(228, 21)
+        Me.AccountConfirmationRequired.Size = New System.Drawing.Size(255, 24)
         Me.AccountConfirmationRequired.TabIndex = 31
-        Me.AccountConfirmationRequired.Text = Global.Outworldz.My.Resources.Resources.Confirm
+        Me.AccountConfirmationRequired.Text = Global.Outworldz.My.Resources.Confirm
         Me.AccountConfirmationRequired.UseVisualStyleBackColor = True
         '
         'AdminLast
         '
-        Me.AdminLast.Location = New System.Drawing.Point(135, 114)
-        Me.AdminLast.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AdminLast.Location = New System.Drawing.Point(162, 137)
+        Me.AdminLast.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.AdminLast.Name = "AdminLast"
-        Me.AdminLast.Size = New System.Drawing.Size(206, 22)
+        Me.AdminLast.Size = New System.Drawing.Size(246, 26)
         Me.AdminLast.TabIndex = 28
         '
         'AdminFirst
         '
-        Me.AdminFirst.Location = New System.Drawing.Point(135, 84)
-        Me.AdminFirst.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AdminFirst.Location = New System.Drawing.Point(162, 101)
+        Me.AdminFirst.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.AdminFirst.Name = "AdminFirst"
-        Me.AdminFirst.Size = New System.Drawing.Size(206, 22)
+        Me.AdminFirst.Size = New System.Drawing.Size(246, 26)
         Me.AdminFirst.TabIndex = 27
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(5, 84)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label11.Location = New System.Drawing.Point(6, 101)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(76, 17)
+        Me.Label11.Size = New System.Drawing.Size(86, 20)
         Me.Label11.TabIndex = 10
         Me.Label11.Text = "First Name"
         '
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(5, 141)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label10.Location = New System.Drawing.Point(6, 169)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(69, 17)
+        Me.Label10.Size = New System.Drawing.Size(78, 20)
         Me.Label10.TabIndex = 9
         Me.Label10.Text = "Password"
         '
         'AdminPassword
         '
-        Me.AdminPassword.Location = New System.Drawing.Point(135, 142)
-        Me.AdminPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.AdminPassword.Location = New System.Drawing.Point(162, 170)
+        Me.AdminPassword.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.AdminPassword.Name = "AdminPassword"
-        Me.AdminPassword.Size = New System.Drawing.Size(206, 22)
+        Me.AdminPassword.Size = New System.Drawing.Size(246, 26)
         Me.AdminPassword.TabIndex = 29
         Me.ToolTip1.SetToolTip(Me.AdminPassword, Global.Outworldz.My.Resources.Resources.Password_Text)
         Me.AdminPassword.UseSystemPasswordChar = True
@@ -195,122 +195,122 @@ Partial Class FormDiva
         Me.GroupBox6.Controls.Add(Me.Label18)
         Me.GroupBox6.Controls.Add(Me.Label14)
         Me.GroupBox6.Controls.Add(Me.GmailUsername)
-        Me.GroupBox6.Location = New System.Drawing.Point(6, 299)
-        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox6.Location = New System.Drawing.Point(7, 359)
+        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox6.Size = New System.Drawing.Size(349, 169)
+        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox6.Size = New System.Drawing.Size(419, 203)
         Me.GroupBox6.TabIndex = 1862
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "SMTP Send Email Account"
         '
         'SmtpPort
         '
-        Me.SmtpPort.Location = New System.Drawing.Point(137, 134)
-        Me.SmtpPort.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SmtpPort.Location = New System.Drawing.Point(164, 161)
+        Me.SmtpPort.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.SmtpPort.Name = "SmtpPort"
-        Me.SmtpPort.Size = New System.Drawing.Size(40, 22)
+        Me.SmtpPort.Size = New System.Drawing.Size(47, 26)
         Me.SmtpPort.TabIndex = 36
         '
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(11, 139)
-        Me.Label24.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label24.Location = New System.Drawing.Point(13, 167)
+        Me.Label24.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label24.Name = "Label24"
-        Me.Label24.Size = New System.Drawing.Size(76, 17)
+        Me.Label24.Size = New System.Drawing.Size(85, 20)
         Me.Label24.TabIndex = 1870
         Me.Label24.Text = "SMTP Port"
         '
         'SmtpHost
         '
-        Me.SmtpHost.Location = New System.Drawing.Point(137, 102)
-        Me.SmtpHost.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SmtpHost.Location = New System.Drawing.Point(164, 122)
+        Me.SmtpHost.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.SmtpHost.Name = "SmtpHost"
-        Me.SmtpHost.Size = New System.Drawing.Size(204, 22)
+        Me.SmtpHost.Size = New System.Drawing.Size(244, 26)
         Me.SmtpHost.TabIndex = 186735
         '
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(11, 105)
-        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label23.Location = New System.Drawing.Point(13, 126)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(79, 17)
+        Me.Label23.Size = New System.Drawing.Size(90, 20)
         Me.Label23.TabIndex = 1868
         Me.Label23.Text = "SMTP Host"
         '
         'GmailPassword
         '
-        Me.GmailPassword.Location = New System.Drawing.Point(135, 68)
-        Me.GmailPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GmailPassword.Location = New System.Drawing.Point(162, 82)
+        Me.GmailPassword.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GmailPassword.Name = "GmailPassword"
-        Me.GmailPassword.Size = New System.Drawing.Size(206, 22)
+        Me.GmailPassword.Size = New System.Drawing.Size(246, 26)
         Me.GmailPassword.TabIndex = 34
         Me.GmailPassword.UseSystemPasswordChar = True
         '
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(9, 71)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label18.Location = New System.Drawing.Point(11, 85)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(111, 17)
+        Me.Label18.Size = New System.Drawing.Size(125, 20)
         Me.Label18.TabIndex = 1866
         Me.Label18.Text = "SMTP Password"
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(11, 42)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label14.Location = New System.Drawing.Point(13, 50)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(79, 17)
+        Me.Label14.Size = New System.Drawing.Size(89, 20)
         Me.Label14.TabIndex = 1865
         Me.Label14.Text = "User Name"
         '
         'GmailUsername
         '
-        Me.GmailUsername.Location = New System.Drawing.Point(135, 39)
-        Me.GmailUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GmailUsername.Location = New System.Drawing.Point(162, 47)
+        Me.GmailUsername.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GmailUsername.Name = "GmailUsername"
-        Me.GmailUsername.Size = New System.Drawing.Size(206, 22)
+        Me.GmailUsername.Size = New System.Drawing.Size(246, 26)
         Me.GmailUsername.TabIndex = 33
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(15, 26)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(18, 31)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(171, 17)
+        Me.Label2.Size = New System.Drawing.Size(188, 20)
         Me.Label2.TabIndex = 1867
         Me.Label2.Text = "This Grid's Friendly Name"
         '
         'GridName
         '
-        Me.GridName.Location = New System.Drawing.Point(19, 46)
-        Me.GridName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GridName.Location = New System.Drawing.Point(23, 55)
+        Me.GridName.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GridName.Name = "GridName"
-        Me.GridName.Size = New System.Drawing.Size(303, 22)
+        Me.GridName.Size = New System.Drawing.Size(363, 26)
         Me.GridName.TabIndex = 1869
         '
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(16, 74)
-        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label19.Location = New System.Drawing.Point(19, 89)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(100, 17)
+        Me.Label19.Size = New System.Drawing.Size(113, 20)
         Me.Label19.TabIndex = 1868
         Me.Label19.Text = "Splash Screen"
         '
         'SplashPage
         '
-        Me.SplashPage.Location = New System.Drawing.Point(16, 94)
-        Me.SplashPage.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.SplashPage.Location = New System.Drawing.Point(19, 113)
+        Me.SplashPage.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.SplashPage.Name = "SplashPage"
-        Me.SplashPage.Size = New System.Drawing.Size(305, 22)
+        Me.SplashPage.Size = New System.Drawing.Size(365, 26)
         Me.SplashPage.TabIndex = 1866
         '
         'GroupBox1
@@ -326,22 +326,32 @@ Partial Class FormDiva
         Me.GroupBox1.Controls.Add(Me.SplashPage)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.BlackRadioButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(382, 46)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Location = New System.Drawing.Point(458, 55)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(334, 421)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.GroupBox1.Size = New System.Drawing.Size(401, 505)
         Me.GroupBox1.TabIndex = 186736
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Splash Screen"
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.Location = New System.Drawing.Point(23, 268)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(347, 223)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox1.TabIndex = 186740
+        Me.PictureBox1.TabStop = False
+        '
         'CustomRadioButton
         '
         Me.CustomRadioButton.AutoSize = True
-        Me.CustomRadioButton.Location = New System.Drawing.Point(229, 186)
-        Me.CustomRadioButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.CustomRadioButton.Location = New System.Drawing.Point(275, 223)
+        Me.CustomRadioButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.CustomRadioButton.Name = "CustomRadioButton"
-        Me.CustomRadioButton.Size = New System.Drawing.Size(76, 21)
+        Me.CustomRadioButton.Size = New System.Drawing.Size(89, 24)
         Me.CustomRadioButton.TabIndex = 1877
         Me.CustomRadioButton.TabStop = True
         Me.CustomRadioButton.Text = "Custom"
@@ -350,38 +360,38 @@ Partial Class FormDiva
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(16, 121)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Location = New System.Drawing.Point(19, 145)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(109, 17)
+        Me.Label4.Size = New System.Drawing.Size(123, 20)
         Me.Label4.TabIndex = 1876
         Me.Label4.Text = "Viewer Greeting"
         '
         'GreetingTextBox
         '
-        Me.GreetingTextBox.Location = New System.Drawing.Point(16, 141)
-        Me.GreetingTextBox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GreetingTextBox.Location = New System.Drawing.Point(19, 169)
+        Me.GreetingTextBox.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.GreetingTextBox.Name = "GreetingTextBox"
-        Me.GreetingTextBox.Size = New System.Drawing.Size(305, 22)
+        Me.GreetingTextBox.Size = New System.Drawing.Size(365, 26)
         Me.GreetingTextBox.TabIndex = 1875
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(20, 186)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(24, 223)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(56, 17)
+        Me.Label1.Size = New System.Drawing.Size(62, 20)
         Me.Label1.TabIndex = 1859
         Me.Label1.Text = "Theme:"
         '
         'WhiteRadioButton
         '
         Me.WhiteRadioButton.AutoSize = True
-        Me.WhiteRadioButton.Location = New System.Drawing.Point(84, 186)
-        Me.WhiteRadioButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.WhiteRadioButton.Location = New System.Drawing.Point(101, 223)
+        Me.WhiteRadioButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.WhiteRadioButton.Name = "WhiteRadioButton"
-        Me.WhiteRadioButton.Size = New System.Drawing.Size(65, 21)
+        Me.WhiteRadioButton.Size = New System.Drawing.Size(75, 24)
         Me.WhiteRadioButton.TabIndex = 1873
         Me.WhiteRadioButton.TabStop = True
         Me.WhiteRadioButton.Text = Global.Outworldz.My.Resources.Resources.White_word
@@ -390,10 +400,10 @@ Partial Class FormDiva
         'BlackRadioButton
         '
         Me.BlackRadioButton.AutoSize = True
-        Me.BlackRadioButton.Location = New System.Drawing.Point(156, 186)
-        Me.BlackRadioButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.BlackRadioButton.Location = New System.Drawing.Point(187, 223)
+        Me.BlackRadioButton.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.BlackRadioButton.Name = "BlackRadioButton"
-        Me.BlackRadioButton.Size = New System.Drawing.Size(63, 21)
+        Me.BlackRadioButton.Size = New System.Drawing.Size(73, 24)
         Me.BlackRadioButton.TabIndex = 1872
         Me.BlackRadioButton.TabStop = True
         Me.BlackRadioButton.Text = Global.Outworldz.My.Resources.Resources.Black_word
@@ -401,12 +411,13 @@ Partial Class FormDiva
         '
         'MenuStrip1
         '
+        Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(28, 28)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(731, 34)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(877, 34)
         Me.MenuStrip1.TabIndex = 186739
         '
         'HelpToolStripMenuItem
@@ -414,45 +425,35 @@ Partial Class FormDiva
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem1, Me.ApacheToolStripMenuItem})
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(83, 32)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(93, 32)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'HelpToolStripMenuItem1
         '
         Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
-        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(161, 26)
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(195, 34)
         Me.HelpToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Diva_Panel_word
         '
         'ApacheToolStripMenuItem
         '
         Me.ApacheToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_environment
         Me.ApacheToolStripMenuItem.Name = "ApacheToolStripMenuItem"
-        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(161, 26)
+        Me.ApacheToolStripMenuItem.Size = New System.Drawing.Size(195, 34)
         Me.ApacheToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Apache_word
-        '
-        'PictureBox1
-        '
-        Me.PictureBox1.Location = New System.Drawing.Point(19, 223)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(289, 186)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.PictureBox1.TabIndex = 186740
-        Me.PictureBox1.TabStop = False
         '
         'FormDiva
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(731, 488)
+        Me.ClientSize = New System.Drawing.Size(877, 586)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Web)
         Me.Controls.Add(Me.GroupBox6)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.MaximizeBox = False
         Me.Name = "FormDiva"
         Me.Text = "Web Server Panel"
@@ -462,9 +463,9 @@ Partial Class FormDiva
         Me.GroupBox6.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
