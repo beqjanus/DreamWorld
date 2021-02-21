@@ -64,11 +64,11 @@ Partial Class FormRegionlist
         Me.ListView1.GridLines = True
         Me.ListView1.HideSelection = False
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
-        Me.ListView1.Location = New System.Drawing.Point(46, 93)
+        Me.ListView1.Location = New System.Drawing.Point(13, 93)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
-        Me.ListView1.Size = New System.Drawing.Size(669, 188)
+        Me.ListView1.Size = New System.Drawing.Size(714, 188)
         Me.ListView1.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -112,7 +112,7 @@ Partial Class FormRegionlist
         'AllNone
         '
         Me.AllNone.AutoSize = True
-        Me.AllNone.Location = New System.Drawing.Point(30, 54)
+        Me.AllNone.Location = New System.Drawing.Point(24, 67)
         Me.AllNone.Name = "AllNone"
         Me.AllNone.Size = New System.Drawing.Size(68, 17)
         Me.AllNone.TabIndex = 4
@@ -231,11 +231,11 @@ Partial Class FormRegionlist
         Me.AvatarView.FullRowSelect = True
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
-        Me.AvatarView.Location = New System.Drawing.Point(46, 93)
+        Me.AvatarView.Location = New System.Drawing.Point(13, 93)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(669, 188)
+        Me.AvatarView.Size = New System.Drawing.Size(714, 188)
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
@@ -247,7 +247,7 @@ Partial Class FormRegionlist
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(733, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(742, 30)
         Me.MenuStrip1.TabIndex = 18598
         '
         'HelpToolStripMenuItem
@@ -285,7 +285,7 @@ Partial Class FormRegionlist
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label1.Location = New System.Drawing.Point(279, 105)
+        Me.Label1.Location = New System.Drawing.Point(272, 105)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(0, 25)
         Me.Label1.TabIndex = 18606
@@ -309,7 +309,7 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.Controls.Add(Me.IconsButton, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.AvatarsButton, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Users, 4, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(148, 7)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(166, 7)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -322,7 +322,7 @@ Partial Class FormRegionlist
         Me.Users.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.Users.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Users.Location = New System.Drawing.Point(452, 2)
-        Me.Users.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Users.Margin = New System.Windows.Forms.Padding(2)
         Me.Users.Name = "Users"
         Me.Users.Size = New System.Drawing.Size(108, 34)
         Me.Users.TabIndex = 18604
@@ -335,11 +335,11 @@ Partial Class FormRegionlist
         Me.UserView.FullRowSelect = True
         Me.UserView.GridLines = True
         Me.UserView.HideSelection = False
-        Me.UserView.Location = New System.Drawing.Point(17, 93)
+        Me.UserView.Location = New System.Drawing.Point(13, 93)
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
-        Me.UserView.Size = New System.Drawing.Size(698, 188)
+        Me.UserView.Size = New System.Drawing.Size(714, 188)
         Me.UserView.TabIndex = 18608
         Me.UserView.UseCompatibleStateImageBehavior = False
         Me.UserView.View = System.Windows.Forms.View.Details
@@ -348,7 +348,7 @@ Partial Class FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(733, 283)
+        Me.ClientSize = New System.Drawing.Size(742, 292)
         Me.Controls.Add(Me.UserView)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.AvatarView)

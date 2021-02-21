@@ -133,8 +133,7 @@ Public Class UPnp
             ' Okay, continue on
             staticMapping.Add(port, protocol, port, localIP, True, desc & ":" & CStr(port))
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            TextPrint("Cannot add port " & CStr(port) & " to router")
+            TextPrint("Cannot add UPNP port " & CStr(port) & " to router")
             Return False
 
         End Try
