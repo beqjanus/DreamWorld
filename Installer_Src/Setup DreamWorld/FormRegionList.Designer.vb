@@ -64,12 +64,11 @@ Partial Class FormRegionlist
         Me.ListView1.GridLines = True
         Me.ListView1.HideSelection = False
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
-        Me.ListView1.Location = New System.Drawing.Point(21, 97)
-        Me.ListView1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ListView1.Location = New System.Drawing.Point(46, 93)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
-        Me.ListView1.Size = New System.Drawing.Size(835, 234)
+        Me.ListView1.Size = New System.Drawing.Size(669, 188)
         Me.ListView1.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -80,12 +79,11 @@ Partial Class FormRegionlist
         Me.RefreshButton.AutoSize = True
         Me.RefreshButton.Image = Global.Outworldz.My.Resources.Resources.refresh
         Me.RefreshButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RefreshButton.Location = New System.Drawing.Point(4, 4)
-        Me.RefreshButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.RefreshButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.RefreshButton.Location = New System.Drawing.Point(3, 3)
+        Me.RefreshButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.RefreshButton.Name = "RefreshButton"
         Me.RefreshButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.RefreshButton.Size = New System.Drawing.Size(119, 32)
+        Me.RefreshButton.Size = New System.Drawing.Size(106, 34)
         Me.RefreshButton.TabIndex = 1
         Me.RefreshButton.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
         Me.ToolTip1.SetToolTip(Me.RefreshButton, Global.Outworldz.My.Resources.Resources.Reload)
@@ -101,12 +99,11 @@ Partial Class FormRegionlist
         Me.AddRegionButton.AutoSize = True
         Me.AddRegionButton.Image = Global.Outworldz.My.Resources.Resources.package_add
         Me.AddRegionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AddRegionButton.Location = New System.Drawing.Point(4, 44)
-        Me.AddRegionButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.AddRegionButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.AddRegionButton.Location = New System.Drawing.Point(3, 43)
+        Me.AddRegionButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.AddRegionButton.Name = "AddRegionButton"
         Me.AddRegionButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.AddRegionButton.Size = New System.Drawing.Size(119, 32)
+        Me.AddRegionButton.Size = New System.Drawing.Size(106, 34)
         Me.AddRegionButton.TabIndex = 18593
         Me.AddRegionButton.Text = Global.Outworldz.My.Resources.Resources.Add_word
         Me.ToolTip1.SetToolTip(Me.AddRegionButton, Global.Outworldz.My.Resources.Resources.Add_Region_word)
@@ -115,10 +112,9 @@ Partial Class FormRegionlist
         'AllNone
         '
         Me.AllNone.AutoSize = True
-        Me.AllNone.Location = New System.Drawing.Point(37, 68)
-        Me.AllNone.Margin = New System.Windows.Forms.Padding(4)
+        Me.AllNone.Location = New System.Drawing.Point(30, 54)
         Me.AllNone.Name = "AllNone"
-        Me.AllNone.Size = New System.Drawing.Size(83, 21)
+        Me.AllNone.Size = New System.Drawing.Size(68, 17)
         Me.AllNone.TabIndex = 4
         Me.AllNone.Text = Global.Outworldz.My.Resources.Resources.AllNone_word
         Me.ToolTip1.SetToolTip(Me.AllNone, Global.Outworldz.My.Resources.Resources.Selectallnone)
@@ -129,12 +125,11 @@ Partial Class FormRegionlist
         Me.RunAllButton.AutoSize = True
         Me.RunAllButton.Image = Global.Outworldz.My.Resources.Resources.media_play
         Me.RunAllButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RunAllButton.Location = New System.Drawing.Point(131, 44)
-        Me.RunAllButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.RunAllButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.RunAllButton.Location = New System.Drawing.Point(115, 43)
+        Me.RunAllButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.RunAllButton.Name = "RunAllButton"
         Me.RunAllButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.RunAllButton.Size = New System.Drawing.Size(119, 32)
+        Me.RunAllButton.Size = New System.Drawing.Size(106, 34)
         Me.RunAllButton.TabIndex = 18594
         Me.RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All_word
         Me.ToolTip1.SetToolTip(Me.RunAllButton, Global.Outworldz.My.Resources.Resources.StartAll)
@@ -145,12 +140,11 @@ Partial Class FormRegionlist
         Me.StopAllButton.AutoSize = True
         Me.StopAllButton.Image = Global.Outworldz.My.Resources.Resources.media_stop
         Me.StopAllButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StopAllButton.Location = New System.Drawing.Point(258, 44)
-        Me.StopAllButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.StopAllButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.StopAllButton.Location = New System.Drawing.Point(227, 43)
+        Me.StopAllButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.StopAllButton.Name = "StopAllButton"
         Me.StopAllButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.StopAllButton.Size = New System.Drawing.Size(119, 32)
+        Me.StopAllButton.Size = New System.Drawing.Size(106, 34)
         Me.StopAllButton.TabIndex = 18595
         Me.StopAllButton.Text = Global.Outworldz.My.Resources.Resources.Stop_All_word
         Me.ToolTip1.SetToolTip(Me.StopAllButton, Global.Outworldz.My.Resources.Resources.Stopsall)
@@ -161,12 +155,11 @@ Partial Class FormRegionlist
         Me.RestartButton.AutoSize = True
         Me.RestartButton.Image = Global.Outworldz.My.Resources.Resources.refresh
         Me.RestartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RestartButton.Location = New System.Drawing.Point(385, 44)
-        Me.RestartButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.RestartButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.RestartButton.Location = New System.Drawing.Point(339, 43)
+        Me.RestartButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.RestartButton.Size = New System.Drawing.Size(119, 32)
+        Me.RestartButton.Size = New System.Drawing.Size(108, 34)
         Me.RestartButton.TabIndex = 18596
         Me.RestartButton.Text = "Restart"
         Me.ToolTip1.SetToolTip(Me.RestartButton, Global.Outworldz.My.Resources.Resources.Restart_All_Checked)
@@ -177,12 +170,11 @@ Partial Class FormRegionlist
         Me.DetailsButton.AutoSize = True
         Me.DetailsButton.Image = Global.Outworldz.My.Resources.Resources.text_marked
         Me.DetailsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.DetailsButton.Location = New System.Drawing.Point(131, 4)
-        Me.DetailsButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.DetailsButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.DetailsButton.Location = New System.Drawing.Point(115, 3)
+        Me.DetailsButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.DetailsButton.Name = "DetailsButton"
         Me.DetailsButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.DetailsButton.Size = New System.Drawing.Size(119, 32)
+        Me.DetailsButton.Size = New System.Drawing.Size(106, 34)
         Me.DetailsButton.TabIndex = 18599
         Me.DetailsButton.Text = Global.Outworldz.My.Resources.Resources.Details_word
         Me.ToolTip1.SetToolTip(Me.DetailsButton, Global.Outworldz.My.Resources.Resources.View_Details)
@@ -193,12 +185,11 @@ Partial Class FormRegionlist
         Me.IconsButton.AutoSize = True
         Me.IconsButton.Image = Global.Outworldz.My.Resources.Resources.transform
         Me.IconsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.IconsButton.Location = New System.Drawing.Point(258, 4)
-        Me.IconsButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.IconsButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.IconsButton.Location = New System.Drawing.Point(227, 3)
+        Me.IconsButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.IconsButton.Name = "IconsButton"
         Me.IconsButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.IconsButton.Size = New System.Drawing.Size(119, 32)
+        Me.IconsButton.Size = New System.Drawing.Size(106, 34)
         Me.IconsButton.TabIndex = 18600
         Me.IconsButton.Text = Global.Outworldz.My.Resources.Resources.Icons_word
         Me.ToolTip1.SetToolTip(Me.IconsButton, Global.Outworldz.My.Resources.Resources.View_as_Icons)
@@ -209,12 +200,11 @@ Partial Class FormRegionlist
         Me.AvatarsButton.AutoSize = True
         Me.AvatarsButton.Image = Global.Outworldz.My.Resources.Resources.users2
         Me.AvatarsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AvatarsButton.Location = New System.Drawing.Point(385, 4)
-        Me.AvatarsButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.AvatarsButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.AvatarsButton.Location = New System.Drawing.Point(339, 3)
+        Me.AvatarsButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.AvatarsButton.Name = "AvatarsButton"
         Me.AvatarsButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.AvatarsButton.Size = New System.Drawing.Size(119, 32)
+        Me.AvatarsButton.Size = New System.Drawing.Size(108, 34)
         Me.AvatarsButton.TabIndex = 18602
         Me.AvatarsButton.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
         Me.ToolTip1.SetToolTip(Me.AvatarsButton, Global.Outworldz.My.Resources.Resources.ListAvatars)
@@ -225,12 +215,11 @@ Partial Class FormRegionlist
         Me.ImportButton.AutoSize = True
         Me.ImportButton.Image = Global.Outworldz.My.Resources.Resources.package
         Me.ImportButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ImportButton.Location = New System.Drawing.Point(514, 44)
-        Me.ImportButton.Margin = New System.Windows.Forms.Padding(4)
-        Me.ImportButton.MinimumSize = New System.Drawing.Size(104, 32)
+        Me.ImportButton.Location = New System.Drawing.Point(453, 43)
+        Me.ImportButton.MinimumSize = New System.Drawing.Size(83, 26)
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Padding = New System.Windows.Forms.Padding(2)
-        Me.ImportButton.Size = New System.Drawing.Size(121, 32)
+        Me.ImportButton.Size = New System.Drawing.Size(108, 34)
         Me.ImportButton.TabIndex = 18603
         Me.ImportButton.Text = Global.Outworldz.My.Resources.Resources.Import_word
         Me.ToolTip1.SetToolTip(Me.ImportButton, Global.Outworldz.My.Resources.Resources.Importtext)
@@ -242,12 +231,11 @@ Partial Class FormRegionlist
         Me.AvatarView.FullRowSelect = True
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
-        Me.AvatarView.Location = New System.Drawing.Point(19, 97)
-        Me.AvatarView.Margin = New System.Windows.Forms.Padding(4)
+        Me.AvatarView.Location = New System.Drawing.Point(46, 93)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(835, 234)
+        Me.AvatarView.Size = New System.Drawing.Size(669, 188)
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
@@ -258,8 +246,8 @@ Partial Class FormRegionlist
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.KOT})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(871, 26)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip1.Size = New System.Drawing.Size(733, 30)
         Me.MenuStrip1.TabIndex = 18598
         '
         'HelpToolStripMenuItem
@@ -267,7 +255,7 @@ Partial Class FormRegionlist
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(71, 24)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'KOT
@@ -275,21 +263,21 @@ Partial Class FormRegionlist
         Me.KOT.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OnTopToolStripMenuItem, Me.FloatToolStripMenuItem})
         Me.KOT.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.KOT.Name = "KOT"
-        Me.KOT.Size = New System.Drawing.Size(98, 24)
+        Me.KOT.Size = New System.Drawing.Size(83, 28)
         Me.KOT.Text = Global.Outworldz.My.Resources.Resources.Window
         '
         'OnTopToolStripMenuItem
         '
         Me.OnTopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.tables
         Me.OnTopToolStripMenuItem.Name = "OnTopToolStripMenuItem"
-        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(140, 26)
+        Me.OnTopToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
         Me.OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.On_Top
         '
         'FloatToolStripMenuItem
         '
         Me.FloatToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.table
         Me.FloatToolStripMenuItem.Name = "FloatToolStripMenuItem"
-        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(140, 26)
+        Me.FloatToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
         Me.FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Float
         '
         'Label1
@@ -297,16 +285,14 @@ Partial Class FormRegionlist
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label1.Location = New System.Drawing.Point(349, 131)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(279, 105)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(0, 29)
+        Me.Label1.Size = New System.Drawing.Size(0, 25)
         Me.Label1.TabIndex = 18606
         '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.AutoSize = True
-        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.TableLayoutPanel1.ColumnCount = 5
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
@@ -323,22 +309,22 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.Controls.Add(Me.IconsButton, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.AvatarsButton, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Users, 4, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(185, 9)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(4)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(148, 7)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(640, 80)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(567, 80)
         Me.TableLayoutPanel1.TabIndex = 18607
         '
         'Users
         '
         Me.Users.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.Users.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Users.Location = New System.Drawing.Point(513, 3)
+        Me.Users.Location = New System.Drawing.Point(452, 2)
+        Me.Users.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Users.Name = "Users"
-        Me.Users.Size = New System.Drawing.Size(121, 32)
+        Me.Users.Size = New System.Drawing.Size(108, 34)
         Me.Users.TabIndex = 18604
         Me.Users.Text = Global.Outworldz.My.Resources.Resources.Users
         Me.Users.UseVisualStyleBackColor = True
@@ -349,21 +335,20 @@ Partial Class FormRegionlist
         Me.UserView.FullRowSelect = True
         Me.UserView.GridLines = True
         Me.UserView.HideSelection = False
-        Me.UserView.Location = New System.Drawing.Point(19, 97)
-        Me.UserView.Margin = New System.Windows.Forms.Padding(4)
+        Me.UserView.Location = New System.Drawing.Point(17, 93)
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
-        Me.UserView.Size = New System.Drawing.Size(835, 234)
+        Me.UserView.Size = New System.Drawing.Size(698, 188)
         Me.UserView.TabIndex = 18608
         Me.UserView.UseCompatibleStateImageBehavior = False
         Me.UserView.View = System.Windows.Forms.View.Details
         '
         'FormRegionlist
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(120.0!, 120.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(871, 354)
+        Me.ClientSize = New System.Drawing.Size(733, 283)
         Me.Controls.Add(Me.UserView)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.AvatarView)
@@ -373,7 +358,6 @@ Partial Class FormRegionlist
         Me.Controls.Add(Me.Label1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
-        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormRegionlist"
         Me.Text = "Region List"
         Me.MenuStrip1.ResumeLayout(False)

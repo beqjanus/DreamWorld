@@ -39,17 +39,17 @@ Partial Class FormEmail
         Me.SubjectTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SubjectTextBox.Location = New System.Drawing.Point(242, 18)
-        Me.SubjectTextBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SubjectTextBox.Location = New System.Drawing.Point(186, 5)
+        Me.SubjectTextBox.Margin = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.SubjectTextBox.Name = "SubjectTextBox"
-        Me.SubjectTextBox.Size = New System.Drawing.Size(644, 26)
+        Me.SubjectTextBox.Size = New System.Drawing.Size(402, 20)
         Me.SubjectTextBox.TabIndex = 2
         '
         'SplitContainer1
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -62,17 +62,18 @@ Partial Class FormEmail
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.EditorBox)
-        Me.SplitContainer1.Size = New System.Drawing.Size(900, 562)
-        Me.SplitContainer1.SplitterDistance = 48
-        Me.SplitContainer1.SplitterWidth = 5
+        Me.SplitContainer1.Size = New System.Drawing.Size(600, 365)
+        Me.SplitContainer1.SplitterDistance = 31
+        Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 3
         '
         'SubjectLabel
         '
         Me.SubjectLabel.AutoSize = True
-        Me.SubjectLabel.Location = New System.Drawing.Point(151, 18)
+        Me.SubjectLabel.Location = New System.Drawing.Point(112, 12)
+        Me.SubjectLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.SubjectLabel.Name = "SubjectLabel"
-        Me.SubjectLabel.Size = New System.Drawing.Size(63, 20)
+        Me.SubjectLabel.Size = New System.Drawing.Size(43, 13)
         Me.SubjectLabel.TabIndex = 4
         Me.SubjectLabel.Text = "Subject"
         '
@@ -80,10 +81,10 @@ Partial Class FormEmail
         '
         Me.SendButton.Image = Global.Outworldz.My.Resources.Resources.mail_into
         Me.SendButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.SendButton.Location = New System.Drawing.Point(14, 9)
-        Me.SendButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SendButton.Location = New System.Drawing.Point(9, 6)
+        Me.SendButton.Margin = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.SendButton.Name = "SendButton"
-        Me.SendButton.Size = New System.Drawing.Size(115, 38)
+        Me.SendButton.Size = New System.Drawing.Size(99, 25)
         Me.SendButton.TabIndex = 3
         Me.SendButton.Text = "Send"
         Me.SendButton.UseVisualStyleBackColor = True
@@ -101,20 +102,20 @@ Partial Class FormEmail
         Me.EditorBox.EditorForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.EditorBox.FontSize = LiveSwitch.TextControl.FontSize.Three
         Me.EditorBox.Html = Nothing
-        Me.EditorBox.Location = New System.Drawing.Point(8, 26)
-        Me.EditorBox.Margin = New System.Windows.Forms.Padding(8, 9, 8, 9)
+        Me.EditorBox.Location = New System.Drawing.Point(5, 17)
+        Me.EditorBox.Margin = New System.Windows.Forms.Padding(5, 6, 5, 6)
         Me.EditorBox.Name = "EditorBox"
-        Me.EditorBox.Size = New System.Drawing.Size(874, 459)
+        Me.EditorBox.Size = New System.Drawing.Size(583, 298)
         Me.EditorBox.TabIndex = 8
         '
         'FormEmail
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(900, 562)
+        Me.ClientSize = New System.Drawing.Size(600, 365)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.Name = "FormEmail"
         Me.Text = "Email"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
