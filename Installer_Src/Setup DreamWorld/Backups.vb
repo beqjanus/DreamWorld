@@ -337,10 +337,7 @@ Public Class Backups
 
     End Sub
 
-    '///////////////////
-    '/ Standard Output /
-    '///////////////////
-    Private Delegate Sub consoleOutputDelegate(ByVal outputString As String)
+
 
 #End Region
 
