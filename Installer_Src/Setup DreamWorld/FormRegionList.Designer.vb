@@ -322,7 +322,7 @@ Partial Class FormRegionlist
         Me.Users.Image = Global.Outworldz.My.Resources.Resources.users3
         Me.Users.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Users.Location = New System.Drawing.Point(452, 2)
-        Me.Users.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Users.Margin = New System.Windows.Forms.Padding(2)
         Me.Users.Name = "Users"
         Me.Users.Size = New System.Drawing.Size(108, 34)
         Me.Users.TabIndex = 18604
@@ -348,7 +348,7 @@ Partial Class FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(733, 283)
+        Me.ClientSize = New System.Drawing.Size(733, 311)
         Me.Controls.Add(Me.UserView)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.AvatarView)
