@@ -566,16 +566,15 @@ Public Class FormRegion
             Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If v = vbYes Then
                 Changed1 = False
-                Close()
             End If
+        Else
+            WriteRegion(RegionUUID)
+            Firewall.SetFirewall()
+            PropUpdateView() = True
+            Changed1 = False
         End If
-
-        WriteRegion(RegionUUID)
-        Firewall.SetFirewall()
-        PropUpdateView() = True
-        Changed1 = False
-
         Close()
+
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles DeregisterButton.Click

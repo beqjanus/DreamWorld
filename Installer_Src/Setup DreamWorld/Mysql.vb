@@ -202,16 +202,8 @@ Public Module MysqlInterface
                         End If
                     End Using
                 End Using
-            End Using
-        Catch ex As Exception
-            Console.WriteLine("Error: " & ex.ToString())
-            Return ""
-        End Try
 
-        Try
-            Dim stm1 = "Select EstateName from estate_settings where EstateID = @ID"
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
+                Dim stm1 = "Select EstateName from estate_settings where EstateID = @ID"
                 Using cmd As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
                     cmd.Parameters.AddWithValue("@ID", Val)
                     Using reader2 As MySqlDataReader = cmd.ExecuteReader()
@@ -223,7 +215,7 @@ Public Module MysqlInterface
                 End Using
             End Using
         Catch ex As Exception
-            Console.WriteLine("Error: " & ex.ToString())
+            ErrorLog("Error: " & ex.ToString())
             Return ""
         End Try
         Return name
