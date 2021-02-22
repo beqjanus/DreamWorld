@@ -570,6 +570,12 @@ Public Class FormRegion
             End If
         End If
 
+        WriteRegion(RegionUUID)
+        Firewall.SetFirewall()
+        PropUpdateView() = True
+        Changed1 = False
+
+        Close()
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles DeregisterButton.Click
