@@ -190,39 +190,40 @@ Public Class RegionMaker
 
         Debug.Print("Create Region " + name)
         Dim r As New Region_data With {
-            ._RegionName = name,
-            ._RegionEnabled = True,
-            ._UUID = UUID,
-            ._SizeX = 256,
-            ._SizeY = 256,
+            ._AllowGods = "",
+            ._AvatarCount = 0,
+            ._Birds = "",
+            ._ClampPrimSize = False,
+            ._Concierge = "",
             ._CoordX = LargestX() + 8,
             ._CoordY = LargestY() + 0,
-            ._RegionPort = 0,
-            ._ProcessID = 0,
-            ._AvatarCount = 0,
-            ._Status = SIMSTATUSENUM.Stopped,
-            ._Timer = Date.Now,
-            ._NonPhysicalPrimMax = "1024",
-            ._PhysicalPrimMax = "64",
-            ._ClampPrimSize = False,
-            ._MaxPrims = "15000",
-            ._MaxAgents = "100",
-            ._MapType = "",
-            ._MinTimerInterval = "",
-            ._GodDefault = "",
-            ._AllowGods = "",
-            ._RegionGod = "",
-            ._ManagerGod = "",
-            ._Birds = "",
-            ._Tides = "",
-            ._Teleport = "",
-            ._RegionSnapShot = "",
+            ._CrashCounter = 0,
             ._DisableGloebits = "",
             ._FrameTime = "",
-            ._SkipAutobackup = "",
-            ._ScriptEngine = "",
+            ._GodDefault = "",
+            ._ManagerGod = "",
+            ._MapType = "",
+            ._MaxAgents = "100",
+            ._MaxPrims = "15000",
+            ._MinTimerInterval = "",
+            ._NonPhysicalPrimMax = "1024",
+            ._PhysicalPrimMax = "64",
+            ._ProcessID = 0,
+            ._RegionEnabled = True,
+            ._RegionGod = "",
+            ._RegionName = name,
+            ._RegionPort = 0,
             ._RegionSmartStart = "0",
-            ._CrashCounter = 0
+            ._RegionSnapShot = "",
+            ._ScriptEngine = "",
+            ._SizeX = 256,
+            ._SizeY = 256,
+            ._SkipAutobackup = "",
+            ._Status = SIMSTATUSENUM.Stopped,
+            ._Teleport = "",
+            ._Tides = "",
+            ._Timer = Date.Now,
+            ._UUID = UUID
         }
 
         RegionList.Add(r._UUID, r)
@@ -363,16 +364,8 @@ Public Class RegionMaker
                             Snapshot(uuid) = CStr(Settings.GetIni(fName, "RegionSnapShot", "", "String"))
                             ScriptEngine(uuid) = CStr(Settings.GetIni(fName, "ScriptEngine", "", "String"))
                             GDPR(uuid) = CStr(Settings.GetIni(fName, "Publicity", "", "String"))
-
-                            Select Case CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
-                                Case "True"
-                                    SmartStart(uuid) = "True"
-                                Case "False"
-                                    SmartStart(uuid) = "False"
-                                Case Else
-                                    SmartStart(uuid) = ""
-                            End Select
-
+                            Concierge(uuid) = CStr(Settings.GetIni(fName, "Concierge", "", "String"))
+                            SmartStart(uuid) = CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
                             RegionPort(uuid) = PropRegionClass.LargestPort
                             GroupPort(uuid) = RegionPort(uuid)
 
@@ -625,7 +618,6 @@ Public Class RegionMaker
         Public _ClampPrimSize As Boolean
         Public _CoordX As Integer = 1000
         Public _CoordY As Integer = 1000
-        Public _Concierge As String = ""
         Public _DisallowForeigners As String = ""
         Public _DisallowResidents As String = ""
         Public _FolderPath As String = ""
@@ -650,6 +642,7 @@ Public Class RegionMaker
 
         Public _AllowGods As String = ""
         Public _Birds As String = ""
+        Public _Concierge As String = ""
         Public _CrashCounter As Integer
         Public _DisableGloebits As String = ""
         Public _FrameTime As String = ""
@@ -874,19 +867,6 @@ Public Class RegionMaker
         End Get
     End Property
 
-    Public Property RegionIniFolderPath(uuid As String) As String
-        Get
-            If uuid Is Nothing Then Return ""
-            If Bad(uuid) Then Return ""
-            Return RegionList(uuid)._FolderPath
-        End Get
-        Set(ByVal Value As String)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._FolderPath = Value
-        End Set
-    End Property
-
     Public Property GroupName(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
@@ -934,19 +914,6 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property RegionName(uuid As String) As String
-        Get
-            If uuid Is Nothing Then Return ""
-            If Bad(uuid) Then Return ""
-            Return RegionList(uuid)._RegionName
-        End Get
-        Set(ByVal Value As String)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._RegionName = Value
-        End Set
-    End Property
-
     Public Property RegionIniFilePath(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
@@ -957,6 +924,32 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._RegionPath = Value
+        End Set
+    End Property
+
+    Public Property RegionIniFolderPath(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._FolderPath
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._FolderPath = Value
+        End Set
+    End Property
+
+    Public Property RegionName(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RegionName
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionName = Value
         End Set
     End Property
 
@@ -1003,19 +996,6 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property DisableGloebits(uuid As String) As String
-        Get
-            If uuid Is Nothing Then Return ""
-            If Bad(uuid) Then Return ""
-            Return RegionList(uuid)._DisableGloebits
-        End Get
-        Set(ByVal Value As String)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._DisableGloebits = Value
-        End Set
-    End Property
-
     Public Property Concierge(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
@@ -1026,6 +1006,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._Concierge = Value
+        End Set
+    End Property
+
+    Public Property DisableGloebits(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._DisableGloebits
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._DisableGloebits = Value
         End Set
     End Property
 
@@ -2053,11 +2046,11 @@ Public Class RegionMaker
         If Settings.Concierge Then
             Select Case Concierge(uuid)
                 Case ""
-                    Settings.SetIni(Name, "Concierge", "True")
+                    Settings.SetIni("Concierge", "enabled", "True")
                 Case "True"
-                    Settings.SetIni(Name, "Concierge", Concierge(uuid))
+                    Settings.SetIni("Concierge", "enabled", Concierge(uuid))
                 Case "False"
-                    Settings.SetIni(Name, "Concierge", "False")
+                    Settings.SetIni("Concierge", "enabled", "False")
             End Select
         End If
 

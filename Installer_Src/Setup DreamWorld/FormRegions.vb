@@ -116,6 +116,10 @@ Public Class FormRegions
 
     End Sub
 
+    Private Sub ConciergeCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ConciergeCheckbox.CheckedChanged
+        Settings.Concierge = ConciergeCheckbox.Checked
+    End Sub
+
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
 
         Settings.SaveSettings()
@@ -252,10 +256,6 @@ Public Class FormRegions
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Z.Text = digitsOnly.Replace(Z.Text, "")
         Settings.HomeVectorZ = Z.Text
-    End Sub
-
-    Private Sub ConciergeCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ConciergeCheckbox.CheckedChanged
-        Settings.Concierge = ConciergeCheckbox.Checked
     End Sub
 
 End Class

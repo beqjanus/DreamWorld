@@ -29,10 +29,10 @@ Public Class FormSettings
     Dim FormServerType As New FormServerType
     Dim Gloebits As New FormGloebits
     Dim Icecast As New FormIcecast
-    Dim Search As New FormSearch
     Dim Logging As New FormLogging
     Dim Maps As New FormMaps
     Dim Scripts As New FormScripts
+    Dim Search As New FormSearch
     Dim Tide As New FormTide
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
@@ -436,6 +436,18 @@ Public Class FormSettings
 
     End Sub
 
+    Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
+
+        Search.Close()
+        Search.Dispose()
+        Search = New FormSearch
+        Search.Activate()
+        Search.Visible = True
+        Search.Select()
+        Search.BringToFront()
+
+    End Sub
+
     Private Sub Shoutcast_Click(sender As Object, e As EventArgs) Handles Shoutcast.Click
 
         Icecast.Close()
@@ -482,18 +494,6 @@ Public Class FormSettings
         Voice.Visible = True
         Voice.Select()
         Voice.BringToFront()
-
-    End Sub
-
-    Private Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
-
-        Search.Close()
-        Search.Dispose()
-        Search = New FormSearch
-        Search.Activate()
-        Search.Visible = True
-        Search.Select()
-        Search.BringToFront()
 
     End Sub
 

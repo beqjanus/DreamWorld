@@ -29,7 +29,6 @@ Module Logging
             Logger("StackFrame", sf.GetFileLineNumber().ToString(Globalization.CultureInfo.InvariantCulture) & ":" & sf.GetMethod().ToString, "Error")
         Next
 
-
     End Sub
 
     Public Sub Log(category As String, message As String)

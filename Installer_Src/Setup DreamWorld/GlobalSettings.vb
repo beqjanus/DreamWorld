@@ -9,9 +9,9 @@ Module GlobalSettings
     Public Const _Domain As String = "http://outworldz.com"
     Public Const _MyVersion As String = "3.895"
     Public Const _SimVersion As String = "#be49d426d9=>1610c3f741 (mantis 8862: do cancel negative cache on valid store"
-    Public Const MySqlRev = "5.6.5"
-    Public Const jRev As String = "3.9.23"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
+    Public Const jRev As String = "3.9.23"
+    Public Const MySqlRev = "5.6.5"
 
 #End Region
 
@@ -69,6 +69,24 @@ Module GlobalSettings
 
 #Region "Properties"
 
+    Public ReadOnly Property GitVersion As String
+        ' output of  git rev-parse --short HEAD   from Perl
+        Get
+            Dim line As String = "None"
+            Dim fname = IO.Path.Combine(Settings.CurrentDirectory, "GitVersion")
+            If System.IO.File.Exists(fname) Then
+                Using reader As StreamReader = System.IO.File.OpenText(fname)
+                    'now loop through each line
+                    While reader.Peek <> -1
+                        line = reader.ReadLine()
+                    End While
+                End Using
+            End If
+            Return line
+        End Get
+
+    End Property
+
     Public Property PropAborting() As Boolean
         Get
             Return _PropAborting
@@ -98,24 +116,6 @@ Module GlobalSettings
         Set(ByVal Value As Boolean)
             _IsRunning = Value
         End Set
-    End Property
-
-    Public ReadOnly Property GitVersion As String
-        ' output of  git rev-parse --short HEAD   from Perl
-        Get
-            Dim line As String = "None"
-            Dim fname = IO.Path.Combine(Settings.CurrentDirectory, "GitVersion")
-            If System.IO.File.Exists(fname) Then
-                Using reader As StreamReader = System.IO.File.OpenText(fname)
-                    'now loop through each line
-                    While reader.Peek <> -1
-                        line = reader.ReadLine()
-                    End While
-                End Using
-            End If
-            Return line
-        End Get
-
     End Property
 
     Public Property PropRegionClass As RegionMaker
@@ -210,18 +210,6 @@ Module GlobalSettings
 
 #Region "Functions"
 
-    Public Sub Logit(message As String)
-
-        Return
-
-        Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Crash.log"), True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & " : " & message)
-            End Using
-        Catch ex As Exception
-        End Try
-    End Sub
-
     Public Function BackupPath() As String
 
         'Autobackup must exist. if not create it
@@ -240,6 +228,18 @@ Module GlobalSettings
         Return BackupPath
 
     End Function
+
+    Public Sub Logit(message As String)
+
+        Return
+
+        Try
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Crash.log"), True)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & " : " & message)
+            End Using
+        Catch ex As Exception
+        End Try
+    End Sub
 
     Public Function RobustName() As String
 

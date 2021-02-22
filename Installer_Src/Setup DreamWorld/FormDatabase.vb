@@ -50,10 +50,10 @@ Public Class FormDatabase
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+
     'The following detects  the location of the form in screen coordinates
     Private _screenPosition As ScreenPos
-
-    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
 
     Public Property ScreenPosition As ScreenPos
         Get

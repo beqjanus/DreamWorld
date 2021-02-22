@@ -13,10 +13,9 @@ Public Class FormIARSave
     Private _gBackupName As String = ""
     Private _gBackupPath As String = ""
     Private _GCopy As Boolean
-    Private _GTransfer As Boolean
     Private _GModify As Boolean
-
     Private _gObject As String = "/"
+    Private _GTransfer As Boolean
 
 #End Region
 
@@ -62,33 +61,6 @@ Public Class FormIARSave
 
 #Region "Public Properties"
 
-    Public Property GCopy As Boolean
-        Get
-            Return _GCopy
-        End Get
-        Set(value As Boolean)
-            _GCopy = value
-        End Set
-    End Property
-
-    Public Property GTransfer As Boolean
-        Get
-            Return _GTransfer
-        End Get
-        Set(value As Boolean)
-            _GTransfer = value
-        End Set
-    End Property
-
-    Public Property GModify As Boolean
-        Get
-            Return _GModify
-        End Get
-        Set(value As Boolean)
-            _GModify = value
-        End Set
-    End Property
-
     Public Property GAvatarName As String
         Get
             Return _gAvatarName
@@ -116,12 +88,39 @@ Public Class FormIARSave
         End Set
     End Property
 
+    Public Property GCopy As Boolean
+        Get
+            Return _GCopy
+        End Get
+        Set(value As Boolean)
+            _GCopy = value
+        End Set
+    End Property
+
+    Public Property GModify As Boolean
+        Get
+            Return _GModify
+        End Get
+        Set(value As Boolean)
+            _GModify = value
+        End Set
+    End Property
+
     Public Property GObject As String
         Get
             Return _gObject
         End Get
         Set(value As String)
             _gObject = value
+        End Set
+    End Property
+
+    Public Property GTransfer As Boolean
+        Get
+            Return _GTransfer
+        End Get
+        Set(value As Boolean)
+            _GTransfer = value
         End Set
     End Property
 
@@ -148,18 +147,26 @@ Public Class FormIARSave
         Me.DialogResult = System.Windows.Forms.DialogResult.OK
     End Sub
 
+    Private Sub CopyCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CopyCheckBox.CheckedChanged
+        GCopy = CopyCheckBox.Checked
+    End Sub
+
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         HelpManual("SaveIar")
+    End Sub
+
+    Private Sub ModifyCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ModifyCheckBox.CheckedChanged
+        GModify = ModifyCheckBox.Checked
+    End Sub
+
+    Private Sub ObjectNameBox_TextChanged_1(sender As Object, e As EventArgs) Handles ObjectNameBox.TextChanged
+        GObject = ObjectNameBox.Text
     End Sub
 
     Private Sub ObjectNameBox_TextClicks(sender As Object, e As EventArgs) Handles ObjectNameBox.Click
         If ObjectNameBox.Text = "/=everything, /Objects/Folder, etc." Then
             ObjectNameBox.Text = My.Resources.Slash
         End If
-    End Sub
-
-    Private Sub ObjectNameBox_TextChanged_1(sender As Object, e As EventArgs) Handles ObjectNameBox.TextChanged
-        GObject = ObjectNameBox.Text
     End Sub
 
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click
@@ -171,14 +178,6 @@ Public Class FormIARSave
             End If
         End If
         ofd.Dispose()
-    End Sub
-
-    Private Sub CopyCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CopyCheckBox.CheckedChanged
-        GCopy = CopyCheckBox.Checked
-    End Sub
-
-    Private Sub ModifyCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ModifyCheckBox.CheckedChanged
-        GModify = ModifyCheckBox.Checked
     End Sub
 
     Private Sub TransferCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TransferCheckBox.CheckedChanged

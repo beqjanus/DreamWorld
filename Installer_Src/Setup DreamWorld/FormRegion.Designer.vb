@@ -98,6 +98,7 @@ Partial Class FormRegion
         Me.XEngineButton = New System.Windows.Forms.RadioButton()
         Me.YEngineButton = New System.Windows.Forms.RadioButton()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.ConciergeCheckBox = New System.Windows.Forms.CheckBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Publish = New System.Windows.Forms.RadioButton()
@@ -117,7 +118,6 @@ Partial Class FormRegion
         Me.DeregisterButton = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConciergeCheckBox = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.Advanced.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -371,6 +371,7 @@ Partial Class FormRegion
         Me.SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_word
         Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, Global.Outworldz.My.Resources.Resources.GTide)
         Me.SmartStartCheckBox.UseVisualStyleBackColor = True
+        Me.SmartStartCheckBox.Visible = False
         '
         'Label14
         '
@@ -910,6 +911,16 @@ Partial Class FormRegion
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Modules"
         '
+        'ConciergeCheckBox
+        '
+        Me.ConciergeCheckBox.AutoSize = True
+        Me.ConciergeCheckBox.Location = New System.Drawing.Point(15, 171)
+        Me.ConciergeCheckBox.Name = "ConciergeCheckBox"
+        Me.ConciergeCheckBox.Size = New System.Drawing.Size(111, 17)
+        Me.ConciergeCheckBox.TabIndex = 28
+        Me.ConciergeCheckBox.Text = "Announce Visitors"
+        Me.ConciergeCheckBox.UseVisualStyleBackColor = True
+        '
         'Label13
         '
         Me.Label13.AutoSize = True
@@ -1114,16 +1125,6 @@ Partial Class FormRegion
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        '
-        'ConciergeCheckBox
-        '
-        Me.ConciergeCheckBox.AutoSize = True
-        Me.ConciergeCheckBox.Location = New System.Drawing.Point(15, 171)
-        Me.ConciergeCheckBox.Name = "ConciergeCheckBox"
-        Me.ConciergeCheckBox.Size = New System.Drawing.Size(111, 17)
-        Me.ConciergeCheckBox.TabIndex = 28
-        Me.ConciergeCheckBox.Text = "Announce Visitors"
-        Me.ConciergeCheckBox.UseVisualStyleBackColor = True
         '
         'FormRegion
         '

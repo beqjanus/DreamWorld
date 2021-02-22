@@ -1,6 +1,4 @@
-﻿Imports System.IO
-
-Public Class FormErrorLogger
+﻿Public Class FormErrorLogger
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles QuitButton.Click
 
@@ -57,4 +55,5 @@ Public Class FormErrorLogger
     Private Sub ReasonText_TextChanged(sender As Object, e As EventArgs) Handles ReasonText.TextChanged
 
     End Sub
+
 End Class

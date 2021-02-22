@@ -1,24 +1,13 @@
-﻿Imports System.ComponentModel
-
-Public Class FormIARLoad
+﻿Public Class FormIARLoad
 
 #Region "Private"
 
-    Private _gFolder As String
     Private _gAvatar As String
+    Private _gFolder As String
 
 #End Region
 
 #Region "Properties"
-
-    Public Property GFolder As String
-        Get
-            Return _gFolder
-        End Get
-        Set(value As String)
-            _gFolder = value
-        End Set
-    End Property
 
     Public Property GAvatar As String
         Get
@@ -29,10 +18,28 @@ Public Class FormIARLoad
         End Set
     End Property
 
+    Public Property GFolder As String
+        Get
+            Return _gFolder
+        End Get
+        Set(value As String)
+            _gFolder = value
+        End Set
+    End Property
+
 #End Region
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FolderTextbox.TextChanged
-        GFolder = FolderTextbox.Text
+    Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
+        If AviName.Text.Length > 0 Then
+            AviName.BackColor = Color.White
+        End If
+        GAvatar = AviName.Text
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        DialogResult = DialogResult.OK
+
     End Sub
 
     Private Sub FormIARLoad_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -48,17 +55,8 @@ Public Class FormIARLoad
 
     End Sub
 
-    Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
-        If AviName.Text.Length > 0 Then
-            AviName.BackColor = Color.White
-        End If
-        GAvatar = AviName.Text
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-        DialogResult = DialogResult.OK
-
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FolderTextbox.TextChanged
+        GFolder = FolderTextbox.Text
     End Sub
 
 End Class

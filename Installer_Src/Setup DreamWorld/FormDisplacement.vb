@@ -266,25 +266,6 @@ Public Class FormDisplacement
 
     End Sub
 
-    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
-
-        PrintToolStripMenuItem.Visible = False
-        Dim x As FormBorderStyle = Me.FormBorderStyle
-        Me.FormBorderStyle = FormBorderStyle.None
-
-        Dim preview As New PrintPreviewDialog
-        Dim pd As New System.Drawing.Printing.PrintDocument
-        pd.DefaultPageSettings.Landscape = True
-        AddHandler pd.PrintPage, AddressOf OnPrintPage
-        preview.Document = pd
-        preview.ShowDialog()
-
-        preview.Dispose()
-        PrintToolStripMenuItem.Visible = True
-        Me.FormBorderStyle = x
-
-    End Sub
-
     Private Sub OnPrintPage(ByVal sender As Object, ByVal e As System.Drawing.Printing.PrintPageEventArgs)
 
         'create a memory bitmap and size to the form
@@ -311,6 +292,25 @@ Public Class FormDisplacement
             End If
 
         End Using
+
+    End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+
+        PrintToolStripMenuItem.Visible = False
+        Dim x As FormBorderStyle = Me.FormBorderStyle
+        Me.FormBorderStyle = FormBorderStyle.None
+
+        Dim preview As New PrintPreviewDialog
+        Dim pd As New System.Drawing.Printing.PrintDocument
+        pd.DefaultPageSettings.Landscape = True
+        AddHandler pd.PrintPage, AddressOf OnPrintPage
+        preview.Document = pd
+        preview.ShowDialog()
+
+        preview.Dispose()
+        PrintToolStripMenuItem.Visible = True
+        Me.FormBorderStyle = x
 
     End Sub
 

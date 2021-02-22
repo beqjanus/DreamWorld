@@ -19,18 +19,17 @@ Public Class MySettings
 
     Private ReadOnly Apachein As New List(Of String)
     Private ReadOnly Apacheout As New List(Of String)
+    Private _ExternalHostName As String
     Dim _INIBusy As Integer
+    Private _LANIP As String
+    Private _MacAddress As String
+    Private _PublicIP As String
+    Private _WANIP As String
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
     Dim Myparser As IniParser.FileIniDataParser
     Dim parser As IniParser.FileIniDataParser
     Dim SettingsData As IniParser.Model.IniData
-
-    Private _PublicIP As String
-    Private _LANIP As String
-    Private _WANIP As String
-    Private _MacAddress As String
-    Private _ExternalHostName As String
 
 #Region "New"
 
@@ -309,15 +308,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property LANIP() As String
-        Get
-            Return _LANIP
-        End Get
-        Set
-            _LANIP = Value
-        End Set
-    End Property
-
     Public Property AdminFirst() As String
         Get
             Return GetMySetting("AdminFirst", "Wifi")
@@ -445,15 +435,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property BackupSettings() As Boolean
-        Get
-            Return CType(GetMySetting("BackupSettings", "True"), Boolean)
-        End Get
-        Set
-            SetMySetting("BackupSettings", CStr(Value))
-        End Set
-    End Property
-
     Public Property BackupOARs() As Boolean
         Get
             Return CType(GetMySetting("BackupOARs", "True"), Boolean)
@@ -469,6 +450,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("BackupRegion", CStr(Value))
+        End Set
+    End Property
+
+    Public Property BackupSettings() As Boolean
+        Get
+            Return CType(GetMySetting("BackupSettings", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("BackupSettings", CStr(Value))
         End Set
     End Property
 
@@ -490,35 +480,12 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property Concierge() As Boolean
-        Get
-            Return CType(GetMySetting("Concierge", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("Concierge", CStr(Value))
-        End Set
-    End Property
-
     Public Property BanList() As String
         Get
             Return GetMySetting("BanList", "")
         End Get
         Set
             SetMySetting("BanList", Value)
-        End Set
-    End Property
-
-    Public Property StartDate() As DateTime
-        Get
-            Dim parsedDate As DateTime
-            If DateTime.TryParse(GetMySetting("StartDate", ""), parsedDate) Then
-                Return parsedDate
-            End If
-            Return Now
-        End Get
-        Set
-            Dim Datestring = CStr(Value)
-            SetMySetting("StartDate", Datestring)
         End Set
     End Property
 
@@ -777,6 +744,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("CMS", CStr(Value))
+        End Set
+    End Property
+
+    Public Property Concierge() As Boolean
+        Get
+            Return CType(GetMySetting("Concierge", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("Concierge", CStr(Value))
         End Set
     End Property
 
@@ -1108,15 +1084,6 @@ Public Class MySettings
 
     End Property
 
-    Public Property SearchOptions() As String
-        Get
-            Return GetMySetting("JOpensimSearch", "")
-        End Get
-        Set
-            SetMySetting("JOpensimSearch", Value)
-        End Set
-    End Property
-
     Public Property KeepForDays() As Integer
         Get
             Return CInt("0" & GetMySetting("KeepForDays", "7"))
@@ -1150,6 +1117,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("Language", Value)
+        End Set
+    End Property
+
+    Public Property LANIP() As String
+        Get
+            Return _LANIP
+        End Get
+        Set
+            _LANIP = Value
         End Set
     End Property
 
@@ -1650,6 +1626,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SearchOptions() As String
+        Get
+            Return GetMySetting("JOpensimSearch", "")
+        End Get
+        Set
+            SetMySetting("JOpensimSearch", Value)
+        End Set
+    End Property
+
     Public Property Sequential() As Boolean
         Get
             Return CType(GetMySetting("Sequential", "False"), Boolean)
@@ -1793,6 +1778,20 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("SplashPage", Value)
+        End Set
+    End Property
+
+    Public Property StartDate() As DateTime
+        Get
+            Dim parsedDate As DateTime
+            If DateTime.TryParse(GetMySetting("StartDate", ""), parsedDate) Then
+                Return parsedDate
+            End If
+            Return Now
+        End Get
+        Set
+            Dim Datestring = CStr(Value)
+            SetMySetting("StartDate", Datestring)
         End Set
     End Property
 

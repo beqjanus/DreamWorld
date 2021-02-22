@@ -515,58 +515,6 @@ Public Class FormRegionlist
 
     End Sub
 
-    Private Sub ShowUsers()
-
-        Try
-            ViewBusy = True
-            UserView.Show()
-            ListView1.Hide()
-            AvatarView.Hide()
-
-            UserView.BeginUpdate()
-            UserView.Items.Clear()
-            UserView.CheckBoxes = True
-            Dim Index = 0
-
-            ' Create items and sub items for each item.
-            Dim M As New Dictionary(Of String, String)
-
-            If MysqlInterface.IsMySqlRunning() Then
-                M = MysqlInterface.GetEmailList()
-            End If
-
-            For Each Agent In M
-                If Agent.Value.Length > 0 Then
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Agent.Value)
-                    UserView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
-                End If
-            Next
-
-            Me.Text = M.Count & "Users"
-
-            If Index = 0 Then
-                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
-                item1.SubItems.Add("-".ToUpperInvariant)
-                item1.SubItems.Add(My.Resources.Hypergrid_word)
-                UserView.Items.AddRange(New ListViewItem() {item1})
-            End If
-
-            UserView.TabIndex = 0
-            UserView.EndUpdate()
-
-            UserView.Show()
-            UserView.Visible = True
-            ViewBusy = False
-            PropUpdateView() = False
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            Log(My.Resources.Error_word, " RegionList " & ex.Message)
-        End Try
-
-    End Sub
-
     Private Sub ShowRegions()
 
         Try
@@ -856,6 +804,58 @@ Public Class FormRegionlist
         ListView1.Show()
         AvatarView.Hide()
         UserView.Hide()
+
+    End Sub
+
+    Private Sub ShowUsers()
+
+        Try
+            ViewBusy = True
+            UserView.Show()
+            ListView1.Hide()
+            AvatarView.Hide()
+
+            UserView.BeginUpdate()
+            UserView.Items.Clear()
+            UserView.CheckBoxes = True
+            Dim Index = 0
+
+            ' Create items and sub items for each item.
+            Dim M As New Dictionary(Of String, String)
+
+            If MysqlInterface.IsMySqlRunning() Then
+                M = MysqlInterface.GetEmailList()
+            End If
+
+            For Each Agent In M
+                If Agent.Value.Length > 0 Then
+                    Dim item1 As New ListViewItem(Agent.Key, Index)
+                    item1.SubItems.Add(Agent.Value)
+                    UserView.Items.AddRange(New ListViewItem() {item1})
+                    Index += 1
+                End If
+            Next
+
+            Me.Text = M.Count & "Users"
+
+            If Index = 0 Then
+                Dim item1 As New ListViewItem(My.Resources.No_Avatars, Index)
+                item1.SubItems.Add("-".ToUpperInvariant)
+                item1.SubItems.Add(My.Resources.Hypergrid_word)
+                UserView.Items.AddRange(New ListViewItem() {item1})
+            End If
+
+            UserView.TabIndex = 0
+            UserView.EndUpdate()
+
+            UserView.Show()
+            UserView.Visible = True
+            ViewBusy = False
+            PropUpdateView() = False
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+            Log(My.Resources.Error_word, " RegionList " & ex.Message)
+        End Try
 
     End Sub
 
@@ -1504,6 +1504,18 @@ SetWindowOnTop_Err:
 
     End Sub
 
+    Private Sub Button2_Click_2(sender As Object, e As EventArgs)
+
+#Disable Warning CA2000
+        Dim EmailForm = New FormEmail
+#Enable Warning CA2000
+        EmailForm.BringToFront()
+        EmailForm.Init(UserView)
+        EmailForm.Activate()
+        EmailForm.Visible = True
+        EmailForm.Select()
+    End Sub
+
     Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
 
         FloatToolStripMenuItem.Checked = True
@@ -1552,18 +1564,6 @@ SetWindowOnTop_Err:
         UserView.Show()
         AvatarView.Hide()
         LoadMyListView()
-    End Sub
-
-    Private Sub Button2_Click_2(sender As Object, e As EventArgs)
-
-#Disable Warning CA2000
-        Dim EmailForm = New FormEmail
-#Enable Warning CA2000
-        EmailForm.BringToFront()
-        EmailForm.Init(UserView)
-        EmailForm.Activate()
-        EmailForm.Visible = True
-        EmailForm.Select()
     End Sub
 
 #End Region

@@ -128,18 +128,18 @@ Public Class FormBackupCheckboxes
 
     End Sub
 
-    Private Sub SettingsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SettingsCheckbox.CheckedChanged
-
-        If Not initted Then Return
-        Settings.BackupSettings = SettingsCheckbox.Checked
-        Settings.SaveSettings()
-
-    End Sub
-
     Private Sub RegionCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RegionCheckBox.CheckedChanged
 
         If Not initted Then Return
         Settings.BackupRegion = RegionCheckBox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub SettingsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SettingsCheckbox.CheckedChanged
+
+        If Not initted Then Return
+        Settings.BackupSettings = SettingsCheckbox.Checked
         Settings.SaveSettings()
 
     End Sub

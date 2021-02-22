@@ -1,18 +1,10 @@
-﻿Imports MailKit.Net.Smtp
+﻿Imports EmailValidation
+Imports MailKit.Net.Smtp
 Imports MimeKit
-Imports EmailValidation
 
 Public Class FormEmail
 
     Private ReadOnly Contacts As New Dictionary(Of String, String)
-
-    Private Sub Email_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        EditorBox.DocumentText = "<html><body></body></html>"
-        SubjectLabel.Text = My.Resources.Subject_word
-        SendButton.Text = My.Resources.Send_word
-
-    End Sub
 
     Public Sub Init(L As ListView)
         If L Is Nothing Then Return
@@ -96,6 +88,14 @@ Public Class FormEmail
         End Using
 
         Me.Close()
+    End Sub
+
+    Private Sub Email_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        EditorBox.DocumentText = "<html><body></body></html>"
+        SubjectLabel.Text = My.Resources.Subject_word
+        SendButton.Text = My.Resources.Send_word
+
     End Sub
 
 End Class

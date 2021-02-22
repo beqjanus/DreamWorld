@@ -175,6 +175,12 @@ Public Class FormAutoBackups
 
 #Region "Help"
 
+    Private Sub AutoBackupHelp_Click(sender As Object, e As EventArgs)
+
+        HelpManual("Backup")
+
+    End Sub
+
     Private Sub BackupFolderDialog()
 
         'Create an instance of the open file dialog box.
@@ -193,12 +199,6 @@ Public Class FormAutoBackups
                 End If
             End If
         End Using
-
-    End Sub
-
-    Private Sub AutoBackupHelp_Click(sender As Object, e As EventArgs)
-
-        HelpManual("Backup")
 
     End Sub
 

@@ -74,6 +74,10 @@ Public Class FormIcecast
 
     End Sub
 
+    Private Sub HelpToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem4.Click
+        HelpManual("Icecast")
+    End Sub
+
     Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
 
     End Sub
@@ -166,10 +170,6 @@ Public Class FormIcecast
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
-    End Sub
-
-    Private Sub HelpToolStripMenuItem4_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem4.Click
-        HelpManual("Icecast")
     End Sub
 
 #End Region

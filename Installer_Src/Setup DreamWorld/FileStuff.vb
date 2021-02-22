@@ -3,21 +3,6 @@ Imports System.Threading
 
 Module FileStuff
 
-    Sub DeleteOldFiles()
-
-        Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")
-        Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)
-
-        Dim fileSystemInfo As System.IO.FileSystemInfo
-        For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
-            If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
-                DeleteFile(fileSystemInfo.FullName)
-            End If
-
-        Next
-
-    End Sub
-
     Public Sub Cleanup() ' old files
 
         ' cleanup old code and files
@@ -258,6 +243,21 @@ Module FileStuff
             End Try
 
         End If
+
+    End Sub
+
+    Sub DeleteOldFiles()
+
+        Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")
+        Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)
+
+        Dim fileSystemInfo As System.IO.FileSystemInfo
+        For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
+            If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
+                DeleteFile(fileSystemInfo.FullName)
+            End If
+
+        Next
 
     End Sub
 

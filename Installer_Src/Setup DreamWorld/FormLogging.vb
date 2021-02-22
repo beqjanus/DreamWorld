@@ -65,7 +65,6 @@ Public Class FormLogging
         RadioOff.Text = Global.Outworldz.My.Resources.Off
         RadioWarn.Text = Global.Outworldz.My.Resources.Warn_word
 
-
         SetScreen()
 
         Select Case Settings.LogLevel.ToUpperInvariant

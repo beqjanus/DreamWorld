@@ -2,76 +2,6 @@
 
 #Region "Load"
 
-    Public Sub saveIARTask()
-
-        If PropOpensimIsRunning() Then
-
-            Using SaveIAR As New FormIARSave
-                SaveIAR.ShowDialog()
-                Dim chosen = SaveIAR.DialogResult()
-                If chosen = DialogResult.OK Then
-
-                    Dim itemName = SaveIAR.GObject
-                    If itemName = "/=everything, /Objects/Folder, etc." Then
-                        itemName = "/"
-                    End If
-
-                    If itemName.Length = 0 Then
-                        MsgBox(My.Resources.MustHaveName, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-                        Return
-                    End If
-
-                    Dim ToBackup As String
-                    Dim BackupName = SaveIAR.GBackupName
-
-                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
-                        BackupName += ".iar"
-                    End If
-
-                    If String.IsNullOrEmpty(SaveIAR.GBackupPath) Or SaveIAR.GBackupPath = "AutoBackup" Then
-                        ToBackup = IO.Path.Combine(BackupPath(), BackupName)
-                    Else
-                        ToBackup = BackupName
-                    End If
-
-                    Dim Name = SaveIAR.GAvatarName
-
-                    Dim opt As String = " -c "
-                    If Settings.DNSName.Length > 0 Then
-                        opt += " -h " & Settings.DNSName & " "
-                    End If
-
-                    Dim Perm As String = ""
-                    If Not SaveIAR.GCopy Then
-                        Perm += "C"
-                    End If
-
-                    If Not SaveIAR.GTransfer Then
-                        Perm += "T"
-                    End If
-
-                    If Not SaveIAR.GModify Then
-                        Perm += "M"
-                    End If
-
-                    If Perm.Length > 0 Then
-                        opt += " --perm=" & Perm & " "
-                    End If
-
-                    For Each RegionUUID As String In PropRegionClass.RegionUuids
-                        If PropRegionClass.IsBooted(RegionUUID) Then
-                            ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
-                            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & PropRegionClass.RegionName(RegionUUID))
-                            Exit For
-                        End If
-                    Next
-                End If
-            End Using
-        Else
-            TextPrint(My.Resources.Not_Running)
-        End If
-    End Sub
-
     Public Sub LoadIAR()
 
         If PropOpensimIsRunning() Then
@@ -147,6 +77,76 @@
         Return True
 
     End Function
+
+    Public Sub saveIARTask()
+
+        If PropOpensimIsRunning() Then
+
+            Using SaveIAR As New FormIARSave
+                SaveIAR.ShowDialog()
+                Dim chosen = SaveIAR.DialogResult()
+                If chosen = DialogResult.OK Then
+
+                    Dim itemName = SaveIAR.GObject
+                    If itemName = "/=everything, /Objects/Folder, etc." Then
+                        itemName = "/"
+                    End If
+
+                    If itemName.Length = 0 Then
+                        MsgBox(My.Resources.MustHaveName, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+                        Return
+                    End If
+
+                    Dim ToBackup As String
+                    Dim BackupName = SaveIAR.GBackupName
+
+                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
+                        BackupName += ".iar"
+                    End If
+
+                    If String.IsNullOrEmpty(SaveIAR.GBackupPath) Or SaveIAR.GBackupPath = "AutoBackup" Then
+                        ToBackup = IO.Path.Combine(BackupPath(), BackupName)
+                    Else
+                        ToBackup = BackupName
+                    End If
+
+                    Dim Name = SaveIAR.GAvatarName
+
+                    Dim opt As String = " -c "
+                    If Settings.DNSName.Length > 0 Then
+                        opt += " -h " & Settings.DNSName & " "
+                    End If
+
+                    Dim Perm As String = ""
+                    If Not SaveIAR.GCopy Then
+                        Perm += "C"
+                    End If
+
+                    If Not SaveIAR.GTransfer Then
+                        Perm += "T"
+                    End If
+
+                    If Not SaveIAR.GModify Then
+                        Perm += "M"
+                    End If
+
+                    If Perm.Length > 0 Then
+                        opt += " --perm=" & Perm & " "
+                    End If
+
+                    For Each RegionUUID As String In PropRegionClass.RegionUuids
+                        If PropRegionClass.IsBooted(RegionUUID) Then
+                            ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
+                            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & PropRegionClass.RegionName(RegionUUID))
+                            Exit For
+                        End If
+                    Next
+                End If
+            End Using
+        Else
+            TextPrint(My.Resources.Not_Running)
+        End If
+    End Sub
 
 #End Region
 
