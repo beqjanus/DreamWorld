@@ -90,7 +90,7 @@ Public Class Backups
             End If
 
             Dim options = " --host=" & host & " --port=" & port _
-                & " --opt --hex-blob --add-drop-table --allow-keywords  " _
+                & " --opt --hex-blob --add-drop-table --allow-keywords --single-transaction  --quick " _
                 & " -u" & user _
                 & " -p" & password _
                 & " --verbose --log-error=Mysqldump.log " _
