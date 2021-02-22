@@ -625,6 +625,7 @@ Public Class RegionMaker
         Public _ClampPrimSize As Boolean
         Public _CoordX As Integer = 1000
         Public _CoordY As Integer = 1000
+        Public _Concierge As String = ""
         Public _DisallowForeigners As String = ""
         Public _DisallowResidents As String = ""
         Public _FolderPath As String = ""
@@ -1012,6 +1013,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._DisableGloebits = Value
+        End Set
+    End Property
+
+    Public Property Concierge(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._Concierge
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Concierge = Value
         End Set
     End Property
 
@@ -1654,7 +1668,6 @@ Public Class RegionMaker
 
         CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
 
-        ' Load Opensim.ini in Region Folder specific to this region
         Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
 
         Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
@@ -2037,12 +2050,23 @@ Public Class RegionMaker
             Settings.SetIni("YEngine", "Enabled", "True")
         End If
 
+        If Settings.Concierge Then
+            Select Case Concierge(uuid)
+                Case ""
+                    Settings.SetIni(Name, "Concierge", "True")
+                Case "True"
+                    Settings.SetIni(Name, "Concierge", Concierge(uuid))
+                Case "False"
+                    Settings.SetIni(Name, "Concierge", "False")
+            End Select
+        End If
+
         Settings.SetIni("SmartStart", "Enabled", SmartStart(uuid))
 
         Settings.SaveINI(INI, System.Text.Encoding.UTF8)
 
         '============== Region.ini =====================
-        ' Opensim.ini in Region Folder specific to this region
+        ' Region.ini in Region Folder specific to this region
         INI = Settings.LoadIni(RegionIniFilePath(uuid), ";")
 
         Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid)))
@@ -2135,6 +2159,8 @@ Public Class RegionMaker
         End If
 
         'Options and overrides
+
+        Settings.SetIni(Name, "Concierge", Concierge(uuid))
         Settings.SetIni(Name, "DisableGloebits", DisableGloebits(uuid))
         Settings.SetIni(Name, "RegionSnapShot", RegionSnapShot(uuid))
         Settings.SetIni(Name, "Birds", Birds(uuid))

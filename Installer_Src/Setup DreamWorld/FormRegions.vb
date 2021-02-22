@@ -139,6 +139,7 @@ Public Class FormRegions
         Text = Global.Outworldz.My.Resources.Region_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
+        ConciergeCheckbox.Text = Global.Outworldz.My.Resources.Announce_visitors
 
         X.Name = Global.Outworldz.My.Resources.X
         Y.Name = Global.Outworldz.My.Resources.Y
@@ -152,6 +153,7 @@ Public Class FormRegions
         Z.Text = Settings.HomeVectorZ
 
         SmartStartEnabled.Checked = Settings.SmartStart
+        ConciergeCheckbox.Checked = Settings.Concierge
 
         HelpOnce("Regions")
         SetScreen()
@@ -250,6 +252,10 @@ Public Class FormRegions
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Z.Text = digitsOnly.Replace(Z.Text, "")
         Settings.HomeVectorZ = Z.Text
+    End Sub
+
+    Private Sub ConciergeCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles ConciergeCheckbox.CheckedChanged
+        Settings.Concierge = ConciergeCheckbox.Checked
     End Sub
 
 End Class

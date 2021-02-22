@@ -287,6 +287,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Announce Visitors.
+        '''</summary>
+        Friend ReadOnly Property Announce_visitors() As String
+            Get
+                Return ResourceManager.GetString("Announce_visitors", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to This will allow another region to be placed at this spot. Continue?.
         '''</summary>
         Friend ReadOnly Property Another_Region() As String

@@ -234,7 +234,7 @@ Public Class FormRegion
             Gods_Use_Default.Checked = True
             RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word
             UUID.Text = Guid.NewGuid().ToString
-
+            ConciergeCheckBox.Checked = False
             CoordX.Text = (PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
             CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
             RegionPort.Text = CStr(PropRegionClass.LargestPort())
@@ -523,6 +523,15 @@ Public Class FormRegion
                 XEngineButton.Checked = True
             Case "YEngine"
                 YEngineButton.Checked = True
+        End Select
+
+        Select Case PropRegionClass.Concierge(RegionUUID)
+            Case ""
+                ConciergeCheckBox.Checked = False
+            Case "True"
+                ConciergeCheckBox.Checked = True
+            Case "False"
+                ConciergeCheckBox.Checked = False
         End Select
 
         Try
@@ -868,7 +877,6 @@ Public Class FormRegion
     Private Function RegionValidate() As String
 
         Dim Message As String
-
 
         If Len(RegionName.Text) = 0 Then
             Message = Global.Outworldz.My.Resources.Region_name_must_not_be_blank_word

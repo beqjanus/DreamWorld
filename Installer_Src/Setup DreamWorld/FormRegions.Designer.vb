@@ -40,6 +40,7 @@ Partial Class FormRegions
         Me.AddRegion = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ConciergeCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -47,6 +48,7 @@ Partial Class FormRegions
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.ConciergeCheckbox)
         Me.GroupBox2.Controls.Add(Me.PictureBox2)
         Me.GroupBox2.Controls.Add(Me.SmartStartEnabled)
         Me.GroupBox2.Controls.Add(Me.Button1)
@@ -62,10 +64,10 @@ Partial Class FormRegions
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.AddRegion)
         Me.GroupBox2.Location = New System.Drawing.Point(17, 35)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(1)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(1, 1, 1, 1)
-        Me.GroupBox2.Size = New System.Drawing.Size(209, 321)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(1)
+        Me.GroupBox2.Size = New System.Drawing.Size(209, 375)
         Me.GroupBox2.TabIndex = 1862
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Region"
@@ -74,7 +76,7 @@ Partial Class FormRegions
         '
         Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.home
         Me.PictureBox2.Location = New System.Drawing.Point(13, 25)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(1)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(16, 17)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -84,8 +86,8 @@ Partial Class FormRegions
         'SmartStartEnabled
         '
         Me.SmartStartEnabled.AutoSize = True
-        Me.SmartStartEnabled.Location = New System.Drawing.Point(5, 293)
-        Me.SmartStartEnabled.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.SmartStartEnabled.Location = New System.Drawing.Point(10, 329)
+        Me.SmartStartEnabled.Margin = New System.Windows.Forms.Padding(1)
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(114, 17)
         Me.SmartStartEnabled.TabIndex = 1867
@@ -97,8 +99,8 @@ Partial Class FormRegions
         '
         Me.Button1.Image = Global.Outworldz.My.Resources.Resources.package_delete
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(8, 172)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.Button1.Location = New System.Drawing.Point(4, 183)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(1)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(185, 31)
         Me.Button1.TabIndex = 1866
@@ -109,8 +111,8 @@ Partial Class FormRegions
         '
         Me.NormalizeButton1.Image = Global.Outworldz.My.Resources.Resources.package_preferences
         Me.NormalizeButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.NormalizeButton1.Location = New System.Drawing.Point(4, 205)
-        Me.NormalizeButton1.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.NormalizeButton1.Location = New System.Drawing.Point(4, 216)
+        Me.NormalizeButton1.Margin = New System.Windows.Forms.Padding(1)
         Me.NormalizeButton1.Name = "NormalizeButton1"
         Me.NormalizeButton1.Size = New System.Drawing.Size(185, 32)
         Me.NormalizeButton1.TabIndex = 1865
@@ -120,7 +122,7 @@ Partial Class FormRegions
         'Z
         '
         Me.Z.Location = New System.Drawing.Point(108, 73)
-        Me.Z.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.Z.Margin = New System.Windows.Forms.Padding(1)
         Me.Z.Name = "Z"
         Me.Z.Size = New System.Drawing.Size(29, 20)
         Me.Z.TabIndex = 1864
@@ -128,7 +130,7 @@ Partial Class FormRegions
         'Y
         '
         Me.Y.Location = New System.Drawing.Point(72, 73)
-        Me.Y.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.Y.Margin = New System.Windows.Forms.Padding(1)
         Me.Y.Name = "Y"
         Me.Y.Size = New System.Drawing.Size(29, 20)
         Me.Y.TabIndex = 1863
@@ -136,7 +138,7 @@ Partial Class FormRegions
         'X
         '
         Me.X.Location = New System.Drawing.Point(36, 73)
-        Me.X.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.X.Margin = New System.Windows.Forms.Padding(1)
         Me.X.Name = "X"
         Me.X.Size = New System.Drawing.Size(29, 20)
         Me.X.TabIndex = 1862
@@ -154,7 +156,7 @@ Partial Class FormRegions
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(5, 247)
+        Me.Label1.Location = New System.Drawing.Point(1, 258)
         Me.Label1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(62, 13)
@@ -165,8 +167,8 @@ Partial Class FormRegions
         '
         Me.RegionButton.Image = Global.Outworldz.My.Resources.Resources.package_find
         Me.RegionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RegionButton.Location = New System.Drawing.Point(8, 135)
-        Me.RegionButton.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.RegionButton.Location = New System.Drawing.Point(4, 146)
+        Me.RegionButton.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionButton.Name = "RegionButton"
         Me.RegionButton.Size = New System.Drawing.Size(185, 35)
         Me.RegionButton.TabIndex = 4
@@ -178,8 +180,8 @@ Partial Class FormRegions
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
         Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.Choose_Region_word})
-        Me.RegionBox.Location = New System.Drawing.Point(8, 261)
-        Me.RegionBox.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.RegionBox.Location = New System.Drawing.Point(4, 272)
+        Me.RegionBox.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionBox.MaxDropDownItems = 15
         Me.RegionBox.Name = "RegionBox"
         Me.RegionBox.Size = New System.Drawing.Size(185, 21)
@@ -192,7 +194,7 @@ Partial Class FormRegions
         Me.WelcomeBox1.FormattingEnabled = True
         Me.WelcomeBox1.Items.AddRange(New Object() {"Hourly", "6 hour", "12 Hour", "Daily", "2 days", "3 days", "4 days", "5 days", "6 days", "Weekly"})
         Me.WelcomeBox1.Location = New System.Drawing.Point(41, 25)
-        Me.WelcomeBox1.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.WelcomeBox1.Margin = New System.Windows.Forms.Padding(1)
         Me.WelcomeBox1.Name = "WelcomeBox1"
         Me.WelcomeBox1.Size = New System.Drawing.Size(148, 21)
         Me.WelcomeBox1.TabIndex = 1
@@ -210,8 +212,8 @@ Partial Class FormRegions
         '
         Me.AddRegion.Image = Global.Outworldz.My.Resources.Resources.package_add
         Me.AddRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AddRegion.Location = New System.Drawing.Point(8, 95)
-        Me.AddRegion.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.AddRegion.Location = New System.Drawing.Point(4, 106)
+        Me.AddRegion.Margin = New System.Windows.Forms.Padding(1)
         Me.AddRegion.Name = "AddRegion"
         Me.AddRegion.Size = New System.Drawing.Size(185, 38)
         Me.AddRegion.TabIndex = 2
@@ -236,17 +238,27 @@ Partial Class FormRegions
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(72, 32)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
+        'ConciergeCheckbox
+        '
+        Me.ConciergeCheckbox.AutoSize = True
+        Me.ConciergeCheckbox.Location = New System.Drawing.Point(13, 299)
+        Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
+        Me.ConciergeCheckbox.Size = New System.Drawing.Size(111, 17)
+        Me.ConciergeCheckbox.TabIndex = 1889
+        Me.ConciergeCheckbox.Text = "Announce Visitors"
+        Me.ConciergeCheckbox.UseVisualStyleBackColor = True
+        '
         'FormRegions
         '
         Me.AllowDrop = True
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(245, 364)
+        Me.ClientSize = New System.Drawing.Size(245, 420)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.Margin = New System.Windows.Forms.Padding(1)
         Me.MaximizeBox = False
         Me.Name = "FormRegions"
         Me.Text = "Region"
@@ -277,4 +289,5 @@ Partial Class FormRegions
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents SmartStartEnabled As CheckBox
     Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents ConciergeCheckbox As CheckBox
 End Class
