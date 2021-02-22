@@ -106,13 +106,14 @@ Public Class FormBanList
 
             Settings.BanList = BanListString
             Settings.SaveSettings()
-            '"# Examples are below.=You can ban a viewer, an IP and/or a MAC address.|# 34.206.39.153=This IP from 'junk.com' is banned.|# 01:23:45:67:89:A=This MAC address is banned. Get MACs from the Robust log.|# HydraStorm=HydraStorm Copybotter|# SolarStorm=Singularity Solar Storm Copybot|#=Delete or modify any rules then close this window. Robust will restart if running.|1.1.1.1"
-            DoBanList()
+
+
 
             If IsRobustRunning() Then
                 Me.Hide()
                 PropAborting = True
                 StopRobust()
+
                 StartRobust()
                 PropAborting = False
             End If
