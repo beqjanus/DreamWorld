@@ -8,8 +8,8 @@
 Public Class ListViewColumnSorter
     Implements IComparer
 
+    Private ReadOnly ObjectCompare As CaseInsensitiveComparer
     Private ColumnToSort As Integer
-    Private ObjectCompare As CaseInsensitiveComparer
     Private OrderOfSort As SortOrder
 
     Public Sub New(ByVal col As Integer, o As SortOrder)

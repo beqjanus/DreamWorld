@@ -20,7 +20,7 @@ Public Class MySettings
     Private ReadOnly Apachein As New List(Of String)
     Private ReadOnly Apacheout As New List(Of String)
     Private _ExternalHostName As String
-    Dim _INIBusy As Integer
+
     Private _LANIP As String
     Private _MacAddress As String
     Private _PublicIP As String
@@ -136,21 +136,6 @@ Public Class MySettings
 
     Public Function LoadIni(arg As String, comment As String) As String
 
-        Dim ctr = 50 ' 5 seconds
-        If _INIBusy > 0 Then
-            BreakPoint.Show("INI IN use!")
-            Return ""
-            While _INIBusy > 0 And ctr > 0
-                Sleep(10)
-                Application.DoEvents()
-                ctr -= 1
-            End While
-        End If
-        If ctr <= 0 Then
-            _INIBusy = 0
-        End If
-        _INIBusy += 1
-
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -158,10 +143,9 @@ Public Class MySettings
         Try
             SettingsData = ReadINIFile(arg)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
             MsgBox(ex.Message)
             Logger("Warn", ex.Message, "Error")
-            Return ""
+            Return Nothing
         End Try
 
         Return arg
@@ -201,7 +185,8 @@ Public Class MySettings
                 Thread.Sleep(100)
             End Try
         End While
-        _INIBusy -= 1
+
+        SettingsData = Nothing
 
     End Sub
 
@@ -270,7 +255,7 @@ Public Class MySettings
 
     Private Function ReadINIFile(MyIni As String) As IniData
 
-        Dim waiting As Integer = 100 ' 10 sec
+        Dim waiting As Integer = 10 ' 1 sec
         While waiting > 0
             Try
                 Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
@@ -780,6 +765,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -1965,24 +1968,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 

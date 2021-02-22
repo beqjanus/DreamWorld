@@ -24,6 +24,7 @@ Partial Class FormRegions
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegions))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.ConciergeCheckbox = New System.Windows.Forms.CheckBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.SmartStartEnabled = New System.Windows.Forms.CheckBox()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -40,7 +41,6 @@ Partial Class FormRegions
         Me.AddRegion = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ConciergeCheckbox = New System.Windows.Forms.CheckBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -72,6 +72,16 @@ Partial Class FormRegions
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Region"
         '
+        'ConciergeCheckbox
+        '
+        Me.ConciergeCheckbox.AutoSize = True
+        Me.ConciergeCheckbox.Location = New System.Drawing.Point(16, 324)
+        Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
+        Me.ConciergeCheckbox.Size = New System.Drawing.Size(111, 17)
+        Me.ConciergeCheckbox.TabIndex = 1889
+        Me.ConciergeCheckbox.Text = "Announce Visitors"
+        Me.ConciergeCheckbox.UseVisualStyleBackColor = True
+        '
         'PictureBox2
         '
         Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.home
@@ -86,7 +96,7 @@ Partial Class FormRegions
         'SmartStartEnabled
         '
         Me.SmartStartEnabled.AutoSize = True
-        Me.SmartStartEnabled.Location = New System.Drawing.Point(10, 329)
+        Me.SmartStartEnabled.Location = New System.Drawing.Point(16, 345)
         Me.SmartStartEnabled.Margin = New System.Windows.Forms.Padding(1)
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(114, 17)
@@ -102,7 +112,7 @@ Partial Class FormRegions
         Me.Button1.Location = New System.Drawing.Point(4, 183)
         Me.Button1.Margin = New System.Windows.Forms.Padding(1)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(185, 31)
+        Me.Button1.Size = New System.Drawing.Size(185, 35)
         Me.Button1.TabIndex = 1866
         Me.Button1.Text = Global.Outworldz.My.Resources.Resources.ClearReg
         Me.Button1.UseVisualStyleBackColor = True
@@ -111,10 +121,10 @@ Partial Class FormRegions
         '
         Me.NormalizeButton1.Image = Global.Outworldz.My.Resources.Resources.package_preferences
         Me.NormalizeButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.NormalizeButton1.Location = New System.Drawing.Point(4, 216)
+        Me.NormalizeButton1.Location = New System.Drawing.Point(2, 222)
         Me.NormalizeButton1.Margin = New System.Windows.Forms.Padding(1)
         Me.NormalizeButton1.Name = "NormalizeButton1"
-        Me.NormalizeButton1.Size = New System.Drawing.Size(185, 32)
+        Me.NormalizeButton1.Size = New System.Drawing.Size(185, 35)
         Me.NormalizeButton1.TabIndex = 1865
         Me.NormalizeButton1.Text = Global.Outworldz.My.Resources.Resources.NormalizeRegions
         Me.NormalizeButton1.UseVisualStyleBackColor = True
@@ -156,7 +166,7 @@ Partial Class FormRegions
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(1, 258)
+        Me.Label1.Location = New System.Drawing.Point(1, 272)
         Me.Label1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(62, 13)
@@ -180,7 +190,7 @@ Partial Class FormRegions
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
         Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.Choose_Region_word})
-        Me.RegionBox.Location = New System.Drawing.Point(4, 272)
+        Me.RegionBox.Location = New System.Drawing.Point(2, 288)
         Me.RegionBox.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionBox.MaxDropDownItems = 15
         Me.RegionBox.Name = "RegionBox"
@@ -212,10 +222,10 @@ Partial Class FormRegions
         '
         Me.AddRegion.Image = Global.Outworldz.My.Resources.Resources.package_add
         Me.AddRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AddRegion.Location = New System.Drawing.Point(4, 106)
+        Me.AddRegion.Location = New System.Drawing.Point(4, 109)
         Me.AddRegion.Margin = New System.Windows.Forms.Padding(1)
         Me.AddRegion.Name = "AddRegion"
-        Me.AddRegion.Size = New System.Drawing.Size(185, 38)
+        Me.AddRegion.Size = New System.Drawing.Size(185, 35)
         Me.AddRegion.TabIndex = 2
         Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region_word
         Me.AddRegion.UseVisualStyleBackColor = True
@@ -237,16 +247,6 @@ Partial Class FormRegions
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(72, 32)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        '
-        'ConciergeCheckbox
-        '
-        Me.ConciergeCheckbox.AutoSize = True
-        Me.ConciergeCheckbox.Location = New System.Drawing.Point(13, 299)
-        Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
-        Me.ConciergeCheckbox.Size = New System.Drawing.Size(111, 17)
-        Me.ConciergeCheckbox.TabIndex = 1889
-        Me.ConciergeCheckbox.Text = "Announce Visitors"
-        Me.ConciergeCheckbox.UseVisualStyleBackColor = True
         '
         'FormRegions
         '

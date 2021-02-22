@@ -9,9 +9,9 @@ Public Class FormDisplacement
 
 #Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+    Private ReadOnly PicClick As New EventHandler(AddressOf PictureBox_Click)
     Private _screenPosition As ScreenPos
-    Private Handler As New EventHandler(AddressOf Resize_page)
-    Private PicClick As New EventHandler(AddressOf PictureBox_Click)
 
     Public Property ScreenPosition As ScreenPos
         Get

@@ -300,6 +300,7 @@ Public Class RegionMaker
                             fName = System.IO.Path.GetFileNameWithoutExtension(ini)
 
                             Dim i = Settings.LoadIni(ini, ";")
+                            If i Is Nothing Then Return 0
 
                             uuid = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
                             Dim SomeUUID As New Guid
@@ -501,6 +502,7 @@ Public Class RegionMaker
         For Each uuid As String In RegionUuids()
             Dim Name = RegionName(uuid)
             Dim ini = Settings.LoadIni(RegionIniFilePath(uuid), ";")
+            If ini Is Nothing Then Return
 
             Settings.SetIni(Name, "InternalPort", CStr(Portnumber))
             RegionPort(uuid) = Portnumber
@@ -580,6 +582,7 @@ Public Class RegionMaker
         & "Frametime =" & FrameTime(uuid) & vbCrLf _
         & "ScriptEngine =" & ScriptEngine(uuid) & vbCrLf _
         & "Publicity =" & GDPR(uuid) & vbCrLf _
+        & "Concierge =" & Concierge(uuid) & vbCrLf _
         & "SmartStart =" & SmartStart(uuid) & vbCrLf
 
         DeleteFile(fname)
@@ -1662,6 +1665,7 @@ Public Class RegionMaker
         CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
 
         Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
+        If INI Is Nothing Then Return True
 
         Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
         Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
@@ -1900,7 +1904,7 @@ Public Class RegionMaker
         ' Autobackup
         Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
 
-        If Settings.AutoBackup And String.IsNullOrEmpty(SkipAutobackup(uuid)) Then
+        If Settings.AutoBackup And String.IsNullOrEmpty((uuid)) Then
             Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
         End If
 
@@ -2061,6 +2065,7 @@ Public Class RegionMaker
         '============== Region.ini =====================
         ' Region.ini in Region Folder specific to this region
         INI = Settings.LoadIni(RegionIniFilePath(uuid), ";")
+        If INI Is Nothing Then Return True
 
         Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid)))
         Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName())

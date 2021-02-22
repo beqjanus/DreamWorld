@@ -328,7 +328,7 @@ Module Robust
 
         ' Robust Process
         Dim INI = Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";")
-
+        If INI Is Nothing Then Return False
         If Settings.AltDnsName.Length > 0 Then
             Settings.SetIni("Hypergrid", "HomeURIAlias", Settings.AltDnsName)
             Settings.SetIni("Hypergrid", "GatekeeperURIAlias", Settings.AltDnsName)

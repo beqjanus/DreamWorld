@@ -78,7 +78,7 @@
 
     End Function
 
-    Public Sub saveIARTask()
+    Public Sub SaveIARTask()
 
         If PropOpensimIsRunning() Then
 

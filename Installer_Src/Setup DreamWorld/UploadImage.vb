@@ -39,10 +39,9 @@ Module UploadImage
 
             Dim ar As IAsyncResult = req.BeginGetRequestStream(AddressOf RequestStreamAvailable, New HttpRequestState(req, params, File))
             Busy = True
-            Logit("posting..")
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Logit("Error:" & ex.Message)
+
             Log(My.Resources.Error_word, ex.Message)
             Busy = False
         End Try
@@ -82,13 +81,9 @@ Module UploadImage
     End Sub
 
     Sub UploadComplete(ByVal data As String)
-        ' Your Upload Success Routine Goes here
 
         If data <> "1" Then
             Log(My.Resources.Error_word, "Upload Failed. " & data)
-            Logit("Error:" & data)
-        Else
-            Logit("Success:" & data)
         End If
         Busy = False
 
@@ -96,10 +91,7 @@ Module UploadImage
 
     Sub UploadError(ByVal data As String)
 
-        ' Your Upload failure Routine Goes here
-        Logit("Error:" & data)
         ErrorLog("Upload Error:" + data)
-
         Busy = False
 
     End Sub
@@ -128,7 +120,6 @@ Module UploadImage
         Try
             reqStream = r_State.Request.EndGetRequestStream(ar)
         Catch ex As Exception
-            Logit("Error:" & ex.Message)
             BreakPoint.Show(ex.Message)
             UploadError(ex.Message)
             Return
@@ -188,7 +179,6 @@ Module UploadImage
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Logit("Error:" & ex.Message)
         End Try
 
         r_State.Request.BeginGetResponse(AddressOf ResponseAvailable, r_State)
@@ -202,7 +192,6 @@ Module UploadImage
         Try
             webResp = CType(r_State.Request.EndGetResponse(ar), HttpWebResponse)
         Catch ex As Exception
-            Logit("Error:" & ex.Message)
             webResp = Nothing
             BreakPoint.Show(ex.Message)
         End Try

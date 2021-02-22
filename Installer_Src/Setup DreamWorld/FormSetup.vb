@@ -25,10 +25,10 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
-    ReadOnly BackupThread As New Backups
     Private WithEvents UpdateProcess As New Process()
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
+    ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)

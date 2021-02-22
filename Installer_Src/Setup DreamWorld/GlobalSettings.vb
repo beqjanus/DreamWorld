@@ -7,7 +7,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.895"
+    Public Const _MyVersion As String = "3.896"
     Public Const _SimVersion As String = "#be49d426d9=>1610c3f741 (mantis 8862: do cancel negative cache on valid store"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
@@ -228,18 +228,6 @@ Module GlobalSettings
         Return BackupPath
 
     End Function
-
-    Public Sub Logit(message As String)
-
-        Return
-
-        Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Crash.log"), True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & " : " & message)
-            End Using
-        Catch ex As Exception
-        End Try
-    End Sub
 
     Public Function RobustName() As String
 

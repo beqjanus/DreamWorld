@@ -47,9 +47,8 @@ Module Diags
 
     Public Function GetPostData(Optional Name As String = "") As String
 
-#Disable Warning CA1062 ' Validate arguments of public methods
         If Name.Length = 0 Then Name = Settings.DNSName   ' optional Alt DNS name can come in
-#Enable Warning CA1062 ' Validate arguments of public methods
+
         Dim fs = CreateObject("Scripting.FileSystemObject")
         Dim d As Object = fs.GetDrive(fs.GetDriveName(fs.GetAbsolutePathName("C:")))
 

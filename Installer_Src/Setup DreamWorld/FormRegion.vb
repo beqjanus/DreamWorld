@@ -201,7 +201,8 @@ Public Class FormRegion
         Chooseform.FillGrid("Group")  ' populate the grid with either Group or RegionName
 
         Dim chosen As String
-        Chooseform.ShowDialog()
+        Dim result = Chooseform.ShowDialog()
+        If result = DialogResult.Cancel Then Return ""
 
         Try
             ' Read the chosen sim name
@@ -237,7 +238,7 @@ Public Class FormRegion
             ConciergeCheckBox.Checked = False
             CoordX.Text = (PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
             CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
-            RegionPort.Text = CStr(PropRegionClass.LargestPort())
+            'RegionPort.Text = CStr(PropRegionClass.LargestPort())
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
@@ -557,6 +558,19 @@ Public Class FormRegion
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        FormSetup.PropChangedRegionSettings = True
+        Dim message = RegionValidate()
+        If Len(message) > 0 Then
+            Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+            If v = vbYes Then
+                Me.Close()
+            End If
+        End If
+
+        WriteRegion(RegionUUID)
+        Firewall.SetFirewall()
+        PropUpdateView() = True
+        Changed1 = False
         Me.Close()
 
     End Sub
@@ -1131,8 +1145,8 @@ Public Class FormRegion
 
         PropRegionClass.RegionName(RegionUUID) = RegionName.Text
 
-        PropRegionClass.RegionPort(RegionUUID) = CInt("0" & RegionPort.Text)
-        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.LargestPort
+        PropRegionClass.RegionPort(RegionUUID) = PropRegionClass.LargestPort
+        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.RegionPort(RegionUUID)
         PropRegionClass.SizeX(RegionUUID) = BoxSize
         PropRegionClass.SizeY(RegionUUID) = BoxSize
         PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked

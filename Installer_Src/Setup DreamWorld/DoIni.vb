@@ -101,6 +101,7 @@ Module DoIni
         'Gloebits.ini
 
         Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";")
+        If filename Is Nothing Then Return True
 
         Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
         Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
@@ -182,6 +183,8 @@ Module DoIni
         DoEditForeigners()
 
         Dim filename = Settings.LoadIni(d, ";")
+        If filename Is Nothing Then Return True
+
         Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
@@ -399,6 +402,8 @@ Module DoIni
     Public Function DoWhoGotWhat() As Boolean
 
         Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";")
+        If filename Is Nothing Then Return True
+
         Settings.SetIni("WhoGotWhat", "MachineID", Settings.MachineID)
         Settings.SaveINI(filename, System.Text.Encoding.UTF8)
         Return False
@@ -438,16 +443,6 @@ Module DoIni
         If DoApache() Then Return True      ' Apache.conf
         If DoIceCast() Then Return True     ' Icecast
 
-        Return False
-
-    End Function
-
-    Public Function SetRegionINI(regionname As String, key As String, value As String) As Boolean
-
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(regionname)
-        Dim filename = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
-        Settings.SetIni(regionname, key, value)
-        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
         Return False
 
     End Function
@@ -532,6 +527,8 @@ Module DoIni
     Private Function DoFlotsamINI() As Boolean
 
         Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-include\FlotsamCache.ini", ";")
+        If filename Is Nothing Then Return True
+
         TextPrint("->Set Flotsam Cache")
         Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
         Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
@@ -546,6 +543,8 @@ Module DoIni
 
         TextPrint("->Set PHP7")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP7\php.ini")
+        If ini Is Nothing Then Return True
+
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/PHP7/ext/""")
         Settings.SetLiteralIni("doc_root", "doc_root = """ & FormSetup.PropCurSlashDir & "/OutworldzFiles/Apache/htdocs/""")
@@ -639,11 +638,15 @@ Module DoIni
         ' There are two Wifi's so search will work
 
         Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Wifi.ini", ";")
+        If filename Is Nothing Then Return True
+
         TextPrint("->Set Diva Wifi page")
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
         Settings.SaveINI(filename, System.Text.Encoding.UTF8)
 
         filename = Settings.LoadIni(Settings.OpensimBinPath & "Wifi.ini", ";")
+        If filename Is Nothing Then Return True
+
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         If Settings.ServerType = RobustServer Then ' wifi could be on or off

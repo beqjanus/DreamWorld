@@ -10,7 +10,7 @@
 
         Try
             Dim path = IO.Path.Combine(CurDir(), "OutworldzFiles\Logs\Error.log")
-            Logit("Sending")
+
             Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Error.log"), True)
                 outputFile.WriteLine("[Reason]" & vbCrLf)
                 outputFile.WriteLine(ReasonText.Text & vbCrLf)
@@ -19,7 +19,7 @@
                     outputFile.WriteLine(EmailTextBox.Text & vbCrLf)
                 End If
             End Using
-            Logit(ReasonText.Text)
+
             Dim CGI = New Uri("https://outworldz.com/cgi/uploadcrash.plx")
             PostContentUploadFile(path, CGI)
             DeleteFile(path)

@@ -14,8 +14,8 @@ Public Class ScreenPos
 
 #Region "Private Fields"
 
+    Private ReadOnly parser As IniParser.FileIniDataParser
     Dim gName As String
-    Private parser As IniParser.FileIniDataParser
 
 #End Region
 
@@ -156,7 +156,6 @@ Public Class ScreenPos
     End Function
 
     Public Sub LoadXYIni()
-#Enable Warning CA1822 ' Mark members as static
 
         Dim waiting As Integer = 50 ' 5 sec
         While waiting > 0
@@ -223,10 +222,6 @@ Public Class ScreenPos
         End While
 
     End Sub
-
-#Disable Warning CA1822 ' Mark members as static
-#Disable Warning CA1822 ' Mark members as static
-#Disable Warning CA1822 ' Mark members as static
 
     Public Sub SaveHW(valueH As Integer, valueW As Integer)
         If XYData Is Nothing Then

@@ -19,11 +19,11 @@ Public Class UPnp
 
 #Region "Private Fields"
 
+    ReadOnly UPnpnat As NATUPNPLib.UPnPNAT
     Private CacheIP As String = ""
 
     Private staticEnabled As Boolean = True
     Dim staticMapping As NATUPNPLib.IStaticPortMappingCollection
-    Dim UPnpnat As NATUPNPLib.UPnPNAT
 
 #End Region
 
