@@ -32,7 +32,7 @@ Public Class FormRegion
         Advanced.Text = Global.Outworldz.My.Resources.Regions_word
         AllowGods.Text = Global.Outworldz.My.Resources.Allow_Or_Disallow_Gods_word
         BirdsCheckBox.Text = Global.Outworldz.My.Resources.Bird_Module_word
-        Button1.Text = Global.Outworldz.My.Resources.Save_word
+        SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         DeleteButton.Text = Global.Outworldz.My.Resources.Delete_word
         DeregisterButton.Text = Global.Outworldz.My.Resources.Deregister_word
         DisableGBCheckBox.Text = Global.Outworldz.My.Resources.Disable_Gloebits_word
@@ -68,7 +68,7 @@ Public Class FormRegion
         MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
         Maps_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
-        NameTip.Text = Global.Outworldz.My.Resources.AlphaNum
+
         NoPublish.Text = Global.Outworldz.My.Resources.No_Publish_Items
         Physics_Separate.Text = Global.Outworldz.My.Resources.BP
         Physics_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
@@ -195,27 +195,29 @@ Public Class FormRegion
 
     Shared Function RegionChosen(regionName As String) As String
 
-        Dim Chooseform As New FormChooser ' form for choosing a set of regions
-        ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-
-        Chooseform.FillGrid("Group")  ' populate the grid with either Group or RegionName
-
+        Dim result As DialogResult
         Dim chosen As String
-        Dim result = Chooseform.ShowDialog()
-        If result = DialogResult.Cancel Then Return ""
 
-        Try
-            ' Read the chosen sim name
-            chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-            If chosen = "! Add New Name" Then
-                chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
+        Using Chooseform As New FormChooser ' form for choosing a set of regions
+            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+            Chooseform.FillGrid("Group")  ' populate the grid with either Group or RegionName
+            result = Chooseform.ShowDialog()
+            If result = DialogResult.Cancel Then
+                Return ""
             End If
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            chosen = ""
-        End Try
 
-        Chooseform.Dispose()
+            Try
+                ' Read the chosen sim name
+                chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
+                If chosen = "! Add New Name" Then
+                    chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
+                End If
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                chosen = ""
+            End Try
+
+        End Using
         Return chosen
 
     End Function
@@ -556,22 +558,17 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         FormSetup.PropChangedRegionSettings = True
         Dim message = RegionValidate()
         If Len(message) > 0 Then
             Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If v = vbYes Then
-                Me.Close()
+                Changed1 = False
+                Close()
             End If
         End If
-
-        WriteRegion(RegionUUID)
-        Firewall.SetFirewall()
-        PropUpdateView() = True
-        Changed1 = False
-        Me.Close()
 
     End Sub
 
