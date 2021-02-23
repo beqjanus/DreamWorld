@@ -237,7 +237,7 @@ Module GlobalSettings
 
     Public Function SafeFolderName() As String
 
-        Dim destinationpath As String = IO.Path.Combine(Settings.CurrentDirectory(), "tmp/" & CStr(RandomNumber.Random))
+        Dim destinationpath As String = IO.Path.Combine(Settings.CurrentDirectory(), "tmp/" & CStr(DateTime.Now.Ticks))
         If Not System.IO.Directory.Exists(destinationpath) Then
             System.IO.Directory.CreateDirectory(destinationpath)
         End If

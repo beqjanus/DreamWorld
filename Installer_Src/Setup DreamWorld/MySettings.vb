@@ -180,7 +180,7 @@ Public Class MySettings
                 parser.WriteFile(Filename, SettingsData, encoding)
                 Retry = 0
             Catch ex As Exception
-                'ErrorLog("Error:" + ex.Message)
+                ErrorLog("Error:" + ex.Message)
                 Retry -= 1
                 Thread.Sleep(100)
             End Try
@@ -217,7 +217,6 @@ Public Class MySettings
         Try
             SettingsData(section)(key) = value
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
         End Try
 
@@ -230,7 +229,6 @@ Public Class MySettings
         Try
             MyData(section)(key) = value
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
         End Try
 
@@ -765,24 +763,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -1968,6 +1948,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 

@@ -6,6 +6,7 @@
 #End Region
 
 Imports System.IO
+Imports System.Threading
 
 Public Module Firewall
 
@@ -49,7 +50,7 @@ Public Module Firewall
         Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & ipaddress & vbCrLf
         Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & ipaddress & """ dir=in profile=any action=block protocol=any remoteip=" & ipaddress & vbCrLf
 
-        Write(Command)
+        RunFirewall(Command)
 
     End Sub
 
@@ -87,7 +88,7 @@ Public Module Firewall
     Public Sub ReleaseIp(Ip As String)
 
         Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & Ip & "" & vbCrLf
-        Write(Command)
+        RunFirewall(Command)
 
     End Sub
 
@@ -95,33 +96,39 @@ Public Module Firewall
 
         Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
 
-        Write(CMD)
+        Dim start As ParameterizedThreadStart = AddressOf RunFirewall
+        Dim _WebThread1 = New Thread(start)
+        _WebThread1.SetApartmentState(ApartmentState.STA)
+        _WebThread1.Priority = ThreadPriority.BelowNormal
+        _WebThread1.Start(CMD)
 
     End Sub
 
-    Private Sub Write(cmd As String)
+    Private Sub RunFirewall(CMD As String)
 
+        Dim file = IO.Path.Combine(Settings.CurrentDirectory, CStr(DateTime.Now.Ticks) & "_fw.bat")
         Try
-            Using ns As StreamWriter = New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "fw.bat"), False)
-                ns.WriteLine(cmd)
+            Using ns As StreamWriter = New StreamWriter(file, False)
+                ns.WriteLine(CMD)
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "",
-            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "fw.bat"),
-            .WindowStyle = ProcessWindowStyle.Hidden,
-            .Verb = "runas"
-        }
+        .Arguments = "",
+        .FileName = file,
+        .WindowStyle = ProcessWindowStyle.Hidden,
+        .Verb = "runas"
+    }
         Using ProcessFirewall As Process = New Process With {
-                .StartInfo = pi
-            }
+            .StartInfo = pi
+        }
             Try
                 ProcessFirewall.Start()
+                ProcessFirewall.WaitForExit()
+                FileStuff.DeleteFile(file)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
                 Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try
         End Using

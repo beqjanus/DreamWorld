@@ -363,7 +363,7 @@ Public Class FormSetup
             Try
                 Update_version = client.DownloadString(PropDomain & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+
                 ErrorLog(My.Resources.Wrong & " " & ex.Message)
                 Return
             End Try
@@ -2385,7 +2385,7 @@ Public Class FormSetup
                                 & vbCrLf & "@pause" & vbCrLf)
                         End Using
                     Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
+
                         ErrorLog("Failed to create restore file:" & ex.Message)
                         Return
                     End Try
@@ -2718,7 +2718,7 @@ Public Class FormSetup
         Try
             pUpdate.Start()
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+
             ErrorLog(My.Resources.ErrInstall)
         End Try
         End ' program
@@ -3417,7 +3417,7 @@ Public Class FormSetup
 
     Private Sub SaveInventoryIARToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveInventoryIARToolStripMenuItem1.Click
 
-        saveIARTask()
+        SaveIARTask()
 
     End Sub
 
