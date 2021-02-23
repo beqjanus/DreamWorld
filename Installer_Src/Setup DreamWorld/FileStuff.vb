@@ -7,6 +7,7 @@ Module FileStuff
 
         ' cleanup old code and files
         Dim ToDrop = New List(Of String) From {
+            "fw.,bat",
             "Downloader.exe",
             "DreamGridSetup.exe",
             "Downloader.exe.config",
