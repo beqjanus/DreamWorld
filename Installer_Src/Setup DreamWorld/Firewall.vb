@@ -31,30 +31,23 @@ Public Module Firewall
 
         ' regions need both
 
-        For Each RegionUUID As String In GlobalSettings.PropRegionClass.RegionUuids
-
-            Dim R As Integer = CInt("0" & PropRegionClass.RegionPort(RegionUUID))
-            If R > 0 Then
-                Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Port " & CStr(R) & """ dir=in action=allow protocol=TCP localport=" & CStr(R) & vbCrLf _
-                          & "netsh advfirewall firewall add rule name=""Region UDP Port " & CStr(R) & """ dir=in action=allow protocol=UDP localport=" & CStr(R) & vbCrLf
-            End If
-
-        Next
+        Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Ports" & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(PropRegionClass.LargestPort - 1) & vbCrLf _
+                  & "netsh advfirewall firewall add rule name=""Region UDP Ports" & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(PropRegionClass.LargestPort - 1) & vbCrLf
 
         Return Command
 
     End Function
 
-    Public Sub BlockIP(ipaddress As String)
+    Public Sub BlockIP(IPAddress As String)
 
-        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & ipaddress & vbCrLf
-        Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & ipaddress & """ dir=in profile=any action=block protocol=any remoteip=" & ipaddress & vbCrLf
+        Dim Command As String = "netsh advfirewall firewall delete rule name=""Opensim Deny " & IPAddress & vbCrLf
+        Command += "netsh advfirewall firewall add rule name=""Opensim Deny " & IPAddress & """ dir=in profile=any action=block protocol=any remoteip=" & IPAddress & vbCrLf
 
         RunFirewall(Command)
 
     End Sub
 
-    Function DeleteFirewallRules() As String
+    Function DeleteNewFirewallRules() As String
 
         Dim Command As String = "netsh advfirewall firewall delete rule name=""Diagnostics TCP Port " & CStr(Settings.DiagnosticPort) & """" & vbCrLf _
                           & "netsh advfirewall firewall delete rule name=""Opensim HTTP TCP Port " & CStr(Settings.HttpPort) & """" & vbCrLf _
@@ -67,6 +60,26 @@ Public Module Firewall
                           & "netsh advfirewall firewall delete rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """" & vbCrLf
 
         End If
+
+        Command = Command & "netsh advfirewall firewall delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
+
+        Command = Command & "netsh advfirewall firewall delete rule name=""Region TCP Ports" & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Region UDP Ports" & """" & vbCrLf
+
+        Return Command
+
+    End Function
+
+    Function DeleteOldFirewallRules() As String
+
+        Dim Command As String = "netsh advfirewall firewall delete rule name=""Diagnostics TCP Port " & CStr(Settings.DiagnosticPort) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Opensim HTTP TCP Port " & CStr(Settings.HttpPort) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Opensim HTTP UDP Port " & CStr(Settings.HttpPort) & """" & vbCrLf
+
+        Command += "netsh advfirewall firewall delete rule name=""Icecast Port1 UDP " & CStr(Settings.SCPortBase) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Icecast Port1 TCP " & CStr(Settings.SCPortBase) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Icecast Port2 UDP " & CStr(Settings.SCPortBase1) & """" & vbCrLf _
+                          & "netsh advfirewall firewall delete rule name=""Icecast Port2 TCP " & CStr(Settings.SCPortBase1) & """" & vbCrLf
 
         If Settings.ApacheEnable Then
             Command = Command & "netsh advfirewall firewall delete rule name=""Apache HTTP Web Port " & CStr(Settings.ApachePort) & """" & vbCrLf
@@ -94,19 +107,30 @@ Public Module Firewall
 
     Sub SetFirewall()
 
-        Dim CMD As String = DeleteFirewallRules() & AddFirewallRules()
-
+#Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf RunFirewall
-        Dim _WebThread1 = New Thread(start)
-        _WebThread1.SetApartmentState(ApartmentState.STA)
-        _WebThread1.Priority = ThreadPriority.BelowNormal
-        _WebThread1.Start(CMD)
+#Enable Warning BC42016 ' Implicit conversion
+
+        If Not Settings.FirewallMigrated Then
+            Dim CMD1 As String = DeleteOldFirewallRules()
+            Dim _WebThread1 = New Thread(start)
+            _WebThread1.SetApartmentState(ApartmentState.STA)
+            _WebThread1.Priority = ThreadPriority.BelowNormal
+            _WebThread1.Start(CMD1)
+            Settings.FirewallMigrated = True
+        End If
+
+        Dim CMD2 As String = DeleteNewFirewallRules() & AddFirewallRules()
+        Dim _WebThread2 = New Thread(start)
+        _WebThread2.SetApartmentState(ApartmentState.STA)
+        _WebThread2.Priority = ThreadPriority.BelowNormal
+        _WebThread2.Start(CMD2)
 
     End Sub
 
     Private Sub RunFirewall(CMD As String)
 
-        Dim file = IO.Path.Combine(Settings.CurrentDirectory, CStr(DateTime.Now.Ticks) & "_fw.bat")
+        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/tmp/" & CStr(DateTime.Now.Ticks) & "_fw.bat")
         Try
             Using ns As StreamWriter = New StreamWriter(file, False)
                 ns.WriteLine(CMD)

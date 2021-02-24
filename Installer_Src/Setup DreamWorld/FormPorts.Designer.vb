@@ -62,29 +62,25 @@ Partial Class FormPorts
         Me.GroupBoxA.Controls.Add(Me.PrivatePort)
         Me.GroupBoxA.Controls.Add(Me.DiagnosticPort)
         Me.GroupBoxA.Controls.Add(Me.Label4)
-        Me.GroupBoxA.Location = New System.Drawing.Point(18, 58)
-        Me.GroupBoxA.Margin = New System.Windows.Forms.Padding(5)
+        Me.GroupBoxA.Location = New System.Drawing.Point(12, 39)
         Me.GroupBoxA.Name = "GroupBoxA"
-        Me.GroupBoxA.Padding = New System.Windows.Forms.Padding(5)
-        Me.GroupBoxA.Size = New System.Drawing.Size(406, 388)
+        Me.GroupBoxA.Size = New System.Drawing.Size(271, 259)
         Me.GroupBoxA.TabIndex = 45
         Me.GroupBoxA.TabStop = False
         Me.GroupBoxA.Text = "Ports"
         '
         'FirstRegionPort
         '
-        Me.FirstRegionPort.Location = New System.Drawing.Point(247, 185)
-        Me.FirstRegionPort.Margin = New System.Windows.Forms.Padding(5)
+        Me.FirstRegionPort.Location = New System.Drawing.Point(165, 123)
         Me.FirstRegionPort.Name = "FirstRegionPort"
-        Me.FirstRegionPort.Size = New System.Drawing.Size(69, 22)
+        Me.FirstRegionPort.Size = New System.Drawing.Size(47, 22)
         Me.FirstRegionPort.TabIndex = 25
         Me.ToolTip1.SetToolTip(Me.FirstRegionPort, Global.Outworldz.My.Resources.Resources.Default_8004_word)
         '
         'OverrideNameLabel
         '
         Me.OverrideNameLabel.AutoSize = True
-        Me.OverrideNameLabel.Location = New System.Drawing.Point(30, 290)
-        Me.OverrideNameLabel.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.OverrideNameLabel.Location = New System.Drawing.Point(20, 193)
         Me.OverrideNameLabel.Name = "OverrideNameLabel"
         Me.OverrideNameLabel.Size = New System.Drawing.Size(244, 16)
         Me.OverrideNameLabel.TabIndex = 1864
@@ -94,8 +90,7 @@ Partial Class FormPorts
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(29, 194)
-        Me.Label26.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label26.Location = New System.Drawing.Point(19, 129)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(119, 16)
         Me.Label26.TabIndex = 1861
@@ -103,18 +98,16 @@ Partial Class FormPorts
         '
         'ExternalHostName
         '
-        Me.ExternalHostName.Location = New System.Drawing.Point(34, 329)
-        Me.ExternalHostName.Margin = New System.Windows.Forms.Padding(5)
+        Me.ExternalHostName.Location = New System.Drawing.Point(23, 219)
         Me.ExternalHostName.Name = "ExternalHostName"
-        Me.ExternalHostName.Size = New System.Drawing.Size(326, 22)
+        Me.ExternalHostName.Size = New System.Drawing.Size(219, 22)
         Me.ExternalHostName.TabIndex = 1863
         Me.ToolTip1.SetToolTip(Me.ExternalHostName, Global.Outworldz.My.Resources.Resources.External_text)
         '
         'MaxP
         '
         Me.MaxP.AutoSize = True
-        Me.MaxP.Location = New System.Drawing.Point(48, 229)
-        Me.MaxP.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.MaxP.Location = New System.Drawing.Point(32, 153)
         Me.MaxP.Name = "MaxP"
         Me.MaxP.Size = New System.Drawing.Size(90, 16)
         Me.MaxP.TabIndex = 1862
@@ -124,11 +117,10 @@ Partial Class FormPorts
         '
         Me.Upnp.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.Upnp.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.Upnp.Location = New System.Drawing.Point(274, 26)
-        Me.Upnp.Margin = New System.Windows.Forms.Padding(5)
-        Me.Upnp.MinimumSize = New System.Drawing.Size(24, 24)
+        Me.Upnp.Location = New System.Drawing.Point(183, 17)
+        Me.Upnp.MinimumSize = New System.Drawing.Size(16, 16)
         Me.Upnp.Name = "Upnp"
-        Me.Upnp.Size = New System.Drawing.Size(25, 25)
+        Me.Upnp.Size = New System.Drawing.Size(17, 17)
         Me.Upnp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.Upnp.TabIndex = 1859
         Me.Upnp.TabStop = False
@@ -136,10 +128,9 @@ Partial Class FormPorts
         'uPnPEnabled
         '
         Me.uPnPEnabled.AutoSize = True
-        Me.uPnPEnabled.Location = New System.Drawing.Point(34, 35)
-        Me.uPnPEnabled.Margin = New System.Windows.Forms.Padding(5)
+        Me.uPnPEnabled.Location = New System.Drawing.Point(23, 23)
         Me.uPnPEnabled.Name = "uPnPEnabled"
-        Me.uPnPEnabled.Size = New System.Drawing.Size(123, 21)
+        Me.uPnPEnabled.Size = New System.Drawing.Size(116, 20)
         Me.uPnPEnabled.TabIndex = 21
         Me.uPnPEnabled.Text = Global.Outworldz.My.Resources.Resources.UPnP_Enabled_word
         Me.ToolTip1.SetToolTip(Me.uPnPEnabled, Global.Outworldz.My.Resources.Resources.UPnP_Enabled_text)
@@ -148,8 +139,7 @@ Partial Class FormPorts
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(26, 155)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label7.Location = New System.Drawing.Point(17, 103)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(77, 16)
         Me.Label7.TabIndex = 38
@@ -158,8 +148,7 @@ Partial Class FormPorts
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(29, 77)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label5.Location = New System.Drawing.Point(19, 51)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(106, 16)
         Me.Label5.TabIndex = 33
@@ -167,36 +156,32 @@ Partial Class FormPorts
         '
         'HTTPPort
         '
-        Me.HTTPPort.Location = New System.Drawing.Point(247, 109)
-        Me.HTTPPort.Margin = New System.Windows.Forms.Padding(5)
+        Me.HTTPPort.Location = New System.Drawing.Point(165, 73)
         Me.HTTPPort.Name = "HTTPPort"
-        Me.HTTPPort.Size = New System.Drawing.Size(69, 22)
+        Me.HTTPPort.Size = New System.Drawing.Size(47, 22)
         Me.HTTPPort.TabIndex = 23
         Me.ToolTip1.SetToolTip(Me.HTTPPort, Global.Outworldz.My.Resources.Resources.Default_8002_word)
         '
         'PrivatePort
         '
-        Me.PrivatePort.Location = New System.Drawing.Point(247, 149)
-        Me.PrivatePort.Margin = New System.Windows.Forms.Padding(5)
+        Me.PrivatePort.Location = New System.Drawing.Point(165, 99)
         Me.PrivatePort.Name = "PrivatePort"
-        Me.PrivatePort.Size = New System.Drawing.Size(69, 22)
+        Me.PrivatePort.Size = New System.Drawing.Size(47, 22)
         Me.PrivatePort.TabIndex = 24
         Me.ToolTip1.SetToolTip(Me.PrivatePort, Global.Outworldz.My.Resources.Resources.Default_8003_word)
         '
         'DiagnosticPort
         '
-        Me.DiagnosticPort.Location = New System.Drawing.Point(247, 71)
-        Me.DiagnosticPort.Margin = New System.Windows.Forms.Padding(5)
+        Me.DiagnosticPort.Location = New System.Drawing.Point(165, 47)
         Me.DiagnosticPort.Name = "DiagnosticPort"
-        Me.DiagnosticPort.Size = New System.Drawing.Size(69, 22)
+        Me.DiagnosticPort.Size = New System.Drawing.Size(47, 22)
         Me.DiagnosticPort.TabIndex = 22
         Me.ToolTip1.SetToolTip(Me.DiagnosticPort, Global.Outworldz.My.Resources.Resources.Default_8001_word)
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(26, 114)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
+        Me.Label4.Location = New System.Drawing.Point(17, 76)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(59, 16)
         Me.Label4.TabIndex = 32
@@ -204,13 +189,12 @@ Partial Class FormPorts
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(443, 31)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip2.Size = New System.Drawing.Size(295, 30)
         Me.MenuStrip2.TabIndex = 1890
         Me.MenuStrip2.Text = "0"
         '
@@ -218,19 +202,18 @@ Partial Class FormPorts
         '
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(89, 29)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormPorts
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(443, 458)
+        Me.ClientSize = New System.Drawing.Size(295, 305)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBoxA)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5)
         Me.Name = "FormPorts"
         Me.Text = "Region Ports"
         Me.GroupBoxA.ResumeLayout(False)

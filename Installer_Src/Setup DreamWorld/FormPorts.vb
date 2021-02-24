@@ -163,9 +163,6 @@ Public Class FormPorts
 
     End Sub
 
-    Private Sub OverrideNameLabel_Click(sender As Object, e As EventArgs) Handles OverrideNameLabel.Click
-
-    End Sub
 
     Private Sub PrivatePort_TextChanged(sender As Object, e As EventArgs) Handles PrivatePort.TextChanged
 
@@ -188,6 +185,7 @@ Public Class FormPorts
         HelpManual("Ports")
 
     End Sub
+
 
 #End Region
 
