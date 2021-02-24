@@ -644,7 +644,7 @@ Module DoIni
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
         Settings.SaveINI(filename, System.Text.Encoding.UTF8)
 
-        filename = Settings.LoadIni(Settings.OpensimBinPath & "Wifi.ini", ";")
+        filename = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Wifi.ini"), ";")
         If filename Is Nothing Then Return True
 
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
