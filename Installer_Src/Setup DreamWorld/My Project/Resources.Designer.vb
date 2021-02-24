@@ -1497,7 +1497,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Click to choose a group.
+        '''  Looks up a localized string similar to Click to choose a DOS box to hold this region.
         '''</summary>
         Friend ReadOnly Property Click_2_Choose() As String
             Get
@@ -1533,7 +1533,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Click to set up the Database.
+        '''  Looks up a localized string similar to Click to set up the MySQL Database.
         '''</summary>
         Friend ReadOnly Property Click_Database() As String
             Get
@@ -1560,6 +1560,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Click to Set up the File System Asset Database (FSassets) which is a fast and reliable database of files.
+        '''</summary>
+        Friend ReadOnly Property Click_Fsassets() As String
+            Get
+                Return ResourceManager.GetString("Click_Fsassets", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click to Enable Hypergrid or change DNS Name.
         '''</summary>
         Friend ReadOnly Property Click_HG() As String
@@ -1578,7 +1587,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Click to set up Maps.
+        '''  Looks up a localized string similar to Click to set up Maps, clear maps,  or choose map types.
         '''</summary>
         Friend ReadOnly Property Click_Maps() As String
             Get
@@ -1614,7 +1623,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Click to set up  Regions.
+        '''  Looks up a localized string similar to Click to set up basic Region options..
         '''</summary>
         Friend ReadOnly Property Click_Regions() As String
             Get
@@ -1623,7 +1632,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Click to Set up Start/Stop.
+        '''  Looks up a localized string similar to Click to Set up Start/Stop/Recycle and Crash options.
         '''</summary>
         Friend ReadOnly Property Click_Restart() As String
             Get
@@ -1646,6 +1655,15 @@ Namespace My.Resources
         Friend ReadOnly Property Click_Setup() As String
             Get
                 Return ResourceManager.GetString("Click_Setup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Click to Setup the Optional Joomla and jOpensim CMS manager - a Web UI for Opensim.
+        '''</summary>
+        Friend ReadOnly Property Click_Setup_Jopensim() As String
+            Get
+                Return ResourceManager.GetString("Click_Setup_Jopensim", resourceCulture)
             End Get
         End Property
         
@@ -1695,7 +1713,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Click to load the lower left corner of the file into this location..
+        '''  Looks up a localized string similar to Click to load the lower left corner of the file into this location. Regions grow up and to the right .
         '''</summary>
         Friend ReadOnly Property Click_To_Load_Here() As String
             Get
@@ -1709,6 +1727,15 @@ Namespace My.Resources
         Friend ReadOnly Property Click_to_Request_Voice_Service() As String
             Get
                 Return ResourceManager.GetString("Click_to_Request_Voice_Service", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Clkick to Setup Search Options for Hyperica  or JOpensim.
+        '''</summary>
+        Friend ReadOnly Property Click_to_Setup_Search() As String
+            Get
+                Return ResourceManager.GetString("Click_to_Setup_Search", resourceCulture)
             End Get
         End Property
         
@@ -3573,7 +3600,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to File System Assets Database.
+        '''  Looks up a localized string similar to File System Database.
         '''</summary>
         Friend ReadOnly Property FSassets() As String
             Get
@@ -8380,6 +8407,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Run Backup Now.
+        '''</summary>
+        Friend ReadOnly Property System_Backup_Now_word() As String
+            Get
+                Return ResourceManager.GetString("System_Backup_Now_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to System Backup.
         '''</summary>
         Friend ReadOnly Property System_Backup_word() As String
@@ -8671,6 +8707,168 @@ Namespace My.Resources
         Friend ReadOnly Property Troubleshooting_word() As String
             Get
                 Return ResourceManager.GetString("Troubleshooting_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enables Apache Web server to run as a service..
+        '''</summary>
+        Friend ReadOnly Property tt_Apache_Enable() As String
+            Get
+                Return ResourceManager.GetString("tt_Apache_Enable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enables a redirect of the home page to the &quot;Dreamgrid&quot; folder in htdocs.
+        '''</summary>
+        Friend ReadOnly Property tt_Apache_EnableDiva() As String
+            Get
+                Return ResourceManager.GetString("tt_Apache_EnableDiva", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enables a redirect of the home page to the JOpensim folder in htdocs.
+        '''</summary>
+        Friend ReadOnly Property tt_Apache_EnableJOpensim() As String
+            Get
+                Return ResourceManager.GetString("tt_Apache_EnableJOpensim", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enables a redirect of the home page to the &quot;Other&quot; folder in htdocs.
+        '''</summary>
+        Friend ReadOnly Property tt_Apache_EnableOther() As String
+            Get
+                Return ResourceManager.GetString("tt_Apache_EnableOther", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enables a redirect of the home page to the &quot;WordPress&quot; folder in htdocs.
+        '''</summary>
+        Friend ReadOnly Property tt_Apache_EnableWP() As String
+            Get
+                Return ResourceManager.GetString("tt_Apache_EnableWP", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to The name of the &quot;other&quot; folder. Must be located in Apache\htdocs folder. All web traffic to the / page will be redirected to this folder..
+        '''</summary>
+        Friend ReadOnly Property tt_Apache_Other() As String
+            Get
+                Return ResourceManager.GetString("tt_Apache_Other", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Typically Port 80, the WWW port.  If port 80 blocked by your ISP, 8000 is a good choice..
+        '''</summary>
+        Friend ReadOnly Property tt_Apache_Port() As String
+            Get
+                Return ResourceManager.GetString("tt_Apache_Port", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Creates a basic sitemap for search engines to find and index your grid..
+        '''</summary>
+        Friend ReadOnly Property tt_Apache_Sitemap() As String
+            Get
+                Return ResourceManager.GetString("tt_Apache_Sitemap", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backs up the Custom Web pages folder in the Diva Web Server to a zip file.
+        '''</summary>
+        Friend ReadOnly Property tt_Backup_Custom() As String
+            Get
+                Return ResourceManager.GetString("tt_Backup_Custom", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backs up the FSassets  folder. Thjsi is a very large  backup. It will do an incremental backup, of just changes..
+        '''</summary>
+        Friend ReadOnly Property tt_Backup_Fsassets() As String
+            Get
+                Return ResourceManager.GetString("tt_Backup_Fsassets", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Runs the selected backups now..
+        '''</summary>
+        Friend ReadOnly Property tt_Backup_Now() As String
+            Get
+                Return ResourceManager.GetString("tt_Backup_Now", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backs up all the region INI files.
+        '''</summary>
+        Friend ReadOnly Property tt_Backup_Regions() As String
+            Get
+                Return ResourceManager.GetString("tt_Backup_Regions", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backs up trhe Settings.ini and XYSettings.ini files  to a zip file. These hold all setings you have ever changed.
+        '''</summary>
+        Friend ReadOnly Property tt_Backup_Settings() As String
+            Get
+                Return ResourceManager.GetString("tt_Backup_Settings", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Backup MySQL to two MySQLDump files, one for robust, one for regions. This is a portable, human readioable format.
+        '''</summary>
+        Friend ReadOnly Property tt_Backup_SQL() As String
+            Get
+                Return ResourceManager.GetString("tt_Backup_SQL", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to How close to the sim border the birds will fly.  iff they get too close thay will fly intoi anothert sim.  And die. And die. And die until it fills up the sim.
+        '''</summary>
+        Friend ReadOnly Property tt_Bird_Border_size() As String
+            Get
+                Return ResourceManager.GetString("tt_Bird_Border_size", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to How manuy birds will appear, 1-100, the more biords the better the CPU and network is needed.
+        '''</summary>
+        Friend ReadOnly Property tt_BirdsFlockSize() As String
+            Get
+                Return ResourceManager.GetString("tt_BirdsFlockSize", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Maximum height above ground.
+        '''</summary>
+        Friend ReadOnly Property tt_BirdsMaxHeightTextBox() As String
+            Get
+                Return ResourceManager.GetString("tt_BirdsMaxHeightTextBox", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Click to Setup Backup types.  Usually all of them should be set to On..
+        '''</summary>
+        Friend ReadOnly Property tt_Click_to_Set_Backup_Types() As String
+            Get
+                Return ResourceManager.GetString("tt_Click_to_Set_Backup_Types", resourceCulture)
             End Get
         End Property
         

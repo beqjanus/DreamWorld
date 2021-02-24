@@ -22,6 +22,7 @@ Partial Class FormBackupCheckboxes
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormBackupCheckboxes))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.BackupSQlCheckBox = New System.Windows.Forms.CheckBox()
@@ -33,6 +34,7 @@ Partial Class FormBackupCheckboxes
         Me.RegionCheckBox = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -61,7 +63,7 @@ Partial Class FormBackupCheckboxes
         Me.BackupSQlCheckBox.Location = New System.Drawing.Point(23, 137)
         Me.BackupSQlCheckBox.Name = "BackupSQlCheckBox"
         Me.BackupSQlCheckBox.Size = New System.Drawing.Size(87, 17)
-        Me.BackupSQlCheckBox.TabIndex = 12
+        Me.BackupSQlCheckBox.TabIndex = 6
         Me.BackupSQlCheckBox.Text = "Backup SQL"
         Me.BackupSQlCheckBox.UseVisualStyleBackColor = True
         '
@@ -73,15 +75,15 @@ Partial Class FormBackupCheckboxes
         Me.BackupOarsCheckBox.Location = New System.Drawing.Point(23, 114)
         Me.BackupOarsCheckBox.Name = "BackupOarsCheckBox"
         Me.BackupOarsCheckBox.Size = New System.Drawing.Size(94, 17)
-        Me.BackupOarsCheckBox.TabIndex = 11
+        Me.BackupOarsCheckBox.TabIndex = 5
         Me.BackupOarsCheckBox.Text = "Backup OARs"
         Me.BackupOarsCheckBox.UseVisualStyleBackColor = True
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(37, 161)
+        Me.Button1.Location = New System.Drawing.Point(23, 175)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(121, 23)
+        Me.Button1.Size = New System.Drawing.Size(160, 23)
         Me.Button1.TabIndex = 10
         Me.Button1.Text = Global.Outworldz.My.Resources.Resources.Backup_word
         Me.Button1.UseVisualStyleBackColor = True
@@ -94,7 +96,7 @@ Partial Class FormBackupCheckboxes
         Me.CustomCheckBox.Location = New System.Drawing.Point(23, 90)
         Me.CustomCheckBox.Name = "CustomCheckBox"
         Me.CustomCheckBox.Size = New System.Drawing.Size(160, 17)
-        Me.CustomCheckBox.TabIndex = 9
+        Me.CustomCheckBox.TabIndex = 4
         Me.CustomCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Custom
         Me.CustomCheckBox.UseVisualStyleBackColor = True
         '
@@ -106,7 +108,7 @@ Partial Class FormBackupCheckboxes
         Me.FSAssetsCheckBox.Location = New System.Drawing.Point(23, 68)
         Me.FSAssetsCheckBox.Name = "FSAssetsCheckBox"
         Me.FSAssetsCheckBox.Size = New System.Drawing.Size(139, 17)
-        Me.FSAssetsCheckBox.TabIndex = 8
+        Me.FSAssetsCheckBox.TabIndex = 3
         Me.FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_FSAssets
         Me.FSAssetsCheckBox.UseVisualStyleBackColor = True
         '
@@ -118,7 +120,7 @@ Partial Class FormBackupCheckboxes
         Me.SettingsCheckbox.Location = New System.Drawing.Point(23, 20)
         Me.SettingsCheckbox.Name = "SettingsCheckbox"
         Me.SettingsCheckbox.Size = New System.Drawing.Size(104, 17)
-        Me.SettingsCheckbox.TabIndex = 7
+        Me.SettingsCheckbox.TabIndex = 1
         Me.SettingsCheckbox.Text = "Backup Settings"
         Me.SettingsCheckbox.UseVisualStyleBackColor = True
         '
@@ -130,7 +132,7 @@ Partial Class FormBackupCheckboxes
         Me.RegionCheckBox.Location = New System.Drawing.Point(23, 44)
         Me.RegionCheckBox.Name = "RegionCheckBox"
         Me.RegionCheckBox.Size = New System.Drawing.Size(138, 17)
-        Me.RegionCheckBox.TabIndex = 6
+        Me.RegionCheckBox.TabIndex = 2
         Me.RegionCheckBox.Text = Global.Outworldz.My.Resources.Resources.Backup_Region
         Me.RegionCheckBox.UseVisualStyleBackColor = True
         '
@@ -181,4 +183,5 @@ Partial Class FormBackupCheckboxes
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BackupOarsCheckBox As CheckBox
     Friend WithEvents BackupSQlCheckBox As CheckBox
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

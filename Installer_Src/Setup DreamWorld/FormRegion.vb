@@ -1586,6 +1586,10 @@ Public Class FormRegion
 
 #Region "Physics"
 
+    Private Sub ConciergeCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ConciergeCheckBox.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
     Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
 
         If Physics_Default.Checked Then

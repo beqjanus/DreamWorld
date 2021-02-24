@@ -204,7 +204,7 @@ Partial Class FormCaches
         Me.CacheTimeout.Location = New System.Drawing.Point(21, 127)
         Me.CacheTimeout.Name = "CacheTimeout"
         Me.CacheTimeout.Size = New System.Drawing.Size(45, 20)
-        Me.CacheTimeout.TabIndex = 1868
+        Me.CacheTimeout.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.CacheTimeout, Global.Outworldz.My.Resources.Resources.Timeout_in_hours_word)
         '
         'Label5
@@ -222,7 +222,7 @@ Partial Class FormCaches
         Me.CacheEnabledBox.Location = New System.Drawing.Point(21, 23)
         Me.CacheEnabledBox.Name = "CacheEnabledBox"
         Me.CacheEnabledBox.Size = New System.Drawing.Size(15, 14)
-        Me.CacheEnabledBox.TabIndex = 1867
+        Me.CacheEnabledBox.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.CacheEnabledBox, Global.Outworldz.My.Resources.Resources.Default_Checked_word)
         Me.CacheEnabledBox.UseVisualStyleBackColor = True
         '
@@ -231,7 +231,7 @@ Partial Class FormCaches
         Me.CacheFolder.Location = New System.Drawing.Point(21, 71)
         Me.CacheFolder.Name = "CacheFolder"
         Me.CacheFolder.Size = New System.Drawing.Size(229, 20)
-        Me.CacheFolder.TabIndex = 1862
+        Me.CacheFolder.TabIndex = 3
         '
         'LogLevelBox
         '
@@ -239,7 +239,7 @@ Partial Class FormCaches
         Me.LogLevelBox.Location = New System.Drawing.Point(21, 97)
         Me.LogLevelBox.Name = "LogLevelBox"
         Me.LogLevelBox.Size = New System.Drawing.Size(227, 21)
-        Me.LogLevelBox.TabIndex = 1860
+        Me.LogLevelBox.TabIndex = 4
         '
         'GroupBox3
         '

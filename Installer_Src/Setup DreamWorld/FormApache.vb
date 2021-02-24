@@ -74,6 +74,16 @@ Public Class FormApache
         Text = My.Resources.Apache_word
         Sitemap.Text = Global.Outworldz.My.Resources.Automatic_Site_map_word
 
+        'Tool tips
+        ToolTip1.SetToolTip(Me.ApachePort, Global.Outworldz.My.Resources.Resources.tt_Apache_Port)
+        ToolTip1.SetToolTip(Me.ApacheCheckbox, Global.Outworldz.My.Resources.Resources.tt_Apache_Enable)
+        ToolTip1.SetToolTip(Me.Sitemap, Global.Outworldz.My.Resources.Resources.tt_Apache_Sitemap)
+        ToolTip1.SetToolTip(Me.EnableJOpensim, Global.Outworldz.My.Resources.Resources.tt_Apache_EnableJOpensim)
+        ToolTip1.SetToolTip(Me.EnableDiva, Global.Outworldz.My.Resources.Resources.tt_Apache_EnableDiva)
+        ToolTip1.SetToolTip(Me.EnableWP, Global.Outworldz.My.Resources.Resources.tt_Apache_EnableWP)
+        ToolTip1.SetToolTip(Me.EnableOther, Global.Outworldz.My.Resources.Resources.tt_Apache_EnableOther)
+        ToolTip1.SetToolTip(Me.Other, Global.Outworldz.My.Resources.Resources.tt_Apache_Other)
+
         SetScreen()
 
         ApacheCheckbox.Checked = Settings.ApacheEnable
@@ -81,6 +91,9 @@ Public Class FormApache
 
         '''' set the other box and the radios for Different CMS systems.
         ''' This is used to redirect all access to apache / to the folder listed below
+        ''' 
+        Other.Text = Settings.OtherCMS
+
         If Settings.CMS = DreamGrid Then
             EnableDiva.Checked = True
         ElseIf Settings.CMS = WordPress Then
@@ -89,7 +102,7 @@ Public Class FormApache
             EnableJOpensim.Checked = True
         Else
             EnableOther.Checked = True
-            Other.Text = Settings.CMS
+
         End If
 
         Sitemap.Checked = Settings.SiteMap

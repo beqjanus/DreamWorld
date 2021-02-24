@@ -93,7 +93,7 @@ Public Class FormFsAssets
         SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         ShowStatsCheckBox.Text = Global.Outworldz.My.Resources.Show_Stats
         Text = Global.Outworldz.My.Resources.FSassets_Server_word
-        b.Text = Global.Outworldz.My.Resources.FSassets_Server_word
+        FSAssetsGroupBox.Text = Global.Outworldz.My.Resources.FSassets_Server_word
 
         HelpOnce("FSAssets")
 

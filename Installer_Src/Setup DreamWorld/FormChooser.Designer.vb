@@ -41,14 +41,13 @@ Partial Class FormChooser
         Me.DataGridView.ColumnHeadersHeight = 34
         Me.DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         Me.DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Group})
-        Me.DataGridView.Location = New System.Drawing.Point(-2, -5)
-        Me.DataGridView.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.DataGridView.Location = New System.Drawing.Point(-1, -3)
         Me.DataGridView.MultiSelect = False
         Me.DataGridView.Name = "DataGridView"
         Me.DataGridView.ReadOnly = True
         Me.DataGridView.RowHeadersWidth = 40
-        Me.DataGridView.Size = New System.Drawing.Size(349, 410)
-        Me.DataGridView.TabIndex = 2
+        Me.DataGridView.Size = New System.Drawing.Size(233, 273)
+        Me.DataGridView.TabIndex = 1
         '
         'Group
         '
@@ -64,36 +63,35 @@ Partial Class FormChooser
         'CancelButton1
         '
         Me.CancelButton1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.CancelButton1.Location = New System.Drawing.Point(0, 409)
-        Me.CancelButton1.Margin = New System.Windows.Forms.Padding(2)
+        Me.CancelButton1.Location = New System.Drawing.Point(0, 273)
+        Me.CancelButton1.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
         Me.CancelButton1.Name = "CancelButton1"
-        Me.CancelButton1.Size = New System.Drawing.Size(347, 36)
-        Me.CancelButton1.TabIndex = 6
+        Me.CancelButton1.Size = New System.Drawing.Size(231, 24)
+        Me.CancelButton1.TabIndex = 2
         Me.CancelButton1.Text = Global.Outworldz.My.Resources.Resources.Cancel_word
         Me.CancelButton1.UseVisualStyleBackColor = True
         '
         'OKButton1
         '
         Me.OKButton1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.OKButton1.Location = New System.Drawing.Point(0, 445)
-        Me.OKButton1.Margin = New System.Windows.Forms.Padding(2)
+        Me.OKButton1.Location = New System.Drawing.Point(0, 297)
+        Me.OKButton1.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
         Me.OKButton1.Name = "OKButton1"
-        Me.OKButton1.Size = New System.Drawing.Size(347, 36)
-        Me.OKButton1.TabIndex = 5
+        Me.OKButton1.Size = New System.Drawing.Size(231, 24)
+        Me.OKButton1.TabIndex = 3
         Me.OKButton1.Text = Global.Outworldz.My.Resources.Resources.Ok
         Me.OKButton1.UseVisualStyleBackColor = True
         '
         'FormChooser
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(347, 481)
+        Me.ClientSize = New System.Drawing.Size(231, 321)
         Me.Controls.Add(Me.CancelButton1)
         Me.Controls.Add(Me.OKButton1)
         Me.Controls.Add(Me.DataGridView)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
         Me.Name = "FormChooser"
         Me.Text = "Choose Region"
         Me.TopMost = True

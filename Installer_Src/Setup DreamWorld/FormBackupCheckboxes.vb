@@ -98,12 +98,22 @@ Public Class FormBackupCheckboxes
         CustomCheckBox.Text = Global.Outworldz.My.Resources.Backup_Custom
         FSAssetsCheckBox.Text = Global.Outworldz.My.Resources.Backup_FSAssets
         GroupBox1.Text = Global.Outworldz.My.Resources.Backup_word
+        BackupSQlCheckBox.Text = Global.Outworldz.My.Resources.Backup_Mysql
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-
         SettingsCheckbox.Text = Global.Outworldz.My.Resources.Backup_Settings_word
         RegionCheckBox.Text = Global.Outworldz.My.Resources.Backup_Region
-        Text = Global.Outworldz.My.Resources.System_Backup_word
+        Button1.Text = Global.Outworldz.My.Resources.System_Backup_Now_word
+        Me.Text = Global.Outworldz.My.Resources.System_Backup_word
+
+        ' tool tips
+        ToolTip1.SetToolTip(SettingsCheckbox, Global.Outworldz.My.Resources.tt_Backup_Settings)
+        ToolTip1.SetToolTip(CustomCheckBox, Global.Outworldz.My.Resources.tt_Backup_Custom)
+        ToolTip1.SetToolTip(FSAssetsCheckBox, Global.Outworldz.My.Resources.tt_Backup_Fsassets)
+        ToolTip1.SetToolTip(SettingsCheckbox, Global.Outworldz.My.Resources.tt_Backup_Settings)
+        ToolTip1.SetToolTip(RegionCheckBox, Global.Outworldz.My.Resources.tt_Backup_Regions)
+        ToolTip1.SetToolTip(BackupSQlCheckBox, Global.Outworldz.My.Resources.tt_Backup_SQL)
+        ToolTip1.SetToolTip(Button1, Global.Outworldz.My.Resources.tt_Backup_Now)
 
         HelpOnce("Backup Manually")
 

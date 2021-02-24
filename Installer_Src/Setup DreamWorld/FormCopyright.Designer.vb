@@ -40,9 +40,9 @@ Partial Class FormCopyright
         '
         Me.PictureBox1.Image = Global.Outworldz.My.Resources.Resources.Outworldz_ad_by_Marianna_Monentes
         Me.PictureBox1.Location = New System.Drawing.Point(0, 0)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(519, 548)
+        Me.PictureBox1.Size = New System.Drawing.Size(346, 356)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 0
         Me.PictureBox1.TabStop = False
@@ -51,9 +51,10 @@ Partial Class FormCopyright
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft YaHei UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(626, 229)
+        Me.Label1.Location = New System.Drawing.Point(417, 149)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(132, 31)
+        Me.Label1.Size = New System.Drawing.Size(87, 21)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "((Version))"
         '
@@ -61,19 +62,20 @@ Partial Class FormCopyright
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft YaHei UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(539, 98)
+        Me.Label2.Location = New System.Drawing.Point(359, 64)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(320, 31)
+        Me.Label2.Size = New System.Drawing.Size(214, 21)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "© AGPL 3.0 Outworldz,LLC"
         '
         'PictureBox2
         '
         Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.BuiltbyFred
-        Me.PictureBox2.Location = New System.Drawing.Point(382, 408)
-        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PictureBox2.Location = New System.Drawing.Point(255, 265)
+        Me.PictureBox2.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(109, 129)
+        Me.PictureBox2.Size = New System.Drawing.Size(73, 84)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox2.TabIndex = 3
         Me.PictureBox2.TabStop = False
@@ -82,19 +84,20 @@ Partial Class FormCopyright
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Microsoft YaHei UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(539, 150)
+        Me.Label3.Location = New System.Drawing.Point(359, 97)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(332, 31)
+        Me.Label3.Size = New System.Drawing.Size(224, 21)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "https://www.outworldz.com"
         '
         'PictureBox3
         '
         Me.PictureBox3.Image = Global.Outworldz.My.Resources.Resources.earth_view
-        Me.PictureBox3.Location = New System.Drawing.Point(846, 150)
-        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PictureBox3.Location = New System.Drawing.Point(587, 97)
+        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(18, 20)
+        Me.PictureBox3.Size = New System.Drawing.Size(24, 29)
         Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox3.TabIndex = 5
         Me.PictureBox3.TabStop = False
@@ -102,19 +105,19 @@ Partial Class FormCopyright
         'PictureBox4
         '
         Me.PictureBox4.Image = Global.Outworldz.My.Resources.Resources.earth_view
-        Me.PictureBox4.Location = New System.Drawing.Point(836, 98)
-        Me.PictureBox4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PictureBox4.Location = New System.Drawing.Point(587, 61)
+        Me.PictureBox4.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(18, 20)
+        Me.PictureBox4.Size = New System.Drawing.Size(22, 24)
         Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox4.TabIndex = 6
         Me.PictureBox4.TabStop = False
         '
         'FormCopyright
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(900, 562)
+        Me.ClientSize = New System.Drawing.Size(643, 365)
         Me.Controls.Add(Me.PictureBox4)
         Me.Controls.Add(Me.PictureBox3)
         Me.Controls.Add(Me.Label3)
@@ -123,7 +126,7 @@ Partial Class FormCopyright
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Name = "FormCopyright"
         Me.Text = "Copyright"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()

@@ -90,8 +90,6 @@ Public Class FormDatabase
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Button1.Text = Global.Outworldz.My.Resources.FSassets_Server_word
-        ClearRegionTable.Text = Global.Outworldz.My.Resources.ClearRegion
         Dbnameindex.Text = Global.Outworldz.My.Resources.DBName_word
         GridGroup.Text = Global.Outworldz.My.Resources.Robust_word
         Label1.Text = Global.Outworldz.My.Resources.Region_Server_word
@@ -101,7 +99,7 @@ Public Class FormDatabase
         Label20.Text = Outworldz.My.Resources.Region_Database
         Label21.Text = Global.Outworldz.My.Resources.User_Name_word
         Label22.Text = Global.Outworldz.My.Resources.Password_word
-        Label3.Text = Global.Outworldz.My.Resources.Assets_as_Files_word
+
         Label8.Text = Global.Outworldz.My.Resources.MySqlPort_word
         Label9.Text = Global.Outworldz.My.Resources.Password_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
@@ -256,22 +254,6 @@ Public Class FormDatabase
 #End Region
 
 #Region "Grid type"
-
-    Private Shared Sub Button2_Click(sender As Object, e As EventArgs) Handles ClearRegionTable.Click
-
-        MysqlInterface.DeregisterRegions(False)
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-
-#Disable Warning CA2000 ' Dispose objects before losing scope
-        Dim FsAssets As New FormFsAssets
-#Enable Warning CA2000 ' Dispose objects before losing scope
-        FsAssets.Show()
-        FsAssets.Select()
-
-    End Sub
 
     Private Sub ConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsoleToolStripMenuItem.Click
 

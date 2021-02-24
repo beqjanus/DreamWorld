@@ -61,11 +61,9 @@ Partial Class FormTide
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.TideHighLevelTextBox)
         Me.GroupBox1.Controls.Add(Me.TideEnabledCheckbox)
-        Me.GroupBox1.Location = New System.Drawing.Point(21, 64)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(6)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(6)
-        Me.GroupBox1.Size = New System.Drawing.Size(496, 406)
+        Me.GroupBox1.Size = New System.Drawing.Size(283, 232)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Global Tide Settings"
@@ -73,11 +71,10 @@ Partial Class FormTide
         'TideInfoDebugCheckBox
         '
         Me.TideInfoDebugCheckBox.AutoSize = True
-        Me.TideInfoDebugCheckBox.Location = New System.Drawing.Point(48, 356)
-        Me.TideInfoDebugCheckBox.Margin = New System.Windows.Forms.Padding(6)
+        Me.TideInfoDebugCheckBox.Location = New System.Drawing.Point(27, 203)
         Me.TideInfoDebugCheckBox.Name = "TideInfoDebugCheckBox"
-        Me.TideInfoDebugCheckBox.Size = New System.Drawing.Size(292, 29)
-        Me.TideInfoDebugCheckBox.TabIndex = 7
+        Me.TideInfoDebugCheckBox.Size = New System.Drawing.Size(164, 17)
+        Me.TideInfoDebugCheckBox.TabIndex = 8
         Me.TideInfoDebugCheckBox.Text = Global.Outworldz.My.Resources.Resources.Send_Debug_Info
         Me.ToolTip1.SetToolTip(Me.TideInfoDebugCheckBox, Global.Outworldz.My.Resources.Resources.Provide_Info)
         Me.TideInfoDebugCheckBox.UseVisualStyleBackColor = True
@@ -85,11 +82,10 @@ Partial Class FormTide
         'BroadcastTideInfo
         '
         Me.BroadcastTideInfo.AutoSize = True
-        Me.BroadcastTideInfo.Location = New System.Drawing.Point(218, 56)
-        Me.BroadcastTideInfo.Margin = New System.Windows.Forms.Padding(6)
+        Me.BroadcastTideInfo.Location = New System.Drawing.Point(125, 32)
         Me.BroadcastTideInfo.Name = "BroadcastTideInfo"
-        Me.BroadcastTideInfo.Size = New System.Drawing.Size(207, 29)
-        Me.BroadcastTideInfo.TabIndex = 4
+        Me.BroadcastTideInfo.Size = New System.Drawing.Size(119, 17)
+        Me.BroadcastTideInfo.TabIndex = 1
         Me.BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Info
         Me.ToolTip1.SetToolTip(Me.BroadcastTideInfo, Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Chat)
         Me.BroadcastTideInfo.UseVisualStyleBackColor = True
@@ -97,103 +93,92 @@ Partial Class FormTide
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(36, 309)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label5.Location = New System.Drawing.Point(21, 177)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(181, 25)
+        Me.Label5.Size = New System.Drawing.Size(100, 13)
         Me.Label5.TabIndex = 10
         Me.Label5.Text = "Tide Hi/Lo Channel"
         '
         'TideHiLoChannelTextBox
         '
-        Me.TideHiLoChannelTextBox.Location = New System.Drawing.Point(246, 302)
-        Me.TideHiLoChannelTextBox.Margin = New System.Windows.Forms.Padding(6)
+        Me.TideHiLoChannelTextBox.Location = New System.Drawing.Point(141, 173)
         Me.TideHiLoChannelTextBox.Name = "TideHiLoChannelTextBox"
-        Me.TideHiLoChannelTextBox.Size = New System.Drawing.Size(81, 29)
-        Me.TideHiLoChannelTextBox.TabIndex = 6
+        Me.TideHiLoChannelTextBox.Size = New System.Drawing.Size(48, 20)
+        Me.TideHiLoChannelTextBox.TabIndex = 7
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(42, 263)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label4.Location = New System.Drawing.Point(24, 150)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(167, 25)
+        Me.Label4.Size = New System.Drawing.Size(91, 13)
         Me.Label4.TabIndex = 8
         Me.Label4.Text = "Tide Info Channel"
         '
         'TideInfoChannelTextBox
         '
-        Me.TideInfoChannelTextBox.Location = New System.Drawing.Point(246, 258)
-        Me.TideInfoChannelTextBox.Margin = New System.Windows.Forms.Padding(6)
+        Me.TideInfoChannelTextBox.Location = New System.Drawing.Point(141, 147)
         Me.TideInfoChannelTextBox.Name = "TideInfoChannelTextBox"
-        Me.TideInfoChannelTextBox.Size = New System.Drawing.Size(81, 29)
-        Me.TideInfoChannelTextBox.TabIndex = 5
+        Me.TideInfoChannelTextBox.Size = New System.Drawing.Size(48, 20)
+        Me.TideInfoChannelTextBox.TabIndex = 6
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(42, 211)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label3.Location = New System.Drawing.Point(24, 121)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(210, 25)
+        Me.Label3.Size = New System.Drawing.Size(113, 13)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "Cycle Time in seconds"
         '
         'CycleTimeTextBox
         '
-        Me.CycleTimeTextBox.Location = New System.Drawing.Point(246, 207)
-        Me.CycleTimeTextBox.Margin = New System.Windows.Forms.Padding(6)
+        Me.CycleTimeTextBox.Location = New System.Drawing.Point(141, 118)
         Me.CycleTimeTextBox.Name = "CycleTimeTextBox"
-        Me.CycleTimeTextBox.Size = New System.Drawing.Size(81, 29)
-        Me.CycleTimeTextBox.TabIndex = 3
+        Me.CycleTimeTextBox.Size = New System.Drawing.Size(48, 20)
+        Me.CycleTimeTextBox.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.CycleTimeTextBox, Global.Outworldz.My.Resources.Resources.Cycle_time_text)
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(42, 167)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label2.Location = New System.Drawing.Point(24, 95)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(158, 25)
+        Me.Label2.Size = New System.Drawing.Size(88, 13)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Low Water Level"
         '
         'TideLowLevelTextBox
         '
-        Me.TideLowLevelTextBox.Location = New System.Drawing.Point(246, 161)
-        Me.TideLowLevelTextBox.Margin = New System.Windows.Forms.Padding(6)
+        Me.TideLowLevelTextBox.Location = New System.Drawing.Point(141, 92)
         Me.TideLowLevelTextBox.Name = "TideLowLevelTextBox"
-        Me.TideLowLevelTextBox.Size = New System.Drawing.Size(81, 29)
-        Me.TideLowLevelTextBox.TabIndex = 2
+        Me.TideLowLevelTextBox.Size = New System.Drawing.Size(48, 20)
+        Me.TideLowLevelTextBox.TabIndex = 3
         Me.ToolTip1.SetToolTip(Me.TideLowLevelTextBox, Global.Outworldz.My.Resources.Resources.Low_High)
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(42, 119)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label1.Location = New System.Drawing.Point(24, 68)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(162, 25)
+        Me.Label1.Size = New System.Drawing.Size(90, 13)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "High Water Level"
         '
         'TideHighLevelTextBox
         '
-        Me.TideHighLevelTextBox.Location = New System.Drawing.Point(246, 113)
-        Me.TideHighLevelTextBox.Margin = New System.Windows.Forms.Padding(6)
+        Me.TideHighLevelTextBox.Location = New System.Drawing.Point(141, 65)
         Me.TideHighLevelTextBox.Name = "TideHighLevelTextBox"
-        Me.TideHighLevelTextBox.Size = New System.Drawing.Size(81, 29)
-        Me.TideHighLevelTextBox.TabIndex = 1
+        Me.TideHighLevelTextBox.Size = New System.Drawing.Size(48, 20)
+        Me.TideHighLevelTextBox.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.TideHighLevelTextBox, Global.Outworldz.My.Resources.Resources.High_Water_Level_text)
         '
         'TideEnabledCheckbox
         '
         Me.TideEnabledCheckbox.AutoSize = True
-        Me.TideEnabledCheckbox.Location = New System.Drawing.Point(48, 56)
-        Me.TideEnabledCheckbox.Margin = New System.Windows.Forms.Padding(6)
+        Me.TideEnabledCheckbox.Location = New System.Drawing.Point(27, 32)
         Me.TideEnabledCheckbox.Name = "TideEnabledCheckbox"
-        Me.TideEnabledCheckbox.Size = New System.Drawing.Size(99, 29)
+        Me.TideEnabledCheckbox.Size = New System.Drawing.Size(59, 17)
         Me.TideEnabledCheckbox.TabIndex = 0
         Me.TideEnabledCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.TideEnabledCheckbox.UseVisualStyleBackColor = True
@@ -205,13 +190,12 @@ Partial Class FormTide
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(28, 28)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(7, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(557, 36)
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip2.Size = New System.Drawing.Size(318, 30)
         Me.MenuStrip2.TabIndex = 1886
         Me.MenuStrip2.Text = "0"
         '
@@ -220,20 +204,19 @@ Partial Class FormTide
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(90, 34)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormTide
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(168.0!, 168.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(557, 510)
+        Me.ClientSize = New System.Drawing.Size(318, 291)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(6)
         Me.MaximizeBox = False
         Me.Name = "FormTide"
         Me.Text = "Tides"

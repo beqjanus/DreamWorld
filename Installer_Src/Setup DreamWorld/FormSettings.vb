@@ -27,6 +27,7 @@ Public Class FormSettings
     Dim FormRegions As New FormRegions
     Dim FormRestart As New FormRestart
     Dim FormServerType As New FormServerType
+    Dim FsAssets As New FormFsAssets
     Dim Gloebits As New FormGloebits
     Dim Icecast As New FormIcecast
     Dim Logging As New FormLogging
@@ -79,10 +80,10 @@ Public Class FormSettings
         BackupButton1.Text = Global.Outworldz.My.Resources.Backup_Settings_word
         BanListButton.Text = Global.Outworldz.My.Resources.Ban_List_word
         Birds.Text = Global.Outworldz.My.Resources.Bird_Settings_word
-        Button1.Text = Global.Outworldz.My.Resources.Server_Type_word
-        Button2.Text = Global.Outworldz.My.Resources.Permissions_word
-        Button3.Text = Global.Outworldz.My.Resources.Restart_Settings_word
-        Button4.Text = Global.Outworldz.My.Resources.Publicity_Word
+        ServerTypeButton.Text = Global.Outworldz.My.Resources.Server_Type_word
+        PermissionsButton.Text = Global.Outworldz.My.Resources.Permissions_word
+        RestartButton.Text = Global.Outworldz.My.Resources.Restart_Settings_word
+        PublicityButton.Text = Global.Outworldz.My.Resources.Publicity_Word
         CacheButton1.Text = Global.Outworldz.My.Resources.Caches_word
         DNSButton.Text = Global.Outworldz.My.Resources.Hypergrid
         DatabaseButton2.Text = Global.Outworldz.My.Resources.Database_Setup_word
@@ -94,19 +95,21 @@ Public Class FormSettings
         PortsButton1.Text = Global.Outworldz.My.Resources.Network_Ports
         RegionsButton1.Text = Global.Outworldz.My.Resources.Regions_word
         ScriptButton.Text = Global.Outworldz.My.Resources.Scripts_word
-        Shoutcast.Text = Global.Outworldz.My.Resources.Icecast_word
+        IcecastButton.Text = Global.Outworldz.My.Resources.Icecast_word
         TOSButton.Text = Global.Outworldz.My.Resources.Terms_of_Service
         TideButton.Text = Global.Outworldz.My.Resources.Tides_word
         SearchButton.Text = Global.Outworldz.My.Resources.SearchOptions_word
+        FSAssetsButton.Text = Global.Outworldz.My.Resources.FSassets
+        '
         ToolTip1.SetToolTip(ApacheButton, Global.Outworldz.My.Resources.ApacheWebServer)
         ToolTip1.SetToolTip(BackupButton1, Global.Outworldz.My.Resources.Backup_Schedule)
         ToolTip1.SetToolTip(BanListButton, Global.Outworldz.My.Resources.BanList_string)
         ToolTip1.SetToolTip(Birds, Global.Outworldz.My.Resources.Click_Birds)
-        ToolTip1.SetToolTip(Button1, Global.Outworldz.My.Resources.Click_Server)
-        ToolTip1.SetToolTip(Button2, Global.Outworldz.My.Resources.Click_for_God_Mode)
-        ToolTip1.SetToolTip(Button3, Global.Outworldz.My.Resources.Click_Restart)
-        ToolTip1.SetToolTip(Button4, Global.Outworldz.My.Resources.Click_Publicity)
-        ToolTip1.SetToolTip(Button5, Global.Outworldz.My.Resources.Click_Setup)
+        ToolTip1.SetToolTip(ServerTypeButton, Global.Outworldz.My.Resources.Click_Server)
+        ToolTip1.SetToolTip(PermissionsButton, Global.Outworldz.My.Resources.Click_for_God_Mode)
+        ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Click_Restart)
+        ToolTip1.SetToolTip(PublicityButton, Global.Outworldz.My.Resources.Click_Publicity)
+        ToolTip1.SetToolTip(JoomlaButton, Global.Outworldz.My.Resources.Click_Setup_Jopensim)
         ToolTip1.SetToolTip(CacheButton1, Global.Outworldz.My.Resources.Click_Caches)
         ToolTip1.SetToolTip(DNSButton, Global.Outworldz.My.Resources.Click_HG)
         ToolTip1.SetToolTip(DatabaseButton2, Global.Outworldz.My.Resources.Click_Database)
@@ -118,10 +121,12 @@ Public Class FormSettings
         ToolTip1.SetToolTip(PortsButton1, Global.Outworldz.My.Resources.Click_Ports)
         ToolTip1.SetToolTip(RegionsButton1, Global.Outworldz.My.Resources.Click_Regions)
         ToolTip1.SetToolTip(ScriptButton, Global.Outworldz.My.Resources.Click_to_View_this_word)
-        ToolTip1.SetToolTip(Shoutcast, Global.Outworldz.My.Resources.Click_Icecast)
+        ToolTip1.SetToolTip(IcecastButton, Global.Outworldz.My.Resources.Click_Icecast)
         ToolTip1.SetToolTip(TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
         ToolTip1.SetToolTip(TideButton, Global.Outworldz.My.Resources.Click_Tides)
         ToolTip1.SetToolTip(VoiceButton1, Global.Outworldz.My.Resources.Click_Voice)
+        ToolTip1.SetToolTip(FSAssetsButton, Global.Outworldz.My.Resources.Click_Fsassets)
+
         VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
 
         SetScreen()
@@ -185,6 +190,7 @@ Public Class FormSettings
         Voice.Dispose()
         Banlist.Dispose()
         FormJoomla.Dispose()
+        FsAssets.Dispose()
 
     End Sub
 
@@ -268,7 +274,7 @@ Public Class FormSettings
 
     End Sub
 
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ServerTypeButton.Click
 
         FormServerType.Close()
         FormServerType.Dispose()
@@ -280,7 +286,7 @@ Public Class FormSettings
 
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles PermissionsButton.Click
 
         FormPermissions.Close()
         FormPermissions.Dispose()
@@ -292,7 +298,7 @@ Public Class FormSettings
 
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RestartButton.Click
 
         FormRestart.Close()
         FormRestart.Dispose()
@@ -304,7 +310,7 @@ Public Class FormSettings
 
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles PublicityButton.Click
 
         FormPublicity.Close()
         FormPublicity.Dispose()
@@ -316,7 +322,7 @@ Public Class FormSettings
 
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles JoomlaButton.Click
 
         FormJoomla.Close()
         FormJoomla.Dispose()
@@ -325,6 +331,18 @@ Public Class FormSettings
         FormJoomla.Visible = True
         FormJoomla.Select()
         FormJoomla.BringToFront()
+
+    End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles FSAssetsButton.Click
+
+        FsAssets.Close()
+        FsAssets.Dispose()
+        FsAssets = New FormFsAssets
+        FsAssets.Activate()
+        FsAssets.Visible = True
+        FsAssets.Select()
+        FsAssets.BringToFront()
 
     End Sub
 
@@ -448,7 +466,7 @@ Public Class FormSettings
 
     End Sub
 
-    Private Sub Shoutcast_Click(sender As Object, e As EventArgs) Handles Shoutcast.Click
+    Private Sub Shoutcast_Click(sender As Object, e As EventArgs) Handles IcecastButton.Click
 
         Icecast.Close()
         Icecast.Dispose()

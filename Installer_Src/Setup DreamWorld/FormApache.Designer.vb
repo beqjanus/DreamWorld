@@ -23,6 +23,7 @@ Partial Class FormApache
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormApache))
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Sitemap = New System.Windows.Forms.CheckBox()
@@ -37,6 +38,7 @@ Partial Class FormApache
         Me.EnableJOpensim = New System.Windows.Forms.RadioButton()
         Me.EnableDiva = New System.Windows.Forms.RadioButton()
         Me.EnableWP = New System.Windows.Forms.RadioButton()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox2.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -61,7 +63,7 @@ Partial Class FormApache
         Me.Sitemap.Location = New System.Drawing.Point(16, 85)
         Me.Sitemap.Name = "Sitemap"
         Me.Sitemap.Size = New System.Drawing.Size(118, 17)
-        Me.Sitemap.TabIndex = 186741
+        Me.Sitemap.TabIndex = 3
         Me.Sitemap.Text = "Automatic Site Map"
         Me.Sitemap.UseVisualStyleBackColor = True
         '
@@ -70,7 +72,7 @@ Partial Class FormApache
         Me.ApachePort.Location = New System.Drawing.Point(16, 29)
         Me.ApachePort.Name = "ApachePort"
         Me.ApachePort.Size = New System.Drawing.Size(31, 20)
-        Me.ApachePort.TabIndex = 186736
+        Me.ApachePort.TabIndex = 1
         '
         'Label3
         '
@@ -87,7 +89,7 @@ Partial Class FormApache
         Me.ApacheCheckbox.Location = New System.Drawing.Point(16, 62)
         Me.ApacheCheckbox.Name = "ApacheCheckbox"
         Me.ApacheCheckbox.Size = New System.Drawing.Size(157, 17)
-        Me.ApacheCheckbox.TabIndex = 1866
+        Me.ApacheCheckbox.TabIndex = 1
         Me.ApacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.EnableApache
         Me.ApacheCheckbox.UseVisualStyleBackColor = True
         '
@@ -129,7 +131,7 @@ Partial Class FormApache
         Me.Other.Location = New System.Drawing.Point(5, 125)
         Me.Other.Name = "Other"
         Me.Other.Size = New System.Drawing.Size(140, 20)
-        Me.Other.TabIndex = 186741
+        Me.Other.TabIndex = 8
         '
         'EnableOther
         '
@@ -137,7 +139,7 @@ Partial Class FormApache
         Me.EnableOther.Location = New System.Drawing.Point(14, 103)
         Me.EnableOther.Name = "EnableOther"
         Me.EnableOther.Size = New System.Drawing.Size(87, 17)
-        Me.EnableOther.TabIndex = 186745
+        Me.EnableOther.TabIndex = 7
         Me.EnableOther.Text = Global.Outworldz.My.Resources.Resources.EnableOther_Word
         Me.EnableOther.UseVisualStyleBackColor = True
         '
@@ -147,7 +149,7 @@ Partial Class FormApache
         Me.EnableJOpensim.Location = New System.Drawing.Point(14, 78)
         Me.EnableJOpensim.Name = "EnableJOpensim"
         Me.EnableJOpensim.Size = New System.Drawing.Size(71, 17)
-        Me.EnableJOpensim.TabIndex = 186743
+        Me.EnableJOpensim.TabIndex = 6
         Me.EnableJOpensim.Text = Global.Outworldz.My.Resources.Resources.JOpensim_word
         Me.EnableJOpensim.UseVisualStyleBackColor = True
         '
@@ -157,7 +159,7 @@ Partial Class FormApache
         Me.EnableDiva.Location = New System.Drawing.Point(14, 31)
         Me.EnableDiva.Name = "EnableDiva"
         Me.EnableDiva.Size = New System.Drawing.Size(111, 17)
-        Me.EnableDiva.TabIndex = 186744
+        Me.EnableDiva.TabIndex = 4
         Me.EnableDiva.Text = Global.Outworldz.My.Resources.Resources.EnableDiva
         Me.EnableDiva.UseVisualStyleBackColor = True
         '
@@ -167,7 +169,7 @@ Partial Class FormApache
         Me.EnableWP.Location = New System.Drawing.Point(14, 53)
         Me.EnableWP.Name = "EnableWP"
         Me.EnableWP.Size = New System.Drawing.Size(77, 17)
-        Me.EnableWP.TabIndex = 186742
+        Me.EnableWP.TabIndex = 1867425
         Me.EnableWP.Text = Global.Outworldz.My.Resources.Resources.WordPress_Word
         Me.EnableWP.UseVisualStyleBackColor = True
         '
@@ -208,4 +210,5 @@ Partial Class FormApache
     Friend WithEvents EnableDiva As RadioButton
     Friend WithEvents EnableWP As RadioButton
     Friend WithEvents Sitemap As CheckBox
+    Friend WithEvents ToolTip1 As ToolTip
 End Class
