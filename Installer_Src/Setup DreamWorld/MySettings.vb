@@ -2111,8 +2111,7 @@ Public Class MySettings
         & ";User ID=" & RegionDBUsername _
         & ";Password=" & RegionDbPassword _
         & ";Old Guids=true;Allow Zero Datetime=true" _
-        & ";Connect Timeout=28800;Command Timeout=28800;" _
-        & """"
+        & ";Connect Timeout=28800;Command Timeout=28800;" & """"
 
     End Function
 
@@ -2135,9 +2134,7 @@ Public Class MySettings
             & ";User ID=" & RobustUsername _
             & ";Password=" & RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
-            & ";Connect Timeout=28800;Command Timeout=28800" _
-            & ";default command timeout=300;" _
-            & """"
+            & ";Connect Timeout=28800;Command Timeout=28800" & """"
 
     End Function
 
@@ -2149,8 +2146,8 @@ Public Class MySettings
             & ";user=" & RobustUsername _
             & ";password=" & RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
-            & ";Connect Timeout=28800;Command Timeout=28800" _
-            & ";default command timeout=300;"
+            & ";Connect Timeout=28800;Command Timeout=28800;"
+
 
     End Function
 
