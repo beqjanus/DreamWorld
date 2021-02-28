@@ -74,9 +74,9 @@ Public Class FormServerType
         SetScreen()
 
         Select Case Settings.ServerType
-            Case RobustServer
+            Case RobustServerName
                 GridServerButton.Checked = True
-            Case RegionServer
+            Case RegionServerName
                 GridRegionButton.Checked = True
             Case OsgridServer
                 osGridRadioButton1.Checked = True
@@ -108,7 +108,7 @@ Public Class FormServerType
         If Not initted Then Return
         If Not GridRegionButton.Checked Then Return
 
-        ServerType = RegionServer
+        ServerType = RegionServerName
         ' do not override for grid servers
         Changed = True
 
@@ -120,7 +120,7 @@ Public Class FormServerType
         If Not GridServerButton.Checked Then Return
 
         Changed = True
-        ServerType = RobustServer
+        ServerType = RobustServerName
 
     End Sub
 

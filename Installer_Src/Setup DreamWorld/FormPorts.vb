@@ -91,7 +91,7 @@ Public Class FormPorts
 
         ' only used for region servers that are not behind a NAT
         ExternalHostName.Text = Settings.OverrideName
-        If Settings.ServerType <> RobustServer Then
+        If Settings.ServerType <> RobustServerName Then
             ExternalHostName.Enabled = True
         Else
             ExternalHostName.Text = ""
@@ -163,7 +163,6 @@ Public Class FormPorts
 
     End Sub
 
-
     Private Sub PrivatePort_TextChanged(sender As Object, e As EventArgs) Handles PrivatePort.TextChanged
 
         If Not initted Then Return
@@ -185,7 +184,6 @@ Public Class FormPorts
         HelpManual("Ports")
 
     End Sub
-
 
 #End Region
 

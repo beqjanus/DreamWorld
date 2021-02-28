@@ -262,7 +262,7 @@ Module Diags
             Return
         End If
 
-        If Settings.ServerType <> RobustServer Then
+        If Settings.ServerType <> RobustServerName Then
             Logger("INFO", "Is Not Robust, Test Skipped", "Diagnostics")
             Return
         End If
@@ -275,7 +275,7 @@ Module Diags
 
     Private Sub ProbePublicPort()
 
-        If Settings.ServerType <> RobustServer Then
+        If Settings.ServerType <> RobustServerName Then
             Logger("INFO", "Server Is Not Robust", "Diagnostics")
             Return
         End If

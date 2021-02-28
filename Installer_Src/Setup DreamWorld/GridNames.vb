@@ -9,14 +9,14 @@ Module GridNames
 
     Public Sub SetServerType()
 
-        If Settings.ServerType = RobustServer Then
+        If Settings.ServerType = RobustServerName Then
             TextPrint(My.Resources.Server_Type_is & " Robust")
         ElseIf Settings.ServerType = OsgridServer Then
             Settings.DNSName = "hg.osgrid.org"
             Settings.BaseHostName = "hg.osgrid.org"
             Settings.ExternalHostName = Settings.PublicIP
             TextPrint(My.Resources.Server_Type_is & " OSGrid")
-        ElseIf Settings.ServerType = RegionServer Then
+        ElseIf Settings.ServerType = RegionServerName Then
             If Settings.OverrideName.Length > 0 Then
                 Settings.ExternalHostName = Settings.OverrideName
             Else

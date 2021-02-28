@@ -21,8 +21,8 @@ Module GlobalSettings
     Public Const JOpensim As String = "JOpensim"
     Public Const MetroServer As String = "Metro"
     Public Const OsgridServer As String = "OsGrid"
-    Public Const RegionServer As String = "Region"
-    Public Const RobustServer As String = "Robust"
+    Public Const RegionServerName As String = "Region"
+    Public Const RobustServerName As String = "Robust"
 
 #End Region
 

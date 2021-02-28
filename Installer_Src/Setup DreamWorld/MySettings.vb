@@ -1187,12 +1187,12 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            If Settings.ServerType = RobustServer Then
+            If Settings.ServerType = RobustServerName Then
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
                 Dim Center As String = CStr(PropRegionClass.CoordX(RegionUUID))
                 Return CInt("0" & GetMySetting("MapCenterX", Center))
             Else
-                Return 128
+                Return 1000
             End If
 
         End Get
@@ -1203,12 +1203,12 @@ Public Class MySettings
 
     Public Property MapCenterY() As Integer
         Get
-            If Settings.ServerType = RobustServer Then
+            If Settings.ServerType = RobustServerName Then
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
                 Dim Center As String = CStr(PropRegionClass.CoordY(RegionUUID))
                 Return CInt("0" & GetMySetting("MapCenterY", Center))
             Else
-                Return 128
+                Return 1000
             End If
 
         End Get
@@ -1529,7 +1529,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property RobustServer() As String
+    Public Property RobustServerIP() As String
         Get
             Return GetMySetting("RobustServer", "127.0.0.1")
         End Get
@@ -2128,7 +2128,7 @@ Public Class MySettings
     Public Function RobustDBConnection() As String
 
         Return """" _
-            & "Data Source=" & RobustServer _
+            & "Data Source=" & RobustServerIP _
             & ";Database=" & RobustDataBaseName _
             & ";Port=" & CStr(MySqlRobustDBPort) _
             & ";User ID=" & RobustUsername _
@@ -2140,14 +2140,13 @@ Public Class MySettings
 
     Public Function RobustMysqlConnection() As String
 
-        Return "server=" & RobustServer _
+        Return "server=" & RobustServerIP _
             & ";database=" & RobustDataBaseName _
             & ";port=" & CStr(MySqlRobustDBPort) _
             & ";user=" & RobustUsername _
             & ";password=" & RobustPassword _
             & ";Old Guids=true;Allow Zero Datetime=true" _
             & ";Connect Timeout=28800;Command Timeout=28800;"
-
 
     End Function
 

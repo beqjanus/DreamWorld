@@ -77,7 +77,7 @@ Public Class Backups
             Dim dbname As String
             If OP = Settings.RobustDataBaseName Then
                 port = CStr(Settings.MySqlRobustDBPort)
-                host = Settings.RobustServer
+                host = Settings.RobustServerIP
                 user = Settings.RobustUsername
                 password = Settings.RobustPassword
                 dbname = Settings.RobustDataBaseName
