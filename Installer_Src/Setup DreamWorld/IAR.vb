@@ -43,14 +43,17 @@
 
         Dim UUID As String = ""
 
-        ' find one that is running
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                UUID = RegionUUID
-                Exit For
-            End If
-            Application.DoEvents()
-        Next
+        Try
+            ' find one that is running
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
+                If PropRegionClass.IsBooted(RegionUUID) Then
+                    UUID = RegionUUID
+                    Exit For
+                End If
+                Application.DoEvents()
+            Next
+        Catch
+        End Try
 
         If UUID.Length = 0 Then
             MsgBox(My.Resources.No_Regions_Ready, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
@@ -62,8 +65,12 @@
             Dim chosen = LoadIAR.DialogResult()
             If chosen = DialogResult.OK Then
                 Dim p As String = LoadIAR.GFolder
+                If p = "" Then p = "/"
                 Dim u As String = LoadIAR.GAvatar
-
+                If u Is Nothing Then
+                    TextPrint(My.Resources.Canceled_IAR)
+                    Return False
+                End If
                 If u.Length > 0 Then
                     ConsoleCommand(UUID, "load iar --merge " & u & " " & p & " " & """" & thing & """")
                     SendMessage(UUID, "IAR content Is loading")
@@ -135,11 +142,14 @@
                     End If
 
                     For Each RegionUUID As String In PropRegionClass.RegionUuids
-                        If PropRegionClass.IsBooted(RegionUUID) Then
-                            ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
-                            TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & PropRegionClass.RegionName(RegionUUID))
-                            Exit For
-                        End If
+                        Try
+                            If PropRegionClass.IsBooted(RegionUUID) Then
+                                ConsoleCommand(RegionUUID, "save iar " & opt & Name & " " & """" & itemName & """" & " " & """" & ToBackup & """")
+                                TextPrint(My.Resources.Saving_word & " " & BackupPath() & "\" & BackupName & ", Region " & PropRegionClass.RegionName(RegionUUID))
+                                Exit For
+                            End If
+                        Catch
+                        End Try
                     Next
                 End If
             End Using
