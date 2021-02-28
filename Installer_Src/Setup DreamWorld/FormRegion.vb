@@ -32,14 +32,15 @@ Public Class FormRegion
         Advanced.Text = Global.Outworldz.My.Resources.Regions_word
         AllowGods.Text = Global.Outworldz.My.Resources.Allow_Or_Disallow_Gods_word
         BirdsCheckBox.Text = Global.Outworldz.My.Resources.Bird_Module_word
-        SaveButton.Text = Global.Outworldz.My.Resources.Save_word
+        ClampPrimLabel.Text = Global.Outworldz.My.Resources.Clamp_Prim_Size_word
+        ConciergeCheckBox.Text = Global.Outworldz.My.Resources.Announce_visitors
         DeleteButton.Text = Global.Outworldz.My.Resources.Delete_word
         DeregisterButton.Text = Global.Outworldz.My.Resources.Deregister_word
         DisableGBCheckBox.Text = Global.Outworldz.My.Resources.Disable_Gloebits_word
         DisallowForeigners.Text = Global.Outworldz.My.Resources.Disable_Foreigners_word
         DisallowResidents.Text = Global.Outworldz.My.Resources.Disable_Residents
         EnabledCheckBox.Text = Global.Outworldz.My.Resources.Enabled_word
-
+        FrameRateLabel.Text = Global.Outworldz.My.Resources.FrameRate
         Gods_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Physics_word
         GroupBox2.Text = Global.Outworldz.My.Resources.Sim_Size_word
@@ -48,72 +49,69 @@ Public Class FormRegion
         GroupBox6.Text = Global.Outworldz.My.Resources.Region_Specific_Settings_word
         GroupBox7.Text = Global.Outworldz.My.Resources.Modules_word
         GroupBox8.Text = Global.Outworldz.My.Resources.Script_Engine_word  '
-        Label10.Text = Global.Outworldz.My.Resources.Clamp_Prim_Size_word
-        Label11.Text = Global.Outworldz.My.Resources.Max_NumPrims
-        Label12.Text = Global.Outworldz.My.Resources.Max_Avatars
         Label13.Text = Global.Outworldz.My.Resources.Region_Specific_Settings_word
-        Label14.Text = Global.Outworldz.My.Resources.Script_Timer_Rate
-        Label15.Text = Global.Outworldz.My.Resources.FrameRate
         Label16.Text = Global.Outworldz.My.Resources.Region_Port_word
         Label4.Text = Global.Outworldz.My.Resources.Maps_X
-        Label5.Text = Global.Outworldz.My.Resources.Nonphysical_Prim
-        Label9.Text = Global.Outworldz.My.Resources.Physical_Prim
         ManagerGod.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
         MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         MapBox.Text = Global.Outworldz.My.Resources.Maps_word
         MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
-
         MapNone.Text = Global.Outworldz.My.Resources.None
-        MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
         Maps_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
+        MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
+        MaxMAvatarsLabel.Text = Global.Outworldz.My.Resources.Max_Avatars
+        MaxNPrimsLabel.Text = Global.Outworldz.My.Resources.Max_NumPrims
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
-
+        NonPhysPrimLabel.Text = Global.Outworldz.My.Resources.Nonphysical_Prim
         NoPublish.Text = Global.Outworldz.My.Resources.No_Publish_Items
-        Physics_Separate.Text = Global.Outworldz.My.Resources.BP
         Physics_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
+        Physics_Separate.Text = Global.Outworldz.My.Resources.BP
         Physics_ubODE.Text = Global.Outworldz.My.Resources.UBODE_words
+        PhysPrimLabel.Text = Global.Outworldz.My.Resources.Physical_Prim
         Publish.Text = Global.Outworldz.My.Resources.Publish_Items
         PublishDefault.Text = Global.Outworldz.My.Resources.Use_Default_word
         RegionGod.Text = Global.Outworldz.My.Resources.Region_Owner_Is_God_word
+        SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Use_Default_word
+        ScriptRateLabel.Text = Global.Outworldz.My.Resources.Script_Timer_Rate
         SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Skip_Autobackup_word
         SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Smart_Start_word
-        TPCheckBox1.Text = Global.Outworldz.My.Resources.Teleporter_Enable_word
         Text = Global.Outworldz.My.Resources.Regions_word
         TidesCheckbox.Text = Global.Outworldz.My.Resources.Tide_Enable
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         ToolTip1.SetToolTip(AllowGods, Global.Outworldz.My.Resources.AllowGodsTooltip)
         ToolTip1.SetToolTip(BirdsCheckBox, Global.Outworldz.My.Resources.GBoids)
+        ToolTip1.SetToolTip(ClampPrimLabel, Global.Outworldz.My.Resources.ClampSize)
         ToolTip1.SetToolTip(ClampPrimSize, Global.Outworldz.My.Resources.ClampSize)
         ToolTip1.SetToolTip(CoordX, Global.Outworldz.My.Resources.Coordx)
         ToolTip1.SetToolTip(CoordY, Global.Outworldz.My.Resources.CoordY)
         ToolTip1.SetToolTip(DisableGBCheckBox, Global.Outworldz.My.Resources.Disable_Gloebits_text)
         ToolTip1.SetToolTip(DisallowForeigners, Global.Outworldz.My.Resources.No_HG)
         ToolTip1.SetToolTip(DisallowResidents, Global.Outworldz.My.Resources.Only_Owners)
+        ToolTip1.SetToolTip(FrameRateLabel, Global.Outworldz.My.Resources.FRText)
         ToolTip1.SetToolTip(FrametimeBox, Global.Outworldz.My.Resources.FrameTime)
-
         ToolTip1.SetToolTip(GroupBox1, Global.Outworldz.My.Resources.Sim_Rate)
-        ToolTip1.SetToolTip(Label10, Global.Outworldz.My.Resources.ClampSize)
-        ToolTip1.SetToolTip(Label11, Global.Outworldz.My.Resources.Viewer_Stops_Counting)
-        ToolTip1.SetToolTip(Label12, Global.Outworldz.My.Resources.Max_Agents)
-        ToolTip1.SetToolTip(Label14, Global.Outworldz.My.Resources.Script_Timer_Text)
-        ToolTip1.SetToolTip(Label15, Global.Outworldz.My.Resources.FRText)
-        ToolTip1.SetToolTip(Label5, Global.Outworldz.My.Resources.Max_NonPhys)
-        ToolTip1.SetToolTip(Label9, Global.Outworldz.My.Resources.Max_Phys)
         ToolTip1.SetToolTip(ManagerGod, Global.Outworldz.My.Resources.EMGod)
         ToolTip1.SetToolTip(MaxAgents, Global.Outworldz.My.Resources.Max_Agents)
+        ToolTip1.SetToolTip(MaxMAvatarsLabel, Global.Outworldz.My.Resources.Max_Agents)
+        ToolTip1.SetToolTip(MaxNPrimsLabel, Global.Outworldz.My.Resources.Viewer_Stops_Counting)
         ToolTip1.SetToolTip(MaxPrims, Global.Outworldz.My.Resources.Not_Normal)
         ToolTip1.SetToolTip(NonphysicalPrimMax, Global.Outworldz.My.Resources.Normal_Prim)
+        ToolTip1.SetToolTip(NonPhysPrimLabel, Global.Outworldz.My.Resources.Max_NonPhys)
         ToolTip1.SetToolTip(PhysicalPrimMax, Global.Outworldz.My.Resources.Max_Phys)
+        ToolTip1.SetToolTip(PhysPrimLabel, Global.Outworldz.My.Resources.Max_Phys)
         ToolTip1.SetToolTip(RegionGod, Global.Outworldz.My.Resources.Region_Owner_Is_God_word)
         ToolTip1.SetToolTip(RegionName, Global.Outworldz.My.Resources.Region_Name)
+        ToolTip1.SetToolTip(ScriptRateLabel, Global.Outworldz.My.Resources.Script_Timer_Text)
+        ToolTip1.SetToolTip(ScriptRateLabel, Global.Outworldz.My.Resources.STComment)
         ToolTip1.SetToolTip(ScriptTimerTextBox, Global.Outworldz.My.Resources.STComment)
         ToolTip1.SetToolTip(SkipAutoCheckBox, Global.Outworldz.My.Resources.WillNotSave)
         ToolTip1.SetToolTip(SmartStartCheckBox, Global.Outworldz.My.Resources.GTide)
-        ToolTip1.SetToolTip(TPCheckBox1, Global.Outworldz.My.Resources.Teleport_Tooltip)
         ToolTip1.SetToolTip(TidesCheckbox, Global.Outworldz.My.Resources.GTide)
+        ToolTip1.SetToolTip(TPCheckBox1, Global.Outworldz.My.Resources.Teleport_Tooltip)
+        TPCheckBox1.Text = Global.Outworldz.My.Resources.Teleporter_Enable_word
         UUID.Name = Global.Outworldz.My.Resources.UUID
         XEngineButton.Text = Global.Outworldz.My.Resources.XEngine_word
         YEngineButton.Text = Global.Outworldz.My.Resources.YEngine_word

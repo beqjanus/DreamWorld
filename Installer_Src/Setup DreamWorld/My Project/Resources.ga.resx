@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -123,6 +123,9 @@
   <data name="About_word" xml:space="preserve">
     <value>Faoi</value>
   </data>
+  <data name="Action_word" xml:space="preserve">
+    <value>gníomh</value>
+  </data>
   <data name="Add_Region_word" xml:space="preserve">
     <value>Cuir Réigiún</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Add_word" xml:space="preserve">
     <value>Cuir</value>
+  </data>
+  <data name="AdministerJoomla_word" xml:space="preserve">
+    <value>a riaradh</value>
   </data>
   <data name="Admin_Password_word" xml:space="preserve">
     <value>Focal Faire admin</value>
@@ -180,6 +186,9 @@
   <data name="AlphaNum" xml:space="preserve">
     <value>Alfa-Uimhriúil móide comhartha lúide agus carachtar spáis</value>
   </data>
+  <data name="Announce_visitors" xml:space="preserve">
+    <value>Cuairteoirí Fhógairt</value>
+  </data>
   <data name="Another_Region" xml:space="preserve">
     <value>Tabharfaidh sé seo deis réigiúin eile a bheidh le cur ag an láthair. Leanúint ar aghaidh?</value>
   </data>
@@ -226,7 +235,7 @@
     <value>Cuir iarratas isteach</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
-    <value>An bhfuil tú cinnte? Dearbhófar do bunachar rloaded as an cúltaca agus gach ábhar atá ann cheana in áit. Avatars, SIMS, fardal, everyting a Is féidir a scríobh os a chionn.</value>
+    <value>An bhfuil tú cinnte? Dearbhófar do bunachar luchtaithe as an cúltaca agus gach ábhar atá ann cheana in áit. Avatars, SIMS, fardal, everyting a Is féidir a scríobh os a chionn.</value>
   </data>
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
     <value>An bhfuil tú cinnte go bhfuil tú ag iarraidh a scriosadh réigiún seo?</value>
@@ -242,6 +251,9 @@
   </data>
   <data name="Automatic_restart_word" xml:space="preserve">
     <value>Uathoibríoch Atosaigh</value>
+  </data>
+  <data name="Automatic_Site_map_word" xml:space="preserve">
+    <value>Uathoibríoch Léarscáil an tSuímh</value>
   </data>
   <data name="AutorestartBox" xml:space="preserve">
     <value>0 - Off. Cé mhéad nóiméad go dtí go dtarlaíonn atosú uathoibríoch?</value>
@@ -480,9 +492,6 @@
   <data name="Choose_a_Folder_word" xml:space="preserve">
     <value>Roghnaigh fillteán</value>
   </data>
-  <data name="Choose_a_Folder_word1" xml:space="preserve">
-    <value>Roghnaigh fillteán</value>
-  </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Roghnaigh cén taisce a fholmhú</value>
   </data>
@@ -564,6 +573,9 @@
   <data name="Click_For_Help" xml:space="preserve">
     <value>Cliceáil Do Cabhair</value>
   </data>
+  <data name="Click_Fsassets" xml:space="preserve">
+    <value>Cliceáil chun Socraigh an Comhad Bunachar Sonraí Chórais Sócmhainní (FSassets) is tapa agus bunachar iontaofa de chomhaid</value>
+  </data>
   <data name="Click_HG" xml:space="preserve">
     <value>Cliceáil chun Cumasaigh Hypergrid nó a athrú DNS Ainm</value>
   </data>
@@ -591,6 +603,12 @@
   <data name="Click_Server" xml:space="preserve">
     <value>Cliceáil chun roghnú le cineál Server. Réamhshocrú = Greille, ach is féidir leat a nascadh mar Réigiún fhreastalaí, OsGrid nó freastalaithe Metro Réigiún</value>
   </data>
+  <data name="Click_Setup" xml:space="preserve">
+    <value>Cliceáil Socrú a</value>
+  </data>
+  <data name="Click_Setup_Jopensim" xml:space="preserve">
+    <value>Cliceáil chun Socrú an bainisteoir Roghnach Joomla agus CMS jOpensim - Chomhéadain Gréasáin do Opensim</value>
+  </data>
   <data name="Click_Start" xml:space="preserve">
     <value>Ní féidir a reáchtáil diagnóisic amháin má tá an córas ag rith. Cliceáil 'Tosaigh' agus bain triail eile as.</value>
   </data>
@@ -611,6 +629,9 @@
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>Cliceáil chun iarraidh ar Seirbhís Voice</value>
+  </data>
+  <data name="Click_to_Setup_Search" xml:space="preserve">
+    <value>Clkick go Socrú Roghanna Cuardaigh le haghaidh Hyperica nó JOpensim</value>
   </data>
   <data name="Click_to_View_this_word" xml:space="preserve">
     <value>Cliceáil chun amharc ar an</value>
@@ -666,8 +687,14 @@
   <data name="CoordY" xml:space="preserve">
     <value>An seasamh North_South ar an léarscáil an domhain</value>
   </data>
+  <data name="Copy_Word" xml:space="preserve">
+    <value>Cóip</value>
+  </data>
   <data name="CPU_Intensive" xml:space="preserve">
     <value>LAP Cúltaca Dian Started</value>
+  </data>
+  <data name="CPU_word" xml:space="preserve">
+    <value>LAP%</value>
   </data>
   <data name="CreateApp" xml:space="preserve">
     <value>Cruthaigh App agus Faigh Eochracha</value>
@@ -686,6 +713,9 @@
   </data>
   <data name="CSOD" xml:space="preserve">
     <value>Méid atá ann faoi láthair ar Diosca</value>
+  </data>
+  <data name="Currency_word" xml:space="preserve">
+    <value>airgeadra</value>
   </data>
   <data name="Current_Size" xml:space="preserve">
     <value>Méid atá ann faoi láthair ar Diosca</value>
@@ -750,6 +780,9 @@
   <data name="Deleted_word" xml:space="preserve">
     <value>Scriosta</value>
   </data>
+  <data name="DeleteTmp_word" xml:space="preserve">
+    <value>fillteán tmp Scrios</value>
+  </data>
   <data name="Delete_word" xml:space="preserve">
     <value>Scrios</value>
   </data>
@@ -774,6 +807,9 @@
   <data name="Determines" xml:space="preserve">
     <value>Cinneann sé seo an bhfuil a dhéanann an modúl rud ar bith</value>
   </data>
+  <data name="Diagnostics_port_word" xml:space="preserve">
+    <value>Diagnóisic Port</value>
+  </data>
   <data name="Diags_Failed" xml:space="preserve">
     <value>Theip ar Diagnóisic. Ar mhaith leat a fheiceáil ar an logáil isteach?</value>
   </data>
@@ -782,6 +818,9 @@
   </data>
   <data name="Diag_Port_word" xml:space="preserve">
     <value>Diagnostics port</value>
+  </data>
+  <data name="Diag_TCP_is_set_word" xml:space="preserve">
+    <value>Is Diagnóisic TCP Port leagtha</value>
   </data>
   <data name="did_not_start_word" xml:space="preserve">
     <value>Ní raibh tús</value>
@@ -815,6 +854,9 @@
   </data>
   <data name="Diva_Wifi_Enabled_word" xml:space="preserve">
     <value>Diva Wifi Cumasaithe</value>
+  </data>
+  <data name="DNSAlt" xml:space="preserve">
+    <value>Malartach Ainm nós www.outworldz.com vs outworldz.com. An féidir a bheith ina ainm greille aois is mian leat a continute a úsáid.</value>
   </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>DNS Ainm nó SomeName.Outworldz.net nó IP</value>
@@ -858,10 +900,13 @@
   <data name="Edit_word" xml:space="preserve">
     <value>Edit</value>
   </data>
-  <data name="Email_word" xml:space="preserve">
-    <value>Ríomhphost</value>
+  <data name="Emails_Selected" xml:space="preserve">
+    <value>ríomhphoist roghnaithe</value>
   </data>
-  <data name="Email_word1" xml:space="preserve">
+  <data name="Email_Address_words" xml:space="preserve">
+    <value>Dearbhófar do sheoladh ríomhphoist ar ár gcumas a teagmháil a dhéanamh leat i gcás is gá dúinn tuilleadh eolais.</value>
+  </data>
+  <data name="Email_word" xml:space="preserve">
     <value>Ríomhphost</value>
   </data>
   <data name="EMGod" xml:space="preserve">
@@ -870,8 +915,17 @@
   <data name="EnableApache" xml:space="preserve">
     <value>Cumasaigh freastalaí Apache gréasáin</value>
   </data>
+  <data name="EnableDiva" xml:space="preserve">
+    <value>Cumasaigh Diva Leathanach</value>
+  </data>
   <data name="Enabled_word" xml:space="preserve">
     <value>cumasaithe</value>
+  </data>
+  <data name="EnableGloebit_word" xml:space="preserve">
+    <value>Cumasaigh Gloebit</value>
+  </data>
+  <data name="EnableJOpensim" xml:space="preserve">
+    <value>Cumasaigh JOpensim</value>
   </data>
   <data name="EnableOneClickStart_word" xml:space="preserve">
     <value>Cumasaigh One-Cliceáil Tosaigh</value>
@@ -910,9 +964,6 @@
     <value>Cuir isteach ainm Réad ( '/' Beidh gach rud cúltaca, agus '/ Cuspóirí / bosca' Beidh ar ais go dtí 'bosca' in Réada bhfillteán</value>
   </data>
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
-    <value>Cuir isteach an Úinéir Grid Faisnéise</value>
-  </data>
-  <data name="Enter_the_Grid_Owner_Information_word1" xml:space="preserve">
     <value>Cuir isteach an Úinéir Grid Faisnéise</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
@@ -987,77 +1038,86 @@
   <data name="First_name_word" xml:space="preserve">
     <value>Ainm</value>
   </data>
+  <data name="Float" xml:space="preserve">
+    <value>snámhphointe</value>
+  </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Ainm</value>
+    <value>Flotsam Cache Sócmhainní</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Fillteán a shábháil ar</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Ráta fhráma</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
     <value>Ráta Fráma (0.0909)</value>
   </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
-    <value>Fillteán a shábháil ar</value>
-  </data>
-  <data name="FreeName" xml:space="preserve">
-    <value>Saor in Aisce DLC</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
+  <data name="FrameTime" xml:space="preserve">
     <value>Réamhshocrú 1/11 sec. Is Default 0.0909 atá 1 / 5th de 55 CCT</value>
   </data>
-  <data name="Free_DLC_word" xml:space="preserve">
-    <value>Cliceáil a Faigh Saor Gloebits Cuntas Mar sin tú Can Ceannaigh agus Díol</value>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Ráta fhráma</value>
   </data>
-  <data name="French" xml:space="preserve">
+  <data name="FreeName" xml:space="preserve">
     <value>Faigh saor in aisce Dyn DNS Ainm</value>
   </data>
-  <data name="Friendly" xml:space="preserve">
+  <data name="Free_Account" xml:space="preserve">
+    <value>Cliceáil a Faigh Saor Gloebits Cuntas Mar sin tú Can Ceannaigh agus Díol</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Saor in Aisce DLC</value>
+  </data>
+  <data name="French" xml:space="preserve">
     <value>Fraincis</value>
   </data>
-  <data name="FRText" xml:space="preserve">
+  <data name="Friendly" xml:space="preserve">
     <value>Seo Greille Ainm Friendly</value>
   </data>
-  <data name="FSA" xml:space="preserve">
+  <data name="FRText" xml:space="preserve">
     <value>SL Ritheann 55 CCT. Is Opensim 11 CCT. Réamhshocrú = 0.0909, nó 1/11</value>
   </data>
-  <data name="FSassets" xml:space="preserve">
+  <data name="FSA" xml:space="preserve">
     <value>Sócmhainní mar Comhaid</value>
   </data>
-  <data name="FSassets_Server_word" xml:space="preserve">
+  <data name="FSassets" xml:space="preserve">
     <value>Comhad Bunachar Sonraí Sócmhainní Córas</value>
   </data>
-  <data name="GBoids" xml:space="preserve">
+  <data name="FSassets_Server_word" xml:space="preserve">
     <value>FsAssets Freastalaí</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>Úsáidfear na socruithe Éan domhanda maidir le réigiún seo</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>Gearmáinis</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>Úsáidfear na socruithe Éan domhanda maidir le réigiún seo</value>
+    <value>réigiúin Dul</value>
+  </data>
+  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
+    <value>Léiríonn Gloebits Teachtaireacht Meandaracha údarú a úsáideoir ag tús seisiún?</value>
+  </data>
+  <data name="GLBShowNewSessionPurchaseIM_text" xml:space="preserve">
+    <value>Gloebits Taispeáin cheannach Teachtaireacht Meandaracha chun úsáideoirí ag tús seisiún?</value>
+  </data>
+  <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
+    <value>Taispeáin Gloebits fáilte a chur roimh teachtaireacht nuair ag dul isteach i réigiún?</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Socruithe Tide Global</value>
+    <value>Socruithe Global</value>
   </data>
   <data name="Global_Settings_word" xml:space="preserve">
     <value>Socruithe Global</value>
   </data>
   <data name="Global_Tide_Settings_word" xml:space="preserve">
-    <value>réigiúin Dul</value>
-  </data>
-  <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Socruithe Global</value>
+    <value>Socruithe Tide Global</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Gloebits Airgeadra</value>
+    <value>Go maith (Warp3D)</value>
   </data>
   <data name="Greek" xml:space="preserve">
     <value>Gréigis</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>Go maith (Warp3D)</value>
+    <value>Is seoladh Greille</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
     <value>Is féidir leat a thabhairt ar an seoladh gcrích go dtí daoine agus is féidir leo cuairt a thabhairt ar do greille</value>
@@ -1065,20 +1125,26 @@
   <data name="Grid_address_word" xml:space="preserve">
     <value>seoladh Greille</value>
   </data>
-  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
-    <value>Is féidir leat a thabhairt ar an seoladh gcrích go dtí daoine agus is féidir leo cuairt a thabhairt ar do greille</value>
+  <data name="Grid_Remote_is_set_word" xml:space="preserve">
+    <value>Cianda Is Riarachán Port leagtha</value>
   </data>
-  <data name="Grid_TCP_is_set_word" xml:space="preserve">
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
     <value>Greille Freastalaí Le Láidir</value>
   </data>
-  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
     <value>Is Eangach TCP Port leagtha</value>
+  </data>
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+    <value>Is Eangach UDP Port leagtha</value>
+  </data>
+  <data name="Group_Ports_word" xml:space="preserve">
+    <value>Grúpa Port</value>
   </data>
   <data name="Group_word" xml:space="preserve">
     <value>Grúpa</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>Is Eangach UDP Port leagtha</value>
+    <value>Úsáidfear na socruithe Tide domhanda maidir le réigiún seo</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Is Nuashonrú ar fáil. Ar mhaith leat a scoir DreamGrid agus a shuiteáil ar an nuashonrú?</value>
@@ -1194,6 +1260,9 @@
   <data name="Hypergrid_word" xml:space="preserve">
     <value>Hypergrid</value>
   </data>
+  <data name="HypericaSearch_word" xml:space="preserve">
+    <value>Hyperica Search</value>
+  </data>
   <data name="IAR_Load_and_Save_word" xml:space="preserve">
     <value>IAR Luchtaigh agus Sábháil</value>
   </data>
@@ -1234,7 +1303,7 @@
     <value>deilbhíní</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>deilbhíní</value>
+    <value>Beidh Opensim shábháil maidí rámha tar éis a shíneann seo le fada</value>
   </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>Déan neamhaird Beartán</value>
@@ -1266,6 +1335,21 @@
   <data name="INI_Filter" xml:space="preserve">
     <value>Comhaid INI (* .ini) | * .ini | Gach comhad (* *.) |. * *</value>
   </data>
+  <data name="Installed_word" xml:space="preserve">
+    <value>suiteáilte</value>
+  </data>
+  <data name="InstallingJoomla_word" xml:space="preserve">
+    <value>Shuiteáil Joomla</value>
+  </data>
+  <data name="Installing_word" xml:space="preserve">
+    <value>Shuiteáil. Fán le do thoil ...</value>
+  </data>
+  <data name="InstallJoomla_word" xml:space="preserve">
+    <value>Suiteáil</value>
+  </data>
+  <data name="InstallOpensim" xml:space="preserve">
+    <value>Beidh sé seo a shuiteáil JOpensim. Ar mhaith leat dul ar aghaidh?</value>
+  </data>
   <data name="InstallRuntime" xml:space="preserve">
     <value>Suiteáil C ++ runtimes</value>
   </data>
@@ -1280,6 +1364,9 @@
   </data>
   <data name="Interval_word" xml:space="preserve">
     <value>eatramh</value>
+  </data>
+  <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
+    <value>Fardal IAR Luchtaigh agus Sábháil</value>
   </data>
   <data name="IPV4_Address_word" xml:space="preserve">
     <value>IPv4 Seoladh</value>
@@ -1308,8 +1395,20 @@
   <data name="JobEngine_word" xml:space="preserve">
     <value>Inneall Job</value>
   </data>
+  <data name="JOpensimSearch_word" xml:space="preserve">
+    <value>JOpensim Search</value>
+  </data>
+  <data name="JOpensimSettings" xml:space="preserve">
+    <value>Socruithe JOpensim</value>
+  </data>
+  <data name="JOpensim_word" xml:space="preserve">
+    <value>JOpensim</value>
+  </data>
   <data name="Just_one_region_word" xml:space="preserve">
     <value>Díreach réigiún amháin</value>
+  </data>
+  <data name="KeepOnTop_word" xml:space="preserve">
+    <value>Coinnigh Ar Barr</value>
   </data>
   <data name="Keep_for_Days_word" xml:space="preserve">
     <value>Coinnigh do laethanta</value>
@@ -1324,9 +1423,6 @@
     <value>léarscáil Metro Móra</value>
   </data>
   <data name="Last_Name_Word" xml:space="preserve">
-    <value>Sloinne</value>
-  </data>
-  <data name="Last_Name_word1" xml:space="preserve">
     <value>Sloinne</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1349,9 +1445,6 @@
   </data>
   <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
     <value>Luchtaigh Free DreamGrid maidí rámha (www)</value>
-  </data>
-  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
-    <value>Luchtaigh Free dreamworld maidí rámha</value>
   </data>
   <data name="Load_Inventory_IAR" xml:space="preserve">
     <value>IAR Luchtaigh Fardal</value>
@@ -1417,7 +1510,7 @@
     <value>Déan cúltaca?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Déan cúltaca?</value>
+    <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Gach tíleanna léarscáil curtha scriosadh. Socraigh an suíomh léarscáil agus Atosaigh a dhéanamh léarscáileanna nua</value>
@@ -1425,8 +1518,11 @@
   <data name="Maps_word" xml:space="preserve">
     <value>Léarscáileanna</value>
   </data>
+  <data name="Maps_X" xml:space="preserve">
+    <value>Léarscáil X:</value>
+  </data>
   <data name="Mapx" xml:space="preserve">
-    <value>Léarscáil coords: X</value>
+    <value>Léarscáil X:</value>
   </data>
   <data name="Map_Center_Location_word" xml:space="preserve">
     <value>Léarscáil Centre Suíomh:</value>
@@ -1447,7 +1543,7 @@
     <value>Max achar d'éin eile le cur san áireamh sa tréad céanna</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max achar d'éin eile le cur san áireamh sa tréad céanna</value>
+    <value>Max Fórsa (réamhshocrú = 0.2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Max Airde (réamhshocrú = 45.0)</value>
@@ -1471,10 +1567,10 @@
     <value>Max Gaoithe (réamhshocrú = 1.0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>Uasmhéid 4096</value>
+    <value>OAR Cumaisc</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>OAR Cumaisc</value>
+    <value>Réada merge</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>mogalra Cache</value>
@@ -1490,6 +1586,9 @@
   </data>
   <data name="Mode_word" xml:space="preserve">
     <value>mód</value>
+  </data>
+  <data name="Modify_word" xml:space="preserve">
+    <value>Athraigh</value>
   </data>
   <data name="Modules_word" xml:space="preserve">
     <value>Modúil</value>
@@ -1538,6 +1637,9 @@
   </data>
   <data name="MySQL_Was_Running" xml:space="preserve">
     <value>Bhí MySQL ag rith nuair a bhí a thosaigh mé, agus mar sin tá mé ag fágáil MySQL ar.</value>
+  </data>
+  <data name="Mysql_Word" xml:space="preserve">
+    <value>MySQL</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Ainm</value>
@@ -1606,10 +1708,10 @@
     <value>Ní UUID bailí. Ar mhaith leat a nua, Random UUID?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>De ghnáth a leagtar a OutworldzFiles / AutoBackup fillteán le 'AutoBackup'. Cliceáil chun athrú ar an fillteán.</value>
+    <value>Ní bhaineann sé seo cosúil go bhfuil ar aghaidh chuig an meaisín i do ródaire, mar sin nach bhfuil Hypergrid fáil. Is féidir é seo a shocrú, b'fhéidir, ag 'Port Réamhchonarthaí' i do ródaire. Féach Cabhair-&gt; Tús Eolais Port Réamhchonarthaí.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Ní bhaineann sé seo cosúil go bhfuil ar aghaidh chuig an meaisín i do ródaire, mar sin nach bhfuil Hypergrid fáil. Is féidir é seo a shocrú, b'fhéidir, ag 'Port Réamhchonarthaí' i do ródaire. Féach Cabhair-&gt; Tús Eolais Port Réamhchonarthaí.</value>
+    <value>Gan i bhfeidhm de ghnáth ag Opensim. Ní bheidh Viewer thaispeáint níos mó ná 45,000. Socrú seo anseo agus cur ar chumas beidh sé seo i suímh an teorainn i bhfeidhm agus féadfaidh sé prims ais!</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Nach bhfuil Opensim ag rith.</value>
@@ -1626,6 +1728,12 @@
   <data name="no_Default_sim" xml:space="preserve">
     <value>Níorbh fhéidir SIM réamhshocraithe do chuairteoirí. Féach Réigiúin Painéal.</value>
   </data>
+  <data name="No_Email" xml:space="preserve">
+    <value>Ríomhphost Freastalaí gan bun go fóill</value>
+  </data>
+  <data name="No_Emails_Selected" xml:space="preserve">
+    <value>Roghnaíodh aon r-phoist</value>
+  </data>
   <data name="No_HG" xml:space="preserve">
     <value>Beidh cuairteoirí Ní Hypergrid mbeadh cead sa réigiún seo</value>
   </data>
@@ -1637,6 +1745,9 @@
   </data>
   <data name="No_Regions_Ready" xml:space="preserve">
     <value>Níl aon réigiúin réidh, mar sin ní féidir luchtú an Iar "</value>
+  </data>
+  <data name="No_Subject" xml:space="preserve">
+    <value>Níl aon Ábhar!</value>
   </data>
   <data name="NTSuspend" xml:space="preserve">
     <value>Earráid: Níorbh fhéidir seoladh NtSuspendProcess64.exe.</value>
@@ -1665,6 +1776,9 @@
   <data name="OAR_load_save_backupp_word" xml:space="preserve">
     <value>OAR Luchtaigh, Sábháil agus Cúltaca</value>
   </data>
+  <data name="OAuth_Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
     <value>Conair Cuspóir agus ainm</value>
   </data>
@@ -1675,7 +1789,7 @@
     <value>Inneall Dinimiciúla Oscail</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>Inneall Dinimiciúla Oscail</value>
+    <value>Óid</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>off</value>
@@ -1690,19 +1804,22 @@
     <value>Tá avatar amháin</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>OK</value>
+    <value>Is réigiún amháin ag rith go fóill</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Ní ghlacfar ach le Úinéirí agus Bhainisteoirí Estate mbeadh cead sa réigiún seo</value>
   </data>
+  <data name="On_Top" xml:space="preserve">
+    <value>Ar bharr</value>
+  </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>Calafoirt Ródaire Oscailte ag baint úsáide Uilíoch Breiseán agus Spraoi</value>
+    <value>Is Opensimulator luchtú</value>
   </data>
   <data name="Open_Router_Ports" xml:space="preserve">
-    <value>Ní ghlacfar ach le Úinéirí agus Bhainisteoirí Estate mbeadh cead sa réigiún seo</value>
+    <value>Calafoirt Ródaire Oscailte ag baint úsáide Uilíoch Breiseán agus Spraoi</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Is Opensimulator luchtú</value>
+    <value>roghanna</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>nó:</value>
@@ -1720,7 +1837,10 @@
     <value>Parcels</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>Parcels</value>
+    <value>Passed LAN Tástáil loopback</value>
+  </data>
+  <data name="Passwordtooshort_word" xml:space="preserve">
+    <value>Focal faire ró-ghearr</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>Is féidir leat athrú ach amháin an focal faire nuair a bhíonn Opensim ag rith</value>
@@ -1770,11 +1890,11 @@
   <data name="port2" xml:space="preserve">
     <value>Port 2</value>
   </data>
-  <data name="Portguese" xml:space="preserve">
-    <value>Portguese</value>
-  </data>
   <data name="Ports" xml:space="preserve">
     <value>Calafoirt</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>Portaingéilis</value>
   </data>
   <data name="Port_Error" xml:space="preserve">
     <value>Tá Port coimhlint a bhrath. Gach calafort a bheith athshocrú go dtí na mainneachtainí</value>
@@ -1793,6 +1913,9 @@
   </data>
   <data name="Print" xml:space="preserve">
     <value>Priontáil</value>
+  </data>
+  <data name="Privacy_policy" xml:space="preserve">
+    <value>Beartas Príobháideachais</value>
   </data>
   <data name="Private_Port_Word" xml:space="preserve">
     <value>Private Port</value>
@@ -1817,6 +1940,12 @@
   </data>
   <data name="Publish_Items" xml:space="preserve">
     <value>Míreanna marcáilte ar chuardach a fhoilsiú</value>
+  </data>
+  <data name="Quit_Message0" xml:space="preserve">
+    <value>Nach bhfuil an córas agus applictions eile tionchar a bhí. Tá tuarascáil cruthaíodh gur féidir leat a sheoladh chuig Outworldz, LLC leis cúnamh a aithint ar an bhfadhb.</value>
+  </data>
+  <data name="Quit_Message1" xml:space="preserve">
+    <value>Tá an Appication Tá éirí as an tobac gan choinne.</value>
   </data>
   <data name="Quit_Now_Word" xml:space="preserve">
     <value>Scoir Anois</value>
@@ -1852,7 +1981,7 @@
     <value>Má scriosann gach léarscáil, is gá duit a léarscáileanna athghiniúint trí restarting le suíomh léarscáil</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>Réigiún UUID Is neamhbhailí</value>
+    <value>réigiúin ag rith go fóill</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>Réigiúin</value>
@@ -1938,6 +2067,9 @@
   <data name="Reload" xml:space="preserve">
     <value>Athluchtaigh an eangach</value>
   </data>
+  <data name="Remote_Admin_word" xml:space="preserve">
+    <value>RemoteAdmin</value>
+  </data>
   <data name="RenderMax" xml:space="preserve">
     <value>Rindreáil Max Airde</value>
   </data>
@@ -1947,14 +2079,11 @@
   <data name="Repeat_Password_word" xml:space="preserve">
     <value>Athscríobh an Pasfhocal</value>
   </data>
-  <data name="Repeat_Password_word1" xml:space="preserve">
-    <value>Athscríobh an Pasfhocal</value>
-  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Iarratas Cruthú App</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Iarratas Cruthú App</value>
+    <value>In áirithe do ainm Dyn DNS. Is é seo an focal faire le haghaidh do ainm.</value>
   </data>
   <data name="Reset_To_Default" xml:space="preserve">
     <value>. Athshocraigh réamhshocraithe</value>
@@ -1975,7 +2104,7 @@
     <value>Restart Eatramh i Miontuairiscí</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>tuairteála fisice Bulletsim fórsa a atosú Insamhlóir</value>
+    <value>gcás amháin Atosaigh</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>réigiún amháin Atosaigh</value>
@@ -2002,16 +2131,16 @@
     <value>Atosaigh chiú</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>Atosaigh chiú</value>
-  </data>
-  <data name="Restart_Robust_word" xml:space="preserve">
     <value>Atosaigh Réigiún</value>
   </data>
-  <data name="Restart_Settings_word" xml:space="preserve">
+  <data name="Restart_Robust_word" xml:space="preserve">
     <value>Atosaigh láidir</value>
   </data>
-  <data name="Restart_word" xml:space="preserve">
+  <data name="Restart_Settings_word" xml:space="preserve">
     <value>Socruithe Atosaigh</value>
+  </data>
+  <data name="Restart_word" xml:space="preserve">
+    <value>Tosaigh arís</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>Athchóirigh Bunachar Sonraí</value>
@@ -2046,23 +2175,17 @@
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Rith mar Fhreastalaí Réigiún</value>
   </data>
-  <data name="Running_as_a_Region_Server_word1" xml:space="preserve">
-    <value>Rith mar Fhreastalaí Réigiún</value>
-  </data>
   <data name="Running_Network" xml:space="preserve">
     <value>Rith Diagnóisic Network</value>
   </data>
-  <data name="Running_Network1" xml:space="preserve">
-    <value>Rith Diagnóisic Network</value>
-  </data>
   <data name="Running_word" xml:space="preserve">
-    <value>Rith mar Fhreastalaí Réigiún</value>
+    <value>Rith</value>
   </data>
   <data name="Run_All_word" xml:space="preserve">
     <value>Rith Gach</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Rith Gach</value>
+    <value>Rith Mar A Seirbhís</value>
   </data>
   <data name="Russian" xml:space="preserve">
     <value>Rúisis</value>
@@ -2121,14 +2244,14 @@
   <data name="Script_Timer_Text" xml:space="preserve">
     <value>Script suíomh luas uaineadóir. Is 11/01 dara default (0.0909)</value>
   </data>
-  <data name="Search_All_Grids_word" xml:space="preserve">
-    <value>Cuardaigh Gach Greillí</value>
+  <data name="SearchOptions_word" xml:space="preserve">
+    <value>Roghanna Cuardaigh</value>
   </data>
-  <data name="Search_Connect_failed" xml:space="preserve">
-    <value>Theip ar Ceangail Bunachar go dtí an Cuardach</value>
+  <data name="Search_Events" xml:space="preserve">
+    <value>Cuardaigh le haghaidh Cuspóirí agus Imeachtaí (www)</value>
   </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>Cuardaigh</value>
+  <data name="Search_grids" xml:space="preserve">
+    <value>Cuardaigh le haghaidh Greillí (www)</value>
   </data>
   <data name="Secret_word" xml:space="preserve">
     <value>rúnda</value>
@@ -2146,13 +2269,19 @@
     <value>Roghnaíonn an uile nó aon cheann de na ticbhoscaí</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>Chífidh mé tú arís nuair a dúisigh mé suas go léir úr agus nua!</value>
+    <value>Roghnaigh</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Seol Teachtaireacht Alert</value>
   </data>
   <data name="Send_Debug_Info" xml:space="preserve">
     <value>Seol Debug Info Go Console</value>
+  </data>
+  <data name="Send_report" xml:space="preserve">
+    <value>Seol Tuairisc</value>
+  </data>
+  <data name="Send_word" xml:space="preserve">
+    <value>Seol</value>
   </data>
   <data name="Separation" xml:space="preserve">
     <value>Scaradh Inmhianaithe (réamhshocrú = 5.0)</value>
@@ -2170,7 +2299,7 @@
     <value>Socruithe</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>Socraigh Úinéir</value>
+    <value>Socrú loopback Adapter le seoladh IP Public</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>Socrú Firewall</value>
@@ -2183,9 +2312,6 @@
   </data>
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>Calafoirt Socrú</value>
-  </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>bunachar cuardaigh Socrú</value>
   </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>Cliceáil a chur ar bun do Téarmaí Seirbhíse</value>
@@ -2203,7 +2329,7 @@
     <value>Socraigh Debug Leibhéal</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>Socraigh Debug Leibhéal</value>
+    <value>Socraigh Úinéir</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Níl Icecast Cumasaithe.</value>
@@ -2243,6 +2369,9 @@
   </data>
   <data name="Skip_word" xml:space="preserve">
     <value>Scipeáil</value>
+  </data>
+  <data name="Slash" xml:space="preserve">
+    <value>/</value>
   </data>
   <data name="Slow_Backup" xml:space="preserve">
     <value>Ag Tosú Cúltaca Bunachar Sonraí mall ach fairsing</value>
@@ -2355,6 +2484,9 @@
   <data name="Stop_word" xml:space="preserve">
     <value>Stop</value>
   </data>
+  <data name="Subject_word" xml:space="preserve">
+    <value>ábhar</value>
+  </data>
   <data name="Suitcase_enable" xml:space="preserve">
     <value>Cumasaigh Suitcase Fardal</value>
   </data>
@@ -2363,6 +2495,9 @@
   </data>
   <data name="Swedish" xml:space="preserve">
     <value>Sualainnis</value>
+  </data>
+  <data name="System_Backup_Now_word" xml:space="preserve">
+    <value>Rith Cúltaca Anois</value>
   </data>
   <data name="System_Backup_word" xml:space="preserve">
     <value>Córas Cúltaca</value>
@@ -2377,7 +2512,7 @@
     <value>Teleporter Cumasaigh</value>
   </data>
   <data name="Teleporting_word" xml:space="preserve">
-    <value>teleporting</value>
+    <value>Teleporting</value>
   </data>
   <data name="Teleport_Tooltip" xml:space="preserve">
     <value>Seolann an stádas réigiún leis na comharthaí Outworldz Teleport</value>
@@ -2397,9 +2532,6 @@
   <data name="Theme_Black" xml:space="preserve">
     <value>leagtar Téama go Dubh</value>
   </data>
-  <data name="theme_Custom" xml:space="preserve">
-    <value>leagtar Téama go Saincheaptha</value>
-  </data>
   <data name="Theme_White" xml:space="preserve">
     <value>leagtar Téama go White</value>
   </data>
@@ -2413,28 +2545,85 @@
     <value>linnte snáithe</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>Tide Info Channel</value>
+    <value>Taoidí</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>linnte snáithe</value>
+    <value>Cumasaigh an taoide teacht isteach agus amach?</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Tide Hi / Lo Cainéal</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Tide Hi / Lo Cainéal</value>
+    <value>Tide Info Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>Teorainn Ama i uair an chloig</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>Teorainn Ama i uair an chloig</value>
+    <value>Lamháltas (réamhshocrú = 25.0)</value>
   </data>
   <data name="TOS" xml:space="preserve">
     <value>Taispeánann an modúl TOS do úsáideoirí agus / nó cuairteoirí an téacs HTML.</value>
   </data>
+  <data name="Transfer_word" xml:space="preserve">
+    <value>Aistriú</value>
+  </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Fabhtcheartú</value>
+  </data>
+  <data name="tt_Apache_Enable" xml:space="preserve">
+    <value>Cumasaigh freastalaí Apache gréasáin a reáchtáil mar sheirbhís.</value>
+  </data>
+  <data name="tt_Apache_EnableDiva" xml:space="preserve">
+    <value>Cumasaigh a atreorú ar an leathanach baile chun an "Dreamgrid" fhillteán i htdocs</value>
+  </data>
+  <data name="tt_Apache_EnableJOpensim" xml:space="preserve">
+    <value>Cumasaigh a atreorú ar an leathanach baile chun an fillteán JOpensim in htdocs</value>
+  </data>
+  <data name="tt_Apache_EnableOther" xml:space="preserve">
+    <value>Cumasaigh a atreorú ar an leathanach baile chun an fillteán "eile" i htdocs</value>
+  </data>
+  <data name="tt_Apache_EnableWP" xml:space="preserve">
+    <value>Cumasaigh a atreorú ar an leathanach baile chun an "WordPress" fhillteán i htdocs</value>
+  </data>
+  <data name="tt_Apache_Other" xml:space="preserve">
+    <value>Ainm an fillteán "eile". Ní mór a bheith suite i Apache \ htdocs fillteán. Beidh gach trácht gréasáin le leathanaigh / a atreorú chuig an fillteán seo.</value>
+  </data>
+  <data name="tt_Apache_Port" xml:space="preserve">
+    <value>De ghnáth Port 80, an gcalafort WWW. Má port 80 bac ag do ISP, tá 8000 le rogha maith.</value>
+  </data>
+  <data name="tt_Apache_Sitemap" xml:space="preserve">
+    <value>Cruthaigh léarscáil an tSuímh bhunúsach do innill chuardaigh a aimsiú agus innéacs do greille.</value>
+  </data>
+  <data name="tt_Backup_Custom" xml:space="preserve">
+    <value>Ndroim suas na leathanaigh fillteán Gréasáin an Chustaim sa Diva Gréasáin Freastalaí chun an comhad zip</value>
+  </data>
+  <data name="tt_Backup_Fsassets" xml:space="preserve">
+    <value>Ndroim suas an fillteán FSassets. Is Thjsi cúltaca an-mhór. Déanfaidh sé é cúltaca incriminteach, díreach athruithe.</value>
+  </data>
+  <data name="tt_Backup_Now" xml:space="preserve">
+    <value>Ritheann na cúltacaí a roghnaíodh anois.</value>
+  </data>
+  <data name="tt_Backup_Regions" xml:space="preserve">
+    <value>Ndroim suas go léir an réigiún comhad INI</value>
+  </data>
+  <data name="tt_Backup_Settings" xml:space="preserve">
+    <value>Déanann suas trhe Settings.ini agus XYSettings.ini comhaid chun an comhad zip. Seo a shealbhú go léir setings agat tar éis athrú riamh</value>
+  </data>
+  <data name="tt_Backup_SQL" xml:space="preserve">
+    <value>MySQL cúltaca go dhá chomhad MySQLDump, ceann amháin le haghaidh láidir, ceann amháin do réigiúin. Tá sé seo iniompartha, formáid readioable daonna</value>
+  </data>
+  <data name="tt_BirdsFlockSize" xml:space="preserve">
+    <value>Conas a bheidh éin manuy feiceáil, 1-100, na biords níos fearr an t-LAP agus líonra ag teastáil</value>
+  </data>
+  <data name="tt_BirdsMaxHeightTextBox" xml:space="preserve">
+    <value>uas-airde os cionn na talún</value>
+  </data>
+  <data name="tt_Bird_Border_size" xml:space="preserve">
+    <value>Conas in aice leis an teorainn SIM beidh na héin eitilt. IFF a thagann siad go mbeidh thay ró-ghar eitilt intoi anothert BCS. Agus bás. Agus bás. Agus bás go dtí go líonann sé suas ar an SIM</value>
+  </data>
+  <data name="tt_Click_to_Set_Backup_Types" xml:space="preserve">
+    <value>Cliceáil le cineálacha Socrú Cúltaca. De ghnáth ba chóir go gach ceann acu a shocrú chun On.</value>
   </data>
   <data name="Type_word" xml:space="preserve">
     <value>cineál</value>
@@ -2463,11 +2652,11 @@
   <data name="Updated_word" xml:space="preserve">
     <value>Nuashonraithe</value>
   </data>
-  <data name="Update_Downloaded" xml:space="preserve">
-    <value>Update curtha íoslódáil. Suiteáil é anois?</value>
-  </data>
   <data name="Update_is_available" xml:space="preserve">
-    <value>Is Nuashonrú ar fáil. Íosluchtú nuashonrú sa chúlra. Cuir in iúl a chríochnú.</value>
+    <value>Is Nuashonrú ar fáil. Ar mhaith leat a thabhairt cothrom le dáta?</value>
+  </data>
+  <data name="Update_word" xml:space="preserve">
+    <value>Nuashonraigh</value>
   </data>
   <data name="Updating_Ports_word" xml:space="preserve">
     <value>Calafoirt nuashonrú</value>
@@ -2487,6 +2676,9 @@
   <data name="Useful_Size" xml:space="preserve">
     <value>An mó an uimhir, an níos mó an taisce.</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>Úsáideoirí</value>
+  </data>
   <data name="Users_word" xml:space="preserve">
     <value>Úsáideoirí</value>
   </data>
@@ -2498,6 +2690,9 @@
   </data>
   <data name="Use_Default_word" xml:space="preserve">
     <value>Bain úsáid as Default</value>
+  </data>
+  <data name="UUID" xml:space="preserve">
+    <value>UUID</value>
   </data>
   <data name="UUID0" xml:space="preserve">
     <value>Earráid: UUID Is faic!</value>
@@ -2516,6 +2711,9 @@
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>Viewer stadanna comhaireamh ag 45,000</value>
+  </data>
+  <data name="ViewJoomla_word" xml:space="preserve">
+    <value>Amharc</value>
   </data>
   <data name="View_as_Icons" xml:space="preserve">
     <value>Feic mar Dheilbhíní</value>
@@ -2555,6 +2753,9 @@
   </data>
   <data name="View_Web_Interface_text" xml:space="preserve">
     <value>Is féidir leis an Chomhéadain Gréasáin a úsáid chun cur úsáideoirí nua</value>
+  </data>
+  <data name="View_word" xml:space="preserve">
+    <value>Amharc</value>
   </data>
   <data name="Vivox_Voice_word" xml:space="preserve">
     <value>Vivox Voice</value>
@@ -2613,20 +2814,32 @@
   <data name="WillNotSave" xml:space="preserve">
     <value>Nach mbeidh a shábháil OAR le Autobackup.</value>
   </data>
+  <data name="Window" xml:space="preserve">
+    <value>fuinneog</value>
+  </data>
+  <data name="Window_Word" xml:space="preserve">
+    <value>fuinneog</value>
+  </data>
+  <data name="WordPress_Word" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
   <data name="Wrong" xml:space="preserve">
     <value>Tá rud éigin cearr leis an Idirlíon</value>
   </data>
   <data name="X" xml:space="preserve">
     <value>X</value>
   </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>X Inneall</value>
+  </data>
   <data name="XMLRPC" xml:space="preserve">
     <value>XMLRPC</value>
   </data>
+  <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
+    <value>XMLRPC Réigiún Port</value>
+  </data>
   <data name="XMLRP_start" xml:space="preserve">
     <value>XMLRPC Port Tosaigh #</value>
-  </data>
-  <data name="X_Engine_word" xml:space="preserve">
-    <value>X Inneall</value>
   </data>
   <data name="Y" xml:space="preserve">
     <value>Y</value>
@@ -2636,5 +2849,32 @@
   </data>
   <data name="Yes_word" xml:space="preserve">
     <value>Is ea</value>
+  </data>
+  <data name="Z" xml:space="preserve">
+    <value>Z</value>
+  </data>
+  <data name="_0" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Theme_Custom" xml:space="preserve">
+    <value>Téama socraithe do Chustaim</value>
+  </data>
+  <data name="Arabic_Saudi" xml:space="preserve">
+    <value>Araibis (Sádach)</value>
+  </data>
+  <data name="Farsi" xml:space="preserve">
+    <value>Farsi (An Iaráin)</value>
+  </data>
+  <data name="Brazilian" xml:space="preserve">
+    <value>An Bhrasaíl (Portaingéilis)</value>
+  </data>
+  <data name="Khazak" xml:space="preserve">
+    <value>Khazakistan</value>
+  </data>
+  <data name="Spanish_Mexico" xml:space="preserve">
+    <value>Spáinnis (Meicsiceo)</value>
+  </data>
+  <data name="Spanish_Spain" xml:space="preserve">
+    <value>Spáinnis (an Spáinn)</value>
   </data>
 </root>

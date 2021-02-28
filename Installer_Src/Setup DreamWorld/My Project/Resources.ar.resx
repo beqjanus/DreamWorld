@@ -123,6 +123,9 @@
   <data name="About_word" xml:space="preserve">
     <value>حول</value>
   </data>
+  <data name="Action_word" xml:space="preserve">
+    <value>فعل</value>
+  </data>
   <data name="Add_Region_word" xml:space="preserve">
     <value>إضافة منطقة</value>
   </data>
@@ -130,7 +133,10 @@
     <value>إضافة مستخدم</value>
   </data>
   <data name="Add_word" xml:space="preserve">
-    <value>إضافة</value>
+    <value>يضيف</value>
+  </data>
+  <data name="AdministerJoomla_word" xml:space="preserve">
+    <value>إدارة</value>
   </data>
   <data name="Admin_Password_word" xml:space="preserve">
     <value>كلمة سر المشرف</value>
@@ -175,13 +181,16 @@
     <value>جميع الاعضاء، جميع سيمز</value>
   </data>
   <data name="All_word" xml:space="preserve">
-    <value>الكل</value>
+    <value>الجميع</value>
   </data>
   <data name="AlphaNum" xml:space="preserve">
     <value>ألفا الرقمية علامة زائد ناقص وحرف مسافة</value>
   </data>
+  <data name="Announce_visitors" xml:space="preserve">
+    <value>الإعلان عن آخر</value>
+  </data>
   <data name="Another_Region" xml:space="preserve">
-    <value>هذا سيسمح منطقة أخرى لتوضع في هذا المكان. استمر؟</value>
+    <value>هذا سيسمح منطقة أخرى لتوضع في هذا المكان. يكمل؟</value>
   </data>
   <data name="ApacheFailed" xml:space="preserve">
     <value>فشل خدمة تثبيت</value>
@@ -223,10 +232,10 @@
     <value>حدث استثناء تطبيق. هل ترغب في محاولة للمتابعة، أو إحباط / الخروج؟</value>
   </data>
   <data name="Apply_word" xml:space="preserve">
-    <value>تطبيق</value>
+    <value>يتقدم</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
-    <value>هل أنت واثق؟ سوف rloaded قاعدة البيانات من النسخة الاحتياطية واستبدالها كل المحتوى الموجود. الآلهة، سيمز، والمخزون، وسوف تكون مكتوبة افيريتينج انتهى.</value>
+    <value>هل أنت متأكد؟ سوف تحميل قاعدة البيانات من النسخة الاحتياطية واستبدالها كل المحتوى الموجود. الآلهة، سيمز، والمخزون، وسوف تكون مكتوبة افيريتينج انتهى.</value>
   </data>
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
     <value>هل أنت متأكد أنك تريد حذف هذه المنطقة؟</value>
@@ -242,6 +251,9 @@
   </data>
   <data name="Automatic_restart_word" xml:space="preserve">
     <value>إعادة تشغيل تلقائي</value>
+  </data>
+  <data name="Automatic_Site_map_word" xml:space="preserve">
+    <value>خريطة الموقع التلقائي</value>
   </data>
   <data name="AutorestartBox" xml:space="preserve">
     <value>0 - إيقاف. كم دقيقة حتى يحدث إعادة تشغيل السيارات؟</value>
@@ -274,7 +286,7 @@
     <value>الصورة الرمزية الأول والاسم الأخير</value>
   </data>
   <data name="Avatar_Name_word" xml:space="preserve">
-    <value>اسم مستعار</value>
+    <value>اسم الآلهة</value>
   </data>
   <data name="Avatar_Password_word" xml:space="preserve">
     <value>الصورة الرمزية كلمة المرور</value>
@@ -301,7 +313,7 @@
     <value>مجلد بيانات ماي احتياطية</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
-    <value>النسخ الاحتياطي مسقل \ مجلد البيانات. أرجو الإنتظار. ستظهر شاشة المجمدة.</value>
+    <value>النسخ الاحتياطي مسقل \ مجلد البيانات. انتظر من فضلك. ستظهر شاشة المجمدة.</value>
   </data>
   <data name="Backup_Name" xml:space="preserve">
     <value>اسم النسخ الاحتياطي</value>
@@ -403,7 +415,7 @@
     <value>ألغيت</value>
   </data>
   <data name="Cancel_word" xml:space="preserve">
-    <value>إلغاء</value>
+    <value>يلغي</value>
   </data>
   <data name="Cannot_find_region_word" xml:space="preserve">
     <value>لا يمكن العثور المنطقة</value>
@@ -427,16 +439,16 @@
     <value>الكاتالونية</value>
   </data>
   <data name="Category_word" xml:space="preserve">
-    <value>الفئة</value>
+    <value>فئة</value>
   </data>
   <data name="CenterMap" xml:space="preserve">
     <value>مركز الخريطة تنسيق</value>
   </data>
   <data name="Changes_Made" xml:space="preserve">
-    <value>تم إجراء تغييرات. حفظ؟</value>
+    <value>تم إجراء تغييرات. يحفظ؟</value>
   </data>
   <data name="Change_Password_word" xml:space="preserve">
-    <value>غير كلمة السر</value>
+    <value>تغيير كلمة المرور</value>
   </data>
   <data name="Change_UUID" xml:space="preserve">
     <value>وتغيير UUID تفقد كل البيانات في سيم القديم وإنشاء، وسيم جديد فارغ. هل أنت متأكد أنك ترغب في تغيير UUID؟</value>
@@ -478,9 +490,6 @@
     <value>تقاليد صينية</value>
   </data>
   <data name="Choose_a_Folder_word" xml:space="preserve">
-    <value>اختيار مجلد</value>
-  </data>
-  <data name="Choose_a_Folder_word1" xml:space="preserve">
     <value>اختيار مجلد</value>
   </data>
   <data name="Choose_Cache" xml:space="preserve">
@@ -564,6 +573,9 @@
   <data name="Click_For_Help" xml:space="preserve">
     <value>انقر على مساعدة</value>
   </data>
+  <data name="Click_Fsassets" xml:space="preserve">
+    <value>انقر لإعداد ملف قاعدة بيانات نظام الأصول (FSassets) الذي هو سريعة وقاعدة بيانات موثوقة من الملفات</value>
+  </data>
   <data name="Click_HG" xml:space="preserve">
     <value>انقر لتمكين Hypergrid أو تغيير اسم DNS</value>
   </data>
@@ -591,6 +603,12 @@
   <data name="Click_Server" xml:space="preserve">
     <value>انقر لاختيار نوع الملقم. افتراضي = الشبكة، ولكن يمكنك الاتصال كخادم منطقة، OsGrid أو مركز خدمة مترو منطقة</value>
   </data>
+  <data name="Click_Setup" xml:space="preserve">
+    <value>انقر فوق إعداد ل</value>
+  </data>
+  <data name="Click_Setup_Jopensim" xml:space="preserve">
+    <value>انقر لإعداد مدير الاختياري جملة وjOpensim CMS - واجهة الويب ل Opensim</value>
+  </data>
   <data name="Click_Start" xml:space="preserve">
     <value>لا يمكن تشغيل التشخيص ما لم يتم تشغيل النظام. انقر على "ابدأ" وحاول مرة أخرى.</value>
   </data>
@@ -611,6 +629,9 @@
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>انقر هنا لطلب الخدمة الصوتية</value>
+  </data>
+  <data name="Click_to_Setup_Search" xml:space="preserve">
+    <value>Clkick إلى إعداد خيارات البحث عن Hyperica أو JOpensim</value>
   </data>
   <data name="Click_to_View_this_word" xml:space="preserve">
     <value>انقر فوق لعرض هذه</value>
@@ -658,7 +679,7 @@
     <value>مدير محتوى</value>
   </data>
   <data name="Content_word" xml:space="preserve">
-    <value>المحتوى</value>
+    <value>محتوى</value>
   </data>
   <data name="Coordx" xml:space="preserve">
     <value>الموقف بين الشرق والغرب على خريطة العالم</value>
@@ -666,8 +687,14 @@
   <data name="CoordY" xml:space="preserve">
     <value>موقف الشمال والجنوب على خريطة العالم</value>
   </data>
+  <data name="Copy_Word" xml:space="preserve">
+    <value>ينسخ</value>
+  </data>
   <data name="CPU_Intensive" xml:space="preserve">
     <value>CPU النسخ الاحتياطي المكثف كتبت</value>
+  </data>
+  <data name="CPU_word" xml:space="preserve">
+    <value>وحدة المعالجة المركزية ٪</value>
   </data>
   <data name="CreateApp" xml:space="preserve">
     <value>إنشاء التطبيقات والحصول على مفاتيح</value>
@@ -686,6 +713,9 @@
   </data>
   <data name="CSOD" xml:space="preserve">
     <value>الحجم الحالي على القرص</value>
+  </data>
+  <data name="Currency_word" xml:space="preserve">
+    <value>عملة</value>
   </data>
   <data name="Current_Size" xml:space="preserve">
     <value>الحجم الحالي على القرص</value>
@@ -739,16 +769,19 @@
     <value>الافتراضي: مراجعة</value>
   </data>
   <data name="Default_Not_enabled" xml:space="preserve">
-    <value>لم يتم تمكين "أهلا" المنطقة الافتراضية. استمر؟</value>
+    <value>لم يتم تمكين "أهلا" المنطقة الافتراضية. يكمل؟</value>
   </data>
   <data name="Default_Region_word" xml:space="preserve">
     <value>المنطقة الافتراضية</value>
   </data>
   <data name="Default_Welcome" xml:space="preserve">
-    <value>لم يتم العثور على "أهلا" المنطقة الافتراضية في النظام. استمر؟</value>
+    <value>لم يتم العثور على "أهلا" المنطقة الافتراضية في النظام. يكمل؟</value>
   </data>
   <data name="Deleted_word" xml:space="preserve">
     <value>تم الحذف</value>
+  </data>
+  <data name="DeleteTmp_word" xml:space="preserve">
+    <value>مجلد تمة حذف</value>
   </data>
   <data name="Delete_word" xml:space="preserve">
     <value>حذف</value>
@@ -774,6 +807,9 @@
   <data name="Determines" xml:space="preserve">
     <value>هذا يحدد ما إذا كانت وحدة يفعل أي شيء</value>
   </data>
+  <data name="Diagnostics_port_word" xml:space="preserve">
+    <value>ميناء التشخيص</value>
+  </data>
   <data name="Diags_Failed" xml:space="preserve">
     <value>فشلت التشخيص. هل تريد أن ترى سجل؟</value>
   </data>
@@ -782,6 +818,9 @@
   </data>
   <data name="Diag_Port_word" xml:space="preserve">
     <value>ميناء التشخيص</value>
+  </data>
+  <data name="Diag_TCP_is_set_word" xml:space="preserve">
+    <value>ميناء التشخيص TCP هو مجموعة</value>
   </data>
   <data name="did_not_start_word" xml:space="preserve">
     <value>لم تبدأ</value>
@@ -816,6 +855,9 @@
   <data name="Diva_Wifi_Enabled_word" xml:space="preserve">
     <value>المغنية واي فاي تمكين</value>
   </data>
+  <data name="DNSAlt" xml:space="preserve">
+    <value>اسم بديل مثل www.outworldz.com مقابل outworldz.com. يمكن أن يكون اسم الشبكة القديمة التي ترغب في continute الاستخدام.</value>
+  </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>اسم DNS أو SomeName.Outworldz.net أو IP</value>
   </data>
@@ -841,7 +883,7 @@
     <value>DreamGrid</value>
   </data>
   <data name="Dutch" xml:space="preserve">
-    <value>هولندي</value>
+    <value>اللغة الهولندية</value>
   </data>
   <data name="Dynamic_DNS_word" xml:space="preserve">
     <value>نظام أسماء النطاقات الديناميكية</value>
@@ -856,13 +898,16 @@
     <value>تحرير المنطقة</value>
   </data>
   <data name="Edit_word" xml:space="preserve">
-    <value>تعديل</value>
+    <value>يحرر</value>
+  </data>
+  <data name="Emails_Selected" xml:space="preserve">
+    <value>رسائل البريد الإلكتروني المختارة</value>
+  </data>
+  <data name="Email_Address_words" xml:space="preserve">
+    <value>سيكون عنوان بريدك الإلكتروني تتيح لنا الاتصال بك في حالة نحتاج إلى مزيد من المعلومات.</value>
   </data>
   <data name="Email_word" xml:space="preserve">
-    <value>البريد الإلكتروني</value>
-  </data>
-  <data name="Email_word1" xml:space="preserve">
-    <value>البريد الإلكتروني</value>
+    <value>بريد الالكتروني</value>
   </data>
   <data name="EMGod" xml:space="preserve">
     <value>مدير العقارات هو الله - ويمكن لمديري العقارات تصبح الآلهة، ولكن فقط لهذا العقار</value>
@@ -870,8 +915,17 @@
   <data name="EnableApache" xml:space="preserve">
     <value>تمكين الخادم ويب Apache</value>
   </data>
+  <data name="EnableDiva" xml:space="preserve">
+    <value>تمكين المغنية الصفحة</value>
+  </data>
   <data name="Enabled_word" xml:space="preserve">
     <value>تمكين</value>
+  </data>
+  <data name="EnableGloebit_word" xml:space="preserve">
+    <value>تمكين Gloebit</value>
+  </data>
+  <data name="EnableJOpensim" xml:space="preserve">
+    <value>تمكين JOpensim</value>
   </data>
   <data name="EnableOneClickStart_word" xml:space="preserve">
     <value>تمكين واحدة انقر فوق ابدأ</value>
@@ -892,7 +946,7 @@
     <value>تمكين البحث</value>
   </data>
   <data name="Enable_word" xml:space="preserve">
-    <value>ممكن</value>
+    <value>يمكن</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>الإنجليزية</value>
@@ -910,9 +964,6 @@
     <value>أدخل اسم كائن ( '/' سيكون كل شيء النسخ الاحتياطي، و'/ كائنات / مربع "سيتم إجراء نسخ احتياطي" مربع "في كائنات مجلد</value>
   </data>
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
-    <value>أدخل الشبكة معلومات عن المالك</value>
-  </data>
-  <data name="Enter_the_Grid_Owner_Information_word1" xml:space="preserve">
     <value>أدخل الشبكة معلومات عن المالك</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
@@ -946,7 +997,7 @@
     <value>ملكية</value>
   </data>
   <data name="Exit__word" xml:space="preserve">
-    <value>خروج</value>
+    <value>مخرج</value>
   </data>
   <data name="Export_Backup_file_word" xml:space="preserve">
     <value>ملف النسخة الاحتياطية تصدير</value>
@@ -987,77 +1038,86 @@
   <data name="First_name_word" xml:space="preserve">
     <value>الاسم الاول</value>
   </data>
+  <data name="Float" xml:space="preserve">
+    <value>يطفو</value>
+  </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>الاسم الاول</value>
+    <value>حطام سفينة الكاش الأصول</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>مجلد لإنقاذ ل</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>معدل الإطار</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
     <value>معدل الإطار (0.0909)</value>
   </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
-    <value>مجلد لإنقاذ ل</value>
-  </data>
-  <data name="FreeName" xml:space="preserve">
-    <value>DLC مجانا</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
+  <data name="FrameTime" xml:space="preserve">
     <value>افتراضي 1/11 ثانية. الافتراضي هو 0.0909 والذي هو 1/5 من 55 FPS</value>
   </data>
-  <data name="Free_DLC_word" xml:space="preserve">
-    <value>انقر للحصول على Gloebits الحرة حساب حتى تتمكن من شراء وبيع</value>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>معدل الإطار</value>
   </data>
-  <data name="French" xml:space="preserve">
+  <data name="FreeName" xml:space="preserve">
     <value>الحصول على مجانية DYN اسم DNS</value>
   </data>
-  <data name="Friendly" xml:space="preserve">
+  <data name="Free_Account" xml:space="preserve">
+    <value>انقر للحصول على Gloebits الحرة حساب حتى تتمكن من شراء وبيع</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>DLC مجانا</value>
+  </data>
+  <data name="French" xml:space="preserve">
     <value>فرنسي</value>
   </data>
-  <data name="FRText" xml:space="preserve">
+  <data name="Friendly" xml:space="preserve">
     <value>اسم مألوف هذه الشبكة ل</value>
   </data>
-  <data name="FSA" xml:space="preserve">
+  <data name="FRText" xml:space="preserve">
     <value>SL تدير 55 FPS. Opensim هو 11 FPS. افتراضي = 0.0909، أو 1/11</value>
   </data>
-  <data name="FSassets" xml:space="preserve">
+  <data name="FSA" xml:space="preserve">
     <value>الأصول الملفات</value>
   </data>
-  <data name="FSassets_Server_word" xml:space="preserve">
+  <data name="FSassets" xml:space="preserve">
     <value>ملف قاعدة بيانات نظام الأصول</value>
   </data>
-  <data name="GBoids" xml:space="preserve">
+  <data name="FSassets_Server_word" xml:space="preserve">
     <value>FsAssets خادم</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>سيتم تطبيق الإعدادات الطيور العالمية لهذه المنطقة</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>ألمانية</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>سيتم تطبيق الإعدادات الطيور العالمية لهذه المنطقة</value>
+    <value>المناطق الحصول على</value>
+  </data>
+  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
+    <value>عرض Gloebits إذن لحظة رسالة إلى المستخدم عند بدء الجلسة؟</value>
+  </data>
+  <data name="GLBShowNewSessionPurchaseIM_text" xml:space="preserve">
+    <value>مشاهدة شراء Gloebits رسالة فورية إلى المستخدم عند بدء الجلسة؟</value>
+  </data>
+  <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
+    <value>مشاهدة Gloebits نرحب رسالة عند دخول المنطقة؟</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>إعدادات المد العالمي</value>
+    <value>الاعدادات العامة</value>
   </data>
   <data name="Global_Settings_word" xml:space="preserve">
     <value>الاعدادات العامة</value>
   </data>
   <data name="Global_Tide_Settings_word" xml:space="preserve">
-    <value>المناطق الحصول على</value>
-  </data>
-  <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>الاعدادات العامة</value>
+    <value>إعدادات المد العالمي</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Gloebits العملات</value>
+    <value>جيد (Warp3D)</value>
   </data>
   <data name="Greek" xml:space="preserve">
     <value>اليونانية</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>جيد (Warp3D)</value>
+    <value>عنوان الشبكة هو</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
     <value>يمكنك ان تعطي هذا العنوان إلى الناس، ويمكن زيارة الشبكة الخاصة بك</value>
@@ -1065,20 +1125,26 @@
   <data name="Grid_address_word" xml:space="preserve">
     <value>عنوان الشبكة</value>
   </data>
-  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
-    <value>يمكنك ان تعطي هذا العنوان إلى الناس، ويمكن زيارة الشبكة الخاصة بك</value>
+  <data name="Grid_Remote_is_set_word" xml:space="preserve">
+    <value>جهاز التحكم عن بعد ميناء Admin غير مجموعة</value>
   </data>
-  <data name="Grid_TCP_is_set_word" xml:space="preserve">
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
     <value>شبكة الخادم وقوية</value>
   </data>
-  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
     <value>ميناء الشبكة TCP هو مجموعة</value>
+  </data>
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+    <value>UDP ميناء الشبكة هي مجموعة</value>
+  </data>
+  <data name="Group_Ports_word" xml:space="preserve">
+    <value>ميناء المجموعة</value>
   </data>
   <data name="Group_word" xml:space="preserve">
     <value>مجموعة</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>UDP ميناء الشبكة هي مجموعة</value>
+    <value>سيتم تطبيق الإعدادات المد والجزر العالمية لهذه المنطقة</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>يتوفر التحديث. هل تريد إنهاء DreamGrid وتثبيت التحديث؟</value>
@@ -1194,6 +1260,9 @@
   <data name="Hypergrid_word" xml:space="preserve">
     <value>Hypergrid</value>
   </data>
+  <data name="HypericaSearch_word" xml:space="preserve">
+    <value>Hyperica البحث</value>
+  </data>
   <data name="IAR_Load_and_Save_word" xml:space="preserve">
     <value>IAR تحميل وحفظ</value>
   </data>
@@ -1234,7 +1303,7 @@
     <value>الرموز</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>الرموز</value>
+    <value>Opensim سيوفر المجاذيف بعد تشغيل هذا الوقت الطويل</value>
   </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>تجاهل الطرود</value>
@@ -1249,7 +1318,7 @@
     <value>استيراد ملفات المنطقة INI</value>
   </data>
   <data name="Import_word" xml:space="preserve">
-    <value>استيراد</value>
+    <value>يستورد</value>
   </data>
   <data name="Incoming_Works" xml:space="preserve">
     <value>الواردة Hypergrid هو العمل</value>
@@ -1258,13 +1327,28 @@
     <value>زيادة الوقت ل</value>
   </data>
   <data name="Information_word" xml:space="preserve">
-    <value>معلومات</value>
+    <value>معلومة</value>
   </data>
   <data name="Info_word" xml:space="preserve">
     <value>معلومات</value>
   </data>
   <data name="INI_Filter" xml:space="preserve">
     <value>ملفات INI (* .INI) | * .INI | جميع الملفات (*. *) | *. *</value>
+  </data>
+  <data name="Installed_word" xml:space="preserve">
+    <value>المثبتة</value>
+  </data>
+  <data name="InstallingJoomla_word" xml:space="preserve">
+    <value>تركيب جملة</value>
+  </data>
+  <data name="Installing_word" xml:space="preserve">
+    <value>تثبيت. انتظر من فضلك ...</value>
+  </data>
+  <data name="InstallJoomla_word" xml:space="preserve">
+    <value>تثبيت</value>
+  </data>
+  <data name="InstallOpensim" xml:space="preserve">
+    <value>وهذا تثبيت JOpensim. هل ترغب في الاستمرار؟</value>
   </data>
   <data name="InstallRuntime" xml:space="preserve">
     <value>تثبيت C ++ أوقات التشغيل</value>
@@ -1280,6 +1364,9 @@
   </data>
   <data name="Interval_word" xml:space="preserve">
     <value>فترة</value>
+  </data>
+  <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
+    <value>جرد IAR تحميل وحفظ</value>
   </data>
   <data name="IPV4_Address_word" xml:space="preserve">
     <value>IPV4 عنوان</value>
@@ -1308,8 +1395,20 @@
   <data name="JobEngine_word" xml:space="preserve">
     <value>المحرك وظيفة</value>
   </data>
+  <data name="JOpensimSearch_word" xml:space="preserve">
+    <value>JOpensim البحث</value>
+  </data>
+  <data name="JOpensimSettings" xml:space="preserve">
+    <value>إعدادات JOpensim</value>
+  </data>
+  <data name="JOpensim_word" xml:space="preserve">
+    <value>JOpensim</value>
+  </data>
   <data name="Just_one_region_word" xml:space="preserve">
     <value>منطقة واحدة فقط</value>
+  </data>
+  <data name="KeepOnTop_word" xml:space="preserve">
+    <value>الحفاظ على أعلى</value>
   </data>
   <data name="Keep_for_Days_word" xml:space="preserve">
     <value>تبقى لأيام</value>
@@ -1324,9 +1423,6 @@
     <value>خريطة مترو كبيرة</value>
   </data>
   <data name="Last_Name_Word" xml:space="preserve">
-    <value>الكنية</value>
-  </data>
-  <data name="Last_Name_word1" xml:space="preserve">
     <value>الكنية</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1349,9 +1445,6 @@
   </data>
   <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
     <value>تحميل مجاني DreamGrid مجذاف (الشبكه)</value>
-  </data>
-  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
-    <value>تحميل مجاني دريم وورلد مجذاف</value>
   </data>
   <data name="Load_Inventory_IAR" xml:space="preserve">
     <value>IAR تحميل الجرد</value>
@@ -1417,7 +1510,7 @@
     <value>إجراء نسخة احتياطية؟</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>إجراء نسخة احتياطية؟</value>
+    <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>تم مسح جميع البلاط خريطة. تعيين إعداد خريطة وإعادة تمهيد لجعل الخرائط الجديدة</value>
@@ -1425,8 +1518,11 @@
   <data name="Maps_word" xml:space="preserve">
     <value>خرائط</value>
   </data>
+  <data name="Maps_X" xml:space="preserve">
+    <value>خريطة X:</value>
+  </data>
   <data name="Mapx" xml:space="preserve">
-    <value>خريطة احداثيات: X</value>
+    <value>خريطة X:</value>
   </data>
   <data name="Map_Center_Location_word" xml:space="preserve">
     <value>خريطة مركز الدولة:</value>
@@ -1447,7 +1543,7 @@
     <value>المسافة القصوى للطيور أخرى للنظر في نفس القطيع</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>المسافة القصوى للطيور أخرى للنظر في نفس القطيع</value>
+    <value>ماكس القوة (الافتراضي = 0.2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>ماكس الطول (الافتراضي = 45.0)</value>
@@ -1471,10 +1567,10 @@
     <value>السرعة القصوى (الافتراضي = 1.0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>الحد الأقصى من 4096</value>
+    <value>دمج OAR</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>دمج OAR</value>
+    <value>كائنات دمج</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>شبكة الكاش</value>
@@ -1486,10 +1582,13 @@
     <value>Hypergrid.org منطقة الخادم</value>
   </data>
   <data name="Minutes_word" xml:space="preserve">
-    <value>الدقائق</value>
+    <value>محضر جلسة</value>
   </data>
   <data name="Mode_word" xml:space="preserve">
     <value>الوضع</value>
+  </data>
+  <data name="Modify_word" xml:space="preserve">
+    <value>تعديل</value>
   </data>
   <data name="Modules_word" xml:space="preserve">
     <value>وحدات</value>
@@ -1539,6 +1638,9 @@
   <data name="MySQL_Was_Running" xml:space="preserve">
     <value>والخلية تعمل عندما بدأ أنا، لذلك سأرحل الخلية على.</value>
   </data>
+  <data name="Mysql_Word" xml:space="preserve">
+    <value>ك</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>اسم</value>
   </data>
@@ -1573,7 +1675,7 @@
     <value>مستخدم جديد الرئيسية X، Y، Z</value>
   </data>
   <data name="Next1" xml:space="preserve">
-    <value>التالى</value>
+    <value>التالي</value>
   </data>
   <data name="Next_Name" xml:space="preserve">
     <value>الاسم التالي</value>
@@ -1582,7 +1684,7 @@
     <value>لا يجوز لأي شخص غير متواجد</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>لا شيء</value>
+    <value>لا أحد</value>
   </data>
   <data name="Nonphysical_Prim" xml:space="preserve">
     <value>غير المادية متزمت الحجم</value>
@@ -1606,10 +1708,10 @@
     <value>ليس UUID صالح. هل تريد جديد، UUID عشوائية؟</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>وضع عادة OutworldzFiles / التحميل التلقائي مجلد "التحميل التلقائي". انقر لتغيير المجلد.</value>
+    <value>هذا لا يبدو أن تحال إلى هذا الجهاز في جهاز التوجيه الخاص بك، لذلك Hypergrid غير متوفر. وهذا يمكن أن ربما تكون ثابتة عن طريق "ميناء مهاجمون" في جهاز التوجيه الخاص بك. انظر مساعدة-&gt; ميناء للهجوم.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>هذا لا يبدو أن تحال إلى هذا الجهاز في جهاز التوجيه الخاص بك، لذلك Hypergrid غير متوفر. وهذا يمكن أن ربما تكون ثابتة عن طريق "ميناء مهاجمون" في جهاز التوجيه الخاص بك. انظر مساعدة-&gt; ميناء للهجوم.</value>
+    <value>لا تطبق عادة Opensim. والمشاهد لا تظهر أكثر من 45،000. وضع هذا هنا، وتمكين هذه الإعدادات في وتطبيق الحد وقد ترجع PRIMS!</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim ليست قيد التشغيل.</value>
@@ -1626,6 +1728,12 @@
   <data name="no_Default_sim" xml:space="preserve">
     <value>تعذر تعيين سيم الافتراضي للزوار. انظر لوحة المناطق.</value>
   </data>
+  <data name="No_Email" xml:space="preserve">
+    <value>خادم البريد الإلكتروني لم تحدد بعد حتى</value>
+  </data>
+  <data name="No_Emails_Selected" xml:space="preserve">
+    <value>لم يتم تحديد أي رسائل البريد الإلكتروني</value>
+  </data>
   <data name="No_HG" xml:space="preserve">
     <value>سيتم يسمح للزوار لا Hypergrid في هذه المنطقة</value>
   </data>
@@ -1637,6 +1745,9 @@
   </data>
   <data name="No_Regions_Ready" xml:space="preserve">
     <value>لا مناطق جاهزة، لذلك لا يمكن تحميل IAR "</value>
+  </data>
+  <data name="No_Subject" xml:space="preserve">
+    <value>لا يوجد أي موضوع!</value>
   </data>
   <data name="NTSuspend" xml:space="preserve">
     <value>خطأ: لا يمكن إطلاق NtSuspendProcess64.exe.</value>
@@ -1665,6 +1776,9 @@
   <data name="OAR_load_save_backupp_word" xml:space="preserve">
     <value>OAR تحميل، حفظ والنسخ الاحتياطي</value>
   </data>
+  <data name="OAuth_Key" xml:space="preserve">
+    <value>مفتاح</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
     <value>مسار الكائن واسم</value>
   </data>
@@ -1675,34 +1789,37 @@
     <value>توسيع المحرك الديناميكي</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>توسيع المحرك الديناميكي</value>
+    <value>ODE</value>
   </data>
   <data name="Off" xml:space="preserve">
-    <value>إيقاف</value>
+    <value>عن</value>
   </data>
   <data name="Offline" xml:space="preserve">
     <value>غير متصل على الانترنت</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>حسنا</value>
+    <value>موافق</value>
   </data>
   <data name="OneAvatar" xml:space="preserve">
     <value>هناك الصورة الرمزية واحد</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>حسنا</value>
+    <value>منطقة واحدة لا تزال تعمل</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>وسيسمح فقط لمالكي ومديري العقارات في هذه المنطقة</value>
   </data>
+  <data name="On_Top" xml:space="preserve">
+    <value>في أعلى الصفحة</value>
+  </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>الموانئ راوتر المفتوحة باستخدام التوصيل والتشغيل العالمي</value>
+    <value>Opensimulator غير تحميل</value>
   </data>
   <data name="Open_Router_Ports" xml:space="preserve">
-    <value>وسيسمح فقط لمالكي ومديري العقارات في هذه المنطقة</value>
+    <value>الموانئ راوتر مفتوحة باستخدام التوصيل والتشغيل العالمي</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opensimulator غير تحميل</value>
+    <value>خيارات</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>أو:</value>
@@ -1720,13 +1837,16 @@
     <value>الطرود</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>الطرود</value>
+    <value>مرت اختبار الاسترجاع LAN</value>
+  </data>
+  <data name="Passwordtooshort_word" xml:space="preserve">
+    <value>كلمة المرور قصيرة جدا</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>يمكنك فقط تغيير كلمة المرور عند Opensim هو تشغيل</value>
   </data>
   <data name="Password_word" xml:space="preserve">
-    <value>كلمه السر</value>
+    <value>كلمة المرور</value>
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>دليل PDF</value>
@@ -1770,11 +1890,11 @@
   <data name="port2" xml:space="preserve">
     <value>ميناء 2</value>
   </data>
-  <data name="Portguese" xml:space="preserve">
-    <value>Portguese</value>
-  </data>
   <data name="Ports" xml:space="preserve">
     <value>الموانئ</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>البرتغالية</value>
   </data>
   <data name="Port_Error" xml:space="preserve">
     <value>تم الكشف عن ميناء الصراع. وكانت جميع الموانئ إعادة تعيين إلى الإعدادات الافتراضية</value>
@@ -1792,7 +1912,10 @@
     <value>متزمت اسم (الافتراضي = SeaGull1)</value>
   </data>
   <data name="Print" xml:space="preserve">
-    <value>طباعة</value>
+    <value>مطبعة</value>
+  </data>
+  <data name="Privacy_policy" xml:space="preserve">
+    <value>سياسة خاصة</value>
   </data>
   <data name="Private_Port_Word" xml:space="preserve">
     <value>ميناء الخاصة</value>
@@ -1818,6 +1941,12 @@
   <data name="Publish_Items" xml:space="preserve">
     <value>نشر عناصر ملحوظ للبحث</value>
   </data>
+  <data name="Quit_Message0" xml:space="preserve">
+    <value>لم تتأثر النظام وترجمة جوجل الأخرى. تم إنشاء تقرير التي يمكنك إرسالها إلى Outworldz، LLC للمساعدة في التعرف على هذه المشكلة.</value>
+  </data>
+  <data name="Quit_Message1" xml:space="preserve">
+    <value>وقد إنهاء Appication بشكل غير متوقع.</value>
+  </data>
   <data name="Quit_Now_Word" xml:space="preserve">
     <value>الإقلاع عن التدخين الآن</value>
   </data>
@@ -1831,7 +1960,7 @@
     <value>ملفات القراءة منطقة</value>
   </data>
   <data name="Ready" xml:space="preserve">
-    <value>جاهز</value>
+    <value>مستعد</value>
   </data>
   <data name="Ready_to_Launch" xml:space="preserve">
     <value>استعداد لإطلاق!</value>
@@ -1846,13 +1975,13 @@
     <value>منعش الحرة المحتوى (أور)</value>
   </data>
   <data name="Refresh_word" xml:space="preserve">
-    <value>تحديث</value>
+    <value>ينعش</value>
   </data>
   <data name="Regen_Map" xml:space="preserve">
     <value>إذا قمت بحذف جميع الخرائط، تحتاج إلى خرائط تجديد عن طريق إعادة تشغيل مع إعداد خريطة</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>المنطقة UUID غير صالح</value>
+    <value>مناطق لا تزال قيد التشغيل</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>المناطق</value>
@@ -1938,6 +2067,9 @@
   <data name="Reload" xml:space="preserve">
     <value>تحديث الشبكة</value>
   </data>
+  <data name="Remote_Admin_word" xml:space="preserve">
+    <value>RemoteAdmin</value>
+  </data>
   <data name="RenderMax" xml:space="preserve">
     <value>تقديم أقصى ارتفاع</value>
   </data>
@@ -1947,14 +2079,11 @@
   <data name="Repeat_Password_word" xml:space="preserve">
     <value>اعد كلمة السر</value>
   </data>
-  <data name="Repeat_Password_word1" xml:space="preserve">
-    <value>اعد كلمة السر</value>
-  </data>
   <data name="Request_App" xml:space="preserve">
     <value>طلب التطبيقات الخلق</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>طلب التطبيقات الخلق</value>
+    <value>حجز اسم DYN DNS الخاص بك. هذا هو كلمة السر لاسمك.</value>
   </data>
   <data name="Reset_To_Default" xml:space="preserve">
     <value>. إعادة تعيين إلى الافتراضي</value>
@@ -1975,7 +2104,7 @@
     <value>إعادة تشغيل الفاصل الزمني في دقائق</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>تحطم الفيزياء Bulletsim سيجبر إعادة تشغيل جهاز محاكاة</value>
+    <value>حالة واحدة إعادة تشغيل</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>منطقة واحدة إعادة تشغيل</value>
@@ -2002,22 +2131,22 @@
     <value>إعادة تشغيل قائمة الانتظار</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>إعادة تشغيل قائمة الانتظار</value>
-  </data>
-  <data name="Restart_Robust_word" xml:space="preserve">
     <value>إعادة تشغيل المنطقة</value>
   </data>
-  <data name="Restart_Settings_word" xml:space="preserve">
+  <data name="Restart_Robust_word" xml:space="preserve">
     <value>إعادة تشغيل قوية</value>
   </data>
-  <data name="Restart_word" xml:space="preserve">
+  <data name="Restart_Settings_word" xml:space="preserve">
     <value>إعدادات إعادة تشغيل</value>
+  </data>
+  <data name="Restart_word" xml:space="preserve">
+    <value>إعادة تشغيل</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>استعادة قاعدة البيانات</value>
   </data>
   <data name="Restore_word" xml:space="preserve">
-    <value>استعادة؟</value>
+    <value>يعيد؟</value>
   </data>
   <data name="Resuming_word" xml:space="preserve">
     <value>استئناف</value>
@@ -2046,23 +2175,17 @@
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>تشغيل كمنطقة خادم</value>
   </data>
-  <data name="Running_as_a_Region_Server_word1" xml:space="preserve">
-    <value>تشغيل كمنطقة خادم</value>
-  </data>
   <data name="Running_Network" xml:space="preserve">
     <value>تشغيل تشخيص الشبكة</value>
   </data>
-  <data name="Running_Network1" xml:space="preserve">
-    <value>تشغيل تشخيص الشبكة</value>
-  </data>
   <data name="Running_word" xml:space="preserve">
-    <value>تشغيل كمنطقة خادم</value>
+    <value>ادارة</value>
   </data>
   <data name="Run_All_word" xml:space="preserve">
     <value>تشغيل الكل</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>تشغيل الكل</value>
+    <value>تشغيل كخدمة</value>
   </data>
   <data name="Russian" xml:space="preserve">
     <value>الروسية</value>
@@ -2086,7 +2209,7 @@
     <value>حفظ منطقة OAR</value>
   </data>
   <data name="Save_word" xml:space="preserve">
-    <value>حفظ</value>
+    <value>يحفظ</value>
   </data>
   <data name="Saving_word" xml:space="preserve">
     <value>إنقاذ</value>
@@ -2121,14 +2244,14 @@
   <data name="Script_Timer_Text" xml:space="preserve">
     <value>النصي تحديد السرعة الموقت. 1/11 الثاني هو الافتراضي (0.0909)</value>
   </data>
-  <data name="Search_All_Grids_word" xml:space="preserve">
-    <value>بحث جميع الشبكات</value>
+  <data name="SearchOptions_word" xml:space="preserve">
+    <value>خيارات البحث</value>
   </data>
-  <data name="Search_Connect_failed" xml:space="preserve">
-    <value>فشل الاتصال بحث قاعدة البيانات</value>
+  <data name="Search_Events" xml:space="preserve">
+    <value>البحث عن كائنات ومناسبات (الشبكة العالمية)</value>
   </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>بحث</value>
+  <data name="Search_grids" xml:space="preserve">
+    <value>بحث عن شبكات (الشبكه)</value>
   </data>
   <data name="Secret_word" xml:space="preserve">
     <value>سر</value>
@@ -2146,13 +2269,19 @@
     <value>يختار كل أو أي من خانات</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>أنا أراكم مرة أخرى عندما استيقظ كل جديد والجديد!</value>
+    <value>يختار</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>إرسال رسالة تنبيه</value>
   </data>
   <data name="Send_Debug_Info" xml:space="preserve">
     <value>إرسال معلومات التصحيح إلى وحدة التحكم</value>
+  </data>
+  <data name="Send_report" xml:space="preserve">
+    <value>إرسال تقرير</value>
+  </data>
+  <data name="Send_word" xml:space="preserve">
+    <value>إرسال</value>
   </data>
   <data name="Separation" xml:space="preserve">
     <value>المطلوب الفصل (الافتراضي = 5.0)</value>
@@ -2167,10 +2296,10 @@
     <value>نوع الخادم</value>
   </data>
   <data name="Settings_word" xml:space="preserve">
-    <value>الإعدادات</value>
+    <value>إعدادات</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>مجموعة المالك</value>
+    <value>وضع محول الاسترجاع إلى عنوان IP العام</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>جدار حماية الإعداد</value>
@@ -2184,9 +2313,6 @@
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>موانئ الإعداد</value>
   </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>قاعدة بيانات بحث الإعداد</value>
-  </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>انقر لانشاء شروط الخدمة الخاصة بك</value>
   </data>
@@ -2194,7 +2320,7 @@
     <value>إعداد الخدمة الصوتية</value>
   </data>
   <data name="Setup_word" xml:space="preserve">
-    <value>اقامة</value>
+    <value>يثبت</value>
   </data>
   <data name="Setup_Wordpress" xml:space="preserve">
     <value>قاعدة بيانات الإعداد وورد</value>
@@ -2203,7 +2329,7 @@
     <value>مجموعة مستوى التصحيح</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>مجموعة مستوى التصحيح</value>
+    <value>مجموعة المالك</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>لم يتم تمكين يسكاست.</value>
@@ -2236,13 +2362,16 @@
     <value>سيم الحجم</value>
   </data>
   <data name="Size_word" xml:space="preserve">
-    <value>بحجم</value>
+    <value>مقاس</value>
   </data>
   <data name="Skip_Autobackup_word" xml:space="preserve">
     <value>تخطي التحميل التلقائي</value>
   </data>
   <data name="Skip_word" xml:space="preserve">
     <value>تخطى</value>
+  </data>
+  <data name="Slash" xml:space="preserve">
+    <value>/</value>
   </data>
   <data name="Slow_Backup" xml:space="preserve">
     <value>بدء بطيء ولكنه واسع قاعدة بيانات النسخ الاحتياطي</value>
@@ -2302,7 +2431,7 @@
     <value>خادم البدء</value>
   </data>
   <data name="Starting_word" xml:space="preserve">
-    <value>بدء</value>
+    <value>ابتداء</value>
   </data>
   <data name="StartLaunch" xml:space="preserve">
     <value>ليست هناك حاجة إلى انقر فوق الزر ابدأ مرة أخرى. يبدأ عندما أطلقت.</value>
@@ -2320,7 +2449,7 @@
     <value>بداية</value>
   </data>
   <data name="Status_word" xml:space="preserve">
-    <value>الحالة</value>
+    <value>حالة</value>
   </data>
   <data name="STComment" xml:space="preserve">
     <value>النصي تحديد السرعة الموقت. 1/11 الثاني هو الافتراضي (0.0909)</value>
@@ -2355,6 +2484,9 @@
   <data name="Stop_word" xml:space="preserve">
     <value>قف</value>
   </data>
+  <data name="Subject_word" xml:space="preserve">
+    <value>موضوعات</value>
+  </data>
   <data name="Suitcase_enable" xml:space="preserve">
     <value>تمكين حقيبة الجرد</value>
   </data>
@@ -2363,6 +2495,9 @@
   </data>
   <data name="Swedish" xml:space="preserve">
     <value>اللغة السويدية</value>
+  </data>
+  <data name="System_Backup_Now_word" xml:space="preserve">
+    <value>تشغيل النسخ الاحتياطي الآن</value>
   </data>
   <data name="System_Backup_word" xml:space="preserve">
     <value>نظام النسخ الاحتياطي</value>
@@ -2404,40 +2539,97 @@
     <value>موضوع تعيين إلى الأبيض</value>
   </data>
   <data name="Theme_word" xml:space="preserve">
-    <value>موضوع:</value>
+    <value>سمة:</value>
   </data>
   <data name="This_Moves" xml:space="preserve">
-    <value>هذه التحركات جميع المناطق حتى المنطقة التي تم اختيارها في 1000،1000 لتناسب الخريطة. تقدم؟</value>
+    <value>هذه التحركات جميع المناطق حتى المنطقة التي تم اختيارها في 1000،1000 لتناسب الخريطة. يتابع؟</value>
   </data>
   <data name="Thread_pools_word" xml:space="preserve">
     <value>حمامات الموضوع</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>معلومات المد القناة</value>
+    <value>المد والجزر</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>حمامات الموضوع</value>
+    <value>تمكين المد القادمة داخل وخارج؟</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>المد مرحبا / لو القناة</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>المد مرحبا / لو القناة</value>
+    <value>معلومات المد القناة</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>المهلة في ساعات</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>المهلة في ساعات</value>
+    <value>التسامح (الافتراضي = 25.0)</value>
   </data>
   <data name="TOS" xml:space="preserve">
     <value>تظهر وحدة TOS المستخدمين و / أو زوار هذا النص HTML.</value>
   </data>
+  <data name="Transfer_word" xml:space="preserve">
+    <value>تحويل</value>
+  </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>استكشاف الأخطاء وإصلاحها</value>
   </data>
+  <data name="tt_Apache_Enable" xml:space="preserve">
+    <value>تمكن الخادم ويب Apache لتشغيل كخدمة.</value>
+  </data>
+  <data name="tt_Apache_EnableDiva" xml:space="preserve">
+    <value>تمكن إعادة توجيه من الصفحة الرئيسية إلى مجلد "Dreamgrid" في htdocs</value>
+  </data>
+  <data name="tt_Apache_EnableJOpensim" xml:space="preserve">
+    <value>تمكن إعادة توجيه من الصفحة الرئيسية إلى المجلد JOpensim في htdocs</value>
+  </data>
+  <data name="tt_Apache_EnableOther" xml:space="preserve">
+    <value>تمكن إعادة توجيه من الصفحة الرئيسية إلى مجلد "أخرى" في htdocs</value>
+  </data>
+  <data name="tt_Apache_EnableWP" xml:space="preserve">
+    <value>تمكن إعادة توجيه من الصفحة الرئيسية إلى المجلد "وورد" في htdocs</value>
+  </data>
+  <data name="tt_Apache_Other" xml:space="preserve">
+    <value>اسم المجلد "الآخر". يجب أن يكون موجودا في Apache \ htdocs المجلد. سيتم إعادة توجيه كل حركة المرور على الشبكة إلى صفحة / إلى هذا المجلد.</value>
+  </data>
+  <data name="tt_Apache_Port" xml:space="preserve">
+    <value>عادة المنفذ 80، وميناء WWW. إذا المنفذ 80 منعت من قبل ISP، 8000 هو خيار جيد.</value>
+  </data>
+  <data name="tt_Apache_Sitemap" xml:space="preserve">
+    <value>يخلق خريطة الموقع الأساسي لمحركات البحث للعثور على ومؤشر الشبكة الخاصة بك.</value>
+  </data>
+  <data name="tt_Backup_Custom" xml:space="preserve">
+    <value>يساند المجلد صفحات ويب مخصصة في خادم ويب المغنية لملف مضغوط</value>
+  </data>
+  <data name="tt_Backup_Fsassets" xml:space="preserve">
+    <value>يساند المجلد FSassets. Thjsi هو نسخة احتياطية كبيرة جدا. انها لن تفعل نسخ احتياطي تزايدي، التغيرات عادلة.</value>
+  </data>
+  <data name="tt_Backup_Now" xml:space="preserve">
+    <value>يدير النسخ الاحتياطي المحدد الآن.</value>
+  </data>
+  <data name="tt_Backup_Regions" xml:space="preserve">
+    <value>ظهورهم لكافة الملفات INI المنطقة</value>
+  </data>
+  <data name="tt_Backup_Settings" xml:space="preserve">
+    <value>يساند trhe ملفات Settings.ini وXYSettings.ini إلى ملف مضغوط. هذه محاسبة كل setings قمت بتغيير أي وقت مضى</value>
+  </data>
+  <data name="tt_Backup_SQL" xml:space="preserve">
+    <value>ماي احتياطية لملفين MySQLDump، واحدة للقوة، واحدة للمنطقة. هذا هو محمول، شكل readioable البشري</value>
+  </data>
+  <data name="tt_BirdsFlockSize" xml:space="preserve">
+    <value>كيفية ظهور الطيور manuy، 1-100، وأكثر biords أفضل هناك حاجة إلى وحدة المعالجة المركزية وشبكة</value>
+  </data>
+  <data name="tt_BirdsMaxHeightTextBox" xml:space="preserve">
+    <value>أقصى ارتفاع فوق سطح الأرض</value>
+  </data>
+  <data name="tt_Bird_Border_size" xml:space="preserve">
+    <value>كيف بالقرب من الحدود سيم سوف تطير الطيور. المنتدى يحصلون تاي قريبا جدا سوف يطير intoi anothert سيم. و مت. و مت. ويموت حتى يملأ سيم</value>
+  </data>
+  <data name="tt_Click_to_Set_Backup_Types" xml:space="preserve">
+    <value>انقر لأنواع إعداد النسخ الاحتياطي. عادة كل منهم يجب تعيين إلى تشغيل.</value>
+  </data>
   <data name="Type_word" xml:space="preserve">
-    <value>نوع</value>
+    <value>اكتب</value>
   </data>
   <data name="UbitHybrid" xml:space="preserve">
     <value>Ubit ODE / رصاصة الهجين</value>
@@ -2463,11 +2655,11 @@
   <data name="Updated_word" xml:space="preserve">
     <value>محدث</value>
   </data>
-  <data name="Update_Downloaded" xml:space="preserve">
-    <value>وقد تم تحميل التحديث. تثبيته الآن؟</value>
-  </data>
   <data name="Update_is_available" xml:space="preserve">
-    <value>يتوفر التحديث. تحميل التحديث في الخلفية. واسمحوا انها النهاية.</value>
+    <value>يتوفر التحديث. هل ترغب في التحديث؟</value>
+  </data>
+  <data name="Update_word" xml:space="preserve">
+    <value>تحديث</value>
   </data>
   <data name="Updating_Ports_word" xml:space="preserve">
     <value>موانئ التحديث</value>
@@ -2487,6 +2679,9 @@
   <data name="Useful_Size" xml:space="preserve">
     <value>أكبر عدد، وأكبر ذاكرة التخزين المؤقت.</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>المستخدمين</value>
+  </data>
   <data name="Users_word" xml:space="preserve">
     <value>المستخدمين</value>
   </data>
@@ -2494,10 +2689,13 @@
     <value>معرف المستخدم</value>
   </data>
   <data name="User_Name_word" xml:space="preserve">
-    <value>اسم المستخدم</value>
+    <value>اسم االمستخدم</value>
   </data>
   <data name="Use_Default_word" xml:space="preserve">
     <value>استخدم الافتراضي</value>
+  </data>
+  <data name="UUID" xml:space="preserve">
+    <value>UUID</value>
   </data>
   <data name="UUID0" xml:space="preserve">
     <value>خطأ: UUID شيء!</value>
@@ -2516,6 +2714,9 @@
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>يتوقف المشاهد العد في 45000</value>
+  </data>
+  <data name="ViewJoomla_word" xml:space="preserve">
+    <value>رأي</value>
   </data>
   <data name="View_as_Icons" xml:space="preserve">
     <value>كما عرض الأيقونات</value>
@@ -2555,6 +2756,9 @@
   </data>
   <data name="View_Web_Interface_text" xml:space="preserve">
     <value>واجهة ويب يمكن استخدامها لإضافة مستخدمين جدد</value>
+  </data>
+  <data name="View_word" xml:space="preserve">
+    <value>رأي</value>
   </data>
   <data name="Vivox_Voice_word" xml:space="preserve">
     <value>Vivox صوت</value>
@@ -2613,20 +2817,32 @@
   <data name="WillNotSave" xml:space="preserve">
     <value>لن حفظ OAR مع التحميل التلقائي.</value>
   </data>
+  <data name="Window" xml:space="preserve">
+    <value>نافذة او شباك</value>
+  </data>
+  <data name="Window_Word" xml:space="preserve">
+    <value>نافذة او شباك</value>
+  </data>
+  <data name="WordPress_Word" xml:space="preserve">
+    <value>وورد</value>
+  </data>
   <data name="Wrong" xml:space="preserve">
     <value>هناك خطأ ما مع الإنترنت</value>
   </data>
   <data name="X" xml:space="preserve">
     <value>X</value>
   </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>X المحرك</value>
+  </data>
   <data name="XMLRPC" xml:space="preserve">
     <value>XMLRPC</value>
   </data>
+  <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
+    <value>ميناء XMLRPC منطقة</value>
+  </data>
   <data name="XMLRP_start" xml:space="preserve">
     <value>XMLRPC ميناء بدء #</value>
-  </data>
-  <data name="X_Engine_word" xml:space="preserve">
-    <value>X المحرك</value>
   </data>
   <data name="Y" xml:space="preserve">
     <value>Y</value>
@@ -2636,5 +2852,8 @@
   </data>
   <data name="Yes_word" xml:space="preserve">
     <value>نعم</value>
+  </data>
+  <data name="Z" xml:space="preserve">
+    <value>Z</value>
   </data>
 </root>

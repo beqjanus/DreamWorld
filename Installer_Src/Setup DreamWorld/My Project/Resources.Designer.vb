@@ -431,6 +431,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Arabic (Saudi).
+        '''</summary>
+        Friend ReadOnly Property Arabic_Saudi() As String
+            Get
+                Return ResourceManager.GetString("Arabic_Saudi", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Are you sure? Your database will loaded from the backup and all existing content replaced. Avatars, sims, inventory, everyting will be written over..
         '''</summary>
         Friend ReadOnly Property Are_You_Sure() As String
@@ -940,6 +949,15 @@ Namespace My.Resources
         Friend ReadOnly Property BP() As String
             Get
                 Return ResourceManager.GetString("BP", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Brazilian (Portguese).
+        '''</summary>
+        Friend ReadOnly Property Brazilian() As String
+            Get
+                Return ResourceManager.GetString("Brazilian", resourceCulture)
             End Get
         End Property
         
@@ -3208,6 +3226,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Farsi (Iran).
+        '''</summary>
+        Friend ReadOnly Property Farsi() As String
+            Get
+                Return ResourceManager.GetString("Farsi", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Fatal.
         '''</summary>
         Friend ReadOnly Property Fatal_word() As String
@@ -3295,6 +3322,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property flag_denmark() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_denmark", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property flag_finland() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_finland", resourceCulture)
@@ -3335,6 +3372,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property flag_hong_kong() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_hong_kong", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property flag_iceland() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_iceland", resourceCulture)
@@ -3368,6 +3415,36 @@ Namespace My.Resources
         Friend ReadOnly Property flag_israel() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_israel", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property flag_italy() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_italy", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property flag_kazakhstan() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_kazakhstan", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property flag_mexico() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_mexico", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -3465,9 +3542,29 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property flag_turkey() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_turkey", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property flag_usa() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_usa", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property flag_vietnam() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flag_vietnam", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -4674,6 +4771,15 @@ Namespace My.Resources
         Friend ReadOnly Property KeepOnTop_word() As String
             Get
                 Return ResourceManager.GetString("KeepOnTop_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Khazakistan.
+        '''</summary>
+        Friend ReadOnly Property Khazak() As String
+            Get
+                Return ResourceManager.GetString("Khazak", resourceCulture)
             End Get
         End Property
         
@@ -8132,6 +8238,24 @@ Namespace My.Resources
         Friend ReadOnly Property Spanish() As String
             Get
                 Return ResourceManager.GetString("Spanish", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Spanish (Mexico).
+        '''</summary>
+        Friend ReadOnly Property Spanish_Mexico() As String
+            Get
+                Return ResourceManager.GetString("Spanish_Mexico", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Spanish (Spain).
+        '''</summary>
+        Friend ReadOnly Property Spanish_Spain() As String
+            Get
+                Return ResourceManager.GetString("Spanish_Spain", resourceCulture)
             End Get
         End Property
         

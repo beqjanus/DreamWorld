@@ -72,8 +72,8 @@ Public Class FormPermissions
         If var = -1 Then var = 5
 
         Dim v As Integer = CInt("0" & (var * 10))
-        If (var > 9) Then v = 9
-        If (var < 0) Then v = 0
+        If (v > 9) Then v = 9
+        If (v < 0) Then v = 0
         DomainUpDown1.SelectedIndex = v
 
         OutBoundPermissionsCheckbox.Checked = Settings.OutBoundPermissions

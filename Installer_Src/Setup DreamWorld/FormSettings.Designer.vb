@@ -51,6 +51,7 @@ Partial Class FormSettings
         Me.BanListButton = New System.Windows.Forms.Button()
         Me.JoomlaButton = New System.Windows.Forms.Button()
         Me.SearchButton = New System.Windows.Forms.Button()
+        Me.LanguageButton = New System.Windows.Forms.Button()
         Me.FSAssetsButton = New System.Windows.Forms.Button()
         Me.GlobalSettingsGroupbox = New System.Windows.Forms.GroupBox()
         Me.GlobalSettingsGroupbox.SuspendLayout()
@@ -58,7 +59,7 @@ Partial Class FormSettings
         '
         'TOSButton
         '
-        Me.TOSButton.Location = New System.Drawing.Point(175, 320)
+        Me.TOSButton.Location = New System.Drawing.Point(174, 350)
         Me.TOSButton.Name = "TOSButton"
         Me.TOSButton.Size = New System.Drawing.Size(145, 23)
         Me.TOSButton.TabIndex = 15
@@ -68,7 +69,7 @@ Partial Class FormSettings
         '
         'TideButton
         '
-        Me.TideButton.Location = New System.Drawing.Point(175, 290)
+        Me.TideButton.Location = New System.Drawing.Point(174, 320)
         Me.TideButton.Name = "TideButton"
         Me.TideButton.Size = New System.Drawing.Size(145, 23)
         Me.TideButton.TabIndex = 14
@@ -88,7 +89,7 @@ Partial Class FormSettings
         '
         'VoiceButton1
         '
-        Me.VoiceButton1.Location = New System.Drawing.Point(175, 350)
+        Me.VoiceButton1.Location = New System.Drawing.Point(174, 379)
         Me.VoiceButton1.Name = "VoiceButton1"
         Me.VoiceButton1.Size = New System.Drawing.Size(143, 23)
         Me.VoiceButton1.TabIndex = 16
@@ -108,7 +109,7 @@ Partial Class FormSettings
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(17, 380)
+        Me.MapsButton.Location = New System.Drawing.Point(175, 21)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(145, 23)
         Me.MapsButton.TabIndex = 7
@@ -138,7 +139,7 @@ Partial Class FormSettings
         '
         'RegionsButton1
         '
-        Me.RegionsButton1.Location = New System.Drawing.Point(175, 140)
+        Me.RegionsButton1.Location = New System.Drawing.Point(174, 170)
         Me.RegionsButton1.Name = "RegionsButton1"
         Me.RegionsButton1.Size = New System.Drawing.Size(145, 23)
         Me.RegionsButton1.TabIndex = 12
@@ -148,7 +149,7 @@ Partial Class FormSettings
         '
         'DivaButton1
         '
-        Me.DivaButton1.Location = New System.Drawing.Point(175, 380)
+        Me.DivaButton1.Location = New System.Drawing.Point(175, 408)
         Me.DivaButton1.Name = "DivaButton1"
         Me.DivaButton1.Size = New System.Drawing.Size(145, 23)
         Me.DivaButton1.TabIndex = 18
@@ -158,7 +159,7 @@ Partial Class FormSettings
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(176, 20)
+        Me.PortsButton1.Location = New System.Drawing.Point(175, 50)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PortsButton1.TabIndex = 8
@@ -169,7 +170,7 @@ Partial Class FormSettings
         'PhysicsButton1
         '
         Me.PhysicsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.PhysicsButton1.Location = New System.Drawing.Point(175, 80)
+        Me.PhysicsButton1.Location = New System.Drawing.Point(174, 110)
         Me.PhysicsButton1.Name = "PhysicsButton1"
         Me.PhysicsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PhysicsButton1.TabIndex = 10
@@ -189,7 +190,7 @@ Partial Class FormSettings
         '
         'RestartButton
         '
-        Me.RestartButton.Location = New System.Drawing.Point(175, 170)
+        Me.RestartButton.Location = New System.Drawing.Point(174, 200)
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Size = New System.Drawing.Size(143, 23)
         Me.RestartButton.TabIndex = 13
@@ -199,7 +200,7 @@ Partial Class FormSettings
         '
         'PermissionsButton
         '
-        Me.PermissionsButton.Location = New System.Drawing.Point(175, 50)
+        Me.PermissionsButton.Location = New System.Drawing.Point(174, 80)
         Me.PermissionsButton.Name = "PermissionsButton"
         Me.PermissionsButton.Size = New System.Drawing.Size(143, 23)
         Me.PermissionsButton.TabIndex = 9
@@ -219,7 +220,7 @@ Partial Class FormSettings
         '
         'PublicityButton
         '
-        Me.PublicityButton.Location = New System.Drawing.Point(175, 110)
+        Me.PublicityButton.Location = New System.Drawing.Point(174, 140)
         Me.PublicityButton.Name = "PublicityButton"
         Me.PublicityButton.Size = New System.Drawing.Size(145, 23)
         Me.PublicityButton.TabIndex = 11
@@ -239,7 +240,7 @@ Partial Class FormSettings
         '
         'ServerTypeButton
         '
-        Me.ServerTypeButton.Location = New System.Drawing.Point(175, 260)
+        Me.ServerTypeButton.Location = New System.Drawing.Point(174, 290)
         Me.ServerTypeButton.Name = "ServerTypeButton"
         Me.ServerTypeButton.Size = New System.Drawing.Size(145, 23)
         Me.ServerTypeButton.TabIndex = 20
@@ -259,7 +260,7 @@ Partial Class FormSettings
         '
         'ScriptButton
         '
-        Me.ScriptButton.Location = New System.Drawing.Point(175, 200)
+        Me.ScriptButton.Location = New System.Drawing.Point(174, 230)
         Me.ScriptButton.Name = "ScriptButton"
         Me.ScriptButton.Size = New System.Drawing.Size(145, 23)
         Me.ScriptButton.TabIndex = 22
@@ -269,7 +270,7 @@ Partial Class FormSettings
         '
         'LoggingButton
         '
-        Me.LoggingButton.Location = New System.Drawing.Point(17, 350)
+        Me.LoggingButton.Location = New System.Drawing.Point(17, 380)
         Me.LoggingButton.Name = "LoggingButton"
         Me.LoggingButton.Size = New System.Drawing.Size(145, 23)
         Me.LoggingButton.TabIndex = 23
@@ -299,13 +300,22 @@ Partial Class FormSettings
         '
         'SearchButton
         '
-        Me.SearchButton.Location = New System.Drawing.Point(175, 230)
+        Me.SearchButton.Location = New System.Drawing.Point(174, 260)
         Me.SearchButton.Name = "SearchButton"
         Me.SearchButton.Size = New System.Drawing.Size(145, 23)
         Me.SearchButton.TabIndex = 26
         Me.SearchButton.Text = "Search Options"
         Me.ToolTip1.SetToolTip(Me.SearchButton, Global.Outworldz.My.Resources.Resources.Click_to_Setup_Search)
         Me.SearchButton.UseVisualStyleBackColor = True
+        '
+        'LanguageButton
+        '
+        Me.LanguageButton.Location = New System.Drawing.Point(19, 351)
+        Me.LanguageButton.Name = "LanguageButton"
+        Me.LanguageButton.Size = New System.Drawing.Size(145, 23)
+        Me.LanguageButton.TabIndex = 28
+        Me.LanguageButton.Text = "Language"
+        Me.LanguageButton.UseVisualStyleBackColor = True
         '
         'FSAssetsButton
         '
@@ -318,6 +328,7 @@ Partial Class FormSettings
         '
         'GlobalSettingsGroupbox
         '
+        Me.GlobalSettingsGroupbox.Controls.Add(Me.LanguageButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.FSAssetsButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.SearchButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.JoomlaButton)
@@ -346,7 +357,7 @@ Partial Class FormSettings
         Me.GlobalSettingsGroupbox.Controls.Add(Me.IcecastButton)
         Me.GlobalSettingsGroupbox.Location = New System.Drawing.Point(12, 12)
         Me.GlobalSettingsGroupbox.Name = "GlobalSettingsGroupbox"
-        Me.GlobalSettingsGroupbox.Size = New System.Drawing.Size(340, 423)
+        Me.GlobalSettingsGroupbox.Size = New System.Drawing.Size(340, 448)
         Me.GlobalSettingsGroupbox.TabIndex = 1870
         Me.GlobalSettingsGroupbox.TabStop = False
         Me.GlobalSettingsGroupbox.Text = "Global Settings"
@@ -357,7 +368,7 @@ Partial Class FormSettings
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(371, 446)
+        Me.ClientSize = New System.Drawing.Size(371, 473)
         Me.Controls.Add(Me.GlobalSettingsGroupbox)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -395,4 +406,5 @@ Partial Class FormSettings
     Friend WithEvents JoomlaButton As Button
     Friend WithEvents SearchButton As Button
     Friend WithEvents FSAssetsButton As Button
+    Friend WithEvents LanguageButton As Button
 End Class
