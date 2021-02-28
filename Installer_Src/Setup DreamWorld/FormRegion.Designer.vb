@@ -36,14 +36,14 @@ Partial Class FormRegion
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.MaxAgents = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
+        Me.NonPhysPrimLabel = New System.Windows.Forms.Label()
+        Me.PhysPrimLabel = New System.Windows.Forms.Label()
         Me.PhysicalPrimMax = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.ClampPrimLabel = New System.Windows.Forms.Label()
+        Me.MaxNPrimsLabel = New System.Windows.Forms.Label()
         Me.MaxPrims = New System.Windows.Forms.TextBox()
         Me.NonphysicalPrimMax = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
+        Me.MaxMAvatarsLabel = New System.Windows.Forms.Label()
         Me.ClampPrimSize = New System.Windows.Forms.CheckBox()
         Me.BirdsCheckBox = New System.Windows.Forms.CheckBox()
         Me.TidesCheckbox = New System.Windows.Forms.CheckBox()
@@ -52,14 +52,14 @@ Partial Class FormRegion
         Me.ManagerGod = New System.Windows.Forms.CheckBox()
         Me.RegionGod = New System.Windows.Forms.CheckBox()
         Me.SmartStartCheckBox = New System.Windows.Forms.CheckBox()
-        Me.Label14 = New System.Windows.Forms.Label()
+        Me.ScriptRateLabel = New System.Windows.Forms.Label()
         Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
         Me.DisableGBCheckBox = New System.Windows.Forms.CheckBox()
         Me.DisallowForeigners = New System.Windows.Forms.CheckBox()
         Me.DisallowResidents = New System.Windows.Forms.CheckBox()
         Me.FrametimeBox = New System.Windows.Forms.TextBox()
         Me.SkipAutoCheckBox = New System.Windows.Forms.CheckBox()
-        Me.Label15 = New System.Windows.Forms.Label()
+        Me.FrameRateLabel = New System.Windows.Forms.Label()
         Me.RadioButton8 = New System.Windows.Forms.RadioButton()
         Me.RadioButton7 = New System.Windows.Forms.RadioButton()
         Me.RadioButton6 = New System.Windows.Forms.RadioButton()
@@ -211,25 +211,25 @@ Partial Class FormRegion
         Me.MaxAgents.TabIndex = 20
         Me.ToolTip1.SetToolTip(Me.MaxAgents, Global.Outworldz.My.Resources.Resources.Max_Agents)
         '
-        'Label5
+        'NonPhysPrimLabel
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(65, 104)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(111, 13)
-        Me.Label5.TabIndex = 30
-        Me.Label5.Text = "Nonphysical Prim Size"
-        Me.ToolTip1.SetToolTip(Me.Label5, Global.Outworldz.My.Resources.Resources.Max_NonPhys)
+        Me.NonPhysPrimLabel.AutoSize = True
+        Me.NonPhysPrimLabel.Location = New System.Drawing.Point(65, 104)
+        Me.NonPhysPrimLabel.Name = "NonPhysPrimLabel"
+        Me.NonPhysPrimLabel.Size = New System.Drawing.Size(111, 13)
+        Me.NonPhysPrimLabel.TabIndex = 30
+        Me.NonPhysPrimLabel.Text = "Nonphysical Prim Size"
+        Me.ToolTip1.SetToolTip(Me.NonPhysPrimLabel, Global.Outworldz.My.Resources.Resources.Max_NonPhys)
         '
-        'Label9
+        'PhysPrimLabel
         '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(69, 128)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(115, 13)
-        Me.Label9.TabIndex = 31
-        Me.Label9.Text = "Physical Prim Max Size"
-        Me.ToolTip1.SetToolTip(Me.Label9, Global.Outworldz.My.Resources.Resources.Max_Phys)
+        Me.PhysPrimLabel.AutoSize = True
+        Me.PhysPrimLabel.Location = New System.Drawing.Point(69, 128)
+        Me.PhysPrimLabel.Name = "PhysPrimLabel"
+        Me.PhysPrimLabel.Size = New System.Drawing.Size(115, 13)
+        Me.PhysPrimLabel.TabIndex = 31
+        Me.PhysPrimLabel.Text = "Physical Prim Max Size"
+        Me.ToolTip1.SetToolTip(Me.PhysPrimLabel, Global.Outworldz.My.Resources.Resources.Max_Phys)
         '
         'PhysicalPrimMax
         '
@@ -239,25 +239,25 @@ Partial Class FormRegion
         Me.PhysicalPrimMax.TabIndex = 17
         Me.ToolTip1.SetToolTip(Me.PhysicalPrimMax, Global.Outworldz.My.Resources.Resources.Max_Phys)
         '
-        'Label10
+        'ClampPrimLabel
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(69, 153)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(82, 13)
-        Me.Label10.TabIndex = 34
-        Me.Label10.Text = "Clamp Prim Size"
-        Me.ToolTip1.SetToolTip(Me.Label10, Global.Outworldz.My.Resources.Resources.ClampSize)
+        Me.ClampPrimLabel.AutoSize = True
+        Me.ClampPrimLabel.Location = New System.Drawing.Point(69, 153)
+        Me.ClampPrimLabel.Name = "ClampPrimLabel"
+        Me.ClampPrimLabel.Size = New System.Drawing.Size(82, 13)
+        Me.ClampPrimLabel.TabIndex = 34
+        Me.ClampPrimLabel.Text = "Clamp Prim Size"
+        Me.ToolTip1.SetToolTip(Me.ClampPrimLabel, Global.Outworldz.My.Resources.Resources.ClampSize)
         '
-        'Label11
+        'MaxNPrimsLabel
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(69, 176)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(160, 13)
-        Me.Label11.TabIndex = 36
-        Me.Label11.Text = "Max Number of Prims in a Parcel"
-        Me.ToolTip1.SetToolTip(Me.Label11, Global.Outworldz.My.Resources.Resources.Viewer_Stops_Counting)
+        Me.MaxNPrimsLabel.AutoSize = True
+        Me.MaxNPrimsLabel.Location = New System.Drawing.Point(69, 176)
+        Me.MaxNPrimsLabel.Name = "MaxNPrimsLabel"
+        Me.MaxNPrimsLabel.Size = New System.Drawing.Size(160, 13)
+        Me.MaxNPrimsLabel.TabIndex = 36
+        Me.MaxNPrimsLabel.Text = "Max Number of Prims in a Parcel"
+        Me.ToolTip1.SetToolTip(Me.MaxNPrimsLabel, Global.Outworldz.My.Resources.Resources.Viewer_Stops_Counting)
         '
         'MaxPrims
         '
@@ -275,15 +275,15 @@ Partial Class FormRegion
         Me.NonphysicalPrimMax.TabIndex = 16
         Me.ToolTip1.SetToolTip(Me.NonphysicalPrimMax, Global.Outworldz.My.Resources.Resources.Normal_Prim)
         '
-        'Label12
+        'MaxMAvatarsLabel
         '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(69, 201)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(155, 13)
-        Me.Label12.TabIndex = 38
-        Me.Label12.Text = "Max number of Avatars + NPCs"
-        Me.ToolTip1.SetToolTip(Me.Label12, Global.Outworldz.My.Resources.Resources.Max_Agents)
+        Me.MaxMAvatarsLabel.AutoSize = True
+        Me.MaxMAvatarsLabel.Location = New System.Drawing.Point(69, 201)
+        Me.MaxMAvatarsLabel.Name = "MaxMAvatarsLabel"
+        Me.MaxMAvatarsLabel.Size = New System.Drawing.Size(155, 13)
+        Me.MaxMAvatarsLabel.TabIndex = 38
+        Me.MaxMAvatarsLabel.Text = "Max number of Avatars + NPCs"
+        Me.ToolTip1.SetToolTip(Me.MaxMAvatarsLabel, Global.Outworldz.My.Resources.Resources.Max_Agents)
         '
         'ClampPrimSize
         '
@@ -373,15 +373,15 @@ Partial Class FormRegion
         Me.SmartStartCheckBox.UseVisualStyleBackColor = True
         Me.SmartStartCheckBox.Visible = False
         '
-        'Label14
+        'ScriptRateLabel
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(69, 229)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(113, 13)
-        Me.Label14.TabIndex = 41
-        Me.Label14.Text = "Script Timer Rate (0.2)"
-        Me.ToolTip1.SetToolTip(Me.Label14, Global.Outworldz.My.Resources.Resources.Script_Timer_Text)
+        Me.ScriptRateLabel.AutoSize = True
+        Me.ScriptRateLabel.Location = New System.Drawing.Point(69, 229)
+        Me.ScriptRateLabel.Name = "ScriptRateLabel"
+        Me.ScriptRateLabel.Size = New System.Drawing.Size(113, 13)
+        Me.ScriptRateLabel.TabIndex = 41
+        Me.ScriptRateLabel.Text = "Script Timer Rate (0.2)"
+        Me.ToolTip1.SetToolTip(Me.ScriptRateLabel, Global.Outworldz.My.Resources.Resources.Script_Timer_Text)
         '
         'ScriptTimerTextBox
         '
@@ -443,15 +443,15 @@ Partial Class FormRegion
         Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, Global.Outworldz.My.Resources.Resources.WillNotSave)
         Me.SkipAutoCheckBox.UseVisualStyleBackColor = True
         '
-        'Label15
+        'FrameRateLabel
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(69, 257)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(104, 13)
-        Me.Label15.TabIndex = 43
-        Me.Label15.Text = "Frame Rate (0.0909)"
-        Me.ToolTip1.SetToolTip(Me.Label15, Global.Outworldz.My.Resources.Resources.FRText)
+        Me.FrameRateLabel.AutoSize = True
+        Me.FrameRateLabel.Location = New System.Drawing.Point(69, 257)
+        Me.FrameRateLabel.Name = "FrameRateLabel"
+        Me.FrameRateLabel.Size = New System.Drawing.Size(104, 13)
+        Me.FrameRateLabel.TabIndex = 43
+        Me.FrameRateLabel.Text = "Frame Rate (0.0909)"
+        Me.ToolTip1.SetToolTip(Me.FrameRateLabel, Global.Outworldz.My.Resources.Resources.FRText)
         '
         'RadioButton8
         '
@@ -679,21 +679,21 @@ Partial Class FormRegion
         '
         Me.Advanced.BackColor = System.Drawing.SystemColors.ControlLight
         Me.Advanced.Controls.Add(Me.Label16)
-        Me.Advanced.Controls.Add(Me.Label15)
+        Me.Advanced.Controls.Add(Me.FrameRateLabel)
         Me.Advanced.Controls.Add(Me.FrametimeBox)
-        Me.Advanced.Controls.Add(Me.Label14)
+        Me.Advanced.Controls.Add(Me.ScriptRateLabel)
         Me.Advanced.Controls.Add(Me.ScriptTimerTextBox)
         Me.Advanced.Controls.Add(Me.RegionPort)
         Me.Advanced.Controls.Add(Me.ClampPrimSize)
-        Me.Advanced.Controls.Add(Me.Label12)
-        Me.Advanced.Controls.Add(Me.Label10)
+        Me.Advanced.Controls.Add(Me.MaxMAvatarsLabel)
+        Me.Advanced.Controls.Add(Me.ClampPrimLabel)
         Me.Advanced.Controls.Add(Me.NonphysicalPrimMax)
-        Me.Advanced.Controls.Add(Me.Label11)
+        Me.Advanced.Controls.Add(Me.MaxNPrimsLabel)
         Me.Advanced.Controls.Add(Me.PhysicalPrimMax)
         Me.Advanced.Controls.Add(Me.Label6)
-        Me.Advanced.Controls.Add(Me.Label9)
+        Me.Advanced.Controls.Add(Me.PhysPrimLabel)
         Me.Advanced.Controls.Add(Me.MaxPrims)
-        Me.Advanced.Controls.Add(Me.Label5)
+        Me.Advanced.Controls.Add(Me.NonPhysPrimLabel)
         Me.Advanced.Controls.Add(Me.MaxAgents)
         Me.Advanced.Controls.Add(Me.Label4)
         Me.Advanced.Controls.Add(Me.Label1)
@@ -814,7 +814,7 @@ Partial Class FormRegion
         'EnabledCheckBox
         '
         Me.EnabledCheckBox.AutoSize = True
-        Me.EnabledCheckBox.Location = New System.Drawing.Point(15, 33)
+        Me.EnabledCheckBox.Location = New System.Drawing.Point(27, 45)
         Me.EnabledCheckBox.Name = "EnabledCheckBox"
         Me.EnabledCheckBox.Size = New System.Drawing.Size(65, 17)
         Me.EnabledCheckBox.TabIndex = 2
@@ -1185,13 +1185,13 @@ Partial Class FormRegion
     Friend WithEvents DeleteButton As Button
     Friend WithEvents EnabledCheckBox As CheckBox
     Friend WithEvents MaxAgents As TextBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents Label9 As Label
+    Friend WithEvents NonPhysPrimLabel As Label
+    Friend WithEvents PhysPrimLabel As Label
     Friend WithEvents PhysicalPrimMax As TextBox
-    Friend WithEvents Label12 As Label
-    Friend WithEvents Label10 As Label
+    Friend WithEvents MaxMAvatarsLabel As Label
+    Friend WithEvents ClampPrimLabel As Label
     Friend WithEvents NonphysicalPrimMax As TextBox
-    Friend WithEvents Label11 As Label
+    Friend WithEvents MaxNPrimsLabel As Label
     Friend WithEvents MaxPrims As TextBox
     Friend WithEvents ClampPrimSize As CheckBox
     Friend WithEvents GroupBox6 As GroupBox
@@ -1223,12 +1223,12 @@ Partial Class FormRegion
     Friend WithEvents SmartStartCheckBox As CheckBox
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
-    Friend WithEvents Label14 As Label
+    Friend WithEvents ScriptRateLabel As Label
     Friend WithEvents ScriptTimerTextBox As TextBox
     Friend WithEvents DisableGBCheckBox As CheckBox
     Friend WithEvents DisallowForeigners As CheckBox
     Friend WithEvents DisallowResidents As CheckBox
-    Friend WithEvents Label15 As Label
+    Friend WithEvents FrameRateLabel As Label
     Friend WithEvents FrametimeBox As TextBox
     Friend WithEvents Label16 As Label
     Friend WithEvents SkipAutoCheckBox As CheckBox

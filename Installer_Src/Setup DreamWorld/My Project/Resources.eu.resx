@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -123,6 +123,9 @@
   <data name="About_word" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="Action_word" xml:space="preserve">
+    <value>Ekintza</value>
+  </data>
   <data name="Add_Region_word" xml:space="preserve">
     <value>Gehitu eskualdea</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Add_word" xml:space="preserve">
     <value>Gehitu</value>
+  </data>
+  <data name="AdministerJoomla_word" xml:space="preserve">
+    <value>Administratu</value>
   </data>
   <data name="Admin_Password_word" xml:space="preserve">
     <value>admin Password</value>
@@ -180,6 +186,9 @@
   <data name="AlphaNum" xml:space="preserve">
     <value>Alfazenbakizko plus minus zeinu eta espazioa pertsonaia</value>
   </data>
+  <data name="Announce_visitors" xml:space="preserve">
+    <value>Iragarri Bisitariak</value>
+  </data>
   <data name="Another_Region" xml:space="preserve">
     <value>Hau eskualdean bestera Leku horretan kokatu behar ahal izango dira. Jarraitu?</value>
   </data>
@@ -226,7 +235,7 @@
     <value>aplikatu</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
-    <value>Ziur zaude? Zure datu-basea izango backup batetik rloaded eta dauden eduki guztiak ordezkatu. Avatarrak, Sims, inbentarioa, guztiaren idatziko da gainetik.</value>
+    <value>Ziur zaude? Zure datu-basea izango backup kargatzen eta dauden eduki guztiak ordezkatu. Avatarrak, Sims, inbentarioa, guztiaren idatziko da gainetik.</value>
   </data>
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
     <value>Ziur eskualde hau ezabatu nahi duzula?</value>
@@ -242,6 +251,9 @@
   </data>
   <data name="Automatic_restart_word" xml:space="preserve">
     <value>Berrabiarazterik automatikoa</value>
+  </data>
+  <data name="Automatic_Site_map_word" xml:space="preserve">
+    <value>Automatikoa Gunearen Mapa</value>
   </data>
   <data name="AutorestartBox" xml:space="preserve">
     <value>0 - Off. Zenbat minutu auto berrabiarazi arte gertatzen?</value>
@@ -480,9 +492,6 @@
   <data name="Choose_a_Folder_word" xml:space="preserve">
     <value>Aukeratu karpeta bat</value>
   </data>
-  <data name="Choose_a_Folder_word1" xml:space="preserve">
-    <value>Aukeratu karpeta bat</value>
-  </data>
   <data name="Choose_Cache" xml:space="preserve">
     <value>Aukeratu zein cache hustu</value>
   </data>
@@ -564,6 +573,9 @@
   <data name="Click_For_Help" xml:space="preserve">
     <value>Klik For Laguntza</value>
   </data>
+  <data name="Click_Fsassets" xml:space="preserve">
+    <value>Klik up Ezarri File System Asset datu-basea (FSassets) zein azkar bat eta fitxategiak datu-basea fidagarria da</value>
+  </data>
   <data name="Click_HG" xml:space="preserve">
     <value>Klik Hypergrid gaitu edo aldatu DNS izena</value>
   </data>
@@ -591,6 +603,12 @@
   <data name="Click_Server" xml:space="preserve">
     <value>Klik Server mota bat aukeratzeko. Lehenetsia = Sareta, baina eskualdea zerbitzaria, OsGrid edo Metro eskualdea zerbitzariak konektatu ahal izango duzu</value>
   </data>
+  <data name="Click_Setup" xml:space="preserve">
+    <value>Klik To konfigurazioa</value>
+  </data>
+  <data name="Click_Setup_Jopensim" xml:space="preserve">
+    <value>Klikatu konfigurazioa to the Aukerako Joomla eta jOpensim CMS manager - Web UI a Opensim for</value>
+  </data>
   <data name="Click_Start" xml:space="preserve">
     <value>Ezin da diagnostiko exekutatu sistema abian da ezean. Klikatu 'Start' eta saiatu berriro.</value>
   </data>
@@ -611,6 +629,9 @@
   </data>
   <data name="Click_to_Request_Voice_Service" xml:space="preserve">
     <value>Klik Ahots Zerbitzua eskatzeko</value>
+  </data>
+  <data name="Click_to_Setup_Search" xml:space="preserve">
+    <value>Setup Bilaketa aukerak Hyperica edo JOpensim egiteko Clkick</value>
   </data>
   <data name="Click_to_View_this_word" xml:space="preserve">
     <value>Klikatu hau ikusteko</value>
@@ -666,8 +687,14 @@
   <data name="CoordY" xml:space="preserve">
     <value>North_South munduko mapan posizioa</value>
   </data>
+  <data name="Copy_Word" xml:space="preserve">
+    <value>Copy</value>
+  </data>
   <data name="CPU_Intensive" xml:space="preserve">
     <value>CPU trinkoak Backup hasita:</value>
+  </data>
+  <data name="CPU_word" xml:space="preserve">
+    <value>% CPU</value>
   </data>
   <data name="CreateApp" xml:space="preserve">
     <value>Sortu aplikazioa eta Talde Keys</value>
@@ -686,6 +713,9 @@
   </data>
   <data name="CSOD" xml:space="preserve">
     <value>Disko on Current neurria</value>
+  </data>
+  <data name="Currency_word" xml:space="preserve">
+    <value>Moneta</value>
   </data>
   <data name="Current_Size" xml:space="preserve">
     <value>Disko on Current neurria</value>
@@ -750,6 +780,9 @@
   <data name="Deleted_word" xml:space="preserve">
     <value>Ezabatutako</value>
   </data>
+  <data name="DeleteTmp_word" xml:space="preserve">
+    <value>Ezabatu tmp karpeta</value>
+  </data>
   <data name="Delete_word" xml:space="preserve">
     <value>Ezabatu</value>
   </data>
@@ -774,6 +807,9 @@
   <data name="Determines" xml:space="preserve">
     <value>Honek erabakitzen ala modulua ezer gertatzen</value>
   </data>
+  <data name="Diagnostics_port_word" xml:space="preserve">
+    <value>diagnostikoak Port</value>
+  </data>
   <data name="Diags_Failed" xml:space="preserve">
     <value>Diagnostikoak huts egin du. Ez log ikusi nahi dituzu?</value>
   </data>
@@ -782,6 +818,9 @@
   </data>
   <data name="Diag_Port_word" xml:space="preserve">
     <value>diagnostikoak ataka</value>
+  </data>
+  <data name="Diag_TCP_is_set_word" xml:space="preserve">
+    <value>Diagnostikoak TCP Port multzoa da</value>
   </data>
   <data name="did_not_start_word" xml:space="preserve">
     <value>ez hasteko</value>
@@ -815,6 +854,9 @@
   </data>
   <data name="Diva_Wifi_Enabled_word" xml:space="preserve">
     <value>Diva Wifi gaituta</value>
+  </data>
+  <data name="DNSAlt" xml:space="preserve">
+    <value>esaterako www.outworldz.com vs. outworldz.com gisa Ordezko izena. grid izen zahar bat nahi duzu continute erabili daiteke.</value>
   </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>DNS izena edo SomeName.Outworldz.net edo IP</value>
@@ -858,10 +900,13 @@
   <data name="Edit_word" xml:space="preserve">
     <value>Editatu</value>
   </data>
-  <data name="Email_word" xml:space="preserve">
-    <value>Emaila</value>
+  <data name="Emails_Selected" xml:space="preserve">
+    <value>emailak hautatutako</value>
   </data>
-  <data name="Email_word1" xml:space="preserve">
+  <data name="Email_Address_words" xml:space="preserve">
+    <value>Zure helbide elektronikoa zurekin harremanetan jartzeko kasuan emango dizu informazio gehiago behar dugu.</value>
+  </data>
+  <data name="Email_word" xml:space="preserve">
     <value>Emaila</value>
   </data>
   <data name="EMGod" xml:space="preserve">
@@ -870,8 +915,17 @@
   <data name="EnableApache" xml:space="preserve">
     <value>Gaitu Apache Web zerbitzaria</value>
   </data>
+  <data name="EnableDiva" xml:space="preserve">
+    <value>Gaitu Diva Page</value>
+  </data>
   <data name="Enabled_word" xml:space="preserve">
     <value>Gaituta</value>
+  </data>
+  <data name="EnableGloebit_word" xml:space="preserve">
+    <value>Gaitu Gloebit</value>
+  </data>
+  <data name="EnableJOpensim" xml:space="preserve">
+    <value>Gaitu JOpensim</value>
   </data>
   <data name="EnableOneClickStart_word" xml:space="preserve">
     <value>Gaitu klik Start</value>
@@ -910,9 +964,6 @@
     <value>Idatzi Objektu izenarekin ( '/' izango backup guztia, eta '/ objektuak / kutxa' babeskopia egingo 'box' karpeta Objektuak in</value>
   </data>
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
-    <value>Sartu Grid jabearen informazioa</value>
-  </data>
-  <data name="Enter_the_Grid_Owner_Information_word1" xml:space="preserve">
     <value>Sartu Grid jabearen informazioa</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
@@ -987,77 +1038,86 @@
   <data name="First_name_word" xml:space="preserve">
     <value>Izena</value>
   </data>
+  <data name="Float" xml:space="preserve">
+    <value>Higikorra</value>
+  </data>
   <data name="Flotsam_Asset_Cache_word" xml:space="preserve">
-    <value>Izena</value>
+    <value>Flotsam Asset Cache</value>
   </data>
   <data name="Folder_To_Save_To_word" xml:space="preserve">
     <value>Karpetara gorde</value>
   </data>
   <data name="FrameRate" xml:space="preserve">
-    <value>Fotograma-tasa</value>
-  </data>
-  <data name="FrameTime" xml:space="preserve">
     <value>Marko tasa (0.0909)</value>
   </data>
-  <data name="Frame_Rate_word" xml:space="preserve">
-    <value>Karpetara gorde</value>
-  </data>
-  <data name="FreeName" xml:space="preserve">
-    <value>Free DLC</value>
-  </data>
-  <data name="Free_Account" xml:space="preserve">
+  <data name="FrameTime" xml:space="preserve">
     <value>Lehenetsia 1/11 s. Lehenetsitako 0,0909 bertan 1/55 FPS 5ean da</value>
   </data>
-  <data name="Free_DLC_word" xml:space="preserve">
-    <value>Klik batean Free Gloebits kontuarekin Beraz ditzakezu, erosi eta saldu Get To</value>
+  <data name="Frame_Rate_word" xml:space="preserve">
+    <value>Fotograma-tasa</value>
   </data>
-  <data name="French" xml:space="preserve">
+  <data name="FreeName" xml:space="preserve">
     <value>Onena DYN DNS izena</value>
   </data>
-  <data name="Friendly" xml:space="preserve">
+  <data name="Free_Account" xml:space="preserve">
+    <value>Klik batean Free Gloebits kontua Beraz You Can erosi eta saldu Get To</value>
+  </data>
+  <data name="Free_DLC_word" xml:space="preserve">
+    <value>Free DLC</value>
+  </data>
+  <data name="French" xml:space="preserve">
     <value>Frantziako</value>
   </data>
-  <data name="FRText" xml:space="preserve">
+  <data name="Friendly" xml:space="preserve">
     <value>Grid honen Lagunarteko izena</value>
   </data>
-  <data name="FSA" xml:space="preserve">
+  <data name="FRText" xml:space="preserve">
     <value>SL exekutatzen 55 FPS. Opensim 11 FPS da. Lehenetsia = 0,0909, edo 1/11</value>
   </data>
-  <data name="FSassets" xml:space="preserve">
+  <data name="FSA" xml:space="preserve">
     <value>Aktibo fitxategiak gisa</value>
   </data>
-  <data name="FSassets_Server_word" xml:space="preserve">
+  <data name="FSassets" xml:space="preserve">
     <value>File System Aktibo Database</value>
   </data>
-  <data name="GBoids" xml:space="preserve">
+  <data name="FSassets_Server_word" xml:space="preserve">
     <value>FsAssets zerbitzaria</value>
+  </data>
+  <data name="GBoids" xml:space="preserve">
+    <value>The global Bird ezarpenak egingo eskualde honetan aplikatzen</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>Alemaniako</value>
   </data>
   <data name="Getting_regions_word" xml:space="preserve">
-    <value>The global Bird ezarpenak egingo eskualde honetan aplikatzen</value>
+    <value>eskuratzen eskualde</value>
+  </data>
+  <data name="GLBShowNewSessionAuthIM_text" xml:space="preserve">
+    <value>Erakutsi Gloebits baimena Instant Message erabiltzaileri saioaren hasieran?</value>
+  </data>
+  <data name="GLBShowNewSessionPurchaseIM_text" xml:space="preserve">
+    <value>Erakutsi erosketa Instant Message Gloebits erabiltzaileri saioaren hasieran?</value>
+  </data>
+  <data name="GLBShowWelcomeMessage_text" xml:space="preserve">
+    <value>Show Gloebits ongietorria mezua denean eskualde batean sartuz?</value>
   </data>
   <data name="GlobalSettings_word" xml:space="preserve">
-    <value>Global Marea ezarpenak</value>
+    <value>Global ezarpenak</value>
   </data>
   <data name="Global_Settings_word" xml:space="preserve">
     <value>Global ezarpenak</value>
   </data>
   <data name="Global_Tide_Settings_word" xml:space="preserve">
-    <value>eskuratzen eskualde</value>
-  </data>
-  <data name="Gloebits_Currency_word" xml:space="preserve">
-    <value>Global ezarpenak</value>
+    <value>Global Marea ezarpenak</value>
   </data>
   <data name="Good_Warp3D_word" xml:space="preserve">
-    <value>Gloebits Moneta</value>
+    <value>Good (Warp3D)</value>
   </data>
   <data name="Greek" xml:space="preserve">
     <value>Greziako</value>
   </data>
   <data name="Grid_Address_is_word" xml:space="preserve">
-    <value>Good (Warp3D)</value>
+    <value>Grid helbidea da</value>
   </data>
   <data name="Grid_Address_text" xml:space="preserve">
     <value>helbide honetan eman ahal izango duzu pertsona eta Saretak bisitatu ahal izango dute</value>
@@ -1065,20 +1125,26 @@
   <data name="Grid_address_word" xml:space="preserve">
     <value>Grid helbidea</value>
   </data>
-  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
-    <value>helbide honetan eman ahal izango duzu pertsona eta Saretak bisitatu ahal izango dute</value>
+  <data name="Grid_Remote_is_set_word" xml:space="preserve">
+    <value>Urruneko Admin Port multzoa da</value>
   </data>
-  <data name="Grid_TCP_is_set_word" xml:space="preserve">
+  <data name="Grid_Server_With_Robust_word" xml:space="preserve">
     <value>Grid Server Sendoa With</value>
   </data>
-  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+  <data name="Grid_TCP_is_set_word" xml:space="preserve">
     <value>Grid TCP Port multzoa da</value>
+  </data>
+  <data name="Grid_UDP_is_set_word" xml:space="preserve">
+    <value>Grid UDP Port multzoa da</value>
+  </data>
+  <data name="Group_Ports_word" xml:space="preserve">
+    <value>Group Port</value>
   </data>
   <data name="Group_word" xml:space="preserve">
     <value>Group</value>
   </data>
   <data name="GTide" xml:space="preserve">
-    <value>Grid UDP Port multzoa da</value>
+    <value>The global Marea ezarpenak egingo eskualde honetan aplikatzen</value>
   </data>
   <data name="Has_Been_DL" xml:space="preserve">
     <value>Eguneratzea eskuragarri dago. Ez DreamGrid irteteko eta eguneratzea instalatu nahi duzu?</value>
@@ -1194,6 +1260,9 @@
   <data name="Hypergrid_word" xml:space="preserve">
     <value>Hypergrid</value>
   </data>
+  <data name="HypericaSearch_word" xml:space="preserve">
+    <value>Hyperica Search</value>
+  </data>
   <data name="IAR_Load_and_Save_word" xml:space="preserve">
     <value>Iar kargatu eta gorde</value>
   </data>
@@ -1234,7 +1303,7 @@
     <value>Icons</value>
   </data>
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
-    <value>Icons</value>
+    <value>Oarso gorde egingo Opensim hau luzea exekutatzen ondoren</value>
   </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>Ez ikusi Paketeen</value>
@@ -1266,6 +1335,21 @@
   <data name="INI_Filter" xml:space="preserve">
     <value>ini fitxategiak (* .ini) | * .ini | Fitxategi guztiak (*.) | *. *</value>
   </data>
+  <data name="Installed_word" xml:space="preserve">
+    <value>Instalatutako</value>
+  </data>
+  <data name="InstallingJoomla_word" xml:space="preserve">
+    <value>Joomla instalatzen</value>
+  </data>
+  <data name="Installing_word" xml:space="preserve">
+    <value>Instalatzen. Itxaron mesedez ...</value>
+  </data>
+  <data name="InstallJoomla_word" xml:space="preserve">
+    <value>Instalatu</value>
+  </data>
+  <data name="InstallOpensim" xml:space="preserve">
+    <value>Hau JOpensim instalatuko du. Ez zaude jarraitu nahi duzula?</value>
+  </data>
   <data name="InstallRuntime" xml:space="preserve">
     <value>Instalatu C ++ Runtimes</value>
   </data>
@@ -1280,6 +1364,9 @@
   </data>
   <data name="Interval_word" xml:space="preserve">
     <value>tartea</value>
+  </data>
+  <data name="Inventory_IAR_Load_and_Save_words" xml:space="preserve">
+    <value>Inbentarioa iar kargatu eta gorde</value>
   </data>
   <data name="IPV4_Address_word" xml:space="preserve">
     <value>IPv4 helbide</value>
@@ -1308,8 +1395,20 @@
   <data name="JobEngine_word" xml:space="preserve">
     <value>Lana motorra</value>
   </data>
+  <data name="JOpensimSearch_word" xml:space="preserve">
+    <value>JOpensim Search</value>
+  </data>
+  <data name="JOpensimSettings" xml:space="preserve">
+    <value>JOpensim ezarpenak</value>
+  </data>
+  <data name="JOpensim_word" xml:space="preserve">
+    <value>JOpensim</value>
+  </data>
   <data name="Just_one_region_word" xml:space="preserve">
     <value>Just eskualde</value>
+  </data>
+  <data name="KeepOnTop_word" xml:space="preserve">
+    <value>Keep On Top</value>
   </data>
   <data name="Keep_for_Days_word" xml:space="preserve">
     <value>egunez manten</value>
@@ -1324,9 +1423,6 @@
     <value>Handiak Metro mapa</value>
   </data>
   <data name="Last_Name_Word" xml:space="preserve">
-    <value>Abizena</value>
-  </data>
-  <data name="Last_Name_word1" xml:space="preserve">
     <value>Abizena</value>
   </data>
   <data name="ListAvatars" xml:space="preserve">
@@ -1349,9 +1445,6 @@
   </data>
   <data name="Load_Free_DreamGrid_OARs_word" xml:space="preserve">
     <value>Kargatu Free DreamGrid arraunak (www)</value>
-  </data>
-  <data name="Load_Free_Dreamworld_OARs" xml:space="preserve">
-    <value>Kargatu Free Dreamworld arraunak</value>
   </data>
   <data name="Load_Inventory_IAR" xml:space="preserve">
     <value>Kargatu inbentarioa iar</value>
@@ -1417,7 +1510,7 @@
     <value>Egin segurtasun kopia bat?</value>
   </data>
   <data name="Manager_God_word" xml:space="preserve">
-    <value>Egin segurtasun kopia bat?</value>
+    <value>Manager_God</value>
   </data>
   <data name="Maps_Erased" xml:space="preserve">
     <value>Mapan fitxak guztiak ezabatuko dira. Ezarri mapa ezarpena eta berrabiatu mapa berriak egiteko</value>
@@ -1425,8 +1518,11 @@
   <data name="Maps_word" xml:space="preserve">
     <value>Maps</value>
   </data>
+  <data name="Maps_X" xml:space="preserve">
+    <value>Mapa X:</value>
+  </data>
   <data name="Mapx" xml:space="preserve">
-    <value>Map koordenatuak: X</value>
+    <value>Mapa X:</value>
   </data>
   <data name="Map_Center_Location_word" xml:space="preserve">
     <value>Mapa Center Kokapena:</value>
@@ -1447,7 +1543,7 @@
     <value>Max beste hegazti distantzia artalde berean kontuan hartu</value>
   </data>
   <data name="Max_Force" xml:space="preserve">
-    <value>Max beste hegazti distantzia artalde berean kontuan hartu</value>
+    <value>Max Force (lehenetsia = 0,2)</value>
   </data>
   <data name="Max_Height" xml:space="preserve">
     <value>Max Altuera (lehenetsia = 45,0)</value>
@@ -1471,10 +1567,10 @@
     <value>Max Abiadura (lehenetsia = 1.0)</value>
   </data>
   <data name="Merge_OAR_word" xml:space="preserve">
-    <value>4096 gehienez</value>
+    <value>merge OAR</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
-    <value>merge OAR</value>
+    <value>Batu objektuak</value>
   </data>
   <data name="Mesh_Cache_word" xml:space="preserve">
     <value>Malla Cache</value>
@@ -1489,7 +1585,10 @@
     <value>Minutu</value>
   </data>
   <data name="Mode_word" xml:space="preserve">
-    <value>Modu</value>
+    <value>Era</value>
+  </data>
+  <data name="Modify_word" xml:space="preserve">
+    <value>Aldatu</value>
   </data>
   <data name="Modules_word" xml:space="preserve">
     <value>moduluak</value>
@@ -1538,6 +1637,9 @@
   </data>
   <data name="MySQL_Was_Running" xml:space="preserve">
     <value>MySQL noiz hasi nintzen, beraz, ez naiz on MySQL utziz exekutatzen zen.</value>
+  </data>
+  <data name="Mysql_Word" xml:space="preserve">
+    <value>mysql</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>izena</value>
@@ -1606,10 +1708,10 @@
     <value>Ez da baliozko UUID bat. Ez berrian, Random UUID bat nahi duzu?</value>
   </data>
   <data name="Not_Forwarded" xml:space="preserve">
-    <value>Normalean OutworldzFiles / AutoBackup karpeta gisa ezarrita 'AutoBackup' batera. Klik karpeta aldatzeko.</value>
+    <value>Ez dirudi makina hau birbidaltzea bideratzailea, beraz Hypergrid ez dago eskuragarri. Hau daitezkeen 'Port Aurrelariak' konpondu zure router batean. Ikusi Help-&gt; Port Aurrelariak.</value>
   </data>
   <data name="Not_Normal" xml:space="preserve">
-    <value>Ez dirudi makina hau birbidaltzea bideratzailea, beraz Hypergrid ez dago eskuragarri. Hau daitezkeen 'Port Aurrelariak' konpondu zure router batean. Ikusi Help-&gt; Port Aurrelariak.</value>
+    <value>Ez da normalean Opensim behartuta. Viewer ezin izango 45.000 baino gehiago erakusteko. hau hemen ezarriz eta ezarpenak honek muga behartuko da eta Prims itzultzeko daiteke ahalbidetzen!</value>
   </data>
   <data name="Not_Running" xml:space="preserve">
     <value>Opensim ez dago martxan.</value>
@@ -1626,6 +1728,12 @@
   <data name="no_Default_sim" xml:space="preserve">
     <value>Ezin izan da ezarri sim lehenetsia bisitarientzat. Ikusi Eskualde Panel.</value>
   </data>
+  <data name="No_Email" xml:space="preserve">
+    <value>Posta elektronikoko zerbitzaria ez da oraindik sortu</value>
+  </data>
+  <data name="No_Emails_Selected" xml:space="preserve">
+    <value>Ez dago mezu elektronikoak aukeratu dira</value>
+  </data>
   <data name="No_HG" xml:space="preserve">
     <value>Ez Hypergrid bisitari egon eskualde honetan onartzen egingo</value>
   </data>
@@ -1637,6 +1745,9 @@
   </data>
   <data name="No_Regions_Ready" xml:space="preserve">
     <value>Ez dago eskualde prest daude, beraz, ezin iar du "kargatu</value>
+  </data>
+  <data name="No_Subject" xml:space="preserve">
+    <value>Ez dago Gaia ez da!</value>
   </data>
   <data name="NTSuspend" xml:space="preserve">
     <value>Akatsa: ezin izan da abiarazi NtSuspendProcess64.exe.</value>
@@ -1665,6 +1776,9 @@
   <data name="OAR_load_save_backupp_word" xml:space="preserve">
     <value>OAR kargatu, gorde eta Backup</value>
   </data>
+  <data name="OAuth_Key" xml:space="preserve">
+    <value>Gakoa</value>
+  </data>
   <data name="Object_Path" xml:space="preserve">
     <value>Objektu Path eta izena</value>
   </data>
@@ -1675,7 +1789,7 @@
     <value>Open dinamikoa Motorra</value>
   </data>
   <data name="ODE_word_NT" xml:space="preserve">
-    <value>Open dinamikoa Motorra</value>
+    <value>ODE</value>
   </data>
   <data name="Off" xml:space="preserve">
     <value>Off</value>
@@ -1690,19 +1804,22 @@
     <value>Ez dago avatar bat da</value>
   </data>
   <data name="One_region" xml:space="preserve">
-    <value>Ados</value>
+    <value>eskualde bat da, oraindik ere martxan</value>
   </data>
   <data name="Only_Owners" xml:space="preserve">
     <value>Bakarrik Jabeak eta Higiezinen Zuzendariak egon eskualde honetan onartzen egingo</value>
   </data>
+  <data name="On_Top" xml:space="preserve">
+    <value>Gainean</value>
+  </data>
   <data name="Opensimulator_is_loading" xml:space="preserve">
-    <value>Open Router Portuen Universal Plug and Play erabilita</value>
+    <value>Opensimulator kargatzen da</value>
   </data>
   <data name="Open_Router_Ports" xml:space="preserve">
-    <value>Bakarrik Jabeak eta Higiezinen Zuzendariak egon eskualde honetan onartzen egingo</value>
+    <value>Open Router Portuen Universal Plug and Play erabilita</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opensimulator kargatzen da</value>
+    <value>Aukerak</value>
   </data>
   <data name="ors" xml:space="preserve">
     <value>edo:</value>
@@ -1720,7 +1837,10 @@
     <value>paketeak</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
-    <value>paketeak</value>
+    <value>Gainditu LAN loopback proba</value>
+  </data>
+  <data name="Passwordtooshort_word" xml:space="preserve">
+    <value>Pasahitza laburregia da</value>
   </data>
   <data name="Password_Text" xml:space="preserve">
     <value>pasahitza bakarrik alda daiteke Opensim martxan da</value>
@@ -1770,11 +1890,11 @@
   <data name="port2" xml:space="preserve">
     <value>Port 2</value>
   </data>
-  <data name="Portguese" xml:space="preserve">
-    <value>Portguese</value>
-  </data>
   <data name="Ports" xml:space="preserve">
     <value>Portuak</value>
+  </data>
+  <data name="Portuguese" xml:space="preserve">
+    <value>portugesa</value>
   </data>
   <data name="Port_Error" xml:space="preserve">
     <value>Port gatazka detektatu da. portuak guztiak berrezarri da lehenespenetara</value>
@@ -1793,6 +1913,9 @@
   </data>
   <data name="Print" xml:space="preserve">
     <value>Inprimatu</value>
+  </data>
+  <data name="Privacy_policy" xml:space="preserve">
+    <value>Privacy Policy</value>
   </data>
   <data name="Private_Port_Word" xml:space="preserve">
     <value>Port Pribatua</value>
@@ -1817,6 +1940,12 @@
   </data>
   <data name="Publish_Items" xml:space="preserve">
     <value>Argitaratu bilaketarekin markatutako elementuak</value>
+  </data>
+  <data name="Quit_Message0" xml:space="preserve">
+    <value>Sistema eta beste applictions ez dira kaltetutako. txosten bat sortu da Outworldz, LLC nahi duzula bidali ahal laguntzaz arazo hau identifikatzeko.</value>
+  </data>
+  <data name="Quit_Message1" xml:space="preserve">
+    <value>Appication ustekabean itxi da.</value>
   </data>
   <data name="Quit_Now_Word" xml:space="preserve">
     <value>irten orain</value>
@@ -1852,7 +1981,7 @@
     <value>mapa guztiak ezabatzen baduzu, behar birsortzeko mapak mapa ezarpen bat berrabiarazi arabera</value>
   </data>
   <data name="Regions_Are_Running" xml:space="preserve">
-    <value>Eskualde UUID baliogabea da</value>
+    <value>eskualdetan oraindik martxan daude</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>Eskualde</value>
@@ -1938,6 +2067,9 @@
   <data name="Reload" xml:space="preserve">
     <value>Birkargatu sareta</value>
   </data>
+  <data name="Remote_Admin_word" xml:space="preserve">
+    <value>RemoteAdmin</value>
+  </data>
   <data name="RenderMax" xml:space="preserve">
     <value>Errendatu Max Altuera</value>
   </data>
@@ -1947,14 +2079,11 @@
   <data name="Repeat_Password_word" xml:space="preserve">
     <value>errepikatu pasahitza</value>
   </data>
-  <data name="Repeat_Password_word1" xml:space="preserve">
-    <value>errepikatu pasahitza</value>
-  </data>
   <data name="Request_App" xml:space="preserve">
     <value>Eskatu aplikazioa Sorkuntza</value>
   </data>
   <data name="Reserve_Password" xml:space="preserve">
-    <value>Eskatu aplikazioa Sorkuntza</value>
+    <value>Erreserbatu zure DYN DNS izen. Hau zure izen pasahitz bat da.</value>
   </data>
   <data name="Reset_To_Default" xml:space="preserve">
     <value>. Berrezarri lehenetsiak</value>
@@ -1975,7 +2104,7 @@
     <value>Restart tartea minututan</value>
   </data>
   <data name="Restart_one_instance_word" xml:space="preserve">
-    <value>Bulletsim fisika hutsegite simulator berrabiaraztea bultzatuko du</value>
+    <value>Restart bat adibidez</value>
   </data>
   <data name="Restart_one_region_word" xml:space="preserve">
     <value>Restart bat eskualdean</value>
@@ -2002,16 +2131,16 @@
     <value>Restart Ilaran</value>
   </data>
   <data name="Restart_Region_word" xml:space="preserve">
-    <value>Restart Ilaran</value>
-  </data>
-  <data name="Restart_Robust_word" xml:space="preserve">
     <value>Restart eskualdea</value>
   </data>
-  <data name="Restart_Settings_word" xml:space="preserve">
+  <data name="Restart_Robust_word" xml:space="preserve">
     <value>Restart sendoa</value>
   </data>
-  <data name="Restart_word" xml:space="preserve">
+  <data name="Restart_Settings_word" xml:space="preserve">
     <value>Restart ezarpenak</value>
+  </data>
+  <data name="Restart_word" xml:space="preserve">
+    <value>Berriro hasi</value>
   </data>
   <data name="Restore_Database_word" xml:space="preserve">
     <value>Berreskuratu Database</value>
@@ -2046,23 +2175,17 @@
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Eskualde zerbitzari gisa exekutatzen</value>
   </data>
-  <data name="Running_as_a_Region_Server_word1" xml:space="preserve">
-    <value>Eskualde zerbitzari gisa exekutatzen</value>
-  </data>
   <data name="Running_Network" xml:space="preserve">
     <value>Sare-diagnostikoak carrera</value>
   </data>
-  <data name="Running_Network1" xml:space="preserve">
-    <value>Sare-diagnostikoak carrera</value>
-  </data>
   <data name="Running_word" xml:space="preserve">
-    <value>Eskualde zerbitzari gisa exekutatzen</value>
+    <value>carrera</value>
   </data>
   <data name="Run_All_word" xml:space="preserve">
     <value>Run guztiak</value>
   </data>
   <data name="Run_as_a_Service_word" xml:space="preserve">
-    <value>Run guztiak</value>
+    <value>Run As A Zerbitzua</value>
   </data>
   <data name="Russian" xml:space="preserve">
     <value>Errusiako</value>
@@ -2121,14 +2244,14 @@
   <data name="Script_Timer_Text" xml:space="preserve">
     <value>Gidoi tenporizadorea abiadura ezarpena. 1/11 segundoko lehenetsia (0.0909)</value>
   </data>
-  <data name="Search_All_Grids_word" xml:space="preserve">
-    <value>Search All Grids</value>
+  <data name="SearchOptions_word" xml:space="preserve">
+    <value>Bilaketa aukerak</value>
   </data>
-  <data name="Search_Connect_failed" xml:space="preserve">
-    <value>Konektatu Huts basearen Search</value>
+  <data name="Search_Events" xml:space="preserve">
+    <value>Search objektuak eta gertaerak (www) for</value>
   </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>Search</value>
+  <data name="Search_grids" xml:space="preserve">
+    <value>Search Grids for (www)</value>
   </data>
   <data name="Secret_word" xml:space="preserve">
     <value>Secret</value>
@@ -2146,13 +2269,19 @@
     <value>Hautatzen guztiak edo bat ere ez karratuak of</value>
   </data>
   <data name="Select_word" xml:space="preserve">
-    <value>duzu berriro ikusiko dut esnatu I freskoa guztiak eta berria!</value>
+    <value>Aukeratu</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Bidali Alerta Mezua</value>
   </data>
   <data name="Send_Debug_Info" xml:space="preserve">
     <value>Bidali Debug Info kontsola</value>
+  </data>
+  <data name="Send_report" xml:space="preserve">
+    <value>Bidali txostena</value>
+  </data>
+  <data name="Send_word" xml:space="preserve">
+    <value>Bidali</value>
   </data>
   <data name="Separation" xml:space="preserve">
     <value>Nahi den Separation (lehenetsia = 5,0)</value>
@@ -2170,7 +2299,7 @@
     <value>ezarpenak</value>
   </data>
   <data name="Setting_Loopback" xml:space="preserve">
-    <value>ezarri Titularra</value>
+    <value>Loopback egokitzaile ezartzen IP Publikoa helbidea</value>
   </data>
   <data name="Setup_Firewall_word" xml:space="preserve">
     <value>konfigurazioa Firewall</value>
@@ -2183,9 +2312,6 @@
   </data>
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>Setup Portuak</value>
-  </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>Setup bilaketa datu-basea</value>
   </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>Klik konfiguratzeko Zerbitzuaren baldintzak</value>
@@ -2203,7 +2329,7 @@
     <value>Ezarri arazketa-maila</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
-    <value>Ezarri arazketa-maila</value>
+    <value>ezarri Titularra</value>
   </data>
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Icecast ez dago gaituta.</value>
@@ -2243,6 +2369,9 @@
   </data>
   <data name="Skip_word" xml:space="preserve">
     <value>jauzi</value>
+  </data>
+  <data name="Slash" xml:space="preserve">
+    <value>/</value>
   </data>
   <data name="Slow_Backup" xml:space="preserve">
     <value>Pixkanaka baina zabala Database Backup bat hasi</value>
@@ -2355,6 +2484,9 @@
   <data name="Stop_word" xml:space="preserve">
     <value>Gelditu</value>
   </data>
+  <data name="Subject_word" xml:space="preserve">
+    <value>Gaia</value>
+  </data>
   <data name="Suitcase_enable" xml:space="preserve">
     <value>Gaitu inbentarioa Maleta</value>
   </data>
@@ -2363,6 +2495,9 @@
   </data>
   <data name="Swedish" xml:space="preserve">
     <value>Suediako</value>
+  </data>
+  <data name="System_Backup_Now_word" xml:space="preserve">
+    <value>Korrika Backup Orain</value>
   </data>
   <data name="System_Backup_word" xml:space="preserve">
     <value>Sistema Backup</value>
@@ -2397,9 +2532,6 @@
   <data name="Theme_Black" xml:space="preserve">
     <value>Gaia Black to set</value>
   </data>
-  <data name="theme_Custom" xml:space="preserve">
-    <value>Gaia pertsonalizatua multzo</value>
-  </data>
   <data name="Theme_White" xml:space="preserve">
     <value>Gaia White multzo</value>
   </data>
@@ -2413,28 +2545,82 @@
     <value>haria igerilekuak</value>
   </data>
   <data name="Tides_word" xml:space="preserve">
-    <value>Marea Info Channel</value>
+    <value>Mareak</value>
   </data>
   <data name="Tide_Enable" xml:space="preserve">
-    <value>haria igerilekuak</value>
+    <value>Gaitu marea aldera eta atera?</value>
   </data>
   <data name="Tide_Hi_Lo_Channel_word" xml:space="preserve">
     <value>Marea Hi / Lo Channel</value>
   </data>
   <data name="Tide_Info_Channel_word" xml:space="preserve">
-    <value>Marea Hi / Lo Channel</value>
+    <value>Marea Info Channel</value>
   </data>
   <data name="Timeout_in_hours_word" xml:space="preserve">
     <value>orduetan Timeout</value>
   </data>
   <data name="Tolerance" xml:space="preserve">
-    <value>orduetan Timeout</value>
+    <value>Tolerantzia (lehenetsia = 25,0)</value>
   </data>
   <data name="TOS" xml:space="preserve">
     <value>TOS moduluak zure erabiltzaile eta / edo bisitari HTML testu hau erakusten ditu.</value>
   </data>
+  <data name="Transfer_word" xml:space="preserve">
+    <value>Transfer</value>
+  </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Arazoak</value>
+  </data>
+  <data name="tt_Apache_Enable" xml:space="preserve">
+    <value>Gaitzen Apache web zerbitzaria zerbitzu gisa exekutatu.</value>
+  </data>
+  <data name="tt_Apache_EnableDiva" xml:space="preserve">
+    <value>home orriaren birzuzenketa du "Dreamgrid" karpetara gaitzen htdocs in</value>
+  </data>
+  <data name="tt_Apache_EnableJOpensim" xml:space="preserve">
+    <value>home JOpensim karpeta orriaren birzuzenketa gaitzen htdocs in</value>
+  </data>
+  <data name="tt_Apache_EnableOther" xml:space="preserve">
+    <value>home orriaren birzuzenketa "Beste" karpetara gaitzen htdocs in</value>
+  </data>
+  <data name="tt_Apache_EnableWP" xml:space="preserve">
+    <value>home orriaren birzuzenketa gaitzen du "WordPress" karpetara htdocs in</value>
+  </data>
+  <data name="tt_Apache_Port" xml:space="preserve">
+    <value>Normalean Port 80, WWW portuan. 80 ataka zure ISP blokeatu bada, 8000 onak aukera bat da.</value>
+  </data>
+  <data name="tt_Apache_Sitemap" xml:space="preserve">
+    <value>Saretak bilatzaileak aurkitu eta indize oinarrizko mapa bat sortzen du.</value>
+  </data>
+  <data name="tt_Backup_Custom" xml:space="preserve">
+    <value>Bizkar Web pertsonalizatua orrietan karpeta the Diva Web zerbitzaria sortu zip fitxategi batean</value>
+  </data>
+  <data name="tt_Backup_Fsassets" xml:space="preserve">
+    <value>Bizkar FSassets karpeta sortu. Thjsi backup oso handia da. gehikuntzaren backup bat egingo du, aldaketak besterik.</value>
+  </data>
+  <data name="tt_Backup_Now" xml:space="preserve">
+    <value>Hautatutako backups exekutatzen orain.</value>
+  </data>
+  <data name="tt_Backup_Regions" xml:space="preserve">
+    <value>Bizkar eskualdean INI fitxategi guztiak eman</value>
+  </data>
+  <data name="tt_Backup_Settings" xml:space="preserve">
+    <value>Bizkarra eman trhe Settings.ini eta XYSettings.ini zip fitxategi batean fitxategiak. Hauek eduki dute inoiz aldatu duzu setings guztiak</value>
+  </data>
+  <data name="tt_Backup_SQL" xml:space="preserve">
+    <value>Backup bi mysqldump fitxategiak, alde sendo bat, eskualde bat MySQL. Hau eramangarri, giza readioable formatu bat da</value>
+  </data>
+  <data name="tt_BirdsFlockSize" xml:space="preserve">
+    <value>Nola manuy hegaztiak agertuko da, 1-100, the biords gehiago eta hobeto PUZa eta sareko behar da</value>
+  </data>
+  <data name="tt_BirdsMaxHeightTextBox" xml:space="preserve">
+    <value>sestra gaineko gehienezko altuera</value>
+  </data>
+  <data name="tt_Bird_Border_size" xml:space="preserve">
+    <value>Nola sim mugatik txoriak hegan egingo gertu. IFF lortuko dute hurbilegi thay hegan egingo intoi anothert sim. Eta hil. Eta hil. Eta hil gora betetzen da sim arte</value>
+  </data>
+  <data name="tt_Click_to_Set_Backup_Types" xml:space="preserve">
+    <value>Klikatu konfigurazioa Backup motak. Normalean denak egon On ezarri behar da.</value>
   </data>
   <data name="Type_word" xml:space="preserve">
     <value>Mota</value>
@@ -2463,11 +2649,11 @@
   <data name="Updated_word" xml:space="preserve">
     <value>eguneratua</value>
   </data>
-  <data name="Update_Downloaded" xml:space="preserve">
-    <value>Update deskargatu da. Instalatu orain?</value>
-  </data>
   <data name="Update_is_available" xml:space="preserve">
-    <value>Eguneratzea eskuragarri dago. planoan eguneratzea deskargatzen. Mesedez, utzi amaitzeko.</value>
+    <value>Eguneratzea eskuragarri dago. Ez eguneratu nahi duzula?</value>
+  </data>
+  <data name="Update_word" xml:space="preserve">
+    <value>eguneratzearen</value>
   </data>
   <data name="Updating_Ports_word" xml:space="preserve">
     <value>eguneratzea Portuak</value>
@@ -2487,6 +2673,9 @@
   <data name="Useful_Size" xml:space="preserve">
     <value>Eta handiagoa kopurua, handiago cachea.</value>
   </data>
+  <data name="Users" xml:space="preserve">
+    <value>erabiltzaileak</value>
+  </data>
   <data name="Users_word" xml:space="preserve">
     <value>erabiltzaileak</value>
   </data>
@@ -2498,6 +2687,9 @@
   </data>
   <data name="Use_Default_word" xml:space="preserve">
     <value>Erabili lehenetsia</value>
+  </data>
+  <data name="UUID" xml:space="preserve">
+    <value>UUID</value>
   </data>
   <data name="UUID0" xml:space="preserve">
     <value>Akatsa: UUID dago ezer!</value>
@@ -2516,6 +2708,9 @@
   </data>
   <data name="Viewer_Stops_Counting" xml:space="preserve">
     <value>Viewer zenbaketa gelditzen 45.000 etan</value>
+  </data>
+  <data name="ViewJoomla_word" xml:space="preserve">
+    <value>ikusi</value>
   </data>
   <data name="View_as_Icons" xml:space="preserve">
     <value>Ikusi ikono gisa</value>
@@ -2555,6 +2750,9 @@
   </data>
   <data name="View_Web_Interface_text" xml:space="preserve">
     <value>Web Interfazea erabil daiteke erabiltzaile berriak gehitzeko</value>
+  </data>
+  <data name="View_word" xml:space="preserve">
+    <value>ikusi</value>
   </data>
   <data name="Vivox_Voice_word" xml:space="preserve">
     <value>Vivox Ahots</value>
@@ -2613,20 +2811,32 @@
   <data name="WillNotSave" xml:space="preserve">
     <value>Ezin izango da Autobackup batera OAR du atezainak.</value>
   </data>
+  <data name="Window" xml:space="preserve">
+    <value>Leiho</value>
+  </data>
+  <data name="Window_Word" xml:space="preserve">
+    <value>Leiho</value>
+  </data>
+  <data name="WordPress_Word" xml:space="preserve">
+    <value>WordPress</value>
+  </data>
   <data name="Wrong" xml:space="preserve">
     <value>Zerbait Interneten gaizki</value>
   </data>
   <data name="X" xml:space="preserve">
     <value>X</value>
   </data>
+  <data name="XEngine_word" xml:space="preserve">
+    <value>X motorra</value>
+  </data>
   <data name="XMLRPC" xml:space="preserve">
     <value>XMLRPC</value>
   </data>
+  <data name="XMLRPC_TCP_is_set_word" xml:space="preserve">
+    <value>XMLRPC eskualdea Port</value>
+  </data>
   <data name="XMLRP_start" xml:space="preserve">
     <value>XMLRPC Port Start #</value>
-  </data>
-  <data name="X_Engine_word" xml:space="preserve">
-    <value>X motorra</value>
   </data>
   <data name="Y" xml:space="preserve">
     <value>Y</value>
@@ -2636,5 +2846,35 @@
   </data>
   <data name="Yes_word" xml:space="preserve">
     <value>Bai</value>
+  </data>
+  <data name="Z" xml:space="preserve">
+    <value>Z</value>
+  </data>
+  <data name="_0" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Theme_Custom" xml:space="preserve">
+    <value>Gaia pertsonalizatua da</value>
+  </data>
+  <data name="tt_Apache_Other" xml:space="preserve">
+    <value>"Beste" karpetaren izena. Apache \ htdocs karpetan kokatu behar da. / Orrialdera doan web trafiko guztia karpeta honetara birbideratuko da.</value>
+  </data>
+  <data name="Arabic_Saudi" xml:space="preserve">
+    <value>Arabiera (Saudi)</value>
+  </data>
+  <data name="Farsi" xml:space="preserve">
+    <value>Farsi (Iran)</value>
+  </data>
+  <data name="Brazilian" xml:space="preserve">
+    <value>Brasildarra (portugesa)</value>
+  </data>
+  <data name="Khazak" xml:space="preserve">
+    <value>Khazakistan</value>
+  </data>
+  <data name="Spanish_Mexico" xml:space="preserve">
+    <value>Gaztelania (Mexiko)</value>
+  </data>
+  <data name="Spanish_Spain" xml:space="preserve">
+    <value>Gaztelania (Espainia)</value>
   </data>
 </root>

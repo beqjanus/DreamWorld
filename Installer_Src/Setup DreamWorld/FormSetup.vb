@@ -1389,8 +1389,24 @@ Public Class FormSetup
 
         Cleanup() ' old files
 
-        My.Application.ChangeUICulture(Settings.Language)
-        My.Application.ChangeCulture(Settings.Language)
+        Dim cinfo() = System.Globalization.CultureInfo.GetCultures(CultureTypes.AllCultures)
+
+        'For Each cul As CultureInfo In cinfo
+        'Diagnostics.Debug.Print(cul.DisplayName & " " + cul.Name + "\n")
+        'Next
+
+        'Settings.Language = "es-ES"
+        Try
+            My.Application.ChangeUICulture(Settings.Language)
+            My.Application.ChangeCulture(Settings.Language)
+        Catch
+            My.Application.ChangeUICulture("en")
+            My.Application.ChangeCulture("en")
+        End Try
+
+        Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture
+
+        ' Console.WriteLine("CurrentCulture is {0}.", CultureInfo.CurrentCulture.Name)
 
         Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
         Searcher1 = New ManagementObjectSearcher(wql)
@@ -1412,36 +1428,27 @@ Public Class FormSetup
 
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
+        'Console.WriteLine("CurrentCulture is {0}.", CultureInfo.CurrentCulture.Name)
+
         AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Add_User_word
         AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.earth_network
         AdvancedSettingsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Settings_word
         AdvancedSettingsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.All_Global_Settings_word
-
         AllUsersAllSimsToolStripMenuItem.Text = Global.Outworldz.My.Resources.All_Users_All_Sims_word
-        ArabicToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_saudi_arabia
         BackupCriticalFilesToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
         BackupCriticalFilesToolStripMenuItem.Text = Global.Outworldz.My.Resources.System_Backup_word
         BackupDatabaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
         BackupDatabaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Backup_Databases
         BackupRestoreToolStripMenuItem.Image = Global.Outworldz.My.Resources.disk_blue
         BackupRestoreToolStripMenuItem.Text = Global.Outworldz.My.Resources.SQL_Database_Backup_Restore
-        BasqueToolStripMenuItem.Image = Global.Outworldz.My.Resources.basque
-        BasqueToolStripMenuItem.Text = Global.Outworldz.My.Resources.Basque_word
-        BrazilToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_brazil
         BusyButton.Text = Global.Outworldz.My.Resources.Busy_word
         CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.download
         CHeckForUpdatesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Check_for_Updates_word
-        CatalanToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_catalan
-        CatalanToolStripMenuItem.Text = Global.Outworldz.My.Resources.Catalan
         ChangePasswordToolStripMenuItem.Text = Global.Outworldz.My.Resources.Change_Password_word
         ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Minutes_word
         ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Minutes_word
         CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Server_Client
         CheckAndRepairDatbaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Check_and_Repair_Database_word
-        ChineseSimplifedToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_china
-        ChineseSimplifedToolStripMenuItem.Text = Global.Outworldz.My.Resources.Chinese_Simplifed
-        ChineseTraditionalToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_taiwan
-        ChineseTraditionalToolStripMenuItem.Text = Global.Outworldz.My.Resources.Chinese_Traditional
         ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.user1_into
         ClothingInventoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Free_Avatar_Inventory_word
         ClothingInventoryToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Load_Free_Avatar_Inventory_text
@@ -1453,31 +1460,14 @@ Public Class FormSetup
         ConsoleToolStripMenuItem1.Image = Global.Outworldz.My.Resources.window_add
         ConsoleToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Consoles_word
         ConsoleToolStripMenuItem1.ToolTipText = Global.Outworldz.My.Resources.Consoletext
-        CzechToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_czech_republic
-        CzechToolStripMenuItem.Text = Global.Outworldz.My.Resources.Czech
         Debug.Text = Global.Outworldz.My.Resources.Debug_word
         DebugToolStripMenuItem.Text = Global.Outworldz.My.Resources.Set_Debug_Level_word
         DiagnosticsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Server_Client
         DiagnosticsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Network_Diagnostics
         DiagnosticsToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Network_Diagnostics_text
-        DutchToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_netherlands
-        DutchToolStripMenuItem.Text = Global.Outworldz.My.Resources.Dutch
-        EnglishToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_usa
-        EnglishToolStripMenuItem.Text = Global.Outworldz.My.Resources.English
         ErrorToolStripMenuItem.Text = Global.Outworldz.My.Resources.Error_word
-        FarsiToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_iran
-        Fatal1.Text = Global.Outworldz.My.Resources.Fatal_word
+        Fatal1.Text = Global.Outworldz.My.Resources.Float
         FileToolStripMenuItem.Text = Global.Outworldz.My.Resources.File_word
-        FinnishToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_finland
-        FinnishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Finnish
-        FrenchToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_france
-        FrenchToolStripMenuItem.Text = Global.Outworldz.My.Resources.French
-        GermanToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_germany
-        GermanToolStripMenuItem.Text = Global.Outworldz.My.Resources.German
-        GreekToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_greece
-        GreekToolStripMenuItem.Text = Global.Outworldz.My.Resources.Greek
-        HebrewToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_israel
-        HebrewToolStripMenuItem.Text = Global.Outworldz.My.Resources.Hebrew
         HelpOnIARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.disks
         HelpOnIARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_On_IARS_word
         HelpOnIARSToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Help_IARS_text
@@ -1497,25 +1487,19 @@ Public Class FormSetup
         HelpToolStripMenuItem3.Text = Global.Outworldz.My.Resources.Help_word
         HelpToolStripMenuItem4.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem4.Text = Global.Outworldz.My.Resources.Help_word
-        IcelandicToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_iceland
-        IcelandicToolStripMenuItem.Text = Global.Outworldz.My.Resources.Icelandic
         Info.Text = Global.Outworldz.My.Resources.Info_word
-        IrishToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_ireland
-        IrishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Irish
         IslandToolStripMenuItem.Image = Global.Outworldz.My.Resources.box_tall
         IslandToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Free_DreamGrid_OARs_word
         JobEngineToolStripMenuItem.Text = Global.Outworldz.My.Resources.JobEngine_word
         JustOneRegionToolStripMenuItem.Text = Global.Outworldz.My.Resources.Just_one_region_word
         JustQuitToolStripMenuItem.Image = Global.Outworldz.My.Resources.exit_icon
         JustQuitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Quit_Now_Word
-        LanguageToolStripMenuItem.Image = Global.Outworldz.My.Resources.users3
-        LanguageToolStripMenuItem.Text = Global.Outworldz.My.Resources.Language
-
+        KeepOnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Window_Word
+        LanguageToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Language
         LoadIARsToolMenuItem.Image = Global.Outworldz.My.Resources.user1_into
         LoadIARsToolMenuItem.Text = Global.Outworldz.My.Resources.Inventory_IAR_Load_and_Save_words
         LoadLocalOARSToolStripMenuItem.Image = Global.Outworldz.My.Resources.box_tall
         LoadLocalOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Local_OARs_word
-
         LoopBackToolStripMenuItem.Image = Global.Outworldz.My.Resources.refresh
         LoopBackToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_On_LoopBack_word
         LoopBackToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Help_Loopback_Text
@@ -1525,16 +1509,10 @@ Public Class FormSetup
         MoreFreeIslandsandPartsContentToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Free_DLC_word
         RestartMysqlIcon.Image = Global.Outworldz.My.Resources.gear
         RestartMysqlIcon.Text = Global.Outworldz.My.Resources.Mysql_Word
-        NorwegianToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_norway
-        NorwegianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Norwegian
-
         Off1.Text = Global.Outworldz.My.Resources.Off
+        OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.On_Top
         PDFManualToolStripMenuItem.Image = Global.Outworldz.My.Resources.pdf
         PDFManualToolStripMenuItem.Text = Global.Outworldz.My.Resources.PDF_Manual_word
-        PolishToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_poland
-        PolishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Polish
-        PortgueseToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_portugal
-        PortgueseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Portuguese
         RegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Server_Client
         RegionsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Regions_word
         RestartApacheIcon.Image = Global.Outworldz.My.Resources.gear
@@ -1558,8 +1536,6 @@ Public Class FormSetup
         RevisionHistoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Revision_History_word
         RestartRobustIcon.Image = Global.Outworldz.My.Resources.gear
         RestartRobustIcon.Text = Global.Outworldz.My.Resources.Robust_word
-        RussianToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_russia
-        RussianToolStripMenuItem.Text = Global.Outworldz.My.Resources.Russian
         ScriptsResumeToolStripMenuItem.Text = Global.Outworldz.My.Resources.Scripts_Resume_word
         ScriptsStartToolStripMenuItem.Text = Global.Outworldz.My.Resources.Scripts_Start_word
         ScriptsStopToolStripMenuItem.Text = Global.Outworldz.My.Resources.Scripts_Stop_word
@@ -1575,12 +1551,8 @@ Public Class FormSetup
         ShowUserDetailsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Show_User_Details_word
         SimulatorStatsToolStripMenuItem.Image = Global.Outworldz.My.Resources.window_environment
         SimulatorStatsToolStripMenuItem.Text = Global.Outworldz.My.Resources.View_Simulator_Stats
-        SpanishToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_spain
-        SpanishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Spanish
         StartButton.Text = Global.Outworldz.My.Resources.Start_word
         StopButton.Text = Global.Outworldz.My.Resources.Stop_word
-        SwedishToolStripMenuItem.Image = Global.Outworldz.My.Resources.flag_sweden
-        SwedishToolStripMenuItem.Text = Global.Outworldz.My.Resources.Swedish
         TechnicalInfoToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_dirty
         TechnicalInfoToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_Technical
         TechnicalInfoToolStripMenuItem.ToolTipText = Global.Outworldz.My.Resources.Help_Technical_text
@@ -1795,136 +1767,24 @@ Public Class FormSetup
 
 #Region "Language"
 
-    Private Sub ArabicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ArabicToolStripMenuItem.Click
-        Settings.Language = "ar-IQ"
-        Language(sender, e)
-    End Sub
-
-    Private Sub BasqueToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BasqueToolStripMenuItem.Click
-        Settings.Language = "eu"
-        Language(sender, e)
-    End Sub
-
-    Private Sub BrazilToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BrazilToolStripMenuItem.Click
-
-        Settings.Language = "pt-BR"
-        Language(sender, e)
-
-    End Sub
-
-    Private Sub CatalanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CatalanToolStripMenuItem.Click
-        Settings.Language = "ca-ES"
-        Language(sender, e)
-    End Sub
-
-    Private Sub ChineseSimplifedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChineseSimplifedToolStripMenuItem.Click
-        Settings.Language = "zh-CN"
-        Language(sender, e)
-    End Sub
-
-    Private Sub ChineseTraditionalToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChineseTraditionalToolStripMenuItem.Click
-        Settings.Language = "zh-TW"
-        Language(sender, e)
-    End Sub
-
-    Private Sub CzechToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CzechToolStripMenuItem.Click
-        Settings.Language = "cs"
-        Language(sender, e)
-    End Sub
-
-    Private Sub DutchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DutchToolStripMenuItem.Click
-        Settings.Language = "nl-NL"
-        Language(sender, e)
-    End Sub
-
-    Private Sub EnglishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnglishToolStripMenuItem.Click
-        Settings.Language = "en-US"
-        Language(sender, e)
-    End Sub
-
-    Private Sub FarsiToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FarsiToolStripMenuItem.Click
-        Settings.Language = "fa-IR"
-        Language(sender, e)
-    End Sub
-
-    Private Sub FinnishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FinnishToolStripMenuItem.Click
-        Settings.Language = "fi"
-        Language(sender, e)
-    End Sub
-
-    Private Sub FrenchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FrenchToolStripMenuItem.Click
-        Settings.Language = "fr"
-        Language(sender, e)
-    End Sub
-
-    Private Sub GermanToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GermanToolStripMenuItem.Click
-        Settings.Language = "de"
-        Language(sender, e)
-    End Sub
-
-    Private Sub GreekToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GreekToolStripMenuItem.Click
-        Settings.Language = "el"
-        Language(sender, e)
-    End Sub
-
-    Private Sub HebrewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HebrewToolStripMenuItem.Click
-        Settings.Language = "he"
-        Language(sender, e)
-    End Sub
-
-    Private Sub IcelandicToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IcelandicToolStripMenuItem.Click
-        Settings.Language = "is"
-        Language(sender, e)
-    End Sub
-
-    Private Sub IrishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IrishToolStripMenuItem.Click
-        Settings.Language = "ga"
-        Language(sender, e)
-    End Sub
-
-    Private Sub Language(sender As Object, e As EventArgs)
+    Public Sub Language(sender As Object, e As EventArgs)
         Settings.SaveSettings()
 
-        For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
-            Diagnostics.Debug.Print("")
-            Diagnostics.Debug.Print(ci.Name)
-            Diagnostics.Debug.Print(ci.TwoLetterISOLanguageName)
-            Diagnostics.Debug.Print(ci.ThreeLetterISOLanguageName)
-            Diagnostics.Debug.Print(ci.ThreeLetterWindowsLanguageName)
-            Diagnostics.Debug.Print(ci.DisplayName)
-            Diagnostics.Debug.Print(ci.EnglishName)
-        Next
+        'For Each ci As CultureInfo In CultureInfo.GetCultures(CultureTypes.NeutralCultures)
+        'Diagnostics.Debug.Print("")
+        'Diagnostics.Debug.Print(ci.Name)
+        'Diagnostics.Debug.Print(ci.TwoLetterISOLanguageName)
+        'Diagnostics.Debug.Print(ci.ThreeLetterISOLanguageName)
+        'Diagnostics.Debug.Print(ci.ThreeLetterWindowsLanguageName)
+        'Diagnostics.Debug.Print(ci.DisplayName)
+        'Diagnostics.Debug.Print(ci.EnglishName)
+        'Next
 
         My.Application.ChangeUICulture(Settings.Language)
         My.Application.ChangeCulture(Settings.Language)
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         FrmHome_Load(sender, e) 'Load everything in your form load event again
-    End Sub
-
-    Private Sub NorwegianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NorwegianToolStripMenuItem.Click
-        Settings.Language = "no"
-        Language(sender, e)
-    End Sub
-
-    Private Sub PortgueseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortgueseToolStripMenuItem.Click
-        Settings.Language = "pt"
-        Language(sender, e)
-    End Sub
-
-    Private Sub RussianToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RussianToolStripMenuItem.Click
-        Settings.Language = "ru"
-        Language(sender, e)
-    End Sub
-
-    Private Sub SpanishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SpanishToolStripMenuItem.Click
-        Settings.Language = "es-MX"
-        Language(sender, e)
-    End Sub
-
-    Private Sub SwedishToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SwedishToolStripMenuItem.Click
-        Settings.Language = "sv"
-        Language(sender, e)
     End Sub
 
 #End Region
@@ -3461,7 +3321,14 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub MnuContent_Click(sender As Object, e As EventArgs) Handles MnuContent.Click
+    Private Sub LanguageToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LanguageToolStripMenuItem1.Click
+
+        Dim Lang As New Language
+        Lang = New Language
+        Lang.Activate()
+        Lang.Visible = True
+        Lang.Select()
+        Lang.BringToFront()
 
     End Sub
 

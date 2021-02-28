@@ -95,6 +95,8 @@ Public Class FormServerType
 
         Settings.ServerType = ServerType
         Settings.SaveSettings()
+        SetServerType()
+
         Changed = False ' do not trigger the save a second time
 
     End Sub

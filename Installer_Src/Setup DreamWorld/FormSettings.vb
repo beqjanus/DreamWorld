@@ -30,6 +30,7 @@ Public Class FormSettings
     Dim FsAssets As New FormFsAssets
     Dim Gloebits As New FormGloebits
     Dim Icecast As New FormIcecast
+    Dim Lang As New Language
     Dim Logging As New FormLogging
     Dim Maps As New FormMaps
     Dim Scripts As New FormScripts
@@ -126,6 +127,7 @@ Public Class FormSettings
         ToolTip1.SetToolTip(TideButton, Global.Outworldz.My.Resources.Click_Tides)
         ToolTip1.SetToolTip(VoiceButton1, Global.Outworldz.My.Resources.Click_Voice)
         ToolTip1.SetToolTip(FSAssetsButton, Global.Outworldz.My.Resources.Click_Fsassets)
+        ToolTip1.SetToolTip(LanguageButton, Global.Outworldz.My.Resources.Language)
 
         VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
 
@@ -184,6 +186,7 @@ Public Class FormSettings
         Icecast.Dispose()
         Logging.Dispose()
         Maps.Dispose()
+        Search.Dispose()
         Scripts.Dispose()
         Tide.Dispose()
         Tos.Dispose()
@@ -191,6 +194,7 @@ Public Class FormSettings
         Banlist.Dispose()
         FormJoomla.Dispose()
         FsAssets.Dispose()
+        Lang.Dispose()
 
     End Sub
 
@@ -391,6 +395,18 @@ Public Class FormSettings
         FormDNSName.Visible = True
         FormDNSName.Select()
         FormDNSName.BringToFront()
+
+    End Sub
+
+    Private Sub LanguageButton_Click(sender As Object, e As EventArgs) Handles LanguageButton.Click
+
+        Lang.Close()
+        Lang.Dispose()
+        Lang = New Language
+        Lang.Activate()
+        Lang.Visible = True
+        Lang.Select()
+        Lang.BringToFront()
 
     End Sub
 
