@@ -664,8 +664,10 @@ Public Class FormSetup
         If Settings.ServerType = RobustServer Then
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = PropRegionClass.FindRegionByName(RegionName)
-            PropRegionClass.CrashCounter(UUID) = 0
-            If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
+            If UUID.Length = 36 Then
+                PropRegionClass.CrashCounter(UUID) = 0
+                If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
+            End If
             l.Remove(UUID)
         End If
         Application.DoEvents()
@@ -909,7 +911,7 @@ Public Class FormSetup
             Try
                 PowerShell.Start()
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                ErrorLog("Cannot set Quickedit off")
             End Try
         End Using
 
@@ -1644,10 +1646,12 @@ Public Class FormSetup
         CheckDefaultPorts()
 
         TextPrint(My.Resources.Setup_Network)
+        Application.DoEvents()
         SetPublicIP()
 
         SetServerType()
-
+        Application.DoEvents()
+        TextPrint(My.Resources.Setup_Ports_word)
         OpenPorts()
 
         Application.DoEvents()

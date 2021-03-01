@@ -46,6 +46,10 @@ Public Class FormPhysics
 
 #Region "Private Methods"
 
+    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
+        Settings.SaveSettings()
+    End Sub
+
     Private Sub Physics_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         GroupBox1.Text = Global.Outworldz.My.Resources.Physics_Engine
@@ -104,12 +108,6 @@ Public Class FormPhysics
         Else
             NinjaRagdoll.Enabled = False
         End If
-    End Sub
-
-    Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
-
-        Settings.SaveSettings()
-
     End Sub
 
     Private Sub PhysicsNone_CheckedChanged(sender As Object, e As EventArgs) Handles Physics0_None.CheckedChanged

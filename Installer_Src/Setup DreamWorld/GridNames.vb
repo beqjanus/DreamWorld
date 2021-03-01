@@ -9,6 +9,9 @@ Module GridNames
 
     Public Sub SetServerType()
 
+        Dim n = Settings.DNSName
+        If n.Length = 0 Then n = "(none)"
+
         If Settings.ServerType = RobustServer Then
             TextPrint(My.Resources.Server_Type_is & " Robust")
         ElseIf Settings.ServerType = OsgridServer Then
@@ -24,9 +27,9 @@ Module GridNames
             End If
             TextPrint(My.Resources.Server_Type_is & " Region")
         ElseIf Settings.ServerType = MetroServer Then
-            Settings.DNSName = "metro.land"
+            Settings.DNSName = "hg.metro.land"
             Settings.ExternalHostName = Settings.PublicIP
-            Settings.BaseHostName = "metro.land"
+            Settings.BaseHostName = "hg.metro.land"
             TextPrint(My.Resources.Server_Type_is & " Metro")
         End If
 
@@ -35,14 +38,19 @@ Module GridNames
             TextPrint("Region IP=" & Settings.ExternalHostName)
         End If
 
-        Dim n = Settings.DNSName
-        If n.Length = 0 Then n = "(none)"
-
         TextPrint("WAN     = " & Settings.PublicIP)
         TextPrint("LAN IP  = " & Settings.LANIP())
         TextPrint("DNS     = " & n)
         TextPrint("Region  = " & Settings.ExternalHostName)
-        TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        If Settings.ServerType = RobustServer Then
+            TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        ElseIf Settings.ServerType = RegionServer Then
+            TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        ElseIf Settings.ServerType = OsgridServer Then
+            TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":80")
+        ElseIf Settings.ServerType = MetroServer Then
+            TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":80")
+        End If
 
     End Sub
 

@@ -112,11 +112,10 @@ Partial Class FormRegion
         Me.MapBetter = New System.Windows.Forms.RadioButton()
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.DeregisterButton = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Physics_ODE = New System.Windows.Forms.RadioButton()
         Me.GroupBox1.SuspendLayout()
         Me.Advanced.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -127,7 +126,6 @@ Partial Class FormRegion
         Me.GroupBox4.SuspendLayout()
         Me.MapBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox5.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -599,14 +597,15 @@ Partial Class FormRegion
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Physics_ODE)
         Me.GroupBox1.Controls.Add(Me.Physics_Hybrid)
         Me.GroupBox1.Controls.Add(Me.Physics_Bullet)
         Me.GroupBox1.Controls.Add(Me.Physics_Default)
         Me.GroupBox1.Controls.Add(Me.Physics_Separate)
         Me.GroupBox1.Controls.Add(Me.Physics_ubODE)
-        Me.GroupBox1.Location = New System.Drawing.Point(20, 279)
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 254)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(228, 129)
+        Me.GroupBox1.Size = New System.Drawing.Size(228, 164)
         Me.GroupBox1.TabIndex = 1879
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Physics"
@@ -615,7 +614,7 @@ Partial Class FormRegion
         'Physics_Hybrid
         '
         Me.Physics_Hybrid.AutoSize = True
-        Me.Physics_Hybrid.Location = New System.Drawing.Point(15, 110)
+        Me.Physics_Hybrid.Location = New System.Drawing.Point(15, 135)
         Me.Physics_Hybrid.Name = "Physics_Hybrid"
         Me.Physics_Hybrid.Size = New System.Drawing.Size(55, 17)
         Me.Physics_Hybrid.TabIndex = 139
@@ -626,7 +625,7 @@ Partial Class FormRegion
         'Physics_Bullet
         '
         Me.Physics_Bullet.AutoSize = True
-        Me.Physics_Bullet.Location = New System.Drawing.Point(15, 66)
+        Me.Physics_Bullet.Location = New System.Drawing.Point(15, 91)
         Me.Physics_Bullet.Name = "Physics_Bullet"
         Me.Physics_Bullet.Size = New System.Drawing.Size(92, 17)
         Me.Physics_Bullet.TabIndex = 138
@@ -648,7 +647,7 @@ Partial Class FormRegion
         'Physics_Separate
         '
         Me.Physics_Separate.AutoSize = True
-        Me.Physics_Separate.Location = New System.Drawing.Point(15, 88)
+        Me.Physics_Separate.Location = New System.Drawing.Point(15, 113)
         Me.Physics_Separate.Name = "Physics_Separate"
         Me.Physics_Separate.Size = New System.Drawing.Size(177, 17)
         Me.Physics_Separate.TabIndex = 37
@@ -659,7 +658,7 @@ Partial Class FormRegion
         'Physics_ubODE
         '
         Me.Physics_ubODE.AutoSize = True
-        Me.Physics_ubODE.Location = New System.Drawing.Point(15, 42)
+        Me.Physics_ubODE.Location = New System.Drawing.Point(15, 67)
         Me.Physics_ubODE.Name = "Physics_ubODE"
         Me.Physics_ubODE.Size = New System.Drawing.Size(153, 17)
         Me.Physics_ubODE.TabIndex = 35
@@ -830,7 +829,6 @@ Partial Class FormRegion
         Me.GroupBox6.Controls.Add(Me.SmartStartCheckBox)
         Me.GroupBox6.Controls.Add(Me.GroupBox4)
         Me.GroupBox6.Controls.Add(Me.MapBox)
-        Me.GroupBox6.Controls.Add(Me.GroupBox5)
         Me.GroupBox6.Controls.Add(Me.GroupBox1)
         Me.GroupBox6.Location = New System.Drawing.Point(317, 33)
         Me.GroupBox6.Name = "GroupBox6"
@@ -844,7 +842,7 @@ Partial Class FormRegion
         Me.GroupBox8.Controls.Add(Me.ScriptDefaultButton)
         Me.GroupBox8.Controls.Add(Me.XEngineButton)
         Me.GroupBox8.Controls.Add(Me.YEngineButton)
-        Me.GroupBox8.Location = New System.Drawing.Point(20, 415)
+        Me.GroupBox8.Location = New System.Drawing.Point(0, 424)
         Me.GroupBox8.Name = "GroupBox8"
         Me.GroupBox8.Size = New System.Drawing.Size(236, 89)
         Me.GroupBox8.TabIndex = 1887
@@ -916,7 +914,7 @@ Partial Class FormRegion
         Me.GroupBox3.Controls.Add(Me.Publish)
         Me.GroupBox3.Controls.Add(Me.NoPublish)
         Me.GroupBox3.Controls.Add(Me.PublishDefault)
-        Me.GroupBox3.Location = New System.Drawing.Point(20, 44)
+        Me.GroupBox3.Location = New System.Drawing.Point(17, 19)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(231, 101)
         Me.GroupBox3.TabIndex = 1883
@@ -962,9 +960,9 @@ Partial Class FormRegion
         Me.GroupBox4.Controls.Add(Me.AllowGods)
         Me.GroupBox4.Controls.Add(Me.ManagerGod)
         Me.GroupBox4.Controls.Add(Me.RegionGod)
-        Me.GroupBox4.Location = New System.Drawing.Point(20, 151)
+        Me.GroupBox4.Location = New System.Drawing.Point(9, 126)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(228, 121)
+        Me.GroupBox4.Size = New System.Drawing.Size(239, 121)
         Me.GroupBox4.TabIndex = 1882
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Permissions"
@@ -1072,24 +1070,6 @@ Partial Class FormRegion
         Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
         Me.MapGood.UseVisualStyleBackColor = True
         '
-        'GroupBox5
-        '
-        Me.GroupBox5.Controls.Add(Me.Label13)
-        Me.GroupBox5.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(200, 100)
-        Me.GroupBox5.TabIndex = 1885
-        Me.GroupBox5.TabStop = False
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(28, 16)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(123, 13)
-        Me.Label13.TabIndex = 1884
-        Me.Label13.Text = "Region Specific Settings"
-        '
         'DeregisterButton
         '
         Me.DeregisterButton.Location = New System.Drawing.Point(121, 220)
@@ -1116,6 +1096,17 @@ Partial Class FormRegion
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        '
+        'Physics_ODE
+        '
+        Me.Physics_ODE.AutoSize = True
+        Me.Physics_ODE.Location = New System.Drawing.Point(15, 43)
+        Me.Physics_ODE.Name = "Physics_ODE"
+        Me.Physics_ODE.Size = New System.Drawing.Size(131, 17)
+        Me.Physics_ODE.TabIndex = 140
+        Me.Physics_ODE.TabStop = True
+        Me.Physics_ODE.Text = "Open Dynamic Engine"
+        Me.Physics_ODE.UseVisualStyleBackColor = True
         '
         'FormRegion
         '
@@ -1157,8 +1148,6 @@ Partial Class FormRegion
         Me.MapBox.ResumeLayout(False)
         Me.MapBox.PerformLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
         Me.ResumeLayout(False)
@@ -1195,7 +1184,6 @@ Partial Class FormRegion
     Friend WithEvents MaxPrims As TextBox
     Friend WithEvents ClampPrimSize As CheckBox
     Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents Label13 As Label
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents NoPublish As RadioButton
     Friend WithEvents PublishDefault As RadioButton
@@ -1212,7 +1200,6 @@ Partial Class FormRegion
     Friend WithEvents MapBetter As RadioButton
     Friend WithEvents MapBest As RadioButton
     Friend WithEvents MapGood As RadioButton
-    Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents Publish As RadioButton
     Friend WithEvents GroupBox7 As GroupBox
     Friend WithEvents BirdsCheckBox As CheckBox
@@ -1255,4 +1242,5 @@ Partial Class FormRegion
     Friend WithEvents Physics_Hybrid As RadioButton
     Friend WithEvents Physics_Bullet As RadioButton
     Friend WithEvents ConciergeCheckBox As CheckBox
+    Friend WithEvents Physics_ODE As RadioButton
 End Class

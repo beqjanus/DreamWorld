@@ -49,7 +49,6 @@ Public Class FormRegion
         GroupBox6.Text = Global.Outworldz.My.Resources.Region_Specific_Settings_word
         GroupBox7.Text = Global.Outworldz.My.Resources.Modules_word
         GroupBox8.Text = Global.Outworldz.My.Resources.Script_Engine_word  '
-        Label13.Text = Global.Outworldz.My.Resources.Region_Specific_Settings_word
         Label16.Text = Global.Outworldz.My.Resources.Region_Port_word
         Label4.Text = Global.Outworldz.My.Resources.Maps_X
         ManagerGod.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
@@ -401,7 +400,7 @@ Public Class FormRegion
             Case "" : Physics_Default.Checked = True
             Case "-1" : Physics_Default.Checked = True
             Case "0" : Physics_Default.Checked = True
-            Case "1" : Physics_ubODE.Checked = True
+            Case "1" : Physics_ODE.Checked = True
             Case "2" : Physics_Bullet.Checked = True
             Case "3" : Physics_Separate.Checked = True
             Case "4" : Physics_ubODE.Checked = True
@@ -820,43 +819,24 @@ Public Class FormRegion
 #Region "Physics"
 
     Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
-
-        If Physics_Bullet.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet")
-        End If
         If Initted1 Then Changed1 = True
-
     End Sub
 
     Private Sub Physics_Default_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
-
-        If Physics_Default.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to default")
-            Physics_ubODE.Checked = False
-            Physics_Separate.Checked = False
-        End If
-
         If Initted1 Then Changed1 = True
-
     End Sub
 
     Private Sub PhysicsSeparate_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
-
-        If Physics_Separate.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet in a Thread")
-        End If
         If Initted1 Then Changed1 = True
-
     End Sub
 
     Private Sub PhysicsubODE_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
-
-        If Physics_ubODE.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to UbitODE")
-        End If
         If Initted1 Then Changed1 = True
-
     End Sub
+
+#End Region
+
+#Region "Physics"
 
     Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
 
@@ -1090,7 +1070,6 @@ Public Class FormRegion
     Private Function WriteRegion(RegionUUID As String) As Boolean
 
         ' save the Region File, choose an existing DOS box to put it in, or make a new one
-
         ' rename is possible
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
@@ -1103,9 +1082,7 @@ Public Class FormRegion
 
             ' rename it
             Dim RegionIniFolderPath = PropRegionClass.RegionIniFolderPath(RegionUUID)
-
             PropRegionClass.RegionIniFilePath(RegionUUID) = RegionIniFolderPath + "/" + RegionName.Text + ".ini"
-
         End If
 
         ' might be a new region, so give them a choice
@@ -1142,9 +1119,7 @@ Public Class FormRegion
 
         PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
         PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
-
         PropRegionClass.RegionName(RegionUUID) = RegionName.Text
-
         PropRegionClass.RegionPort(RegionUUID) = PropRegionClass.LargestPort
         PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.RegionPort(RegionUUID)
         PropRegionClass.SizeX(RegionUUID) = BoxSize
@@ -1186,17 +1161,38 @@ Public Class FormRegion
 
         PropRegionClass.MapType(RegionUUID) = Map
 
-        Dim Phys As Integer = 2
+        'Select Case Case PropRegionClass.Physics(RegionUUID)
+        'Case "" : Physics_Default.Checked = True
+        'Case "-1" : Physics_Default.Checked = True
+        'Case "0" : Physics_Default.Checked = True
+        'Case "1" : Physics_ODE.Checked = True
+        'Case "2" : Physics_Bullet.Checked = True
+        'Case "3" : Physics_Separate.Checked = True
+        'Case "4" : Physics_ubODE.Checked = True
+        'Case "5" : Physics_Hybrid.Checked = True
+        'Case Else : Physics_Default.Checked = True
+        'End Select
+
+        Dim Phys As Integer
         If Physics_Default.Checked Then
-            Phys = -1
+            Phys = 0
+        ElseIf Physics_ODE.Checked Then
+            Phys = 1
+        ElseIf Physics_Bullet.Checked Then
+            Phys = 2
         ElseIf Physics_Separate.Checked Then
             Phys = 3
         ElseIf Physics_ubODE.Checked Then
             Phys = 4
+        ElseIf Physics_Hybrid.Checked Then
+            Phys = 5
+        Else
+            Phys = 2
         End If
 
+        PropRegionClass.Physics(RegionUUID) = CStr(Phys)
         If Physics_Default.Checked Then
-            PropRegionClass.Physics(RegionUUID) = CStr(Phys)
+            PropRegionClass.Physics(RegionUUID) = CStr(Settings.Physics)
         End If
 
         If Gods_Use_Default.Checked Then
@@ -1326,6 +1322,7 @@ Public Class FormRegion
 
         'Debug.Print(Region)
 
+        FileStuff.CopyFileFast(PropRegionClass.RegionIniFilePath(RegionUUID), PropRegionClass.RegionIniFilePath(RegionUUID) & ".bak")
         Try
             Using outputFile As New StreamWriter(PropRegionClass.RegionIniFilePath(RegionUUID), False)
                 outputFile.Write(Region)
@@ -1588,52 +1585,28 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
-
-        If Physics_Default.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics Is set to default")
-            Physics_ubODE.Checked = False
-            Physics_Separate.Checked = False
-        End If
-
+    Private Sub ODEButton_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ODE.CheckedChanged
         If Initted1 Then Changed1 = True
+    End Sub
 
+    Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
+        If Initted1 Then Changed1 = True
     End Sub
 
     Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
-
-        If Physics_Hybrid.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Hybrid")
-        End If
         If Initted1 Then Changed1 = True
-
     End Sub
 
     Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
-
-        If Physics_Separate.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet in a Thread")
-        End If
         If Initted1 Then Changed1 = True
-
     End Sub
 
     Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
-
-        If Physics_ubODE.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Ubit ODE")
-        End If
         If Initted1 Then Changed1 = True
-
     End Sub
 
     Private Sub RadioButton17_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
-
-        If Physics_Bullet.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Physics is set to Bullet")
-        End If
         If Initted1 Then Changed1 = True
-
     End Sub
 
 #End Region
