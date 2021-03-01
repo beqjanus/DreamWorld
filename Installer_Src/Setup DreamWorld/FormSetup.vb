@@ -661,7 +661,7 @@ Public Class FormSetup
 
         Dim l = PropRegionClass.RegionUuids()
 
-        If Settings.ServerType = RobustServer Then
+        If Settings.ServerType = RobustServerName Then
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = PropRegionClass.FindRegionByName(RegionName)
             If UUID.Length = 36 Then
@@ -699,7 +699,7 @@ Public Class FormSetup
         Dim DefaultName As String = ""
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
-        If RegionUUID.Length = 0 And Settings.ServerType = RobustServer Then
+        If RegionUUID.Length = 0 And Settings.ServerType = RobustServerName Then
             MsgBox(My.Resources.Default_Welcome, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
             TextPrint(My.Resources.Stopped_word)
 #Disable Warning CA2000 ' Dispose objects before losing scope
@@ -769,7 +769,7 @@ Public Class FormSetup
             Return
         End If
 
-        If Not Settings.RunOnce And Settings.ServerType = RobustServer Then
+        If Not Settings.RunOnce And Settings.ServerType = RobustServerName Then
 
             Using InitialSetup As New FormInitialSetup ' form for use and password
                 Dim ret = InitialSetup.ShowDialog()
@@ -3328,7 +3328,6 @@ Public Class FormSetup
     Private Sub LanguageToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LanguageToolStripMenuItem1.Click
 
         Dim Lang As New Language
-        Lang = New Language
         Lang.Activate()
         Lang.Visible = True
         Lang.Select()

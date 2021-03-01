@@ -121,7 +121,7 @@ Module DoIni
         Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
         Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
-        If Settings.ServerType = RobustServer Then
+        If Settings.ServerType = RobustServerName Then
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
         Else
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
@@ -157,13 +157,13 @@ Module DoIni
         Dim GridCommon As String = ""
 
         Select Case Settings.ServerType
-            Case RobustServer
+            Case RobustServerName
                 If Settings.CMS = JOpensim Then
                     GridCommon = "Joomla\Gridcommon.ini"
                 Else
                     GridCommon = "Robust\Gridcommon.ini"
                 End If
-            Case RegionServer
+            Case RegionServerName
                 GridCommon = "Region\Gridcommon.ini"
             Case OsgridServer
                 GridCommon = "OsGrid\Gridcommon.ini"
@@ -284,7 +284,7 @@ Module DoIni
 "$CONF_port          = " & """" & Settings.HttpPort & """" & "; " & vbCrLf &
 "$CONF_sim_domain    = " & """" & "http://" & Settings.PublicIP & "/" & """" & ";" & vbCrLf &
 "$CONF_install_path  = " & """" & "/Metromap" & """" & ";   // Installation path " & vbCrLf & "/* MySQL Database */ " & vbCrLf &
-"$CONF_db_server     = " & """" & Settings.RobustServer & """" & "; // Address Of Robust Server " & vbCrLf &
+"$CONF_db_server     = " & """" & Settings.RobustServerIP & """" & "; // Address Of Robust Server " & vbCrLf &
 "$CONF_db_port       = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
 "$CONF_db_user       = " & """" & Settings.RobustUsername & """" & ";  // login " & vbCrLf &
 "$CONF_db_pass       = " & """" & Settings.RobustPassword & """" & ";  // password " & vbCrLf &
@@ -303,7 +303,7 @@ Module DoIni
 
         phptext = "<?php " & vbCrLf &
 "$DB_GRIDNAME = " & """" & Settings.PublicIP & ":" & Settings.HttpPort & """" & ";" & vbCrLf &
-"$DB_HOST = " & """" & Settings.RobustServer & """" & ";" & vbCrLf &
+"$DB_HOST = " & """" & Settings.RobustServerIP & """" & ";" & vbCrLf &
 "$DB_PORT = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
 "$DB_USER = " & """" & Settings.RobustUsername & """" & ";" & vbCrLf &
 "$DB_PASSWORD = " & """" & Settings.RobustPassword & """" & ";" & vbCrLf &
@@ -331,7 +331,7 @@ Module DoIni
 
             Dim DefaultName = Settings.WelcomeRegion
 
-            If WelcomeUUID.Length = 0 And Settings.ServerType = RobustServer Then
+            If WelcomeUUID.Length = 0 And Settings.ServerType = RobustServerName Then
                 MsgBox(My.Resources.Cannot_locate, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
                 Dim RegionName = ChooseRegion(False)
                 If RegionName.Length > 0 Then
@@ -649,7 +649,7 @@ Module DoIni
 
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
-        If Settings.ServerType = RobustServer Then ' wifi could be on or off
+        If Settings.ServerType = RobustServerName Then ' wifi could be on or off
             If (Settings.WifiEnabled) Then
                 Settings.SetIni("WifiService", "Enabled", "True")
             Else

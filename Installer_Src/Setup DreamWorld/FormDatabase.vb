@@ -124,7 +124,7 @@ Public Class FormDatabase
         MysqlRegionPort.Text = CStr(Settings.MySqlRegionDBPort)
 
         ' Robust DB
-        RobustServer.Text = Settings.RobustServer
+        RobustServer.Text = Settings.RobustServerIP
         RobustDbName.Text = Settings.RobustDataBaseName
         RobustDBPassword.Text = Settings.RobustPassword
         RobustDBUsername.Text = Settings.RobustUsername
@@ -212,7 +212,7 @@ Public Class FormDatabase
     Private Sub RobustServer_TextChanged(sender As Object, e As EventArgs) Handles RobustServer.TextChanged
 
         If Not Initted1 Then Return
-        Settings.RobustServer = RobustServer.Text
+        Settings.RobustServerIP = RobustServer.Text
         Settings.SaveSettings()
 
     End Sub

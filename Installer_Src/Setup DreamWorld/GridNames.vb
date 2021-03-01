@@ -12,14 +12,14 @@ Module GridNames
         Dim n = Settings.DNSName
         If n.Length = 0 Then n = "(none)"
 
-        If Settings.ServerType = RobustServer Then
+        If Settings.ServerType = RobustServerName Then
             TextPrint(My.Resources.Server_Type_is & " Robust")
         ElseIf Settings.ServerType = OsgridServer Then
             Settings.DNSName = "hg.osgrid.org"
             Settings.BaseHostName = "hg.osgrid.org"
             Settings.ExternalHostName = Settings.PublicIP
             TextPrint(My.Resources.Server_Type_is & " OSGrid")
-        ElseIf Settings.ServerType = RegionServer Then
+        ElseIf Settings.ServerType = RegionServerName Then
             If Settings.OverrideName.Length > 0 Then
                 Settings.ExternalHostName = Settings.OverrideName
             Else
@@ -42,9 +42,9 @@ Module GridNames
         TextPrint("LAN IP  = " & Settings.LANIP())
         TextPrint("DNS     = " & n)
         TextPrint("Region  = " & Settings.ExternalHostName)
-        If Settings.ServerType = RobustServer Then
+        If Settings.ServerType = RobustServerName Then
             TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
-        ElseIf Settings.ServerType = RegionServer Then
+        ElseIf Settings.ServerType = RegionServerName Then
             TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
         ElseIf Settings.ServerType = OsgridServer Then
             TextPrint("Login   = " & "http://" & Settings.BaseHostName & ":80")

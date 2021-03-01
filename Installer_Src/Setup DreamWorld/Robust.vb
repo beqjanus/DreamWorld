@@ -126,7 +126,7 @@ Module Robust
             Return True
         End If
 
-        If Settings.ServerType <> RobustServer Then
+        If Settings.ServerType <> RobustServerName Then
             RobustIcon(True)
             Return True
         End If
@@ -138,7 +138,6 @@ Module Robust
         If DoRobust() Then Return False
 
         TextPrint("Robust " & Global.Outworldz.My.Resources.Starting_word)
-
 
         RobustProcess.EnableRaisingEvents = True
         RobustProcess.StartInfo.UseShellExecute = True
@@ -226,7 +225,7 @@ Module Robust
 
     Public Sub StopRobust()
 
-        If Settings.ServerType <> RobustServer Then Return
+        If Settings.ServerType <> RobustServerName Then Return
 
         TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
         ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
@@ -414,7 +413,7 @@ Module Robust
         Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http://" & Settings.RobustServer & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+                Up = client.DownloadString("http://" & Settings.RobustServerIP & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
             Catch ex As Exception
                 Log("INFO", "Robust is running")
                 If ex.Message.Contains("404") Then

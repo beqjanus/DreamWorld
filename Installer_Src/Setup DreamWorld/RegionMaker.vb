@@ -339,7 +339,7 @@ Public Class RegionMaker
                             MaxAgents(uuid) = CStr(Settings.GetIni(fName, "MaxAgents", "100", "Integer"))
 
                             ' Location is int,int format.
-                            Dim C As String = CStr(Settings.GetIni(fName, "Location", RandomNumber.Between(1010, 990) & "," & RandomNumber.Between(2000, 1000)))
+                            Dim C As String = CStr(Settings.GetIni(fName, "Location", RandomNumber.Between(1020, 980) & "," & RandomNumber.Between(1020, 980)))
                             Dim parts As String() = C.Split(New Char() {","c}) ' split at the comma
                             CoordX(uuid) = CInt("0" & CStr(parts(0).Trim))
                             CoordY(uuid) = CInt("0" & CStr(parts(1).Trim))
@@ -1386,7 +1386,7 @@ Public Class RegionMaker
     'TODO: Move to Mysql
     Shared Function GetAgentNameByUUID(uuid As String) As String
 
-        If Settings.ServerType <> RobustServer Then Return ""
+        If Settings.ServerType <> RobustServerName Then Return ""
         Dim name As String = ""
         Using myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
             Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
@@ -1678,12 +1678,12 @@ Public Class RegionMaker
         Settings.SetIni("Const", "http_listener_port", CStr(GroupPort(uuid))) ' varies with region
 
         Select Case Settings.ServerType
-            Case RobustServer
+            Case RobustServerName
                 SetupOpensimSearchINI()
                 Settings.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
                 Settings.SetIni("Const", "GridName", Settings.SimName)
                 SetupOpensimIM()
-            Case RegionServer
+            Case RegionServerName
                 SetupOpensimSearchINI()
                 SetupOpensimIM()
             Case OsgridServer
@@ -1895,7 +1895,7 @@ Public Class RegionMaker
         Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
         Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
-        If Settings.ServerType = RobustServer Then
+        If Settings.ServerType = RobustServerName Then
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
         Else
             Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
