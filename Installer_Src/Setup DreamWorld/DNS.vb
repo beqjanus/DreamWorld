@@ -107,7 +107,6 @@ Module DNS
         End If
 
         Settings.BaseHostName = Settings.PublicIP
-        Settings.ExternalHostName = Settings.PublicIP
 
         RegisterName(Settings.PublicIP)
 
