@@ -1424,7 +1424,7 @@ Public Class FormSetup
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
         Application.DoEvents()
-        FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be traslated
+        FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be translated
 
     End Sub
 
