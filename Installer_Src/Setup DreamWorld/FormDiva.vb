@@ -401,9 +401,14 @@ Public Class FormDiva
         HelpManual("Diva")
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.TextChanged
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles SplashPage.LostFocus
 
         If Not initted Then Return
+
+        If Not SplashPage.Text.Contains("http://") Then
+            SplashPage.Text = "http://" & SplashPage.Text
+        End If
+
         Settings.SplashPage = SplashPage.Text
 
     End Sub
