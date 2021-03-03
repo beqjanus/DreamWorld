@@ -146,7 +146,8 @@ Public Class RegionMaker
 
                     Logger("RegionReady: Enabled", json.region_name, "Restart")
                     Dim uuid As String = FindRegionByName(json.region_name)
-                    If uuid.Length = 0 Then
+                    Dim out As New Guid
+                    If Not Guid.TryParse(uuid, out) Then
                         Logger("RegionReady Error, no UUID", json.region_name, "Restart")
                         Continue While
                     End If
@@ -522,7 +523,8 @@ Public Class RegionMaker
     Public Sub WriteRegionObject(name As String)
 
         Dim uuid As String = FindRegionByName(name)
-        If uuid.Length = 0 Then
+        Dim out As New Guid
+        If Not Guid.TryParse(uuid, out) Then
             MsgBox(My.Resources.Cannot_find_region_word & " " & name, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
             Return
         End If
@@ -1492,13 +1494,21 @@ Public Class RegionMaker
 
             ' Smart Start
             Dim uuid As String = ""
-            Dim pattern As Regex = New Regex("ALT=(.*?)&AGENT=(.*)")
+            Dim pattern As Regex = New Regex("ALT=(.*?)&AGENT=(.*?)&PASSWORD=(.*)")
             Dim match As Match = pattern.Match(post)
 
             If match.Success Then
                 uuid = match.Groups(1).Value
                 Dim AgentName = match.Groups(2).Value
-                If uuid.Length > 0 And RegionEnabled(uuid) And SmartStart(uuid) = "True" Then
+                Dim Password = match.Groups(3).Value
+
+                Dim out As New Guid
+                If Not Guid.TryParse(uuid, out) Then Return ""
+
+                If Password = settings.MachineID _
+                    And RegionEnabled(uuid) _
+                    And SmartStart(uuid) = "True" Then
+
                     If Status(uuid) = SIMSTATUSENUM.Booted Then
                         TextPrint(My.Resources.Someone_is_in_word & " " & RegionName(uuid))
                         Return uuid

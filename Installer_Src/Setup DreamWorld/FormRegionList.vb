@@ -966,7 +966,8 @@ Public Class FormRegionlist
         If Item.Text.Length = 0 Then Return
 
         Dim UUID As String = PropRegionClass.FindRegionByName(Item.Text)
-        If UUID.Length = 0 Then Return
+        Dim out As New Guid
+        If Not Guid.TryParse(UUID, out) Then Return
         Dim GroupName = PropRegionClass.GroupName(UUID)
 
         For Each RegionUUID In PropRegionClass.RegionUuidListByName(GroupName)

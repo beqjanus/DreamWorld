@@ -55,7 +55,8 @@
         Catch
         End Try
 
-        If UUID.Length = 0 Then
+        Dim out As New Guid
+        If Not Guid.TryParse(UUID, out) Then
             MsgBox(My.Resources.No_Regions_Ready, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             Return False
         End If

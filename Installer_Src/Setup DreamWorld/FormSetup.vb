@@ -664,7 +664,8 @@ Public Class FormSetup
         If Settings.ServerType = RobustServerName Then
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = PropRegionClass.FindRegionByName(RegionName)
-            If UUID.Length = 36 Then
+            Dim out As New Guid
+            If Guid.TryParse(UUID, out) Then
                 PropRegionClass.CrashCounter(UUID) = 0
                 If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
             End If
