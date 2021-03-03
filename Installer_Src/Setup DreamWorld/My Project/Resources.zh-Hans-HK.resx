@@ -2877,4 +2877,7 @@
   <data name="NVPhysPrim" xml:space="preserve">
     <value>不是有效的物理基本最大值。必须大于0。</value>
   </data>
+  <data name="Seconds_word" xml:space="preserve">
+    <value>秒</value>
+  </data>
 </root>
