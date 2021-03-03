@@ -9,28 +9,22 @@ Module SmartStart
 
     Private WithEvents BootProcess As New Process
 
-    Public Sub DoSuspend_Resume(RegionName As String, Optional ResumeSwitch As Boolean = False)
+    Public Sub DoSuspend(RegionName As String, Optional ResumeSwitch As Boolean = False)
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim PID = PropRegionClass.ProcessID(RegionUUID)
 
         If True Then
-            If ResumeSwitch Then
-                Logger("State Changed to RestartPending", RegionName, "Restart")
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
+
+            Logger("State Changed to ShuttingDown", RegionName, "Restart")
+            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+            For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
                 PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
-                PropUpdateView = True ' make form refresh
-            Else
-                Logger("State Changed to ShuttingDown", RegionName, "Restart")
-                Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
-                    PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
-                Next
-                ShutDown(RegionUUID)
-                Application.DoEvents()
-                PropUpdateView = True ' make form refresh
-            End If
+            Next
+            ShutDown(RegionUUID)
+            Application.DoEvents()
+            PropUpdateView = True ' make form refresh
         Else
             Dim R As String
             If ResumeSwitch Then
@@ -83,8 +77,10 @@ Module SmartStart
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
 
-        FormSetup.Timer1.Interval = 1000
-        FormSetup.Timer1.Start() 'Timer starts functioning
+        If FormSetup.Timer1.Enabled = False Then
+            FormSetup.Timer1.Interval = 1000
+            FormSetup.Timer1.Start() 'Timer starts functioning
+        End If
 
         PropOpensimIsRunning() = True
 
@@ -132,7 +128,6 @@ Module SmartStart
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
                     PropRegionClass.Timer(UUID) = Date.Now
                     PropRegionClass.ProcessID(UUID) = PID
-                    PropRegionClass.BootTime(UUID) = 0
                 Next
 
                 PropUpdateView = True ' make form refresh
@@ -186,7 +181,6 @@ Module SmartStart
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
                     PropRegionClass.Timer(RegionUUID) = Date.Now()
-                    PropRegionClass.BootTime(UUID) = 0
                 Next
             Else
                 BreakPoint.Show("No PID for " & GroupName)

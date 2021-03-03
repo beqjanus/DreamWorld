@@ -1374,7 +1374,9 @@ Public Class RegionMaker
         Dim pair As KeyValuePair(Of String, Region_data)
 
         For Each pair In RegionList
-            If name = pair.Value._UUID Then Return pair.Value._UUID
+            If name.ToUpperInvariant = pair.Value._RegionName.ToUpperInvariant Then
+                Return pair.Value._UUID
+            End If
         Next
 
         Return ""
@@ -1504,43 +1506,49 @@ Public Class RegionMaker
 
             WebserverList.Add(post)
 
-        ElseIf post.Contains("ALT=") Then
+        ElseIf post.Contains("alt=") Then
             ' Smart Start AutoStart Region mode
             Debug.Print("Smart Start:" + post)
 
             ' Smart Start
-            Dim uuid As String = ""
-            Dim pattern As Regex = New Regex("ALT=(.*?)&AGENT=(.*?)&PASSWORD=(.*)")
+
+            Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*)")
             Dim match As Match = pattern.Match(post)
 
             If match.Success Then
-                uuid = match.Groups(1).Value
-                Dim AgentName = match.Groups(2).Value
-                Dim Password = match.Groups(3).Value
+                Dim Region As String = Uri.UnescapeDataString(match.Groups(1).Value)
+                Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
+                Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
+                Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
 
-                Dim out As New Guid
-                If Not Guid.TryParse(uuid, out) Then Return ""
+                Dim uuid As String = FindRegionUUIDByName(Region)
+                Dim result As Guid
+                If Not Guid.TryParse(uuid, result) Then
+                    Return ""
+                End If
 
-                If Password = settings.MachineID _
-                    And RegionEnabled(uuid) _
-                    And SmartStart(uuid) = "True" Then
-
-                    If Status(uuid) = SIMSTATUSENUM.Booted Then
-                        TextPrint(My.Resources.Someone_is_in_word & " " & RegionName(uuid))
-                        Return RegionName(uuid)
-                    Else
-                        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(uuid))
-                        Status(uuid) = SIMSTATUSENUM.Resume
-                        TeleportAvatarDict.Add(AgentName, uuid)
-                        Dim WelcomeRegionUUID As String = FindRegionByName(settings.WelcomeRegion)
-                        Return WelcomeRegionUUID & "|" & CStr(BootTime(uuid))
+                If Password = settings.MachineID Then
+                    If RegionEnabled(result.ToString) _
+                    And SmartStart(result.ToString) = "True" _
+                    And Status(result.ToString) = SIMSTATUSENUM.Booted Then
+                        'TextPrint(My.Resources.Someone_is_in_word & " " & RegionName(result.ToString))
+                        Return Region & "|OK"
                     End If
-                    'other states we can ignore as eventually it will be Stopped or Running
+
+                    If RegionEnabled(result.ToString) _
+                        And SmartStart(result.ToString) = "True" Then
+                        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(uuid))
+                        If TeleportAvatarDict.ContainsKey(AgentID) Then
+                            TeleportAvatarDict.Remove(AgentID)
+                        End If
+                        TeleportAvatarDict.Add(AgentID, result.ToString)
+                        Status(result.ToString) = SIMSTATUSENUM.Resume
+                        Return Region & "|" & CStr(BootTime(result.ToString))
+                    End If
                 End If
             End If
 
-            ' HG Sim, perhaps,. it is not found, not enabled, not Smart Start,let it work normally
-            Return uuid
+            Return ""
 
         ElseIf post.Contains("TOS") Then
             ' currently unused as is only in stand alones
@@ -1758,7 +1766,7 @@ Public Class RegionMaker
         If Settings.LSLHTTP Then
             ' do nothing - let them edit it
         Else
-            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.LANIP() & ":" & Settings.DiagnosticPort)
+            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.LANIP() & ":" & Settings.DiagnosticPort & "|" & Settings.LANIP() & ":" & Settings.HttpPort)
         End If
 
         Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))

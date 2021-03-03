@@ -1125,7 +1125,7 @@ Public Class FormSetup
             Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
             Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
 
-            Dim timesmartstart = PropRegionClass.Timer(RegionUUID).AddMinutes(1)
+            Dim timesmartstart = PropRegionClass.Timer(RegionUUID).AddSeconds(SSTime)
             Dim SSExpired = DateTime.Compare(Date.Now, timesmartstart)
 
             If (Expired > 0) Then
@@ -1141,11 +1141,15 @@ Public Class FormSetup
                     And Settings.SmartStart _
                     And SSExpired > 0 _
                     And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
-                    And Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended _
                     And Not AvatarsIsInGroup(GroupName) Then
-                Logger("State Changed to Suspended", RegionName, "Restart")
-                DoSuspend_Resume(RegionName)
-                PropUpdateView = True
+
+                Logger("State Changed to ShuttingDown", RegionName, "Restart")
+                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                    PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+                Next
+                ShutDown(RegionUUID)
+                PropUpdateView = True ' make form refresh
                 Continue For
             End If
 
@@ -1187,11 +1191,9 @@ Public Class FormSetup
             If Status = RegionMaker.SIMSTATUSENUM.Resume Then
                 '[Resume] = 8
                 Logger("State is Resuming", GroupName, "Restart")
-                DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                 For Each R As String In GroupList
-                    Logger("State changed to Booted", PropRegionClass.RegionName(R), "Restart")
-                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
+                    Boot(RegionName)
                 Next
                 PropUpdateView = True
                 Continue For
@@ -1316,12 +1318,10 @@ Public Class FormSetup
                     PropUpdateView = True
                     Continue While
                 Else
-
                     If PropAborting Then
                         PropExitHandlerIsBusy = False
                         Return ' not if we are aborting
                     End If
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
@@ -2568,6 +2568,8 @@ Public Class FormSetup
         End If
 
         TimerBusy += 1
+
+        TeleportAgents()
 
         Chart() ' do charts collection each second
 

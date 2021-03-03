@@ -103,7 +103,6 @@ Partial Class FormRegions
         Me.SmartStartEnabled.TabIndex = 11
         Me.SmartStartEnabled.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_Enable_word
         Me.SmartStartEnabled.UseVisualStyleBackColor = True
-        Me.SmartStartEnabled.Visible = False
         '
         'Button1
         '

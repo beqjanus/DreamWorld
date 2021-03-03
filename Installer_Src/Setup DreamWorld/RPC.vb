@@ -54,34 +54,32 @@ Module RPC
 
     End Function
 
-    Public Function TeleportTo(ToRegionName As String, Name As String) As Boolean
+    Public Function TeleportTo(ToRegionName As String, AgentID As String) As Boolean
 
         'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
 
-        Dim n() = Name.Split(New Char() {" "c})
+        Debug.Print("Region To:" & ToRegionName)
 
         Dim ht As Hashtable = New Hashtable From {
             {"password", Settings.MachineID},
             {"region_id", ToRegionName},
-            {"agent_first_name", n(0)},
-            {"agent_last_name", n(1)}
+            {"agent_id", AgentID}
         }
 
-        Dim FromRegionUUID As String = WhereisAgent(Name)
+        Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
 
         If FromRegionUUID.Length > 0 Then
-            Log("Info", "Teleport to " & ToRegionName)
             Return SendRPC(FromRegionUUID, "admin_teleport_agent", ht)
         End If
         Return False
 
     End Function
 
-    Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable) As Boolean
+    Private Function SendRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Boolean
 
-        Dim RegionPort = PropRegionClass.GroupPort(RegionUUID)
+        Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = "http://127.0.0.1:" & RegionPort
-
+        Debug.Print(cmd)
         Dim parameters = New List(Of Hashtable) From {ht}
         Dim RPC = New XmlRpcRequest(cmd, parameters)
         Try
@@ -95,8 +93,7 @@ Module RPC
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
-            ' BreakPoint.Show(ex.Message)
-            'ErrorLog("Cannot send XMLRPC command to " & PropRegionClass.RegionName(RegionUUID))
+            BreakPoint.Show(ex.Message)
         End Try
         Return False
 

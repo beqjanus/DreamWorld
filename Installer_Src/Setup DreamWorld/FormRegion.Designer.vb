@@ -73,6 +73,7 @@ Partial Class FormRegion
         Me.RadioButton14 = New System.Windows.Forms.RadioButton()
         Me.RadioButton13 = New System.Windows.Forms.RadioButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Physics_ODE = New System.Windows.Forms.RadioButton()
         Me.Physics_Hybrid = New System.Windows.Forms.RadioButton()
         Me.Physics_Bullet = New System.Windows.Forms.RadioButton()
         Me.Physics_Default = New System.Windows.Forms.RadioButton()
@@ -115,7 +116,6 @@ Partial Class FormRegion
         Me.DeregisterButton = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Physics_ODE = New System.Windows.Forms.RadioButton()
         Me.GroupBox1.SuspendLayout()
         Me.Advanced.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -362,14 +362,13 @@ Partial Class FormRegion
         'SmartStartCheckBox
         '
         Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(270, 475)
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(118, 45)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 23
         Me.SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_word
         Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, Global.Outworldz.My.Resources.Resources.GTide)
         Me.SmartStartCheckBox.UseVisualStyleBackColor = True
-        Me.SmartStartCheckBox.Visible = False
         '
         'ScriptRateLabel
         '
@@ -611,6 +610,17 @@ Partial Class FormRegion
         Me.GroupBox1.Text = "Physics"
         Me.ToolTip1.SetToolTip(Me.GroupBox1, Global.Outworldz.My.Resources.Resources.Sim_Rate)
         '
+        'Physics_ODE
+        '
+        Me.Physics_ODE.AutoSize = True
+        Me.Physics_ODE.Location = New System.Drawing.Point(15, 43)
+        Me.Physics_ODE.Name = "Physics_ODE"
+        Me.Physics_ODE.Size = New System.Drawing.Size(131, 17)
+        Me.Physics_ODE.TabIndex = 140
+        Me.Physics_ODE.TabStop = True
+        Me.Physics_ODE.Text = "Open Dynamic Engine"
+        Me.Physics_ODE.UseVisualStyleBackColor = True
+        '
         'Physics_Hybrid
         '
         Me.Physics_Hybrid.AutoSize = True
@@ -826,7 +836,6 @@ Partial Class FormRegion
         Me.GroupBox6.Controls.Add(Me.GroupBox8)
         Me.GroupBox6.Controls.Add(Me.GroupBox7)
         Me.GroupBox6.Controls.Add(Me.GroupBox3)
-        Me.GroupBox6.Controls.Add(Me.SmartStartCheckBox)
         Me.GroupBox6.Controls.Add(Me.GroupBox4)
         Me.GroupBox6.Controls.Add(Me.MapBox)
         Me.GroupBox6.Controls.Add(Me.GroupBox1)
@@ -1097,17 +1106,6 @@ Partial Class FormRegion
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
-        'Physics_ODE
-        '
-        Me.Physics_ODE.AutoSize = True
-        Me.Physics_ODE.Location = New System.Drawing.Point(15, 43)
-        Me.Physics_ODE.Name = "Physics_ODE"
-        Me.Physics_ODE.Size = New System.Drawing.Size(131, 17)
-        Me.Physics_ODE.TabIndex = 140
-        Me.Physics_ODE.TabStop = True
-        Me.Physics_ODE.Text = "Open Dynamic Engine"
-        Me.Physics_ODE.UseVisualStyleBackColor = True
-        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1118,6 +1116,7 @@ Partial Class FormRegion
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.DeregisterButton)
         Me.Controls.Add(Me.GroupBox6)
+        Me.Controls.Add(Me.SmartStartCheckBox)
         Me.Controls.Add(Me.EnabledCheckBox)
         Me.Controls.Add(Me.DeleteButton)
         Me.Controls.Add(Me.SaveButton)
@@ -1136,7 +1135,6 @@ Partial Class FormRegion
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox8.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)

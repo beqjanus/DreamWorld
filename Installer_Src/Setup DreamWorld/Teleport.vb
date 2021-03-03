@@ -7,29 +7,34 @@
 
 Module Teleport
 
+    Public Fin As New List(Of String)
     Public TeleportAvatarDict As New Dictionary(Of String, String)
 
     Public Sub TeleportAgents()
 
-        If Settings.SmartStart Then
-            For Each Keypair In TeleportAvatarDict
+        If Not Settings.SmartStart Then Return
 
-                Dim AgentName = Keypair.Key
-                Dim RegionToUUID = Keypair.Value
+        For Each Keypair In TeleportAvatarDict
+            Dim AgentID = Keypair.Key
+            Dim RegionToUUID = Keypair.Value
 
-                If AgentName.Length > 0 Then
-                    Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
-                    If DestinationName.Length > 0 Then
-                        TextPrint(My.Resources.Teleporting_word & " " & AgentName & " -> " & PropRegionClass.RegionName(RegionToUUID))
-                        TeleportTo(DestinationName, AgentName)
-                    Else
-                        BreakPoint.Show("Unable to locate region " & RegionToUUID)
-                    End If
+            If PropRegionClass.Status(RegionToUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
+                If DestinationName.Length > 0 Then
+                    TeleportTo(DestinationName, AgentID)
+                    Fin.Add(AgentID)
+                Else
+                    BreakPoint.Show("Unable to locate region " & RegionToUUID)
                 End If
-            Next
-        End If
+            End If
 
-        TeleportAvatarDict.Clear()
+        Next
+
+        ' rem from to list as they have moved on
+        For Each str As String In Fin
+            TeleportAvatarDict.Remove(str)
+        Next
+        Fin.Clear()
 
     End Sub
 
