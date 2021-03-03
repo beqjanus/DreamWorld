@@ -1080,8 +1080,11 @@ Public Class FormSetup
             Dim Ruuid As String = BootedList1(0)
             BootedList1.RemoveAt(0)
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
-            TextPrint(RegionName & " " & My.Resources.Running_word)
+            Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
+
+            TextPrint(RegionName & " " & My.Resources.Running_word & ": " & CStr(seconds) & " " & My.Resources.Seconds_word)
             PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
+            PropRegionClass.BootTime(Ruuid) = CInt(seconds)
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
 
@@ -1861,51 +1864,6 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Teleport"
-
-    '' makes a list of teleports for the prims to use
-    Private Shared Sub RegionListHTML()
-
-        'http://localhost:8002/bin/data/teleports.htm
-        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
-        '*|Welcome||outworldz.com9000Welcome|128,128,96|
-        Dim HTML As String
-        Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
-        HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
-        Dim ToSort As New List(Of String)
-
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            If RegionUUID.Length > 0 Then
-                If PropRegionClass.Teleport(RegionUUID) = "True" And
-                    PropRegionClass.RegionEnabled(RegionUUID) = True And
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
-                    ToSort.Add(PropRegionClass.RegionName(RegionUUID))
-                End If
-            End If
-
-        Next
-
-        ' Acquire keys And sort them.
-        ToSort.Sort()
-
-        For Each S As String In ToSort
-            HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
-        Next
-
-        DeleteFile(HTMLFILE)
-
-        Try
-            Using outputFile As New StreamWriter(HTMLFILE, True)
-                outputFile.WriteLine(HTML)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
-#End Region
-
 #Region "Loopback"
 
 #End Region
@@ -2648,8 +2606,14 @@ Public Class FormSetup
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
-            RegionListHTML() ' create HTML for older 2.4 region teleport_
+            RegionListHTML(Settings, PropRegionClass) ' create HTML for teleport boards
             Application.DoEvents()
+        End If
+
+        'in 10 minutes, run a backup
+
+        If SecondsTicker = 600 Then
+            BackupThread.RunAllBackups(True) ' run background based on time of day = false
         End If
 
         ' print hourly marks on console, after boot
@@ -3328,7 +3292,9 @@ Public Class FormSetup
 
     Private Sub LanguageToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LanguageToolStripMenuItem1.Click
 
+#Disable Warning CA2000
         Dim Lang As New Language
+#Enable Warning CA2000
         Lang.Activate()
         Lang.Visible = True
         Lang.Select()

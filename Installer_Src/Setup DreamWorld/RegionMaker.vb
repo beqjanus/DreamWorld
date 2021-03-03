@@ -221,6 +221,7 @@ Public Class RegionMaker
             ._SizeY = 256,
             ._SkipAutobackup = "",
             ._Status = SIMSTATUSENUM.Stopped,
+            ._BootTime = 0,
             ._Teleport = "",
             ._Tides = "",
             ._Timer = Date.Now,
@@ -304,10 +305,11 @@ Public Class RegionMaker
                             If i Is Nothing Then Return 0
 
                             uuid = CStr(Settings.GetIni(fName, "RegionUUID", "", "String"))
+
                             Dim SomeUUID As New Guid
                             If Not Guid.TryParse(uuid, SomeUUID) Then
                                 MsgBox("Cannot read uuid in INI file for " & fName)
-                                Return 0
+                                Return -1
                             End If
 
                             CreateRegion(fName, uuid)
@@ -620,6 +622,7 @@ Public Class RegionMaker
 #Region "Public Fields"
 
         Public _AvatarCount As Integer
+        Public _BootTime As Integer
         Public _ClampPrimSize As Boolean
         Public _CoordX As Integer = 1000
         Public _CoordY As Integer = 1000
@@ -689,6 +692,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._AvatarCount = Value
+        End Set
+    End Property
+
+    Public Property BootTime(uuid As String) As Integer
+        Get
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Return RegionList(uuid)._BootTime
+        End Get
+        Set(ByVal Value As Integer)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._BootTime = Value
         End Set
     End Property
 
@@ -1511,17 +1527,13 @@ Public Class RegionMaker
 
                     If Status(uuid) = SIMSTATUSENUM.Booted Then
                         TextPrint(My.Resources.Someone_is_in_word & " " & RegionName(uuid))
-                        Return uuid
+                        Return RegionName(uuid)
                     Else
                         TextPrint(My.Resources.Smart_Start_word & " " & RegionName(uuid))
                         Status(uuid) = SIMSTATUSENUM.Resume
-
                         TeleportAvatarDict.Add(AgentName, uuid)
-
-                        ' redirect to welcome
-                        Dim wname = settings.WelcomeRegion
-                        Dim WelcomeRegionUUID As String = FindRegionByName(wname)
-                        Return WelcomeRegionUUID
+                        Dim WelcomeRegionUUID As String = FindRegionByName(settings.WelcomeRegion)
+                        Return WelcomeRegionUUID & "|" & CStr(BootTime(uuid))
                     End If
                     'other states we can ignore as eventually it will be Stopped or Running
                 End If

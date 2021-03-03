@@ -208,6 +208,49 @@ Module GlobalSettings
 
 #End Region
 
+#Region "Teleport"
+
+    Public Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
+
+        ' http://localhost:8001/teleports.htm
+        ' http://YourURL:8001/teleports.htm
+        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
+        '*|Welcome||outworldz.com9000Welcome|128,128,96|
+        Dim HTML As String
+
+        HTML = "Welcome to |" & Settings.SimName & "||" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & ":" & Settings.WelcomeRegion & "||" & vbCrLf
+        Dim ToSort As New List(Of String)
+
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
+            Dim status = PropRegionClass.Status(RegionUUID)
+            If PropRegionClass.Teleport(RegionUUID) = "True" Or PropRegionClass.SmartStart(RegionUUID) = "True" Then
+                ToSort.Add(PropRegionClass.RegionName(RegionUUID))
+            End If
+        Next
+
+        ToSort.Sort()
+
+        For Each S As String In ToSort
+            HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
+        Next
+
+        Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
+        DeleteFile(HTMLFILE)
+
+        Try
+            Using outputFile As New StreamWriter(HTMLFILE, True)
+                outputFile.WriteLine(HTML)
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+        Return HTML
+
+    End Function
+
+#End Region
+
 #Region "Functions"
 
     Public Function BackupPath() As String

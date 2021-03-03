@@ -7724,6 +7724,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to seconds.
+        '''</summary>
+        Friend ReadOnly Property Seconds_word() As String
+            Get
+                Return ResourceManager.GetString("Seconds_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Secret.
         '''</summary>
         Friend ReadOnly Property Secret_word() As String

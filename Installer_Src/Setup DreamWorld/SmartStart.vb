@@ -132,6 +132,7 @@ Module SmartStart
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
                     PropRegionClass.Timer(UUID) = Date.Now
                     PropRegionClass.ProcessID(UUID) = PID
+                    PropRegionClass.BootTime(UUID) = 0
                 Next
 
                 PropUpdateView = True ' make form refresh
@@ -185,6 +186,7 @@ Module SmartStart
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
                     PropRegionClass.Timer(RegionUUID) = Date.Now()
+                    PropRegionClass.BootTime(UUID) = 0
                 Next
             Else
                 BreakPoint.Show("No PID for " & GroupName)
