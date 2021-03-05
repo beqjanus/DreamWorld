@@ -2224,12 +2224,9 @@ Public Class FormSetup
                         TextPrint(My.Resources.Do_Not_Interrupt_word)
                         Try
                             pMySqlRestore.Start()
-                            pMySqlRestore.WaitForExit()
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
-
-                        TextPrint(My.Resources.Finished_with_backup_word)
                     End Using
                 End If
             Else
