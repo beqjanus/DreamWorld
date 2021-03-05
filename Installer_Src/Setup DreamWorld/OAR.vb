@@ -89,7 +89,7 @@ Module OAR
                             If PropForceMerge Then ForceMerge = " --merge "
                             Dim UserName As String = ""
                             If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
-
+                            SendMessage(UUID, Global.Outworldz.My.Resources.New_Content)
                             ConsoleCommand(UUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
                         Next
                     End If
@@ -132,9 +132,9 @@ Module OAR
 
                     If backMeUp = vbYes Then
                         ConsoleCommand(RegionUUID, "change region " & """" & region & """")
-                        ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.CPU_Intensive)
+                        SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
                         ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
-                        ConsoleCommand(RegionUUID, "alert " & Global.Outworldz.My.Resources.New_Content)
+                        SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
                     End If
 
                     Dim ForceParcel As String = ""
@@ -193,7 +193,7 @@ Module OAR
 
             If PropRegionClass.IsBooted(RegionUUID) Then
                 Dim Group = PropRegionClass.GroupName(RegionUUID)
-                ConsoleCommand(RegionUUID, "alert CPU Intensive Backup Started")
+                SendMessage(RegionUUID, "CPU Intensive Backup Started")
                 ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
                 ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & myValue & """")
             End If
