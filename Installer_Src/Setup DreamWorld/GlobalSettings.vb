@@ -220,7 +220,6 @@ Module GlobalSettings
         '*|Welcome||outworldz.com9000Welcome|128,128,96|
         Dim HTML As String
 
-        HTML = "Welcome to |" & Settings.SimName & "||" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & ":" & Settings.WelcomeRegion & "||" & vbCrLf
         Dim ToSort As New List(Of String)
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -232,8 +231,10 @@ Module GlobalSettings
 
         ToSort.Sort()
 
+        'TODO   "||"  is coordinates for destinations
+
         For Each S As String In ToSort
-            HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
+            HTML += "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & S & "|" & vbCrLf
         Next
 
         Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
