@@ -62,7 +62,7 @@ Module RPC
 
         Dim ht As Hashtable = New Hashtable From {
             {"password", Settings.MachineID},
-            {"region_id", ToRegionName},
+            {"region_name", ToRegionName},
             {"agent_id", AgentID}
         }
 
@@ -80,16 +80,22 @@ Module RPC
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = "http://127.0.0.1:" & RegionPort
         Debug.Print(cmd)
+        Debug.Print(url)
         Dim parameters = New List(Of Hashtable) From {ht}
         Dim RPC = New XmlRpcRequest(cmd, parameters)
         Try
             Dim o = RPC.Invoke(url)
             If o Is Nothing Then Return True
 #Disable Warning BC42016 ' Implicit conversion
+
             For Each s In o
                 'Log("Info", s.Key & ":" & s.Value)
-                If s.Key = "success" And s.Value = "True" Then Return True
-                If s.Key = "error" Then ErrorLog(s.Value)
+                If s.Key = "success" And s.Value = "True" Then
+                    Debug.Print(o.ToString)
+                    Return True
+                End If
+                If s.Key = "error" Then BreakPoint.Show(s.Value)
+
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
