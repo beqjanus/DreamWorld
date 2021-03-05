@@ -664,7 +664,8 @@ Public Class FormSetup
         If Settings.ServerType = RobustServerName Then
             Dim RegionName = Settings.WelcomeRegion
             Dim UUID As String = PropRegionClass.FindRegionByName(RegionName)
-            If UUID.Length = 36 Then
+            Dim out As New Guid
+            If Guid.TryParse(UUID, out) Then
                 PropRegionClass.CrashCounter(UUID) = 0
                 If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
             End If
@@ -1079,8 +1080,11 @@ Public Class FormSetup
             Dim Ruuid As String = BootedList1(0)
             BootedList1.RemoveAt(0)
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
-            TextPrint(RegionName & " " & My.Resources.Running_word)
+            Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
+
+            TextPrint(RegionName & " " & My.Resources.Running_word & ": " & CStr(seconds) & " " & My.Resources.Seconds_word)
             PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
+            PropRegionClass.BootTime(Ruuid) = CInt(seconds)
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
 
@@ -1121,7 +1125,7 @@ Public Class FormSetup
             Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
             Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
 
-            Dim timesmartstart = PropRegionClass.Timer(RegionUUID).AddMinutes(1)
+            Dim timesmartstart = PropRegionClass.Timer(RegionUUID).AddSeconds(SSTime)
             Dim SSExpired = DateTime.Compare(Date.Now, timesmartstart)
 
             If (Expired > 0) Then
@@ -1137,11 +1141,15 @@ Public Class FormSetup
                     And Settings.SmartStart _
                     And SSExpired > 0 _
                     And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
-                    And Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended _
                     And Not AvatarsIsInGroup(GroupName) Then
-                Logger("State Changed to Suspended", RegionName, "Restart")
-                DoSuspend_Resume(RegionName)
-                PropUpdateView = True
+
+                Logger("State Changed to ShuttingDown", RegionName, "Restart")
+                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                    PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+                Next
+                ShutDown(RegionUUID)
+                PropUpdateView = True ' make form refresh
                 Continue For
             End If
 
@@ -1183,11 +1191,9 @@ Public Class FormSetup
             If Status = RegionMaker.SIMSTATUSENUM.Resume Then
                 '[Resume] = 8
                 Logger("State is Resuming", GroupName, "Restart")
-                DoSuspend_Resume(PropRegionClass.RegionName(RegionUUID), True)
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                 For Each R As String In GroupList
-                    Logger("State changed to Booted", PropRegionClass.RegionName(R), "Restart")
-                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Booted
+                    Boot(RegionName)
                 Next
                 PropUpdateView = True
                 Continue For
@@ -1312,12 +1318,10 @@ Public Class FormSetup
                     PropUpdateView = True
                     Continue While
                 Else
-
                     If PropAborting Then
                         PropExitHandlerIsBusy = False
                         Return ' not if we are aborting
                     End If
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
@@ -1424,7 +1428,7 @@ Public Class FormSetup
 
         SetScreen()     ' move Form to fit screen from SetXY.ini
         Application.DoEvents()
-        FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be traslated
+        FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be translated
 
     End Sub
 
@@ -1856,51 +1860,6 @@ Public Class FormSetup
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
-    End Sub
-
-#End Region
-
-#Region "Teleport"
-
-    '' makes a list of teleports for the prims to use
-    Private Shared Sub RegionListHTML()
-
-        'http://localhost:8002/bin/data/teleports.htm
-        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
-        '*|Welcome||outworldz.com9000Welcome|128,128,96|
-        Dim HTML As String
-        Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
-        HTML = "Welcome to |" & Settings.SimName & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & Settings.WelcomeRegion & "||" & vbCrLf
-        Dim ToSort As New List(Of String)
-
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            If RegionUUID.Length > 0 Then
-                If PropRegionClass.Teleport(RegionUUID) = "True" And
-                    PropRegionClass.RegionEnabled(RegionUUID) = True And
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
-                    ToSort.Add(PropRegionClass.RegionName(RegionUUID))
-                End If
-            End If
-
-        Next
-
-        ' Acquire keys And sort them.
-        ToSort.Sort()
-
-        For Each S As String In ToSort
-            HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
-        Next
-
-        DeleteFile(HTMLFILE)
-
-        Try
-            Using outputFile As New StreamWriter(HTMLFILE, True)
-                outputFile.WriteLine(HTML)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
     End Sub
 
 #End Region
@@ -2610,6 +2569,8 @@ Public Class FormSetup
 
         TimerBusy += 1
 
+        TeleportAgents()
+
         Chart() ' do charts collection each second
 
         Application.DoEvents()
@@ -2647,8 +2608,14 @@ Public Class FormSetup
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
-            RegionListHTML() ' create HTML for older 2.4 region teleport_
+            RegionListHTML(Settings, PropRegionClass) ' create HTML for teleport boards
             Application.DoEvents()
+        End If
+
+        'in 10 minutes, run a backup
+
+        If SecondsTicker = 600 Then
+            BackupThread.RunAllBackups(True) ' run background based on time of day = false
         End If
 
         ' print hourly marks on console, after boot
@@ -3327,7 +3294,9 @@ Public Class FormSetup
 
     Private Sub LanguageToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles LanguageToolStripMenuItem1.Click
 
+#Disable Warning CA2000
         Dim Lang As New Language
+#Enable Warning CA2000
         Lang.Activate()
         Lang.Visible = True
         Lang.Select()

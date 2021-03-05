@@ -2878,4 +2878,7 @@
   <data name="Spanish_Spain" xml:space="preserve">
     <value>Espanyol (Espanya)</value>
   </data>
+  <data name="Seconds_word" xml:space="preserve">
+    <value>segons</value>
+  </data>
 </root>

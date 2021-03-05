@@ -36,8 +36,12 @@ Module GridNames
         If Settings.OverrideName.Length > 0 Then
             Settings.ExternalHostName = Settings.OverrideName
             TextPrint("Region IP=" & Settings.ExternalHostName)
+        Else
+            Settings.ExternalHostName = Settings.WANIP
+            TextPrint("Region IP=" & Settings.ExternalHostName)
         End If
 
+        TextPrint("WAN IP  = " & Settings.WANIP)
         TextPrint("WAN     = " & Settings.PublicIP)
         TextPrint("LAN IP  = " & Settings.LANIP())
         TextPrint("DNS     = " & n)

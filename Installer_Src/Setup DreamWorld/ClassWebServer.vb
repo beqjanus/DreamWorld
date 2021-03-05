@@ -121,6 +121,7 @@ Public Class NetServer
 
             End Using
         Catch ex As Exception
+
         End Try
     End Sub
 
@@ -154,54 +155,6 @@ Public Class NetServer
             ' none to prevent looping
         End Try
     End Sub
-
-    Private Shared Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
-
-        ' http://localhost:8001/teleports.htm
-        ' http://YourURL:8001/teleports.htm
-        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
-        '*|Welcome||outworldz.com9000Welcome|128,128,96|
-        Dim HTML As String
-
-        HTML = "Welcome to |" & Settings.SimName & "||" & CStr(Settings.PublicIP) & ":" & CStr(Settings.HttpPort) & ":" & Settings.WelcomeRegion & "||" & vbCrLf
-        Dim ToSort As New List(Of String)
-
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Diagnostics.Debug.Print("Conn:" & Settings.RobustMysqlConnection)
-            Dim UserStmt = "SELECT regionName from REGIONS order by regionName ASC"
-            Try
-                NewSQLConn.Open()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                Return HTML
-            End Try
-
-            Using cmd As New MySqlCommand(UserStmt, NewSQLConn)
-                Dim reader As MySqlDataReader = cmd.ExecuteReader()
-
-                While reader.Read()
-                    Dim LongName = reader.GetString(0)
-                    Dim RegionUUID As String = PropRegionClass.FindRegionByName(LongName)
-                    If RegionUUID.Length > 0 Then
-                        If PropRegionClass.Teleport(RegionUUID) = "True" And
-                           PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
-                            ToSort.Add(LongName)
-                        End If
-                    End If
-                End While
-            End Using
-        End Using
-
-        ' Acquire keys And sort them.
-        ToSort.Sort()
-
-        For Each S As String In ToSort
-            HTML = HTML & "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & vbCrLf
-        Next
-
-        Return HTML
-
-    End Function
 
     Private Sub Looper()
 

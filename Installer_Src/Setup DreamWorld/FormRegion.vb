@@ -884,7 +884,7 @@ Public Class FormRegion
             Return Message
         End If
 
-        ' global coords
+        ' global coordinates
         If Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then
             Message = Global.Outworldz.My.Resources.Region_Coordinate_X_cannot_be_less_than_0_word
             Return Message

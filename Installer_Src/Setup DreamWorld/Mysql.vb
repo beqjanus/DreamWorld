@@ -245,10 +245,6 @@ Public Module MysqlInterface
             End Try
         End Using
 
-        'If Debugger.IsAttached Then
-        'Dict.Add("Test User", "Welcome")
-        'End If
-
         Return Dict
 
     End Function
@@ -346,6 +342,30 @@ Public Module MysqlInterface
         'End If
 
         Return Dict
+
+    End Function
+
+    Public Function GetRegionFromAgentID(AgentID As String) As String
+
+        If Settings.ServerType <> RobustServerName Then Return ""
+        Try
+            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT presence.RegionID FROM presence where presence.userid = @ID;"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@ID", AgentID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Return reader.GetString(0)
+                        End While
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show("Error: " & ex.ToString())
+        End Try
+
+        Return ""
 
     End Function
 
