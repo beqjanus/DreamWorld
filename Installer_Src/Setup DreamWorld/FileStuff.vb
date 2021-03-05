@@ -332,6 +332,7 @@ Module FileStuff
     Private Sub Deltmp() ' thread
 
         TextPrint(My.Resources.DeleteTmp_word)
+        DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
 
     End Sub
