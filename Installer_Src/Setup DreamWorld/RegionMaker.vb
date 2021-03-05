@@ -434,7 +434,7 @@ Public Class RegionMaker
 
     Public Function LargestX() As Integer
 
-        ' locate largest global coords
+        ' locate largest global coordinates
         Dim Max As Integer
         Dim pair As KeyValuePair(Of String, Region_data)
 
@@ -1528,14 +1528,14 @@ Public Class RegionMaker
                 End If
 
                 If Password = settings.MachineID Then
-                    If RegionEnabled(result.ToString) _
-                    And SmartStart(result.ToString) = "True" _
-                    And Status(result.ToString) = SIMSTATUSENUM.Booted Then
-                        'TextPrint(My.Resources.Someone_is_in_word & " " & RegionName(result.ToString))
-                        Return Region & "|OK"
-                    End If
 
-                    If RegionEnabled(result.ToString) _
+                    Debug.Print("status = " & CStr(Status(result.ToString)))
+
+                    ' smart, and up
+                    If RegionEnabled(result.ToString) And Status(result.ToString) = SIMSTATUSENUM.Booted Then
+                        Return Region & "|0"
+
+                    ElseIf RegionEnabled(result.ToString) _
                         And SmartStart(result.ToString) = "True" Then
                         TextPrint(My.Resources.Smart_Start_word & " " & RegionName(uuid))
                         If TeleportAvatarDict.ContainsKey(AgentID) Then
@@ -1543,7 +1543,9 @@ Public Class RegionMaker
                         End If
                         TeleportAvatarDict.Add(AgentID, result.ToString)
                         Status(result.ToString) = SIMSTATUSENUM.Resume
-                        Return Region & "|" & CStr(BootTime(result.ToString))
+                        Return Region & "|" & CStr(BootTime(result.ToString) + 5)
+                    Else
+                        BreakPoint.Show(post)
                     End If
                 End If
             End If
