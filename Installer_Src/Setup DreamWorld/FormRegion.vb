@@ -235,7 +235,7 @@ Public Class FormRegion
             RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word
             UUID.Text = Guid.NewGuid().ToString
             ConciergeCheckBox.Checked = False
-            CoordX.Text = (PropRegionClass.LargestX() + 4).ToString(Globalization.CultureInfo.InvariantCulture)
+            CoordX.Text = (PropRegionClass.LargestX() + 8).ToString(Globalization.CultureInfo.InvariantCulture)
             CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
             'RegionPort.Text = CStr(PropRegionClass.LargestPort())
             EnabledCheckBox.Checked = True

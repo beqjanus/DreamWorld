@@ -13,7 +13,7 @@ Module GlobalSettings
     Public Const jRev As String = "3.9.23"
     Public Const MySqlRev = "5.6.5"
 
-    Public Const SSTime As Integer = 60
+    Public Const SSTime As Integer = 30
 
 #End Region
 

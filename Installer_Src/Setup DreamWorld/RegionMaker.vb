@@ -214,7 +214,7 @@ Public Class RegionMaker
             ._RegionGod = "",
             ._RegionName = name,
             ._RegionPort = 0,
-            ._RegionSmartStart = "0",
+            ._RegionSmartStart = "",
             ._RegionSnapShot = "",
             ._ScriptEngine = "",
             ._SizeX = 256,
@@ -538,6 +538,7 @@ Public Class RegionMaker
             fname = pathtoWelcome + name + ".ini"
             If Not Directory.Exists(pathtoWelcome) Then
                 Try
+
                     Directory.CreateDirectory(pathtoWelcome)
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
