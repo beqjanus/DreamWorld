@@ -684,7 +684,7 @@ Public Class FormSetup
                 If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
                     Exit For
                 End If
-                If estate.Length > 0 Then ConsoleCommand(RegionUUID, estate)
+                If estate IsNot Nothing Then ConsoleCommand(RegionUUID, estate)
 
             End If
             Application.DoEvents()
@@ -3270,7 +3270,7 @@ Public Class FormSetup
 
         Dim cmd = InputBox("Debug command?")
 
-        Dim input() = cmd.Split(" ")
+        Dim input() = cmd.Split(" ".ToCharArray())
         If input.Length = 2 Then
             Dim command = input(0)
             Dim param = input(1)
@@ -3285,7 +3285,7 @@ Public Class FormSetup
                 Dim pattern As Regex = New Regex("(\d+),(\d+)")
                 Dim match As Match = pattern.Match(coord)
                 If Not match.Success Then
-                    MsgBox("Bad coords")
+                    MsgBox("Bad coordinates")
                     Return
                 End If
 
@@ -3297,12 +3297,12 @@ Public Class FormSetup
                     TextPrint(My.Resources.Add_Region_word & " " & J.Name)
 
                     Dim Name = J.Name
-                    ' setup params for the load
+                    ' setup parameters for the load
                     Dim size As Integer = 256
 
                     ' convert 1,2,3 to 256, 512, etc
-                    Dim pattern1 As Regex = New Regex("(.*?)-(\d+)X(\d+)")
-                    Dim match1 As Match = pattern1.Match(Name.ToUpperInvariant)
+                    Dim pattern1 As Regex = New Regex("(.*?)-(\d+)[xX](\d+)")
+                    Dim match1 As Match = pattern1.Match(Name)
                     If match1.Success Then
                         Name = match1.Groups(1).Value
                         size = CInt(match1.Groups(2).Value) * 256
@@ -3329,7 +3329,6 @@ Public Class FormSetup
                         X = StartX
                         Y += 8
                     End If
-
                 Next
 
                 If PropRegionClass.GetAllRegions() = -1 Then Return
@@ -3343,14 +3342,14 @@ Public Class FormSetup
                         LoadOARContent(File)
                     Next
                 End If
-
             End If
-
         End If
 
     End Sub
 
 #End Region
+
+#Region "Toolstrip"
 
     Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
 
@@ -3394,5 +3393,7 @@ Public Class FormSetup
         End Try
 
     End Sub
+
+#End Region
 
 End Class

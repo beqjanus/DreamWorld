@@ -8,6 +8,20 @@ Public Class FormEmail
 
     Public Sub Init(L As ListView)
         If L Is Nothing Then Return
+
+        If Settings.SmtPropUserName = "LoginName@gmail.com" Then
+            MsgBox(My.Resources.No_Email, vbInformation, "Oops")
+#Disable Warning CA2000
+            Dim FormDiva As New FormDiva
+#Enable Warning CA2000
+            FormDiva.Activate()
+            FormDiva.Visible = True
+            FormDiva.Select()
+            FormDiva.BringToFront()
+            Me.Close()
+            Return
+        End If
+
         Dim counter = 0
         For Each X As ListViewItem In L.Items
             If X.Checked Then
@@ -23,16 +37,6 @@ Public Class FormEmail
             Close()
         End If
 
-        If Settings.SmtPropUserName = "LoginName@gmail.com" Then
-            MsgBox(My.Resources.No_Email, vbInformation, "Oops")
-#Disable Warning CA2000
-            Dim FormDiva As New FormDiva
-#Enable Warning CA2000
-            FormDiva.Activate()
-            FormDiva.Visible = True
-            FormDiva.Select()
-            FormDiva.BringToFront()
-        End If
 
     End Sub
 

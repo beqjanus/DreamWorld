@@ -218,7 +218,7 @@ Module GlobalSettings
         ' http://YourURL:8001/teleports.htm
         'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
         '*|Welcome||outworldz.com9000Welcome|128,128,96|
-        Dim HTML As String
+        Dim HTML As String = ""
 
         Dim ToSort As New List(Of String)
 

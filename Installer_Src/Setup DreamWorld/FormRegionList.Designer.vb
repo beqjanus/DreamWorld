@@ -26,6 +26,7 @@ Partial Class FormRegionlist
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
+        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionlist))
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ListView1 = New System.Windows.Forms.ListView()
@@ -40,6 +41,7 @@ Partial Class FormRegionlist
         Me.IconsButton = New System.Windows.Forms.Button()
         Me.AvatarsButton = New System.Windows.Forms.Button()
         Me.ImportButton = New System.Windows.Forms.Button()
+        Me.IconView = New System.Windows.Forms.ListView()
         Me.AvatarView = New System.Windows.Forms.ListView()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -225,13 +227,30 @@ Partial Class FormRegionlist
         Me.ToolTip1.SetToolTip(Me.ImportButton, Global.Outworldz.My.Resources.Resources.Importtext)
         Me.ImportButton.UseVisualStyleBackColor = True
         '
+        'IconView
+        '
+        Me.IconView.AllowColumnReorder = True
+        Me.IconView.Font = New System.Drawing.Font("Lucida Console", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.IconView.FullRowSelect = True
+        Me.IconView.HideSelection = False
+        Me.IconView.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem2})
+        Me.IconView.Location = New System.Drawing.Point(12, 93)
+        Me.IconView.MultiSelect = False
+        Me.IconView.Name = "IconView"
+        Me.IconView.ShowItemToolTips = True
+        Me.IconView.Size = New System.Drawing.Size(714, 188)
+        Me.IconView.TabIndex = 18609
+        Me.ToolTip1.SetToolTip(Me.IconView, "XXXXXXXXXXX")
+        Me.IconView.UseCompatibleStateImageBehavior = False
+        Me.IconView.View = System.Windows.Forms.View.SmallIcon
+        '
         'AvatarView
         '
         Me.AvatarView.AllowColumnReorder = True
         Me.AvatarView.FullRowSelect = True
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
-        Me.AvatarView.Location = New System.Drawing.Point(13, 90)
+        Me.AvatarView.Location = New System.Drawing.Point(13, 93)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
@@ -247,7 +266,7 @@ Partial Class FormRegionlist
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(742, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(750, 30)
         Me.MenuStrip1.TabIndex = 18598
         '
         'HelpToolStripMenuItem
@@ -335,7 +354,7 @@ Partial Class FormRegionlist
         Me.UserView.FullRowSelect = True
         Me.UserView.GridLines = True
         Me.UserView.HideSelection = False
-        Me.UserView.Location = New System.Drawing.Point(13, 90)
+        Me.UserView.Location = New System.Drawing.Point(12, 93)
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
@@ -348,7 +367,8 @@ Partial Class FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(742, 292)
+        Me.ClientSize = New System.Drawing.Size(750, 301)
+        Me.Controls.Add(Me.IconView)
         Me.Controls.Add(Me.UserView)
         Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.AvatarView)
@@ -392,4 +412,5 @@ Partial Class FormRegionlist
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     Friend WithEvents Users As Button
     Friend WithEvents UserView As ListView
+    Friend WithEvents IconView As ListView
 End Class
