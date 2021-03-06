@@ -16,6 +16,7 @@ Imports System.IO
 Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
+Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
 
@@ -638,7 +639,7 @@ Public Class FormSetup
         Logger("Info", Groupname & " Group is now stopped", "Restart")
     End Sub
 
-    Public Function StartOpensimulator() As Boolean
+    Public Function StartOpensimulator(Optional estate As String = "") As Boolean
 
         PropExitHandlerIsBusy = False
         PropAborting = False
@@ -668,6 +669,7 @@ Public Class FormSetup
             If Guid.TryParse(UUID, out) Then
                 PropRegionClass.CrashCounter(UUID) = 0
                 If Not Boot(PropRegionClass.RegionName(UUID)) Then Return False
+                If estate IsNot Nothing Then ConsoleCommand(UUID, estate)
             End If
             l.Remove(UUID)
         End If
@@ -682,10 +684,10 @@ Public Class FormSetup
                 If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
                     Exit For
                 End If
+                If estate.Length > 0 Then ConsoleCommand(RegionUUID, estate)
 
             End If
             Application.DoEvents()
-
         Next
 
         Return True
@@ -1388,12 +1390,8 @@ Public Class FormSetup
             KeepOnTopToolStripMenuItem.Image = My.Resources.table
         End If
 
-        CopyWifi()
-
         Log("Startup:", DisplayObjectInfo(Me))
         SetScreen()     ' move Form to fit screen from SetXY.ini
-
-        Cleanup() ' old files
 
         Dim cinfo() = System.Globalization.CultureInfo.GetCultures(CultureTypes.AllCultures)
 
@@ -1412,21 +1410,10 @@ Public Class FormSetup
 
         Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture
 
-        ' Console.WriteLine("CurrentCulture is {0}.", CultureInfo.CurrentCulture.Name)
-
-        Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
-        Searcher1 = New ManagementObjectSearcher(wql)
-
-        PropMyUPnpMap = New UPnp()
-
-        UpgradeDotNet()
-
-        DeleteOldFiles()
+        TextPrint("Language is " & CultureInfo.CurrentCulture.Name)
 
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
-
-        SetScreen()     ' move Form to fit screen from SetXY.ini
         Application.DoEvents()
         FrmHome_Load(sender, e) 'Load everything in your form load event again so it will be translated
 
@@ -1621,6 +1608,17 @@ Public Class FormSetup
         PropRegionClass = RegionMaker.Instance()
         PropRegionClass.Init()
 
+        UpgradeDotNet()
+
+        Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
+        Searcher1 = New ManagementObjectSearcher(wql)
+
+        CopyWifi()
+        Cleanup() ' old files thread
+        PropMyUPnpMap = New UPnp()
+
+        DeleteOldFiles()
+
         TextPrint(My.Resources.Starting_WebServer_word)
         'must start after region Class Is instantiated
         PropWebServer = NetServer.GetWebServer
@@ -1766,8 +1764,6 @@ Public Class FormSetup
         HelpOnce("Startup")
 
         Joomla.CheckForjOpensimUpdate()
-
-        DeleteDirectoryTmp()
 
     End Sub
 
@@ -3269,14 +3265,91 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub SearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForObjectsMenuItem.Click
+#End Region
 
-        Dim webAddress As String = "https://hyperica.com/Search/"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+#Region "Testing"
+
+    Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
+
+        Dim cmd = InputBox("Debug command?")
+
+        Dim input() = cmd.Split(" ")
+        If input.Length = 2 Then
+            Dim command = input(0)
+            Dim param = input(1)
+
+            If command = "loadall" Then
+
+                Dim CoordX = CStr(PropRegionClass.LargestX() + 8)
+                Dim CoordY = CStr(PropRegionClass.LargestY() + 8)
+
+                Dim coord = InputBox("Location?", "Where?", CoordX & "," & CoordY)
+
+                Dim pattern As Regex = New Regex("(\d+),(\d+)")
+                Dim match As Match = pattern.Match(coord)
+                If Not match.Success Then
+                    MsgBox("Bad coords")
+                    Return
+                End If
+
+                Dim X As Integer = CInt(match.Groups(1).Value)
+                Dim Y As Integer = CInt(match.Groups(2).Value)
+                Dim StartX As Integer = X
+
+                For Each J In ContentOAR.GetJson
+                    TextPrint(My.Resources.Add_Region_word & " " & J.Name)
+
+                    Dim Name = J.Name
+                    ' setup params for the load
+                    Dim size As Integer = 256
+
+                    ' convert 1,2,3 to 256, 512, etc
+                    Dim pattern1 As Regex = New Regex("(.*?)-(\d+)X(\d+)")
+                    Dim match1 As Match = pattern1.Match(Name.ToUpperInvariant)
+                    If match1.Success Then
+                        Name = match1.Groups(1).Value
+                        size = CInt(match1.Groups(2).Value) * 256
+                    End If
+
+                    Dim shortname = Path.GetFileNameWithoutExtension(Name)
+                    Dim RegionUUID = PropRegionClass.CreateRegion(shortname)
+
+                    ' TODO make a 10 X 15 array of regions
+
+                    PropRegionClass.CoordX(RegionUUID) = X
+                    PropRegionClass.CoordY(RegionUUID) = Y
+
+                    PropRegionClass.SkipAutobackup(RegionUUID) = "True"
+                    PropRegionClass.Concierge(RegionUUID) = "True"
+                    PropRegionClass.SmartStart(RegionUUID) = "True"
+                    PropRegionClass.Teleport(RegionUUID) = "True"
+                    PropRegionClass.SizeX(RegionUUID) = size
+                    PropRegionClass.SizeY(RegionUUID) = size
+                    PropRegionClass.WriteRegionObject(shortname)
+
+                    X += 8
+                    If X > StartX + 80 Then
+                        X = StartX
+                        Y += 8
+                    End If
+
+                Next
+
+                If PropRegionClass.GetAllRegions() = -1 Then Return
+                Settings.Sequential = True
+                Return
+
+                If StartOpensimulator(param) Then
+                    For Each RegionName In PropRegionClass.RegionUuids
+                        If RegionName = Settings.WelcomeRegion Then Continue For
+                        Dim File = PropDomain & "/Outworldz_Installer/OAR/" & RegionName
+                        LoadOARContent(File)
+                    Next
+                End If
+
+            End If
+
+        End If
 
     End Sub
 
@@ -3311,6 +3384,17 @@ Public Class FormSetup
         KeepOnTopToolStripMenuItem.Image = My.Resources.tables
         OnTopToolStripMenuItem.Checked = True
         FloatToolStripMenuItem.Checked = False
+
+    End Sub
+
+    Private Sub SearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SearchForObjectsMenuItem.Click
+
+        Dim webAddress As String = "https://hyperica.com/Search/"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
     End Sub
 

@@ -276,7 +276,7 @@ Public Class FormRegionlist
         SetScreen()
 
         If TheView1 = ViewType.Details Then
-            ListView1.CheckBoxes = True
+            cvdzzz.CheckBoxes = True
             ListView1.View = View.Details
             ListView1.LabelEdit = True
             ListView1.AllowColumnReorder = True

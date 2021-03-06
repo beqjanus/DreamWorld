@@ -314,6 +314,10 @@ Public Class FormOAR
         End Set
     End Property
 
+    Public Function GetJson() As JSONresult()
+        Return json
+    End Function
+
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         If Not _initted Then Return

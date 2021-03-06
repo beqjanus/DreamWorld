@@ -56,6 +56,8 @@ Module FileStuff
         ' crap load of old DLLS have to be eliminated
         CleanDLLs() ' drop old opensim Dll's
 
+        DeleteDirectoryTmp()
+
     End Sub
 
     ''' <summary>Deletes old log files</summary>
@@ -257,7 +259,6 @@ Module FileStuff
             If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
                 DeleteFile(fileSystemInfo.FullName)
             End If
-
         Next
 
     End Sub
@@ -334,6 +335,7 @@ Module FileStuff
         TextPrint(My.Resources.DeleteTmp_word)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+        MkDir(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"))
 
     End Sub
 

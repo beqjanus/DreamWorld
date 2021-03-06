@@ -342,7 +342,6 @@ Module WindowHandlers
         Else
             Try
                 AppActivate(PID)
-                SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
                 ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
