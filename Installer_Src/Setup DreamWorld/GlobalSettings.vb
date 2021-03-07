@@ -8,7 +8,7 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://outworldz.com"
     Public Const _MyVersion As String = "3.899"
-    Public Const _SimVersion As String = "#be49d426d9=>1610c3f741 (mantis 8862: do cancel negative cache on valid store"
+    Public Const _SimVersion As String = "#be49d426d9=>1610c3f741 (mantis 8862: do cancel negative cache on valid store."
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
     Public Const MySqlRev = "5.6.5"
