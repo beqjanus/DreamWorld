@@ -123,7 +123,8 @@ Module FileStuff
             streamWrite.Flush()
             streamWrite.Close()
             streamRead.Close()
-        Catch
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
         End Try
 
     End Sub

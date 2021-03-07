@@ -50,7 +50,12 @@ Module RPC
             {"milliseconds", ms}
         }
 
-        Return SendRPC(RegionUUID, "admin_shutdown", ht)
+        Dim s = SendRPC(RegionUUID, "admin_shutdown", ht)
+
+        If Not s Then
+            ConsoleCommand(RegionUUID, "q")
+        End If
+        Return True
 
     End Function
 

@@ -1087,12 +1087,41 @@
     <EmbeddedResource Include="My Project\Resources.ca.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.cz.ar-SA.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.ca.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.cs.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.da.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.de.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.el.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.en.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.es-ES.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.es-MX.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.eu.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.fa-IR.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.fi.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.fr.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.ga.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.he.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.is.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.it.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.nl-NL.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.no.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.pl.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.pt.resx" />
     <EmbeddedResource Include="My Project\Resources.cz.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <LastGenOutput>Resources.cz.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.cz.ru-KZ.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.ru.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.sv.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.tr.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.vi.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.zh-CN.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.zh-Hans-HK.resx" />
+    <EmbeddedResource Include="My Project\Resources.cz.zh-TW.resx" />
     <EmbeddedResource Include="My Project\Resources.da.resx" />
     <EmbeddedResource Include="My Project\Resources.de.resx">
       <SubType>Designer</SubType>

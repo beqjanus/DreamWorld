@@ -42,6 +42,7 @@ Public Class RegionMaker
         Suspended = 9
         [Error] = 10
         RestartStage2 = 11
+        ShuttingDownForGood = 12 ' Not possible to change state in exit logic, only entry logic
         NoLogin = 13
 
     End Enum
@@ -384,6 +385,7 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
+
                                     If Backup(o)._GroupPort > 0 Then
                                         GroupPort(uuid) = Backup(o)._GroupPort
                                     End If
@@ -398,6 +400,7 @@ Public Class RegionMaker
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
                         GetAllRegionsIsBusy = False
+                        PropUpdateView = True ' make form refresh
                         Return -1
                     End Try
 
@@ -409,9 +412,12 @@ Public Class RegionMaker
             BreakPoint.Show(ex.Message)
             Debug.Print(ex.Message)
             GetAllRegionsIsBusy = False
+            PropUpdateView = True ' make form refresh
             Return -1
         End Try
         GetAllRegionsIsBusy = False
+        PropUpdateView = True ' make form refresh
+
         Return RegionList.Count
 
     End Function
@@ -531,22 +537,17 @@ Public Class RegionMaker
             Return
         End If
 
-        Dim fname As String = RegionList(uuid)._FolderPath
-
-        If (fname.Length = 0) Then
-            Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + name + "\Region\"
-            fname = pathtoWelcome + name + ".ini"
-            If Not Directory.Exists(pathtoWelcome) Then
-                Try
-
-                    Directory.CreateDirectory(pathtoWelcome)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            End If
-        Else
-            fname = fname + "\" + name + ".ini"
+        Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + name + "\Region\"
+        Dim fname = pathtoWelcome + name + ".ini"
+        If Not Directory.Exists(pathtoWelcome) Then
+            Try
+                Directory.CreateDirectory(pathtoWelcome)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
         End If
+
+        ' TODO: Change estate for Smart Start
 
         Dim proto = "; * Regions configuration file; " & vbCrLf _
         & "; Automatically changed and read by Dreamworld. Edits are allowed" & vbCrLf _
@@ -867,6 +868,7 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._Status = Value
+            Logger("INFO", RegionName(uuid) & " " & GetStateString(Value), "Outworldz")
         End Set
     End Property
 
@@ -1288,6 +1290,46 @@ Public Class RegionMaker
 
 #Region "Functions"
 
+    Public Shared Function GetStateString(state As Integer) As String
+
+        Dim statestring As String = Nothing
+        Select Case state
+            Case 0
+                statestring = "Stopped"
+            Case 1
+                statestring = "Booting"
+            Case 2
+                statestring = "Booted"
+            Case 3
+                statestring = "RecyclingUp"
+            Case 4
+                statestring = "RecyclingDown"
+            Case 5
+                statestring = "ShuttingDown"
+            Case 6
+                statestring = "RestartPending"
+            Case 7
+                statestring = "RetartingNow"
+            Case 8
+                statestring = "Resume"
+            Case 9
+                statestring = "Suspended"
+            Case 10
+                statestring = "Error"
+            Case 11
+                statestring = "RestartStage2"
+            Case 12
+                statestring = "ShuttingDownForGood"
+            Case 13
+                statestring = "NoLogin"
+            Case Else
+                statestring = "**** Unknown state ****"
+        End Select
+
+        Return statestring
+
+    End Function
+
     Public Sub DebugGroup()
 
         For Each pair In _Grouplist
@@ -1314,6 +1356,19 @@ Public Class RegionMaker
         Dim pair As KeyValuePair(Of String, Region_data)
         For Each pair In RegionList
             If name = pair.Value._RegionName Then               '
+                Return pair.Value._UUID
+            End If
+        Next
+        'RegionDump()
+        Return ""
+
+    End Function
+
+    Public Function FindRegionByPartialName(name As String) As String
+
+        Dim pair As KeyValuePair(Of String, Region_data)
+        For Each pair In RegionList
+            If pair.Value._RegionName.Contains(name) Then               '
                 Return pair.Value._UUID
             End If
         Next
@@ -2102,7 +2157,6 @@ Public Class RegionMaker
 
         Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid)))
         Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName())
-
         Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid)))
 
         ' not a standard  only use by the Dreamers

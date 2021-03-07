@@ -45,11 +45,18 @@ Module WindowHandlers
                 PID = PropRegionClass.ProcessID(RegionUUID)
 
                 If PID > 0 Then
-                    ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
+                    Try
+                        ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
+                    Catch ex As Exception
+                    End Try
                 End If
 
                 DoType(RegionUUID, command)
-                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
+
+                Try
+                    ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
+                Catch ex As Exception
+                End Try
             Else ' Robust
                 DoType("Robust", command)
             End If
@@ -327,7 +334,10 @@ Module WindowHandlers
             PID = PropRobustProcID
         Else
             PID = PropRegionClass.ProcessID(RegionUUID)
-            ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
+            Try
+                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
+            Catch ex As Exception
+            End Try
         End If
 
         'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
@@ -342,6 +352,7 @@ Module WindowHandlers
         Else
             Try
                 AppActivate(PID)
+
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
                 ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())

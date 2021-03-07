@@ -233,6 +233,9 @@ Public Class FormRegionlist
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+        ImageListSmall.ImageSize = New Drawing.Size(16, 16)
+        IconView.SmallImageList = ImageListSmall
+        ListView1.SmallImageList = ImageListSmall
         AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
         AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
         AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
@@ -275,6 +278,7 @@ Public Class FormRegionlist
         Settings.RegionListVisible = True
 
         Me.Name = "Region List"
+
         Me.Text = Global.Outworldz.My.Resources.Region_List
 
         AvatarView.CheckBoxes = False
@@ -436,6 +440,7 @@ Public Class FormRegionlist
         AddHandler IconView.ColumnClick, AddressOf ColumnClick
         AddHandler UserView.ColumnClick, AddressOf ColumnClick
 
+
         ' index to display icons
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
@@ -455,7 +460,7 @@ Public Class FormRegionlist
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
 
-        _ImageListSmall.ImageSize = New Drawing.Size(24, 24)
+
 
         If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
             Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
@@ -521,11 +526,18 @@ Public Class FormRegionlist
 
 #Region "LoadListView"
 
-    Private Function GetStatus(RegionUUID As String, ByRef Num As Integer, ByRef Letter As String) As Integer
+    Private Shared Function GetStatus(RegionUUID As String, ByRef Num As Integer, ByRef Letter As String) As Integer
 
         Dim Status As Integer = PropRegionClass.Status(RegionUUID)
 
-        If Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" Then
+        If Not PropRegionClass.RegionEnabled(RegionUUID) Then
+            Letter = "Disabled"
+            If PropRegionClass.RegionName(RegionUUID) = Settings.WelcomeRegion Then
+                Num = DGICON.HomeOffline
+            Else
+                Num = DGICON.disabled
+            End If
+        ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" Then
             Letter = "Waiting"
             Num = DGICON.SmartStart
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Error Then
@@ -552,6 +564,9 @@ Public Class FormRegionlist
         ElseIf Status = RegionMaker.SIMSTATUSENUM.NoLogin Then
             Letter = "No Login"
             Num = DGICON.NoLogin
+        ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+            Letter = "Quitting"
+            Num = DGICON.shuttingdown
         ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
             Letter = "Stopping"
             Num = DGICON.shuttingdown
@@ -572,16 +587,6 @@ Public Class FormRegionlist
                 Letter = "Running"
                 Num = DGICON.up
             End If
-        ElseIf Not PropRegionClass.RegionEnabled(RegionUUID) Then
-            Letter = "Disabled"
-            If PropRegionClass.RegionName(RegionUUID) = Settings.WelcomeRegion Then
-                Num = DGICON.HomeOffline
-            Else
-                Num = DGICON.disabled
-            End If
-        ElseIf PropRegionClass.RegionEnabled(RegionUUID) Then
-            Letter = "Stopped"
-            Num = DGICON.stopped
         Else
             Num = DGICON.warning ' warning
         End If
@@ -627,10 +632,6 @@ Public Class FormRegionlist
             If MysqlInterface.IsMySqlRunning() Then
                 L = MysqlInterface.GetAgentList()
             End If
-
-            ' If Debugger.IsAttached Then
-            'L.Add("Ferd Frederix", "Welcome")
-            'End If
 
             For Each Agent In L
                 Dim item1 As New ListViewItem(Agent.Key, Index)
@@ -713,6 +714,7 @@ Public Class FormRegionlist
         ViewBusy = True
         ListView1.BeginUpdate()
         ListView1.Items.Clear()
+
 
         Dim p As PerformanceCounter = Nothing
 
@@ -926,8 +928,6 @@ Public Class FormRegionlist
         AvatarView.Hide()
         UserView.Hide()
 
-        IconView.SmallImageList = ImageListSmall
-
         IconView.BeginUpdate()
         IconView.Items.Clear()
 
@@ -936,7 +936,7 @@ Public Class FormRegionlist
 
                 Dim Num As Integer = 0
                 Dim Letter As String = ""
-                Dim status = GetStatus(RegionUUID, Num, Letter)
+                GetStatus(RegionUUID, Num, Letter)
                 Dim name = PropRegionClass.RegionName(RegionUUID)
 
                 ' Create items and sub items for each item. Place a check mark next to the item.
@@ -1120,8 +1120,9 @@ Public Class FormRegionlist
         Dim regions As ListView.SelectedListViewItemCollection = Me.IconView.SelectedItems
         Dim item As ListViewItem
         For Each item In regions
-            Dim RegionName = item.SubItems(0).Text
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionName = item.SubItems(0).Text.Trim
+            RegionName = RegionName.Replace("...", "")
+            Dim RegionUUID As String = PropRegionClass.FindRegionByPartialName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
             End If
@@ -1134,8 +1135,8 @@ Public Class FormRegionlist
         Dim regions As ListView.SelectedListViewItemCollection = Me.ListView1.SelectedItems
         Dim item As ListViewItem
         For Each item In regions
-            Dim RegionName = item.SubItems(0).Text
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionName = item.SubItems(0).Text.Trim
+            Dim RegionUUID As String = PropRegionClass.FindRegionByPartialName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
             End If
@@ -1146,6 +1147,7 @@ Public Class FormRegionlist
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
 
         Dim Item As ListViewItem = Nothing
+
         Try
             Item = ListView1.Items.Item(e.Index)
         Catch ex As Exception
