@@ -151,23 +151,10 @@ Module Apache
             Settings.LastDirectory = Settings.CurrentDirectory
             Settings.SaveSettings()
 
-            TextPrint(My.Resources.Checking_Apache_service_word)
             ' Stop MSFT server if we are on port 80 and enabled
-
             PropApacheUninstalling = True
 
-            ApacheProcess.StartInfo.FileName = "sc"
-            ApacheProcess.StartInfo.Arguments = "stop " & "ApacheHTTPServer"
-            ApacheProcess.StartInfo.CreateNoWindow = True
-            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-            Try
-                ApacheProcess.Start()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-
+            ' old stuff we had named this way
             ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
             Try
                 ApacheProcess.Start()
@@ -176,7 +163,6 @@ Module Apache
             End Try
             Application.DoEvents()
             ApacheProcess.WaitForExit()
-            ApacheIcon(False)
 
             'delete really old service
             ApacheProcess.StartInfo.FileName = "sc"
@@ -191,16 +177,6 @@ Module Apache
             Application.DoEvents()
             ApacheProcess.WaitForExit()
 
-            ApacheProcess.StartInfo.Arguments = " delete ApacheHTTPServer"
-            Try
-                ApacheProcess.Start()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
-
-            Sleep(5000)
             Application.DoEvents()
             Using ApacheProcess As New Process With {
                     .EnableRaisingEvents = False
@@ -219,7 +195,6 @@ Module Apache
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                     ApacheIcon(False)
-                    TextPrint(My.Resources.ApacheFailed & ":" & ex.Message)
                 End Try
                 Application.DoEvents()
                 ApacheProcess.WaitForExit()
@@ -231,7 +206,7 @@ Module Apache
                     PropApacheUninstalling = False ' installed now, trap errors
                     Settings.OldInstallFolder = Settings.CurrentDirectory
                 End If
-                Sleep(1000)
+
                 Application.DoEvents()
             End Using
 
