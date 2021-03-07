@@ -1,6 +1,6 @@
 ﻿Public Class SearchHelp
 
-    Public Shared Sub SearchMenu()
+    Public Sub New()
 
     End Sub
 
