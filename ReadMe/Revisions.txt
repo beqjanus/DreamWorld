@@ -2,11 +2,32 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.8991
+Smart Start 1.0 Alpha release. Documentation coming later. Deal with it.
+Switched to Co-op mode for scripts which is more stable. Helps with stuck shutdowns.
+Added Start/Stop and Delete buttons for Apache. Do not stop apache, un-install it, install it, and start it. Just start it, okay?
+Region Icons line up in columns, and the Avatars and Users columns remember size changes.
+Add DefaultRegion to all regions that are not Smart Start. Both HG and Local visitors will get redirected if the Welcome (HG default) region is offline.
+
+V3.899
+Changes to the way signs work for Smart Start. 
+Splash page could be entered without a http, which breaks the splash page and gives a cryptic error.
+Fix in restore SQL database  - just click the .sql and restore it.
+Tmp folder could fill up in V3.98 and fill a hard drive. Now gets emptied on startup.
+
+V3.898
+Add path to robocopy as Windows Server cant seem to find it.
+MysqlDump timeout  with --compress and  --skip-lock-tables --compress --quick.  Lets us back up while running without killing the Sims.
+30 Languages now!
+fix crash is no name when loading an OAR
+Re-enable all Physics engines.
+Valid UUIDs with Guid.TryParse
+
 V3.897
 Firewall may not be properly set due to a race condition in V3.896. Depends upon CPU speed, disk and region count
 Firewall script now runs as a parameterized thread with unique file name, fw.bat no longer used
 Small improvement in speed in Region List for estate queries.
-Mysqldump (.sql) backup speedup and better transactional stability option.
+MySQLdump (.sql) backup speedup and better transactional stability option.
 Add a Fix_presence.bat file in case an  avatar gets stuck.
 
 V3.896
