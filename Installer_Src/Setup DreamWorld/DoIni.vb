@@ -352,10 +352,10 @@ Module DoIni
                 If RegionName <> Settings.WelcomeRegion Then
                     If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                        RegionSetting += "Region_" & RegionName & " = " & "FallbackRegion, Persistent" & vbCrLf
+                        RegionSetting += "Region_" & RegionName & " = " & "Persistent" & vbCrLf
                     Else
                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                        RegionSetting += "Region_" & RegionName & " = " & "FallbackRegion" & vbCrLf
+                        RegionSetting += "Region_" & RegionName & " = " & "DefaultRegion, FallbackRegion" & vbCrLf
                     End If
                 Else
                     RegionName = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
