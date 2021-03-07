@@ -1205,7 +1205,6 @@ Public Class FormSetup
 
             TextPrint(GroupName & " " & Reason)
 
-
             ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
             Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
 
@@ -1237,7 +1236,6 @@ Public Class FormSetup
                 Continue While
             End If
 
-
             If Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 StopGroup(GroupName)
@@ -1245,7 +1243,6 @@ Public Class FormSetup
                 Logger("State changed to Stopped", PropRegionClass.RegionName(RegionUUID), "Restart")
                 Continue While
             End If
-
 
             If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
@@ -2124,7 +2121,7 @@ Public Class FormSetup
             ApacheIcon(False)
             TextPrint(My.Resources.Apache_Disabled)
         End If
-
+        StopApache(True)
         StartApache()
         PropAborting = False
 
@@ -3428,6 +3425,36 @@ Public Class FormSetup
             TextPrint("LoadOAR EstateName")
         End If
 
+    End Sub
+
+    Private Sub DeleteServiceToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem.Click
+
+        StopApache(True)
+        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .FileName = win,
+            .Arguments = "delete ApacheHTTPServer"
+        }
+        Using p As New Process
+            p.StartInfo = pi
+            Try
+                p.Start()
+                p.WaitForExit()
+                ApacheIcon(False)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+    End Sub
+
+    Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
+        StartApache()
+    End Sub
+
+    Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
+        StopApache(True)
     End Sub
 
 #End Region
