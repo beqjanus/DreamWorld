@@ -2988,19 +2988,16 @@ Public Class FormSetup
 
                 Dim hwnd = GetHwnd(GroupName)
                 ShowDOSWindow(hwnd, MaybeShowWindow())
-                ShutDown(RegionUUID)
 
-                If Status = RegionMaker.SIMSTATUSENUM.Stopped Then
-                    For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
-                    Next
+                If Status <> RegionMaker.SIMSTATUSENUM.Suspended And
+                    Status <> RegionMaker.SIMSTATUSENUM.Stopped And
+                    Status <> RegionMaker.SIMSTATUSENUM.Error Then
+                    ShutDown(RegionUUID)
                 Else
-                    ' shut down all regions in the DOS box
                     For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                     Next
                 End If
-
                 PropUpdateView = True ' make form refresh
             End If
         Next
