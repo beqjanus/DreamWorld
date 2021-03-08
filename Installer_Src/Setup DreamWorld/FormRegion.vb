@@ -1161,7 +1161,6 @@ Public Class FormRegion
 
         PropRegionClass.MapType(RegionUUID) = Map
 
-        'Select Case Case PropRegionClass.Physics(RegionUUID)
         'Case "" : Physics_Default.Checked = True
         'Case "-1" : Physics_Default.Checked = True
         'Case "0" : Physics_Default.Checked = True
@@ -1171,29 +1170,25 @@ Public Class FormRegion
         'Case "4" : Physics_ubODE.Checked = True
         'Case "5" : Physics_Hybrid.Checked = True
         'Case Else : Physics_Default.Checked = True
-        'End Select
 
-        Dim Phys As Integer
+        Dim Phys As String
         If Physics_Default.Checked Then
-            Phys = 0
+            Phys = ""
         ElseIf Physics_ODE.Checked Then
-            Phys = 1
+            Phys = "1"
         ElseIf Physics_Bullet.Checked Then
-            Phys = 2
+            Phys = "2"
         ElseIf Physics_Separate.Checked Then
-            Phys = 3
+            Phys = "3"
         ElseIf Physics_ubODE.Checked Then
-            Phys = 4
+            Phys = "4"
         ElseIf Physics_Hybrid.Checked Then
-            Phys = 5
+            Phys = "5"
         Else
-            Phys = 2
+            Phys = "2"
         End If
 
-        PropRegionClass.Physics(RegionUUID) = CStr(Phys)
-        If Physics_Default.Checked Then
-            PropRegionClass.Physics(RegionUUID) = CStr(Settings.Physics)
-        End If
+        PropRegionClass.Physics(RegionUUID) = Phys
 
         If Gods_Use_Default.Checked Then
             PropRegionClass.GodDefault(RegionUUID) = "True"
