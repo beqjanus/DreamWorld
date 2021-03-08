@@ -566,25 +566,28 @@ Public Class FormOAR
         If SearchBusy = True Then Return
         SearchBusy = True
         Dim searchterm = TextBox1.Text
-
-        If searchterm.Length > 0 Then
-            Erase SearchArray
-            ' search
-            For Each item In json
-                If item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-                    Dim l As Integer
-                    If SearchArray Is Nothing Then
-                        l = 0
-                    Else l = SearchArray.Length
+        Try
+            If searchterm.Length > 0 Then
+                Erase SearchArray
+                ' search
+                For Each item In json
+                    If item.Name.ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(searchterm.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                        Dim l As Integer
+                        If SearchArray Is Nothing Then
+                            l = 0
+                        Else l = SearchArray.Length
+                        End If
+                        Array.Resize(SearchArray, l + 1)
+                        SearchArray(SearchArray.Length - 1) = item
                     End If
-                    Array.Resize(SearchArray, l + 1)
-                    SearchArray(SearchArray.Length - 1) = item
-                End If
-            Next
-            Redraw(SearchArray)
-        Else
-            Redraw(json)
-        End If
+                Next
+                Redraw(SearchArray)
+            Else
+                Redraw(json)
+            End If
+        Catch ex As Exception
+            ErrorLog(ex.Message)
+        End Try
 
         SearchBusy = False
     End Sub
