@@ -2880,4 +2880,34 @@
   <data name="Seconds_word" xml:space="preserve">
     <value>ثواني</value>
   </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>المنزل متوقف</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>معلق</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>منتظر</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>تمهيد</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>لا تسجيل الدخول</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>قيد الانتظار</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>الإقلاع</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>إعادة التدوير إلى أسفل</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>إعادة التدوير</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>إعادة التشغيل الآن</value>
+  </data>
 </root>

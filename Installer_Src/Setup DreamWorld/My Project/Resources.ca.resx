@@ -2881,4 +2881,34 @@
   <data name="Seconds_word" xml:space="preserve">
     <value>segons</value>
   </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Inici aturat</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Suspès</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Esperant</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Arrencada</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Sense inici de sessió</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>Pendents</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Deixar de fumar</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Reciclatge cap avall</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Reciclatge cap amunt</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Reiniciant ara</value>
+  </data>
 </root>

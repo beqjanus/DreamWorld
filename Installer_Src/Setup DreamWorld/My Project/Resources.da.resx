@@ -2880,4 +2880,34 @@
   <data name="Seconds_word" xml:space="preserve">
     <value>sekunder</value>
   </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Hjem stoppet</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Suspenderet</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Venter</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Opstart</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Intet login</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>Verserende</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Afslutter</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Genbrug ned</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Genbrug op</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Genstart nu</value>
+  </data>
 </root>

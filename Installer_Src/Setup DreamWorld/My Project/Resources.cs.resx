@@ -2880,4 +2880,34 @@
   <data name="Seconds_word" xml:space="preserve">
     <value>sekundy</value>
   </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Domů zastaveno</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Pozastaveno</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Čekání</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Bootování</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Žádné přihlášení</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>čekající</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Ukončení</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Recyklace dolů</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Recyklace nahoru</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Nyní se restartuje</value>
+  </data>
 </root>

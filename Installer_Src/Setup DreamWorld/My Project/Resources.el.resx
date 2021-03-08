@@ -2880,4 +2880,34 @@
   <data name="Seconds_word" xml:space="preserve">
     <value>δευτερόλεπτα</value>
   </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Το σπίτι σταμάτησε</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Ανασταλεί</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Αναμονή</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Εκκίνηση</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Χωρίς σύνδεση</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>εκκρεμής</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Εγκατάλειψη</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Ανακύκλωση προς τα κάτω</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Ανακύκλωση</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Επανεκκίνηση τώρα</value>
+  </data>
 </root>
