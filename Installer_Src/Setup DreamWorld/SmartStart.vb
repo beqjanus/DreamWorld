@@ -76,6 +76,7 @@ Module SmartStart
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
+        Dim TheDate As Date = Date.Now()
 
         If FormSetup.Timer1.Enabled = False Then
             FormSetup.Timer1.Interval = 1000
@@ -180,7 +181,7 @@ Module SmartStart
                 ' Mark them before we boot as a crash will immediately trigger the event that it exited
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
-                    PropRegionClass.Timer(RegionUUID) = Date.Now()
+                    PropRegionClass.Timer(RegionUUID) = TheDate
                 Next
             Else
                 BreakPoint.Show("No PID for " & GroupName)
