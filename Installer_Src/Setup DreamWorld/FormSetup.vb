@@ -2529,12 +2529,14 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
-        If TimerBusy < 300 And TimerBusy > 0 Then
+        If TimerBusy < 60 And TimerBusy > 0 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
             Timer1.Interval += 1000
             Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
             Return
+        Else
+            TimerBusy = 0
         End If
 
         TimerBusy += 1
@@ -2566,7 +2568,9 @@ Public Class FormSetup
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             RestartDOSboxes()
             Application.DoEvents()
+
         End If
+
 
         ' 10 seconds, not at boot
         If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
