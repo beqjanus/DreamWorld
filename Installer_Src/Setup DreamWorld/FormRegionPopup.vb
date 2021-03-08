@@ -78,18 +78,15 @@ Public Class FormRegionPopup
         Else
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                'TODO: unsuspend region
-
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = True
-                StopButton.Enabled = True
+                StopButton.Enabled = False
                 SaveOAR.Enabled = True
                 LoadOAR.Enabled = True
                 Teleport.Enabled = True
-                EditButton1.Enabled = False
+                EditButton1.Enabled = True
                 MsgButton.Enabled = False
-
             End If
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
@@ -105,7 +102,7 @@ Public Class FormRegionPopup
             End If
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
-        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = False
