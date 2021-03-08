@@ -59,7 +59,7 @@ Public Class FormSetup
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
-    Private ExitInterval As Integer = 5
+    Private ExitInterval As Integer = 2
 
     Private ScreenPosition As ScreenPos
 
@@ -491,12 +491,14 @@ Public Class FormSetup
         Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
-            If PropRegionClass.RegionEnabled(RegionUUID) Then
+            If PropRegionClass.RegionEnabled(RegionUUID) And
+                (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Or
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) Then
                 SequentialPause()
                 Dim s As Boolean = ShutDown(RegionUUID)
+                TextPrint(PropRegionClass.GroupName(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
                 If s Then
-                    TextPrint(PropRegionClass.GroupName(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
                     For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
                     Next
@@ -582,7 +584,6 @@ Public Class FormSetup
             While True
                 For Each RegionUUID As String In PropRegionClass.RegionUuids
                     Dim status = PropRegionClass.Status(RegionUUID)
-                    Diagnostics.Debug.Print(PropRegionClass.RegionName(RegionUUID) & " " & PropRegionClass.GetStateString(status))
                     If PropRegionClass.RegionEnabled(RegionUUID) _
                             And Not PropAborting _
                             And (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Or
@@ -604,7 +605,7 @@ Public Class FormSetup
 
             Dim ctr = 600 ' 1 minute max to start a region
             While True
-                If CPUAverageSpeed < Settings.CPUMAX Then
+                If CPUAverageSpeed < Settings.CPUMAX And Settings.Ramused < 90 Then
                     Exit While
                 End If
                 Sleep(100)
@@ -973,6 +974,7 @@ Public Class FormSetup
                 If MyRAMCollection.Count > 180 Then MyRAMCollection.RemoveAt(0)
 
                 value = Math.Round(value)
+                Settings.Ramused = value
                 PercentRAM.Text = CStr(value) & "% RAM"
             Next
             ChartWrapper2.ClearChart()
@@ -1035,10 +1037,12 @@ Public Class FormSetup
 
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
+
         End While
 
         ' check to see if a handle to all regions exists
         For Each RegionUUID As String In PropRegionClass.RegionUuids
+            Application.DoEvents()
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
                 For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
@@ -1083,7 +1087,7 @@ Public Class FormSetup
             Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
             Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
 
-            Dim timesmartstart = PropRegionClass.Timer(RegionUUID).AddSeconds(SSTime)
+            Dim timesmartstart = PropRegionClass.Timer(RegionUUID).AddSeconds(Settings.SmartStartTimeout)
             Dim SSExpired = DateTime.Compare(Date.Now, timesmartstart)
 
             If (Expired > 0) Then
@@ -1091,7 +1095,6 @@ Public Class FormSetup
                     If Settings.AutoRestartEnabled Then
                         PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
                     End If
-
                 End If
             End If
 
@@ -1153,6 +1156,7 @@ Public Class FormSetup
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                 For Each R As String In GroupList
                     Boot(RegionName)
+                    Application.DoEvents()
                 Next
                 PropUpdateView = True
                 Continue For
@@ -1355,12 +1359,6 @@ Public Class FormSetup
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
         Dim cinfo() = System.Globalization.CultureInfo.GetCultures(CultureTypes.AllCultures)
-
-        'For Each cul As CultureInfo In cinfo
-        'Diagnostics.Debug.Print(cul.DisplayName & " " + cul.Name + "\n")
-        'Next
-
-        'Settings.Language = "es-ES"
         Try
             My.Application.ChangeUICulture(Settings.Language)
             My.Application.ChangeCulture(Settings.Language)
@@ -2519,30 +2517,27 @@ Public Class FormSetup
             Return
         End If
 
+        TeleportAgents()
+
+        Chart() ' do charts collection each second
+
+        If TimerBusy > 0 And TimerBusy < 10 Then
+            Diagnostics.Debug.Print("Ticker busy")
+            TimerBusy += 1
+            Timer1.Interval += 100
+            Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
+            Return
+        End If
+
+        Timer1.Interval = 1000
+        TimerBusy = 1
+
         ' variable speed, ranges from 1 to N second
         If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
             PropRegionClass.CheckPost() ' get the stack filled ASAP
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             RestartDOSboxes()
-            Application.DoEvents()
         End If
-
-        TeleportAgents()
-
-        Chart() ' do charts collection each second
-
-        If TimerBusy < 60 And TimerBusy > 0 Then
-            Diagnostics.Debug.Print("Ticker busy")
-            TimerBusy += 1
-            Timer1.Interval += 1000
-            Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
-            Return
-        Else
-            TimerBusy = 0
-        End If
-
-        TimerBusy += 1
-        Application.DoEvents()
 
         Dim thisDate As Date = Now
         Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
@@ -2556,7 +2551,6 @@ Public Class FormSetup
         ' 10 seconds, not at boot
         If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
             CalcCPU() ' get a list of running opensim processes
-            Application.DoEvents()
             ScanAgents() ' update agent count seconds
         End If
 
@@ -2564,7 +2558,6 @@ Public Class FormSetup
         If SecondsTicker Mod 60 = 0 Then
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass) ' create HTML for teleport boards
-            Application.DoEvents()
         End If
 
         'in 10 minutes, run a backup
@@ -2575,14 +2568,11 @@ Public Class FormSetup
 
         ' print hourly marks on console, after boot
         If SecondsTicker Mod 3600 = 0 And SecondsTicker > 0 Then
-
             TextPrint(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
             SetPublicIP()
             ExpireApacheLogs()
-            Application.DoEvents()
         End If
 
-        Timer1.Interval = 1000
         SecondsTicker += 1
         TimerBusy = 0
 
@@ -2966,25 +2956,16 @@ Public Class FormSetup
                 Continue For
             End If
 
-            If Not PropAborting And
-                    (Status = RegionMaker.SIMSTATUSENUM.Booting _
-                    Or Status = RegionMaker.SIMSTATUSENUM.Booted _
-                    Or Status = RegionMaker.SIMSTATUSENUM.Stopped) Then
-
+            If Not PropAborting And (Status = RegionMaker.SIMSTATUSENUM.Booting Or Status = RegionMaker.SIMSTATUSENUM.Booted) Then
                 Dim hwnd = GetHwnd(GroupName)
                 ShowDOSWindow(hwnd, MaybeShowWindow())
-
-                If Status <> RegionMaker.SIMSTATUSENUM.Suspended And
-                    Status <> RegionMaker.SIMSTATUSENUM.Stopped And
-                    Status <> RegionMaker.SIMSTATUSENUM.Error Then
-                    ShutDown(RegionUUID)
-                Else
-                    For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-                    Next
-                End If
+                ShutDown(RegionUUID)
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                 PropUpdateView = True ' make form refresh
+            Else
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             End If
+
         Next
 
     End Sub
@@ -3372,6 +3353,7 @@ Public Class FormSetup
                     ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
                     ConsoleCommand(RegionUUID, "scripts stop")
                     ConsoleCommand(RegionUUID, "load oar --force-terrain --force-parcels " & """" & File & """")
+                    ConsoleCommand(RegionUUID, "generate map")
                     ConsoleCommand(RegionUUID, "scripts stop")
                     ConsoleCommand(RegionUUID, "alert power off")
                     ConsoleCommand(RegionUUID, "backup")
