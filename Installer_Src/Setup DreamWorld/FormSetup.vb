@@ -491,23 +491,19 @@ Public Class FormSetup
         Log(My.Resources.Info_word, "Total Enabled Regions=" & CStr(TotalRunningRegions))
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
-            If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(RegionUUID) And
-            Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
-            Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
-            Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood _
-            Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
-                TextPrint(PropRegionClass.GroupName(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
+            If PropRegionClass.RegionEnabled(RegionUUID) Then
                 SequentialPause()
-
+                Dim s As Boolean = ShutDown(RegionUUID)
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
-                Next
-                ShutDown(RegionUUID)
-                Application.DoEvents()
-                PropUpdateView = True ' make form refresh
+                If s Then
+                    TextPrint(PropRegionClass.GroupName(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
+                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                    Next
+                    PropUpdateView = True ' make form refresh
+                    Application.DoEvents()
+                End If
             End If
-
         Next
 
         Dim LastCount As Integer = 0
@@ -1021,17 +1017,6 @@ Public Class FormSetup
 
     Private Sub ExitHandlerPoll()
 
-        If PropExitHandlerIsBusy Then
-            Return
-            ExitInterval += 1
-        End If
-        ExitInterval -= 1
-        If ExitInterval < 5 Then
-            ExitInterval = 5
-        End If
-
-        PropExitHandlerIsBusy = True
-
         Dim GroupName As String = ""
         Dim TimerValue As Integer
 
@@ -1054,10 +1039,8 @@ Public Class FormSetup
 
         ' check to see if a handle to all regions exists
         For Each RegionUUID As String In PropRegionClass.RegionUuids
-            Application.DoEvents()
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
-
                 For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 Next
@@ -1076,8 +1059,11 @@ Public Class FormSetup
 
                 If GetHwnd(G) = IntPtr.Zero Then
                     Try
-                        PropExitList.Add(G, "Exit")
-                    Catch
+                        If Not PropExitList.ContainsKey(G) Then
+                            PropExitList.Add(G, "Exit")
+                        End If
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
                     End Try
                 End If
             End If
@@ -1188,8 +1174,6 @@ Public Class FormSetup
 
         ' now look at the exit stack
         While PropExitList.Count > 0
-
-            Application.DoEvents()
             GroupName = PropExitList.Keys.First
             Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
             PropExitList.Remove(GroupName)
@@ -2529,6 +2513,24 @@ Public Class FormSetup
     ''' <param name="e"></param>
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As EventArgs) Handles Timer1.Tick
 
+        If Not PropOpensimIsRunning() Then
+            Timer1.Stop()
+            TimerBusy = 0
+            Return
+        End If
+
+        ' variable speed, ranges from 1 to N second
+        If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
+            PropRegionClass.CheckPost() ' get the stack filled ASAP
+            ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+            RestartDOSboxes()
+            Application.DoEvents()
+        End If
+
+        TeleportAgents()
+
+        Chart() ' do charts collection each second
+
         If TimerBusy < 60 And TimerBusy > 0 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
@@ -2540,18 +2542,7 @@ Public Class FormSetup
         End If
 
         TimerBusy += 1
-
-        TeleportAgents()
-
-        Chart() ' do charts collection each second
-
         Application.DoEvents()
-
-        If Not PropOpensimIsRunning() Then
-            Timer1.Stop()
-            TimerBusy = 0
-            Return
-        End If
 
         Dim thisDate As Date = Now
         Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
@@ -2561,16 +2552,6 @@ Public Class FormSetup
         If t.Length > 0 Then
             TextPrint(t)
         End If
-
-        ' variable speed, ranges from 1 to N second
-        If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
-            PropRegionClass.CheckPost() ' get the stack filled ASAP
-            ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
-            RestartDOSboxes()
-            Application.DoEvents()
-
-        End If
-
 
         ' 10 seconds, not at boot
         If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
@@ -3382,7 +3363,7 @@ Public Class FormSetup
                     Dim RegionName = PropRegionClass.RegionName(RegionUUID)
                     If RegionName = Settings.WelcomeRegion Then Continue For
 
-                    Boot(RegionName)
+                    ReBoot(RegionName)
 
                     ConsoleCommand(RegionUUID, "{ENTER}")
                     ConsoleCommand(RegionUUID, param)
