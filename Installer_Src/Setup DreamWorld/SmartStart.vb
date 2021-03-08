@@ -201,6 +201,18 @@ Module SmartStart
 
     End Function
 
+    Public Sub ReBoot(BootName As String)
+
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
+        If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+            While PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+                Sleep(100)
+            End While
+        End If
+
+    End Sub
+
 #End Region
 
 End Module
