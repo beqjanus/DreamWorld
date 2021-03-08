@@ -117,6 +117,7 @@ Public Class FormMaps
         ToolTip1.SetToolTip(RenderMaxH, Global.Outworldz.My.Resources.Max4096)
         ToolTip1.SetToolTip(ViewMap, Global.Outworldz.My.Resources.Regen_Map)
         ViewMap.Text = Global.Outworldz.My.Resources.DelMaps
+        VieweAllMaps.Text = Global.Outworldz.My.Resources.ViewAllMaps
 
         If Settings.MapType = "None" Then
             MapNone.Checked = True
@@ -255,6 +256,15 @@ Public Class FormMaps
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Maps")
+    End Sub
+
+    Private Sub VieweAllMaps_Click(sender As Object, e As EventArgs) Handles VieweAllMaps.Click
+
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
+            VarChooser(PropRegionClass.RegionName(RegionUUID), False, False)
+            Application.DoEvents()
+        Next
+
     End Sub
 
 #End Region
