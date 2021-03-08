@@ -53,6 +53,20 @@ Public Class FormDisplacement
         Me.Width = Size * 256 + 60
         Me.Height = Size * 256 + 100
 
+        Dim intX As Integer = Screen.PrimaryScreen.Bounds.Width
+        Dim intY As Integer = Screen.PrimaryScreen.Bounds.Height
+
+        ' Cascade
+        Me.Left = MapX
+        MapX += 100
+
+        Me.Top = MapY
+        MapY += 100
+        If Me.Top + Me.Height > intY Or Me.Left + Me.Width > intX Then
+            Me.Top = 100
+            Me.Left = 100
+        End If
+
         Dim RegionName = PropRegionClass.RegionName(RegionUUID)
         Me.Text = RegionName & " " & CStr(Size) + " X " & CStr(Size)
         Me.Name = "FormDisplacement_" & RegionUUID
@@ -100,8 +114,6 @@ Public Class FormDisplacement
         TerrainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Terrain_word
         ToolStripMenuItem1.Image = Global.Outworldz.My.Resources.package
         ToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Options
-
-        SetScreen()
 
         PropSelectedBox = ""
         If PropForceParcel Then
