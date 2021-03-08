@@ -272,6 +272,7 @@ Public Class FormRegionlist
 
         ListView1.Visible = False
         DoubleBuff(ListView1, True)
+        DoubleBuff(IconView, True)
         ListView1.LabelWrap = True
         ListView1.AutoArrange = True
 
@@ -443,7 +444,7 @@ Public Class FormRegionlist
         ' index to display icons
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_check", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
+        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("check2", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_cross", Globalization.CultureInfo.InvariantCulture)) ' 3 disabled
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("cube_blue", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Globalization.CultureInfo.InvariantCulture))  ' 5 Recycling down
@@ -451,7 +452,7 @@ Public Class FormRegionlist
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  ' 7 Unknown
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("user2", Globalization.CultureInfo.InvariantCulture))  ' 8 - 1 User
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("users1", Globalization.CultureInfo.InvariantCulture))  ' 9 - 2 user
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
+        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  ' 10 - 2 user
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("home", Globalization.CultureInfo.InvariantCulture))  '  11- home
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("home_02", Globalization.CultureInfo.InvariantCulture))  '  12- home _offline
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("refresh", Globalization.CultureInfo.InvariantCulture))  '  13- Pending
@@ -503,18 +504,18 @@ Public Class FormRegionlist
 
     Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
 
-        If TheView1 = ViewType.Users Or TheView1 = ViewType.Icons Then
+        If TheView1 = ViewType.Users Then
             Timer1.Stop()
             Return
         End If
 
         If PropUpdateView() Then ' force a refresh
             If ViewBusy = True Then
-                Timer1.Interval = 1000 ' check for Form1.PropUpdateView later
+                Timer1.Interval = 2000 ' check for Form1.PropUpdateView later
                 Return
             End If
             LoadMyListView()
-            Timer1.Interval = 100
+            Timer1.Interval = 1000
         End If
 
     End Sub
@@ -538,8 +539,8 @@ Public Class FormRegionlist
             Letter = My.Resources.Waiting
             Num = DGICON.SmartStart
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) <> "True" Then
-            Letter = My.Resources.Home_Stopped
-            Num = DGICON.HomeOffline
+            Letter = My.Resources.Stopped_word
+            Num = DGICON.stopped
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Error Then
             Letter = My.Resources.Error_word
             Num = DGICON.ErrorIcon
@@ -932,15 +933,14 @@ Public Class FormRegionlist
 
         IconView.BeginUpdate()
         IconView.Items.Clear()
-
+        Dim max_length As Integer
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Try
-
                 Dim Num As Integer = 0
                 Dim Letter As String = ""
                 GetStatus(RegionUUID, Num, Letter)
                 Dim name = PropRegionClass.RegionName(RegionUUID)
-
+                If name.Length > max_length Then max_length = name.Length
                 ' Create items and sub items for each item. Place a check mark next to the item.
                 Dim item1 As New ListViewItem(name, Num) With
                 {
@@ -953,15 +953,10 @@ Public Class FormRegionlist
             End Try
         Next
 
-        Dim max_length = 30
         For Each l In IconView.Items
-            If l.Text.Length > max_length Then
-                l.Text = l.Text.Remove(max_length - 3) + "..."
-            Else
-                l.Text = l.Text.PadRight(max_length)
-            End If
+            l.Text = l.Text.PadRight(max_length)
         Next
-
+        PropUpdateView() = False
         IconView.EndUpdate()
 
     End Sub
@@ -1123,8 +1118,7 @@ Public Class FormRegionlist
         Dim item As ListViewItem
         For Each item In regions
             Dim RegionName = item.SubItems(0).Text.Trim
-            RegionName = RegionName.Replace("...", "")
-            Dim RegionUUID As String = PropRegionClass.FindRegionByPartialName(RegionName)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
             End If
@@ -1138,7 +1132,7 @@ Public Class FormRegionlist
         Dim item As ListViewItem
         For Each item In regions
             Dim RegionName = item.SubItems(0).Text.Trim
-            Dim RegionUUID As String = PropRegionClass.FindRegionByPartialName(RegionName)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
                 StartStopEdit(RegionUUID, RegionName)
             End If
@@ -1237,6 +1231,11 @@ SetWindowOnTop_Err:
 
         If chosen = "Start" Then
 
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+                Return
+            End If
+
             FormSetup.Buttons(FormSetup.BusyButton)
 
             If Not StartMySQL() Then
@@ -1303,6 +1302,11 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Console" Then
 
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+                Return
+            End If
+
             Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
 
             If hwnd = IntPtr.Zero Then
@@ -1352,6 +1356,12 @@ SetWindowOnTop_Err:
             PropUpdateView = True ' make form refresh
 
         ElseIf chosen = "Teleport" Then
+
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+                Return
+            End If
+
             'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
 
             Dim link = "secondlife://http|!!" & Settings.PublicIP & "|" & Settings.HttpPort & "+" & RegionName
