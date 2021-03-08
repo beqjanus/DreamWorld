@@ -52,7 +52,7 @@ Module RPC
 
         Dim s = SendRPC(RegionUUID, "admin_shutdown", ht)
 
-        Return True
+        Return s
 
     End Function
 
@@ -101,7 +101,7 @@ Module RPC
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+
         End Try
         Return False
 
