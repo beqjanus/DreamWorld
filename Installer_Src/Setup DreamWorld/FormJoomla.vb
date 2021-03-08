@@ -9,7 +9,36 @@ Imports System.Threading
 Imports Ionic.Zip
 
 Public Class FormJoomla
+#Region "ScreenSize"
 
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+    Private _screenPosition As ScreenPos
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
+
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
+    End Sub
+
+    Private Sub SetScreen()
+        Me.Show()
+        ScreenPosition = New ScreenPos(Me.Name)
+        AddHandler ResizeEnd, Handler
+        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+        Me.Left = xy.Item(0)
+        Me.Top = xy.Item(1)
+    End Sub
+
+#End Region
     Public Sub LoadSub() Handles Me.Load
 
         AdminButton.Text = Global.Outworldz.My.Resources.AdministerJoomla_word
@@ -28,7 +57,7 @@ Public Class FormJoomla
         ReinstallButton.Text = Global.Outworldz.My.Resources.Restore_word
         UpdateButton.Text = Global.Outworldz.My.Resources.Update_word
         BackupButton.Text = Global.Outworldz.My.Resources.Backup_word
-
+        SetScreen()
         SetDefaults()
         HelpOnce(JOpensim)
 
