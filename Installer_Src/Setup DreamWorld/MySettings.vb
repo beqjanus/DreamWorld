@@ -24,6 +24,7 @@ Public Class MySettings
     Private _LANIP As String
     Private _MacAddress As String
     Private _PublicIP As String
+    Private _RamUsed As Double
     Private _WANIP As String
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
@@ -778,6 +779,24 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
+        End Set
+    End Property
+
     Public Property CPUMAX As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
@@ -1400,6 +1419,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property Ramused() As Double
+        Get
+            Return _RamUsed
+        End Get
+        Set
+            _RamUsed = Value
+        End Set
+    End Property
+
     Public Property RanAllDiags() As Boolean
         Get
             Return CType(GetMySetting("RanAllDiags", "False"), Boolean)
@@ -1750,6 +1778,15 @@ Public Class MySettings
 
     End Property
 
+    Public Property SmartStartTimeout() As Integer
+        Get
+            Return CInt("0" & GetMySetting("SmartStartTimeout", "60"))
+        End Get
+        Set
+            SetMySetting("SmartStartTimeout", CType(Value, String))
+        End Set
+    End Property
+
     Public Property SmtpHost() As String
         Get
             Return GetMySetting("SmtpHost", "smtp.gmail.com")
@@ -1979,24 +2016,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
