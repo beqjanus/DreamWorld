@@ -32,11 +32,10 @@ Module PublicIP
         Using ClientSocket As New TcpClient
             Try
                 result = ClientSocket.BeginConnect(ServerAddress, Port, Nothing, Nothing)
-                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(5))
+                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(2))
                 ClientSocket.EndConnect(result)
             Catch ex As Exception
-                ' no Breakpoint needed
-                success = False
+                Return False
             End Try
 
             If success Then
