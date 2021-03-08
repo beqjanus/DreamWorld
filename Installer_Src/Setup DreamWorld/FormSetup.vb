@@ -582,38 +582,28 @@ Public Class FormSetup
 
         If Settings.Sequential Then
 
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
-                Application.DoEvents()
-
-                If PropOpensimIsRunning() And PropRegionClass.RegionEnabled(RegionUUID) And
-                    Not (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown _
-                    Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown _
-                    Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood _
-                    Or PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) Then
-
-                    Dim ctr = 5 * 60  ' 5 minute max to start a region
-
-                    While True
-
-                        If PropRegionClass.RegionEnabled(RegionUUID) _
+            Dim ctr = 2 * 60  ' 2 minute max to start a region
+            While True
+                For Each RegionUUID As String In PropRegionClass.RegionUuids
+                    Dim status = PropRegionClass.Status(RegionUUID)
+                    Diagnostics.Debug.Print(PropRegionClass.RegionName(RegionUUID) & " " & PropRegionClass.GetStateString(status))
+                    If PropRegionClass.RegionEnabled(RegionUUID) _
                             And Not PropAborting _
-                            And (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
-                                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
-                                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Or
-                                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
-                                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) Then
+                            And (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Or
+                            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
+                            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Or
+                            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                            ) Then
 
-                            ctr -= 1
-                            If ctr <= 0 Then Exit While
-                            Sleep(1000)
-                            Application.DoEvents()
-                        Else
-                            Exit While
-                        End If
-
-                    End While
-                End If
-            Next
+                        ctr -= 1
+                        If ctr <= 0 Then Exit While
+                        Sleep(1000)
+                        Application.DoEvents()
+                    Else
+                        Exit While
+                    End If
+                Next
+            End While
         Else
 
             Dim ctr = 600 ' 1 minute max to start a region
@@ -682,7 +672,7 @@ Public Class FormSetup
         For Each RegionUUID As String In l
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 PropRegionClass.CrashCounter(RegionUUID) = 0
-                If PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
+                If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
                 If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
                     Exit For
                 End If
@@ -1057,6 +1047,7 @@ Public Class FormSetup
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
             End If
             PropRegionClass.BootTime(Ruuid) = CInt(seconds)
+
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
         End While
