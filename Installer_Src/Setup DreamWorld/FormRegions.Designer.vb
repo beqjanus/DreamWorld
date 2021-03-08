@@ -26,7 +26,6 @@ Partial Class FormRegions
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.ConciergeCheckbox = New System.Windows.Forms.CheckBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.SmartStartEnabled = New System.Windows.Forms.CheckBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.NormalizeButton1 = New System.Windows.Forms.Button()
         Me.Z = New System.Windows.Forms.TextBox()
@@ -50,7 +49,6 @@ Partial Class FormRegions
         '
         Me.GroupBox2.Controls.Add(Me.ConciergeCheckbox)
         Me.GroupBox2.Controls.Add(Me.PictureBox2)
-        Me.GroupBox2.Controls.Add(Me.SmartStartEnabled)
         Me.GroupBox2.Controls.Add(Me.Button1)
         Me.GroupBox2.Controls.Add(Me.NormalizeButton1)
         Me.GroupBox2.Controls.Add(Me.Z)
@@ -92,17 +90,6 @@ Partial Class FormRegions
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 1888
         Me.PictureBox2.TabStop = False
-        '
-        'SmartStartEnabled
-        '
-        Me.SmartStartEnabled.AutoSize = True
-        Me.SmartStartEnabled.Location = New System.Drawing.Point(16, 345)
-        Me.SmartStartEnabled.Margin = New System.Windows.Forms.Padding(1)
-        Me.SmartStartEnabled.Name = "SmartStartEnabled"
-        Me.SmartStartEnabled.Size = New System.Drawing.Size(114, 17)
-        Me.SmartStartEnabled.TabIndex = 11
-        Me.SmartStartEnabled.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_Enable_word
-        Me.SmartStartEnabled.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -286,7 +273,6 @@ Partial Class FormRegions
     Friend WithEvents Button1 As Button
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
-    Friend WithEvents SmartStartEnabled As CheckBox
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents ConciergeCheckbox As CheckBox
 End Class

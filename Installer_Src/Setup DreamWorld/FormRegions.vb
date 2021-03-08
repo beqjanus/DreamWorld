@@ -103,10 +103,6 @@ Public Class FormRegions
 
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
-        Settings.SmartStart = SmartStartEnabled.Checked
-    End Sub
-
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles WelcomeBox1.SelectedIndexChanged
 
         Dim value As String = TryCast(WelcomeBox1.SelectedItem, String)
@@ -139,7 +135,7 @@ Public Class FormRegions
         NormalizeButton1.Text = Global.Outworldz.My.Resources.NormalizeRegions
         RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Choose_Region_word})
         RegionButton.Text = Global.Outworldz.My.Resources.Configger
-        SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
+
         Text = Global.Outworldz.My.Resources.Region_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
@@ -156,7 +152,6 @@ Public Class FormRegions
         Y.Text = Settings.HomeVectorY
         Z.Text = Settings.HomeVectorZ
 
-        SmartStartEnabled.Checked = Settings.SmartStart
         ConciergeCheckbox.Checked = Settings.Concierge
 
         HelpOnce("Regions")
