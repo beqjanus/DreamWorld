@@ -93,7 +93,7 @@ Module OAR
                         End If
                         SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
                         ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
-
+                        ConsoleCommand(RegionUUID, "generate map")
                     End If
                 End If
 
@@ -116,7 +116,7 @@ Module OAR
         Dim offset = VarChooser(RegionName)
         If offset.Length = 0 Then Return False
 
-        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word & "(" & RegionName & ")", vbYesNoCancel, Global.Outworldz.My.Resources.Backup_word)
+        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word & " (" & RegionName & ")", vbYesNoCancel, Global.Outworldz.My.Resources.Backup_word)
         If backMeUp = vbCancel Then Return False
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
@@ -149,6 +149,8 @@ Module OAR
             SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
             ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
+            ConsoleCommand(RegionUUID, "generate map")
+
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             ErrorLog(My.Resources.Error_word & ":" & ex.Message)
