@@ -871,7 +871,7 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._Status = Value
-            Logger("INFO", RegionName(uuid) & " " & GetStateString(Value), "Outworldz")
+
         End Set
     End Property
 
