@@ -13,8 +13,6 @@ Module GlobalSettings
     Public Const jRev As String = "3.9.23"
     Public Const MySqlRev = "5.6.5"
 
-    Public Const SSTime As Integer = 60
-
 #End Region
 
 #Region "Global Strings"
@@ -30,6 +28,8 @@ Module GlobalSettings
 
 #Region "Private"
 
+    Public MapX As Integer = 100
+    Public MapY As Integer = 100
     Dim _Data As IniParser.Model.IniData
     Private _IsRunning As Boolean
     Private _lastbackup As Integer
@@ -245,7 +245,7 @@ Module GlobalSettings
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            ' BreakPoint.Show(ex.Message)
         End Try
 
         Return HTML

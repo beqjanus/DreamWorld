@@ -8378,6 +8378,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Shutdown in seconds.
+        '''</summary>
+        Friend ReadOnly Property SSDelay() As String
+            Get
+                Return ResourceManager.GetString("SSDelay", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Start Regions.
         '''</summary>
         Friend ReadOnly Property Start_Regions_word() As String
@@ -9504,6 +9513,15 @@ Namespace My.Resources
         Friend ReadOnly Property View_word() As String
             Get
                 Return ResourceManager.GetString("View_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to View All Maps.
+        '''</summary>
+        Friend ReadOnly Property ViewAllMaps() As String
+            Get
+                Return ResourceManager.GetString("ViewAllMaps", resourceCulture)
             End Get
         End Property
         

@@ -3355,4 +3355,10 @@
   <data name="Waiting" xml:space="preserve">
     <value>Waiting</value>
   </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>View All Maps</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Shutdown in seconds</value>
+  </data>
 </root>
