@@ -457,7 +457,7 @@ Public Class RegionMaker
 
     Public Function LargestY() As Integer
 
-        ' locate largest global coords
+        ' locate largest global coordinates
         Dim Max As Integer
         Dim pair As KeyValuePair(Of String, Region_data)
 
@@ -701,12 +701,15 @@ Public Class RegionMaker
         Get
             If uuid Is Nothing Then Return 0
             If Bad(uuid) Then Return 0
+            Dim t As Integer = CInt(Settings.GetBootTime(uuid))
+            If t > 0 Then Return t
             Return RegionList(uuid)._BootTime
         End Get
         Set(ByVal Value As Integer)
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._BootTime = Value
+            Settings.SaveBootTime(Value, uuid)
         End Set
     End Property
 

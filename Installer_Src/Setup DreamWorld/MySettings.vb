@@ -79,6 +79,12 @@ Public Class MySettings
 
 #Region "Functions And Subs"
 
+    Public Function GetBootTime(UUID As String) As Integer
+
+        Return CInt("0" & GetMySetting("BootTime_" & PropRegionClass.RegionName(UUID), "0"))
+
+    End Function
+
     Public Function GetIni(section As String, key As String, Value As String, Optional V As String = Nothing) As Object
 
         Dim Variable = Stripqq(SettingsData(section)(key))
@@ -131,6 +137,12 @@ Public Class MySettings
         End Try
 
     End Function
+
+    Public Sub SaveBootTime(DT As Integer, UUID As String)
+
+        SetMySetting("BootTime_" & PropRegionClass.RegionName(UUID), CStr(DT))
+
+    End Sub
 
 #End Region
 
@@ -763,6 +775,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -1967,24 +1997,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
