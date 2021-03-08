@@ -535,53 +535,59 @@ Public Class FormRegionlist
                 Num = DGICON.disabled
             End If
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" Then
-            Letter = "Waiting"
+            Letter = My.Resources.Waiting
             Num = DGICON.SmartStart
+        ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) <> "True" Then
+            Letter = My.Resources.Home_Stopped
+            Num = DGICON.HomeOffline
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Error Then
-            Letter = "Error"
+            Letter = My.Resources.Error_word
             Num = DGICON.ErrorIcon
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Suspended Then
-            Letter = "Suspended"
+            Letter = My.Resources.Suspended_word
             Num = DGICON.Suspended
         ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
-            Letter = "Recycling Down"
+            Letter = My.Resources.Recycling_Down_word
             Num = DGICON.recyclingdown
         ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
-            Letter = "Recycling Up"
+            Letter = My.Resources.Recycling_Up_word
             Num = DGICON.recyclingup
         ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartPending Then
-            Letter = "Restart Pending"
+            Letter = My.Resources.Restart_Pending_word
             Num = DGICON.recyclingup
         ElseIf Status = RegionMaker.SIMSTATUSENUM.RetartingNow Then
+            Letter = My.Resources.Restarting_Now_word
+            Num = DGICON.recyclingup
+        ElseIf Status = RegionMaker.SIMSTATUSENUM.Resume Then
             Letter = "Restarting Now"
             Num = DGICON.recyclingup
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
-            Letter = "Booting"
+            Letter = My.Resources.Booting_word
             Num = DGICON.bootingup
         ElseIf Status = RegionMaker.SIMSTATUSENUM.NoLogin Then
-            Letter = "No Login"
+            Letter = My.Resources.NoLogin_word
             Num = DGICON.NoLogin
         ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
-            Letter = "Quitting"
+            Letter = My.Resources.Quitting_word
             Num = DGICON.shuttingdown
         ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
-            Letter = "Stopping"
+            Letter = My.Resources.Stopping_word
             Num = DGICON.shuttingdown
         ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
-            Letter = "Pending"
+            Letter = My.Resources.Pending_word
             Num = DGICON.Pending
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted And PropRegionClass.AvatarCount(RegionUUID) = 1 Then
-            Letter = "Running"
+            Letter = My.Resources.Running_word
             Num = DGICON.user1
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted And PropRegionClass.AvatarCount(RegionUUID) > 1 Then
-            Letter = "Running"
+            Letter = CStr(PropRegionClass.AvatarCount(RegionUUID) & " " & My.Resources.Avatars_word)
             Num = DGICON.user2
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted Then
             If PropRegionClass.RegionName(RegionUUID) = Settings.WelcomeRegion Then
                 Num = DGICON.Home
-                Letter = "Home"
+                Letter = My.Resources.Home_word
             Else
-                Letter = "Running"
+                Letter = My.Resources.Running_word
                 Num = DGICON.up
             End If
         Else
@@ -1537,7 +1543,7 @@ SetWindowOnTop_Err:
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
 
-        Dim ofd As New OpenFileDialog With {
+        Using ofd As New OpenFileDialog With {
             .InitialDirectory = "\",
             .Filter = Global.Outworldz.My.Resources.INI_Filter,
             .FilterIndex = 1,
@@ -1545,63 +1551,60 @@ SetWindowOnTop_Err:
             .Multiselect = True
         }
 
-        If ofd.ShowDialog = DialogResult.OK Then
-            If ofd.CheckFileExists Then
+            If ofd.ShowDialog = DialogResult.OK Then
+                If ofd.CheckFileExists Then
 
-                Dim dirpathname = PickGroup()
-                If dirpathname.Length = 0 Then
-                    TextPrint(My.Resources.Aborted_word)
-                    ofd.Dispose()
-                    Return
-                End If
-
-                If dirpathname = "! Add New Name" Then
-                    dirpathname = InputBox(My.Resources.Enter_Dos_Name)
-                End If
-                If dirpathname.Length = 0 Then
-                    ofd.Dispose()
-                    Return
-                End If
-
-                For Each ofdFilename As String In ofd.FileNames
-
-                    Dim noquotes As Regex = New Regex("'")
-                    dirpathname = noquotes.Replace(dirpathname, "")
-
-                    Dim extension As String = Path.GetExtension(ofdFilename)
-                    extension = Mid(extension, 2, 5)
-                    If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
-
-                        Dim filename = GetRegionsName(ofdFilename)
-                        Dim RegionUUID As String = PropRegionClass.FindRegionByName(filename)
-
-                        If RegionUUID.Length > 0 Then
-                            MsgBox(My.Resources.Region_Already_Exists, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-                            ofd.Dispose()
-                            Return
-                        End If
-
-                        If dirpathname.Length = 0 Then dirpathname = filename
-
-                        Dim NewFilepath = Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\"
-                        If Not Directory.Exists(NewFilepath) Then
-                            Try
-                                Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
-                            Catch ex As Exception
-                                BreakPoint.Show(ex.Message)
-                            End Try
-                        End If
-                        File.Copy(ofdFilename, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
-                    Else
-                        TextPrint(My.Resources.Unrecognized & " " & extension & ". ")
+                    Dim dirpathname = PickGroup()
+                    If dirpathname.Length = 0 Then
+                        TextPrint(My.Resources.Aborted_word)
+                        Return
                     End If
-                Next
 
-                PropRegionClass.GetAllRegions()
-                LoadMyListView()
+                    If dirpathname = "! Add New Name" Then
+                        dirpathname = InputBox(My.Resources.Enter_Dos_Name)
+                    End If
+                    If dirpathname.Length = 0 Then
+                        Return
+                    End If
+
+                    For Each ofdFilename As String In ofd.FileNames
+
+                        Dim noquotes As Regex = New Regex("'")
+                        dirpathname = noquotes.Replace(dirpathname, "")
+
+                        Dim extension As String = Path.GetExtension(ofdFilename)
+                        extension = Mid(extension, 2, 5)
+                        If extension.ToUpper(Globalization.CultureInfo.InvariantCulture) = "INI" Then
+
+                            Dim filename = GetRegionsName(ofdFilename)
+                            Dim RegionUUID As String = PropRegionClass.FindRegionByName(filename)
+
+                            If RegionUUID.Length > 0 Then
+                                MsgBox(My.Resources.Region_Already_Exists, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+                                Return
+                            End If
+
+                            If dirpathname.Length = 0 Then dirpathname = filename
+
+                            Dim NewFilepath = Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\"
+                            If Not Directory.Exists(NewFilepath) Then
+                                Try
+                                    Directory.CreateDirectory(Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region")
+                                Catch ex As Exception
+                                    BreakPoint.Show(ex.Message)
+                                End Try
+                            End If
+                            File.Copy(ofdFilename, Settings.OpensimBinPath & "Regions\" + dirpathname + "\Region\" + filename + ".ini")
+                        Else
+                            TextPrint(My.Resources.Unrecognized & " " & extension & ". ")
+                        End If
+                    Next
+
+                    PropRegionClass.GetAllRegions()
+                    LoadMyListView()
+                End If
             End If
-        End If
-        ofd.Dispose()
+        End Using
 
     End Sub
 
