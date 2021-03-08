@@ -15,7 +15,6 @@ Module SmartStart
         Dim PID = PropRegionClass.ProcessID(RegionUUID)
 
         If True Then
-
             Logger("State Changed to ShuttingDown", RegionName, "Restart")
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
@@ -138,7 +137,7 @@ Module SmartStart
         End If
 
         TextPrint(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
-        Application.DoEvents()
+
         BootProcess.EnableRaisingEvents = True
         BootProcess.StartInfo.UseShellExecute = True
         BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
@@ -204,10 +203,12 @@ Module SmartStart
     Public Sub ReBoot(BootName As String)
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
-        If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+        If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Or
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             While PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-                Sleep(100)
+                Sleep(1000)
+                Application.DoEvents()
             End While
         End If
 
