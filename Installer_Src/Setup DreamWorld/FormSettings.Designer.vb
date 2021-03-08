@@ -54,6 +54,7 @@ Partial Class FormSettings
         Me.LanguageButton = New System.Windows.Forms.Button()
         Me.FSAssetsButton = New System.Windows.Forms.Button()
         Me.GlobalSettingsGroupbox = New System.Windows.Forms.GroupBox()
+        Me.SmartStartButton = New System.Windows.Forms.Button()
         Me.GlobalSettingsGroupbox.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -109,7 +110,7 @@ Partial Class FormSettings
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(175, 21)
+        Me.MapsButton.Location = New System.Drawing.Point(14, 410)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(145, 23)
         Me.MapsButton.TabIndex = 7
@@ -139,7 +140,7 @@ Partial Class FormSettings
         '
         'RegionsButton1
         '
-        Me.RegionsButton1.Location = New System.Drawing.Point(174, 170)
+        Me.RegionsButton1.Location = New System.Drawing.Point(173, 140)
         Me.RegionsButton1.Name = "RegionsButton1"
         Me.RegionsButton1.Size = New System.Drawing.Size(145, 23)
         Me.RegionsButton1.TabIndex = 12
@@ -159,7 +160,7 @@ Partial Class FormSettings
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(175, 50)
+        Me.PortsButton1.Location = New System.Drawing.Point(174, 20)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PortsButton1.TabIndex = 8
@@ -170,7 +171,7 @@ Partial Class FormSettings
         'PhysicsButton1
         '
         Me.PhysicsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.PhysicsButton1.Location = New System.Drawing.Point(174, 110)
+        Me.PhysicsButton1.Location = New System.Drawing.Point(173, 80)
         Me.PhysicsButton1.Name = "PhysicsButton1"
         Me.PhysicsButton1.Size = New System.Drawing.Size(145, 23)
         Me.PhysicsButton1.TabIndex = 10
@@ -190,7 +191,7 @@ Partial Class FormSettings
         '
         'RestartButton
         '
-        Me.RestartButton.Location = New System.Drawing.Point(174, 200)
+        Me.RestartButton.Location = New System.Drawing.Point(173, 170)
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Size = New System.Drawing.Size(143, 23)
         Me.RestartButton.TabIndex = 13
@@ -200,7 +201,7 @@ Partial Class FormSettings
         '
         'PermissionsButton
         '
-        Me.PermissionsButton.Location = New System.Drawing.Point(174, 80)
+        Me.PermissionsButton.Location = New System.Drawing.Point(173, 50)
         Me.PermissionsButton.Name = "PermissionsButton"
         Me.PermissionsButton.Size = New System.Drawing.Size(143, 23)
         Me.PermissionsButton.TabIndex = 9
@@ -220,7 +221,7 @@ Partial Class FormSettings
         '
         'PublicityButton
         '
-        Me.PublicityButton.Location = New System.Drawing.Point(174, 140)
+        Me.PublicityButton.Location = New System.Drawing.Point(173, 110)
         Me.PublicityButton.Name = "PublicityButton"
         Me.PublicityButton.Size = New System.Drawing.Size(145, 23)
         Me.PublicityButton.TabIndex = 11
@@ -240,7 +241,7 @@ Partial Class FormSettings
         '
         'ServerTypeButton
         '
-        Me.ServerTypeButton.Location = New System.Drawing.Point(174, 290)
+        Me.ServerTypeButton.Location = New System.Drawing.Point(173, 260)
         Me.ServerTypeButton.Name = "ServerTypeButton"
         Me.ServerTypeButton.Size = New System.Drawing.Size(145, 23)
         Me.ServerTypeButton.TabIndex = 20
@@ -260,7 +261,7 @@ Partial Class FormSettings
         '
         'ScriptButton
         '
-        Me.ScriptButton.Location = New System.Drawing.Point(174, 230)
+        Me.ScriptButton.Location = New System.Drawing.Point(173, 200)
         Me.ScriptButton.Name = "ScriptButton"
         Me.ScriptButton.Size = New System.Drawing.Size(145, 23)
         Me.ScriptButton.TabIndex = 22
@@ -270,7 +271,7 @@ Partial Class FormSettings
         '
         'LoggingButton
         '
-        Me.LoggingButton.Location = New System.Drawing.Point(17, 380)
+        Me.LoggingButton.Location = New System.Drawing.Point(19, 380)
         Me.LoggingButton.Name = "LoggingButton"
         Me.LoggingButton.Size = New System.Drawing.Size(145, 23)
         Me.LoggingButton.TabIndex = 23
@@ -300,7 +301,7 @@ Partial Class FormSettings
         '
         'SearchButton
         '
-        Me.SearchButton.Location = New System.Drawing.Point(174, 260)
+        Me.SearchButton.Location = New System.Drawing.Point(173, 230)
         Me.SearchButton.Name = "SearchButton"
         Me.SearchButton.Size = New System.Drawing.Size(145, 23)
         Me.SearchButton.TabIndex = 26
@@ -310,7 +311,7 @@ Partial Class FormSettings
         '
         'LanguageButton
         '
-        Me.LanguageButton.Location = New System.Drawing.Point(19, 351)
+        Me.LanguageButton.Location = New System.Drawing.Point(19, 350)
         Me.LanguageButton.Name = "LanguageButton"
         Me.LanguageButton.Size = New System.Drawing.Size(145, 23)
         Me.LanguageButton.TabIndex = 28
@@ -328,6 +329,7 @@ Partial Class FormSettings
         '
         'GlobalSettingsGroupbox
         '
+        Me.GlobalSettingsGroupbox.Controls.Add(Me.SmartStartButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.LanguageButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.FSAssetsButton)
         Me.GlobalSettingsGroupbox.Controls.Add(Me.SearchButton)
@@ -361,6 +363,16 @@ Partial Class FormSettings
         Me.GlobalSettingsGroupbox.TabIndex = 1870
         Me.GlobalSettingsGroupbox.TabStop = False
         Me.GlobalSettingsGroupbox.Text = "Global Settings"
+        '
+        'SmartStartButton
+        '
+        Me.SmartStartButton.Location = New System.Drawing.Point(172, 290)
+        Me.SmartStartButton.Name = "SmartStartButton"
+        Me.SmartStartButton.Size = New System.Drawing.Size(145, 23)
+        Me.SmartStartButton.TabIndex = 29
+        Me.SmartStartButton.Text = "Smart Start"
+        Me.ToolTip1.SetToolTip(Me.SmartStartButton, Global.Outworldz.My.Resources.Resources.Click_Server)
+        Me.SmartStartButton.UseVisualStyleBackColor = True
         '
         'FormSettings
         '
@@ -407,4 +419,5 @@ Partial Class FormSettings
     Friend WithEvents SearchButton As Button
     Friend WithEvents FSAssetsButton As Button
     Friend WithEvents LanguageButton As Button
+    Friend WithEvents SmartStartButton As Button
 End Class

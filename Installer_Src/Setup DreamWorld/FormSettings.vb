@@ -35,6 +35,7 @@ Public Class FormSettings
     Dim Maps As New FormMaps
     Dim Scripts As New FormScripts
     Dim Search As New FormSearch
+    Dim SS As New FormSmartStart
     Dim Tide As New FormTide
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
@@ -101,7 +102,7 @@ Public Class FormSettings
         TideButton.Text = Global.Outworldz.My.Resources.Tides_word
         SearchButton.Text = Global.Outworldz.My.Resources.SearchOptions_word
         FSAssetsButton.Text = Global.Outworldz.My.Resources.FSassets
-        '
+        SmartStartButton.Text = Global.Outworldz.My.Resources.Smart_Start_word
         ToolTip1.SetToolTip(ApacheButton, Global.Outworldz.My.Resources.ApacheWebServer)
         ToolTip1.SetToolTip(BackupButton1, Global.Outworldz.My.Resources.Backup_Schedule)
         ToolTip1.SetToolTip(BanListButton, Global.Outworldz.My.Resources.BanList_string)
@@ -156,13 +157,6 @@ Public Class FormSettings
 
 #End Region
 
-#Region "Public Methods"
-
-    ''' <summary>Dispose!</summary>
-    ''' <remarks></remarks>
-
-#End Region
-
     Private Sub Form1_FormClosing(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
         e.Cancel = True
@@ -195,6 +189,7 @@ Public Class FormSettings
         FormJoomla.Dispose()
         FsAssets.Dispose()
         Lang.Dispose()
+        SS.Dispose()
 
     End Sub
 
@@ -420,6 +415,7 @@ Public Class FormSettings
         Logging.Activate()
         Logging.Select()
         Logging.BringToFront()
+
     End Sub
 
     Private Sub MapsButton_Click(sender As Object, e As EventArgs) Handles MapsButton.Click
@@ -492,6 +488,18 @@ Public Class FormSettings
         Icecast.Activate()
         Icecast.Select()
         Icecast.BringToFront()
+
+    End Sub
+
+    Private Sub SmartStartButton_Click(sender As Object, e As EventArgs) Handles SmartStartButton.Click
+
+        SS.Close()
+        SS.Dispose()
+        SS = New FormSmartStart
+        SS.Activate()
+        SS.Visible = True
+        SS.Select()
+        SS.BringToFront()
 
     End Sub
 
