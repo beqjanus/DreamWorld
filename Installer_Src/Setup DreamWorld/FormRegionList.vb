@@ -440,7 +440,6 @@ Public Class FormRegionlist
         AddHandler IconView.ColumnClick, AddressOf ColumnClick
         AddHandler UserView.ColumnClick, AddressOf ColumnClick
 
-
         ' index to display icons
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up2", Globalization.CultureInfo.InvariantCulture))   ' 0 booting up
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
@@ -459,8 +458,6 @@ Public Class FormRegionlist
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
-
-
 
         If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
             Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
@@ -714,7 +711,6 @@ Public Class FormRegionlist
         ViewBusy = True
         ListView1.BeginUpdate()
         ListView1.Items.Clear()
-
 
         Dim p As PerformanceCounter = Nothing
 
@@ -1172,8 +1168,6 @@ Public Class FormRegionlist
             Settings.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
             Settings.SaveINI(INI, System.Text.Encoding.UTF8)
         Next
-
-        PropUpdateView() = True
 
     End Sub
 
