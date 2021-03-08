@@ -245,7 +245,9 @@ Public Class Backups
                     Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Settings.ini"), "Settings")
                     Z.AddFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\XYSettings.ini"), "Settings")
 
-                    Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
+                    Dim fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\OpPensim\bin\LocalUserStatistics.db")
+                    If File.Exists(fs) Then Z.AddFile(fs, "Stats Database in bin")
+                    fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Photo.png")
                     If File.Exists(fs) Then Z.AddFile(fs, "Photos")
                     fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewBlack.png")
                     If File.Exists(fs) Then Z.AddFile(fs, "Photos")
