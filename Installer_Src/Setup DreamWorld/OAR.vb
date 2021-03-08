@@ -79,7 +79,7 @@ Module OAR
                         thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                         Dim Group = PropRegionClass.GroupName(RegionUUID)
-                        Boot(RegionName)
+                        ReBoot(RegionName)
                         Dim ForceParcel As String = ""
                         If PropForceParcel() Then ForceParcel = " --force-parcels "
                         Dim ForceTerrain As String = ""
@@ -127,6 +127,8 @@ Module OAR
         TextPrint(My.Resources.Opensimulator_is_loading & " " & thing)
         If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
+        reBoot(RegionName)
+
         Try
             If backMeUp = vbYes Then
                 ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
@@ -134,8 +136,6 @@ Module OAR
                 ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & RegionName & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
                 SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
             End If
-
-            Boot(RegionName)
 
             Dim ForceParcel As String = ""
             If PropForceParcel() Then ForceParcel = " --force-parcels "
