@@ -1367,19 +1367,6 @@ Public Class RegionMaker
 
     End Function
 
-    Public Function FindRegionByPartialName(name As String) As String
-
-        Dim pair As KeyValuePair(Of String, Region_data)
-        For Each pair In RegionList
-            If pair.Value._RegionName.Contains(name) Then               '
-                Return pair.Value._UUID
-            End If
-        Next
-        'RegionDump()
-        Return ""
-
-    End Function
-
     Public Function IsBooted(uuid As String) As Boolean
         If uuid Is Nothing Then Return False
         If Bad(uuid) Then Return False

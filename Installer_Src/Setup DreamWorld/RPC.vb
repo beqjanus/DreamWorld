@@ -101,7 +101,6 @@ Module RPC
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
-
         End Try
         Return False
 
