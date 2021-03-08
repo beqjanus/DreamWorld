@@ -52,9 +52,6 @@ Module RPC
 
         Dim s = SendRPC(RegionUUID, "admin_shutdown", ht)
 
-        If Not s Then
-            ConsoleCommand(RegionUUID, "q")
-        End If
         Return True
 
     End Function

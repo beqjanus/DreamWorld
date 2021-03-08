@@ -79,19 +79,21 @@ Module OAR
                         thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                         Dim Group = PropRegionClass.GroupName(RegionUUID)
-                        For Each UUID In PropRegionClass.RegionUuidListByName(Group)
+                        Boot(RegionName)
+                        Dim ForceParcel As String = ""
+                        If PropForceParcel() Then ForceParcel = " --force-parcels "
+                        Dim ForceTerrain As String = ""
+                        If PropForceTerrain Then ForceTerrain = " --force-terrain "
+                        Dim ForceMerge As String = ""
+                        If PropForceMerge Then ForceMerge = " --merge "
+                        Dim UserName As String = ""
 
-                            Dim ForceParcel As String = ""
-                            If PropForceParcel() Then ForceParcel = " --force-parcels "
-                            Dim ForceTerrain As String = ""
-                            If PropForceTerrain Then ForceTerrain = " --force-terrain "
-                            Dim ForceMerge As String = ""
-                            If PropForceMerge Then ForceMerge = " --merge "
-                            Dim UserName As String = ""
-                            If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
-                            SendMessage(UUID, Global.Outworldz.My.Resources.New_Content)
-                            ConsoleCommand(UUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
-                        Next
+                        If PropUserName.Length > 0 Then
+                            UserName = " --default-user " & """" & PropUserName & """" & " "
+                        End If
+                        SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
+                        ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
+
                     End If
                 End If
 
@@ -108,54 +110,50 @@ Module OAR
             Return False
         End If
 
-        Dim region = ChooseRegion(True)
-        If region.Length = 0 Then Return False
+        Dim RegionName = ChooseRegion(True)
+        If RegionName.Length = 0 Then Return False
 
-        Dim offset = VarChooser(region)
+        Dim offset = VarChooser(RegionName)
         If offset.Length = 0 Then Return False
 
-        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word, vbYesNoCancel, Global.Outworldz.My.Resources.Backup_word)
+        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word & "(" & RegionName & ")", vbYesNoCancel, Global.Outworldz.My.Resources.Backup_word)
         If backMeUp = vbCancel Then Return False
 
-        Dim testRegionUUID As String = PropRegionClass.FindRegionByName(region)
-        If testRegionUUID.Length = 0 Then
-            MsgBox(My.Resources.Cannot_find_region_word)
-            Return False
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+        If RegionUUID.Length = 0 Then
+            ErrorLog(My.Resources.Cannot_find_region_word)
         End If
-        Dim GroupName = PropRegionClass.GroupName(testRegionUUID)
-        Dim once As Boolean = False
-        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-            Try
-                If Not once Then
-                    TextPrint(My.Resources.Opensimulator_is_loading & " " & thing)
-                    If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
-                    If backMeUp = vbYes Then
-                        ConsoleCommand(RegionUUID, "change region " & """" & region & """")
-                        SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
-                        ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & region & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
-                        SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
-                    End If
+        TextPrint(My.Resources.Opensimulator_is_loading & " " & thing)
+        If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
-                    Dim ForceParcel As String = ""
-                    If PropForceParcel() Then ForceParcel = " --force-parcels "
-                    Dim ForceTerrain As String = ""
-                    If PropForceTerrain Then ForceTerrain = " --force-terrain "
-                    Dim ForceMerge As String = ""
-                    If PropForceMerge Then ForceMerge = " --merge "
-                    Dim UserName As String = ""
-                    If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
+        Try
+            If backMeUp = vbYes Then
+                ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
+                SendMessage(RegionUUID, Global.Outworldz.My.Resources.CPU_Intensive)
+                ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & RegionName & "_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
+                SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
+            End If
 
-                    ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
+            Boot(RegionName)
 
-                    once = True
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ErrorLog(My.Resources.Error_word & ":" & ex.Message)
-            End Try
-            Application.DoEvents()
-        Next
+            Dim ForceParcel As String = ""
+            If PropForceParcel() Then ForceParcel = " --force-parcels "
+            Dim ForceTerrain As String = ""
+            If PropForceTerrain Then ForceTerrain = " --force-terrain "
+            Dim ForceMerge As String = ""
+            If PropForceMerge Then ForceMerge = " --merge "
+            Dim UserName As String = ""
+            If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
+
+            SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
+            ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
+            ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+            ErrorLog(My.Resources.Error_word & ":" & ex.Message)
+        End Try
+        Application.DoEvents()
 
         Return True
 
