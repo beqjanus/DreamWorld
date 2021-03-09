@@ -521,7 +521,7 @@ Public Module MysqlInterface
             MysqlConn.Open()
             Dim stm = "Select RegionName from regions where uuid = @UUID';"
             Using cmd As New MySqlCommand(stm, MysqlConn)
-                cmd.Parameters.AddWithValue("@UUID", UUID)
+                cmd.Parameters.AddWithValue("UUID", UUID)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     If reader.Read() Then
                         Debug.Print("Region Name = {0}", reader.GetString(0))
