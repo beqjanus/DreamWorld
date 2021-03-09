@@ -60,7 +60,7 @@ namespace OpenSim.Services.HypergridService
         // This will need to go into a DB table
         //static Dictionary<UUID, TravelingAgentInfo> m_Database = new Dictionary<UUID, TravelingAgentInfo>();
 
-        static bool m_Initialized = false;
+        private static bool m_Initialized = false;
 
         protected static IGridUserService m_GridUserService;
         protected static IGridService m_GridService;
@@ -154,17 +154,16 @@ namespace OpenSim.Services.HypergridService
                     if (!m_GridName.EndsWith("/"))
                         m_GridName = m_GridName + "/";
                     Uri gateURI;
-                    if(!Uri.TryCreate(m_GridName, UriKind.Absolute, out gateURI))
+                    if (!Uri.TryCreate(m_GridName, UriKind.Absolute, out gateURI))
                         throw new Exception(String.Format("[UserAgentService] could not parse gatekeeper uri"));
                     string host = gateURI.DnsSafeHost;
                     IPAddress ip = Util.GetHostFromDNS(host);
-                    if(ip == null)
+                    if (ip == null)
                         throw new Exception(String.Format("[UserAgentService] failed to resolve gatekeeper host"));
                     m_MyExternalIP = ip.ToString();
                 }
                 // Finally some cleanup
                 m_Database.DeleteOld();
-
             }
         }
 
@@ -238,7 +237,7 @@ namespace OpenSim.Services.HypergridService
             UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero, agentCircuit.AgentID);
             if (account == null)
             {
-                m_log.WarnFormat("[USER AGENT SERVICE]: Someone attempted to lauch a foreign user from here {0} {1}", agentCircuit.firstname, agentCircuit.lastname);
+                m_log.WarnFormat("[USER AGENT SERVICE]: Someone attempted to launch a foreign user from here {0} {1}", agentCircuit.firstname, agentCircuit.lastname);
                 reason = "Forbidden to launch your agents from here";
                 return false;
             }
@@ -274,13 +273,13 @@ namespace OpenSim.Services.HypergridService
             region.RegionID = finalDestination.RegionID;
             region.RegionLocX = finalDestination.RegionLocX;
             region.RegionLocY = finalDestination.RegionLocY;
-
+            //fkb
             // Generate a new service session
             agentCircuit.ServiceSessionID = region.ServerURI + ";" + UUID.Random();
             TravelingAgentInfo old = null;
             TravelingAgentInfo travel = CreateTravelInfo(agentCircuit, region, fromLogin, out old);
 
-            if(!fromLogin && old != null && !string.IsNullOrEmpty(old.ClientIPAddress))
+            if (!fromLogin && old != null && !string.IsNullOrEmpty(old.ClientIPAddress))
             {
                 m_log.DebugFormat("[USER AGENT SERVICE]: stored IP = {0}. Old circuit IP: {1}", old.ClientIPAddress, agentCircuit.IPAddress);
                 agentCircuit.IPAddress = old.ClientIPAddress;
@@ -327,7 +326,7 @@ namespace OpenSim.Services.HypergridService
             return LoginAgentToGrid(source, agentCircuit, gatekeeper, finalDestination, false, out reason);
         }
 
-        TravelingAgentInfo CreateTravelInfo(AgentCircuitData agentCircuit, GridRegion region, bool fromLogin, out TravelingAgentInfo existing)
+        private TravelingAgentInfo CreateTravelInfo(AgentCircuitData agentCircuit, GridRegion region, bool fromLogin, out TravelingAgentInfo existing)
         {
             HGTravelingData hgt = m_Database.Get(agentCircuit.SessionID);
             existing = null;
@@ -393,7 +392,7 @@ namespace OpenSim.Services.HypergridService
             TravelingAgentInfo travel = new TravelingAgentInfo(hgt);
 
             bool result = travel.ClientIPAddress == reportedIP;
-            if(!result && !string.IsNullOrEmpty(m_MyExternalIP))
+            if (!result && !string.IsNullOrEmpty(m_MyExternalIP))
                 result = reportedIP == m_MyExternalIP; // NATed
 
             m_log.DebugFormat("[USER AGENT SERVICE]: Comparing {0} with login IP {1} and MyIP {2}; result is {3}",
@@ -472,7 +471,6 @@ namespace OpenSim.Services.HypergridService
                     UUID id;
                     if (UUID.TryParse(friendSession.UserID, out id))
                         localFriendsOnline.Add(id);
-
                 }
             }
 
@@ -572,7 +570,7 @@ namespace OpenSim.Services.HypergridService
             return online;
         }
 
-        public Dictionary<string, object> GetUserInfo(UUID  userID)
+        public Dictionary<string, object> GetUserInfo(UUID userID)
         {
             Dictionary<string, object> info = new Dictionary<string, object>();
 
@@ -641,10 +639,10 @@ namespace OpenSim.Services.HypergridService
             // Let's see if it's a local user
             UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero, targetUserID);
             if (account != null)
-                return targetUserID.ToString() + ";" + m_GridName + ";" + account.FirstName + " " + account.LastName ;
+                return targetUserID.ToString() + ";" + m_GridName + ";" + account.FirstName + " " + account.LastName;
 
             // Let's try the list of friends
-            if(m_FriendsService != null)
+            if (m_FriendsService != null)
             {
                 FriendInfo[] friends = m_FriendsService.GetFriends(userID);
                 if (friends != null && friends.Length > 0)
@@ -692,7 +690,7 @@ namespace OpenSim.Services.HypergridService
                 if (!destination.EndsWith("/"))
                     destination += "/";
 
-                if (exceptions[level].Find(delegate(string s)
+                if (exceptions[level].Find(delegate (string s)
                 {
                     if (!s.EndsWith("/"))
                         s += "/";
@@ -719,11 +717,11 @@ namespace OpenSim.Services.HypergridService
 
             m_Database.Store(hgt);
         }
-        #endregion
 
+        #endregion Misc
     }
 
-    class TravelingAgentInfo
+    internal class TravelingAgentInfo
     {
         public UUID SessionID;
         public UUID UserID;
@@ -755,5 +753,4 @@ namespace OpenSim.Services.HypergridService
             }
         }
     }
-
 }
