@@ -487,6 +487,12 @@
     <Compile Include="FormSetup.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormSmartStart.Designer.vb">
+      <DependentUpon>FormSmartStart.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormSmartStart.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormTide.Designer.vb">
       <DependentUpon>FormTide.vb</DependentUpon>
     </Compile>
@@ -1061,6 +1067,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegion.resx">
       <DependentUpon>FormRegion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSmartStart.resx">
+      <DependentUpon>FormSmartStart.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTide.resx">
       <DependentUpon>FormTide.vb</DependentUpon>

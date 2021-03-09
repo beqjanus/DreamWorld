@@ -340,10 +340,11 @@ Module Robust
         DoBanList()
 
         Settings.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
-        Settings.SetIni("Const", "PublicPort", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture)) ' 8002
-        Settings.SetIni("Const", "PrivatePort", Convert.ToString(Settings.PrivatePort, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("Const", "http_listener_port", Convert.ToString(Settings.HttpPort, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("Const", "ApachePort", Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
+        Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort))
+        Settings.SetIni("Const", "http_listener_port", CStr(Settings.HttpPort))
+        Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
+        Settings.SetIni("Const", "MachineID", CStr(Settings.MachineID))
 
         If Settings.Suitcase() Then
             Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
@@ -391,6 +392,7 @@ Module Robust
             Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
         End If
 
+        Settings.SetIni("AutoLoadTeleport", "Enabled", Settings.SmartStart)
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         Settings.SaveINI(INI, System.Text.Encoding.UTF8)
