@@ -183,18 +183,18 @@ $work_reg = $region['uuid'].";".$region['regionName'].";".$varreg_work_x.";".$va
              <table border=0 cellpadding=0 cellspacing=0>
                 <tr align=center>
                   <td><img src = ./img/spacer.gif></td>
-                  <td><a href="map.php?x=<?php  echo $grid_x;?>&y=<?php  echo $grid_y + 10; ?>" target=_self><img src=./img/oben.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_north;?>" title="<?php  echo $CONF_txt_north;?>"></a></td>
+                  <td><a href="mapmax.php?x=<?php  echo $grid_x;?>&y=<?php  echo $grid_y + 10; ?>" target=_self><img src=./img/oben.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_north;?>" title="<?php  echo $CONF_txt_north;?>"></a></td>
                   <td><img src = ./img/spacer.gif></td>
                </tr>
                <tr>
-                  <td><a href="map.php?x=<?php  print $grid_x - 10; ?>&y=<?php  print $grid_y; ?>" target=_self><img src=./img/links.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_west;?>" title="<?php  echo $CONF_txt_west;?>"></a></td>
-                  <td><a href="map.php?x=<?php  echo $CONF_center_coord_x;?>&y=<?php  echo $CONF_center_coord_y;?>" target=_self><img src=./img/home.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_center;?>" title="<?php  echo $CONF_txt_center;?>"></a></td>
-                  <td><a href="map.php?x=<?php  print $grid_x + 10; ?>&y=<?php  print $grid_y; ?>" target=_self><img src=./img/rechts.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_east;?>" title="<?php  echo $CONF_txt_east;?>"></a></td>
+                  <td><a href="mapmax.php?x=<?php  print $grid_x - 10; ?>&y=<?php  print $grid_y; ?>" target=_self><img src=./img/links.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_west;?>" title="<?php  echo $CONF_txt_west;?>"></a></td>
+                  <td><a href="mapmax.php?x=<?php  echo $CONF_center_coord_x;?>&y=<?php  echo $CONF_center_coord_y;?>" target=_self><img src=./img/home.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_center;?>" title="<?php  echo $CONF_txt_center;?>"></a></td>
+                  <td><a href="mapmax.php?x=<?php  print $grid_x + 10; ?>&y=<?php  print $grid_y; ?>" target=_self><img src=./img/rechts.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_east;?>" title="<?php  echo $CONF_txt_east;?>"></a></td>
 
 			   </tr>
                <tr>
                   <td><img src = ./img/spacer.gif></td>
-                  <td><a href="map.php?x=<?php  print $grid_x; ?>&y=<?php  print $grid_y -10; ?>" target=_self><img src=./img/unten.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_south;?>" title="<?php  echo $CONF_txt_south;?>"></a></td>
+                  <td><a href="mapmax.php?x=<?php  print $grid_x; ?>&y=<?php  print $grid_y -10; ?>" target=_self><img src=./img/unten.png width="50" height="50" border=0 alt="<?php  echo $CONF_txt_south;?>" title="<?php  echo $CONF_txt_south;?>"></a></td>
                   <td><img src = ./img/spacer.gif></td>
               </tr>
           </table>
@@ -212,7 +212,7 @@ $work_reg = $region['uuid'].";".$region['regionName'].";".$varreg_work_x.";".$va
           <table class="w3-table">
              <tr>
                <td align=right valign=middle border=0 width=40%>
-                   <form name="submit" action="map.php" method="post">
+                   <form name="submit" action="mapmax.php" method="post">
                    <font color=w3-blue-grey><b>X:</b></font>
                    <img src= ./img/spacer.gif></td>
                <td width=60% valign=middle align=left border=1 >
