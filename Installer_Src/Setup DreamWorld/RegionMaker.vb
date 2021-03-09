@@ -1558,38 +1558,34 @@ Public Class RegionMaker
 
             ' Smart Start
 
-            Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*)")
+            Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)(&Time=(.*))?")
             Dim match As Match = pattern.Match(post)
-
             If match.Success Then
                 Dim Region As String = Uri.UnescapeDataString(match.Groups(1).Value)
                 Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
                 Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
                 Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
+                Dim Time As String = Uri.UnescapeDataString(match.Groups(5).Value)
 
-                Dim uuid As String = FindRegionUUIDByName(Region)
-                Dim result As Guid
-                If Not Guid.TryParse(uuid, result) Then
-                    Return ""
+                ' Region may be a name or a Region UUID
+                Dim RegionUUID = FindRegionUUIDByName(Region)
+                If RegionUUID.Length = 0 Then
+                    RegionUUID = Region
                 End If
 
-                If Password = settings.MachineID Then
-
-                    Debug.Print("status = " & CStr(Status(result.ToString)))
-
+                If Password = settings.MachineID Or AgentName.Length = 0 Then
                     ' smart, and up
-                    If RegionEnabled(result.ToString) And Status(result.ToString) = SIMSTATUSENUM.Booted Then
-                        Return Region & "|0"
-
-                    ElseIf RegionEnabled(result.ToString) _
-                        And SmartStart(result.ToString) = "True" Then
-                        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(uuid))
+                    If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+                        Return Region
+                    ElseIf RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
+                        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
                         If TeleportAvatarDict.ContainsKey(AgentID) Then
                             TeleportAvatarDict.Remove(AgentID)
                         End If
-                        TeleportAvatarDict.Add(AgentID, result.ToString)
-                        Status(result.ToString) = SIMSTATUSENUM.Resume
-                        Return Region & "|" & CStr(BootTime(result.ToString) + 5)
+                        TeleportAvatarDict.Add(AgentID, RegionUUID)
+                        Status(RegionUUID) = SIMSTATUSENUM.Resume
+                        If AgentName.Length > 0 Then Time = Region & "|" & CStr(BootTime(RegionUUID) + 1)
+                        Return Region & Time
                     Else
                         BreakPoint.Show(post)
                     End If
