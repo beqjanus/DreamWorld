@@ -4,9 +4,11 @@ This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are re
 
 V3.8991
 Smart Start 1.0 Alpha release. Documentation coming later. Deal with it.
+Added a backup of the Statistics database, where logins and such are stored.
 Switched to Co-op mode for scripts which is more stable. Helps with stuck shutdowns.
 Added Start/Stop and Delete buttons for Apache. Do not stop apache, un-install it, install it, and start it. Just start it, okay?
 Region Icons line up in columns, and the Avatars and Users columns remember size changes.
+Added Show All Maps button to Maps
 Add DefaultRegion to all regions that are not Smart Start. Both HG and Local visitors will get redirected if the Welcome (HG default) region is offline.
 
 V3.899
@@ -16,12 +18,12 @@ Fix in restore SQL database  - just click the .sql and restore it.
 Tmp folder could fill up in V3.98 and fill a hard drive. Now gets emptied on startup.
 
 V3.898
-Add path to robocopy as Windows Server cant seem to find it.
+Add path to robocopy as Windows Server can't seem to find it.
 MysqlDump timeout  with --compress and  --skip-lock-tables --compress --quick.  Lets us back up while running without killing the Sims.
-30 Languages now!
-fix crash is no name when loading an OAR
+Add 10 more language translations - 30 Languages now!
+Fix crash if no name when loading an OAR.
 Re-enable all Physics engines.
-Valid UUIDs with Guid.TryParse
+Valid UUIDs with Guid.TryParse.
 
 V3.897
 Firewall may not be properly set due to a race condition in V3.896. Depends upon CPU speed, disk and region count
