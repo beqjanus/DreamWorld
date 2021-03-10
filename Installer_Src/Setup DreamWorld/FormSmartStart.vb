@@ -34,6 +34,12 @@ Public Class FormSmartStart
 
 #End Region
 
+    Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
+
+        Settings.SaveSettings()
+
+    End Sub
+
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
         HelpManual("SmartStart")
@@ -44,9 +50,14 @@ Public Class FormSmartStart
 
         SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
         DelayLabel.Text = Global.Outworldz.My.Resources.SSDelay
+        Waitcheck.Text = Global.Outworldz.My.Resources.Wait_For_scripts
+        ToolTip1.SetToolTip(Waitcheck, Global.Outworldz.My.Resources.AllowLogins)
+
         Me.Text = Global.Outworldz.My.Resources.Smart_Start_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
         SmartStartEnabled.Checked = Settings.SmartStart
+        Waitcheck.Checked = Not Settings.WaitForScripts
+
         Seconds.Text = CStr(Settings.SmartStartTimeout)
         SetScreen()
 
@@ -60,6 +71,10 @@ Public Class FormSmartStart
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
         Settings.SmartStart = SmartStartEnabled.Checked
+    End Sub
+
+    Private Sub Waitcheck_CheckedChanged(sender As Object, e As EventArgs) Handles Waitcheck.CheckedChanged
+        Settings.WaitForScripts = Not Waitcheck.Checked
     End Sub
 
 End Class
