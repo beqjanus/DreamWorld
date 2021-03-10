@@ -334,7 +334,7 @@ Public Class FormSetup
 
         Dim present As Integer = 0
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(groupname)
-            present += PropRegionClass.AvatarCount(RegionUUID)
+            present += GetAgentCount(RegionUUID)
         Next
 
         Return CType(present, Boolean)
