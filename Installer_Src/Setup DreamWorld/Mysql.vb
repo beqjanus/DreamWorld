@@ -222,31 +222,6 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function GetAgentCount(RegionUUID As String) As Integer
-
-        If Settings.ServerType <> RobustServerName Then Return 0
-        Try
-            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-                Dim stm As String = "SELECT count(*) FROM presence  INNER JOIN regions ON presence.RegionID = regions.uuid where regions.uuid = '@R' ;"
-
-                NewSQLConn.Open()
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    cmd.Parameters.AddWithValue("@R", RegionUUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
-                            Return CInt("0" & reader.GetString(0))
-                        End While
-                    End Using
-                End Using
-
-            End Using
-        Catch ex As Exception
-            Console.WriteLine("Error: " & ex.ToString())
-        End Try
-        Return 0
-
-    End Function
-
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
@@ -385,6 +360,44 @@ Public Module MysqlInterface
         End Try
 
         Return ""
+
+    End Function
+
+    Public Function IsAgentInRegion(RegionUUID As String) As Boolean
+
+        If Settings.ServerType <> RobustServerName Then Return False
+
+        Dim UserStmt = "SELECT LastRegionID from GridUser where online = 'True' and LastRegionID = @R;  "
+
+        Try
+            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                NewSQLConn.Open()
+                Using cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@R", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Return True
+                        End While
+                    End Using
+                End Using
+
+
+                Dim stm As String = "SELECT count(*) FROM presence  INNER JOIN regions ON presence.RegionID = regions.uuid where regions.uuid = @R ;"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@R", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim c = CInt("0" & reader.GetString(0))
+                            Return c > 0
+                        End While
+                    End Using
+                End Using
+
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("Error: " & ex.ToString())
+        End Try
+        Return False
 
     End Function
 
@@ -541,7 +554,7 @@ Public Module MysqlInterface
             MysqlConn.Open()
             Dim stm = "Select RegionName from regions where uuid = @UUID';"
             Using cmd As New MySqlCommand(stm, MysqlConn)
-                cmd.Parameters.AddWithValue("UUID", UUID)
+                cmd.Parameters.AddWithValue("@UUID", UUID)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     If reader.Read() Then
                         Debug.Print("Region Name = {0}", reader.GetString(0))
