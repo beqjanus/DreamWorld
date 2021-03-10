@@ -548,7 +548,7 @@ Public Class RegionMaker
 
         Dim proto = "; * Regions configuration file; " & vbCrLf _
         & "; Automatically changed and read by Dreamworld. Edits are allowed" & vbCrLf _
-        & "; Rule1: The File name must match the [RegionName]" & vbCrLf _
+        & "; Rule1: The File name must match the RegionName" & vbCrLf _
         & "; Rule2: Only one region per INI file." & vbCrLf _
         & ";" & vbCrLf _
         & "[" & name & "]" & vbCrLf _
@@ -1545,7 +1545,12 @@ Public Class RegionMaker
 
         ' alerts need to be fast so we stash them on a list and process them on a 10 second timer.
 
-        If (post.Contains("""alert"":""region_ready""")) Then
+        If post.Contains("/broker/") Then
+
+            '{0} avatar name, {1} region name, {2} number of avatars
+            BreakPoint.Show(post)
+
+        ElseIf post.Contains("""alert"":""region_ready""") Then
 
             WebserverList.Add(post)
 
@@ -1570,23 +1575,25 @@ Public Class RegionMaker
                     RegionUUID = Region
                 End If
 
-                ' smart, and up
-                If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
-                    Return Region
-                ElseIf RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
-                    TextPrint(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
-                    If TeleportAvatarDict.ContainsKey(AgentID) Then
-                        TeleportAvatarDict.Remove(AgentID)
+                If PropOpensimIsRunning Then
+                    ' smart, and up
+                    If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+                        Return Region
+                    ElseIf RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
+                        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
+                        If TeleportAvatarDict.ContainsKey(AgentID) Then
+                            TeleportAvatarDict.Remove(AgentID)
+                        End If
+                        TeleportAvatarDict.Add(AgentID, RegionUUID)
+                        Status(RegionUUID) = SIMSTATUSENUM.Resume
+                        If AgentName.Length > 0 Then Time = "|" & CStr(BootTime(RegionUUID) + 1)
+                        TextPrint($"Teleport {Region}")
+                        Return Region & Time
+                    Else
+                        BreakPoint.Show(post)
                     End If
-                    TeleportAvatarDict.Add(AgentID, RegionUUID)
-                    Status(RegionUUID) = SIMSTATUSENUM.Resume
-                    If AgentName.Length > 0 Then Time = "|" & CStr(BootTime(RegionUUID) + 1)
-                    TextPrint($"Teleport {Region}")
-                    Return Region & Time
-                Else
-                    BreakPoint.Show(post)
-                End If
 
+                End If
             End If
 
             Return ""
@@ -1712,11 +1719,9 @@ Public Class RegionMaker
             End If
             Debug.Print("NULL response")
             Return ""
-        Else
-            Return "Test Completed"
         End If
 
-        Return ""
+        Return "Test Completed"
 
     End Function
 
