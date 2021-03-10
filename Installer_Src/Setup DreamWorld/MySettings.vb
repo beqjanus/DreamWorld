@@ -6,6 +6,7 @@
 #End Region
 
 Imports System.IO
+Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IniParser
 Imports IniParser.Model
@@ -149,6 +150,8 @@ Public Class MySettings
 
     Public Function LoadIni(arg As String, comment As String) As String
 
+        If arg.Contains("/Regions/") Then CheckINI(arg)
+
         parser = New FileIniDataParser()
         parser.Parser.Configuration.SkipInvalidLines = True
         parser.Parser.Configuration.AssigmentSpacer = ""
@@ -261,6 +264,37 @@ Public Class MySettings
                 Thread.Sleep(100)
             End Try
         End While
+
+    End Sub
+
+    ''' <summary>
+    ''' Repair INI files with extra [sections]
+    ''' </summary>
+    ''' <param name="file">Path to region ini file</param>
+    Private Sub CheckINI(file As String)
+        Dim c As Integer
+        Using Reader As New System.IO.StreamReader(file)
+            Dim RepairedLine As String = ""
+            While Not Reader.EndOfStream
+                Dim line As String = Reader.ReadLine
+
+                Dim pattern As Regex = New Regex("^\[.*?\]")
+                Dim match As Match = pattern.Match(line)
+                If match.Success Then
+                    c += 1
+                End If
+                If c > 1 Then
+                    Reader.Close()
+                    FileStuff.DeleteFile(file)
+                    Using Writer As New StreamWriter(file)
+                        Writer.Write(RepairedLine)
+                    End Using
+                    Exit While
+                End If
+                'Debug.Print(line)
+                RepairedLine += line & vbCrLf
+            End While
+        End Using
 
     End Sub
 
@@ -776,24 +810,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -1982,8 +1998,6 @@ Public Class MySettings
         End Set
     End Property
 
-
-
     Public Property WANIP() As String
         Get
             Return _WANIP
@@ -2018,6 +2032,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
