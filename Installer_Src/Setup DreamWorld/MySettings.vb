@@ -1780,7 +1780,7 @@ Public Class MySettings
 
     Public Property SmartStartTimeout() As Integer
         Get
-            Return CInt("0" & GetMySetting("SmartStartTimeout", "60"))
+            Return CInt("0" & GetMySetting("SmartStartTimeout", "30"))
         End Get
         Set
             SetMySetting("SmartStartTimeout", CType(Value, String))
@@ -1982,15 +1982,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property WaitForScripts() As Boolean
-        Get
-            Return CType(GetMySetting("WaitForScripts", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("WaitForScripts", CStr(Value))
-        End Set
 
-    End Property
 
     Public Property WANIP() As String
         Get

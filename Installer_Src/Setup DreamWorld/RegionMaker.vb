@@ -1836,7 +1836,6 @@ Public Class RegionMaker
         'FrameTime = 0.0909
 
         Settings.SetIni("Startup", "FrameTime", CStr(1 / 11))
-        Settings.SetIni("RegionReady", "login_disable", CStr(Settings.WaitForScripts))
 
         ' LSL emails
         Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)

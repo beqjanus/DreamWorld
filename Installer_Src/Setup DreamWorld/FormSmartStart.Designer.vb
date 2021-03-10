@@ -28,7 +28,6 @@ Partial Class FormSmartStart
         Me.Seconds = New System.Windows.Forms.TextBox()
         Me.DelayLabel = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Waitcheck = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
@@ -49,7 +48,7 @@ Partial Class FormSmartStart
         '
         'Seconds
         '
-        Me.Seconds.Location = New System.Drawing.Point(32, 89)
+        Me.Seconds.Location = New System.Drawing.Point(39, 65)
         Me.Seconds.Margin = New System.Windows.Forms.Padding(1)
         Me.Seconds.Name = "Seconds"
         Me.Seconds.Size = New System.Drawing.Size(40, 20)
@@ -58,7 +57,7 @@ Partial Class FormSmartStart
         'DelayLabel
         '
         Me.DelayLabel.AutoSize = True
-        Me.DelayLabel.Location = New System.Drawing.Point(76, 89)
+        Me.DelayLabel.Location = New System.Drawing.Point(94, 68)
         Me.DelayLabel.Name = "DelayLabel"
         Me.DelayLabel.Size = New System.Drawing.Size(39, 13)
         Me.DelayLabel.TabIndex = 14
@@ -66,7 +65,6 @@ Partial Class FormSmartStart
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.Waitcheck)
         Me.GroupBox1.Controls.Add(Me.SmartStartEnabled)
         Me.GroupBox1.Controls.Add(Me.DelayLabel)
         Me.GroupBox1.Controls.Add(Me.Seconds)
@@ -76,18 +74,6 @@ Partial Class FormSmartStart
         Me.GroupBox1.TabIndex = 15
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "GroupBox1"
-        '
-        'Waitcheck
-        '
-        Me.Waitcheck.AutoSize = True
-        Me.Waitcheck.Location = New System.Drawing.Point(39, 57)
-        Me.Waitcheck.Margin = New System.Windows.Forms.Padding(1)
-        Me.Waitcheck.Name = "Waitcheck"
-        Me.Waitcheck.Size = New System.Drawing.Size(96, 17)
-        Me.Waitcheck.TabIndex = 15
-        Me.Waitcheck.Text = "Wait for scripts"
-
-        Me.Waitcheck.UseVisualStyleBackColor = True
         '
         'MenuStrip1
         '
@@ -131,6 +117,5 @@ Partial Class FormSmartStart
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents Waitcheck As CheckBox
     Friend WithEvents ToolTip1 As ToolTip
 End Class

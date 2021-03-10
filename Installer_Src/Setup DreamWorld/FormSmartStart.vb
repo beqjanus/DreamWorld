@@ -50,13 +50,11 @@ Public Class FormSmartStart
 
         SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
         DelayLabel.Text = Global.Outworldz.My.Resources.SSDelay
-        Waitcheck.Text = Global.Outworldz.My.Resources.Wait_For_scripts
-        ToolTip1.SetToolTip(Waitcheck, Global.Outworldz.My.Resources.AllowLogins)
+        ToolTip1.SetToolTip(Seconds, Global.Outworldz.My.Resources.SecondsTips)
 
         Me.Text = Global.Outworldz.My.Resources.Smart_Start_word
         GroupBox1.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
         SmartStartEnabled.Checked = Settings.SmartStart
-        Waitcheck.Checked = Not Settings.WaitForScripts
 
         Seconds.Text = CStr(Settings.SmartStartTimeout)
         SetScreen()
@@ -67,14 +65,11 @@ Public Class FormSmartStart
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Seconds.Text = digitsOnly.Replace(Seconds.Text, "")
         Settings.SmartStartTimeout = CInt("0" & Seconds.Text)
+        If Settings.SmartStartTimeout < 15 Then Settings.SmartStartTimeout = 15
     End Sub
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
         Settings.SmartStart = SmartStartEnabled.Checked
-    End Sub
-
-    Private Sub Waitcheck_CheckedChanged(sender As Object, e As EventArgs) Handles Waitcheck.CheckedChanged
-        Settings.WaitForScripts = Not Waitcheck.Checked
     End Sub
 
 End Class

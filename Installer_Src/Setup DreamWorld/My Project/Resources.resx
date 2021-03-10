@@ -3361,10 +3361,10 @@
   <data name="SSDelay" xml:space="preserve">
     <value>Shutdown in seconds</value>
   </data>
-  <data name="AllowLogins" xml:space="preserve">
-    <value>Allow teleports before the scripts have started. May be unstable on systems with large numbers of scripts.</value>
-  </data>
   <data name="Wait_For_scripts" xml:space="preserve">
     <value>Wait for Scripts</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>How long a running Region will stay up after an avatrar has left</value>
   </data>
 </root>
