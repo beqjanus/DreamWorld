@@ -1698,7 +1698,7 @@ Public Class MySettings
     'ShowConsoleStats
     Public Property ShowConsoleStats() As String
         Get
-            Return GetMySetting("ShowConsoleStats", "False")
+            Return GetMySetting("ShowConsoleStats", "false")
         End Get
         Set
             SetMySetting("ShowConsoleStats", Value)
@@ -1980,6 +1980,16 @@ Public Class MySettings
         Set
             SetMySetting("Vivox_username", Value)
         End Set
+    End Property
+
+    Public Property WaitForScripts() As Boolean
+        Get
+            Return CType(GetMySetting("WaitForScripts", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("WaitForScripts", CStr(Value))
+        End Set
+
     End Property
 
     Public Property WANIP() As String

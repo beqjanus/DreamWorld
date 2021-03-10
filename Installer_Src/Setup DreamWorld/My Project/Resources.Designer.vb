@@ -278,6 +278,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Allow teleports before the scripts have started. May be unstable on systems with large numbers of scripts..
+        '''</summary>
+        Friend ReadOnly Property AllowLogins() As String
+            Get
+                Return ResourceManager.GetString("AllowLogins", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Alpha-Numeric plus minus sign and space character.
         '''</summary>
         Friend ReadOnly Property AlphaNum() As String
@@ -9594,6 +9603,15 @@ Namespace My.Resources
         Friend ReadOnly Property Voice_Settings_Word() As String
             Get
                 Return ResourceManager.GetString("Voice_Settings_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Wait for Scripts.
+        '''</summary>
+        Friend ReadOnly Property Wait_For_scripts() As String
+            Get
+                Return ResourceManager.GetString("Wait_For_scripts", resourceCulture)
             End Get
         End Property
         
