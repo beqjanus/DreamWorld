@@ -22,6 +22,7 @@ Partial Class FormSmartStart
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormSmartStart))
         Me.SmartStartEnabled = New System.Windows.Forms.CheckBox()
         Me.Seconds = New System.Windows.Forms.TextBox()
@@ -29,6 +30,7 @@ Partial Class FormSmartStart
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -36,7 +38,7 @@ Partial Class FormSmartStart
         'SmartStartEnabled
         '
         Me.SmartStartEnabled.AutoSize = True
-        Me.SmartStartEnabled.Location = New System.Drawing.Point(39, 38)
+        Me.SmartStartEnabled.Location = New System.Drawing.Point(39, 27)
         Me.SmartStartEnabled.Margin = New System.Windows.Forms.Padding(1)
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(114, 17)
@@ -46,7 +48,7 @@ Partial Class FormSmartStart
         '
         'Seconds
         '
-        Me.Seconds.Location = New System.Drawing.Point(39, 74)
+        Me.Seconds.Location = New System.Drawing.Point(39, 65)
         Me.Seconds.Margin = New System.Windows.Forms.Padding(1)
         Me.Seconds.Name = "Seconds"
         Me.Seconds.Size = New System.Drawing.Size(40, 20)
@@ -55,7 +57,7 @@ Partial Class FormSmartStart
         'DelayLabel
         '
         Me.DelayLabel.AutoSize = True
-        Me.DelayLabel.Location = New System.Drawing.Point(83, 74)
+        Me.DelayLabel.Location = New System.Drawing.Point(94, 68)
         Me.DelayLabel.Name = "DelayLabel"
         Me.DelayLabel.Size = New System.Drawing.Size(39, 13)
         Me.DelayLabel.TabIndex = 14
@@ -115,4 +117,5 @@ Partial Class FormSmartStart
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

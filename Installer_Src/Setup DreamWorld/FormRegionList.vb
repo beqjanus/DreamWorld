@@ -108,11 +108,11 @@ Public Class FormRegionlist
 
     End Sub
 
-    Private Sub SetScreen()
+    Private Sub SetScreen(View As Integer)
 
         Me.Show()
         Try
-            ScreenPosition = New ScreenPos(MyBase.Name)
+            ScreenPosition = New ScreenPos(MyBase.Name & "_View_" & CStr(View))
             AddHandler ResizeEnd, Handler
             Dim xy As List(Of Integer) = ScreenPosition.GetXY()
             Me.Left = xy.Item(0)
@@ -470,7 +470,7 @@ Public Class FormRegionlist
         ' Set the view to show whatever
         TheView1 = Settings.RegionListView()
 
-        SetScreen()
+        SetScreen(TheView1)
 
         Timer1.Start()
         LoadMyListView()
@@ -1484,7 +1484,7 @@ SetWindowOnTop_Err:
         Settings.SaveSettings()
         TheView1 = ViewType.Avatars
 
-        SetScreen()
+        SetScreen(TheView1)
         ListView1.View = View.Details
 
         ListView1.Hide()
@@ -1500,7 +1500,7 @@ SetWindowOnTop_Err:
         Settings.RegionListView() = ViewType.Icons
         Settings.SaveSettings()
         TheView1 = ViewType.Icons
-        SetScreen()
+        SetScreen(TheView1)
         ListView1.View = View.SmallIcon
         IconView.Show()
         AvatarView.Hide()
@@ -1517,8 +1517,7 @@ SetWindowOnTop_Err:
         Settings.RegionListView() = ViewType.Details
         Settings.SaveSettings()
         TheView1 = ViewType.Details
-
-        SetScreen()
+        SetScreen(TheView1)
         ListView1.View = View.Details
         ListView1.Show()
         AvatarView.Hide()
@@ -1671,8 +1670,7 @@ SetWindowOnTop_Err:
         Settings.RegionListView() = ViewType.Users
         Settings.SaveSettings()
         TheView1 = ViewType.Users
-
-        SetScreen()
+        SetScreen(TheView1)
         ListView1.View = View.List
         ListView1.Hide()
         UserView.Show()

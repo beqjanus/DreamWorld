@@ -1698,7 +1698,7 @@ Public Class MySettings
     'ShowConsoleStats
     Public Property ShowConsoleStats() As String
         Get
-            Return GetMySetting("ShowConsoleStats", "False")
+            Return GetMySetting("ShowConsoleStats", "false")
         End Get
         Set
             SetMySetting("ShowConsoleStats", Value)
@@ -1780,7 +1780,7 @@ Public Class MySettings
 
     Public Property SmartStartTimeout() As Integer
         Get
-            Return CInt("0" & GetMySetting("SmartStartTimeout", "60"))
+            Return CInt("0" & GetMySetting("SmartStartTimeout", "30"))
         End Get
         Set
             SetMySetting("SmartStartTimeout", CType(Value, String))
@@ -1981,6 +1981,8 @@ Public Class MySettings
             SetMySetting("Vivox_username", Value)
         End Set
     End Property
+
+
 
     Public Property WANIP() As String
         Get

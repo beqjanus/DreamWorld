@@ -226,11 +226,9 @@ Public Module MysqlInterface
 
         Dim Dict As New Dictionary(Of String, String)
         If Settings.ServerType <> RobustServerName Then Return Dict
-
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
-
-            Try
+        Try
+            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
                 NewSQLConn.Open()
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -240,11 +238,11 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-            Catch ex As Exception
-                Console.WriteLine("Error: " & ex.ToString())
-            End Try
-        End Using
 
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("Error: " & ex.ToString())
+        End Try
         Return Dict
 
     End Function
@@ -311,8 +309,8 @@ Public Module MysqlInterface
         Dim pattern As String = "(.*?);.*;(.*)$"
         Dim Avatar As String
         Dim UUID As String
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
+        Try
+            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
                 NewSQLConn.Open()
                 Using cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -332,14 +330,10 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-            Catch ex As Exception
-                Console.WriteLine("Error: " & ex.ToString())
-            End Try
-        End Using
-
-        'If Debugger.IsAttached Then
-        'Dict.Add("Test User2", "Welcome")
-        'End If
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("Error: " & ex.ToString())
+        End Try
 
         Return Dict
 
@@ -366,6 +360,44 @@ Public Module MysqlInterface
         End Try
 
         Return ""
+
+    End Function
+
+    Public Function IsAgentInRegion(RegionUUID As String) As Boolean
+
+        If Settings.ServerType <> RobustServerName Then Return False
+
+        Dim UserStmt = "SELECT LastRegionID from GridUser where online = 'True' and LastRegionID = @R;  "
+
+        Try
+            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                NewSQLConn.Open()
+                Using cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@R", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Return True
+                        End While
+                    End Using
+                End Using
+
+
+                Dim stm As String = "SELECT count(*) FROM presence  INNER JOIN regions ON presence.RegionID = regions.uuid where regions.uuid = @R ;"
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@R", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        While reader.Read()
+                            Dim c = CInt("0" & reader.GetString(0))
+                            Return c > 0
+                        End While
+                    End Using
+                End Using
+
+            End Using
+        Catch ex As Exception
+            Console.WriteLine("Error: " & ex.ToString())
+        End Try
+        Return False
 
     End Function
 
@@ -401,18 +433,19 @@ Public Module MysqlInterface
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
-        Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
+        Try
+            Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
+
                 MysqlConn.Open()
                 Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
                     Dim v As String = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                     Return v
                 End Using
-            Catch ex As Exception
-                Debug.Print(ex.Message)
-            End Try
-        End Using
 
+            End Using
+        Catch ex As Exception
+            Debug.Print(ex.Message)
+        End Try
         Return ""
 
     End Function
@@ -521,7 +554,7 @@ Public Module MysqlInterface
             MysqlConn.Open()
             Dim stm = "Select RegionName from regions where uuid = @UUID';"
             Using cmd As New MySqlCommand(stm, MysqlConn)
-                cmd.Parameters.AddWithValue("UUID", UUID)
+                cmd.Parameters.AddWithValue("@UUID", UUID)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     If reader.Read() Then
                         Debug.Print("Region Name = {0}", reader.GetString(0))

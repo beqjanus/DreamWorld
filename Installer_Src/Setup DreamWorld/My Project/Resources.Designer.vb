@@ -7805,6 +7805,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to How long a running Region will stay up after an avatrar has left.
+        '''</summary>
+        Friend ReadOnly Property SecondsTips() As String
+            Get
+                Return ResourceManager.GetString("SecondsTips", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Secret.
         '''</summary>
         Friend ReadOnly Property Secret_word() As String
@@ -9594,6 +9603,15 @@ Namespace My.Resources
         Friend ReadOnly Property Voice_Settings_Word() As String
             Get
                 Return ResourceManager.GetString("Voice_Settings_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Wait for Scripts.
+        '''</summary>
+        Friend ReadOnly Property Wait_For_scripts() As String
+            Get
+                Return ResourceManager.GetString("Wait_For_scripts", resourceCulture)
             End Get
         End Property
         

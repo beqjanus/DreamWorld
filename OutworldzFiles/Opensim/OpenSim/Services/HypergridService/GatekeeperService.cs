@@ -307,7 +307,7 @@ namespace OpenSim.Services.HypergridService
                 }
                 catch (WebException ex)
                 {
-                    m_log.Error("[SMARTSTART]: " + ex.Message);
+                    m_log.Warn("[SMARTSTART]: " + ex.Message);
                 }
             }
             return regionID;

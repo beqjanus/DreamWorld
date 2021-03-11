@@ -698,8 +698,6 @@ SimulationService="OpenSim.Services.Connectors.dll:SimulationServiceConnector"
 ; If false, HG TPs happen only to the Default regions specified in [GridService] section
 AllowTeleportsToAnyRegion=true
 ;
-
-
 ; If you run this gatekeeper server behind a proxy, set this to true
 ; HasProxy = false
 ;; Are foreign visitors allowed?
@@ -849,6 +847,10 @@ InGatekeeper=True
 ;
 ; OfflineIM
 OfflineIMService="OpenSim.Addons.OfflineIM.dll:OfflineIMService"
+
+; Avatar UUID to mesaage telepoorts to, perhaps a prim
+MessageKey = ""
+
 ;
 [Groups]
 ;
@@ -891,10 +893,12 @@ SMTP_SERVER_LOGIN=
 SMTP_SERVER_PASSWORD=Gmail password
 ;
 ;
-;; For Joomla/jOpensim
+;; For Joomla/jOpensim and services that can use this to bypass region bottleneck for textures
 [CapsService]
 AssetService="OpenSim.Services.AssetService.dll:AssetService"
-
-
+;
+;
 [AutoLoadTeleport]
 Enabled = true
+;
+

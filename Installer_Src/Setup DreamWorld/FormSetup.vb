@@ -334,9 +334,10 @@ Public Class FormSetup
 
         Dim present As Integer = 0
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(groupname)
-            present += PropRegionClass.AvatarCount(RegionUUID)
+            If IsAgentInRegion(RegionUUID) Then
+                present += 1
+            End If
         Next
-
         Return CType(present, Boolean)
 
     End Function
@@ -1102,42 +1103,50 @@ Public Class FormSetup
             If PropRegionClass.SmartStart(RegionUUID) = "True" _
                     And Settings.SmartStart _
                     And SSExpired > 0 _
-                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
-                    And Not AvatarsIsInGroup(GroupName) Then
+                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
 
-                Logger("State Changed to ShuttingDown", RegionName, "Restart")
-                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
-                    PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
-                Next
-                ShutDown(RegionUUID)
-                PropUpdateView = True ' make form refresh
-                Continue For
+                ' time consuming, so a separate if
+                If Not AvatarsIsInGroup(GroupName) Then
+                    Logger("State Changed to ShuttingDown", RegionName, "Restart")
+                    ShutDown(RegionUUID)
+                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                    Next
+
+                    PropUpdateView = True ' make form refresh
+                    Continue For
+                Else
+                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                        PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+                    Next
+                End If
             End If
 
             ' auto restart timer
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
                 And Expired > 0 _
                 And Settings.AutoRestartInterval() > 0 _
-                And Settings.AutoRestartEnabled _
-                And Not AvatarsIsInGroup(GroupName) Then
+                And Settings.AutoRestartEnabled Then
 
-                ' shut down the group when AutoRestartInterval has gone by.
-                Logger("State is Time Exceeded, shutdown", RegionName, "Restart")
+                If Not AvatarsIsInGroup(GroupName) Then
 
-                ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
-                SequentialPause()
-                ' shut down all regions in the DOS box
-                ShutDown(RegionUUID)
-                Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
-                For Each UUID As String In GroupList
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                Next
-                Logger("State changed to RecyclingDown", GroupName, "Restart")
+                    ' shut down the group when AutoRestartInterval has gone by.
+                    Logger("State is Time Exceeded, shutdown", RegionName, "Restart")
 
-                TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
-                PropUpdateView = True
-                Continue For
+                    ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
+                    SequentialPause()
+                    ' shut down all regions in the DOS box
+                    ShutDown(RegionUUID)
+                    Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
+                    For Each UUID As String In GroupList
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                    Next
+                    Logger("State changed to RecyclingDown", GroupName, "Restart")
+
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
+                    PropUpdateView = True
+                    Continue For
+                End If
             End If
 
             ' if a RestartPending is signaled, boot it up

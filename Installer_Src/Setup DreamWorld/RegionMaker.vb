@@ -163,12 +163,9 @@ Public Class RegionMaker
                     Next
 
                 ElseIf json.login = "shutdown" Then
-
                     Logger("Shutdown", json.region_name, "Restart")
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
-
                 ElseIf json.login = "disabled" Then
-
                     Logger("RegionReady", json.region_name & " disabled login", "Restart")
                     Continue While
                 Else
@@ -1573,23 +1570,23 @@ Public Class RegionMaker
                     RegionUUID = Region
                 End If
 
-                If Password = settings.MachineID Or AgentName.Length = 0 Then
-                    ' smart, and up
-                    If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
-                        Return Region
-                    ElseIf RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
-                        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
-                        If TeleportAvatarDict.ContainsKey(AgentID) Then
-                            TeleportAvatarDict.Remove(AgentID)
-                        End If
-                        TeleportAvatarDict.Add(AgentID, RegionUUID)
-                        Status(RegionUUID) = SIMSTATUSENUM.Resume
-                        If AgentName.Length > 0 Then Time = Region & "|" & CStr(BootTime(RegionUUID) + 1)
-                        Return Region & Time
-                    Else
-                        BreakPoint.Show(post)
+                ' smart, and up
+                If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+                    Return Region
+                ElseIf RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
+                    TextPrint(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
+                    If TeleportAvatarDict.ContainsKey(AgentID) Then
+                        TeleportAvatarDict.Remove(AgentID)
                     End If
+                    TeleportAvatarDict.Add(AgentID, RegionUUID)
+                    Status(RegionUUID) = SIMSTATUSENUM.Resume
+                    If AgentName.Length > 0 Then Time = "|" & CStr(BootTime(RegionUUID) + 1)
+                    TextPrint($"Teleport {Region}")
+                    Return Region & Time
+                Else
+                    BreakPoint.Show(post)
                 End If
+
             End If
 
             Return ""
@@ -1838,7 +1835,7 @@ Public Class RegionMaker
         ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
         'FrameTime = 0.0909
 
-        Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Startup", "FrameTime", CStr(1 / 11))
 
         ' LSL emails
         Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
