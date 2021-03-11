@@ -176,7 +176,7 @@ Public Class FormRegionlist
 
     End Sub
 
-    Private Sub userview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles UserView.ColumnWidthChanged
+    Private Sub Userview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles UserView.ColumnWidthChanged
 
         Dim w = UserView.Columns(e.ColumnIndex).Width
         Dim name = UserView.Columns(e.ColumnIndex).Name

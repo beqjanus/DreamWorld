@@ -392,7 +392,7 @@ Module Robust
             Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
         End If
 
-        Settings.SetIni("AutoLoadTeleport", "Enabled", Settings.SmartStart)
+        Settings.SetIni("AutoLoadTeleport", "Enabled", CStr(Settings.SmartStart))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         Settings.SaveINI(INI, System.Text.Encoding.UTF8)
