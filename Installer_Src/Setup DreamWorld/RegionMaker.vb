@@ -544,7 +544,11 @@ Public Class RegionMaker
             End Try
         End If
 
-        ' TODO: Change estate for Smart Start
+        ' Change estate for Smart Start
+        Dim Estate = "Estate"
+        If PropRegionClass.SmartStart(uuid) = "True" Then
+            Estate = "SmartStart"
+        End If
 
         Dim proto = "; * Regions configuration file; " & vbCrLf _
         & "; Automatically changed and read by Dreamworld. Edits are allowed" & vbCrLf _
@@ -565,7 +569,7 @@ Public Class RegionMaker
         & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(uuid)) & vbCrLf _
         & "ClampPrimSize = " & CStr(ClampPrimSize(uuid)) & vbCrLf _
         & "MaxPrims = " & MaxPrims(uuid) & vbCrLf _
-        & "RegionType = Estate" & vbCrLf _
+        & "RegionType = " * Estate & vbCrLf _
         & "MaxAgents = 100" & vbCrLf & vbCrLf _
         & ";# Dreamgrid extended properties" & vbCrLf _
         & "RegionSnapShot = " & RegionSnapShot(uuid) & vbCrLf _
@@ -1446,38 +1450,6 @@ Public Class RegionMaker
 
     End Function
 
-    'TODO: Move to Mysql
-    Shared Function GetAgentNameByUUID(uuid As String) As String
-
-        If Settings.ServerType <> RobustServerName Then Return ""
-        Dim name As String = ""
-        Using myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
-            Dim Query1 = "Select userid from robust.griduser where userid like @p1;"
-
-            Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-                .Connection = myConnection
-            }
-                myConnection.Open()
-                myCommand1.Prepare()
-                myCommand1.Parameters.AddWithValue("p1", uuid & "%")
-                name = CStr(myCommand1.ExecuteScalar())
-            End Using
-
-        End Using
-
-        Debug.Print("User=" + uuid + ", name=" + name)
-        Dim pattern As Regex = New Regex(".*?;.*?;(.*)")
-        Dim match As Match = pattern.Match(name)
-        If match.Success Then
-            name = match.Groups(1).Value
-            Debug.Print("User=" + uuid + ", name=" + name)
-            Return name
-        End If
-
-        Return ""
-    End Function
-
-    'TODO: Move to Mysql
     Shared Function GetPartner(p1 As String, mysetting As MySettings) As String
 
         If mysetting Is Nothing Then
@@ -1595,7 +1567,6 @@ Public Class RegionMaker
                                 Return RegionName & time
                             Else   ' Opensim  ALT code
                                 ' Send them to "Welcome"
-                                ' TODO: Instant Message the User as they go to welcome
 
                                 Dim UUID = PropRegionClass.FindRegionByName(settings.WelcomeRegion)
                                 AddEm(UUID, AgentID)
