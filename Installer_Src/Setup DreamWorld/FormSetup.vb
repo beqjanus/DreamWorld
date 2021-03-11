@@ -59,7 +59,7 @@ Public Class FormSetup
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
-    Private ExitInterval As Integer = 2
+    Private ReadOnly ExitInterval As Integer = 2 ' how often to poll for tp
 
     Private ScreenPosition As ScreenPos
 
@@ -2542,7 +2542,6 @@ Public Class FormSetup
         Timer1.Interval = 1000
         TimerBusy = 1
 
-        ' variable speed, ranges from 1 to N second
         If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
             PropRegionClass.CheckPost() ' get the stack filled ASAP
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart

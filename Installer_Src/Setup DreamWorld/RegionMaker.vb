@@ -1296,7 +1296,7 @@ Public Class RegionMaker
 
     Public Shared Function GetStateString(state As Integer) As String
 
-        Dim statestring As String = Nothing
+        Dim statestring As String
         Select Case state
             Case 0
                 statestring = "Stopped"

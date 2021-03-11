@@ -163,6 +163,7 @@ Public Class FormPorts
 
     End Sub
 
+
     Private Sub PrivatePort_TextChanged(sender As Object, e As EventArgs) Handles PrivatePort.TextChanged
 
         If Not initted Then Return
@@ -184,6 +185,7 @@ Public Class FormPorts
         HelpManual("Ports")
 
     End Sub
+
 
 #End Region
 
