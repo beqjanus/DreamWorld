@@ -21,6 +21,19 @@ Module RPC
 
     End Function
 
+    Public Function SendAdminMessage(RegionUUID As String, Message As String) As Boolean
+
+        'http://opensimulator.org/wiki/RemoteAdmin:admin_dialog
+
+        Dim ht As Hashtable = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"message", Message}
+       }
+        Log("Info", "Message to " & PropRegionClass.RegionName(RegionUUID) & " of " & Message)
+        Return SendRPC(RegionUUID, "admin_dialog", ht)
+
+    End Function
+
     Public Function SendMessage(RegionUUID As String, Message As String) As Boolean
 
         'http://opensimulator.org/wiki/RemoteAdmin:admin_broadcast
