@@ -2526,7 +2526,7 @@ Public Class FormSetup
             Return
         End If
 
-        TeleportAgents()
+
 
         Chart() ' do charts collection each second
 
@@ -2545,6 +2545,7 @@ Public Class FormSetup
         If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
             PropRegionClass.CheckPost() ' get the stack filled ASAP
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+            TeleportAgents()
             RestartDOSboxes()
         End If
 
