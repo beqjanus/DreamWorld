@@ -1502,6 +1502,39 @@
   <ItemGroup>
     <None Include="Resources\flag_vietnam.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\data_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\spy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Free Bird Icon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Free Bird Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\index.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\currency_dollar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icecast.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Joomla.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\flag_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cube_blue_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wave.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

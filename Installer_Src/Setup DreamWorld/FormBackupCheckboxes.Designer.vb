@@ -50,7 +50,7 @@ Partial Class FormBackupCheckboxes
         Me.GroupBox1.Controls.Add(Me.RegionCheckBox)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 33)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(221, 205)
+        Me.GroupBox1.Size = New System.Drawing.Size(283, 205)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Backup"
@@ -143,7 +143,7 @@ Partial Class FormBackupCheckboxes
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(259, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(307, 30)
         Me.MenuStrip1.TabIndex = 18602
         '
         'HelpToolStripMenuItem
@@ -158,7 +158,7 @@ Partial Class FormBackupCheckboxes
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(259, 243)
+        Me.ClientSize = New System.Drawing.Size(307, 243)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)

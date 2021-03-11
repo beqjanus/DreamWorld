@@ -1841,7 +1841,7 @@ Public Class RegionMaker
         ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
         'FrameTime = 0.0909
 
-        Settings.SetIni("Startup", "FrameTime", CStr(1 / 11))
+        Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Globalization.CultureInfo.InvariantCulture))
 
         ' LSL emails
         Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
@@ -1950,8 +1950,8 @@ Public Class RegionMaker
                 Xtime = 1.0 / 11.0
             End If
         End If
-        Settings.SetIni("XEngine", "MinTimerInterval", CStr(Xtime))
-        Settings.SetIni("YEngine", "MinTimerInterval", CStr(Xtime))
+        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
         ' Gloebit
         Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))

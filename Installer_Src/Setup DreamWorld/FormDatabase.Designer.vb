@@ -177,14 +177,14 @@ Partial Class FormDatabase
         Me.GridGroup.Controls.Add(Me.RobustDBUsername)
         Me.GridGroup.Location = New System.Drawing.Point(25, 37)
         Me.GridGroup.Name = "GridGroup"
-        Me.GridGroup.Size = New System.Drawing.Size(277, 177)
+        Me.GridGroup.Size = New System.Drawing.Size(287, 177)
         Me.GridGroup.TabIndex = 55
         Me.GridGroup.TabStop = False
         Me.GridGroup.Text = "Robust"
         '
         'RobustServer
         '
-        Me.RobustServer.Location = New System.Drawing.Point(27, 35)
+        Me.RobustServer.Location = New System.Drawing.Point(6, 25)
         Me.RobustServer.Name = "RobustServer"
         Me.RobustServer.Size = New System.Drawing.Size(107, 20)
         Me.RobustServer.TabIndex = 1
@@ -193,7 +193,7 @@ Partial Class FormDatabase
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(159, 36)
+        Me.Label16.Location = New System.Drawing.Point(138, 26)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(41, 13)
         Me.Label16.TabIndex = 38
@@ -202,7 +202,7 @@ Partial Class FormDatabase
         'Dbnameindex
         '
         Me.Dbnameindex.AutoSize = True
-        Me.Dbnameindex.Location = New System.Drawing.Point(159, 60)
+        Me.Dbnameindex.Location = New System.Drawing.Point(138, 50)
         Me.Dbnameindex.Name = "Dbnameindex"
         Me.Dbnameindex.Size = New System.Drawing.Size(84, 13)
         Me.Dbnameindex.TabIndex = 35
@@ -211,7 +211,7 @@ Partial Class FormDatabase
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(159, 112)
+        Me.Label9.Location = New System.Drawing.Point(138, 102)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(53, 13)
         Me.Label9.TabIndex = 35
@@ -219,7 +219,7 @@ Partial Class FormDatabase
         '
         'RobustDbPort
         '
-        Me.RobustDbPort.Location = New System.Drawing.Point(87, 135)
+        Me.RobustDbPort.Location = New System.Drawing.Point(66, 125)
         Me.RobustDbPort.Name = "RobustDbPort"
         Me.RobustDbPort.Size = New System.Drawing.Size(47, 20)
         Me.RobustDbPort.TabIndex = 5
@@ -227,7 +227,7 @@ Partial Class FormDatabase
         '
         'RobustDbName
         '
-        Me.RobustDbName.Location = New System.Drawing.Point(27, 60)
+        Me.RobustDbName.Location = New System.Drawing.Point(6, 50)
         Me.RobustDbName.Name = "RobustDbName"
         Me.RobustDbName.Size = New System.Drawing.Size(107, 20)
         Me.RobustDbName.TabIndex = 2
@@ -236,7 +236,7 @@ Partial Class FormDatabase
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(159, 89)
+        Me.Label15.Location = New System.Drawing.Point(138, 79)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(60, 13)
         Me.Label15.TabIndex = 34
@@ -245,7 +245,7 @@ Partial Class FormDatabase
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(159, 139)
+        Me.Label8.Location = New System.Drawing.Point(138, 129)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(64, 13)
         Me.Label8.TabIndex = 32
@@ -253,7 +253,7 @@ Partial Class FormDatabase
         '
         'RobustDBPassword
         '
-        Me.RobustDBPassword.Location = New System.Drawing.Point(27, 112)
+        Me.RobustDBPassword.Location = New System.Drawing.Point(6, 102)
         Me.RobustDBPassword.Name = "RobustDBPassword"
         Me.RobustDBPassword.Size = New System.Drawing.Size(107, 20)
         Me.RobustDBPassword.TabIndex = 4
@@ -262,7 +262,7 @@ Partial Class FormDatabase
         '
         'RobustDBUsername
         '
-        Me.RobustDBUsername.Location = New System.Drawing.Point(27, 87)
+        Me.RobustDBUsername.Location = New System.Drawing.Point(6, 77)
         Me.RobustDBUsername.Name = "RobustDBUsername"
         Me.RobustDBUsername.Size = New System.Drawing.Size(107, 20)
         Me.RobustDBUsername.TabIndex = 3

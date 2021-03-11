@@ -100,7 +100,7 @@ Partial Class FormApache
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(415, 34)
+        Me.MenuStrip1.Size = New System.Drawing.Size(491, 34)
         Me.MenuStrip1.TabIndex = 186740
         '
         'HelpToolStripMenuItem
@@ -121,7 +121,7 @@ Partial Class FormApache
         Me.GroupBox3.Margin = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2, 1, 2, 1)
-        Me.GroupBox3.Size = New System.Drawing.Size(150, 150)
+        Me.GroupBox3.Size = New System.Drawing.Size(224, 150)
         Me.GroupBox3.TabIndex = 186742
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Content Manager"
@@ -130,7 +130,7 @@ Partial Class FormApache
         '
         Me.Other.Location = New System.Drawing.Point(5, 125)
         Me.Other.Name = "Other"
-        Me.Other.Size = New System.Drawing.Size(140, 20)
+        Me.Other.Size = New System.Drawing.Size(181, 20)
         Me.Other.TabIndex = 8
         '
         'EnableOther
@@ -178,7 +178,7 @@ Partial Class FormApache
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(415, 205)
+        Me.ClientSize = New System.Drawing.Size(491, 205)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.GroupBox2)

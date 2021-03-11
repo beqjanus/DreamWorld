@@ -57,7 +57,6 @@ Public Class FormVoice
         Label1.Text = Global.Outworldz.My.Resources.User_ID_word
         Label2.Text = Global.Outworldz.My.Resources.Password_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
-        RequestPassword.Text = Global.Outworldz.My.Resources.Click_to_Request_Voice_Service
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         VivoxEnable.Text = Global.Outworldz.My.Resources.Enable_word
@@ -70,15 +69,6 @@ Public Class FormVoice
         SetScreen()
         HelpOnce("Vivox")
 
-    End Sub
-
-    Private Sub RequestPassword_Click(sender As Object, e As EventArgs) Handles RequestPassword.Click
-        Dim webAddress As String = "https://opensim.vivox.com/opensim/"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
     End Sub
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click

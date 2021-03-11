@@ -51,18 +51,20 @@ Partial Class FormSettings
         Me.BanListButton = New System.Windows.Forms.Button()
         Me.JoomlaButton = New System.Windows.Forms.Button()
         Me.SearchButton = New System.Windows.Forms.Button()
+        Me.SmartStartButton = New System.Windows.Forms.Button()
         Me.LanguageButton = New System.Windows.Forms.Button()
         Me.FSAssetsButton = New System.Windows.Forms.Button()
         Me.GlobalSettingsGroupbox = New System.Windows.Forms.GroupBox()
-        Me.SmartStartButton = New System.Windows.Forms.Button()
         Me.GlobalSettingsGroupbox.SuspendLayout()
         Me.SuspendLayout()
         '
         'TOSButton
         '
-        Me.TOSButton.Location = New System.Drawing.Point(174, 350)
+        Me.TOSButton.Image = Global.Outworldz.My.Resources.Resources.document_text
+        Me.TOSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.TOSButton.Location = New System.Drawing.Point(240, 460)
         Me.TOSButton.Name = "TOSButton"
-        Me.TOSButton.Size = New System.Drawing.Size(145, 23)
+        Me.TOSButton.Size = New System.Drawing.Size(180, 35)
         Me.TOSButton.TabIndex = 15
         Me.TOSButton.Text = Global.Outworldz.My.Resources.Resources.Terms_of_Service
         Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Resources.Setup_TOS)
@@ -70,9 +72,11 @@ Partial Class FormSettings
         '
         'TideButton
         '
-        Me.TideButton.Location = New System.Drawing.Point(174, 320)
+        Me.TideButton.Image = Global.Outworldz.My.Resources.Resources.wave
+        Me.TideButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.TideButton.Location = New System.Drawing.Point(240, 420)
         Me.TideButton.Name = "TideButton"
-        Me.TideButton.Size = New System.Drawing.Size(145, 23)
+        Me.TideButton.Size = New System.Drawing.Size(180, 35)
         Me.TideButton.TabIndex = 14
         Me.TideButton.Text = Global.Outworldz.My.Resources.Resources.Tides_word
         Me.ToolTip1.SetToolTip(Me.TideButton, Global.Outworldz.My.Resources.Resources.Click_Tides)
@@ -80,9 +84,11 @@ Partial Class FormSettings
         '
         'CurrencyButton
         '
-        Me.CurrencyButton.Location = New System.Drawing.Point(16, 170)
+        Me.CurrencyButton.Image = Global.Outworldz.My.Resources.Resources.currency_dollar
+        Me.CurrencyButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.CurrencyButton.Location = New System.Drawing.Point(15, 220)
         Me.CurrencyButton.Name = "CurrencyButton"
-        Me.CurrencyButton.Size = New System.Drawing.Size(143, 23)
+        Me.CurrencyButton.Size = New System.Drawing.Size(180, 35)
         Me.CurrencyButton.TabIndex = 4
         Me.CurrencyButton.Text = Global.Outworldz.My.Resources.Resources.Currency_word
         Me.ToolTip1.SetToolTip(Me.CurrencyButton, Global.Outworldz.My.Resources.Resources.Click_Currency)
@@ -90,9 +96,11 @@ Partial Class FormSettings
         '
         'VoiceButton1
         '
-        Me.VoiceButton1.Location = New System.Drawing.Point(174, 379)
+        Me.VoiceButton1.Image = Global.Outworldz.My.Resources.Resources.users1
+        Me.VoiceButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.VoiceButton1.Location = New System.Drawing.Point(239, 500)
         Me.VoiceButton1.Name = "VoiceButton1"
-        Me.VoiceButton1.Size = New System.Drawing.Size(143, 23)
+        Me.VoiceButton1.Size = New System.Drawing.Size(180, 35)
         Me.VoiceButton1.TabIndex = 16
         Me.VoiceButton1.Text = Global.Outworldz.My.Resources.Resources.Vivox_Voice_word
         Me.ToolTip1.SetToolTip(Me.VoiceButton1, Global.Outworldz.My.Resources.Resources.Click_Voice)
@@ -100,9 +108,11 @@ Partial Class FormSettings
         '
         'IcecastButton
         '
-        Me.IcecastButton.Location = New System.Drawing.Point(19, 290)
+        Me.IcecastButton.Image = Global.Outworldz.My.Resources.Resources.Icecast
+        Me.IcecastButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.IcecastButton.Location = New System.Drawing.Point(15, 380)
         Me.IcecastButton.Name = "IcecastButton"
-        Me.IcecastButton.Size = New System.Drawing.Size(145, 23)
+        Me.IcecastButton.Size = New System.Drawing.Size(180, 35)
         Me.IcecastButton.TabIndex = 6
         Me.IcecastButton.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
         Me.ToolTip1.SetToolTip(Me.IcecastButton, Global.Outworldz.My.Resources.Resources.Click_Icecast)
@@ -110,9 +120,11 @@ Partial Class FormSettings
         '
         'MapsButton
         '
-        Me.MapsButton.Location = New System.Drawing.Point(14, 410)
+        Me.MapsButton.Image = Global.Outworldz.My.Resources.Resources.flag_blue
+        Me.MapsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MapsButton.Location = New System.Drawing.Point(15, 540)
         Me.MapsButton.Name = "MapsButton"
-        Me.MapsButton.Size = New System.Drawing.Size(145, 23)
+        Me.MapsButton.Size = New System.Drawing.Size(180, 35)
         Me.MapsButton.TabIndex = 7
         Me.MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
         Me.ToolTip1.SetToolTip(Me.MapsButton, Global.Outworldz.My.Resources.Resources.Click_Maps)
@@ -120,9 +132,11 @@ Partial Class FormSettings
         '
         'Birds
         '
-        Me.Birds.Location = New System.Drawing.Point(15, 110)
+        Me.Birds.Image = CType(resources.GetObject("Birds.Image"), System.Drawing.Image)
+        Me.Birds.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Birds.Location = New System.Drawing.Point(15, 140)
         Me.Birds.Name = "Birds"
-        Me.Birds.Size = New System.Drawing.Size(145, 23)
+        Me.Birds.Size = New System.Drawing.Size(180, 35)
         Me.Birds.TabIndex = 2
         Me.Birds.Text = Global.Outworldz.My.Resources.Resources.Bird_Settings_word
         Me.ToolTip1.SetToolTip(Me.Birds, Global.Outworldz.My.Resources.Resources.Click_Birds)
@@ -130,9 +144,11 @@ Partial Class FormSettings
         '
         'BackupButton1
         '
-        Me.BackupButton1.Location = New System.Drawing.Point(15, 50)
+        Me.BackupButton1.Image = Global.Outworldz.My.Resources.Resources.data_copy1
+        Me.BackupButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BackupButton1.Location = New System.Drawing.Point(15, 60)
         Me.BackupButton1.Name = "BackupButton1"
-        Me.BackupButton1.Size = New System.Drawing.Size(145, 23)
+        Me.BackupButton1.Size = New System.Drawing.Size(180, 35)
         Me.BackupButton1.TabIndex = 1
         Me.BackupButton1.Text = Global.Outworldz.My.Resources.Resources.Backup_Settings_word
         Me.ToolTip1.SetToolTip(Me.BackupButton1, Global.Outworldz.My.Resources.Resources.Backup_Schedule)
@@ -140,9 +156,11 @@ Partial Class FormSettings
         '
         'RegionsButton1
         '
-        Me.RegionsButton1.Location = New System.Drawing.Point(173, 140)
+        Me.RegionsButton1.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        Me.RegionsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RegionsButton1.Location = New System.Drawing.Point(240, 180)
         Me.RegionsButton1.Name = "RegionsButton1"
-        Me.RegionsButton1.Size = New System.Drawing.Size(145, 23)
+        Me.RegionsButton1.Size = New System.Drawing.Size(180, 35)
         Me.RegionsButton1.TabIndex = 12
         Me.RegionsButton1.Text = Global.Outworldz.My.Resources.Resources.Regions_word
         Me.ToolTip1.SetToolTip(Me.RegionsButton1, Global.Outworldz.My.Resources.Resources.Click_Regions)
@@ -150,9 +168,11 @@ Partial Class FormSettings
         '
         'DivaButton1
         '
-        Me.DivaButton1.Location = New System.Drawing.Point(175, 408)
+        Me.DivaButton1.Image = Global.Outworldz.My.Resources.Resources.earth_view
+        Me.DivaButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.DivaButton1.Location = New System.Drawing.Point(239, 540)
         Me.DivaButton1.Name = "DivaButton1"
-        Me.DivaButton1.Size = New System.Drawing.Size(145, 23)
+        Me.DivaButton1.Size = New System.Drawing.Size(180, 35)
         Me.DivaButton1.TabIndex = 18
         Me.DivaButton1.Text = Global.Outworldz.My.Resources.Resources.Web
         Me.ToolTip1.SetToolTip(Me.DivaButton1, Global.Outworldz.My.Resources.Resources.Click_Web)
@@ -160,9 +180,11 @@ Partial Class FormSettings
         '
         'PortsButton1
         '
-        Me.PortsButton1.Location = New System.Drawing.Point(174, 20)
+        Me.PortsButton1.Image = Global.Outworldz.My.Resources.Resources.server_connection
+        Me.PortsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.PortsButton1.Location = New System.Drawing.Point(240, 20)
         Me.PortsButton1.Name = "PortsButton1"
-        Me.PortsButton1.Size = New System.Drawing.Size(145, 23)
+        Me.PortsButton1.Size = New System.Drawing.Size(180, 35)
         Me.PortsButton1.TabIndex = 8
         Me.PortsButton1.Text = Global.Outworldz.My.Resources.Resources.Network_Ports
         Me.ToolTip1.SetToolTip(Me.PortsButton1, Global.Outworldz.My.Resources.Resources.Click_Ports)
@@ -170,10 +192,11 @@ Partial Class FormSettings
         '
         'PhysicsButton1
         '
+        Me.PhysicsButton1.Image = Global.Outworldz.My.Resources.Resources.transform
         Me.PhysicsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.PhysicsButton1.Location = New System.Drawing.Point(173, 80)
+        Me.PhysicsButton1.Location = New System.Drawing.Point(240, 100)
         Me.PhysicsButton1.Name = "PhysicsButton1"
-        Me.PhysicsButton1.Size = New System.Drawing.Size(145, 23)
+        Me.PhysicsButton1.Size = New System.Drawing.Size(180, 35)
         Me.PhysicsButton1.TabIndex = 10
         Me.PhysicsButton1.Text = Global.Outworldz.My.Resources.Resources.Physics_word
         Me.ToolTip1.SetToolTip(Me.PhysicsButton1, Global.Outworldz.My.Resources.Resources.Click_Physics)
@@ -181,9 +204,11 @@ Partial Class FormSettings
         '
         'DatabaseButton2
         '
-        Me.DatabaseButton2.Location = New System.Drawing.Point(15, 200)
+        Me.DatabaseButton2.Image = Global.Outworldz.My.Resources.Resources.data
+        Me.DatabaseButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.DatabaseButton2.Location = New System.Drawing.Point(15, 260)
         Me.DatabaseButton2.Name = "DatabaseButton2"
-        Me.DatabaseButton2.Size = New System.Drawing.Size(145, 23)
+        Me.DatabaseButton2.Size = New System.Drawing.Size(180, 35)
         Me.DatabaseButton2.TabIndex = 3
         Me.DatabaseButton2.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
         Me.ToolTip1.SetToolTip(Me.DatabaseButton2, Global.Outworldz.My.Resources.Resources.Click_Database)
@@ -191,9 +216,11 @@ Partial Class FormSettings
         '
         'RestartButton
         '
-        Me.RestartButton.Location = New System.Drawing.Point(173, 170)
+        Me.RestartButton.Image = Global.Outworldz.My.Resources.Resources.recycle
+        Me.RestartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RestartButton.Location = New System.Drawing.Point(239, 220)
         Me.RestartButton.Name = "RestartButton"
-        Me.RestartButton.Size = New System.Drawing.Size(143, 23)
+        Me.RestartButton.Size = New System.Drawing.Size(180, 35)
         Me.RestartButton.TabIndex = 13
         Me.RestartButton.Text = Global.Outworldz.My.Resources.Resources.Restart_Settings_word
         Me.ToolTip1.SetToolTip(Me.RestartButton, Global.Outworldz.My.Resources.Resources.Click_Restart)
@@ -201,9 +228,11 @@ Partial Class FormSettings
         '
         'PermissionsButton
         '
-        Me.PermissionsButton.Location = New System.Drawing.Point(173, 50)
+        Me.PermissionsButton.Image = Global.Outworldz.My.Resources.Resources.gear
+        Me.PermissionsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.PermissionsButton.Location = New System.Drawing.Point(240, 60)
         Me.PermissionsButton.Name = "PermissionsButton"
-        Me.PermissionsButton.Size = New System.Drawing.Size(143, 23)
+        Me.PermissionsButton.Size = New System.Drawing.Size(180, 35)
         Me.PermissionsButton.TabIndex = 9
         Me.PermissionsButton.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
         Me.ToolTip1.SetToolTip(Me.PermissionsButton, Global.Outworldz.My.Resources.Resources.Click_for_God_Mode)
@@ -211,9 +240,11 @@ Partial Class FormSettings
         '
         'DNSButton
         '
-        Me.DNSButton.Location = New System.Drawing.Point(17, 260)
+        Me.DNSButton.Image = Global.Outworldz.My.Resources.Resources.earth_network
+        Me.DNSButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.DNSButton.Location = New System.Drawing.Point(15, 340)
         Me.DNSButton.Name = "DNSButton"
-        Me.DNSButton.Size = New System.Drawing.Size(145, 23)
+        Me.DNSButton.Size = New System.Drawing.Size(180, 35)
         Me.DNSButton.TabIndex = 5
         Me.DNSButton.Text = Global.Outworldz.My.Resources.Resources.Hypergrid
         Me.ToolTip1.SetToolTip(Me.DNSButton, Global.Outworldz.My.Resources.Resources.Click_HG)
@@ -221,9 +252,11 @@ Partial Class FormSettings
         '
         'PublicityButton
         '
-        Me.PublicityButton.Location = New System.Drawing.Point(173, 110)
+        Me.PublicityButton.Image = Global.Outworldz.My.Resources.Resources.cube_blue_add
+        Me.PublicityButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.PublicityButton.Location = New System.Drawing.Point(240, 140)
         Me.PublicityButton.Name = "PublicityButton"
-        Me.PublicityButton.Size = New System.Drawing.Size(145, 23)
+        Me.PublicityButton.Size = New System.Drawing.Size(180, 35)
         Me.PublicityButton.TabIndex = 11
         Me.PublicityButton.Text = Global.Outworldz.My.Resources.Resources.Publicity_Word
         Me.ToolTip1.SetToolTip(Me.PublicityButton, Global.Outworldz.My.Resources.Resources.Click_Publicity)
@@ -231,9 +264,11 @@ Partial Class FormSettings
         '
         'CacheButton1
         '
-        Me.CacheButton1.Location = New System.Drawing.Point(15, 140)
+        Me.CacheButton1.Image = Global.Outworldz.My.Resources.Resources.index
+        Me.CacheButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.CacheButton1.Location = New System.Drawing.Point(15, 180)
         Me.CacheButton1.Name = "CacheButton1"
-        Me.CacheButton1.Size = New System.Drawing.Size(145, 23)
+        Me.CacheButton1.Size = New System.Drawing.Size(180, 35)
         Me.CacheButton1.TabIndex = 19
         Me.CacheButton1.Text = Global.Outworldz.My.Resources.Resources.Caches_word
         Me.ToolTip1.SetToolTip(Me.CacheButton1, Global.Outworldz.My.Resources.Resources.Click_Caches)
@@ -241,9 +276,11 @@ Partial Class FormSettings
         '
         'ServerTypeButton
         '
-        Me.ServerTypeButton.Location = New System.Drawing.Point(173, 260)
+        Me.ServerTypeButton.Image = Global.Outworldz.My.Resources.Resources.Server_Client
+        Me.ServerTypeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ServerTypeButton.Location = New System.Drawing.Point(240, 340)
         Me.ServerTypeButton.Name = "ServerTypeButton"
-        Me.ServerTypeButton.Size = New System.Drawing.Size(145, 23)
+        Me.ServerTypeButton.Size = New System.Drawing.Size(180, 35)
         Me.ServerTypeButton.TabIndex = 20
         Me.ServerTypeButton.Text = Global.Outworldz.My.Resources.Resources.Server_Type_word
         Me.ToolTip1.SetToolTip(Me.ServerTypeButton, Global.Outworldz.My.Resources.Resources.Click_Server)
@@ -251,9 +288,11 @@ Partial Class FormSettings
         '
         'ApacheButton
         '
-        Me.ApacheButton.Location = New System.Drawing.Point(16, 20)
+        Me.ApacheButton.Image = Global.Outworldz.My.Resources.Resources.earth_network
+        Me.ApacheButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ApacheButton.Location = New System.Drawing.Point(15, 20)
         Me.ApacheButton.Name = "ApacheButton"
-        Me.ApacheButton.Size = New System.Drawing.Size(145, 23)
+        Me.ApacheButton.Size = New System.Drawing.Size(180, 35)
         Me.ApacheButton.TabIndex = 21
         Me.ApacheButton.Text = Global.Outworldz.My.Resources.Resources.Apache_Webserver
         Me.ToolTip1.SetToolTip(Me.ApacheButton, Global.Outworldz.My.Resources.Resources.ApacheWebServer)
@@ -261,9 +300,11 @@ Partial Class FormSettings
         '
         'ScriptButton
         '
-        Me.ScriptButton.Location = New System.Drawing.Point(173, 200)
+        Me.ScriptButton.Image = Global.Outworldz.My.Resources.Resources.window_edit
+        Me.ScriptButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ScriptButton.Location = New System.Drawing.Point(239, 260)
         Me.ScriptButton.Name = "ScriptButton"
-        Me.ScriptButton.Size = New System.Drawing.Size(145, 23)
+        Me.ScriptButton.Size = New System.Drawing.Size(180, 35)
         Me.ScriptButton.TabIndex = 22
         Me.ScriptButton.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
         Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Resources.Click_to_View_this_word)
@@ -271,9 +312,11 @@ Partial Class FormSettings
         '
         'LoggingButton
         '
-        Me.LoggingButton.Location = New System.Drawing.Point(19, 380)
+        Me.LoggingButton.Image = Global.Outworldz.My.Resources.Resources.scroll
+        Me.LoggingButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LoggingButton.Location = New System.Drawing.Point(15, 500)
         Me.LoggingButton.Name = "LoggingButton"
-        Me.LoggingButton.Size = New System.Drawing.Size(145, 23)
+        Me.LoggingButton.Size = New System.Drawing.Size(180, 35)
         Me.LoggingButton.TabIndex = 23
         Me.LoggingButton.Text = Global.Outworldz.My.Resources.Resources.Logging_word
         Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Resources.Log_Level)
@@ -281,9 +324,11 @@ Partial Class FormSettings
         '
         'BanListButton
         '
-        Me.BanListButton.Location = New System.Drawing.Point(15, 80)
+        Me.BanListButton.Image = Global.Outworldz.My.Resources.Resources.spy
+        Me.BanListButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BanListButton.Location = New System.Drawing.Point(15, 100)
         Me.BanListButton.Name = "BanListButton"
-        Me.BanListButton.Size = New System.Drawing.Size(145, 23)
+        Me.BanListButton.Size = New System.Drawing.Size(180, 35)
         Me.BanListButton.TabIndex = 24
         Me.BanListButton.Text = Global.Outworldz.My.Resources.Resources.Ban_List_word
         Me.ToolTip1.SetToolTip(Me.BanListButton, Global.Outworldz.My.Resources.Resources.BanList_string)
@@ -291,9 +336,11 @@ Partial Class FormSettings
         '
         'JoomlaButton
         '
-        Me.JoomlaButton.Location = New System.Drawing.Point(19, 320)
+        Me.JoomlaButton.Image = Global.Outworldz.My.Resources.Resources.Joomla
+        Me.JoomlaButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.JoomlaButton.Location = New System.Drawing.Point(15, 420)
         Me.JoomlaButton.Name = "JoomlaButton"
-        Me.JoomlaButton.Size = New System.Drawing.Size(145, 23)
+        Me.JoomlaButton.Size = New System.Drawing.Size(180, 35)
         Me.JoomlaButton.TabIndex = 25
         Me.JoomlaButton.Text = "Joomla/jOpensim"
         Me.ToolTip1.SetToolTip(Me.JoomlaButton, Global.Outworldz.My.Resources.Resources.Click_Setup)
@@ -301,28 +348,47 @@ Partial Class FormSettings
         '
         'SearchButton
         '
-        Me.SearchButton.Location = New System.Drawing.Point(173, 230)
+        Me.SearchButton.Image = Global.Outworldz.My.Resources.Resources.selection_view
+        Me.SearchButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SearchButton.Location = New System.Drawing.Point(240, 300)
         Me.SearchButton.Name = "SearchButton"
-        Me.SearchButton.Size = New System.Drawing.Size(145, 23)
+        Me.SearchButton.Size = New System.Drawing.Size(180, 35)
         Me.SearchButton.TabIndex = 26
         Me.SearchButton.Text = "Search Options"
         Me.ToolTip1.SetToolTip(Me.SearchButton, Global.Outworldz.My.Resources.Resources.Click_to_Setup_Search)
         Me.SearchButton.UseVisualStyleBackColor = True
         '
+        'SmartStartButton
+        '
+        Me.SmartStartButton.Image = Global.Outworldz.My.Resources.Resources.cube_green
+        Me.SmartStartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SmartStartButton.Location = New System.Drawing.Point(240, 380)
+        Me.SmartStartButton.Name = "SmartStartButton"
+        Me.SmartStartButton.Size = New System.Drawing.Size(180, 35)
+        Me.SmartStartButton.TabIndex = 29
+        Me.SmartStartButton.Text = "Smart Start"
+        Me.ToolTip1.SetToolTip(Me.SmartStartButton, Global.Outworldz.My.Resources.Resources.Click_Server)
+        Me.SmartStartButton.UseVisualStyleBackColor = True
+        '
         'LanguageButton
         '
-        Me.LanguageButton.Location = New System.Drawing.Point(19, 350)
+        Me.LanguageButton.Image = Global.Outworldz.My.Resources.Resources.flag_usa
+        Me.LanguageButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LanguageButton.Location = New System.Drawing.Point(15, 460)
         Me.LanguageButton.Name = "LanguageButton"
-        Me.LanguageButton.Size = New System.Drawing.Size(145, 23)
+        Me.LanguageButton.Size = New System.Drawing.Size(180, 35)
         Me.LanguageButton.TabIndex = 28
         Me.LanguageButton.Text = "Language"
         Me.LanguageButton.UseVisualStyleBackColor = True
         '
         'FSAssetsButton
         '
-        Me.FSAssetsButton.Location = New System.Drawing.Point(17, 230)
+        Me.FSAssetsButton.BackColor = System.Drawing.SystemColors.Control
+        Me.FSAssetsButton.Image = Global.Outworldz.My.Resources.Resources.folder
+        Me.FSAssetsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.FSAssetsButton.Location = New System.Drawing.Point(15, 300)
         Me.FSAssetsButton.Name = "FSAssetsButton"
-        Me.FSAssetsButton.Size = New System.Drawing.Size(145, 23)
+        Me.FSAssetsButton.Size = New System.Drawing.Size(180, 35)
         Me.FSAssetsButton.TabIndex = 27
         Me.FSAssetsButton.Text = "FSassets"
         Me.FSAssetsButton.UseVisualStyleBackColor = True
@@ -359,20 +425,10 @@ Partial Class FormSettings
         Me.GlobalSettingsGroupbox.Controls.Add(Me.IcecastButton)
         Me.GlobalSettingsGroupbox.Location = New System.Drawing.Point(12, 12)
         Me.GlobalSettingsGroupbox.Name = "GlobalSettingsGroupbox"
-        Me.GlobalSettingsGroupbox.Size = New System.Drawing.Size(340, 448)
+        Me.GlobalSettingsGroupbox.Size = New System.Drawing.Size(441, 596)
         Me.GlobalSettingsGroupbox.TabIndex = 1870
         Me.GlobalSettingsGroupbox.TabStop = False
         Me.GlobalSettingsGroupbox.Text = "Global Settings"
-        '
-        'SmartStartButton
-        '
-        Me.SmartStartButton.Location = New System.Drawing.Point(172, 290)
-        Me.SmartStartButton.Name = "SmartStartButton"
-        Me.SmartStartButton.Size = New System.Drawing.Size(145, 23)
-        Me.SmartStartButton.TabIndex = 29
-        Me.SmartStartButton.Text = "Smart Start"
-        Me.ToolTip1.SetToolTip(Me.SmartStartButton, Global.Outworldz.My.Resources.Resources.Click_Server)
-        Me.SmartStartButton.UseVisualStyleBackColor = True
         '
         'FormSettings
         '
@@ -380,7 +436,7 @@ Partial Class FormSettings
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.ClientSize = New System.Drawing.Size(371, 473)
+        Me.ClientSize = New System.Drawing.Size(478, 625)
         Me.Controls.Add(Me.GlobalSettingsGroupbox)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False

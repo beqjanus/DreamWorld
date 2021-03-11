@@ -1921,6 +1921,8 @@ namespace OpenSim.Region.Framework.Scenes
                 // sleep if we can
                 if (tmpMS2 > 0)
                 {
+                    //m_log.ErrorFormat("[SCENE]: Sleep:{0}", tmpMS2);
+
                     Thread.Sleep((int)(tmpMS2 + 0.5));
 
                     tmpMS2 = Util.GetTimeStampMS();

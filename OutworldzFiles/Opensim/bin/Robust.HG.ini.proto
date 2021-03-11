@@ -811,7 +811,7 @@ UserAccountsService="OpenSim.Services.UserAccountService.dll:UserAccountService"
 ; read and create assets when on another grid.  This reuses the general asset service connector.
 ; Hence, if the user has set up authentication in [Network] to protect their private services
 ; make sure it is overriden for this public service.
-AuthType=None
+AuthType="None"
 ;
 ;; Can overwrite the default in [Hypergrid], but probably shouldn't
 ; HomeURI = "${Const|BaseURL}:${Const|PublicPort}"
@@ -826,6 +826,7 @@ AuthType=None
 ;; of scripts, like so:
 ; DisallowExport ="LSLText"
 ; DisallowImport ="LSLBytecode"
+;
 [HGFriendsService]
 LocalServiceModule="OpenSim.Services.HypergridService.dll:HGFriendsService"
 UserAgentService="OpenSim.Services.HypergridService.dll:UserAgentService"

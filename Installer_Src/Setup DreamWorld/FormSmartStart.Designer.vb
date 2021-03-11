@@ -59,9 +59,9 @@ Partial Class FormSmartStart
         Me.DelayLabel.AutoSize = True
         Me.DelayLabel.Location = New System.Drawing.Point(94, 68)
         Me.DelayLabel.Name = "DelayLabel"
-        Me.DelayLabel.Size = New System.Drawing.Size(39, 13)
+        Me.DelayLabel.Size = New System.Drawing.Size(49, 13)
         Me.DelayLabel.TabIndex = 14
-        Me.DelayLabel.Text = "Label1"
+        Me.DelayLabel.Text = "Seconds"
         '
         'GroupBox1
         '
@@ -70,10 +70,10 @@ Partial Class FormSmartStart
         Me.GroupBox1.Controls.Add(Me.Seconds)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 47)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(257, 144)
+        Me.GroupBox1.Size = New System.Drawing.Size(257, 121)
         Me.GroupBox1.TabIndex = 15
         Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "GroupBox1"
+        Me.GroupBox1.Text = "Smart Start"
         '
         'MenuStrip1
         '

@@ -34,9 +34,9 @@ Partial Class TosForm
         '
         'PreviewButton
         '
-        Me.PreviewButton.Location = New System.Drawing.Point(251, 489)
+        Me.PreviewButton.Location = New System.Drawing.Point(403, 489)
         Me.PreviewButton.Name = "PreviewButton"
-        Me.PreviewButton.Size = New System.Drawing.Size(121, 23)
+        Me.PreviewButton.Size = New System.Drawing.Size(171, 23)
         Me.PreviewButton.TabIndex = 3
         Me.PreviewButton.Text = Global.Outworldz.My.Resources.Resources.Preview_in_Browser
         Me.PreviewButton.UseVisualStyleBackColor = True
@@ -52,25 +52,25 @@ Partial Class TosForm
         Me.Editor1.FontSize = LiveSwitch.TextControl.FontSize.Three
         Me.Editor1.Html = Nothing
         Me.Editor1.Location = New System.Drawing.Point(13, 45)
-        Me.Editor1.Margin = New System.Windows.Forms.Padding(5, 5, 5, 5)
+        Me.Editor1.Margin = New System.Windows.Forms.Padding(5)
         Me.Editor1.Name = "Editor1"
         Me.Editor1.Size = New System.Drawing.Size(636, 421)
         Me.Editor1.TabIndex = 7
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(9, 489)
+        Me.SaveButton.Location = New System.Drawing.Point(86, 489)
         Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(75, 23)
+        Me.SaveButton.Size = New System.Drawing.Size(89, 23)
         Me.SaveButton.TabIndex = 1
         Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Ok
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'ApplyButton
         '
-        Me.ApplyButton.Location = New System.Drawing.Point(109, 489)
+        Me.ApplyButton.Location = New System.Drawing.Point(247, 489)
         Me.ApplyButton.Name = "ApplyButton"
-        Me.ApplyButton.Size = New System.Drawing.Size(75, 23)
+        Me.ApplyButton.Size = New System.Drawing.Size(95, 23)
         Me.ApplyButton.TabIndex = 2
         Me.ApplyButton.Text = Global.Outworldz.My.Resources.Resources.Apply_word
         Me.ApplyButton.UseVisualStyleBackColor = True

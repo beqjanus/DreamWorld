@@ -63,7 +63,7 @@ Partial Class FormTide
         Me.GroupBox1.Controls.Add(Me.TideEnabledCheckbox)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(283, 232)
+        Me.GroupBox1.Size = New System.Drawing.Size(294, 232)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Global Tide Settings"

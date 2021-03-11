@@ -419,6 +419,8 @@ Public Class FormSetup
 
 #End Region
 
+#Region "Misc"
+
     Public Shared Sub ShowRegionMap()
 
         Dim region = ChooseRegion(False)
@@ -618,6 +620,8 @@ Public Class FormSetup
         End If
 
     End Sub
+
+#End Region
 
 #Region "StartOpensim"
 
@@ -1038,7 +1042,6 @@ Public Class FormSetup
 
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
-
         End While
 
         ' check to see if a handle to all regions exists
@@ -2526,8 +2529,6 @@ Public Class FormSetup
             Return
         End If
 
-
-
         Chart() ' do charts collection each second
 
         If TimerBusy > 0 And TimerBusy < 10 Then
@@ -2694,7 +2695,9 @@ Public Class FormSetup
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
+                ' TODO: Choose
                 SendMessage(RegionUUID, Message)
+                SendAdminMessage(RegionUUID, Message)
             End If
 
         End If

@@ -158,7 +158,7 @@ Partial Class FormPermissions
         Me.DomainUpDown1.Items.Add("80%")
         Me.DomainUpDown1.Items.Add("90%")
         Me.DomainUpDown1.Items.Add("100%")
-        Me.DomainUpDown1.Location = New System.Drawing.Point(77, 19)
+        Me.DomainUpDown1.Location = New System.Drawing.Point(104, 18)
         Me.DomainUpDown1.Name = "DomainUpDown1"
         Me.DomainUpDown1.Size = New System.Drawing.Size(66, 20)
         Me.DomainUpDown1.TabIndex = 18

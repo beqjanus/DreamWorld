@@ -113,7 +113,7 @@ Partial Class FormCaches
         Me.GroupBox1.Controls.Add(Me.AssetCheckBox3)
         Me.GroupBox1.Location = New System.Drawing.Point(16, 33)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(183, 204)
+        Me.GroupBox1.Size = New System.Drawing.Size(217, 204)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Choose which cache to empty"
@@ -134,7 +134,7 @@ Partial Class FormCaches
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(552, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(600, 30)
         Me.MenuStrip1.TabIndex = 18601
         '
         'HelpToolStripMenuItem
@@ -155,9 +155,9 @@ Partial Class FormCaches
         Me.GroupBox2.Controls.Add(Me.CacheEnabledBox)
         Me.GroupBox2.Controls.Add(Me.CacheFolder)
         Me.GroupBox2.Controls.Add(Me.LogLevelBox)
-        Me.GroupBox2.Location = New System.Drawing.Point(205, 84)
+        Me.GroupBox2.Location = New System.Drawing.Point(239, 84)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(333, 153)
+        Me.GroupBox2.Size = New System.Drawing.Size(349, 153)
         Me.GroupBox2.TabIndex = 18602
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Asset Cache"
@@ -244,9 +244,9 @@ Partial Class FormCaches
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.ViewerCacheCheckbox)
-        Me.GroupBox3.Location = New System.Drawing.Point(205, 24)
+        Me.GroupBox3.Location = New System.Drawing.Point(239, 24)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(333, 51)
+        Me.GroupBox3.Size = New System.Drawing.Size(162, 51)
         Me.GroupBox3.TabIndex = 18603
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Viewer Cache"
@@ -267,7 +267,7 @@ Partial Class FormCaches
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(552, 247)
+        Me.ClientSize = New System.Drawing.Size(600, 247)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MenuStrip1)
