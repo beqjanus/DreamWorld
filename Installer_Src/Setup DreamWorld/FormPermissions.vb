@@ -43,7 +43,7 @@ Public Class FormPermissions
         EnableMaxPrims.Text = Global.Outworldz.My.Resources.Max_Prims
         GroupBox1.Text = Global.Outworldz.My.Resources.Export_Permission_word '"Export Permission"
         GroupBox4.Text = Global.Outworldz.My.Resources.Permissions_word '"Permissions"
-        GroupBox7.Text = Global.Outworldz.My.Resources.Clouds_word '"Clouds"
+        CloudBox.Text = Global.Outworldz.My.Resources.Clouds_word '"Clouds"
         LimitsBox.Text = Global.Outworldz.My.Resources.Prim_Limits '"Prim Limits"
         ManagerGod.Text = Global.Outworldz.My.Resources.Region_manager_god
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
@@ -122,16 +122,22 @@ Public Class FormPermissions
     Private Sub DomainUpDown1_SelectedItemChanged(sender As Object, e As EventArgs) Handles DomainUpDown1.SelectedItemChanged
 
         If initted Then
-            Dim var As Double = CType(DomainUpDown1.SelectedIndex, Double)
+            Try
+                Dim var As Double = CType(DomainUpDown1.SelectedIndex, Double)
 
-            If var = -1 Then var = 0.5
-            var /= 10
-            If (var > 1) Then var = 1
-            If (var < 0) Then var = 0
-            Debug.Print(var.ToString(Globalization.CultureInfo.InvariantCulture))
+                If var = -1 Then var = 0.5
+                var /= 10
+                If (var > 1) Then var = 1
+                If (var < 0) Then var = 0
+                Debug.Print(var.ToString(Globalization.CultureInfo.InvariantCulture))
 
-            Settings.Density = var
-            Settings.SaveSettings()
+                Settings.Density = var
+                Settings.SaveSettings()
+            Catch
+                Settings.Density = 0.5
+                Settings.SaveSettings()
+            End Try
+
         End If
 
     End Sub

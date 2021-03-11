@@ -101,7 +101,6 @@ Public Class NetServer
                         Log("URI", lcUri)
                         responseString = PropRegionClass1.ParsePost(lcUri, Setting)
                     End If
-
                 End If
 
             End Using
