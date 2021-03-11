@@ -194,7 +194,7 @@ Module WindowHandlers
         ''' </summary>
         ''' <param name="hwnd">Handle to the window to change the text on</param>
         ''' <param name="windowName">the name of the Window</param>
-        Thread.Sleep(100)
+
         If myProcess Is Nothing Then
             ErrorLog("Process is nothing " & windowName)
             Return False
@@ -217,23 +217,25 @@ Module WindowHandlers
                 myhandle = myProcess.MainWindowHandle
             End While
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
             ErrorLog(windowName & ":" & ex.Message)
             Return False
         End Try
+
         ' so we now have a window handle. The trick is to write it and get it back, which is unreliable!
         WindowCounter = 0
         Dim rtry = 0
         While True
-            Dim status = SetWindowText(myhandle, windowName)
-
+            Dim winStatus As Boolean
+            If rtry Mod 2 = 0 Then
+                winStatus = SetWindowText(myhandle, windowName)
+            End If
             Try
                 Sleep(100)
                 Application.DoEvents()
                 myProcess.Refresh()
-                If status And myProcess.MainWindowTitle = windowName Then
+                If winStatus And myProcess.MainWindowTitle = windowName Then
                     rtry += 1
-                    If rtry = 4 Then
+                    If rtry = 10 Then
                         Exit While
                     End If
                 Else
