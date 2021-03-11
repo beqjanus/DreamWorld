@@ -125,7 +125,6 @@ namespace OpenSim.Region.CoreModules.Avatar.Inventory.Archiver.Tests
 
             string itemName = "You & you are a mean/man/";
             string humanEscapedItemName = @"You & you are a mean\/man\/";
-            string userPassword = "meowfood";
 
             InventoryArchiverModule archiverModule = new InventoryArchiverModule();
 
