@@ -1560,43 +1560,62 @@ Public Class RegionMaker
 
             ' Smart Start
 
-            Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)(&Time=(.*))?")
+            Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)")
             Dim match As Match = pattern.Match(post)
             If match.Success Then
-                Dim Region As String = Uri.UnescapeDataString(match.Groups(1).Value)
+                Dim RegionName As String = Uri.UnescapeDataString(match.Groups(1).Value)
                 Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
                 Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
                 Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
-                Dim Time As String = Uri.UnescapeDataString(match.Groups(5).Value)
+
+                Dim time As String = "1"
 
                 ' Region may be a name or a Region UUID
-                Dim RegionUUID = FindRegionUUIDByName(Region)
+                Dim RegionUUID = FindRegionUUIDByName(RegionName)
                 If RegionUUID.Length = 0 Then
-                    RegionUUID = Region
+                    RegionUUID = RegionName
                 End If
 
                 If PropOpensimIsRunning Then
-                    ' smart, and up
-                    If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
-                        Return Region
-                    ElseIf RegionEnabled(RegionUUID) And SmartStart(RegionUUID) = "True" Then
-                        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
-                        If TeleportAvatarDict.ContainsKey(AgentID) Then
-                            TeleportAvatarDict.Remove(AgentID)
+                    If SmartStart(RegionUUID) = "True" Then
+                        ' smart, and up
+                        If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+                            ' Scripts send us the Agent Name
+                            If AgentName.Length > 0 Then
+                                AddEm(RegionUUID, AgentID)
+                                Return RegionName & "|" & time
+                            Else
+                                Return RegionUUID
+                            End If
+                        Else  ' requires booting
+                            ' Scripts send us the Agent Name
+                            If AgentName.Length > 0 Then
+                                time = "|" & CStr(BootTime(RegionUUID) + 10)
+                                AddEm(RegionUUID, AgentID)
+                                Return RegionName & time
+                            Else   ' Opensim  ALT code
+                                ' Send them to "Welcome"
+                                ' TODO: Instant Message the User as they go to welcome
+
+                                Dim UUID = PropRegionClass.FindRegionByName(settings.WelcomeRegion)
+                                AddEm(UUID, AgentID)
+                                Return UUID
+                            End If
                         End If
-                        TeleportAvatarDict.Add(AgentID, RegionUUID)
-                        Status(RegionUUID) = SIMSTATUSENUM.Resume
-                        If AgentName.Length > 0 Then Time = "|" & CStr(BootTime(RegionUUID) + 1)
-                        TextPrint($"Teleport {Region}")
-                        Return Region & Time
-                    Else
-                        BreakPoint.Show(post)
+                    Else ' Non Smart Start
+                        If AgentName.Length > 0 Then
+                            If AgentName.Length > 0 Then
+                                time = "|" & CStr(BootTime(RegionUUID) + 10)
+                                Return RegionName & time
+                            Else   ' Opensim  ALT code gets just the region they asked for as it  is not smart start.
+                                Return RegionUUID
+                            End If
+                        End If
                     End If
-
                 End If
+                ' not running
+                Return ""
             End If
-
-            Return ""
 
         ElseIf post.Contains("TOS") Then
             ' currently unused as is only in stand alones
@@ -1724,6 +1743,17 @@ Public Class RegionMaker
         Return "Test Completed"
 
     End Function
+
+    Private Sub AddEm(RegionUUID As String, AgentID As String)
+
+        TextPrint(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
+        If TeleportAvatarDict.ContainsKey(AgentID) Then
+            TeleportAvatarDict.Remove(AgentID)
+        End If
+        TeleportAvatarDict.Add(AgentID, RegionUUID)
+        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+
+    End Sub
 
 #End Region
 
