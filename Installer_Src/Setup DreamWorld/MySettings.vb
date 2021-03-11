@@ -150,6 +150,7 @@ Public Class MySettings
 
     Public Function LoadIni(arg As String, comment As String) As String
 
+        If arg Is Nothing Then Return ""
         If arg.Contains("/Regions/") Then CheckINI(arg)
 
         parser = New FileIniDataParser()
@@ -161,7 +162,7 @@ Public Class MySettings
         Catch ex As Exception
             MsgBox(ex.Message)
             Logger("Warn", ex.Message, "Error")
-            Return Nothing
+            Return ""
         End Try
 
         Return arg
@@ -271,7 +272,7 @@ Public Class MySettings
     ''' Repair INI files with extra [sections]
     ''' </summary>
     ''' <param name="file">Path to region ini file</param>
-    Private Sub CheckINI(file As String)
+    Private Shared Sub CheckINI(file As String)
         Dim c As Integer
         Using Reader As New System.IO.StreamReader(file)
             Dim RepairedLine As String = ""
