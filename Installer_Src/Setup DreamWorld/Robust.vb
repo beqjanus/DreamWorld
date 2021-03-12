@@ -332,9 +332,9 @@ Module Robust
 
         'For GetTexture Service
         If Settings.FsAssetsEnabled Then
-            Settings.SetIni("CapsService", "AssetService", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+            Settings.SetIni("CapsService", "AssetService", """" & "OpenSim.Services.FSAssetService.dll:FSAssetConnector" & """")
         Else
-            Settings.SetIni("CapsService", "AssetService", "OpenSim.Services.AssetService.dll:AssetService")
+            Settings.SetIni("CapsService", "AssetService", """" & "OpenSim.Services.AssetService.dll:AssetService" & """")
         End If
 
         If Settings.AltDnsName.Length > 0 Then
