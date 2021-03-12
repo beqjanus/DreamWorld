@@ -133,6 +133,9 @@ Partial Class FormSetup
         Me.RestartApacheIcon = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestartToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.StartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteServiceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestartIcecastIcon = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.RestartIceCastItem2 = New System.Windows.Forms.ToolStripMenuItem()
@@ -152,14 +155,14 @@ Partial Class FormSetup
         Me.ChartWrapper1 = New MSChartWrapper.ChartWrapper()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TextBox1 = New System.Windows.Forms.RichTextBox()
-        Me.StopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DeleteServiceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DiskSize = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'FileToolStripMenuItem
@@ -905,15 +908,36 @@ Partial Class FormSetup
         '
         Me.HelpToolStripMenuItem3.Image = Global.Outworldz.My.Resources.Resources.question_and_answer
         Me.HelpToolStripMenuItem3.Name = "HelpToolStripMenuItem3"
-        Me.HelpToolStripMenuItem3.Size = New System.Drawing.Size(184, 26)
+        Me.HelpToolStripMenuItem3.Size = New System.Drawing.Size(147, 22)
         Me.HelpToolStripMenuItem3.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'RestartToolStripMenuItem2
         '
         Me.RestartToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.recycle
         Me.RestartToolStripMenuItem2.Name = "RestartToolStripMenuItem2"
-        Me.RestartToolStripMenuItem2.Size = New System.Drawing.Size(184, 26)
+        Me.RestartToolStripMenuItem2.Size = New System.Drawing.Size(147, 22)
         Me.RestartToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        '
+        'StopToolStripMenuItem
+        '
+        Me.StopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.media_stop
+        Me.StopToolStripMenuItem.Name = "StopToolStripMenuItem"
+        Me.StopToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.StopToolStripMenuItem.Text = "Stop "
+        '
+        'StartToolStripMenuItem
+        '
+        Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.media_play
+        Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
+        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.StartToolStripMenuItem.Text = "Start"
+        '
+        'DeleteServiceToolStripMenuItem
+        '
+        Me.DeleteServiceToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.media_stop_red
+        Me.DeleteServiceToolStripMenuItem.Name = "DeleteServiceToolStripMenuItem"
+        Me.DeleteServiceToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
+        Me.DeleteServiceToolStripMenuItem.Text = "Delete Service"
         '
         'RestartIcecastIcon
         '
@@ -952,7 +976,7 @@ Partial Class FormSetup
         '
         Me.AvatarLabel.AutoSize = True
         Me.AvatarLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AvatarLabel.Location = New System.Drawing.Point(109, 36)
+        Me.AvatarLabel.Location = New System.Drawing.Point(3, 0)
         Me.AvatarLabel.Name = "AvatarLabel"
         Me.AvatarLabel.Size = New System.Drawing.Size(46, 15)
         Me.AvatarLabel.TabIndex = 32
@@ -962,7 +986,7 @@ Partial Class FormSetup
         '
         Me.PercentCPU.AutoSize = True
         Me.PercentCPU.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentCPU.Location = New System.Drawing.Point(204, 36)
+        Me.PercentCPU.Location = New System.Drawing.Point(55, 0)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(13, 15)
         Me.PercentCPU.TabIndex = 35
@@ -972,7 +996,7 @@ Partial Class FormSetup
         '
         Me.PercentRAM.AutoSize = True
         Me.PercentRAM.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentRAM.Location = New System.Drawing.Point(265, 36)
+        Me.PercentRAM.Location = New System.Drawing.Point(74, 0)
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(13, 15)
         Me.PercentRAM.TabIndex = 37
@@ -1082,26 +1106,33 @@ Partial Class FormSetup
         Me.TextBox1.TabIndex = 18610
         Me.TextBox1.Text = ""
         '
-        'StopToolStripMenuItem
+        'DiskSize
         '
-        Me.StopToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.media_stop
-        Me.StopToolStripMenuItem.Name = "StopToolStripMenuItem"
-        Me.StopToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.StopToolStripMenuItem.Text = "Stop "
+        Me.DiskSize.AutoSize = True
+        Me.DiskSize.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DiskSize.Location = New System.Drawing.Point(93, 0)
+        Me.DiskSize.Name = "DiskSize"
+        Me.DiskSize.Size = New System.Drawing.Size(13, 15)
+        Me.DiskSize.TabIndex = 18611
+        Me.DiskSize.Text = "0"
         '
-        'StartToolStripMenuItem
+        'TableLayoutPanel1
         '
-        Me.StartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.media_play
-        Me.StartToolStripMenuItem.Name = "StartToolStripMenuItem"
-        Me.StartToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.StartToolStripMenuItem.Text = "Start"
-        '
-        'DeleteServiceToolStripMenuItem
-        '
-        Me.DeleteServiceToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.media_stop_red
-        Me.DeleteServiceToolStripMenuItem.Name = "DeleteServiceToolStripMenuItem"
-        Me.DeleteServiceToolStripMenuItem.Size = New System.Drawing.Size(184, 26)
-        Me.DeleteServiceToolStripMenuItem.Text = "Delete Service"
+        Me.TableLayoutPanel1.ColumnCount = 4
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.DiskSize, 3, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PercentCPU, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PercentRAM, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.AvatarLabel, 0, 0)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(142, 31)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 1
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(296, 23)
+        Me.TableLayoutPanel1.TabIndex = 18611
         '
         'FormSetup
         '
@@ -1109,14 +1140,12 @@ Partial Class FormSetup
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(544, 449)
+        Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.BusyButton)
-        Me.Controls.Add(Me.AvatarLabel)
         Me.Controls.Add(Me.StopButton)
         Me.Controls.Add(Me.StartButton)
-        Me.Controls.Add(Me.PercentCPU)
-        Me.Controls.Add(Me.PercentRAM)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -1133,6 +1162,8 @@ Partial Class FormSetup
         Me.SplitContainer1.Panel2.PerformLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1271,4 +1302,6 @@ Partial Class FormSetup
     Friend WithEvents StopToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StartToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DeleteServiceToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents DiskSize As Label
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
 End Class

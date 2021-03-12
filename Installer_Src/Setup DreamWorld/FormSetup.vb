@@ -32,6 +32,7 @@ Public Class FormSetup
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
+    Private ReadOnly ExitInterval As Integer = 2
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
@@ -59,7 +60,7 @@ Public Class FormSetup
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
 #Enable Warning CA2213 ' Disposable fields should be disposed
-    Private ReadOnly ExitInterval As Integer = 2 ' how often to poll for tp
+    ' how often to poll for tp
 
     Private ScreenPosition As ScreenPos
 
@@ -812,6 +813,9 @@ Public Class FormSetup
         AvatarLabel.Visible = visible
         PercentCPU.Visible = visible
         PercentRAM.Visible = visible
+        DiskSize.Visible = visible
+
+        CalcDiskFree()
 
     End Sub
 
@@ -980,7 +984,7 @@ Public Class FormSetup
 
                 value = Math.Round(value)
                 Settings.Ramused = value
-                PercentRAM.Text = CStr(value) & "% RAM"
+                PercentRAM.Text = "RAM: " & CStr(value) & "%"
             Next
             ChartWrapper2.ClearChart()
             Dim RAM() As Double = MyRAMCollection.ToArray()
@@ -2291,7 +2295,7 @@ Public Class FormSetup
         Next
 
         Dim total As Integer = C.Count
-        AvatarLabel.Text = My.Resources.Avatars_word & " : " & CStr(total)
+        AvatarLabel.Text = CStr(total) & " " & My.Resources.Avatars_word
         Return sbttl
 
     End Function
@@ -2516,6 +2520,30 @@ Public Class FormSetup
 
 #Region "Timer"
 
+    Private Sub CalcDiskFree()
+
+        Dim d = DriveInfo.GetDrives()
+        Dim c = CurDir()
+
+        Try
+            For Each drive As DriveInfo In d
+                Dim x = Mid(c, 1, 1)
+                If x = Mid(drive.Name, 1, 1) Then
+                    Dim Percent = (drive.AvailableFreeSpace - 5000) / drive.TotalSize
+                    Dim FreeDisk = Percent * 100
+                    Dim Text = String.Format("{0:00.#}", FreeDisk)
+                    Dim F = drive.TotalSize - drive.AvailableFreeSpace
+                    If F < 100000 Then
+                        MsgBox($"Disk space is critically low! {F} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                    End If
+                    DiskSize.Text = $"{x}: {Text}%"
+                    Exit For
+                End If
+            Next
+        Catch
+        End Try
+    End Sub
+
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
@@ -2566,6 +2594,7 @@ Public Class FormSetup
 
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
+            CalcDiskFree()
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass) ' create HTML for teleport boards
         End If
