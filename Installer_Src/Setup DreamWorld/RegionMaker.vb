@@ -569,7 +569,7 @@ Public Class RegionMaker
         & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(uuid)) & vbCrLf _
         & "ClampPrimSize = " & CStr(ClampPrimSize(uuid)) & vbCrLf _
         & "MaxPrims = " & MaxPrims(uuid) & vbCrLf _
-        & "RegionType = " * Estate & vbCrLf _
+        & "RegionType = " & Estate & vbCrLf _
         & "MaxAgents = 100" & vbCrLf & vbCrLf _
         & ";# Dreamgrid extended properties" & vbCrLf _
         & "RegionSnapShot = " & RegionSnapShot(uuid) & vbCrLf _
