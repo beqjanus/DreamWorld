@@ -260,14 +260,28 @@ Public Class Backups
                 End Try
             End If
 
-            Try
-                If Settings.BackupRegion Then
-                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions"), "Regions")
-                    zipused = True
-                End If
-            Catch ex As Exception
-                Break(ex.Message)
-            End Try
+            If Settings.BackupRegion Then
+                Dim sourcePath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Regions")
+                Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(sourcePath)
+                For Each fileSystemInfo In sourceDirectoryInfo.GetDirectories
+                    Try
+                        Dim folder = fileSystemInfo.FullName
+                        Dim Regionpath = IO.Path.Combine(Settings.CurrentDirectory, folder & "\Region")
+                        Dim RegionDirectoryInfo As New System.IO.DirectoryInfo(Regionpath)
+                        For Each Region In RegionDirectoryInfo.GetFileSystemInfos
+                            Dim name = Region.Name
+                            If name.EndsWith(".ini", StringComparison.InvariantCulture) Then
+                                Dim shortname = name.Replace("ini", "")
+                                Z.AddFile(IO.Path.Combine(Regionpath, Region.Name), $"\Regions\{shortname}\Region\")
+                                zipused = True
+                            End If
+                        Next
+                    Catch ex As Exception
+                        Break(ex.Message)
+                    End Try
+
+                Next
+            End If
 
             Try
                 If zipused = True Then
@@ -302,25 +316,14 @@ Public Class Backups
                                 .FileName = win,
                                 .UseShellExecute = True
                             }
-
                             ProcessRobocopy.StartInfo = pi
-
-                            Select Case Settings.ConsoleShow
-                                Case "True"
-                                    ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                                Case "False"
-                                    ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Normal
-                                Case "None"
-                                    ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
-                            End Select
-
+                            ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+                            ProcessRobocopy.StartInfo.CreateNoWindow = True
                             Try
                                 ProcessRobocopy.Start()
                             Catch ex As Exception
                                 Break(ex.Message)
                             End Try
-
-                            ProcessRobocopy.WaitForExit()
                         End Using
                     End If
                 End If
