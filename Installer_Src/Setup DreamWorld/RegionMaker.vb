@@ -1567,9 +1567,8 @@ Public Class RegionMaker
                                 Return RegionName & time
                             Else   ' Opensim  ALT code
                                 ' Send them to "Welcome"
-
                                 Dim UUID = PropRegionClass.FindRegionByName(settings.WelcomeRegion)
-                                AddEm(UUID, AgentID)
+                                AddEm(RegionUUID, AgentID)
                                 Return UUID
                             End If
                         End If
