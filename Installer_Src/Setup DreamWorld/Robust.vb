@@ -329,6 +329,14 @@ Module Robust
         ' Robust Process
         Dim INI = Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";")
         If INI Is Nothing Then Return False
+
+        'For GetTexture Service
+        If Settings.FsAssetsEnabled Then
+            Settings.SetIni("CapsService", "AssetService", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+        Else
+            Settings.SetIni("CapsService", "AssetService", "OpenSim.Services.AssetService.dll:AssetService")
+        End If
+
         If Settings.AltDnsName.Length > 0 Then
             Settings.SetIni("Hypergrid", "HomeURIAlias", Settings.AltDnsName)
             Settings.SetIni("Hypergrid", "GatekeeperURIAlias", Settings.AltDnsName)
