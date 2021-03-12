@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>No se pudo conectar al sitio web.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>No se pudo cargar la configuración INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>Segundos</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Suspendido</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Sin inicio de sesión</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Esperando</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Reiniciar ahora</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Dejar</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Arranque</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Apagado en segundos</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Reciclaje</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Ver todos los mapas</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Esperar guiones</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Cuánto tiempo quedará una región en funcionamiento después de que un avatrar se haya ido</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Casa detenida</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Reciclaje hacia abajo</value>
   </data>
 </root>

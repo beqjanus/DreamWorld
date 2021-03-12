@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Nie udało się podłączyć do witryny internetowej.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Nie udało się załadować ustawienia INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>s</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>W oczekiwaniu</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Zawieszony</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Brak logowania</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Czekanie</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Ponownie uruchamiam teraz</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Rezygnacja</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Uruchamianie</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Wyłączanie w kilka sekund</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Recykling w górę</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Wyświetl wszystkie mapy</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Poczekaj na skrypty</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Jak długo działający region będzie się utrzymywał po odejściu awatara</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Strona główna zatrzymana</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Recykling w dół</value>
   </data>
 </root>

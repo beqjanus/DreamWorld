@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Geen verbinding maken met de website.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Kan instellingen INI laden</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>seconden</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>In afwachting</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Geschorst</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Geen login</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Aan het wachten</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Nu opnieuw opstarten</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Stoppen</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Opstarten</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Afsluiten in seconden</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Recyclen</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Bekijk alle kaarten</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Wacht op scripts</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Hoelang een lopende regio blijft bestaan nadat een avatrar is vertrokken</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Home gestopt</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Recycling naar beneden</value>
   </data>
 </root>

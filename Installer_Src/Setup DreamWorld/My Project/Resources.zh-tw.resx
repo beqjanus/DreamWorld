@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>未能連接到網站。</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>無法加載設置INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>暫時的失敗，左秒重試︰</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>待辦的</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>暫停</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>沒有登錄</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>等待</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>立即重啟</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>戒菸</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>正在啟動</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>關機秒數</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>回收</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>查看所有地圖</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>等待腳本</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>頭像離開後正在運行的區域將保持多長時間</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>回家停止</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>回收再利用</value>
   </data>
 </root>

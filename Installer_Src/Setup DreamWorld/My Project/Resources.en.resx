@@ -2547,7 +2547,7 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Max number of Avatars + NPCs</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Failed to load Settings INI</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>Seconds</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Suspended</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>No Login</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Waiting</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Restarting Now</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Quitting</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Booting</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Shutdown in seconds</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Recycling Up</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>View All Maps</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Wait for Scripts</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>How long a running Region will stay up after an avatrar has left</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Home Stopped</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Recycling Down</value>
   </data>
 </root>

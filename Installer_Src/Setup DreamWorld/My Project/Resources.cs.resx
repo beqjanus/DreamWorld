@@ -2547,7 +2547,7 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Maximální počet Avatarů + NPC</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Načtení nastavení INI se nezdařilo</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
@@ -2909,5 +2909,17 @@
   </data>
   <data name="Restarting_Now_word" xml:space="preserve">
     <value>Nyní se restartuje</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Vypnutí během několika sekund</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Zobrazit všechny mapy</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Počkejte na skripty</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Jak dlouho běží region poté, co avatrar odešel</value>
   </data>
 </root>

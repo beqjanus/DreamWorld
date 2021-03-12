@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Theip ar nascadh le láithreán gréasáin.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Theip ar luchtú Socruithe INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>soicind</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>Ar feitheamh</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Ar fionraí</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Gan Logáil Isteach</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Ag fanacht</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Ag Atosú Anois</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Ag scor</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Booting</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Múchadh i soicindí</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Athchúrsáil Suas</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Féach ar na Léarscáileanna Uile</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Fan le haghaidh Scripteanna</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Cá fhad a fhanfaidh Réigiún reatha suas tar éis do avatrar imeacht</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Stopadh Baile</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Athchúrsáil an Dúin</value>
   </data>
 </root>

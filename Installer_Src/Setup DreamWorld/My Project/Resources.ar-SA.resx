@@ -2547,7 +2547,7 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>أقصى عدد من الصور الرمزية + الشخصيات غير القابلة للعب</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>فشل تحميل إعدادات INI</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
@@ -2909,5 +2909,17 @@
   </data>
   <data name="Restarting_Now_word" xml:space="preserve">
     <value>إعادة التشغيل الآن</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>الاغلاق في ثوان</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>عرض كل الخرائط</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>انتظر البرامج النصية</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>كم من الوقت ستبقى المنطقة قيد التشغيل بعد مغادرة الصورة الرمزية</value>
   </data>
 </root>

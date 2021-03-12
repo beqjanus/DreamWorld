@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -3154,7 +3154,7 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Max number of Avatars + NPCs</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Failed to load Settings INI</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">

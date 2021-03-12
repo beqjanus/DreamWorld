@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Fehler bei Website zu verbinden.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Verhängnisvoll</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2909,5 +2909,17 @@
   </data>
   <data name="Restarting_Now_word" xml:space="preserve">
     <value>Jetzt neu starten</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Herunterfahren in Sekunden</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Alle Karten anzeigen</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Warten Sie auf Skripte</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Wie lange bleibt eine laufende Region wach, nachdem ein Avatrar gegangen ist?</value>
   </data>
 </root>

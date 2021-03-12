@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Не удалось подключиться к веб-сайту.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Не удалось загрузить настройки INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>с</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>В ожидании</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Приостановленный</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Нет входа</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Ожидающий</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Перезагрузка сейчас</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Загрузка</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Выключение за секунды</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Переработка вверх</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Посмотреть все карты</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Подождите скриптов</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Как долго текущий регион будет оставаться активным после ухода аватрара</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Дом Остановлен</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Переработка пуха</value>
   </data>
 </root>

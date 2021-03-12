@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Kunne ikke koble til nettstedet.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Kunne ikke laste innstillinger INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>Sekunder</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>Avventer</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Suspendert</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Ingen pålogging</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Venter</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Start på nytt nå</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Slutter</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Oppstart</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Slå av på sekunder</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Resirkulering Opp</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Vis alle kart</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Vent på skript</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Hvor lenge en løpende region vil holde seg oppe etter at en avatrar har gått</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Hjem stoppet</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Resirkulering ned</value>
   </data>
 </root>

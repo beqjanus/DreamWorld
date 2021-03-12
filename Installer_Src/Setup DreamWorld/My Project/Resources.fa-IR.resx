@@ -2547,7 +2547,7 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>حداکثر تعداد آواتارها + NPC ها</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>تنظیمات INI بارگیری نشد</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>ثانیه</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>در انتظار</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>معلق</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>ورود به سیستم</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>در انتظار</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>اکنون دوباره راه اندازی می شود</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>ترک کردن</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>راه اندازی</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>خاموش شدن در چند ثانیه</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>بازیافت</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>مشاهده همه نقشه ها</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>منتظر اسکریپت ها باشید</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>چه مدت یک منطقه در حال اجرا پس از ترک یک آواتار بیدار خواهد ماند</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>خانه متوقف شد</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>بازیافت پایین</value>
   </data>
 </root>

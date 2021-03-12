@@ -1035,6 +1035,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Failed to load Settings INI.
+        '''</summary>
+        Friend ReadOnly Property c() As String
+            Get
+                Return ResourceManager.GetString("c", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Cache Control.
         '''</summary>
         Friend ReadOnly Property Cache_Control_word() As String
@@ -3242,15 +3251,6 @@ Namespace My.Resources
         Friend ReadOnly Property Failed_LAN() As String
             Get
                 Return ResourceManager.GetString("Failed_LAN", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to Failed to load Settings INI.
-        '''</summary>
-        Friend ReadOnly Property Failed_to_load_Settings_INI_word() As String
-            Get
-                Return ResourceManager.GetString("Failed_to_load_Settings_INI_word", resourceCulture)
             End Get
         End Property
         

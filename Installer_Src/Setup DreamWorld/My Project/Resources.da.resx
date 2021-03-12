@@ -2664,7 +2664,7 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Maks. Antal avatarer + NPC'er</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Kunne ikke indlæse Indstillinger INI</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
@@ -2909,5 +2909,17 @@
   </data>
   <data name="Restarting_Now_word" xml:space="preserve">
     <value>Genstart nu</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Nedlukning på få sekunder</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Se alle kort</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Vent på scripts</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Hvor længe en kørende region holder sig op, efter at en avatrar er forladt</value>
   </data>
 </root>

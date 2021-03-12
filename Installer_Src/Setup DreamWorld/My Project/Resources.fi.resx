@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Yhdistäminen epäonnistui kotisivuilta.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>Lataaminen epäonnistui Asetukset INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>sekuntia</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>Odottaa</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Keskeytetty</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Ei kirjautumista</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Odottaa</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Käynnistä uudelleen nyt</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Lopettaa</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Käynnistys</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Sammuta sekunneissa</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Kierrätys ylös</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Näytä kaikki kartat</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Odota komentosarjoja</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Kuinka kauan juokseva alue pysyy ylhäällä avatrarin lähdön jälkeen</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Koti pysäytetty</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Kierrätys alas</value>
   </data>
 </root>

@@ -1020,7 +1020,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>נכשל ניסיון להתחבר לאתר אינטרנט.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>נכשל הניסיון לטעון הגדרות INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>שניות</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>ממתין ל</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>מוּשׁהֶה</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>אין כניסה</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>הַמתָנָה</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>מתחיל מחדש כעת</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>מפסיק</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>אתחול</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>כיבוי בשניות</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>מיחזור למעלה</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>צפה בכל המפות</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>המתן לתסריטים</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>כמה זמן אזור פועל יישאר ער לאחר שהאווטאר עזב</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>בית נעצר</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>מיחזור למטה</value>
   </data>
 </root>

@@ -1021,7 +1021,7 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>No s'ha pogut connectar a la web.</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>No s'ha pogut carregar la configuració INI</value>
   </data>
   <data name="Fatal_word" xml:space="preserve">
@@ -2910,5 +2910,17 @@
   </data>
   <data name="Restarting_Now_word" xml:space="preserve">
     <value>Reiniciant ara</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Apagat en segons</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Veure tots els mapes</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Espereu els scripts</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Quant de temps es mantindrà activa una regió en marxa després que marxi un avatrar</value>
   </data>
 </root>

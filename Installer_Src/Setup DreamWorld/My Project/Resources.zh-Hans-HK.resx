@@ -2682,7 +2682,7 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>头像+ NPC的最大数量</value>
   </data>
-  <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
+  <data name="c" xml:space="preserve">
     <value>无法加载设置INI</value>
   </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
@@ -2879,5 +2879,47 @@
   </data>
   <data name="Seconds_word" xml:space="preserve">
     <value>秒</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>待办的</value>
+  </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>暂停</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>没有登录</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>等待</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>立即重启</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>戒烟</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>正在启动</value>
+  </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>关机秒数</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>回收</value>
+  </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>查看所有地图</value>
+  </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>等待脚本</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>头像离开后正在运行的区域将保持多长时间</value>
+  </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>回家停止</value>
+  </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>回收再利用</value>
   </data>
 </root>
