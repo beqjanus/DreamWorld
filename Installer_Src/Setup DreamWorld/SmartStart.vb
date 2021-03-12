@@ -131,7 +131,7 @@ Module SmartStart
                 Next
 
                 PropUpdateView = True ' make form refresh
-                Application.DoEvents()
+
                 Return True
             End If
         End If

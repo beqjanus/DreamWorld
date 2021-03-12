@@ -2,6 +2,12 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.8992
+GetTextures has finally been fixed.  Joomla classifieds and Profiles should show up now. Thankxx very much for all the debugging effort, Rich Dennis!
+Smart Start improved to accept HG visitors - if the region they want is not online, they get routed to The Welcome region.
+Still am missing local teleport intercept, the ability to set a different "Parking" region, and set coordinates for landing point when you arrive in each region..
+
+
 V3.8991
 Smart Start 1.0 Alpha release. Documentation coming later. Deal with it.
 Added a backup of the Statistics database, where logins and such are stored.
