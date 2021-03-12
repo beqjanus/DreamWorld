@@ -903,14 +903,14 @@ Public Class FormSetup
     Private Sub Backupper()
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
-            If PropRegionClass.IsBooted(RegionUUID) Then
 
-                SequentialPause()   ' wait for previous region to give us some CPU
-                ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """")
-                ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
+            ReBoot(PropRegionClass.RegionName(RegionUUID))
+
+            SequentialPause()   ' wait for previous region to give us some CPU
+            ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """")
+            ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
                                DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
 
-            End If
         Next
 
     End Sub
@@ -1052,6 +1052,8 @@ Public Class FormSetup
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
 
+            Dim RegionName As String = PropRegionClass.RegionName(RegionUUID)
+
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
                 For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
@@ -1060,7 +1062,6 @@ Public Class FormSetup
                 Continue For
             End If
 
-            Dim RegionName As String = PropRegionClass.RegionName(RegionUUID)
             If CBool((PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
@@ -1079,18 +1080,12 @@ Public Class FormSetup
                     End Try
                 End If
             End If
-            'Next
-
-            ' now check for expired timers
-            'For Each RegionUUID As String In PropRegionClass.RegionUuids
 
             If Not PropOpensimIsRunning() Then Exit For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
             GroupName = PropRegionClass.GroupName(RegionUUID)
             Dim Status = PropRegionClass.Status(RegionUUID)
-
-            'Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
             Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
@@ -1197,6 +1192,10 @@ Public Class FormSetup
             GroupName = PropExitList.Keys.First
             Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
             PropExitList.Remove(GroupName)
+
+            If GroupName = "Welcome" Then
+                BreakPoint.Show("Break")
+            End If
 
             TextPrint(GroupName & " " & Reason)
 
@@ -2531,7 +2530,7 @@ Public Class FormSetup
                 If x = Mid(drive.Name, 1, 1) Then
                     Dim Percent = (drive.AvailableFreeSpace - 5000) / drive.TotalSize
                     Dim FreeDisk = Percent * 100
-                    Dim Text = String.Format("{0:00.#}", FreeDisk)
+                    Dim Text = String.Format(CultureInfo.CurrentCulture, "{0:00.#}", FreeDisk)
                     Dim F = drive.TotalSize - drive.AvailableFreeSpace
                     If F < 100000 Then
                         MsgBox($"Disk space is critically low! {F} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)

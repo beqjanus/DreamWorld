@@ -59,7 +59,7 @@ Module CPUCounter
                 End If
             Next
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
+            'BreakPoint.Show(ex.Message)
             CounterList.Clear()
             CPUValues.Clear()
         End Try
