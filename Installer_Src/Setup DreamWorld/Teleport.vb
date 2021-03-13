@@ -21,6 +21,7 @@ Module Teleport
                 If PropRegionClass.Status(RegionToUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                     Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
                     If DestinationName.Length > 0 Then
+                        Logger("Teleport", DestinationName, "Teleport")
                         TeleportTo(DestinationName, AgentID)
                         Fin.Add(AgentID)
                     Else
@@ -32,6 +33,7 @@ Module Teleport
         End Try
         ' rem from to list as they have moved on
         For Each str As String In Fin
+            Logger("Teleport Done", str, "Teleport")
             TeleportAvatarDict.Remove(str)
         Next
         Fin.Clear()

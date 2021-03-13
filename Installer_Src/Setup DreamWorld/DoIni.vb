@@ -516,7 +516,6 @@ Module DoIni
                 outputFile.Write(Output)
             End Using
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
             ErrorLog(ex.Message)
         End Try
 

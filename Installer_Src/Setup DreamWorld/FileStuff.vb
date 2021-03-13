@@ -67,6 +67,7 @@ Module FileStuff
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Restart.log"),
+            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Teleport.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\UPnp.log"),
