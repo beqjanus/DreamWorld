@@ -3374,10 +3374,7 @@ Public Class FormSetup
                 Dim port = PropRegionClass.LargestPort
                 PropRegionClass.GroupPort(RegionUUID) = port
                 PropRegionClass.RegionPort(RegionUUID) = port
-
                 PropRegionClass.WriteRegionObject(shortname)
-                ' after we save it so we can undo maps
-                PropRegionClass.MapType(RegionUUID) = "Best"
 
                 TextPrint($"{My.Resources.Add_Region_word} {J.Name} @ {CStr(X)},{CStr(Y)}")
                 PropUpdateView = True ' make form refresh
@@ -3403,7 +3400,6 @@ Public Class FormSetup
                 ConsoleCommand(RegionUUID, "scripts stop")
                 ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
                 ConsoleCommand(RegionUUID, "scripts stop")
-                ConsoleCommand(RegionUUID, "generate map")
                 ConsoleCommand(RegionUUID, "alert power off")
                 ConsoleCommand(RegionUUID, "backup")
 
@@ -3412,8 +3408,6 @@ Public Class FormSetup
                 ConsoleCommand(RegionUUID, "q")
                 ConsoleCommand(RegionUUID, "q")
                 ConsoleCommand(RegionUUID, "q")
-
-
 
                 If Settings.Sequential Then
                     Dim PID = PropRegionClass.ProcessID(RegionUUID)
