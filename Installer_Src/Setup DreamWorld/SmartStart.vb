@@ -15,7 +15,7 @@ Module SmartStart
         Dim PID = PropRegionClass.ProcessID(RegionUUID)
 
         If True Then
-            Logger("State Changed to ShuttingDown", RegionName, "Restart")
+            Logger("State Changed to ShuttingDown", RegionName, "Teleport")
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
@@ -93,7 +93,7 @@ Module SmartStart
             ErrorLog("Cannot find " & BootName & " to boot!")
             Return False
         End If
-        Logger("Info", "Region: Starting Region " & BootName, "Restart")
+        Logger("Info", "Region: Starting Region " & BootName, "Teleport")
 
         DoGloebits()
 
@@ -108,7 +108,7 @@ Module SmartStart
         Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
         If isRegionRunning Then
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                Logger("Suspended, Resuming it", BootName, "Restart")
+                Logger("Suspended, Resuming it", BootName, "Teleport")
 
                 Dim PID As Integer = GetPIDofWindow(GroupName)
                 If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then FormSetup.PropInstanceHandles.Add(PID, GroupName)
@@ -117,7 +117,7 @@ Module SmartStart
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
 
-                Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Restart")
+                Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
                 PropUpdateView = True ' make form refresh
                 Return True
             Else    ' needs to be captured into the event handler
@@ -159,7 +159,7 @@ Module SmartStart
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
 
         FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
-        Logger("Booting", GroupName, "Restart")
+        Logger("Booting", GroupName, "Teleport")
 
         Dim ok As Boolean = False
         Try
@@ -194,18 +194,19 @@ Module SmartStart
             Return True
         End If
         PropUpdateView = True ' make form refresh
-        Logger("Failed to boot ", BootName, "Restart")
+        Logger("Failed to boot ", BootName, "Teleport")
         TextPrint("Failed to boot region " & BootName)
         Return False
 
     End Function
 
-    Public Sub ReBoot(BootName As String)
+    Public Sub ReBoot(RegionUUID As String)
 
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
         If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Or
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
+
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+            Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
             While PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
                 Sleep(1000)
                 Application.DoEvents()

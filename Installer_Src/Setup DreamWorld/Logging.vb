@@ -22,6 +22,7 @@ Module Logging
         'information for the current thread.
         Dim st As StackTrace = New StackTrace(True)
         Dim i As Integer
+        Logger("StackFrame", "--------------------------", "Error")
         For i = 0 To st.FrameCount - 1 Step 1
             'Note that high up the call stack, there Is only
             ' one stack frame.

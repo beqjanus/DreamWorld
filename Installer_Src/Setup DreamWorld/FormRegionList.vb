@@ -1302,10 +1302,7 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Console" Then
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-                Return
-            End If
+            ReBoot(RegionUUID)
 
             Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
 
@@ -1343,10 +1340,10 @@ SetWindowOnTop_Err:
 
             ' shut down all regions in the DOS box
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-            Logger("RecyclingDown", GroupName, "Restart")
+            Logger("RecyclingDown", GroupName, "Teleport")
             For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                 PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
-                Logger("RecyclingDown", PropRegionClass.RegionName(UUID), "Restart")
+                Logger("RecyclingDown", PropRegionClass.RegionName(UUID), "Teleport")
             Next
 
             FormSetup.Buttons(FormSetup.StopButton)
@@ -1357,10 +1354,7 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Teleport" Then
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-                Return
-            End If
+            ReBoot(RegionUUID)
 
             'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
 
@@ -1372,11 +1366,11 @@ SetWindowOnTop_Err:
             End Try
 
         ElseIf chosen = "Load" Then
-
+            ReBoot(RegionUUID)
             LoadOar(RegionName)
 
         ElseIf chosen = "Save" Then
-
+            ReBoot(RegionUUID)
             SaveOar(RegionName)
 
         End If

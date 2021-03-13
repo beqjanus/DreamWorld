@@ -62,7 +62,9 @@ Public Class FormRegionPopup
         _RegionName = RegionName
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-        Me.Text = RegionName
+        Dim status = PropRegionClass.Status(RegionUUID)
+
+        Me.Text = RegionName & " " & PropRegionClass.GetStateString(status)
         GroupBox1.Text = PropRegionClass.GroupName(RegionUUID)
 
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then
@@ -133,9 +135,9 @@ Public Class FormRegionPopup
                 StatsButton1.Enabled = False
                 StartButton.Enabled = True
                 StopButton.Enabled = True
-                SaveOAR.Enabled = False
-                LoadOAR.Enabled = False
-                Teleport.Enabled = False
+                SaveOAR.Enabled = True
+                LoadOAR.Enabled = True
+                Teleport.Enabled = True
                 EditButton1.Enabled = True
                 MsgButton.Enabled = False
             End If

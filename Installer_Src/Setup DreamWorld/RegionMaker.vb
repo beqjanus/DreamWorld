@@ -13,6 +13,17 @@ Imports Newtonsoft.Json
 
 Public Class RegionMaker
 
+#Region "Public Fields"
+
+    Private Class JSONresult
+        Public alert As String
+        Public login As String
+        Public region_id As String
+        Public region_name As String
+    End Class
+
+#End Region
+
 #Region "Declarations"
 
 #Disable Warning CA1051 ' Do not declare visible instance fields
@@ -27,6 +38,8 @@ Public Class RegionMaker
     Private _GetAllRegionsIsBusy As Boolean
     Private _RegionListIsInititalized As Boolean
     Dim json As New JSONresult
+
+    Private slop = 5 ' amount of extra time to add in for booting
 
     Public Enum SIMSTATUSENUM As Integer
 
@@ -100,7 +113,7 @@ Public Class RegionMaker
 
 #End Region
 
-#Region "Subs"
+#Region "CheckPost"
 
     Public Sub CheckPost()
 
@@ -121,7 +134,7 @@ Public Class RegionMaker
                 If first > -1 And last > -1 Then
                     rawJSON = POST.Substring(first, last - first + 1)
                 Else
-                    Logger("RegionReady", "Malformed Web request: " & POST, "Restart")
+                    Logger("RegionReady", "Malformed Web request: " & POST, "Teleport")
                     Continue While
                 End If
 
@@ -130,7 +143,7 @@ Public Class RegionMaker
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                     Debug.Print(ex.Message)
-                    Logger("RegionReady", "Malformed JSON: " & ProcessString, "Restart")
+                    Logger("RegionReady", "Malformed JSON: " & ProcessString, "Teleport")
                     Continue While
                 End Try
 
@@ -145,11 +158,11 @@ Public Class RegionMaker
 
                 If json.login = "enabled" Then
 
-                    Logger("RegionReady: Enabled", json.region_name, "Restart")
+                    Logger("RegionReady: Enabled", json.region_name, "Teleport")
                     Dim uuid As String = FindRegionByName(json.region_name)
                     Dim out As New Guid
                     If Not Guid.TryParse(uuid, out) Then
-                        Logger("RegionReady Error, no UUID", json.region_name, "Restart")
+                        Logger("RegionReady Error, no UUID", json.region_name, "Teleport")
                         Continue While
                     End If
 
@@ -163,18 +176,18 @@ Public Class RegionMaker
                     Next
 
                 ElseIf json.login = "shutdown" Then
-                    Logger("Shutdown", json.region_name, "Restart")
+                    Logger("Shutdown", json.region_name, "Teleport")
                     Continue While   ' this bit below interferes with restarting multiple regions in a DOS box
                 ElseIf json.login = "disabled" Then
-                    Logger("RegionReady", json.region_name & " disabled login", "Restart")
+                    Logger("RegionReady", json.region_name & " disabled login", "Teleport")
                     Continue While
                 Else
-                    Logger("RegionReady", "Unsupported method:" & json.login, "Restart")
+                    Logger("RegionReady", "Unsupported method:" & json.login, "Teleport")
                     Continue While
                 End If
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-                Logger("RegionReady", "Exception:" & ex.Message, "Restart")
+                Logger("RegionReady", "Exception:" & ex.Message, "Teleport")
                 WebserverList.Clear()
             End Try
         End While
@@ -182,6 +195,10 @@ Public Class RegionMaker
         PropUpdateView() = True
 
     End Sub
+
+#End Region
+
+#Region "Create Region"
 
     Public Function CreateRegion(name As String, Optional UUID As String = "") As String
 
@@ -240,6 +257,89 @@ Public Class RegionMaker
         End If
 
     End Sub
+
+    Public Sub WriteRegionObject(name As String)
+
+        Dim uuid As String = FindRegionByName(name)
+        Dim out As New Guid
+        If Not Guid.TryParse(uuid, out) Then
+            MsgBox(My.Resources.Cannot_find_region_word & " " & name, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+            Return
+        End If
+
+        Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + name + "\Region\"
+        Dim fname = pathtoWelcome + name + ".ini"
+        If Not Directory.Exists(pathtoWelcome) Then
+            Try
+                Directory.CreateDirectory(pathtoWelcome)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
+
+        ' Change estate for Smart Start
+        Dim Estate = "Estate"
+        If PropRegionClass.SmartStart(uuid) = "True" Then
+            Estate = "SmartStart"
+        End If
+
+        Dim proto = "; * Regions configuration file; " & vbCrLf _
+        & "; Automatically changed and read by Dreamworld. Edits are allowed" & vbCrLf _
+        & "; Rule1: The File name must match the RegionName" & vbCrLf _
+        & "; Rule2: Only one region per INI file." & vbCrLf _
+        & ";" & vbCrLf _
+        & "[" & name & "]" & vbCrLf _
+        & "RegionUUID = " & uuid & vbCrLf _
+        & "Location = " & CoordX(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
+        & "InternalAddress = 0.0.0.0" & vbCrLf _
+        & "InternalPort = " & RegionPort(uuid) & vbCrLf _
+        & "AllowAlternatePorts = False" & vbCrLf _
+        & "ExternalHostName = " & Settings.ExternalHostName() & vbCrLf _
+        & "SizeX = " & CStr(SizeX(uuid)) & vbCrLf _
+        & "SizeY = " & CStr(SizeY(uuid)) & vbCrLf _
+        & "Enabled = " & CStr(RegionEnabled(uuid)) & vbCrLf _
+        & "NonPhysicalPrimMax = " & CStr(NonPhysicalPrimMax(uuid)) & vbCrLf _
+        & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(uuid)) & vbCrLf _
+        & "ClampPrimSize = " & CStr(ClampPrimSize(uuid)) & vbCrLf _
+        & "MaxPrims = " & MaxPrims(uuid) & vbCrLf _
+        & "RegionType = " & Estate & vbCrLf _
+        & "MaxAgents = 100" & vbCrLf & vbCrLf _
+        & ";# Dreamgrid extended properties" & vbCrLf _
+        & "RegionSnapShot = " & RegionSnapShot(uuid) & vbCrLf _
+        & "MapType = " & MapType(uuid) & vbCrLf _
+        & "Physics = " & Physics(uuid) & vbCrLf _
+        & "GodDefault = " & GodDefault(uuid) & vbCrLf _
+        & "AllowGods = " & AllowGods(uuid) & vbCrLf _
+        & "RegionGod = " & RegionGod(uuid) & vbCrLf _
+        & "ManagerGod = " & ManagerGod(uuid) & vbCrLf _
+        & "Birds = " & Birds(uuid) & vbCrLf _
+        & "Tides = " & Tides(uuid) & vbCrLf _
+        & "Teleport = " & Teleport(uuid) & vbCrLf _
+        & "DisableGloebits = " & DisableGloebits(uuid) & vbCrLf _
+        & "DisallowForeigners = " & DisallowForeigners(uuid) & vbCrLf _
+        & "DisallowResidents = " & DisallowResidents(uuid) & vbCrLf _
+        & "MinTimerInterval =" & MinTimerInterval(uuid) & vbCrLf _
+        & "Frametime =" & FrameTime(uuid) & vbCrLf _
+        & "ScriptEngine =" & ScriptEngine(uuid) & vbCrLf _
+        & "Publicity =" & GDPR(uuid) & vbCrLf _
+        & "Concierge =" & Concierge(uuid) & vbCrLf _
+        & "SmartStart =" & SmartStart(uuid) & vbCrLf
+
+        DeleteFile(fname)
+
+        Try
+            Using outputFile As New StreamWriter(fname, True)
+                outputFile.WriteLine(proto)
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+#End Region
+
+#Region "Functions"
 
     Public Function FindBackupByName(Name As String) As Integer
 
@@ -525,98 +625,6 @@ Public Class RegionMaker
 
     End Sub
 
-    Public Sub WriteRegionObject(name As String)
-
-        Dim uuid As String = FindRegionByName(name)
-        Dim out As New Guid
-        If Not Guid.TryParse(uuid, out) Then
-            MsgBox(My.Resources.Cannot_find_region_word & " " & name, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
-            Return
-        End If
-
-        Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + name + "\Region\"
-        Dim fname = pathtoWelcome + name + ".ini"
-        If Not Directory.Exists(pathtoWelcome) Then
-            Try
-                Directory.CreateDirectory(pathtoWelcome)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
-
-        ' Change estate for Smart Start
-        Dim Estate = "Estate"
-        If PropRegionClass.SmartStart(uuid) = "True" Then
-            Estate = "SmartStart"
-        End If
-
-        Dim proto = "; * Regions configuration file; " & vbCrLf _
-        & "; Automatically changed and read by Dreamworld. Edits are allowed" & vbCrLf _
-        & "; Rule1: The File name must match the RegionName" & vbCrLf _
-        & "; Rule2: Only one region per INI file." & vbCrLf _
-        & ";" & vbCrLf _
-        & "[" & name & "]" & vbCrLf _
-        & "RegionUUID = " & uuid & vbCrLf _
-        & "Location = " & CoordX(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
-        & "InternalAddress = 0.0.0.0" & vbCrLf _
-        & "InternalPort = " & RegionPort(uuid) & vbCrLf _
-        & "AllowAlternatePorts = False" & vbCrLf _
-        & "ExternalHostName = " & Settings.ExternalHostName() & vbCrLf _
-        & "SizeX = " & CStr(SizeX(uuid)) & vbCrLf _
-        & "SizeY = " & CStr(SizeY(uuid)) & vbCrLf _
-        & "Enabled = " & CStr(RegionEnabled(uuid)) & vbCrLf _
-        & "NonPhysicalPrimMax = " & CStr(NonPhysicalPrimMax(uuid)) & vbCrLf _
-        & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(uuid)) & vbCrLf _
-        & "ClampPrimSize = " & CStr(ClampPrimSize(uuid)) & vbCrLf _
-        & "MaxPrims = " & MaxPrims(uuid) & vbCrLf _
-        & "RegionType = " & Estate & vbCrLf _
-        & "MaxAgents = 100" & vbCrLf & vbCrLf _
-        & ";# Dreamgrid extended properties" & vbCrLf _
-        & "RegionSnapShot = " & RegionSnapShot(uuid) & vbCrLf _
-        & "MapType = " & MapType(uuid) & vbCrLf _
-        & "Physics = " & Physics(uuid) & vbCrLf _
-        & "GodDefault = " & GodDefault(uuid) & vbCrLf _
-        & "AllowGods = " & AllowGods(uuid) & vbCrLf _
-        & "RegionGod = " & RegionGod(uuid) & vbCrLf _
-        & "ManagerGod = " & ManagerGod(uuid) & vbCrLf _
-        & "Birds = " & Birds(uuid) & vbCrLf _
-        & "Tides = " & Tides(uuid) & vbCrLf _
-        & "Teleport = " & Teleport(uuid) & vbCrLf _
-        & "DisableGloebits = " & DisableGloebits(uuid) & vbCrLf _
-        & "DisallowForeigners = " & DisallowForeigners(uuid) & vbCrLf _
-        & "DisallowResidents = " & DisallowResidents(uuid) & vbCrLf _
-        & "MinTimerInterval =" & MinTimerInterval(uuid) & vbCrLf _
-        & "Frametime =" & FrameTime(uuid) & vbCrLf _
-        & "ScriptEngine =" & ScriptEngine(uuid) & vbCrLf _
-        & "Publicity =" & GDPR(uuid) & vbCrLf _
-        & "Concierge =" & Concierge(uuid) & vbCrLf _
-        & "SmartStart =" & SmartStart(uuid) & vbCrLf
-
-        DeleteFile(fname)
-
-        Try
-            Using outputFile As New StreamWriter(fname, True)
-                outputFile.WriteLine(proto)
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
-    Private Class JSONresult
-
-#Region "Public Fields"
-
-        Public alert As String
-        Public login As String
-        Public region_id As String
-        Public region_name As String
-
-#End Region
-
-    End Class
-
 #Region "Region_data"
 
     ' hold a copy of the Main region data on a per-form basis
@@ -864,8 +872,12 @@ Public Class RegionMaker
 
     Public Property Status(uuid As String) As Integer
         Get
-            If uuid Is Nothing Then Return -1
-            If Bad(uuid) Then Return -1
+            If uuid Is Nothing Then
+                Return -1
+            End If
+            If Bad(uuid) Then
+                Return -1
+            End If
             Return RegionList(uuid)._Status
         End Get
         Set(ByVal Value As Integer)
@@ -1450,30 +1462,6 @@ Public Class RegionMaker
 
     End Function
 
-    Shared Function GetPartner(p1 As String, mysetting As MySettings) As String
-
-        If mysetting Is Nothing Then
-            Return ""
-        End If
-
-        Dim answer As String = ""
-        Using myConnection As MySqlConnection = New MySqlConnection(mysetting.RobustMysqlConnection)
-            Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
-            Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-                .Connection = myConnection
-            }
-                myConnection.Open()
-                myCommand1.Prepare()
-                myCommand1.Parameters.AddWithValue("p1", p1)
-                answer = CStr(myCommand1.ExecuteScalar())
-                Debug.Print("User=" + p1 + ", Partner=" + answer)
-            End Using
-        End Using
-
-        Return answer
-
-    End Function
-
     Public Function ParsePost(post As String, settings As MySettings) As String
 
         If settings Is Nothing Then Return "<html><head></head><body>Error</html>"
@@ -1518,212 +1506,267 @@ Public Class RegionMaker
         ' alerts need to be fast so we stash them on a list and process them on a 10 second timer.
 
         If post.Contains("/broker/") Then
-
             '{0} avatar name, {1} region name, {2} number of avatars
             BreakPoint.Show(post)
-
         ElseIf post.Contains("""alert"":""region_ready""") Then
-
             WebserverList.Add(post)
-
         ElseIf post.Contains("alt=") Then
-            ' Smart Start AutoStart Region mode
-            Debug.Print("Smart Start:" + post)
-
-            ' Smart Start
-
-            Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)")
-            Dim match As Match = pattern.Match(post)
-            If match.Success Then
-                Dim RegionName As String = Uri.UnescapeDataString(match.Groups(1).Value)
-                Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
-                Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
-                Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
-
-                Dim time As String = "1"
-
-                ' Region may be a name or a Region UUID
-                Dim RegionUUID = FindRegionUUIDByName(RegionName)
-                If RegionUUID.Length = 0 Then
-                    RegionUUID = RegionName
-                End If
-
-                If PropOpensimIsRunning Then
-                    If SmartStart(RegionUUID) = "True" Then
-                        ' smart, and up
-                        If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
-                            ' Scripts send us the Agent Name
-                            If AgentName.Length > 0 Then
-                                AddEm(RegionUUID, AgentID)
-                                Return RegionName & "|" & time
-                            Else
-                                Return RegionUUID
-                            End If
-                        Else  ' requires booting
-                            ' Scripts send us the Agent Name
-                            If AgentName.Length > 0 Then
-                                time = "|" & CStr(BootTime(RegionUUID) + 10)
-                                AddEm(RegionUUID, AgentID)
-                                Return RegionName & time
-                            Else   ' Opensim  ALT code
-                                ' Send them to "Welcome"
-                                Dim UUID = PropRegionClass.FindRegionByName(settings.WelcomeRegion)
-                                AddEm(RegionUUID, AgentID)
-                                Return UUID
-                            End If
-                        End If
-                    Else ' Non Smart Start
-                        If AgentName.Length > 0 Then
-                            If AgentName.Length > 0 Then
-                                time = "|" & CStr(BootTime(RegionUUID) + 10)
-                                Return RegionName & time
-                            Else   ' Opensim  ALT code gets just the region they asked for as it  is not smart start.
-                                Return RegionUUID
-                            End If
-                        End If
-                    End If
-                End If
-                ' not running
-                Return ""
-            End If
-
+            Return SmartStartParse(post)
         ElseIf post.Contains("TOS") Then
-            ' currently unused as is only in stand alones
-            Debug.Print("UUID:" + post)
-            '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.0909,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.0909" & vbCrLf & vbCrLf &
-            '"action-accept=Accept&uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701"
-
-            Return "<html><head></head><body>Error</html>"
-
-            Dim uid As Guid
-            Dim sid As Guid
-
-            Try
-                post = post.Replace("{ENTER}", "")
-                post = post.Replace("\r", "")
-
-                Dim pattern As Regex = New Regex("uid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
-                Dim match As Match = pattern.Match(post)
-                If match.Success Then
-                    uid = Guid.Parse(match.Groups(1).Value)
-                End If
-
-                Dim pattern2 As Regex = New Regex("sid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
-                Dim match2 As Match = pattern2.Match(post)
-                If match2.Success Then
-                    sid = Guid.Parse(match2.Groups(1).Value)
-                End If
-
-                If match.Success And match2.Success Then
-
-                    ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
-                    Dim result As Integer = 1
-
-                    Dim myConnection As MySqlConnection = New MySqlConnection(settings.RobustMysqlConnection)
-
-                    Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
-                    Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-                        .Connection = myConnection
-                    }
-                    myConnection.Open()
-                    myCommand1.Prepare()
-                    myCommand1.Parameters.AddWithValue("p1", uid.ToString())
-                    myCommand1.ExecuteScalar()
-                    myConnection.Close()
-                    myConnection.Dispose()
-                    Return "<html><head></head><body>Welcome! You can close this window.</html>"
-                Else
-                    Return "<html><head></head><body>Test Passed</html>"
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                Return "<html><head></head><body>Error</html>"
-            End Try
-
-        ElseIf post.ToUpperInvariant.Contains("GET_PARTNER") Then
-            Debug.Print("get Partner")
-            Dim PWok As Boolean = CheckPassword(post, settings.MachineID())
-            If Not PWok Then Return ""
-
-            Dim pattern1 As Regex = New Regex("User=(.*)", RegexOptions.IgnoreCase)
-            Dim match1 As Match = pattern1.Match(post)
-            Dim p1 As String
-            If match1.Success Then
-                p1 = match1.Groups(1).Value
-                Dim s = GetPartner(p1, settings)
-                Debug.Print(s)
-                Return s
-            Else
-                Debug.Print("No partner")
-                Return "00000000-0000-0000-0000-000000000000"
-            End If
-
-            ' Partner prim
+            Return TOS(post)
         ElseIf post.ToUpperInvariant.Contains("SET_PARTNER") Then
-            Debug.Print("set Partner")
-            Dim PWok As Boolean = CheckPassword(post, CStr(settings.MachineID()))
-            If Not PWok Then Return ""
-
-            Dim pattern1 As Regex = New Regex("User=(.*?)&", RegexOptions.IgnoreCase)
-            Dim match1 As Match = pattern1.Match(post)
-            If match1.Success Then
-
-                Dim p2 As String = ""
-                Dim p1 = match1.Groups(1).Value
-                Dim pattern2 As Regex = New Regex("Partner=(.*)", RegexOptions.IgnoreCase)
-                Dim match2 As Match = pattern2.Match(post)
-                If match2.Success Then
-                    p2 = match2.Groups(1).Value
-                End If
-                Dim result As New Guid
-                If Guid.TryParse(p1, result) And Guid.TryParse(p1, result) Then
-                    Dim Partner = GetPartner(p1, settings)
-                    Debug.Print("Partner=" + p2)
-
-                    Try
-                        Using myConnection As MySqlConnection = New MySqlConnection(settings.RobustMysqlConnection)
-                            Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
-                            Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-                                    .Connection = myConnection
-                                }
-                                myConnection.Open()
-                                myCommand1.Prepare()
-
-                                myCommand1.Parameters.AddWithValue("p1", p1)
-                                myCommand1.Parameters.AddWithValue("p2", p2)
-
-                                myCommand1.ExecuteScalar()
-
-                            End Using
-                        End Using
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                        Debug.Print(ex.Message)
-                    End Try
-
-                    Debug.Print(Partner)
-                    Return Partner
-
-                End If
-            End If
-            Debug.Print("NULL response")
-            Return ""
+            Return SetPartner(post)
+        ElseIf post.ToUpperInvariant.Contains("GET_PARTNER") Then
+            Return GetPartner(post)
         End If
 
         Return "Test Completed"
 
     End Function
 
-    Private Sub AddEm(RegionUUID As String, AgentID As String)
+    Private Function AddEm(RegionUUID As String, AgentID As String) As Boolean
+
+        If RegionUUID = "00000000-0000-0000-0000-000000000000" Then
+            BreakPoint.Show("UUID Zero")
+            Logger("Addem", "Bad UUID", "Teleport")
+            Return True
+        End If
+
+        Dim result As New Guid
+        If Not Guid.TryParse(RegionUUID, result) Then
+            Logger("Addem", "Bad UUID", "Teleport")
+            Return False
+        End If
 
         TextPrint(My.Resources.Smart_Start_word & " " & RegionName(RegionUUID))
+        Logger("Teleport Request", RegionName(RegionUUID) & ":" & AgentID, "Teleport")
+
         If TeleportAvatarDict.ContainsKey(AgentID) Then
             TeleportAvatarDict.Remove(AgentID)
         End If
         TeleportAvatarDict.Add(AgentID, RegionUUID)
-        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
 
-    End Sub
+        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+        Return False
+
+    End Function
+
+    Private Function SmartStartParse(post As String) As String
+
+        ' Smart Start AutoStart Region mode
+        Debug.Print("Smart Start:" + post)
+
+        Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)")
+        Dim match As Match = pattern.Match(post)
+        If match.Success Then
+            Dim RegionName As String = Uri.UnescapeDataString(match.Groups(1).Value)
+            Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
+            Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
+            Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
+
+            Dim time As String = "1"
+
+            ' Region may be a name or a Region UUID
+            Dim RegionUUID = FindRegionUUIDByName(RegionName)
+            If RegionUUID.Length = 0 Then
+                RegionUUID = RegionName
+            End If
+
+            Dim result As New Guid
+            If Guid.TryParse(RegionUUID, result) Then
+                If PropOpensimIsRunning Then
+                    If SmartStart(RegionUUID) = "True" Then
+                        ' smart, and up
+                        If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+
+                            ' Scripts send us the Agent Name
+                            If AgentName.Length > 0 Then
+                                Logger("Teleport Sign Booted", RegionName & ":" & AgentID, "Teleport")
+                                AddEm(RegionUUID, AgentID)
+                                Return RegionName & "|1"
+                            Else
+                                Return RegionUUID
+                            End If
+                        Else  ' requires booting
+
+                            ' Scripts send us the Agent Name
+                            If AgentName.Length > 0 Then
+                                time = "|" & CStr(BootTime(RegionUUID) + slop) ' 5 seconds of slop time
+                                Logger("Teleport Sign Power up ", RegionName & ":" & AgentID, "Teleport")
+                                AddEm(RegionUUID, AgentID)
+                                Return RegionName & time
+                            Else   ' Opensim  ALT code
+                                ' Send them to "Welcome"
+                                Logger("Teleport Sign to Welcome", RegionName & ":" & AgentID, "Teleport")
+                                Dim UUID = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+                                AddEm(RegionUUID, AgentID)
+                                Return UUID
+                            End If
+
+                        End If
+                    Else ' Non Smart Start
+
+                        ' Scripts send us the Agent Name
+
+                        If AgentName.Length > 0 Then
+                            time = "|" & CStr(BootTime(RegionUUID) + slop) ' more slop
+                            Logger("Teleport Request", RegionName & ":" & AgentID, "Teleport")
+                            Return RegionName & time
+                        Else   ' Opensim  ALT code gets just the region they asked for as it is not smart start.
+                            Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
+                            Return RegionUUID
+                        End If
+
+                    End If
+                End If
+                ' not running
+                Return RegionUUID
+            End If
+        Else
+            BreakPoint.Show("Bad UUID")
+        End If
+        Return PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+
+    End Function
+
+#End Region
+
+#Region "TOS"
+
+    Private Shared Function TOS(post As String) As String
+
+        ' currently unused as is only in stand alones
+        Debug.Print("UUID:" + post)
+        '"POST /TOS HTTP/1.1" & vbCrLf & "Host: mach.outworldz.net:9201" & vbCrLf & "Connection: keep-alive" & vbCrLf & "Content-Length: 102" & vbCrLf & "Cache-Control: max-age=0" & vbCrLf & "Upgrade-Insecure-Requests: 1" & vbCrLf & "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36" & vbCrLf & "Origin: http://mach.outworldz.net:9201" & vbCrLf & "Content-Type: application/x-www-form-urlencoded" & vbCrLf & "DNT: 1" & vbCrLf & "Accept: text/html,application/xhtml+xml,application/xml;q=0.0909,image/webp,image/apng,*/*;q=0.8" & vbCrLf & "Referer: http://mach.outworldz.net:9200/wifi/termsofservice.html?uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701" & vbCrLf & "Accept-Encoding: gzip, deflate" & vbCrLf & "Accept-Language: en-US,en;q=0.0909" & vbCrLf & vbCrLf &
+        '"action-accept=Accept&uid=acb8fd92-c725-423f-b750-5fd971d73182&sid=40c5b80a-5377-4b97-820c-a0952782a701"
+
+        Return "<html><head></head><body>Error</html>"
+
+        Dim uid As Guid
+        Dim sid As Guid
+
+        Try
+            post = post.Replace("{ENTER}", "")
+            post = post.Replace("\r", "")
+
+            Dim pattern As Regex = New Regex("uid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
+            Dim match As Match = pattern.Match(post)
+            If match.Success Then
+                uid = Guid.Parse(match.Groups(1).Value)
+            End If
+
+            Dim pattern2 As Regex = New Regex("sid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
+            Dim match2 As Match = pattern2.Match(post)
+            If match2.Success Then
+                sid = Guid.Parse(match2.Groups(1).Value)
+            End If
+
+            If match.Success And match2.Success Then
+
+                ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
+                Dim result As Integer = 1
+
+                Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
+
+                Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
+#Disable Warning CA2100
+                Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                    .Connection = myConnection
+                }
+#Enable Warning CA2100
+                myConnection.Open()
+                myCommand1.Prepare()
+                myCommand1.Parameters.AddWithValue("p1", uid.ToString())
+                myCommand1.ExecuteScalar()
+                myConnection.Close()
+                myConnection.Dispose()
+                Return "<html><head></head><body>Welcome! You can close this window.</html>"
+            Else
+                Return "<html><head></head><body>Test Passed</html>"
+            End If
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+            Return "<html><head></head><body>Error</html>"
+        End Try
+
+    End Function
+
+#End Region
+
+#Region "Partners"
+
+    Private Shared Function GetPartner(post As String) As String
+
+        Debug.Print("get Partner")
+        Dim PWok As Boolean = CheckPassword(post, Settings.MachineID())
+        If Not PWok Then Return ""
+
+        Dim pattern1 As Regex = New Regex("User=(.*)", RegexOptions.IgnoreCase)
+        Dim match1 As Match = pattern1.Match(post)
+        Dim p1 As String
+        If match1.Success Then
+            p1 = match1.Groups(1).Value
+            Dim s = MysqlGetPartner(p1, Settings)
+            Debug.Print(s)
+            Return s
+        Else
+            Debug.Print("No partner")
+            Return "00000000-0000-0000-0000-000000000000"
+        End If
+
+    End Function
+
+    Private Shared Function SetPartner(post As String) As String
+
+        Debug.Print("set Partner")
+        Dim PWok As Boolean = CheckPassword(post, CStr(Settings.MachineID()))
+        If Not PWok Then Return ""
+
+        Dim pattern1 As Regex = New Regex("User=(.*?)&", RegexOptions.IgnoreCase)
+        Dim match1 As Match = pattern1.Match(post)
+        If match1.Success Then
+
+            Dim p2 As String = ""
+            Dim p1 = match1.Groups(1).Value
+            Dim pattern2 As Regex = New Regex("Partner=(.*)", RegexOptions.IgnoreCase)
+            Dim match2 As Match = pattern2.Match(post)
+            If match2.Success Then
+                p2 = match2.Groups(1).Value
+            End If
+            Dim result As New Guid
+            If Guid.TryParse(p1, result) And Guid.TryParse(p1, result) Then
+                Dim Partner = MysqlGetPartner(p1, Settings)
+                Debug.Print("Partner=" + p2)
+
+                Try
+                    Using myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
+                        Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
+#Disable Warning CA2100
+                        Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                                .Connection = myConnection
+                            }
+#Enable Warning CA2100
+                            myConnection.Open()
+                            myCommand1.Prepare()
+                            myCommand1.Parameters.AddWithValue("p1", p1)
+                            myCommand1.Parameters.AddWithValue("p2", p2)
+                            myCommand1.ExecuteScalar()
+                        End Using
+                    End Using
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                    Debug.Print(ex.Message)
+                End Try
+
+                Debug.Print(Partner)
+                Return Partner
+
+            End If
+        End If
+        Debug.Print("NULL response")
+        Return ""
+
+    End Function
 
 #End Region
 

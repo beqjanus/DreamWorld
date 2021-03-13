@@ -381,7 +381,6 @@ Public Module MysqlInterface
                     End Using
                 End Using
 
-
                 Dim stm As String = "SELECT count(*) FROM presence  INNER JOIN regions ON presence.RegionID = regions.uuid where regions.uuid = @R ;"
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     cmd.Parameters.AddWithValue("@R", RegionUUID)
@@ -418,6 +417,29 @@ Public Module MysqlInterface
         End If
         Return False
 
+    End Function
+
+    Public Function MysqlGetPartner(p1 As String, mysetting As MySettings) As String
+
+        If mysetting Is Nothing Then
+            Return ""
+        End If
+
+        Dim answer As String = ""
+        Using myConnection As MySqlConnection = New MySqlConnection(mysetting.RobustMysqlConnection)
+            Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
+            Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                .Connection = myConnection
+            }
+                myConnection.Open()
+                myCommand1.Prepare()
+                myCommand1.Parameters.AddWithValue("p1", p1)
+                answer = CStr(myCommand1.ExecuteScalar())
+                Debug.Print("User=" + p1 + ", Partner=" + answer)
+            End Using
+        End Using
+
+        Return answer
     End Function
 
     Public Sub MySQLIcon(Running As Boolean)
