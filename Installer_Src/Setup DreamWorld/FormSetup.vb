@@ -3311,7 +3311,7 @@ Public Class FormSetup
             Settings.SSVisible = True
             Settings.SaveSettings()
 
-        ElseIf cmd = "LoadAllOars" Then
+        ElseIf cmd = "LoadAllOars" And input.Length = 2 Then
 
             Settings.SmartStart = False
 
@@ -3360,8 +3360,6 @@ Public Class FormSetup
 
                 PropRegionClass.CoordX(RegionUUID) = X
                 PropRegionClass.CoordY(RegionUUID) = Y
-
-                PropRegionClass.MapType(RegionUUID) = ""
                 PropRegionClass.SkipAutobackup(RegionUUID) = "True"
                 PropRegionClass.Concierge(RegionUUID) = "True"
                 PropRegionClass.SmartStart(RegionUUID) = "True"
@@ -3369,17 +3367,19 @@ Public Class FormSetup
                 PropRegionClass.SizeX(RegionUUID) = size
                 PropRegionClass.SizeY(RegionUUID) = size
                 PropRegionClass.GroupName(RegionUUID) = shortname
-                PropRegionClass.GroupName(RegionUUID) = shortname
-                PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
-                PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region")
-                PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname)
+                PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+                PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
+                PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
 
                 Dim port = PropRegionClass.LargestPort
                 PropRegionClass.GroupPort(RegionUUID) = port
                 PropRegionClass.RegionPort(RegionUUID) = port
 
                 PropRegionClass.WriteRegionObject(shortname)
-                TextPrint(My.Resources.Add_Region_word & " " & J.Name & " @ " & CStr(X) & "," & CStr(Y))
+                ' after we save it so we can undo maps
+                PropRegionClass.MapType(RegionUUID) = "Best"
+
+                TextPrint($"{My.Resources.Add_Region_word} {J.Name} @ {CStr(X)},{CStr(Y)}")
                 PropUpdateView = True ' make form refresh
                 Application.DoEvents()
 
@@ -3398,12 +3398,12 @@ Public Class FormSetup
                 ConsoleCommand(RegionUUID, "{ENTER}")
                 ConsoleCommand(RegionUUID, param)
 
-                Dim File = PropDomain & "/Outworldz_Installer/OAR/" & J.Name
-                ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
+                Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
+                ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                 ConsoleCommand(RegionUUID, "scripts stop")
-                ConsoleCommand(RegionUUID, "load oar --force-terrain --force-parcels " & """" & File & """")
+                ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+                ConsoleCommand(RegionUUID, "scripts stop")
                 ConsoleCommand(RegionUUID, "generate map")
-                ConsoleCommand(RegionUUID, "scripts stop")
                 ConsoleCommand(RegionUUID, "alert power off")
                 ConsoleCommand(RegionUUID, "backup")
 
@@ -3413,12 +3413,15 @@ Public Class FormSetup
                 ConsoleCommand(RegionUUID, "q")
                 ConsoleCommand(RegionUUID, "q")
 
+
+
                 If Settings.Sequential Then
                     Dim PID = PropRegionClass.ProcessID(RegionUUID)
                     While _regionHandles.ContainsKey(PID)
                         Sleep(1000)
                     End While
                 End If
+                PropRegionClass.MapType(RegionUUID) = ""
 
             Next
 
