@@ -3311,7 +3311,7 @@ Public Class FormSetup
             Settings.SSVisible = True
             Settings.SaveSettings()
 
-        ElseIf Command() = "LoadOAR" Then
+        ElseIf cmd = "LoadAllOars" Then
 
             Settings.SmartStart = False
 
