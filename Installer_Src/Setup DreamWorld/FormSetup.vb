@@ -3399,7 +3399,6 @@ Public Class FormSetup
                 ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                 ConsoleCommand(RegionUUID, "scripts stop")
                 ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
-                ConsoleCommand(RegionUUID, "scripts stop")
                 ConsoleCommand(RegionUUID, "alert power off")
                 ConsoleCommand(RegionUUID, "backup")
 
