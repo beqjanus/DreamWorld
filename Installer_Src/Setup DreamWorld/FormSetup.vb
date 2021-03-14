@@ -57,11 +57,7 @@ Public Class FormSetup
     Private _StopMysql As Boolean = True
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
-#Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
-#Enable Warning CA2213 ' Disposable fields should be disposed
-    ' how often to poll for tp
-
     Private ScreenPosition As ScreenPos
 
 #End Region
@@ -1050,21 +1046,13 @@ Public Class FormSetup
         ' check to see if a handle to all regions exists
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
-
-            Dim RegionName As String = PropRegionClass.RegionName(RegionUUID)
-
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
-                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                Next
-                PropUpdateView = True ' make form refresh
-                Continue For
-            End If
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             If CBool((PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
+                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended)) Then
 
                 Dim G = PropRegionClass.GroupName(RegionUUID)
@@ -1108,7 +1096,7 @@ Public Class FormSetup
 
                 ' time consuming, so a separate if
                 If Not AvatarsIsInGroup(GroupName) Then
-                    Logger("State Changed to ShuttingDown", RegionName, "Teleport")
+                    Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                     ShutDown(RegionUUID)
                     For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
@@ -1123,6 +1111,7 @@ Public Class FormSetup
                 End If
             End If
 
+
             ' auto restart timer
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
                 And Expired > 0 _
@@ -1132,7 +1121,7 @@ Public Class FormSetup
                 If Not AvatarsIsInGroup(GroupName) Then
 
                     ' shut down the group when AutoRestartInterval has gone by.
-                    Logger("State is Time Exceeded, shutdown", RegionName, "Teleport")
+                    Logger("State is Time Exceeded, shutdown", GroupName, "Teleport")
 
                     ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
                     SequentialPause()
@@ -1226,6 +1215,14 @@ Public Class FormSetup
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then
+                Continue While
+            End If
+
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                Next
+                PropUpdateView = True ' make form refresh
                 Continue While
             End If
 
@@ -2570,6 +2567,7 @@ Public Class FormSetup
 
         If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
             PropRegionClass.CheckPost() ' get the stack filled ASAP
+
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             TeleportAgents()
             RestartDOSboxes()
@@ -3315,11 +3313,6 @@ Public Class FormSetup
 
             Settings.SmartStart = False
 
-            StartMySQL()
-            MysqlInterface.DeregisterRegions(False)
-
-            StartOpensimulator()
-
             Dim CoordX = CStr(PropRegionClass.LargestX() + 8)
             Dim CoordY = CStr(PropRegionClass.LargestY() + 8)
 
@@ -3335,6 +3328,12 @@ Public Class FormSetup
             Dim X As Integer = CInt(match.Groups(1).Value)
             Dim Y As Integer = CInt(match.Groups(2).Value)
             Dim StartX As Integer = X
+
+            StartMySQL()
+            MysqlInterface.DeregisterRegions(False)
+            Settings.Sequential = True
+            StartOpensimulator()
+
             Dim Max As Integer
             For Each J In ContentOAR.GetJson
 
@@ -3402,20 +3401,16 @@ Public Class FormSetup
                 ConsoleCommand(RegionUUID, "alert power off")
                 ConsoleCommand(RegionUUID, "backup")
 
+                ConsoleCommand(RegionUUID, "q")
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                Application.DoEvents()
-                ConsoleCommand(RegionUUID, "q")
-                ConsoleCommand(RegionUUID, "q")
-                ConsoleCommand(RegionUUID, "q")
 
                 If Settings.Sequential Then
-                    Dim PID = PropRegionClass.ProcessID(RegionUUID)
-                    While _regionHandles.ContainsKey(PID)
-                        Sleep(1000)
+                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped
+                        Sleep(100)
                     End While
                 End If
-                PropRegionClass.MapType(RegionUUID) = ""
 
+                TextPrint($"->Loaded {RegionName}")
             Next
 
             Settings.SmartStart = True
