@@ -3296,7 +3296,7 @@ Public Class FormSetup
 
         Dim cmd = InputBox("Debug command?")
         If cmd.Length = 0 Then Return
-        Dim param As String
+        Dim param As String = ""
 
         Dim input() = cmd.Split(" ".ToCharArray())
         If input.Length = 2 Then

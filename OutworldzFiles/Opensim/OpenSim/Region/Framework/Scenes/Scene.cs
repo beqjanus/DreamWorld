@@ -45,6 +45,7 @@ using OpenSim.Framework;
 using OpenSim.Framework.Monitoring;
 using OpenSim.Services.Interfaces;
 using OpenSim.Framework.Console;
+using OpenSim.Region.Framework;
 using OpenSim.Region.Framework.Interfaces;
 using OpenSim.Region.Framework.Scenes.Scripting;
 using OpenSim.Region.Framework.Scenes.Serialization;
@@ -53,6 +54,7 @@ using Timer = System.Timers.Timer;
 using TPFlags = OpenSim.Framework.Constants.TeleportFlags;
 using GridRegion = OpenSim.Services.Interfaces.GridRegion;
 using PermissionMask = OpenSim.Framework.PermissionMask;
+using System.Net;
 
 namespace OpenSim.Region.Framework.Scenes
 {
@@ -125,7 +127,7 @@ namespace OpenSim.Region.Framework.Scenes
         private bool m_physicsEnabled;
 
         /// <summary>
-        /// If false then scripts are not enabled on the smiulator
+        /// If false then scripts are not enabled on the simulator
         /// </summary>
         public bool ScriptsEnabled
         {
@@ -832,9 +834,53 @@ namespace OpenSim.Region.Framework.Scenes
 
         public GridInfo SceneGridInfo;
 
+        //SmartStart
+        private static bool m_ALT_Enabled = false;
+        private static Int32 m_DiagnosticsPort;
+        private static string m_PrivURL;
+        private static string m_MachineID;
+
+
         #endregion Properties
 
         #region Constructors
+
+        public string GetALTRegion(String regionName, UUID agentID)
+        {
+            // !!!  DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
+            // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
+
+
+            string url = m_PrivURL + ":" + m_DiagnosticsPort + "?alt=" + regionName + "&agent=RegionName&agentid=" + agentID + "&password=" + m_MachineID;
+            m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
+
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+
+            webRequest.Timeout = 30000; //30 Second Timeout
+            m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
+
+            try
+            {
+                HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+                System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
+                string Result = String.Empty;
+                string tempStr = reader.ReadLine();
+                while (tempStr != null)
+                {
+                    Result = Result + tempStr;
+                    tempStr = reader.ReadLine();
+                }
+                m_log.Debug("[SMARTSTART]: Destination is " + Result);
+                regionName = Result;
+            }
+            catch (WebException ex)
+            {
+                m_log.Warn("[SMARTSTART]: " + ex.Message);
+            }
+
+            return regionName;
+        }
+
 
         public Scene(RegionInfo regInfo, AgentCircuitManager authen,
                      ISimulationDataService simDataService, IEstateDataService estateDataService,
@@ -842,6 +888,8 @@ namespace OpenSim.Region.Framework.Scenes
             : this(regInfo)
         {
             m_config = config;
+
+
             FrameTime = 0.0908f;
             FrameTimeWarnPercent = 60;
             FrameTimeCritPercent = 40;
@@ -935,6 +983,8 @@ namespace OpenSim.Region.Framework.Scenes
 
             // Region config overrides global config
             //
+
+
             if (m_config.Configs["Startup"] != null)
             {
                 IConfig startupConfig = m_config.Configs["Startup"];
@@ -1121,9 +1171,23 @@ namespace OpenSim.Region.Framework.Scenes
                 m_update_presences = startupConfig.GetInt("UpdateAgentsEveryNFrames", m_update_presences);
                 m_update_terrain = startupConfig.GetInt("UpdateTerrainEveryNFrames", m_update_terrain);
                 m_update_temp_cleaning = startupConfig.GetInt("UpdateTempCleaningEveryNSeconds", m_update_temp_cleaning);
+
+                m_ALT_Enabled = startupConfig.GetBoolean("SmartStart", m_ALT_Enabled);
+                if (m_ALT_Enabled)
+                    m_log.Info("[AutoLoadTeleport]: Enabled");
+                else
+                    m_log.Info("[AutoLoadTeleport]: Disabled");
+
+                // Get the http port to talk to from Const Section
+                IConfig ConstConfig = m_config.Configs["Const"];
+                m_DiagnosticsPort = ConstConfig.GetInt("DiagnosticsPort", 8001);    // listener port for Dreamgrid
+                m_PrivURL = ConstConfig.GetString("PrivURL", "http://localhost");    // private IP
+                m_MachineID = ConstConfig.GetString("MachineID", "");    // private IP
             }
 
+
             #endregion Region Config
+
 
             IConfig entityTransferConfig = m_config.Configs["EntityTransfer"];
             if (entityTransferConfig != null)
@@ -1356,7 +1420,7 @@ namespace OpenSim.Region.Framework.Scenes
         }
 
         /// <summary>
-        /// Process the fact that a neighbouring region has come up.
+        /// Process the fact that a neighboring region has come up.
         /// </summary>
         /// <remarks>
         /// We only add it to the neighbor list if it's within 1 region from here.
@@ -1389,7 +1453,7 @@ namespace OpenSim.Region.Framework.Scenes
                     {
                         // This means that we're not booted up completely yet.
                         // This shouldn't happen too often anymore.
-                        m_log.Error("[SCENE]: Couldn't inform client of regionup because we got a null reference exception");
+                        m_log.Error("[SCENE]: Couldn't inform client of region up because we got a null reference exception");
                     }
                 }
                 else
@@ -1451,7 +1515,7 @@ namespace OpenSim.Region.Framework.Scenes
             return new GridRegion(RegionInfo);
         }
 
-        // This causes the region to restart immediatley.
+        // This causes the region to restart immediately.
         public void RestartNow()
         {
             IConfig startupConfig = m_config.Configs["Startup"];
@@ -4925,7 +4989,10 @@ namespace OpenSim.Region.Framework.Scenes
         public void RequestTeleportLocation(IClientAPI remoteClient, string regionName, Vector3 position,
                                             Vector3 lookat, uint teleportFlags)
         {
-            // fkb Teleport to region by name
+            m_log.DebugFormat("[SCENE]: regionName {0}, Agent {1}", regionName, remoteClient.AgentId);
+
+            SmartStart SS = new SmartStart();
+            regionName = GetALTRegion(regionName, remoteClient.AgentId);   // DreamGrid 
 
             if (EntityTransferModule == null)
             {

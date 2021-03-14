@@ -41,6 +41,7 @@ using OpenSim.Server.Base;
 using OpenSim.Services.Connectors.InstantMessage;
 using OpenSim.Services.Connectors.Hypergrid;
 using OpenMetaverse;
+using OpenSim.Region.Framework;
 
 using Nini.Config;
 using log4net;
@@ -85,6 +86,43 @@ namespace OpenSim.Services.HypergridService
         private static Int32 m_DiagnosticsPort;
         private static string m_PrivURL;
         private static string m_MachineID;
+
+        public UUID GetALTRegion(UUID regionID, UUID agentID)
+        {
+            // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
+            // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
+
+            if (m_ALT_Enabled)
+            {
+                string url = m_PrivURL + ":" + m_DiagnosticsPort + "?alt=" + regionID + "&agent=UUID&agentid=" + agentID + "&password=" + m_MachineID;
+                m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
+
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+
+                webRequest.Timeout = 30000; //30 Second Timeout
+                m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
+
+                try
+                {
+                    HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+                    System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
+                    string Result = String.Empty;
+                    string tempStr = reader.ReadLine();
+                    while (tempStr != null)
+                    {
+                        Result = Result + tempStr;
+                        tempStr = reader.ReadLine();
+                    }
+                    m_log.Debug("[SMARTSTART]: Destination is " + Result);
+                    regionID = OpenMetaverse.UUID.Parse(Result);
+                }
+                catch (WebException ex)
+                {
+                    m_log.Warn("[SMARTSTART]: " + ex.Message);
+                }
+            }
+            return regionID;
+        }
 
         public GatekeeperService(IConfigSource config, ISimulationService simService)
         {
@@ -276,43 +314,6 @@ namespace OpenSim.Services.HypergridService
             return true;
         }
 
-        public UUID GetALTRegion(UUID regionID, UUID agentID)
-        {
-            // !!! Fkb DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
-            // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
-
-            if (m_ALT_Enabled)
-            {
-                string url = m_PrivURL + ":" + m_DiagnosticsPort + "?alt=" + regionID + "&agent=&agentid=" + agentID + "&password=" + m_MachineID;
-                m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
-
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-
-                webRequest.Timeout = 30000; //30 Second Timeout
-                m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
-
-                try
-                {
-                    HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-                    System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
-                    string Result = String.Empty;
-                    string tempStr = reader.ReadLine();
-                    while (tempStr != null)
-                    {
-                        Result = Result + tempStr;
-                        tempStr = reader.ReadLine();
-                    }
-                    m_log.Debug("[SMARTSTART]: Destination is " + Result);
-                    regionID = OpenMetaverse.UUID.Parse(Result);
-                }
-                catch (WebException ex)
-                {
-                    m_log.Warn("[SMARTSTART]: " + ex.Message);
-                }
-            }
-            return regionID;
-        }
-
         public GridRegion GetHyperlinkRegion(UUID regionID, UUID agentID, string agentHomeURI, out string message)
         {
             message = null;
@@ -328,11 +329,13 @@ namespace OpenSim.Services.HypergridService
                     agentID,
                     agentHomeURI == null ? "" : " @ " + agentHomeURI);
 
-                message = "Teleporting to the default region.";
+                message = "Teleport to the default region.";
                 return m_DefaultGatewayRegion;
             }
 
-            regionID = GetALTRegion(regionID, agentID);      // DreamGrid fkb
+            regionID = GetALTRegion(regionID, agentID);   // DreamGrid
+
+            //regionID = new OpenSim.Region.Framework.SmartStart.GetALTRegion(regionID, agentID);      // DreamGrid fkb
 
             GridRegion region = m_GridService.GetRegionByUUID(m_ScopeID, regionID);
 
