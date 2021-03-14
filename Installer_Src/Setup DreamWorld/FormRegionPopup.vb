@@ -64,7 +64,7 @@ Public Class FormRegionPopup
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim status = PropRegionClass.Status(RegionUUID)
 
-        Me.Text = RegionName & " " & PropRegionClass.GetStateString(status)
+        Me.Text = $"{RegionName} {PropRegionClass.GetStateString(status)}"
         GroupBox1.Text = PropRegionClass.GroupName(RegionUUID)
 
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then
@@ -160,7 +160,7 @@ Public Class FormRegionPopup
 
         Dim UUID = PropRegionClass.FindRegionByName(_RegionName)
         Dim GroupName As String = PropRegionClass.GroupName(UUID)
-        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Regions\" & GroupName & "\OpenSim.log")
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Opensim\bin\Regions\{GroupName}\OpenSim.log")
 
         Using Baretail As New Process
             Baretail.StartInfo.UseShellExecute = True ' so we can redirect streams
@@ -181,7 +181,7 @@ Public Class FormRegionPopup
 
         Dim RegionNum = PropRegionClass.FindRegionByName(_RegionName)
         Dim RegionPort = PropRegionClass.GroupPort(RegionNum)
-        Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CType(RegionPort, String) & "/SStats/"
+        Dim webAddress As String = $"http://{Settings.PublicIP}:{CType(RegionPort, String)}/SStats/"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

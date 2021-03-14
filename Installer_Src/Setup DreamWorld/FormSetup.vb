@@ -57,11 +57,7 @@ Public Class FormSetup
     Private _StopMysql As Boolean = True
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
-#Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
-#Enable Warning CA2213 ' Disposable fields should be disposed
-    ' how often to poll for tp
-
     Private ScreenPosition As ScreenPos
 
 #End Region
@@ -1050,21 +1046,13 @@ Public Class FormSetup
         ' check to see if a handle to all regions exists
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-            Dim RegionName As String = PropRegionClass.RegionName(RegionUUID)
-
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
-                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                Next
-                PropUpdateView = True ' make form refresh
-                Continue For
-            End If
-
-            If CBool((PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
+            If CBool((PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
+                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended)) Then
 
                 Dim G = PropRegionClass.GroupName(RegionUUID)
@@ -1108,7 +1096,7 @@ Public Class FormSetup
 
                 ' time consuming, so a separate if
                 If Not AvatarsIsInGroup(GroupName) Then
-                    Logger("State Changed to ShuttingDown", RegionName, "Teleport")
+                    Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                     ShutDown(RegionUUID)
                     For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
@@ -1123,6 +1111,7 @@ Public Class FormSetup
                 End If
             End If
 
+
             ' auto restart timer
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
                 And Expired > 0 _
@@ -1132,7 +1121,7 @@ Public Class FormSetup
                 If Not AvatarsIsInGroup(GroupName) Then
 
                     ' shut down the group when AutoRestartInterval has gone by.
-                    Logger("State is Time Exceeded, shutdown", RegionName, "Teleport")
+                    Logger("State is Time Exceeded, shutdown", GroupName, "Teleport")
 
                     ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
                     SequentialPause()
@@ -1226,6 +1215,14 @@ Public Class FormSetup
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then
+                Continue While
+            End If
+
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
+                Next
+                PropUpdateView = True ' make form refresh
                 Continue While
             End If
 
@@ -2570,6 +2567,7 @@ Public Class FormSetup
 
         If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
             PropRegionClass.CheckPost() ' get the stack filled ASAP
+
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             TeleportAgents()
             RestartDOSboxes()
@@ -3311,14 +3309,9 @@ Public Class FormSetup
             Settings.SSVisible = True
             Settings.SaveSettings()
 
-        ElseIf Command() = "LoadOAR" Then
+        ElseIf cmd = "LoadAllOars" And input.Length = 2 Then
 
             Settings.SmartStart = False
-
-            StartMySQL()
-            MysqlInterface.DeregisterRegions(False)
-
-            StartOpensimulator()
 
             Dim CoordX = CStr(PropRegionClass.LargestX() + 8)
             Dim CoordY = CStr(PropRegionClass.LargestY() + 8)
@@ -3335,93 +3328,98 @@ Public Class FormSetup
             Dim X As Integer = CInt(match.Groups(1).Value)
             Dim Y As Integer = CInt(match.Groups(2).Value)
             Dim StartX As Integer = X
+
+            StartMySQL()
+            MysqlInterface.DeregisterRegions(False)
+            Settings.Sequential = True
+            Settings.SmartStart = True
+            StartOpensimulator()
+
             Dim Max As Integer
-            For Each J In ContentOAR.GetJson
+            Try
+                For Each J In ContentOAR.GetJson
 
-                Dim Name = J.Name
+                    Dim Name = J.Name
 
-                Dim shortname = Path.GetFileNameWithoutExtension(Name)
+                    Dim shortname = Path.GetFileNameWithoutExtension(Name)
 
-                Dim p = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
-                If IO.File.Exists(p) Then Continue For
+                    Dim p = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
+                    If IO.File.Exists(p) Then Continue For
 
-                Dim RegionUUID = PropRegionClass.CreateRegion(shortname)
+                    Dim RegionUUID = PropRegionClass.CreateRegion(shortname)
 
-                ' setup parameters for the load
-                Dim size As Integer = 256
+                    ' setup parameters for the load
+                    Dim size As Integer = 256
 
-                ' convert 1,2,3 to 256, 512, etc
-                Dim pattern1 As Regex = New Regex("(.*?)-(\d+)[xX](\d+)")
-                Dim match1 As Match = pattern1.Match(Name)
-                If match1.Success Then
-                    Name = match1.Groups(1).Value
-                    size = CInt(match1.Groups(2).Value) * 256
-                End If
+                    ' convert 1,2,3 to 256, 512, etc
+                    Dim pattern1 As Regex = New Regex("(.*?)-(\d+)[xX](\d+)")
+                    Dim match1 As Match = pattern1.Match(Name)
+                    If match1.Success Then
+                        Name = match1.Groups(1).Value
+                        size = CInt(match1.Groups(2).Value) * 256
+                    End If
 
-                PropRegionClass.CoordX(RegionUUID) = X
-                PropRegionClass.CoordY(RegionUUID) = Y
+                    PropRegionClass.CoordX(RegionUUID) = X
+                    PropRegionClass.CoordY(RegionUUID) = Y
+                    PropRegionClass.SkipAutobackup(RegionUUID) = "True"
+                    PropRegionClass.Concierge(RegionUUID) = "True"
+                    PropRegionClass.SmartStart(RegionUUID) = "True"
+                    PropRegionClass.Teleport(RegionUUID) = "True"
+                    PropRegionClass.SizeX(RegionUUID) = size
+                    PropRegionClass.SizeY(RegionUUID) = size
+                    PropRegionClass.GroupName(RegionUUID) = shortname
+                    PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+                    PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
+                    PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
 
-                PropRegionClass.MapType(RegionUUID) = ""
-                PropRegionClass.SkipAutobackup(RegionUUID) = "True"
-                PropRegionClass.Concierge(RegionUUID) = "True"
-                PropRegionClass.SmartStart(RegionUUID) = "True"
-                PropRegionClass.Teleport(RegionUUID) = "True"
-                PropRegionClass.SizeX(RegionUUID) = size
-                PropRegionClass.SizeY(RegionUUID) = size
-                PropRegionClass.GroupName(RegionUUID) = shortname
-                PropRegionClass.GroupName(RegionUUID) = shortname
-                PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
-                PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region")
-                PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname)
+                    Dim port = PropRegionClass.LargestPort
+                    PropRegionClass.GroupPort(RegionUUID) = port
+                    PropRegionClass.RegionPort(RegionUUID) = port
+                    PropRegionClass.WriteRegionObject(shortname)
 
-                Dim port = PropRegionClass.LargestPort
-                PropRegionClass.GroupPort(RegionUUID) = port
-                PropRegionClass.RegionPort(RegionUUID) = port
+                    TextPrint($"{My.Resources.Add_Region_word} {J.Name} @ {CStr(X)},{CStr(Y)}")
+                    PropUpdateView = True ' make form refresh
+                    Application.DoEvents()
 
-                PropRegionClass.WriteRegionObject(shortname)
-                TextPrint(My.Resources.Add_Region_word & " " & J.Name & " @ " & CStr(X) & "," & CStr(Y))
-                PropUpdateView = True ' make form refresh
-                Application.DoEvents()
+                    If size > Max Then Max = size
+                    X += CInt((size / 256) + 2)
+                    If X > StartX + 50 Then
+                        X = StartX
+                        Y += CInt((Max / 256) + 2)
+                    End If
 
-                If size > Max Then Max = size
-                X += CInt((size / 256) + 2)
-                If X > StartX + 50 Then
-                    X = StartX
-                    Y += CInt((Max / 256) + 2)
-                End If
+                    Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+                    If RegionName = Settings.WelcomeRegion Then Continue For
 
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-                If RegionName = Settings.WelcomeRegion Then Continue For
+                    ReBoot(RegionUUID)
 
-                ReBoot(RegionUUID)
+                    ConsoleCommand(RegionUUID, "{ENTER}")
+                    ConsoleCommand(RegionUUID, param)
 
-                ConsoleCommand(RegionUUID, "{ENTER}")
-                ConsoleCommand(RegionUUID, param)
+                    Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
+                    ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+                    ConsoleCommand(RegionUUID, "scripts stop")
+                    ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+                    ConsoleCommand(RegionUUID, "scripts stop")
+                    ConsoleCommand(RegionUUID, "alert power off")
+                    ConsoleCommand(RegionUUID, "backup")
 
-                Dim File = PropDomain & "/Outworldz_Installer/OAR/" & J.Name
-                ConsoleCommand(RegionUUID, "change region " & """" & RegionName & """")
-                ConsoleCommand(RegionUUID, "scripts stop")
-                ConsoleCommand(RegionUUID, "load oar --force-terrain --force-parcels " & """" & File & """")
-                ConsoleCommand(RegionUUID, "generate map")
-                ConsoleCommand(RegionUUID, "scripts stop")
-                ConsoleCommand(RegionUUID, "alert power off")
-                ConsoleCommand(RegionUUID, "backup")
+                    ConsoleCommand(RegionUUID, "q")
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    Dim ctr = 120
+                    If Settings.Sequential Then
+                        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped
+                            Sleep(1000)
+                            Application.DoEvents()
+                            ctr -= 1
+                            If ctr = 0 Then Exit While
+                        End While
+                    End If
 
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                Application.DoEvents()
-                ConsoleCommand(RegionUUID, "q")
-                ConsoleCommand(RegionUUID, "q")
-                ConsoleCommand(RegionUUID, "q")
-
-                If Settings.Sequential Then
-                    Dim PID = PropRegionClass.ProcessID(RegionUUID)
-                    While _regionHandles.ContainsKey(PID)
-                        Sleep(1000)
-                    End While
-                End If
-
-            Next
-
+                    TextPrint($"->Loaded {RegionName}")
+                Next
+            Catch
+            End Try
             Settings.SmartStart = True
             TextPrint("Finished")
 

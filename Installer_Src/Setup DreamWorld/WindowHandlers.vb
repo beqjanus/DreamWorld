@@ -50,7 +50,7 @@ Module WindowHandlers
                     Catch ex As Exception
                     End Try
                 End If
-
+                DoType(RegionUUID, "{ENTER}")
                 DoType(RegionUUID, command)
 
                 Try
@@ -58,6 +58,7 @@ Module WindowHandlers
                 Catch ex As Exception
                 End Try
             Else ' Robust
+                DoType("Robust", "{ENTER}")
                 DoType("Robust", command)
             End If
         End If

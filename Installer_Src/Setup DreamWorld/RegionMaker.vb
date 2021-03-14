@@ -26,10 +26,7 @@ Public Class RegionMaker
 
 #Region "Declarations"
 
-#Disable Warning CA1051 ' Do not declare visible instance fields
     Public WebserverList As New List(Of String)
-#Enable Warning CA1051 ' Do not declare visible instance fields
-
     Private Shared FInstance As RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of RegionMaker.Region_data)
@@ -39,7 +36,7 @@ Public Class RegionMaker
     Private _RegionListIsInititalized As Boolean
     Dim json As New JSONresult
 
-    Private slop = 5 ' amount of extra time to add in for booting
+    Private ReadOnly slop = 5 ' amount of extra time to add in for booting
 
     Public Enum SIMSTATUSENUM As Integer
 
@@ -1564,7 +1561,7 @@ Public Class RegionMaker
             Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
 
-            Dim time As String = "1"
+            Dim time As String
 
             ' Region may be a name or a Region UUID
             Dim RegionUUID = FindRegionUUIDByName(RegionName)
@@ -1664,11 +1661,9 @@ Public Class RegionMaker
                 Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
 
                 Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
-#Disable Warning CA2100
                 Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
                     .Connection = myConnection
                 }
-#Enable Warning CA2100
                 myConnection.Open()
                 myCommand1.Prepare()
                 myCommand1.Parameters.AddWithValue("p1", uid.ToString())
@@ -1736,11 +1731,9 @@ Public Class RegionMaker
                 Try
                     Using myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
                         Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
-#Disable Warning CA2100
                         Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
                                 .Connection = myConnection
                             }
-#Enable Warning CA2100
                             myConnection.Open()
                             myCommand1.Prepare()
                             myCommand1.Parameters.AddWithValue("p1", p1)

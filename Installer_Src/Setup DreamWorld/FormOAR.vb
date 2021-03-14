@@ -16,9 +16,6 @@ Public Class FormOAR
     Dim WebThread As Thread
 
 #Region "JSON"
-
-#Disable Warning CA1034
-
     Public Class JSONresult
 
         Private _cache As Image
@@ -28,8 +25,6 @@ Public Class FormOAR
         Private _photo As String
         Private _size As String
         Private _str As String
-
-#Enable Warning CA1034
 
 #End Region
 
