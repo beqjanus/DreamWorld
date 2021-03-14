@@ -1048,11 +1048,11 @@ Public Class FormSetup
             Application.DoEvents()
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-            If CBool((PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
+            If CBool((PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
-                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
+                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended)) Then
 
                 Dim G = PropRegionClass.GroupName(RegionUUID)
@@ -3332,88 +3332,94 @@ Public Class FormSetup
             StartMySQL()
             MysqlInterface.DeregisterRegions(False)
             Settings.Sequential = True
+            Settings.SmartStart = True
             StartOpensimulator()
 
             Dim Max As Integer
-            For Each J In ContentOAR.GetJson
+            Try
+                For Each J In ContentOAR.GetJson
 
-                Dim Name = J.Name
+                    Dim Name = J.Name
 
-                Dim shortname = Path.GetFileNameWithoutExtension(Name)
+                    Dim shortname = Path.GetFileNameWithoutExtension(Name)
 
-                Dim p = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
-                If IO.File.Exists(p) Then Continue For
+                    Dim p = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
+                    If IO.File.Exists(p) Then Continue For
 
-                Dim RegionUUID = PropRegionClass.CreateRegion(shortname)
+                    Dim RegionUUID = PropRegionClass.CreateRegion(shortname)
 
-                ' setup parameters for the load
-                Dim size As Integer = 256
+                    ' setup parameters for the load
+                    Dim size As Integer = 256
 
-                ' convert 1,2,3 to 256, 512, etc
-                Dim pattern1 As Regex = New Regex("(.*?)-(\d+)[xX](\d+)")
-                Dim match1 As Match = pattern1.Match(Name)
-                If match1.Success Then
-                    Name = match1.Groups(1).Value
-                    size = CInt(match1.Groups(2).Value) * 256
-                End If
+                    ' convert 1,2,3 to 256, 512, etc
+                    Dim pattern1 As Regex = New Regex("(.*?)-(\d+)[xX](\d+)")
+                    Dim match1 As Match = pattern1.Match(Name)
+                    If match1.Success Then
+                        Name = match1.Groups(1).Value
+                        size = CInt(match1.Groups(2).Value) * 256
+                    End If
 
-                PropRegionClass.CoordX(RegionUUID) = X
-                PropRegionClass.CoordY(RegionUUID) = Y
-                PropRegionClass.SkipAutobackup(RegionUUID) = "True"
-                PropRegionClass.Concierge(RegionUUID) = "True"
-                PropRegionClass.SmartStart(RegionUUID) = "True"
-                PropRegionClass.Teleport(RegionUUID) = "True"
-                PropRegionClass.SizeX(RegionUUID) = size
-                PropRegionClass.SizeY(RegionUUID) = size
-                PropRegionClass.GroupName(RegionUUID) = shortname
-                PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
-                PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
-                PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
+                    PropRegionClass.CoordX(RegionUUID) = X
+                    PropRegionClass.CoordY(RegionUUID) = Y
+                    PropRegionClass.SkipAutobackup(RegionUUID) = "True"
+                    PropRegionClass.Concierge(RegionUUID) = "True"
+                    PropRegionClass.SmartStart(RegionUUID) = "True"
+                    PropRegionClass.Teleport(RegionUUID) = "True"
+                    PropRegionClass.SizeX(RegionUUID) = size
+                    PropRegionClass.SizeY(RegionUUID) = size
+                    PropRegionClass.GroupName(RegionUUID) = shortname
+                    PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+                    PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
+                    PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
 
-                Dim port = PropRegionClass.LargestPort
-                PropRegionClass.GroupPort(RegionUUID) = port
-                PropRegionClass.RegionPort(RegionUUID) = port
-                PropRegionClass.WriteRegionObject(shortname)
+                    Dim port = PropRegionClass.LargestPort
+                    PropRegionClass.GroupPort(RegionUUID) = port
+                    PropRegionClass.RegionPort(RegionUUID) = port
+                    PropRegionClass.WriteRegionObject(shortname)
 
-                TextPrint($"{My.Resources.Add_Region_word} {J.Name} @ {CStr(X)},{CStr(Y)}")
-                PropUpdateView = True ' make form refresh
-                Application.DoEvents()
+                    TextPrint($"{My.Resources.Add_Region_word} {J.Name} @ {CStr(X)},{CStr(Y)}")
+                    PropUpdateView = True ' make form refresh
+                    Application.DoEvents()
 
-                If size > Max Then Max = size
-                X += CInt((size / 256) + 2)
-                If X > StartX + 50 Then
-                    X = StartX
-                    Y += CInt((Max / 256) + 2)
-                End If
+                    If size > Max Then Max = size
+                    X += CInt((size / 256) + 2)
+                    If X > StartX + 50 Then
+                        X = StartX
+                        Y += CInt((Max / 256) + 2)
+                    End If
 
-                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-                If RegionName = Settings.WelcomeRegion Then Continue For
+                    Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+                    If RegionName = Settings.WelcomeRegion Then Continue For
 
-                ReBoot(RegionUUID)
+                    ReBoot(RegionUUID)
 
-                ConsoleCommand(RegionUUID, "{ENTER}")
-                ConsoleCommand(RegionUUID, param)
+                    ConsoleCommand(RegionUUID, "{ENTER}")
+                    ConsoleCommand(RegionUUID, param)
 
-                Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
-                ConsoleCommand(RegionUUID, "scripts stop")
-                ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
-                ConsoleCommand(RegionUUID, "scripts stop")
-                ConsoleCommand(RegionUUID, "alert power off")
-                ConsoleCommand(RegionUUID, "backup")
+                    Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
+                    ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+                    ConsoleCommand(RegionUUID, "scripts stop")
+                    ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+                    ConsoleCommand(RegionUUID, "scripts stop")
+                    ConsoleCommand(RegionUUID, "alert power off")
+                    ConsoleCommand(RegionUUID, "backup")
 
-                ConsoleCommand(RegionUUID, "q")
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    ConsoleCommand(RegionUUID, "q")
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    Dim ctr = 120
+                    If Settings.Sequential Then
+                        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped
+                            Sleep(1000)
+                            Application.DoEvents()
+                            ctr -= 1
+                            If ctr = 0 Then Exit While
+                        End While
+                    End If
 
-                If Settings.Sequential Then
-                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped
-                        Sleep(100)
-                    End While
-                End If
-
-                TextPrint($"->Loaded {RegionName}")
-            Next
-
+                    TextPrint($"->Loaded {RegionName}")
+                Next
+            Catch
+            End Try
             Settings.SmartStart = True
             TextPrint("Finished")
 
