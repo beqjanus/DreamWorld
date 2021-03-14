@@ -1052,7 +1052,7 @@ Public Class FormSetup
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
-                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
+                    Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended)) Then
 
                 Dim G = PropRegionClass.GroupName(RegionUUID)
@@ -3398,6 +3398,7 @@ Public Class FormSetup
                 ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                 ConsoleCommand(RegionUUID, "scripts stop")
                 ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+                ConsoleCommand(RegionUUID, "scripts stop")
                 ConsoleCommand(RegionUUID, "alert power off")
                 ConsoleCommand(RegionUUID, "backup")
 
