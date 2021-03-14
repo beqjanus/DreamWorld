@@ -3,10 +3,14 @@
 <head>
 <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
 <meta name=Generator content="Microsoft Word 15 (filtered)">
+<title>Web Admnistrator</title>
 <style>
 <!--
  /* Font Definitions */
  @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
 	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
@@ -21,6 +25,11 @@
 @font-face
 	{font-family:Verdana;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"Noto Sans Symbols";}
+@font-face
+	{font-family:"Segoe UI";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
 @font-face
 	{font-family:"\@SimSun";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
@@ -48,57 +57,47 @@ h2
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
-h3
-	{mso-style-link:"Heading 3 Char";
-	margin-top:15.0pt;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:0in;
-	line-height:115%;
-	border:none;
-	padding:0in;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;
-	color:#1F4D78;
-	text-transform:uppercase;
-	letter-spacing:.75pt;
-	font-weight:normal;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
-	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
-span.Heading2Char
-	{mso-style-name:"Heading 2 Char";
-	mso-style-link:"Heading 2";
-	text-transform:uppercase;
-	letter-spacing:.75pt;
-	background:#DEEAF6;}
-span.Heading3Char
-	{mso-style-name:"Heading 3 Char";
-	mso-style-link:"Heading 3";
-	color:#1F4D78;
-	text-transform:uppercase;
-	letter-spacing:.75pt;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
-	text-transform:uppercase;
-	letter-spacing:.5pt;}
-.MsoChpDefault
-	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
 	{margin-top:5.0pt;
 	margin-right:0in;
 	margin-bottom:10.0pt;
-	margin-left:0in;
-	line-height:115%;}
+	margin-left:.5in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#DEEAF6;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
  /* Page Definitions */
  @page WordSection1
 	{size:8.5in 11.0in;
@@ -120,569 +119,395 @@ punctuation'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle style='margin-left:.5in'>Diva 'Wifi' Management Web Page </p>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>The Management Web page can be reached
-at <a href="http://127.0.0.1:8002/"><span style='color:black;text-decoration:
-none'><span style='color:black'>http://127.0.0.1:8002</span></span></a> if the
-checkbox is enabled and Robust is running.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>For other users, it will be <a
-href="http://yourdomainname:8002/"><span style='color:black;text-decoration:
-none'><span style='color:black'>http://YourDomainName:8002</span></span></a>,
-where <u>YourDomainName</u> is your Public, Internet-facing IP, or DNS name.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>The features of Wifi are:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Account creation, optionally controlled by the
-administrator</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Configurable default avatars for new accounts</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Account updates by both users and administrator</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Account deletion by administrator</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Password recovery via email</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Simple user inventory management</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>You can change many of the parameters of
-Wifi in this panel:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN><img border=0 width=390 height=342
-id="Picture 1" src="Diva_files/image001.jpg" alt=Image></span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>There are four sections that can be
-modified:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Wifi Admin account: A super-user that administers
-the system</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Splash Screen: Things that affect the page that
-shows to inexperienced users </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Apache web server, which is needed for Viewer
-search.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>SMPT Email: Settings to send email for things like
-password changes</span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2><span lang=EN style='color:black'>Wifi Admin account</span></h2>
+<h2><span style='color:black'>            <a name="_Toc58323653">Web Control
+Panel</a> </span></h2>
 
 </div>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>The system automatically makes several
-accounts the first time it is booted.  Once of these is &quot;Wifi Admin'. This
-user has special rights in the web panel.  It can administer all other
-accounts, delete them, and approve them.</span></p>
+<p class=MsoNormal>The Management Web page is at <a href="http://127.0.0.1:8002"><span
+style='color:windowtext;text-decoration:none'>http://127.0.0.1:8002</span></a>
+if the checkbox is enabled and Robust is running.</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>A random password is chosen at startup. 
-You may change it.  Since the Hypergrid exposes this login page to the
-Internet, please choose a strong password.</span></p>
+<p class=MsoNormal>For other users, it will be <a
+href="http://yourdomainname:8002"><span style='color:windowtext;text-decoration:
+none'>http://YourDomainName:8002</span></a>, where <u>YourDomainName</u> is
+your Public, Internet-facing IP or DNS name.</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>You <u>must already have a user with
-levels set to 200 </u>or higher to change the name from Wifi Admin. You can add
-another user and set it to that elevated level too.</span></p>
+<p class=MsoNormal>The features of Wifi are:</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'><img
-border=0 width=210 height=203 id="Picture 2" src="Diva_files/image002.png"></span></p>
+<p class=MsoListParagraphCxSpFirst style='text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Account creation, optionally controlled by the Wifi Admin Account</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>Opensim users can have any username and
-password, and both can be changed at any time. They are in Opensim.</span></p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Configurable default avatars for new accounts</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>There are three Opensim users made at
-startup.  One is for the grid to use.  Do not mess with it or your grid will
-die.  It does things that require a User account to do, such as send a user an
-IM.  </span></p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Account updates by both users and administrator</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN>Wifi Admin </span></b><span lang=EN>is
-used to control users and run the Web page.  It can rename, delete, stop, or
-allow a user on the grid by the web page.  The robust console can do all this,
-but it is arcane and easier to use the web page.</span></p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Account deletion by administrator</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>Wifi Admin is created with a random
-password.  Go to settings-&gt;Web Page and click the password field. It will
-show it to you.</span></p>
+<p class=MsoListParagraphCxSpMiddle style='text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Password recovery via email</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>Go to Help-Web Page and it will open
-your grid Wifi Panel.  It is also at <a href="http://localhost:8002/"><span
-style='color:black;text-decoration:none'><span style='color:black'>http://localhost:8002</span></span></a>.</span></p>
+<p class=MsoListParagraphCxSpLast style='text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Simple user inventory management</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>Log in as Wifi Admin using that
-password. and you will see a user section.  Go to it, press a space bar in
-search, and it will show you the three users.</span></p>
+<p class=MsoNormal>You can change many of the parameters of Wifi in this panel:</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>Then there is the avatar name you typed
-in when it first started up. That person owns the grid.<br>
+<p class=MsoNormal><img border=0 width=700 height=423 id="Picture 10"
+src="Diva_files/image001.png"></p>
+
+<p class=MsoNormal>There are three sections that can be modified:</p>
+
+<p class=MsoListParagraphCxSpFirst style='margin-left:0in;text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Wifi Interface Admin: A super-user that administers the system.
+This can be you. It comes with Wifi Admin as a default login.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:0in;text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Splash Screen: Things that affect the page that shows in the
+viewer window.</p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:0in;text-indent:0in'><span
+style='font-family:"Noto Sans Symbols"'>&#9679;<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>SMTP Email: Settings to send email for things such as password
+changes and confirmation off emails.</p>
+
+<p class=MsoNormal>The system automatically makes several accounts the first
+time.  One of these is &quot;Wifi Admin'. This user has special rights in the
+web panel.  It can administer all other accounts, change passwords, enable  and
+disable, or delete and approve them.</p>
+
+<p class=MsoNormal>A random password is created at startup.  You may change
+it.  As the Hypergrid exposes this login page to the Internet, please choose a
+strong password.</p>
+
+<p class=MsoNormal>You <u>must already have a user with levels set to 100 </u>or
+higher to change the name from Wifi Admin. You can add another user and set it
+to that elevated level too.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><img border=0 width=439 height=235
+src="Diva_files/image002.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>There are three Opensim users made at startup.  One is for
+the grid to use.  GRID MANAGER is the main user If you mess with it your grid
+will die.  It does things that require a User account to do, such as send a
+user an IM.  </p>
+
+<p class=MsoNormal><b>Wifi Admin </b>is used to control users and run the Web
+page.  It can rename, delete, stop, or allow a user on the grid by the web
+page.  The robust console can do all this, but it is arcane and easier to use
+the web page.</p>
+
+<p class=MsoNormal>Wifi Admin is created with a random password.  Go to
+settings-&gt;Web Page and click the password field. It will show it to you. You
+can change this passwort by typing in a new name when Robust is running.</p>
+
+<p class=MsoNormal>Go to Help-Web Page and it will open your grid Wifi Panel. 
+It is also at <a href="http://localhost:8002"><span style='color:windowtext;
+text-decoration:none'>http://localhost:8002</span></a>.</p>
+
+<p class=MsoNormal>Log in as Wifi Admin using that password. and you will see a
+Manage Accounts section.  </p>
+
+<p class=MsoNormal><img border=0 width=614 height=217 id=image159.png
+src="Diva_files/image003.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Go to it, press a space bar in search, and it will show you
+the three users.</p>
+
+<p class=MsoNormal><img border=0 width=615 height=216 id=image72.png
+src="Diva_files/image004.png"></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><a name="_Toc58323655"><span style='color:black'>User Levels:</span></a></h2>
+
+</div>
+
+<p class=MsoNormal>If you any users the level to -1, they cannot log in. </p>
+
+<p class=MsoNormal>Level 0, they can log in. </p>
+
+<p class=MsoNormal>Level 100 is a Wifi Admin. </p>
+
+<p class=MsoNormal>Level 200 allows them to be a god if Allow User Gods switch
+is enabled in Setup-&gt;Settings-&gt;Permissions</p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><a name="_Toc58323656"><span style='color:black'>Confirmation Required to
+Log In:</span></a></h2>
+
+</div>
+
+<p class=MsoNormal><br>
+Wifi Admin can create new accounts in two manners: uncontrolled and controlled.
+If you choose to have controlled account creation, every time someone creates
+an account, the Wifi Admin account will receive an email notifying of such an
+event (make sure you have the Wifi Admin’s email address properly set). </p>
+
+<p class=MsoNormal>You should then login to Wifi as administrator and choose
+USER MANAGEMENT. You are presented with a list of all pending accounts, which
+you can then approve or ignore.  </p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal><img border=0 width=527 height=494 id=image36.png
+src="Diva_files/image005.png"></p>
+
+<p class=MsoNormal>If you choose to have uncontrolled account creation, then
+anyone can create an account in your world without going through your approval.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><a name="_Toc58323657"><span style='color:black'>SMTP Email</span></a></h2>
+
+</div>
+
+<p class=MsoNormal>You may optionally set up Simple Mail Transport Protocol to
+send email for events such as password changes.</p>
+
+<p class=MsoNormal><img border=0 width=256 height=172 id=image117.png
+src="Diva_files/image006.png"></p>
+
+<p class=MsoNormal><b>If you use Gmail for SMTP, you will need to enable
+Less-Secure mail settings at Gmail in your account.</b></p>
+
+<p class=MsoNormal><b>You can find information about this at </b><a
+href="https://support.google.com/accounts/answer/6010255"><b><span
+style='color:windowtext;text-decoration:none'>https://support.google.com/accounts/answer/6010255</span></b></a></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><a name="_Toc58323658"><span style='color:black'>Theme</span></a></h2>
+
+</div>
+
+<p class=MsoNormal>There are three theme colors, Black on White, White on
+Black, and Custom.  The default theme is Black, or the selected theme will  be
+set by Dreamgrid into the real WifiPages folder on startup. </p>
+
+<p class=MsoNormal>Click the photo to change it for the theme.</p>
+
+<p class=MsoNormal><img border=0 width=289 height=215
+src="Diva_files/image007.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><a name="_Toc58323659"><span style='color:black'>Viewer Splash Screen URL:</span></a><span
+style='color:black'> </span></h2>
+
+</div>
+
+<p class=MsoNormal>The Splash screen URL appears on the login screen as a web
+page. You can use any web page. If you change this URL, you must delete the
+grid setting in your viewer, and re-add it to get it updated.</p>
+
+<p class=MsoNormal><b>If you change this, you must delete and re-add the grid
+to the viewer.</b></p>
+
+<p class=MsoNormal>The Splash Screen URL is shown below.</p>
+
+<p class=MsoNormal><img border=0 width=300 height=44
+src="Diva_files/image008.png"></p>
+
+<p class=MsoNormal>Set this to http://(URL of your grid):8002 so they can see
+the Login Page.    It can be any web page.</p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><span style='color:black'>Greeting</span></h2>
+
+</div>
+
+<p class=MsoNormal>This message appears when a person logs in.</p>
+
+<p class=MsoNormal><img border=0 width=296 height=49
+src="Diva_files/image009.png"></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><a name="_Toc58323660"><span style='color:black'>Friendly Name</span></a></h2>
+
+</div>
+
+<p class=MsoNormal>The friendly name appears on the login screen at the top. 
+It is broadcast to viewers as the grid name in the grid Selector Pulldown.   
+If you change this, you must delete and re-add the grid to the viewer.</p>
+
+<p class=MsoNormal><img border=0 width=295 height=49
+src="Diva_files/image010.png"></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><a name="_Toc58323661"><span style='color:black'>Default Avatars:</span></a></h2>
+
+</div>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>A “Wifi.ini” file lets you select one of three default
+appearances for a newly created avatar.  In a new environment you must set
+those avatars up first.</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.5in'><span
+style='font-family:"Verdana",sans-serif'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create the avatars with names “Female Avatar”, Male Avatar”,
+“Neutral Avatar”. and authorize them via the Wifi Admin.<br>
 <br>
-<b>User Levels:</b></span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>If you any users the level to -1, they
-cannot log in. Level 0, they can. Level 100 allows them to be a god.  Level 200
-is a Wifi Admin. </span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>Confirmation
-Required to Log In:</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:45.0pt;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>Wifi can create new accounts in two
-manners: uncontrolled and controlled. If you choose to have controlled account
-creation, every time someone creates an account, the Wifi Admin account will
-receive an email notifying of such an event (make sure you have the Wifi
-Admin’s email address properly set). </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:45.0pt;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>You should then login to Wifi as
-administrator and choose USER MANAGEMENT. You will be presented with a list of
-all pending accounts, which you can then approve or delete.  </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Times New Roman",serif'><img
-border=0 width=512 height=480 id="Picture 3" src="Diva_files/image003.png"></span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>If you choose to have uncontrolled
-account creation, then anyone can create an account in your world without going
-through your approval.</span></p>
-
-<div style='border:none;border-top:solid #5B9BD5 1.0pt;padding:2.0pt 0in 0in 0in;
-margin-left:.5in;margin-right:0in'>
-
-<h3><b><span lang=EN>SMTP Email</span></b></h3>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>You may optionally set up Simple Mail
-Transport Protocol to send email for events such as password changes.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'><img
-border=0 width=249 height=168 id="Picture 8" src="Diva_files/image004.png"></span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>If you use Gmail for SMTP, you will need
-to enable Less-Secure mail settings at Gmail in your account.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>You can find information about this at <a
-href="https://support.google.com/accounts/answer/6010255"><span
-style='color:black;text-decoration:none'><span style='color:black'>https://support.google.com/accou<span
-style='color:black'>nts/answer/6010255</span></span></span></a></span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2><span lang=EN style='color:black'>Splash Screen</span></h2>
-
-</div>
-
-<div style='border:none;border-top:solid #5B9BD5 1.0pt;padding:2.0pt 0in 0in 0in;
-margin-left:.5in;margin-right:0in'>
-
-<h3><span lang=EN>Themes:</span></h3>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>There are three possible theme colors,
-Black on White, White on Black, and Custom.  The default theme is Black, or the
-selected theme will be copied by DreamGrid into the real WifiPages folder on
-startup. </span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>Customizing
-your theme</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>You can change the theme with this
-switch to one of several sets of folders:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>White theme consists of two folders:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Courier New"'>Outworldzfiles\Opensim\WifiPages-White<br>
-Outworldzfiles\Opensim\bin\WifiPages-White</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>Black theme consists of two folders:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Courier New"'>Outworldzfiles\Opensim\WifiPages-Black<br>
-Outworldzfiles\Opensim\bin\WifiPages-Black</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>If you want to make modifications,
-please use a custom theme. Otherwise, your changes to the -Black, -White or
-WifiPages folders will get written over in an update.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>First copy the two Black folder or the
-two White folders to the WifiPages-Custom folder next to them. Each set of
-files goes in these places:  </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Opensim/WifiPages-Custom</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-indent:-.25in'><span lang=EN style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Opensim/bin/WifiPages-Custom</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>The updater will never overwrite these
-custom pages.   If you make changes to the custom pages, they will be set into
-the Wifi page on startup.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'><img
-border=0 width=269 height=178 id="Picture 4" src="Diva_files/image005.png"></span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>Changing the
-HTML</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>Diva Canto uses some advanced,
-Opensim-specific code in her Diva pages.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>The site starts from
-Opensim\bin\WifiPages\index.html.  </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN>#includes </span></b><span lang=EN>There
-are several include directives that bring in the rest of the web site.   Diva
-uses a series of &lt;!--#include file=header.html --&gt; statements to bring in
-files from the other folder set in Opensim\WifiPages.  Includes in those files
-then bring in increasingly of the web pages from Opensim\Bin\Wifipages. </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN>#get </span></b><span lang=EN>There
-are several statements that are replaced by server data:</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN>Users in World: </span></b><span
-lang=EN>&lt;!-- #get var=UsersInworld --&gt;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN>Regions:</span></b><span lang=EN>
-&lt;!-- #get var=RegionsTotal --&gt;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN>Total Users:</span></b><span lang=EN>
-&lt;!-- #get var=UsersTotal --&gt;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN>Active Users last</span></b><span
-lang=EN> &lt;!-- #get var=UsersActivePeriod --&gt; <b>days</b></span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN>Active Users:</span></b><span
-lang=EN> &lt;!-- #get var=UsersActive --&gt;</span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span style='color:black'>Everyone wants to
-change the image:</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>For the <b><u>BLACK </u></b>theme, do the following:</p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>Copy the folder \OutworldzFiles\Opensim\bin\<b>WifiPages-Black</b>
-to \OutworldzFiles\Opensim\bin\<b>WifiPages-Custom</b><br>
-Copy the folder \OutworldzFiles\Opensim\<b>WifiPages-Black</b> to
-\OutworldzFiles\Opensim\<b>WifiPages-Custom</b></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>Save the image as a JPG file in \OutworldzFiles\Opensim\bin\<b>WifiPages-Custom</b>\images\<b>orange-planets-background.jpg</b></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>Go to Settings-&gt;Web Control Panel. Click the box and
-change it from <b>Black</b> to <b>Custom</b>.&nbsp;&nbsp; This will copy the
-files from <b>-Custom</b> to the&nbsp;working folder, bin/WifiPages.</p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>Navigate to <span lang=EN><a href="http://127.0.0.1:8002/"><span
-style='color:black;text-decoration:none'><span style='color:black'>http://127.0.0.1:8002</span></span></a>.</span>&nbsp;
-You should see your new image.</p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'><b>&nbsp;</b></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>For the <b><u>WHITE</u> </b>theme, do the following:</p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'><u>T</u>he new image goes in \bin\<b>WifiPages-Custom</b>\images\<b>header.png.
-</b>You must first make the folder</p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>Copy the folder \OutworldzFiles\Opensim\bin\<b>WifiPages-White</b>
-to \OutworldzFiles\Opensim\bin\<b>WifiPages-Custom</b><br>
-Copy the folder \OutworldzFiles\Opensim\<b>WifiPages-White</b> to
-\OutworldzFiles\Opensim\<b>WifiPages-Custom</b></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>Then click the Theme setting for <b>White</b>. This will copy
-the files from custom to the WifiPages folder.</p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>Navigate to <span lang=EN><a href="http://127.0.0.1:8002/"><span
-style='color:black;text-decoration:none'><span style='color:black'>http://127.0.0.1:8002</span></span></a>.</span>&nbsp;
-You should see your new image.</p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>Friendly Name</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>The friendly name appears on the login
-screen at the top.  It is broadcast to viewers as the grid name in the grid
-Selector Pulldown.    If you change this, you must delete and re-add the grid
-to the viewer.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'><img
-border=0 width=269 height=178 id="Picture 5" src="Diva_files/image005.png"></span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>Viewer Splash </span><span
-style='color:black'>Screen</span><span lang=EN style='color:black'> URL: </span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>The Splash screen URL appears on the
-login screen as a web page. You can use any web page. If you change this URL,
-you must delete the grid setting in your viewer, and re-add it to get it
-updated.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>If you change this, you must delete and
-re-add the grid to the viewer.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:5.0pt;
-margin-left:.5in'>The Splash Screen URL is shown below.</p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'><img
-border=0 width=269 height=178 id="Picture 6" src="Diva_files/image005.png"></span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN>It is recommended to set this to <a
-href="http://(url/"><span style='color:black;text-decoration:none'><span
-style='color:black'>http://(URL</span></span></a> of your grid):8002 so they
-can see the Diva Login Page.   </span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>Apache Web
-server and PHP5</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>You may optionally
-set up the Apache Web server with PHP5.  These are used to serve up an advanced
-map, web pages, and built-in viewer search.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN style='font-family:
-"Times New Roman",serif'><img border=0 width=200 height=189 id="Picture 7"
-src="Diva_files/image006.png"></span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>The checkbox for
-Apache+PHP must be enabled for the web server and PHP to work.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN>Apache as a
-Service:  </span></b><span lang=EN>If Unchecked and enabled, the system will
-run Apache as a DOS box.  You will see several new DOS boxes appear.   These
-Boxes are for the server and its log system. They will be shut down when your
-grid is stopped.   Your grid is then completely portable.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>If checked and
-enabled will install “Apache HTTP Server” as a running service when you first
-click Start to run your grid.  It will start when your PC is booted.     No DOS
-boxes will appear.  The advantage is less clutter, and 24-hour operation of the
-web server.  But if you run from another folder, the server will still be
-running from the original folder.  You must shut down and remove Apache with
-the command ‘sc delete ApacheHTTPServer’ before starting any copy in another
-folder.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN>Web Port </span></b><span
-lang=EN>defaults to 80. If your ISP blocks port 80, use 8000.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN>Search Local Grid </span></b><span
-lang=EN>will set search viewer DataSnapshot for prims, objects, regions for
-sale, and classified ads for just your grid. </span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN>Events will come from
-all grids, no matter what this switch is set for.  </span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN>Search All Grids </span></b><span
-lang=EN>If set to Search All Grids, the data is registered to be collected and
-crawled by the <a href="https://www.outworldz.com/"><span style='color:black;
-text-decoration:none'><span style='color:black'>https://www.outworldz.com</span></span></a>
-server and is thus available for anyone to look at.  They must have the same
-switch set to search.   To disable this, either use Search Local Grid or do not
-mark prims or regions for “Show in Search” in your viewer.</span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span lang=EN style='color:black'>            Default
-Avatars:</span></h2>
-
-</div>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:.25in;
-margin-left:.5in;background:white'><span lang=EN style='color:black'>A
-“Wifi.ini” file lets you select one of three default appearances for newly
-created avatar. But in a new environment you must set those avatars up first.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN
-style='font-family:"Verdana",sans-serif'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Create the avatars with names “Female Avatar”, Male
-Avatar”, “Neutral Avatar”. and authorize them via the Wifi Admin.<br>
+</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.5in'><span
+style='font-family:"Verdana",sans-serif'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Login as each avatar in turn. They will usually appear as a cloud
+initially and then after a short while rez to appear as “Ruth” wearing four
+basic body parts, new pants, and new shirt. These parts come directly from the
+Opensim Library and&nbsp;MUST NOT&nbsp;be worn in your final appearance for the
+default avatars. You can COPY these library parts into the avatar’s inventory
+if you wish, or create new body parts and clothing, but before you finish you
+should remove any items that show as “worn” in the Opensim Library as those will
+not rez on avatars based on these models.<br>
+<br>
+</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.5in'><span
+style='font-family:"Verdana",sans-serif'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Create new body parts and clothing and edit them and/or add any
+other mesh, clothing, attachments, or HUDs you wish to appear on the avatars.</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.5in'><span
+style='font-family:"Verdana",sans-serif'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>You can extend (or change the avatars names or labels) for the
+default appearances and/or change the preselected default by altering Wifi.ini.<span
+style='font-family:"Times New Roman",serif'><br>
 <br>
 </span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN
-style='font-family:"Verdana",sans-serif'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Login as each avatar in turn. They will usually
-appear as a cloud initially and then after a short while rez to appear as
-“Ruth” wearing four basic body parts, new pants, and new shirt. These parts
-come directly from the Opensim Library and&nbsp;MUST NOT&nbsp;be worn in your
-final appearance for the default avatars. You can COPY these library parts into
-the avatar’s inventory if you wish, or create new body parts and clothing, but
-before you finish you should remove any items that show as “worn” in the
-Opensim Library as those will not rez on avatars based on these models.<br>
-<br>
-</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN
-style='font-family:"Verdana",sans-serif'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN>Create new body parts and clothing and edit them
-and/or add any other mesh, clothing, attachments, or HUDs you wish to appear on
-the avatars.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
-style='font-family:"Verdana",sans-serif;color:#333333'>4.<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; </span></span><span
-style='font-family:"Times New Roman",serif;color:#333333'>Note you can extend
-(or change the avatars names or labels) for the default appearances and/or
-change the preselected default by altering Wifi.ini.<br>
-<br>
-</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:.25in;
-margin-left:.5in;line-height:15.75pt'><span style='font-size:11.5pt;font-family:
-"Courier New";color:#222222'>;;Syntax: AvatarAccount_&lt;AvatarType&gt; =
-&quot;&lt;FirstName&gt; &lt;LastName&gt;&quot;<br>
+<p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Courier New"'>;;Syntax:
+AvatarAccount_&lt;AvatarType&gt; = &quot;&lt;FirstName&gt;
+&lt;LastName&gt;&quot;<br>
 ;;(replace spaces in &lt;AvatarType&gt; with underscore)<br>
 AvatarAccount_Female=&quot;Female Avatar&quot; <br>
 AvatarAccount_Male=&quot;Male Avatar&quot; <br>
-AvatarAccount_Neutral=&quot;Neutral Avatar&quot; </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:0in;margin-bottom:.25in;
-margin-left:.5in;line-height:15.75pt'><span style='font-size:11.5pt;font-family:
-"Courier New";color:#222222'>;; Preselection for default avatar in new account
-registration <br>
+AvatarAccount_Neutral=&quot;Neutral Avatar&quot; <br>
+;; Preselection for default avatar in new account registration <br>
 AvatarPreselection=&quot;Neutral&quot;</span></p>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span
-style='font-size:11.5pt;line-height:115%;font-family:"Times New Roman",serif;
-color:#333333'>5.   </span><span style='font-family:"Times New Roman",serif;
-color:#333333'>When you create a new avatar via the Wifi web interface based on
-these predefined avatars the items worn will appear in the newly create avatar’s
-inventory under Clothes -&gt; Default Avatar &lt;AvatarType&gt;.</span></p>
+<p class=MsoNormal><span style='font-size:11.5pt;line-height:115%'>5.            </span>When
+you create a new avatar via the Wifi web interface based on these predefined
+avatars the items worn will appear in the newly created avatar’s inventory
+under Clothes -&gt; Default Avatar &lt;AvatarType&gt;.</p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Times New Roman",serif'>&nbsp;</span></b></p>
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
 
-<p class=MsoNormal align=center style='margin-top:5.0pt;margin-right:.5in;
-margin-bottom:10.0pt;margin-left:.5in;text-align:center;text-indent:.5in'><b><span
-lang=EN style='font-family:"Times New Roman",serif'>&nbsp;</span></b></p>
+<h2><a name="_Toc58323662"><span style='color:black'>Customizing your theme</span></a></h2>
+
+</div>
+
+<p class=MsoNormal>You can change the theme with this switch to one of several
+sets of folders, White, Black, or Custom.</p>
+
+<p class=MsoNormal><a name="_Toc58323663"><b>White theme</b></a><b> </b>consists
+of two folders:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Outworldzfiles\Opensim\WifiPages-White</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Outworldzfiles\Opensim\bin\WifiPages-White</p>
+
+<p class=MsoNormal><b>Black theme</b> consists of two folders:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Outworldzfiles\Opensim\WifiPages-Black</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Outworldzfiles\Opensim\bin\WifiPages-Black</p>
+
+<p class=MsoNormal>If you want to make modifications, please use a custom
+theme. Otherwise, your changes to the -Black, -White or WifiPages folders will be
+over-written in an update.</p>
+
+<p class=MsoNormal>First copy both the two Black, or the two White folders to
+the WifiPages-Custom folder next to them. Each set of files goes in these places: 
+</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Opensim/WifiPages-Custom</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Opensim/bin/WifiPages-Custom</p>
+
+<p class=MsoNormal>The updater will never overwrite these custom pages.   If
+you make changes to the custom pages, they will be set into the Wifi page on
+startup.</p>
+
+<p class=MsoNormal>Click the photo to change it for the theme.</p>
+
+<p class=MsoNormal><img border=0 width=289 height=215
+src="Diva_files/image007.png"></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6'>
+
+<h2><a name="_Toc58323664"><span style='color:black'>Changing the HTML</span></a></h2>
+
+</div>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Diva Canto usds some advanced, Opensim-specific code in her
+Diva pages.</p>
+
+<p class=MsoNormal>The site starts from Opensim\bin\WifiPages\index.html.  </p>
+
+<p class=MsoNormal><b>#includes </b>There are several include directives that
+bring in the rest of the web site.   Diva uses a series of &lt;!--#include
+file=header.html --&gt; statements to bring in files from the other folder set
+in Opensim\WifiPages.  Includes in those files then bring in increasingly of
+the web pages from Opensim\Bin\Wifipages. </p>
+
+<p class=MsoNormal><b>#get </b>There are several statements that are replaced
+by server data:</p>
+
+<p class=MsoNormal><b>Users in World: </b>&lt;!-- #get var=UsersInworld --&gt;</p>
+
+<p class=MsoNormal><b>Regions:</b> &lt;!-- #get var=RegionsTotal --&gt;</p>
+
+<p class=MsoNormal><b>Total Users:</b> &lt;!-- #get var=UsersTotal --&gt;</p>
+
+<p class=MsoNormal><b>Active Users last</b> &lt;!-- #get var=UsersActivePeriod
+--&gt; <b>days</b></p>
+
+<p class=MsoNormal><b>Active Users:</b> &lt;!-- #get var=UsersActive --&gt;</p>
 
 </div>
 

@@ -16,10 +16,10 @@
 	{font-family:Verdana;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
 @font-face
+	{font-family:"Noto Sans Symbols";}
+@font-face
 	{font-family:"Segoe UI";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
-@font-face
-	{font-family:"Noto Sans Symbols";}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -57,6 +57,21 @@ h2
 	padding:0in;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:15.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	color:#1F3763;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
@@ -120,6 +135,13 @@ span.Heading2Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Times New Roman",serif;
+	color:#1F3763;
+	text-transform:uppercase;
+	letter-spacing:.75pt;}
 span.HTMLPreformattedChar
 	{mso-style-name:"HTML Preformatted Char";
 	mso-style-link:"HTML Preformatted";
@@ -156,22 +178,19 @@ text-justify-trim:punctuation'>
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h1><a name="OLE_LINK1">Apache Webserver</a></h1>
+<h1><a name="OLE_LINK1">APAChe Webserver</a></h1>
 
 </div>
 
-<p class=MsoNormal>Apache is a powerful and flexible Web Server. It is part is
-a WAMP stack (Windows Apache Mysql and PHP) that I specially configured for
-Opensim and DreamGrid.  You do not need to enable it. </p>
+<p class=MsoNormal><img width=493 height=237 id="Picture 1"
+src="Apache_files/image001.png"></p>
 
-<p class=MsoNormal>Apache can serve streaming movies, MP3 audio and other
-content to Opensim when enabled.   You can enable Word Press, Joomla/jOpensim
-and any other Content Management Systems (CMS) by enabling Apache.  Apache will
-always run, even if you turn off your grid offline, so your Web Site, Blog, or
-other content can always be ready to go. </p>
-
-<p class=MsoNormal><img width=404 height=233 id="Picture 9"
-src="Apache_files/image001.jpg"></p>
+<p class=MsoNormal>You may optionally set up an Apache Web server with PHP7,
+WordPress, Joomla/jOpensim, or other Content Management (CMS) systems. The
+default purpose of Apache/PHP is to serve a detailed map, object search and
+other useful functions. It is optional. You may disable it and still run
+Opensimulator. If you do not need the extra maps or JOpenSim, then you can
+leave Apache &amp; PHP disabled.</p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
@@ -180,15 +199,8 @@ style='color:black'> </span></h2>
 
 </div>
 
-<p class=MsoNormal>The WWW Default port is 80. If your ISP blocks port 80, try
-8000. You will need to Port Forward this port in your Routers firewall for
-others to see it.   Once Apache is running, you can access the web server at <a
-href="http://127.0.0.1">http://127.0.0.1</a> or <a href="http://127.0.0.1:80">http://127.0.0.1:80</a>. 
-If you changed the port, change the number on the end.</p>
-
-<p class=MsoNormal>When enabled and Opensim is running a map will appear at <a
-href="http://127.0.0.1">http://127.0.0.1</a>. You can hover on any square and
-see its size, location, name, and other details.  </p>
+<p class=MsoNormal>Defaults to 80. If your ISP blocks port 80, try 8000. You
+may need to open this port in your PC’s firewall.</p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
@@ -197,13 +209,14 @@ see its size, location, name, and other details.  </p>
 </div>
 
 <p class=MsoNormal>The checkbox for [Enable Apache Web Server] must be set so
-the web server will install and start itself.  You will need to configure Maps
-and the starting location in the Setup-&gt;Settings Map setup screen.</p>
+the web server and PHP will work.  </p>
 
-<p class=MsoNormal><a name="_heading=h.35nkun2"></a>Apache will then start when
-your PC is booted as it will install and run as a service. But if you run a
-DreamGrid copy from another folder, the server will still attempt to run from
-the original folder.  </p>
+<p class=MsoNormal><a name="_heading=h.35nkun2"></a>When enabled a map will
+appear at your URL on port 80. You can hover on any square and see its size,
+location, name, and other details.   Apache will then start when your PC is
+booted.  No DOS boxes will appear.  The advantage is less clutter and 24-hour
+operation of the web server.  But if you run from another folder, the server
+will still attempt to run  from the original folder.  </p>
 
 <p class=MsoNormal>Manually disable Apache as a Service:</p>
 
@@ -220,13 +233,157 @@ style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span
 type this in the command prompt:</p>
 
 <div style='border:solid #888888 1.0pt;padding:2.0pt 2.0pt 2.0pt 2.0pt;
-margin-left:.5in;margin-right:0in'><pre style='border:none;padding:0in'><span
-style='color:black'>  sc </span><span style='color:#000088'>delete</span><span
+margin-left:.25in;margin-right:0in'><pre style='margin-left:.25in;text-indent:
+-.25in;border:none;padding:0in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:black'>sc </span><span style='color:#000088'>delete</span><span
 style='color:black'> </span><span style='color:#660066'>ApacheHTTPServer</span><span
 style='color:#008800'>&lt;enter&gt;</span></pre></div>
 
-<p class=MsoNormal>When you start your new grid, Apache will then re-install
-itself.</p>
+<p class=MsoListParagraphCxSpFirst style='margin-left:1.0in;text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:black'>&nbsp;</span>Change to the folder for
+OutworldzFiles\Apache\bin.</p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:1.0in;text-indent:-.25in'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Type
+this in the same admin-level prompt.</p>
+
+<div style='border:solid #888888 1.0pt;padding:2.0pt 2.0pt 2.0pt 2.0pt;
+margin-left:.25in;margin-right:0in'><pre style='margin-left:.25in;text-indent:
+-.25in;border:none;padding:0in'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:black'>httpd </span><span style='color:#666600'>-</span><span
+style='color:black'>k install</span><span style='color:#008800'>&lt;enter&gt;</span></pre><pre
+style='margin-left:.25in;text-indent:-.25in;border:none;padding:0in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span><span
+style='color:black'>net start </span><span style='color:#660066'>ApacheHTTPServer</span><span
+style='color:#666600'>&lt;</span><span style='color:black'>enter&gt;</span></pre></div>
+
+<p class=MsoNormal>                That should get it all going again.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><a name="_Toc58323667"><span style='color:black'>Content Manage</span></a><span
+style='color:black'>R</span></h2>
+
+</div>
+
+<p class=MsoNormal>A <b>content management system </b>(<b>CMS</b>) is computer
+software used to manage the creation and modification of digital content. CMS’s
+are typically used for enterprise content management (ECM) and <b>web </b>content
+management (WCM)</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>For the default web page, use Diva.  See the Diva Wifi
+Management Web Page section in this manual.</p>
+
+<p class=MsoNormal><img width=300 height=205 id="Picture 12"
+src="Apache_files/image002.png"></p>
+
+<p class=MsoNormal><b>Enable WordPress</b> will redirect all traffic to the
+home page to the WordPress folder in Outworldzfiles\Apache\htdocs\WordPress<a
+name="_Toc58323668">. You must install Wordpress there. Instructions are
+located in that folder.</a></p>
+
+<p class=MsoNormal><b>Enable jOpensim</b> will redirect all traffic to the home
+page to the JOpensim folder in Outworldzfiles\Apache\htdocs\JOpensim. 
+Instructions are located in that folder.</p>
+
+<p class=MsoNormal>Enable Other will redirect all traffic to the Other folder
+in Outworldzfiles\Apache\htdocs\other. You can make a different folder.</p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><a name="_Toc58323649"><span style='color:black'>Apache &amp; Search setup</span></a></h2>
+
+</div>
+
+<p class=MsoNormal>In each of the respective OpenSim viewers available, such as
+Firestorm, Singularity, etc... You have a Search feature. It might look like
+this inside each respective viewer:</p>
+
+<p class=MsoNormal><img width=308 height=78 id=image170.png
+src="Apache_files/image003.png"></p>
+
+<p class=MsoNormal>This brings up the following dialog with the respective
+search categories:</p>
+
+<p class=MsoNormal><img width=606 height=118 id=image137.png
+src="Apache_files/image004.png"></p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3><a name="_Toc58323650">Enable Search</a></h3>
+
+</div>
+
+<p class=MsoNormal>If enabled, any regions or prims marked in the viewer for <i>Show
+In Search</i> will be registered and indexed by the <a
+href="https://hyperica.com">https://hyperica.com</a> server, and is thus
+available for anyone to look at.  Turning off your system will remove it from
+search, as will unchecking this box.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>Events</h3>
+
+</div>
+
+<p class=MsoNormal>By just clicking on the Search button without specifying a
+search term you will see all events that are up and coming </p>
+
+<p class=MsoNormal><img border=0 width=359 height=267 id=image144.png
+src="Apache_files/image005.png"></p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3><a name="_Toc58323651">Search for Objects</a></h3>
+
+</div>
+
+<p class=MsoNormal>This viewer screen lets you search for objects marked as
+“Show in Search”.  There is a search button ‘magnifying glass’ at lower left to
+refine your search.   You can select 100, 250, or 500 rows.  You can sort by
+any column header by clicking the title.</p>
+
+<p class=MsoNormal><img border=0 width=337 height=267 id=image147.png
+src="Apache_files/image006.png"></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3><a name="_Toc58323652">Places search:</a></h3>
+
+</div>
+
+<p class=MsoNormal>Any parcel marked as “Show in Search” is located in this
+viewer screen.</p>
+
+<p class=MsoNormal><img border=0 width=293 height=230 id=image148.png
+src="Apache_files/image007.png"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
+
+<h3>Land Sales:</h3>
+
+</div>
+
+<p class=MsoNormal>Parcels marked for-sale and “Show in Search” can be located
+in this screen:</p>
+
+<p class=MsoNormal><img border=0 width=378 height=306 id=image152.png
+src="Apache_files/image008.png"></p>
 
 </div>
 

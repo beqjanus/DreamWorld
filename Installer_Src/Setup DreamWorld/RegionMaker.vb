@@ -1578,19 +1578,19 @@ Public Class RegionMaker
                     If SmartStart(RegionUUID) = "True" Then
                         ' smart, and up
                         If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
-                            If AgentName = "UUID" Then
+                            If AgentName = "uuid" Then
                                 Return RegionUUID
-                            ElseIf AgentName = "" Then
+                            ElseIf AgentName = "regionname" Then
                                 Return RegionName
                             Else ' Its a sign!
                                 Logger("Teleport Sign Booted", RegionName & ":" & AgentID, "Teleport")
                                 Return RegionName & "|1"
                             End If
                         Else  ' requires booting
-                            If AgentName = "UUID" Then
+                            If AgentName = "uuid" Then
                                 AddEm(RegionUUID, AgentID)
                                 Return PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
-                            ElseIf AgentName = "RegionName" Then
+                            ElseIf AgentName = "regionname" Then
                                 AddEm(RegionUUID, AgentID)
                                 Return Settings.WelcomeRegion
                             Else ' Its a sign!
@@ -1601,10 +1601,10 @@ Public Class RegionMaker
                             End If
                         End If
                     Else ' Non Smart Start
-                        If AgentName = "UUID" Then
+                        If AgentName = "uuid" Then
                             Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
                             Return RegionUUID
-                        ElseIf AgentName = "RegionName" Then
+                        ElseIf AgentName = "regionname" Then
                             Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
                             Return RegionName
                         Else     ' Its a sign!
