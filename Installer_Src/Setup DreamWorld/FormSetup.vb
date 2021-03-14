@@ -1048,7 +1048,7 @@ Public Class FormSetup
             Application.DoEvents()
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-            If CBool((PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted) _
+            If CBool((PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
                     Or (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
@@ -1110,7 +1110,6 @@ Public Class FormSetup
                     Next
                 End If
             End If
-
 
             ' auto restart timer
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _

@@ -31,12 +31,10 @@ Public Class RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of RegionMaker.Region_data)
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
-
+    Private ReadOnly slop = 5     ' amount of extra time to add in for booting
     Private _GetAllRegionsIsBusy As Boolean
     Private _RegionListIsInititalized As Boolean
     Dim json As New JSONresult
-
-    Private ReadOnly slop = 5 ' amount of extra time to add in for booting
 
     Public Enum SIMSTATUSENUM As Integer
 
@@ -868,6 +866,7 @@ Public Class RegionMaker
     End Property
 
     Public Property Status(uuid As String) As Integer
+
         Get
             If uuid Is Nothing Then
                 Return -1
