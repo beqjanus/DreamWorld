@@ -347,6 +347,7 @@ Module Robust
 
         DoBanList()
 
+        Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
         Settings.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
         Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
         Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort))

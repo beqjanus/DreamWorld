@@ -580,9 +580,9 @@ Public Class FormSetup
     Public Sub SequentialPause()
 
         If Settings.Sequential Then
-
             Dim ctr = 2 * 60  ' 2 minute max to start a region
             While True
+                Dim wait As Boolean = False
                 For Each RegionUUID As String In PropRegionClass.RegionUuids
                     Dim status = PropRegionClass.Status(RegionUUID)
                     If PropRegionClass.RegionEnabled(RegionUUID) _
@@ -593,18 +593,21 @@ Public Class FormSetup
                             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                             ) Then
 
-                        ctr -= 1
-                        If ctr <= 0 Then Exit While
-                        Sleep(1000)
-                        Application.DoEvents()
-                    Else
-                        Exit While
+                        wait = True
                     End If
                 Next
+
+                If wait Then
+                    ctr -= 1
+                Else
+                    Exit While
+                End If
+                If ctr <= 0 Then Exit While
+                Sleep(1000)
             End While
         Else
 
-            Dim ctr = 600 ' 1 minute max to start a region
+            Dim ctr = 1200 ' 2 minute max to start a region at 100% CPU
             While True
                 If CPUAverageSpeed < Settings.CPUMAX And Settings.Ramused < 90 Then
                     Exit While

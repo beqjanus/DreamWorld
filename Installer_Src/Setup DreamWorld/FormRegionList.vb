@@ -1335,6 +1335,7 @@ SetWindowOnTop_Err:
 
         ElseIf chosen = "Restart" Then
 
+
             FormSetup.Buttons(FormSetup.BusyButton)
             FormSetup.SequentialPause()
 
@@ -1462,7 +1463,7 @@ SetWindowOnTop_Err:
 
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
-        FormSetup.StartOpensimulator()
+        FormSetup.StartOpensimulator(True)
 
     End Sub
 
