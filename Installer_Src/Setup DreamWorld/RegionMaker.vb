@@ -1302,7 +1302,7 @@ Public Class RegionMaker
 
 #Region "Functions"
 
-    Public Shared Function GetStateString(state As Integer) As String
+    Public Function GetStateString(state As Integer) As String
 
         Dim statestring As String
         Select Case state
