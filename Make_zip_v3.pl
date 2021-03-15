@@ -50,7 +50,7 @@ say ('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
-my @languages = qw (en es ca cs de el  es-MX eu fi fr ga he is it ja ko nl-NL no pl pt pt-BR ru sv tr zh-cn zh-tw zh-Hans zh-Hant);
+my @languages = qw (ar-SA es-ES ca cs da de el en es es-MX eu fa-IR fi fr ga he is it nl-NL no pl pt pt-BR ru ru-KZ sv tr vi zh-cn zh-tw zh-Hans zh-Hans-HK  zh-Hant  );
 foreach my $lang (@languages)
 {
 	JustDelete ($lang);
@@ -112,8 +112,10 @@ unlink "$dir/Outworldzfiles/Settings.ini" ;
 #logs
 unlink "$dir/Outworldzfiles/Icecast/log/error.log" ;
 unlink "$dir/Outworldzfiles/Icecast/log/access.log" ;
+
 unlink "$dir/UpdateGrid.log";
-unlink "$dir/OutworldzFiles/Apache/htdocs/Search/flog.log" ;
+unlink "$dir/OutworldzFiles/Apache/htdocp
+s/Search/flog.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Robust.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/RobustStats.log" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/Opensimstats.log" ;
@@ -202,6 +204,7 @@ ProcessDir ("OutworldzFiles\\Logs");
 ProcessDir ("OutworldzFiles\\OAR");
 ProcessDir ("OutworldzFiles\\PHP7");
 ProcessDir ("OutworldzFiles\\Opensim");
+ProcessDir ("OutworldzFiles\\ReadMe");
 ProcessDir ("OutworldzFiles\\jOpensim_files");
 
 
@@ -340,10 +343,15 @@ sub ProcessDir
 	return if $file =~ /\.rtf$/;
 	
 	my $x = `xcopy /E /I /C \\Opensim\\Outworldz_Dreamgrid\\$file  \\Opensim\\zip\\$file`;
-    my $y = $x;
+	my $y = $x;
 	$x =~ s/\n//g;
 	if ($x =~ /File\(s\) copied/) {
 		print "$y\n";
+		if ($y =~ /\n0 File/) 
+		{
+			say ($file . " failed to copy\n $y");
+			die;
+		}
 	} else {
 		print "$file Fail: $y\n";
 		exit;

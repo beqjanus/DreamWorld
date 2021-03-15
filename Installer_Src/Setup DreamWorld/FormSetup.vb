@@ -1113,7 +1113,6 @@ Public Class FormSetup
                 End If
             End If
 
-
             ' auto restart timer
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
                 And Expired > 0 _
@@ -2569,7 +2568,6 @@ Public Class FormSetup
 
         If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
             PropRegionClass.CheckPost() ' get the stack filled ASAP
-
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             TeleportAgents()
             RestartDOSboxes()
@@ -2608,6 +2606,7 @@ Public Class FormSetup
             TextPrint(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
             SetPublicIP()
             ExpireApacheLogs()
+            DeleteDirectoryTmp()
         End If
 
         SecondsTicker += 1

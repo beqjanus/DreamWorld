@@ -7,7 +7,7 @@ Module FileStuff
 
         ' cleanup old code and files
         Dim ToDrop = New List(Of String) From {
-            "fw.,bat",
+            "fw.bat",
             "Downloader.exe",
             "DreamGridSetup.exe",
             "Downloader.exe.config",
@@ -334,7 +334,6 @@ Module FileStuff
 
     Private Sub Deltmp() ' thread
 
-        TextPrint(My.Resources.DeleteTmp_word)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
         MkDir(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"))

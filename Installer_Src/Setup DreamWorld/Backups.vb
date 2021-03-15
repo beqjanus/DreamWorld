@@ -130,9 +130,11 @@ Public Class Backups
                 Zip.AddFile(SQLFile, "/")
                 Zip.Save()
             End Using
-            Sleep(1000)
+            Sleep(5000)
             MoveFile(Bak, IO.Path.Combine(BackupPath(), _filename & ".zip"))
+            Sleep(5000)
             DeleteFile(SQLFile)
+            Sleep(1000)
             DeleteFolder(_folder)
         Catch ex As Exception
             Break(ex.Message)
@@ -286,7 +288,7 @@ Public Class Backups
             Try
                 If zipused = True Then
                     Z.Save()
-                    Sleep(1000)
+                    Sleep(5000)
                     MoveFile(Bak, IO.Path.Combine(BackupPath, Foldername & ".zip"))
                     Sleep(1000)
                 End If

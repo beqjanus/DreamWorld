@@ -1237,6 +1237,24 @@
             </remarks>
             <value><c>true</c> if the connection is secure; otherwise, <c>false</c>.</value>
         </member>
+        <member name="P:MailKit.Net.Imap.ImapClient.IsEncrypted">
+            <summary>
+            Get whether or not the connection is encrypted (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is encrypted (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is encrypted; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.Net.Imap.ImapClient.IsSigned">
+            <summary>
+            Get whether or not the connection is signed (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is signed (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is signed; otherwise, <c>false</c>.</value>
+        </member>
         <member name="P:MailKit.Net.Imap.ImapClient.IsAuthenticated">
             <summary>
             Get whether or not the client is currently authenticated with the IMAP server.
@@ -17283,14 +17301,17 @@
             <param name="args">the argument list.</param>
             <param name="throwOnError">Throw an exception if there are any annotations without properties.</param>
         </member>
-        <member name="M:MailKit.Net.Imap.ImapUtils.FormatIndexSet(System.Collections.Generic.IList{System.Int32})">
+        <member name="M:MailKit.Net.Imap.ImapUtils.FormatIndexSet(MailKit.Net.Imap.ImapEngine,System.Collections.Generic.IList{System.Int32})">
             <summary>
             Formats the array of indexes as a string suitable for use with IMAP commands.
             </summary>
             <returns>The index set.</returns>
+            <param name="engine">The IMAP engine.</param>
             <param name="indexes">The indexes.</param>
             <exception cref="T:System.ArgumentNullException">
-            <paramref name="indexes"/> is <c>null</c>.
+            <para><paramref name="engine"/> is <c>null</c>.</para>
+            <para>-or-</para>
+            <para><paramref name="indexes"/> is <c>null</c>.</para>
             </exception>
             <exception cref="T:System.ArgumentOutOfRangeException">
             One or more of the indexes has a negative value.
@@ -18807,6 +18828,24 @@
             Gets whether or not the connection is secure (typically via SSL or TLS).
             </remarks>
             <value><c>true</c> if the connection is secure; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.Net.Pop3.Pop3Client.IsEncrypted">
+            <summary>
+            Get whether or not the connection is encrypted (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is encrypted (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is encrypted; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.Net.Pop3.Pop3Client.IsSigned">
+            <summary>
+            Get whether or not the connection is signed (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is signed (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is signed; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:MailKit.Net.Pop3.Pop3Client.IsAuthenticated">
             <summary>
@@ -23039,6 +23078,24 @@
             Gets whether or not the connection is secure (typically via SSL or TLS).
             </remarks>
             <value><c>true</c> if the connection is secure; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.Net.Smtp.SmtpClient.IsEncrypted">
+            <summary>
+            Get whether or not the connection is encrypted (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is encrypted (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is encrypted; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.Net.Smtp.SmtpClient.IsSigned">
+            <summary>
+            Get whether or not the connection is signed (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is signed (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is signed; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:MailKit.Net.Smtp.SmtpClient.IsAuthenticated">
             <summary>
@@ -28040,6 +28097,14 @@
             should return <value>true</value>.
             </remarks>
             <value><c>true</c> if the mechanism supports an initial response; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.Security.SaslMechanismNtlm.OSVersion">
+            <summary>
+            Gets or sets the Windows OS version to use in the NTLM negotiation (used for debuigging purposes).
+            </summary>
+            <remarks>
+            Gets or sets the Windows OS version to use in the NTLM negotiation (used for debuigging purposes).
+            </remarks>
         </member>
         <member name="P:MailKit.Security.SaslMechanismNtlm.Workstation">
             <summary>
@@ -37379,8 +37444,9 @@
             An interface for message services such as SMTP, POP3, or IMAP.
             </summary>
             <remarks>
-            Implemented by <see cref="T:MailKit.Net.Smtp.SmtpClient"/>
-            and <see cref="T:MailKit.Net.Pop3.Pop3Client"/>.
+            Implemented by <see cref="T:MailKit.Net.Imap.ImapClient"/>,
+            <see cref="T:MailKit.Net.Pop3.Pop3Client"/> and
+            <see cref="T:MailKit.Net.Smtp.SmtpClient"/>.
             </remarks>
         </member>
         <member name="P:MailKit.IMailService.SyncRoot">
@@ -37515,6 +37581,24 @@
             Gets whether or not the connection is secure (typically via SSL or TLS).
             </remarks>
             <value><c>true</c> if the connection is secure; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.IMailService.IsEncrypted">
+            <summary>
+            Get whether or not the connection is encrypted (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is encrypted (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is encrypted; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.IMailService.IsSigned">
+            <summary>
+            Get whether or not the connection is signed (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is signed (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is signed; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:MailKit.IMailService.Timeout">
             <summary>
@@ -38453,7 +38537,8 @@
             An interface for retreiving messages from a spool.
             </summary>
             <remarks>
-            An interface for retreiving messages from a spool.
+            <para>An interface for retreiving messages from a spool.</para>
+            <para>Implemented by <see cref="T:MailKit.Net.Pop3.Pop3Client"/>.</para>
             </remarks>
         </member>
         <member name="P:MailKit.IMailSpool.Count">
@@ -38926,10 +39011,11 @@
         </member>
         <member name="T:MailKit.IMailStore">
             <summary>
-            An interface for retreiving messages from a message store such as IMAP.
+            An interface for retreiving messages from a message store.
             </summary>
             <remarks>
-            Implemented by <see cref="T:MailKit.Net.Imap.ImapClient"/>.
+            <para>An interface for retreiving messages from a message store.</para>
+            <para>Implemented by <see cref="T:MailKit.Net.Imap.ImapClient"/>.</para>
             </remarks>
         </member>
         <member name="P:MailKit.IMailStore.PersonalNamespaces">
@@ -39445,7 +39531,8 @@
             An interface for sending messages.
             </summary>
             <remarks>
-            An interface for sending messages.
+            <para>An interface for sending messages.</para>
+            <para>Implemented by <see cref="T:MailKit.Net.Smtp.SmtpClient"/>.</para>
             </remarks>
         </member>
         <member name="M:MailKit.IMailTransport.Send(MimeKit.MimeMessage,System.Threading.CancellationToken,MailKit.ITransferProgress)">
@@ -56128,6 +56215,24 @@
             Gets whether or not the connection is secure (typically via SSL or TLS).
             </remarks>
             <value><c>true</c> if the connection is secure; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.MailService.IsEncrypted">
+            <summary>
+            Get whether or not the connection is encrypted (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is encrypted (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is encrypted; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:MailKit.MailService.IsSigned">
+            <summary>
+            Get whether or not the connection is signed (typically via SSL or TLS).
+            </summary>
+            <remarks>
+            Gets whether or not the connection is signed (typically via SSL or TLS).
+            </remarks>
+            <value><c>true</c> if the connection is signed; otherwise, <c>false</c>.</value>
         </member>
         <member name="P:MailKit.MailService.IsAuthenticated">
             <summary>

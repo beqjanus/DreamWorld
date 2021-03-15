@@ -62,6 +62,7 @@ Module GlobalSettings
                 text = dt & " " & CStr(count) & " " & "backups running"
             ElseIf _lastbackup > 0 And count = 0 Then
                 text = dt & " backup completed"
+
             End If
         End If
         _lastbackup = count
