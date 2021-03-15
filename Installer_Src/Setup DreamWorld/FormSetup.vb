@@ -584,16 +584,18 @@ Public Class FormSetup
             While True
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In PropRegionClass.RegionUuids
+
                     Dim status = PropRegionClass.Status(RegionUUID)
                     If PropRegionClass.RegionEnabled(RegionUUID) _
                             And Not PropAborting _
-                            And (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Or
-                            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
-                            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Or
-                            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
+                            And (status = RegionMaker.SIMSTATUSENUM.Booting Or
+                            status = RegionMaker.SIMSTATUSENUM.ShuttingDown Or
+                            status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Or
+                            status = RegionMaker.SIMSTATUSENUM.RecyclingDown
                             ) Then
-
+                        Diagnostics.Debug.Print(PropRegionClass.RegionName(RegionUUID))
                         wait = True
+                        Application.DoEvents()
                     End If
                 Next
 
@@ -607,12 +609,12 @@ Public Class FormSetup
             End While
         Else
 
-            Dim ctr = 1200 ' 2 minute max to start a region at 100% CPU
+            Dim ctr = 120 ' 2 minute max to start a region at 100% CPU
             While True
                 If CPUAverageSpeed < Settings.CPUMAX And Settings.Ramused < 90 Then
                     Exit While
                 End If
-                Sleep(100)
+                Sleep(1000)
                 Application.DoEvents()
                 ctr -= 1
                 If ctr <= 0 Then Exit While
@@ -636,7 +638,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Function StartOpensimulator() As Boolean
+    Public Function StartOpensimulator(Optional SS As Boolean = False) As Boolean
 
         PropExitHandlerIsBusy = False
         PropAborting = False
@@ -675,7 +677,7 @@ Public Class FormSetup
         For Each RegionUUID As String In l
             If PropRegionClass.RegionEnabled(RegionUUID) Then
                 PropRegionClass.CrashCounter(RegionUUID) = 0
-                If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
+                If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And Not SS Then Continue For
                 If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
                     Exit For
                 End If
@@ -1050,7 +1052,7 @@ Public Class FormSetup
 
         ' check to see if a handle to all regions exists
         For Each RegionUUID As String In PropRegionClass.RegionUuids
-            Application.DoEvents()
+
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             If CBool((PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted) _
@@ -1065,6 +1067,7 @@ Public Class FormSetup
                 If GetHwnd(G) = IntPtr.Zero Then
                     Try
                         If Not PropExitList.ContainsKey(G) Then
+                            Diagnostics.Debug.Print(PropRegionClass.RegionName(RegionUUID))
                             PropExitList.Add(G, "Exit")
                         End If
                     Catch ex As Exception
@@ -1159,7 +1162,6 @@ Public Class FormSetup
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                 For Each R As String In GroupList
                     Boot(RegionName)
-                    Application.DoEvents()
                 Next
                 PropUpdateView = True
                 Continue For
@@ -1269,8 +1271,8 @@ Public Class FormSetup
                 Logger("Crash", GroupName & " Crashed", "Teleport")
                 If Settings.RestartOnCrash Then
 
-                    If PropRegionClass.CrashCounter(RegionUUID) > 3 Then
-                        Logger("Crash", GroupName & " Crashed 4 times", "Teleport")
+                    If PropRegionClass.CrashCounter(RegionUUID) > 9 Then
+                        Logger("Crash", GroupName & " Crashed 10 times", "Teleport")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                         Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         If (yesno = vbYes) Then
@@ -2561,7 +2563,7 @@ Public Class FormSetup
         If TimerBusy > 0 And TimerBusy < 10 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
-            Timer1.Interval += 100
+            Timer1.Interval += 1
             Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
             Return
         End If
