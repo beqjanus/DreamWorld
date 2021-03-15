@@ -836,10 +836,10 @@ namespace OpenSim.Region.Framework.Scenes
 
         //SmartStart
         private static bool m_ALT_Enabled = false;
+
         private static Int32 m_DiagnosticsPort;
         private static string m_PrivURL;
         private static string m_MachineID;
-
 
         #endregion Properties
 
@@ -850,13 +850,12 @@ namespace OpenSim.Region.Framework.Scenes
             // !!!  DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
             // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
 
-
             string url = m_PrivURL + ":" + m_DiagnosticsPort + "?alt=" + regionName + "&agent=RegionName&agentid=" + agentID + "&password=" + m_MachineID;
             m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
 
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
 
-            webRequest.Timeout = 30000; //30 Second Timeout
+            webRequest.Timeout = 15000; //15 Second Timeout
             m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
 
             try
@@ -881,14 +880,12 @@ namespace OpenSim.Region.Framework.Scenes
             return regionName;
         }
 
-
         public Scene(RegionInfo regInfo, AgentCircuitManager authen,
                      ISimulationDataService simDataService, IEstateDataService estateDataService,
                      IConfigSource config, string simulatorVersion)
             : this(regInfo)
         {
             m_config = config;
-
 
             FrameTime = 0.0908f;
             FrameTimeWarnPercent = 60;
@@ -983,7 +980,6 @@ namespace OpenSim.Region.Framework.Scenes
 
             // Region config overrides global config
             //
-
 
             if (m_config.Configs["Startup"] != null)
             {
@@ -1185,9 +1181,7 @@ namespace OpenSim.Region.Framework.Scenes
                 m_MachineID = ConstConfig.GetString("MachineID", "");    // private IP
             }
 
-
             #endregion Region Config
-
 
             IConfig entityTransferConfig = m_config.Configs["EntityTransfer"];
             if (entityTransferConfig != null)
@@ -4992,7 +4986,7 @@ namespace OpenSim.Region.Framework.Scenes
             m_log.DebugFormat("[SCENE]: regionName {0}, Agent {1}", regionName, remoteClient.AgentId);
 
             SmartStart SS = new SmartStart();
-            regionName = GetALTRegion(regionName, remoteClient.AgentId);   // DreamGrid 
+            regionName = GetALTRegion(regionName, remoteClient.AgentId);   // DreamGrid
 
             if (EntityTransferModule == null)
             {
