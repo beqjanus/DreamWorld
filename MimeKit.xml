@@ -5581,8 +5581,20 @@
             Initialize a new instance of the <see cref="T:MimeKit.Cryptography.GnuPGContext"/> class.
             </summary>
             <remarks>
-            Creates a new <see cref="T:MimeKit.Cryptography.GnuPGContext"/>.
+            Creates a new <see cref="T:MimeKit.Cryptography.GnuPGContext"/> using the default path for the GnuPG home directory.
             </remarks>
+        </member>
+        <member name="M:MimeKit.Cryptography.GnuPGContext.#ctor(System.String)">
+            <summary>
+            Initialize a new instance of the <see cref="T:MimeKit.Cryptography.GnuPGContext"/> class.
+            </summary>
+            <remarks>
+            Creates a new <see cref="T:MimeKit.Cryptography.GnuPGContext"/> using the specified path for the GnuPG home directory.
+            </remarks>
+            <param name="gnupgDir">The path to the GnuPG home directory.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="gnupgDir"/> is <c>null</c>.
+            </exception>
         </member>
         <member name="T:MimeKit.Cryptography.IDigitalCertificate">
             <summary>

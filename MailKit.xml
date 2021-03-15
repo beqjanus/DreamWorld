@@ -28041,14 +28041,6 @@
             </remarks>
             <value><c>true</c> if the mechanism supports an initial response; otherwise, <c>false</c>.</value>
         </member>
-        <member name="P:MailKit.Security.SaslMechanismNtlm.OSVersion">
-            <summary>
-            Gets or sets the Windows OS version to use in the NTLM negotiation (used for debuigging purposes).
-            </summary>
-            <remarks>
-            Gets or sets the Windows OS version to use in the NTLM negotiation (used for debuigging purposes).
-            </remarks>
-        </member>
         <member name="P:MailKit.Security.SaslMechanismNtlm.Workstation">
             <summary>
             Gets or sets the workstation name to use for authentication.
@@ -37387,9 +37379,8 @@
             An interface for message services such as SMTP, POP3, or IMAP.
             </summary>
             <remarks>
-            Implemented by <see cref="T:MailKit.Net.Imap.ImapClient"/>,
-            <see cref="T:MailKit.Net.Pop3.Pop3Client"/> and
-            <see cref="T:MailKit.Net.Smtp.SmtpClient"/>.
+            Implemented by <see cref="T:MailKit.Net.Smtp.SmtpClient"/>
+            and <see cref="T:MailKit.Net.Pop3.Pop3Client"/>.
             </remarks>
         </member>
         <member name="P:MailKit.IMailService.SyncRoot">
@@ -38462,8 +38453,7 @@
             An interface for retreiving messages from a spool.
             </summary>
             <remarks>
-            <para>An interface for retreiving messages from a spool.</para>
-            <para>Implemented by <see cref="T:MailKit.Net.Pop3.Pop3Client"/>.</para>
+            An interface for retreiving messages from a spool.
             </remarks>
         </member>
         <member name="P:MailKit.IMailSpool.Count">
@@ -38936,11 +38926,10 @@
         </member>
         <member name="T:MailKit.IMailStore">
             <summary>
-            An interface for retreiving messages from a message store.
+            An interface for retreiving messages from a message store such as IMAP.
             </summary>
             <remarks>
-            <para>An interface for retreiving messages from a message store.</para>
-            <para>Implemented by <see cref="T:MailKit.Net.Imap.ImapClient"/>.</para>
+            Implemented by <see cref="T:MailKit.Net.Imap.ImapClient"/>.
             </remarks>
         </member>
         <member name="P:MailKit.IMailStore.PersonalNamespaces">
@@ -39456,8 +39445,7 @@
             An interface for sending messages.
             </summary>
             <remarks>
-            <para>An interface for sending messages.</para>
-            <para>Implemented by <see cref="T:MailKit.Net.Smtp.SmtpClient"/>.</para>
+            An interface for sending messages.
             </remarks>
         </member>
         <member name="M:MailKit.IMailTransport.Send(MimeKit.MimeMessage,System.Threading.CancellationToken,MailKit.ITransferProgress)">

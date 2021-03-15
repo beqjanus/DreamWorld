@@ -1,6 +1,6 @@
 <icecast>
-<hostname>192.168.2.139</hostname>
-<location>DreamGrid</location>
+<hostname>smartstart.outworldz.net</hostname>
+<location>Gandalf</location>
 <admin>not@set.yet</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
 <listen-socket>
@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>Qp5eraUEsf3aM5s</source-password>
-<relay-password>Qp5eraUEsf3aM5s</relay-password>
+<source-password>jfjDFzR7iTDGSJK</source-password>
+<relay-password>jfjDFzR7iTDGSJK</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>hYU0sTPnsysAqHx</admin-password>
+<admin-password>JMtMm49SBJOivyL</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>

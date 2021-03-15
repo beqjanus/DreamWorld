@@ -125,6 +125,7 @@ unlink "$dir/OutworldzFiles/Logs/Outworldz.log" ;
 unlink "$dir/OutworldzFiles/Logs/upnp.log" ;
 unlink "$dir/OutworldzFiles/Logs/http.log" ;
 unlink "$dir/OutworldzFiles/Logs/Error.log" ;
+unlink "$dir/OutworldzFiles/Logs/Teleport.log" ;
 
 #zips
 unlink "../Zips/DreamGrid$type.zip" ;
