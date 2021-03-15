@@ -599,6 +599,8 @@ Public Class FormSetup
 
                 If wait Then
                     ctr -= 1
+                Else
+                    Exit While
                 End If
                 If ctr <= 0 Then Exit While
                 Sleep(1000)
