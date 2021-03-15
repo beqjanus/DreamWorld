@@ -511,7 +511,7 @@ Public Class FormRegionlist
 
         If PropUpdateView() Then ' force a refresh
             If ViewBusy = True Then
-                Timer1.Interval = 2000 ' check for Form1.PropUpdateView later
+                Timer1.Interval = 5000 ' check for Form1.PropUpdateView later
                 Return
             End If
             LoadMyListView()
@@ -1224,7 +1224,7 @@ SetWindowOnTop_Err:
         Choices.Init(RegionName)
         Choices.BringToFront()
         Choices.ShowDialog()
-        Application.DoEvents()
+
         ' Read the chosen sim name
         chosen = Choices.Choice()
         Choices.Dispose()
