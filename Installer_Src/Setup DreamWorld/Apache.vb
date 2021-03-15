@@ -342,8 +342,9 @@ Module Apache
         Dim DLLList As New List(Of String) From {"libeay32.dll", "libssh2.dll", "ssleay32.dll"}
 
         For Each item In DLLList
-            If Not IO.File.Exists("C:/Windows/System32/" & item) Then
-                CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), IO.Path.Combine("C:\Windows\System32\" & item))
+            Dim dest As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), item)
+            If Not IO.File.Exists(dest) Then
+                CopyFileFast(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\curl\" & item), dest)
             End If
         Next
 
