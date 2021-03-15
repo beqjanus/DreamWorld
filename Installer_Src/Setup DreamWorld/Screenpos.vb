@@ -62,10 +62,8 @@ Public Class ScreenPos
 
 #Region "Public Methods"
 
-#Disable Warning CA1822 ' Mark members as static
 
     Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
-#Enable Warning CA1822 ' Mark members as static
 
         If name Is Nothing Then Return size
 
@@ -169,11 +167,7 @@ Public Class ScreenPos
         End While
 
     End Sub
-
-#Disable Warning CA1822 ' Mark members as static
-
     Public Sub PutSize(name As String, size As Integer)
-#Enable Warning CA1822 ' Mark members as static
 
         If name Is Nothing Then Return
         name = name.Replace("\n", "")
@@ -249,10 +243,8 @@ Public Class ScreenPos
 
 #Region "Private Methods"
 
-#Disable Warning CA1822 ' Mark members as static
 
     Private Sub SetXYIni(section As String, key As String, value As String)
-#Enable Warning CA1822 ' Mark members as static
 
         If XYData Is Nothing Then
             Return
