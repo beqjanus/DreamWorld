@@ -344,7 +344,9 @@ Module DoIni
             ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
             ' enabled Region_Name = FallbackRegion if not a SmartStart
 
-            Dim RegionSetting As String = Nothing
+            Dim Welcome As String = Settings.WelcomeRegion
+            Welcome = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+            Dim RegionSetting As String = $"Region_{Welcome}=DefaultRegion{vbCrLf}"
 
             ' make a long list of the various regions with region_ at the start
             For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -352,19 +354,16 @@ Module DoIni
                 If RegionName <> Settings.WelcomeRegion Then
                     If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                        RegionSetting += "Region_" & RegionName & " = " & "Persistent" & vbCrLf
+                        RegionSetting += $"Region_{RegionName}=Persistent{vbCrLf}"
                     Else
                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                        RegionSetting += "Region_" & RegionName & " = " & "DefaultRegion, FallbackRegion" & vbCrLf
+                        RegionSetting += $"Region_{RegionName}=FallbackRegion{vbCrLf}"
                     End If
-                Else
-                    RegionName = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                    RegionSetting += "Region_" & RegionName & " = " & """" & "DefaultRegion, DefaultHGRegion" & """" & vbCrLf
-                End If
 
+                End If
             Next
 
-            Dim skip As Boolean = False
+
             Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini")
                 reader = System.IO.File.OpenText(Settings.OpensimBinPath & "Robust.HG.ini.proto")
                 'now loop through each line
@@ -375,16 +374,11 @@ Module DoIni
                     If line.StartsWith("; START", StringComparison.InvariantCulture) Then
                         Output += line & vbCrLf ' add back on the ; START
                         Output += RegionSetting
-                        skip = True
-                    ElseIf line.StartsWith("; END", StringComparison.InvariantCulture) Then ' add back on the ; END
-                        Output += line & vbCrLf
-                        skip = False
                     Else
-                        If Not skip Then Output += line & vbCrLf
+                        Output += line & vbCrLf
                     End If
 
                     outputFile.WriteLine(Output)
-                    Application.DoEvents()
                 End While
             End Using
             'close your reader

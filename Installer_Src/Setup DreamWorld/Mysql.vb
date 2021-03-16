@@ -433,7 +433,7 @@ Public Module MysqlInterface
             }
                 myConnection.Open()
                 myCommand1.Prepare()
-                myCommand1.Parameters.AddWithValue("p1", p1)
+                myCommand1.Parameters.AddWithValue("@p1", p1)
                 answer = CStr(myCommand1.ExecuteScalar())
                 Debug.Print("User=" + p1 + ", Partner=" + answer)
             End Using
@@ -574,7 +574,7 @@ Public Module MysqlInterface
         Dim MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
         Try
             MysqlConn.Open()
-            Dim stm = "Select RegionName from regions where uuid = @UUID';"
+            Dim stm = "Select RegionName from regions where uuid = '@UUID';"
             Using cmd As New MySqlCommand(stm, MysqlConn)
                 cmd.Parameters.AddWithValue("@UUID", UUID)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
