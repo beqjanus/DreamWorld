@@ -737,6 +737,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Bad coordinates.
+        '''</summary>
+        Friend ReadOnly Property BadCoordinates() As String
+            Get
+                Return ResourceManager.GetString("BadCoordinates", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Ban List.
         '''</summary>
         Friend ReadOnly Property Ban_List_word() As String
@@ -1035,15 +1044,6 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Failed to load Settings INI.
-        '''</summary>
-        Friend ReadOnly Property c() As String
-            Get
-                Return ResourceManager.GetString("c", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized string similar to Cache Control.
         '''</summary>
         Friend ReadOnly Property Cache_Control_word() As String
@@ -1194,6 +1194,24 @@ Namespace My.Resources
         Friend ReadOnly Property Category_word() As String
             Get
                 Return ResourceManager.GetString("Category_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Caution!.
+        '''</summary>
+        Friend ReadOnly Property Caution_word() As String
+            Get
+                Return ResourceManager.GetString("Caution_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Caution! This will load 150+ OARS and regions into your system. This will take a long time..
+        '''</summary>
+        Friend ReadOnly Property CautionOAR() As String
+            Get
+                Return ResourceManager.GetString("CautionOAR", resourceCulture)
             End Get
         End Property
         
@@ -2622,6 +2640,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Disk space is critically low!.
+        '''</summary>
+        Friend ReadOnly Property Diskspacelow() As String
+            Get
+                Return ResourceManager.GetString("Diskspacelow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Diva Panel.
         '''</summary>
         Friend ReadOnly Property Diva_Panel_word() As String
@@ -3060,6 +3087,15 @@ Namespace My.Resources
         Friend ReadOnly Property Enter_the_Grid_Owner_Information_word() As String
             Get
                 Return ResourceManager.GetString("Enter_the_Grid_Owner_Information_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Set the Estate name in the DOS box..
+        '''</summary>
+        Friend ReadOnly Property EnterEstateName() As String
+            Get
+                Return ResourceManager.GetString("EnterEstateName", resourceCulture)
             End Get
         End Property
         
@@ -5040,6 +5076,24 @@ Namespace My.Resources
         Friend ReadOnly Property Load_Terrain() As String
             Get
                 Return ResourceManager.GetString("Load_Terrain", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to loaded..
+        '''</summary>
+        Friend ReadOnly Property Loaded_word() As String
+            Get
+                Return ResourceManager.GetString("Loaded_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Load All Free Oars.
+        '''</summary>
+        Friend ReadOnly Property LoadFreeOars() As String
+            Get
+                Return ResourceManager.GetString("LoadFreeOars", resourceCulture)
             End Get
         End Property
         
@@ -8330,6 +8384,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Smart Start (Alpha code) setting.
+        '''</summary>
+        Friend ReadOnly Property SmartStartEnable() As String
+            Get
+                Return ResourceManager.GetString("SmartStartEnable", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to SMTP Send Email Account.
         '''</summary>
         Friend ReadOnly Property SMTP() As String
@@ -8466,6 +8529,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Smart Start  (Alpha code) in Settings-&gt;Smart Start is disabled..
+        '''</summary>
+        Friend ReadOnly Property SSisDisabled() As String
+            Get
+                Return ResourceManager.GetString("SSisDisabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Smart Start (Alpha) code in Settings-&gt;Smart Start is enabled..
+        '''</summary>
+        Friend ReadOnly Property SSisEnabled() As String
+            Get
+                Return ResourceManager.GetString("SSisEnabled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Start Regions.
         '''</summary>
         Friend ReadOnly Property Start_Regions_word() As String
@@ -8525,6 +8606,15 @@ Namespace My.Resources
         Friend ReadOnly Property Starting_word() As String
             Get
                 Return ResourceManager.GetString("Starting_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Starting Location?.
+        '''</summary>
+        Friend ReadOnly Property StartingLocation() As String
+            Get
+                Return ResourceManager.GetString("StartingLocation", resourceCulture)
             End Get
         End Property
         
@@ -9820,6 +9910,33 @@ Namespace My.Resources
         Friend ReadOnly Property What_to_say_2_region() As String
             Get
                 Return ResourceManager.GetString("What_to_say_2_region", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to What Estate?.
+        '''</summary>
+        Friend ReadOnly Property WhatEstate() As String
+            Get
+                Return ResourceManager.GetString("WhatEstate", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to What Estate name do you want? Blank = you have to input it 150+ times!.
+        '''</summary>
+        Friend ReadOnly Property WhatEstateName() As String
+            Get
+                Return ResourceManager.GetString("WhatEstateName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Where to start? (Regions grow to the right and upward).
+        '''</summary>
+        Friend ReadOnly Property WheretoStart() As String
+            Get
+                Return ResourceManager.GetString("WheretoStart", resourceCulture)
             End Get
         End Property
         

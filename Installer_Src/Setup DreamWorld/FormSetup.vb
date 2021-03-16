@@ -2535,7 +2535,7 @@ Public Class FormSetup
                     Dim Text = String.Format(CultureInfo.CurrentCulture, "{0:00.#}", FreeDisk)
                     Dim F = drive.TotalSize - drive.AvailableFreeSpace
                     If F < 100000 Then
-                        MsgBox($"Disk space is critically low! {F} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                        MsgBox(My.Resources.Diskspacelow & $" {F} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
                     End If
                     DiskSize.Text = $"{x}: {Text}%"
                     Exit For
@@ -2598,12 +2598,6 @@ Public Class FormSetup
             CalcDiskFree()
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass) ' create HTML for teleport boards
-        End If
-
-        'in 10 minutes, run a backup
-
-        If SecondsTicker = 600 Then
-            BackupThread.RunAllBackups(True) ' run background based on time of day = false
         End If
 
         ' print hourly marks on console, after boot
@@ -3303,141 +3297,10 @@ Public Class FormSetup
 
         Using FormInput As New FormDebug
 
-            FormInput.Activate()
-            FormInput.Select()
-            FormInput.Visible = True
-            FormInput.BringToFront()
             Dim choice = FormInput.ShowDialog()
-            If choice <> DialogResult.OK Then
-                Return
-            End If
+            FormInput.BringToFront()
 
-            cmd = FormInput.Command
-            value = FormInput.Value
         End Using
-
-        If cmd = "Smart Start" Then
-
-            Settings.SSVisible = True
-            Settings.SaveSettings()
-
-        ElseIf cmd = "Load Free Oars" Then
-
-            Dim Estate = InputBox("What Estate? ", "What Estate name do you want? Default = Outworldz." & Outworldz & "Estate must already exist!", "Outworldz")
-            If Estate Is "" Then Estate = "Outworldz"
-
-            Dim CoordX = CStr(PropRegionClass.LargestX() + 8)
-            Dim CoordY = CStr(PropRegionClass.LargestY() + 8)
-
-            Dim coord = InputBox("Location? ", "Where?", CoordX & "," & CoordY)
-
-            Dim pattern As Regex = New Regex("(\d+),(\d+)")
-            Dim match As Match = pattern.Match(coord)
-            If Not match.Success Then
-                MsgBox("Bad coordinates")
-                Return
-            End If
-            Settings.SmartStart = False
-
-            Dim X As Integer = CInt(match.Groups(1).Value)
-            Dim Y As Integer = CInt(match.Groups(2).Value)
-            Dim StartX As Integer = X
-
-            StartMySQL()
-            MysqlInterface.DeregisterRegions(False)
-            Settings.Sequential = True
-            Settings.SmartStart = True
-            StartOpensimulator()
-
-            Dim Max As Integer
-            Try
-                For Each J In ContentOAR.GetJson
-
-                    Dim Name = J.Name
-
-                    Dim shortname = Path.GetFileNameWithoutExtension(Name)
-
-                    Dim p = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
-                    If IO.File.Exists(p) Then Continue For
-
-                    Dim RegionUUID = PropRegionClass.CreateRegion(shortname)
-
-                    ' setup parameters for the load
-                    Dim size As Integer = 256
-
-                    ' convert 1,2,3 to 256, 512, etc
-                    Dim pattern1 As Regex = New Regex("(.*?)-(\d+)[xX](\d+)")
-                    Dim match1 As Match = pattern1.Match(Name)
-                    If match1.Success Then
-                        Name = match1.Groups(1).Value
-                        size = CInt(match1.Groups(2).Value) * 256
-                    End If
-
-                    PropRegionClass.CoordX(RegionUUID) = X
-                    PropRegionClass.CoordY(RegionUUID) = Y
-                    PropRegionClass.SkipAutobackup(RegionUUID) = "True"
-                    PropRegionClass.Concierge(RegionUUID) = "True"
-                    PropRegionClass.SmartStart(RegionUUID) = "True"
-                    PropRegionClass.Teleport(RegionUUID) = "True"
-                    PropRegionClass.SizeX(RegionUUID) = size
-                    PropRegionClass.SizeY(RegionUUID) = size
-                    PropRegionClass.GroupName(RegionUUID) = shortname
-                    PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
-                    PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
-                    PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
-
-                    Dim port = PropRegionClass.LargestPort
-                    PropRegionClass.GroupPort(RegionUUID) = port
-                    PropRegionClass.RegionPort(RegionUUID) = port
-                    PropRegionClass.WriteRegionObject(shortname)
-
-                    TextPrint($"{My.Resources.Add_Region_word} {J.Name} @ {CStr(X)},{CStr(Y)}")
-                    PropUpdateView = True ' make form refresh
-                    Application.DoEvents()
-
-                    If size > Max Then Max = size
-                    X += CInt((size / 256) + 2)
-                    If X > StartX + 50 Then
-                        X = StartX
-                        Y += CInt((Max / 256) + 2)
-                    End If
-
-                    Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-                    If RegionName = Settings.WelcomeRegion Then Continue For
-
-                    ReBoot(RegionUUID)
-
-                    ConsoleCommand(RegionUUID, "{ENTER}")
-                    ConsoleCommand(RegionUUID, param)
-
-                    Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                    ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
-                    ConsoleCommand(RegionUUID, "scripts stop")
-                    ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
-                    ConsoleCommand(RegionUUID, "scripts stop")
-                    ConsoleCommand(RegionUUID, "alert power off")
-                    ConsoleCommand(RegionUUID, "backup")
-
-                    ConsoleCommand(RegionUUID, "q")
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                    Dim ctr = 120
-                    If Settings.Sequential Then
-                        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped
-                            Sleep(1000)
-                            Application.DoEvents()
-                            ctr -= 1
-                            If ctr = 0 Then Exit While
-                        End While
-                    End If
-
-                    TextPrint($"->Loaded {RegionName}")
-                Next
-            Catch
-            End Try
-            Settings.SmartStart = True
-            TextPrint("Finished")
-
-        End If
 
     End Sub
 

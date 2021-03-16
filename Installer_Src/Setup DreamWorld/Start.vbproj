@@ -305,6 +305,12 @@
     <Compile Include="Backups.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="Clear_Cache.vb" />
+    <Compile Include="FormDebug.Designer.vb">
+      <DependentUpon>FormDebug.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDebug.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormEmail.Designer.vb">
       <DependentUpon>FormEmail.vb</DependentUpon>
     </Compile>
@@ -794,6 +800,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormDatabase.ru-KZ.resx">
       <DependentUpon>FormDatabase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDebug.resx">
+      <DependentUpon>FormDebug.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDisplacement.es-ES.resx">
       <DependentUpon>FormDisplacement.vb</DependentUpon>
