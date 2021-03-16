@@ -847,7 +847,7 @@ InGatekeeper=True
 ; OfflineIM
 OfflineIMService="OpenSim.Addons.OfflineIM.dll:OfflineIMService"
 
-; Avatar UUID to mesaage telepoorts to, perhaps a prim
+; Avatar UUID to message teleports to, perhaps a prim
 MessageKey = ""
     
 
