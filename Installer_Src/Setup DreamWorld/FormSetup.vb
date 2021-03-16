@@ -3292,14 +3292,9 @@ Public Class FormSetup
 
     Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
 
-        Dim cmd As String = ""
-        Dim value As String = ""
-
         Using FormInput As New FormDebug
-
             Dim choice = FormInput.ShowDialog()
             FormInput.BringToFront()
-
         End Using
 
     End Sub

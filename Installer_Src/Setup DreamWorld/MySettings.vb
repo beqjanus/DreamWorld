@@ -130,9 +130,9 @@ Public Class MySettings
         Try
             Dim value = Stripqq(MyData("Data")(key))
             If value = Nothing Then value = D
-#Disable Warning CA1062 ' Validate arguments of public methods
+
             Return value.ToString(Globalization.CultureInfo.InvariantCulture).Trim
-#Enable Warning CA1062 ' Validate arguments of public methods
+
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Return D
@@ -2070,10 +2070,8 @@ Public Class MySettings
     ''' <param name="INI">Path to file</param>
     ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
-#Disable Warning CA1822 ' Mark members as static
-
     Public Sub Grep(INI As String, LL As String)
-#Enable Warning CA1822 ' Mark members as static
+
 
         If INI Is Nothing Then Return
         Dim Retry = 100 ' 10 sec
