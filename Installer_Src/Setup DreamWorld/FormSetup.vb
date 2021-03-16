@@ -3296,26 +3296,33 @@ Public Class FormSetup
 
     Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
 
-        Dim cmd = InputBox("Debug command?")
-        If cmd.Length = 0 Then Return
-        Dim param As String = ""
+        Dim cmd As String = ""
+        Dim value As String = ""
 
-        Dim input() = cmd.Split(" ".ToCharArray())
-        If input.Length = 2 Then
-            cmd = input(0)
-            param = input(1)
-        Else
-            cmd = input(0)
-        End If
+        Using FormInput As New FormDebug
 
-        If cmd = "SSEnable" Then
+            FormInput.Activate()
+            FormInput.Select()
+            FormInput.Visible = True
+            FormInput.BringToFront()
+            Dim choice = FormInput.ShowDialog()
+            If choice <> DialogResult.OK Then
+                Return
+            End If
+
+            cmd = FormInput.Command
+            value = FormInput.Value
+        End Using
+
+        If cmd = "Smart Start" Then
 
             Settings.SSVisible = True
             Settings.SaveSettings()
 
-        ElseIf cmd = "LoadAllOars" And input.Length = 2 Then
+        ElseIf cmd = "Load Free Oars" Then
 
-            Settings.SmartStart = False
+            Dim Estate = InputBox("What Estate? ", "What Estate name do you want? Default = Outworldz." & Outworldz & "Estate must already exist!", "Outworldz")
+            If Estate Is "" Then Estate = "Outworldz"
 
             Dim CoordX = CStr(PropRegionClass.LargestX() + 8)
             Dim CoordY = CStr(PropRegionClass.LargestY() + 8)
@@ -3328,6 +3335,7 @@ Public Class FormSetup
                 MsgBox("Bad coordinates")
                 Return
             End If
+            Settings.SmartStart = False
 
             Dim X As Integer = CInt(match.Groups(1).Value)
             Dim Y As Integer = CInt(match.Groups(2).Value)
