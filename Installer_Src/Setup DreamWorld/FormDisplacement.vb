@@ -5,6 +5,8 @@
 
 #End Region
 
+Imports System.Windows
+
 Public Class FormDisplacement
 
 #Region "ScreenSize"
@@ -50,24 +52,43 @@ Public Class FormDisplacement
             HelpToolStripMenuItem.Visible = False
         End If
 
-        Me.Width = Size * 256 + 60
-        Me.Height = Size * 256 + 100
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        Me.Width = (Size * 256) + 60
+        Me.Height = (Size * 256) + 100
 
-        Dim intX As Integer = Screen.PrimaryScreen.Bounds.Width
-        Dim intY As Integer = Screen.PrimaryScreen.Bounds.Height
+        Dim intX As Integer
+        Dim intY As Integer
+
+        intX = Screen.PrimaryScreen.WorkingArea.Width
+        intY = Screen.PrimaryScreen.WorkingArea.Height
+
+        'Dim dpiX As Double, dpiY As Double
+        'Dim Graphics As Graphics = Me.CreateGraphics()
+        'dpiX = Graphics.DpiX
+
+
+        ' Dim scale = CInt(100 * Screen.PrimaryScreen.Bounds.Width / SystemParameters.PrimaryScreenWidth)
 
         ' Cascade
         Me.Left = MapX
-        MapX += 100
-
         Me.Top = MapY
-        MapY += 100
-        If Me.Top + Me.Height > intY Or Me.Left + Me.Width > intX Then
+
+        Debug.Print("Top:" & CStr(Me.Top))
+        Debug.Print("Left:" & CStr(Me.Left))
+
+        If (Me.Top + Me.Height) > intY Then
             Me.Top = 100
-            Me.Left = 100
+            MapY = 100
         End If
 
-        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        If (Me.Left + Me.Width) > intX Then
+            Me.Left = 100
+            MapX = 100
+        End If
+
+        MapY += 100
+        MapX += 100
+
         Me.Text = RegionName & " " & CStr(Size) + " X " & CStr(Size)
         Me.Name = "FormDisplacement_" & RegionUUID
         MakeArray(Size, RegionUUID, map)
