@@ -1585,7 +1585,8 @@ Public Class RegionMaker
                         Else  ' requires booting
                             If AgentName = "uuid" Then
                                 AddEm(RegionUUID, AgentID)
-                                Return PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                                Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                                Return u
                             ElseIf AgentName = "regionname" Then
                                 AddEm(RegionUUID, AgentID)
                                 Return Settings.WelcomeRegion
