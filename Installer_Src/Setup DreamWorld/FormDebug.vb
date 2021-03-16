@@ -68,10 +68,13 @@ Public Class FormDebug
 
             If Value Then
                 ProgressPrint(My.Resources.SSisEnabled)
+                Settings.SSVisible = True
                 HelpManual("SmartStart")
             Else
                 ProgressPrint(My.Resources.SSisDisabled)
+                Settings.SSVisible = False
             End If
+            Settings.SaveSettings()
 
         ElseIf Command = My.Resources.LoadFreeOars Then
 
@@ -242,7 +245,7 @@ Public Class FormDebug
             Button2.Text = My.Resources.Apply_word
             Settings.SmartStart = Backup
             TextPrint(My.Resources.New_is_Done)
-
+            Settings.SaveSettings()
         End If
 
     End Sub

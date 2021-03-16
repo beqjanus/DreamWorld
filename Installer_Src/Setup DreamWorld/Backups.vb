@@ -307,9 +307,14 @@ Public Class Backups
                     End If
                     If Directory.Exists(f) Then
                         Dim dest = IO.Path.Combine(BackupPath, "FSassets")
-                        Dim args = """" & f & """" & " " & """" & dest & """" & " /MIR /TBD /LFSM:50M /IM /M  /J "
-                        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "robocopy.exe")
+                        Dim args = $"""{f}"" ""{dest}"" /MIR /TBD /IM /M  /J "
 
+                        Dim rev = System.Environment.OSVersion.Version.Major
+                        ' Only on 10
+                        If rev = 10 Then args += "/LFSM:50M"
+
+                        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "robocopy.exe")
+                        Debug.Print(args)
                         Using ProcessRobocopy As New Process With {
                             .EnableRaisingEvents = True
                         }

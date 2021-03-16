@@ -39,12 +39,11 @@ Module PublicIP
             End Try
 
             If success Then
-                Log(My.Resources.Info_word, " port probe success on port " & CStr(Port))
                 Return True
             End If
 
         End Using
-        Log(My.Resources.Info_word, " port probe fail on port " & CStr(Port))
+        Log(My.Resources.Info_word, "Port probe fail on port " & CStr(Port))
         Return False
 
     End Function
