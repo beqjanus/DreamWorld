@@ -2520,11 +2520,12 @@ Public Class FormSetup
             For Each drive As DriveInfo In d
                 Dim x = Mid(c, 1, 1)
                 If x = Mid(drive.Name, 1, 1) Then
-                    Dim Percent = (drive.AvailableFreeSpace - 5000) / drive.TotalSize
+                    Dim Percent = drive.AvailableFreeSpace / drive.TotalSize
                     Dim FreeDisk = Percent * 100
-                    Dim Text = String.Format(CultureInfo.CurrentCulture, "{0:00.#}", FreeDisk)
-                    Dim F = drive.TotalSize - drive.AvailableFreeSpace
-                    If F < 100000 Then
+                    Dim Text = String.Format(CultureInfo.CurrentCulture, "{0:00.#} ", FreeDisk)
+                    Dim F As Long = drive.TotalSize - drive.AvailableFreeSpace
+                    If F < 50000000 Then
+                        'Freezeall()
                         MsgBox(My.Resources.Diskspacelow & $" {F} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
                     End If
                     DiskSize.Text = $"{x}: {Text}%"
