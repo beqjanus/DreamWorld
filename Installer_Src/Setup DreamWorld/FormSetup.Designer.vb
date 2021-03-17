@@ -1046,7 +1046,7 @@ Partial Class FormSetup
         Me.ChartWrapper2.MarkerSize = 8
         Me.ChartWrapper2.Name = "ChartWrapper2"
         Me.ChartWrapper2.SideLegendVisible = True
-        Me.ChartWrapper2.Size = New System.Drawing.Size(203, 202)
+        Me.ChartWrapper2.Size = New System.Drawing.Size(203, 190)
         Me.ChartWrapper2.TabIndex = 33
         Me.ChartWrapper2.Title = ""
         '
@@ -1067,7 +1067,7 @@ Partial Class FormSetup
         Me.ChartWrapper1.MarkerSize = 8
         Me.ChartWrapper1.Name = "ChartWrapper1"
         Me.ChartWrapper1.SideLegendVisible = True
-        Me.ChartWrapper1.Size = New System.Drawing.Size(203, 197)
+        Me.ChartWrapper1.Size = New System.Drawing.Size(203, 185)
         Me.ChartWrapper1.TabIndex = 31
         Me.ChartWrapper1.Title = ""
         '
@@ -1076,7 +1076,7 @@ Partial Class FormSetup
         Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SplitContainer1.Location = New System.Drawing.Point(332, 36)
+        Me.SplitContainer1.Location = New System.Drawing.Point(332, 60)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -1087,8 +1087,8 @@ Partial Class FormSetup
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.ChartWrapper2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(203, 403)
-        Me.SplitContainer1.SplitterDistance = 197
+        Me.SplitContainer1.Size = New System.Drawing.Size(203, 379)
+        Me.SplitContainer1.SplitterDistance = 185
         Me.SplitContainer1.TabIndex = 18609
         '
         'TextBox1
@@ -1131,7 +1131,7 @@ Partial Class FormSetup
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(296, 23)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(246, 23)
         Me.TableLayoutPanel1.TabIndex = 18611
         '
         'FormSetup

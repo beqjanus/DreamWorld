@@ -817,8 +817,6 @@ Public Class FormSetup
         PercentRAM.Visible = visible
         DiskSize.Visible = visible
 
-        CalcDiskFree()
-
     End Sub
 
     Private Shared Sub Create_ShortCut(ByVal sTargetPath As String)
@@ -1271,17 +1269,9 @@ Public Class FormSetup
                 Logger("Crash", GroupName & " Crashed", "Teleport")
                 If Settings.RestartOnCrash Then
 
-                    If PropRegionClass.CrashCounter(RegionUUID) > 9 Then
-                        Logger("Crash", GroupName & " Crashed 10 times", "Teleport")
+                    If PropRegionClass.CrashCounter(RegionUUID) > 4 Then
+                        Logger("Crash", GroupName & " Crashed 4 times", "Teleport")
                         TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                        Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
-                        If (yesno = vbYes) Then
-                            Try
-                                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.OpensimIniPath(RegionUUID) & "Opensim.log" & """")
-                            Catch ex As Exception
-                                BreakPoint.Show(ex.Message)
-                            End Try
-                        End If
                         StopGroup(GroupName)
                         PropRegionClass.CrashCounter(RegionUUID) = 0
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Error

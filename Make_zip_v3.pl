@@ -15,9 +15,7 @@ use 5.010;
 use File::Copy;
 use File::Path;
 use File::Basename;
-
 use File::Find;
-
 
 
 my $contents = io->file('C:/Opensim/Outworldz_Dreamgrid/Installer_Src/Setup DreamWorld/GlobalSettings.vb')->slurp;

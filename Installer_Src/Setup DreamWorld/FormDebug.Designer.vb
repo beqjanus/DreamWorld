@@ -67,7 +67,6 @@ Partial Class FormDebug
         '
         Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Enabled = False
         Me.TextBox1.Location = New System.Drawing.Point(6, 97)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"

@@ -88,7 +88,7 @@ Public Class FormDebug
             Button2.Text = My.Resources.Stop_word
 
             Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
-            If Caution <> MsgBoxResult.Ok Then Return
+            If Caution <> MsgBoxResult.Yes Then Return
 
             If Abort Then
                 Button2.Text = My.Resources.Apply_word
