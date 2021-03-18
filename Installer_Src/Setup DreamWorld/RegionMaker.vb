@@ -1568,54 +1568,65 @@ Public Class RegionMaker
                 RegionUUID = RegionName
             End If
 
+            If Not Settings.SmartStart Then
+                If AgentName = "uuid" Then
+                    Return RegionUUID
+                ElseIf AgentName = "regionname" Then
+                    Return RegionName
+                Else ' Its a sign!                    
+                    AddEm(RegionUUID, AgentID)
+                    Return RegionName & "|0"
+                End If
+            End If
+
             Dim result As New Guid
-            If Guid.TryParse(RegionUUID, result) Then
-                If PropOpensimIsRunning Then
-                    If SmartStart(RegionUUID) = "True" Then
-                        ' smart, and up
-                        If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+                If Guid.TryParse(RegionUUID, result) Then
+                    If PropOpensimIsRunning Then
+                        If SmartStart(RegionUUID) = "True" Then
+                            ' smart, and up
+                            If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+                                If AgentName = "uuid" Then
+                                    Return RegionUUID
+                                ElseIf AgentName = "regionname" Then
+                                    Return RegionName
+                                Else ' Its a sign!
+                                    Logger("Teleport Sign Booted", RegionName & ":" & AgentID, "Teleport")
+                                    Return RegionName & "|1"
+                                End If
+                            Else  ' requires booting
+                                If AgentName = "uuid" Then
+                                    AddEm(RegionUUID, AgentID)
+                                    Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                                    Return u
+                                ElseIf AgentName = "regionname" Then
+                                    AddEm(RegionUUID, AgentID)
+                                    Return Settings.WelcomeRegion
+                                Else ' Its a sign!
+                                    time = "|" & CStr(BootTime(RegionUUID) + slop) ' 5 seconds of slop time
+                                    Logger("Teleport Sign Power up ", RegionName & ":" & AgentID, "Teleport")
+                                    AddEm(RegionUUID, AgentID)
+                                    Return RegionName & time
+                                End If
+                            End If
+                        Else ' Non Smart Start
                             If AgentName = "uuid" Then
+                                Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
                                 Return RegionUUID
                             ElseIf AgentName = "regionname" Then
+                                Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
                                 Return RegionName
-                            Else ' Its a sign!
-                                Logger("Teleport Sign Booted", RegionName & ":" & AgentID, "Teleport")
-                                Return RegionName & "|1"
-                            End If
-                        Else  ' requires booting
-                            If AgentName = "uuid" Then
-                                AddEm(RegionUUID, AgentID)
-                                Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
-                                Return u
-                            ElseIf AgentName = "regionname" Then
-                                AddEm(RegionUUID, AgentID)
-                                Return Settings.WelcomeRegion
-                            Else ' Its a sign!
-                                time = "|" & CStr(BootTime(RegionUUID) + slop) ' 5 seconds of slop time
-                                Logger("Teleport Sign Power up ", RegionName & ":" & AgentID, "Teleport")
-                                AddEm(RegionUUID, AgentID)
+                            Else     ' Its a sign!
+                                time = "|" & CStr(BootTime(RegionUUID) + slop) ' more slop
+                                Logger("Teleport Request", RegionName & ":" & AgentID, "Teleport")
                                 Return RegionName & time
                             End If
                         End If
-                    Else ' Non Smart Start
-                        If AgentName = "uuid" Then
-                            Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
-                            Return RegionUUID
-                        ElseIf AgentName = "regionname" Then
-                            Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
-                            Return RegionName
-                        Else     ' Its a sign!
-                            time = "|" & CStr(BootTime(RegionUUID) + slop) ' more slop
-                            Logger("Teleport Request", RegionName & ":" & AgentID, "Teleport")
-                            Return RegionName & time
-                        End If
                     End If
+                    ' not running
+                    Return RegionUUID
                 End If
-                ' not running
-                Return RegionUUID
-            End If
-        Else
-            BreakPoint.Show("Bad UUID")
+            Else
+                BreakPoint.Show("Bad UUID")
         End If
         Return PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 

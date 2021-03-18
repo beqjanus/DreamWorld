@@ -1,0 +1,48 @@
+﻿Module Backup
+    Private _lastbackup As Integer
+
+    Public Function BackupPath() As String
+
+        'Autobackup must exist. if not create it
+        ' if they set the folder somewhere else, it may have been deleted, so reset it to default
+        BackupPath = Settings.BackupFolder
+        BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
+
+        If Not IO.Directory.Exists(BackupPath) Then
+            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup")
+            If Not IO.Directory.Exists(BackupPath) Then
+                MkDir(BackupPath)
+            End If
+            Settings.BackupFolder = BackupPath
+        End If
+
+        Return BackupPath
+
+    End Function
+    Public Function BackupsRunning(dt As String) As String
+
+        Dim folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp")
+        Dim Running() As String
+        Dim count As Integer = 0
+        Try
+            Running = IO.Directory.GetDirectories(folder)
+            count = Running.Length
+        Catch
+        End Try
+
+        Dim text As String = ""
+
+        If _lastbackup <> count Then
+            If _lastbackup = 0 And count = 1 Then
+                text = dt & " " & CStr(count) & " " & "backup running"
+            ElseIf _lastbackup > 0 And count > 1 Then
+                text = dt & " " & CStr(count) & " " & "backups running"
+            ElseIf _lastbackup > 0 And count = 0 Then
+                text = dt & " backup completed"
+            End If
+        End If
+        _lastbackup = count
+        Return text
+
+    End Function
+End Module

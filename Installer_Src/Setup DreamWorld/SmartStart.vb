@@ -13,8 +13,55 @@ Module SmartStart
 
     Private WithEvents BootProcess As New Process
 
-    Dim Sleeping As New List(Of String)
+    Private ReadOnly Sleeping As New List(Of String)
 
+#Region "Teleport"
+
+    Public Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
+
+        ' http://localhost:8001/teleports.htm
+        ' http://YourURL:8001/teleports.htm
+        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
+        '*|Welcome||outworldz.com9000Welcome|128,128,96|
+        Dim HTML As String = ""
+
+        Dim ToSort As New List(Of String)
+
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
+            Dim status = PropRegionClass.Status(RegionUUID)
+            If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
+                status = RegionMaker.SIMSTATUSENUM.Booted AndAlso
+                Not Settings.SmartStart) Or
+               (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
+                PropRegionClass.SmartStart(RegionUUID) = "True" AndAlso Settings.SmartStart) Then
+                ToSort.Add(PropRegionClass.RegionName(RegionUUID))
+            End If
+        Next
+
+        ToSort.Sort()
+
+        'TODO   "||"  is coordinates for destinations
+
+        For Each S As String In ToSort
+            HTML += "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & S & "|" & vbCrLf
+        Next
+
+        Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
+        DeleteFile(HTMLFILE)
+
+        Try
+            Using outputFile As New StreamWriter(HTMLFILE, True)
+                outputFile.WriteLine(HTML)
+            End Using
+        Catch ex As Exception
+            ' BreakPoint.Show(ex.Message)
+        End Try
+
+        Return HTML
+
+    End Function
+
+#End Region
     Public Function CalcDiskFree() As Long
 
         Dim d = DriveInfo.GetDrives()
@@ -54,7 +101,7 @@ Module SmartStart
 
     End Function
 
-    Public Sub DoSuspend(RegionName As String, Optional ResumeSwitch As Boolean = False)
+    Public Sub DoSuspend(RegionName As String)
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim PID = PropRegionClass.ProcessID(RegionUUID)

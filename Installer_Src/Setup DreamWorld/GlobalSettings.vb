@@ -33,7 +33,6 @@ Module GlobalSettings
     Public MapY As Integer = 100
     Dim _Data As IniParser.Model.IniData
     Private _IsRunning As Boolean
-    Private _lastbackup As Integer
     Private _mySetting As New MySettings
     Private _PropAborting As Boolean
     Private _regionClass As RegionMaker
@@ -43,32 +42,6 @@ Module GlobalSettings
 
 #End Region
 
-    Public Function BackupsRunning(dt As String) As String
-
-        Dim folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp")
-        Dim Running() As String
-        Dim count As Integer = 0
-        Try
-            Running = IO.Directory.GetDirectories(folder)
-            count = Running.Length
-        Catch
-        End Try
-
-        Dim text As String = ""
-
-        If _lastbackup <> count Then
-            If _lastbackup = 0 And count = 1 Then
-                text = dt & " " & CStr(count) & " " & "backup running"
-            ElseIf _lastbackup > 0 And count > 1 Then
-                text = dt & " " & CStr(count) & " " & "backups running"
-            ElseIf _lastbackup > 0 And count = 0 Then
-                text = dt & " backup completed"
-            End If
-        End If
-        _lastbackup = count
-        Return text
-
-    End Function
 
 #Region "Properties"
 
@@ -211,70 +184,10 @@ Module GlobalSettings
 
 #End Region
 
-#Region "Teleport"
-
-    Public Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
-
-        ' http://localhost:8001/teleports.htm
-        ' http://YourURL:8001/teleports.htm
-        'Outworldz|Welcome||outworldz.com:9000:Welcome|128,128,96|
-        '*|Welcome||outworldz.com9000Welcome|128,128,96|
-        Dim HTML As String = ""
-
-        Dim ToSort As New List(Of String)
-
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            Dim status = PropRegionClass.Status(RegionUUID)
-            If PropRegionClass.Teleport(RegionUUID) = "True" Or PropRegionClass.SmartStart(RegionUUID) = "True" Then
-                ToSort.Add(PropRegionClass.RegionName(RegionUUID))
-            End If
-        Next
-
-        ToSort.Sort()
-
-        'TODO   "||"  is coordinates for destinations
-
-        For Each S As String In ToSort
-            HTML += "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & S & "|" & vbCrLf
-        Next
-
-        Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
-        DeleteFile(HTMLFILE)
-
-        Try
-            Using outputFile As New StreamWriter(HTMLFILE, True)
-                outputFile.WriteLine(HTML)
-            End Using
-        Catch ex As Exception
-            ' BreakPoint.Show(ex.Message)
-        End Try
-
-        Return HTML
-
-    End Function
-
-#End Region
 
 #Region "Functions"
 
-    Public Function BackupPath() As String
 
-        'Autobackup must exist. if not create it
-        ' if they set the folder somewhere else, it may have been deleted, so reset it to default
-        BackupPath = Settings.BackupFolder
-        BackupPath = BackupPath.Replace("\", "/")    ' because Opensim uses Unix-like slashes, that's why
-
-        If Not Directory.Exists(BackupPath) Then
-            BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup")
-            If Not Directory.Exists(BackupPath) Then
-                MkDir(BackupPath)
-            End If
-            Settings.BackupFolder = BackupPath
-        End If
-
-        Return BackupPath
-
-    End Function
 
     Public Function RobustName() As String
 
