@@ -535,9 +535,12 @@ Public Class FormRegionlist
             Else
                 Num = DGICON.disabled
             End If
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" Then
+        ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart Then
             Letter = My.Resources.Waiting
             Num = DGICON.SmartStart
+        ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Not Settings.SmartStart Then
+            Letter = My.Resources.Stopped_word
+            Num = DGICON.stopped
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) <> "True" Then
             Letter = My.Resources.Stopped_word
             Num = DGICON.stopped
