@@ -5,67 +5,159 @@
 
 #End Region
 
+Imports System.Globalization
+Imports System.IO
+Imports System.Threading
+
 Module SmartStart
 
     Private WithEvents BootProcess As New Process
+
+    Dim Sleeping As New List(Of String)
+
+    Public Function CalcDiskFree() As Long
+
+        Dim d = DriveInfo.GetDrives()
+        Dim c = CurDir()
+        Dim Free As Long
+        Try
+            For Each drive As DriveInfo In d
+                Dim x = Mid(c, 1, 1)
+                If x = Mid(drive.Name, 1, 1) Then
+                    Dim Percent = drive.AvailableFreeSpace / drive.TotalSize
+                    Dim FreeDisk = Percent * 100
+                    Free = drive.TotalSize - drive.AvailableFreeSpace
+
+                    If Sleeping.Count = 0 Then
+                        If Free < FreeDiskSpaceWarn Then
+                            Dim SThread = New Thread(AddressOf FreezeAll)
+                            SThread.SetApartmentState(ApartmentState.STA)
+                            SThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+                            SThread.Start()
+                            Busy = True
+                            MsgBox(My.Resources.Diskspacelow & $" {Free:n0} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                        End If
+                    End If
+
+                    Dim tt = My.Resources.Available
+                    Dim Text = $"{Percent:P1} {tt}"
+
+                    FormSetup.DiskSize.Text = $"Disk {x}: {Text} "
+                    Exit For
+                End If
+
+            Next
+        Catch
+        End Try
+
+        Return Free
+
+    End Function
 
     Public Sub DoSuspend(RegionName As String, Optional ResumeSwitch As Boolean = False)
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim PID = PropRegionClass.ProcessID(RegionUUID)
 
-        If True Then
-            Logger("State Changed to ShuttingDown", RegionName, "Teleport")
-            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-            For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
-                PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
-            Next
-            ShutDown(RegionUUID)
-            Application.DoEvents()
-            PropUpdateView = True ' make form refresh
-        Else
-            Dim R As String
-            If ResumeSwitch Then
-                R = " -rpid "
-                TextPrint(My.Resources.Resuming_word & " " & RegionName)
-            Else
-                TextPrint(My.Resources.Suspending_word & " " & RegionName)
-                R = " -pid "
+        Logger("State Changed to ShuttingDown", RegionName, "Teleport")
+        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+            PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+        Next
+        ShutDown(RegionUUID)
+        Application.DoEvents()
+        PropUpdateView = True ' make form refresh
+
+    End Sub
+
+    Public Sub FreezeAll()
+
+        Dim running As Boolean
+        For Each RegionUUID In PropRegionClass.RegionUuids()
+            Dim status = PropRegionClass.Status(RegionUUID)
+            If Not Sleeping.Contains(RegionUUID) Then
+                Sleeping.Add(RegionUUID)
+                Select Case status
+                    Case RegionMaker.SIMSTATUSENUM.Booted
+                        Pause(RegionUUID)
+                        running = True
+                    Case RegionMaker.SIMSTATUSENUM.Booting
+                        Pause(RegionUUID)
+                        running = True
+                    Case RegionMaker.SIMSTATUSENUM.Error
+                    Case RegionMaker.SIMSTATUSENUM.NoLogin
+                        Pause(RegionUUID)
+                        running = True
+                    Case RegionMaker.SIMSTATUSENUM.RecyclingDown
+                        Pause(RegionUUID)
+                        running = True
+                    Case RegionMaker.SIMSTATUSENUM.RecyclingUp
+                    Case RegionMaker.SIMSTATUSENUM.RestartPending
+                    Case RegionMaker.SIMSTATUSENUM.RestartStage2
+                    Case RegionMaker.SIMSTATUSENUM.RetartingNow
+                    Case RegionMaker.SIMSTATUSENUM.Stopped
+                    Case RegionMaker.SIMSTATUSENUM.Suspended
+                End Select
             End If
-            Dim SuspendProcess As New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                  .Arguments = R & PID,
-                  .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
-              }
+        Next
 
-            pi.CreateNoWindow = True
-            pi.WindowStyle = ProcessWindowStyle.Minimized
-
-            SuspendProcess.StartInfo = pi
-
-            Try
-                SuspendProcess.Start()
-                SuspendProcess.WaitForExit()
-                PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                TextPrint(My.Resources.NTSuspend)
-            Finally
-                SuspendProcess.Close()
-                SuspendProcess.Dispose()
-            End Try
-
-            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-            For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                If ResumeSwitch Then
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
-                Else
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Suspended
-                End If
-            Next
-            PropUpdateView = True ' make form refresh
+        PropUpdateView = True ' make form refresh
+        If Not running Then
+            Busy = False
+            Sleeping.Clear()
+            Return
         End If
+
+        While CalcDiskFree() < FreeDiskSpaceWarn AndAlso PropOpensimIsRunning
+            Sleep(1000)
+        End While
+
+        For Each RegionUUID In Sleeping
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+            FreezeThaw(RegionUUID, "-rpid " & PropRegionClass.ProcessID(RegionUUID))
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+        Next
+
+        Sleeping.Clear()
+        Busy = False
+
+        PropUpdateView = True ' make form refresh
+
+    End Sub
+
+    Private Sub FreezeThaw(RegionUUID As String, Arg As String)
+
+        Dim SuspendProcess As New Process()
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .Arguments = Arg,
+                .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
+            }
+
+        pi.CreateNoWindow = True
+        pi.WindowStyle = ProcessWindowStyle.Minimized
+
+        SuspendProcess.StartInfo = pi
+
+        Try
+            SuspendProcess.Start()
+            SuspendProcess.WaitForExit()
+            PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        Finally
+            SuspendProcess.Close()
+            SuspendProcess.Dispose()
+        End Try
+
+    End Sub
+
+    Private Sub Pause(RegionUUID As String)
+
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        FreezeThaw(RegionUUID, "-pid " & PropRegionClass.ProcessID(RegionUUID))
+        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended
+        Application.DoEvents()
 
     End Sub
 
@@ -93,14 +185,6 @@ Module SmartStart
             ErrorLog("Cannot find " & BootName & " to boot!")
             Return False
         End If
-        Logger("Info", "Region: Starting Region " & BootName, "Teleport")
-
-        DoGloebits()
-
-        PropRegionClass.CopyOpensimProto(RegionUUID)
-
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-        Settings.Grep(ini, Settings.LogLevel)
 
         Dim GP = PropRegionClass.GroupPort(RegionUUID)
         Diagnostics.Debug.Print("Group port =" & CStr(GP))
@@ -137,6 +221,13 @@ Module SmartStart
         End If
 
         TextPrint(BootName & " " & Global.Outworldz.My.Resources.Starting_word)
+
+        DoGloebits()
+
+        PropRegionClass.CopyOpensimProto(RegionUUID)
+
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+        Settings.Grep(ini, Settings.LogLevel)
 
         BootProcess.EnableRaisingEvents = True
         BootProcess.StartInfo.UseShellExecute = True

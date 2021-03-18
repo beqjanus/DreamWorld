@@ -3398,7 +3398,8 @@
     <value>Caution!</value>
   </data>
   <data name="Diskspacelow" xml:space="preserve">
-    <value>Disk space is critically low!</value>
+    <value>Disk space is critically low, less than 50 M left!   All regions are frozen.  Please free up disk space and the regions will thaw.</value>
+    <comment>Error Message</comment>
   </data>
   <data name="EnterEstateName" xml:space="preserve">
     <value>Set the Estate name in the DOS box.</value>
@@ -3429,5 +3430,8 @@
   </data>
   <data name="WheretoStart" xml:space="preserve">
     <value>Where to start? (Regions grow to the right and upward)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
   </data>
 </root>

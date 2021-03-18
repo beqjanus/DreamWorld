@@ -963,7 +963,7 @@ Public Class FormSetup
 
             If MyCPUCollection.Count > 180 Then MyCPUCollection.RemoveAt(0)
 
-            PercentCPU.Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0}% CPU", CPUAverageSpeed)
+            PercentCPU.Text = $"CPU: {CPUAverageSpeed / 100:P1}"
 
             ''reverse series
 
@@ -984,7 +984,7 @@ Public Class FormSetup
 
                 value = Math.Round(value)
                 Settings.Ramused = value
-                PercentRAM.Text = "RAM: " & CStr(value) & "%"
+                PercentRAM.Text = $"RAM: {value / 100:p1}"
             Next
             ChartWrapper2.ClearChart()
             Dim RAM() As Double = MyRAMCollection.ToArray()
@@ -2511,31 +2511,6 @@ Public Class FormSetup
 
 #Region "Timer"
 
-    Private Sub CalcDiskFree()
-
-        Dim d = DriveInfo.GetDrives()
-        Dim c = CurDir()
-
-        Try
-            For Each drive As DriveInfo In d
-                Dim x = Mid(c, 1, 1)
-                If x = Mid(drive.Name, 1, 1) Then
-                    Dim Percent = drive.AvailableFreeSpace / drive.TotalSize
-                    Dim FreeDisk = Percent * 100
-                    Dim Text = String.Format(CultureInfo.CurrentCulture, "{0:00.#} ", FreeDisk)
-                    Dim F As Long = drive.TotalSize - drive.AvailableFreeSpace
-                    If F < 50000000 Then
-                        'Freezeall()
-                        MsgBox(My.Resources.Diskspacelow & $" {F} Bytes", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
-                    End If
-                    DiskSize.Text = $"{x}: {Text}%"
-                    Exit For
-                End If
-            Next
-        Catch
-        End Try
-    End Sub
-
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
@@ -2567,6 +2542,7 @@ Public Class FormSetup
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             TeleportAgents()
             RestartDOSboxes()
+            CalcDiskFree()
         End If
 
         Dim thisDate As Date = Now
@@ -2586,7 +2562,6 @@ Public Class FormSetup
 
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
-            CalcDiskFree()
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass) ' create HTML for teleport boards
         End If

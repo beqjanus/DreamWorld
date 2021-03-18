@@ -548,6 +548,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Available.
+        '''</summary>
+        Friend ReadOnly Property Available() As String
+            Get
+                Return ResourceManager.GetString("Available", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Avatar Bakes Cache.
         '''</summary>
         Friend ReadOnly Property Avatar_Bakes_Cache_word() As String
@@ -2640,7 +2649,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Disk space is critically low!.
+        '''  Looks up a localized string similar to Disk space is critically low, less than 50 M left!   All regions are frozen.  Please free up disk space and the regions will thaw..
         '''</summary>
         Friend ReadOnly Property Diskspacelow() As String
             Get

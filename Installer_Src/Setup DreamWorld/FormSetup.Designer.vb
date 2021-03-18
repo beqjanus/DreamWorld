@@ -978,29 +978,29 @@ Partial Class FormSetup
         Me.AvatarLabel.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AvatarLabel.Location = New System.Drawing.Point(3, 0)
         Me.AvatarLabel.Name = "AvatarLabel"
-        Me.AvatarLabel.Size = New System.Drawing.Size(46, 15)
+        Me.AvatarLabel.Size = New System.Drawing.Size(55, 15)
         Me.AvatarLabel.TabIndex = 32
-        Me.AvatarLabel.Text = "Avatars"
+        Me.AvatarLabel.Text = "0 Avatars"
         '
         'PercentCPU
         '
         Me.PercentCPU.AutoSize = True
         Me.PercentCPU.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentCPU.Location = New System.Drawing.Point(55, 0)
+        Me.PercentCPU.Location = New System.Drawing.Point(125, 0)
         Me.PercentCPU.Name = "PercentCPU"
-        Me.PercentCPU.Size = New System.Drawing.Size(13, 15)
+        Me.PercentCPU.Size = New System.Drawing.Size(49, 15)
         Me.PercentCPU.TabIndex = 35
-        Me.PercentCPU.Text = "0"
+        Me.PercentCPU.Text = "0% CPU"
         '
         'PercentRAM
         '
         Me.PercentRAM.AutoSize = True
         Me.PercentRAM.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PercentRAM.Location = New System.Drawing.Point(74, 0)
+        Me.PercentRAM.Location = New System.Drawing.Point(64, 0)
         Me.PercentRAM.Name = "PercentRAM"
-        Me.PercentRAM.Size = New System.Drawing.Size(13, 15)
+        Me.PercentRAM.Size = New System.Drawing.Size(55, 15)
         Me.PercentRAM.TabIndex = 37
-        Me.PercentRAM.Text = "0"
+        Me.PercentRAM.Text = "0 % RAM"
         '
         'BusyButton
         '
@@ -1110,28 +1110,28 @@ Partial Class FormSetup
         '
         Me.DiskSize.AutoSize = True
         Me.DiskSize.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DiskSize.Location = New System.Drawing.Point(93, 0)
+        Me.DiskSize.Location = New System.Drawing.Point(180, 0)
         Me.DiskSize.Name = "DiskSize"
-        Me.DiskSize.Size = New System.Drawing.Size(13, 15)
+        Me.DiskSize.Size = New System.Drawing.Size(0, 15)
         Me.DiskSize.TabIndex = 18611
-        Me.DiskSize.Text = "0"
         '
         'TableLayoutPanel1
         '
+        Me.TableLayoutPanel1.AutoSize = True
         Me.TableLayoutPanel1.ColumnCount = 4
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.Controls.Add(Me.DiskSize, 3, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PercentCPU, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.PercentRAM, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.AvatarLabel, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PercentCPU, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.PercentRAM, 1, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(142, 31)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 1
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(246, 23)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(347, 23)
         Me.TableLayoutPanel1.TabIndex = 18611
         '
         'FormSetup
