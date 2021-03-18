@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Geri Dönüşüm</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Kötü koordinatlar</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Dikkat! Bu, sisteminize 150'den fazla OARS ve bölge yükleyecektir. Bu uzun zaman alacak.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Dikkat!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Disk alanı kritik derecede düşük, 50 M'den az kaldı! Tüm bölgeler dondu. Lütfen disk alanını boşaltın ve bölgeler çözülür.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Emlak adını DOS kutusunda ayarlayın.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>yüklendi.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Tüm Serbest Kürekleri Yükle</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Akıllı Başlangıç (Alfa kodu) ayarı</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Ayarlar-&gt; Smart Start'ta Smart Start (Alfa kodu) devre dışı bırakılır.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Ayarlar-&gt; Smart Start'ta Smart Start (Alpha) kodu etkinleştirildi.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Başlangıç Yeri?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Ne Malikanesi?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Hangi emlak adını istiyorsun? Boş = 150'den fazla kez girmeniz gerekir!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Nereden başlamalı? (Bölgeler sağa ve yukarı doğru büyür)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Mevcut</value>
+  </data>
 </root>

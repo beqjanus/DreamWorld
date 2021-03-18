@@ -2922,4 +2922,49 @@
   <data name="SecondsTips" xml:space="preserve">
     <value>Jak dlouho běží region poté, co avatrar odešel</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Špatné souřadnice</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Pozor! Tím se do vašeho systému načte více než 150 vesel a oblastí. Bude to trvat dlouho.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Pozor!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Místo na disku je kriticky nízké, zbývá méně než 50 M! Všechny regiony jsou zmrazené. Uvolněte místo na disku a regiony se roztají.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Do pole DOS nastavte název Estate.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>načten.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Načíst všechna vesla zdarma</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Nastavení Smart Start (Alpha code)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alpha code) v Nastavení-&gt; Smart Start je deaktivován.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Smart Start (Alpha) code in Settings-&gt; Smart Start is enabled.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Výchozí poloha?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Jaký majetek?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Jaké jméno nemovitosti chcete? Prázdné = musíte to zadat více než 150krát!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Kde začít? (Regiony rostou doprava a nahoru)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>K dispozici</value>
+  </data>
 </root>

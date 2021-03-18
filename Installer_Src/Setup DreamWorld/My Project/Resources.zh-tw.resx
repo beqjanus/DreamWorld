@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>回收再利用</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>坐標不正確</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>警告！這會將150多個OARS和區域加載到您的系統中。這將花費很長時間。</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>警告！</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>磁盤空間嚴重不足，還不到50 M！所有區域均被凍結。請釋放磁盤空間，這些區域將解凍。</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>在DOS框中設置遺產名稱。</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>已加載。</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>加載所有免費槳</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>智能啟動（字母代碼）設置</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>“設置”-&gt;“智能啟動”中的“智能啟動（字母代碼）”已禁用。</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>啟用了“設置”-&gt;“智能啟動”中的“智能啟動（Alpha）”代碼。</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>出發地點？</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>什麼莊園？</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>您想要什麼屋名？空白=您必須輸入150多次以上！</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>從哪兒開始？ （區域向右上方）</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>可用的</value>
+  </data>
 </root>

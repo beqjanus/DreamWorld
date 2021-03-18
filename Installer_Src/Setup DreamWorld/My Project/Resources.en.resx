@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Recycling Down</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Bad coordinates</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Caution! This will load 150+ OARS and regions into your system. This will take a long time.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Caution!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Disk space is critically low, less than 50 M left!   All regions are frozen.  Please free up disk space and the regions will thaw.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Set the Estate name in the DOS box.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>loaded.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Load All Free Oars</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (Alpha code) setting</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start  (Alpha code) in Settings-&gt;Smart Start is disabled.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Smart Start (Alpha) code in Settings-&gt;Smart Start is enabled.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Starting Location?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>What Estate?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>What Estate name do you want? Blank = you have to input it 150+ times!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Where to start? (Regions grow to the right and upward)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
 </root>

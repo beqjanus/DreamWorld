@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Riciclaggio verso il basso</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Cattive coordinate</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Attenzione! Questo caricherà più di 150 OAR e regioni nel tuo sistema. Questo richiederà molto tempo.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Attenzione!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Lo spazio su disco è estremamente ridotto, sono rimasti meno di 50 M! Tutte le regioni sono congelate. Liberare spazio su disco e le regioni si scongeleranno.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Impostare il nome della proprietà nella casella DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>caricato.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Carica tutti i remi gratuiti</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Impostazione Smart Start (codice alfa)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (codice alfa) in Impostazioni-&gt; Smart Start è disabilitato.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Il codice Smart Start (alfa) in Impostazioni-&gt; Smart Start è abilitato.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Posizione di partenza?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Quale proprietà?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Quale nome della tenuta vuoi? Vuoto = devi inserirlo 150+ volte!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Dove iniziare? (Le regioni crescono a destra e verso l'alto)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>A disposizione</value>
+  </data>
 </root>

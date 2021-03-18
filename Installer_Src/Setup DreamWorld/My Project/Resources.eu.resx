@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Birziklatzea Behera</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Koordenatu txarrak</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Kontuz! Honek 150+ OARS eta eskualde kargatuko ditu zure sisteman. Horrek denbora asko beharko du.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Kontuz!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Diskoaren espazioa oso baxua da, 50 M baino gutxiago geratzen dira! Eskualde guztiak izoztuta daude. Mesedez, askatu diskoaren tokia eta eskualdeak desizolatu egingo dira.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Ezarri Estate izena DOS koadroan.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>kargatu.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Kargatu doako arraun guztiak</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (Alpha kodea) ezarpena</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Ezarpenetan Start Smart (Alpha kodea)&gt; Smart Start desgaituta dago.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Ezarpenetan Smart Start (Alpha) kodea -&gt; Smart Start gaituta dago.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Kokapena hasten?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Zer ondasun?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Zer finka izen nahi duzu? Zuri = 150+ aldiz sartu behar duzu!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Nondik hasi? (Eskualdeak eskuinera eta gorantz hazten dira)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Eskuragarri</value>
+  </data>
 </root>

@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Recycling naar beneden</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Slechte coördinaten</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Voorzichtigheid! Hiermee worden 150+ OARS en regio's in uw systeem geladen. Dit duurt lang.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Voorzichtigheid!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>De schijfruimte is kritiek laag, minder dan 50 M over! Alle regio's zijn bevroren. Maak schijfruimte vrij en de regio's zullen ontdooien.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Stel de naam van het landgoed in het DOS-veld in.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>geladen.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Laad alle gratis roeispanen</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (Alfacode) instelling</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alfacode) in Instellingen-&gt; Smart Start is uitgeschakeld.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Smart Start (alfa) code in Instellingen-&gt; Smart Start is ingeschakeld.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Startlocatie?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Welk landgoed?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Welke landgoednaam wilt u? Blanco = je moet het 150+ keer invoeren!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Waar te beginnen? (Regio's groeien naar rechts en naar boven)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Beschikbaar</value>
+  </data>
 </root>

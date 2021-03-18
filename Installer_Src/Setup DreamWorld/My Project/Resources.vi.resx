@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Tái chế</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Tọa độ xấu</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Thận trọng! Điều này sẽ tải hơn 150 OARS và vùng vào hệ thống của bạn. Điều này sẽ mất nhiều thời gian.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Thận trọng!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Dung lượng ổ đĩa rất thấp, chỉ còn dưới 50 M! Tất cả các khu vực đều bị đóng băng. Vui lòng giải phóng dung lượng đĩa và các vùng sẽ tan băng.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Đặt tên Bất động sản trong hộp DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>nạp vào.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Tải tất cả các Oars miễn phí</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Cài đặt Khởi động Thông minh (Mã Alpha)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Khởi động thông minh (mã Alpha) trong Cài đặt-&gt; Khởi động thông minh bị tắt.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Mã Khởi động thông minh (Alpha) trong Cài đặt-&gt; Khởi động thông minh được bật.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Vị trí xuất phát?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Động sản gì?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Bạn muốn tên Bất động sản nào? Blank = bạn phải nhập hơn 150 lần!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Bắt đầu từ đâu? (Các khu vực phát triển về bên phải và hướng lên)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Có sẵn</value>
+  </data>
 </root>

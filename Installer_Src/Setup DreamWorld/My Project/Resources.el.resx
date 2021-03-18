@@ -2922,4 +2922,49 @@
   <data name="SecondsTips" xml:space="preserve">
     <value>Πόσο καιρό μια Περιοχή που τρέχει θα παραμείνει μετά από ένα avatrar έχει φύγει</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Κακές συντεταγμένες</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Προσοχή! Αυτό θα φορτώσει 150+ OARS και περιοχές στο σύστημά σας. Αυτό θα διαρκέσει πολύ.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Προσοχή!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Ο χώρος στο δίσκο είναι εξαιρετικά χαμηλός, λιγότερο από 50 M! Όλες οι περιοχές είναι παγωμένες. Απελευθερώστε χώρο στο δίσκο και οι περιοχές θα ξεπαγώσουν.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Ορίστε το όνομα Estate στο πλαίσιο DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>φορτωμένος.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Φορτώστε όλα τα δωρεάν κουπιά</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Ρύθμιση Έξυπνης εκκίνησης (άλφα κωδικός)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Έξυπνη εκκίνηση (άλφα κωδικός) στις Ρυθμίσεις-&gt; Η Έξυπνη εκκίνηση είναι απενεργοποιημένη.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Ο κωδικός Smart Start (Alpha) στις Ρυθμίσεις-&gt; Το Smart Start είναι ενεργοποιημένο.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Έναρξη τοποθεσίας;</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Τι κτήμα;</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Ποιο όνομα ακινήτου θέλετε; Blank = πρέπει να το εισαγάγετε 150+ φορές!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Από πού να αρχίσω? (Οι περιοχές αναπτύσσονται προς τα δεξιά και προς τα πάνω)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Διαθέσιμος</value>
+  </data>
 </root>

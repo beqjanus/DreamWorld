@@ -2922,4 +2922,49 @@
   <data name="SecondsTips" xml:space="preserve">
     <value>Hvor længe en kørende region holder sig op, efter at en avatrar er forladt</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Dårlige koordinater</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Advarsel!!!! Dette indlæser 150+ OARS og regioner i dit system. Dette vil tage lang tid.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Advarsel!!!!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Diskpladsen er kritisk lav, mindre end 50 M tilbage! Alle regioner er frosne. Frigør diskplads, og regionerne tø.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Indstil ejendomsnavnet i DOS-feltet.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>indlæst.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Indlæs alle frie årer</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (Alpha-kode) indstilling</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alpha-kode) i Indstillinger-&gt; Smart Start er deaktiveret.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Smart Start (Alpha) -kode i Indstillinger-&gt; Smart Start er aktiveret.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Start placering?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Hvilken ejendom?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Hvilket ejendomsnavn vil du have? Tomt = du skal indtaste det mere end 150 gange!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Hvor skal man starte? (Regioner vokser til højre og opad)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Ledig</value>
+  </data>
 </root>

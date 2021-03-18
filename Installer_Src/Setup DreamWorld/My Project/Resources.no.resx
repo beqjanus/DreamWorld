@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Resirkulering ned</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Dårlige koordinater</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Forsiktighet! Dette vil laste 150+ OARS og regioner inn i systemet ditt. Dette vil ta lang tid.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Forsiktighet!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Diskplass er kritisk lav, mindre enn 50 M igjen! Alle regioner er frosne. Vennligst frigjør diskplass, og regionene vil tine.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Sett eiendomsnavnet i DOS-boksen.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>lastet.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Last inn alle gratis årer</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (Alpha code) innstilling</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alpha-kode) i Innstillinger-&gt; Smart Start er deaktivert.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Smart Start (Alpha) -kode i Innstillinger-&gt; Smart Start er aktivert.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Start beliggenhet?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Hvilken eiendom?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Hvilket eiendomsnavn vil du ha? Tomt = du må legge det inn 150+ ganger!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Hvor skal jeg starte? (Regioner vokser til høyre og oppover)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Tilgjengelig</value>
+  </data>
 </root>

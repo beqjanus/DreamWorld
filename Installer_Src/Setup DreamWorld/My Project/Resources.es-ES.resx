@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Reciclaje hacia abajo</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Malas coordenadas</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>¡Precaución! Esto cargará más de 150 OARS y regiones en su sistema. Esto llevará mucho tiempo.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>¡Precaución!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>¡El espacio en disco es críticamente bajo, a menos de 50 M de la izquierda!   Todas las regiones están congeladas.  Libere espacio en disco y las regiones se descongelarán.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Establezca el nombre del estado en el cuadro DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>Cargado.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Cargar todos los remos libres</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Configuración de inicio inteligente (código Alfa)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (código Alfa) en Settings-&gt;Smart Start está deshabilitado.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>El código de inicio inteligente (Alfa) en Settings-&gt;Smart Start está habilitado.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>¿Ubicación de inicio?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>¿Qué finca?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>¿Qué nombre de patrimonio quieres? Blank = ¡tienes que introducirlo más de 150 veces!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>¿Por dónde empezar? (Las regiones crecen a la derecha y hacia arriba)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponible</value>
+  </data>
 </root>

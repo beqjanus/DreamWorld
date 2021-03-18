@@ -2922,4 +2922,49 @@
   <data name="SecondsTips" xml:space="preserve">
     <value>Wie lange bleibt eine laufende Region wach, nachdem ein Avatrar gegangen ist?</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Schlechte Koordinaten</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Vorsicht! Dadurch werden mehr als 150 OARS und Regionen in Ihr System geladen. Dies wird lange dauern.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Vorsicht!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Der Speicherplatz ist kritisch niedrig, weniger als 50 M übrig! Alle Regionen sind eingefroren. Bitte geben Sie Speicherplatz frei und die Regionen werden auftauen.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Legen Sie den Nachlassnamen im Feld DOS fest.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>geladen.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Laden Sie alle freien Ruder</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (Alpha-Code) -Einstellung</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alpha-Code) unter Einstellungen-&gt; Smart Start ist deaktiviert.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Der Smart Start (Alpha) -Code unter Einstellungen-&gt; Smart Start ist aktiviert.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Startort?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Welcher Nachlass?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Welchen Nachlassnamen möchten Sie? Leer = Sie müssen es mehr als 150 Mal eingeben!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Wo soll man anfangen? (Regionen wachsen nach rechts und oben)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Verfügbar</value>
+  </data>
 </root>

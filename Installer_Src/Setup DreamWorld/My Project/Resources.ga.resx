@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Athchúrsáil an Dúin</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Droch-chomhordanáidí</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Rabhadh! Déanfaidh sé seo 150+ OARS agus réigiúin a luchtú isteach i do chóras. Tógfaidh sé seo tamall fada.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Rabhadh!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Tá spás diosca íseal go criticiúil, níos lú ná 50 M fágtha! Tá gach réigiún reoite. Déan spás diosca a shaoradh le do thoil agus leáfaidh na réigiúin.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Socraigh ainm an Eastáit sa bhosca DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>luchtaithe.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Luchtaigh Gach Coir Saor in Aisce</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Suíomh Tosaigh Cliste (cód Alfa)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Tús Cliste (cód Alfa) i Socruithe-&gt; Tá Smart Start díchumasaithe.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Cód Tús Cliste (Alfa) i Socruithe-&gt; Cumasaítear Smart Start.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Suíomh Tosaigh?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Cén Eastát?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Cén t-ainm Eastáit atá uait? Blank = caithfidh tú é a ionchur 150+ uair!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Cá háit le tosú? (Fásann réigiúin ar dheis agus aníos)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Ar fáil</value>
+  </data>
 </root>

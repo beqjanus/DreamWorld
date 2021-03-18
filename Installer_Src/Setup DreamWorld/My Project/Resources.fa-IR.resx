@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>بازیافت پایین</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>مختصات بد</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>احتیاط! با این کار 150+ OARS و مناطق در سیستم شما بارگیری می شود. این مدت زمان زیادی طول خواهد کشید.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>احتیاط!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>فضای دیسک بسیار کم است و کمتر از 50 متر باقی مانده است! همه مناطق یخ زده است. لطفاً فضای دیسک را آزاد کنید و مناطق ذوب می شوند.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>نام Estate را در کادر DOS تنظیم کنید.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>لود شده.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>همه پاروهای رایگان را بارگیری کنید</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>تنظیم Smart Start (کد آلفا)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>شروع هوشمند (کد آلفا) در تنظیمات -&gt; شروع هوشمند غیرفعال است.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>کد Smart Start (Alpha) در تنظیمات -&gt; Smart Start فعال است.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>مکان را شروع می کنید؟</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>چه املاکی؟</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>چه نام املاک می خواهید؟ خالی = شما باید 150+ بار آن را وارد کنید!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>از کجا شروع کنیم؟ (مناطق به سمت راست و بالا رشد می کنند)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>در دسترس</value>
+  </data>
 </root>

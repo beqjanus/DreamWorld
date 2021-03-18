@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Kierrätys alas</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Huonot koordinaatit</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Varoitus! Tämä lataa yli 150 airoa ja aluetta järjestelmääsi. Tämä kestää kauan.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Varoitus!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Levytilaa on kriittisesti vähän, alle 50 M jäljellä! Kaikki alueet ovat jäätyneet. Vapauta levytilaa ja alueet sulavat.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Aseta Estate nimi DOS-ruutuun.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>ladattu.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Lataa kaikki ilmaiset airot</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (Alpha code) -asetus</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alpha-koodi) kohdassa Asetukset-&gt; Smart Start on pois käytöstä.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Smart Start (Alpha) -koodi kohdassa Asetukset-&gt; Smart Start on käytössä.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Aloituspaikka?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Mikä Estate?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Minkä kartanon nimen haluat? Tyhjä = sinun on syötettävä se yli 150 kertaa!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Mistä aloittaa? (Alueet kasvavat oikealle ja ylöspäin)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Saatavilla</value>
+  </data>
 </root>

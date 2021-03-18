@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Переработка пуха</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Плохие координаты</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Осторожность! Это загрузит в вашу систему 150+ OARS и регионов. Это займет много времени.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Осторожность!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>На диске критически мало места, осталось менее 50 Мбайт! Все регионы заморожены. Пожалуйста, освободите место на диске, и регионы оттают.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Задайте имя поместья в поле DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>загружен.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Загрузить все свободные весла</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Настройка Smart Start (Alpha code)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alpha code) в Настройках-&gt; Smart Start отключен.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Код Smart Start (Alpha) в Настройках-&gt; Smart Start включен.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Начальное местоположение?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Какое имение?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Какое название поместья вы хотите? Пробел = вы должны ввести его 150+ раз!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Когда начать? (Области растут вправо и вверх)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Имеется в наличии</value>
+  </data>
 </root>

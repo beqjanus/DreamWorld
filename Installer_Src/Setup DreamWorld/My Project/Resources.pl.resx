@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Recykling w dół</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Złe współrzędne</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Uwaga! Spowoduje to załadowanie 150+ OARS i regionów do twojego systemu. To zajmie dużo czasu.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Uwaga!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Miejsce na dysku jest krytycznie małe, pozostało mniej niż 50 MB! Wszystkie regiony są zamrożone. Zwolnij miejsce na dysku, a regiony ulegną rozmrożeniu.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Ustaw nazwę Estate w polu DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>załadowany.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Załaduj wszystkie wolne wiosła</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Ustawienie Smart Start (kod alfa)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (kod alfa) w Ustawienia-&gt; Smart Start jest wyłączony.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Kod Smart Start (Alpha) w Ustawienia-&gt; Smart Start jest włączony.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Lokalizacja początkowa?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Jaka posiadłość?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Jaką nazwę posiadłości chcesz? Puste = musisz wprowadzić to ponad 150 razy!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Gdzie zacząć? (Regiony rosną w prawo i do góry)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Dostępny</value>
+  </data>
 </root>

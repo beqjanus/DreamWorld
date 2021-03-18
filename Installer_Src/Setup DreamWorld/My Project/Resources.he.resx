@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>מיחזור למטה</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>קואורדינטות גרועות</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>זְהִירוּת! זה יטען 150+ OARS ואזורים למערכת שלך. זה ייקח הרבה זמן.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>זְהִירוּת!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>שטח הדיסק נמוך באופן קריטי, נותר פחות מ- 50 מ '! כל האזורים קפואים. אנא פנה מקום בדיסק והאזורים יפשירו.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>הגדר את שם האחוזה בתיבה DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>עמוס.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>טען את כל השחלות החינמיות</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>הגדרת התחלה חכמה (קוד אלפא)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>התחלה חכמה (קוד אלפא) בהגדרות-&gt; התחלה חכמה מושבתת.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>קוד התחלה חכמה (אלפא) בהגדרות-&gt; התחלה חכמה מופעלת.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>מתחיל מיקום?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>איזה אחוזה?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>איזה שם אחוזה אתה רוצה? ריק = עליך להזין אותו 150+ פעמים!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>איפה להתחיל? (אזורים צומחים ימינה ומעלה)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>זמין</value>
+  </data>
 </root>

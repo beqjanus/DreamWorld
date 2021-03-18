@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Endurvinnsla niður</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Slæm hnit</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Varúð! Þetta mun hlaða 150+ OARS og svæðum inn í kerfið þitt. Þetta mun taka langan tíma.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Varúð!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Diskapláss er mjög lítið, minna en 50 M eftir! Öll svæði eru frosin. Vinsamlegast losaðu um pláss og svæðin þíða.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Stilltu heiti búsins í DOS reitinn.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>hlaðinn.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Hlaðið upp öllum ókeypis orum</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (Alpha code) stilling</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alpha code) í Settings-&gt; Smart Start er óvirkt.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Smart Start (Alpha) kóði í Stillingar-&gt; Smart Start er virkt.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Upphafsstaðsetning?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Hvaða bú?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Hvaða búnafn viltu? Blank = þú verður að leggja það 150+ sinnum!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Hvar á að byrja? (Svæði vaxa til hægri og upp á við)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Laus</value>
+  </data>
 </root>

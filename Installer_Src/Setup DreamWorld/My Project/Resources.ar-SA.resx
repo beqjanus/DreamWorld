@@ -2922,4 +2922,49 @@
   <data name="SecondsTips" xml:space="preserve">
     <value>كم من الوقت ستبقى المنطقة قيد التشغيل بعد مغادرة الصورة الرمزية</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>إحداثيات سيئة</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>الحذر! سيؤدي هذا إلى تحميل أكثر من 150 مجالًا ومجالًا ومنطقة في نظامك. هذا وسوف يستغرق وقتا طويلا.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>الحذر!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>مساحة القرص منخفضة للغاية ، يتبقى أقل من 50 مترًا! كل المناطق مجمدة. الرجاء إخلاء مساحة على القرص وستذوب المناطق.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>قم بتعيين اسم العقار في مربع DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>محمل.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>قم بتحميل جميع المجاديف المجانية</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>إعداد Smart Start (كود ألفا)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (Alpha code) في الإعدادات-&gt; تم تعطيل Smart Start.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>رمز Smart Start (Alpha) في الإعدادات-&gt; Smart Start ممكّن.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>بدء الموقع؟</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>ما الحوزة؟</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>ما اسم العقار الذي تريده؟ فارغ = عليك إدخاله أكثر من 150 مرة!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>من أين أبدا؟ (تنمو المناطق إلى اليمين وإلى الأعلى)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>متاح</value>
+  </data>
 </root>

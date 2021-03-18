@@ -2922,4 +2922,49 @@
   <data name="Recycling_Down_word" xml:space="preserve">
     <value>Återvinning ner</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Dåliga koordinater</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Varning! Detta laddar 150+ OARS och regioner i ditt system. Detta tar lång tid.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Varning!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Diskutrymmet är kritiskt lågt, mindre än 50 M kvar! Alla regioner är frysta. Frigör diskutrymme och regionerna tiner.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Ställ in godsnamnet i rutan DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>lastad.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Ladda alla fria ägg</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Smart Start (alfakod) inställning</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (alfakod) i Inställningar-&gt; Smart Start är inaktiverad.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Smart Start (Alpha) -kod i Inställningar-&gt; Smart Start är aktiverad.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Startplats?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Vilken egendom?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Vilket godsnamn vill du ha? Tom = du måste mata in det mer än 150 gånger!</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Var ska man börja? (Regioner växer till höger och uppåt)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Tillgängliga</value>
+  </data>
 </root>

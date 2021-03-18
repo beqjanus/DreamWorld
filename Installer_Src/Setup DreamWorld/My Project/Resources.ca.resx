@@ -2923,4 +2923,49 @@
   <data name="SecondsTips" xml:space="preserve">
     <value>Quant de temps es mantindrà activa una regió en marxa després que marxi un avatrar</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Males coordenades</value>
+  </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Atenció! Això carregarà més de 150 OARS i regions al vostre sistema. Això trigarà molt.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Atenció!</value>
+  </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>L’espai al disc és molt baix, queden menys de 50 M! Totes les regions estan congelades. Allibereu espai al disc i les regions es descongelaran.</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Establiu el nom de la finca al quadre DOS.</value>
+  </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>carregat.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Carregueu tots els rems gratuïts</value>
+  </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Configuració Smart Start (codi alfa)</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (codi alfa) a Configuració-&gt; Smart Start està desactivat.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>El codi d’inici intel·ligent (alfa) a Configuració-&gt; Inici intel·ligent està habilitat.</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Comenceu la ubicació?</value>
+  </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Quina finca?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Quin nom de finca voleu? En blanc = cal introduir-lo més de 150 vegades.</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Per on començar? (Les regions creixen cap a la dreta i cap amunt)</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponible</value>
+  </data>
 </root>
