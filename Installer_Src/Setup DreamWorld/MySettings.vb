@@ -87,6 +87,12 @@ Public Class MySettings
 
     End Function
 
+    Public Function GetMapTime(UUID As String) As Integer
+
+        Return CInt("0" & GetMySetting("MapTime_" & PropRegionClass.RegionName(UUID), "0"))
+
+    End Function
+
     Public Function GetIni(section As String, key As String, Value As String, Optional V As String = Nothing) As Object
 
         Dim Variable = Stripqq(SettingsData(section)(key))
@@ -143,6 +149,11 @@ Public Class MySettings
     Public Sub SaveBootTime(DT As Integer, UUID As String)
 
         SetMySetting("BootTime_" & PropRegionClass.RegionName(UUID), CStr(DT))
+
+    End Sub
+    Public Sub SaveMapTime(DT As Integer, UUID As String)
+
+        SetMySetting("MapTime_" & PropRegionClass.RegionName(UUID), CStr(DT))
 
     End Sub
 
