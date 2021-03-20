@@ -346,7 +346,7 @@ Module DoIni
 
             Dim Welcome As String = Settings.WelcomeRegion
             Welcome = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-            Dim RegionSetting As String = $"Region_{Welcome}=DefaultRegion{vbCrLf}"
+            Dim RegionSetting As String = $"Region_{Welcome}=DefaultRegion,DefaultHGRegion{vbCrLf}"
 
             ' make a long list of the various regions with region_ at the start
             For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -418,6 +418,10 @@ Module DoIni
     ''' <summary>Set up all INI files</summary>
     ''' <returns>true if it fails</returns>
     Public Function SetIniData() As Boolean
+
+
+        If SkipSetup Then Return False
+        SkipSetup = True
 
         TextPrint(My.Resources.Creating_INI_Files_word)
 
