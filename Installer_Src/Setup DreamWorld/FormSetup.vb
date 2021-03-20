@@ -696,7 +696,8 @@ Public Class FormSetup
                         End If
 
                         ' if set to default, which is true
-                        If PropRegionClass.SmartStart(RegionUUID) = "" Then
+                        If PropRegionClass.SmartStart(RegionUUID) = "" Or
+                            PropRegionClass.SmartStart(RegionUUID) = "False" Then
                             BootNeeded = True
                         End If
                     Case False
