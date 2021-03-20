@@ -39,7 +39,7 @@ Module GlobalSettings
     Private _SelectedBox As String = ""
     Private _UpdateView As Boolean = True
     Private _XYINI As String ' global XY INI
-
+    Private _SkipSetup As Boolean = True
 #End Region
 
 
@@ -91,6 +91,14 @@ Module GlobalSettings
         End Get
         Set(ByVal Value As Boolean)
             _IsRunning = Value
+        End Set
+    End Property
+    Public Property SkipSetup() As Boolean
+        Get
+            Return _SkipSetup
+        End Get
+        Set(ByVal Value As Boolean)
+            _SkipSetup = Value
         End Set
     End Property
 
