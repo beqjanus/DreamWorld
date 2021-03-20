@@ -21,6 +21,7 @@ Public Module MysqlInterface
         'nothing
     End Sub
 
+#Region "Properties"
     Public Property MysqlCrashCounter As Integer
         Get
             Return _MysqlCrashCounter
@@ -47,8 +48,9 @@ Public Module MysqlInterface
             _IsRunning = value
         End Set
     End Property
+#End Region
 
-#Region "Mysql"
+#Region "StartMysql"
 
     Public Function StartMySQL() As Boolean
         Log("INFO", "Checking Mysql")
@@ -163,6 +165,68 @@ Public Module MysqlInterface
 
 #End Region
 
+#Region "Public"
+
+    ''' <summary>
+    ''' Number of prims in this region
+    ''' </summary>
+    ''' <param name="UUID">Region UUID</param>
+    ''' <returns>integer primcount</returns>
+    Public Function GetPrimCount(UUID As String) As Integer
+
+        Dim count As Integer
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+                MysqlConn.Open()
+                Dim stm = "select count(*) from prims where regionuuid = @UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            count = CInt(reader.GetString(0))
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return count
+
+
+    End Function
+
+    ''' <summary>
+    ''' Retiurns boolean if a region excists in the regions table
+    ''' </summary>
+    ''' <param name="UUID">Region UUID</param>
+    ''' <returns>True is region is in table</returns>
+    Public Function RegionIsRegistered(UUID As String) As Boolean
+
+        Dim count As Integer
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            count = CInt(reader.GetInt16("cnt"))
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return CBool(count)
+
+    End Function
+    ''' <summary>
+    ''' deletes all regions from robust.regions
+    ''' </summary>
+    ''' <param name="force"></param>
     Public Sub DeregisterRegions(force As Boolean)
 
         If PropOpensimIsRunning And Not force Then
@@ -179,8 +243,8 @@ Public Module MysqlInterface
     End Sub
 
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
-    ''' <param name="UUID"></param>
-    ''' <returns>Name as string</returns>
+    ''' <param name="UUID">Region UUID</param>
+    ''' <returns>Estate Name as string</returns>
     Public Function EstateName(UUID As String) As String
 
         If Settings.RegionMySqlConnection.Length = 0 Then Return ""
@@ -222,6 +286,10 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Gets users from useraccounts
+    ''' </summary>
+    ''' <returns>dictionary of Firstname + Lastname, Region Name</returns>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
@@ -247,6 +315,10 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' return List of all users
+    ''' </summary>
+    ''' <returns> auto complete collection</returns>
     Public Function GetAvatarList() As AutoCompleteStringCollection
         Dim A As New AutoCompleteStringCollection
         Try
@@ -656,5 +728,7 @@ Public Module MysqlInterface
         End If
 
     End Sub
+#End Region
+
 
 End Module
