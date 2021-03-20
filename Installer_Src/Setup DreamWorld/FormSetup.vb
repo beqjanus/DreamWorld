@@ -1071,7 +1071,12 @@ Public Class FormSetup
             If Not PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
             End If
-            PropRegionClass.BootTime(Ruuid) = CInt(seconds)
+
+            If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid) = "" Then
+                PropRegionClass.BootTime(Ruuid) = CInt(seconds)
+            Else
+                PropRegionClass.MapTime(Ruuid) = CInt(seconds)
+            End If
 
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
