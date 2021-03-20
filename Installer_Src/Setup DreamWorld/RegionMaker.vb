@@ -55,6 +55,15 @@ Public Class RegionMaker
 
     End Enum
 
+    Private Class Region_Mapping
+
+
+        Public Name As String
+        Public X As Integer
+        Public Y As Integer
+
+    End Class
+
 #End Region
 
 #Region "Instance"
@@ -101,8 +110,10 @@ Public Class RegionMaker
             Settings.SaveSettings()
             If GetAllRegions() = -1 Then Return False
         End If
-        Debug.Print("Loaded " + CStr(RegionCount) + " Regions")
-        Return True
+        TextPrint($"Loaded {CStr(RegionCount)} Regions")
+
+        Return CheckOverLap()
+
 
     End Function
 
@@ -335,6 +346,58 @@ Public Class RegionMaker
 #End Region
 
 #Region "Functions"
+
+    Public Function CheckOverLap() As Boolean
+
+        Dim FailedCheck As Boolean
+        Dim Regionlist As New List(Of Region_Mapping)
+
+        For Each RegionUUID In RegionUuids()
+
+
+            Dim Name = RegionName(RegionUUID)
+            Dim Size As Integer = CInt(SizeX(RegionUUID) / 256)
+
+            Dim X As Integer
+            Dim Y As Integer
+            ' make a box
+            For X = 0 To Size - 1
+                For Y = 0 To Size - 1
+                    Dim map = New Region_Mapping
+                    map.Name = Name
+                    map.X = CoordX(RegionUUID) + X
+                    map.Y = CoordY(RegionUUID) + Y
+                    Regionlist.Add(map)
+                    '   If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then
+                    '  Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}")
+                    ' End If
+                Next
+            Next
+        Next
+
+        TextPrint($"-> Checking {Regionlist.Count} possible overlaps")
+
+        For Each Pass1 In Regionlist
+            For Each Pass2 In Regionlist
+                If Pass1.Name = Pass2.Name Then Continue For ' don't check itself
+
+                If Pass1.Name.Contains("MartinBassManSlad") AndAlso Pass2.Name.Contains("Maya") Then
+                    Diagnostics.Debug.Print($"{Pass1.Name}={Pass1.X},{Pass1.Y}  {Pass2.Name}={Pass2.X},{Pass2.Y}")
+                End If
+
+                If (Pass1.X = Pass2.X) AndAlso (Pass1.Y = Pass2.Y) Then
+                    TextPrint($"-> Region {Pass1.Name} overlaps Region {Pass2.Name} at location {Pass1.X}, {Pass1.Y}")
+                    FailedCheck = True
+                End If
+            Next
+        Next
+        If FailedCheck Then
+            TextPrint($"** FAILED **")
+        End If
+
+        Return FailedCheck
+
+    End Function
 
     Public Function FindBackupByName(Name As String) As Integer
 
@@ -629,6 +692,7 @@ Public Class RegionMaker
 
         Public _AvatarCount As Integer
         Public _BootTime As Integer
+        Public _MapTime As Integer
         Public _ClampPrimSize As Boolean
         Public _CoordX As Integer = 1000
         Public _CoordY As Integer = 1000
@@ -698,6 +762,24 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._AvatarCount = Value
+        End Set
+    End Property
+
+
+
+    Public Property MapTime(uuid As String) As Integer
+        Get
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Dim t As Integer = CInt(Settings.GetMapTime(uuid))
+            If t > 0 Then Return t
+            Return RegionList(uuid)._MapTime
+        End Get
+        Set(ByVal Value As Integer)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._MapTime = Value
+            Settings.SaveMapTime(Value, uuid)
         End Set
     End Property
 
@@ -1555,7 +1637,7 @@ Public Class RegionMaker
         Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)")
         Dim match As Match = pattern.Match(post)
         If match.Success Then
-            Dim RegionName As String = Uri.UnescapeDataString(match.Groups(1).Value)
+            Dim Name As String = Uri.UnescapeDataString(match.Groups(1).Value)
             Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
             Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
@@ -1563,69 +1645,90 @@ Public Class RegionMaker
             Dim time As String
 
             ' Region may be a name or a Region UUID
-            Dim RegionUUID = FindRegionUUIDByName(RegionName)
+            Dim RegionUUID = FindRegionUUIDByName(Name)
             If RegionUUID.Length = 0 Then
-                RegionUUID = RegionName
+                RegionUUID = Name
+                Name = RegionName(RegionUUID)
             End If
 
             If Not Settings.SmartStart Then
                 If AgentName = "uuid" Then
                     Return RegionUUID
                 ElseIf AgentName = "regionname" Then
-                    Return RegionName
+                    Return Name
                 Else ' Its a sign!                    
                     AddEm(RegionUUID, AgentID)
-                    Return RegionName & "|0"
+                    Return Name & "|0"
                 End If
             End If
 
             Dim result As New Guid
-                If Guid.TryParse(RegionUUID, result) Then
-                    If PropOpensimIsRunning Then
-                        If SmartStart(RegionUUID) = "True" Then
-                            ' smart, and up
-                            If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
-                                If AgentName = "uuid" Then
-                                    Return RegionUUID
-                                ElseIf AgentName = "regionname" Then
-                                    Return RegionName
-                                Else ' Its a sign!
-                                    Logger("Teleport Sign Booted", RegionName & ":" & AgentID, "Teleport")
-                                    Return RegionName & "|1"
-                                End If
-                            Else  ' requires booting
-                                If AgentName = "uuid" Then
-                                    AddEm(RegionUUID, AgentID)
-                                    Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
-                                    Return u
-                                ElseIf AgentName = "regionname" Then
-                                    AddEm(RegionUUID, AgentID)
-                                    Return Settings.WelcomeRegion
-                                Else ' Its a sign!
-                                    time = "|" & CStr(BootTime(RegionUUID) + slop) ' 5 seconds of slop time
-                                    Logger("Teleport Sign Power up ", RegionName & ":" & AgentID, "Teleport")
-                                    AddEm(RegionUUID, AgentID)
-                                    Return RegionName & time
-                                End If
-                            End If
-                        Else ' Non Smart Start
+            If Guid.TryParse(RegionUUID, result) Then
+                If PropOpensimIsRunning Then
+                    If SmartStart(RegionUUID) = "True" Then
+
+                        ' smart, and up
+                        If RegionEnabled(RegionUUID) And Status(RegionUUID) = SIMSTATUSENUM.Booted Then
+
                             If AgentName = "uuid" Then
-                                Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
+                                Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                                 Return RegionUUID
                             ElseIf AgentName = "regionname" Then
-                                Logger("Teleport Non Smart", RegionName & ":" & AgentID, "Teleport")
-                                Return RegionName
-                            Else     ' Its a sign!
-                                time = "|" & CStr(BootTime(RegionUUID) + slop) ' more slop
-                                Logger("Teleport Request", RegionName & ":" & AgentID, "Teleport")
-                                Return RegionName & time
+                                Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
+                                Return Name
+                            Else ' Its a sign!
+                                Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
+                                Return Name & "|0"
                             End If
+
+                        Else  ' requires booting
+
+                            If AgentName = "uuid" Then
+                                Logger("Godot UUID Teleport", Name & ":" & AgentID, "Teleport")
+                                AddEm(RegionUUID, AgentID)
+                                Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                                Return u
+                            ElseIf AgentName = "regionname" Then
+                                Logger("Godot Named Teleport", Name & ":" & AgentID, "Teleport")
+                                AddEm(RegionUUID, AgentID)
+                                Return Settings.WelcomeRegion
+                            Else ' Its a sign!
+                                If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID) = "" Then
+                                    time = "|" & CStr(BootTime(RegionUUID) + slop) ' 5 seconds of slop time
+                                Else
+                                    time = "|" & CStr(MapTime(RegionUUID) + slop) ' 5 seconds of slop time
+                                End If
+
+                                Logger("Godot Teleport Sign ", Name & ":" & AgentID, "Teleport")
+                                AddEm(RegionUUID, AgentID)
+                                Return Name & time
+                            End If
+
                         End If
+
+
+                    Else ' Non Smart Start
+
+                        If AgentName = "uuid" Then
+                            Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                            Return RegionUUID
+                        ElseIf AgentName = "regionname" Then
+                            Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                            Return Name
+                        Else     ' Its a sign!                            
+                            Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
+                            AddEm(RegionUUID, AgentID)
+                            Return Name & "|0"
+                        End If
+
                     End If
-                    ' not running
-                    Return RegionUUID
                 End If
-            Else
+
+                ' not running
+                Return RegionUUID
+            End If
+
+        Else
                 BreakPoint.Show("Bad UUID")
         End If
         Return PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
