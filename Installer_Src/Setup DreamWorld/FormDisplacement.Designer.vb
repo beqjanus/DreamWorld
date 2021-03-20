@@ -83,13 +83,13 @@ Partial Class FormDisplacement
         Me.MergeOARToolStripMenuItem.Checked = True
         Me.MergeOARToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.MergeOARToolStripMenuItem.Name = "MergeOARToolStripMenuItem"
-        Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
+        Me.MergeOARToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.MergeOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Merge_OAR_word
         '
         'ClearOARToolStripMenuItem
         '
         Me.ClearOARToolStripMenuItem.Name = "ClearOARToolStripMenuItem"
-        Me.ClearOARToolStripMenuItem.Size = New System.Drawing.Size(153, 22)
+        Me.ClearOARToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ClearOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Clear_and_Load_word
         '
         'TerrainToolStripMenuItem
@@ -105,13 +105,13 @@ Partial Class FormDisplacement
         Me.ForceTerrainToolStripMenuItem.Checked = True
         Me.ForceTerrainToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ForceTerrainToolStripMenuItem.Name = "ForceTerrainToolStripMenuItem"
-        Me.ForceTerrainToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.ForceTerrainToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.ForceTerrainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Load_Terrain
         '
         'OriginalTererainToolStripMenuItem
         '
         Me.OriginalTererainToolStripMenuItem.Name = "OriginalTererainToolStripMenuItem"
-        Me.OriginalTererainToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.OriginalTererainToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.OriginalTererainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Ignore_Terrain_word
         '
         'ParcelsToolStripMenuItem
@@ -155,7 +155,7 @@ Partial Class FormDisplacement
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(363, 153)
+        Me.ClientSize = New System.Drawing.Size(363, 518)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "FormDisplacement"

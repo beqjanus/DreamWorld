@@ -235,7 +235,7 @@ Module WindowHandlers
             Catch ' can fail to be a valid window handle
                 Return False
             End Try
-            WindowCounter = WindowCounter + 1
+            WindowCounter += 1
             If WindowCounter > 200 Then '  20 seconds
                 status = True
             End If

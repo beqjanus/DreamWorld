@@ -253,7 +253,7 @@ Public Class FormDisplacement
 
         Dim StartAt = 256 * (size - 1)
         For Y = 0 To size - 1
-            Dim OffsetY = 20
+            Dim OffsetY = 100
             For X = 0 To size - 1
                 Dim OffsetX = 20
 
