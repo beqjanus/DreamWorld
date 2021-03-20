@@ -368,6 +368,9 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.Estate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 100), HorizontalAlignment.Left)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
         ctr += 1
+        ListView1.Columns.Add("Prims", colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Left)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+        ctr += 1
         ListView1.Columns.Add(My.Resources.Region_Ports_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 50), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
         ctr += 1
@@ -737,8 +740,8 @@ Public Class FormRegionlist
                     {
                         .Checked = PropRegionClass.RegionEnabled(RegionUUID)
                     }
-                item1.SubItems.Add(PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-                item1.SubItems.Add(PropRegionClass.AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                item1.SubItems.Add(PropRegionClass.GroupName(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
+                item1.SubItems.Add(PropRegionClass.AvatarCount(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
 
                 item1.SubItems.Add(Letter)
                 Dim fmtXY = "00000" ' 65536
@@ -755,7 +758,7 @@ Public Class FormRegionlist
                         Dim PID = PropRegionClass.ProcessID(RegionUUID)
                         Dim component1 As Process = Process.GetProcessById(PID)
                         Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
-                        item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.InvariantCulture))
+                        item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture))
                     Catch ex As Exception
                         item1.SubItems.Add("0")
                     End Try
@@ -775,8 +778,8 @@ Public Class FormRegionlist
                     c = Color.Red
                 End If
 
-                item1.SubItems.Add(PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
-                item1.SubItems.Add(PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.InvariantCulture))
+                item1.SubItems.Add(PropRegionClass.CoordX(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.CurrentCulture))
+                item1.SubItems.Add(PropRegionClass.CoordY(RegionUUID).ToString(fmtXY, Globalization.CultureInfo.CurrentCulture))
 
                 ' Size of region
                 Dim s As Double = PropRegionClass.SizeX(RegionUUID) / 256
@@ -790,8 +793,10 @@ Public Class FormRegionlist
                 End If
                 item1.SubItems.Add(Estate)
 
-                item1.SubItems.Add(PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
-                item1.SubItems.Add(PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture))
+                item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
+
+                item1.SubItems.Add(PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
+                item1.SubItems.Add(PropRegionClass.GroupPort(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
 
                 'Scripts XEngine or YEngine
                 Select Case PropRegionClass.ScriptEngine(RegionUUID)
