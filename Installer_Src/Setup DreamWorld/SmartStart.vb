@@ -30,8 +30,7 @@ Module SmartStart
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
-                status = RegionMaker.SIMSTATUSENUM.Booted AndAlso
-                Not Settings.SmartStart) Or
+                status = RegionMaker.SIMSTATUSENUM.Booted) Or
                (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
                 PropRegionClass.SmartStart(RegionUUID) = "True" AndAlso Settings.SmartStart) Then
                 ToSort.Add(PropRegionClass.RegionName(RegionUUID))
@@ -109,7 +108,7 @@ Module SmartStart
         Logger("State Changed to ShuttingDown", RegionName, "Teleport")
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
         For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
             PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
         Next
         ShutDown(RegionUUID)
@@ -225,6 +224,8 @@ Module SmartStart
 
         If PropAborting Then Return True
 
+
+
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
 
@@ -233,6 +234,7 @@ Module SmartStart
             Return False
         End If
 
+        PropRegionClass.CrashCounter(RegionUUID) = 0
         Dim GP = PropRegionClass.GroupPort(RegionUUID)
         Diagnostics.Debug.Print("Group port =" & CStr(GP))
 
