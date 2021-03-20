@@ -8,6 +8,8 @@
 Imports System.IO
 Imports System.Threading
 
+Imports System.Windows.Automation.AutomationElement
+
 Module WindowHandlers
 
 #Region "Enum"
@@ -201,6 +203,7 @@ Module WindowHandlers
             Return False
         End If
 
+
         Dim WindowCounter As Integer = 0
         Dim myhandle As IntPtr
         Try
@@ -222,39 +225,22 @@ Module WindowHandlers
             Return False
         End Try
 
-        ' so we now have a window handle. The trick is to write it and get it back, which is unreliable!
+        Dim status As Boolean = False
         WindowCounter = 0
-        Dim rtry = 0
-        While True
-            Dim winStatus As Boolean
-            If rtry Mod 2 = 0 Then
-                winStatus = SetWindowText(myhandle, windowName)
-            End If
+        While Not status
             Try
-                Sleep(100)
+                Thread.Sleep(100)
                 Application.DoEvents()
-                myProcess.Refresh()
-                If winStatus And myProcess.MainWindowTitle = windowName Then
-                    rtry += 1
-                    If rtry = 10 Then
-                        Exit While
-                    End If
-                Else
-                    rtry = 0
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                status = SetWindowText(myhandle, windowName)
+            Catch ' can fail to be a valid window handle
                 Return False
             End Try
-
-            Application.DoEvents()
-            WindowCounter += 1
-            If WindowCounter > 600 Then '  60 seconds
-                ErrorLog("Cannot get handle for " & windowName)
-                Exit While
+            WindowCounter = WindowCounter + 1
+            If WindowCounter > 200 Then '  20 seconds
+                status = True
             End If
-
         End While
+
         Return True
 
     End Function
@@ -292,9 +278,9 @@ Module WindowHandlers
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
 
-        Do While TooMany < 60
-            Try
-                p = Process.GetProcessById(myProcess.Id)
+        Do While TooMany <60
+                             Try
+                p= Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
             End Try
 

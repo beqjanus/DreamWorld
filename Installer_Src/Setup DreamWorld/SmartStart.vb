@@ -221,10 +221,7 @@ Module SmartStart
         End If
 
         PropOpensimIsRunning() = True
-
         If PropAborting Then Return True
-
-
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
