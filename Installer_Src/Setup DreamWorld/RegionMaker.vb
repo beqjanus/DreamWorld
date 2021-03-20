@@ -363,10 +363,11 @@ Public Class RegionMaker
             ' make a box
             For X = 0 To Size - 1
                 For Y = 0 To Size - 1
-                    Dim map = New Region_Mapping
-                    map.Name = Name
-                    map.X = CoordX(RegionUUID) + X
-                    map.Y = CoordY(RegionUUID) + Y
+                    Dim map = New Region_Mapping With {
+                        .Name = Name,
+                        .X = CoordX(RegionUUID) + X,
+                        .Y = CoordY(RegionUUID) + Y
+                    }
                     Regionlist.Add(map)
                     '   If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then
                     '  Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}")
