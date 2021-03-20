@@ -62,6 +62,7 @@ Public Class FormSetup
 #Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ScreenPos
 
+
 #End Region
 
 #Region "Globals"
@@ -325,6 +326,7 @@ Public Class FormSetup
         End Set
     End Property
 
+
 #End Region
 
 #Region "Public Function"
@@ -356,7 +358,9 @@ Public Class FormSetup
 #End Region
 
 #Region "Updater"
-
+    ''' <summary>
+    ''' Checks the Outworldz Web site to see if a new version exist,.
+    ''' </summary>
     Public Sub CheckForUpdates()
 
         Using client As New WebClient ' download client for web pages
@@ -418,7 +422,9 @@ Public Class FormSetup
 #End Region
 
 #Region "Misc"
-
+    ''' <summary>
+    ''' Brings up a region chooser with no buttons, of all regions
+    ''' </summary>
     Public Shared Sub ShowRegionMap()
 
         Dim region = ChooseRegion(False)
@@ -440,6 +446,9 @@ Public Class FormSetup
 
     End Function
 
+    ''' <summary>
+    ''' Event handler for Icecast
+    ''' </summary>
     Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
 
         RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
@@ -501,7 +510,7 @@ Public Class FormSetup
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
                 If s Then
                     For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     Next
                     PropUpdateView = True ' make form refresh
                     Application.DoEvents()
@@ -659,6 +668,8 @@ Public Class FormSetup
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
         Settings.Grep(ini, Settings.LogLevel)
 
+        PropRegionClass.CheckOverLap()
+
         Dim l = PropRegionClass.RegionUuids()
 
         If Settings.ServerType = RobustServerName Then
@@ -676,10 +687,27 @@ Public Class FormSetup
         ' Boot them up
         For Each RegionUUID As String In l
             If PropRegionClass.RegionEnabled(RegionUUID) Then
-                PropRegionClass.CrashCounter(RegionUUID) = 0
-                If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And Not SS Then Continue For
-                If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
-                    Exit For
+                Dim BootNeeded As Boolean = False
+                Select Case Settings.SmartStart
+                    Case True
+                        ' Really Smart Start, not in Region table
+                        If PropRegionClass.SmartStart(RegionUUID) = "True" And Not RegionIsRegistered(RegionUUID) Then
+                            BootNeeded = True
+                        End If
+
+                        ' if set to default, which is true
+                        If PropRegionClass.SmartStart(RegionUUID) = "" Then
+                            BootNeeded = True
+                        End If
+                    Case False
+                        BootNeeded = True
+                End Select
+
+                If BootNeeded Then
+                    If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
+                        Exit For
+                    End If
+
                 End If
             End If
 
@@ -1105,7 +1133,7 @@ Public Class FormSetup
                     Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                     ShutDown(RegionUUID)
                     For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     Next
 
                     PropUpdateView = True ' make form refresh
@@ -1218,23 +1246,17 @@ Public Class FormSetup
             Dim Status = PropRegionClass.Status(RegionUUID)
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
+            Diagnostics.Debug.Print($"{RegionName} {PropRegionClass.GetStateString(Status)}")
+
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then
                 Continue While
             End If
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
                 For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 Next
                 PropUpdateView = True ' make form refresh
-                Continue While
-            End If
-
-            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                StopGroup(GroupName)
-                PropUpdateView = True
-                Logger("State changed to Stopped", PropRegionClass.RegionName(RegionUUID), "Teleport")
                 Continue While
             End If
 
@@ -1297,6 +1319,7 @@ Public Class FormSetup
                         Return ' not if we are aborting
                     End If
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                    StopGroup(GroupName)
                     Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
                         Try
@@ -1305,7 +1328,7 @@ Public Class FormSetup
                             BreakPoint.Show(ex.Message)
                         End Try
                     End If
-                    StopGroup(GroupName)
+
                 End If
             End If
             PropUpdateView = True
@@ -1572,6 +1595,7 @@ Public Class FormSetup
         TextPrint(My.Resources.Version_word & " " & PropSimVersion)
         TextPrint(My.Resources.Getting_regions_word)
         PropRegionClass = RegionMaker.Instance()
+
         PropRegionClass.Init()
 
         UpgradeDotNet()
@@ -2667,6 +2691,7 @@ Public Class FormSetup
 
     Private Sub AdvancedSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AdvancedSettingsToolStripMenuItem.Click
 
+        SkipSetup = False
         Adv1.Activate()
         Adv1.Visible = True
         Adv1.Select()
