@@ -242,7 +242,8 @@ Module WindowHandlers
                 Else
                     rtry = 0
                 End If
-            Catch
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
                 Return False
             End Try
 
