@@ -7,7 +7,7 @@
 
 Module OAR
     Private _ForceMerge As Boolean
-    Private _ForceParcel As Boolean
+    Private _ForceParcel As Boolean = True
     Private _ForceTerrain As Boolean = True
     Private _UserName As String = ""
 
