@@ -134,7 +134,6 @@ Public Class FormDebug
                 MysqlInterface.DeregisterRegions(False)
             End If
 
-            Settings.Sequential = True
             Backup = Settings.SmartStart
             Settings.SmartStart = True
 
@@ -214,9 +213,7 @@ Public Class FormDebug
                     If Abort Then Exit For
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                     ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
-                    ConsoleCommand(RegionUUID, "scripts stop")
                     ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
-                    ConsoleCommand(RegionUUID, "scripts stop")
                     If Abort Then Exit For
                     ConsoleCommand(RegionUUID, "generate map")
                     ConsoleCommand(RegionUUID, "backup")
