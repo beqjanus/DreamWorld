@@ -3293,7 +3293,9 @@ Public Class FormSetup
     Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
 
         Using FormInput As New FormDebug
-            Dim choice = FormInput.ShowDialog()
+            FormInput.Activate()
+            FormInput.Visible = True
+            FormInput.Select()
             FormInput.BringToFront()
         End Using
 

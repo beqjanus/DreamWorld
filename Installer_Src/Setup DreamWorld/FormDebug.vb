@@ -195,7 +195,7 @@ Public Class FormDebug
                     If Abort Then Exit For
                     ReBoot(RegionUUID)
 
-                    Sleep(10000)
+                    Sleep(3000)
                     If Estate.Length > 0 Then
                         ConsoleCommand(RegionUUID, "{ENTER}")
                         ConsoleCommand(RegionUUID, Estate)
