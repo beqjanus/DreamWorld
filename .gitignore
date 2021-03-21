@@ -1,5 +1,6 @@
 Outworldzfiles/FreeSwitch
 Outworldzfiles/Autobackup
+installer_Src/packages
 en
 ca
 cs
@@ -106,7 +107,7 @@ Thumbs.db
 *.pdb
 *.pidb
 *.dll.build
-*.dll
+
 *.VisualState.xml
 OutworldzFiles/opensim/bin/Debug/*.dll
 OutworldzFiles/opensim/bin/*.dll.mdb
