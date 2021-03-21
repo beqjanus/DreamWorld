@@ -61,18 +61,15 @@ Public Class FormDebug
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
         If Command = My.Resources.SmartStartEnable Then
-
-            Settings.SSVisible = Value
-            Settings.SmartStart = Value
-            Settings.SaveSettings()
-
             If Value Then
                 ProgressPrint(My.Resources.SSisEnabled)
                 Settings.SSVisible = True
+                Settings.SmartStart = True
                 HelpManual("SmartStart")
             Else
                 ProgressPrint(My.Resources.SSisDisabled)
                 Settings.SSVisible = False
+                Settings.SmartStart = False
             End If
             Settings.SaveSettings()
 
@@ -134,10 +131,6 @@ Public Class FormDebug
                 MysqlInterface.DeregisterRegions(False)
             End If
 
-            Backup = Settings.SmartStart
-            Settings.SmartStart = True
-            Settings.MapType = "Best"
-
             FormSetup.StartOpensimulator()
 
             Dim Max As Integer
@@ -167,7 +160,6 @@ Public Class FormDebug
 
                     PropRegionClass.CoordX(RegionUUID) = X
                     PropRegionClass.CoordY(RegionUUID) = Y
-                    PropRegionClass.SkipAutobackup(RegionUUID) = "True"
                     PropRegionClass.Concierge(RegionUUID) = "True"
                     PropRegionClass.SmartStart(RegionUUID) = "True"
                     PropRegionClass.Teleport(RegionUUID) = "True"
@@ -212,12 +204,12 @@ Public Class FormDebug
                     End If
                     If Abort Then Exit For
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                    ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
-                    ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+                    RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
+                    RPC_Region_Command(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
                     If Abort Then Exit For
-                    ConsoleCommand(RegionUUID, "generate map")
-                    ConsoleCommand(RegionUUID, "backup")
-                    ConsoleCommand(RegionUUID, "alert power off")
+                    RPC_Region_Command(RegionUUID, "generate map")
+                    RPC_Region_Command(RegionUUID, "backup")
+                    SendAdminMessage(RegionUUID, "Power off!")
                     ConsoleCommand(RegionUUID, "q")
                     ConsoleCommand(RegionUUID, "q")
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
@@ -240,7 +232,7 @@ Public Class FormDebug
             End Try
 
             Button2.Text = My.Resources.Apply_word
-            Settings.SmartStart = Backup
+
             TextPrint(My.Resources.New_is_Done)
             Settings.SaveSettings()
         End If
