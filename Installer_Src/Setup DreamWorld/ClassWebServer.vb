@@ -88,18 +88,16 @@ Public Class NetServer
             Dim responseString As String = ""
             Using reader As System.IO.StreamReader = New System.IO.StreamReader(body, request.ContentEncoding)
 
-                Dim lcUri = LCase(request.Url.OriginalString)
+                Dim original = request.Url.OriginalString
 
-                If lcUri.Contains("teleports.htm") Then
+                If original.ToUpperInvariant.Contains("TELEPORTS.HTM") Then
                     responseString = RegionListHTML(Setting, PropRegionClass1)
                 Else
                     If (request.HasEntityBody) Then
                         Dim POST As String = reader.ReadToEnd()
-                        Log("POST", POST)
                         responseString = PropRegionClass1.ParsePost(POST, Setting)
                     Else
-                        Log("URI", lcUri)
-                        responseString = PropRegionClass1.ParsePost(lcUri, Setting)
+                        responseString = PropRegionClass1.ParsePost(original, Setting)
                     End If
                 End If
 
