@@ -136,6 +136,7 @@ Public Class FormDebug
 
             Backup = Settings.SmartStart
             Settings.SmartStart = True
+            Settings.MapType = "Best"
 
             FormSetup.StartOpensimulator()
 
@@ -170,7 +171,6 @@ Public Class FormDebug
                     PropRegionClass.Concierge(RegionUUID) = "True"
                     PropRegionClass.SmartStart(RegionUUID) = "True"
                     PropRegionClass.Teleport(RegionUUID) = "True"
-                    PropRegionClass.MapType(RegionUUID) = "Best"
                     PropRegionClass.SizeX(RegionUUID) = sizerow
                     PropRegionClass.SizeY(RegionUUID) = sizerow
                     PropRegionClass.GroupName(RegionUUID) = shortname
