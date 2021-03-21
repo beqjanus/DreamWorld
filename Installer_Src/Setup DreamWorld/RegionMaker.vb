@@ -382,9 +382,9 @@ Public Class RegionMaker
             For Each Pass2 In Regionlist
                 If Pass1.Name = Pass2.Name Then Continue For ' don't check itself
 
-                If Pass1.Name.Contains("MartinBassManSlad") AndAlso Pass2.Name.Contains("Maya") Then
-                    Diagnostics.Debug.Print($"{Pass1.Name}={Pass1.X},{Pass1.Y}  {Pass2.Name}={Pass2.X},{Pass2.Y}")
-                End If
+                'If Pass1.Name.Contains("MartinBassManSlad") AndAlso Pass2.Name.Contains("Maya") Then
+                'Diagnostics.Debug.Print($"{Pass1.Name}={Pass1.X},{Pass1.Y}  {Pass2.Name}={Pass2.X},{Pass2.Y}")
+                'End If
 
                 If (Pass1.X = Pass2.X) AndAlso (Pass1.Y = Pass2.Y) Then
                     TextPrint($"-> Region {Pass1.Name} overlaps Region {Pass2.Name} at location {Pass1.X}, {Pass1.Y}")
