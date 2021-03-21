@@ -2703,6 +2703,7 @@ Public Class FormSetup
         Adv1.Activate()
         Adv1.Visible = True
         Adv1.Select()
+        Adv1.Init()
         Adv1.BringToFront()
 
     End Sub
