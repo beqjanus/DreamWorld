@@ -3292,12 +3292,14 @@ Public Class FormSetup
 
     Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
 
-        Using FormInput As New FormDebug
-            FormInput.Activate()
-            FormInput.Visible = True
-            FormInput.Select()
-            FormInput.BringToFront()
-        End Using
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim FormInput As New FormDebug
+#Enable Warning CA2000 ' Dispose objects before losing scope
+        FormInput.Activate()
+        FormInput.Visible = True
+        FormInput.Select()
+        FormInput.BringToFront()
+
 
     End Sub
 

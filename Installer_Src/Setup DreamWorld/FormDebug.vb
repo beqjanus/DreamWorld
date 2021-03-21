@@ -213,7 +213,8 @@ Public Class FormDebug
                     ConsoleCommand(RegionUUID, "alert Power off!")
                     ConsoleCommand(RegionUUID, "q")
                     ConsoleCommand(RegionUUID, "q")
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
                     Dim ctr = 120
                     If Settings.Sequential Then
                         If Abort Then Exit For
