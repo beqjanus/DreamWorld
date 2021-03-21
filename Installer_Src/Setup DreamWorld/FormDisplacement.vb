@@ -55,6 +55,7 @@ Public Class FormDisplacement
         Dim RegionName = PropRegionClass.RegionName(RegionUUID)
         Me.Width = (Size * 256) + 60
         Me.Height = (Size * 256) + 100
+        If map Then Me.Height += 80 ' for buttons
 
         Dim intX As Integer
         Dim intY As Integer
@@ -253,11 +254,15 @@ Public Class FormDisplacement
 
         Dim StartAt = 256 * (size - 1)
         For Y = 0 To size - 1
-            Dim OffsetY = 100
+
+            Dim OffsetY = 20
+            If map Then
+                OffsetY += 80
+            End If
             For X = 0 To size - 1
                 Dim OffsetX = 20
 
-                Dim Name = "PictureBox" & CStr(X) & CStr(Y)
+                Dim Name As String = $"PictureBox{CStr(X)}{CStr(Y)}"
                 Dim PictureBox As New PictureBox With {
                     .BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
                 }
