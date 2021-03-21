@@ -253,6 +253,12 @@ Public Class FormDebug
 
     End Sub
 
+    Private Sub RadioTrue_CheckedChanged(sender As Object, e As EventArgs) Handles RadioTrue.CheckedChanged
+
+        Value = RadioTrue.Checked
+
+    End Sub
+
 #End Region
 
 End Class
