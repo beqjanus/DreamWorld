@@ -1471,7 +1471,7 @@ SetWindowOnTop_Err:
 
     Private Sub RunAllButton_Click(sender As Object, e As EventArgs) Handles RunAllButton.Click
 
-        FormSetup.StartOpensimulator(True)
+        FormSetup.StartOpensimulator()
 
     End Sub
 

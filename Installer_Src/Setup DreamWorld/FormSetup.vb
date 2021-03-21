@@ -647,7 +647,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Function StartOpensimulator(Optional SS As Boolean = False) As Boolean
+    Public Function StartOpensimulator() As Boolean
 
         PropExitHandlerIsBusy = False
         PropAborting = False
@@ -1077,6 +1077,8 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
+
+            PropRegionClass.Timer(Ruuid) = Date.Now ' wait another interval
 
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
