@@ -589,7 +589,7 @@ Public Class FormSetup
     Public Sub SequentialPause()
 
         If Settings.Sequential Then
-            Dim ctr = 2 * 60  ' 2 minute max to start a region
+            Dim ctr = 5 * 60  '  minute max to start a region
             While True
                 Dim wait As Boolean = False
                 For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -618,7 +618,7 @@ Public Class FormSetup
             End While
         Else
 
-            Dim ctr = 120 ' 2 minute max to start a region at 100% CPU
+            Dim ctr = 5 * 60 ' 5 minute max to start a region at 100% CPU
             While True
                 If CPUAverageSpeed < Settings.CPUMAX And Settings.Ramused < 90 Then
                     Exit While
@@ -647,7 +647,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Function StartOpensimulator(Optional SS As Boolean = False) As Boolean
+    Public Function StartOpensimulator() As Boolean
 
         PropExitHandlerIsBusy = False
         PropAborting = False
@@ -1077,6 +1077,8 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
+
+            PropRegionClass.Timer(Ruuid) = Date.Now ' wait another interval
 
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True

@@ -8,7 +8,6 @@
 Imports System.IO
 Imports System.Threading
 
-Imports System.Windows.Automation.AutomationElement
 
 Module WindowHandlers
 

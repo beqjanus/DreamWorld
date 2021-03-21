@@ -17,8 +17,11 @@ Module Teleport
             For Each Keypair In TeleportAvatarDict
                 Dim AgentID = Keypair.Key
                 Dim RegionToUUID = Keypair.Value
+                Dim Name = PropRegionClass.RegionName(RegionToUUID)
+                Dim status = PropRegionClass.Status(RegionToUUID)
+                Debug.Print($"Teleport to {Name} = {PropRegionClass.GetStateString(status)}")
 
-                If PropRegionClass.Status(RegionToUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                If status = RegionMaker.SIMSTATUSENUM.Booted Then
                     Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
                     If DestinationName.Length > 0 Then
                         Logger("Teleport", DestinationName, "Teleport")

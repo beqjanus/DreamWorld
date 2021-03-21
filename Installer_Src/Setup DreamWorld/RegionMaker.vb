@@ -382,9 +382,9 @@ Public Class RegionMaker
             For Each Pass2 In Regionlist
                 If Pass1.Name = Pass2.Name Then Continue For ' don't check itself
 
-                If Pass1.Name.Contains("MartinBassManSlad") AndAlso Pass2.Name.Contains("Maya") Then
-                    Diagnostics.Debug.Print($"{Pass1.Name}={Pass1.X},{Pass1.Y}  {Pass2.Name}={Pass2.X},{Pass2.Y}")
-                End If
+                'If Pass1.Name.Contains("MartinBassManSlad") AndAlso Pass2.Name.Contains("Maya") Then
+                'Diagnostics.Debug.Print($"{Pass1.Name}={Pass1.X},{Pass1.Y}  {Pass2.Name}={Pass2.X},{Pass2.Y}")
+                'End If
 
                 If (Pass1.X = Pass2.X) AndAlso (Pass1.Y = Pass2.Y) Then
                     TextPrint($"-> Region {Pass1.Name} overlaps Region {Pass2.Name} at location {Pass1.X}, {Pass1.Y}")
@@ -1530,12 +1530,14 @@ Public Class RegionMaker
         If machine Is Nothing Then Return False
 
         ' Returns true is password is blank or matching
-        Dim pattern1 As Regex = New Regex("PW=(.*?)&")
-        Dim match1 As Match = pattern1.Match(post)
+        Dim pattern1 As Regex = New Regex("(?i)pw=(.*?)&", RegexOptions.IgnoreCase)
+        Dim match1 As Match = pattern1.Match(post, RegexOptions.IgnoreCase)
         If match1.Success Then
             Dim p1 As String = match1.Groups(1).Value
             If p1.Length = 0 Then Return True
-            If machine.ToUpper(Globalization.CultureInfo.InvariantCulture) = p1.ToUpper(Globalization.CultureInfo.InvariantCulture) Then Return True
+            If machine.ToUpper(Globalization.CultureInfo.InvariantCulture) = p1.ToUpper(Globalization.CultureInfo.InvariantCulture) Then
+                Return True
+            End If
         End If
         Return False
 
@@ -1589,9 +1591,9 @@ Public Class RegionMaker
             BreakPoint.Show(post)
         ElseIf post.Contains("""alert"":""region_ready""") Then
             WebserverList.Add(post)
-        ElseIf post.Contains("alt=") Then
+        ElseIf post.ToUpperInvariant.Contains("ALT=") Then
             Return SmartStartParse(post)
-        ElseIf post.Contains("TOS") Then
+        ElseIf post.ToUpperInvariant.Contains("TOS") Then
             Return TOS(post)
         ElseIf post.ToUpperInvariant.Contains("SET_PARTNER") Then
             Return SetPartner(post)
@@ -1635,7 +1637,7 @@ Public Class RegionMaker
         ' Smart Start AutoStart Region mode
         Debug.Print("Smart Start:" + post)
 
-        Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)")
+        Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)", RegexOptions.IgnoreCase)
         Dim match As Match = pattern.Match(post)
         If match.Success Then
             Dim Name As String = Uri.UnescapeDataString(match.Groups(1).Value)
@@ -1802,7 +1804,7 @@ Public Class RegionMaker
 
     Private Shared Function GetPartner(post As String) As String
 
-        Debug.Print("get Partner")
+        Debug.Print("Get Partner")
         Dim PWok As Boolean = CheckPassword(post, Settings.MachineID())
         If Not PWok Then Return ""
 
@@ -1816,12 +1818,15 @@ Public Class RegionMaker
             Return s
         Else
             Debug.Print("No partner")
-            Return "00000000-0000-0000-0000-000000000000"
+
+            Return ""
+            '"00000000-0000-0000-0000-000000000000"
         End If
 
     End Function
 
     Private Shared Function SetPartner(post As String) As String
+
 
         Debug.Print("set Partner")
         Dim PWok As Boolean = CheckPassword(post, CStr(Settings.MachineID()))
@@ -1838,31 +1843,35 @@ Public Class RegionMaker
             If match2.Success Then
                 p2 = match2.Groups(1).Value
             End If
-            Dim result As New Guid
-            If Guid.TryParse(p1, result) And Guid.TryParse(p1, result) Then
-                Dim Partner = MysqlGetPartner(p1, Settings)
-                Debug.Print("Partner=" + p2)
-
+            Dim result1 As New Guid
+            Dim result2 As New Guid
+            If Guid.TryParse(p1, result1) And Guid.TryParse(p2, result2) Then
                 Try
+
+                    Dim Partner = MysqlGetPartner(p1, Settings)
+                    If Partner = "00000000-0000-0000-0000-000000000000" Then
+                        Partner = ""
+                    End If
+
                     Using myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
-                        Dim Query1 = "update robust.userprofile set profilepartner=@p2 where userUUID = @p1; "
+                        myConnection.Open()
+                        Dim Query1 = "update userprofile set profilePartner=@p2 where useruuid=@p1; "
                         Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
                                 .Connection = myConnection
                             }
-                            myConnection.Open()
-                            myCommand1.Prepare()
-                            myCommand1.Parameters.AddWithValue("p1", p1)
-                            myCommand1.Parameters.AddWithValue("p2", p2)
-                            myCommand1.ExecuteScalar()
+
+                            myCommand1.Parameters.AddWithValue("@p1", result1.ToString)
+                            myCommand1.Parameters.AddWithValue("@p2", result2.ToString)
+                            Dim x = myCommand1.ExecuteNonQuery()
+                            If x <> 1 Then
+                                BreakPoint.Show($"Failed to return Partner rowcount={x}")
+                            End If
                         End Using
                     End Using
+                    Return Partner
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
-                    Debug.Print(ex.Message)
                 End Try
-
-                Debug.Print(Partner)
-                Return Partner
 
             End If
         End If

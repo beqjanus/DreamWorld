@@ -180,7 +180,7 @@ Public Module MysqlInterface
                 MysqlConn.Open()
                 Dim stm = "select count(*) from prims where regionuuid = @UUID"
                 Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("UUID", UUID)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             count = CInt(reader.GetString(0))
@@ -209,7 +209,7 @@ Public Module MysqlInterface
                 MysqlConn.Open()
                 Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID"
                 Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("UUID", UUID)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
                             count = CInt(reader.GetInt16("cnt"))
@@ -496,22 +496,30 @@ Public Module MysqlInterface
         If mysetting Is Nothing Then
             Return ""
         End If
-
-        Dim answer As String = ""
-        Using myConnection As MySqlConnection = New MySqlConnection(mysetting.RobustMysqlConnection)
-            Dim Query1 = "Select profilepartner from robust.userprofile where userUUID=@p1;"
-            Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
-                .Connection = myConnection
-            }
+        Try
+            Dim answer As String = ""
+            Using myConnection As MySqlConnection = New MySqlConnection(mysetting.RobustMysqlConnection)
                 myConnection.Open()
-                myCommand1.Prepare()
-                myCommand1.Parameters.AddWithValue("@p1", p1)
-                answer = CStr(myCommand1.ExecuteScalar())
-                Debug.Print("User=" + p1 + ", Partner=" + answer)
-            End Using
-        End Using
+                Dim Query1 = "Select profilePartner from userprofile where userUUID=@p1;"
+                Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                    .Connection = myConnection
+                   }
 
-        Return answer
+                    myCommand1.Parameters.AddWithValue("@p1", p1)
+                    answer = CStr(myCommand1.ExecuteScalar())
+                    Debug.Print($"User={p1}, Partner={answer}")
+                    If answer Is Nothing Then
+                        Return "00000000-0000-0000-0000-000000000000"
+                    End If
+                    Return answer
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+        Return ""
+
     End Function
 
     Public Sub MySQLIcon(Running As Boolean)
@@ -646,7 +654,7 @@ Public Module MysqlInterface
         Dim MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
         Try
             MysqlConn.Open()
-            Dim stm = "Select RegionName from regions where uuid = '@UUID';"
+            Dim stm = "Select RegionName from regions where uuid=@UUID;"
             Using cmd As New MySqlCommand(stm, MysqlConn)
                 cmd.Parameters.AddWithValue("@UUID", UUID)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
