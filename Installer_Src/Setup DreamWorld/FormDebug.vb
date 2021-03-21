@@ -204,12 +204,12 @@ Public Class FormDebug
                     End If
                     If Abort Then Exit For
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                    RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
-                    RPC_Region_Command(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+                    ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+                    ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
                     If Abort Then Exit For
-                    RPC_Region_Command(RegionUUID, "generate map")
-                    RPC_Region_Command(RegionUUID, "backup")
-                    SendAdminMessage(RegionUUID, "Power off!")
+                    ConsoleCommand(RegionUUID, "generate map")
+                    ConsoleCommand(RegionUUID, "backup")
+                    ConsoleCommand(RegionUUID, "alert Power off!")
                     ConsoleCommand(RegionUUID, "q")
                     ConsoleCommand(RegionUUID, "q")
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
