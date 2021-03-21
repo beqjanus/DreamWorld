@@ -264,7 +264,7 @@ Module Robust
             End If
 
             ' ban grid Addresses
-            Dim pattern2 As Regex = New Regex("^http")
+            Dim pattern2 As Regex = New Regex("^http", RegexOptions.IgnoreCase)
             Dim match2 As Match = pattern2.Match(s)
             If match2.Success Then
                 GridString += s & ","   ' delimiter is a comma for grids
