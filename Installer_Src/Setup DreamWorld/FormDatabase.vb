@@ -259,7 +259,7 @@ Public Class FormDatabase
 
         Using p As Process = New Process()
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .Arguments = " -u root ",
+                .Arguments = $" -u root --port={Settings.MySqlRegionDBPort}",
                 .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysql.exe") & """",
                 .UseShellExecute = True, ' so we can redirect streams and minimize
                 .WindowStyle = ProcessWindowStyle.Normal
