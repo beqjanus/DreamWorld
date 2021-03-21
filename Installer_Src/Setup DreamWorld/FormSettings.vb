@@ -76,7 +76,7 @@ Public Class FormSettings
 
 #Region "Private Methods"
 
-    Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Public Sub Init()
 
         ApacheButton.Text = Global.Outworldz.My.Resources.Apache_Webserver
         BackupButton1.Text = Global.Outworldz.My.Resources.Backup_Settings_word
@@ -143,6 +143,11 @@ Public Class FormSettings
         Me.Visible = True
         Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Setup_TOS)
 
+    End Sub
+
+    Private Sub Advanced_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        Init()
     End Sub
 
 #End Region
