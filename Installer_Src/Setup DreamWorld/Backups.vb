@@ -56,7 +56,7 @@ Public Class Backups
 
             'used to zip it, zip it good
             _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
-            If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
+            FileIO.FileSystem.CreateDirectory(_folder)
 
             Dim _filename = "Backup_" & Name & "_" & whenrun & ".sql"
             Dim SQLFile = IO.Path.Combine(_folder, _filename)
@@ -225,7 +225,7 @@ Public Class Backups
 
         'used to zip it, zip it good
         _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
-        If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
+        FileIO.FileSystem.CreateDirectory(_folder)
 
         Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")

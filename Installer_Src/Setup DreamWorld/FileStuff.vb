@@ -336,7 +336,7 @@ Module FileStuff
 
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
-        MkDir(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"))
+        FileIO.FileSystem.CreateDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"))
 
     End Sub
 
