@@ -210,6 +210,7 @@ Public Class FormRegionlist
         Suspended = 14
         ErrorIcon = 15
         NoLogin = 16
+        NoError = 17
 
     End Enum
 
@@ -462,6 +463,7 @@ Public Class FormRegionlist
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("media_pause", Globalization.CultureInfo.InvariantCulture))  '  14- Suspended
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
+        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("redo", Globalization.CultureInfo.InvariantCulture))  '  17 - NOError
 
         If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
             Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
@@ -582,7 +584,9 @@ Public Class FormRegionlist
             Num = DGICON.shuttingdown
         ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
             Letter = My.Resources.Pending_word
-            Num = DGICON.Pending
+        ElseIf Status = RegionMaker.SIMSTATUSENUM.NoError Then
+            Letter = My.Resources.Stopped_word
+            Num = DGICON.NoError
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted And PropRegionClass.AvatarCount(RegionUUID) = 1 Then
             Letter = My.Resources.Running_word
             Num = DGICON.user1

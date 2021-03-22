@@ -52,6 +52,7 @@ Public Class RegionMaker
         RestartStage2 = 11
         ShuttingDownForGood = 12 ' Not possible to change state in exit logic, only entry logic
         NoLogin = 13
+        NoError = 14
 
     End Enum
 
@@ -1417,6 +1418,8 @@ Public Class RegionMaker
                 statestring = "ShuttingDownForGood"
             Case 13
                 statestring = "NoLogin"
+            Case 14
+                statestring = "No Error on Exit"
             Case Else
                 statestring = "**** Unknown state ****"
         End Select

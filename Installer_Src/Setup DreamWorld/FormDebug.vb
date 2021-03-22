@@ -195,7 +195,7 @@ Public Class FormDebug
                     If Abort Then Exit For
                     ReBoot(RegionUUID)
 
-                    Sleep(10000)
+                    Sleep(3000)
                     If Estate.Length > 0 Then
                         ConsoleCommand(RegionUUID, "{ENTER}")
                         ConsoleCommand(RegionUUID, Estate)
@@ -205,15 +205,24 @@ Public Class FormDebug
                     End If
                     If Abort Then Exit For
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
+                    PropUpdateView = True
+
                     ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                     ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
                     If Abort Then Exit For
                     ConsoleCommand(RegionUUID, "generate map")
                     ConsoleCommand(RegionUUID, "backup")
                     ConsoleCommand(RegionUUID, "alert Power off!")
-                    ConsoleCommand(RegionUUID, "q")
-                    ConsoleCommand(RegionUUID, "q")
+
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    PropUpdateView = True
+
+                    ConsoleCommand(RegionUUID, "q")
+                    ConsoleCommand(RegionUUID, "q")
+                    Sleep(2000)
+                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    PropUpdateView = True
                     Dim ctr = 120
                     If Settings.Sequential Then
                         If Abort Then Exit For
