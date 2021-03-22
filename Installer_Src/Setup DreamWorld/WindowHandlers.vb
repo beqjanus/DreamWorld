@@ -87,7 +87,6 @@ Module WindowHandlers
             If p.MainWindowTitle IsNot Groupname Then
                 Continue For
             End If
-            p.Refresh()
             Try
                 Return p.MainWindowHandle
             Catch
