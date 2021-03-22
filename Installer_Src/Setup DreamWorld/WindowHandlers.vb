@@ -84,14 +84,15 @@ Module WindowHandlers
 
         Dim AllProcesses = Process.GetProcessesByName("Opensim")
         For Each p As Process In AllProcesses
-            If p.MainWindowTitle = Groupname Then
-                p.Refresh()
-                Try
-                    Return p.MainWindowHandle
-                Catch
-                    Return IntPtr.Zero
-                End Try
+            If p.MainWindowTitle IsNot Groupname Then
+                Continue For
             End If
+            p.Refresh()
+            Try
+                Return p.MainWindowHandle
+            Catch
+                Return IntPtr.Zero
+            End Try
         Next
 
         Return IntPtr.Zero
