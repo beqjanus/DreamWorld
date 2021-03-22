@@ -207,17 +207,16 @@ Public Class FormDebug
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
 
-
                     ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                     ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
-                    If Abort Then Exit For
                     ConsoleCommand(RegionUUID, "generate map")
                     ConsoleCommand(RegionUUID, "backup")
                     ConsoleCommand(RegionUUID, "alert Power off!")
 
+
+                    Sleep(5000)
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     PropUpdateView = True
-
                     ConsoleCommand(RegionUUID, "q")
                     ConsoleCommand(RegionUUID, "q")
                     Sleep(2000)
