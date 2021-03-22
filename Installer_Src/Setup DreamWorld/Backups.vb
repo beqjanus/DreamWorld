@@ -81,6 +81,12 @@ Public Class Backups
                 user = Settings.RobustUsername
                 password = Settings.RobustPassword
                 dbname = Settings.RobustDataBaseName
+            ElseIf OP = "Joomla" Then
+                port = CStr(Settings.MySqlRegionDBPort)
+                host = Settings.RegionServer
+                user = Settings.RegionDBUsername
+                password = Settings.RegionDbPassword
+                dbname = "jOpensim"
             Else
                 port = CStr(Settings.MySqlRegionDBPort)
                 host = Settings.RegionServer
