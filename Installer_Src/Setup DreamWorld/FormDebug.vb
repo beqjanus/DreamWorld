@@ -206,7 +206,7 @@ Public Class FormDebug
                     If Abort Then Exit For
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
-                    PropUpdateView = True
+
 
                     ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                     ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")

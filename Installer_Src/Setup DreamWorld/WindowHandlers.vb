@@ -277,9 +277,9 @@ Module WindowHandlers
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
 
-        Do While TooMany <60
-                             Try
-                p= Process.GetProcessById(myProcess.Id)
+        Do While TooMany < 10
+            Try
+                p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
             End Try
 
