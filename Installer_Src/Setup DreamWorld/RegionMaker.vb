@@ -73,6 +73,7 @@ Public Class RegionMaker
         Get
             If (FInstance Is Nothing) Then
                 FInstance = New RegionMaker()
+                SkipSetup = False
             End If
             Return FInstance
         End Get
@@ -1664,7 +1665,7 @@ Public Class RegionMaker
                     Return Name
                 Else ' Its a sign!                    
                     AddEm(RegionUUID, AgentID)
-                    Return Name & "|0"
+                    Return Name
                 End If
             End If
 
@@ -1724,7 +1725,7 @@ Public Class RegionMaker
                         Else     ' Its a sign!                            
                             Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
-                            Return Name & "|0"
+                            Return Name
                         End If
 
                     End If
@@ -1897,7 +1898,7 @@ Public Class RegionMaker
         ' copy the prototype to the regions Opensim.ini
 
         CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
-
+        Sleep(1000)
         Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
         If INI Is Nothing Then Return True
 
