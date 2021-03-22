@@ -126,6 +126,7 @@ Public Class Backups
             DeleteFile(Bak)
 
             Using Zip As ZipFile = New ZipFile(Bak)
+                Zip.UseZip64WhenSaving = Zip64Option.AsNecessary
                 Zip.CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
                 Zip.AddFile(SQLFile, "/")
                 Zip.Save()
@@ -230,6 +231,7 @@ Public Class Backups
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
         Dim zipused As Boolean
         Using Z As ZipFile = New ZipFile(Bak) With {
+            .UseZip64WhenSaving = Zip64Option.AsNecessary,
             .CompressionLevel = Ionic.Zlib.CompressionLevel.BestCompression
         }
 

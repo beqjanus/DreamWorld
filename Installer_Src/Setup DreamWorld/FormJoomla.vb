@@ -9,6 +9,7 @@ Imports System.Threading
 Imports Ionic.Zip
 
 Public Class FormJoomla
+
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
@@ -39,6 +40,7 @@ Public Class FormJoomla
     End Sub
 
 #End Region
+
     Public Sub LoadSub() Handles Me.Load
 
         AdminButton.Text = Global.Outworldz.My.Resources.AdministerJoomla_word
@@ -129,6 +131,7 @@ Public Class FormJoomla
             Application.DoEvents()
             Try
                 Using zip As ZipFile = New ZipFile(m)
+                    zip.UseZip64WhenSaving = Zip64Option.AsNecessary
                     zip.ExtractAll(extractPath)
                 End Using
             Catch ex As Exception

@@ -22,6 +22,7 @@ Public Module MysqlInterface
     End Sub
 
 #Region "Properties"
+
     Public Property MysqlCrashCounter As Integer
         Get
             Return _MysqlCrashCounter
@@ -48,6 +49,7 @@ Public Module MysqlInterface
             _IsRunning = value
         End Set
     End Property
+
 #End Region
 
 #Region "StartMysql"
@@ -167,62 +169,6 @@ Public Module MysqlInterface
 
 #Region "Public"
 
-    ''' <summary>
-    ''' Number of prims in this region
-    ''' </summary>
-    ''' <param name="UUID">Region UUID</param>
-    ''' <returns>integer primcount</returns>
-    Public Function GetPrimCount(UUID As String) As Integer
-
-        Dim count As Integer
-        Try
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
-                Dim stm = "select count(*) from prims where regionuuid = @UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            count = CInt(reader.GetString(0))
-                        End If
-                    End Using
-                End Using
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-        Return count
-
-
-    End Function
-
-    ''' <summary>
-    ''' Retiurns boolean if a region excists in the regions table
-    ''' </summary>
-    ''' <param name="UUID">Region UUID</param>
-    ''' <returns>True is region is in table</returns>
-    Public Function RegionIsRegistered(UUID As String) As Boolean
-
-        Dim count As Integer
-        Try
-            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-                MysqlConn.Open()
-                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            count = CInt(reader.GetInt16("cnt"))
-                        End If
-                    End Using
-                End Using
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-        Return CBool(count)
-
-    End Function
     ''' <summary>
     ''' deletes all regions from robust.regions
     ''' </summary>
@@ -411,6 +357,34 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Number of prims in this region
+    ''' </summary>
+    ''' <param name="UUID">Region UUID</param>
+    ''' <returns>integer primcount</returns>
+    Public Function GetPrimCount(UUID As String) As Integer
+
+        Dim count As Integer
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+                MysqlConn.Open()
+                Dim stm = "select count(*) from prims where regionuuid = @UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            count = CInt(reader.GetString(0))
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return count
+
+    End Function
+
     Public Function GetRegionFromAgentID(AgentID As String) As String
 
         If Settings.ServerType <> RobustServerName Then Return ""
@@ -552,6 +526,34 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Retiurns boolean if a region excists in the regions table
+    ''' </summary>
+    ''' <param name="UUID">Region UUID</param>
+    ''' <returns>True is region is in table</returns>
+    Public Function RegionIsRegistered(UUID As String) As Boolean
+
+        Dim count As Integer
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            count = CInt(reader.GetInt16("cnt"))
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return CBool(count)
+
+    End Function
+
     Public Sub SetupMutelist()
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -682,6 +684,7 @@ Public Module MysqlInterface
             TextPrint(My.Resources.Create_DB)
             Try
                 Using zip As ZipFile = New ZipFile(m & "\Blank-Mysql-Data-folder.zip")
+                    zip.UseZip64WhenSaving = Zip64Option.AsNecessary
                     Dim extractPath = Path.GetFullPath(Settings.CurrentDirectory) & "\OutworldzFiles\Mysql"
                     If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
                         extractPath += Path.DirectorySeparatorChar
@@ -736,7 +739,7 @@ Public Module MysqlInterface
         End If
 
     End Sub
-#End Region
 
+#End Region
 
 End Module
