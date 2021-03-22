@@ -139,11 +139,11 @@ Module Apache
             ApacheProcess.StartInfo.CreateNoWindow = True
             Try
                 ApacheProcess.Start()
+                ApacheProcess.WaitForExit()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
-            Application.DoEvents()
-            ApacheProcess.WaitForExit()
+
         End If
 
         If Settings.CurrentDirectory <> Settings.LastDirectory Or Not ApacheExists() Then
@@ -158,11 +158,12 @@ Module Apache
             ApacheProcess.StartInfo.Arguments = "stop " & """" & "Apache HTTP Server" & """"
             Try
                 ApacheProcess.Start()
+                ApacheProcess.WaitForExit()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Application.DoEvents()
-            ApacheProcess.WaitForExit()
+
 
             'delete really old service
             ApacheProcess.StartInfo.FileName = "sc"
@@ -172,10 +173,10 @@ Module Apache
 
             Try
                 ApacheProcess.Start()
+                ApacheProcess.WaitForExit()
             Catch ex As Exception
             End Try
             Application.DoEvents()
-            ApacheProcess.WaitForExit()
 
             Application.DoEvents()
             Using ApacheProcess As New Process With {
@@ -192,12 +193,13 @@ Module Apache
 
                 Try
                     ApacheProcess.Start()
+                    ApacheProcess.WaitForExit()
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                     ApacheIcon(False)
                 End Try
                 Application.DoEvents()
-                ApacheProcess.WaitForExit()
+
 
                 If ApacheProcess.ExitCode <> 0 Then
                     TextPrint(My.Resources.ApacheFailed)
@@ -230,12 +232,12 @@ Module Apache
             Try
                 ApacheProcess.Start()
                 response = ApacheProcess.StandardOutput.ReadToEnd() & ApacheProcess.StandardError.ReadToEnd()
+                ApacheProcess.WaitForExit()
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 TextPrint(My.Resources.Apache_Failed & ":" & ex.Message)
             End Try
             Application.DoEvents()
-            ApacheProcess.WaitForExit()
 
             If ApacheProcess.ExitCode <> 0 Then
                 If response.Contains("has already been started") Then
