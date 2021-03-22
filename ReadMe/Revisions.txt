@@ -2,6 +2,36 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.9 is Godot.  I should just blow right past it.  These revs are just numbers. The actual rev is a hash of letters and digits. 
+
+
+V3.8996
+Zip 64 functions are enabled now, should stop all the Backup crashes. Whodathunk thats not on by default? Not me!
+If disk < 50 MB free, suspend all running regions. Mysql and robust are left running to flush to disk. When disk space is available, thaw the regions.
+Now 29,950 Translation. in the spreadsheet.  Edits should me emailed to fred@outworldz.com so they can be compiled in, thank you very much! This uses a new mechanism thats much easier to merge and make them
+Now Showing prim counts! in Region Details.
+Teleport Sign shows all Smart Boot Regions + running regions. Signs just show running region if Smart Boot is off.
+Halved setup time by setting INI files just once unless you changed something.
+Record and use boot time for map on and off separately.
+Restart All Button starts all Smart Boot regions.
+Load OAR, View Console, Start buttons will bring up a Smart Boot region.
+Parcels in OARs are loaded by default.
+Check if sims overlap and issue a warning of which overlap, and where.
+Added buttons in Load OAR as no everyone is blind to the Options.
+Git failed to save important DLLs so WhoGotWhat failed on every development machine.Thank you, core. Not every DLL can be compiled as you don't include libOpenMetaverse and many others such as Log4Net.
+7Zip will not add a file named 'magic'. Or any file without a file extension.  Not no way, not no how. 
+
+V3.8995
+Add a debug entries screen to toggle internal stuff on and off
+Added a disk space calculator and warning is disk space is low.
+View all maps did not tile as expected.
+
+V3.8994
+Delete the tmp folder in case backups crash
+Diagnostics port 8001 never moved - was always on 8001
+Better timing of pause between sims when starting one at a time.
+Region Servers used the wrong IP
+
 V3.8993
 Multiple tests of the LoadAllOArs function now pass.
 Show Disk free space and warn if disk space gets low.
