@@ -1262,15 +1262,22 @@ Public Class FormSetup
                 Continue While
             End If
 
-            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+
+            If Status = RegionMaker.SIMSTATUSENUM.NoError Then
+                For Each R In GroupList
+                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Stopped
+                Next
+                PropUpdateView = True
+                Continue While
+
+            ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
                 For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 Next
                 PropUpdateView = True ' make form refresh
                 Continue While
-            End If
 
-            If Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
                 StopGroup(GroupName)
                 PropUpdateView = True
@@ -1285,13 +1292,6 @@ Public Class FormSetup
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.RestartStage2
                 Next
                 Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Teleport")
-                PropUpdateView = True
-                Continue While
-
-            ElseIf Status = RegionMaker.SIMSTATUSENUM.NoError Then
-                For Each R In GroupList
-                    PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Stopped
-                Next
                 PropUpdateView = True
                 Continue While
 
@@ -2570,7 +2570,7 @@ Public Class FormSetup
         If TimerBusy > 0 And TimerBusy < 10 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
-            Timer1.Interval += 1
+            Timer1.Interval += 100
             Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
             Return
         End If
