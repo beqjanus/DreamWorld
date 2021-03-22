@@ -243,6 +243,7 @@ Public Class Backups
 
             Try
                 If Settings.BackupWifi Then
+                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\jOpensim\\"), "jOpensim")
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
                     zipused = True
                 End If
