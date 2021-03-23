@@ -58,7 +58,6 @@ Public Class RegionMaker
 
     Private Class Region_Mapping
 
-
         Public Name As String
         Public X As Integer
         Public Y As Integer
@@ -115,7 +114,6 @@ Public Class RegionMaker
         TextPrint($"Loaded {CStr(RegionCount)} Regions")
 
         Return CheckOverLap()
-
 
     End Function
 
@@ -355,7 +353,6 @@ Public Class RegionMaker
         Dim Regionlist As New List(Of Region_Mapping)
 
         For Each RegionUUID In RegionUuids()
-
 
             Dim Name = RegionName(RegionUUID)
             Dim Size As Integer = CInt(SizeX(RegionUUID) / 256)
@@ -695,16 +692,22 @@ Public Class RegionMaker
 
         Public _AvatarCount As Integer
         Public _BootTime As Integer
-        Public _MapTime As Integer
         Public _ClampPrimSize As Boolean
         Public _CoordX As Integer = 1000
         Public _CoordY As Integer = 1000
         Public _DisallowForeigners As String = ""
         Public _DisallowResidents As String = ""
         Public _FolderPath As String = ""
-        Public _Group As String = ""  ' the path to the folder that holds the region ini
-        Public _IniPath As String = "" ' the folder name that holds the region(s), can be different named
+        Public _Group As String = ""
+
+        ' the path to the folder that holds the region ini
+        Public _IniPath As String = ""
+
+        Public _MapTime As Integer
+
+        ' the folder name that holds the region(s), can be different named
         Public _ProcessID As Integer
+
         Public _RegionEnabled As Boolean = True
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
@@ -765,24 +768,6 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._AvatarCount = Value
-        End Set
-    End Property
-
-
-
-    Public Property MapTime(uuid As String) As Integer
-        Get
-            If uuid Is Nothing Then Return 0
-            If Bad(uuid) Then Return 0
-            Dim t As Integer = CInt(Settings.GetMapTime(uuid))
-            If t > 0 Then Return t
-            Return RegionList(uuid)._MapTime
-        End Get
-        Set(ByVal Value As Integer)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._MapTime = Value
-            Settings.SaveMapTime(Value, uuid)
         End Set
     End Property
 
@@ -851,6 +836,22 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._CrashCounter = Value
+        End Set
+    End Property
+
+    Public Property MapTime(uuid As String) As Integer
+        Get
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Dim t As Integer = CInt(Settings.GetMapTime(uuid))
+            If t > 0 Then Return t
+            Return RegionList(uuid)._MapTime
+        End Get
+        Set(ByVal Value As Integer)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._MapTime = Value
+            Settings.SaveMapTime(Value, uuid)
         End Set
     End Property
 
@@ -1387,48 +1388,6 @@ Public Class RegionMaker
 
 #Region "Functions"
 
-    Public Function GetStateString(state As Integer) As String
-
-        Dim statestring As String
-        Select Case state
-            Case 0
-                statestring = "Stopped"
-            Case 1
-                statestring = "Booting"
-            Case 2
-                statestring = "Booted"
-            Case 3
-                statestring = "RecyclingUp"
-            Case 4
-                statestring = "RecyclingDown"
-            Case 5
-                statestring = "ShuttingDown"
-            Case 6
-                statestring = "RestartPending"
-            Case 7
-                statestring = "RetartingNow"
-            Case 8
-                statestring = "Resume"
-            Case 9
-                statestring = "Suspended"
-            Case 10
-                statestring = "Error"
-            Case 11
-                statestring = "RestartStage2"
-            Case 12
-                statestring = "ShuttingDownForGood"
-            Case 13
-                statestring = "NoLogin"
-            Case 14
-                statestring = "No Error on Exit"
-            Case Else
-                statestring = "**** Unknown state ****"
-        End Select
-
-        Return statestring
-
-    End Function
-
     Public Sub DebugGroup()
 
         For Each pair In _Grouplist
@@ -1663,7 +1622,7 @@ Public Class RegionMaker
                     Return RegionUUID
                 ElseIf AgentName = "regionname" Then
                     Return Name
-                Else ' Its a sign!                    
+                Else ' Its a sign!
                     AddEm(RegionUUID, AgentID)
                     Return Name
                 End If
@@ -1687,7 +1646,6 @@ Public Class RegionMaker
                                 Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
                                 Return Name & "|0"
                             End If
-
                         Else  ' requires booting
 
                             If AgentName = "uuid" Then
@@ -1700,7 +1658,7 @@ Public Class RegionMaker
                                 AddEm(RegionUUID, AgentID)
                                 Return Settings.WelcomeRegion
                             Else ' Its a sign!
-                                If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID) = "" Then
+                                If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
                                     time = "|" & CStr(BootTime(RegionUUID) + slop) ' 5 seconds of slop time
                                 Else
                                     time = "|" & CStr(MapTime(RegionUUID) + slop) ' 5 seconds of slop time
@@ -1712,8 +1670,6 @@ Public Class RegionMaker
                             End If
 
                         End If
-
-
                     Else ' Non Smart Start
 
                         If AgentName = "uuid" Then
@@ -1722,7 +1678,7 @@ Public Class RegionMaker
                         ElseIf AgentName = "regionname" Then
                             Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
                             Return Name
-                        Else     ' Its a sign!                            
+                        Else     ' Its a sign!
                             Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             Return Name
@@ -1734,9 +1690,8 @@ Public Class RegionMaker
                 ' not running
                 Return RegionUUID
             End If
-
         Else
-                BreakPoint.Show("Bad UUID")
+            BreakPoint.Show("Bad UUID")
         End If
         Return PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
@@ -1830,7 +1785,6 @@ Public Class RegionMaker
     End Function
 
     Private Shared Function SetPartner(post As String) As String
-
 
         Debug.Print("set Partner")
         Dim PWok As Boolean = CheckPassword(post, CStr(Settings.MachineID()))

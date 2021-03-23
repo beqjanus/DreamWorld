@@ -64,7 +64,7 @@ Public Class FormRegionPopup
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
         Dim status = PropRegionClass.Status(RegionUUID)
 
-        Me.Text = $"{RegionName} {PropRegionClass.GetStateString(status)}"
+        Me.Text = $"{RegionName} {GetStateString(status)}"
         GroupBox1.Text = PropRegionClass.GroupName(RegionUUID)
 
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then

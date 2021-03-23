@@ -195,6 +195,48 @@ Module GlobalSettings
 
 #Region "Functions"
 
+    Public Function GetStateString(state As Integer) As String
+
+        Dim statestring As String
+        Select Case state
+            Case 0
+                statestring = "Stopped"
+            Case 1
+                statestring = "Booting"
+            Case 2
+                statestring = "Booted"
+            Case 3
+                statestring = "RecyclingUp"
+            Case 4
+                statestring = "RecyclingDown"
+            Case 5
+                statestring = "ShuttingDown"
+            Case 6
+                statestring = "RestartPending"
+            Case 7
+                statestring = "RetartingNow"
+            Case 8
+                statestring = "Resume"
+            Case 9
+                statestring = "Suspended"
+            Case 10
+                statestring = "Error"
+            Case 11
+                statestring = "RestartStage2"
+            Case 12
+                statestring = "ShuttingDownForGood"
+            Case 13
+                statestring = "NoLogin"
+            Case 14
+                statestring = "No Error on Exit"
+            Case Else
+                statestring = "**** Unknown state ****"
+        End Select
+
+        Return statestring
+
+    End Function
+
     Public Function RobustName() As String
 
         Return "Robust " & Settings.PublicIP

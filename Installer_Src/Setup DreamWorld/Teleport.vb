@@ -19,7 +19,7 @@ Module Teleport
                 Dim RegionToUUID = Keypair.Value
                 Dim Name = PropRegionClass.RegionName(RegionToUUID)
                 Dim status = PropRegionClass.Status(RegionToUUID)
-                Debug.Print($"Teleport to {Name} = {PropRegionClass.GetStateString(status)}")
+                Debug.Print($"Teleport to {Name} = {GetStateString(status)}")
 
                 If status = RegionMaker.SIMSTATUSENUM.Booted Then
                     Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)

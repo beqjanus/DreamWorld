@@ -62,7 +62,6 @@ Public Class FormSetup
 #Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ScreenPos
 
-
 #End Region
 
 #Region "Globals"
@@ -326,7 +325,6 @@ Public Class FormSetup
         End Set
     End Property
 
-
 #End Region
 
 #Region "Public Function"
@@ -358,6 +356,7 @@ Public Class FormSetup
 #End Region
 
 #Region "Updater"
+
     ''' <summary>
     ''' Checks the Outworldz Web site to see if a new version exist,.
     ''' </summary>
@@ -422,6 +421,7 @@ Public Class FormSetup
 #End Region
 
 #Region "Misc"
+
     ''' <summary>
     ''' Brings up a region chooser with no buttons, of all regions
     ''' </summary>
@@ -696,7 +696,7 @@ Public Class FormSetup
                         End If
 
                         ' if set to default, which is true
-                        If PropRegionClass.SmartStart(RegionUUID) = "" Or
+                        If PropRegionClass.SmartStart(RegionUUID).Length = 0 Or
                             PropRegionClass.SmartStart(RegionUUID) = "False" Then
                             BootNeeded = True
                         End If
@@ -1072,7 +1072,7 @@ Public Class FormSetup
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
             End If
 
-            If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid) = "" Then
+            If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid).Length = 0 Then
                 PropRegionClass.BootTime(Ruuid) = CInt(seconds)
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
@@ -1111,7 +1111,6 @@ Public Class FormSetup
                     End Try
                 End If
             End If
-
 
             If Not PropOpensimIsRunning() Then Exit For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
@@ -1256,12 +1255,11 @@ Public Class FormSetup
             Dim Status = PropRegionClass.Status(RegionUUID)
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-            Diagnostics.Debug.Print($"{RegionName} {PropRegionClass.GetStateString(Status)}")
+            Diagnostics.Debug.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then
                 Continue While
             End If
-
 
             If Status = RegionMaker.SIMSTATUSENUM.NoError Then
                 For Each R In GroupList
@@ -3308,7 +3306,6 @@ Public Class FormSetup
         FormInput.Visible = True
         FormInput.Select()
         FormInput.BringToFront()
-
 
     End Sub
 
