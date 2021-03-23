@@ -1158,7 +1158,9 @@
     <EmbeddedResource Include="FormTOS.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="My Project\Resources.ar-SA.resx" />
+    <EmbeddedResource Include="My Project\Resources.ar-SA.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.cs.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1597,6 +1599,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_sql_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_sql_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\row_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\picture_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\picture_empty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pictures.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map_add1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map_delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

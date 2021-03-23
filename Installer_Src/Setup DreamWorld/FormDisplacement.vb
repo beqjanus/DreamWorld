@@ -45,10 +45,10 @@ Public Class FormDisplacement
     Public Sub Init(Size As Integer, RegionUUID As String, Optional map As Boolean = True)
 
         If map Then
-            ToolStripMenuItem1.Visible = True
+            ToolStrip1.Visible = True
             HelpToolStripMenuItem.Visible = True
         Else
-            ToolStripMenuItem1.Visible = False
+            ToolStrip1.Visible = False
             HelpToolStripMenuItem.Visible = False
         End If
 
@@ -66,7 +66,6 @@ Public Class FormDisplacement
         'Dim dpiX As Double, dpiY As Double
         'Dim Graphics As Graphics = Me.CreateGraphics()
         'dpiX = Graphics.DpiX
-
 
         ' Dim scale = CInt(100 * Screen.PrimaryScreen.Bounds.Width / SystemParameters.PrimaryScreenWidth)
 
@@ -100,67 +99,61 @@ Public Class FormDisplacement
 
 #Region "Private Methods"
 
-    Private Sub ClearOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearOARToolStripMenuItem.Click
-
-        PropForceMerge = False
-        MergeOARToolStripMenuItem.Checked = False
-        ClearOARToolStripMenuItem.Checked = True
-
-    End Sub
-
-    Private Sub ForceTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceTerrainToolStripMenuItem.Click
-
-        PropForceTerrain = True
-        ForceTerrainToolStripMenuItem.Checked = True
-        OriginalTererainToolStripMenuItem.Checked = False
-
-    End Sub
-
     Private Sub FormDisplacement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        ClearOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Clear_and_Load_word
-        ForceTerrainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Terrain
+        TerrainToolstrip.Text = Global.Outworldz.My.Resources.Terrain_word
+        ClearLandandLoadMenu.Text = Global.Outworldz.My.Resources.Clear_and_Load_word
+        LoadTerrainMenu.Text = Global.Outworldz.My.Resources.Load_Terrain
+        ClearLandandLoadMenu.ToolTipText = Global.Outworldz.My.Resources.Clear_Terrain_tooltip
+        LoadTerrainMenu.ToolTipText = Global.Outworldz.My.Resources.Load_Terrain_tooltip
+
+        'help
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
-        IgnoreParcelToolStripMenuItem.Text = Global.Outworldz.My.Resources.Ignore_Parcel_word
-        LoadParcelToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Parcel
-        MergeOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Merge_OAR_word
-        MergingToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_blue
-        MergingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Merge_Objects_word
-        OriginalTererainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Ignore_Terrain_word
-        ParcelsToolStripMenuItem.Image = Global.Outworldz.My.Resources.text_align_justified
-        ParcelsToolStripMenuItem.Text = Global.Outworldz.My.Resources.Parcels
-        SetOwnerToolStripMenuItem.Image = Global.Outworldz.My.Resources.user3
-        SetOwnerToolStripMenuItem.Text = Global.Outworldz.My.Resources.Set_Owner_word
-        TerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Good
-        TerrainToolStripMenuItem.Text = Global.Outworldz.My.Resources.Terrain_word
-        ToolStripMenuItem1.Image = Global.Outworldz.My.Resources.package
-        ToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Options
+
+        'parcel
+        IgnoreParcels.Text = Global.Outworldz.My.Resources.Ignore_Parcel_word
+        MergeParcelsMenu.Text = Global.Outworldz.My.Resources.Load_Parcel
+        ParcelToolstrip.Text = Global.Outworldz.My.Resources.Parcels
+        MergeParcelsMenu.ToolTipText = Global.Outworldz.My.Resources.MergeParcels_tooltip
+        ParcelToolstrip.ToolTipText = Global.Outworldz.My.Resources.IgnoreParcels_tooltip
+
+        'terrain
+        TerrainToolstrip.Text = Global.Outworldz.My.Resources.Terrain_word
+        IgnoreTerrainMenu.Text = Global.Outworldz.My.Resources.Ignore_Terrain_word
+        OwnerMenu.Text = Global.Outworldz.My.Resources.Set_Owner_word
+        OwnerMenu.ToolTipText = Global.Outworldz.My.Resources.Set_Owner_tooltip
+
+        'objects
+        Objects.Text = Global.Outworldz.My.Resources.Objects_word
+        MergeObjectsMenu.Text = Global.Outworldz.My.Resources.Merge_Objects_word
+        ClearLandandLoadMenu.Text = Global.Outworldz.My.Resources.Clear_and_Load_word
+        ClearLandandLoadMenu.ToolTipText = Global.Outworldz.My.Resources.Clear_objects_tooltip
+        MergeObjectsMenu.ToolTipText = Global.Outworldz.My.Resources.Merge_objectstooltip
 
         PropSelectedBox = ""
         If PropForceParcel Then
-            LoadParcelToolStripMenuItem.Checked = True
-            IgnoreParcelToolStripMenuItem.Checked = False
+            MergeParcelsMenu.Checked = True
+            IgnoreParcels.Checked = False
         Else
-            LoadParcelToolStripMenuItem.Checked = False
-            IgnoreParcelToolStripMenuItem.Checked = True
-
+            MergeParcelsMenu.Checked = False
+            IgnoreParcels.Checked = True
         End If
 
         If PropForceTerrain Then
-            ForceTerrainToolStripMenuItem.Checked = True
-            OriginalTererainToolStripMenuItem.Checked = False
+            LoadTerrainMenu.Checked = True
+            IgnoreTerrainMenu.Checked = False
         Else
-            ForceTerrainToolStripMenuItem.Checked = False
-            OriginalTererainToolStripMenuItem.Checked = True
+            LoadTerrainMenu.Checked = False
+            IgnoreTerrainMenu.Checked = True
         End If
 
         If PropForceMerge Then
-            MergeOARToolStripMenuItem.Checked = True
-            ClearOARToolStripMenuItem.Checked = False
+            MergeObjectsMenu.Checked = True
+            ClearLandandLoadMenu.Checked = False
         Else
-            MergeOARToolStripMenuItem.Checked = False
-            ClearOARToolStripMenuItem.Checked = True
+            MergeObjectsMenu.Checked = False
+            ClearLandandLoadMenu.Checked = True
         End If
 
         HelpOnce("Load OAR")
@@ -171,47 +164,14 @@ Public Class FormDisplacement
         HelpManual("Load OAR")
     End Sub
 
-    Private Sub IgnoreParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcelToolStripMenuItem.Click
-
-        If sender Is Nothing Then Return
-        PropForceParcel = False
-        LoadParcelToolStripMenuItem.Checked = False
-        IgnoreParcelToolStripMenuItem.Checked = True
-
-    End Sub
-
-    Private Sub LoadParcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadParcelToolStripMenuItem.Click
-
-        If sender Is Nothing Then Return
-        PropForceParcel = True
-        LoadParcelToolStripMenuItem.Checked = True
-        IgnoreParcelToolStripMenuItem.Checked = False
-
-    End Sub
-
-    Private Sub MergeOARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeOARToolStripMenuItem.Click
-
-        If sender Is Nothing Then Return
-        PropForceMerge = True
-        MergeOARToolStripMenuItem.Checked = True
-        ClearOARToolStripMenuItem.Checked = False
-
-    End Sub
-
-    Private Sub OriginalTererainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OriginalTererainToolStripMenuItem.Click
-
-        If sender Is Nothing Then Return
-        PropForceTerrain = False
-        ForceTerrainToolStripMenuItem.Checked = False
-        OriginalTererainToolStripMenuItem.Checked = True
-
-    End Sub
-
     Private Sub PictureBox_Click(sender As Object, e As EventArgs)
 
         If sender Is Nothing Then Return
 
         Try
+            If sender.Tag Is Nothing Then
+                Me.Close()
+            End If
             Dim tag As String = sender.Tag.ToString
             PropSelectedBox = " --displacement " & tag & " "
         Catch ex As Exception
@@ -221,13 +181,9 @@ Public Class FormDisplacement
 
     End Sub
 
-    Private Sub SetOwnerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SetOwnerToolStripMenuItem.Click
-
-        PropUserName = InputBox(My.Resources.UnassignedPerson, "")
-
-    End Sub
-
 #End Region
+
+#Region "Photo"
 
     Private Shared Function MakePhotoOfRegion(regionUUID As String, X As Integer, Y As Integer) As Image
 
@@ -351,5 +307,63 @@ Public Class FormDisplacement
         Me.FormBorderStyle = x
 
     End Sub
+
+#End Region
+
+#Region "Toolbars"
+
+    Private Sub ClearAndLoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearLandandLoadMenu.Click
+
+        ClearLandandLoadMenu.Checked = True
+        MergeObjectsMenu.Checked = False
+        PropForceMerge = False
+
+    End Sub
+
+    Private Sub IgnoreParcelsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreParcels.Click
+
+        PropForceParcel = False
+        MergeParcelsMenu.Checked = False
+        IgnoreParcels.Checked = True
+
+    End Sub
+
+    Private Sub IgnoreTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IgnoreTerrainMenu.Click
+
+        PropForceTerrain = False
+        LoadTerrainMenu.Checked = False
+        IgnoreTerrainMenu.Checked = True
+
+    End Sub
+
+    Private Sub LoadTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadTerrainMenu.Click
+
+        PropForceTerrain = True
+        LoadTerrainMenu.Checked = True
+        IgnoreTerrainMenu.Checked = False
+
+    End Sub
+
+    Private Sub MergeObjectsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeObjectsMenu.Click
+
+        ClearLandandLoadMenu.Checked = False
+        MergeObjectsMenu.Checked = True
+        PropForceMerge = True
+
+    End Sub
+
+    Private Sub MergeParcelsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeParcelsMenu.Click
+
+        PropForceParcel = True
+        MergeParcelsMenu.Checked = True
+        IgnoreParcels.Checked = False
+
+    End Sub
+
+    Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles OwnerMenu.Click
+        PropUserName = InputBox(My.Resources.UnassignedPerson, "")
+    End Sub
+
+#End Region
 
 End Class

@@ -87,12 +87,6 @@ Public Class MySettings
 
     End Function
 
-    Public Function GetMapTime(UUID As String) As Integer
-
-        Return CInt("0" & GetMySetting("MapTime_" & PropRegionClass.RegionName(UUID), "0"))
-
-    End Function
-
     Public Function GetIni(section As String, key As String, Value As String, Optional V As String = Nothing) As Object
 
         Dim Variable = Stripqq(SettingsData(section)(key))
@@ -131,6 +125,12 @@ Public Class MySettings
 
     End Function
 
+    Public Function GetMapTime(UUID As String) As Integer
+
+        Return CInt("0" & GetMySetting("MapTime_" & PropRegionClass.RegionName(UUID), "0"))
+
+    End Function
+
     Public Function GetMySetting(key As String, Optional D As String = "") As String
 
         Try
@@ -138,7 +138,6 @@ Public Class MySettings
             If value = Nothing Then value = D
 
             Return value.ToString(Globalization.CultureInfo.InvariantCulture).Trim
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Return D
@@ -151,6 +150,7 @@ Public Class MySettings
         SetMySetting("BootTime_" & PropRegionClass.RegionName(UUID), CStr(DT))
 
     End Sub
+
     Public Sub SaveMapTime(DT As Integer, UUID As String)
 
         SetMySetting("MapTime_" & PropRegionClass.RegionName(UUID), CStr(DT))
@@ -2082,7 +2082,6 @@ Public Class MySettings
     ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
     Public Sub Grep(INI As String, LL As String)
-
 
         If INI Is Nothing Then Return
         Dim Retry = 100 ' 10 sec

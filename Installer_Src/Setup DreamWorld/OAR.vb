@@ -87,6 +87,10 @@ Module OAR
                         Dim ForceMerge As String = ""
                         If PropForceMerge Then ForceMerge = " --merge "
                         Dim UserName As String = ""
+                        If PropForceMerge Then
+                            Dim m = MsgBox(My.Resources.Erase_all, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Caution_word)
+                            If m = vbNo Or m = vbCancel Then Return
+                        End If
 
                         If PropUserName.Length > 0 Then
                             UserName = " --default-user " & """" & PropUserName & """" & " "
@@ -116,7 +120,7 @@ Module OAR
         Dim offset = VarChooser(RegionName)
         If offset.Length = 0 Then Return False
 
-        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word & " (" & RegionName & ")", vbYesNoCancel, Global.Outworldz.My.Resources.Backup_word)
+        Dim backMeUp = MsgBox(My.Resources.Make_a_backup_word & " (" & RegionName & ")", vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Question, Global.Outworldz.My.Resources.Backup_word)
         If backMeUp = vbCancel Then Return False
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
@@ -143,6 +147,10 @@ Module OAR
             If PropForceTerrain Then ForceTerrain = " --force-terrain "
             Dim ForceMerge As String = ""
             If PropForceMerge Then ForceMerge = " --merge "
+            If Not PropForceMerge Then
+                Dim m = MsgBox(My.Resources.Erase_all, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Caution_word)
+                If m = vbNo Or m = vbCancel Then Return False
+            End If
             Dim UserName As String = ""
             If PropUserName.Length > 0 Then UserName = " --default-user " & """" & PropUserName & """" & " "
 

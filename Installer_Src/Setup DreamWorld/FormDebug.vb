@@ -84,7 +84,7 @@ Public Class FormDebug
 
             Button2.Text = My.Resources.Stop_word
 
-            Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
+            Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
             If Caution <> MsgBoxResult.Yes Then Return
 
             If Abort Then
@@ -112,7 +112,7 @@ Public Class FormDebug
             Dim pattern As Regex = New Regex("(\d+),(\d+)")
             Dim match As Match = pattern.Match(coord)
             If Not match.Success Then
-                MsgBox(My.Resources.BadCoordinates)
+                MsgBox(My.Resources.BadCoordinates, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
                 Return
             End If
 
@@ -212,7 +212,6 @@ Public Class FormDebug
                     ConsoleCommand(RegionUUID, "generate map")
                     ConsoleCommand(RegionUUID, "backup")
                     ConsoleCommand(RegionUUID, "alert Power off!")
-
 
                     Sleep(5000)
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood

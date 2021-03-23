@@ -393,7 +393,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Update_is_available & ":" & Update_version)
 
-        Dim doUpdate = MsgBox(My.Resources.Update_is_available, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+        Dim doUpdate = MsgBox(My.Resources.Update_is_available, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Information, My.Resources.Update_is_available)
         If doUpdate = vbOK Then
 
             If DoStopActions() = False Then Return
@@ -462,7 +462,7 @@ Public Class FormSetup
         End If
         IcecastCrashCounter = 0
 
-        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
 
         If (yesno = vbYes) Then
             Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
@@ -478,7 +478,7 @@ Public Class FormSetup
     Public Function KillAll() As Boolean
 
         If ScanAgents() > 0 Then
-            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Information, My.Resources.Agents_word)
             If response = vbNo Then Return False
         End If
 
@@ -728,7 +728,7 @@ Public Class FormSetup
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
         If RegionUUID.Length = 0 And Settings.ServerType = RobustServerName Then
-            MsgBox(My.Resources.Default_Welcome, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+            MsgBox(My.Resources.Default_Welcome, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Question, My.Resources.Information_word)
             TextPrint(My.Resources.Stopped_word)
 #Disable Warning CA2000 ' Dispose objects before losing scope
             Dim FormRegions = New FormRegions
@@ -767,7 +767,7 @@ Public Class FormSetup
         End If
 
         If SetIniData() Then
-            MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
+            MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Error_word)
             Buttons(StartButton)
             TextPrint(My.Resources.Stopped_word)
             Return
@@ -1031,7 +1031,7 @@ Public Class FormSetup
         TextPrint(My.Resources.Check_Diag)
         Dim wsstarted = CheckPort("127.0.0.1", CType(Settings.DiagnosticPort, Integer))
         If wsstarted = False Then
-            MsgBox(My.Resources.Diag_Port_word & " " & Settings.DiagnosticPort & ". " & Global.Outworldz.My.Resources.Diag_Broken, MsgBoxStyle.Exclamation Or MsgBoxStyle.MsgBoxSetForeground)
+            MsgBox($"{My.Resources.Diag_Port_word} {Settings.DiagnosticPort} : {Global.Outworldz.My.Resources.Diag_Broken}", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             PropUseIcons = False
         End If
 
@@ -1335,7 +1335,7 @@ Public Class FormSetup
                     End If
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
                     StopGroup(GroupName)
-                    Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+                    Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
                         Try
                             System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.OpensimIniPath(RegionUUID) & "Opensim.log" & """")
@@ -1683,7 +1683,7 @@ Public Class FormSetup
         End Select
 
         If SetIniData() Then
-            MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
+            MsgBox("Failed to setup", MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Error_word)
             Buttons(StartButton)
             TextPrint(My.Resources.Stopped_word)
             Return
@@ -2196,7 +2196,7 @@ Public Class FormSetup
                     db = Settings.RegionDBName
                 End If
 
-                Dim yesno = MsgBox(My.Resources.Are_You_Sure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Restore_word)
+                Dim yesno = MsgBox(My.Resources.Are_You_Sure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, Global.Outworldz.My.Resources.Restore_word)
                 If yesno = vbYes Then
 
                     DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat"))

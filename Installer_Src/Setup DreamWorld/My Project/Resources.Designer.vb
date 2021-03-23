@@ -1479,11 +1479,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Clears all the objects in all squares and loads the OAR.
+        '''</summary>
+        Friend ReadOnly Property Clear_objects_tooltip() As String
+            Get
+                Return ResourceManager.GetString("Clear_objects_tooltip", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Clear Selected Caches.
         '''</summary>
         Friend ReadOnly Property Clear_Selected_Caches_word() As String
             Get
                 Return ResourceManager.GetString("Clear_Selected_Caches_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Do not overwrite the existing region&apos;s terrain..
+        '''</summary>
+        Friend ReadOnly Property Clear_Terrain_tooltip() As String
+            Get
+                Return ResourceManager.GetString("Clear_Terrain_tooltip", resourceCulture)
             End Get
         End Property
         
@@ -3118,6 +3136,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to This will erase the ENTIRE sim and load a new sim. Are you sure?.
+        '''</summary>
+        Friend ReadOnly Property Erase_all() As String
+            Get
+                Return ResourceManager.GetString("Erase_all", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Error: Could not launch DreamGridInstaller.exe..
         '''</summary>
         Friend ReadOnly Property ErrInstall() As String
@@ -4572,6 +4599,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Ignore the new parcel data..
+        '''</summary>
+        Friend ReadOnly Property IgnoreParcels_tooltip() As String
+            Get
+                Return ResourceManager.GetString("IgnoreParcels_tooltip", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Image Cache.
         '''</summary>
         Friend ReadOnly Property Image_Cache_word() As String
@@ -5089,6 +5125,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Force terrain loading on --merge. Normally, --merge does not overwrite the existing region&apos;s terrain..
+        '''</summary>
+        Friend ReadOnly Property Load_Terrain_tooltip() As String
+            Get
+                Return ResourceManager.GetString("Load_Terrain_tooltip", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to loaded..
         '''</summary>
         Friend ReadOnly Property Loaded_word() As String
@@ -5264,9 +5309,39 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property map() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("map", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property map_1_9510_10006_objects() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("map_1_9510_10006_objects", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property map_add() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("map_add", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property map_add1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("map_add1", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -5277,6 +5352,16 @@ Namespace My.Resources
         Friend ReadOnly Property Map_Center_Location_word() As String
             Get
                 Return ResourceManager.GetString("Map_Center_Location_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property map_delete() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("map_delete", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -5528,6 +5613,24 @@ Namespace My.Resources
         Friend ReadOnly Property Merge_Objects_word() As String
             Get
                 Return ResourceManager.GetString("Merge_Objects_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Merges the OAR without clearing any objects.
+        '''</summary>
+        Friend ReadOnly Property Merge_objectstooltip() As String
+            Get
+                Return ResourceManager.GetString("Merge_objectstooltip", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Overwrite the existing region&apos;s parcel data..
+        '''</summary>
+        Friend ReadOnly Property MergeParcels_tooltip() As String
+            Get
+                Return ResourceManager.GetString("MergeParcels_tooltip", resourceCulture)
             End Get
         End Property
         
@@ -6320,6 +6423,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Objects.
+        '''</summary>
+        Friend ReadOnly Property Objects_word() As String
+            Get
+                Return ResourceManager.GetString("Objects_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Open Dynamic Engine.
         '''</summary>
         Friend ReadOnly Property ODE_text() As String
@@ -6676,6 +6788,36 @@ Namespace My.Resources
         Friend ReadOnly Property picfilter() As String
             Get
                 Return ResourceManager.GetString("picfilter", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property picture_add() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("picture_add", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property picture_empty() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("picture_empty", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property pictures() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("pictures", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -7676,6 +7818,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property row_add() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("row_add", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Run All.
         '''</summary>
         Friend ReadOnly Property Run_All_word() As String
@@ -8118,6 +8270,15 @@ Namespace My.Resources
         Friend ReadOnly Property Set_Debug_Level_word() As String
             Get
                 Return ResourceManager.GetString("Set_Debug_Level_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to You can choose to give these to a person. Default is the Estate Owner..
+        '''</summary>
+        Friend ReadOnly Property Set_Owner_tooltip() As String
+            Get
+                Return ResourceManager.GetString("Set_Owner_tooltip", resourceCulture)
             End Get
         End Property
         
@@ -8842,6 +9003,26 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("table_sql", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property table_sql_add() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("table_sql_add", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property table_sql_delete() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("table_sql_delete", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
