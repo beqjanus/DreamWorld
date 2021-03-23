@@ -100,7 +100,6 @@ Partial Class FormDisplacement
         Me.MergeObjectsMenu.Name = "MergeObjectsMenu"
         Me.MergeObjectsMenu.Size = New System.Drawing.Size(180, 22)
         Me.MergeObjectsMenu.Text = "Merge Objects"
-
         '
         'ClearLandandLoadMenu
         '
@@ -122,14 +121,14 @@ Partial Class FormDisplacement
         '
         Me.LoadTerrainMenu.Image = Global.Outworldz.My.Resources.Resources.picture_add
         Me.LoadTerrainMenu.Name = "LoadTerrainMenu"
-        Me.LoadTerrainMenu.Size = New System.Drawing.Size(146, 22)
+        Me.LoadTerrainMenu.Size = New System.Drawing.Size(180, 22)
         Me.LoadTerrainMenu.Text = "Load Terrain"
         '
         'IgnoreTerrainMenu
         '
         Me.IgnoreTerrainMenu.Image = Global.Outworldz.My.Resources.Resources.picture_empty
         Me.IgnoreTerrainMenu.Name = "IgnoreTerrainMenu"
-        Me.IgnoreTerrainMenu.Size = New System.Drawing.Size(146, 22)
+        Me.IgnoreTerrainMenu.Size = New System.Drawing.Size(180, 22)
         Me.IgnoreTerrainMenu.Text = "Ignore Terrain"
         '
         'ParcelToolstrip
@@ -145,14 +144,14 @@ Partial Class FormDisplacement
         '
         Me.MergeParcelsMenu.Image = Global.Outworldz.My.Resources.Resources.map_add1
         Me.MergeParcelsMenu.Name = "MergeParcelsMenu"
-        Me.MergeParcelsMenu.Size = New System.Drawing.Size(148, 22)
+        Me.MergeParcelsMenu.Size = New System.Drawing.Size(180, 22)
         Me.MergeParcelsMenu.Text = "Merge Parcels"
         '
         'IgnoreParcels
         '
         Me.IgnoreParcels.Image = Global.Outworldz.My.Resources.Resources.map_delete
         Me.IgnoreParcels.Name = "IgnoreParcels"
-        Me.IgnoreParcels.Size = New System.Drawing.Size(148, 22)
+        Me.IgnoreParcels.Size = New System.Drawing.Size(180, 22)
         Me.IgnoreParcels.Text = "Ignore Parcels"
         '
         'OwnerMenu

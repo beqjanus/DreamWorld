@@ -87,7 +87,7 @@ Module OAR
                         Dim ForceMerge As String = ""
                         If PropForceMerge Then ForceMerge = " --merge "
                         Dim UserName As String = ""
-                        If PropForceMerge Then
+                        If Not PropForceMerge Then
                             Dim m = MsgBox(My.Resources.Erase_all, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Caution_word)
                             If m = vbNo Or m = vbCancel Then Return
                         End If
