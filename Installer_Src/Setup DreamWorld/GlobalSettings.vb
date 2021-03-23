@@ -7,7 +7,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.8996"
+    Public Const _MyVersion As String = "3.8997"
     Public Const _SimVersion As String = "#1610c3f741 mantis 8862"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
@@ -37,11 +37,11 @@ Module GlobalSettings
     Private _PropAborting As Boolean
     Private _regionClass As RegionMaker
     Private _SelectedBox As String = ""
+    Private _SkipSetup As Boolean = True
     Private _UpdateView As Boolean = True
     Private _XYINI As String ' global XY INI
-    Private _SkipSetup As Boolean = True
-#End Region
 
+#End Region
 
 #Region "Properties"
 
@@ -93,14 +93,6 @@ Module GlobalSettings
             _IsRunning = Value
         End Set
     End Property
-    Public Property SkipSetup() As Boolean
-        Get
-            Return _SkipSetup
-        End Get
-        Set(ByVal Value As Boolean)
-            _SkipSetup = Value
-        End Set
-    End Property
 
     Public Property PropRegionClass As RegionMaker
         Get
@@ -142,6 +134,15 @@ Module GlobalSettings
         End Get
         Set(value As MySettings)
             _mySetting = value
+        End Set
+    End Property
+
+    Public Property SkipSetup() As Boolean
+        Get
+            Return _SkipSetup
+        End Get
+        Set(ByVal Value As Boolean)
+            _SkipSetup = Value
         End Set
     End Property
 
@@ -192,10 +193,7 @@ Module GlobalSettings
 
 #End Region
 
-
 #Region "Functions"
-
-
 
     Public Function RobustName() As String
 

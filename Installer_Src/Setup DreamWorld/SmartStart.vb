@@ -61,6 +61,7 @@ Module SmartStart
     End Function
 
 #End Region
+
     Public Function CalcDiskFree() As Long
 
         Dim d = DriveInfo.GetDrives()
@@ -174,27 +175,26 @@ Module SmartStart
 
     Private Sub FreezeThaw(RegionUUID As String, Arg As String)
 
-        Dim SuspendProcess As New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+        Using SuspendProcess As New Process()
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                 .Arguments = Arg,
                 .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
             }
 
-        pi.CreateNoWindow = True
-        pi.WindowStyle = ProcessWindowStyle.Minimized
+            pi.CreateNoWindow = True
+            pi.WindowStyle = ProcessWindowStyle.Minimized
 
-        SuspendProcess.StartInfo = pi
+            SuspendProcess.StartInfo = pi
 
-        Try
-            SuspendProcess.Start()
-            SuspendProcess.WaitForExit()
-            PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        Finally
-            SuspendProcess.Close()
-            SuspendProcess.Dispose()
-        End Try
+            Try
+                SuspendProcess.Start()
+                SuspendProcess.WaitForExit()
+                PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+
+            End Try
+        End Using
 
     End Sub
 
