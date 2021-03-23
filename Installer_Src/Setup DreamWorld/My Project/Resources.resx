@@ -3491,4 +3491,13 @@
   <data name="Erase_all" xml:space="preserve">
     <value>This will erase the ENTIRE sim and load a new sim. Are you sure?</value>
   </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>checking</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>No overlapping regions</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potential overlapping regions</value>
+  </data>
 </root>

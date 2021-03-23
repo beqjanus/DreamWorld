@@ -120,8 +120,6 @@ Public Class FormDebug
             Dim Y As Integer = CInt(match.Groups(2).Value)
             Dim StartX As Integer = X
 
-            StartMySQL()
-
             If Abort Then
                 Button2.Text = My.Resources.Apply_word
                 Return
@@ -131,7 +129,14 @@ Public Class FormDebug
                 MysqlInterface.DeregisterRegions(False)
             End If
 
-            FormSetup.StartOpensimulator()
+            FormSetup.Buttons(FormSetup.BusyButton)
+            PropOpensimIsRunning() = True
+            If Not StartMySQL() Then Return
+            If Not StartRobust() Then Return
+            If FormSetup.Timer1.Enabled = False Then
+                FormSetup.Timer1.Interval = 1000
+                FormSetup.Timer1.Start() 'Timer starts functioning
+            End If
 
             Dim Max As Integer
             Try
@@ -141,11 +146,20 @@ Public Class FormDebug
                     Dim Name = J.Name
 
                     Dim shortname = IO.Path.GetFileNameWithoutExtension(Name)
-
+                    Dim RegionUUID As String
                     Dim p = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
-                    If IO.File.Exists(p) Then Continue For
+                    If Not IO.File.Exists(p) Then
+                        RegionUUID = PropRegionClass.CreateRegion(shortname)
+                    Else
+                        RegionUUID = PropRegionClass.FindRegionByName(shortname)
+                    End If
 
-                    Dim RegionUUID = PropRegionClass.CreateRegion(shortname)
+                    Dim g = New Guid
+                    If Not Guid.TryParse(RegionUUID, g) Then
+                        Continue For
+                    End If
+
+                    PropRegionClass.CrashCounter(RegionUUID) = 0
 
                     ' setup parameters for the load
                     Dim sizerow As Integer = 256
@@ -196,24 +210,29 @@ Public Class FormDebug
                     ReBoot(RegionUUID)
 
                     Sleep(3000)
-                    If Estate.Length > 0 Then
-                        ConsoleCommand(RegionUUID, "{ENTER}")
-                        ConsoleCommand(RegionUUID, Estate)
-                    Else
-                        ConsoleCommand(RegionUUID, "?")
-                        ProgressPrint(My.Resources.EnterEstateName)
-                    End If
+
                     If Abort Then Exit For
-                    Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
+                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted And Not Abort
+                        Sleep(1000)
+                    End While
 
-                    ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
-                    ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
-                    ConsoleCommand(RegionUUID, "generate map")
-                    ConsoleCommand(RegionUUID, "backup")
-                    ConsoleCommand(RegionUUID, "alert Power off!")
+                    If GetPrimCount(RegionUUID) = 0 Then
+                        Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
+                        If Estate.Length > 0 And MysqlInterface.EstateName(RegionUUID).Length = 0 Then
+                            ConsoleCommand(RegionUUID, "{ENTER}")
+                            ConsoleCommand(RegionUUID, Estate)
+                        Else
+                            ProgressPrint(My.Resources.EnterEstateName)
+                        End If
+                        ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
+                        ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
+                        ConsoleCommand(RegionUUID, "generate map")
+                        ConsoleCommand(RegionUUID, "backup")
+                        ConsoleCommand(RegionUUID, "alert Power off!")
+                        Sleep(5000)
+                    End If
 
-                    Sleep(5000)
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     PropUpdateView = True
                     ConsoleCommand(RegionUUID, "q")

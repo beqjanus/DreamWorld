@@ -1,7 +1,6 @@
 #Region "Copyright AGPL3.0"
 
-' Copyright Outworldz, LLC.
-' AGPL3.0  https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC. AGPL3.0 https://opensource.org/licenses/AGPL
 
 #End Region
 
@@ -169,9 +168,7 @@ Public Class FormDisplacement
         If sender Is Nothing Then Return
 
         Try
-            If sender.Tag Is Nothing Then
-                Me.Close()
-            End If
+            If sender.Tag Is Nothing Then Me.Close()
             Dim tag As String = sender.Tag.ToString
             PropSelectedBox = " --displacement " & tag & " "
         Catch ex As Exception

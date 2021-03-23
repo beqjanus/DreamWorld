@@ -1,7 +1,6 @@
 #Region "Copyright AGPL3.0"
 
-' Copyright Outworldz, LLC.
-' AGPL3.0  https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC. AGPL3.0 https://opensource.org/licenses/AGPL
 
 #End Region
 
@@ -103,7 +102,7 @@ Public Class RegionMaker
 
     Public Function Init() As Boolean
 
-        If GetAllRegions() = -1 Then Return False
+        GetAllRegions()
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
             Settings.WelcomeRegion = "Welcome"
@@ -368,21 +367,19 @@ Public Class RegionMaker
                         .Y = CoordY(RegionUUID) + Y
                     }
                     Regionlist.Add(map)
-                    '   If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then
-                    '  Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}")
-                    ' End If
+                    ' If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}") End If
                 Next
             Next
         Next
 
-        TextPrint($"-> Checking {Regionlist.Count} possible overlaps")
+        TextPrint($"-> {My.Resources.checking_word} {Regionlist.Count} {My.Resources.potential_overlap}")
 
         For Each Pass1 In Regionlist
             For Each Pass2 In Regionlist
                 If Pass1.Name = Pass2.Name Then Continue For ' don't check itself
 
                 'If Pass1.Name.Contains("MartinBassManSlad") AndAlso Pass2.Name.Contains("Maya") Then
-                'Diagnostics.Debug.Print($"{Pass1.Name}={Pass1.X},{Pass1.Y}  {Pass2.Name}={Pass2.X},{Pass2.Y}")
+                'Diagnostics.Debug.Print($"{Pass1.Name}={Pass1.X}, {Pass1.Y}  {Pass2.Name}={Pass2.X}, {Pass2.Y}")
                 'End If
 
                 If (Pass1.X = Pass2.X) AndAlso (Pass1.Y = Pass2.Y) Then
@@ -392,7 +389,9 @@ Public Class RegionMaker
             Next
         Next
         If FailedCheck Then
-            TextPrint($"** FAILED **")
+            TextPrint($"-> ** {My.Resources.Error_word} **")
+        Else
+            TextPrint($"-> " & My.Resources.No_Overlaps)
         End If
 
         Return FailedCheck
@@ -404,7 +403,7 @@ Public Class RegionMaker
         Dim i As Integer = 0
         For Each obj As Region_data In Backup
             If Name = obj._RegionName Then
-                ' Debug.Print("Current Backup is " + obj._RegionName)
+                ' Debug.Print("Current Backup Is " + obj._RegionName)
                 Return i
             End If
             i += 1
@@ -464,7 +463,7 @@ Public Class RegionMaker
 
                             Dim SomeUUID As New Guid
                             If Not Guid.TryParse(uuid, SomeUUID) Then
-                                MsgBox("Cannot read uuid in INI file for " & fName)
+                                MsgBox("Cannot read uuid In INI file For " & fName)
                                 Return -1
                             End If
 
@@ -2260,7 +2259,7 @@ Public Class RegionMaker
         Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName())
         Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid)))
 
-        ' not a standard  only use by the Dreamers
+        ' not a standard only use by the Dreamers
         If RegionEnabled(uuid) Then
             Settings.SetIni(Name, "Enabled", "True")
         Else

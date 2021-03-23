@@ -1,7 +1,6 @@
 ﻿#Region "Copyright AGPL3.0"
 
-' Copyright Outworldz, LLC.
-' AGPL3.0  https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC. AGPL3.0 https://opensource.org/licenses/AGPL
 
 #End Region
 
@@ -246,7 +245,7 @@ Module SmartStart
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
-
+                ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeShowWindow())
                 Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
                 PropUpdateView = True ' make form refresh
                 Return True
@@ -259,9 +258,8 @@ Module SmartStart
                     PropRegionClass.Timer(UUID) = Date.Now
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
-
+                ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeHideWindow())
                 PropUpdateView = True ' make form refresh
-
                 Return True
             End If
         End If

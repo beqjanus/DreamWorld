@@ -1,7 +1,6 @@
 ﻿#Region "Copyright AGPL3.0"
 
-' Copyright Outworldz, LLC.
-' AGPL3.0  https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC. AGPL3.0 https://opensource.org/licenses/AGPL
 
 #End Region
 
@@ -357,9 +356,7 @@ Public Class FormSetup
 
 #Region "Updater"
 
-    ''' <summary>
-    ''' Checks the Outworldz Web site to see if a new version exist,.
-    ''' </summary>
+    ''' <summary>Checks the Outworldz Web site to see if a new version exist,.</summary>
     Public Sub CheckForUpdates()
 
         Using client As New WebClient ' download client for web pages
@@ -422,9 +419,7 @@ Public Class FormSetup
 
 #Region "Misc"
 
-    ''' <summary>
-    ''' Brings up a region chooser with no buttons, of all regions
-    ''' </summary>
+    ''' <summary>Brings up a region chooser with no buttons, of all regions</summary>
     Public Shared Sub ShowRegionMap()
 
         Dim region = ChooseRegion(False)
@@ -446,9 +441,7 @@ Public Class FormSetup
 
     End Function
 
-    ''' <summary>
-    ''' Event handler for Icecast
-    ''' </summary>
+    ''' <summary>Event handler for Icecast</summary>
     Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
 
         RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
@@ -2261,15 +2254,6 @@ Public Class FormSetup
         Dim A = GetAgentList()
         Dim B = GetHGAgentList()
         Dim C As New Dictionary(Of String, String)
-
-        'If Debugger.IsAttached Then
-        'Try
-        'A.Add("Ferd Frederix", "Welcome")
-        'B.Add("Nyira Machabelli", "Welcome")
-        'Catch ex As Exception
-        '' BreakPoint.Show(ex.Message)
-        'End Try
-        'End If
 
         ' Merge the two
         For Each keyname In A
