@@ -3434,4 +3434,13 @@
   <data name="Available" xml:space="preserve">
     <value>Available</value>
   </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>checking</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>No overlapping regions</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potential overlapping regions</value>
+  </data>
 </root>

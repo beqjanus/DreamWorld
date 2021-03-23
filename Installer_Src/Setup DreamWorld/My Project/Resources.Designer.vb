@@ -1371,6 +1371,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to checking.
+        '''</summary>
+        Friend ReadOnly Property checking_word() As String
+            Get
+                Return ResourceManager.GetString("checking_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Chinese Simplifed.
         '''</summary>
         Friend ReadOnly Property Chinese_Simplifed() As String
@@ -6049,6 +6058,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to No overlapping regions.
+        '''</summary>
+        Friend ReadOnly Property No_Overlaps() As String
+            Get
+                Return ResourceManager.GetString("No_Overlaps", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Do not publish this region.
         '''</summary>
         Friend ReadOnly Property No_Publish_Items() As String
@@ -6766,6 +6784,15 @@ Namespace My.Resources
         Friend ReadOnly Property Portuguese() As String
             Get
                 Return ResourceManager.GetString("Portuguese", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to potential overlapping regions.
+        '''</summary>
+        Friend ReadOnly Property potential_overlap() As String
+            Get
+                Return ResourceManager.GetString("potential_overlap", resourceCulture)
             End Get
         End Property
         
