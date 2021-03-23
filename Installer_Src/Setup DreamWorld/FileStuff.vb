@@ -270,6 +270,7 @@ Module FileStuff
         ' Delete old Apache logs
         Dim ApacheLogPath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache")
 
+        FileIO.FileSystem.CreateDirectory(ApacheLogPath)
         Dim currentdatetime As Date = Date.Now
 
         Dim directory As New System.IO.DirectoryInfo(ApacheLogPath)
