@@ -1,7 +1,6 @@
 #Region "Copyright AGPL3.0"
 
-' Copyright Outworldz, LLC.
-' AGPL3.0  https://opensource.org/licenses/AGPL
+' Copyright Outworldz, LLC. AGPL3.0 https://opensource.org/licenses/AGPL
 
 #End Region
 
@@ -103,7 +102,7 @@ Public Class RegionMaker
 
     Public Function Init() As Boolean
 
-        If GetAllRegions() = -1 Then Return False
+        GetAllRegions()
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
             Settings.WelcomeRegion = "Welcome"
@@ -368,9 +367,7 @@ Public Class RegionMaker
                         .Y = CoordY(RegionUUID) + Y
                     }
                     Regionlist.Add(map)
-                    '   If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then
-                    '  Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}")
-                    ' End If
+                    ' If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}") End If
                 Next
             Next
         Next
@@ -2260,7 +2257,7 @@ Public Class RegionMaker
         Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName())
         Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid)))
 
-        ' not a standard  only use by the Dreamers
+        ' not a standard only use by the Dreamers
         If RegionEnabled(uuid) Then
             Settings.SetIni(Name, "Enabled", "True")
         Else
