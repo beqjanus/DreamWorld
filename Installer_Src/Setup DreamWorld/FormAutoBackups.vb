@@ -235,6 +235,8 @@ Public Class FormAutoBackups
             Dim B As New Backups
             B.BackupSQLDB(Settings.RobustDataBaseName)
         End If
+        Dim C As New Backups
+        C.BackupSQLDB("Joomla")
 
     End Sub
 

@@ -56,7 +56,7 @@ Public Class Backups
 
             'used to zip it, zip it good
             _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
-            If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
+            FileIO.FileSystem.CreateDirectory(_folder)
 
             Dim _filename = "Backup_" & Name & "_" & whenrun & ".sql"
             Dim SQLFile = IO.Path.Combine(_folder, _filename)
@@ -81,6 +81,12 @@ Public Class Backups
                 user = Settings.RobustUsername
                 password = Settings.RobustPassword
                 dbname = Settings.RobustDataBaseName
+            ElseIf OP = "Joomla" Then
+                port = CStr(Settings.MySqlRegionDBPort)
+                host = Settings.RegionServer
+                user = Settings.RegionDBUsername
+                password = Settings.RegionDbPassword
+                dbname = "jOpensim"
             Else
                 port = CStr(Settings.MySqlRegionDBPort)
                 host = Settings.RegionServer
@@ -225,7 +231,7 @@ Public Class Backups
 
         'used to zip it, zip it good
         _folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp\Backup_" & DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture))
-        If Not System.IO.Directory.Exists(_folder) Then MkDir(_folder)
+        FileIO.FileSystem.CreateDirectory(_folder)
 
         Dim Foldername = "Backup_" + DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)   ' Set default folder
         Dim Bak = IO.Path.Combine(_folder, Foldername & ".zip")
@@ -237,6 +243,7 @@ Public Class Backups
 
             Try
                 If Settings.BackupWifi Then
+                    Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\jOpensim\\"), "jOpensim")
                     Z.AddDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom\"), "WifiPages-Custom")
                     zipused = True
                 End If

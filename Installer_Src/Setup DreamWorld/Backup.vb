@@ -10,9 +10,7 @@
 
         If Not IO.Directory.Exists(BackupPath) Then
             BackupPath = IO.Path.Combine(FormSetup.PropCurSlashDir, "OutworldzFiles/Autobackup")
-            If Not IO.Directory.Exists(BackupPath) Then
-                MkDir(BackupPath)
-            End If
+            FileIO.FileSystem.CreateDirectory(BackupPath)
             Settings.BackupFolder = BackupPath
         End If
 
