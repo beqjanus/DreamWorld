@@ -144,7 +144,6 @@
 \OutworldzFiles\Opensim\bin\lib64\sqlite3.dll
 \OutworldzFiles\Opensim\bin\lib64\de\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\lib64\en\Diva.Wifi.resources.dll
-\OutworldzFiles\Opensim\bin\lib64\es\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\lib64\fr\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\lib64\pt\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\pt\Diva.Wifi.resources.dll
