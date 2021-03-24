@@ -32,8 +32,8 @@ Partial Class FormDisplacement
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.Objects = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.MergeObjectsMenu = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ClearLandandLoadMenu = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClearObjects = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MergeObject = New System.Windows.Forms.ToolStripMenuItem()
         Me.TerrainToolstrip = New System.Windows.Forms.ToolStripDropDownButton()
         Me.LoadTerrainMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.IgnoreTerrainMenu = New System.Windows.Forms.ToolStripMenuItem()
@@ -89,24 +89,24 @@ Partial Class FormDisplacement
         '
         'Objects
         '
-        Me.Objects.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MergeObjectsMenu, Me.ClearLandandLoadMenu})
+        Me.Objects.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ClearObjects, Me.MergeObject})
         Me.Objects.Name = "Objects"
         Me.Objects.Size = New System.Drawing.Size(60, 22)
         Me.Objects.Text = "Objects"
         '
-        'MergeObjectsMenu
+        'ClearObjects
         '
-        Me.MergeObjectsMenu.Image = Global.Outworldz.My.Resources.Resources.table_sql_add
-        Me.MergeObjectsMenu.Name = "MergeObjectsMenu"
-        Me.MergeObjectsMenu.Size = New System.Drawing.Size(180, 22)
-        Me.MergeObjectsMenu.Text = "Merge Objects"
+        Me.ClearObjects.Image = Global.Outworldz.My.Resources.Resources.table_sql_delete
+        Me.ClearObjects.Name = "ClearObjects"
+        Me.ClearObjects.Size = New System.Drawing.Size(180, 22)
+        Me.ClearObjects.Text = "Clear All Objects"
         '
-        'ClearLandandLoadMenu
+        'MergeObject
         '
-        Me.ClearLandandLoadMenu.Image = Global.Outworldz.My.Resources.Resources.table_sql_delete
-        Me.ClearLandandLoadMenu.Name = "ClearLandandLoadMenu"
-        Me.ClearLandandLoadMenu.Size = New System.Drawing.Size(180, 22)
-        Me.ClearLandandLoadMenu.Text = "Clear All Objects"
+        Me.MergeObject.Image = Global.Outworldz.My.Resources.Resources.table_sql_add
+        Me.MergeObject.Name = "MergeObject"
+        Me.MergeObject.Size = New System.Drawing.Size(180, 22)
+        Me.MergeObject.Text = "Merge Objects"
         '
         'TerrainToolstrip
         '
@@ -121,14 +121,14 @@ Partial Class FormDisplacement
         '
         Me.LoadTerrainMenu.Image = Global.Outworldz.My.Resources.Resources.picture_add
         Me.LoadTerrainMenu.Name = "LoadTerrainMenu"
-        Me.LoadTerrainMenu.Size = New System.Drawing.Size(180, 22)
+        Me.LoadTerrainMenu.Size = New System.Drawing.Size(146, 22)
         Me.LoadTerrainMenu.Text = "Load Terrain"
         '
         'IgnoreTerrainMenu
         '
         Me.IgnoreTerrainMenu.Image = Global.Outworldz.My.Resources.Resources.picture_empty
         Me.IgnoreTerrainMenu.Name = "IgnoreTerrainMenu"
-        Me.IgnoreTerrainMenu.Size = New System.Drawing.Size(180, 22)
+        Me.IgnoreTerrainMenu.Size = New System.Drawing.Size(146, 22)
         Me.IgnoreTerrainMenu.Text = "Ignore Terrain"
         '
         'ParcelToolstrip
@@ -144,14 +144,14 @@ Partial Class FormDisplacement
         '
         Me.MergeParcelsMenu.Image = Global.Outworldz.My.Resources.Resources.map_add1
         Me.MergeParcelsMenu.Name = "MergeParcelsMenu"
-        Me.MergeParcelsMenu.Size = New System.Drawing.Size(180, 22)
+        Me.MergeParcelsMenu.Size = New System.Drawing.Size(148, 22)
         Me.MergeParcelsMenu.Text = "Merge Parcels"
         '
         'IgnoreParcels
         '
         Me.IgnoreParcels.Image = Global.Outworldz.My.Resources.Resources.map_delete
         Me.IgnoreParcels.Name = "IgnoreParcels"
-        Me.IgnoreParcels.Size = New System.Drawing.Size(180, 22)
+        Me.IgnoreParcels.Size = New System.Drawing.Size(148, 22)
         Me.IgnoreParcels.Text = "Ignore Parcels"
         '
         'OwnerMenu
@@ -189,8 +189,7 @@ Partial Class FormDisplacement
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents ToolStripButton1 As ToolStripButton
     Friend WithEvents Objects As ToolStripDropDownButton
-    Friend WithEvents MergeObjectsMenu As ToolStripMenuItem
-    Friend WithEvents ClearLandandLoadMenu As ToolStripMenuItem
+    Friend WithEvents ClearObjects As ToolStripMenuItem
     Friend WithEvents TerrainToolstrip As ToolStripDropDownButton
     Friend WithEvents LoadTerrainMenu As ToolStripMenuItem
     Friend WithEvents IgnoreTerrainMenu As ToolStripMenuItem
@@ -198,4 +197,5 @@ Partial Class FormDisplacement
     Friend WithEvents MergeParcelsMenu As ToolStripMenuItem
     Friend WithEvents IgnoreParcels As ToolStripMenuItem
     Friend WithEvents OwnerMenu As ToolStripButton
+    Friend WithEvents MergeObject As ToolStripMenuItem
 End Class

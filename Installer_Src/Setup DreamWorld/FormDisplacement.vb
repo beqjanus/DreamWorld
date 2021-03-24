@@ -101,9 +101,9 @@ Public Class FormDisplacement
     Private Sub FormDisplacement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         TerrainToolstrip.Text = Global.Outworldz.My.Resources.Terrain_word
-        ClearLandandLoadMenu.Text = Global.Outworldz.My.Resources.Clear_and_Load_word
+        ClearObjects.Text = Global.Outworldz.My.Resources.Clear_and_Load_word
         LoadTerrainMenu.Text = Global.Outworldz.My.Resources.Load_Terrain
-        ClearLandandLoadMenu.ToolTipText = Global.Outworldz.My.Resources.Clear_Terrain_tooltip
+        ClearObjects.ToolTipText = Global.Outworldz.My.Resources.Clear_Terrain_tooltip
         LoadTerrainMenu.ToolTipText = Global.Outworldz.My.Resources.Load_Terrain_tooltip
 
         'help
@@ -125,10 +125,10 @@ Public Class FormDisplacement
 
         'objects
         Objects.Text = Global.Outworldz.My.Resources.Objects_word
-        MergeObjectsMenu.Text = Global.Outworldz.My.Resources.Merge_Objects_word
-        ClearLandandLoadMenu.Text = Global.Outworldz.My.Resources.Clear_and_Load_word
-        ClearLandandLoadMenu.ToolTipText = Global.Outworldz.My.Resources.Clear_objects_tooltip
-        MergeObjectsMenu.ToolTipText = Global.Outworldz.My.Resources.Merge_objectstooltip
+        MergeObject.Text = Global.Outworldz.My.Resources.Merge_Objects_word
+        ClearObjects.Text = Global.Outworldz.My.Resources.Clear_and_Load_word
+        ClearObjects.ToolTipText = Global.Outworldz.My.Resources.Clear_objects_tooltip
+        MergeObject.ToolTipText = Global.Outworldz.My.Resources.Merge_objectstooltip
 
         PropSelectedBox = ""
         If PropForceParcel Then
@@ -148,11 +148,11 @@ Public Class FormDisplacement
         End If
 
         If PropForceMerge Then
-            MergeObjectsMenu.Checked = True
-            ClearLandandLoadMenu.Checked = False
+            MergeObject.Checked = True
+            ClearObjects.Checked = False
         Else
-            MergeObjectsMenu.Checked = False
-            ClearLandandLoadMenu.Checked = True
+            MergeObject.Checked = False
+            ClearObjects.Checked = True
         End If
 
         HelpOnce("Load OAR")
@@ -309,10 +309,10 @@ Public Class FormDisplacement
 
 #Region "Toolbars"
 
-    Private Sub ClearAndLoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearLandandLoadMenu.Click
+    Private Sub ClearAndLoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearObjects.Click
 
-        ClearLandandLoadMenu.Checked = True
-        MergeObjectsMenu.Checked = False
+        ClearObjects.Checked = True
+        MergeObject.Checked = False
         PropForceMerge = False
 
     End Sub
@@ -341,10 +341,10 @@ Public Class FormDisplacement
 
     End Sub
 
-    Private Sub MergeObjectsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MergeObjectsMenu.Click
+    Private Sub MergeObject_Click(sender As Object, e As EventArgs) Handles MergeObject.Click
 
-        ClearLandandLoadMenu.Checked = False
-        MergeObjectsMenu.Checked = True
+        ClearObjects.Checked = False
+        MergeObject.Checked = True
         PropForceMerge = True
 
     End Sub

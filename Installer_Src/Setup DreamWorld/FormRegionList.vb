@@ -1176,7 +1176,7 @@ Public Class FormRegionlist
                 PropRegionClass.RegionEnabled(RegionUUID) = True
             End If
             Dim INI = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
-            If INI Is Nothing Or INI = "" Then Return
+            If INI Is Nothing Or INI.Length = 0 Then Return
             Settings.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
             Settings.SaveINI(INI, System.Text.Encoding.UTF8)
         Next
@@ -1346,7 +1346,6 @@ SetWindowOnTop_Err:
             RegionForm.Select()
 
         ElseIf chosen = "Restart" Then
-
 
             FormSetup.Buttons(FormSetup.BusyButton)
             FormSetup.SequentialPause()
