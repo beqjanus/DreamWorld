@@ -220,7 +220,7 @@ namespace OpenSim
             if (startupConfig != null)
             {
                 // refuse to run MegaRegions
-                if(startupConfig.GetBoolean("CombineContiguousRegions", false))
+                if (startupConfig.GetBoolean("CombineContiguousRegions", false))
                 {
                     m_log.Fatal("CombineContiguousRegions (MegaRegions) option is no longer suported. Use a older version to save region contents as OAR, then import into a fresh install of this new version");
                     throw new Exception("CombineContiguousRegions not suported");
@@ -237,7 +237,7 @@ namespace OpenSim
                 string permissionModules = Util.GetConfigVarFromSections<string>(Config, "permissionmodules",
                     new string[] { "Startup", "Permissions" }, "DefaultPermissionsModule");
 
-                m_permsModules =  new List<string>(permissionModules.Split(',').Select(m => m.Trim()));
+                m_permsModules = new List<string>(permissionModules.Split(',').Select(m => m.Trim()));
 
                 managedStatsURI = startupConfig.GetString("ManagedStatsRemoteFetchURI", String.Empty);
                 managedStatsPassword = startupConfig.GetString("ManagedStatsRemoteFetchPassword", String.Empty);
@@ -260,7 +260,7 @@ namespace OpenSim
                         module));
 
             // Load the estate data service
-            module = Util.GetConfigVarFromSections<string>(Config, "LocalServiceModule", new string[]{"EstateDataStore", "EstateService"}, String.Empty);
+            module = Util.GetConfigVarFromSections<string>(Config, "LocalServiceModule", new string[] { "EstateDataStore", "EstateService" }, String.Empty);
             if (String.IsNullOrEmpty(module))
                 throw new Exception("Configuration file is missing the LocalServiceModule parameter in the [EstateDataStore] or [EstateService] section");
 
@@ -353,8 +353,7 @@ namespace OpenSim
             if (startupConfig == null || startupConfig.GetBoolean("JobEngineEnabled", true))
                 WorkManager.JobEngine.Start();
 
-           
-            if(m_networkServersInfo.HttpUsesSSL)
+            if (m_networkServersInfo.HttpUsesSSL)
             {
                 m_httpServerSSL = true;
                 m_httpServerPort = m_networkServersInfo.httpSSLPort;
@@ -424,9 +423,9 @@ namespace OpenSim
 
             // set initial ServerURI
             regionInfo.HttpPort = m_httpServerPort;
-            if(m_httpServerSSL)
+            if (m_httpServerSSL)
             {
-                if(!m_httpServer.CheckSSLCertHost(regionInfo.ExternalHostName))
+                if (!m_httpServer.CheckSSLCertHost(regionInfo.ExternalHostName))
                     throw new Exception("main http cert CN doesn't match region External IP");
 
                 regionInfo.ServerURI = "https://" + regionInfo.ExternalHostName +
@@ -467,10 +466,10 @@ namespace OpenSim
             }
 
             scene.SetModuleInterfaces();
-// First Step of bootreport sequence
+            // First Step of bootreport sequence
             if (scene.SnmpService != null)
             {
-                scene.SnmpService.ColdStart(1,scene);
+                scene.SnmpService.ColdStart(1, scene);
                 scene.SnmpService.LinkDown(scene);
             }
 
@@ -542,7 +541,7 @@ namespace OpenSim
             {
                 scene.SnmpService.BootInfo("Initializing region modules", scene);
             }
-            scene.EventManager.OnShutdown += delegate() { ShutdownRegion(scene); };
+            scene.EventManager.OnShutdown += delegate () { ShutdownRegion(scene); };
 
             mscene = scene;
 
@@ -592,8 +591,7 @@ namespace OpenSim
             }
 
             MainConsole.Instance.Output("Estate {0} has no owner set.", regionInfo.EstateSettings.EstateName);
-            List<char> excluded = new List<char>(new char[1]{' '});
-
+            List<char> excluded = new List<char>(new char[1] { ' ' });
 
             if (estateOwnerFirstName == null || estateOwnerLastName == null)
             {
@@ -606,19 +604,17 @@ namespace OpenSim
 
             if (account == null)
             {
-
                 // XXX: The LocalUserAccountServicesConnector is currently registering its inner service rather than
                 // itself!
-//                    if (scene.UserAccountService is LocalUserAccountServicesConnector)
-//                    {
-//                        IUserAccountService innerUas
-//                            = ((LocalUserAccountServicesConnector)scene.UserAccountService).UserAccountService;
-//
-//                        m_log.DebugFormat("B {0}", innerUas.GetType());
-//
-//                        if (innerUas is UserAccountService)
-//                        {
-
+                //                    if (scene.UserAccountService is LocalUserAccountServicesConnector)
+                //                    {
+                //                        IUserAccountService innerUas
+                //                            = ((LocalUserAccountServicesConnector)scene.UserAccountService).UserAccountService;
+                //
+                //                        m_log.DebugFormat("B {0}", innerUas.GetType());
+                //
+                //                        if (innerUas is UserAccountService)
+                //                        {
                 if (scene.UserAccountService is UserAccountService)
                 {
                     if (estateOwnerPassword == null)
@@ -829,7 +825,7 @@ namespace OpenSim
         /// </remarks>
         public class SimStatusHandler : SimpleStreamHandler
         {
-            public SimStatusHandler() : base("/simstatus", "SimStatus") {}
+            public SimStatusHandler() : base("/simstatus", "SimStatus") { }
 
             protected override void ProcessRequest(IOSHttpRequest httpRequest, IOSHttpResponse httpResponse)
             {
@@ -845,7 +841,7 @@ namespace OpenSim
         /// </summary>
         public class XSimStatusHandler : SimpleStreamHandler
         {
-            OpenSimBase m_opensim;
+            private OpenSimBase m_opensim;
 
             public XSimStatusHandler(OpenSimBase sim)
                 : base("/" + Util.SHA1Hash(sim.osSecret), "XSimStatus")
@@ -868,7 +864,6 @@ namespace OpenSim
             }
         }
 
-
         /// <summary>
         /// Handler to supply the current extended status of this sim to a user configured URI
         /// Sends the statistical data in a json serialization
@@ -877,7 +872,7 @@ namespace OpenSim
         /// </summary>
         protected class UXSimStatusHandler : SimpleStreamHandler
         {
-            OpenSimBase m_opensim;
+            private OpenSimBase m_opensim;
 
             public UXSimStatusHandler(OpenSimBase sim)
                 : base("/" + sim.userStatsURI, "UXSimStatus")
@@ -906,6 +901,7 @@ namespace OpenSim
         public class SimRobotsHandler : SimpleStreamHandler
         {
             private readonly byte[] binmsg;
+
             public SimRobotsHandler() : base("/robots.txt", "SimRobots")
             {
                 binmsg = Util.UTF8.GetBytes("# go away\nUser-agent: *\nDisallow: /\n");
@@ -1161,10 +1157,10 @@ namespace OpenSim
                         MainConsole.Instance.Output("Joining the estate failed. Please try again.");
                     }
                 }
-    	    }
+            }
 
-    	    return true;	// need to update the database
-    	}
+            return true;    // need to update the database
+        }
     }
 
     public class OpenSimConfigSource
