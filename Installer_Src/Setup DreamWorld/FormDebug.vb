@@ -212,19 +212,32 @@ Public Class FormDebug
                     Sleep(3000)
 
                     If Abort Then Exit For
-                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted And Not Abort
+                    Dim c = 60
+                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booting And Not Abort And c > 0
                         Sleep(1000)
+                        c -= 1
                     End While
+                    If c = 0 Then Continue For
+
+                    If Abort Then Exit For
+                    c = 120
+                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted And Not Abort And c > 0
+                        Sleep(1000)
+                        c -= 1
+                    End While
+                    If c = 0 Then Continue For
 
                     If GetPrimCount(RegionUUID) = 0 Then
                         Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
-                        If Estate.Length > 0 And MysqlInterface.EstateName(RegionUUID).Length = 0 Then
+
+                        If Estate.Length > 0 Then
                             ConsoleCommand(RegionUUID, "{ENTER}")
                             ConsoleCommand(RegionUUID, Estate)
                         Else
                             ProgressPrint(My.Resources.EnterEstateName)
                         End If
+
                         ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
                         ConsoleCommand(RegionUUID, "generate map")

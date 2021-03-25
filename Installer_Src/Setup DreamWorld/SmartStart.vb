@@ -343,8 +343,7 @@ Module SmartStart
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
             While PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-                Sleep(1000)
-                Application.DoEvents()
+                Sleep(4000)
             End While
         End If
 
