@@ -1855,7 +1855,7 @@ Public Class RegionMaker
         Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
         If INI Is Nothing Then Return True
 
-        Settings.SetIni("Startup", "timer_Interval", Settings.StatusInterval)
+        Settings.SetIni("Startup", "timer_Interval", CStr(Settings.StatusInterval))
 
         Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
         Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
