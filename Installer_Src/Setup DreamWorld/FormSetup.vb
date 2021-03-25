@@ -1073,6 +1073,10 @@ Public Class FormSetup
 
             PropRegionClass.Timer(Ruuid) = Date.Now ' wait another interval
 
+            If Not SendMessage(Ruuid, "Region Ready") Then
+                ErrorLog($"{RegionName} did not accept RPC command after successful bootup.")
+            End If
+
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
         End While
