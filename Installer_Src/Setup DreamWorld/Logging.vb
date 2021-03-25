@@ -11,8 +11,8 @@ Module Logging
 
     Public Sub ErrorLog(message As String)
 
+        Logger("Error", "--------------------------", "Error")
         Logger("Error", message, "Error")
-
         If Debugger.IsAttached Then
             BreakPoint.Show(message)
         End If
@@ -22,10 +22,9 @@ Module Logging
         'information for the current thread.
         Dim st As StackTrace = New StackTrace(True)
         Dim i As Integer
-        Logger("StackFrame", "--------------------------", "Error")
+
         For i = 0 To st.FrameCount - 1 Step 1
-            'Note that high up the call stack, there Is only
-            ' one stack frame.
+            'Note that high up the call stack, there Is only one stack frame.
             Dim sf As StackFrame = st.GetFrame(i)
             Logger("StackFrame", sf.GetFileLineNumber().ToString(Globalization.CultureInfo.InvariantCulture) & ":" & sf.GetMethod().ToString, "Error")
         Next
