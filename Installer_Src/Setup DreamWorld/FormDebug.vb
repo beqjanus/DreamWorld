@@ -160,7 +160,8 @@ Public Class FormDebug
 
                     Dim shortname = IO.Path.GetFileNameWithoutExtension(Name)
                     Dim RegionUUID As String
-                    Dim p = IO.Path.Combine(Settings.OpensimBinPath, "Regions\" & shortname & "\Region\" & shortname & ".ini")
+                    Dim p = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
+
                     If Not IO.File.Exists(p) Then
                         RegionUUID = PropRegionClass.CreateRegion(shortname)
                     Else
@@ -193,6 +194,7 @@ Public Class FormDebug
                     PropRegionClass.SizeX(RegionUUID) = sizerow
                     PropRegionClass.SizeY(RegionUUID) = sizerow
                     PropRegionClass.GroupName(RegionUUID) = shortname
+
                     PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
                     PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
                     PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
@@ -222,23 +224,50 @@ Public Class FormDebug
                     If Abort Then Exit For
                     ReBoot(RegionUUID)
 
-                    Sleep(3000)
-
+                    Sleep(1000)
                     If Abort Then Exit For
+
+                    ' Wait for it to start booting
                     Dim c = 60
-                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booting And Not Abort And c > 0
+                    While c > 0
                         Sleep(1000)
                         c -= 1
+                        If CBool(PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booting Or PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted) Then
+                            Exit While
+                        End If
+                        If Abort Then Exit While
+                        Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {RegionName}")
                     End While
-                    If c = 0 Then Continue For
+
+                    ' skip on timeout error
+                    If c = 0 Then
+                        BreakPoint.Show("Timeout")
+                        ProgressPrint($"Timout on region {RegionName}")
+                        ConsoleCommand(RegionUUID, "q{ENTER}")
+                        ConsoleCommand(RegionUUID, "q{ENTER}")
+                        Continue For
+                    End If
 
                     If Abort Then Exit For
+
                     c = 120
-                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted And Not Abort And c > 0
+                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted AndAlso
+                        Not Abort AndAlso c > 0
+                        Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {RegionName}")
                         Sleep(1000)
                         c -= 1
                     End While
-                    If c = 0 Then Continue For
+
+                    ' skip on timeout error
+                    If c = 0 Then
+                        ConsoleCommand(RegionUUID, "q{ENTER}")
+                        ConsoleCommand(RegionUUID, "q{ENTER}")
+                        BreakPoint.Show("Timeout")
+                        ProgressPrint($"Timout on region {RegionName}")
+                        Continue For
+                    End If
+
+                    If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
 
                     If GetPrimCount(RegionUUID) = 0 Then
                         Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
@@ -257,14 +286,18 @@ Public Class FormDebug
                         ConsoleCommand(RegionUUID, "backup")
                         ConsoleCommand(RegionUUID, "alert Power off!")
                         Sleep(5000)
+
                     End If
 
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     PropUpdateView = True
-                    ConsoleCommand(RegionUUID, "q")
-                    ConsoleCommand(RegionUUID, "q")
-                    Sleep(2000)
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    Application.DoEvents()
+                    ConsoleCommand(RegionUUID, "q{ENTER}")
+                    ConsoleCommand(RegionUUID, "q{ENTER}")
+
+                    ConsoleCommand(RegionUUID, "q{ENTER}")
+                    ConsoleCommand(RegionUUID, "q{ENTER}")
+
                     PropUpdateView = True
                     Dim ctr = 120
                     If Settings.Sequential Then
