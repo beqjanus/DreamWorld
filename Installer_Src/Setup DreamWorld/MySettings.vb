@@ -1877,6 +1877,21 @@ Public Class MySettings
         End Set
     End Property
 
+    ''' <summary>
+    ''' A flag in opensim.ini that prints a dump of all on all regions status values every 10 minutes from bin\debug.txt
+    ''' </summary>
+    ''' <returns>tru/false</returns>    
+
+
+    Public Property StatusInterval() As Integer
+        Get
+            Return CType(GetMySetting("StatusInterval", "0"), Integer)
+        End Get
+        Set
+            SetMySetting("StatusInterval", CStr(Value))
+        End Set
+    End Property
+
     Public Property SSVisible() As Boolean
         Get
             Return CType(GetMySetting("SSVisible", "False"), Boolean)
