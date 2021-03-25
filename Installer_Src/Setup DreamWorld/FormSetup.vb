@@ -1073,6 +1073,11 @@ Public Class FormSetup
 
             PropRegionClass.Timer(Ruuid) = Date.Now ' wait another interval
 
+            If Not SendMessage(Ruuid, "change region {RegionName}") Then
+                ErrorLog($"{RegionName} did not accept RPC command after successful bootup.")
+                PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Error
+            End If
+
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
         End While
@@ -2591,47 +2596,24 @@ Public Class FormSetup
 
         ' print hourly marks on console, after boot
         If SecondsTicker Mod 3600 = 0 And SecondsTicker > 0 Then
-            TextPrint(dt & " " & Global.Outworldz.My.Resources.Running_word & " " & CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture) & " " & Global.Outworldz.My.Resources.Hours_word)
+
+            TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()
             ExpireApacheLogs()
             DeleteDirectoryTmp()
         End If
 
-        SecondsTicker += 1
+            SecondsTicker += 1
         TimerBusy = 0
 
     End Sub
+
+
 
 #End Region
 
 #Region "Toolbars"
 
-    Public Sub LoadRegionsStatsBar()
-
-        SimulatorStatsToolStripMenuItem.DropDownItems.Clear()
-        SimulatorStatsToolStripMenuItem.Visible = False
-
-        If PropRegionClass Is Nothing Then Return
-
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-
-            Dim Menu As New ToolStripMenuItem With {
-                .Text = PropRegionClass.RegionName(RegionUUID),
-                .ToolTipText = Global.Outworldz.My.Resources.Click_to_View_this_word & " " & PropRegionClass.RegionName(RegionUUID),
-                .DisplayStyle = ToolStripItemDisplayStyle.Text
-            }
-            If PropRegionClass.IsBooted(RegionUUID) Then
-                Menu.Enabled = True
-            Else
-                Menu.Enabled = False
-            End If
-
-            AddHandler Menu.Click, New EventHandler(AddressOf Statmenu)
-            SimulatorStatsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {Menu})
-            SimulatorStatsToolStripMenuItem.Visible = True
-
-        Next
-    End Sub
 
     Private Sub AddLog(name As String)
         Dim LogMenu As New ToolStripMenuItem With {

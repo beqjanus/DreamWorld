@@ -73,10 +73,23 @@ Public Class FormDebug
             End If
             Settings.SaveSettings()
 
+        ElseIf Command = $"{My.Resources.Debug_word} Off" Then
+            Settings.StatusInterval = 0
+            Settings.SaveSettings()
+        ElseIf Command = $"{My.Resources.Debug_word} 1 Minute" Then
+            Settings.StatusInterval = 60
+            Settings.SaveSettings()
+        ElseIf Command = $"{My.Resources.Debug_word} 10 Minutes" Then
+            Settings.StatusInterval = 10 * 60
+            Settings.SaveSettings()
+        ElseIf Command = $"{My.Resources.Debug_word} 60 Minutes" Then
+            Settings.StatusInterval = 60 * 60
+            Settings.SaveSettings()
+        ElseIf Command = $"{My.Resources.Debug_word} 24 Hours" Then
+            Settings.StatusInterval = 60 * 60 * 24
+            Settings.SaveSettings()
         ElseIf Command = My.Resources.LoadFreeOars Then
-
             If Value = False Then Return
-
             If Button2.Text <> My.Resources.Apply_word Then
                 Abort = True
                 TextPrint(My.Resources.Stopping_word)
@@ -290,6 +303,11 @@ Public Class FormDebug
 
         ComboBox1.Items.Add(My.Resources.LoadFreeOars)
         ComboBox1.Items.Add(My.Resources.SmartStartEnable)
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} Off")
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 Minute")
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} 10 Minutes")
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} 60 Minutes")
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 hours")
 
     End Sub
 
