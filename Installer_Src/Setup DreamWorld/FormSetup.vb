@@ -519,7 +519,7 @@ Public Class FormSetup
             If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
 
             While (counter > 0 And PropOpensimIsRunning())
-                Sleep(100)
+
                 Application.DoEvents()
                 counter -= 1
                 Dim CountisRunning As Integer = 0
