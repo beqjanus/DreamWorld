@@ -300,12 +300,14 @@ Public Class FormDebug
                         ConsoleCommand(RegionUUID, "backup")
                         ConsoleCommand(RegionUUID, "alert Power off!")
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        ConsoleCommand(RegionUUID, "q")
+                        ConsoleCommand(RegionUUID, "quit")
+                        ConsoleCommand(RegionUUID, "quit")
                         Sleep(100)
 
                     Else
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        ConsoleCommand(RegionUUID, "q")
+                        ConsoleCommand(RegionUUID, "quit")
+                        ConsoleCommand(RegionUUID, "quit")
                     End If
 
                     PropUpdateView = True
@@ -413,6 +415,9 @@ Public Class FormDebug
             ComboBox1.Items.Add(My.Resources.SmartStartEnable)
         End If
 
+        RadioTrue.Checked = False
+        RadioFalse.Checked = True
+
         ComboBox1.Items.Add(My.Resources.LoadFreeOars)
         ComboBox1.Items.Add($"{My.Resources.Debug_word} Off")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 Minute")
@@ -423,7 +428,9 @@ Public Class FormDebug
         SetScreen()
 
     End Sub
+#End Region
 
+#Region "Radio"
     Private Sub RadioTrue_CheckedChanged(sender As Object, e As EventArgs) Handles RadioTrue.CheckedChanged
 
         Value = RadioTrue.Checked
