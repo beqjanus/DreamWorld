@@ -422,7 +422,7 @@
     <value>Scripts Suspend</value>
   </data>
   <data name="WhatEstateName" xml:space="preserve">
-    <value>What Estate name do you want? Blank = you have to input it 150+ times!</value>
+    <value>What Estate name do you want? Blank = Outworldz</value>
   </data>
   <data name="Region_Overrides" xml:space="preserve">
     <value>Region specific settings override default settings</value>

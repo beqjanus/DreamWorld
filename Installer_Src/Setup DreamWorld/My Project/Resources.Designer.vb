@@ -10140,7 +10140,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to What Estate name do you want? Blank = you have to input it 150+ times!.
+        '''  Looks up a localized string similar to What Estate name do you want? Blank = Outworldz.
         '''</summary>
         Friend ReadOnly Property WhatEstateName() As String
             Get
