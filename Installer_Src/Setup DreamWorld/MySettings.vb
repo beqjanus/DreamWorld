@@ -31,7 +31,7 @@ Public Class MySettings
     Dim myINI As String = ""
     Dim Myparser As IniParser.FileIniDataParser
     Dim parser As IniParser.FileIniDataParser
-    Dim SettingsData As IniParser.Model.IniData
+    Dim SettingsData As New IniParser.Model.IniData
 
 #Region "New"
 
@@ -2092,14 +2092,12 @@ Public Class MySettings
 
 #Region "Grep"
 
-#Disable Warning CA1822 ' Mark members as static
-
     ''' <summary>Replaces .config file XML with log level and path info</summary>
     ''' <param name="INI">Path to file</param>
     ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
     Public Sub Grep(INI As String, LL As String)
-#Enable Warning CA1822 ' Mark members as static
+
 
         If INI Is Nothing Then Return
         Dim Retry = 100 ' 10 sec
