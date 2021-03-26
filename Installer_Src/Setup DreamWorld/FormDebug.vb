@@ -238,36 +238,36 @@ Public Class FormDebug
                         If Abort Then Exit While
                         Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {RegionName}")
                     End While
-
+                    If Abort Then Exit For
                     ' skip on timeout error
                     If c = 0 Then
                         BreakPoint.Show("Timeout")
                         ProgressPrint($"Timout on region {RegionName}")
                         ConsoleCommand(RegionUUID, "q{ENTER}")
                         ConsoleCommand(RegionUUID, "q{ENTER}")
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                         Continue For
                     End If
 
                     If Abort Then Exit For
 
-                    c = 120
-                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted AndAlso
-                        Not Abort AndAlso c > 0
+                    c = 600 ' 5 minutes
+                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted AndAlso Not Abort AndAlso c > 0
                         Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {RegionName}")
                         Sleep(1000)
                         c -= 1
                     End While
-
+                    If Abort Then Exit For
                     ' skip on timeout error
                     If c = 0 Then
                         ConsoleCommand(RegionUUID, "q{ENTER}")
                         ConsoleCommand(RegionUUID, "q{ENTER}")
                         BreakPoint.Show("Timeout")
                         ProgressPrint($"Timout on region {RegionName}")
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                         Continue For
                     End If
 
-                    If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
 
                     If GetPrimCount(RegionUUID) = 0 Then
                         Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
