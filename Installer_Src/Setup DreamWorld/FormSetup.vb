@@ -1110,6 +1110,7 @@ Public Class FormSetup
                 End If
             End If
 
+
             If Not PropOpensimIsRunning() Then Exit For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 

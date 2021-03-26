@@ -105,7 +105,7 @@ Public Class FormDebug
                 Return
             End If
 
-            Dim Estate = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "")
+            Dim Estate = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
 
             If Abort Then
                 Button2.Text = My.Resources.Apply_word
@@ -222,87 +222,58 @@ Public Class FormDebug
                     ProgressPrint($"{My.Resources.Start_word} {RegionName}")
 
                     If Abort Then Exit For
+
                     ReBoot(RegionUUID)
 
-                    Sleep(1000)
-                    If Abort Then Exit For
-
                     ' Wait for it to start booting
-                    Dim c = 60
-                    While c > 0
-                        Sleep(1000)
-                        c -= 1
-                        If CBool(PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booting Or PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted) Then
-                            Exit While
-                        End If
-                        If Abort Then Exit While
-                        Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {RegionName}")
-                    End While
+                    If Not WaitForBooting(RegionUUID) Then Continue For
                     If Abort Then Exit For
-                    ' skip on timeout error
-                    If c = 0 Then
-                        BreakPoint.Show("Timeout")
-                        ProgressPrint($"Timout on region {RegionName}")
-                        ConsoleCommand(RegionUUID, "q{ENTER}")
-                        ConsoleCommand(RegionUUID, "q{ENTER}")
-                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        Continue For
+
+                    If Settings.Sequential Then
+                        If Not WaitForBooted(RegionUUID) Then Continue For
                     End If
 
                     If Abort Then Exit For
-
-                    c = 600 ' 5 minutes
-                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted AndAlso Not Abort AndAlso c > 0
-                        Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {RegionName}")
-                        Sleep(1000)
-                        c -= 1
-                    End While
-                    If Abort Then Exit For
-                    ' skip on timeout error
-                    If c = 0 Then
-                        ConsoleCommand(RegionUUID, "q{ENTER}")
-                        ConsoleCommand(RegionUUID, "q{ENTER}")
-                        BreakPoint.Show("Timeout")
-                        ProgressPrint($"Timout on region {RegionName}")
-                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        Continue For
-                    End If
 
 
                     If GetPrimCount(RegionUUID) = 0 Then
                         Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
 
-                        If Estate.Length > 0 Then
+                        If EstateName(RegionUUID).Length = 0 Then
                             ConsoleCommand(RegionUUID, "{ENTER}")
                             ConsoleCommand(RegionUUID, Estate)
-                        Else
-                            ProgressPrint(My.Resources.EnterEstateName)
                         End If
 
                         ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                         ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
-                        ConsoleCommand(RegionUUID, "generate map")
+
+                        If Settings.MapType <> "None" Or PropRegionClass.MapType(RegionUUID).Length > 0 Then
+                            ConsoleCommand(RegionUUID, "generate map")
+                            Sleep(10000) ' wait a bit to let it make a mas
+                        End If
+
                         ConsoleCommand(RegionUUID, "backup")
                         ConsoleCommand(RegionUUID, "alert Power off!")
-                        Sleep(5000)
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                        ConsoleCommand(RegionUUID, "q")
+                        Sleep(100)
 
+                    Else
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                        ConsoleCommand(RegionUUID, "q")
                     End If
 
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     PropUpdateView = True
-                    Application.DoEvents()
-                    ConsoleCommand(RegionUUID, "q{ENTER}")
-                    ConsoleCommand(RegionUUID, "q{ENTER}")
 
-                    ConsoleCommand(RegionUUID, "q{ENTER}")
-                    ConsoleCommand(RegionUUID, "q{ENTER}")
+                    If Abort Then Exit For
+
 
                     PropUpdateView = True
                     Dim ctr = 120
                     If Settings.Sequential Then
                         If Abort Then Exit For
-                        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped
+                        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped AndAlso Not Abort
                             Sleep(1000)
                             Application.DoEvents()
                             ctr -= 1
@@ -312,7 +283,10 @@ Public Class FormDebug
                     ProgressPrint($"{RegionName} {My.Resources.Loaded_word}")
                 Next
 
-                If Abort Then TextPrint(My.Resources.Stopped_word)
+                If Abort Then
+                    TextPrint(My.Resources.Stopped_word)
+                End If
+
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -325,6 +299,63 @@ Public Class FormDebug
 
     End Sub
 
+    ''' <summary>
+    ''' Waits for a restarted region to be fully up
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <returns>True of region is booted</returns>
+    Private Function WaitForBooted(RegionUUID As String) As Boolean
+
+        Dim c As Integer = 600 ' 5 minutes
+        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted AndAlso Not Abort
+
+            c -= 1  ' skip on timeout error
+            If c = 0 Then
+                BreakPoint.Show("Timeout")
+                ProgressPrint($"Timout on region {PropRegionClass.RegionName(RegionUUID)}")
+                ShutDown(RegionUUID)
+                ConsoleCommand(RegionUUID, "q{ENTER}")
+                Return False
+            End If
+
+            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
+
+    ''' <summary>
+    ''' Waits for a restarted region to being booting
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <returns>True of region is booting</returns>
+    Private Function WaitForBooting(RegionUUID As String) As Boolean
+
+        Dim c As Integer = 60
+        While c > 0 AndAlso Not Abort
+
+            c -= 1
+            If c = 0 Then
+                BreakPoint.Show("Timeout")
+                ProgressPrint($"Timeout on region {PropRegionClass.RegionName(RegionUUID)}")
+                ShutDown(RegionUUID)
+                ConsoleCommand(RegionUUID, "q{ENTER}")
+                Return False
+            End If
+
+            If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Resume Then
+                Exit While
+            End If
+
+            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
 
         Command = CStr(ComboBox1.SelectedItem)

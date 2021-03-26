@@ -18,7 +18,6 @@ Public Class FormOAR
 #Region "JSON"
 
 #Disable Warning CA1034 ' Nested types should not be visible
-
     Public Class JSONresult
 #Enable Warning CA1034 ' Nested types should not be visible
 
