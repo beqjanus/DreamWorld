@@ -239,11 +239,7 @@ Module FileStuff
         If System.IO.Directory.Exists(n) Then
             Try
                 System.IO.Directory.Delete(n, True)
-            Catch ex As IOException
-                BreakPoint.Show(ex.Message)
-            Catch ex As UnauthorizedAccessException
-                BreakPoint.Show(ex.Message)
-            Catch ex As ArgumentException
+            Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
 
