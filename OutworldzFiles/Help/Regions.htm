@@ -87,23 +87,39 @@ visitors and people who log in for the first time get sent to this region.  The
 region must be online. </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><img width=207 height=331
+10.0pt;margin-left:.5in;text-autospace:none'><img width=247 height=452
 id="Picture 1" src="Regions_files/image001.png"></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
 10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
 "Verdana",sans-serif'>New User Home X, Y, Z:  </span></b><span lang=EN
 style='font-family:"Verdana",sans-serif'>Users that create accounts on the web
-page will land at this spot on your Welcome region. Their home is set here.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
-"Verdana",sans-serif'>Default: 128,128,24</span></p>
+page will land at this spot on your Welcome region. Their home is set here.  Default:
+128,128,24</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
 10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
 "Verdana",sans-serif'>Add a Region: </span></b><span lang=EN style='font-family:
 "Verdana",sans-serif'>will bring up a dialog form for adding a new region.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
+"Verdana",sans-serif'>Configure All Regions: </span></b><span lang=EN
+style='font-family:"Verdana",sans-serif'>will open all regions for editing.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
+"Verdana",sans-serif'>Clear All Registrations:</span></b><span lang=EN
+style='font-family:"Verdana",sans-serif'> You may get an error when you add a
+region where another region once existed or overlapped.  A crashed region will
+leave behind this registration, and you cannot place another region there. Pressing
+this will deregister all regions so all regions can be moved.  This button deletes
+all regions from the “present and accounted for’, region table in Robust.  </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-family:
+"Verdana",sans-serif'>This requires that the grid not be running.  See below for
+more details on <u>Region Error.</u></span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
 10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
@@ -119,9 +135,132 @@ positions.</span></p>
 "Verdana",sans-serif'>will bring up a dialog form to edit the selected region.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><b><span lang=EN style='font-family:
-"Verdana",sans-serif'>Configure All Regions: </span></b><span lang=EN
-style='font-family:"Verdana",sans-serif'>will open all regions for editing.</span></p>
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%'>Announce Visitors: This is a global enable so regions can
+announce arrivals of visitors. The region must also have an override for “Announce
+Visitors” in the Modules section of the Region settings.</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><b><span
+lang=EN style='font-family:"Verdana",sans-serif'>Region Error:</span></b><span
+lang=EN style='font-size:12.0pt;font-family:"Verdana",sans-serif'> </span><span
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>if you add a
+region where another already exists, you may get this error. </span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:8.0pt;font-family:"Courier New"'>2021-03-27 09:53:51,132 ERROR
+[GRID CONNECTOR]: Registration failed: Region overlaps another region when
+contacting http://192.168.2.139:8003/grid<br>
+2021-03-27 09:53:51,137 ERROR [STARTUP]: Registration of region with grid
+failed, aborting startup due to Region overlaps another
+region&nbsp;&nbsp;&nbsp; at
+OpenSim.Region.Framework.Scenes.Scene.RegisterRegionWithGrid() in
+C:\Opensim\Outworldz_Dreamgrid\OutworldzFiles\Opensim\OpenSim\Region\Framework\Scenes\Scene.cs:line
+2384<br>
+&nbsp;&nbsp; at OpenSim.OpenSimBase.CreateRegion(RegionInfo regionInfo, Boolean
+portadd_flag, Boolean do_post_init, IScene&amp; mscene) in C:\Opensim\Outworldz</span><span
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>_Dreamgrid\OutworldzFiles\Opensim\OpenSim\Region\Application\OpenSimBase.cs:line
+499</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-size:12.0pt;font-family:
+"Times New Roman",serif'>Robust says:&nbsp; </span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:8.0pt;font-family:"Courier New"'>09:59:23 - [GRID SERVICE]:
+Register region conflict in scope 00000000-0000-0000-0000-000000000000. Region
+overlaps another region</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>One solution is to
+deregister it by hand.&nbsp; Go to robust and type&nbsp;this:</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:8.0pt;font-family:"Courier New"'>show regions &lt; enter&gt;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>you get a list of
+all regions.</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:8.0pt;font-family:"Courier New"'>R.O.B.U.S.T.# show regions<br>
+Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Position&nbsp;&nbsp;&nbsp;&nbsp;
+Size&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Flags<br>
+Region 1016, 1007&nbsp;&nbsp;&nbsp;&nbsp;
+0e871ad3-41ec-4eb5-8aad-96d9b5561803&nbsp; 1016,1007&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+Region 1017, 1010&nbsp;&nbsp;&nbsp;&nbsp;
+0f75a6ba-bbc0-4489-846d-a3aaa286c3ae&nbsp; 1017,1010&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+Region 1017, 1008&nbsp;&nbsp;&nbsp;&nbsp;
+1b47af46-9364-4cde-909c-a3173d98291f&nbsp; 1017,1008&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+Region 1015, 1007&nbsp;&nbsp;&nbsp;&nbsp;
+2302b841-11d3-4c2c-9ebb-0fce4c26beea&nbsp; 1015,1007&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+Region 1013, 1009&nbsp;&nbsp;&nbsp;&nbsp; 4e69b298-c084-466f-b450-f34fbffa2238&nbsp;
+1013,1009&nbsp;&nbsp;&nbsp; 256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+Region 1015, 1009&nbsp;&nbsp;&nbsp;&nbsp;
+74f9d745-fa42-450b-96e5-0770eae37928&nbsp; 1015,1009&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+<b>Region 1016, 1009&nbsp;&nbsp;&nbsp;&nbsp;
+a357ccd6-43d6-45ff-8563-35f09345908e&nbsp; 1016,1009&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+</b>Region 1017, 1007&nbsp;&nbsp;&nbsp;&nbsp;
+c8775e97-ae1d-4164-8db8-ec205e46a148&nbsp; 1017,1007&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+Welcome&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+c91ceea4-77f5-40f6-afad-36f822097a4d&nbsp; 1016,1008&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DefaultRegion, RegionOnline,
+DefaultHGRegion<br>
+Region 1015, 1008&nbsp;&nbsp;&nbsp;&nbsp;
+dce9b253-789f-497a-b040-7df958262c69&nbsp; 1015,1008&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+Region 1017, 1009&nbsp;&nbsp;&nbsp;&nbsp;
+e819b0f7-86d7-4391-9064-67f6cb8708cd&nbsp; 1017,1009&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+Region 1016, 1017&nbsp;&nbsp;&nbsp;&nbsp;
+eab4f2bb-c92f-42fe-be92-30b29ba5a61b&nbsp; 1016,1017&nbsp;&nbsp;&nbsp;
+256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline<br>
+</span><span style='font-size:12.0pt;font-family:"Times New Roman",serif'><br>
+Find the region at the same coordinates as the one you are trying to
+boot.&nbsp; The one that is conflicting on my test server is this one at
+10156,1009</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:8.0pt;font-family:"Courier New"'>Region 1016,
+1009&nbsp;&nbsp;&nbsp;&nbsp; a357ccd6-43d6-45ff-8563-35f09345908e&nbsp;
+1016,1009&nbsp;&nbsp;&nbsp; 256x256&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RegionOnline</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>&nbsp;This UUID is
+different than the one there previously. So it will not let the new region
+steal it.</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>Copy the UUID
+from, above:  <b>a357ccd6-43d6-45ff-8563-35f09345908e </b></span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:12.0pt;font-family:"Times New Roman",serif'>Type in this:</span></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><b><span
+style='font-size:8.0pt;font-family:"Courier New"'>deregister region id
+&lt;PASTE UUID HERE&gt;</span></b></p>
+
+<p class=MsoNormal style='margin-left:.5in;line-height:normal'><span
+style='font-size:8.0pt;font-family:"Courier New"'>R.O.B.U.S.T.# deregister
+region id a357ccd6-43d6-45ff-8563-35f09345908e<br>
+Deregistered Region 1016, 1009 a357ccd6-43d6-45ff-8563-35f09345908e<br>
+R.O.B.U.S.T.#</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:31.5pt;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span lang=EN style='font-size:
+11.0pt;line-height:115%'>&nbsp;</span></p>
 
 </div>
 
