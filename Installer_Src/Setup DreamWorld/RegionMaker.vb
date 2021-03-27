@@ -1416,6 +1416,20 @@ Public Class RegionMaker
 
     End Function
 
+    Public Function FindRegionUUIDByName(name As String) As String
+
+        Dim pair As KeyValuePair(Of String, Region_data)
+
+        For Each pair In RegionList
+            If name.ToUpperInvariant = pair.Value._RegionName.ToUpperInvariant Then
+                Return pair.Value._UUID
+            End If
+        Next
+
+        Return ""
+
+    End Function
+
     Public Function IsBooted(uuid As String) As Boolean
         If uuid Is Nothing Then Return False
         If Bad(uuid) Then Return False
@@ -1461,20 +1475,6 @@ Public Class RegionMaker
         Next
 
         Return L
-
-    End Function
-
-    Public Function FindRegionUUIDByName(name As String) As String
-
-        Dim pair As KeyValuePair(Of String, Region_data)
-
-        For Each pair In RegionList
-            If name.ToUpperInvariant = pair.Value._RegionName.ToUpperInvariant Then
-                Return pair.Value._UUID
-            End If
-        Next
-
-        Return ""
 
     End Function
 
@@ -1982,9 +1982,7 @@ Public Class RegionMaker
 
         Select Case Physics(uuid)
             Case ""
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
+
             Case "0"
                 Settings.SetIni("Startup", "meshing", "ZeroMesher")
                 Settings.SetIni("Startup", "physics", "basicphysics")
