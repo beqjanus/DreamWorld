@@ -449,7 +449,12 @@ Module SmartStart
             Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
 
             If PID > 0 Then
-                SetWindowTextCall(BootProcess, GroupName)
+                If Not SetWindowTextCall(BootProcess, GroupName) Then
+                    ' Try again
+                    If Not SetWindowTextCall(BootProcess, GroupName) Then
+                        ErrorLog($"BIG timeout setting title of {GroupName }")
+                    End If
+                End If
                 If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then
                     FormSetup.PropInstanceHandles.Add(PID, GroupName)
                 End If
