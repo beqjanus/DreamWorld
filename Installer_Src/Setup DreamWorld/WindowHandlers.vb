@@ -182,7 +182,12 @@ Module WindowHandlers
         End If
 
     End Sub
-
+    ''' <summary>
+    ''' Sets the window title text
+    ''' </summary>
+    ''' <param name="myProcess">PID</param>
+    ''' <param name="windowName">WindowName</param>
+    ''' <returns>True if window is set</returns>
     Public Function SetWindowTextCall(myProcess As Process, windowName As String) As Boolean
         ''' <summary>
         ''' SetWindowTextCall is here to wrap the SetWindowtext API call. This call fails when there is no hwnd as Windows takes its sweet time to get that. Also, may fail to write the title. It has a
@@ -222,16 +227,17 @@ Module WindowHandlers
         WindowCounter = 0
         While Not status
             Try
-                Thread.Sleep(100)
                 Application.DoEvents()
                 status = SetWindowText(myhandle, windowName)
             Catch ' can fail to be a valid window handle
                 Return False
             End Try
             WindowCounter += 1
-            If WindowCounter > 200 Then '  20 seconds
-                status = True
+            If WindowCounter > 600 Then '  1 minute
+                ErrorLog(windowName & " timeout setting title")
+                Return False
             End If
+            Sleep(100)
         End While
 
         Return True
