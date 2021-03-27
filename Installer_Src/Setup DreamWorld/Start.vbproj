@@ -305,6 +305,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Apache.vb" />
+    <Compile Include="AutoFill.vb" />
     <Compile Include="Backup.vb" />
     <Compile Include="Backups.vb" />
     <Compile Include="BreakPoint.vb" />
@@ -566,6 +567,12 @@
       <DependentUpon>FormTOS.vb</DependentUpon>
     </Compile>
     <Compile Include="FormTOS.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTrees.Designer.vb">
+      <DependentUpon>FormTrees.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormTrees.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalSettings.vb" />
@@ -987,6 +994,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormOAR.resx">
       <DependentUpon>FormOAR.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormOAR.ru-KZ.resx">
       <DependentUpon>FormOAR.vb</DependentUpon>
@@ -1157,6 +1165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTOS.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTrees.resx">
+      <DependentUpon>FormTrees.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.ar-SA.resx">
       <SubType>Designer</SubType>

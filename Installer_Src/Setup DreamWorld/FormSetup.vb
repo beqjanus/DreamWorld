@@ -2259,17 +2259,10 @@ Public Class FormSetup
         Dim sbttl As Integer = 0
         Dim A = GetAgentList()
         Dim B = GetHGAgentList()
-        Dim C As New Dictionary(Of String, String)
 
-        ' Merge the two
-        For Each keyname In A
-            C.Add(keyname.Key, keyname.Value)
-        Next
-        For Each keyname In B
-            If Not C.ContainsKey(keyname.Key) Then
-                C.Add(keyname.Key, keyname.Value)
-            End If
-        Next
+        Dim C As Dictionary(Of String, String) = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
+
+        AutoFill.Build(C)
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -2585,6 +2578,7 @@ Public Class FormSetup
 
         ' 10 seconds, not at boot
         If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
+
             CalcCPU() ' get a list of running opensim processes
             ScanAgents() ' update agent count seconds
         End If

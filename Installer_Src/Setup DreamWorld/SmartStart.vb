@@ -16,8 +16,8 @@ Module SmartStart
     Private ReadOnly Sleeping As New List(Of String)
     Private ReadOnly slop = 5     ' amount of extra time to add in for booting
 
-
 #Region "SmartBegin"
+
     Public Function SmartStartParse(post As String) As String
 
         ' Smart Start AutoStart Region mode
@@ -150,7 +150,6 @@ Module SmartStart
     End Function
 
 #End Region
-
 
 #Region "HTML"
 
@@ -345,6 +344,7 @@ Module SmartStart
         Application.DoEvents()
 
     End Sub
+
 #End Region
 
 #Region "BootUp"
@@ -489,5 +489,61 @@ Module SmartStart
     End Sub
 
 #End Region
+
+    ''' <summary>
+    ''' Waits for a restarted region to be fully up
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <returns>True of region is booted</returns>
+    Public Function WaitForBooted(RegionUUID As String) As Boolean
+
+        Dim c As Integer = 600 ' 5 minutes
+        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted
+
+            c -= 1  ' skip on timeout error
+            If c = 0 Then
+                BreakPoint.Show("Timeout")
+                ShutDown(RegionUUID)
+                ConsoleCommand(RegionUUID, "q{ENTER}")
+                Return False
+            End If
+
+            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
+
+    ''' <summary>
+    ''' Waits for a restarted region to being booting
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <returns>True of region is booting</returns>
+    Public Function WaitForBooting(RegionUUID As String) As Boolean
+
+        Dim c As Integer = 60
+        While c > 0
+
+            c -= 1
+            If c = 0 Then
+                BreakPoint.Show("Timeout")
+                ShutDown(RegionUUID)
+                ConsoleCommand(RegionUUID, "q{ENTER}")
+                Return False
+            End If
+
+            If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Resume Then
+                Exit While
+            End If
+
+            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
 
 End Module

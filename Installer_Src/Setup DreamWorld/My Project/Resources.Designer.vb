@@ -512,6 +512,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Automatic Land Fill.
+        '''</summary>
+        Friend ReadOnly Property AutoFill() As String
+            Get
+                Return ResourceManager.GetString("AutoFill", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Automatic Restart.
         '''</summary>
         Friend ReadOnly Property Automatic_restart_word() As String
@@ -3332,6 +3341,15 @@ Namespace My.Resources
         Friend ReadOnly Property Failed_LAN() As String
             Get
                 Return ResourceManager.GetString("Failed_LAN", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to False.
+        '''</summary>
+        Friend ReadOnly Property False_word() As String
+            Get
+                Return ResourceManager.GetString("False_word", resourceCulture)
             End Get
         End Property
         
@@ -9311,11 +9329,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Trees.
+        '''</summary>
+        Friend ReadOnly Property Trees() As String
+            Get
+                Return ResourceManager.GetString("Trees", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Troubleshooting.
         '''</summary>
         Friend ReadOnly Property Troubleshooting_word() As String
             Get
                 Return ResourceManager.GetString("Troubleshooting_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to True.
+        '''</summary>
+        Friend ReadOnly Property True_word() As String
+            Get
+                Return ResourceManager.GetString("True_word", resourceCulture)
             End Get
         End Property
         

@@ -3500,4 +3500,16 @@
   <data name="potential_overlap" xml:space="preserve">
     <value>potential overlapping regions</value>
   </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Automatic Land Fill</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Trees</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>True</value>
+  </data>
 </root>

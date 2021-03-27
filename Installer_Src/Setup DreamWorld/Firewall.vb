@@ -107,12 +107,10 @@ Public Module Firewall
 
     Sub SetFirewall()
 
-#Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf RunFirewall
-#Enable Warning BC42016 ' Implicit conversion
 
         If Not Settings.FirewallMigrated Then
-            Dim CMD1 As String = DeleteOldFirewallRules()
+            Dim CMD1 As Object = DeleteOldFirewallRules()
             Dim _WebThread1 = New Thread(start)
             _WebThread1.SetApartmentState(ApartmentState.STA)
             _WebThread1.Priority = ThreadPriority.BelowNormal
@@ -120,7 +118,7 @@ Public Module Firewall
             Settings.FirewallMigrated = True
         End If
 
-        Dim CMD2 As String = DeleteNewFirewallRules() & AddFirewallRules()
+        Dim CMD2 As Object = DeleteNewFirewallRules() & AddFirewallRules()
         Dim _WebThread2 = New Thread(start)
         _WebThread2.SetApartmentState(ApartmentState.STA)
         _WebThread2.Priority = ThreadPriority.BelowNormal
@@ -128,12 +126,12 @@ Public Module Firewall
 
     End Sub
 
-    Private Sub RunFirewall(CMD As String)
+    Private Sub RunFirewall(CMD As Object)
 
         Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/tmp/" & CStr(DateTime.Now.Ticks) & "_fw.bat")
         Try
             Using ns As StreamWriter = New StreamWriter(file, False)
-                ns.WriteLine(CMD)
+                ns.WriteLine(CStr(CMD))
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)

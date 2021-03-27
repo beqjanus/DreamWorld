@@ -214,6 +214,7 @@ Public Class MySettings
             End Try
         End While
 
+        parser = Nothing
         SettingsData = Nothing
 
     End Sub
@@ -428,6 +429,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("AutobackupInterval", Value)
+        End Set
+    End Property
+
+    Public Property AutoFill() As Boolean
+        Get
+            Return CType(GetMySetting("AutoFill", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("AutoFill", CStr(Value))
         End Set
     End Property
 
@@ -821,24 +831,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -1877,21 +1869,6 @@ Public Class MySettings
         End Set
     End Property
 
-    ''' <summary>
-    ''' A flag in opensim.ini that prints a dump of all on all regions status values every 10 minutes from bin\debug.txt
-    ''' </summary>
-    ''' <returns>tru/false</returns>    
-
-
-    Public Property StatusInterval() As Integer
-        Get
-            Return CType(GetMySetting("StatusInterval", "0"), Integer)
-        End Get
-        Set
-            SetMySetting("StatusInterval", CStr(Value))
-        End Set
-    End Property
-
     Public Property SSVisible() As Boolean
         Get
             Return CType(GetMySetting("SSVisible", "False"), Boolean)
@@ -1915,6 +1892,19 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property StatusInterval() As Integer
+        Get
+            Return CType(GetMySetting("StatusInterval", "0"), Integer)
+        End Get
+        Set
+            SetMySetting("StatusInterval", CStr(Value))
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' A flag in opensim.ini that prints a dump of all on all regions status values every 10 minutes from bin\debug.txt
+    ''' </summary>
+    ''' <returns>tru/false</returns>
     Public Property Suitcase() As Boolean
         Get
             Return CType(GetMySetting("Suitcase", "True"), Boolean)
@@ -2088,6 +2078,24 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
+        End Set
+    End Property
+
 #End Region
 
 #Region "Grep"
@@ -2097,7 +2105,6 @@ Public Class MySettings
     ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
     Public Sub Grep(INI As String, LL As String)
-
 
         If INI Is Nothing Then Return
         Dim Retry = 100 ' 10 sec

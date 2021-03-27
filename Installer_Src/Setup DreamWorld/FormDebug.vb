@@ -7,7 +7,6 @@ Public Class FormDebug
     Private _command As String
     Private _value As Boolean
 
-
 #Region "FormPos"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
@@ -97,6 +96,7 @@ Public Class FormDebug
     End Sub
 
 #End Region
+
 #Region "Start/Stop"
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -129,6 +129,8 @@ Public Class FormDebug
         ElseIf Command = $"{My.Resources.Debug_word} 24 Hours" Then
             Settings.StatusInterval = 60 * 60 * 24
             Settings.SaveSettings()
+        ElseIf Command = My.Resources.AutoFill Then
+            Settings.AutoFill = Value
         ElseIf Command = My.Resources.LoadFreeOars Then
             If Value = False Then Return
             If Button2.Text <> My.Resources.Apply_word Then
@@ -280,7 +282,6 @@ Public Class FormDebug
 
                     If Abort Then Exit For
 
-
                     If GetPrimCount(RegionUUID) = 0 Then
                         Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
@@ -303,7 +304,6 @@ Public Class FormDebug
                         ConsoleCommand(RegionUUID, "quit")
                         ConsoleCommand(RegionUUID, "quit")
                         Sleep(100)
-
                     Else
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                         ConsoleCommand(RegionUUID, "quit")
@@ -313,7 +313,6 @@ Public Class FormDebug
                     PropUpdateView = True
 
                     If Abort Then Exit For
-
 
                     PropUpdateView = True
                     Dim ctr = 120
@@ -332,7 +331,6 @@ Public Class FormDebug
                 If Abort Then
                     TextPrint(My.Resources.Stopped_word)
                 End If
-
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -345,63 +343,6 @@ Public Class FormDebug
 
     End Sub
 
-    ''' <summary>
-    ''' Waits for a restarted region to be fully up
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <returns>True of region is booted</returns>
-    Private Function WaitForBooted(RegionUUID As String) As Boolean
-
-        Dim c As Integer = 600 ' 5 minutes
-        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted AndAlso Not Abort
-
-            c -= 1  ' skip on timeout error
-            If c = 0 Then
-                BreakPoint.Show("Timeout")
-                ProgressPrint($"Timout on region {PropRegionClass.RegionName(RegionUUID)}")
-                ShutDown(RegionUUID)
-                ConsoleCommand(RegionUUID, "q{ENTER}")
-                Return False
-            End If
-
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
-
-    ''' <summary>
-    ''' Waits for a restarted region to being booting
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <returns>True of region is booting</returns>
-    Private Function WaitForBooting(RegionUUID As String) As Boolean
-
-        Dim c As Integer = 60
-        While c > 0 AndAlso Not Abort
-
-            c -= 1
-            If c = 0 Then
-                BreakPoint.Show("Timeout")
-                ProgressPrint($"Timeout on region {PropRegionClass.RegionName(RegionUUID)}")
-                ShutDown(RegionUUID)
-                ConsoleCommand(RegionUUID, "q{ENTER}")
-                Return False
-            End If
-
-            If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Resume Then
-                Exit While
-            End If
-
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
 
         Command = CStr(ComboBox1.SelectedItem)
@@ -413,10 +354,15 @@ Public Class FormDebug
 
         If Debugger.IsAttached Then
             ComboBox1.Items.Add(My.Resources.SmartStartEnable)
+            ComboBox1.Items.Add(My.Resources.Trees)
+            ComboBox1.Items.Add(My.Resources.AutoFill)
         End If
 
         RadioTrue.Checked = False
         RadioFalse.Checked = True
+
+        RadioTrue.Text = My.Resources.True_word
+        RadioFalse.Text = My.Resources.False_word
 
         ComboBox1.Items.Add(My.Resources.LoadFreeOars)
         ComboBox1.Items.Add($"{My.Resources.Debug_word} Off")
@@ -428,13 +374,29 @@ Public Class FormDebug
         SetScreen()
 
     End Sub
+
 #End Region
 
 #Region "Radio"
+
     Private Sub RadioTrue_CheckedChanged(sender As Object, e As EventArgs) Handles RadioTrue.CheckedChanged
 
         Value = RadioTrue.Checked
 
+    End Sub
+
+#End Region
+
+#Region "Trees"
+
+    Private Sub PlantTrees()
+#Disable Warning CA2000
+        Dim TreeForm = New FormTrees
+#Enable Warning CA2000
+        TreeForm.BringToFront()
+        TreeForm.Activate()
+        TreeForm.Visible = True
+        TreeForm.Select()
     End Sub
 
 #End Region
