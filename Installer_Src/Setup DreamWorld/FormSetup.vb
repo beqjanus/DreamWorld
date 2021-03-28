@@ -460,7 +460,7 @@ Public Class FormSetup
         If (yesno = vbYes) Then
             Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
             Try
-                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & IceCastLog & """")
+                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{IceCastLog}""")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -1110,7 +1110,6 @@ Public Class FormSetup
                 End If
             End If
 
-
             If Not PropOpensimIsRunning() Then Exit For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
@@ -1337,7 +1336,7 @@ Public Class FormSetup
                     Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
                     If (yesno = vbYes) Then
                         Try
-                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & PropRegionClass.OpensimIniPath(RegionUUID) & "Opensim.log" & """")
+                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{PropRegionClass.OpensimIniPath(RegionUUID)}\Opensim.log""")
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
@@ -1734,6 +1733,8 @@ Public Class FormSetup
         If Settings.RegionListVisible Then
             ShowRegionform()
         End If
+
+        InitTrees()
 
         TextPrint(My.Resources.Checking_MySql_word)
         Application.DoEvents()
@@ -2578,7 +2579,6 @@ Public Class FormSetup
 
         ' 10 seconds, not at boot
         If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
-
             CalcCPU() ' get a list of running opensim processes
             ScanAgents() ' update agent count seconds
         End If
@@ -2598,17 +2598,14 @@ Public Class FormSetup
             DeleteDirectoryTmp()
         End If
 
-            SecondsTicker += 1
+        SecondsTicker += 1
         TimerBusy = 0
 
     End Sub
 
-
-
 #End Region
 
 #Region "Toolbars"
-
 
     Private Sub AddLog(name As String)
         Dim LogMenu As New ToolStripMenuItem With {
@@ -2685,9 +2682,10 @@ Public Class FormSetup
         Dim RegionName = ChooseRegion(True)
         If RegionName.Length > 0 Then
             Dim Message = InputBox(My.Resources.What_to_say_2_region)
+            If Message.Length = 0 Then Return
+
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                ' TODO: Choose
                 SendMessage(RegionUUID, Message)
                 SendAdminMessage(RegionUUID, Message)
             End If
@@ -2988,10 +2986,13 @@ Public Class FormSetup
 
     Private Sub LoadFreeDreamGridOARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles IslandToolStripMenuItem.Click
 
-        ContentOAR.Activate()
-        ContentOAR.ShowForm()
-        ContentOAR.Select()
-        ContentOAR.BringToFront()
+        Try
+            ContentOAR.Activate()
+            ContentOAR.ShowForm()
+            ContentOAR.Select()
+            ContentOAR.BringToFront()
+        Catch
+        End Try
 
     End Sub
 

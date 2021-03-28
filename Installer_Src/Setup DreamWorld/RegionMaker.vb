@@ -106,7 +106,7 @@ Public Class RegionMaker
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
             Settings.WelcomeRegion = "Welcome"
-            WriteRegionObject("Welcome")
+            WriteRegionObject("Welcome", "Welcome")
             Settings.SaveSettings()
             If GetAllRegions() = -1 Then Return False
         End If
@@ -258,7 +258,7 @@ Public Class RegionMaker
 
     End Sub
 
-    Public Sub WriteRegionObject(name As String)
+    Public Sub WriteRegionObject(Group As String, name As String)
 
         Dim uuid As String = FindRegionByName(name)
         Dim out As New Guid
@@ -267,7 +267,7 @@ Public Class RegionMaker
             Return
         End If
 
-        Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + name + "\Region\"
+        Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + Group + "\Region\"
         Dim fname = pathtoWelcome + name + ".ini"
         If Not Directory.Exists(pathtoWelcome) Then
             Try
@@ -281,6 +281,10 @@ Public Class RegionMaker
         Dim Estate = "Estate"
         If PropRegionClass.SmartStart(uuid) = "True" Then
             Estate = "SmartStart"
+        End If
+
+        If Group.StartsWith("Vacant-", StringComparison.InvariantCultureIgnoreCase) Then
+            Estate = "Vacant"
         End If
 
         Dim proto = "; * Regions configuration file; " & vbCrLf _
@@ -344,7 +348,7 @@ Public Class RegionMaker
     Public Function CheckOverLap() As Boolean
 
         Dim FailedCheck As Boolean
-        Dim Regionlist As New List(Of Region_Mapping)
+        Dim Regions As New List(Of Region_Mapping)
 
         For Each RegionUUID In RegionUuids()
 
@@ -361,21 +365,17 @@ Public Class RegionMaker
                         .X = CoordX(RegionUUID) + X,
                         .Y = CoordY(RegionUUID) + Y
                     }
-                    Regionlist.Add(map)
+                    Regions.Add(map)
                     ' If (Name.Contains("MartinBassManSlad")) Or (Name.Contains("Maya")) Then Diagnostics.Debug.Print($"{Name} {map.X} {map.Y}") End If
                 Next
             Next
         Next
 
-        TextPrint($"-> {My.Resources.checking_word} {Regionlist.Count} {My.Resources.potential_overlap}")
+        TextPrint($"-> {My.Resources.checking_word} {Regions.Count} {My.Resources.potential_overlap}")
 
-        For Each Pass1 In Regionlist
-            For Each Pass2 In Regionlist
+        For Each Pass1 In Regions
+            For Each Pass2 In Regions
                 If Pass1.Name = Pass2.Name Then Continue For ' don't check itself
-
-                'If Pass1.Name.Contains("MartinBassManSlad") AndAlso Pass2.Name.Contains("Maya") Then
-                'Diagnostics.Debug.Print($"{Pass1.Name}={Pass1.X}, {Pass1.Y}  {Pass2.Name}={Pass2.X}, {Pass2.Y}")
-                'End If
 
                 If (Pass1.X = Pass2.X) AndAlso (Pass1.Y = Pass2.Y) Then
                     TextPrint($"-> Region {Pass1.Name} overlaps Region {Pass2.Name} at location {Pass1.X}, {Pass1.Y}")
@@ -1450,6 +1450,11 @@ Public Class RegionMaker
 
     End Sub
 
+    ''' <summary>
+    ''' Returns a list if UUIDS of all regions in this group
+    ''' </summary>
+    ''' <param name="Gname">Group Name</param>
+    ''' <returns>List of Region UUID's</returns>
     Public Function RegionUuidListByName(Gname As String) As List(Of String)
 
         Dim L As New List(Of String)
@@ -1726,7 +1731,7 @@ Public Class RegionMaker
             Settings.SetIni("Startup", "timer_Interval", CStr(Settings.StatusInterval))
         Else
             Settings.SetIni("Startup", "timer_Script", "")
-            Settings.SetIni("Startup", "timer_Interval", "1200"))
+            Settings.SetIni("Startup", "timer_Interval", "1200")
         End If
 
         Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))

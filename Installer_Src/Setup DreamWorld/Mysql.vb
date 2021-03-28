@@ -77,8 +77,8 @@ Public Module MysqlInterface
         Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#")
         If INI Is Nothing Then Return False
 
-        Settings.SetIni("mysqld", "basedir", """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Mysql" & """")
-        Settings.SetIni("mysqld", "datadir", """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Mysql/Data" & """")
+        Settings.SetIni("mysqld", "basedir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql""")
+        Settings.SetIni("mysqld", "datadir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql/Data""")
         Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
         Settings.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
         Settings.SaveINI(INI, System.Text.Encoding.ASCII)
@@ -90,7 +90,9 @@ Public Module MysqlInterface
         Try
             Using outputFile As New StreamWriter(testProgram, True)
                 outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
-                             & "mysqld.exe --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """")
+                             & "mysqld.exe --defaults-file=" &
+                             """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """"
+                             )
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -102,9 +104,9 @@ Public Module MysqlInterface
         Application.DoEvents()
         ' Mysql was not running, so lets start it up.
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "--defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """",
+            .Arguments = $"--defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini""",
             .WindowStyle = ProcessWindowStyle.Hidden,
-            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqld.exe") & """"
+            .FileName = $"""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqld.exe")}"""
         }
         ProcessMySql.StartInfo = pi
         ProcessMySql.EnableRaisingEvents = True
@@ -169,6 +171,22 @@ Public Module MysqlInterface
 
 #Region "Public"
 
+    Public Sub DeRegisterPosition(X As Integer, Y As Integer)
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "delete from robust.regions where LocX=@X and LocY=@Y"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@X", X * 256)
+                    cmd.Parameters.AddWithValue("@Y", Y * 256)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch
+        End Try
+
+    End Sub
+
     ''' <summary>
     ''' deletes all regions from robust.regions
     ''' </summary>
@@ -188,6 +206,11 @@ Public Module MysqlInterface
 
     End Sub
 
+    ''' <summary>
+    ''' delete regions at specific locations
+    ''' </summary>
+    ''' <param name="X">X Location</param>
+    ''' <param name="Y">Y Location</param>
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID">Region UUID</param>
     ''' <returns>Estate Name as string</returns>
@@ -209,6 +232,7 @@ Public Module MysqlInterface
                         If reader.Read() Then
                             'Debug.Print("ID = {0}", reader.GetString(0))
                             Val = reader.GetString(0)
+                            If Val.Length = 0 Then Return ""
                         End If
                     End Using
                 End Using
@@ -683,9 +707,9 @@ Public Module MysqlInterface
         If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
             TextPrint(My.Resources.Create_DB)
             Try
-                Using zip As ZipFile = New ZipFile(m & "\Blank-Mysql-Data-folder.zip")
+                Using zip As ZipFile = New ZipFile(IO.Path.Combine(m, "Blank-Mysql-Data-folder.zip"))
                     zip.UseZip64WhenSaving = Zip64Option.AsNecessary
-                    Dim extractPath = Path.GetFullPath(Settings.CurrentDirectory) & "\OutworldzFiles\Mysql"
+                    Dim extractPath = $"{Path.GetFullPath(Settings.CurrentDirectory)}\OutworldzFiles\Mysql"
                     If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
                         extractPath += Path.DirectorySeparatorChar
                     End If
@@ -727,7 +751,7 @@ Public Module MysqlInterface
 
                 For Each FileName As String In files
                     Try
-                        System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
+                        System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{FileName}""")
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                     End Try

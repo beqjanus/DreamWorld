@@ -2677,9 +2677,6 @@
   <data name="flag_czech_republic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flag_czech_republic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_0" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="Default_Welcome" xml:space="preserve">
     <value>The default 'Welcome' region  is not found in the system. Continue?</value>
   </data>
@@ -3507,9 +3504,27 @@
     <value>False</value>
   </data>
   <data name="Trees" xml:space="preserve">
-    <value>Trees</value>
+    <value>Make Trees as XML files</value>
   </data>
   <data name="True_word" xml:space="preserve">
     <value>True</value>
+  </data>
+  <data name="AI" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AI.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="flatland" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flatland.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Random" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Randomn.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="Cypress1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cypress1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cypress2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cypress2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

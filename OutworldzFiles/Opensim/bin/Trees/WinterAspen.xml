@@ -1,25 +1,25 @@
 <Copse>
-  <m_name>TropicalBush1</m_name>
+  <m_name>WinterAspen</m_name>
   <m_frozen>false</m_frozen>
-  <m_tree_type>TropicalBush1</m_tree_type>
-  <m_tree_quantity>50</m_tree_quantity>
-  <m_treeline_low>20</m_treeline_low>
-  <m_treeline_high>23</m_treeline_high>
+  <m_tree_type>WinterAspen</m_tree_type>
+  <m_tree_quantity>25</m_tree_quantity>
+  <m_treeline_low>35</m_treeline_low>
+  <m_treeline_high>55</m_treeline_high>
   <m_seed_point>
     <X>128</X>
     <Y>128</Y>
     <Z>0</Z>
   </m_seed_point>
-  <m_range>251</m_range>
+  <m_range>123</m_range>
   <m_initial_scale>
     <X>4</X>
     <Y>4</Y>
     <Z>4</Z>
   </m_initial_scale>
   <m_maximum_scale>
-    <X>5</X>
-    <Y>5</Y>
-    <Z>7.5</Z>
+    <X>35</X>
+    <Y>35</Y>
+    <Z>52.5</Z>
   </m_maximum_scale>
   <m_rate>
     <X>0.01</X>

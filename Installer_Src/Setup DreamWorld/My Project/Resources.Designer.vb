@@ -170,6 +170,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property AI() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("AI", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to All Caches cleared.
         '''</summary>
         Friend ReadOnly Property All_Caches_Cleared_word() As String
@@ -2245,6 +2255,26 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Cypress1() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Cypress1", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Cypress2() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Cypress2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Czech.
         '''</summary>
         Friend ReadOnly Property Czech() As String
@@ -3703,6 +3733,16 @@ Namespace My.Resources
         Friend ReadOnly Property flag_vietnam() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("flag_vietnam", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property flatland() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("flatland", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -7148,6 +7188,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Random() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Random", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Reading Region files.
         '''</summary>
         Friend ReadOnly Property Reading_Region_files() As String
@@ -9329,7 +9379,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Trees.
+        '''  Looks up a localized string similar to Make Trees as XML files.
         '''</summary>
         Friend ReadOnly Property Trees() As String
             Get

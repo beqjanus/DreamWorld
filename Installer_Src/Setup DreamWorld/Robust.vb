@@ -64,6 +64,11 @@ Module Robust
 
 #Region "Robust"
 
+    ''' <summary>
+    '''  Shows a Region picker
+    ''' </summary>
+    ''' <param name="JustRunning">True = only running regions</param>
+    ''' <returns>Name</returns>
     Public Function ChooseRegion(Optional JustRunning As Boolean = False) As String
 
         ' Show testDialog as a modal dialog and determine if DialogResult = OK.

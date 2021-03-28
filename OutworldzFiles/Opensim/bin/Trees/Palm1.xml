@@ -1,10 +1,10 @@
 <Copse>
-  <m_name>TropicalBush1</m_name>
+  <m_name>Palm1</m_name>
   <m_frozen>false</m_frozen>
-  <m_tree_type>TropicalBush1</m_tree_type>
-  <m_tree_quantity>50</m_tree_quantity>
-  <m_treeline_low>20</m_treeline_low>
-  <m_treeline_high>23</m_treeline_high>
+  <m_tree_type>Palm1</m_tree_type>
+  <m_tree_quantity>30</m_tree_quantity>
+  <m_treeline_low>21</m_treeline_low>
+  <m_treeline_high>28</m_treeline_high>
   <m_seed_point>
     <X>128</X>
     <Y>128</Y>
@@ -17,9 +17,9 @@
     <Z>4</Z>
   </m_initial_scale>
   <m_maximum_scale>
-    <X>5</X>
-    <Y>5</Y>
-    <Z>7.5</Z>
+    <X>10</X>
+    <Y>10</Y>
+    <Z>15</Z>
   </m_maximum_scale>
   <m_rate>
     <X>0.01</X>

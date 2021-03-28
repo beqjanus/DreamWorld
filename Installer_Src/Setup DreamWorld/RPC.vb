@@ -17,6 +17,7 @@ Module RPC
            {"password", Settings.MachineID},
            {"command", Message}
         }
+        Debug.Print($"admin_console_command {Message}")
         Return SendRPC(RegionUUID, "admin_console_command", ht)
 
     End Function
@@ -30,6 +31,7 @@ Module RPC
            {"message", Message}
        }
         Log("Info", "Message to " & PropRegionClass.RegionName(RegionUUID) & " of " & Message)
+
         Return SendRPC(RegionUUID, "admin_dialog", ht)
 
     End Function
@@ -49,23 +51,11 @@ Module RPC
 
     Public Function ShutDown(RegionUUID As String) As Boolean
 
-        Dim sd = ""
-        Dim ms = 0
-        If PropRegionClass.AvatarCount(RegionUUID) > 0 Then
-            sd = "shutdown"
-            ms = 60000
-        End If
-
         Dim ht As Hashtable = New Hashtable From {
             {"password", Settings.MachineID},
-            {"region_id", RegionUUID},
-            {"shutdown", sd},
-            {"milliseconds", ms}
+            {"region_id", RegionUUID}
         }
-
-        Dim s = SendRPC(RegionUUID, "admin_shutdown", ht)
-
-        Return s
+        Return SendRPC(RegionUUID, "admin_shutdown", ht)
 
     End Function
 
@@ -93,9 +83,8 @@ Module RPC
     Private Function SendRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Boolean
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
-        Dim url = "http://127.0.0.1:" & RegionPort
-        Debug.Print(cmd)
-        Debug.Print(url)
+        Dim url = $"http://127.0.0.1:{RegionPort}"
+
         Dim parameters = New List(Of Hashtable) From {ht}
         Dim RPC = New XmlRpcRequest(cmd, parameters)
         Try

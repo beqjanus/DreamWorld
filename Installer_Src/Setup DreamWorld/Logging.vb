@@ -40,9 +40,11 @@ Module Logging
     End Sub
 
     Public Sub Logger(category As String, message As String, file As String)
+        Dim s = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture)}:{category}:{message}"
+        Debug.Print(s)
         Try
             Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\" & file & ".log"), True)
-                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
+                outputFile.WriteLine(s)
             End Using
         Catch ex As Exception
         End Try

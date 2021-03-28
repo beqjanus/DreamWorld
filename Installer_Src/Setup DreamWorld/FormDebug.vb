@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.IO
+Imports System.Text.RegularExpressions
 
 Public Class FormDebug
 
@@ -114,23 +115,68 @@ Public Class FormDebug
             End If
             Settings.SaveSettings()
 
+        ElseIf Command = My.Resources.Trees Then
+
+            If Value Then MakeXML()
+
         ElseIf Command = $"{My.Resources.Debug_word} Off" Then
-            Settings.StatusInterval = 0
+
+            If Value Then
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            Else
+                ProgressPrint("Unchanged")
+            End If
             Settings.SaveSettings()
+
         ElseIf Command = $"{My.Resources.Debug_word} 1 Minute" Then
-            Settings.StatusInterval = 60
+
+            If Value Then
+                Settings.StatusInterval = 60
+                ProgressPrint($"{My.Resources.Debug_word} 1 Minute")
+            Else
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            End If
             Settings.SaveSettings()
+
         ElseIf Command = $"{My.Resources.Debug_word} 10 Minutes" Then
-            Settings.StatusInterval = 10 * 60
+
+            If Value Then
+                Settings.StatusInterval = 600
+                ProgressPrint($"{My.Resources.Debug_word} 10 Minutes")
+            Else
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            End If
             Settings.SaveSettings()
+
         ElseIf Command = $"{My.Resources.Debug_word} 60 Minutes" Then
-            Settings.StatusInterval = 60 * 60
+
+            If Value Then
+                Settings.StatusInterval = 3600
+                ProgressPrint($"{My.Resources.Debug_word} 60 Minutes")
+            Else
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            End If
             Settings.SaveSettings()
+
         ElseIf Command = $"{My.Resources.Debug_word} 24 Hours" Then
-            Settings.StatusInterval = 60 * 60 * 24
+
+            If Value Then
+                Settings.StatusInterval = 60 * 60 * 24
+                ProgressPrint($"{My.Resources.Debug_word} 24 Hours")
+            Else
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            End If
             Settings.SaveSettings()
+
         ElseIf Command = My.Resources.AutoFill Then
             Settings.AutoFill = Value
+            If Value Then PlantTrees()
+
         ElseIf Command = My.Resources.LoadFreeOars Then
             If Value = False Then Return
             If Button2.Text <> My.Resources.Apply_word Then
@@ -250,7 +296,10 @@ Public Class FormDebug
                     Dim port = PropRegionClass.LargestPort
                     PropRegionClass.GroupPort(RegionUUID) = port
                     PropRegionClass.RegionPort(RegionUUID) = port
-                    PropRegionClass.WriteRegionObject(shortname)
+                    PropRegionClass.WriteRegionObject(shortname, shortname)
+
+                    PropRegionClass.GetAllRegions()
+                    Firewall.SetFirewall()
 
                     PropUpdateView = True ' make form refresh
                     Application.DoEvents()
@@ -372,6 +421,79 @@ Public Class FormDebug
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 hours")
 
         SetScreen()
+
+    End Sub
+
+    Private Sub MakeSetting(XMLname As String, Quant As Integer, TreelineHi As Integer, TreelineLow As Integer, scale As Integer, Size As Integer)
+
+        Dim xml As String = $"<Copse>
+  <m_name>{XMLname}</m_name>
+  <m_frozen>false</m_frozen>
+  <m_tree_type>{XMLname}</m_tree_type>
+  <m_tree_quantity>{Quant}</m_tree_quantity>
+  <m_treeline_low>{TreelineLow}</m_treeline_low>
+  <m_treeline_high>{TreelineHi}</m_treeline_high>
+  <m_seed_point>
+    <X>{Size / 2}</X>
+    <Y>{Size / 2}</Y>
+    <Z>0</Z>
+  </m_seed_point>
+  <m_range>{Size - 5}</m_range>
+  <m_initial_scale>
+    <X>4</X>
+    <Y>4</Y>
+    <Z>4</Z>
+  </m_initial_scale>
+  <m_maximum_scale>
+    <X>{scale}</X>
+    <Y>{scale}</Y>
+    <Z>{scale * 1.5}</Z>
+  </m_maximum_scale>
+  <m_rate>
+    <X>0.01</X>
+    <Y>0.01</Y>
+    <Z>0.01</Z>
+  </m_rate>
+</Copse>
+  "
+        Dim output = IO.Path.Combine(Settings.OpensimBinPath, $"Trees/{XMLname}.xml")
+
+        Using Writer As New StreamWriter(output)
+            Writer.Write(xml)
+        End Using
+
+    End Sub
+
+    Private Sub MakeXML()
+
+        Dim Size As Integer = 256
+
+        MakeSetting("BeachGrass", 150, 23, 20, 5, Size)
+        MakeSetting("Cypress1", 50, 45, 19, 25, Size)
+        MakeSetting("Cypress2", 40, 45, 19, 25, Size)
+        MakeSetting("Eelgrass", 150, 23, 20, 5, Size)
+        MakeSetting("Eucalyptus", 10, 40, 23, 10, Size)
+        MakeSetting("Fern", 150, 33, 23, 5, Size)
+        MakeSetting("Grass0", 150, 33, 23, 4, Size)
+        MakeSetting("Grass1", 150, 33, 23, 4, Size)
+        MakeSetting("Grass2", 150, 33, 23, 5, Size)
+        MakeSetting("Grass3", 150, 38, 23, 3, Size)
+        MakeSetting("Grass4", 150, 30, 22, 2, Size)
+        MakeSetting("Kelp1", 150, 19, 0, 4, Size)
+        MakeSetting("Kelp2", 150, 19, 0, 5, Size)
+        MakeSetting("Oak", 40, 33, 23, 25, Size)
+        MakeSetting("Palm1", 30, 28, 21, 10, Size)
+        MakeSetting("Palm2", 30, 25, 21, 8, Size)
+        MakeSetting("Pine1", 20, 45, 25, 25, Size)
+        MakeSetting("Pine2", 25, 35, 25, 25, Size)
+        MakeSetting("Plumeria", 200, 23, 20, 8, Size)
+        MakeSetting("SeaSword", 50, 18, 0, 5, Size)
+        MakeSetting("TropicalBush1", 50, 23, 20, 5, Size)
+        MakeSetting("TropicalBush2", 150, 23, 20, 5, Size)
+        MakeSetting("Undergrowth", 75, 55, 20, 4, Size)
+        MakeSetting("Winter Aspen", 25, 55, 35, 35, Size)
+        MakeSetting("WinterPine1", 25, 55, 25, 30, Size)
+        MakeSetting("WinterPine2", 35, 53, 25, 32, Size)
 
     End Sub
 

@@ -1923,6 +1923,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property TerrainType() As String
+        Get
+            Return GetMySetting("TerrainType", "Random")
+        End Get
+        Set
+            SetMySetting("TerrainType", Value)
+        End Set
+    End Property
+
     Public Property Theme() As String
         Get
             Return GetMySetting("Theme", "") ' no default, so we copy it.
@@ -2104,8 +2113,11 @@ Public Class MySettings
     ''' <param name="INI">Path to file</param>
     ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
-    Public Sub Grep(INI As String, LL As String)
+    '''
+#Disable Warning CA1822
 
+    Public Sub Grep(INI As String, LL As String)
+#Enable Warning CA1822
         If INI Is Nothing Then Return
         Dim Retry = 100 ' 10 sec
 

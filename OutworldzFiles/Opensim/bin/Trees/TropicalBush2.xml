@@ -1,8 +1,8 @@
 <Copse>
-  <m_name>TropicalBush1</m_name>
+  <m_name>TropicalBush2</m_name>
   <m_frozen>false</m_frozen>
-  <m_tree_type>TropicalBush1</m_tree_type>
-  <m_tree_quantity>50</m_tree_quantity>
+  <m_tree_type>TropicalBush2</m_tree_type>
+  <m_tree_quantity>150</m_tree_quantity>
   <m_treeline_low>20</m_treeline_low>
   <m_treeline_high>23</m_treeline_high>
   <m_seed_point>
