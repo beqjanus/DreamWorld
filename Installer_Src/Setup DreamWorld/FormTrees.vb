@@ -382,7 +382,11 @@
 
 #End Region
 
-    Private Sub LoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadToolStripMenuItem.Click
+    Private Sub HelpToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem2.Click
+        HelpManual("Landscaping")
+    End Sub
+
+    Private Sub LoadTerrainToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadTerrainToolStripMenuItem.Click
 
         Dim RegionName = ChooseRegion(True)
         If RegionName.Length = 0 Then Return
@@ -419,6 +423,10 @@
 
     End Sub
 
+    Private Sub LoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadToolStripMenuItem.Click
+
+    End Sub
+
     Private Sub Maketypes(FileName As System.IO.FileInfo, RegionUUID As String)
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
@@ -445,7 +453,7 @@
 
     End Sub
 
-    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
+    Private Sub RegeenerateTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RegeenerateTerrainsToolStripMenuItem.Click
 
         Dim RegionName = ChooseRegion(True)
         If RegionName.Length = 0 Then Return
@@ -462,8 +470,7 @@
 
     End Sub
 
-    Private Sub SaveAllRunningRegionTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveAllRunningRegioonTerrainsToolStripMenuItem.Click
-
+    Private Sub SaveAllTerrainsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveAllTerrainsToolStripMenuItem1.Click
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         For Each RegionUUID In PropRegionClass.RegionUuids
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
@@ -480,7 +487,7 @@
 
     End Sub
 
-    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
+    Private Sub SaveTerrainToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveTerrainToolStripMenuItem1.Click
 
         Dim RegionName = ChooseRegion(True)
         If RegionName.Length = 0 Then Return
@@ -495,11 +502,5 @@
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.ter") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
 
     End Sub
-
-    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
-        HelpManual("Landscaping")
-    End Sub
-
-    Private
 
 End Class

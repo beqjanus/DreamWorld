@@ -58,8 +58,19 @@ Module AutoFill
                 Dim Type As String = Terrains(r)
                 Debug.Print($"Terrain for {PropRegionClass.RegionName(RegionUUID)} set to {Type}")
                 RPC_Region_Command(RegionUUID, $"terrain load {Type}")
+
+                Dim Fortytwo = Between(5, 1)
+                Select Case Fortytwo
+                    Case 1
+                        RPC_Region_Command(RegionUUID, "terrain flip x")
+                    Case 2
+                        RPC_Region_Command(RegionUUID, "terrain flip y")
+                    Case 3
+                        RPC_Region_Command(RegionUUID, "terrain flip x")
+                        RPC_Region_Command(RegionUUID, "terrain flip y")
+                End Select
+
                 RPC_Region_Command(RegionUUID, "generate map")
-                ' TODO:" terrain flip
             Catch
             End Try
 

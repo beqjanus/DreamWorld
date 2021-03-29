@@ -22,11 +22,12 @@ Partial Class FormTrees
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.Flat = New System.Windows.Forms.RadioButton()
         Me.Rand = New System.Windows.Forms.RadioButton()
         Me.AI = New System.Windows.Forms.RadioButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.FreezeButton = New System.Windows.Forms.Button()
+        Me.RevertButton = New System.Windows.Forms.Button()
         Me.None = New System.Windows.Forms.CheckBox()
         Me.All = New System.Windows.Forms.CheckBox()
         Me.ApplyButtton = New System.Windows.Forms.Button()
@@ -61,10 +62,24 @@ Partial Class FormTrees
         Me.Water = New System.Windows.Forms.RadioButton()
         Me.TerrainPic = New System.Windows.Forms.PictureBox()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TerrainToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoadTerrainToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveTerrainToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveAllTerrainsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RegeenerateTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RevertButton = New System.Windows.Forms.Button()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RefreshToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveAllRunningRegioonTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TerrainToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoadTTerrainToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveTerrainToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RebuildAllTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveAllTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -107,6 +122,7 @@ Partial Class FormTrees
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.FreezeButton)
         Me.GroupBox1.Controls.Add(Me.RevertButton)
         Me.GroupBox1.Controls.Add(Me.None)
         Me.GroupBox1.Controls.Add(Me.All)
@@ -138,12 +154,34 @@ Partial Class FormTrees
         Me.GroupBox1.Controls.Add(Me.Oak)
         Me.GroupBox1.Controls.Add(Me.Pine2)
         Me.GroupBox1.Controls.Add(Me.Pine1)
-        Me.GroupBox1.Location = New System.Drawing.Point(311, 36)
+        Me.GroupBox1.Location = New System.Drawing.Point(297, 36)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(648, 301)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Plants"
+        '
+        'FreezeButton
+        '
+        Me.FreezeButton.Image = Global.Outworldz.My.Resources.Resources.redo
+        Me.FreezeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.FreezeButton.Location = New System.Drawing.Point(222, 250)
+        Me.FreezeButton.Name = "FreezeButton"
+        Me.FreezeButton.Size = New System.Drawing.Size(122, 34)
+        Me.FreezeButton.TabIndex = 35
+        Me.FreezeButton.Text = "Freeze"
+        Me.FreezeButton.UseVisualStyleBackColor = True
+        '
+        'RevertButton
+        '
+        Me.RevertButton.Image = Global.Outworldz.My.Resources.Resources.redo
+        Me.RevertButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RevertButton.Location = New System.Drawing.Point(222, 210)
+        Me.RevertButton.Name = "RevertButton"
+        Me.RevertButton.Size = New System.Drawing.Size(122, 34)
+        Me.RevertButton.TabIndex = 34
+        Me.RevertButton.Text = "Revert"
+        Me.RevertButton.UseVisualStyleBackColor = True
         '
         'None
         '
@@ -169,7 +207,7 @@ Partial Class FormTrees
         '
         Me.ApplyButtton.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.ApplyButtton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ApplyButtton.Location = New System.Drawing.Point(222, 230)
+        Me.ApplyButtton.Location = New System.Drawing.Point(222, 167)
         Me.ApplyButtton.Name = "ApplyButtton"
         Me.ApplyButtton.Size = New System.Drawing.Size(122, 37)
         Me.ApplyButtton.TabIndex = 30
@@ -485,12 +523,54 @@ Partial Class FormTrees
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.TerrainsToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem2, Me.TerrainToolStripMenuItem1})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(977, 24)
         Me.MenuStrip1.TabIndex = 5
         Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'HelpToolStripMenuItem2
+        '
+        Me.HelpToolStripMenuItem2.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem2.Name = "HelpToolStripMenuItem2"
+        Me.HelpToolStripMenuItem2.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem2.Text = "Help"
+        '
+        'TerrainToolStripMenuItem1
+        '
+        Me.TerrainToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadTerrainToolStripMenuItem, Me.SaveTerrainToolStripMenuItem1, Me.SaveAllTerrainsToolStripMenuItem1, Me.RegeenerateTerrainsToolStripMenuItem})
+        Me.TerrainToolStripMenuItem1.Name = "TerrainToolStripMenuItem1"
+        Me.TerrainToolStripMenuItem1.Size = New System.Drawing.Size(54, 20)
+        Me.TerrainToolStripMenuItem1.Text = "Terrain"
+        '
+        'LoadTerrainToolStripMenuItem
+        '
+        Me.LoadTerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_view
+        Me.LoadTerrainToolStripMenuItem.Name = "LoadTerrainToolStripMenuItem"
+        Me.LoadTerrainToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LoadTerrainToolStripMenuItem.Text = "Load Terrain"
+        '
+        'SaveTerrainToolStripMenuItem1
+        '
+        Me.SaveTerrainToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
+        Me.SaveTerrainToolStripMenuItem1.Name = "SaveTerrainToolStripMenuItem1"
+        Me.SaveTerrainToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.SaveTerrainToolStripMenuItem1.Text = "Save Terrain"
+        '
+        'SaveAllTerrainsToolStripMenuItem1
+        '
+        Me.SaveAllTerrainsToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disks
+        Me.SaveAllTerrainsToolStripMenuItem1.Name = "SaveAllTerrainsToolStripMenuItem1"
+        Me.SaveAllTerrainsToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.SaveAllTerrainsToolStripMenuItem1.Text = "Save All Terrains"
+        '
+        'RegeenerateTerrainsToolStripMenuItem
+        '
+        Me.RegeenerateTerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.pictures
+        Me.RegeenerateTerrainsToolStripMenuItem.Name = "RegeenerateTerrainsToolStripMenuItem"
+        Me.RegeenerateTerrainsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RegeenerateTerrainsToolStripMenuItem.Text = "Regenerate Terrains"
         '
         'HelpToolStripMenuItem
         '
@@ -499,29 +579,81 @@ Partial Class FormTrees
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
-        'RevertButton
-        '
-        Me.RevertButton.Image = Global.Outworldz.My.Resources.Resources.redo
-        Me.RevertButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RevertButton.Location = New System.Drawing.Point(222, 190)
-        Me.RevertButton.Name = "RevertButton"
-        Me.RevertButton.Size = New System.Drawing.Size(122, 34)
-        Me.RevertButton.TabIndex = 34
-        Me.RevertButton.Text = "Revert"
-        Me.RevertButton.UseVisualStyleBackColor = True
-        '
-        'ImageList1
-        '
-        Me.ImageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit
-        Me.ImageList1.ImageSize = New System.Drawing.Size(16, 16)
-        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
-        '
         'TerrainsToolStripMenuItem
         '
         Me.TerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.map
         Me.TerrainsToolStripMenuItem.Name = "TerrainsToolStripMenuItem"
         Me.TerrainsToolStripMenuItem.Size = New System.Drawing.Size(75, 20)
         Me.TerrainsToolStripMenuItem.Text = "Terrains"
+        '
+        'LoadToolStripMenuItem
+        '
+        Me.LoadToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        Me.LoadToolStripMenuItem.Name = "LoadToolStripMenuItem"
+        Me.LoadToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.LoadToolStripMenuItem.Text = "Load a Region with a Terrain"
+        '
+        'SaveToolStripMenuItem
+        '
+        Me.SaveToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_yellow
+        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.SaveToolStripMenuItem.Text = "Save a Region's Terrain"
+        '
+        'RefreshToolStripMenuItem
+        '
+        Me.RefreshToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.pictures
+        Me.RefreshToolStripMenuItem.Name = "RefreshToolStripMenuItem"
+        Me.RefreshToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.RefreshToolStripMenuItem.Text = "Refresh All Terrain Files"
+        '
+        'SaveAllRunningRegioonTerrainsToolStripMenuItem
+        '
+        Me.SaveAllRunningRegioonTerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        Me.SaveAllRunningRegioonTerrainsToolStripMenuItem.Name = "SaveAllRunningRegioonTerrainsToolStripMenuItem"
+        Me.SaveAllRunningRegioonTerrainsToolStripMenuItem.Size = New System.Drawing.Size(229, 22)
+        Me.SaveAllRunningRegioonTerrainsToolStripMenuItem.Text = "Save Running Region Terrains"
+        '
+        'HelpToolStripMenuItem1
+        '
+        Me.HelpToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem1.Name = "HelpToolStripMenuItem1"
+        Me.HelpToolStripMenuItem1.Size = New System.Drawing.Size(60, 20)
+        Me.HelpToolStripMenuItem1.Text = "Help"
+        '
+        'TerrainToolStripMenuItem
+        '
+        Me.TerrainToolStripMenuItem.Name = "TerrainToolStripMenuItem"
+        Me.TerrainToolStripMenuItem.Size = New System.Drawing.Size(54, 20)
+        Me.TerrainToolStripMenuItem.Text = "Terrain"
+        '
+        'LoadTTerrainToolStripMenuItem
+        '
+        Me.LoadTTerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.picture_empty
+        Me.LoadTTerrainToolStripMenuItem.Name = "LoadTTerrainToolStripMenuItem"
+        Me.LoadTTerrainToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LoadTTerrainToolStripMenuItem.Text = "Load Terrain"
+        '
+        'SaveTerrainToolStripMenuItem
+        '
+        Me.SaveTerrainToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disk_blue
+        Me.SaveTerrainToolStripMenuItem.Name = "SaveTerrainToolStripMenuItem"
+        Me.SaveTerrainToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveTerrainToolStripMenuItem.Text = "Save Terrain"
+        '
+        'RebuildAllTerrainsToolStripMenuItem
+        '
+        Me.RebuildAllTerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
+        Me.RebuildAllTerrainsToolStripMenuItem.Name = "RebuildAllTerrainsToolStripMenuItem"
+        Me.RebuildAllTerrainsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RebuildAllTerrainsToolStripMenuItem.Text = "Rebuild All Terrains"
+        '
+        'SaveAllTerrainsToolStripMenuItem
+        '
+        Me.SaveAllTerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.disks
+        Me.SaveAllTerrainsToolStripMenuItem.Name = "SaveAllTerrainsToolStripMenuItem"
+        Me.SaveAllTerrainsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveAllTerrainsToolStripMenuItem.Text = "Save All Terrains"
         '
         'FormTrees
         '
@@ -532,6 +664,7 @@ Partial Class FormTrees
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
+        Me.MaximizeBox = False
         Me.Name = "FormTrees"
         Me.Text = "Landcaping"
         Me.GroupBox1.ResumeLayout(False)
@@ -588,5 +721,21 @@ Partial Class FormTrees
     Friend WithEvents All As CheckBox
     Friend WithEvents RevertButton As Button
     Friend WithEvents TerrainsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ImageList1 As ImageList
+    Friend WithEvents FreezeButton As Button
+    Friend WithEvents LoadToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SaveToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RefreshToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SaveAllRunningRegioonTerrainsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents TerrainToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LoadTTerrainToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SaveAllTerrainsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SaveTerrainToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RebuildAllTerrainsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem2 As ToolStripMenuItem
+    Friend WithEvents TerrainToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents LoadTerrainToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SaveTerrainToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents SaveAllTerrainsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents RegeenerateTerrainsToolStripMenuItem As ToolStripMenuItem
 End Class
