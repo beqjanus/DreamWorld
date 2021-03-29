@@ -1405,7 +1405,6 @@
     <None Include="Resources\transform.png" />
     <None Include="Resources\media_play_green.png" />
     <None Include="Resources\media_pause.png" />
-    <None Include="Resources\disk_green.png" />
     <None Include="Resources\disk_yellow.png" />
     <None Include="Resources\warning.png" />
     <None Include="Resources\export1.png" />
@@ -1634,9 +1633,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\map.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\map_add1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\map_delete.png" />

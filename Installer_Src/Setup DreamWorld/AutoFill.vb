@@ -27,7 +27,9 @@ Module AutoFill
                     .Y = Y,
                     .Size = Size
                 }
+#Disable Warning BC42016 ' Implicit conversion
                 Dim start As ParameterizedThreadStart = AddressOf LandMaker
+#Enable Warning BC42016 ' Implicit conversion
 
                 Dim _WebThread1 = New Thread(start)
                 _WebThread1.SetApartmentState(ApartmentState.STA)
@@ -48,6 +50,7 @@ Module AutoFill
 
         ElseIf Settings.TerrainType = "Water" Then
             RPC_Region_Command(RegionUUID, "terrain fill 1")
+            RPC_Region_Command(RegionUUID, "generate map")
 
         ElseIf Settings.TerrainType = "Random" Then
             Try
@@ -55,7 +58,7 @@ Module AutoFill
                 Dim Type As String = Terrains(r)
                 Debug.Print($"Terrain for {PropRegionClass.RegionName(RegionUUID)} set to {Type}")
                 RPC_Region_Command(RegionUUID, $"terrain load {Type}")
-
+                RPC_Region_Command(RegionUUID, "generate map")
                 ' TODO:" terrain flip
             Catch
             End Try
@@ -78,6 +81,8 @@ Module AutoFill
                     RPC_Region_Command(RegionUUID, $"terrain noise 1 0")
             End Select
 
+            RPC_Region_Command(RegionUUID, "generate map")
+
         End If
 
     End Sub
@@ -91,6 +96,15 @@ Module AutoFill
             End If
         Next
         If UseTree.Count = 0 Then Return
+
+        RPC_Region_Command(RegionUUID, "tree active true")
+        For Each TT As String In TreeList
+            If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then
+                Diagnostics.Debug.Print("Error")
+                Return
+            End If
+        Next
+
         Dim r = Between(UseTree.Count, 0)
         Dim Type As String = UseTree(r)
 

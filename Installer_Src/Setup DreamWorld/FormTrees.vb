@@ -105,30 +105,22 @@
 
 #Region "Test"
 
-    Public Sub Test_Click(sender As Object, e As EventArgs) Handles ApplyButtton.Click
+    Public Sub Apply_Click(sender As Object, e As EventArgs) Handles ApplyButtton.Click
 
         Dim name = ChooseRegion(True)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If Not IO.File.Exists(backupname) Then
-            RPC_Region_Command(RegionUUID, $"terrain save {backupname}")
+        If Not IO.File.Exists($"{backupname}\{name}-Backup.r32") Then
+            RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.r32""")
+        End If
+        If Not IO.File.Exists($"{backupname}\{name}-Backup.jpg") Then
+            RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.jpg""")
         End If
 
-        RPC_Region_Command(RegionUUID, "tree active true")
-        For Each Type As String In TreeList
-            If Not RPC_Region_Command(RegionUUID, $"tree remove {Type}") Then
-                Diagnostics.Debug.Print("Error")
-                Return
-            End If
-        Next
-
         If RegionUUID.Length > 0 Then
-            If Not RPC_Region_Command(RegionUUID, "terrain fill 23") Then
-                Diagnostics.Debug.Print("Error")
-                Return
-            End If
+
             GenLand(RegionUUID)
             Application.DoEvents()
             GenTrees(RegionUUID)
@@ -138,6 +130,36 @@
         End If
 
     End Sub
+
+    Private Sub FreezeButton_Click(sender As Object, e As EventArgs) Handles FreezeButton.Click
+
+        Dim name = ChooseRegion(True)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        If RegionUUID.Length = 0 Then Return
+
+        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        CopyFileFast($"{backupname}\{name}-Backup.r32", $"{backupname}\{name}.r32")
+        CopyFileFast($"{backupname}\{name}-Backup.jpg", $"{backupname}\{name}.jpg")
+
+    End Sub
+
+    Private Sub Revert_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
+
+        Dim name = ChooseRegion(True)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        If RegionUUID.Length = 0 Then Return
+
+        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+
+        If IO.File.Exists(backupname) Then
+            RPC_Region_Command(RegionUUID, $"terrain load ""{backupname}\{name}-Backup.r32""")
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "All/None"
 
     Private Sub All_CheckedChanged(sender As Object, e As EventArgs) Handles All.CheckedChanged
 
@@ -208,22 +230,9 @@
 
     End Sub
 
-    Private Sub Revert_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
-
-        Dim name = ChooseRegion(True)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
-        If RegionUUID.Length = 0 Then Return
-
-        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If IO.File.Exists(backupname) Then
-            RPC_Region_Command(RegionUUID, $"terrain load {backupname}")
-        End If
-
-    End Sub
-
 #End Region
 
-#Region "Checkboxes"
+#Region "Check boxes"
 
     Private Sub BeachGrass_CheckedChanged(sender As Object, e As EventArgs) Handles BeachGrass.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
@@ -372,5 +381,125 @@
     End Sub
 
 #End Region
+
+    Private Sub LoadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadToolStripMenuItem.Click
+
+        Dim RegionName = ChooseRegion(True)
+        If RegionName.Length = 0 Then Return
+
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        ' Create an instance of the open file dialog box. Set filter options and filter index.
+        Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+            .InitialDirectory = Terrainfolder,
+            .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.png,*.r32,*.raw)|*.png;*.r32;*.raw;|All Files (*.*)|*.*",
+            .FilterIndex = 1,
+            .Multiselect = False
+            }
+
+            ' Call the ShowDialog method to show the dialog box.
+            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+
+                Dim thing = openFileDialog1.FileName
+                If thing.Length > 0 Then
+                    If Not IO.File.Exists($"""{Terrainfolder}\{Name}-Backup.r32""") Then
+                        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.r32""")
+                    End If
+                    If Not IO.File.Exists($"""{Terrainfolder}\{Name}-Backup.jpg""") Then
+                        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.jpg""")
+                    End If
+                    RPC_Region_Command(RegionUUID, $"terrain load ""{thing}""")
+                End If
+            End If
+
+        End Using
+
+    End Sub
+
+    Private Sub Maketypes(FileName As System.IO.FileInfo, RegionUUID As String)
+
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        Dim extension = IO.Path.GetExtension(FileName.Name)
+        Select Case extension
+            Case "raw"
+            Case "r32"
+            Case "jpg"
+            Case "png"
+            Case "ter"
+            Case Else
+                Return
+        End Select
+
+        RPC_Region_Command(RegionUUID, $"terrain load ""{Terrainfolder}\{FileName}""")
+        Dim RegionName = FileName.Name
+        RegionName = RegionName.Replace($"{extension}", "")
+
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.raw") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.r32") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.jpg") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.png") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.ter") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+
+    End Sub
+
+    Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
+
+        Dim RegionName = ChooseRegion(True)
+        If RegionName.Length = 0 Then Return
+
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
+        Dim File As System.IO.FileInfo() = directory.GetFiles()
+        Dim File1 As System.IO.FileInfo
+        For Each File1 In File
+            Maketypes(File1, RegionUUID)
+        Next
+
+    End Sub
+
+    Private Sub SaveAllRunningRegionTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveAllRunningRegioonTerrainsToolStripMenuItem.Click
+
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        For Each RegionUUID In PropRegionClass.RegionUuids
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                RPC_Region_Command(RegionUUID, $"change region {RegionName}")
+                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
+                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
+                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
+                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+            End If
+        Next
+
+    End Sub
+
+    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
+
+        Dim RegionName = ChooseRegion(True)
+        If RegionName.Length = 0 Then Return
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+
+        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.raw") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.r32") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.jpg") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.png") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
+        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.ter") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+
+    End Sub
+
+    Private Sub HelpToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem1.Click
+        HelpManual("Landscaping")
+    End Sub
+
+    Private
 
 End Class

@@ -2687,16 +2687,6 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property disk_green() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("disk_green", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
         Friend ReadOnly Property disk_yellow() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("disk_yellow", resourceCulture)
@@ -5399,16 +5389,6 @@ Namespace My.Resources
         Friend ReadOnly Property map_add() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("map_add", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property map_add1() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("map_add1", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

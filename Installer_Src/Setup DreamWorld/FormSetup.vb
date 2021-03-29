@@ -1060,7 +1060,7 @@ Public Class FormSetup
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
             Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
 
-            TextPrint(RegionName & " " & My.Resources.Running_word & ": " & CStr(seconds) & " " & My.Resources.Seconds_word)
+            TextPrint($"{RegionName} {My.Resources.Running_word}: {CStr(seconds)} {My.Resources.Seconds_word}")
             If Not PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
             End If

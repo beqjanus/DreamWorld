@@ -721,7 +721,7 @@ Partial Class FormSetup
         '
         'SaveRegionOARToolStripMenuItem1
         '
-        Me.SaveRegionOARToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disk_green
+        Me.SaveRegionOARToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.SaveRegionOARToolStripMenuItem1.Name = "SaveRegionOARToolStripMenuItem1"
         Me.SaveRegionOARToolStripMenuItem1.Size = New System.Drawing.Size(252, 22)
         Me.SaveRegionOARToolStripMenuItem1.Text = "Save Region OAR"

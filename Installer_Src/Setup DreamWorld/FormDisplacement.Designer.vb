@@ -142,7 +142,7 @@ Partial Class FormDisplacement
         '
         'MergeParcelsMenu
         '
-        Me.MergeParcelsMenu.Image = Global.Outworldz.My.Resources.Resources.map_add1
+        Me.MergeParcelsMenu.Image = Global.Outworldz.My.Resources.Resources.map_add
         Me.MergeParcelsMenu.Name = "MergeParcelsMenu"
         Me.MergeParcelsMenu.Size = New System.Drawing.Size(148, 22)
         Me.MergeParcelsMenu.Text = "Merge Parcels"
