@@ -163,17 +163,22 @@ Module SmartStart
 
         Dim ToSort As New List(Of String)
         Dim coords As New Dictionary(Of String, String)
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
 
+        Dim WelcomeUUID = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+        ToSort.Add(Settings.WelcomeRegion)
+        coords.Add(Settings.WelcomeRegion, PropRegionClass.LandingSpot(WelcomeUUID))
+
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
                 status = RegionMaker.SIMSTATUSENUM.Booted) Or
                (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
                 PropRegionClass.SmartStart(RegionUUID) = "True" AndAlso Settings.SmartStart) Then
+
+                If Settings.WelcomeRegion = PropRegionClass.RegionName(RegionUUID) Then Continue For
                 ToSort.Add(PropRegionClass.RegionName(RegionUUID))
                 coords.Add(PropRegionClass.RegionName(RegionUUID), PropRegionClass.LandingSpot(RegionUUID))
             End If
-
         Next
 
         ToSort.Sort()
