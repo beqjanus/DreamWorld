@@ -73,6 +73,32 @@ Public Class FormMaps
 
     End Sub
 
+    Private Sub ExportAllMaps_Click(sender As Object, e As EventArgs) Handles ExportAllMaps.Click
+
+        'export-map [<path>] - Save an image of the world map (default name is exportmap.jpg)
+
+        'Create an instance of the open file dialog box.
+        Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+            .ShowNewFolderButton = True,
+            .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
+        }
+            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+                Dim thing = openFileDialog1.SelectedPath
+                If thing.Length > 0 Then
+                    For Each RegionUUID As String In PropRegionClass.RegionUuids
+                        thing = IO.Path.Combine(thing, PropRegionClass.RegionName(RegionUUID))
+                        thing += ".jpg"
+                        RPC_Region_Command(RegionUUID, $"export-map ""{thing}""")
+                        Application.DoEvents()
+                    Next
+                End If
+            End If
+        End Using
+
+    End Sub
+
     Private Sub IsClosed(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Closed
 
         Settings.SaveSettings()
@@ -118,6 +144,7 @@ Public Class FormMaps
         ToolTip1.SetToolTip(ViewMap, Global.Outworldz.My.Resources.Regen_Map)
         ViewMap.Text = Global.Outworldz.My.Resources.DelMaps
         VieweAllMaps.Text = Global.Outworldz.My.Resources.ViewAllMaps
+        ExportAllMaps.Text = Global.Outworldz.My.Resources.ExportAllMaps
 
         If Settings.MapType = "None" Then
             MapNone.Checked = True

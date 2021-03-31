@@ -37,6 +37,8 @@ Partial Class FormMaps
         Me.LargeMapButton = New System.Windows.Forms.Button()
         Me.SmallMapButton = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.ExportAllMaps = New System.Windows.Forms.Button()
+        Me.VieweAllMaps = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.RenderMinH = New System.Windows.Forms.TextBox()
@@ -49,7 +51,6 @@ Partial Class FormMaps
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.VieweAllMaps = New System.Windows.Forms.Button()
         Me.MapBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
@@ -178,6 +179,7 @@ Partial Class FormMaps
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.ExportAllMaps)
         Me.GroupBox2.Controls.Add(Me.VieweAllMaps)
         Me.GroupBox2.Controls.Add(Me.Label5)
         Me.GroupBox2.Controls.Add(Me.Label4)
@@ -198,10 +200,28 @@ Partial Class FormMaps
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Maps"
         '
+        'ExportAllMaps
+        '
+        Me.ExportAllMaps.Location = New System.Drawing.Point(31, 138)
+        Me.ExportAllMaps.Name = "ExportAllMaps"
+        Me.ExportAllMaps.Size = New System.Drawing.Size(140, 23)
+        Me.ExportAllMaps.TabIndex = 1878
+        Me.ExportAllMaps.Text = "Export All  Maps"
+        Me.ExportAllMaps.UseVisualStyleBackColor = True
+        '
+        'VieweAllMaps
+        '
+        Me.VieweAllMaps.Location = New System.Drawing.Point(29, 109)
+        Me.VieweAllMaps.Name = "VieweAllMaps"
+        Me.VieweAllMaps.Size = New System.Drawing.Size(140, 23)
+        Me.VieweAllMaps.TabIndex = 1877
+        Me.VieweAllMaps.Text = "View All  Maps"
+        Me.VieweAllMaps.UseVisualStyleBackColor = True
+        '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(26, 188)
+        Me.Label5.Location = New System.Drawing.Point(29, 205)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(96, 13)
         Me.Label5.TabIndex = 1876
@@ -210,7 +230,7 @@ Partial Class FormMaps
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(23, 162)
+        Me.Label4.Location = New System.Drawing.Point(26, 179)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(99, 13)
         Me.Label4.TabIndex = 1875
@@ -218,7 +238,7 @@ Partial Class FormMaps
         '
         'RenderMinH
         '
-        Me.RenderMinH.Location = New System.Drawing.Point(144, 183)
+        Me.RenderMinH.Location = New System.Drawing.Point(147, 200)
         Me.RenderMinH.Name = "RenderMinH"
         Me.RenderMinH.Size = New System.Drawing.Size(39, 20)
         Me.RenderMinH.TabIndex = 1874
@@ -226,7 +246,7 @@ Partial Class FormMaps
         '
         'RenderMaxH
         '
-        Me.RenderMaxH.Location = New System.Drawing.Point(144, 160)
+        Me.RenderMaxH.Location = New System.Drawing.Point(147, 177)
         Me.RenderMaxH.Name = "RenderMaxH"
         Me.RenderMaxH.Size = New System.Drawing.Size(39, 20)
         Me.RenderMaxH.TabIndex = 1873
@@ -234,7 +254,7 @@ Partial Class FormMaps
         '
         'MapYStart
         '
-        Me.MapYStart.Location = New System.Drawing.Point(117, 241)
+        Me.MapYStart.Location = New System.Drawing.Point(120, 258)
         Me.MapYStart.Name = "MapYStart"
         Me.MapYStart.Size = New System.Drawing.Size(39, 20)
         Me.MapYStart.TabIndex = 1872
@@ -242,7 +262,7 @@ Partial Class FormMaps
         '
         'MapXStart
         '
-        Me.MapXStart.Location = New System.Drawing.Point(48, 241)
+        Me.MapXStart.Location = New System.Drawing.Point(51, 258)
         Me.MapXStart.Name = "MapXStart"
         Me.MapXStart.Size = New System.Drawing.Size(39, 20)
         Me.MapXStart.TabIndex = 1871
@@ -251,7 +271,7 @@ Partial Class FormMaps
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(97, 241)
+        Me.Label3.Location = New System.Drawing.Point(100, 258)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(14, 13)
         Me.Label3.TabIndex = 1870
@@ -260,7 +280,7 @@ Partial Class FormMaps
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(27, 241)
+        Me.Label2.Location = New System.Drawing.Point(30, 258)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(14, 13)
         Me.Label2.TabIndex = 1869
@@ -269,7 +289,7 @@ Partial Class FormMaps
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(27, 220)
+        Me.Label1.Location = New System.Drawing.Point(30, 237)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 13)
         Me.Label1.TabIndex = 1868
@@ -292,15 +312,6 @@ Partial Class FormMaps
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
-        '
-        'VieweAllMaps
-        '
-        Me.VieweAllMaps.Location = New System.Drawing.Point(30, 109)
-        Me.VieweAllMaps.Name = "VieweAllMaps"
-        Me.VieweAllMaps.Size = New System.Drawing.Size(140, 23)
-        Me.VieweAllMaps.TabIndex = 1877
-        Me.VieweAllMaps.Text = "View All  Maps"
-        Me.VieweAllMaps.UseVisualStyleBackColor = True
         '
         'FormMaps
         '
@@ -352,4 +363,5 @@ Partial Class FormMaps
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents VieweAllMaps As Button
+    Friend WithEvents ExportAllMaps As Button
 End Class

@@ -3329,6 +3329,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Export All Maps.
+        '''</summary>
+        Friend ReadOnly Property ExportAllMaps() As String
+            Get
+                Return ResourceManager.GetString("ExportAllMaps", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to External HostName For Region Servers.
         '''</summary>
         Friend ReadOnly Property External() As String
