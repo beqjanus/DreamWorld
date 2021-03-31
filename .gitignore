@@ -115,7 +115,6 @@ OutworldzFiles/opensim/bin/OpenSim.vshost.exe.config
 OutworldzFiles/opensim/bin/*.maddin
 OutworldzFiles/opensim/bin/j2kDecodeCache
 OutworldzFiles/opensim/bin/Physics*
-OutworldzFiles/opensim/bin/Terrain*
 OutworldzFiles/opensim/bin/Regions/*
 OutworldzFiles/opensim/bin/UserAssets
 OutworldzFiles/opensim/bin/estate_settings.xml
