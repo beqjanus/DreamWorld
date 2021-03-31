@@ -41,6 +41,7 @@ Partial Class FormDisplacement
         Me.MergeParcelsMenu = New System.Windows.Forms.ToolStripMenuItem()
         Me.IgnoreParcels = New System.Windows.Forms.ToolStripMenuItem()
         Me.OwnerMenu = New System.Windows.Forms.ToolStripButton()
+        Me.ExportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -48,7 +49,7 @@ Partial Class FormDisplacement
         'MenuStrip1
         '
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.PrintToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem, Me.PrintToolStripMenuItem, Me.ExportToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
@@ -98,14 +99,14 @@ Partial Class FormDisplacement
         '
         Me.ClearObjects.Image = Global.Outworldz.My.Resources.Resources.table_sql_delete
         Me.ClearObjects.Name = "ClearObjects"
-        Me.ClearObjects.Size = New System.Drawing.Size(180, 22)
+        Me.ClearObjects.Size = New System.Drawing.Size(161, 22)
         Me.ClearObjects.Text = "Clear All Objects"
         '
         'MergeObject
         '
         Me.MergeObject.Image = Global.Outworldz.My.Resources.Resources.table_sql_add
         Me.MergeObject.Name = "MergeObject"
-        Me.MergeObject.Size = New System.Drawing.Size(180, 22)
+        Me.MergeObject.Size = New System.Drawing.Size(161, 22)
         Me.MergeObject.Text = "Merge Objects"
         '
         'TerrainToolstrip
@@ -162,6 +163,13 @@ Partial Class FormDisplacement
         Me.OwnerMenu.Size = New System.Drawing.Size(62, 22)
         Me.OwnerMenu.Text = "Owner"
         '
+        'ExportToolStripMenuItem
+        '
+        Me.ExportToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
+        Me.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem"
+        Me.ExportToolStripMenuItem.Size = New System.Drawing.Size(73, 24)
+        Me.ExportToolStripMenuItem.Text = "Export"
+        '
         'FormDisplacement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -198,4 +206,5 @@ Partial Class FormDisplacement
     Friend WithEvents IgnoreParcels As ToolStripMenuItem
     Friend WithEvents OwnerMenu As ToolStripButton
     Friend WithEvents MergeObject As ToolStripMenuItem
+    Friend WithEvents ExportToolStripMenuItem As ToolStripMenuItem
 End Class

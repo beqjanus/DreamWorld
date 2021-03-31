@@ -162,23 +162,24 @@ Module SmartStart
         Dim HTML As String = ""
 
         Dim ToSort As New List(Of String)
-
+        Dim coords As New Dictionary(Of String, String)
         For Each RegionUUID As String In PropRegionClass.RegionUuids
+
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
                 status = RegionMaker.SIMSTATUSENUM.Booted) Or
                (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
                 PropRegionClass.SmartStart(RegionUUID) = "True" AndAlso Settings.SmartStart) Then
                 ToSort.Add(PropRegionClass.RegionName(RegionUUID))
+                coords.Add(PropRegionClass.RegionName(RegionUUID), PropRegionClass.LandingSpot(RegionUUID))
             End If
+
         Next
 
         ToSort.Sort()
 
-        'TODO   "||"  is coordinates for destinations
-
         For Each S As String In ToSort
-            HTML += "*|" & S & "||" & Settings.PublicIP & ":" & Settings.HttpPort & ":" & S & "||" & S & "|" & vbCrLf
+            HTML += $"*|{S}|{coords.Item(S)}|{Settings.PublicIP}:{Settings.HttpPort}:{S}||{S}|{vbCrLf}"
         Next
 
         Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"

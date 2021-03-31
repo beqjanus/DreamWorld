@@ -38,9 +38,8 @@ Module Word_Wrap
                 Else
                     ' is the word too long for one line
                     If Word.Length > LineLength Then
-                        ' hack off the first piece, fill out the current line and start a new line
-                        Dim Slice As String =
-                        Word.Substring(0, LineLength - CurrentLine.Length)
+                        '
+                        Dim Slice As String = Word.Substring(0, LineLength - CurrentLine.Length)
                         CurrentLine.Append(Slice)
                         ReturnValue.Add(CurrentLine.ToString)
 
@@ -59,9 +58,7 @@ Module Word_Wrap
                                 'this is the last slice
                                 CurrentLine.Append(Word & " ")
                             Else
-                                ' this is not the last slice
-                                ' hack off a slice that is one line long, add that slice
-                                ' to the output as a line and start a new line
+                                ' this is not the last slice hack off a slice that is one line long, add that slice to the output as a line and start a new line
 
                                 Slice = Word ' .Substring(0, LineLength)
                                 CurrentLine.Append(Slice)

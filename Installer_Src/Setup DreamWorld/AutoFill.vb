@@ -46,10 +46,18 @@ Module AutoFill
 
         If Settings.TerrainType = "Flat" Then
             RPC_Region_Command(RegionUUID, "terrain fill 23")
+            TextPrint("terrain fill 23")
+            ' TODO New terrain command
+            '   set terrain heights <corner> <min> <max> [<x>] [<y>] - Sets the terrain texture heights on corner #<corner> to <min>/<max>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wildcard that coordinate. Corner # SW = 0, NW = 1, SE = 2, NE = 3.
+            '   set terrain texture <number> <uuid> [<x>] [<y>] - Sets the terrain <number> to <uuid>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wildcard that coordinate.
+
+            RPC_Region_Command(RegionUUID, "force update")
             RPC_Region_Command(RegionUUID, "generate map")
 
         ElseIf Settings.TerrainType = "Water" Then
-            RPC_Region_Command(RegionUUID, "terrain fill 1")
+
+            RPC_Region_Command(RegionUUID, "terrain fill 0")
+            RPC_Region_Command(RegionUUID, "terrain noise 1 0")
             RPC_Region_Command(RegionUUID, "generate map")
 
         ElseIf Settings.TerrainType = "Random" Then
@@ -70,6 +78,7 @@ Module AutoFill
                         RPC_Region_Command(RegionUUID, "terrain flip y")
                 End Select
 
+                RPC_Region_Command(RegionUUID, "force update")
                 RPC_Region_Command(RegionUUID, "generate map")
             Catch
             End Try
@@ -92,6 +101,8 @@ Module AutoFill
                     RPC_Region_Command(RegionUUID, $"terrain noise 1 0")
             End Select
 
+            'force update - Force the region to send all clients updates about all objects.
+            RPC_Region_Command(RegionUUID, "force update")
             RPC_Region_Command(RegionUUID, "generate map")
 
         End If
@@ -120,12 +131,22 @@ Module AutoFill
         Dim Type As String = UseTree(r)
 
         Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
+
         If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{Type}.xml") Then Return
-        If Not RPC_Region_Command(RegionUUID, $"tree plant {Type}") Then Return
+
+        For Each NewType In UseTree
+            If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} false") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"tree plant {NewType}") Then Return
+        Next
+
         If Not RPC_Region_Command(RegionUUID, "tree rate 1000") Then Return
-        Sleep(3000)
-        If Not RPC_Region_Command(RegionUUID, $"tree freeze {Type} true") Then Return
+        Sleep(2000)
+
+        For Each NewType In UseTree
+            If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
+        Next
+
         If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
 
     End Sub
@@ -184,20 +205,20 @@ Module AutoFill
         'Debug.Print($"{RegionXY.Count} regions")
 
         Dim xy As New List(Of String)
-        Dim X As Integer = CInt(Spot.X)
-        Dim Y As Integer = CInt(Spot.Y)
-        Dim Group = $"Sim Surround {X}-{Y}"
+        Dim RigthLeft As Integer = CInt(Spot.X)
+        Dim UpDown As Integer = CInt(Spot.Y)
+        Dim Group = $"Sim Surround {RigthLeft}-{UpDown}"
 
         Dim Size As Integer = CInt(Spot.Size)
 
-        xy.Add($"{X}-{Y + 1}") ' North
-        xy.Add($"{X + 1}-{Y + 1}") ' NorthEast
-        xy.Add($"{X + 1}-{Y}") ' East
-        xy.Add($"{X + 1}-{Y - 1}") ' Southeast
-        xy.Add($"{X}-{Y - 1}") ' South
-        xy.Add($"{X - 1}-{Y - 1}") ' SW
-        xy.Add($"{X - 1}-{Y}") ' West
-        xy.Add($"{X - 1}-{Y + 1}") ' NW
+        xy.Add($"{RigthLeft}-{UpDown + 1}") ' North
+        xy.Add($"{RigthLeft + 1}-{UpDown + 1}") ' NorthEast
+        xy.Add($"{RigthLeft + 1}-{UpDown}") ' East
+        xy.Add($"{RigthLeft + 1}-{UpDown - 1}") ' Southeast
+        xy.Add($"{RigthLeft}-{UpDown - 1}") ' South
+        xy.Add($"{RigthLeft - 1}-{UpDown - 1}") ' SW
+        xy.Add($"{RigthLeft - 1}-{UpDown}") ' West
+        xy.Add($"{RigthLeft - 1}-{UpDown + 1}") ' NW
 
         Dim l As New List(Of String)
         Dim LastUUID As String = ""
@@ -229,7 +250,7 @@ Module AutoFill
             Dim i = 10
             While i > 0
                 ConsoleCommand(RegionUUID, "{enter")
-
+                ' TODO replace with real estate
                 i -= 1
             End While
         End If
@@ -281,7 +302,7 @@ Module AutoFill
         PropRegionClass.GroupPort(RegionUUID) = port
         PropRegionClass.RegionPort(RegionUUID) = port
 
-        ' TODO: delete from disk, use HTTP
+        '   TODO: delete from disk, use HTTP
         PropRegionClass.WriteRegionObject(Group, shortname)
 
         Return RegionUUID

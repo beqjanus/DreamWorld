@@ -24,19 +24,19 @@ Partial Class FormRegionPopup
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormRegionPopup))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.MsgButton = New System.Windows.Forms.Button()
-        Me.LoadOAR = New System.Windows.Forms.Button()
-        Me.Restart = New System.Windows.Forms.Button()
-        Me.ViewMapButton = New System.Windows.Forms.Button()
         Me.ShowConsoleButton = New System.Windows.Forms.Button()
+        Me.EditButton1 = New System.Windows.Forms.Button()
+        Me.ViewMapButton = New System.Windows.Forms.Button()
+        Me.LoadOAR = New System.Windows.Forms.Button()
+        Me.Teleport = New System.Windows.Forms.Button()
         Me.ViewLog = New System.Windows.Forms.Button()
         Me.StatsButton1 = New System.Windows.Forms.Button()
-        Me.Teleport = New System.Windows.Forms.Button()
-        Me.EditButton1 = New System.Windows.Forms.Button()
         Me.StartButton = New System.Windows.Forms.Button()
-        Me.SaveOAR = New System.Windows.Forms.Button()
+        Me.Restart = New System.Windows.Forms.Button()
         Me.StopButton = New System.Windows.Forms.Button()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.SaveOAR = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
@@ -50,138 +50,6 @@ Partial Class FormRegionPopup
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Region Controls"
-        '
-        'MsgButton
-        '
-        Me.MsgButton.Image = Global.Outworldz.My.Resources.Resources.document_text
-        Me.MsgButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MsgButton.Location = New System.Drawing.Point(3, 193)
-        Me.MsgButton.Name = "MsgButton"
-        Me.MsgButton.Size = New System.Drawing.Size(181, 32)
-        Me.MsgButton.TabIndex = 11
-        Me.MsgButton.Text = "Message"
-        Me.MsgButton.UseVisualStyleBackColor = True
-        '
-        'LoadOAR
-        '
-        Me.LoadOAR.Image = Global.Outworldz.My.Resources.Resources.package_add
-        Me.LoadOAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.LoadOAR.Location = New System.Drawing.Point(190, 41)
-        Me.LoadOAR.Name = "LoadOAR"
-        Me.LoadOAR.Size = New System.Drawing.Size(181, 32)
-        Me.LoadOAR.TabIndex = 6
-        Me.LoadOAR.Text = "Load"
-        Me.LoadOAR.UseVisualStyleBackColor = True
-        '
-        'Restart
-        '
-        Me.Restart.Image = Global.Outworldz.My.Resources.Resources.recycle
-        Me.Restart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Restart.Location = New System.Drawing.Point(3, 79)
-        Me.Restart.Name = "Restart"
-        Me.Restart.Size = New System.Drawing.Size(181, 32)
-        Me.Restart.TabIndex = 3
-        Me.Restart.Text = Global.Outworldz.My.Resources.Resources.Restart_word
-        Me.Restart.UseVisualStyleBackColor = True
-        '
-        'ViewMapButton
-        '
-        Me.ViewMapButton.Image = Global.Outworldz.My.Resources.Resources.table
-        Me.ViewMapButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ViewMapButton.Location = New System.Drawing.Point(190, 155)
-        Me.ViewMapButton.Name = "ViewMapButton"
-        Me.ViewMapButton.Size = New System.Drawing.Size(181, 32)
-        Me.ViewMapButton.TabIndex = 9
-        Me.ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
-        Me.ViewMapButton.UseVisualStyleBackColor = True
-        '
-        'ShowConsoleButton
-        '
-        Me.ShowConsoleButton.Image = Global.Outworldz.My.Resources.Resources.document_view
-        Me.ShowConsoleButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ShowConsoleButton.Location = New System.Drawing.Point(3, 3)
-        Me.ShowConsoleButton.Name = "ShowConsoleButton"
-        Me.ShowConsoleButton.Size = New System.Drawing.Size(181, 32)
-        Me.ShowConsoleButton.TabIndex = 1
-        Me.ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
-        Me.ShowConsoleButton.UseVisualStyleBackColor = True
-        '
-        'ViewLog
-        '
-        Me.ViewLog.Image = Global.Outworldz.My.Resources.Resources.document_view
-        Me.ViewLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ViewLog.Location = New System.Drawing.Point(190, 117)
-        Me.ViewLog.Name = "ViewLog"
-        Me.ViewLog.Size = New System.Drawing.Size(181, 32)
-        Me.ViewLog.TabIndex = 8
-        Me.ViewLog.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
-        Me.ViewLog.UseVisualStyleBackColor = True
-        '
-        'StatsButton1
-        '
-        Me.StatsButton1.Image = Global.Outworldz.My.Resources.Resources.chart
-        Me.StatsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StatsButton1.Location = New System.Drawing.Point(190, 3)
-        Me.StatsButton1.Name = "StatsButton1"
-        Me.StatsButton1.Size = New System.Drawing.Size(181, 32)
-        Me.StatsButton1.TabIndex = 4
-        Me.StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
-        Me.StatsButton1.UseVisualStyleBackColor = True
-        '
-        'Teleport
-        '
-        Me.Teleport.Image = Global.Outworldz.My.Resources.Resources.earth_view
-        Me.Teleport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Teleport.Location = New System.Drawing.Point(3, 155)
-        Me.Teleport.Name = "Teleport"
-        Me.Teleport.Size = New System.Drawing.Size(181, 32)
-        Me.Teleport.TabIndex = 5
-        Me.Teleport.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
-        Me.Teleport.UseVisualStyleBackColor = True
-        '
-        'EditButton1
-        '
-        Me.EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
-        Me.EditButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.EditButton1.Location = New System.Drawing.Point(190, 193)
-        Me.EditButton1.Name = "EditButton1"
-        Me.EditButton1.Size = New System.Drawing.Size(181, 32)
-        Me.EditButton1.TabIndex = 10
-        Me.EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
-        Me.EditButton1.UseVisualStyleBackColor = True
-        '
-        'StartButton
-        '
-        Me.StartButton.Image = Global.Outworldz.My.Resources.Resources.media_play
-        Me.StartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StartButton.Location = New System.Drawing.Point(3, 41)
-        Me.StartButton.Name = "StartButton"
-        Me.StartButton.Size = New System.Drawing.Size(181, 32)
-        Me.StartButton.TabIndex = 2
-        Me.StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
-        Me.StartButton.UseVisualStyleBackColor = True
-        '
-        'SaveOAR
-        '
-        Me.SaveOAR.Image = Global.Outworldz.My.Resources.Resources.package
-        Me.SaveOAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.SaveOAR.Location = New System.Drawing.Point(190, 79)
-        Me.SaveOAR.Name = "SaveOAR"
-        Me.SaveOAR.Size = New System.Drawing.Size(181, 32)
-        Me.SaveOAR.TabIndex = 7
-        Me.SaveOAR.Text = "Save"
-        Me.SaveOAR.UseVisualStyleBackColor = True
-        '
-        'StopButton
-        '
-        Me.StopButton.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
-        Me.StopButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.StopButton.Location = New System.Drawing.Point(3, 117)
-        Me.StopButton.Name = "StopButton"
-        Me.StopButton.Size = New System.Drawing.Size(181, 32)
-        Me.StopButton.TabIndex = 5
-        Me.StopButton.Text = Global.Outworldz.My.Resources.Resources.Stop_word
-        Me.StopButton.UseVisualStyleBackColor = True
         '
         'TableLayoutPanel1
         '
@@ -211,6 +79,138 @@ Partial Class FormRegionPopup
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(374, 235)
         Me.TableLayoutPanel1.TabIndex = 1
+        '
+        'MsgButton
+        '
+        Me.MsgButton.Image = Global.Outworldz.My.Resources.Resources.document_text
+        Me.MsgButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MsgButton.Location = New System.Drawing.Point(3, 193)
+        Me.MsgButton.Name = "MsgButton"
+        Me.MsgButton.Size = New System.Drawing.Size(181, 32)
+        Me.MsgButton.TabIndex = 11
+        Me.MsgButton.Text = "Message"
+        Me.MsgButton.UseVisualStyleBackColor = True
+        '
+        'ShowConsoleButton
+        '
+        Me.ShowConsoleButton.Image = Global.Outworldz.My.Resources.Resources.document_view
+        Me.ShowConsoleButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ShowConsoleButton.Location = New System.Drawing.Point(3, 3)
+        Me.ShowConsoleButton.Name = "ShowConsoleButton"
+        Me.ShowConsoleButton.Size = New System.Drawing.Size(181, 32)
+        Me.ShowConsoleButton.TabIndex = 1
+        Me.ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
+        Me.ShowConsoleButton.UseVisualStyleBackColor = True
+        '
+        'EditButton1
+        '
+        Me.EditButton1.Image = Global.Outworldz.My.Resources.Resources.document_dirty
+        Me.EditButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.EditButton1.Location = New System.Drawing.Point(190, 193)
+        Me.EditButton1.Name = "EditButton1"
+        Me.EditButton1.Size = New System.Drawing.Size(181, 32)
+        Me.EditButton1.TabIndex = 10
+        Me.EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
+        Me.EditButton1.UseVisualStyleBackColor = True
+        '
+        'ViewMapButton
+        '
+        Me.ViewMapButton.Image = Global.Outworldz.My.Resources.Resources.table
+        Me.ViewMapButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ViewMapButton.Location = New System.Drawing.Point(190, 155)
+        Me.ViewMapButton.Name = "ViewMapButton"
+        Me.ViewMapButton.Size = New System.Drawing.Size(181, 32)
+        Me.ViewMapButton.TabIndex = 9
+        Me.ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
+        Me.ViewMapButton.UseVisualStyleBackColor = True
+        '
+        'LoadOAR
+        '
+        Me.LoadOAR.Image = Global.Outworldz.My.Resources.Resources.package_add
+        Me.LoadOAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.LoadOAR.Location = New System.Drawing.Point(190, 41)
+        Me.LoadOAR.Name = "LoadOAR"
+        Me.LoadOAR.Size = New System.Drawing.Size(181, 32)
+        Me.LoadOAR.TabIndex = 6
+        Me.LoadOAR.Text = "Load"
+        Me.LoadOAR.UseVisualStyleBackColor = True
+        '
+        'Teleport
+        '
+        Me.Teleport.Image = Global.Outworldz.My.Resources.Resources.earth_view
+        Me.Teleport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Teleport.Location = New System.Drawing.Point(3, 155)
+        Me.Teleport.Name = "Teleport"
+        Me.Teleport.Size = New System.Drawing.Size(181, 32)
+        Me.Teleport.TabIndex = 5
+        Me.Teleport.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
+        Me.Teleport.UseVisualStyleBackColor = True
+        '
+        'ViewLog
+        '
+        Me.ViewLog.Image = Global.Outworldz.My.Resources.Resources.document_view
+        Me.ViewLog.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ViewLog.Location = New System.Drawing.Point(190, 117)
+        Me.ViewLog.Name = "ViewLog"
+        Me.ViewLog.Size = New System.Drawing.Size(181, 32)
+        Me.ViewLog.TabIndex = 8
+        Me.ViewLog.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
+        Me.ViewLog.UseVisualStyleBackColor = True
+        '
+        'StatsButton1
+        '
+        Me.StatsButton1.Image = Global.Outworldz.My.Resources.Resources.chart
+        Me.StatsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StatsButton1.Location = New System.Drawing.Point(190, 3)
+        Me.StatsButton1.Name = "StatsButton1"
+        Me.StatsButton1.Size = New System.Drawing.Size(181, 32)
+        Me.StatsButton1.TabIndex = 4
+        Me.StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
+        Me.StatsButton1.UseVisualStyleBackColor = True
+        '
+        'StartButton
+        '
+        Me.StartButton.Image = Global.Outworldz.My.Resources.Resources.media_play
+        Me.StartButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StartButton.Location = New System.Drawing.Point(3, 41)
+        Me.StartButton.Name = "StartButton"
+        Me.StartButton.Size = New System.Drawing.Size(181, 32)
+        Me.StartButton.TabIndex = 2
+        Me.StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
+        Me.StartButton.UseVisualStyleBackColor = True
+        '
+        'Restart
+        '
+        Me.Restart.Image = Global.Outworldz.My.Resources.Resources.recycle
+        Me.Restart.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Restart.Location = New System.Drawing.Point(3, 79)
+        Me.Restart.Name = "Restart"
+        Me.Restart.Size = New System.Drawing.Size(181, 32)
+        Me.Restart.TabIndex = 3
+        Me.Restart.Text = Global.Outworldz.My.Resources.Resources.Restart_word
+        Me.Restart.UseVisualStyleBackColor = True
+        '
+        'StopButton
+        '
+        Me.StopButton.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
+        Me.StopButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.StopButton.Location = New System.Drawing.Point(3, 117)
+        Me.StopButton.Name = "StopButton"
+        Me.StopButton.Size = New System.Drawing.Size(181, 32)
+        Me.StopButton.TabIndex = 5
+        Me.StopButton.Text = Global.Outworldz.My.Resources.Resources.Stop_word
+        Me.StopButton.UseVisualStyleBackColor = True
+        '
+        'SaveOAR
+        '
+        Me.SaveOAR.Image = Global.Outworldz.My.Resources.Resources.package
+        Me.SaveOAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SaveOAR.Location = New System.Drawing.Point(190, 79)
+        Me.SaveOAR.Name = "SaveOAR"
+        Me.SaveOAR.Size = New System.Drawing.Size(181, 32)
+        Me.SaveOAR.TabIndex = 7
+        Me.SaveOAR.Text = "Save"
+        Me.SaveOAR.UseVisualStyleBackColor = True
         '
         'FormRegionPopup
         '

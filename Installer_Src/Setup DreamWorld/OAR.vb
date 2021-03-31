@@ -96,6 +96,9 @@ Module OAR
                             UserName = " --default-user " & """" & PropUserName & """" & " "
                         End If
                         SendMessage(RegionUUID, Global.Outworldz.My.Resources.New_Content)
+                        If Not PropForceParcel() Then
+                            ConsoleCommand(RegionUUID, "land clear")
+                        End If
                         ConsoleCommand(RegionUUID, "load oar " & UserName & ForceMerge & ForceTerrain & ForceParcel & offset & """" & thing & """")
                         ConsoleCommand(RegionUUID, "generate map")
                     End If

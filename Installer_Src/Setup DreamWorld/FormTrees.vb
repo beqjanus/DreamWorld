@@ -11,6 +11,7 @@
         Select Case Settings.TerrainType
             Case "Flat"
                 Flat.Checked = True
+
             Case "Random"
                 Rand.Checked = True
             Case "AI"
@@ -120,7 +121,6 @@
         End If
 
         If RegionUUID.Length > 0 Then
-
             GenLand(RegionUUID)
             Application.DoEvents()
             GenTrees(RegionUUID)

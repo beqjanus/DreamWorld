@@ -522,7 +522,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Automatic Land Fill.
+        '''  Looks up a localized string similar to Endless Land and Sea.
         '''</summary>
         Friend ReadOnly Property AutoFill() As String
             Get
@@ -1435,7 +1435,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Choose a  folder to store backups.
+        '''  Looks up a localized string similar to Choose a  folder.
         '''</summary>
         Friend ReadOnly Property Choose_folder_for_backups() As String
             Get

@@ -335,6 +335,8 @@ Public Class FormDebug
                         Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
 
+                        ' TODO estate set owner <estate ID> <owner UUID> - Change the owner of an estate. This command supports two forms; this one uses the owner's UUID.
+                        ' TODO Estate create < Owner UUID> <estate name> - Must be a user UUID, m which you can get from 'show names'
                         If EstateName(RegionUUID).Length = 0 Then
                             ConsoleCommand(RegionUUID, Estate)
                         End If
@@ -471,6 +473,7 @@ Public Class FormDebug
         MakeSetting("BeachGrass", 150, 23, 20, 5, Size)
         MakeSetting("Cypress1", 50, 45, 19, 25, Size)
         MakeSetting("Cypress2", 40, 45, 19, 25, Size)
+        MakeSetting("Dogwood", 140, 25, 5, 15, Size)
         MakeSetting("Eelgrass", 150, 23, 20, 5, Size)
         MakeSetting("Eucalyptus", 10, 40, 23, 10, Size)
         MakeSetting("Fern", 150, 33, 23, 5, Size)

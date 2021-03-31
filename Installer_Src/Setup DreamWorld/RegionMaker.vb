@@ -230,6 +230,7 @@ Public Class RegionMaker
             ._RegionName = name,
             ._RegionPort = 0,
             ._RegionSmartStart = "",
+            ._RegionLandingSpot = "",
             ._RegionSnapShot = "",
             ._ScriptEngine = "",
             ._SizeX = 256,
@@ -327,7 +328,8 @@ Public Class RegionMaker
         & "ScriptEngine =" & ScriptEngine(uuid) & vbCrLf _
         & "Publicity =" & GDPR(uuid) & vbCrLf _
         & "Concierge =" & Concierge(uuid) & vbCrLf _
-        & "SmartStart =" & SmartStart(uuid) & vbCrLf
+        & "SmartStart =" & SmartStart(uuid) & vbCrLf _
+        & "LandingSpot =" & LandingSpot(uuid) & vbCrLf
 
         DeleteFile(fname)
 
@@ -520,6 +522,7 @@ Public Class RegionMaker
                             GDPR(uuid) = CStr(Settings.GetIni(fName, "Publicity", "", "String"))
                             Concierge(uuid) = CStr(Settings.GetIni(fName, "Concierge", "", "String"))
                             SmartStart(uuid) = CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
+                            LandingSpot(uuid) = CStr(Settings.GetIni(fName, "LandingSpot", "", "String"))
                             RegionPort(uuid) = PropRegionClass.LargestPort
                             GroupPort(uuid) = RegionPort(uuid)
 
@@ -737,6 +740,7 @@ Public Class RegionMaker
         Public _Physics As String = "  "
         Public _RegionGod As String = ""
         Public _RegionSmartStart As String = ""
+        Public _RegionLandingSpot As String = ""
         Public _RegionSnapShot As String = ""
         Public _ScriptEngine As String = ""
         Public _SkipAutobackup As String = ""
@@ -1324,6 +1328,21 @@ Public Class RegionMaker
         End Set
     End Property
 
+
+    Public Property LandingSpot(uuid As String) As String
+
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RegionLandingSpot
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionLandingSpot = Value
+        End Set
+
+    End Property
     Public Property SmartStart(uuid As String) As String
 
         Get

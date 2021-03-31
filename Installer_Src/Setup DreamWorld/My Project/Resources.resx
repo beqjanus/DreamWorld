@@ -1586,7 +1586,7 @@
     <value>..\Resources\flag_kazakhstan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Choose_folder_for_backups" xml:space="preserve">
-    <value>Choose a  folder to store backups</value>
+    <value>Choose a  folder</value>
   </data>
   <data name="Theme_Black" xml:space="preserve">
     <value>Theme set to Black</value>
@@ -3492,7 +3492,7 @@
     <value>potential overlapping regions</value>
   </data>
   <data name="AutoFill" xml:space="preserve">
-    <value>Automatic Land Fill</value>
+    <value>Endless Land and Sea</value>
   </data>
   <data name="False_word" xml:space="preserve">
     <value>False</value>
