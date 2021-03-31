@@ -195,7 +195,7 @@ Partial Class FormMaps
         Me.GroupBox2.Controls.Add(Me.LargeMapButton)
         Me.GroupBox2.Location = New System.Drawing.Point(192, 32)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(184, 294)
+        Me.GroupBox2.Size = New System.Drawing.Size(196, 294)
         Me.GroupBox2.TabIndex = 1869
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Maps"
@@ -221,7 +221,7 @@ Partial Class FormMaps
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(29, 205)
+        Me.Label5.Location = New System.Drawing.Point(27, 206)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(96, 13)
         Me.Label5.TabIndex = 1876
@@ -230,7 +230,7 @@ Partial Class FormMaps
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(26, 179)
+        Me.Label4.Location = New System.Drawing.Point(24, 180)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(99, 13)
         Me.Label4.TabIndex = 1875
@@ -238,7 +238,7 @@ Partial Class FormMaps
         '
         'RenderMinH
         '
-        Me.RenderMinH.Location = New System.Drawing.Point(147, 200)
+        Me.RenderMinH.Location = New System.Drawing.Point(145, 201)
         Me.RenderMinH.Name = "RenderMinH"
         Me.RenderMinH.Size = New System.Drawing.Size(39, 20)
         Me.RenderMinH.TabIndex = 1874
@@ -246,7 +246,7 @@ Partial Class FormMaps
         '
         'RenderMaxH
         '
-        Me.RenderMaxH.Location = New System.Drawing.Point(147, 177)
+        Me.RenderMaxH.Location = New System.Drawing.Point(145, 178)
         Me.RenderMaxH.Name = "RenderMaxH"
         Me.RenderMaxH.Size = New System.Drawing.Size(39, 20)
         Me.RenderMaxH.TabIndex = 1873
@@ -254,7 +254,7 @@ Partial Class FormMaps
         '
         'MapYStart
         '
-        Me.MapYStart.Location = New System.Drawing.Point(120, 258)
+        Me.MapYStart.Location = New System.Drawing.Point(118, 259)
         Me.MapYStart.Name = "MapYStart"
         Me.MapYStart.Size = New System.Drawing.Size(39, 20)
         Me.MapYStart.TabIndex = 1872
@@ -262,7 +262,7 @@ Partial Class FormMaps
         '
         'MapXStart
         '
-        Me.MapXStart.Location = New System.Drawing.Point(51, 258)
+        Me.MapXStart.Location = New System.Drawing.Point(49, 259)
         Me.MapXStart.Name = "MapXStart"
         Me.MapXStart.Size = New System.Drawing.Size(39, 20)
         Me.MapXStart.TabIndex = 1871
@@ -271,7 +271,7 @@ Partial Class FormMaps
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(100, 258)
+        Me.Label3.Location = New System.Drawing.Point(98, 259)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(14, 13)
         Me.Label3.TabIndex = 1870
@@ -280,7 +280,7 @@ Partial Class FormMaps
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(30, 258)
+        Me.Label2.Location = New System.Drawing.Point(28, 259)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(14, 13)
         Me.Label2.TabIndex = 1869
@@ -289,7 +289,7 @@ Partial Class FormMaps
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(30, 237)
+        Me.Label1.Location = New System.Drawing.Point(28, 238)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 13)
         Me.Label1.TabIndex = 1868
