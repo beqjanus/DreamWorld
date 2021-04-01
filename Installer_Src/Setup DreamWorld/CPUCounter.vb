@@ -23,7 +23,7 @@ Module CPUCounter
         OpensimProcesses = Process.GetProcessesByName("Opensim")
         Try
             For Each p As Process In OpensimProcesses
-                Application.DoEvents()
+                ' Application.DoEvents()
 
                 If FormSetup.PropInstanceHandles.ContainsKey(p.Id) Then
                     Dim Gname As String = FormSetup.PropInstanceHandles.Item(p.Id)
