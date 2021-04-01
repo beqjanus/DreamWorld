@@ -42,9 +42,9 @@ Module SmartStart
             End If
 
             If Not Settings.SmartStart Then
-                If AgentName = "uuid" Then
+                If AgentName.ToUpperInvariant = "UUID" Then
                     Return RegionUUID
-                ElseIf AgentName = "regionname" Then
+                ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
                     Return Name
                 Else ' Its a sign!
                     AddEm(RegionUUID, AgentID)
@@ -53,72 +53,67 @@ Module SmartStart
             End If
 
             ' Smart Start below here
+            If PropOpensimIsRunning Then
+                If PropRegionClass.SmartStart(RegionUUID) = "True" Then
 
-            Dim result As New Guid
-            If Guid.TryParse(RegionUUID, result) Then
-                If PropOpensimIsRunning Then
-                    If PropRegionClass.SmartStart(RegionUUID) = "True" Then
+                    ' smart, and up
+                    If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
 
-                        ' smart, and up
-                        If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
-
-                            If AgentName = "uuid" Then
-                                Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
-                                Return RegionUUID
-                            ElseIf AgentName = "regionname" Then
-                                Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
-                                Return Name
-                            Else ' Its a sign!
-                                Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
-                                Return Name & "|0"
-                            End If
-                        Else  ' requires booting
-
-                            If AgentName = "uuid" Then
-                                Logger("Godot UUID Teleport", Name & ":" & AgentID, "Teleport")
-                                AddEm(RegionUUID, AgentID)
-                                Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
-                                Return u
-                            ElseIf AgentName = "regionname" Then
-                                Logger("Godot Named Teleport", Name & ":" & AgentID, "Teleport")
-                                AddEm(RegionUUID, AgentID)
-                                Return Settings.WelcomeRegion
-                            Else ' Its a sign!
-                                If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
-                                    time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + slop) ' 5 seconds of slop time
-                                Else
-                                    time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + slop) ' 5 seconds of slop time
-                                End If
-
-                                Logger("Godot Teleport Sign ", Name & ":" & AgentID, "Teleport")
-                                AddEm(RegionUUID, AgentID)
-                                Return Name & time
-                            End If
-
-                        End If
-                    Else ' Non Smart Start
-
-                        If AgentName = "uuid" Then
-                            Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                        If AgentName.ToUpperInvariant = "UUID" Then
+                            Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                             Return RegionUUID
-                        ElseIf AgentName = "regionname" Then
-                            Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                        ElseIf AgentName.ToUpperInvariant = "REGIONBNAME" Then
+                            Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                             Return Name
-                        Else     ' Its a sign!
+                        Else ' Its a sign!
+                            Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
+                            Return Name & "|0"
+                        End If
+                    Else  ' requires booting
+
+                        If AgentName.ToUpperInvariant = "UUID" Then
+                            Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
+                            AddEm(RegionUUID, AgentID)
+                            Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                            Return u
+                        ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                            Logger("Godot Named Teleport", Name & ":" & AgentID, "Teleport")
+                            AddEm(RegionUUID, AgentID)
+                            Return Settings.WelcomeRegion
+                        Else ' Its a sign!
+                            If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
+                                time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + slop) ' 5 seconds of slop time
+                            Else
+                                time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + slop) ' 5 seconds of slop time
+                            End If
+
                             Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
-                            Return Name
+                            Return Name & time
                         End If
 
                     End If
-                End If
+                Else ' Non Smart Start
 
-                ' not running
-                Return RegionUUID
+                    If AgentName.ToUpperInvariant = "UUID" Then
+                        Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                        Return RegionUUID
+                    ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                        Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                        Return Name
+                    Else     ' Its a sign!
+                        Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
+                        AddEm(RegionUUID, AgentID)
+                        Return Name
+                    End If
+
+                End If
             End If
-        Else
-            BreakPoint.Show("Bad UUID")
+
+            ' not running
+            Return RegionUUID
         End If
+
         Return PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
 
     End Function

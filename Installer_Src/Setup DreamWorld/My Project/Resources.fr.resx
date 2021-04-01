@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Disponible</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Efface tous les objets de tous les carrés et charge l'OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>N'écrasez pas le terrain de la région existante.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignorez les nouvelles données de parcelle.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Forcer le chargement du terrain sur --merge. Normalement, --merge n'écrase pas le terrain de la région existante.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Remplacez les données de parcelles de la région existante.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Fusionne l'OAR sans effacer aucun objet</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objets</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Vous pouvez choisir de les donner à une personne. La valeur par défaut est le propriétaire du domaine.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Cela effacera la carte SIM ENTIER et chargera une nouvelle carte SIM. Es-tu sûr?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>vérification</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Pas de régions qui se chevauchent</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>régions qui se chevauchent potentielles</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Terre et mer infinies</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Faux</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Créer des arbres sous forme de fichiers XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Vrai</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Exporter toutes les cartes</value>
+  </data>
 </root>

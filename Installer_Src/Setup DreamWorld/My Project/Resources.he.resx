@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>זמין</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>מנקה את כל האובייקטים בכל הריבועים וטוען את ה- OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>אל תחליף את השטח הקיים באזור.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>התעלם מנתוני החבילות החדשים.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>כוח טעינת שטח ב - Merge. בדרך כלל, --merge אינו מחליף את השטח הקיים באזור.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>החלף את נתוני החבילות של האזור.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>ממזג את ה- OAR מבלי לנקות חפצים כלשהם</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>חפצים</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>אתה יכול לבחור לתת את זה לאדם. ברירת המחדל היא בעל האחוזה.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>פעולה זו תמחק את ה- SIM שלם ותטען סים חדש. האם אתה בטוח?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>בודק</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>אין אזורים חופפים</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>אזורים חופפים פוטנציאליים</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>אינסוף יבשה וים</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>שֶׁקֶר</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>צור עצים כקבצי XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>נָכוֹן</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>ייצא את כל המפות</value>
+  </data>
 </root>

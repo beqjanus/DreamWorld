@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Laus</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Hreinsar alla hluti í öllum ferningum og hleður OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Ekki skrifa yfir landsvæði núverandi svæðis.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Hunsa nýju pakkagögnin.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Þvinga hleðslu á landslagi á --merge. Venjulega skrifar --merge ekki yfir landsvæði núverandi svæðis.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Yfirskrifa pakkagögn núverandi svæðis.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Sameinar OAR án þess að hreinsa neina hluti</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Hlutir</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Þú getur valið að gefa fólki þetta. Sjálfgefið er búseigandinn.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Þetta mun eyða ALLT sim og hlaða nýju simi. Ertu viss?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>athuga</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Engin svæði sem skarast</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>möguleg svæði sem skarast</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Endalaust land og haf</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Rangt</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Búðu til tré sem XML skrár</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Satt</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Flytja út öll kort</value>
+  </data>
 </root>

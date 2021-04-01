@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>در دسترس</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>همه اشیا in را در همه مربع ها پاک می کند و OAR را بارگیری می کند</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>روی زمین موجود منطقه را دوباره نویسی نکنید.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>داده های بسته جدید را نادیده بگیرید.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>بارگیری زمین را مجبور به بارگیری کنید -. به طور معمول ، --merge زمین موجود را دوباره نویسی نمی کند.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>داده های بسته موجود منطقه را دوباره بنویسید.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>OAR را بدون پاکسازی اشیا ادغام می کند</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>اشیاء</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>می توانید این موارد را به یک شخص بدهید. پیش فرض مالک املاک است.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>با این کار کل سیم کارت پاک می شود و سیم کارت جدید بارگیری می شود. مطمئنی؟</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>چک کردن</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>هیچ منطقه ای با هم تداخل ندارد</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>مناطق بالقوه همپوشانی</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>زمین و دریا بی پایان</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>نادرست</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Trees را به عنوان پرونده های XML ایجاد کنید</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>درست است، واقعی</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>صادر کردن همه نقشه ها</value>
+  </data>
 </root>

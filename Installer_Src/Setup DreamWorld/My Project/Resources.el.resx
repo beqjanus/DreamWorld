@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Διαθέσιμος</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Διαγράφει όλα τα αντικείμενα σε όλα τα τετράγωνα και φορτώνει το OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Μην αντικαταστήσετε το έδαφος της υπάρχουσας περιοχής.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Αγνοήστε τα νέα δεδομένα δεμάτων.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Αναγκαστική φόρτωση εδάφους στο --merge. Κανονικά, το --merge δεν αντικαθιστά το έδαφος της υπάρχουσας περιοχής.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Αντικαταστήστε τα δεδομένα δεμάτων της υπάρχουσας περιοχής.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Συγχώνευση του OAR χωρίς διαγραφή αντικειμένων</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Αντικείμενα</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Μπορείτε να επιλέξετε να τα δώσετε σε ένα άτομο. Η προεπιλογή είναι ο ιδιοκτήτης ακινήτων.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Αυτό θα διαγράψει το πλήρες SIM και θα φορτώσει ένα νέο sim. Είσαι σίγουρος?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>έλεγχος</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Χωρίς επικαλυπτόμενες περιοχές</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>πιθανές επικαλυπτόμενες περιοχές</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Ατελείωτη γη και θάλασσα</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Ψευδής</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Κάντε τα δέντρα ως αρχεία XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Αληθής</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Εξαγωγή όλων των χαρτών</value>
+  </data>
 </root>

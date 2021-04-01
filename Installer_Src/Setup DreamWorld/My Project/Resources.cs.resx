@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>K dispozici</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Vymaže všechny objekty na všech čtvercích a načte veslo</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Nepřepisujte terén stávající oblasti.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignorovat nová data balíku.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Vynutit zatížení terénu na - sloučit. Za normálních okolností --merge nepřepíše terén stávající oblasti.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Přepsat data balíku existující oblasti.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Sloučí OAR bez vyčištění jakýchkoli předmětů</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objekty</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Můžete se rozhodnout je dát osobě. Výchozí je vlastník nemovitosti.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Tímto vymažete CELÝ sim a načtete nový sim. Jsi si jistá?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>kontrola</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Žádné překrývající se oblasti</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potenciální překrývající se regiony</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Nekonečná země a moře</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Nepravdivé</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Vytvářejte stromy jako soubory XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Skutečný</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Exportovat všechny mapy</value>
+  </data>
 </root>

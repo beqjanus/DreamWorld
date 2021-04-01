@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Ledig</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Rydder alle objekter i alle firkanter og indlæser OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Overskriv ikke den eksisterende regions terræn.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignorer de nye pakkedata.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Tving terrænbelastning på --merge. Normalt overskriver --merge ikke den eksisterende regions terræn.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Overskriv den eksisterende regions pakkedata.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Fletter OAR uden at rydde genstande</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objekter</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Du kan vælge at give disse til en person. Standard er ejendomsejeren.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Dette sletter HELE simen og indlæser en ny sim. Er du sikker?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>kontrol</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Ingen overlappende regioner</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potentielle overlappende regioner</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Uendelig land og hav</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Falsk</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Lav træer som XML-filer</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Rigtigt</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Eksporter alle kort</value>
+  </data>
 </root>

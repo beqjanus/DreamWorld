@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Disponível</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Limpa todos os objetos em todos os quadrados e carrega o OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Não substitua o terreno da região existente.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignore os novos dados do lote.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Forçar carregamento de terreno em --merge. Normalmente, --merge não sobrescreve o terreno da região existente.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Substitua os dados de parcela da região existente.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Funde o OAR sem limpar nenhum objeto</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objetos</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Você pode optar por dar a uma pessoa. O padrão é o proprietário do imóvel.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Isso apagará todo o sim e carregará um novo sim. Tem certeza?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>checando</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Sem regiões sobrepostas</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>possíveis regiões de sobreposição</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Terra e mar sem fim</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Falso</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Faça árvores como arquivos XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Verdadeiro</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Exportar todos os mapas</value>
+  </data>
 </root>

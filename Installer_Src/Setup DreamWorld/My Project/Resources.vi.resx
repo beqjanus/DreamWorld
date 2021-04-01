@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Có sẵn</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Xóa tất cả các đối tượng trong tất cả các ô vuông và tải OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Không ghi đè địa hình của khu vực hiện có.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Bỏ qua dữ liệu bưu kiện mới.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Buộc tải địa hình trên --merge. Thông thường, --merge không ghi đè địa hình của khu vực hiện có.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Ghi đè dữ liệu bưu kiện của khu vực hiện có.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Hợp nhất OAR mà không xóa bất kỳ đối tượng nào</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Các đối tượng</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Bạn có thể chọn tặng những thứ này cho một người. Mặc định là Chủ sở hữu bất động sản.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Thao tác này sẽ xóa TOÀN BỘ sim và nạp một sim mới. Bạn có chắc không?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>kiểm tra</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Không có vùng chồng chéo</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>các vùng chồng chéo tiềm năng</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Đất và Biển vô tận</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Sai</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Tạo Cây dưới dạng tệp XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Thật</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Xuất tất cả bản đồ</value>
+  </data>
 </root>

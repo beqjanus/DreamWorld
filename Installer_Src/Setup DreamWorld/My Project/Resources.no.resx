@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Tilgjengelig</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Rydder alle gjenstandene i alle firkanter og laster OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Ikke skriv over den eksisterende regionens terreng.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignorer de nye pakkedataene.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Tving terrengbelastning på - merge. Normalt overskriver ikke --merge den eksisterende regionens terreng.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Overskriv den eksisterende regionens pakkedata.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Slår sammen OAR uten å fjerne noen gjenstander</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objekter</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Du kan velge å gi disse til en person. Standard er eiendomseieren.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Dette vil slette HELE simen og laste inn en ny sim. Er du sikker?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>sjekker</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Ingen overlappende regioner</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potensielle overlappende regioner</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Uendelig land og hav</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Falsk</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Lag trær som XML-filer</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>ekte</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Eksporter alle kart</value>
+  </data>
 </root>

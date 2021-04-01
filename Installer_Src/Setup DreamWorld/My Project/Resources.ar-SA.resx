@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>متاح</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>يمسح كل الكائنات في كل المربعات ويحمل OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>لا تكتب فوق تضاريس المنطقة الحالية.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>تجاهل بيانات الحزمة الجديدة.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>قوة تحميل التضاريس - دمج. عادةً ، لا تستبدل --merge تضاريس المنطقة الحالية.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>الكتابة فوق بيانات طرد المنطقة الحالية.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>يدمج المجذاف بدون مسح أي كائنات</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>شاء</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>يمكنك اختيار إعطائها لشخص ما. الافتراضي هو مالك العقار.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>سيؤدي هذا إلى مسح بطاقة sim بالكامل وتحميل شريحة SIM جديدة. هل أنت واثق؟</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>تدقيق</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>لا توجد مناطق متداخلة</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>المناطق المتداخلة المحتملة</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>لا نهاية لها من الأرض والبحر</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>خطأ شنيع</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>اجعل الأشجار كملفات XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>حقيقي</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>تصدير كافة الخرائط</value>
+  </data>
 </root>
