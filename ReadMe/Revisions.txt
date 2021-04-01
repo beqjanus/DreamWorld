@@ -2,8 +2,13 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V3.9 is Godot.  I should just blow right past it.  These revs are just numbers. The actual rev is a hash of letters and digits. 
+V3.91 Post fixes for 3.9
 
+Scrolling Text box bottom was not floating with the bottom of the window.
+Teleport signs got back a UUID instead of a region name, so scripted teleports were borked. missing an else.
+
+V3.9 
+Change the Load OAR options to be more visible. These remember the last setting.
 
 V3.8996
 Zip 64 functions are enabled now, should stop all the Backup crashes. Whodathunk thats not on by default? Not me!
