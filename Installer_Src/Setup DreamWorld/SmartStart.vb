@@ -37,6 +37,7 @@ Module SmartStart
             Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(Name)
             If RegionUUID.Length = 0 Then
                 RegionUUID = Name
+            Else
                 Name = PropRegionClass.RegionName(RegionUUID)
             End If
 
@@ -169,11 +170,17 @@ Module SmartStart
         coords.Add(Settings.WelcomeRegion, PropRegionClass.LandingSpot(WelcomeUUID))
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
+
+            Dim name = PropRegionClass.RegionName(RegionUUID)
+            If name = "2worlds_City_by_Anna_Lorentzson" Then
+                BreakPoint.Show("BreakPoint")
+            End If
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
                 status = RegionMaker.SIMSTATUSENUM.Booted) Or
                (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
-                PropRegionClass.SmartStart(RegionUUID) = "True" AndAlso Settings.SmartStart) Then
+                PropRegionClass.SmartStart(RegionUUID) = "True" AndAlso
+                Settings.SmartStart) Then
 
                 If Settings.WelcomeRegion = PropRegionClass.RegionName(RegionUUID) Then Continue For
                 ToSort.Add(PropRegionClass.RegionName(RegionUUID))
