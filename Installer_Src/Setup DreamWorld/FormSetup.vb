@@ -444,7 +444,7 @@ Public Class FormSetup
     ''' <summary>Event handler for Icecast</summary>
     Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
 
-        RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
+        'RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
 
         If PropAborting Then Return
 
