@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Ar fáil</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Glanann na rudaí go léir i ngach cearnóg agus luchtaíonn sé an OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Ná scríobh thar tír-raon an réigiúin atá ann.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Déan neamhaird de na sonraí dáileachta nua.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Luchtú tír-raon an fhórsa ar --merge. De ghnáth, ní dhéanann --merge an tír-raon atá ann cheana a fhorscríobh.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Scríobh sonraí dáileachta an réigiúin atá ann cheana.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Cumaisc an OAR gan aon rudaí a ghlanadh</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Réada</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Féadfaidh tú a roghnú iad seo a thabhairt do dhuine. Is é úinéir an eastáit mainneachtain.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Scriosfaidh sé seo an sim ENTIRE agus luchtú sim nua. An bhfuil tú cinnte?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>seiceáil</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Gan aon réigiúin forluiteacha</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>réigiúin forluiteacha féideartha</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Talamh agus Muir Gan Deireadh</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Bréagach</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Déan Crainn mar chomhaid XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Fíor</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Gach Léarscáil a Easpórtáil</value>
+  </data>
 </root>

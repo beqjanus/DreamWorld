@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Beschikbaar</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Wist alle objecten in alle vierkanten en laadt de OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Overschrijf het terrein van de bestaande regio niet.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Negeer de nieuwe pakketgegevens.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Forceer terreinbelasting op --merge. Normaal gesproken overschrijft --merge het terrein van de bestaande regio niet.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Overschrijf de pakketgegevens van de bestaande regio.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Voegt de OAR samen zonder objecten te verwijderen</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Voorwerpen</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>U kunt ervoor kiezen om deze aan een persoon te geven. Standaard is de Estate Owner.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Dit zal de HELE sim wissen en een nieuwe sim laden. Weet je het zeker?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>controleren</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Geen overlappende regio's</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>mogelijke overlappende regio's</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Eindeloos land en zee</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Vals</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Maak bomen als XML-bestanden</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Klopt</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Exporteer alle kaarten</value>
+  </data>
 </root>

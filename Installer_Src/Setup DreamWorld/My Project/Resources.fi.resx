@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Saatavilla</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Tyhjentää kaikki objektit kaikilla neliöillä ja lataa OAR: n</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Älä korvaa nykyisen alueen maastoa.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ohita uudet pakettitiedot.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Pakota maasto kuormitettavaksi. Normaalisti --merge ei korvaa nykyisen alueen maastoa.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Korvaa nykyisen alueen pakettitiedot.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Yhdistää OAR tyhjentämättä mitään esineitä</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Esineet</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Voit antaa nämä henkilölle. Oletuksena on kiinteistön omistaja.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Tämä poistaa KOKO simin ja lataa uuden simin. Oletko varma?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>tarkistus</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Ei päällekkäisiä alueita</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>mahdolliset päällekkäiset alueet</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Loputon maa ja meri</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Väärä</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Tee puista XML-tiedostoja</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Totta</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Vie kaikki kartat</value>
+  </data>
 </root>

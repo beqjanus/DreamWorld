@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>可用的</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>清除所有正方形中的所有對象並加載OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>不要覆蓋現有區域的地形。</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>忽略新的宗地數據。</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>強制在--merge上加載地形。通常，-merge不會覆蓋現有區域的地形。</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>覆蓋現有區域的宗地數據。</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>合併OAR而不清除任何對象</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>對象</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>您可以選擇將它們提供給一個人。默認值為房地產所有者。</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>這將刪除整個SIM卡並加載新的SIM卡。你確定嗎？</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>檢查</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>沒有重疊區域</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>潛在的重疊區域</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>無盡的陸地和海洋</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>錯誤的</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>使樹成為XML文件</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>真的</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>導出所有地圖</value>
+  </data>
 </root>

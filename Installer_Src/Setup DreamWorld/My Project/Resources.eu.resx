@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Eskuragarri</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Karratu guztietako objektu guztiak garbitu eta OAR kargatzen du</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Ez gainidatzi lehendik dagoen eskualdea.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ez ikusi pakete datu berriei.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Behartu lurra kargatzean --merge. Normalean, --merge-k ez du lehendik dagoen eskualdearen lurra gainidazten.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Gainidatzi lehendik dagoen eskualdearen partzela datuak.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>OAR batzen du objektuak garbitu gabe</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objektuak</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Hauek pertsona bati ematea aukera dezakezu. Lehenetsia Ondasunen Jabea da.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Honek SIM OSOA ezabatu eta sim berri bat kargatuko du. Ziur zaude?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>egiaztatzen</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Ez dago gainjarritako eskualderik</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>balizko eskualde gainjarriak</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Lur eta itsas amaigabeak</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Gezurra</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Egin Zuhaitzak XML fitxategi gisa</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Egia</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Esportatu mapa guztiak</value>
+  </data>
 </root>

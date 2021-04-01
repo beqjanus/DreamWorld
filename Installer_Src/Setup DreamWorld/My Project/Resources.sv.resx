@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Tillgängliga</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Rensar alla föremål i alla rutor och laddar OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Skriv inte över den befintliga regionens terräng.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignorera de nya paketdata.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Tvinga terrängbelastning på --merge. Normalt skriv inte --merge över den befintliga regionens terräng.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Skriv över den befintliga regionens paketdata.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Slår ihop OAR utan att rensa föremål</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objekt</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Du kan välja att ge dessa till en person. Standard är fastighetsägaren.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Detta raderar HELA simen och laddar en ny sim. Är du säker?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>kontroll</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Inga överlappande regioner</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potentiella överlappande regioner</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Ändlösa land och hav</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Falsk</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Skapa träd som XML-filer</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Sann</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Exportera alla kartor</value>
+  </data>
 </root>

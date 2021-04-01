@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Dostępny</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Czyści wszystkie obiekty we wszystkich polach i ładuje OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Nie nadpisuj terenu istniejącego regionu.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Zignoruj nowe dane działki.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Wymuś włączenie ładowania terenu - merge. Zwykle --merge nie zastępuje terenu istniejącego regionu.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Nadpisz dane działek w istniejącym regionie.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Łączy wiosło, nie usuwając żadnych obiektów</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Obiekty</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Możesz je przekazać innej osobie. Domyślnie jest to właściciel nieruchomości.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Spowoduje to wymazanie CAŁEJ karty SIM i załadowanie nowej karty SIM. Jesteś pewny?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>kontrola</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Brak pokrywających się regionów</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potencjalne zachodzące na siebie regiony</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Bezkresna kraina i morze</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Fałszywe</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Utwórz drzewa jako pliki XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Prawdziwe</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Eksportuj wszystkie mapy</value>
+  </data>
 </root>

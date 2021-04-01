@@ -2968,4 +2968,55 @@
   <data name="Available" xml:space="preserve">
     <value>Disponible</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Esborra tots els objectes de tots els quadrats i carrega el rem</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>No sobreescriviu el terreny de la regió existent.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignoreu les noves dades del paquet.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Força la càrrega del terreny a --merge. Normalment, --merge no sobreescriu el terreny de la regió existent.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Sobreescriu les dades de paquets de la regió existent.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Combina el RAO sense netejar cap objecte</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objectes</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Podeu optar per donar-los a una persona. El propietari predeterminat és el predeterminat.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Això esborrarà tot el simulador i es carregarà un simulador nou. Estàs segur?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>comprovació</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>No hi ha regions superposades</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>possibles regions superposades</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Mar i terra sense fi</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Fals</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Feu arbres com a fitxers XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>És cert</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Exporta tots els mapes</value>
+  </data>
 </root>

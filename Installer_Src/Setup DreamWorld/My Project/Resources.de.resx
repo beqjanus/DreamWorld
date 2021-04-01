@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Verfügbar</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Löscht alle Objekte auf allen Feldern und lädt das Ruder</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Überschreiben Sie nicht das Gelände der vorhandenen Region.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignorieren Sie die neuen Paketdaten.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Erzwingen Sie das Laden des Geländes auf --merge. Normalerweise überschreibt --merge das Gelände der vorhandenen Region nicht.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Überschreiben Sie die Paketdaten der vorhandenen Region.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Führt das OAR zusammen, ohne Objekte zu löschen</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objekte</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Sie können diese einer Person geben. Standard ist der Nachlassbesitzer.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Dadurch wird die GESAMTE Sim gelöscht und eine neue Sim geladen. Bist du sicher?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>Überprüfung</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Keine überlappenden Regionen</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potenzielle überlappende Regionen</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Endloses Land und Meer</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Falsch</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Erstellen Sie Bäume als XML-Dateien</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Wahr</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Alle Karten exportieren</value>
+  </data>
 </root>

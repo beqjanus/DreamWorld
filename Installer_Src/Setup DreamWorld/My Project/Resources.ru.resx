@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Имеется в наличии</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Очищает все объекты во всех квадратах и загружает ВЕСЛО.</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Не перезаписывайте существующий ландшафт региона.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Игнорируйте новые данные об участках.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Включить загрузку ландшафта на --merge. Обычно --merge не перезаписывает существующий ландшафт региона.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Перезаписать данные об участках существующего региона.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Объединяет ВЕСЛО без очистки каких-либо объектов</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Объекты</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Вы можете отдать их человеку. По умолчанию - владелец недвижимости.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Это сотрет ВСЮ сим-карту и загрузит новую. Ты уверен?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>проверка</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Нет пересекающихся регионов</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>потенциальные перекрывающиеся регионы</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Бесконечная земля и море</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Ложь</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Создавайте деревья как файлы XML</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Правда</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Экспорт всех карт</value>
+  </data>
 </root>

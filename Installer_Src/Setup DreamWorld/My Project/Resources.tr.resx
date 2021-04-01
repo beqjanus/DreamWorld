@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Mevcut</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Tüm karelerdeki tüm nesneleri temizler ve OAR'ı yükler</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Mevcut bölgenin arazisinin üzerine yazmayın.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Yeni parsel verilerini dikkate almayın.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Arazi yüklemesini --merge üzerine zorla. Normalde --merge, mevcut bölgenin arazisinin üzerine yazmaz.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Mevcut bölgenin parsel verilerinin üzerine yazın.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>OAR'ı herhangi bir nesneyi temizlemeden birleştirir</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Nesneler</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Bunları bir kişiye vermeyi seçebilirsiniz. Varsayılan, Emlak Sahibidir.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Bu TÜM simülasyonu silecek ve yeni bir sim yükleyecektir. Emin misiniz?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>kontrol etme</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Örtüşen bölge yok</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potansiyel örtüşen bölgeler</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Sonsuz Kara ve Deniz</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Yanlış</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Ağaçları XML dosyaları olarak yapın</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Doğru</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Tüm Haritaları Dışa Aktar</value>
+  </data>
 </root>

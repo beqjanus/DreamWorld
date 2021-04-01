@@ -2967,4 +2967,55 @@
   <data name="Available" xml:space="preserve">
     <value>Available</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Clears all the objects in all squares and loads the OAR</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Do not overwrite the existing region's terrain.</value>
+  </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Ignore the new parcel data.</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Force terrain loading on --merge. Normally, --merge does not overwrite the existing region's terrain.</value>
+  </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Overwrite the existing region's parcel data.</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Merges the OAR without clearing any objects</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Objects</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>You can choose to give these to a person. Default is the Estate Owner.</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>This will erase the ENTIRE sim and load a new sim. Are you sure?</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>checking</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>No overlapping regions</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potential overlapping regions</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Endless Land and Sea</value>
+  </data>
+  <data name="False_word" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Make Trees as XML files</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Export All Maps</value>
+  </data>
 </root>
