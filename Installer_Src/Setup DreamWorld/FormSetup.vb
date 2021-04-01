@@ -2578,9 +2578,12 @@ Public Class FormSetup
         End If
 
         ' 10 seconds, not at boot
-        If SecondsTicker Mod 10 = 0 And SecondsTicker > 0 Then
-            CalcCPU() ' get a list of running opensim processes
+        If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             ScanAgents() ' update agent count seconds
+        End If
+
+        If SecondsTicker Mod 30 = 0 And SecondsTicker > 0 Then
+            CalcCPU() ' get a list of running opensim processes
         End If
 
         ' every minute
