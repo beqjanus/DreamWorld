@@ -5028,6 +5028,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Land Maker.
+        '''</summary>
+        Friend ReadOnly Property LandMaker() As String
+            Get
+                Return ResourceManager.GetString("LandMaker", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Landscaping.
+        '''</summary>
+        Friend ReadOnly Property Landscaping() As String
+            Get
+                Return ResourceManager.GetString("Landscaping", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Language.
         '''</summary>
         Friend ReadOnly Property Language() As String

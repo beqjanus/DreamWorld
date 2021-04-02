@@ -88,10 +88,13 @@ Public Class FormMaps
                 Dim thing = openFileDialog1.SelectedPath
                 If thing.Length > 0 Then
                     For Each RegionUUID As String In PropRegionClass.RegionUuids
-                        thing = IO.Path.Combine(thing, PropRegionClass.RegionName(RegionUUID))
-                        thing += ".jpg"
-                        RPC_Region_Command(RegionUUID, $"export-map ""{thing}""")
-                        Application.DoEvents()
+                        If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                            thing = IO.Path.Combine(thing, PropRegionClass.RegionName(RegionUUID))
+                            thing += ".jpg"
+                            TextPrint($"{PropRegionClass.RegionName(RegionUUID)} map exported")
+                            RPC_Region_Command(RegionUUID, $"export-map ""{thing}""")
+                            Application.DoEvents()
+                        End If
                     Next
                 End If
             End If

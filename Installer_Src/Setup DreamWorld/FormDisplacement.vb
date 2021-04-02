@@ -74,12 +74,6 @@ Public Class FormDisplacement
         intX = Screen.PrimaryScreen.WorkingArea.Width
         intY = Screen.PrimaryScreen.WorkingArea.Height
 
-        'Dim dpiX As Double, dpiY As Double
-        'Dim Graphics As Graphics = Me.CreateGraphics()
-        'dpiX = Graphics.DpiX
-
-        ' Dim scale = CInt(100 * Screen.PrimaryScreen.Bounds.Width / SystemParameters.PrimaryScreenWidth)
-
         ' Cascade
         Me.Left = MapX
         Me.Top = MapY

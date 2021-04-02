@@ -569,12 +569,6 @@
     <Compile Include="FormTOS.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormTrees.Designer.vb">
-      <DependentUpon>FormTrees.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormTrees.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="GlobalSettings.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="Help.vb" />
@@ -1165,9 +1159,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTOS.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormTrees.resx">
-      <DependentUpon>FormTrees.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.ar-SA.resx">
       <SubType>Designer</SubType>

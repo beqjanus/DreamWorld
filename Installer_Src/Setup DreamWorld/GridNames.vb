@@ -37,7 +37,7 @@ Module GridNames
             Settings.ExternalHostName = Settings.OverrideName
             TextPrint("Region IP=" & Settings.ExternalHostName)
         Else
-            Settings.ExternalHostName = Settings.WANIP
+            Settings.ExternalHostName = Settings.PublicIP
             TextPrint("Region IP=" & Settings.ExternalHostName)
         End If
 

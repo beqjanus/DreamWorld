@@ -3524,4 +3524,10 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Export All Maps</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Land Maker</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Landscaping</value>
+  </data>
 </root>

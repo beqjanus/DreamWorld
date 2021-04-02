@@ -104,6 +104,8 @@ Module Robust
 
         If Not StartMySQL() Then Return False ' prerequsite
 
+
+
         ' prevent recursion
         Dim ctr = 300
         While RobustIsStarting And ctr > 0
@@ -137,7 +139,7 @@ Module Robust
         End If
 
         RobustIsStarting = True
-
+        SetServerType()
         PropRobustProcID = 0
 
         If DoRobust() Then Return False

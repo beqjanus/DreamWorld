@@ -1202,8 +1202,6 @@ Public Class FormRegion
             PropRegionClass.ManagerGod(RegionUUID) = CStr(ManagerGod.Checked)
         End If
 
-        Dim Host = Settings.ExternalHostName
-
         If DisallowForeigners.Checked Then
             PropRegionClass.DisallowForeigners(RegionUUID) = "True"
         Else
@@ -1284,7 +1282,7 @@ Public Class FormRegion
                             "InternalAddress = 0.0.0.0" & vbCrLf &
                             "InternalPort = " & RegionPort.Text & vbCrLf &
                             "AllowAlternatePorts = False" & vbCrLf &
-                            "ExternalHostName = " & Host & vbCrLf &
+                            "ExternalHostName = " & Settings.ExternalHostName & vbCrLf &
                             "SizeX = " & BoxSize & vbCrLf &
                             "SizeY = " & BoxSize & vbCrLf &
                             "Enabled = " & CStr(EnabledCheckBox.Checked) & vbCrLf &

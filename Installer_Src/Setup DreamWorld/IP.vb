@@ -25,21 +25,26 @@ Public Module IPCheck
 
     Public Function GetMacByIp(IPIN As String) As String
 
-        Dim IP As Net.IPAddress = Net.IPAddress.Parse(IPIN)
+        Try
+            If IPIN = "localhost" Then IPIN = "127.0.0.1"
+            Dim IP As Net.IPAddress = Net.IPAddress.Parse(IPIN)
 
-        Dim macAddr As Byte() = New Byte(5) {}
-        Dim macAddrLen As UInteger = CUInt(macAddr.Length)
+            Dim macAddr As Byte() = New Byte(5) {}
+            Dim macAddrLen As UInteger = CUInt(macAddr.Length)
 
 #Disable Warning BC40000 ' Type or member is obsolete
 #Disable Warning BC42016 ' Implicit conversion
-        Dim retval As Integer = SendARP(IP.Address, 0, macAddr, macAddrLen)
+            Dim retval As Integer = SendARP(IP.Address, 0, macAddr, macAddrLen)
 #Enable Warning BC42016 ' Implicit conversion
 #Enable Warning BC40000 ' Type or member is obsolete
-        If retval <> 0 Then
-            Return ""
-        End If
-        Dim mac As String = BitConverter.ToString(macAddr, 0, 6)
-        Return CreateMD5(mac)
+            If retval <> 0 Then
+                Return ""
+            End If
+            Dim mac As String = BitConverter.ToString(macAddr, 0, 6)
+            Return CreateMD5(mac)
+        Catch
+        End Try
+        Return ""
 
     End Function
 
