@@ -2582,19 +2582,16 @@ Public Class FormSetup
             ScanAgents() ' update agent count seconds
         End If
 
-        If SecondsTicker Mod 30 = 0 And SecondsTicker > 0 Then
-            CalcCPU() ' get a list of running opensim processes
-        End If
 
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
+            CalcCPU() ' get a list of running opensim processes
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass) ' create HTML for teleport boards
         End If
 
         ' print hourly marks on console, after boot
         If SecondsTicker Mod 3600 = 0 And SecondsTicker > 0 Then
-
             TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()
             ExpireApacheLogs()
