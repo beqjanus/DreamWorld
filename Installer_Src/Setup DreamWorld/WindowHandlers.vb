@@ -225,8 +225,14 @@ Module WindowHandlers
         WindowCounter = 0
         While Not status
             Try
-                Application.DoEvents()
                 status = SetWindowText(myhandle, windowName)
+                If status Then
+                    If myProcess.MainWindowTitle = windowName Then
+                        Return True
+                    Else
+                        BreakPoint.Show("oops")
+                    End If
+                End If
             Catch ' can fail to be a valid window handle
                 Return False
             End Try
@@ -238,7 +244,7 @@ Module WindowHandlers
             Sleep(100)
         End While
 
-        Return True
+        Return False
 
     End Function
 
