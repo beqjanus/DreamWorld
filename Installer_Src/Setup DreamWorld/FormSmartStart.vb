@@ -476,7 +476,7 @@ Public Class FormSmartStart
 
         If Debugger.IsAttached Then
             ' debug
-            LandMaker("7408caab-9a55-4a9b-aa1a-584d95063c43")
+            ' LandMaker("7408caab-9a55-4a9b-aa1a-584d95063c43")
         End If
 
         HelpOnce("SmartStart")
@@ -683,7 +683,7 @@ Public Class FormSmartStart
 
                 PropRegionClass.CoordX(RegionUUID) = X
                 PropRegionClass.CoordY(RegionUUID) = Y
-                PropRegionClass.Concierge(RegionUUID) = "True"
+
                 PropRegionClass.SmartStart(RegionUUID) = "True"
                 PropRegionClass.Teleport(RegionUUID) = "True"
                 PropRegionClass.SizeX(RegionUUID) = sizerow
@@ -705,13 +705,6 @@ Public Class FormSmartStart
                 PropUpdateView = True ' make form refresh
                 Application.DoEvents()
 
-                If sizerow > Max Then Max = sizerow
-                X += CInt((sizerow / 256) + 1)
-                If X > StartX + 50 Then
-                    X = StartX
-                    Y += CInt((Max / 256) + 1)
-                    sizerow = 256
-                End If
 
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
                 If RegionName = Settings.WelcomeRegion Then Continue For
@@ -725,6 +718,15 @@ Public Class FormSmartStart
                 ' Wait for it to start booting
                 If Not WaitForBooting(RegionUUID) Then Continue For
                 If Abort Then Exit For
+
+
+                If sizerow > Max Then Max = sizerow
+                X += CInt((sizerow / 256) + 1)
+                If X > StartX + 50 Then
+                    X = StartX
+                    Y += CInt((Max / 256) + 1)
+                    sizerow = 256
+                End If
 
                 If Settings.Sequential Then
                     If Not WaitForBooted(RegionUUID) Then Continue For
@@ -753,6 +755,7 @@ Public Class FormSmartStart
                     ConsoleCommand(RegionUUID, "backup")
                     ConsoleCommand(RegionUUID, "alert Power off!")
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+
                     ConsoleCommand(RegionUUID, "quit")
                     ConsoleCommand(RegionUUID, "quit")
                     Sleep(100)
