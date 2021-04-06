@@ -227,6 +227,7 @@ Module WindowHandlers
             Try
                 status = SetWindowText(myhandle, windowName)
                 If status Then
+                    Sleep(10)
                     If myProcess.MainWindowTitle = windowName Then
                         Return True
                     Else
