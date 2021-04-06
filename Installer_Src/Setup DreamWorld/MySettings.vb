@@ -26,6 +26,7 @@ Public Class MySettings
     Private _MacAddress As String
     Private _PublicIP As String
     Private _RamUsed As Double
+    Private _SurroundSize As Integer = 1
     Private _WANIP As String
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
@@ -834,24 +835,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
-        End Set
-    End Property
-
     Public Property CPUMAX As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
@@ -1189,6 +1172,52 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property LandNoise() As Boolean
+        Get
+            Return CType(GetMySetting("LandNoise", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("LandNoise", CStr(Value))
+        End Set
+    End Property
+
+    Public Property LandSmooth() As Boolean
+        Get
+            Return CType(GetMySetting("LandSmooth", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("LandSmooth", CStr(Value))
+        End Set
+    End Property
+
+    Public Property LandSmoothValue() As Double
+        Get
+            Try
+                Return CDbl(GetMySetting("LandSmooth", "0.5"))
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Return 0.5
+        End Get
+        Set
+            SetMySetting("LandSmooth", CStr(Value))
+        End Set
+    End Property
+
+    Public Property LandTaper() As Double
+        Get
+            Try
+                Return CDbl(GetMySetting("LandTaper", "0.6"))
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Return 0.6
+        End Get
+        Set
+            SetMySetting("LandTaper", CStr(Value))
+        End Set
+    End Property
+
     Public Property Language() As String
         Get
             Return GetMySetting("Language", "en")
@@ -1426,6 +1455,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("OverrideName", Value)
+        End Set
+    End Property
+
+    Public Property ParkingLot() As String
+        Get
+            Return GetMySetting("ParkingLot", WelcomeRegion)
+        End Get
+        Set
+            SetMySetting("ParkingLot", Value)
         End Set
     End Property
 
@@ -1941,6 +1979,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property SurroundSize() As Integer
+        Get
+            Return _SurroundSize
+        End Get
+        Set
+            _SurroundSize = Value
+        End Set
+    End Property
+
     Public Property TerrainType() As String
         Get
             Return GetMySetting("TerrainType", "Random")
@@ -2077,6 +2124,20 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property WaterHeight() As Double
+        Get
+            Try
+                Return CDbl(GetMySetting("WaterHeight", "23"))
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Return 23
+        End Get
+        Set
+            SetMySetting("WaterHeight", CStr(Value))
+        End Set
+    End Property
+
     Public Property WelcomeMessage() As String
         Get
             Return GetMySetting("WelcomeMessage", "Welcome to " & SimName() & ", <USERNAME>")
@@ -2102,6 +2163,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 

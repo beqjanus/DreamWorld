@@ -6,8 +6,6 @@
 #End Region
 
 Imports System.IO
-Imports System.Threading
-
 
 Module WindowHandlers
 
@@ -182,6 +180,7 @@ Module WindowHandlers
         End If
 
     End Sub
+
     ''' <summary>
     ''' Sets the window title text
     ''' </summary>
@@ -200,7 +199,6 @@ Module WindowHandlers
             ErrorLog("Process is nothing " & windowName)
             Return False
         End If
-
 
         Dim WindowCounter As Integer = 0
         Dim myhandle As IntPtr

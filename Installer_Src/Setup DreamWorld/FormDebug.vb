@@ -72,7 +72,6 @@ Public Class FormDebug
 #Region "Scrolling text box"
 
     Public Sub ProgressPrint(Value As String)
-
         Log(My.Resources.Info_word, Value)
         TextBox1.Text += Value & vbCrLf
         If TextBox1.Text.Length > TextBox1.MaxLength - 1000 Then
@@ -90,7 +89,7 @@ Public Class FormDebug
 
 #Region "Set"
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         If Command = My.Resources.SmartStartEnable Then
             If Value Then

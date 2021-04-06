@@ -62,7 +62,6 @@ Public Class ScreenPos
 
 #Region "Public Methods"
 
-
     Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
 
         If name Is Nothing Then Return size
@@ -167,6 +166,7 @@ Public Class ScreenPos
         End While
 
     End Sub
+
     Public Sub PutSize(name As String, size As Integer)
 
         If name Is Nothing Then Return
@@ -242,7 +242,6 @@ Public Class ScreenPos
 #End Region
 
 #Region "Private Methods"
-
 
     Private Sub SetXYIni(section As String, key As String, value As String)
 

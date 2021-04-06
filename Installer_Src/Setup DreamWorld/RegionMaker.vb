@@ -739,8 +739,8 @@ Public Class RegionMaker
         Public _PhysicalPrimMax As String = ""
         Public _Physics As String = "  "
         Public _RegionGod As String = ""
-        Public _RegionSmartStart As String = ""
         Public _RegionLandingSpot As String = ""
+        Public _RegionSmartStart As String = ""
         Public _RegionSnapShot As String = ""
         Public _ScriptEngine As String = ""
         Public _SkipAutobackup As String = ""
@@ -1209,6 +1209,21 @@ Public Class RegionMaker
         End Set
     End Property
 
+    Public Property LandingSpot(uuid As String) As String
+
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._RegionLandingSpot
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._RegionLandingSpot = Value
+        End Set
+
+    End Property
+
     Public Property ManagerGod(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
@@ -1328,21 +1343,6 @@ Public Class RegionMaker
         End Set
     End Property
 
-
-    Public Property LandingSpot(uuid As String) As String
-
-        Get
-            If uuid Is Nothing Then Return ""
-            If Bad(uuid) Then Return ""
-            Return RegionList(uuid)._RegionLandingSpot
-        End Get
-        Set(ByVal Value As String)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._RegionLandingSpot = Value
-        End Set
-
-    End Property
     Public Property SmartStart(uuid As String) As String
 
         Get

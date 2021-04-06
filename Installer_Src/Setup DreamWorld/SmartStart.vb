@@ -4,7 +4,6 @@
 
 #End Region
 
-Imports System.Globalization
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading

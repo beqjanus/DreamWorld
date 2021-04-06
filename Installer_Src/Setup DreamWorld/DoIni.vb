@@ -363,7 +363,6 @@ Module DoIni
                 End If
             Next
 
-
             Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini")
                 reader = System.IO.File.OpenText(Settings.OpensimBinPath & "Robust.HG.ini.proto")
                 'now loop through each line
@@ -418,7 +417,6 @@ Module DoIni
     ''' <summary>Set up all INI files</summary>
     ''' <returns>true if it fails</returns>
     Public Function SetIniData() As Boolean
-
 
         If SkipSetup Then Return False
         SkipSetup = True

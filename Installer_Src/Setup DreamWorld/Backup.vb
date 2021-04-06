@@ -17,6 +17,7 @@
         Return BackupPath
 
     End Function
+
     Public Function BackupsRunning(dt As String) As String
 
         Dim folder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp")
@@ -43,4 +44,5 @@
         Return text
 
     End Function
+
 End Module

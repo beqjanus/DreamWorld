@@ -8,7 +8,6 @@
 Imports System.IO
 Imports System.Net
 Imports System.Threading
-Imports MySql.Data.MySqlClient
 
 Public Class NetServer
 

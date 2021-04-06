@@ -4,8 +4,6 @@
 
 #End Region
 
-Imports System.Windows
-
 Public Class FormDisplacement
 
 #Region "ScreenSize"

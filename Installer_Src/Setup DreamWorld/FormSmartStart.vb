@@ -1,11 +1,17 @@
-﻿Imports System.IO
+﻿' TODO New terrain commands
+'   set terrain heights <corner> <min> <max> [<x>] [<y>] - Sets the terrain texture heights on corner #<corner> to <min>/<max>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wildcard that coordinate. Corner # SW = 0, NW = 1, SE = 2, NE = 3.
+'   set terrain texture <number> <uuid> [<x>] [<y>] - Sets the terrain <number> to <uuid>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wild card that coordinate.
+Imports System.IO
 Imports System.Text.RegularExpressions
+Imports System.Threading
 Imports System.Xml
 
 Public Class FormSmartStart
+
     Private ReadOnly _TerrainList As New List(Of Image)
     Private ReadOnly _TerrainName As New List(Of String)
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+
     Private _abort As Boolean
     Private _Index As Integer
     Private _SelectedPlant As String
@@ -53,33 +59,6 @@ Public Class FormSmartStart
 
 #End Region
 
-#Region "Settings"
-
-    Private Sub GetSetting(Box As CheckBox)
-        Dim b As Boolean
-        Select Case Settings.GetMySetting(Box.Name)
-            Case ""
-                b = True
-            Case "True"
-                b = True
-            Case "False"
-                b = False
-            Case Else
-                b = False
-        End Select
-
-        Box.Checked = b
-    End Sub
-
-    Private Sub PutSetting(name As String, value As Boolean)
-
-        Settings.SetMySetting(name, CStr(value))
-        Settings.SaveSettings()
-
-    End Sub
-
-#End Region
-
 #Region "Scrolling text box"
 
     Public Sub ProgressPrint(Value As String)
@@ -90,7 +69,7 @@ Public Class FormSmartStart
         End If
     End Sub
 
-    Private Sub TextBox1_Changed(sender As System.Object, e As EventArgs) Handles TextBox1.TextChanged
+    Private Sub TextBox1_Changed(sender As System.Object, e As EventArgs)
         Dim ln As Integer = TextBox1.Text.Length
         TextBox1.SelectionStart = ln
         TextBox1.ScrollToCaret()
@@ -134,7 +113,7 @@ Public Class FormSmartStart
 
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles RegionMakerEnableCHeckbox.CheckedChanged
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs)
         Settings.AutoFill = RegionMakerEnableCHeckbox.Checked
     End Sub
 
@@ -186,6 +165,10 @@ Public Class FormSmartStart
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub BeachGrass_MouseHoverd(sender As Object, e As EventArgs) Handles BeachGrass.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub Cypress1_CheckedChanged(sender As Object, e As EventArgs) Handles Cypress1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
@@ -209,9 +192,17 @@ Public Class FormSmartStart
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub Eelgrass_Hover(sender As Object, e As EventArgs) Handles Eelgrass.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub Eucalyptus_CheckedChanged(sender As Object, e As EventArgs) Handles Eucalyptus.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Eucalyptus_Hover(sender As Object, e As EventArgs) Handles Eucalyptus.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
     End Sub
 
     Private Sub Fern_CheckedChanged(sender As Object, e As EventArgs) Handles Fern.CheckedChanged
@@ -219,9 +210,17 @@ Public Class FormSmartStart
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub Fern_Hover(sender As Object, e As EventArgs) Handles Fern.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub Grass0_CheckedChanged(sender As Object, e As EventArgs) Handles Grass0.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Grass0_Hover(sender As Object, e As EventArgs) Handles Grass0.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
     End Sub
 
     Private Sub Grass1_CheckedChanged(sender As Object, e As EventArgs) Handles Grass1.CheckedChanged
@@ -229,9 +228,17 @@ Public Class FormSmartStart
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub Grass1_Hover(sender As Object, e As EventArgs) Handles Grass1.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub Grass2_CheckedChanged(sender As Object, e As EventArgs) Handles Grass2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Grass2_Hover(sender As Object, e As EventArgs) Handles Grass2.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
     End Sub
 
     Private Sub Grass3_CheckedChanged(sender As Object, e As EventArgs) Handles Grass3.CheckedChanged
@@ -239,9 +246,17 @@ Public Class FormSmartStart
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub Grass3_Hover(sender As Object, e As EventArgs) Handles Grass3.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub Grass4_CheckedChanged(sender As Object, e As EventArgs) Handles Grass4.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Grass4_Hover(sender As Object, e As EventArgs) Handles Grass4.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
     End Sub
 
     Private Sub Kelp1_CheckedChanged(sender As Object, e As EventArgs) Handles Kelp1.CheckedChanged
@@ -249,12 +264,106 @@ Public Class FormSmartStart
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub Kelp1_Hover(sender As Object, e As EventArgs) Handles Kelp1.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub Kelp2_CheckedChanged(sender As Object, e As EventArgs) Handles Kelp2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub Kelp2_Hover(sender As Object, e As EventArgs) Handles Kelp2.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub Oak_CheckedChanged(sender As Object, e As EventArgs) Handles Oak.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Oak_MouseHover(sender As Object, e As EventArgs) Handles Oak.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub Palm1_CheckedChanged(sender As Object, e As EventArgs) Handles Palm1.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Palm1_MouseHover(sender As Object, e As EventArgs) Handles Palm1.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub Palm2_CheckedChanged(sender As Object, e As EventArgs) Handles Palm2.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Palm2_MouseHover(sender As Object, e As EventArgs) Handles Palm2.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub Pine1_CheckedChanged(sender As Object, e As EventArgs) Handles Pine1.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Pine1_MouseHover(sender As Object, e As EventArgs) Handles Pine1.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub Pine2_CheckedChanged(sender As Object, e As EventArgs) Handles Pine2.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Pine2_MouseHover(sender As Object, e As EventArgs) Handles Pine2.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub Plumeria_CheckedChanged(sender As Object, e As EventArgs) Handles Plumeria.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Plumeria_MouseHover(sender As Object, e As EventArgs) Handles Plumeria.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub SeaSword_CheckedChanged(sender As Object, e As EventArgs) Handles SeaSword.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub SeaSword_MouseHover(sender As Object, e As EventArgs) Handles SeaSword.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub TropicalBush1_CheckedChanged(sender As Object, e As EventArgs) Handles TropicalBush1.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub TropicalBush1_MouseHover(sender As Object, e As EventArgs) Handles TropicalBush1.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub TropicalBush2_CheckedChanged(sender As Object, e As EventArgs) Handles TropicalBush2.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub TropicalBush2_MouseHover(sender As Object, e As EventArgs) Handles TropicalBush2.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
+    Private Sub Undergrowth_CheckedChanged(sender As Object, e As EventArgs) Handles Undergrowth.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub Undergrowth_MouseHover(sender As Object, e As EventArgs) Handles Undergrowth.MouseHover
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
     End Sub
@@ -264,14 +373,26 @@ Public Class FormSmartStart
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub WinterAspen_Hover(sender As Object, e As EventArgs) Handles WinterAspen.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub WinterPine1_CheckedChanged(sender As Object, e As EventArgs) Handles WinterPine1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
+    Private Sub WinterPine1_MouseHover(sender As Object, e As EventArgs) Handles WinterPine1.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
+    End Sub
+
     Private Sub WinterPine2_CheckedChanged(sender As Object, e As EventArgs) Handles WinterPine2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+    End Sub
+
+    Private Sub WinterPine2_MouseHover(sender As Object, e As EventArgs) Handles WinterPine2.MouseHover
+        PictureBox1.Image = My.Resources.NoImage
     End Sub
 
 #End Region
@@ -284,10 +405,11 @@ Public Class FormSmartStart
 
     Private Sub FormTrees_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        SetScreen()
         SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
         DelayLabel.Text = Global.Outworldz.My.Resources.SSDelay
         ToolTip1.SetToolTip(Seconds, Global.Outworldz.My.Resources.SecondsTips)
-        LoadAllFreeOARsButton.Text = My.Resources.LoadFreeOars
+
         Me.Text = Global.Outworldz.My.Resources.Smart_Start_word
         SmartStartEnabled.Checked = Settings.SmartStart
 
@@ -309,37 +431,55 @@ Public Class FormSmartStart
                 Flat.Checked = True
         End Select
 
-        GetSetting(BeachGrass)
-        GetSetting(Cypress1)
-        GetSetting(Cypress2)
-        GetSetting(Eelgrass)
-        GetSetting(Eucalyptus)
-        GetSetting(Fern)
-        GetSetting(Grass0)
-        GetSetting(Grass1)
-        GetSetting(Grass2)
-        GetSetting(Grass3)
-        GetSetting(Grass4)
-        GetSetting(Kelp1)
-        GetSetting(Kelp2)
-        GetSetting(Oak)
-        GetSetting(Palm1)
-        GetSetting(Palm2)
-        GetSetting(Pine1)
-        GetSetting(Pine2)
-        GetSetting(Plumeria)
-        GetSetting(SeaSword)
-        GetSetting(TropicalBush1)
-        GetSetting(TropicalBush2)
-        GetSetting(Undergrowth)
-        GetSetting(WinterAspen)
-        GetSetting(WinterPine1)
-        GetSetting(WinterPine2)
+        InitTrees()
+
+        GetSetting(BeachGrass.Text)
+        GetSetting(Cypress1.Text)
+        GetSetting(Cypress2.Text)
+        GetSetting(Eelgrass.Text)
+        GetSetting(Eucalyptus.Text)
+        GetSetting(Fern.Text)
+        GetSetting(Grass0.Text)
+        GetSetting(Grass1.Text)
+        GetSetting(Grass2.Text)
+        GetSetting(Grass3.Text)
+        GetSetting(Grass4.Text)
+        GetSetting(Kelp1.Text)
+        GetSetting(Kelp2.Text)
+        GetSetting(Oak.Text)
+        GetSetting(Palm1.Text)
+        GetSetting(Palm2.Text)
+        GetSetting(Pine1.Text)
+        GetSetting(Pine2.Text)
+        GetSetting(Plumeria.Text)
+        GetSetting(SeaSword.Text)
+        GetSetting(TropicalBush1.Text)
+        GetSetting(TropicalBush2.Text)
+        GetSetting(Undergrowth.Text)
+        GetSetting(WinterAspen.Text)
+        GetSetting(WinterPine1.Text)
+        GetSetting(WinterPine2.Text)
 
         LoadTerrainList()
 
-        HelpManual("SmartStart")
-        SetScreen()
+        Dim n = 0
+        Dim s As Boolean
+        For Each RegionUUID In PropRegionClass.RegionUuids
+            Dim name = PropRegionClass.RegionName(RegionUUID)
+            ParkingSpot.Items.Add(name)
+            If name = Settings.ParkingLot Then
+                ParkingSpot.SelectedIndex = n
+                s = True
+            End If
+            n += 1
+        Next
+
+        If Debugger.IsAttached Then
+            ' debug
+            LandMaker("7408caab-9a55-4a9b-aa1a-584d95063c43")
+        End If
+
+        HelpOnce("SmartStart")
 
     End Sub
 
@@ -390,31 +530,75 @@ Public Class FormSmartStart
 
 #End Region
 
+    Public Sub InitTrees()
+
+        Dim TerrainDirectoryInfo As New System.IO.DirectoryInfo(IO.Path.Combine(Settings.OpensimBinPath, "Terrains"))
+        Dim fileSystemInfo As System.IO.FileSystemInfo
+        For Each fileSystemInfo In TerrainDirectoryInfo.GetFileSystemInfos
+            Dim n = fileSystemInfo.Name
+            If n.EndsWith(".r32", StringComparison.InvariantCultureIgnoreCase) Or
+               n.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase) Or
+               n.EndsWith(".raw", StringComparison.InvariantCultureIgnoreCase) Then
+                Dim terrain = fileSystemInfo.FullName
+                Terrains.Add(terrain)
+            End If
+        Next
+        Debug.Print($"{Terrains.Count} Terrains")
+
+        Dim TreeDirectoryInfo As New System.IO.DirectoryInfo(IO.Path.Combine(Settings.OpensimBinPath, "Trees"))
+        For Each fileSystemInfo In TreeDirectoryInfo.GetFileSystemInfos
+            Dim n = fileSystemInfo.Name
+            If n.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase) Then
+                Dim part = IO.Path.GetFileName(n)
+                part = part.Replace(".xml", "")
+                TreeList.Add(part)
+            End If
+        Next
+        Debug.Print($"{TreeList.Count} Trees")
+
+    End Sub
+
+    Private Function GetSetting(tree As String) As Boolean
+        Dim b As Boolean
+        Select Case Settings.GetMySetting(tree)
+            Case ""
+                b = True
+            Case "True"
+                b = True
+            Case "False"
+                b = False
+            Case Else
+                b = False
+        End Select
+        Return b
+
+    End Function
+
     Private Sub Grass0Radio_CheckedChanged(sender As Object, e As EventArgs) Handles Grass0Radio.CheckedChanged
         LoadPlant(CStr(sender.text))
     End Sub
 
-    Private Sub LoadAllFreeOARsButton_Click(sender As Object, e As EventArgs) Handles LoadAllFreeOARsButton.Click
+    Private Sub LoadAllFreeOARs()
 
-        If LoadAllFreeOARsButton.Text <> My.Resources.Apply_word Then
+        If ApplyButton.Text <> My.Resources.Apply_word Then
             TextPrint(My.Resources.Stopping_word)
             Abort = True
         End If
 
-        LoadAllFreeOARsButton.Text = My.Resources.Stop_word
+        ApplyButton.Text = My.Resources.Stop_word
 
         Dim Caution = MsgBox(My.Resources.CautionOAR, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, My.Resources.Caution_word)
         If Caution <> MsgBoxResult.Yes Then Return
 
         If Abort Then
-            LoadAllFreeOARsButton.Text = My.Resources.Apply_word
+            ApplyButton.Text = My.Resources.Apply_word
             Return
         End If
 
         Dim Estate = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
 
         If Abort Then
-            LoadAllFreeOARsButton.Text = My.Resources.Apply_word
+            ApplyButton.Text = My.Resources.Apply_word
             Return
         End If
 
@@ -424,7 +608,7 @@ Public Class FormSmartStart
         Dim coord = InputBox(My.Resources.WheretoStart, My.Resources.StartingLocation, CoordX & "," & CoordY)
 
         If Abort Then
-            LoadAllFreeOARsButton.Text = My.Resources.Apply_word
+            ApplyButton.Text = My.Resources.Apply_word
             Return
         End If
 
@@ -440,7 +624,7 @@ Public Class FormSmartStart
         Dim StartX As Integer = X
 
         If Abort Then
-            LoadAllFreeOARsButton.Text = My.Resources.Apply_word
+            ApplyButton.Text = My.Resources.Apply_word
             Return
         End If
 
@@ -603,7 +787,7 @@ Public Class FormSmartStart
             BreakPoint.Show(ex.Message)
         End Try
 
-        LoadAllFreeOARsButton.Text = My.Resources.Apply_word
+        ApplyButton.Text = My.Resources.Apply_word
 
         TextPrint(My.Resources.New_is_Done)
         Settings.SaveSettings()
@@ -832,55 +1016,6 @@ Public Class FormSmartStart
 
 #End Region
 
-#Region "Plants"
-
-    Private Sub Oak_CheckedChanged(sender As Object, e As EventArgs) Handles Oak.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-    Private Sub Palm1_CheckedChanged(sender As Object, e As EventArgs) Handles Palm1.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-    Private Sub Palm2_CheckedChanged(sender As Object, e As EventArgs) Handles Palm2.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-    Private Sub Pine1_CheckedChanged(sender As Object, e As EventArgs) Handles Pine1.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-    Private Sub Pine2_CheckedChanged(sender As Object, e As EventArgs) Handles Pine2.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-    Private Sub Plumeria_CheckedChanged(sender As Object, e As EventArgs) Handles Plumeria.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-    Private Sub TropicalBush1_CheckedChanged(sender As Object, e As EventArgs) Handles TropicalBush1.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-    Private Sub TropicalBush2_CheckedChanged(sender As Object, e As EventArgs) Handles TropicalBush2.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-    Private Sub Undergrowth_CheckedChanged(sender As Object, e As EventArgs) Handles Undergrowth.CheckedChanged
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-    End Sub
-
-#End Region
-
 #Region "4Choices"
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles Flat.CheckedChanged
@@ -947,6 +1082,7 @@ Public Class FormSmartStart
         Seconds.Text = digitsOnly.Replace(Seconds.Text, "")
         Settings.SmartStartTimeout = CInt("0" & Seconds.Text)
         If Settings.SmartStartTimeout < 15 Then Settings.SmartStartTimeout = 15
+        ProgressPrint("Minimum time is 15 seconds. Default is 30 seconds.")
     End Sub
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles SaveTerrain.Click
@@ -975,6 +1111,7 @@ Public Class FormSmartStart
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
         Settings.SmartStart = SmartStartEnabled.Checked
+        ProgressPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
     End Sub
 
 #End Region
@@ -1060,8 +1197,6 @@ Public Class FormSmartStart
         If RegionUUID.Length > 0 Then
             GenLand(RegionUUID)
             Application.DoEvents()
-        Else
-            MsgBox("No region named Test is running", vbInformation)
         End If
 
     End Sub
@@ -1202,10 +1337,14 @@ Public Class FormSmartStart
 
 #End Region
 
-#Region "Sizeboxes"
+#Region "Size boxes"
 
     Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
         MakeSetting()
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        LoadAllFreeOARs()
     End Sub
 
     Private Sub Endsize_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
@@ -1218,6 +1357,31 @@ Public Class FormSmartStart
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         EndsizeZ.Text = digitsOnly.Replace(EndsizeZ.Text, "")
         If Convert.ToSingle("0" & EndsizeZ.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeZ.Text = CStr(255)
+    End Sub
+
+    Private Sub Noise_CheckedChanged(sender As Object, e As EventArgs) Handles Noise.CheckedChanged
+        Settings.LandNoise = Noise.Checked
+        Settings.SaveSettings()
+    End Sub
+
+    Private Sub ParkingSpot_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ParkingSpot.SelectedIndexChanged
+
+        Settings.ParkingLot = ParkingSpot.SelectedItem.ToString
+        ProgressPrint("Arrivals to powered-off sims are redirected to " & ParkingSpot.SelectedItem.ToString)
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles RegionMakerEnableCHeckbox.CheckedChanged
+
+        Settings.AutoFill = RegionMakerEnableCHeckbox.Checked
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub Smooth_CheckedChanged(sender As Object, e As EventArgs) Handles Smooth.CheckedChanged
+        Settings.LandSmooth = Smooth.Checked
+        Settings.SaveSettings()
     End Sub
 
     Private Sub StartSize_TextChanged(sender As Object, e As EventArgs) Handles StartSizeX.TextChanged
@@ -1245,5 +1409,12 @@ Public Class FormSmartStart
     End Sub
 
 #End Region
+
+    Private Function RPC_Region_Command(RegionUUID As String, command As String) As Boolean
+
+        TextPrint($"Propregionclass.regionName(RegionUUID) sent ""{command}""")
+        Return RPC_Region_Command(RegionUUID, command)
+
+    End Function
 
 End Class

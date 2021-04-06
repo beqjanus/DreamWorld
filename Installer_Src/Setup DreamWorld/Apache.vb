@@ -164,7 +164,6 @@ Module Apache
             End Try
             Application.DoEvents()
 
-
             'delete really old service
             ApacheProcess.StartInfo.FileName = "sc"
             ApacheProcess.StartInfo.Arguments = " delete  " & """" & "Apache HTTP Server" & """"
@@ -199,7 +198,6 @@ Module Apache
                     ApacheIcon(False)
                 End Try
                 Application.DoEvents()
-
 
                 If ApacheProcess.ExitCode <> 0 Then
                     TextPrint(My.Resources.ApacheFailed)

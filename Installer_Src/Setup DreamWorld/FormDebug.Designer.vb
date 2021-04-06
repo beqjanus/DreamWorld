@@ -24,7 +24,7 @@ Partial Class FormDebug
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.ApplyButton = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.RadioFalse = New System.Windows.Forms.RadioButton()
         Me.RadioTrue = New System.Windows.Forms.RadioButton()
@@ -34,7 +34,7 @@ Partial Class FormDebug
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.ComboBox1)
-        Me.GroupBox1.Controls.Add(Me.Button2)
+        Me.GroupBox1.Controls.Add(Me.ApplyButton)
         Me.GroupBox1.Controls.Add(Me.TextBox1)
         Me.GroupBox1.Controls.Add(Me.RadioFalse)
         Me.GroupBox1.Controls.Add(Me.RadioTrue)
@@ -54,14 +54,14 @@ Partial Class FormDebug
         Me.ComboBox1.Size = New System.Drawing.Size(149, 21)
         Me.ComboBox1.TabIndex = 6
         '
-        'Button2
+        'ApplyButton
         '
-        Me.Button2.Location = New System.Drawing.Point(291, 28)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(96, 23)
-        Me.Button2.TabIndex = 5
-        Me.Button2.Text = "Apply"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ApplyButton.Location = New System.Drawing.Point(291, 28)
+        Me.ApplyButton.Name = "ApplyButton"
+        Me.ApplyButton.Size = New System.Drawing.Size(96, 23)
+        Me.ApplyButton.TabIndex = 5
+        Me.ApplyButton.Text = "Apply"
+        Me.ApplyButton.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
@@ -114,5 +114,5 @@ Partial Class FormDebug
     Friend WithEvents RadioTrue As RadioButton
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents ComboBox1 As ComboBox
-    Friend WithEvents Button2 As Button
+    Friend WithEvents ApplyButton As Button
 End Class

@@ -16,7 +16,7 @@ use File::Copy;
 use File::Path;
 use File::Basename;
 use File::Find;
-
+use File::Copy::Recursive qw(dircopy);
 
 my $contents = io->file('C:/Opensim/Outworldz_Dreamgrid/Installer_Src/Setup DreamWorld/GlobalSettings.vb')->slurp;
 $contents =~ s/\n//;
@@ -33,16 +33,12 @@ chomp $Version;
 $Version > io('GitVersion'); 
 say ("GitVersion $Version");
 
-
-use File::Copy::Recursive qw(dircopy);
-	
-
 my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
+my $pubs = {};
 
 say ("Building DreamGrid$type.zip");
-
 
 say ('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
@@ -54,7 +50,6 @@ foreach my $lang (@languages)
 	JustDelete ($lang);
 }
 
-
 my @a = io->dir('.')->all;
 
 foreach my $f (@a)
@@ -63,7 +58,6 @@ foreach my $f (@a)
 		$f->unlink;
 	}
 }
-
 
 say("Clean up opensim");
 my @deletions = (
@@ -89,12 +83,10 @@ foreach my $path ( @deletions) {
 	DeleteandKeep($path);
 }
 
-
 DelZips();
 DelMaps();
 
 unlink "$dir/BareTail.udm";
-
 
 unlink "$dir/SET_externalIP-log.txt";
 unlink "$dir/OutworldzFiles/Photo.png";
@@ -105,7 +97,6 @@ unlink "$dir/OutworldzFiles/BanList.txt" ;
 
 #Setting
 unlink "$dir/Outworldzfiles/Settings.ini" ;
-
 
 #logs
 unlink "$dir/Outworldzfiles/Icecast/log/error.log" ;
@@ -156,7 +147,6 @@ if ($publish =~ /c|p/ ) {
 	sleep(2);
 	chdir ($dir);
 	DeleteandKeep("$dir/OutworldzFiles/mysql/data");
-
 	say ("Cleaned");	
 }
 
@@ -205,7 +195,6 @@ ProcessDir ("OutworldzFiles\\Opensim");
 ProcessDir ("OutworldzFiles\\ReadMe");
 ProcessDir ("OutworldzFiles\\jOpensim_files");
 
-
 foreach my $lang (@languages)
 {
     ProcessDir ($lang);
@@ -220,9 +209,11 @@ say("Drop Jopensim from update");
 DeleteandKeep('\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim');
 if (!copy ('\\Opensim\\Zip\\Outworldzfiles\\jOpensim_Files\\default.htm', '\\Opensim\\Zip\\Outworldzfiles\\Apache\\htdocs\\jOpensim\\default.htm'))  {die $!;}
 
-
 say("Drop Opensim Source code from update");
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.vs');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.nant');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/bin/addin-db-002');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Doc');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Prebuild');
@@ -252,6 +243,12 @@ JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
 print "Make zip\n";
 unlink "/Opensim/Zips/DreamGrid$type.zip";
 
+# Save the Zip file
+#unless ( $zip->writeToFileNamed("/Opensim/Zips/DreamGrid$type.zip") == AZ_OK ) {
+#   die 'write error';
+#}
+
+
 my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\\*.*`;
 
 find({ wanted => \&add_file, no_chdir => 1 }, '/Opensim/zip');
@@ -262,6 +259,7 @@ sub add_file {
         if ($f !~ /\..*/)
         {
             my $y = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip $f`;
+	    say ($f);	    
         }
     }
 }
@@ -306,7 +304,10 @@ foreach my $lang (@languages)
 	JustDelete ($lang);
 }
 
-
+foreach my $p ( keys %$pubs)
+{
+	say $p;
+}
 
 say "Done!";
 
@@ -434,6 +435,7 @@ sub DelMaps
 	}	
 }
 
+
 sub sign
 {
 		
@@ -470,8 +472,12 @@ sub sign
 			print $f . "\n";
 			my $result = `$f`;
 			print $result. "\n";
-			$result =~ s/\n//g;
+			$result =~ s/\n/|/g;
 			
+			if ($result=~ /Publisher:\s+(.*?)|/)
+			{
+				$pubs=>($1)  = 1;
+			}
 			if ($result !~ /success/) {
 				say ("***** Failed to sign!");
 				die;

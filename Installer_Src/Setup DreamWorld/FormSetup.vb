@@ -15,7 +15,6 @@ Imports System.IO
 Imports System.Management
 Imports System.Net
 Imports System.Net.NetworkInformation
-Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IWshRuntimeLibrary
 
@@ -1734,8 +1733,6 @@ Public Class FormSetup
             ShowRegionform()
         End If
 
-        InitTrees()
-
         TextPrint(My.Resources.Checking_MySql_word)
         Application.DoEvents()
         If MysqlInterface.IsMySqlRunning() Then PropStopMysql() = False
@@ -1939,6 +1936,35 @@ Public Class FormSetup
 #End Region
 
 #Region "Clicks"
+
+    Public Sub BuildLand(Avatars As Dictionary(Of String, String))
+
+        If Not Settings.AutoFill Then Return
+        If Avatars.Count = 0 Then Return
+
+        For Each Agent In Avatars
+            If Agent.Value.Length > 0 Then
+
+                Dim RegionName = Agent.Value
+                Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+                Dim X = PropRegionClass.CoordX(RegionUUID)
+                Dim Y = PropRegionClass.CoordY(RegionUUID)
+                If X = 0 Or Y = 0 Then Continue For
+
+#Disable Warning BC42016 ' Implicit conversion
+                Dim start As ParameterizedThreadStart = AddressOf LandMaker
+#Enable Warning BC42016 ' Implicit conversion
+
+                Dim _WebThread1 = New Thread(start)
+                _WebThread1.SetApartmentState(ApartmentState.STA)
+                _WebThread1.Priority = ThreadPriority.BelowNormal
+                _WebThread1.Start(RegionUUID)
+
+            End If
+
+        Next
+
+    End Sub
 
     Private Sub LogViewClick(sender As Object, e As EventArgs)
 
@@ -2263,7 +2289,7 @@ Public Class FormSetup
 
         Dim C As Dictionary(Of String, String) = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
 
-        AutoFill.Build(C)
+        BuildLand(C)
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -2581,7 +2607,6 @@ Public Class FormSetup
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             ScanAgents() ' update agent count seconds
         End If
-
 
         ' every minute
         If SecondsTicker Mod 60 = 0 Then
