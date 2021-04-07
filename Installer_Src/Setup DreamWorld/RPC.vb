@@ -64,7 +64,7 @@ Module RPC
 
     End Function
 
-    Public Function TeleportTo(ToRegionName As String, AgentID As String) As Boolean
+    Public Function TeleportTo(FromRegionUUID As String, ToRegionName As String, AgentID As String) As Boolean
 
         'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
 
@@ -75,8 +75,6 @@ Module RPC
             {"region_name", ToRegionName},
             {"agent_id", AgentID}
         }
-
-        Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
 
         If FromRegionUUID.Length > 0 Then
             Return SendRPC(FromRegionUUID, "admin_teleport_agent", ht)

@@ -59,7 +59,7 @@ Module SmartStart
                         If AgentName.ToUpperInvariant = "UUID" Then
                             Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                             Return RegionUUID
-                        ElseIf AgentName.ToUpperInvariant = "REGIONBNAME" Then
+                        ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
                             Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                             Return Name
                         Else ' Its a sign!
