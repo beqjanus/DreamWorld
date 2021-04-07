@@ -1741,7 +1741,7 @@ Public Class RegionMaker
         ' copy the prototype to the regions Opensim.ini
 
         CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
-        Sleep(100)
+        Sleep(10)
 
         Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
         If INI Is Nothing Then Return True
@@ -2135,7 +2135,7 @@ Public Class RegionMaker
         If Settings.Concierge Then
             Select Case Concierge(uuid)
                 Case ""
-                    Settings.SetIni("Concierge", "enabled", "True")
+                    Settings.SetIni("Concierge", "enabled", "False")
                 Case "True"
                     Settings.SetIni("Concierge", "enabled", Concierge(uuid))
                 Case "False"

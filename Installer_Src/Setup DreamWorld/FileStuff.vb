@@ -102,31 +102,43 @@ Module FileStuff
 
     Public Sub CopyFileFast(From As String, Dest As String)
 
-        Try
-            'Create the file stream for the source file
-            Dim streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
-            'Create the file stream for the destination file
-            Dim streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
-            'Determine the size in bytes of the source file (-1 as our position starts at 0)
-            Dim lngLen As Long = streamRead.Length - 1
-            Dim byteBuffer(1048576) As Byte   'our stream buffer
-            Dim intBytesRead As Integer    'number of bytes read
+        If Not File.Exists(From) Then Return
+        Dim counter = 10
+        While True
+            Try
+                'Create the file stream for the source file
+                Using streamRead As New System.IO.FileStream(From, System.IO.FileMode.Open)
+                    'Create the file stream for the destination file
+                    Using streamWrite As New System.IO.FileStream(Dest, System.IO.FileMode.Create)
+                        'Determine the size in bytes of the source file (-1 as our position starts at 0)
+                        Dim lngLen As Long = streamRead.Length - 1
+                        Dim byteBuffer(1048576) As Byte   'our stream buffer
+                        Dim intBytesRead As Integer    'number of bytes read
 
-            While streamRead.Position < lngLen    'keep streaming until EOF
-                'Read from the Source
-                intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
-                'Write to the Target
-                streamWrite.Write(byteBuffer, 0, intBytesRead)
-                Application.DoEvents()    'do it
-            End While
+                        While streamRead.Position < lngLen    'keep streaming until EOF
+                            'Read from the Source
+                            intBytesRead = (streamRead.Read(byteBuffer, 0, 1048576))
+                            'Write to the Target
+                            streamWrite.Write(byteBuffer, 0, intBytesRead)
+                        End While
 
-            'Clean up
-            streamWrite.Flush()
-            streamWrite.Close()
-            streamRead.Close()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+                        streamWrite.Flush()
+                    End Using
+                End Using
+
+                Exit While
+            Catch ex As Exception
+                Logger("Warn", $"Cannot copy file {From}", "Error")
+            End Try
+
+            counter -= 1
+            If counter = 0 Then
+                ErrorLog($"Cannot copy file {From}")
+                Exit While
+            End If
+            Sleep(1000)
+        End While
+
 
     End Sub
 

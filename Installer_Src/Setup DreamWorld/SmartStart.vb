@@ -10,8 +10,6 @@ Imports System.Threading
 
 Module SmartStart
 
-    Private WithEvents BootProcess As New Process
-
     Private ReadOnly Sleeping As New List(Of String)
     Private ReadOnly slop = 5     ' amount of extra time to add in for booting
 
@@ -167,7 +165,7 @@ Module SmartStart
 
             Dim name = PropRegionClass.RegionName(RegionUUID)
             If name = "2worlds_City_by_Anna_Lorentzson" Then
-                BreakPoint.Show("BreakPoint")
+                '    BreakPoint.Show("BreakPoint")
             End If
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
@@ -362,6 +360,10 @@ Module SmartStart
         ''' <returns>success = true</returns>
         Dim TheDate As Date = Date.Now()
 
+        '  If BootName = "Combat" Then
+        '  BreakPoint.Show("")
+        '  End If
+
         If FormSetup.Timer1.Enabled = False Then
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Start() 'Timer starts functioning
@@ -421,7 +423,12 @@ Module SmartStart
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
         Settings.Grep(ini, Settings.LogLevel)
 
-        BootProcess.EnableRaisingEvents = True
+#Disable Warning CA2000 ' Dispose objects before losing scope
+        Dim BootProcess = New Process With {
+            .EnableRaisingEvents = True
+        }
+#Enable Warning CA2000 ' Dispose objects before losing scope
+
         BootProcess.StartInfo.UseShellExecute = True
         BootProcess.StartInfo.WorkingDirectory = Settings.OpensimBinPath()
 

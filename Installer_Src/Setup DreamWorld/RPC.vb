@@ -60,6 +60,7 @@ Module RPC
         Else
             ConsoleCommand(RegionUUID, "quit")
         End If
+        Return True
 
     End Function
 

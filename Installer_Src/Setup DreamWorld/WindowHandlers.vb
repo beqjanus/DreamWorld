@@ -225,13 +225,19 @@ Module WindowHandlers
         WindowCounter = 0
         While Not status
             Try
+                If myProcess Is Nothing Then
+                    ErrorLog("Process is nothing " & windowName)
+                    Return False
+                End If
+                myhandle = myProcess.MainWindowHandle
                 status = SetWindowText(myhandle, windowName)
                 If status Then
-                    Sleep(10)
+                    myProcess.Refresh()
                     If myProcess.MainWindowTitle = windowName Then
                         Return True
                     Else
-                        BreakPoint.Show("oops")
+                        'BreakPoint.Show("oops")
+                        status = False
                     End If
                 End If
             Catch ' can fail to be a valid window handle
@@ -242,6 +248,8 @@ Module WindowHandlers
                 ErrorLog(windowName & " timeout setting title")
                 Return False
             End If
+
+
             Sleep(100)
         End While
 
