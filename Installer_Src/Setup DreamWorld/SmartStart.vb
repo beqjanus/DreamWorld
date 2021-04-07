@@ -466,6 +466,7 @@ Module SmartStart
                 If Not SetWindowTextCall(BootProcess, GroupName) Then
                     ' Try again
                     If Not SetWindowTextCall(BootProcess, GroupName) Then
+
                         ErrorLog($"BIG timeout setting title of {GroupName }")
                     End If
                 End If

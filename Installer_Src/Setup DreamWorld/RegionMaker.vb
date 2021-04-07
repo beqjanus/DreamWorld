@@ -2143,6 +2143,8 @@ Public Class RegionMaker
             End Select
         End If
 
+
+
         Settings.SetIni("Startup", "Enabled", SmartStart(uuid))
 
         Settings.SaveINI(INI, System.Text.Encoding.UTF8)
