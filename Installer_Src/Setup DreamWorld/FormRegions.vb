@@ -140,6 +140,7 @@ Public Class FormRegions
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         ConciergeCheckbox.Text = Global.Outworldz.My.Resources.Announce_visitors
+        ConciergeCheckbox.Checked = Settings.Concierge
 
         X.Name = Global.Outworldz.My.Resources.X
         Y.Name = Global.Outworldz.My.Resources.Y

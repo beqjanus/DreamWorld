@@ -835,6 +835,24 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
+        End Set
+    End Property
+
     Public Property CPUMAX As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
@@ -972,6 +990,20 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("FirstRegionPort", CStr(Value))
+        End Set
+    End Property
+
+    Public Property FlatLandLevel() As Double
+        Get
+            Try
+                Return CDbl(GetMySetting("FlatLandLevel", "21"))
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Return 21
+        End Get
+        Set
+            SetMySetting("FlatLandLevel", CStr(Value))
         End Set
     End Property
 
@@ -1201,6 +1233,20 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("LandSmooth", CStr(Value))
+        End Set
+    End Property
+
+    Public Property LandStrength() As Double
+        Get
+            Try
+                Return CDbl(GetMySetting("LandStrength", "1.0"))
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Return 10
+        End Get
+        Set
+            SetMySetting("LandStrength", CStr(Value))
         End Set
     End Property
 
@@ -1861,6 +1907,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property Skirtsize() As Integer
+        Get
+            Return CInt("0" & GetMySetting("Skirtsize", "1"))
+        End Get
+        Set
+            SetMySetting("Skirtsize", CType(Value, String))
+        End Set
+    End Property
+
     Public Property SmartStart() As Boolean
         Get
             Return CType(GetMySetting("SmartStart", "False"), Boolean)
@@ -2124,20 +2179,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property WaterHeight() As Double
-        Get
-            Try
-                Return CDbl(GetMySetting("WaterHeight", "23"))
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-            Return 23
-        End Get
-        Set
-            SetMySetting("WaterHeight", CStr(Value))
-        End Set
-    End Property
-
     Public Property WelcomeMessage() As String
         Get
             Return GetMySetting("WelcomeMessage", "Welcome to " & SimName() & ", <USERNAME>")
@@ -2163,24 +2204,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 

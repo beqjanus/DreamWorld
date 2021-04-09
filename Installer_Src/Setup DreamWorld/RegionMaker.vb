@@ -200,9 +200,7 @@ Public Class RegionMaker
 
 #Region "Create Region"
 
-    Public Function CreateRegion(name As String,
-                                 Optional UUID As String = "",
-                                 Optional TmpName As String = "") As String
+    Public Function CreateRegion(name As String, Optional UUID As String = "") As String
 
         If String.IsNullOrEmpty(UUID) Then UUID = Guid.NewGuid().ToString
 
@@ -243,8 +241,7 @@ Public Class RegionMaker
             ._Teleport = "",
             ._Tides = "",
             ._Timer = Date.Now,
-            ._UUID = UUID,
-            ._SimName = TmpName
+            ._UUID = UUID
         }
 
         RegionList.Add(r._UUID, r)
@@ -262,17 +259,19 @@ Public Class RegionMaker
 
     End Sub
 
-    Public Sub WriteRegionObject(Group As String, name As String)
+    ''' <summary>
+    ''' Saves Region class to disk file
+    ''' </summary>
+    ''' <param name="Group">Dos Box name</param>
+    ''' <param name="Newname">New Name</param>
+    ''' <param name="OldName">Old Name to change</param>
+    Public Sub WriteRegionObject(Group As String, Newname As String)
 
-        Dim uuid As String = FindRegionByName(name)
-        Dim out As New Guid
-        If Not Guid.TryParse(uuid, out) Then
-            MsgBox(My.Resources.Cannot_find_region_word & " " & name, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
-            Return
-        End If
+        Dim pathtoWelcome As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
+        Dim uuid As String = FindRegionByName(Newname)
+        DeleteFile(IO.Path.Combine(pathtoWelcome, $"Region\{Newname}.ini"))
 
-        Dim pathtoWelcome As String = Settings.OpensimBinPath + "\Regions\" + Group + "\Region\"
-        Dim fname = pathtoWelcome + name + ".ini"
+        Dim fname = pathtoWelcome + Newname + ".ini"
         If Not Directory.Exists(pathtoWelcome) Then
             Try
                 Directory.CreateDirectory(pathtoWelcome)
@@ -287,16 +286,12 @@ Public Class RegionMaker
             Estate = "SmartStart"
         End If
 
-        If Group.StartsWith("Vacant-", StringComparison.InvariantCultureIgnoreCase) Then
-            Estate = "Vacant"
-        End If
-
         Dim proto = "; * Regions configuration file; " & vbCrLf _
         & "; Automatically changed and read by Dreamworld. Edits are allowed" & vbCrLf _
         & "; Rule1: The File name must match the RegionName" & vbCrLf _
         & "; Rule2: Only one region per INI file." & vbCrLf _
         & ";" & vbCrLf _
-        & "[" & name & "]" & vbCrLf _
+        & "[" & Newname & "]" & vbCrLf _
         & "RegionUUID = " & uuid & vbCrLf _
         & "Location = " & CoordX(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
@@ -526,6 +521,7 @@ Public Class RegionMaker
                             Concierge(uuid) = CStr(Settings.GetIni(fName, "Concierge", "", "String"))
                             SmartStart(uuid) = CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
                             LandingSpot(uuid) = CStr(Settings.GetIni(fName, "LandingSpot", "", "String"))
+
                             RegionPort(uuid) = PropRegionClass.LargestPort
                             GroupPort(uuid) = RegionPort(uuid)
 
@@ -540,7 +536,6 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
-
                                     If Backup(o)._GroupPort > 0 Then
                                         GroupPort(uuid) = Backup(o)._GroupPort
                                     End If
@@ -697,15 +692,9 @@ Public Class RegionMaker
         Public _DisallowResidents As String = ""
         Public _FolderPath As String = ""
         Public _Group As String = ""
-
-        ' the path to the folder that holds the region ini
-        Public _IniPath As String = ""
-
+        Public _IniPath As String = "" ' the path to the folder that holds the region ini
         Public _MapTime As Integer
-
-        ' the folder name that holds the region(s), can be different named
-        Public _ProcessID As Integer
-
+        Public _ProcessID As Integer ' the folder name that holds the region(s), can be different named
         Public _RegionEnabled As Boolean = True
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file

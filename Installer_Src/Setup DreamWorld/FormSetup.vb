@@ -1072,11 +1072,6 @@ Public Class FormSetup
 
             PropRegionClass.Timer(Ruuid) = Date.Now ' wait another interval
 
-            If Not SendMessage(Ruuid, "change region {RegionName}") Then
-                ErrorLog($"{RegionName} did not accept RPC command after successful bootup.")
-                PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Error
-            End If
-
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
         End While
@@ -1761,6 +1756,10 @@ Public Class FormSetup
             Application.DoEvents()
             Buttons(StartButton)
         End If
+
+        ' Get the names of all the lands
+        InitLand()
+        InitTrees()
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")

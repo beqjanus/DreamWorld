@@ -86,7 +86,7 @@ Module RPC
     Private Function SendRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Boolean
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
-        Dim url = $"http://127.0.0.1:{RegionPort}"
+        Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
         Dim parameters = New List(Of Hashtable) From {ht}
         Dim RPC = New XmlRpcRequest(cmd, parameters)
