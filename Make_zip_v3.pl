@@ -44,7 +44,7 @@ say ('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
-my @languages = qw (ar-SA es-ES ca cs da de el en es es-MX eu fa-IR fi fr ga he is it nl-NL no pl pt pt-BR ru ru-KZ sv tr vi zh-cn zh-tw zh-Hans zh-Hans-HK  zh-Hant  );
+my @languages = qw (ar-SA es-ES ca cs da de el en es es-MX eu fa-IR fi fr ga he ja ko is it nl-NL no pl pt pt-BR ru ru-KZ sv tr vi zh-cn zh-tw zh-Hans zh-Hans-HK  zh-Hant  );
 foreach my $lang (@languages)
 {
 	JustDelete ($lang);

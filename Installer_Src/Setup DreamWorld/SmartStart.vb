@@ -550,7 +550,7 @@ Module SmartStart
             If c = 0 Then
                 BreakPoint.Show("Timeout")
                 ShutDown(RegionUUID)
-                ConsoleCommand(RegionUUID, "q{ENTER}")
+                ConsoleCommand(RegionUUID, "q{ENTER}", True)
                 Return False
             End If
 
