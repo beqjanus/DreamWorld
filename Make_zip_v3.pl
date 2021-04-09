@@ -36,7 +36,7 @@ say ("GitVersion $Version");
 my $type  = '-V' . $v; 
 use Cwd;
 my $dir = getcwd;
-my $pubs = {};
+
 
 say ("Building DreamGrid$type.zip");
 
@@ -304,10 +304,7 @@ foreach my $lang (@languages)
 	JustDelete ($lang);
 }
 
-foreach my $p ( keys %$pubs)
-{
-	say $p;
-}
+
 
 say "Done!";
 
@@ -474,10 +471,7 @@ sub sign
 			print $result. "\n";
 			$result =~ s/\n/|/g;
 			
-			if ($result=~ /Publisher:\s+(.*?)|/)
-			{
-				$pubs=>($1)  = 1;
-			}
+			
 			if ($result !~ /success/) {
 				say ("***** Failed to sign!");
 				die;

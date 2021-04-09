@@ -200,7 +200,9 @@ Public Class RegionMaker
 
 #Region "Create Region"
 
-    Public Function CreateRegion(name As String, Optional UUID As String = "") As String
+    Public Function CreateRegion(name As String,
+                                 Optional UUID As String = "",
+                                 Optional TmpName As String = "") As String
 
         If String.IsNullOrEmpty(UUID) Then UUID = Guid.NewGuid().ToString
 
@@ -241,7 +243,8 @@ Public Class RegionMaker
             ._Teleport = "",
             ._Tides = "",
             ._Timer = Date.Now,
-            ._UUID = UUID
+            ._UUID = UUID,
+            ._SimName = TmpName
         }
 
         RegionList.Add(r._UUID, r)
@@ -685,8 +688,6 @@ Public Class RegionMaker
     ' hold a copy of the Main region data on a per-form basis
     Private Class Region_data
 
-#Region "Public Fields"
-
         Public _AvatarCount As Integer
         Public _BootTime As Integer
         Public _ClampPrimSize As Boolean
@@ -709,13 +710,12 @@ Public Class RegionMaker
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer
+        Public _SimName As String = ""
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
         Public _Status As Integer
         Public _Timer As Date
         Public _UUID As String = ""
-
-#End Region
 
 #End Region
 
@@ -2142,8 +2142,6 @@ Public Class RegionMaker
                     Settings.SetIni("Concierge", "enabled", "False")
             End Select
         End If
-
-
 
         Settings.SetIni("Startup", "Enabled", SmartStart(uuid))
 
