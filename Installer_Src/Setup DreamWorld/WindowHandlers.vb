@@ -29,7 +29,7 @@ Module WindowHandlers
 
 #End Region
 
-    Public Sub ConsoleCommand(RegionUUID As String, command As String)
+    Public Sub ConsoleCommand(RegionUUID As String, command As String, Optional noChange As Boolean = False)
 
         ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
         ''' <param name="ProcessID">PID of the DOS box</param>
@@ -45,7 +45,7 @@ Module WindowHandlers
 
                 If PID > 0 Then
                     Try
-                        ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
+                        If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
                     End Try
                 End If
@@ -53,13 +53,42 @@ Module WindowHandlers
                 DoType(RegionUUID, command)
 
                 Try
-                    ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
+                    If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
                 Catch ex As Exception
                 End Try
             Else ' Robust
                 DoType("Robust", "{ENTER}")
                 DoType("Robust", command)
             End If
+        End If
+
+    End Sub
+
+    Public Sub DoType(RegionUUID As String, command As String)
+
+        Dim PID As Integer
+        If RegionUUID = "Robust" Then
+            PID = PropRobustProcID
+        Else
+            PID = PropRegionClass.ProcessID(RegionUUID)
+        End If
+
+        'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
+        command = command.Replace("+", "{+}")
+        command = command.Replace("^", "{^}")
+        command = command.Replace("%", "{%}")
+        command = command.Replace("(", "{(}")
+        command = command.Replace(")", "{)}")
+
+        If PID = 0 Then
+            ' BreakPoint.Show("PID = 0")
+        Else
+            Try
+                AppActivate(PID)
+                SendKeys.SendWait(command)
+                SendKeys.SendWait("{ENTER}")
+            Catch ex As Exception
+            End Try
         End If
 
     End Sub
@@ -249,7 +278,6 @@ Module WindowHandlers
                 Return False
             End If
 
-
             Sleep(100)
         End While
 
@@ -326,41 +354,6 @@ Module WindowHandlers
             End Try
             Application.DoEvents()
         Next
-
-    End Sub
-
-    Private Sub DoType(RegionUUID As String, command As String)
-
-        Dim PID As Integer
-        If RegionUUID = "Robust" Then
-            PID = PropRobustProcID
-        Else
-            PID = PropRegionClass.ProcessID(RegionUUID)
-            Try
-                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
-            Catch ex As Exception
-            End Try
-        End If
-
-        'plus sign(+), caret(^), percent sign (%), tilde (~), And parentheses ()
-        command = command.Replace("+", "{+}")
-        command = command.Replace("^", "{^}")
-        command = command.Replace("%", "{%}")
-        command = command.Replace("(", "{(}")
-        command = command.Replace(")", "{)}")
-
-        If PID = 0 Then
-            ' BreakPoint.Show("PID = 0")
-        Else
-            Try
-                AppActivate(PID)
-
-                SendKeys.SendWait(command)
-                SendKeys.SendWait("{ENTER}")
-                ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
-            Catch ex As Exception
-            End Try
-        End If
 
     End Sub
 
