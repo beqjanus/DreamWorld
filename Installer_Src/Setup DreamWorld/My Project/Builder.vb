@@ -108,7 +108,6 @@ Module Build
 
         Simcount = 0
         Dim l As New List(Of String)
-        Dim LastUUID As String = ""
         For Each possible As String In xy
             If RegionXY.Contains(possible) Then
                 'Debug.Print($"Skipping {possible}")
@@ -117,12 +116,13 @@ Module Build
                 Dim nX = CInt(CStr(parts(0).Trim))
                 Dim nY = CInt(CStr(parts(1).Trim))
                 Simcount += 1
-                LastUUID = MakeTempRegion(GroupName, nX, nY)
+                MakeTempRegion(GroupName, nX, nY)
             End If
         Next
         Debug.Print($"{Simcount} regions were added to {GroupName}.")
-        If LastUUID.Length > 0 Then
-            Landscaper(LastUUID)
+
+        If Simcount > 0 Then
+            Landscaper(GroupName)
         End If
 
         PropUpdateView = True ' make form refresh
@@ -149,7 +149,6 @@ Module Build
         For Each TT As String In TreeList
             If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
         Next
-
 
         Dim r = Between(UseTree.Count, 0)
         Dim Type As String = UseTree(r)
@@ -207,33 +206,31 @@ Module Build
 
     End Function
 
-    Private Sub Landscaper(RegionUUID As String)
+    Private Sub Landscaper(GroupName As String)
 
-        If RegionUUID.Length = 0 Then Return
+        Dim UUIDs = PropRegionClass.RegionUuidListByName(GroupName)
 
-        ReBoot(RegionUUID)
+        For Each RegionUUID As String In UUIDs
 
-        ' Wait for it
-        WaitForBooting(RegionUUID)
-        If EstateName(RegionUUID).Length = 0 Then
-            Dim i = 10
-            While i > 0
-                ConsoleCommand(RegionUUID, "yes{enter}SimSurround")
+            ReBoot(RegionUUID)
 
-                i -= 1
-            End While
-        End If
-        Sleep(1000)
-        WaitForBooted(RegionUUID)
+            ' Wait for it
+            WaitForBooting(RegionUUID)
+            If EstateName(RegionUUID).Length = 0 Then
+                DoType(RegionUUID, "{enter}SimSurround{enter}")
+            End If
+            Sleep(1000)
+            WaitForBooted(RegionUUID)
 
-        If Not RPC_Region_Command(RegionUUID, "login enable") Then Return
+            If Not RPC_Region_Command(RegionUUID, "login enable") Then Return
 
-        Dim Group = PropRegionClass.GroupName(RegionUUID)
-        For Each UUID In PropRegionClass.RegionUuidListByName(Group)
-            GenLand(RegionUUID)
-            Application.DoEvents()
-            GenTrees(RegionUUID)
-            Application.DoEvents()
+            Dim Group = PropRegionClass.GroupName(RegionUUID)
+            For Each UUID In PropRegionClass.RegionUuidListByName(Group)
+                GenLand(RegionUUID)
+                Application.DoEvents()
+                GenTrees(RegionUUID)
+                Application.DoEvents()
+            Next
         Next
 
     End Sub
