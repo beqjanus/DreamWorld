@@ -1936,7 +1936,7 @@ Public Class FormSetup
 
 #Region "Clicks"
 
-    Public Sub BuildLand(Avatars As Dictionary(Of String, String))
+    Public Shared Sub BuildLand(Avatars As Dictionary(Of String, String))
 
         If Not Settings.AutoFill Then Return
         If Avatars.Count = 0 Then Return

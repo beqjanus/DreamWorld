@@ -53,6 +53,7 @@ Partial Class FormSmartStart
         Me.LoadTerrain = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveTerrain = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAllTerrain = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RebuildTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.OptionRadioButton = New System.Windows.Forms.RadioButton()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
@@ -150,7 +151,6 @@ Partial Class FormSmartStart
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Qty = New System.Windows.Forms.TextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.RebuildTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -437,6 +437,13 @@ Partial Class FormSmartStart
         Me.SaveAllTerrain.Name = "SaveAllTerrain"
         Me.SaveAllTerrain.Size = New System.Drawing.Size(119, 20)
         Me.SaveAllTerrain.Text = "Save All Terrains"
+        '
+        'RebuildTerrainsToolStripMenuItem
+        '
+        Me.RebuildTerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        Me.RebuildTerrainsToolStripMenuItem.Name = "RebuildTerrainsToolStripMenuItem"
+        Me.RebuildTerrainsToolStripMenuItem.Size = New System.Drawing.Size(111, 20)
+        Me.RebuildTerrainsToolStripMenuItem.Text = "Regen Terrains"
         '
         'GroupBox2
         '
@@ -1494,13 +1501,6 @@ Partial Class FormSmartStart
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 8
         Me.PictureBox2.TabStop = False
-        '
-        'RebuildTerrainsToolStripMenuItem
-        '
-        Me.RebuildTerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
-        Me.RebuildTerrainsToolStripMenuItem.Name = "RebuildTerrainsToolStripMenuItem"
-        Me.RebuildTerrainsToolStripMenuItem.Size = New System.Drawing.Size(111, 20)
-        Me.RebuildTerrainsToolStripMenuItem.Text = "Regen Terrains"
         '
         'FormSmartStart
         '

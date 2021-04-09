@@ -1,7 +1,7 @@
 ﻿' TODO New terrain commands
-' TODO New terrain commands
 '   set terrain heights <corner> <min> <max> [<x>] [<y>] - Sets the terrain texture heights on corner #<corner> to <min>/<max>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wildcard that coordinate. Corner # SW = 0, NW = 1, SE = 2, NE = 3.
 '   set terrain texture <number> <uuid> [<x>] [<y>] - Sets the terrain <number> to <uuid>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wild card that coordinate.
+
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
@@ -12,9 +12,9 @@ Public Class FormSmartStart
     Private ReadOnly _TerrainList As New List(Of Image)
     Private ReadOnly _TerrainName As New List(Of String)
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-
     Private _abort As Boolean
     Private _Index As Integer
+    Private _initted As Boolean
     Private _SelectedPlant As String
 
 #Region "ScreenSize"
@@ -826,6 +826,7 @@ Public Class FormSmartStart
     Private Sub LoadPlant(Name As String)
 
         _SelectedPlant = Name
+        _initted = False
 
         Try
             PictureBox2.Image = CType(My.Resources.ResourceManager.GetObject(Name, Globalization.CultureInfo.InvariantCulture), Image)
@@ -845,82 +846,83 @@ Public Class FormSmartStart
         If File.Exists(path) Then
 
 #Disable Warning CA3075 ' Insecure DTD processing in XML
-            Dim TextReader As XmlTextReader = New XmlTextReader(path)
+            Using TextReader As XmlTextReader = New XmlTextReader(path)
 #Enable Warning CA3075 ' Insecure DTD processing in XML
-            ' Read until end of file
-            While (TextReader.Read())
-                Dim nType As XmlNodeType = TextReader.NodeType
-                ' If node type us a declaration
-                If (nType = XmlNodeType.XmlDeclaration) Then
-                    Console.WriteLine("Declaration:" + TextReader.Name.ToString())
-                End If
-                ' if node type Is a comment
-                If (nType = XmlNodeType.Comment) Then
-                    Console.WriteLine("Comment:" + TextReader.Name.ToString())
-                End If
-                ' if node type us an attribute
-                If (nType = XmlNodeType.Attribute) Then
-                    Console.WriteLine("Attribute:" + TextReader.Name.ToString())
-                End If
-                ' if node type Is an element
-                If (nType = XmlNodeType.Element) Then
-                    Console.WriteLine("Element:" + TextReader.Name.ToString())
-                    If TextReader.Name.ToString() = "m_tree_quantity" Then
-                        Qty.Text = TextReader.ReadInnerXml
-                    ElseIf TextReader.Name.ToString() = "m_treeline_low" Then
-                        TreeLineLow.Text = TextReader.ReadInnerXml
-                    ElseIf TextReader.Name.ToString() = "m_treeline_high" Then
-                        TreeLineHight.Text = TextReader.ReadInnerXml
-                        Dim v = TextReader.Value
-                    ElseIf TextReader.Name.ToString() = "m_initial_scale" Then
-                        Dim X = TextReader.ReadInnerXml
-                        Dim pattern As Regex
-                        pattern = New Regex("<X>(.*?)</X>")
-                        Dim matchX As Match = pattern.Match(X)
-                        pattern = New Regex("<Y>(.*?)</Y>")
-                        Dim matchY As Match = pattern.Match(X)
-                        pattern = New Regex("<Z>(.*?)</Z>")
-                        Dim matchZ As Match = pattern.Match(X)
-                        StartSizeX.Text = matchX.Groups(1).Value
-                        StartSizeY.Text = matchY.Groups(1).Value
-                        StartSizeZ.Text = matchZ.Groups(1).Value
-
-                    ElseIf TextReader.Name.ToString() = "m_maximum_scale" Then
-                        Dim X = TextReader.ReadInnerXml
-                        Dim pattern As Regex
-                        pattern = New Regex("<X>(.*?)</X>")
-                        Dim matchX As Match = pattern.Match(X)
-                        pattern = New Regex("<Y>(.*?)</Y>")
-                        Dim matchY As Match = pattern.Match(X)
-                        pattern = New Regex("<Z>(.*?)</Z>")
-                        Dim matchZ As Match = pattern.Match(X)
-
-                        EndsizeX.Text = matchX.Groups(1).Value
-                        EndsizeY.Text = matchY.Groups(1).Value
-                        EndsizeZ.Text = matchZ.Groups(1).Value
-
-                        ' if node type Is an entity
-                    ElseIf (nType = XmlNodeType.Entity) Then
-                        Console.WriteLine("Entity:" + TextReader.Name.ToString())
-
-                        ' if node type Is a Process Instruction
-                    ElseIf (nType = XmlNodeType.Entity) Then
-                        Console.WriteLine("Entity:" + TextReader.Name.ToString())
-
-                        ' if node type a document
-                    ElseIf (nType = XmlNodeType.DocumentType) Then
-                        Console.WriteLine("Document:" + TextReader.Name.ToString())
-
-                        ' if node type Is white space
-                    ElseIf (nType = XmlNodeType.Whitespace) Then
-                        Console.WriteLine("WhiteSpace:" + TextReader.Name.ToString())
+                ' Read until end of file
+                While (TextReader.Read())
+                    Dim nType As XmlNodeType = TextReader.NodeType
+                    ' If node type us a declaration
+                    If (nType = XmlNodeType.XmlDeclaration) Then
+                        Console.WriteLine("Declaration:" + TextReader.Name.ToString())
                     End If
-                End If
+                    ' if node type Is a comment
+                    If (nType = XmlNodeType.Comment) Then
+                        Console.WriteLine("Comment:" + TextReader.Name.ToString())
+                    End If
+                    ' if node type us an attribute
+                    If (nType = XmlNodeType.Attribute) Then
+                        Console.WriteLine("Attribute:" + TextReader.Name.ToString())
+                    End If
+                    ' if node type Is an element
+                    If (nType = XmlNodeType.Element) Then
+                        Console.WriteLine("Element:" + TextReader.Name.ToString())
+                        If TextReader.Name.ToString() = "m_tree_quantity" Then
+                            Qty.Text = TextReader.ReadInnerXml
+                        ElseIf TextReader.Name.ToString() = "m_treeline_low" Then
+                            TreeLineLow.Text = TextReader.ReadInnerXml
+                        ElseIf TextReader.Name.ToString() = "m_treeline_high" Then
+                            TreeLineHight.Text = TextReader.ReadInnerXml
+                            Dim v = TextReader.Value
+                        ElseIf TextReader.Name.ToString() = "m_initial_scale" Then
+                            Dim X = TextReader.ReadInnerXml
+                            Dim pattern As Regex
+                            pattern = New Regex("<X>(.*?)</X>")
+                            Dim matchX As Match = pattern.Match(X)
+                            pattern = New Regex("<Y>(.*?)</Y>")
+                            Dim matchY As Match = pattern.Match(X)
+                            pattern = New Regex("<Z>(.*?)</Z>")
+                            Dim matchZ As Match = pattern.Match(X)
+                            StartSizeX.Text = matchX.Groups(1).Value
+                            StartSizeY.Text = matchY.Groups(1).Value
+                            StartSizeZ.Text = matchZ.Groups(1).Value
 
-            End While
-            TextReader.Dispose()
+                        ElseIf TextReader.Name.ToString() = "m_maximum_scale" Then
+                            Dim X = TextReader.ReadInnerXml
+                            Dim pattern As Regex
+                            pattern = New Regex("<X>(.*?)</X>")
+                            Dim matchX As Match = pattern.Match(X)
+                            pattern = New Regex("<Y>(.*?)</Y>")
+                            Dim matchY As Match = pattern.Match(X)
+                            pattern = New Regex("<Z>(.*?)</Z>")
+                            Dim matchZ As Match = pattern.Match(X)
+
+                            EndsizeX.Text = matchX.Groups(1).Value
+                            EndsizeY.Text = matchY.Groups(1).Value
+                            EndsizeZ.Text = matchZ.Groups(1).Value
+
+                            ' if node type Is an entity
+                        ElseIf (nType = XmlNodeType.Entity) Then
+                            Console.WriteLine("Entity:" + TextReader.Name.ToString())
+
+                            ' if node type Is a Process Instruction
+                        ElseIf (nType = XmlNodeType.Entity) Then
+                            Console.WriteLine("Entity:" + TextReader.Name.ToString())
+
+                            ' if node type a document
+                        ElseIf (nType = XmlNodeType.DocumentType) Then
+                            Console.WriteLine("Document:" + TextReader.Name.ToString())
+
+                            ' if node type Is white space
+                        ElseIf (nType = XmlNodeType.Whitespace) Then
+                            Console.WriteLine("WhiteSpace:" + TextReader.Name.ToString())
+                        End If
+                    End If
+
+                End While
+            End Using
 
         End If
+        _initted = True
 
     End Sub
 
@@ -928,7 +930,7 @@ Public Class FormSmartStart
 
         Dim Size = 256
         Dim XMLName = _SelectedPlant
-        If XMLName.Length = 0 Then Return
+        If XMLName Is Nothing Then Return
 
         Dim quant = CInt("0" & Qty.Text)
         Dim TreelineLow = CInt("0" & Me.TreeLineLow.Text)
@@ -972,10 +974,13 @@ Public Class FormSmartStart
   "
         Dim output = IO.Path.Combine(Settings.OpensimBinPath, $"Trees/{XMLName}.xml")
 
-        Using Writer As New StreamWriter(output)
-            Writer.Write(xml)
-        End Using
-
+        Try
+            Using Writer As New StreamWriter(output)
+                Writer.Write(xml)
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub Maketypes(FileName As System.IO.FileInfo, RegionUUID As String)
@@ -1110,28 +1115,6 @@ Public Class FormSmartStart
 #End Region
 
 #Region "All/None"
-
-#End Region
-
-#Region "Plant size"
-
-    Private Sub MinLandHeight_TextChanged(sender As Object, e As EventArgs) Handles TreeLineLow.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        TreeLineLow.Text = digitsOnly.Replace(TreeLineLow.Text, "")
-        If CInt(TreeLineLow.Text) < 0 Then TreeLineLow.Text = CStr(0)
-    End Sub
-
-    Private Sub Qty_TextChanged(sender As Object, e As EventArgs) Handles Qty.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        Qty.Text = digitsOnly.Replace(Qty.Text, "")
-        If CInt(Qty.Text) > 500 Then Qty.Text = CStr(500)
-    End Sub
-
-    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TreeLineHight.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        TreeLineHight.Text = digitsOnly.Replace(TreeLineHight.Text, "")
-        If CInt(TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
-    End Sub
 
 #End Region
 
@@ -1371,18 +1354,6 @@ Public Class FormSmartStart
         LoadAllFreeOARs()
     End Sub
 
-    Private Sub Endsize_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        EndsizeX.Text = digitsOnly.Replace(EndsizeX.Text, "")
-        If Convert.ToSingle("0" & EndsizeX.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeX.Text = CStr(255)
-    End Sub
-
-    Private Sub EndsizeZ_TextChanged(sender As Object, e As EventArgs) Handles EndsizeZ.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        EndsizeZ.Text = digitsOnly.Replace(EndsizeZ.Text, "")
-        If Convert.ToSingle("0" & EndsizeZ.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeZ.Text = CStr(255)
-    End Sub
-
     Private Sub Flat_TextChanged(sender As Object, e As EventArgs) Handles FlatLandLevel.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         FlatLandLevel.Text = digitsOnly.Replace(FlatLandLevel.Text, "")
@@ -1401,18 +1372,14 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub ParkingSpot_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ParkingSpot.SelectedIndexChanged
-
         Settings.ParkingLot = ParkingSpot.SelectedItem.ToString
         ProgressPrint("Arrivals to powered-off sims are redirected to " & ParkingSpot.SelectedItem.ToString)
         Settings.SaveSettings()
-
     End Sub
 
     Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles RegionMakerEnableCHeckbox.CheckedChanged
-
         Settings.AutoFill = RegionMakerEnableCHeckbox.Checked
         Settings.SaveSettings()
-
     End Sub
 
     Private Sub Smooth_CheckedChanged(sender As Object, e As EventArgs) Handles Smooth.CheckedChanged
@@ -1421,43 +1388,94 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Smooth_TextChanged_2(sender As Object, e As EventArgs) Handles SmoothTextBox.TextChanged
-
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         SmoothTextBox.Text = digitsOnly.Replace(SmoothTextBox.Text, "")
         If Convert.ToSingle("0" & SmoothTextBox.Text, Globalization.CultureInfo.InvariantCulture) > 1 Then SmoothTextBox.Text = CStr(1)
         Settings.LandStrength = CDbl("0" & SmoothTextBox.Text)
+        Settings.SaveSettings()
+    End Sub
 
+#End Region
+
+#Region "Editor"
+
+    Private Sub EndsizeX_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
+        If Not _initted Then Return
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        EndsizeX.Text = digitsOnly.Replace(EndsizeX.Text, "")
+        If Convert.ToSingle("0" & EndsizeX.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeX.Text = CStr(255)
+    End Sub
+
+    Private Sub EndsizeY_TextChanged(sender As Object, e As EventArgs) Handles EndsizeY.TextChanged
+        If Not _initted Then Return
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        EndsizeY.Text = digitsOnly.Replace(EndsizeY.Text, "")
+        If Convert.ToSingle("0" & EndsizeY.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeY.Text = CStr(255)
+        MakeSetting()
+    End Sub
+
+    Private Sub EndsizeZ_TextChanged(sender As Object, e As EventArgs) Handles EndsizeZ.TextChanged
+        If Not _initted Then Return
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        EndsizeZ.Text = digitsOnly.Replace(EndsizeZ.Text, "")
+        If Convert.ToSingle("0" & EndsizeZ.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeZ.Text = CStr(255)
+    End Sub
+
+    Private Sub MinLandHeight_TextChanged(sender As Object, e As EventArgs) Handles TreeLineLow.TextChanged
+        If Not _initted Then Return
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        TreeLineLow.Text = digitsOnly.Replace(TreeLineLow.Text, "")
+        If CInt(TreeLineLow.Text) < 0 Then TreeLineLow.Text = CStr(0)
+        MakeSetting()
+    End Sub
+
+    Private Sub Qty_TextChanged(sender As Object, e As EventArgs) Handles Qty.TextChanged
+        If Not _initted Then Return
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Qty.Text = digitsOnly.Replace(Qty.Text, "")
+        If CInt(Qty.Text) > 500 Then Qty.Text = CStr(500)
+        MakeSetting()
     End Sub
 
     Private Sub StartSize_TextChanged(sender As Object, e As EventArgs) Handles StartSizeX.TextChanged
+        If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         StartSizeX.Text = digitsOnly.Replace(StartSizeX.Text, "")
         If Convert.ToSingle("0" & StartSizeX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then StartSizeX.Text = CStr(0)
+        MakeSetting()
     End Sub
 
     Private Sub StartSizeY_TextChanged(sender As Object, e As EventArgs) Handles StartSizeY.TextChanged
+        If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         StartSizeY.Text = digitsOnly.Replace(StartSizeY.Text, "")
         If Convert.ToSingle("0" & StartSizeY.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then StartSizeY.Text = CStr(0)
+        MakeSetting()
     End Sub
 
     Private Sub StartSizeZ_TextChanged(sender As Object, e As EventArgs) Handles StartSizeZ.TextChanged
+        If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         StartSizeZ.Text = digitsOnly.Replace(StartSizeZ.Text, "")
         If Convert.ToSingle("0" & StartSizeZ.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then StartSizeZ.Text = CStr(0)
+        MakeSetting()
     End Sub
 
     Private Sub TaperTextBox_TextChanged(sender As Object, e As EventArgs) Handles TaperTextBox.TextChanged
+        If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         TaperTextBox.Text = digitsOnly.Replace(TaperTextBox.Text, "")
         If Convert.ToSingle("0" & TaperTextBox.Text, Globalization.CultureInfo.InvariantCulture) > 1 Then TaperTextBox.Text = CStr(1)
         Settings.LandTaper = CDbl("0" & TaperTextBox.Text)
+        MakeSetting()
     End Sub
 
-    Private Sub TextBox2_TextChanged_1(sender As Object, e As EventArgs) Handles EndsizeY.TextChanged
+    Private Sub TextBox2_TextChanged(sender As Object, e As EventArgs) Handles TreeLineHight.TextChanged
+        If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        EndsizeY.Text = digitsOnly.Replace(EndsizeY.Text, "")
-        If Convert.ToSingle("0" & EndsizeY.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeY.Text = CStr(255)
+        TreeLineHight.Text = digitsOnly.Replace(TreeLineHight.Text, "")
+        If CInt(TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
+        MakeSetting()
     End Sub
 
 #End Region
