@@ -95,10 +95,11 @@
 
     End Sub
 
-    Public Sub LandMaker(RegionUUID As String)
+    Public Sub SurroundingLandMaker(RegionUUID As String)
 
         Dim Xstep As Integer
         Dim Ystep As Integer
+
         ' Make a map of occupied areas
         Dim RegionXY As New List(Of String)
         Dim Simcount As Integer
@@ -111,6 +112,7 @@
                 Next
             Next
         Next
+
         TextPrint($"{Simcount} regions exist.")
         Dim X = PropRegionClass.CoordX(RegionUUID)
         Dim Y = PropRegionClass.CoordY(RegionUUID)
@@ -120,13 +122,14 @@
         Dim xy As New List(Of String)
 
         Simcount = 0
-        ' draw a square around the sim
+        ' draw a square around the new sim
         For Xstep = -OverallSize To OverallSize + CurrentSimSize Step 1
             For Ystep = -OverallSize To OverallSize + CurrentSimSize Step 1
                 xy.Add($"{X + Xstep}:{Y + Ystep}")
                 Simcount += 1
             Next
         Next
+
         Dim GroupName = SimName(X, Y)
         TextPrint($"{Simcount} regions to be added to {GroupName}.")
 
@@ -139,11 +142,14 @@
                 Dim parts As String() = possible.Split(New Char() {":"c}) ' split at the space
                 Dim nX = CInt(CStr(parts(0).Trim))
                 Dim nY = CInt(CStr(parts(1).Trim))
-                LastUUID = MakeTempRegion(GroupName, nX, nY)
+
+                Dim UUID = MakeTempRegion(GroupName, nX, nY)
+                If UUID.Length > 0 Then
+                    Landscaper(UUID)
+                End If
             End If
         Next
 
-        Landscaper(LastUUID)
         PropUpdateView = True ' make form refresh
 
     End Sub
@@ -182,17 +188,15 @@
         Dim shortname = SimName(X, Y)
 
         Dim RegionUUID As String
-        RegionUUID = PropRegionClass.CreateRegion(shortname)
-
         If IO.File.Exists(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\{shortname}.ini")) Then
-            Return RegionUUID
+            Return ""
         End If
 
         'kill it
         DeRegisterPosition(X, Y)
 
         ' build it
-        PropRegionClass.CreateRegion(shortname)
+        PropRegionClass.CreateRegion(shortname, "", shortname)
 
         PropRegionClass.CrashCounter(RegionUUID) = 0
         PropRegionClass.CoordX(RegionUUID) = X
@@ -225,9 +229,14 @@
 
     End Sub
 
+    Private Sub RenameSims()
+
+    End Sub
+
     Private Function SimName(X, Y) As String
 
         Return $"Sim Surround {X}-{Y}"
+
     End Function
 
 #Region "Settings"

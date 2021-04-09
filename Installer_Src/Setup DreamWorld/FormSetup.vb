@@ -1952,7 +1952,7 @@ Public Class FormSetup
                 If X = 0 Or Y = 0 Then Continue For
 
 #Disable Warning BC42016 ' Implicit conversion
-                Dim start As ParameterizedThreadStart = AddressOf LandMaker
+                Dim start As ParameterizedThreadStart = AddressOf SurroundingLandMaker
 #Enable Warning BC42016 ' Implicit conversion
 
                 Dim _WebThread1 = New Thread(start)
