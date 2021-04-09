@@ -3,7 +3,7 @@
   <m_frozen>false</m_frozen>
   <m_tree_type>TropicalBush2</m_tree_type>
   <m_tree_quantity>150</m_tree_quantity>
-  <m_treeline_low>20</m_treeline_low>
+  <m_treeline_low>21</m_treeline_low>
   <m_treeline_high>23</m_treeline_high>
   <m_seed_point>
     <X>128</X>
@@ -19,7 +19,7 @@
   <m_maximum_scale>
     <X>5</X>
     <Y>5</Y>
-    <Z>7.5</Z>
+    <Z>8</Z>
   </m_maximum_scale>
   <m_rate>
     <X>0.01</X>
