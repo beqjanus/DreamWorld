@@ -5,6 +5,7 @@ Module Build
     Public NameList As New List(Of String)
     Public Terrains As New List(Of String)
     Public TreeList As New List(Of String)
+    Private TreeDict As Dictionary(Of String, String)
 
     Public Sub PutSetting(name As String, value As Boolean)
 
@@ -85,7 +86,7 @@ Module Build
             Next
         Next
 
-        'TextPrint($"{Simcount} SL Sized regions exist.")
+        Debug.Print($"{Simcount} SL Sized regions exist.")
         Dim Xloc = PropRegionClass.CoordX(RegionUUID)
         Dim Yloc = PropRegionClass.CoordY(RegionUUID)
         Dim CenterSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
@@ -106,7 +107,7 @@ Module Build
         Next
 
         Dim GroupName = FantasyName()
-        'TextPrint($"{Simcount} regions could be added to {GroupName}.")
+        Debug.Print($"{Simcount} regions could be added to {GroupName}.")
 
         Simcount = 0
         Dim l As New List(Of String)
@@ -122,7 +123,7 @@ Module Build
                 LastUUID = MakeTempRegion(GroupName, nX, nY)
             End If
         Next
-        'TextPrint($"{Simcount} regions were added to {GroupName}.")
+        Debug.Print($"{Simcount} regions were added to {GroupName}.")
         If LastUUID.Length > 0 Then
             Landscaper(LastUUID)
         End If
@@ -157,7 +158,7 @@ Module Build
         Dim Type As String = UseTree(r)
 
         Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
-        'RPC_Region_Command(RegionUUID, "tree active true")
+        RPC_Region_Command(RegionUUID, "tree active true")
         For Each NewType In UseTree
             If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} false") Then Return
@@ -166,13 +167,6 @@ Module Build
             Sleep(2000)
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
         Next
-        If Not RPC_Region_Command(RegionUUID, "tree rate 1000") Then Return
-
-        Sleep(2000)
-
-        '  For Each NewType In UseTree
-        ' If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
-        'Next
 
         If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
 
@@ -249,11 +243,8 @@ Module Build
         Dim fileSystemInfo As System.IO.FileSystemInfo
         For Each fileSystemInfo In TerrainDirectoryInfo.GetFileSystemInfos
             Dim n = fileSystemInfo.Name
-            If n.EndsWith(".r32", StringComparison.InvariantCultureIgnoreCase) Or
-               n.EndsWith(".png", StringComparison.InvariantCultureIgnoreCase) Or
-               n.EndsWith(".raw", StringComparison.InvariantCultureIgnoreCase) Then
-                Dim terrain = fileSystemInfo.FullName
-                Terrains.Add(terrain)
+            If n.EndsWith(".r32", StringComparison.InvariantCultureIgnoreCase) Then
+                Terrains.Add(n)
             End If
         Next
         Debug.Print($"{Terrains.Count} Terrains")
