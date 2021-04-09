@@ -5,7 +5,6 @@ Module Build
     Public NameList As New List(Of String)
     Public Terrains As New List(Of String)
     Public TreeList As New List(Of String)
-    Private TreeDict As Dictionary(Of String, String)
 
     Public Sub PutSetting(name As String, value As Boolean)
 
@@ -18,14 +17,12 @@ Module Build
 
     Public Sub GenLand(RegionUUID As String)
 
+        If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
         If Settings.TerrainType = "Flat" Then
             If Not RPC_Region_Command(RegionUUID, $"terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Show("No RPC")
-
         ElseIf Settings.TerrainType = "Water" Then
             If Not RPC_Region_Command(RegionUUID, "terrain fill 0") Then BreakPoint.Show("No RPC")
-
         ElseIf Settings.TerrainType = "Random" Then
-
             Dim r = Between(Terrains.Count - 1, 0)
             Dim Type As String = Terrains(r)
 
@@ -146,29 +143,35 @@ Module Build
         Next
         If UseTree.Count = 0 Then Return
 
-        RPC_Region_Command(RegionUUID, "tree active true")
+        If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
+
+        If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
         For Each TT As String In TreeList
-            If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then
-                Diagnostics.Debug.Print("Error")
-                'Return
-            End If
+            If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
         Next
+
 
         Dim r = Between(UseTree.Count, 0)
         Dim Type As String = UseTree(r)
 
         Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
-        RPC_Region_Command(RegionUUID, "tree active true")
+        If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
+
         For Each NewType In UseTree
             If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} false") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree plant {NewType}") Then Return
             If Not RPC_Region_Command(RegionUUID, "tree rate 1000") Then Return
-            Sleep(2000)
+            Sleep(1000)
+            'force update - Force the region to send all clients updates about all objects.
+            If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
         Next
 
         If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
+
+        'force update - Force the region to send all clients updates about all objects.
+        If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
 
     End Sub
 
@@ -215,20 +218,22 @@ Module Build
         If EstateName(RegionUUID).Length = 0 Then
             Dim i = 10
             While i > 0
-                ConsoleCommand(RegionUUID, "{enter")
-                ' TODO replace with real estate
+                ConsoleCommand(RegionUUID, "yes{enter}SimSurround")
+
                 i -= 1
             End While
         End If
-
+        Sleep(1000)
         WaitForBooted(RegionUUID)
+
+        If Not RPC_Region_Command(RegionUUID, "login enable") Then Return
+
         Dim Group = PropRegionClass.GroupName(RegionUUID)
         For Each UUID In PropRegionClass.RegionUuidListByName(Group)
             GenLand(RegionUUID)
             Application.DoEvents()
             GenTrees(RegionUUID)
             Application.DoEvents()
-            RPC_Region_Command(RegionUUID, "generate map")
         Next
 
     End Sub
@@ -244,7 +249,7 @@ Module Build
         For Each fileSystemInfo In TerrainDirectoryInfo.GetFileSystemInfos
             Dim n = fileSystemInfo.Name
             If n.EndsWith(".r32", StringComparison.InvariantCultureIgnoreCase) Then
-                Terrains.Add(n)
+                Terrains.Add(fileSystemInfo.FullName)
             End If
         Next
         Debug.Print($"{Terrains.Count} Terrains")
@@ -324,9 +329,14 @@ Module Build
 
     Private Sub Modifiers(RegionUUID As String)
 
-        If Settings.LandSmooth Then RPC_Region_Command(RegionUUID, $"terrain modify smooth {Settings.LandSmoothValue} -taper={Settings.LandTaper}")
-        If Settings.LandNoise Then RPC_Region_Command(RegionUUID, "terrain modify noise 1")
-        If Settings.LandNoise Then RPC_Region_Command(RegionUUID, "terrain modify noise 0.5")
+        If Settings.LandSmooth Then
+            If Not RPC_Region_Command(RegionUUID, $"terrain modify smooth {Settings.LandSmoothValue} -taper={Settings.LandTaper}") Then Return
+        End If
+
+        If Settings.LandNoise Then
+            If Not RPC_Region_Command(RegionUUID, "terrain modify noise 1") Then Return
+            If Not RPC_Region_Command(RegionUUID, "terrain modify noise 0.5") Then Return
+        End If
 
     End Sub
 

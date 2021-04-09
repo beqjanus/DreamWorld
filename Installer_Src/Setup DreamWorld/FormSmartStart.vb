@@ -1036,7 +1036,7 @@ Public Class FormSmartStart
 
 #Region "Tool strip"
 
-    Private Sub GenXML(sender As Object, e As EventArgs)
+    Private Sub RebuildTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RebuildTerrainsToolStripMenuItem.Click
 
         Dim RegionName = ChooseRegion(True)
         If RegionName.Length = 0 Then Return
@@ -1050,7 +1050,6 @@ Public Class FormSmartStart
         For Each File1 In File
             Maketypes(File1, RegionUUID)
         Next
-
     End Sub
 
     Private Sub SaveAllTerrain_Click(sender As Object, e As EventArgs) Handles SaveAllTerrain.Click
@@ -1145,23 +1144,22 @@ Public Class FormSmartStart
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
 
-        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
+        If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
 
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         If IO.File.Exists($"{backupname}\{name}-Backup.r32") Then
             DeleteFile($"{backupname}\{name}-Backup.r32")
         End If
 
-        RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.r32""")
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.r32""") Then Return
 
         If IO.File.Exists($"{backupname}\{name}-Backup.jpg") Then
             DeleteFile($"{backupname}\{name}-Backup.jpg")
         End If
-        RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.jpg""")
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.jpg""") Then Return
 
         If RegionUUID.Length > 0 Then
             GenLand(RegionUUID)
-            Application.DoEvents()
         End If
 
     End Sub
@@ -1194,8 +1192,8 @@ Public Class FormSmartStart
         Dim Tname = _TerrainName.Item(_Index)
         Tname = Tname.Replace(".jpg", ".r32")
         If IO.File.Exists(Tname) Then
-            RPC_Region_Command(RegionUUID, $"change region ""{name}""")
-            RPC_Region_Command(RegionUUID, $"terrain load ""{Tname}""")
+            If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"terrain load ""{Tname}""") Then Return
         End If
 
     End Sub

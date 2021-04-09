@@ -2822,7 +2822,7 @@ Public Class FormSetup
 
     Private Sub JobEngineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JobEngineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            RPC_Region_Command(RegionUUID, "debug jobengine status")
+            If Not RPC_Region_Command(RegionUUID, "debug jobengine status") Then Return
         Next
     End Sub
 
@@ -2862,7 +2862,7 @@ Public Class FormSetup
 
     Private Sub ThreadpoolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ThreadpoolsToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            RPC_Region_Command(RegionUUID, "show threads")
+            If Not RPC_Region_Command(RegionUUID, "show threads") Then Return
         Next
     End Sub
 
@@ -2905,8 +2905,7 @@ Public Class FormSetup
 
     Private Sub XengineToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles XengineToolStripMenuItem.Click
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName("*")
-            RPC_Region_Command(RegionUUID, "xengine status")
-            Application.DoEvents()
+            If Not RPC_Region_Command(RegionUUID, "xengine status") Then Return
         Next
     End Sub
 

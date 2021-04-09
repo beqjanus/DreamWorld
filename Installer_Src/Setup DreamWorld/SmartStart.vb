@@ -537,7 +537,7 @@ Module SmartStart
     End Function
 
     ''' <summary>
-    ''' Waits for a restarted region to being booting
+    ''' Waits for a restarted region to be booting
     ''' </summary>
     ''' <param name="RegionUUID">Region UUID</param>
     ''' <returns>True of region is booting</returns>

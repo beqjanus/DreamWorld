@@ -54,6 +54,7 @@ Partial Class FormSmartStart
         Me.SaveTerrain = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAllTerrain = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.OptionRadioButton = New System.Windows.Forms.RadioButton()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.TaperTextBox = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -149,7 +150,7 @@ Partial Class FormSmartStart
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Qty = New System.Windows.Forms.TextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.OptionRadioButton = New System.Windows.Forms.RadioButton()
+        Me.RebuildTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -409,7 +410,7 @@ Partial Class FormSmartStart
         '
         'MenuStrip3
         '
-        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadTerrain, Me.SaveTerrain, Me.SaveAllTerrain})
+        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadTerrain, Me.SaveTerrain, Me.SaveAllTerrain, Me.RebuildTerrainsToolStripMenuItem})
         Me.MenuStrip3.Location = New System.Drawing.Point(3, 3)
         Me.MenuStrip3.Name = "MenuStrip3"
         Me.MenuStrip3.Size = New System.Drawing.Size(850, 24)
@@ -453,6 +454,17 @@ Partial Class FormSmartStart
         Me.GroupBox2.TabIndex = 14
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Terrain"
+        '
+        'OptionRadioButton
+        '
+        Me.OptionRadioButton.AutoSize = True
+        Me.OptionRadioButton.Location = New System.Drawing.Point(236, 44)
+        Me.OptionRadioButton.Name = "OptionRadioButton"
+        Me.OptionRadioButton.Size = New System.Drawing.Size(83, 17)
+        Me.OptionRadioButton.TabIndex = 35
+        Me.OptionRadioButton.TabStop = True
+        Me.OptionRadioButton.Text = "Just Options"
+        Me.OptionRadioButton.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -1483,16 +1495,12 @@ Partial Class FormSmartStart
         Me.PictureBox2.TabIndex = 8
         Me.PictureBox2.TabStop = False
         '
-        'OptionRadioButton
+        'RebuildTerrainsToolStripMenuItem
         '
-        Me.OptionRadioButton.AutoSize = True
-        Me.OptionRadioButton.Location = New System.Drawing.Point(236, 44)
-        Me.OptionRadioButton.Name = "OptionRadioButton"
-        Me.OptionRadioButton.Size = New System.Drawing.Size(83, 17)
-        Me.OptionRadioButton.TabIndex = 35
-        Me.OptionRadioButton.TabStop = True
-        Me.OptionRadioButton.Text = "Just Options"
-        Me.OptionRadioButton.UseVisualStyleBackColor = True
+        Me.RebuildTerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        Me.RebuildTerrainsToolStripMenuItem.Name = "RebuildTerrainsToolStripMenuItem"
+        Me.RebuildTerrainsToolStripMenuItem.Size = New System.Drawing.Size(111, 20)
+        Me.RebuildTerrainsToolStripMenuItem.Text = "Regen Terrains"
         '
         'FormSmartStart
         '
@@ -1665,4 +1673,5 @@ Partial Class FormSmartStart
     Friend WithEvents SmoothTextBox As TextBox
     Friend WithEvents Label9 As Label
     Friend WithEvents OptionRadioButton As RadioButton
+    Friend WithEvents RebuildTerrainsToolStripMenuItem As ToolStripMenuItem
 End Class
