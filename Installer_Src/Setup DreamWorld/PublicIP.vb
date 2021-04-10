@@ -26,7 +26,7 @@ Module PublicIP
 
     Public Function CheckPort(ServerAddress As String, Port As Integer) As Boolean
 
-        Log(My.Resources.Info_word, "Checking port " & CStr(Port))
+        'Log(My.Resources.Info_word, "Checking port " & CStr(Port))
         Dim success As Boolean
         Dim result As IAsyncResult = Nothing
         Using ClientSocket As New TcpClient

@@ -20,6 +20,7 @@ Module Build
         If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
         If Settings.TerrainType = "Flat" Then
             If Not RPC_Region_Command(RegionUUID, $"terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Show("No RPC")
+
         ElseIf Settings.TerrainType = "Water" Then
 
             If Not RPC_Region_Command(RegionUUID, "terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Show("No RPC")
@@ -96,7 +97,6 @@ Module Build
             Next
         Next
 
-        Debug.Print($"{Simcount} SL Sized regions exist.")
         Dim Xloc = PropRegionClass.CoordX(RegionUUID)
         Dim Yloc = PropRegionClass.CoordY(RegionUUID)
         Dim CenterSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
@@ -116,35 +116,32 @@ Module Build
             Next
         Next
 
-        Dim GroupName = FantasyName()
-        Debug.Print($"{Simcount} regions could be added to {GroupName}.")
-
+        Dim GroupName As String = ""
         Simcount = 0
         Dim l As New List(Of String)
         For Each possible As String In xy
-            If RegionXY.Contains(possible) Then
-                'Debug.Print($"Skipping {possible}")
-            Else
+            If Not RegionXY.Contains(possible) Then
                 Dim parts As String() = possible.Split(New Char() {":"c}) ' split at the space
                 Dim nX = CInt(CStr(parts(0).Trim))
                 Dim nY = CInt(CStr(parts(1).Trim))
                 Simcount += 1
+                If GroupName.Length = 0 Then
+                    GroupName = FantasyName()
+                End If
                 MakeTempRegion(GroupName, nX, nY)
             End If
         Next
-        Debug.Print($"{Simcount} regions were added to {GroupName}.")
 
         If Simcount > 0 Then
-            Landscaper(GroupName, Simcount)
+            Debug.Print($"{Simcount} regions were added to {GroupName}.")
+            Landscaper(GroupName)
         End If
-
-        PropUpdateView = True ' make form refresh
 
     End Sub
 
 #End Region
 
-#Region "Trees"
+#Region "Landscaper"
 
     Public Sub GenTrees(RegionUUID As String)
 
@@ -219,7 +216,7 @@ Module Build
 
     End Function
 
-    Private Sub Landscaper(GroupName As String, count As Integer)
+    Private Sub Landscaper(GroupName As String)
 
         Dim UUIDs = PropRegionClass.RegionUuidListByName(GroupName)
 
@@ -229,28 +226,39 @@ Module Build
 
             ' Wait for it
             WaitForBooting(RegionUUID)
-            Sleep(1000)
 
+            ' this mess is need to get the region to join an estate
+            ' There only other way is to append to a file and start Robust again.
             Dim Group = PropRegionClass.GroupName(RegionUUID)
             While True
-                Dim keepgoing As Integer
+                Dim keepgoing As Integer = 0
                 For Each UUID In PropRegionClass.RegionUuidListByName(Group)
+                    DoType(RegionUUID, "{Enter}{Enter}")
                     If EstateName(RegionUUID).Length = 0 Then
                         keepgoing += 1
+                        Sleep(500)
                     End If
                 Next
                 If keepgoing = 0 Then
                     Exit While
                 End If
+                Sleep(500)
+                DoType(RegionUUID, "{Enter}{Enter}")
             End While
 
             WaitForBooted(RegionUUID)
 
+            'force update - Force the region to send all clients updates about all objects.
+            If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
+
             For Each UUID In PropRegionClass.RegionUuidListByName(Group)
+
+                RPC_Region_Command(RegionUUID, $"estate link region 1999 {RegionUUID} ")
                 GenLand(RegionUUID)
                 Application.DoEvents()
                 GenTrees(RegionUUID)
                 Application.DoEvents()
+
             Next
         Next
 
