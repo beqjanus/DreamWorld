@@ -14,6 +14,7 @@ Public Class FormSmartStart
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _abort As Boolean
     Private _Index As Integer
+    Private _initialized As Boolean
     Private _initted As Boolean
     Private _SelectedPlant As String
 
@@ -406,6 +407,7 @@ Public Class FormSmartStart
 
     Private Sub FormTrees_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        _initialized = False
         SetScreen()
         SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
         DelayLabel.Text = Global.Outworldz.My.Resources.SSDelay
@@ -417,7 +419,7 @@ Public Class FormSmartStart
         TabPage1.Text = My.Resources.Smart_Start_word
         TabPage2.Text = My.Resources.Landscaping
         TabPage3.Text = My.Resources.LandMaker
-        ListBox2.SelectedIndex = Settings.Skirtsize
+        ListBox2.SelectedIndex = Settings.Skirtsize - 1
 
         SmoothTextBox.Text = CStr(Settings.LandStrength)
         TaperTextBox.Text = CStr(Settings.LandTaper)
@@ -487,7 +489,7 @@ Public Class FormSmartStart
         ' End If
 
         HelpOnce("SmartStart")
-
+        _initialized = True
     End Sub
 
     Private Sub LoadTerrainList()
@@ -555,6 +557,7 @@ Public Class FormSmartStart
 
     Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
 
+        If Not _initialized Then Return
         Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
 
     End Sub
@@ -1080,7 +1083,9 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles SaveTerrain.Click
+
         'Save menu
+        If Not _initialized Then Return
         Dim RegionName = ChooseRegion(True)
         If RegionName.Length = 0 Then Return
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
@@ -1104,6 +1109,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub SmartStartEnabled_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartEnabled.CheckedChanged
+        If Not _initialized Then Return
         Settings.SmartStart = SmartStartEnabled.Checked
         ProgressPrint("Smart Start is " & CStr(SmartStartEnabled.Checked))
     End Sub
@@ -1378,16 +1384,19 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles RegionMakerEnableCHeckbox.CheckedChanged
+        If Not _initialized Then Return
         Settings.AutoFill = RegionMakerEnableCHeckbox.Checked
         Settings.SaveSettings()
     End Sub
 
     Private Sub Smooth_CheckedChanged(sender As Object, e As EventArgs) Handles Smooth.CheckedChanged
+        If Not _initialized Then Return
         Settings.LandSmooth = Smooth.Checked
         Settings.SaveSettings()
     End Sub
 
     Private Sub Smooth_TextChanged_2(sender As Object, e As EventArgs) Handles SmoothTextBox.TextChanged
+        If Not _initialized Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         SmoothTextBox.Text = digitsOnly.Replace(SmoothTextBox.Text, "")
         If Convert.ToSingle("0" & SmoothTextBox.Text, Globalization.CultureInfo.InvariantCulture) > 1 Then SmoothTextBox.Text = CStr(1)

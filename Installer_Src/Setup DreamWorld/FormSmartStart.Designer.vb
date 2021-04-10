@@ -282,7 +282,7 @@ Partial Class FormSmartStart
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(147, 35)
         Me.Button2.TabIndex = 41
-        Me.Button2.Text = "Fill with Free OARs"
+        Me.Button2.Text = "Bull Upload Free OARs"
         Me.Button2.UseVisualStyleBackColor = True
         '
         'Label6
@@ -297,10 +297,10 @@ Partial Class FormSmartStart
         'ListBox2
         '
         Me.ListBox2.FormattingEnabled = True
-        Me.ListBox2.Items.AddRange(New Object() {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"})
+        Me.ListBox2.Items.AddRange(New Object() {"1", "2", "3"})
         Me.ListBox2.Location = New System.Drawing.Point(662, 83)
         Me.ListBox2.Name = "ListBox2"
-        Me.ListBox2.Size = New System.Drawing.Size(56, 69)
+        Me.ListBox2.Size = New System.Drawing.Size(56, 43)
         Me.ListBox2.TabIndex = 39
         '
         'ParkingSpot

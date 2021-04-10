@@ -231,16 +231,21 @@ Module Build
             WaitForBooting(RegionUUID)
             Sleep(1000)
 
-            While EstateName(RegionUUID).Length = 0
-                DoType(RegionUUID, "{enter}{enter}")
-                Sleep(1000)
+            Dim Group = PropRegionClass.GroupName(RegionUUID)
+            While True
+                Dim keepgoing As Integer
+                For Each UUID In PropRegionClass.RegionUuidListByName(Group)
+                    If EstateName(RegionUUID).Length = 0 Then
+                        keepgoing += 1
+                    End If
+                Next
+                If keepgoing = 0 Then
+                    Exit While
+                End If
             End While
 
             WaitForBooted(RegionUUID)
 
-            If Not RPC_Region_Command(RegionUUID, "login enable") Then Return
-
-            Dim Group = PropRegionClass.GroupName(RegionUUID)
             For Each UUID In PropRegionClass.RegionUuidListByName(Group)
                 GenLand(RegionUUID)
                 Application.DoEvents()
