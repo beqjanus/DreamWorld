@@ -171,9 +171,8 @@ Public Class FormDebug
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
 
-        If Debugger.IsAttached Then
-            ComboBox1.Items.Add(My.Resources.SmartStartEnable)
-        End If
+
+        ComboBox1.Items.Add(My.Resources.SmartStartEnable)
 
         RadioTrue.Checked = False
         RadioFalse.Checked = True
