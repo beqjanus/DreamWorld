@@ -297,11 +297,16 @@ Module DoIni
 "$CONF_HOME            = " & """" & Settings.CMS & """" & ";          //Link To your Home Folder in htdocs.  WordPress, DreamGrid, JOpensim/jOpensim or user assigned folder" & vbCrLf &
 "?>"
 
-        Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php"), False)
-            outputFile.WriteLine(phptext)
-        End Using
+        Try
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\MetroMap\includes\config.php"), False)
+                outputFile.WriteLine(phptext)
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
-        phptext = "<?php " & vbCrLf &
+        Try
+            phptext = "<?php " & vbCrLf &
 "$DB_GRIDNAME = " & """" & Settings.PublicIP & ":" & Settings.HttpPort & """" & ";" & vbCrLf &
 "$DB_HOST = " & """" & Settings.RobustServerIP & """" & ";" & vbCrLf &
 "$DB_PORT = " & """" & CStr(Settings.MySqlRobustDBPort) & """" & "; // Robust port " & vbCrLf &
@@ -310,9 +315,12 @@ Module DoIni
 "$DB_NAME = " & """" & "ossearch" & """" & ";" & vbCrLf &
 "?>"
 
-        Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\databaseinfo.php"), False)
-            outputFile.WriteLine(phptext)
-        End Using
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\databaseinfo.php"), False)
+                outputFile.WriteLine(phptext)
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
         Return False
 

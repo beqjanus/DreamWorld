@@ -162,9 +162,8 @@ Public Class FormSmartStart
 
 #Region "Photos"
 
-    Private Function GetPic(sender As Object) As Image
+    Private Function GetPic(Photoname As String) As Image
 
-        Dim Photoname = CStr(sender.ToString)
         Dim path = IO.Path.Combine(Settings.OpensimBinPath, "Trees")
         path = IO.Path.Combine(path, Photoname & ".jpg")
 
@@ -187,82 +186,100 @@ Public Class FormSmartStart
     Private Sub BeachGrass_CheckedChanged(sender As Object, e As EventArgs) Handles BeachGrass1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub BeachGrass_MouseHoverd(sender As Object, e As EventArgs) Handles BeachGrass1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Cypress1_CheckedChanged(sender As Object, e As EventArgs) Handles Cypress1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Cypress1_Hover(sender As Object, e As EventArgs) Handles Cypress1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Cypress2_CheckedChanged(sender As Object, e As EventArgs) Handles Cypress2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Cypress2_Hover(sender As Object, e As EventArgs) Handles Cypress2.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Eelgrass_CheckedChanged(sender As Object, e As EventArgs) Handles Eelgrass.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Eelgrass_Hover(sender As Object, e As EventArgs) Handles Eelgrass.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Eucalyptus_CheckedChanged(sender As Object, e As EventArgs) Handles Eucalyptus.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Eucalyptus_Hover(sender As Object, e As EventArgs) Handles Eucalyptus.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Fern_CheckedChanged(sender As Object, e As EventArgs) Handles Fern.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Fern_Hover(sender As Object, e As EventArgs) Handles Fern.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass0_CheckedChanged(sender As Object, e As EventArgs) Handles Grass0.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass0_Hover(sender As Object, e As EventArgs) Handles Grass0.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass1_CheckedChanged(sender As Object, e As EventArgs) Handles Grass1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass1_Hover(sender As Object, e As EventArgs) Handles Grass1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass2_CheckedChanged(sender As Object, e As EventArgs) Handles Grass2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass2_Hover(sender As Object, e As EventArgs) Handles Grass2.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass3_CheckedChanged(sender As Object, e As EventArgs) Handles Grass3.CheckedChanged
@@ -271,151 +288,185 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Grass3_Hover(sender As Object, e As EventArgs) Handles Grass3.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass4_CheckedChanged(sender As Object, e As EventArgs) Handles Grass4.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Grass4_Hover(sender As Object, e As EventArgs) Handles Grass4.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Kelp1_CheckedChanged(sender As Object, e As EventArgs) Handles Kelp1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Kelp1_Hover(sender As Object, e As EventArgs) Handles Kelp1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Kelp2_CheckedChanged(sender As Object, e As EventArgs) Handles Kelp2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Kelp2_Hover(sender As Object, e As EventArgs) Handles Kelp2.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Oak_CheckedChanged(sender As Object, e As EventArgs) Handles Oak.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Oak_MouseHover(sender As Object, e As EventArgs) Handles Oak.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Palm1_CheckedChanged(sender As Object, e As EventArgs) Handles Palm1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Palm1_MouseHover(sender As Object, e As EventArgs) Handles Palm1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Palm2_CheckedChanged(sender As Object, e As EventArgs) Handles Palm2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Palm2_MouseHover(sender As Object, e As EventArgs) Handles Palm2.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Pine1_CheckedChanged(sender As Object, e As EventArgs) Handles Pine1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Pine1_MouseHover(sender As Object, e As EventArgs) Handles Pine1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Pine2_CheckedChanged(sender As Object, e As EventArgs) Handles Pine2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Pine2_MouseHover(sender As Object, e As EventArgs) Handles Pine2.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Plumeria_CheckedChanged(sender As Object, e As EventArgs) Handles Plumeria.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
+
     End Sub
 
     Private Sub Plumeria_MouseHover(sender As Object, e As EventArgs) Handles Plumeria.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub SeaSword_CheckedChanged(sender As Object, e As EventArgs) Handles SeaSword.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub SeaSword_MouseHover(sender As Object, e As EventArgs) Handles SeaSword.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub TropicalBush1_CheckedChanged(sender As Object, e As EventArgs) Handles TropicalBush1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub TropicalBush1_MouseHover(sender As Object, e As EventArgs) Handles TropicalBush1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub TropicalBush2_CheckedChanged(sender As Object, e As EventArgs) Handles TropicalBush2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub TropicalBush2_MouseHover(sender As Object, e As EventArgs) Handles TropicalBush2.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Undergrowth_CheckedChanged(sender As Object, e As EventArgs) Handles Undergrowth1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub Undergrowth_MouseHover(sender As Object, e As EventArgs) Handles Undergrowth1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub WinterAspen_CheckedChanged(sender As Object, e As EventArgs) Handles WinterAspen.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub WinterAspen_Hover(sender As Object, e As EventArgs) Handles WinterAspen.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub WinterPine1_CheckedChanged(sender As Object, e As EventArgs) Handles WinterPine1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub WinterPine1_MouseHover(sender As Object, e As EventArgs) Handles WinterPine1.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub WinterPine2_CheckedChanged(sender As Object, e As EventArgs) Handles WinterPine2.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
     Private Sub WinterPine2_MouseHover(sender As Object, e As EventArgs) Handles WinterPine2.MouseHover
-        PictureBox1.Image = GetPic(sender)
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
 #End Region
