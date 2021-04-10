@@ -417,7 +417,7 @@ Public Class FormSmartStart
         TabPage1.Text = My.Resources.Smart_Start_word
         TabPage2.Text = My.Resources.Landscaping
         TabPage3.Text = My.Resources.LandMaker
-        ListBox2.SelectedIndex = Settings.SurroundSize
+        ListBox2.SelectedIndex = Settings.Skirtsize
 
         SmoothTextBox.Text = CStr(Settings.LandStrength)
         TaperTextBox.Text = CStr(Settings.LandTaper)
@@ -553,13 +553,9 @@ Public Class FormSmartStart
 
     End Function
 
-    Private Sub Grass0Radio_CheckedChanged(sender As Object, e As EventArgs) Handles Grass0Radio.CheckedChanged
-        LoadPlant(CStr(sender.text))
-    End Sub
-
     Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
 
-        Settings.SurroundSize = CInt(ListBox2.SelectedItem.ToString)
+        Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
 
     End Sub
 
@@ -1237,6 +1233,10 @@ Public Class FormSmartStart
 #End Region
 
 #Region "Radio"
+
+    Private Sub Grass0Radio_CheckedChanged(sender As Object, e As EventArgs) Handles Grass0Radio.CheckedChanged
+        LoadPlant(CStr(sender.text))
+    End Sub
 
     Private Sub RadioButton1_CheckedChanged_1(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
         LoadPlant(CStr(sender.text))
