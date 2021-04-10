@@ -78,7 +78,7 @@ Partial Class FormSmartStart
         Me.RevertButton = New System.Windows.Forms.Button()
         Me.All = New System.Windows.Forms.CheckBox()
         Me.ApplyPlantButton = New System.Windows.Forms.Button()
-        Me.Undergrowth = New System.Windows.Forms.CheckBox()
+        Me.Undergrowth1 = New System.Windows.Forms.CheckBox()
         Me.Grass4 = New System.Windows.Forms.CheckBox()
         Me.Grass3 = New System.Windows.Forms.CheckBox()
         Me.Grass2 = New System.Windows.Forms.CheckBox()
@@ -151,6 +151,7 @@ Partial Class FormSmartStart
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Qty = New System.Windows.Forms.TextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.ViewTerrainFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -363,9 +364,10 @@ Partial Class FormSmartStart
         'PictureBox3
         '
         Me.PictureBox3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox3.Location = New System.Drawing.Point(22, 20)
+        Me.PictureBox3.Image = Global.Outworldz.My.Resources.Resources.NoImage
+        Me.PictureBox3.Location = New System.Drawing.Point(26, 20)
         Me.PictureBox3.Name = "PictureBox3"
-        Me.PictureBox3.Size = New System.Drawing.Size(239, 204)
+        Me.PictureBox3.Size = New System.Drawing.Size(226, 204)
         Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox3.TabIndex = 8
         Me.PictureBox3.TabStop = False
@@ -373,7 +375,7 @@ Partial Class FormSmartStart
         'LabelName
         '
         Me.LabelName.AutoSize = True
-        Me.LabelName.Location = New System.Drawing.Point(120, 227)
+        Me.LabelName.Location = New System.Drawing.Point(125, 233)
         Me.LabelName.Name = "LabelName"
         Me.LabelName.Size = New System.Drawing.Size(39, 13)
         Me.LabelName.TabIndex = 36
@@ -410,7 +412,7 @@ Partial Class FormSmartStart
         '
         'MenuStrip3
         '
-        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadTerrain, Me.SaveTerrain, Me.SaveAllTerrain, Me.RebuildTerrainsToolStripMenuItem})
+        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadTerrain, Me.SaveTerrain, Me.SaveAllTerrain, Me.RebuildTerrainsToolStripMenuItem, Me.ViewTerrainFolderToolStripMenuItem})
         Me.MenuStrip3.Location = New System.Drawing.Point(3, 3)
         Me.MenuStrip3.Name = "MenuStrip3"
         Me.MenuStrip3.Size = New System.Drawing.Size(850, 24)
@@ -465,7 +467,7 @@ Partial Class FormSmartStart
         'OptionRadioButton
         '
         Me.OptionRadioButton.AutoSize = True
-        Me.OptionRadioButton.Location = New System.Drawing.Point(236, 44)
+        Me.OptionRadioButton.Location = New System.Drawing.Point(258, 43)
         Me.OptionRadioButton.Name = "OptionRadioButton"
         Me.OptionRadioButton.Size = New System.Drawing.Size(83, 17)
         Me.OptionRadioButton.TabIndex = 35
@@ -483,7 +485,7 @@ Partial Class FormSmartStart
         Me.GroupBox5.Controls.Add(Me.Label8)
         Me.GroupBox5.Controls.Add(Me.Noise)
         Me.GroupBox5.Controls.Add(Me.Smooth)
-        Me.GroupBox5.Location = New System.Drawing.Point(236, 74)
+        Me.GroupBox5.Location = New System.Drawing.Point(254, 74)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(132, 204)
         Me.GroupBox5.TabIndex = 34
@@ -597,20 +599,21 @@ Partial Class FormSmartStart
         'TerrainPic
         '
         Me.TerrainPic.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.TerrainPic.Image = CType(resources.GetObject("TerrainPic.Image"), System.Drawing.Image)
+        Me.TerrainPic.Image = Global.Outworldz.My.Resources.Resources.NoImage
         Me.TerrainPic.Location = New System.Drawing.Point(23, 74)
         Me.TerrainPic.Name = "TerrainPic"
-        Me.TerrainPic.Size = New System.Drawing.Size(207, 159)
+        Me.TerrainPic.Size = New System.Drawing.Size(207, 172)
         Me.TerrainPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.TerrainPic.TabIndex = 6
         Me.TerrainPic.TabStop = False
         '
         'ApplyTerrainEffectButton
         '
+        Me.ApplyTerrainEffectButton.Image = Global.Outworldz.My.Resources.Resources.disk_blue
         Me.ApplyTerrainEffectButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ApplyTerrainEffectButton.Location = New System.Drawing.Point(64, 238)
+        Me.ApplyTerrainEffectButton.Location = New System.Drawing.Point(65, 251)
         Me.ApplyTerrainEffectButton.Name = "ApplyTerrainEffectButton"
-        Me.ApplyTerrainEffectButton.Size = New System.Drawing.Size(116, 24)
+        Me.ApplyTerrainEffectButton.Size = New System.Drawing.Size(127, 32)
         Me.ApplyTerrainEffectButton.TabIndex = 31
         Me.ApplyTerrainEffectButton.Text = "Apply"
         Me.ApplyTerrainEffectButton.UseVisualStyleBackColor = True
@@ -645,7 +648,7 @@ Partial Class FormSmartStart
         Me.GroupBox1.Controls.Add(Me.RevertButton)
         Me.GroupBox1.Controls.Add(Me.All)
         Me.GroupBox1.Controls.Add(Me.ApplyPlantButton)
-        Me.GroupBox1.Controls.Add(Me.Undergrowth)
+        Me.GroupBox1.Controls.Add(Me.Undergrowth1)
         Me.GroupBox1.Controls.Add(Me.Grass4)
         Me.GroupBox1.Controls.Add(Me.Grass3)
         Me.GroupBox1.Controls.Add(Me.Grass2)
@@ -683,9 +686,9 @@ Partial Class FormSmartStart
         '
         Me.FreezeButton.Image = CType(resources.GetObject("FreezeButton.Image"), System.Drawing.Image)
         Me.FreezeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.FreezeButton.Location = New System.Drawing.Point(366, 84)
+        Me.FreezeButton.Location = New System.Drawing.Point(665, 150)
         Me.FreezeButton.Name = "FreezeButton"
-        Me.FreezeButton.Size = New System.Drawing.Size(122, 34)
+        Me.FreezeButton.Size = New System.Drawing.Size(111, 34)
         Me.FreezeButton.TabIndex = 35
         Me.FreezeButton.Text = "Freeze"
         Me.FreezeButton.UseVisualStyleBackColor = True
@@ -704,9 +707,9 @@ Partial Class FormSmartStart
         '
         Me.RevertButton.Image = CType(resources.GetObject("RevertButton.Image"), System.Drawing.Image)
         Me.RevertButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RevertButton.Location = New System.Drawing.Point(366, 130)
+        Me.RevertButton.Location = New System.Drawing.Point(665, 193)
         Me.RevertButton.Name = "RevertButton"
-        Me.RevertButton.Size = New System.Drawing.Size(122, 34)
+        Me.RevertButton.Size = New System.Drawing.Size(111, 34)
         Me.RevertButton.TabIndex = 34
         Me.RevertButton.Text = "Revert"
         Me.RevertButton.UseVisualStyleBackColor = True
@@ -725,22 +728,22 @@ Partial Class FormSmartStart
         '
         Me.ApplyPlantButton.Image = CType(resources.GetObject("ApplyPlantButton.Image"), System.Drawing.Image)
         Me.ApplyPlantButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ApplyPlantButton.Location = New System.Drawing.Point(366, 172)
+        Me.ApplyPlantButton.Location = New System.Drawing.Point(665, 239)
         Me.ApplyPlantButton.Name = "ApplyPlantButton"
-        Me.ApplyPlantButton.Size = New System.Drawing.Size(122, 37)
+        Me.ApplyPlantButton.Size = New System.Drawing.Size(111, 37)
         Me.ApplyPlantButton.TabIndex = 30
         Me.ApplyPlantButton.Text = "Apply"
         Me.ApplyPlantButton.UseVisualStyleBackColor = True
         '
-        'Undergrowth
+        'Undergrowth1
         '
-        Me.Undergrowth.AutoSize = True
-        Me.Undergrowth.Location = New System.Drawing.Point(235, 21)
-        Me.Undergrowth.Name = "Undergrowth"
-        Me.Undergrowth.Size = New System.Drawing.Size(87, 17)
-        Me.Undergrowth.TabIndex = 29
-        Me.Undergrowth.Text = "Undergrowth"
-        Me.Undergrowth.UseVisualStyleBackColor = True
+        Me.Undergrowth1.AutoSize = True
+        Me.Undergrowth1.Location = New System.Drawing.Point(235, 21)
+        Me.Undergrowth1.Name = "Undergrowth1"
+        Me.Undergrowth1.Size = New System.Drawing.Size(87, 17)
+        Me.Undergrowth1.TabIndex = 29
+        Me.Undergrowth1.Text = "Undergrowth"
+        Me.Undergrowth1.UseVisualStyleBackColor = True
         '
         'Grass4
         '
@@ -967,9 +970,9 @@ Partial Class FormSmartStart
         '
         Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(517, 12)
+        Me.PictureBox1.Location = New System.Drawing.Point(351, 21)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(280, 264)
+        Me.PictureBox1.Size = New System.Drawing.Size(284, 265)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 5
         Me.PictureBox1.TabStop = False
@@ -1043,7 +1046,7 @@ Partial Class FormSmartStart
         '
         Me.ApplyEdit.Image = CType(resources.GetObject("ApplyEdit.Image"), System.Drawing.Image)
         Me.ApplyEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ApplyEdit.Location = New System.Drawing.Point(642, 298)
+        Me.ApplyEdit.Location = New System.Drawing.Point(416, 295)
         Me.ApplyEdit.Name = "ApplyEdit"
         Me.ApplyEdit.Size = New System.Drawing.Size(121, 37)
         Me.ApplyEdit.TabIndex = 65
@@ -1052,28 +1055,28 @@ Partial Class FormSmartStart
         '
         'EndsizeZ
         '
-        Me.EndsizeZ.Location = New System.Drawing.Point(548, 260)
+        Me.EndsizeZ.Location = New System.Drawing.Point(489, 252)
         Me.EndsizeZ.Name = "EndsizeZ"
         Me.EndsizeZ.Size = New System.Drawing.Size(30, 20)
         Me.EndsizeZ.TabIndex = 64
         '
         'EndsizeY
         '
-        Me.EndsizeY.Location = New System.Drawing.Point(513, 260)
+        Me.EndsizeY.Location = New System.Drawing.Point(454, 252)
         Me.EndsizeY.Name = "EndsizeY"
         Me.EndsizeY.Size = New System.Drawing.Size(30, 20)
         Me.EndsizeY.TabIndex = 63
         '
         'StartSizeZ
         '
-        Me.StartSizeZ.Location = New System.Drawing.Point(548, 211)
+        Me.StartSizeZ.Location = New System.Drawing.Point(489, 203)
         Me.StartSizeZ.Name = "StartSizeZ"
         Me.StartSizeZ.Size = New System.Drawing.Size(30, 20)
         Me.StartSizeZ.TabIndex = 62
         '
         'StartSizeY
         '
-        Me.StartSizeY.Location = New System.Drawing.Point(513, 212)
+        Me.StartSizeY.Location = New System.Drawing.Point(454, 204)
         Me.StartSizeY.Name = "StartSizeY"
         Me.StartSizeY.Size = New System.Drawing.Size(30, 20)
         Me.StartSizeY.TabIndex = 61
@@ -1107,9 +1110,9 @@ Partial Class FormSmartStart
         Me.GroupBox3.Controls.Add(Me.RadioButton14)
         Me.GroupBox3.Controls.Add(Me.RadioButton13)
         Me.GroupBox3.Controls.Add(Me.RadioButton12)
-        Me.GroupBox3.Location = New System.Drawing.Point(18, 23)
+        Me.GroupBox3.Location = New System.Drawing.Point(23, 38)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(426, 284)
+        Me.GroupBox3.Size = New System.Drawing.Size(344, 284)
         Me.GroupBox3.TabIndex = 60
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Plants"
@@ -1128,7 +1131,7 @@ Partial Class FormSmartStart
         'RadioButton19
         '
         Me.RadioButton19.AutoSize = True
-        Me.RadioButton19.Location = New System.Drawing.Point(337, 70)
+        Me.RadioButton19.Location = New System.Drawing.Point(127, 209)
         Me.RadioButton19.Name = "RadioButton19"
         Me.RadioButton19.Size = New System.Drawing.Size(52, 17)
         Me.RadioButton19.TabIndex = 52
@@ -1139,7 +1142,7 @@ Partial Class FormSmartStart
         'RadioButton17
         '
         Me.RadioButton17.AutoSize = True
-        Me.RadioButton17.Location = New System.Drawing.Point(337, 27)
+        Me.RadioButton17.Location = New System.Drawing.Point(127, 166)
         Me.RadioButton17.Name = "RadioButton17"
         Me.RadioButton17.Size = New System.Drawing.Size(74, 17)
         Me.RadioButton17.TabIndex = 50
@@ -1172,7 +1175,7 @@ Partial Class FormSmartStart
         'RadioButton4
         '
         Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(141, 116)
+        Me.RadioButton4.Location = New System.Drawing.Point(121, 116)
         Me.RadioButton4.Name = "RadioButton4"
         Me.RadioButton4.Size = New System.Drawing.Size(58, 17)
         Me.RadioButton4.TabIndex = 37
@@ -1183,7 +1186,7 @@ Partial Class FormSmartStart
         'RadioButton18
         '
         Me.RadioButton18.AutoSize = True
-        Me.RadioButton18.Location = New System.Drawing.Point(337, 48)
+        Me.RadioButton18.Location = New System.Drawing.Point(127, 187)
         Me.RadioButton18.Name = "RadioButton18"
         Me.RadioButton18.Size = New System.Drawing.Size(52, 17)
         Me.RadioButton18.TabIndex = 51
@@ -1194,18 +1197,18 @@ Partial Class FormSmartStart
         'RadioButton10
         '
         Me.RadioButton10.AutoSize = True
-        Me.RadioButton10.Location = New System.Drawing.Point(141, 139)
+        Me.RadioButton10.Location = New System.Drawing.Point(15, 186)
         Me.RadioButton10.Name = "RadioButton10"
-        Me.RadioButton10.Size = New System.Drawing.Size(83, 17)
+        Me.RadioButton10.Size = New System.Drawing.Size(89, 17)
         Me.RadioButton10.TabIndex = 43
         Me.RadioButton10.TabStop = True
-        Me.RadioButton10.Text = "BeachGrass"
+        Me.RadioButton10.Text = "BeachGrass1"
         Me.RadioButton10.UseVisualStyleBackColor = True
         '
         'RadioButton3
         '
         Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(141, 93)
+        Me.RadioButton3.Location = New System.Drawing.Point(121, 93)
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.Size = New System.Drawing.Size(58, 17)
         Me.RadioButton3.TabIndex = 36
@@ -1229,10 +1232,10 @@ Partial Class FormSmartStart
         Me.RadioButton25.AutoSize = True
         Me.RadioButton25.Location = New System.Drawing.Point(15, 140)
         Me.RadioButton25.Name = "RadioButton25"
-        Me.RadioButton25.Size = New System.Drawing.Size(86, 17)
+        Me.RadioButton25.Size = New System.Drawing.Size(92, 17)
         Me.RadioButton25.TabIndex = 58
         Me.RadioButton25.TabStop = True
-        Me.RadioButton25.Text = "Undergrowth"
+        Me.RadioButton25.Text = "Undergrowth1"
         Me.RadioButton25.UseVisualStyleBackColor = True
         '
         'RadioButton6
@@ -1249,7 +1252,7 @@ Partial Class FormSmartStart
         'RadioButton2
         '
         Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(141, 70)
+        Me.RadioButton2.Location = New System.Drawing.Point(121, 70)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(58, 17)
         Me.RadioButton2.TabIndex = 35
@@ -1260,7 +1263,7 @@ Partial Class FormSmartStart
         'RadioButton1
         '
         Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(141, 47)
+        Me.RadioButton1.Location = New System.Drawing.Point(121, 47)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.Size = New System.Drawing.Size(58, 17)
         Me.RadioButton1.TabIndex = 34
@@ -1315,7 +1318,7 @@ Partial Class FormSmartStart
         'RadioButton24
         '
         Me.RadioButton24.AutoSize = True
-        Me.RadioButton24.Location = New System.Drawing.Point(141, 162)
+        Me.RadioButton24.Location = New System.Drawing.Point(15, 209)
         Me.RadioButton24.Name = "RadioButton24"
         Me.RadioButton24.Size = New System.Drawing.Size(67, 17)
         Me.RadioButton24.TabIndex = 57
@@ -1326,7 +1329,7 @@ Partial Class FormSmartStart
         'Grass0Radio
         '
         Me.Grass0Radio.AutoSize = True
-        Me.Grass0Radio.Location = New System.Drawing.Point(141, 26)
+        Me.Grass0Radio.Location = New System.Drawing.Point(121, 26)
         Me.Grass0Radio.Name = "Grass0Radio"
         Me.Grass0Radio.Size = New System.Drawing.Size(58, 17)
         Me.Grass0Radio.TabIndex = 33
@@ -1414,15 +1417,15 @@ Partial Class FormSmartStart
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(472, 243)
+        Me.Label5.Location = New System.Drawing.Point(413, 235)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(49, 13)
+        Me.Label5.Size = New System.Drawing.Size(79, 13)
         Me.Label5.TabIndex = 18
-        Me.Label5.Text = "End Size"
+        Me.Label5.Text = "End Size X Y Z"
         '
         'EndsizeX
         '
-        Me.EndsizeX.Location = New System.Drawing.Point(475, 260)
+        Me.EndsizeX.Location = New System.Drawing.Point(416, 252)
         Me.EndsizeX.Name = "EndsizeX"
         Me.EndsizeX.Size = New System.Drawing.Size(30, 20)
         Me.EndsizeX.TabIndex = 17
@@ -1430,15 +1433,15 @@ Partial Class FormSmartStart
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(472, 194)
+        Me.Label4.Location = New System.Drawing.Point(413, 186)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(52, 13)
+        Me.Label4.Size = New System.Drawing.Size(82, 13)
         Me.Label4.TabIndex = 16
-        Me.Label4.Text = "Start Size"
+        Me.Label4.Text = "Start Size X Y Z"
         '
         'StartSizeX
         '
-        Me.StartSizeX.Location = New System.Drawing.Point(475, 212)
+        Me.StartSizeX.Location = New System.Drawing.Point(416, 204)
         Me.StartSizeX.Name = "StartSizeX"
         Me.StartSizeX.Size = New System.Drawing.Size(30, 20)
         Me.StartSizeX.TabIndex = 15
@@ -1446,7 +1449,7 @@ Partial Class FormSmartStart
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(472, 145)
+        Me.Label3.Location = New System.Drawing.Point(413, 137)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(72, 13)
         Me.Label3.TabIndex = 14
@@ -1454,7 +1457,7 @@ Partial Class FormSmartStart
         '
         'TreeLineLow
         '
-        Me.TreeLineLow.Location = New System.Drawing.Point(475, 162)
+        Me.TreeLineLow.Location = New System.Drawing.Point(416, 154)
         Me.TreeLineLow.Name = "TreeLineLow"
         Me.TreeLineLow.Size = New System.Drawing.Size(49, 20)
         Me.TreeLineLow.TabIndex = 13
@@ -1462,7 +1465,7 @@ Partial Class FormSmartStart
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(472, 98)
+        Me.Label2.Location = New System.Drawing.Point(413, 90)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(70, 13)
         Me.Label2.TabIndex = 12
@@ -1470,7 +1473,7 @@ Partial Class FormSmartStart
         '
         'TreeLineHight
         '
-        Me.TreeLineHight.Location = New System.Drawing.Point(475, 115)
+        Me.TreeLineHight.Location = New System.Drawing.Point(416, 107)
         Me.TreeLineHight.Name = "TreeLineHight"
         Me.TreeLineHight.Size = New System.Drawing.Size(49, 20)
         Me.TreeLineHight.TabIndex = 11
@@ -1478,7 +1481,7 @@ Partial Class FormSmartStart
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(472, 51)
+        Me.Label1.Location = New System.Drawing.Point(413, 43)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(46, 13)
         Me.Label1.TabIndex = 10
@@ -1486,7 +1489,7 @@ Partial Class FormSmartStart
         '
         'Qty
         '
-        Me.Qty.Location = New System.Drawing.Point(475, 68)
+        Me.Qty.Location = New System.Drawing.Point(416, 60)
         Me.Qty.Name = "Qty"
         Me.Qty.Size = New System.Drawing.Size(49, 20)
         Me.Qty.TabIndex = 9
@@ -1494,13 +1497,20 @@ Partial Class FormSmartStart
         'PictureBox2
         '
         Me.PictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
-        Me.PictureBox2.Location = New System.Drawing.Point(599, 50)
+        Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.NoImage
+        Me.PictureBox2.Location = New System.Drawing.Point(564, 38)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(228, 242)
+        Me.PictureBox2.Size = New System.Drawing.Size(251, 242)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox2.TabIndex = 8
         Me.PictureBox2.TabStop = False
+        '
+        'ViewTerrainFolderToolStripMenuItem
+        '
+        Me.ViewTerrainFolderToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.folder
+        Me.ViewTerrainFolderToolStripMenuItem.Name = "ViewTerrainFolderToolStripMenuItem"
+        Me.ViewTerrainFolderToolStripMenuItem.Size = New System.Drawing.Size(134, 20)
+        Me.ViewTerrainFolderToolStripMenuItem.Text = "View Terrain Folder"
         '
         'FormSmartStart
         '
@@ -1569,7 +1579,7 @@ Partial Class FormSmartStart
     Friend WithEvents None As CheckBox
     Friend WithEvents All As CheckBox
     Friend WithEvents ApplyPlantButton As Button
-    Friend WithEvents Undergrowth As CheckBox
+    Friend WithEvents Undergrowth1 As CheckBox
     Friend WithEvents Grass4 As CheckBox
     Friend WithEvents Grass3 As CheckBox
     Friend WithEvents Grass2 As CheckBox
@@ -1674,4 +1684,5 @@ Partial Class FormSmartStart
     Friend WithEvents Label9 As Label
     Friend WithEvents OptionRadioButton As RadioButton
     Friend WithEvents RebuildTerrainsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ViewTerrainFolderToolStripMenuItem As ToolStripMenuItem
 End Class

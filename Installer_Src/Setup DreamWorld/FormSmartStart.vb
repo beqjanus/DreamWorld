@@ -107,7 +107,7 @@ Public Class FormSmartStart
             SetSetting(SeaSword)
             SetSetting(TropicalBush1)
             SetSetting(TropicalBush2)
-            SetSetting(Undergrowth)
+            SetSetting(Undergrowth1)
             SetSetting(WinterAspen)
             SetSetting(WinterPine1)
             SetSetting(WinterPine2)
@@ -150,13 +150,35 @@ Public Class FormSmartStart
             ClrSetting(SeaSword)
             ClrSetting(TropicalBush1)
             ClrSetting(TropicalBush2)
-            ClrSetting(Undergrowth)
+            ClrSetting(Undergrowth1)
             ClrSetting(WinterAspen)
             ClrSetting(WinterPine1)
             ClrSetting(WinterPine2)
         End If
 
     End Sub
+
+#End Region
+
+#Region "Photos"
+
+    Private Function GetPic(sender As Object) As Image
+
+        Dim Photoname = CStr(sender.ToString)
+        Dim path = IO.Path.Combine(Settings.OpensimBinPath, "Trees")
+        path = IO.Path.Combine(path, Photoname & ".jpg")
+
+        Try
+            Using fs As FileStream = New System.IO.FileStream(path, FileMode.Open, FileAccess.Read)
+                Dim I As Image = Image.FromStream(fs)
+                Return I
+            End Using
+        Catch
+        End Try
+
+        Return My.Resources.NoImage
+
+    End Function
 
 #End Region
 
@@ -168,7 +190,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub BeachGrass_MouseHoverd(sender As Object, e As EventArgs) Handles BeachGrass1.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Cypress1_CheckedChanged(sender As Object, e As EventArgs) Handles Cypress1.CheckedChanged
@@ -177,7 +199,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Cypress1_Hover(sender As Object, e As EventArgs) Handles Cypress1.MouseHover
-        PictureBox1.Image = My.Resources.Cypress1
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Cypress2_CheckedChanged(sender As Object, e As EventArgs) Handles Cypress2.CheckedChanged
@@ -186,7 +208,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Cypress2_Hover(sender As Object, e As EventArgs) Handles Cypress2.MouseHover
-        PictureBox1.Image = My.Resources.Cypress2
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Eelgrass_CheckedChanged(sender As Object, e As EventArgs) Handles Eelgrass.CheckedChanged
@@ -195,7 +217,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Eelgrass_Hover(sender As Object, e As EventArgs) Handles Eelgrass.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Eucalyptus_CheckedChanged(sender As Object, e As EventArgs) Handles Eucalyptus.CheckedChanged
@@ -204,7 +226,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Eucalyptus_Hover(sender As Object, e As EventArgs) Handles Eucalyptus.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Fern_CheckedChanged(sender As Object, e As EventArgs) Handles Fern.CheckedChanged
@@ -213,7 +235,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Fern_Hover(sender As Object, e As EventArgs) Handles Fern.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Grass0_CheckedChanged(sender As Object, e As EventArgs) Handles Grass0.CheckedChanged
@@ -222,7 +244,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Grass0_Hover(sender As Object, e As EventArgs) Handles Grass0.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Grass1_CheckedChanged(sender As Object, e As EventArgs) Handles Grass1.CheckedChanged
@@ -231,7 +253,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Grass1_Hover(sender As Object, e As EventArgs) Handles Grass1.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Grass2_CheckedChanged(sender As Object, e As EventArgs) Handles Grass2.CheckedChanged
@@ -240,7 +262,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Grass2_Hover(sender As Object, e As EventArgs) Handles Grass2.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Grass3_CheckedChanged(sender As Object, e As EventArgs) Handles Grass3.CheckedChanged
@@ -249,7 +271,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Grass3_Hover(sender As Object, e As EventArgs) Handles Grass3.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Grass4_CheckedChanged(sender As Object, e As EventArgs) Handles Grass4.CheckedChanged
@@ -258,7 +280,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Grass4_Hover(sender As Object, e As EventArgs) Handles Grass4.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Kelp1_CheckedChanged(sender As Object, e As EventArgs) Handles Kelp1.CheckedChanged
@@ -267,7 +289,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Kelp1_Hover(sender As Object, e As EventArgs) Handles Kelp1.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Kelp2_CheckedChanged(sender As Object, e As EventArgs) Handles Kelp2.CheckedChanged
@@ -276,7 +298,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Kelp2_Hover(sender As Object, e As EventArgs) Handles Kelp2.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Oak_CheckedChanged(sender As Object, e As EventArgs) Handles Oak.CheckedChanged
@@ -285,7 +307,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Oak_MouseHover(sender As Object, e As EventArgs) Handles Oak.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Palm1_CheckedChanged(sender As Object, e As EventArgs) Handles Palm1.CheckedChanged
@@ -294,7 +316,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Palm1_MouseHover(sender As Object, e As EventArgs) Handles Palm1.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Palm2_CheckedChanged(sender As Object, e As EventArgs) Handles Palm2.CheckedChanged
@@ -303,7 +325,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Palm2_MouseHover(sender As Object, e As EventArgs) Handles Palm2.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Pine1_CheckedChanged(sender As Object, e As EventArgs) Handles Pine1.CheckedChanged
@@ -312,7 +334,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Pine1_MouseHover(sender As Object, e As EventArgs) Handles Pine1.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Pine2_CheckedChanged(sender As Object, e As EventArgs) Handles Pine2.CheckedChanged
@@ -321,7 +343,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Pine2_MouseHover(sender As Object, e As EventArgs) Handles Pine2.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub Plumeria_CheckedChanged(sender As Object, e As EventArgs) Handles Plumeria.CheckedChanged
@@ -330,7 +352,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Plumeria_MouseHover(sender As Object, e As EventArgs) Handles Plumeria.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub SeaSword_CheckedChanged(sender As Object, e As EventArgs) Handles SeaSword.CheckedChanged
@@ -339,7 +361,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub SeaSword_MouseHover(sender As Object, e As EventArgs) Handles SeaSword.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub TropicalBush1_CheckedChanged(sender As Object, e As EventArgs) Handles TropicalBush1.CheckedChanged
@@ -348,7 +370,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub TropicalBush1_MouseHover(sender As Object, e As EventArgs) Handles TropicalBush1.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub TropicalBush2_CheckedChanged(sender As Object, e As EventArgs) Handles TropicalBush2.CheckedChanged
@@ -357,17 +379,16 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub TropicalBush2_MouseHover(sender As Object, e As EventArgs) Handles TropicalBush2.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
-    Private Sub Undergrowth_CheckedChanged(sender As Object, e As EventArgs) Handles Undergrowth.CheckedChanged
+    Private Sub Undergrowth_CheckedChanged(sender As Object, e As EventArgs) Handles Undergrowth1.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
-    Private Sub Undergrowth_MouseHover(sender As Object, e As EventArgs) Handles Undergrowth.MouseHover
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
+    Private Sub Undergrowth_MouseHover(sender As Object, e As EventArgs) Handles Undergrowth1.MouseHover
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub WinterAspen_CheckedChanged(sender As Object, e As EventArgs) Handles WinterAspen.CheckedChanged
@@ -376,7 +397,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub WinterAspen_Hover(sender As Object, e As EventArgs) Handles WinterAspen.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub WinterPine1_CheckedChanged(sender As Object, e As EventArgs) Handles WinterPine1.CheckedChanged
@@ -385,7 +406,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub WinterPine1_MouseHover(sender As Object, e As EventArgs) Handles WinterPine1.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
     Private Sub WinterPine2_CheckedChanged(sender As Object, e As EventArgs) Handles WinterPine2.CheckedChanged
@@ -394,7 +415,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub WinterPine2_MouseHover(sender As Object, e As EventArgs) Handles WinterPine2.MouseHover
-        PictureBox1.Image = My.Resources.NoImage
+        PictureBox1.Image = GetPic(sender)
     End Sub
 
 #End Region
@@ -464,7 +485,7 @@ Public Class FormSmartStart
         GetSetting(SeaSword.Text)
         GetSetting(TropicalBush1.Text)
         GetSetting(TropicalBush2.Text)
-        GetSetting(Undergrowth.Text)
+        GetSetting(Undergrowth1.Text)
         GetSetting(WinterAspen.Text)
         GetSetting(WinterPine1.Text)
         GetSetting(WinterPine2.Text)
@@ -827,15 +848,7 @@ Public Class FormSmartStart
         _SelectedPlant = Name
         _initted = False
 
-        Try
-            PictureBox2.Image = CType(My.Resources.ResourceManager.GetObject(Name, Globalization.CultureInfo.InvariantCulture), Image)
-        Catch ex As Exception
-            PictureBox2.Image = My.Resources.NoImage
-            BreakPoint.Show(ex.Message)
-        End Try
-        If PictureBox2.Image Is Nothing Then
-            PictureBox2.Image = My.Resources.NoImage
-        End If
+        PictureBox2.Image = GetPic(Name)
 
         Dim Setup As XmlReaderSettings = New XmlReaderSettings With {
             .IgnoreWhitespace = True
@@ -1004,7 +1017,6 @@ Public Class FormSmartStart
 
         RegionName = RegionName.Replace($"{extension}", "")
 
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.raw") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.r32") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.jpg") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.png") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
@@ -1064,11 +1076,8 @@ Public Class FormSmartStart
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                 RPC_Region_Command(RegionUUID, $"change region {RegionName}")
-                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
                 RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
                 RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
-                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
-                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
             End If
         Next
 
@@ -1092,11 +1101,9 @@ Public Class FormSmartStart
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
 
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.raw") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.r32") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.jpg") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.png") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.ter") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+
 
     End Sub
 
@@ -1485,6 +1492,12 @@ Public Class FormSmartStart
         TreeLineHight.Text = digitsOnly.Replace(TreeLineHight.Text, "")
         If CInt(TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
         MakeSetting()
+    End Sub
+
+    Private Sub ViewTerrainFolderToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewTerrainFolderToolStripMenuItem.Click
+
+        Process.Start("explorer.exe", IO.Path.Combine(Settings.OpensimBinPath, "Terrains"))
+
     End Sub
 
 #End Region
