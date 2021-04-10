@@ -3524,4 +3524,13 @@
   <data name="Landscaping" xml:space="preserve">
     <value>Landscaping</value>
   </data>
+  <data name="_3x3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3x3.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_5x5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\5x5.JPG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_7x7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\7x7.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

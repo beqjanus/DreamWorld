@@ -35,8 +35,8 @@ Partial Class FormSmartStart
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.ListBox2 = New System.Windows.Forms.ListBox()
         Me.ParkingSpot = New System.Windows.Forms.ListBox()
@@ -54,6 +54,7 @@ Partial Class FormSmartStart
         Me.SaveTerrain = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveAllTerrain = New System.Windows.Forms.ToolStripMenuItem()
         Me.RebuildTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ViewTerrainFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.OptionRadioButton = New System.Windows.Forms.RadioButton()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
@@ -151,10 +152,18 @@ Partial Class FormSmartStart
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Qty = New System.Windows.Forms.TextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.ViewTerrainFolderToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip4 = New System.Windows.Forms.MenuStrip()
+        Me.BulkLoadRegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpSmartStartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpTerrainsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip5 = New System.Windows.Forms.MenuStrip()
+        Me.HelpLandcapingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
+        Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -170,12 +179,15 @@ Partial Class FormSmartStart
         Me.TabPage4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip4.SuspendLayout()
+        Me.MenuStrip5.SuspendLayout()
+        Me.MenuStrip6.SuspendLayout()
         Me.SuspendLayout()
         '
         'SmartStartEnabled
         '
         Me.SmartStartEnabled.AutoSize = True
-        Me.SmartStartEnabled.Location = New System.Drawing.Point(42, 26)
+        Me.SmartStartEnabled.Location = New System.Drawing.Point(48, 51)
         Me.SmartStartEnabled.Margin = New System.Windows.Forms.Padding(1)
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(114, 17)
@@ -185,7 +197,7 @@ Partial Class FormSmartStart
         '
         'Seconds
         '
-        Me.Seconds.Location = New System.Drawing.Point(184, 24)
+        Me.Seconds.Location = New System.Drawing.Point(183, 48)
         Me.Seconds.Margin = New System.Windows.Forms.Padding(1)
         Me.Seconds.Name = "Seconds"
         Me.Seconds.Size = New System.Drawing.Size(40, 20)
@@ -194,7 +206,7 @@ Partial Class FormSmartStart
         'DelayLabel
         '
         Me.DelayLabel.AutoSize = True
-        Me.DelayLabel.Location = New System.Drawing.Point(228, 27)
+        Me.DelayLabel.Location = New System.Drawing.Point(239, 55)
         Me.DelayLabel.Name = "DelayLabel"
         Me.DelayLabel.Size = New System.Drawing.Size(122, 13)
         Me.DelayLabel.TabIndex = 14
@@ -250,8 +262,8 @@ Partial Class FormSmartStart
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.PictureBox4)
         Me.TabPage1.Controls.Add(Me.Label7)
-        Me.TabPage1.Controls.Add(Me.Button2)
         Me.TabPage1.Controls.Add(Me.Label6)
         Me.TabPage1.Controls.Add(Me.ListBox2)
         Me.TabPage1.Controls.Add(Me.ParkingSpot)
@@ -260,6 +272,7 @@ Partial Class FormSmartStart
         Me.TabPage1.Controls.Add(Me.Seconds)
         Me.TabPage1.Controls.Add(Me.SmartStartEnabled)
         Me.TabPage1.Controls.Add(Me.DelayLabel)
+        Me.TabPage1.Controls.Add(Me.MenuStrip4)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
@@ -268,28 +281,30 @@ Partial Class FormSmartStart
         Me.TabPage1.Text = "Smart Boot"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'PictureBox4
+        '
+        Me.PictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PictureBox4.Image = Global.Outworldz.My.Resources.Resources._3x3
+        Me.PictureBox4.Location = New System.Drawing.Point(650, 177)
+        Me.PictureBox4.Name = "PictureBox4"
+        Me.PictureBox4.Size = New System.Drawing.Size(171, 160)
+        Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox4.TabIndex = 43
+        Me.PictureBox4.TabStop = False
+        '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(659, 67)
+        Me.Label7.Location = New System.Drawing.Point(647, 103)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(42, 13)
         Me.Label7.TabIndex = 42
         Me.Label7.Text = "Fill Size"
         '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(662, 298)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(147, 35)
-        Me.Button2.TabIndex = 41
-        Me.Button2.Text = "Bull Upload Free OARs"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(411, 27)
+        Me.Label6.Location = New System.Drawing.Point(392, 55)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(80, 13)
         Me.Label6.TabIndex = 40
@@ -299,7 +314,7 @@ Partial Class FormSmartStart
         '
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.ListBox2.Location = New System.Drawing.Point(662, 83)
+        Me.ListBox2.Location = New System.Drawing.Point(650, 119)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(56, 43)
         Me.ListBox2.TabIndex = 39
@@ -307,15 +322,15 @@ Partial Class FormSmartStart
         'ParkingSpot
         '
         Me.ParkingSpot.FormattingEnabled = True
-        Me.ParkingSpot.Location = New System.Drawing.Point(414, 56)
+        Me.ParkingSpot.Location = New System.Drawing.Point(395, 83)
         Me.ParkingSpot.Name = "ParkingSpot"
-        Me.ParkingSpot.Size = New System.Drawing.Size(202, 277)
+        Me.ParkingSpot.Size = New System.Drawing.Size(202, 264)
         Me.ParkingSpot.TabIndex = 38
         '
         'RegionMakerEnableCHeckbox
         '
         Me.RegionMakerEnableCHeckbox.AutoSize = True
-        Me.RegionMakerEnableCHeckbox.Location = New System.Drawing.Point(662, 31)
+        Me.RegionMakerEnableCHeckbox.Location = New System.Drawing.Point(650, 73)
         Me.RegionMakerEnableCHeckbox.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionMakerEnableCHeckbox.Name = "RegionMakerEnableCHeckbox"
         Me.RegionMakerEnableCHeckbox.Size = New System.Drawing.Size(124, 17)
@@ -327,11 +342,11 @@ Partial Class FormSmartStart
         '
         Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(42, 56)
+        Me.TextBox1.Location = New System.Drawing.Point(6, 83)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(324, 277)
+        Me.TextBox1.Size = New System.Drawing.Size(369, 263)
         Me.TextBox1.TabIndex = 34
         '
         'TabPage2
@@ -412,7 +427,7 @@ Partial Class FormSmartStart
         '
         'MenuStrip3
         '
-        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadTerrain, Me.SaveTerrain, Me.SaveAllTerrain, Me.RebuildTerrainsToolStripMenuItem, Me.ViewTerrainFolderToolStripMenuItem})
+        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpTerrainsToolStripMenuItem, Me.LoadTerrain, Me.SaveTerrain, Me.SaveAllTerrain, Me.RebuildTerrainsToolStripMenuItem, Me.ViewTerrainFolderToolStripMenuItem})
         Me.MenuStrip3.Location = New System.Drawing.Point(3, 3)
         Me.MenuStrip3.Name = "MenuStrip3"
         Me.MenuStrip3.Size = New System.Drawing.Size(850, 24)
@@ -446,6 +461,13 @@ Partial Class FormSmartStart
         Me.RebuildTerrainsToolStripMenuItem.Name = "RebuildTerrainsToolStripMenuItem"
         Me.RebuildTerrainsToolStripMenuItem.Size = New System.Drawing.Size(111, 20)
         Me.RebuildTerrainsToolStripMenuItem.Text = "Regen Terrains"
+        '
+        'ViewTerrainFolderToolStripMenuItem
+        '
+        Me.ViewTerrainFolderToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.folder
+        Me.ViewTerrainFolderToolStripMenuItem.Name = "ViewTerrainFolderToolStripMenuItem"
+        Me.ViewTerrainFolderToolStripMenuItem.Size = New System.Drawing.Size(134, 20)
+        Me.ViewTerrainFolderToolStripMenuItem.Text = "View Terrain Folder"
         '
         'GroupBox2
         '
@@ -633,6 +655,7 @@ Partial Class FormSmartStart
         '
         Me.TabPage3.Controls.Add(Me.GroupBox1)
         Me.TabPage3.Controls.Add(Me.MenuStrip2)
+        Me.TabPage3.Controls.Add(Me.MenuStrip5)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
@@ -1009,7 +1032,7 @@ Partial Class FormSmartStart
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.Location = New System.Drawing.Point(3, 3)
+        Me.MenuStrip2.Location = New System.Drawing.Point(3, 27)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Size = New System.Drawing.Size(850, 24)
         Me.MenuStrip2.TabIndex = 5
@@ -1034,6 +1057,7 @@ Partial Class FormSmartStart
         Me.TabPage4.Controls.Add(Me.Label1)
         Me.TabPage4.Controls.Add(Me.Qty)
         Me.TabPage4.Controls.Add(Me.PictureBox2)
+        Me.TabPage4.Controls.Add(Me.MenuStrip6)
         Me.TabPage4.Location = New System.Drawing.Point(4, 22)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
@@ -1505,12 +1529,67 @@ Partial Class FormSmartStart
         Me.PictureBox2.TabIndex = 8
         Me.PictureBox2.TabStop = False
         '
-        'ViewTerrainFolderToolStripMenuItem
+        'MenuStrip4
         '
-        Me.ViewTerrainFolderToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.folder
-        Me.ViewTerrainFolderToolStripMenuItem.Name = "ViewTerrainFolderToolStripMenuItem"
-        Me.ViewTerrainFolderToolStripMenuItem.Size = New System.Drawing.Size(134, 20)
-        Me.ViewTerrainFolderToolStripMenuItem.Text = "View Terrain Folder"
+        Me.MenuStrip4.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpSmartStartToolStripMenuItem, Me.BulkLoadRegionsToolStripMenuItem})
+        Me.MenuStrip4.Location = New System.Drawing.Point(3, 3)
+        Me.MenuStrip4.Name = "MenuStrip4"
+        Me.MenuStrip4.Size = New System.Drawing.Size(850, 24)
+        Me.MenuStrip4.TabIndex = 44
+        Me.MenuStrip4.Text = "MenuStrip4"
+        '
+        'BulkLoadRegionsToolStripMenuItem
+        '
+        Me.BulkLoadRegionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.box_tall
+        Me.BulkLoadRegionsToolStripMenuItem.Name = "BulkLoadRegionsToolStripMenuItem"
+        Me.BulkLoadRegionsToolStripMenuItem.Size = New System.Drawing.Size(132, 20)
+        Me.BulkLoadRegionsToolStripMenuItem.Text = "Bulk Load Regions"
+        '
+        'HelpSmartStartToolStripMenuItem
+        '
+        Me.HelpSmartStartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpSmartStartToolStripMenuItem.Name = "HelpSmartStartToolStripMenuItem"
+        Me.HelpSmartStartToolStripMenuItem.Size = New System.Drawing.Size(121, 20)
+        Me.HelpSmartStartToolStripMenuItem.Text = "Help Smart Start"
+        '
+        'HelpTerrainsToolStripMenuItem
+        '
+        Me.HelpTerrainsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpTerrainsToolStripMenuItem.Name = "HelpTerrainsToolStripMenuItem"
+        Me.HelpTerrainsToolStripMenuItem.Size = New System.Drawing.Size(103, 20)
+        Me.HelpTerrainsToolStripMenuItem.Text = "Help Terrains"
+        '
+        'MenuStrip5
+        '
+        Me.MenuStrip5.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpLandcapingToolStripMenuItem})
+        Me.MenuStrip5.Location = New System.Drawing.Point(3, 3)
+        Me.MenuStrip5.Name = "MenuStrip5"
+        Me.MenuStrip5.Size = New System.Drawing.Size(850, 24)
+        Me.MenuStrip5.TabIndex = 6
+        Me.MenuStrip5.Text = "MenuStrip5"
+        '
+        'HelpLandcapingToolStripMenuItem
+        '
+        Me.HelpLandcapingToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpLandcapingToolStripMenuItem.Name = "HelpLandcapingToolStripMenuItem"
+        Me.HelpLandcapingToolStripMenuItem.Size = New System.Drawing.Size(125, 20)
+        Me.HelpLandcapingToolStripMenuItem.Text = "Help Landcaping"
+        '
+        'MenuStrip6
+        '
+        Me.MenuStrip6.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpPlantEditorToolStripMenuItem})
+        Me.MenuStrip6.Location = New System.Drawing.Point(3, 3)
+        Me.MenuStrip6.Name = "MenuStrip6"
+        Me.MenuStrip6.Size = New System.Drawing.Size(850, 24)
+        Me.MenuStrip6.TabIndex = 66
+        Me.MenuStrip6.Text = "MenuStrip6"
+        '
+        'HelpPlantEditorToolStripMenuItem
+        '
+        Me.HelpPlantEditorToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpPlantEditorToolStripMenuItem.Name = "HelpPlantEditorToolStripMenuItem"
+        Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
+        Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
         '
         'FormSmartStart
         '
@@ -1528,6 +1607,7 @@ Partial Class FormSmartStart
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -1552,6 +1632,12 @@ Partial Class FormSmartStart
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip4.ResumeLayout(False)
+        Me.MenuStrip4.PerformLayout()
+        Me.MenuStrip5.ResumeLayout(False)
+        Me.MenuStrip5.PerformLayout()
+        Me.MenuStrip6.ResumeLayout(False)
+        Me.MenuStrip6.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1674,7 +1760,6 @@ Partial Class FormSmartStart
     Friend WithEvents Label6 As Label
     Friend WithEvents ListBox2 As ListBox
     Friend WithEvents ParkingSpot As ListBox
-    Friend WithEvents Button2 As Button
     Friend WithEvents Label7 As Label
     Friend WithEvents FlatLandLevel As TextBox
     Friend WithEvents Label8 As Label
@@ -1685,4 +1770,13 @@ Partial Class FormSmartStart
     Friend WithEvents OptionRadioButton As RadioButton
     Friend WithEvents RebuildTerrainsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ViewTerrainFolderToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PictureBox4 As PictureBox
+    Friend WithEvents MenuStrip4 As MenuStrip
+    Friend WithEvents BulkLoadRegionsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpSmartStartToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpTerrainsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MenuStrip5 As MenuStrip
+    Friend WithEvents HelpLandcapingToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MenuStrip6 As MenuStrip
+    Friend WithEvents HelpPlantEditorToolStripMenuItem As ToolStripMenuItem
 End Class

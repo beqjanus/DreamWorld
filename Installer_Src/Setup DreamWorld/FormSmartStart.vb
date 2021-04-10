@@ -490,6 +490,15 @@ Public Class FormSmartStart
         GetSetting(WinterPine1.Text)
         GetSetting(WinterPine2.Text)
 
+        Select Case Settings.Skirtsize
+            Case 1
+                PictureBox4.Image = My.Resources._3x3
+            Case 2
+                PictureBox4.Image = My.Resources._5x5
+            Case 3
+                PictureBox4.Image = My.Resources._7x7
+        End Select
+
         LoadTerrainList()
 
         Dim n = 0
@@ -580,6 +589,14 @@ Public Class FormSmartStart
 
         If Not _initialized Then Return
         Settings.Skirtsize = CInt(ListBox2.SelectedItem.ToString)
+        Select Case Settings.Skirtsize
+            Case 1
+                PictureBox4.Image = My.Resources._3x3
+            Case 2
+                PictureBox4.Image = My.Resources._5x5
+            Case 3
+                PictureBox4.Image = My.Resources._7x7
+        End Select
 
     End Sub
 
@@ -1104,7 +1121,6 @@ Public Class FormSmartStart
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.r32") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.jpg") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
 
-
     End Sub
 
 #End Region
@@ -1363,10 +1379,6 @@ Public Class FormSmartStart
         MakeSetting()
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        LoadAllFreeOARs()
-    End Sub
-
     Private Sub Flat_TextChanged(sender As Object, e As EventArgs) Handles FlatLandLevel.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         FlatLandLevel.Text = digitsOnly.Replace(FlatLandLevel.Text, "")
@@ -1414,6 +1426,10 @@ Public Class FormSmartStart
 #End Region
 
 #Region "Editor"
+
+    Private Sub BulkLoadRegionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BulkLoadRegionsToolStripMenuItem.Click
+        LoadAllFreeOARs()
+    End Sub
 
     Private Sub EndsizeX_TextChanged(sender As Object, e As EventArgs) Handles EndsizeX.TextChanged
         If Not _initted Then Return
@@ -1498,6 +1514,26 @@ Public Class FormSmartStart
 
         Process.Start("explorer.exe", IO.Path.Combine(Settings.OpensimBinPath, "Terrains"))
 
+    End Sub
+
+#End Region
+
+#Region "Help"
+
+    Private Sub HelpLandcapingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpLandcapingToolStripMenuItem.Click
+        HelpManual("Landscaping")
+    End Sub
+
+    Private Sub HelpPlantEditorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpPlantEditorToolStripMenuItem.Click
+        HelpManual("Plant Editor")
+    End Sub
+
+    Private Sub HelpSmartStartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpSmartStartToolStripMenuItem.Click
+        HelpManual("SmartStart")
+    End Sub
+
+    Private Sub HelpTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpTerrainsToolStripMenuItem.Click
+        HelpManual("Terrains")
     End Sub
 
 #End Region
