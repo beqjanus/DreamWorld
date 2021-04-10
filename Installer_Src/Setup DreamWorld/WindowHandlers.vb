@@ -356,7 +356,6 @@ Module WindowHandlers
         Next
 
     End Sub
-
     Private Function ToLowercaseKeys(Str As String) As String
 
         If My.Computer.Keyboard.CapsLock Then

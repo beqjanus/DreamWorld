@@ -21,7 +21,9 @@ Module Build
         If Settings.TerrainType = "Flat" Then
             If Not RPC_Region_Command(RegionUUID, $"terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Show("No RPC")
         ElseIf Settings.TerrainType = "Water" Then
-            If Not RPC_Region_Command(RegionUUID, "terrain fill 0") Then BreakPoint.Show("No RPC")
+
+            If Not RPC_Region_Command(RegionUUID, "terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Show("No RPC")
+
         ElseIf Settings.TerrainType = "Random" Then
             Dim r = Between(Terrains.Count - 1, 0)
             Dim Type As String = Terrains(r)
@@ -42,21 +44,32 @@ Module Build
 
         ElseIf Settings.TerrainType = "AI" Then
 
+            'If Not RPC_Region_Command(RegionUUID, "terrain fill 21") Then BreakPoint.Show("No RPC")
             Dim min = Between(40, 30)
-            Dim taper = Between(35, 10)
-
-            If Not RPC_Region_Command(RegionUUID, $"terrain modify min {min} -ell=128,128,120 -taper=-{taper}") Then BreakPoint.Show("No RPC")
+            Dim taper = Between(135, 0)
 
             Dim r = Between(5, 0)
+
             Select Case r
                 Case 1
-                    If Not RPC_Region_Command(RegionUUID, $"terrain modify smooth 0.5 -taper=0.6") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify fill {Settings.LandStrength} -taper={taper}") Then BreakPoint.Show("No RPC")
                 Case 2
-                    If Not RPC_Region_Command(RegionUUID, $"terrain modify smooth 0.8 -taper=.2") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, "terrain fill 21") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify noise 1 0") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify noise 1 0") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify noise 1 0") Then BreakPoint.Show("No RPC")
+
                 Case 3
-                    If Not RPC_Region_Command(RegionUUID, $"terrain modify min {min} -rec=128,128,120 -taper=-{taper}") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify min {Between(40, 20)} -rec=128,128,120 -taper=-{taper}") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify min {Between(40, 20)} -rec=64,64,120 -taper=-{taper}") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify min {Between(40, 20)} -rec=64,64,32 -taper=-{taper}") Then BreakPoint.Show("No RPC")
                 Case 4
-                    If Not RPC_Region_Command(RegionUUID, $"terrain noise 1 0") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, "terrain fill 0") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify min {min} -ell=128,128,120 -taper=-{Between(55, 0)}") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify noise 1 0") Then BreakPoint.Show("No RPC")
+                Case 5
+                    If Not RPC_Region_Command(RegionUUID, "terrain fill 0") Then BreakPoint.Show("No RPC")
+                    If Not RPC_Region_Command(RegionUUID, $"terrain modify min {min} -ell=128,128,120 -taper=-{taper}") Then BreakPoint.Show("No RPC")
             End Select
 
         End If
@@ -122,7 +135,7 @@ Module Build
         Debug.Print($"{Simcount} regions were added to {GroupName}.")
 
         If Simcount > 0 Then
-            Landscaper(GroupName)
+            Landscaper(GroupName, Simcount)
         End If
 
         PropUpdateView = True ' make form refresh
@@ -206,7 +219,7 @@ Module Build
 
     End Function
 
-    Private Sub Landscaper(GroupName As String)
+    Private Sub Landscaper(GroupName As String, count As Integer)
 
         Dim UUIDs = PropRegionClass.RegionUuidListByName(GroupName)
 
@@ -216,10 +229,13 @@ Module Build
 
             ' Wait for it
             WaitForBooting(RegionUUID)
-            If EstateName(RegionUUID).Length = 0 Then
-                DoType(RegionUUID, "{enter}SimSurround{enter}")
-            End If
             Sleep(1000)
+
+            While EstateName(RegionUUID).Length = 0
+                DoType(RegionUUID, "{enter}{enter}")
+                Sleep(1000)
+            End While
+
             WaitForBooted(RegionUUID)
 
             If Not RPC_Region_Command(RegionUUID, "login enable") Then Return
@@ -328,11 +344,12 @@ Module Build
 
         If Settings.LandSmooth Then
             If Not RPC_Region_Command(RegionUUID, $"terrain modify smooth {Settings.LandSmoothValue} -taper={Settings.LandTaper}") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"terrain modify smooth {Settings.LandSmoothValue} -taper={Settings.LandTaper}") Then Return
         End If
 
         If Settings.LandNoise Then
             If Not RPC_Region_Command(RegionUUID, "terrain modify noise 1") Then Return
-            If Not RPC_Region_Command(RegionUUID, "terrain modify noise 0.5") Then Return
+            If Not RPC_Region_Command(RegionUUID, "terrain modify noise 1") Then Return
         End If
 
     End Sub

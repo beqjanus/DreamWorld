@@ -26,7 +26,6 @@ Public Class MySettings
     Private _MacAddress As String
     Private _PublicIP As String
     Private _RamUsed As Double
-    Private _SurroundSize As Integer = 1
     Private _WANIP As String
     Dim MyData As IniParser.Model.IniData
     Dim myINI As String = ""
@@ -832,24 +831,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -2034,15 +2015,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property SurroundSize() As Integer
-        Get
-            Return _SurroundSize
-        End Get
-        Set
-            _SurroundSize = Value
-        End Set
-    End Property
-
     Public Property TerrainType() As String
         Get
             Return GetMySetting("TerrainType", "Random")
@@ -2204,6 +2176,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
