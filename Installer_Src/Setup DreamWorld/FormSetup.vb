@@ -2286,9 +2286,13 @@ Public Class FormSetup
         Dim A = GetAgentList()
         Dim B = GetHGAgentList()
 
-        Dim C As Dictionary(Of String, String) = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
+        Dim C As Dictionary(Of String, String) = Nothing
+        Try
+            C = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
+        Catch
+        End Try
 
-        BuildLand(C)
+        If C IsNot Nothing Then BuildLand(C)
 
         '; start with zero avatars
         For Each RegionUUID As String In PropRegionClass.RegionUuids
