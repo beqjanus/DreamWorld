@@ -202,6 +202,19 @@ if (!copy ('\\Opensim\\Zip\\Outworldzfiles\\jOpensim_Files\\default.htm', '\\Ope
 say("Drop Opensim Source code from update");
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.sh');
+
+
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/clean.sh');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/cleanaot.sh');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/prebuild48.xml');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/makeaot.sh');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.bat');
+
+
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/addon-modules');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.vs');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/.nant');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/bin/addin-db-002');

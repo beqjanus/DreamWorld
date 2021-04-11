@@ -2,12 +2,15 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V2.921
+V3.921
 Since you are reading this, you are good enough to enable Smart Start by going to Help-Debug.
 Missing cdfault images for your Diva web page.
 Missing 10,000 names in a file, breaking Autofil regions.
 mising Apache's magic file and a dozen readmes'
 I hate 7Zip
+
+V3.92
+Physics default was always overridden to off in Region options.
 
 
 V3.91 Post fixes for 3.9

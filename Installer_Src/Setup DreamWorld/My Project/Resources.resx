@@ -1133,7 +1133,7 @@
     <value>..\Resources\mail.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Quit_Message0" xml:space="preserve">
-    <value>The system and other applictions have not been affected. A report has been created that you can send to Outworldz, LLC to help identify this problem.</value>
+    <value>The system and other applications have not been affected. A report has been created to help identify this problem.</value>
   </data>
   <data name="port2" xml:space="preserve">
     <value>Port 2</value>

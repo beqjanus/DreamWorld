@@ -6,6 +6,12 @@
 
     End Sub
 
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+
+        System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Error.log")}""")
+
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles SendButton.Click
 
         Try
@@ -50,10 +56,6 @@
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
-    End Sub
-
-    Private Sub ReasonText_TextChanged(sender As Object, e As EventArgs) Handles ReasonText.TextChanged
-
     End Sub
 
 End Class

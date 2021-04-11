@@ -17,10 +17,9 @@ Namespace My
 
 #Region "Private Methods"
 
-        Private Sub AppStart(ByVal sender As Object,
-      ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
-            'AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
-        End Sub
+        'Private Sub AppStart(ByVal sender As Object,      ByVal e As Microsoft.VisualBasic.ApplicationServices.StartupEventArgs) Handles Me.Startup
+        'AddHandler AppDomain.CurrentDomain.AssemblyResolve, AddressOf ResolveAssemblies
+        'End Sub
 
         Private Sub MyApplication_UnhandledException(
                             ByVal sender As Object,
