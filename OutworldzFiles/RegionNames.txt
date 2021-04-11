@@ -9557,5 +9557,3 @@ The Abyss of Turson
 The Domain of Otterstall
 The Abyss of Templesevain
 The Gulf of Golbel
-  ]
-}

@@ -5,9 +5,8 @@ BEGIN {
 	open STDERR, ">&STDOUT";
 }
 
-
 use strict;
-no warnings;
+use warnings;
 use IO::All;
 
 use 5.010;
@@ -152,6 +151,7 @@ if ($publish =~ /c|p/ ) {
 
 #say('Copy Manuals');
 #if (!dircopy ($dir . '/OutworldzFiles/Help/', "Y:/Inetpub/Secondlife/Outworldz_Installer/Help"))  {die $!;}
+        
     
 my $exes = "$dir/Installer_Src/Setup DreamWorld/bin/Release";
 sign($exes);
@@ -159,6 +159,7 @@ sign($exes);
 use File::Copy::Recursive qw(dircopy);
 dircopy($exes,$dir) or die("$!\n");
 
+   
 say("Signing");
 use IO::All;
 sign($dir);	
@@ -176,24 +177,13 @@ foreach my $file (@files) {
     next if $file =~ /^\./;
     ProcessFile ("\"$dir\\$file\"" );
 }
-
 say("Adding folders");
-
 # just dirs
 ProcessDir ('MSFT_Runtimes');
+ProcessDir ('ReadMe');
 ProcessDir ('Licenses_to_Content');
-ProcessDir ('OutworldzFiles\\Apache');
-ProcessDir ("OutworldzFiles\\AutoBackup");
-ProcessDir ("OutworldzFiles\\Help");
-ProcessDir ("OutworldzFiles\\IAR");
-ProcessDir ("OutworldzFiles\\Icecast");
-ProcessDir ("OutworldzFiles\\Mysql");
-ProcessDir ("OutworldzFiles\\Logs");
-ProcessDir ("OutworldzFiles\\OAR");
-ProcessDir ("OutworldzFiles\\PHP7");
-ProcessDir ("OutworldzFiles\\Opensim");
-ProcessDir ("OutworldzFiles\\ReadMe");
-ProcessDir ("OutworldzFiles\\jOpensim_files");
+ProcessDir ('OutworldzFiles');
+
 
 foreach my $lang (@languages)
 {
@@ -242,26 +232,16 @@ JustDelete('/Opensim/Zip/OutworldzFiles/Opensim/bin/.git');
 
 print "Make zip\n";
 unlink "/Opensim/Zips/DreamGrid$type.zip";
+my $src ='/Opensim/zip/';
+my $dest = "/Opensim/Zips/DreamGrid$type.zip";
 
-# Save the Zip file
-#unless ( $zip->writeToFileNamed("/Opensim/Zips/DreamGrid$type.zip") == AZ_OK ) {
-#   die 'write error';
-#}
+use Archive::Zip qw( :ERROR_CODES :CONSTANTS );
 
+my $zip = Archive::Zip->new();
+$zip->addTree($src);
 
-my $x = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip \\Opensim\\Zip\\*.*`;
-
-find({ wanted => \&add_file, no_chdir => 1 }, '/Opensim/zip');
-
-sub add_file {
-    if (-f $_) {
-        my $f = $_;
-        if ($f !~ /\..*/)
-        {
-            my $y = `../7z.exe -tzip -r a  \\Opensim\\Zips\\DreamGrid$type.zip $f`;
-	    say ($f);	    
-        }
-    }
+unless  ( $zip->writeToFileNamed($dest) == AZ_OK ) {
+	die 'write error';
 }
 
 if ($publish =~ /p/ ) {
@@ -287,18 +267,12 @@ if ($publish =~ /p/ ) {
 	if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/DreamGrid-Update.zip"))  {die $!;}
 	if (!copy ("../Zips/DreamGrid$type.zip", "G:/Dropbox/Dreamworld/Zip/DreamGrid.zip"))  {die $!;}
 		
-	
-	
 	print "Revisions\n";
 	
 	if (!copy ('outworldzfiles\\Help\\Dreamgrid Manual.pdf', 'Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Dreamgrid Manual.pdf'))  {die $!;}
 	$v > io("Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Version.txt");
-
 	
 }
-
-
-
 foreach my $lang (@languages)
 {
 	JustDelete ($lang);
@@ -386,11 +360,11 @@ sub DeleteandKeep {
 	use File::Path;	
 	rmtree $path;	 
 	while (-e $path) 
-    {
+	{
 		rmtree $path;	 
-        print "Directory '$path' still exists\n";
+		print "Directory '$path' still exists\n";
 		sleep(1);
-    }
+	}
     
 	mkdir $path ;
 	open (FILE, '>', $path . '/.keep') or die;

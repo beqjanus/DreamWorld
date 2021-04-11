@@ -5,6 +5,7 @@ Module Build
     Public NameList As New List(Of String)
     Public Terrains As New List(Of String)
     Public TreeList As New List(Of String)
+    Private _ctr As Integer
 
     Public Sub PutSetting(name As String, value As Boolean)
 
@@ -296,20 +297,27 @@ Module Build
 
     Private Function FantasyName() As String
 
-        Dim Existing As New List(Of String)
-        For Each UUID In PropRegionClass.RegionUuids
-            If PropRegionClass.RegionName(UUID).Length > 0 Then
-                Existing.Add(PropRegionClass.RegionName(UUID))
+        Try
+            Dim Existing As New List(Of String)
+            For Each UUID In PropRegionClass.RegionUuids
+                If PropRegionClass.RegionName(UUID).Length > 0 Then
+                    Existing.Add(PropRegionClass.RegionName(UUID))
+                End If
+            Next
+            If NameList.Count = 0 Then
+                _ctr += 1
+                Return "SimSurround " & CStr(_ctr)
             End If
-        Next
-
-        While True
-            Dim index = RandomNumber.Between(NameList.Count, 0)
-            Dim proposedName = NameList.Item(index)
-            If Not Existing.Contains(proposedName) Then
-                Return proposedName
-            End If
-        End While
+            While True
+                Dim index = RandomNumber.Between(NameList.Count - 1, 1)
+                Dim proposedName = NameList.Item(index)
+                If Not Existing.Contains(proposedName) Then
+                    Return proposedName
+                End If
+            End While
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
         Return ""
 
