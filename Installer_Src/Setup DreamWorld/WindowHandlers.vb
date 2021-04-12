@@ -191,8 +191,6 @@ Module WindowHandlers
             ConsoleCommand(RobustName, "set log level " & msg)
         End If
 
-        Settings.LogLevel = msg
-        Settings.SaveSettings()
 
     End Sub
 

@@ -9,6 +9,7 @@ Public Class FormLogging
 
 #Region "Private Fields"
 
+    Dim _changed As Boolean
     Dim initted As Boolean
 
 #End Region
@@ -49,7 +50,8 @@ Public Class FormLogging
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
         Settings.SaveSettings()
-        SendMsg(Settings.LogLevel.ToUpperInvariant)
+
+        If _changed Then SendMsg(Settings.LogLevel.ToUpperInvariant)
 
     End Sub
 
@@ -64,10 +66,11 @@ Public Class FormLogging
         RadioInfo.Text = Global.Outworldz.My.Resources.Info_word
         RadioOff.Text = Global.Outworldz.My.Resources.Off
         RadioWarn.Text = Global.Outworldz.My.Resources.Warn_word
-        Delete.Text = Global.Outworldz.My.Resources.DeletebyAge
+        DeleteOnBoot.Text = Global.Outworldz.My.Resources.DeletebyAge
         KeepLog.Text = Global.Outworldz.My.Resources.KeepAlways
 
-        Delete.Checked = Settings.DeleteByDate
+        DeleteOnBoot.Checked = Settings.DeleteByDate
+        KeepLog.Checked = Not Settings.DeleteByDate
 
         SetScreen()
 
@@ -105,40 +108,58 @@ Public Class FormLogging
 
 #Region "SetLogging"
 
-    Private Sub Delete_CheckedChanged(sender As Object, e As EventArgs) Handles Delete.CheckedChanged
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Process.Start("explorer.exe", IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs"))
+    End Sub
 
-        Settings.DeleteByDate = Delete.Checked
+    Private Sub Delete_CheckedChanged(sender As Object, e As EventArgs) Handles DeleteOnBoot.CheckedChanged
+
+        If Not initted Then Return
+        If DeleteOnBoot.Checked Then Settings.DeleteByDate = True
+
+    End Sub
+
+    Private Sub KeepLog_CheckedChanged(sender As Object, e As EventArgs) Handles KeepLog.CheckedChanged
+
+        If Not initted Then Return
+        If KeepLog.Checked Then Settings.DeleteByDate = False
 
     End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioOff.CheckedChanged
         If Not initted Then Return
         Settings.LogLevel = "OFF"
+        _changed = True
     End Sub
 
     Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioDebug.CheckedChanged
         If Not initted Then Return
         Settings.LogLevel = "DEBUG"
+        _changed = True
     End Sub
 
     Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioInfo.CheckedChanged
         If Not initted Then Return
         Settings.LogLevel = "INFO"
+        _changed = True
     End Sub
 
     Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioWarn.CheckedChanged
         If Not initted Then Return
         Settings.LogLevel = "WARN"
+        _changed = True
     End Sub
 
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioError.CheckedChanged
         If Not initted Then Return
         Settings.LogLevel = "ERROR"
+        _changed = True
     End Sub
 
     Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioFatal.CheckedChanged
         If Not initted Then Return
         Settings.LogLevel = "FATAL"
+        _changed = True
     End Sub
 
 #End Region

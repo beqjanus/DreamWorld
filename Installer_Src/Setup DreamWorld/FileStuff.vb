@@ -247,14 +247,10 @@ Module FileStuff
 
     Public Sub ExpireLogsByAge()
 
-        Dim Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache")
-        Deletefilesin(Path)
-
-        Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs")
-        Deletefilesin(Path)
-
-        Path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log")
-        Deletefilesin(Path)
+        If Not Settings.DeleteByDate Then Return
+        Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache"))
+        Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs"))
+        Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log"))
 
         DeleteThisOldFile(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
 
@@ -318,8 +314,8 @@ Module FileStuff
         For Each File As System.IO.FileInfo In directory.GetFiles()
             ' get  file's last modified date
             Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
-            Dim Datedifference = DateDiff("d", strLastModified, Date.Now)
-            If Datedifference > Settings.KeepForDays Then DeleteFile(File.FullName)
+            Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
+            If Datedifference > Settings.KeepForDays * 24 Then DeleteFile(File.FullName)
         Next
 
     End Sub
@@ -330,8 +326,8 @@ Module FileStuff
 
         ' get  file's last modified date
         Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File)
-        Dim Datedifference = DateDiff("d", strLastModified, Date.Now)
-        If Datedifference > Settings.KeepForDays Then DeleteFile(File)
+        Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
+        If Datedifference > Settings.KeepForDays * 24 Then DeleteFile(File)
 
     End Sub
 

@@ -32,7 +32,7 @@ Partial Class FormLogging
         Me.RadioInfo = New System.Windows.Forms.RadioButton()
         Me.RadioDebug = New System.Windows.Forms.RadioButton()
         Me.RadioOff = New System.Windows.Forms.RadioButton()
-        Me.Delete = New System.Windows.Forms.RadioButton()
+        Me.DeleteOnBoot = New System.Windows.Forms.RadioButton()
         Me.KeepLog = New System.Windows.Forms.RadioButton()
         Me.DeletebyAge = New System.Windows.Forms.GroupBox()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -141,17 +141,17 @@ Partial Class FormLogging
         Me.RadioOff.Text = Global.Outworldz.My.Resources.Resources.Off
         Me.RadioOff.UseVisualStyleBackColor = True
         '
-        'Delete
+        'DeleteOnBoot
         '
-        Me.Delete.AutoSize = True
-        Me.Delete.Checked = True
-        Me.Delete.Location = New System.Drawing.Point(17, 53)
-        Me.Delete.Name = "Delete"
-        Me.Delete.Size = New System.Drawing.Size(96, 17)
-        Me.Delete.TabIndex = 186743
-        Me.Delete.TabStop = True
-        Me.Delete.Text = "Delete on Boot"
-        Me.Delete.UseVisualStyleBackColor = True
+        Me.DeleteOnBoot.AutoSize = True
+        Me.DeleteOnBoot.Checked = True
+        Me.DeleteOnBoot.Location = New System.Drawing.Point(17, 53)
+        Me.DeleteOnBoot.Name = "DeleteOnBoot"
+        Me.DeleteOnBoot.Size = New System.Drawing.Size(96, 17)
+        Me.DeleteOnBoot.TabIndex = 186743
+        Me.DeleteOnBoot.TabStop = True
+        Me.DeleteOnBoot.Text = "Delete on Boot"
+        Me.DeleteOnBoot.UseVisualStyleBackColor = True
         '
         'KeepLog
         '
@@ -167,7 +167,7 @@ Partial Class FormLogging
         '
         Me.DeletebyAge.Controls.Add(Me.Button1)
         Me.DeletebyAge.Controls.Add(Me.KeepLog)
-        Me.DeletebyAge.Controls.Add(Me.Delete)
+        Me.DeletebyAge.Controls.Add(Me.DeleteOnBoot)
         Me.DeletebyAge.Location = New System.Drawing.Point(127, 48)
         Me.DeletebyAge.Name = "DeletebyAge"
         Me.DeletebyAge.Size = New System.Drawing.Size(136, 185)
@@ -217,7 +217,7 @@ Partial Class FormLogging
     Friend WithEvents RadioInfo As RadioButton
     Friend WithEvents RadioOff As RadioButton
     Friend WithEvents RadioDebug As RadioButton
-    Friend WithEvents Delete As RadioButton
+    Friend WithEvents DeleteOnBoot As RadioButton
     Friend WithEvents KeepLog As RadioButton
     Friend WithEvents DeletebyAge As GroupBox
     Friend WithEvents Button1 As Button
