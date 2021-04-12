@@ -22,14 +22,6 @@ Public Class Backups
         Diagnostics.Debug.Print(msg)
     End Sub
 
-#Region "Public"
-
-    Public Sub New()
-
-    End Sub
-
-#End Region
-
 #Region "SQL Backup"
 
     Public Sub BackupSQLDB(DBName As String)
@@ -202,28 +194,6 @@ Public Class Backups
 
             End If
         End If
-
-        Try
-            ' delete old files
-            originalBoottime = Settings.StartDate
-
-            Dim directory As New System.IO.DirectoryInfo(BackupPath)
-            Dim File As System.IO.FileInfo() = directory.GetFiles()
-            Dim File1 As System.IO.FileInfo
-
-            ' get each file's last modified date
-            For Each File1 In File
-                If File1.Name.StartsWith("Backup_", StringComparison.InvariantCultureIgnoreCase) Then
-                    Dim strLastModified As Date = System.IO.File.GetLastWriteTime(BackupPath() & "\" & File1.Name)
-                    strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
-                    Dim y = DateTime.Compare(currentdatetime, strLastModified)
-                    If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
-                        DeleteFile(File1.FullName)
-                    End If
-                End If
-            Next
-        Catch
-        End Try
 
     End Sub
 

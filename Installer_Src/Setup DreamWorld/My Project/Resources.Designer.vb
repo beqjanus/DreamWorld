@@ -2478,6 +2478,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Delete by Age.
+        '''</summary>
+        Friend ReadOnly Property DeletebyAge() As String
+            Get
+                Return ResourceManager.GetString("DeletebyAge", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Deleted.
         '''</summary>
         Friend ReadOnly Property Deleted_word() As String
@@ -5007,6 +5016,15 @@ Namespace My.Resources
         Friend ReadOnly Property Keep_for_Days_word() As String
             Get
                 Return ResourceManager.GetString("Keep_for_Days_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Keep Always.
+        '''</summary>
+        Friend ReadOnly Property KeepAlways() As String
+            Get
+                Return ResourceManager.GetString("KeepAlways", resourceCulture)
             End Get
         End Property
         

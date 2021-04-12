@@ -55,7 +55,7 @@ Public Class FormLogging
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        GroupBox1.Text = Global.Outworldz.My.Resources.Logging_word
+        GroupBox1.Text = Global.Outworldz.My.Resources.Log_Level
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         RadioDebug.Text = Global.Outworldz.My.Resources.Debug_word
@@ -64,6 +64,10 @@ Public Class FormLogging
         RadioInfo.Text = Global.Outworldz.My.Resources.Info_word
         RadioOff.Text = Global.Outworldz.My.Resources.Off
         RadioWarn.Text = Global.Outworldz.My.Resources.Warn_word
+        Delete.Text = Global.Outworldz.My.Resources.DeletebyAge
+        KeepLog.Text = Global.Outworldz.My.Resources.KeepAlways
+
+        Delete.Checked = Settings.DeleteByDate
 
         SetScreen()
 
@@ -100,6 +104,12 @@ Public Class FormLogging
 #End Region
 
 #Region "SetLogging"
+
+    Private Sub Delete_CheckedChanged(sender As Object, e As EventArgs) Handles Delete.CheckedChanged
+
+        Settings.DeleteByDate = Delete.Checked
+
+    End Sub
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioOff.CheckedChanged
         If Not initted Then Return

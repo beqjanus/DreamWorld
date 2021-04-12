@@ -870,6 +870,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property DeleteByDate() As Boolean
+        Get
+            Return CType(GetMySetting("DeleteByDate", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("DeleteByDate", CStr(Value))
+        End Set
+    End Property
+
     Public Property DeleteScriptsOnStartupLevel() As String
         Get
             Return GetMySetting("DeleteScriptsOnStartupLevel", "")
@@ -1160,7 +1169,7 @@ Public Class MySettings
 
     Public Property KeepForDays() As Integer
         Get
-            Return CInt("0" & GetMySetting("KeepForDays", "7"))
+            Return CInt("0" & GetMySetting("KeepForDays", "1"))
         End Get
         Set
             SetMySetting("KeepForDays", CStr(Value))

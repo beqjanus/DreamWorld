@@ -63,6 +63,7 @@ Module FileStuff
     ''' <summary>Deletes old log files</summary>
     Public Sub ClearLogFiles()
 
+        ' old crap
         Dim Logfiles = New List(Of String) From {
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Outworldz.log"),
@@ -71,31 +72,14 @@ Module FileStuff
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSimConsoleHistory.txt"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Diagnostics.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\UPnp.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\http.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHPLog.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Diagnostics.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Outworldz.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Restart.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Opensim\bin\OpenSimConsoleHistory.txt"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Diagnostics.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\UPnp.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Opensim\bin\Robust.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\http.log"),
-            IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\PHPLog.log"),
             IO.Path.Combine(Settings.CurrentDirectory, "http.log")     ' an old mistake
         }
 
         For Each thing As String In Logfiles
             ' clear out the log files
             DeleteFile(thing)
-        Next
-
-        For Each UUID As String In PropRegionClass.RegionUuids
-            Dim GroupName = PropRegionClass.GroupName(UUID)
-            DeleteFile(Settings.OpensimBinPath() & "Regions\" & GroupName & "\Opensim.log")
-            DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpensimConsole.log")
-            DeleteFile(Settings.OpensimBinPath() & "regions\" & GroupName & "\OpenSimStats.log")
         Next
 
     End Sub
@@ -261,26 +245,24 @@ Module FileStuff
 
     End Sub
 
-    Public Sub ExpireApacheLogs()
+    Public Sub ExpireLogsByAge()
 
-        ' Delete old Apache logs
-        Dim ApacheLogPath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache")
+        Dim Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache")
+        Deletefilesin(Path)
 
-        FileIO.FileSystem.CreateDirectory(ApacheLogPath)
-        Dim currentdatetime As Date = Date.Now
+        Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs")
+        Deletefilesin(Path)
 
-        Dim directory As New System.IO.DirectoryInfo(ApacheLogPath)
-        Dim File As System.IO.FileInfo() = directory.GetFiles()
-        Dim File1 As System.IO.FileInfo
+        Path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log")
+        Deletefilesin(Path)
 
-        ' get each file's last modified date
-        For Each File1 In File
-            Dim strLastModified As Date = System.IO.File.GetLastWriteTime(ApacheLogPath & "\" & File1.Name)
-            strLastModified = strLastModified.AddDays(CDbl(Settings.KeepForDays))
-            Dim y = DateTime.Compare(currentdatetime, strLastModified)
-            If DateTime.Compare(currentdatetime, strLastModified) > 0 Then
-                DeleteFile(File1.FullName)
-            End If
+        DeleteThisOldFile(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
+
+        For Each UUID As String In PropRegionClass.RegionUuids
+            Dim GroupName = PropRegionClass.GroupName(UUID)
+            DeleteThisOldFile($"{Settings.OpensimBinPath()}\Regions\{GroupName}\Opensim.log")
+            DeleteThisOldFile($"{Settings.OpensimBinPath()}\regions\{GroupName}\OpensimConsole.log")
+            DeleteThisOldFile($"{Settings.OpensimBinPath()}\regions\{GroupName}\OpenSimStats.log")
         Next
 
     End Sub
@@ -328,6 +310,30 @@ Module FileStuff
         Next
         Return False
     End Function
+
+    Private Sub Deletefilesin(LogPath As String)
+
+        Dim directory As New System.IO.DirectoryInfo(LogPath)
+        ' get each file's last modified date
+        For Each File As System.IO.FileInfo In directory.GetFiles()
+            ' get  file's last modified date
+            Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
+            Dim Datedifference = DateDiff("d", strLastModified, Date.Now)
+            If Datedifference > Settings.KeepForDays Then DeleteFile(File.FullName)
+        Next
+
+    End Sub
+
+    Private Sub DeleteThisOldFile(File As String)
+
+        If Not IO.File.Exists(File) Then Return
+
+        ' get  file's last modified date
+        Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File)
+        Dim Datedifference = DateDiff("d", strLastModified, Date.Now)
+        If Datedifference > Settings.KeepForDays Then DeleteFile(File)
+
+    End Sub
 
     Private Sub Deltmp() ' thread
 

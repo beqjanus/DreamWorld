@@ -854,14 +854,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Shared Sub KillFiles(AL As List(Of String))
-
-        For Each filename As String In AL
-            DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, filename))
-        Next
-
-    End Sub
-
     Private Shared Sub SetBirdsOnOrOff()
 
         If Settings.BirdsModuleStartup Then
@@ -2619,10 +2611,10 @@ Public Class FormSetup
         End If
 
         ' print hourly marks on console, after boot
-        If SecondsTicker Mod 3600 = 0 And SecondsTicker > 0 Then
+        If SecondsTicker Mod 3600 = 0 Then
             TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()
-            ExpireApacheLogs()
+            ExpireLogsByAge()
             DeleteDirectoryTmp()
         End If
 
