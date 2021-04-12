@@ -3539,4 +3539,7 @@
   <data name="KeepAlways" xml:space="preserve">
     <value>Keep Always</value>
   </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Analyze Log</value>
+  </data>
 </root>

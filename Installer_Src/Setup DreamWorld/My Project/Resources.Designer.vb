@@ -327,6 +327,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Analyze Log.
+        '''</summary>
+        Friend ReadOnly Property AnalyzeLogButton() As String
+            Get
+                Return ResourceManager.GetString("AnalyzeLogButton", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Announce Visitors.
         '''</summary>
         Friend ReadOnly Property Announce_visitors() As String

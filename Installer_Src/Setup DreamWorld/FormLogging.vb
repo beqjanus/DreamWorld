@@ -5,6 +5,9 @@
 
 #End Region
 
+Imports System.IO
+Imports System.Text.RegularExpressions
+
 Public Class FormLogging
 
 #Region "Private Fields"
@@ -68,6 +71,8 @@ Public Class FormLogging
         RadioWarn.Text = Global.Outworldz.My.Resources.Warn_word
         DeleteOnBoot.Text = Global.Outworldz.My.Resources.DeletebyAge
         KeepLog.Text = Global.Outworldz.My.Resources.KeepAlways
+        ViewLogButton.Text = Global.Outworldz.My.Resources.View_Logs
+        AnalyzeButton.Text = Global.Outworldz.My.Resources.AnalyzeLogButton
 
         DeleteOnBoot.Checked = Settings.DeleteByDate
         KeepLog.Checked = Not Settings.DeleteByDate
@@ -107,10 +112,6 @@ Public Class FormLogging
 #End Region
 
 #Region "SetLogging"
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Process.Start("explorer.exe", IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs"))
-    End Sub
 
     Private Sub Delete_CheckedChanged(sender As Object, e As EventArgs) Handles DeleteOnBoot.CheckedChanged
 
@@ -160,6 +161,83 @@ Public Class FormLogging
         If Not initted Then Return
         Settings.LogLevel = "FATAL"
         _changed = True
+    End Sub
+
+#End Region
+
+#Region "ExamineLogs"
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewLogButton.Click
+        Process.Start("explorer.exe", IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs"))
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AnalyzeButton.Click
+
+        DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Avatars.csv"))
+
+        ExamineAvatars(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
+        ExamineAllLogs(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs"))
+        For Each UUID As String In PropRegionClass.RegionUuids
+            Dim GroupName = PropRegionClass.GroupName(UUID)
+            ExamineOpensim($"{Settings.OpensimBinPath()}\Regions\{GroupName}\Opensim.log")
+        Next
+
+    End Sub
+
+    Private Sub ExamineAllLogs(Log As String)
+
+    End Sub
+
+    Private Sub ExamineAvatars(Log As String)
+
+        Try
+            Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Avatars.csv")
+            Using outputFile As New StreamWriter(filename, True)
+                outputFile.WriteLine("""Date"",""Avatar"",""UUID"",""Viewer"",""Channel"",""IP"",""MAC"",""ID0"",""Region"",""Grid""")
+
+                If System.IO.File.Exists(Log) Then
+                    Using reader As StreamReader = System.IO.File.OpenText(Log)
+                        'now loop through each line
+                        While reader.Peek <> -1
+                            Lookat(reader.ReadLine(), outputFile)
+                        End While
+                    End Using
+                End If
+
+            End Using
+
+            Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Avatars.csv"))
+        Catch ex As Exception
+            MsgBox("File in use, try later:  " & ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub ExamineOpensim(Log As String)
+
+    End Sub
+
+    Private Sub Lookat(line As String, outputfile As StreamWriter)
+
+        Dim pattern = New Regex("(.*?),.*?INFO.*?Login request for (.*?) \((.*?)\).*?viewer (.*?), channel (.*?), IP (.*?), Mac (.*?), Id0 (.*?),.*?region (.*?) \(.*?\@ (.*)")
+
+        Dim match As Match = pattern.Match(line)
+        If match.Success Then
+            Dim DateTime = match.Groups(1).Value
+            Dim Avatar = match.Groups(2).Value.Replace(" ", "")
+            Dim UUID = match.Groups(3).Value
+            Dim Viewer = match.Groups(4).Value
+            Dim Channel = match.Groups(5).Value
+            Dim IP = match.Groups(6).Value
+            Dim MAC = match.Groups(7).Value
+            Dim Id0 = match.Groups(8).Value
+            Dim Region = match.Groups(9).Value
+            Dim Grid = match.Groups(10).Value
+            Grid = Grid.Replace("\n", "").Replace("\r", "")
+
+            outputfile.WriteLine($"""{DateTime}"",""{Avatar}"",""{UUID}"",""{Viewer}"",""{Channel}"",""{IP}"",""{MAC}"",""{Id0}"",""{Region}"",""{Grid}""")
+        End If
+
     End Sub
 
 #End Region

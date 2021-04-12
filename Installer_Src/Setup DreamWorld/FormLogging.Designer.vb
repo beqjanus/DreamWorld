@@ -35,7 +35,8 @@ Partial Class FormLogging
         Me.DeleteOnBoot = New System.Windows.Forms.RadioButton()
         Me.KeepLog = New System.Windows.Forms.RadioButton()
         Me.DeletebyAge = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.AnalyzeButton = New System.Windows.Forms.Button()
+        Me.ViewLogButton = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.DeletebyAge.SuspendLayout()
@@ -48,7 +49,7 @@ Partial Class FormLogging
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(275, 34)
+        Me.MenuStrip1.Size = New System.Drawing.Size(343, 34)
         Me.MenuStrip1.TabIndex = 186741
         '
         'HelpToolStripMenuItem
@@ -145,7 +146,7 @@ Partial Class FormLogging
         '
         Me.DeleteOnBoot.AutoSize = True
         Me.DeleteOnBoot.Checked = True
-        Me.DeleteOnBoot.Location = New System.Drawing.Point(17, 53)
+        Me.DeleteOnBoot.Location = New System.Drawing.Point(17, 29)
         Me.DeleteOnBoot.Name = "DeleteOnBoot"
         Me.DeleteOnBoot.Size = New System.Drawing.Size(96, 17)
         Me.DeleteOnBoot.TabIndex = 186743
@@ -156,7 +157,7 @@ Partial Class FormLogging
         'KeepLog
         '
         Me.KeepLog.AutoSize = True
-        Me.KeepLog.Location = New System.Drawing.Point(17, 77)
+        Me.KeepLog.Location = New System.Drawing.Point(17, 53)
         Me.KeepLog.Name = "KeepLog"
         Me.KeepLog.Size = New System.Drawing.Size(50, 17)
         Me.KeepLog.TabIndex = 186744
@@ -165,33 +166,45 @@ Partial Class FormLogging
         '
         'DeletebyAge
         '
-        Me.DeletebyAge.Controls.Add(Me.Button1)
+        Me.DeletebyAge.Controls.Add(Me.AnalyzeButton)
+        Me.DeletebyAge.Controls.Add(Me.ViewLogButton)
         Me.DeletebyAge.Controls.Add(Me.KeepLog)
         Me.DeletebyAge.Controls.Add(Me.DeleteOnBoot)
         Me.DeletebyAge.Location = New System.Drawing.Point(127, 48)
         Me.DeletebyAge.Name = "DeletebyAge"
-        Me.DeletebyAge.Size = New System.Drawing.Size(136, 185)
+        Me.DeletebyAge.Size = New System.Drawing.Size(200, 185)
         Me.DeletebyAge.TabIndex = 186745
         Me.DeletebyAge.TabStop = False
         Me.DeletebyAge.Text = "Log Files"
         '
-        'Button1
+        'AnalyzeButton
         '
-        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.folder
-        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(6, 137)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(113, 27)
-        Me.Button1.TabIndex = 186745
-        Me.Button1.Text = "View"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.AnalyzeButton.Image = Global.Outworldz.My.Resources.Resources.folder
+        Me.AnalyzeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.AnalyzeButton.Location = New System.Drawing.Point(6, 142)
+        Me.AnalyzeButton.Name = "AnalyzeButton"
+        Me.AnalyzeButton.Size = New System.Drawing.Size(170, 27)
+        Me.AnalyzeButton.TabIndex = 186746
+        Me.AnalyzeButton.Text = "Analyze Log"
+        Me.AnalyzeButton.UseVisualStyleBackColor = True
+        '
+        'ViewLogButton
+        '
+        Me.ViewLogButton.Image = Global.Outworldz.My.Resources.Resources.folder
+        Me.ViewLogButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.ViewLogButton.Location = New System.Drawing.Point(6, 100)
+        Me.ViewLogButton.Name = "ViewLogButton"
+        Me.ViewLogButton.Size = New System.Drawing.Size(170, 27)
+        Me.ViewLogButton.TabIndex = 186745
+        Me.ViewLogButton.Text = "View"
+        Me.ViewLogButton.UseVisualStyleBackColor = True
         '
         'FormLogging
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(275, 244)
+        Me.ClientSize = New System.Drawing.Size(343, 244)
         Me.Controls.Add(Me.DeletebyAge)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
@@ -220,5 +233,6 @@ Partial Class FormLogging
     Friend WithEvents DeleteOnBoot As RadioButton
     Friend WithEvents KeepLog As RadioButton
     Friend WithEvents DeletebyAge As GroupBox
-    Friend WithEvents Button1 As Button
+    Friend WithEvents ViewLogButton As Button
+    Friend WithEvents AnalyzeButton As Button
 End Class
