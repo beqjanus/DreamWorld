@@ -2310,12 +2310,6 @@ Public Class RegionMaker
             Return False
         End If
 
-        If String.IsNullOrEmpty(uuid) Then
-            ErrorLog("Region UUID Zero".ToString(Globalization.CultureInfo.InvariantCulture))
-            Return True
-        End If
-
-        ErrorLog("Region UUID does not exist. " & CStr(uuid))
         Return True
 
     End Function
