@@ -26,6 +26,7 @@ Module DoIni
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
         DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5"))
+        FileIO.FileSystem.CreateDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache"))
 
         ' lean rightward paths for Apache
         ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\conf\extra\httpd-ssl.conf")
