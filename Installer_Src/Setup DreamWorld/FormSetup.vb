@@ -1628,7 +1628,7 @@ Public Class FormSetup
 
         Application.DoEvents()
 
-        ClearLogFiles() ' clear log files
+        ClearOldLogFiles() ' clear log files
 
         If Not IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm")) Then
             IO.File.Copy(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm.bak"), IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm"))
@@ -2272,65 +2272,68 @@ Public Class FormSetup
     Private Function ScanAgents() As Integer
 
         If Not MysqlInterface.IsMySqlRunning() Then Return 0
-
-        ' Scan all the regions
         Dim sbttl As Integer = 0
-        Dim A = GetAgentList()
-        Dim B = GetHGAgentList()
 
-        Dim C As Dictionary(Of String, String) = Nothing
         Try
+            ' Scan all the regions
+            Dim A = GetAgentList()
+            Dim B = GetHGAgentList()
+
+            Dim C As Dictionary(Of String, String) = Nothing
+
             C = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
-        Catch
+
+            If C IsNot Nothing Then BuildLand(C)
+
+            '; start with zero avatars
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
+                PropRegionClass.AvatarCount(RegionUUID) = 0
+            Next
+
+            AvatarLabel.Text = ""
+
+            For Each NameValue In C
+                Dim Avatar = NameValue.Key
+                Dim RegionName = NameValue.Value
+
+                If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
+                    TextPrint(Avatar & " is in " & RegionName)
+                    D.Add(Avatar, RegionName)
+                End If
+            Next
+
+            Dim Str As String = ""
+            For Each NameValue In C
+                Dim Avatar = NameValue.Key
+                Dim RegionName = NameValue.Value
+
+                Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+                If RegionUUID.Length > 0 And RegionName.Length > 0 Then
+                    PropRegionClass.AvatarCount(RegionUUID) += 1
+                    Str += Avatar & " in " & RegionName & ", "
+                End If
+            Next
+
+            Dim E As New List(Of String)
+            For Each NameValue In D
+                Dim Avatar = NameValue.Key
+                Dim RegionName = NameValue.Value
+
+                If Not C.ContainsKey(Avatar) Then
+                    TextPrint(Avatar & " left " & RegionName)
+                    E.Add(Avatar)
+                End If
+            Next
+            For Each F In E
+                D.Remove(F)
+            Next
+
+            Dim total As Integer = C.Count
+            AvatarLabel.Text = CStr(total) & " " & My.Resources.Avatars_word
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
         End Try
 
-        If C IsNot Nothing Then BuildLand(C)
-
-        '; start with zero avatars
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            PropRegionClass.AvatarCount(RegionUUID) = 0
-        Next
-
-        AvatarLabel.Text = ""
-
-        For Each NameValue In C
-            Dim Avatar = NameValue.Key
-            Dim RegionName = NameValue.Value
-
-            If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                TextPrint(Avatar & " is in " & RegionName)
-                D.Add(Avatar, RegionName)
-            End If
-        Next
-
-        Dim Str As String = ""
-        For Each NameValue In C
-            Dim Avatar = NameValue.Key
-            Dim RegionName = NameValue.Value
-
-            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-            If RegionUUID.Length > 0 And RegionName.Length > 0 Then
-                PropRegionClass.AvatarCount(RegionUUID) += 1
-                Str += Avatar & " in " & RegionName & ", "
-            End If
-        Next
-
-        Dim E As New List(Of String)
-        For Each NameValue In D
-            Dim Avatar = NameValue.Key
-            Dim RegionName = NameValue.Value
-
-            If Not C.ContainsKey(Avatar) Then
-                TextPrint(Avatar & " left " & RegionName)
-                E.Add(Avatar)
-            End If
-        Next
-        For Each F In E
-            D.Remove(F)
-        Next
-
-        Dim total As Integer = C.Count
-        AvatarLabel.Text = CStr(total) & " " & My.Resources.Avatars_word
         Return sbttl
 
     End Function
@@ -2607,7 +2610,7 @@ Public Class FormSetup
         If SecondsTicker Mod 60 = 0 Then
             CalcCPU() ' get a list of running opensim processes
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
-            RegionListHTML(Settings, PropRegionClass) ' create HTML for teleport boards
+            RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
         End If
 
         ' print hourly marks on console, after boot
