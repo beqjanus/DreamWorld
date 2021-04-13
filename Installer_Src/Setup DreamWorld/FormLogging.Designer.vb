@@ -37,9 +37,12 @@ Partial Class FormLogging
         Me.DeletebyAge = New System.Windows.Forms.GroupBox()
         Me.AnalyzeButton = New System.Windows.Forms.Button()
         Me.ViewLogButton = New System.Windows.Forms.Button()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.DeletebyAge.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -49,7 +52,7 @@ Partial Class FormLogging
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(343, 34)
+        Me.MenuStrip1.Size = New System.Drawing.Size(317, 34)
         Me.MenuStrip1.TabIndex = 186741
         '
         'HelpToolStripMenuItem
@@ -172,7 +175,7 @@ Partial Class FormLogging
         Me.DeletebyAge.Controls.Add(Me.DeleteOnBoot)
         Me.DeletebyAge.Location = New System.Drawing.Point(127, 48)
         Me.DeletebyAge.Name = "DeletebyAge"
-        Me.DeletebyAge.Size = New System.Drawing.Size(200, 185)
+        Me.DeletebyAge.Size = New System.Drawing.Size(185, 185)
         Me.DeletebyAge.TabIndex = 186745
         Me.DeletebyAge.TabStop = False
         Me.DeletebyAge.Text = "Log Files"
@@ -183,7 +186,7 @@ Partial Class FormLogging
         Me.AnalyzeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.AnalyzeButton.Location = New System.Drawing.Point(6, 142)
         Me.AnalyzeButton.Name = "AnalyzeButton"
-        Me.AnalyzeButton.Size = New System.Drawing.Size(170, 27)
+        Me.AnalyzeButton.Size = New System.Drawing.Size(156, 27)
         Me.AnalyzeButton.TabIndex = 186746
         Me.AnalyzeButton.Text = "Analyze Log"
         Me.AnalyzeButton.UseVisualStyleBackColor = True
@@ -194,17 +197,32 @@ Partial Class FormLogging
         Me.ViewLogButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.ViewLogButton.Location = New System.Drawing.Point(6, 100)
         Me.ViewLogButton.Name = "ViewLogButton"
-        Me.ViewLogButton.Size = New System.Drawing.Size(170, 27)
+        Me.ViewLogButton.Size = New System.Drawing.Size(156, 27)
         Me.ViewLogButton.TabIndex = 186745
         Me.ViewLogButton.Text = "View"
         Me.ViewLogButton.UseVisualStyleBackColor = True
+        '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 247)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(317, 22)
+        Me.StatusStrip1.TabIndex = 186746
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'ToolStripStatusLabel1
+        '
+        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
         '
         'FormLogging
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(343, 244)
+        Me.ClientSize = New System.Drawing.Size(317, 269)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.DeletebyAge)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
@@ -216,6 +234,8 @@ Partial Class FormLogging
         Me.GroupBox1.PerformLayout()
         Me.DeletebyAge.ResumeLayout(False)
         Me.DeletebyAge.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -235,4 +255,6 @@ Partial Class FormLogging
     Friend WithEvents DeletebyAge As GroupBox
     Friend WithEvents ViewLogButton As Button
     Friend WithEvents AnalyzeButton As Button
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents ToolStripStatusLabel1 As ToolStripStatusLabel
 End Class

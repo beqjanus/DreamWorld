@@ -61,7 +61,7 @@ Module FileStuff
     End Sub
 
     ''' <summary>Deletes old log files</summary>
-    Public Sub ClearLogFiles()
+    Public Sub ClearOldLogFiles()
 
         ' old crap
         Dim Logfiles = New List(Of String) From {
