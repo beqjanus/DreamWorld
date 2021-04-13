@@ -7,6 +7,9 @@
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
+Imports System
+Imports System.Collections.Generic
+Imports System.Linq
 
 Module SmartStart
 
@@ -146,7 +149,7 @@ Module SmartStart
 
 #Region "HTML"
 
-    Public Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker) As String
+    Public Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker, Data As String) As String
 
         ' http://localhost:8001/teleports.htm
         ' http://YourURL:8001/teleports.htm
@@ -154,19 +157,33 @@ Module SmartStart
         '*|Welcome||outworldz.com9000Welcome|128,128,96|
         Dim HTML As String = ""
 
-        Dim ToSort As New List(Of String)
-        Dim coords As New Dictionary(Of String, String)
+        Dim ToSort As New Dictionary(Of String, String)
 
         Dim WelcomeUUID = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
-        ToSort.Add(Settings.WelcomeRegion)
-        coords.Add(Settings.WelcomeRegion, PropRegionClass.LandingSpot(WelcomeUUID))
+        ToSort.Add(Settings.WelcomeRegion, "0")
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
 
-            Dim name = PropRegionClass.RegionName(RegionUUID)
-            If name = "2worlds_City_by_Anna_Lorentzson" Then
-                '    BreakPoint.Show("BreakPoint")
+            Dim Sort = ""
+            Dim Name As String
+            If Data.ToUpperInvariant.Contains("NAME") Then
+                Sort = "Name"
+                Name = PropRegionClass.RegionName(RegionUUID)
+            ElseIf Data.ToUpperInvariant.Contains("GROUP") Then
+                Sort = "Group"
+                Name = PropRegionClass.GroupName(RegionUUID)
+            ElseIf Data.ToUpperInvariant.Contains("ESTATE") Then
+                Sort = "Estate"
+                Name = EstateName(RegionUUID)
+            Else
+                Sort = "Name"
+                Name = PropRegionClass.RegionName(RegionUUID)
             End If
+
+            Debug.Print($"Sort by {Name}")
+
+            Dim Sortvalue As String = PropRegionClass.GroupName(RegionUUID)
+
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
                 status = RegionMaker.SIMSTATUSENUM.Booted) Or
@@ -175,15 +192,16 @@ Module SmartStart
                 Settings.SmartStart) Then
 
                 If Settings.WelcomeRegion = PropRegionClass.RegionName(RegionUUID) Then Continue For
-                ToSort.Add(PropRegionClass.RegionName(RegionUUID))
-                coords.Add(PropRegionClass.RegionName(RegionUUID), PropRegionClass.LandingSpot(RegionUUID))
+                ToSort.Add(PropRegionClass.RegionName(RegionUUID), Sortvalue)
             End If
         Next
 
-        ToSort.Sort()
+        Dim myList As List(Of KeyValuePair(Of String, String)) = ToSort.ToList()
+        myList.Sort(Function(firstPair, nextPair) firstPair.Value.CompareTo(nextPair.Value))
 
-        For Each S As String In ToSort
-            HTML += $"*|{S}|{coords.Item(S)}|{Settings.PublicIP}:{Settings.HttpPort}:{S}||{S}|{vbCrLf}"
+        For Each S As KeyValuePair(Of String, String) In myList
+            Dim V = S.Key
+            HTML += $"*|{V}||{Settings.PublicIP}:{Settings.HttpPort}:{V}||{V}|{vbCrLf}"
         Next
 
         Dim HTMLFILE = Settings.OpensimBinPath & "data\teleports.htm"
