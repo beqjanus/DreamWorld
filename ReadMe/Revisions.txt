@@ -2,12 +2,33 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.923
+Apache could be missing a default folder in OutworldzFiles\Logs\Apache due to a missing .keep, which I use to force git to keep the empty folder.
+A crash could occur when avatars appear as Hypergrid and local visitors.
+
+V3.922
+Log File parser to list all avatars and to detect errors in Opensim.log
+Log files get cleared out on schedule as set by "Keep For Days" in the Autobackup settings. The change is you can disable this so log files persist
+New grids get a default of 1 day instead of 7 to Autobackup.
+Setting->logs has a view logs button and an Analyze button. It does only one thing at the moment. It makes a Excel-compatible CSV list of all avatars that have logged in since the logs were cleared. 
+Plans are to have it make a list of bad prims and other things that you can clean up.
+Concierge defaults to Off.
+Auto Filling of empty lands allows up to 3 region-wide sim surround
+About 1,000 names randomly chosen for new regions.  You can make your own list in Outworldzfiles.
+Added photos of all Trees and Bushes.
+Autofill regions are placed in Estate 1999 "SimSurround"
+Various changes to AI generated lands, and add settings for smooth, bump and land level to GUI
+Known issue: Smart Start will shut down the surrounding sims - it should keep them running.
+Known issue: Regular teleport do not interface to Smart Boot regions. No scripted teleports to SS_enabled lands. Hypergrid links work, as do the V3.9 signs.
+
+
 V3.921
-Since you are reading this, you are good enough to enable Smart Start by going to Help-Debug.
-Missing cdfault images for your Diva web page.
-Missing 10,000 names in a file, breaking Autofil regions.
-mising Apache's magic file and a dozen readmes'
-I hate 7Zip
+**** Do Not enable Smart start on your grid. If you want to play with it, use it on a new, blank grid.
+**** It will break all teleport except Landmarks and HG Visitors. 
+Missing default images for your Diva web page.
+Missing 10,000 names in a file, breaking Autofill regions.
+Missing Apache's magic file and a dozen readme's
+I hate 7Zip, replaced with Perl
 
 V3.92
 Physics default was always overridden to off in Region options.
