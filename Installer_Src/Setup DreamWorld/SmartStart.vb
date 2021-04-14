@@ -182,7 +182,7 @@ Module SmartStart
 
             Debug.Print($"Sort by {Name}")
 
-            Dim Sortvalue As String = PropRegionClass.GroupName(RegionUUID)
+
 
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
@@ -192,7 +192,7 @@ Module SmartStart
                 Settings.SmartStart) Then
 
                 If Settings.WelcomeRegion = PropRegionClass.RegionName(RegionUUID) Then Continue For
-                ToSort.Add(PropRegionClass.RegionName(RegionUUID), Sortvalue)
+                ToSort.Add(PropRegionClass.RegionName(RegionUUID), Name)
             End If
         Next
 
