@@ -2,6 +2,12 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.924
+Remote Admin commands needed to start and stop regions added to Metropolis, OsGrid and Region servers
+Simple Log file parser added for Opensim.ini and Robust.log with hop links to the defective script/prim.
+Smart Start has choice for Estate Owner for [SimSurround] Landfill function.
+
+
 V3.923
 Apache could be missing a default folder in OutworldzFiles\Logs\Apache due to a missing .keep, which I use to force git to keep the empty folder.
 A crash could occur when avatars appear as Hypergrid and local visitors.
