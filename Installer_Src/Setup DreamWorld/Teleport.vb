@@ -24,20 +24,23 @@ Module Teleport
                 If status = RegionMaker.SIMSTATUSENUM.Booted Then
                     Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
                     If DestinationName.Length > 0 Then
-
                         Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                         Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
                         Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
-
-                        If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
-                            Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
+                        If RegionIsRegistered(RegionToUUID) Then
+                            If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
+                                Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
+                            Else
+                                Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
+                            End If
+                            Fin.Add(AgentID)
                         Else
-                            Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
+                            BreakPoint.Show("Unable to locate region " & RegionToUUID)
                         End If
-                        Fin.Add(AgentID)
                     Else
-                        BreakPoint.Show("Unable to locate region " & RegionToUUID)
+                        Fin.Add(AgentID)
                     End If
+
                 End If
             Next
         Catch

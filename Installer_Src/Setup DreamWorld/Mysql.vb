@@ -395,8 +395,8 @@ Public Module MysqlInterface
                             Dim LongName = reader.GetString(0)
                             UUID = reader.GetString(1)
                             For Each m In Regex.Matches(LongName, pattern)
-                                Debug.Print("Avatar {0}", m.Groups(2).Value)
-                                Debug.Print("Region UUID {0}", m.Groups(1).Value)
+                                ' Debug.Print("Avatar {0}", m.Groups(2).Value)
+                                ' Debug.Print("Region UUID {0}", m.Groups(1).Value)
                                 Avatar = m.Groups(2).Value.ToString
                                 If UUID <> "00000000-0000-0000-0000-000000000000" Then
                                     Dict.Add(Avatar, GetRegionName(UUID))
@@ -718,7 +718,7 @@ Public Module MysqlInterface
                 cmd.Parameters.AddWithValue("@UUID", UUID)
                 Using reader As MySqlDataReader = cmd.ExecuteReader()
                     If reader.Read() Then
-                        Debug.Print("Region Name = {0}", reader.GetString(0))
+                        ' Debug.Print("Region Name = {0}", reader.GetString(0))
                         Val = reader.GetString(0)
                     End If
                 End Using
