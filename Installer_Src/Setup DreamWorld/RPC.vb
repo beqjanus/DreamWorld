@@ -68,7 +68,7 @@ Module RPC
 
         'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
 
-        Debug.Print("Region To:" & ToRegionName)
+        Debug.Print("Teleport To:" & ToRegionName)
 
         Dim ht As Hashtable = New Hashtable From {
             {"password", Settings.MachineID},

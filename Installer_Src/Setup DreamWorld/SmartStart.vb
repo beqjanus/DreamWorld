@@ -176,7 +176,7 @@ Module SmartStart
                 Name = PropRegionClass.RegionName(RegionUUID)
             End If
 
-            Debug.Print($"Sort by {Name}")
+            'Debug.Print($"Sort by {Name}")
 
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
