@@ -167,22 +167,16 @@ Module SmartStart
             Dim Sort = ""
             Dim Name As String
             If Data.ToUpperInvariant.Contains("NAME") Then
-                Sort = "Name"
                 Name = PropRegionClass.RegionName(RegionUUID)
             ElseIf Data.ToUpperInvariant.Contains("GROUP") Then
-                Sort = "Group"
                 Name = PropRegionClass.GroupName(RegionUUID)
             ElseIf Data.ToUpperInvariant.Contains("ESTATE") Then
-                Sort = "Estate"
                 Name = EstateName(RegionUUID)
             Else
-                Sort = "Name"
                 Name = PropRegionClass.RegionName(RegionUUID)
             End If
 
             Debug.Print($"Sort by {Name}")
-
-
 
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
@@ -197,9 +191,9 @@ Module SmartStart
         Next
 
         Dim myList As List(Of KeyValuePair(Of String, String)) = ToSort.ToList()
-        myList.Sort(Function(firstPair, nextPair) firstPair.Value.CompareTo(nextPair.Value))
+        Dim sorted = ToSort.OrderBy(Function(kvp) kvp.Value, StringComparer.CurrentCultureIgnoreCase).ToDictionary(Function(kvp) kvp.Key, Function(kvp) kvp.Value)
 
-        For Each S As KeyValuePair(Of String, String) In myList
+        For Each S As KeyValuePair(Of String, String) In sorted
             Dim V = S.Key
             HTML += $"*|{V}||{Settings.PublicIP}:{Settings.HttpPort}:{V}||{V}|{vbCrLf}"
         Next

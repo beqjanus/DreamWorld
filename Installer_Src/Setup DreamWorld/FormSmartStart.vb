@@ -487,7 +487,7 @@ Public Class FormSmartStart
         RegionMakerEnableCHeckbox.Checked = Settings.AutoFill
         Me.Text = Global.Outworldz.My.Resources.Smart_Start_word
         SmartStartEnabled.Checked = Settings.SmartStart
-
+        Label1.Text = My.Resources.Enter_1_2
         TabPage1.Text = My.Resources.Smart_Start_word
         TabPage2.Text = My.Resources.Landscaping
         TabPage3.Text = My.Resources.LandMaker
@@ -495,6 +495,14 @@ Public Class FormSmartStart
 
         SmoothTextBox.Text = CStr(Settings.LandStrength)
         TaperTextBox.Text = CStr(Settings.LandTaper)
+
+        AviName.Text = Settings.SurroundOwner
+
+        If AviName.Text.Length = 0 Then
+            AviName.BackColor = Color.Red
+        End If
+
+
 
         Seconds.Text = CStr(Settings.SmartStartTimeout)
         SetScreen()
@@ -513,6 +521,12 @@ Public Class FormSmartStart
             Case Else
                 OptionRadioButton.Checked = True
         End Select
+
+        With AviName
+            .AutoCompleteCustomSource = MysqlInterface.GetAvatarList()
+            .AutoCompleteMode = AutoCompleteMode.Suggest
+            .AutoCompleteSource = AutoCompleteSource.CustomSource
+        End With
 
         GetSetting(BeachGrass1.Text)
         GetSetting(Cypress1.Text)
@@ -1570,6 +1584,28 @@ Public Class FormSmartStart
 #End Region
 
 #Region "Help"
+
+    Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
+
+
+        If Not _initted Then Return
+        If AviName.Text.Length > 0 Then
+            AviName.BackColor = Color.White
+        End If
+
+        If AviName.Text.Length > 0 Then
+            Settings.SurroundOwner = AviName.Text
+            Settings.SaveSettings()
+
+            If IsMySqlRunning() Then
+                Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";")
+                Dim AvatarUUID As String = GetAviUUUD(AviName.Text)
+                Settings.SetIni("SimSurround", "Owner", AvatarUUID)
+            End If
+
+        End If
+
+    End Sub
 
     Private Sub HelpLandcapingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpLandcapingToolStripMenuItem.Click
         HelpManual("Landscaping")
