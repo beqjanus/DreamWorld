@@ -14,8 +14,9 @@ Public Class FormLogging
 
     Private _Avictr As Integer
     Dim _changed As Boolean
-    Private _Ctr As Integer
     Private _Err As Integer
+    Dim _FileCounter As Integer
+    Private _LineCounter As Integer
     Dim initted As Boolean
 
 #End Region
@@ -176,42 +177,49 @@ Public Class FormLogging
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AnalyzeButton.Click
 
+        If PropOpensimIsRunning() Then
+            MsgBox("Cannot examine logs while Opensim is running", vbInformation)
+            Return
+        End If
+
         AnalyzeButton.Text = Global.Outworldz.My.Resources.Busy_word
-        DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Avatars.csv"))
 
-        ExamineAvatars(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
+        Dim TMPFolder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp")
+        FileIO.FileSystem.CreateDirectory(TMPFolder)
+        Dim Out = IO.Path.Combine(TMPFolder, "Avatars.htm")
+        DeleteFile(Out)
+        ExamineAvatars(Out)
 
-        Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles\Logs\Regions.csv")
-        Using outputFile As New StreamWriter(filename, True)
-            outputFile.WriteLine("""Date"",""Type"",""Problem"",""Coordinates"",""UUID"",""Hop"", ""Group""")
+        Out = IO.Path.Combine(TMPFolder, "Regions.htm")
+        DeleteFile(Out)
+        _Err = 0
+        Using outputFile As New StreamWriter(Out, True)
+            outputFile.WriteLine("<table>")
+            outputFile.WriteLine("<tr><td>DateType</td><td>Problem</td><td>Text</td></tr>")
 
             For Each UUID As String In PropRegionClass.RegionUuids
                 Application.DoEvents()
                 Dim GroupName = PropRegionClass.GroupName(UUID)
-                _Err += ExamineOpensim(outputFile, $"{Settings.OpensimBinPath()}\Regions\{GroupName}\Opensim.log", GroupName)
+                ExamineOpensim(outputFile, GroupName)
             Next
+            outputFile.WriteLine("</table>")
         End Using
-        If _Err > 0 Then Process.Start(IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles\Logs\Regions.csv"))
-
-        ExamineAllLogs(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs"))
+        If _Err > 0 Then Process.Start(Out)
 
         AnalyzeButton.Text = Global.Outworldz.My.Resources.AnalyzeLogButton
-
-    End Sub
-
-    Private Sub ExamineAllLogs(Log As String)
 
     End Sub
 
     Private Sub ExamineAvatars(Log As String)
 
         Try
-            Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Avatars.csv")
-            Using outputFile As New StreamWriter(filename, True)
-                outputFile.WriteLine("""Date"",""Avatar"",""UUID"",""Viewer"",""Channel"",""IP"",""MAC"",""ID0"",""Region"",""Grid""")
+            Using outputFile As New StreamWriter(Log, True)
+                outputFile.WriteLine("<table>")
+                outputFile.WriteLine("<tr><td>Date</td><td>Avatar</td><td>UUID</td><td>Viewer</td><td>Channel</td><td>IP</td><td>MAC</td><td>ID0</td><td>Region</td><td>Grid</td></tr>")
 
-                If System.IO.File.Exists(Log) Then
-                    Using reader As StreamReader = System.IO.File.OpenText(Log)
+                Dim Robust = IO.Path.Combine(Settings.OpensimBinPath, "Robust.log")
+                If System.IO.File.Exists(Robust) Then
+                    Using reader As StreamReader = System.IO.File.OpenText(Robust)
                         'now loop through each line
                         While reader.Peek <> -1
                             Application.DoEvents()
@@ -219,27 +227,25 @@ Public Class FormLogging
                         End While
                     End Using
                 End If
-
+                outputFile.WriteLine("</table>")
             End Using
-            If _Avictr > 0 Then Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Avatars.csv"))
+            If _Avictr > 0 Then Process.Start(IO.Path.Combine(Log))
         Catch ex As Exception
             MsgBox("File in use, try later:  " & ex.Message)
         End Try
 
     End Sub
 
-    Private Function ExamineOpensim(outputfile As StreamWriter, Log As String, GroupName As String) As Integer
+    Private Sub ExamineOpensim(outputfile As StreamWriter, GroupName As String)
 
-        Dim E As Integer
         Try
-
-            If System.IO.File.Exists(Log) Then
-                Using reader As StreamReader = System.IO.File.OpenText(Log)
+            Dim Region = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Opensim.log")
+            If System.IO.File.Exists(Region) Then
+                Using reader As StreamReader = System.IO.File.OpenText(Region)
                     'now loop through each line
                     While reader.Peek <> -1
-                        _Ctr += 1
-                        E += LookatOpensim(reader.ReadLine(), outputfile, GroupName)
-                        ToolStripStatusLabel1.Text = $"{CStr(_Err)} Errors,  {CStr(_Ctr)} Lines"
+                        _LineCounter += 1
+                        LookatOpensim(reader.ReadLine(), outputfile, GroupName)
                         Application.DoEvents()
                     End While
                 End Using
@@ -247,16 +253,14 @@ Public Class FormLogging
         Catch ex As Exception
             MsgBox("File in use, try later:  " & ex.Message)
         End Try
+        _FileCounter += 1
 
-        Return E
-
-    End Function
+    End Sub
 
     Private Sub Lookat(line As String, outputfile As StreamWriter)
 
-        _Ctr += 1
-        Dim pattern = New Regex("(.*?),.*?INFO.*?Login request for (.*?) \((.*?)\).*?viewer (.*?), channel (.*?), IP (.*?), Mac (.*?), Id0 (.*?),.*?region (.*?) \(.*?\@ (.*)")
-
+        ToolStripStatusLabel1.Text = $"{CStr(_Avictr)} Avatars,  {CStr(_LineCounter)} Lines"
+        Dim pattern = New Regex("^(.*?),.*?INFO.*?Login request for (.*?) \((.*?)\).*?viewer (.*?), channel (.*?), IP (.*?), Mac (.*?), Id0 (.*?),.*?region (.*?) \(.*?\@ (.*)")
         Dim match As Match = pattern.Match(line)
         If match.Success Then
             Dim DateTime = match.Groups(1).Value
@@ -271,24 +275,23 @@ Public Class FormLogging
             Dim Grid = match.Groups(10).Value
             Grid = Grid.Replace("\n", "").Replace("\r", "")
             _Avictr += 1
-            ToolStripStatusLabel1.Text = $"{CStr(_Avictr)} Avatars,  {CStr(_Ctr)} Lines"
-            outputfile.WriteLine($"""{DateTime}"",""{Avatar}"",""{UUID}"",""{Viewer}"",""{Channel}"",""{IP}"",""{MAC}"",""{Id0}"",""{Region}"",""{Grid}""")
+
+            outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{Avatar}</td><td>{UUID}</td><td>{Viewer}</td><td>{Channel}</td><td>{IP}</td><td>{MAC}</td><td>{Id0}</td><td>{Region}</td><td>{Grid}</td></tr>")
         End If
 
     End Sub
 
     Private Function LookatOpensim(line As String, outputfile As StreamWriter, GroupName As String) As Integer
-
-        ' Dim pattern = New Regex("(.*?),.*?ERROR(.*?)(<.*?,.*?,.*?>)(.*)")
-        Dim pattern = New Regex("(.*?),.*?ERROR(.*?)(<.*?,.*?,.*?>)(.*)")
+        ToolStripStatusLabel1.Text = $"{CStr(_Err)} Errors,  {CStr(_LineCounter)} Lines  {CStr(_FileCounter)} Files"
+        Dim pattern = New Regex("^(.*?),.*?ERROR(.*?)(<.*?,.*?,.*?>)(.*)")
         Dim match As Match = pattern.Match(line)
         If match.Success Then
             Dim DateTime = match.Groups(1).Value
             Dim Preamble = match.Groups(2).Value
             Dim Vector = match.Groups(3).Value
             Dim Last = match.Groups(4).Value
-            ToolStripStatusLabel1.Text = $"{CStr(_Err)} Errors,  {CStr(_Ctr)} Lines"
-            outputfile.WriteLine($"""{DateTime}"",""ERROR"",""{Preamble}"",""{Vector}"",""{Last}"", ""{GroupName}""")
+            outputfile.WriteLine($"<tr><td>{DateTime}</td><td>ERROR</td><td>{Preamble} <a href=""hop://{Settings.PublicIP}:{Settings.HttpPort} {GroupName}""> {Vector} </a> {Last} {GroupName}</td></tr>")
+            _Err += 1
             Return 1
         End If
         Return 0

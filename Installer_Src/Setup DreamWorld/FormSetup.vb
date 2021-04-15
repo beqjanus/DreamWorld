@@ -651,6 +651,8 @@ Public Class FormSetup
             Return False
         End If
 
+        DoEstates() ' has to be done after Mysql starts up.
+
         ' Reload
         If PropChangedRegionSettings Then
             PropRegionClass.GetAllRegions()

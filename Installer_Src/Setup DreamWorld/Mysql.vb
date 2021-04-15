@@ -315,6 +315,39 @@ Public Module MysqlInterface
 
     End Function
 
+    ''' <summary>
+    ''' Returns a local avatar UUID give a First and Last name
+    ''' </summary>
+    ''' <param name="avatarName"></param>
+    ''' <returns>Avatar UUID</returns>
+    Public Function GetAviUUUD(AvatarName As String) As String
+
+        Try
+            Dim parts As String() = AvatarName.Split(" ".ToCharArray())
+            Dim Fname = CInt(CStr(parts(0).Trim))
+            Dim LName = CInt(CStr(parts(1).Trim))
+
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "Select PrincipalID  from useraccounts where FirstName= @Fname and LastName=@LName "
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@Fname", Fname)
+                    cmd.Parameters.AddWithValue("@Lname", LName)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            'Debug.Print("ID = {0}", reader.GetString(0))
+                            Dim Val = reader.GetString(0)
+                            Return Val
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch
+        End Try
+        Return ""
+
+    End Function
+
     Public Function GetEmailList() As Dictionary(Of String, String)
         Dim A As New Dictionary(Of String, String)
         Try
