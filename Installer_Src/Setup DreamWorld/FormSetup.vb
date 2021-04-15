@@ -1208,9 +1208,9 @@ Public Class FormSetup
             Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
             PropExitList.Remove(GroupName)
 
-            If GroupName = "Welcome" Then
-                BreakPoint.Show("Break")
-            End If
+            'If GroupName = "Welcome" Then
+            'BreakPoint.Show("Break")
+            'End If
 
             TextPrint(GroupName & " " & Reason)
 

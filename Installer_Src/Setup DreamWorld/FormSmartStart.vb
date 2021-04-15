@@ -1588,7 +1588,7 @@ Public Class FormSmartStart
     Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
 
 
-        If Not _initted Then Return
+        If Not _initialized Then Return
         If AviName.Text.Length > 0 Then
             AviName.BackColor = Color.White
         End If
@@ -1601,6 +1601,7 @@ Public Class FormSmartStart
                 Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";")
                 Dim AvatarUUID As String = GetAviUUUD(AviName.Text)
                 Settings.SetIni("SimSurround", "Owner", AvatarUUID)
+                Settings.SaveINI(INI, System.Text.Encoding.ASCII)
             End If
 
         End If

@@ -324,8 +324,8 @@ Public Module MysqlInterface
 
         Try
             Dim parts As String() = AvatarName.Split(" ".ToCharArray())
-            Dim Fname = CInt(CStr(parts(0).Trim))
-            Dim LName = CInt(CStr(parts(1).Trim))
+            Dim Fname = CStr(parts(0).Trim)
+            Dim LName = CStr(parts(1).Trim)
 
             Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
                 MysqlConn.Open()
@@ -342,7 +342,7 @@ Public Module MysqlInterface
                     End Using
                 End Using
             End Using
-        Catch
+        Catch ex As Exception
         End Try
         Return ""
 
