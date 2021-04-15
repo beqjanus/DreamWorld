@@ -324,8 +324,8 @@ Public Module MysqlInterface
 
         Try
             Dim parts As String() = AvatarName.Split(" ".ToCharArray())
-            Dim Fname = CStr(parts(0).Trim)
-            Dim LName = CStr(parts(1).Trim)
+            Dim Fname = parts(0).Trim
+            Dim LName = parts(1).Trim
 
             Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
                 MysqlConn.Open()

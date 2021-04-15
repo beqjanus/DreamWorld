@@ -502,8 +502,6 @@ Public Class FormSmartStart
             AviName.BackColor = Color.Red
         End If
 
-
-
         Seconds.Text = CStr(Settings.SmartStartTimeout)
         SetScreen()
 
@@ -1587,7 +1585,6 @@ Public Class FormSmartStart
 
     Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
 
-
         If Not _initialized Then Return
         If AviName.Text.Length > 0 Then
             AviName.BackColor = Color.White
@@ -1598,12 +1595,13 @@ Public Class FormSmartStart
             Settings.SaveSettings()
 
             If IsMySqlRunning() Then
-                Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";")
                 Dim AvatarUUID As String = GetAviUUUD(AviName.Text)
-                Settings.SetIni("SimSurround", "Owner", AvatarUUID)
-                Settings.SaveINI(INI, System.Text.Encoding.ASCII)
+                If AvatarUUID.Length > 0 Then
+                    Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";")
+                    Settings.SetIni("SimSurround", "Owner", AvatarUUID)
+                    Settings.SaveINI(INI, System.Text.Encoding.ASCII)
+                End If
             End If
-
         End If
 
     End Sub
