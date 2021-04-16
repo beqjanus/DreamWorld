@@ -35,6 +35,8 @@ Partial Class FormSmartStart
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.AviName = New System.Windows.Forms.TextBox()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -78,6 +80,7 @@ Partial Class FormSmartStart
         Me.Rand = New System.Windows.Forms.RadioButton()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Dogwood = New System.Windows.Forms.CheckBox()
         Me.FreezeButton = New System.Windows.Forms.Button()
         Me.None = New System.Windows.Forms.CheckBox()
         Me.RevertButton = New System.Windows.Forms.Button()
@@ -160,8 +163,6 @@ Partial Class FormSmartStart
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
         Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AviName = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -284,6 +285,22 @@ Partial Class FormSmartStart
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Smart Boot"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(647, 67)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(121, 13)
+        Me.Label11.TabIndex = 46
+        Me.Label11.Text = "Owner of Sim Surrounds"
+        '
+        'AviName
+        '
+        Me.AviName.Location = New System.Drawing.Point(650, 83)
+        Me.AviName.Name = "AviName"
+        Me.AviName.Size = New System.Drawing.Size(171, 20)
+        Me.AviName.TabIndex = 45
         '
         'PictureBox4
         '
@@ -700,6 +717,7 @@ Partial Class FormSmartStart
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Dogwood)
         Me.GroupBox1.Controls.Add(Me.FreezeButton)
         Me.GroupBox1.Controls.Add(Me.None)
         Me.GroupBox1.Controls.Add(Me.RevertButton)
@@ -738,6 +756,16 @@ Partial Class FormSmartStart
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Plants"
+        '
+        'Dogwood
+        '
+        Me.Dogwood.AutoSize = True
+        Me.Dogwood.Location = New System.Drawing.Point(235, 206)
+        Me.Dogwood.Name = "Dogwood"
+        Me.Dogwood.Size = New System.Drawing.Size(72, 17)
+        Me.Dogwood.TabIndex = 36
+        Me.Dogwood.Text = "Dogwood"
+        Me.Dogwood.UseVisualStyleBackColor = True
         '
         'FreezeButton
         '
@@ -1595,22 +1623,6 @@ Partial Class FormSmartStart
         Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
         '
-        'AviName
-        '
-        Me.AviName.Location = New System.Drawing.Point(650, 83)
-        Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(171, 20)
-        Me.AviName.TabIndex = 45
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(647, 67)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(121, 13)
-        Me.Label11.TabIndex = 46
-        Me.Label11.Text = "Owner of Sim Surrounds"
-        '
         'FormSmartStart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1801,4 +1813,5 @@ Partial Class FormSmartStart
     Friend WithEvents HelpPlantEditorToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents Label11 As Label
     Friend WithEvents AviName As TextBox
+    Friend WithEvents Dogwood As CheckBox
 End Class

@@ -3542,4 +3542,7 @@
   <data name="AnalyzeLogButton" xml:space="preserve">
     <value>Analyze Log</value>
   </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Trees and Plants</value>
+  </data>
 </root>

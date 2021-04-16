@@ -9,6 +9,7 @@ Remote Admin commands needed to start and stop regions added to Metropolis, OsGr
 Smart Start has choice for Estate Owner for [SimSurround] Landfill function. Landfill creates a water or land region surrounding any region with a person in it.
 More crashes detected by users, thank you for sending in the reports!: Icecast log folder may not have been created due to a missing .keep, This causes a crash when a log sweep occurs. 
 Region panel may open in detailed mode before mysql has started.
+Dogwood trees were missing from the Tree and Plant Selection, so it always tried to plant it as the default was True. Dogwood default is now off, and we also know that Dogwood is both a tree and a flower and is the state flower of Virginia. 
 
 V3.923
 Apache could be missing a default folder in OutworldzFiles\Logs\Apache due to a missing .keep, which I use to force git to keep the empty folder.

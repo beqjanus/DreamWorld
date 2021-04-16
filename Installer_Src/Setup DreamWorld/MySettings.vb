@@ -379,6 +379,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property AllPlants() As Boolean
+        Get
+            Return CType(GetMySetting("AllPlants", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("AllPlants", CStr(Value))
+        End Set
+    End Property
+
     Public Property AltDnsName() As String
         Get
             Dim AltDns As String = GetMySetting("AltDnsName", "")
@@ -833,6 +842,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -1447,6 +1474,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("NinjaRagdoll", CStr(Value))
+        End Set
+    End Property
+
+    Public Property NoPlants() As Boolean
+        Get
+            Return CType(GetMySetting("NoPlants", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("NoPlants", CStr(Value))
         End Set
     End Property
 
@@ -2197,24 +2233,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 

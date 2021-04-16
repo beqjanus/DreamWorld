@@ -9432,6 +9432,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Trees and Plants.
+        '''</summary>
+        Friend ReadOnly Property TreesAndPlants() As String
+            Get
+                Return ResourceManager.GetString("TreesAndPlants", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Troubleshooting.
         '''</summary>
         Friend ReadOnly Property Troubleshooting_word() As String

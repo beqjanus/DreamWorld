@@ -81,7 +81,20 @@ Public Class FormSmartStart
 
 #Region "Check boxes"
 
+    Public Sub PutSetting(name As String, value As Boolean)
+
+        If value Then
+            All.Checked = False
+            None.Checked = False
+        End If
+        Settings.SetMySetting(name, CStr(value))
+        Settings.SaveSettings()
+
+    End Sub
+
     Private Sub All_CheckedChanged(sender As Object, e As EventArgs) Handles All.CheckedChanged
+
+        Settings.AllPlants = True
 
         If All.Checked Then
             None.Checked = False
@@ -126,6 +139,9 @@ Public Class FormSmartStart
     Private Sub None_CheckedChanged(sender As Object, e As EventArgs) Handles None.CheckedChanged
 
         If None.Checked Then
+
+            Settings.NoPlants = True
+
             All.Checked = False
 
             ClrSetting(BeachGrass1)
@@ -213,6 +229,17 @@ Public Class FormSmartStart
 
     Private Sub Cypress2_Hover(sender As Object, e As EventArgs) Handles Cypress2.MouseHover
         Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
+    End Sub
+
+    Private Sub DogwoodCheckbox_CheckedChanged_1(sender As Object, e As EventArgs) Handles Dogwood.MouseHover
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PictureBox1.Image = GetPic(thing.Name)
+    End Sub
+
+    Private Sub DogwoodCheckboxCheckedChanged_1(sender As Object, e As EventArgs) Handles Dogwood.CheckedChanged
+        Dim thing As CheckBox = CType(sender, CheckBox)
+        PutSetting(thing.Name, thing.Checked)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
@@ -490,7 +517,7 @@ Public Class FormSmartStart
         Label1.Text = My.Resources.Enter_1_2
         TabPage1.Text = My.Resources.Smart_Start_word
         TabPage2.Text = My.Resources.Landscaping
-        TabPage3.Text = My.Resources.LandMaker
+        TabPage3.Text = My.Resources.TreesAndPlants
         ListBox2.SelectedIndex = Settings.Skirtsize - 1
 
         SmoothTextBox.Text = CStr(Settings.LandStrength)
@@ -552,6 +579,9 @@ Public Class FormSmartStart
         GetSetting(WinterAspen.Text)
         GetSetting(WinterPine1.Text)
         GetSetting(WinterPine2.Text)
+
+        All.Checked = Settings.AllPlants
+        None.Checked = Settings.NoPlants
 
         Select Case Settings.Skirtsize
             Case 1
@@ -636,7 +666,7 @@ Public Class FormSmartStart
         Dim b As Boolean
         Select Case Settings.GetMySetting(tree)
             Case ""
-                b = True
+                b = False
             Case "True"
                 b = True
             Case "False"
@@ -1202,10 +1232,6 @@ Public Class FormSmartStart
 
 #End Region
 
-#Region "All/None"
-
-#End Region
-
 #Region "PictureBox"
 
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyTerrainEffectButton.Click
@@ -1586,9 +1612,8 @@ Public Class FormSmartStart
     Private Sub AvatarNameTextBox_TextChanged(sender As Object, e As EventArgs) Handles AviName.TextChanged
 
         If Not _initialized Then Return
-        If AviName.Text.Length > 0 Then
-            AviName.BackColor = Color.White
-        End If
+        AviName.BackColor = Color.Red
+        If Not IsMySqlRunning() Then Return
 
         If AviName.Text.Length > 0 Then
             Settings.SurroundOwner = AviName.Text
@@ -1600,6 +1625,7 @@ Public Class FormSmartStart
                     Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";")
                     Settings.SetIni("SimSurround", "Owner", AvatarUUID)
                     Settings.SaveINI(INI, System.Text.Encoding.ASCII)
+                    AviName.BackColor = Color.White
                 End If
             End If
         End If

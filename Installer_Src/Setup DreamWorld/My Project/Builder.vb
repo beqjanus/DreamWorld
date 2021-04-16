@@ -7,13 +7,6 @@ Module Build
     Public TreeList As New List(Of String)
     Private _ctr As Integer
 
-    Public Sub PutSetting(name As String, value As Boolean)
-
-        Settings.SetMySetting(name, CStr(value))
-        Settings.SaveSettings()
-
-    End Sub
-
 #Region "Land"
 
     Public Sub GenLand(RegionUUID As String)
@@ -152,7 +145,9 @@ Module Build
                 UseTree.Add(t)
             End If
         Next
-        If UseTree.Count = 0 Then Return
+        If UseTree.Count = 0 Then
+            Return
+        End If
 
         If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
 
