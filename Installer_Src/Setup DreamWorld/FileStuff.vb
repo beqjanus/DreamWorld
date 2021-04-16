@@ -23,7 +23,8 @@ Module FileStuff
             "How_to_Start_and_Login.txt",
             "How_to_Compile.txt",
             "PRIVACYNOTICE.txt",
-            "Revisions.txt"
+            "Revisions.txt",
+            "ReadMe"
         }
 
         For Each N As String In ToDrop
@@ -37,7 +38,8 @@ Module FileStuff
         "\Outworldzfiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
         "\Outworldzfiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
         "\Outworldzfiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
-        "\Outworldzfiles\Opensim\bin\Library.proto" ' old Diva library for standalone only
+        "\Outworldzfiles\Opensim\bin\Library.proto", ' old Diva library for standalone only
+        "Readme"
         }
 
         If FormSetup.PropKillSource Then
@@ -47,6 +49,7 @@ Module FileStuff
             files.Add("Outworldzfiles\Opensim\Prebuild")
             files.Add("Outworldzfiles\Opensim\share")
             files.Add("Outworldzfiles\Opensim\Thirdparty")
+
         End If
 
         For Each N In files
