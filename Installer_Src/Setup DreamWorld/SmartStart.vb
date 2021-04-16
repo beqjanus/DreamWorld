@@ -430,7 +430,7 @@ Module SmartStart
 
         DoGloebits()
 
-        PropRegionClass.CopyOpensimProto(RegionUUID)
+        If PropRegionClass.CopyOpensimProto(RegionUUID) Then Return False
 
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
         Settings.Grep(ini, Settings.LogLevel)

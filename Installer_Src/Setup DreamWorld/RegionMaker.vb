@@ -1722,530 +1722,520 @@ Public Class RegionMaker
 
     Public Function CopyOpensimProto(uuid As String) As Boolean
 
-        '============== Opensim.ini =====================
-        Dim OpensimPathName = OpensimIniPath(uuid)
-        Dim Name = RegionName(uuid)
-        Dim Group = GroupName(uuid)
+        Try
+            '============== Opensim.ini =====================
+            Dim OpensimPathName = OpensimIniPath(uuid)
+            Dim Name = RegionName(uuid)
+            Dim Group = GroupName(uuid)
 
-        ' copy the prototype to the regions Opensim.ini
+            ' copy the prototype to the regions Opensim.ini
 
-        CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
-        Sleep(10)
+            CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
+            Sleep(10) ' this should not be necessary but it is on some file systames
 
-        Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
-        If INI Is Nothing Then Return True
+            Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
+            If INI Is Nothing Then Return True
 
-        If Settings.StatusInterval > 0 Then
-            Settings.SetIni("Startup", "timer_Script", "debug.txt")
-            Settings.SetIni("Startup", "timer_Interval", CStr(Settings.StatusInterval))
-        Else
-            Settings.SetIni("Startup", "timer_Script", "")
-            Settings.SetIni("Startup", "timer_Interval", "1200")
-        End If
-
-        Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid)))
-        Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID)
-
-        Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) '8003
-        Settings.SetIni("Const", "RegionFolderName", GroupName(uuid))
-        Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName)
-        Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
-        Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.LANIP())) ' local IP
-        Settings.SetIni("Const", "http_listener_port", CStr(GroupPort(uuid))) ' varies with region
-
-        Select Case Settings.ServerType
-            Case RobustServerName
-                SetupOpensimSearchINI()
-                Settings.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
-                Settings.SetIni("Const", "GridName", Settings.SimName)
-                SetupOpensimIM()
-            Case RegionServerName
-                SetupOpensimSearchINI()
-                SetupOpensimIM()
-            Case OsgridServer
-            Case MetroServer
-        End Select
-
-        If Settings.CMS = JOpensim Then
-            Settings.SetIni("UserProfiles", "ProfileServiceURL", "")
-            Settings.SetIni("Groups", "Module", "GroupsModule")
-            Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """")
-            Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule")
-            Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface")
-        End If
-
-        Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
-
-        ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
-        ' support this feature
-
-        Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache))
-
-        'ScriptEngine
-        Settings.SetIni("Startup", "DefaultScriptEngine", Settings.ScriptEngine)
-
-        If Settings.ScriptEngine = "XEngine" Then
-            Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
-            Settings.SetIni("XEngine", "Enabled", "True")
-            Settings.SetIni("YEngine", "Enabled", "False")
-        Else
-            Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
-            Settings.SetIni("XEngine", "Enabled", "False")
-            Settings.SetIni("YEngine", "Enabled", "True")
-        End If
-
-        ' set new Min Timer Interval for how fast a script can go.
-        Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
-        Settings.SetIni("YEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval))
-
-        ' all grids requires these setting in Opensim.ini
-        Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
-
-        ' Get Opensimulator Scripts to date if needed
-        If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
-            WipeScripts(True)
-            Settings.DeleteScriptsOnStartupLevel() = PropSimVersion ' we have scripts cleared to proper Opensim Version
-        Else
-            Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False")
-        End If
-
-        If Settings.LSLHTTP Then
-            ' do nothing - let them edit it
-        Else
-            Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.LANIP() & ":" & Settings.DiagnosticPort & "|" & Settings.LANIP() & ":" & Settings.HttpPort)
-        End If
-
-        Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits))
-
-        If Settings.Primlimits Then
-            Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule")
-        Else
-            Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule")
-        End If
-
-        If Settings.GloebitsEnable Then
-            Settings.SetIni("Startup", "economymodule", "Gloebit")
-            Settings.SetIni("Economy", "CurrencyURL", "")
-        ElseIf Settings.CMS = JOpensim Then
-            Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule")
-            Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface")
-        Else
-            Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
-            Settings.SetIni("Economy", "CurrencyURL", "")
-        End If
-
-        ' Main Frame time
-        ' This defines the rate of several simulation events.
-        ' Default value should meet most needs.
-        ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
-        'FrameTime = 0.0909
-
-        Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Globalization.CultureInfo.InvariantCulture))
-
-        ' LSL emails
-        Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
-        Settings.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort))
-        Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
-        Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
-        Settings.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName)
-
-        ' the old Clouds
-        If Settings.Clouds Then
-            Settings.SetIni("Cloud", "enabled", "True")
-            Settings.SetIni("Cloud", "density", CStr(Settings.Density))
-        Else
-            Settings.SetIni("Cloud", "enabled", "False")
-        End If
-
-        ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 = BulletSim with
-        ' threads 4 = ubODE
-
-        Select Case Settings.Physics
-            Case 0
-                Settings.SetIni("Startup", "meshing", "ZeroMesher")
-                Settings.SetIni("Startup", "physics", "basicphysics")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False")
-            Case 1
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll))
-            Case 2
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False")
-            Case 3
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False")
-            Case 4
-                Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll))
-            Case 5
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll))
-            Case Else
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-                Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False")
-        End Select
-
-        Settings.SetIni("Map", "RenderMaxHeight", CStr(Settings.RenderMaxHeight))
-        Settings.SetIni("Map", "RenderMinHeight", CStr(Settings.RenderMinHeight))
-
-        If Settings.MapType = "None" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "False")
-        ElseIf Settings.MapType = "Simple" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Settings.MapType = "Good" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "False")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "False")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Settings.MapType = "Better" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "True")         ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
-            Settings.SetIni("Map", "TexturePrims", "False")
-            Settings.SetIni("Map", "RenderMeshes", "False")
-        ElseIf Settings.MapType = "Best" Then
-            Settings.SetIni("Map", "GenerateMaptiles", "True")
-            Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni("Map", "TextureOnMapTile", "True")      ' versus true
-            Settings.SetIni("Map", "DrawPrimOnMapTile", "True")
-            Settings.SetIni("Map", "TexturePrims", "True")
-            Settings.SetIni("Map", "RenderMeshes", "True")
-        End If
-
-        ' Voice
-        If Settings.VivoxEnabled Then
-            Settings.SetIni("VivoxVoice", "enabled", "True")
-        Else
-            Settings.SetIni("VivoxVoice", "enabled", "False")
-        End If
-        Settings.SetIni("VivoxVoice", "vivox_admin_user", Settings.VivoxUserName)
-        Settings.SetIni("VivoxVoice", "vivox_admin_password", Settings.VivoxPassword)
-
-        ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
-        Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
-        If MinTimerInterval(uuid).Length > 0 Then
-            If Not Double.TryParse(MinTimerInterval(uuid), Xtime) Then
-                Xtime = 1.0 / 11.0
+            If Settings.StatusInterval > 0 Then
+                If Settings.SetIni("Startup", "timer_Script", "debug.txt") Then Return True
+                If Settings.SetIni("Startup", "timer_Interval", CStr(Settings.StatusInterval)) Then Return True
+            Else
+                If Settings.SetIni("Startup", "timer_Script", "") Then Return True
+                If Settings.SetIni("Startup", "timer_Interval", "1200") Then Return True
             End If
-        End If
-        Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture))
 
-        ' Gloebit
-        Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
-        Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
-        Settings.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM))
-        Settings.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage))
+            If Settings.SetIni("RemoteAdmin", "port", CStr(GroupPort(uuid))) Then Return True
+            If Settings.SetIni("RemoteAdmin", "access_password", Settings.MachineID) Then Return True
+            If Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort)) Then Return True
+            If Settings.SetIni("Const", "RegionFolderName", GroupName(uuid)) Then Return True
+            If Settings.SetIni("Const", "BaseHostname", Settings.BaseHostName) Then Return True
+            If Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) Then Return True ' 8002
+            If Settings.SetIni("Const", "PrivURL", "http://" & CStr(Settings.LANIP())) Then Return True ' local IP
+            If Settings.SetIni("Const", "http_listener_port", CStr(GroupPort(uuid))) Then Return True ' varies with region
 
-        If Settings.GloebitsMode Then
-            Settings.SetIni("Gloebit", "GLBEnvironment", "production")
-            Settings.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
-            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
-        Else
-            Settings.SetIni("Gloebit", "GLBEnvironment", "sandbox")
-            Settings.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
-            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
-        End If
-
-        Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
-        Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
-
-        If Settings.ServerType = RobustServerName Then
-            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
-        Else
-            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
-        End If
-
-        ' Autobackup
-        Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
-
-        If Settings.AutoBackup And String.IsNullOrEmpty((uuid)) Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "True")
-        End If
-
-        If Settings.AutoBackup And SkipAutobackup(uuid) = "True" Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
-        End If
-
-        If Not Settings.AutoBackup Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
-        End If
-
-        If Not Settings.BackupOARs Then
-            Settings.SetIni("AutoBackupModule", "AutoBackup", "False")
-        End If
-
-        Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval)
-        Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays))
-        Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath())
-
-        Select Case Physics(uuid)
-            Case ""
-
-            Case "0"
-                Settings.SetIni("Startup", "meshing", "ZeroMesher")
-                Settings.SetIni("Startup", "physics", "basicphysics")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "1"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "OpenDynamicsEngine")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "2"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "3"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "BulletSim")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True")
-            Case "4"
-                Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case "5"
-                Settings.SetIni("Startup", "meshing", "Meshmerizer")
-                Settings.SetIni("Startup", "physics", "ubODE")
-                Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False")
-            Case Else
-                ' do nothing
-        End Select
-
-        'Gods
-        If String.IsNullOrEmpty(GodDefault(uuid)) _
-            Or GodDefault(uuid) = "False" Then
-
-            Select Case AllowGods(uuid)
-                Case ""
-                    Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods))
-                Case "False"
-                    Settings.SetIni("Permissions", "allow_grid_gods", "False")
-                Case "True"
-                    Settings.SetIni("Permissions", "allow_grid_gods", "True")
+            Select Case Settings.ServerType
+                Case RobustServerName
+                    SetupOpensimSearchINI()
+                    If Settings.SetIni("Const", "PrivURL", "http://" & Settings.LANIP()) Then Return True
+                    If Settings.SetIni("Const", "GridName", Settings.SimName) Then Return True
+                    SetupOpensimIM()
+                Case RegionServerName
+                    SetupOpensimSearchINI()
+                    SetupOpensimIM()
+                Case OsgridServer
+                Case MetroServer
             End Select
 
-            Select Case RegionGod(uuid)
-                Case ""
-                    Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod))
-                Case "False"
-                    Settings.SetIni("Permissions", "region_owner_is_god", "False")
-                Case "True"
-                    Settings.SetIni("Permissions", "region_owner_is_god", "True")
-            End Select
+            If Settings.CMS = JOpensim Then
+                If Settings.SetIni("UserProfiles", "ProfileServiceURL", "") Then Return True
+                If Settings.SetIni("Groups", "Module", "GroupsModule") Then Return True
+                If Settings.SetIni("Groups", "ServicesConnectorModule", """" & "XmlRpcGroupsServicesConnector" & """") Then Return True
+                If Settings.SetIni("Groups", "MessagingModule", "GroupsMessagingModule") Then Return True
+                If Settings.SetIni("Groups", "GroupsServerURI", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=interface") Then Return True
+            End If
 
-            Select Case ManagerGod(uuid)
-                Case ""
-                    Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod))
-                Case "False"
-                    Settings.SetIni("Permissions", "region_manager_is_god", "False")
-                Case "True"
-                    Settings.SetIni("Permissions", "region_manager_is_god", "True")
-            End Select
-        Else
-            Settings.SetIni("Permissions", "allow_grid_gods", "False")
-            Settings.SetIni("Permissions", "region_manager_is_god", "False")
-            Settings.SetIni("Permissions", "allow_grid_gods", "True")
-        End If
+            If Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort)) Then Return True
 
-        ' Prims
+            ' Support viewers object cache, default true users may need to reduce viewer bandwidth if some prims Or terrain parts fail to rez. change to false if you need to use old viewers that do Not
+            ' support this feature
 
-        If NonPhysicalPrimMax(uuid).Length > 0 Then
-            Settings.SetIni("Startup", "NonPhysicalPrimMax", CStr(NonPhysicalPrimMax(uuid)))
-        End If
+            If Settings.SetIni("ClientStack.LindenUDP", "SupportViewerObjectsCache", CStr(Settings.SupportViewerObjectsCache)) Then Return True
 
-        If PhysicalPrimMax(uuid).Length > 0 Then
-            Settings.SetIni("Startup", "PhysicalPrimMax", CStr(PhysicalPrimMax(uuid)))
-        End If
+            'ScriptEngine
+            If Settings.SetIni("Startup", "DefaultScriptEngine", Settings.ScriptEngine) Then Return True
+            If Settings.ScriptEngine = "XEngine" Then
+                If Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine") Then Return True
+                If Settings.SetIni("XEngine", "Enabled", "True") Then Return True
+                If Settings.SetIni("YEngine", "Enabled", "False") Then Return True
+            Else
+                If Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine") Then Return True
+                If Settings.SetIni("XEngine", "Enabled", "False") Then Return True
+                If Settings.SetIni("YEngine", "Enabled", "True") Then Return True
+            End If
 
-        If MinTimerInterval(uuid).Length > 0 Then
-            Settings.SetIni("XEngine", "MinTimerInterval", CStr(MinTimerInterval(uuid)))
-        End If
+            ' set new Min Timer Interval for how fast a script can go.
+            If Settings.SetIni("XEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval)) Then Return True
+            If Settings.SetIni("YEngine", "MinTimerInterval", CStr(Settings.MinTimerInterval)) Then Return True
 
-        If FrameTime(uuid).Length > 0 Then
-            Settings.SetIni("Startup", "FrameTime", CStr(FrameTime(uuid)))
-        End If
+            ' all grids requires these setting in Opensim.ini
+            If Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort)) Then Return True
 
-        If DisallowForeigners(uuid) = "True" Then
-            Settings.SetIni("DisallowForeigners", "Enabled", CStr(DisallowForeigners(uuid)))
-        End If
+            ' Get Opensimulator Scripts to date if needed
+            If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
+                WipeScripts(True)
+                Settings.DeleteScriptsOnStartupLevel() = PropSimVersion ' we have scripts cleared to proper Opensim Version
+            Else
+                If Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False") Then Return True
+            End If
 
-        If DisallowResidents(uuid) = "True" Then
-            Settings.SetIni("DisallowResidents", "Enabled", CStr(DisallowResidents(uuid)))
-        End If
+            If Not Settings.LSLHTTP Then
+                If Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.LANIP() & ":" & Settings.DiagnosticPort & "|" & Settings.LANIP() & ":" & Settings.HttpPort) Then Return True
+            End If
 
-        ' replace with a PHP module
-        If DisableGloebits(uuid) = "True" Then
-            Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule")
-        End If
+            If Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits)) Then Return True
+            If Settings.Primlimits Then
+                If Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule, PrimLimitsModule") Then Return True
+            Else
+                If Settings.SetIni("Permissions", "permissionmodules", "DefaultPermissionsModule") Then Return True
+            End If
 
-        ' Search
-        Select Case Snapshot(uuid)
-            Case ""
-                Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled))
-            Case "True"
-                Settings.SetIni("DataSnapshot", "index_sims", "True")
-            Case "False"
-                Settings.SetIni("DataSnapshot", "index_sims", "False")
-        End Select
+            If Settings.GloebitsEnable Then
+                If Settings.SetIni("Startup", "economymodule", "Gloebit") Then Return True
+                If Settings.SetIni("Economy", "CurrencyURL", "") Then Return True
+            ElseIf Settings.CMS = JOpensim Then
+                If Settings.SetIni("Startup", "economymodule", "jOpenSimMoneyModule") Then Return True
+                If Settings.SetIni("Economy", "CurrencyURL", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim&view=interface") Then Return True
+            Else
+                If Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule") Then Return True
+                If Settings.SetIni("Economy", "CurrencyURL", "") Then Return True
+            End If
 
-        'ScriptEngine Overrides
-        If ScriptEngine(uuid) = "XEngine" Then
-            Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine")
-            Settings.SetIni("XEngine", "Enabled", "True")
-            Settings.SetIni("YEngine", "Enabled", "False")
-        End If
+            ' Main Frame time
+            ' This defines the rate of several simulation events.
+            ' Default value should meet most needs.
+            ' It can be reduced To improve the simulation Of moving objects, with possible increase of CPU and network loads.
+            'FrameTime = 0.0909
 
-        If ScriptEngine(uuid) = "YEngine" Then
-            Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine")
-            Settings.SetIni("XEngine", "Enabled", "False")
-            Settings.SetIni("YEngine", "Enabled", "True")
-        End If
+            If Settings.SetIni("Startup", "FrameTime", Convert.ToString(1 / 11, Globalization.CultureInfo.InvariantCulture)) Then Return True
 
-        If Settings.Concierge Then
-            Select Case Concierge(uuid)
-                Case ""
-                    Settings.SetIni("Concierge", "enabled", "False")
-                Case "True"
-                    Settings.SetIni("Concierge", "enabled", Concierge(uuid))
-                Case "False"
-                    Settings.SetIni("Concierge", "enabled", "False")
-            End Select
-        End If
+            ' LSL emails
+            If Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost) Then Return True
+            If Settings.SetIni("SMTP", "SMTP_SERVER_PORT", CStr(Settings.SmtpPort)) Then Return True
+            If Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName) Then Return True
+            If Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword) Then Return True
+            If Settings.SetIni("SMTP", "host_domain_header_from", Settings.BaseHostName) Then Return True
 
-        Settings.SetIni("Startup", "Enabled", SmartStart(uuid))
+            ' the old Clouds
+            If Settings.Clouds Then
+                If Settings.SetIni("Cloud", "enabled", "True") Then Return True
+                If Settings.SetIni("Cloud", "density", CStr(Settings.Density)) Then Return True
+            Else
+                If Settings.SetIni("Cloud", "enabled", "False") Then Return True
+            End If
 
-        Settings.SaveINI(INI, System.Text.Encoding.UTF8)
+            ' Physics choices for meshmerizer, where ODE requires a special one ZeroMesher meshing = Meshmerizer meshing = ubODEMeshmerizer 0 = none 1 = OpenDynamicsEngine 2 = BulletSim 3 = BulletSim with
+            ' threads 4 = ubODE
 
-        '============== Region.ini =====================
-        ' Region.ini in Region Folder specific to this region
-        INI = Settings.LoadIni(RegionIniFilePath(uuid), ";")
-        If INI Is Nothing Then Return True
-
-        Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid)))
-        Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName())
-        Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid)))
-
-        ' not a standard only use by the Dreamers
-        If RegionEnabled(uuid) Then
-            Settings.SetIni(Name, "Enabled", "True")
-        Else
-            Settings.SetIni(Name, "Enabled", "False")
-        End If
-
-        Select Case NonPhysicalPrimMax(uuid)
-            Case ""
-                Settings.SetIni(Name, "NonPhysicalPrimMax", CStr(1024))
-            Case Else
-                Settings.SetIni(Name, "NonPhysicalPrimMax", NonPhysicalPrimMax(uuid))
-        End Select
-
-        Select Case PhysicalPrimMax(uuid)
-            Case ""
-                Settings.SetIni(Name, "PhysicalPrimMax", CStr(64))
-            Case Else
-                Settings.SetIni(Name, "PhysicalPrimMax", PhysicalPrimMax(uuid))
-        End Select
-
-        If Settings.Primlimits Then
-            Select Case MaxPrims(uuid)
-                Case ""
-                    Settings.SetIni(Name, "MaxPrims", CStr(45000))
+            Select Case Settings.Physics
+                Case 0
+                    If Settings.SetIni("Startup", "meshing", "ZeroMesher") Then Return True
+                    If Settings.SetIni("Startup", "physics", "basicphysics") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                    If Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
+                Case 1
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "OpenDynamicsEngine") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                    If Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
+                Case 2
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "BulletSim") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                    If Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
+                Case 3
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "BulletSim") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True") Then Return True
+                    If Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
+                Case 4
+                    If Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "ubODE") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                    If Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
+                Case 5
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "ubODE") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                    If Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", CStr(Settings.NinjaRagdoll)) Then Return True
                 Case Else
-                    Settings.SetIni(Name, "MaxPrims", MaxPrims(uuid))
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "BulletSim") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True") Then Return True
+                    If Settings.SetIni("ODEPhysicsSettings", "use_NINJA_physics_joints", "False") Then Return True
             End Select
-        Else
-            Select Case MaxPrims(uuid)
-                Case ""
-                    Settings.SetIni(Name, "MaxPrims", CStr(45000))
+
+            If Settings.SetIni("Map", "RenderMaxHeight", CStr(Settings.RenderMaxHeight)) Then Return True
+            If Settings.SetIni("Map", "RenderMinHeight", CStr(Settings.RenderMinHeight)) Then Return True
+            If Settings.MapType = "None" Then
+                If Settings.SetIni("Map", "GenerateMaptiles", "False") Then Return True
+            ElseIf Settings.MapType = "Simple" Then
+                If Settings.SetIni("Map", "GenerateMaptiles", "True") Then Return True
+                If Settings.SetIni("Map", "MapImageModule", "MapImageModule") Then Return True  ' versus Warp3DImageModule
+                If Settings.SetIni("Map", "TextureOnMapTile", "False") Then Return True         ' versus true
+                If Settings.SetIni("Map", "DrawPrimOnMapTile", "False") Then Return True
+                If Settings.SetIni("Map", "TexturePrims", "False") Then Return True
+                If Settings.SetIni("Map", "RenderMeshes", "False") Then Return True
+            ElseIf Settings.MapType = "Good" Then
+                If Settings.SetIni("Map", "GenerateMaptiles", "True") Then Return True
+                If Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule") Then Return True  ' versus MapImageModule
+                If Settings.SetIni("Map", "TextureOnMapTile", "False") Then Return True         ' versus true
+                If Settings.SetIni("Map", "DrawPrimOnMapTile", "False") Then Return True
+                If Settings.SetIni("Map", "TexturePrims", "False") Then Return True
+                If Settings.SetIni("Map", "RenderMeshes", "False") Then Return True
+            ElseIf Settings.MapType = "Better" Then
+                If Settings.SetIni("Map", "GenerateMaptiles", "True") Then Return True
+                If Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule") Then Return True  ' versus MapImageModule
+                If Settings.SetIni("Map", "TextureOnMapTile", "True") Then Return True         ' versus true
+                If Settings.SetIni("Map", "DrawPrimOnMapTile", "True") Then Return True
+                If Settings.SetIni("Map", "TexturePrims", "False") Then Return True
+                If Settings.SetIni("Map", "RenderMeshes", "False") Then Return True
+            ElseIf Settings.MapType = "Best" Then
+                If Settings.SetIni("Map", "GenerateMaptiles", "True") Then Return True
+                If Settings.SetIni("Map", "MapImageModule", "Warp3DImageModule") Then Return True  ' versus MapImageModule
+                If Settings.SetIni("Map", "TextureOnMapTile", "True") Then Return True      ' versus true
+                If Settings.SetIni("Map", "DrawPrimOnMapTile", "True") Then Return True
+                If Settings.SetIni("Map", "TexturePrims", "True") Then Return True
+                If Settings.SetIni("Map", "RenderMeshes", "True") Then Return True
+            End If
+
+            ' Voice
+            If Settings.VivoxEnabled Then
+                If Settings.SetIni("VivoxVoice", "enabled", "True") Then Return True
+            Else
+                If Settings.SetIni("VivoxVoice", "enabled", "False") Then Return True
+            End If
+
+            If Settings.SetIni("VivoxVoice", "vivox_admin_user", Settings.VivoxUserName) Then Return True
+            If Settings.SetIni("VivoxVoice", "vivox_admin_password", Settings.VivoxPassword) Then Return True
+
+            ' set new Min Timer Interval for how fast a script can go. Can be set in region files as a float, or nothing
+            Dim Xtime As Double = 1 / 11   '1/11 of a second is as fast as she can go
+            If MinTimerInterval(uuid).Length > 0 Then
+                If Not Double.TryParse(MinTimerInterval(uuid), Xtime) Then
+                    Xtime = 0.0909
+                End If
+            End If
+
+            If Settings.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture)) Then Return True
+            If Settings.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture)) Then Return True
+
+            ' Gloebit
+            If Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable)) Then Return True
+            If Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM)) Then Return True
+            If Settings.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM)) Then Return True
+            If Settings.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage)) Then Return True
+
+            If Settings.GloebitsMode Then
+                If Settings.SetIni("Gloebit", "GLBEnvironment", "production") Then Return True
+                If Settings.SetIni("Gloebit", "GLBKey", Settings.GLProdKey) Then Return True
+                If Settings.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret) Then Return True
+            Else
+                If Settings.SetIni("Gloebit", "GLBEnvironment", "sandbox") Then Return True
+                If Settings.SetIni("Gloebit", "GLBKey", Settings.GLSandKey) Then Return True
+                If Settings.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret) Then Return True
+            End If
+
+            If Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName) Then Return True
+            If Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail) Then Return True
+            If Settings.ServerType = RobustServerName Then
+                If Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection) Then Return True
+            Else
+                If Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection) Then Return True
+            End If
+
+            ' Autobackup
+            If Settings.SetIni("AutoBackupModule", "AutoBackup", "True") Then Return True
+            If Settings.AutoBackup And String.IsNullOrEmpty((uuid)) Then Return True
+            If Settings.SetIni("AutoBackupModule", "AutoBackup", "True") Then Return True
+
+            If Settings.AutoBackup And SkipAutobackup(uuid) = "True" Then
+                If Settings.SetIni("AutoBackupModule", "AutoBackup", "False") Then Return True
+            End If
+            If Not Settings.AutoBackup Then
+                If Settings.SetIni("AutoBackupModule", "AutoBackup", "False") Then Return True
+            End If
+
+            If Not Settings.BackupOARs Then
+                If Settings.SetIni("AutoBackupModule", "AutoBackup", "False") Then Return True
+            End If
+
+            If Settings.SetIni("AutoBackupModule", "AutoBackupInterval", Settings.AutobackupInterval) Then Return True
+            If Settings.SetIni("AutoBackupModule", "AutoBackupKeepFilesForDays", CStr(Settings.KeepForDays)) Then Return True
+            If Settings.SetIni("AutoBackupModule", "AutoBackupDir", BackupPath()) Then Return True
+
+            Select Case Physics(uuid)
+                Case "0"
+                    If Settings.SetIni("Startup", "meshing", "ZeroMesher") Then Return True
+                    If Settings.SetIni("Startup", "physics", "basicphysics") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                Case "1"
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "OpenDynamicsEngine") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                Case "2"
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "BulletSim") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                Case "3"
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "BulletSim") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "True") Then Return True
+                Case "4"
+                    If Settings.SetIni("Startup", "meshing", "ubODEMeshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "ubODE") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
+                Case "5"
+                    If Settings.SetIni("Startup", "meshing", "Meshmerizer") Then Return True
+                    If Settings.SetIni("Startup", "physics", "ubODE") Then Return True
+                    If Settings.SetIni("Startup", "UseSeparatePhysicsThread", "False") Then Return True
                 Case Else
-                    Settings.SetIni(Name, "MaxPrims", MaxPrims(uuid))
+                    ' do nothing
             End Select
-        End If
 
-        Select Case MaxAgents(uuid)
-            Case ""
-                Settings.SetIni(Name, "MaxAgents", CStr(100))
-            Case Else
-                Settings.SetIni(Name, "MaxAgents", MaxAgents(uuid))
-        End Select
+            'Gods
+            If String.IsNullOrEmpty(GodDefault(uuid)) Or GodDefault(uuid) = "False" Then
 
-        ' Maps
-        If MapType(uuid) = "None" Then
-            Settings.SetIni(Name, "GenerateMaptiles", "False")
-        ElseIf MapType(uuid) = "Simple" Then
-            Settings.SetIni(Name, "GenerateMaptiles", "True")
-            Settings.SetIni(Name, "MapImageModule", "MapImageModule")  ' versus Warp3DImageModule
-            Settings.SetIni(Name, "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni(Name, "DrawPrimOnMapTile", "False")
-            Settings.SetIni(Name, "TexturePrims", "False")
-            Settings.SetIni(Name, "RenderMeshes", "False")
-        ElseIf MapType(uuid) = "Good" Then
-            Settings.SetIni(Name, "GenerateMaptiles", "True")
-            Settings.SetIni(Name, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(Name, "TextureOnMapTile", "False")         ' versus True
-            Settings.SetIni(Name, "DrawPrimOnMapTile", "False")
-            Settings.SetIni(Name, "TexturePrims", "False")
-            Settings.SetIni(Name, "RenderMeshes", "False")
-        ElseIf MapType(uuid) = "Better" Then
-            Settings.SetIni(Name, "GenerateMaptiles", "True")
-            Settings.SetIni(Name, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(Name, "TextureOnMapTile", "True")         ' versus True
-            Settings.SetIni(Name, "DrawPrimOnMapTile", "True")
-            Settings.SetIni(Name, "TexturePrims", "False")
-            Settings.SetIni(Name, "RenderMeshes", "False")
-        ElseIf MapType(uuid) = "Best" Then
-            Settings.SetIni(Name, "GenerateMaptiles", "True")
-            Settings.SetIni(Name, "MapImageModule", "Warp3DImageModule")  ' versus MapImageModule
-            Settings.SetIni(Name, "TextureOnMapTile", "True")      ' versus True
-            Settings.SetIni(Name, "DrawPrimOnMapTile", "True")
-            Settings.SetIni(Name, "TexturePrims", "True")
-            Settings.SetIni(Name, "RenderMeshes", "True")
-        Else
-            Settings.SetIni(Name, "GenerateMaptiles", "")
-            Settings.SetIni(Name, "MapImageModule", "")  ' versus MapImageModule
-            Settings.SetIni(Name, "TextureOnMapTile", "")      ' versus True
-            Settings.SetIni(Name, "DrawPrimOnMapTile", "")
-            Settings.SetIni(Name, "TexturePrims", "")
-            Settings.SetIni(Name, "RenderMeshes", "")
-        End If
+                Select Case AllowGods(uuid)
+                    Case ""
+                        If Settings.SetIni("Permissions", "allow_grid_gods", CStr(Settings.AllowGridGods)) Then Return True
+                    Case "False"
+                        If Settings.SetIni("Permissions", "allow_grid_gods", "False") Then Return True
+                    Case "True"
+                        If Settings.SetIni("Permissions", "allow_grid_gods", "True") Then Return True
+                End Select
 
-        'Options and overrides
+                Select Case RegionGod(uuid)
+                    Case ""
+                        If Settings.SetIni("Permissions", "region_owner_is_god", CStr(Settings.RegionOwnerIsGod)) Then Return True
+                    Case "False"
+                        If Settings.SetIni("Permissions", "region_owner_is_god", "False") Then Return True
+                    Case "True"
+                        If Settings.SetIni("Permissions", "region_owner_is_god", "True") Then Return True
+                End Select
 
-        Settings.SetIni(Name, "Concierge", Concierge(uuid))
-        Settings.SetIni(Name, "DisableGloebits", DisableGloebits(uuid))
-        Settings.SetIni(Name, "RegionSnapShot", RegionSnapShot(uuid))
-        Settings.SetIni(Name, "Birds", Birds(uuid))
-        Settings.SetIni(Name, "Tides", Tides(uuid))
-        Settings.SetIni(Name, "Teleport", Teleport(uuid))
-        Settings.SetIni(Name, "DisallowForeigners", DisallowForeigners(uuid))
-        Settings.SetIni(Name, "DisallowResidents", DisallowResidents(uuid))
-        Settings.SetIni(Name, "SkipAutoBackup", SkipAutobackup(uuid))
-        Settings.SetIni(Name, "Physics", Physics(uuid))
-        Settings.SetIni(Name, "FrameTime", FrameTime(uuid))
+                Select Case ManagerGod(uuid)
+                    Case ""
+                        If Settings.SetIni("Permissions", "region_manager_is_god", CStr(Settings.RegionManagerIsGod)) Then Return True
+                    Case "False"
+                        If Settings.SetIni("Permissions", "region_manager_is_god", "False") Then Return True
+                    Case "True"
+                        If Settings.SetIni("Permissions", "region_manager_is_god", "True") Then Return True
+                End Select
+            Else
+                If Settings.SetIni("Permissions", "allow_grid_gods", "False") Then Return True
+                If Settings.SetIni("Permissions", "region_manager_is_god", "False") Then Return True
+                If Settings.SetIni("Permissions", "allow_grid_gods", "True") Then Return True
+            End If
 
-        Settings.SaveINI(INI, System.Text.Encoding.UTF8)
+            If NonPhysicalPrimMax(uuid).Length > 0 Then
+                If Settings.SetIni("Startup", "NonPhysicalPrimMax", CStr(NonPhysicalPrimMax(uuid))) Then Return True
+            End If
 
-        Settings.SaveSettings()
+            If PhysicalPrimMax(uuid).Length > 0 Then
+                If Settings.SetIni("Startup", "PhysicalPrimMax", CStr(PhysicalPrimMax(uuid))) Then Return True
+            End If
+
+            If MinTimerInterval(uuid).Length > 0 Then
+                If Settings.SetIni("XEngine", "MinTimerInterval", CStr(MinTimerInterval(uuid))) Then Return True
+            End If
+
+            If FrameTime(uuid).Length > 0 Then
+                If Settings.SetIni("Startup", "FrameTime", CStr(FrameTime(uuid))) Then Return True
+            End If
+
+            If DisallowForeigners(uuid) = "True" Then
+                If Settings.SetIni("DisallowForeigners", "Enabled", CStr(DisallowForeigners(uuid))) Then Return True
+            End If
+
+            If DisallowResidents(uuid) = "True" Then
+                If Settings.SetIni("DisallowResidents", "Enabled", CStr(DisallowResidents(uuid))) Then Return True
+            End If
+
+            ' TODO replace with a PHP module?
+            If DisableGloebits(uuid) = "True" Then
+                If Settings.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule") Then Return True
+            End If
+
+            ' Search
+            Select Case Snapshot(uuid)
+                Case ""
+                    If Settings.SetIni("DataSnapshot", "index_sims", CStr(Settings.SearchEnabled)) Then Return True
+                Case "True"
+                    If Settings.SetIni("DataSnapshot", "index_sims", "True") Then Return True
+                Case "False"
+                    If Settings.SetIni("DataSnapshot", "index_sims", "False") Then Return True
+            End Select
+
+            'ScriptEngine Overrides
+            If ScriptEngine(uuid) = "XEngine" Then
+                If Settings.SetIni("Startup", "DefaultScriptEngine", "XEngine") Then Return True
+                If Settings.SetIni("XEngine", "Enabled", "True") Then Return True
+                If Settings.SetIni("YEngine", "Enabled", "False") Then Return True
+            ElseIf ScriptEngine(uuid) = "YEngine" Then
+                If Settings.SetIni("Startup", "DefaultScriptEngine", "YEngine") Then Return True
+                If Settings.SetIni("XEngine", "Enabled", "False") Then Return True
+                If Settings.SetIni("YEngine", "Enabled", "True") Then Return True
+            End If
+
+            If Settings.Concierge Then
+                Select Case Concierge(uuid)
+                    Case ""
+                        If Settings.SetIni("Concierge", "enabled", "False") Then Return True
+                    Case "True"
+                        If Settings.SetIni("Concierge", "enabled", Concierge(uuid)) Then Return True
+                    Case "False"
+                        If Settings.SetIni("Concierge", "enabled", "False") Then Return True
+                End Select
+            End If
+
+            If Settings.SetIni("Startup", "Enabled", SmartStart(uuid)) Then Return True
+
+            Settings.SaveINI(INI, System.Text.Encoding.UTF8)
+
+            '============== Region.ini =====================
+            ' Region.ini in Region Folder specific to this region
+            INI = Settings.LoadIni(RegionIniFilePath(uuid), ";")
+            If INI Is Nothing Then Return True
+
+            If Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid))) Then Return True
+            If Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName()) Then Return True
+            If Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid))) Then Return True
+
+            ' not a standard only use by the Dreamers
+            If RegionEnabled(uuid) Then
+                If Settings.SetIni(Name, "Enabled", "True") Then Return True
+            Else
+                If Settings.SetIni(Name, "Enabled", "False") Then Return True
+            End If
+
+            Select Case NonPhysicalPrimMax(uuid)
+                Case ""
+                    If Settings.SetIni(Name, "NonPhysicalPrimMax", CStr(1024)) Then Return True
+                Case Else
+                    If Settings.SetIni(Name, "NonPhysicalPrimMax", NonPhysicalPrimMax(uuid)) Then Return True
+            End Select
+
+            Select Case PhysicalPrimMax(uuid)
+                Case ""
+                    If Settings.SetIni(Name, "PhysicalPrimMax", CStr(64)) Then Return True
+                Case Else
+                    If Settings.SetIni(Name, "PhysicalPrimMax", PhysicalPrimMax(uuid)) Then Return True
+            End Select
+
+            If Settings.Primlimits Then
+                Select Case MaxPrims(uuid)
+                    Case ""
+                        If Settings.SetIni(Name, "MaxPrims", CStr(45000)) Then Return True
+                    Case Else
+                        If Settings.SetIni(Name, "MaxPrims", MaxPrims(uuid)) Then Return True
+                End Select
+            Else
+                Select Case MaxPrims(uuid)
+                    Case ""
+                        If Settings.SetIni(Name, "MaxPrims", CStr(45000)) Then Return True
+                    Case Else
+                        If Settings.SetIni(Name, "MaxPrims", MaxPrims(uuid)) Then Return True
+                End Select
+            End If
+
+            Select Case MaxAgents(uuid)
+                Case ""
+                    If Settings.SetIni(Name, "MaxAgents", CStr(100)) Then Return True
+                Case Else
+                    If Settings.SetIni(Name, "MaxAgents", MaxAgents(uuid)) Then Return True
+            End Select
+
+            ' Maps
+            If MapType(uuid) = "None" Then
+                If Settings.SetIni(Name, "GenerateMaptiles", "False") Then Return True
+            ElseIf MapType(uuid) = "Simple" Then
+                If Settings.SetIni(Name, "GenerateMaptiles", "True") Then Return True
+                If Settings.SetIni(Name, "MapImageModule", "MapImageModule") Then Return True ' versus Warp3DImageModule
+                If Settings.SetIni(Name, "TextureOnMapTile", "False") Then Return True        ' versus True
+                If Settings.SetIni(Name, "DrawPrimOnMapTile", "False") Then Return True
+                If Settings.SetIni(Name, "TexturePrims", "False") Then Return True
+                If Settings.SetIni(Name, "RenderMeshes", "False") Then Return True
+            ElseIf MapType(uuid) = "Good" Then
+                If Settings.SetIni(Name, "GenerateMaptiles", "True") Then Return True
+                If Settings.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
+                If Settings.SetIni(Name, "TextureOnMapTile", "False") Then Return True        ' versus True
+                If Settings.SetIni(Name, "DrawPrimOnMapTile", "False") Then Return True
+                If Settings.SetIni(Name, "TexturePrims", "False") Then Return True
+                If Settings.SetIni(Name, "RenderMeshes", "False") Then Return True
+            ElseIf MapType(uuid) = "Better" Then
+                If Settings.SetIni(Name, "GenerateMaptiles", "True") Then Return True
+                If Settings.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
+                If Settings.SetIni(Name, "TextureOnMapTile", "True") Then Return True        ' versus True
+                If Settings.SetIni(Name, "DrawPrimOnMapTile", "True") Then Return True
+                If Settings.SetIni(Name, "TexturePrims", "False") Then Return True
+                If Settings.SetIni(Name, "RenderMeshes", "False") Then Return True
+            ElseIf MapType(uuid) = "Best" Then
+                If Settings.SetIni(Name, "GenerateMaptiles", "True") Then Return True
+                If Settings.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
+                If Settings.SetIni(Name, "TextureOnMapTile", "True") Then Return True     ' versus True
+                If Settings.SetIni(Name, "DrawPrimOnMapTile", "True") Then Return True
+                If Settings.SetIni(Name, "TexturePrims", "True") Then Return True
+                If Settings.SetIni(Name, "RenderMeshes", "True") Then Return True
+            Else
+                If Settings.SetIni(Name, "GenerateMaptiles", "") Then Return True
+                If Settings.SetIni(Name, "MapImageModule", "") Then Return True  ' versus MapImageModule
+                If Settings.SetIni(Name, "TextureOnMapTile", "") Then Return True      ' versus True
+                If Settings.SetIni(Name, "DrawPrimOnMapTile", "") Then Return True
+                If Settings.SetIni(Name, "TexturePrims", "") Then Return True
+                If Settings.SetIni(Name, "RenderMeshes", "") Then Return True
+            End If
+
+            'Options and overrides
+
+            If Settings.SetIni(Name, "Concierge", Concierge(uuid)) Then Return True
+            If Settings.SetIni(Name, "DisableGloebits", DisableGloebits(uuid)) Then Return True
+            If Settings.SetIni(Name, "RegionSnapShot", RegionSnapShot(uuid)) Then Return True
+            If Settings.SetIni(Name, "Birds", Birds(uuid)) Then Return True
+            If Settings.SetIni(Name, "Tides", Tides(uuid)) Then Return True
+            If Settings.SetIni(Name, "Teleport", Teleport(uuid)) Then Return True
+            If Settings.SetIni(Name, "DisallowForeigners", DisallowForeigners(uuid)) Then Return True
+            If Settings.SetIni(Name, "DisallowResidents", DisallowResidents(uuid)) Then Return True
+            If Settings.SetIni(Name, "SkipAutoBackup", SkipAutobackup(uuid)) Then Return True
+            If Settings.SetIni(Name, "Physics", Physics(uuid)) Then Return True
+            If Settings.SetIni(Name, "FrameTime", FrameTime(uuid)) Then Return True
+
+            Settings.SaveINI(INI, System.Text.Encoding.UTF8)
+
+            Settings.SaveSettings()
+        Catch ex As Exception
+            ErrorLog(ex.Message)
+            Return True
+        End Try
 
         Return False
 
