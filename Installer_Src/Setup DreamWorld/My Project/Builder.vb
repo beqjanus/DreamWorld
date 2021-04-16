@@ -86,7 +86,7 @@ Module Build
             For Xstep = 1 To SimSize
                 For Ystep = 1 To SimSize
                     Simcount += 1
-                    RegionXY.Add($"{PropRegionClass.CoordX(UUID)}:{PropRegionClass.CoordY(UUID)}")
+                    RegionXY.Add($"{PropRegionClass.CoordX(UUID) + Xstep - 1}:{PropRegionClass.CoordY(UUID) + Ystep - 1}")
                 Next
             Next
         Next
