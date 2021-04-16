@@ -240,16 +240,18 @@ Public Class MySettings
     ''' <param name="key"></param>
     ''' <param name="value"></param>
     ''' <returns></returns>
-    Public Sub SetIni(section As String, key As String, value As String)
+    Public Function SetIni(section As String, key As String, value As String) As Boolean
 
         ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
         Try
             SettingsData(section)(key) = value
         Catch ex As Exception
             ErrorLog(ex.Message)
+            Return True
         End Try
+        Return False
 
-    End Sub
+    End Function
 
     Public Sub SetMyIni(section As String, key As String, value As String)
 
@@ -831,24 +833,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ConsoleUser", Value)
-        End Set
-    End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
@@ -2213,6 +2197,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 
