@@ -309,18 +309,16 @@ Module FileStuff
 
     Private Sub Deletefilesin(LogPath As String)
 
+        FileIO.FileSystem.CreateDirectory(LogPath)
         Dim directory As New System.IO.DirectoryInfo(LogPath)
         ' get each file's last modified date
         For Each File As System.IO.FileInfo In directory.GetFiles()
-            Try
-                ' get  file's last modified date
-                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
-                Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
-                If Datedifference > Settings.KeepForDays * 24 Then
-                    DeleteFile(File.FullName)
-                End If
-            Catch ex As Exception
-            End Try
+            ' get  file's last modified date
+            Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
+            Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
+            If Datedifference > Settings.KeepForDays * 24 Then
+                DeleteFile(File.FullName)
+            End If
         Next
 
     End Sub
