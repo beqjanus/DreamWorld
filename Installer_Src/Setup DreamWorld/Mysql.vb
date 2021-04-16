@@ -217,8 +217,8 @@ Public Module MysqlInterface
     Public Function EstateName(UUID As String) As String
 
         If Settings.RegionMySqlConnection.Length = 0 Then Return ""
+        If Not IsMySqlRunning() Then Return ""
 
-        'Debug.Print(Settings.RegionMySqlConnection)
         Dim name As String = ""
         Dim Val As String = ""
 
