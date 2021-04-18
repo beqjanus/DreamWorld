@@ -111,7 +111,8 @@ Partial Class FormSmartStart
         Me.MenuStrip5 = New System.Windows.Forms.MenuStrip()
         Me.HelpLandcapingToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.ApplyEdit = New System.Windows.Forms.Button()
+        Me.Radius = New System.Windows.Forms.Label()
+        Me.Rad = New System.Windows.Forms.TextBox()
         Me.EndsizeZ = New System.Windows.Forms.TextBox()
         Me.EndsizeY = New System.Windows.Forms.TextBox()
         Me.StartSizeZ = New System.Windows.Forms.TextBox()
@@ -122,21 +123,16 @@ Partial Class FormSmartStart
         Me.RadioButton17 = New System.Windows.Forms.RadioButton()
         Me.RadioButton26 = New System.Windows.Forms.RadioButton()
         Me.RadioButton22 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
         Me.RadioButton18 = New System.Windows.Forms.RadioButton()
         Me.RadioButton10 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton5 = New System.Windows.Forms.RadioButton()
         Me.RadioButton25 = New System.Windows.Forms.RadioButton()
         Me.RadioButton6 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.RadioButton7 = New System.Windows.Forms.RadioButton()
         Me.RadioButton23 = New System.Windows.Forms.RadioButton()
         Me.RadioButton15 = New System.Windows.Forms.RadioButton()
         Me.RadioButton8 = New System.Windows.Forms.RadioButton()
         Me.RadioButton24 = New System.Windows.Forms.RadioButton()
-        Me.Grass0Radio = New System.Windows.Forms.RadioButton()
         Me.RadioButton9 = New System.Windows.Forms.RadioButton()
         Me.RadioButton16 = New System.Windows.Forms.RadioButton()
         Me.RadioButton20 = New System.Windows.Forms.RadioButton()
@@ -152,7 +148,7 @@ Partial Class FormSmartStart
         Me.TreeLineLow = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TreeLineHight = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.QtyLabel = New System.Windows.Forms.Label()
         Me.Qty = New System.Windows.Forms.TextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
@@ -1046,7 +1042,8 @@ Partial Class FormSmartStart
         '
         'TabPage4
         '
-        Me.TabPage4.Controls.Add(Me.ApplyEdit)
+        Me.TabPage4.Controls.Add(Me.Radius)
+        Me.TabPage4.Controls.Add(Me.Rad)
         Me.TabPage4.Controls.Add(Me.EndsizeZ)
         Me.TabPage4.Controls.Add(Me.EndsizeY)
         Me.TabPage4.Controls.Add(Me.StartSizeZ)
@@ -1060,7 +1057,7 @@ Partial Class FormSmartStart
         Me.TabPage4.Controls.Add(Me.TreeLineLow)
         Me.TabPage4.Controls.Add(Me.Label2)
         Me.TabPage4.Controls.Add(Me.TreeLineHight)
-        Me.TabPage4.Controls.Add(Me.Label1)
+        Me.TabPage4.Controls.Add(Me.QtyLabel)
         Me.TabPage4.Controls.Add(Me.Qty)
         Me.TabPage4.Controls.Add(Me.PictureBox2)
         Me.TabPage4.Controls.Add(Me.MenuStrip6)
@@ -1072,41 +1069,46 @@ Partial Class FormSmartStart
         Me.TabPage4.Text = "Plant Editor"
         Me.TabPage4.UseVisualStyleBackColor = True
         '
-        'ApplyEdit
+        'Radius
         '
-        Me.ApplyEdit.Image = CType(resources.GetObject("ApplyEdit.Image"), System.Drawing.Image)
-        Me.ApplyEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ApplyEdit.Location = New System.Drawing.Point(416, 295)
-        Me.ApplyEdit.Name = "ApplyEdit"
-        Me.ApplyEdit.Size = New System.Drawing.Size(121, 37)
-        Me.ApplyEdit.TabIndex = 65
-        Me.ApplyEdit.Text = "Apply"
-        Me.ApplyEdit.UseVisualStyleBackColor = True
+        Me.Radius.AutoSize = True
+        Me.Radius.Location = New System.Drawing.Point(413, 92)
+        Me.Radius.Name = "Radius"
+        Me.Radius.Size = New System.Drawing.Size(40, 13)
+        Me.Radius.TabIndex = 68
+        Me.Radius.Text = "Radius"
+        '
+        'Rad
+        '
+        Me.Rad.Location = New System.Drawing.Point(416, 108)
+        Me.Rad.Name = "Rad"
+        Me.Rad.Size = New System.Drawing.Size(49, 20)
+        Me.Rad.TabIndex = 67
         '
         'EndsizeZ
         '
-        Me.EndsizeZ.Location = New System.Drawing.Point(489, 252)
+        Me.EndsizeZ.Location = New System.Drawing.Point(489, 300)
         Me.EndsizeZ.Name = "EndsizeZ"
         Me.EndsizeZ.Size = New System.Drawing.Size(30, 20)
         Me.EndsizeZ.TabIndex = 64
         '
         'EndsizeY
         '
-        Me.EndsizeY.Location = New System.Drawing.Point(454, 252)
+        Me.EndsizeY.Location = New System.Drawing.Point(454, 300)
         Me.EndsizeY.Name = "EndsizeY"
         Me.EndsizeY.Size = New System.Drawing.Size(30, 20)
         Me.EndsizeY.TabIndex = 63
         '
         'StartSizeZ
         '
-        Me.StartSizeZ.Location = New System.Drawing.Point(489, 203)
+        Me.StartSizeZ.Location = New System.Drawing.Point(489, 251)
         Me.StartSizeZ.Name = "StartSizeZ"
         Me.StartSizeZ.Size = New System.Drawing.Size(30, 20)
         Me.StartSizeZ.TabIndex = 62
         '
         'StartSizeY
         '
-        Me.StartSizeY.Location = New System.Drawing.Point(454, 204)
+        Me.StartSizeY.Location = New System.Drawing.Point(454, 252)
         Me.StartSizeY.Name = "StartSizeY"
         Me.StartSizeY.Size = New System.Drawing.Size(30, 20)
         Me.StartSizeY.TabIndex = 61
@@ -1118,21 +1120,16 @@ Partial Class FormSmartStart
         Me.GroupBox3.Controls.Add(Me.RadioButton17)
         Me.GroupBox3.Controls.Add(Me.RadioButton26)
         Me.GroupBox3.Controls.Add(Me.RadioButton22)
-        Me.GroupBox3.Controls.Add(Me.RadioButton4)
         Me.GroupBox3.Controls.Add(Me.RadioButton18)
         Me.GroupBox3.Controls.Add(Me.RadioButton10)
-        Me.GroupBox3.Controls.Add(Me.RadioButton3)
         Me.GroupBox3.Controls.Add(Me.RadioButton5)
         Me.GroupBox3.Controls.Add(Me.RadioButton25)
         Me.GroupBox3.Controls.Add(Me.RadioButton6)
-        Me.GroupBox3.Controls.Add(Me.RadioButton2)
-        Me.GroupBox3.Controls.Add(Me.RadioButton1)
         Me.GroupBox3.Controls.Add(Me.RadioButton7)
         Me.GroupBox3.Controls.Add(Me.RadioButton23)
         Me.GroupBox3.Controls.Add(Me.RadioButton15)
         Me.GroupBox3.Controls.Add(Me.RadioButton8)
         Me.GroupBox3.Controls.Add(Me.RadioButton24)
-        Me.GroupBox3.Controls.Add(Me.Grass0Radio)
         Me.GroupBox3.Controls.Add(Me.RadioButton9)
         Me.GroupBox3.Controls.Add(Me.RadioButton16)
         Me.GroupBox3.Controls.Add(Me.RadioButton20)
@@ -1150,7 +1147,7 @@ Partial Class FormSmartStart
         'RadioButton21
         '
         Me.RadioButton21.AutoSize = True
-        Me.RadioButton21.Location = New System.Drawing.Point(15, 47)
+        Me.RadioButton21.Location = New System.Drawing.Point(209, 50)
         Me.RadioButton21.Name = "RadioButton21"
         Me.RadioButton21.Size = New System.Drawing.Size(46, 17)
         Me.RadioButton21.TabIndex = 54
@@ -1161,7 +1158,7 @@ Partial Class FormSmartStart
         'RadioButton19
         '
         Me.RadioButton19.AutoSize = True
-        Me.RadioButton19.Location = New System.Drawing.Point(127, 209)
+        Me.RadioButton19.Location = New System.Drawing.Point(108, 234)
         Me.RadioButton19.Name = "RadioButton19"
         Me.RadioButton19.Size = New System.Drawing.Size(52, 17)
         Me.RadioButton19.TabIndex = 52
@@ -1172,7 +1169,7 @@ Partial Class FormSmartStart
         'RadioButton17
         '
         Me.RadioButton17.AutoSize = True
-        Me.RadioButton17.Location = New System.Drawing.Point(127, 166)
+        Me.RadioButton17.Location = New System.Drawing.Point(-83, 170)
         Me.RadioButton17.Name = "RadioButton17"
         Me.RadioButton17.Size = New System.Drawing.Size(74, 17)
         Me.RadioButton17.TabIndex = 50
@@ -1183,7 +1180,7 @@ Partial Class FormSmartStart
         'RadioButton26
         '
         Me.RadioButton26.AutoSize = True
-        Me.RadioButton26.Location = New System.Drawing.Point(15, 163)
+        Me.RadioButton26.Location = New System.Drawing.Point(209, 166)
         Me.RadioButton26.Name = "RadioButton26"
         Me.RadioButton26.Size = New System.Drawing.Size(71, 17)
         Me.RadioButton26.TabIndex = 59
@@ -1194,7 +1191,7 @@ Partial Class FormSmartStart
         'RadioButton22
         '
         Me.RadioButton22.AutoSize = True
-        Me.RadioButton22.Location = New System.Drawing.Point(228, 232)
+        Me.RadioButton22.Location = New System.Drawing.Point(18, 236)
         Me.RadioButton22.Name = "RadioButton22"
         Me.RadioButton22.Size = New System.Drawing.Size(45, 17)
         Me.RadioButton22.TabIndex = 55
@@ -1202,21 +1199,10 @@ Partial Class FormSmartStart
         Me.RadioButton22.Text = "Oak"
         Me.RadioButton22.UseVisualStyleBackColor = True
         '
-        'RadioButton4
-        '
-        Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(121, 116)
-        Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(58, 17)
-        Me.RadioButton4.TabIndex = 37
-        Me.RadioButton4.TabStop = True
-        Me.RadioButton4.Text = "Grass4"
-        Me.RadioButton4.UseVisualStyleBackColor = True
-        '
         'RadioButton18
         '
         Me.RadioButton18.AutoSize = True
-        Me.RadioButton18.Location = New System.Drawing.Point(127, 187)
+        Me.RadioButton18.Location = New System.Drawing.Point(108, 212)
         Me.RadioButton18.Name = "RadioButton18"
         Me.RadioButton18.Size = New System.Drawing.Size(52, 17)
         Me.RadioButton18.TabIndex = 51
@@ -1227,7 +1213,7 @@ Partial Class FormSmartStart
         'RadioButton10
         '
         Me.RadioButton10.AutoSize = True
-        Me.RadioButton10.Location = New System.Drawing.Point(15, 186)
+        Me.RadioButton10.Location = New System.Drawing.Point(209, 189)
         Me.RadioButton10.Name = "RadioButton10"
         Me.RadioButton10.Size = New System.Drawing.Size(89, 17)
         Me.RadioButton10.TabIndex = 43
@@ -1235,21 +1221,10 @@ Partial Class FormSmartStart
         Me.RadioButton10.Text = "BeachGrass1"
         Me.RadioButton10.UseVisualStyleBackColor = True
         '
-        'RadioButton3
-        '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(121, 93)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(58, 17)
-        Me.RadioButton3.TabIndex = 36
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "Grass3"
-        Me.RadioButton3.UseVisualStyleBackColor = True
-        '
         'RadioButton5
         '
         Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Location = New System.Drawing.Point(228, 25)
+        Me.RadioButton5.Location = New System.Drawing.Point(18, 29)
         Me.RadioButton5.Name = "RadioButton5"
         Me.RadioButton5.Size = New System.Drawing.Size(68, 17)
         Me.RadioButton5.TabIndex = 38
@@ -1260,7 +1235,7 @@ Partial Class FormSmartStart
         'RadioButton25
         '
         Me.RadioButton25.AutoSize = True
-        Me.RadioButton25.Location = New System.Drawing.Point(15, 140)
+        Me.RadioButton25.Location = New System.Drawing.Point(209, 143)
         Me.RadioButton25.Name = "RadioButton25"
         Me.RadioButton25.Size = New System.Drawing.Size(92, 17)
         Me.RadioButton25.TabIndex = 58
@@ -1271,7 +1246,7 @@ Partial Class FormSmartStart
         'RadioButton6
         '
         Me.RadioButton6.AutoSize = True
-        Me.RadioButton6.Location = New System.Drawing.Point(228, 48)
+        Me.RadioButton6.Location = New System.Drawing.Point(18, 52)
         Me.RadioButton6.Name = "RadioButton6"
         Me.RadioButton6.Size = New System.Drawing.Size(68, 17)
         Me.RadioButton6.TabIndex = 39
@@ -1279,32 +1254,10 @@ Partial Class FormSmartStart
         Me.RadioButton6.Text = "Cypress2"
         Me.RadioButton6.UseVisualStyleBackColor = True
         '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(121, 70)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(58, 17)
-        Me.RadioButton2.TabIndex = 35
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Grass2"
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(121, 47)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(58, 17)
-        Me.RadioButton1.TabIndex = 34
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "Grass1"
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        '
         'RadioButton7
         '
         Me.RadioButton7.AutoSize = True
-        Me.RadioButton7.Location = New System.Drawing.Point(228, 70)
+        Me.RadioButton7.Location = New System.Drawing.Point(18, 74)
         Me.RadioButton7.Name = "RadioButton7"
         Me.RadioButton7.Size = New System.Drawing.Size(86, 17)
         Me.RadioButton7.TabIndex = 40
@@ -1315,7 +1268,7 @@ Partial Class FormSmartStart
         'RadioButton23
         '
         Me.RadioButton23.AutoSize = True
-        Me.RadioButton23.Location = New System.Drawing.Point(15, 70)
+        Me.RadioButton23.Location = New System.Drawing.Point(209, 73)
         Me.RadioButton23.Name = "RadioButton23"
         Me.RadioButton23.Size = New System.Drawing.Size(65, 17)
         Me.RadioButton23.TabIndex = 56
@@ -1326,7 +1279,7 @@ Partial Class FormSmartStart
         'RadioButton15
         '
         Me.RadioButton15.AutoSize = True
-        Me.RadioButton15.Location = New System.Drawing.Point(15, 94)
+        Me.RadioButton15.Location = New System.Drawing.Point(209, 97)
         Me.RadioButton15.Name = "RadioButton15"
         Me.RadioButton15.Size = New System.Drawing.Size(93, 17)
         Me.RadioButton15.TabIndex = 48
@@ -1337,7 +1290,7 @@ Partial Class FormSmartStart
         'RadioButton8
         '
         Me.RadioButton8.AutoSize = True
-        Me.RadioButton8.Location = New System.Drawing.Point(228, 93)
+        Me.RadioButton8.Location = New System.Drawing.Point(18, 97)
         Me.RadioButton8.Name = "RadioButton8"
         Me.RadioButton8.Size = New System.Drawing.Size(83, 17)
         Me.RadioButton8.TabIndex = 41
@@ -1348,7 +1301,7 @@ Partial Class FormSmartStart
         'RadioButton24
         '
         Me.RadioButton24.AutoSize = True
-        Me.RadioButton24.Location = New System.Drawing.Point(15, 209)
+        Me.RadioButton24.Location = New System.Drawing.Point(108, 189)
         Me.RadioButton24.Name = "RadioButton24"
         Me.RadioButton24.Size = New System.Drawing.Size(67, 17)
         Me.RadioButton24.TabIndex = 57
@@ -1356,21 +1309,10 @@ Partial Class FormSmartStart
         Me.RadioButton24.Text = "EelGrass"
         Me.RadioButton24.UseVisualStyleBackColor = True
         '
-        'Grass0Radio
-        '
-        Me.Grass0Radio.AutoSize = True
-        Me.Grass0Radio.Location = New System.Drawing.Point(121, 26)
-        Me.Grass0Radio.Name = "Grass0Radio"
-        Me.Grass0Radio.Size = New System.Drawing.Size(58, 17)
-        Me.Grass0Radio.TabIndex = 33
-        Me.Grass0Radio.TabStop = True
-        Me.Grass0Radio.Text = "Grass0"
-        Me.Grass0Radio.UseVisualStyleBackColor = True
-        '
         'RadioButton9
         '
         Me.RadioButton9.AutoSize = True
-        Me.RadioButton9.Location = New System.Drawing.Point(228, 116)
+        Me.RadioButton9.Location = New System.Drawing.Point(18, 120)
         Me.RadioButton9.Name = "RadioButton9"
         Me.RadioButton9.Size = New System.Drawing.Size(83, 17)
         Me.RadioButton9.TabIndex = 42
@@ -1381,7 +1323,7 @@ Partial Class FormSmartStart
         'RadioButton16
         '
         Me.RadioButton16.AutoSize = True
-        Me.RadioButton16.Location = New System.Drawing.Point(15, 117)
+        Me.RadioButton16.Location = New System.Drawing.Point(209, 120)
         Me.RadioButton16.Name = "RadioButton16"
         Me.RadioButton16.Size = New System.Drawing.Size(93, 17)
         Me.RadioButton16.TabIndex = 49
@@ -1392,7 +1334,7 @@ Partial Class FormSmartStart
         'RadioButton20
         '
         Me.RadioButton20.AutoSize = True
-        Me.RadioButton20.Location = New System.Drawing.Point(15, 26)
+        Me.RadioButton20.Location = New System.Drawing.Point(209, 29)
         Me.RadioButton20.Name = "RadioButton20"
         Me.RadioButton20.Size = New System.Drawing.Size(77, 17)
         Me.RadioButton20.TabIndex = 53
@@ -1403,7 +1345,7 @@ Partial Class FormSmartStart
         'RadioButton11
         '
         Me.RadioButton11.AutoSize = True
-        Me.RadioButton11.Location = New System.Drawing.Point(228, 140)
+        Me.RadioButton11.Location = New System.Drawing.Point(18, 144)
         Me.RadioButton11.Name = "RadioButton11"
         Me.RadioButton11.Size = New System.Drawing.Size(52, 17)
         Me.RadioButton11.TabIndex = 44
@@ -1414,7 +1356,7 @@ Partial Class FormSmartStart
         'RadioButton14
         '
         Me.RadioButton14.AutoSize = True
-        Me.RadioButton14.Location = New System.Drawing.Point(228, 209)
+        Me.RadioButton14.Location = New System.Drawing.Point(18, 213)
         Me.RadioButton14.Name = "RadioButton14"
         Me.RadioButton14.Size = New System.Drawing.Size(52, 17)
         Me.RadioButton14.TabIndex = 47
@@ -1425,7 +1367,7 @@ Partial Class FormSmartStart
         'RadioButton13
         '
         Me.RadioButton13.AutoSize = True
-        Me.RadioButton13.Location = New System.Drawing.Point(228, 186)
+        Me.RadioButton13.Location = New System.Drawing.Point(18, 190)
         Me.RadioButton13.Name = "RadioButton13"
         Me.RadioButton13.Size = New System.Drawing.Size(54, 17)
         Me.RadioButton13.TabIndex = 46
@@ -1436,7 +1378,7 @@ Partial Class FormSmartStart
         'RadioButton12
         '
         Me.RadioButton12.AutoSize = True
-        Me.RadioButton12.Location = New System.Drawing.Point(228, 163)
+        Me.RadioButton12.Location = New System.Drawing.Point(18, 167)
         Me.RadioButton12.Name = "RadioButton12"
         Me.RadioButton12.Size = New System.Drawing.Size(52, 17)
         Me.RadioButton12.TabIndex = 45
@@ -1447,7 +1389,7 @@ Partial Class FormSmartStart
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(413, 235)
+        Me.Label5.Location = New System.Drawing.Point(413, 283)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(79, 13)
         Me.Label5.TabIndex = 18
@@ -1455,7 +1397,7 @@ Partial Class FormSmartStart
         '
         'EndsizeX
         '
-        Me.EndsizeX.Location = New System.Drawing.Point(416, 252)
+        Me.EndsizeX.Location = New System.Drawing.Point(416, 300)
         Me.EndsizeX.Name = "EndsizeX"
         Me.EndsizeX.Size = New System.Drawing.Size(30, 20)
         Me.EndsizeX.TabIndex = 17
@@ -1463,7 +1405,7 @@ Partial Class FormSmartStart
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(413, 186)
+        Me.Label4.Location = New System.Drawing.Point(413, 234)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(82, 13)
         Me.Label4.TabIndex = 16
@@ -1471,7 +1413,7 @@ Partial Class FormSmartStart
         '
         'StartSizeX
         '
-        Me.StartSizeX.Location = New System.Drawing.Point(416, 204)
+        Me.StartSizeX.Location = New System.Drawing.Point(416, 252)
         Me.StartSizeX.Name = "StartSizeX"
         Me.StartSizeX.Size = New System.Drawing.Size(30, 20)
         Me.StartSizeX.TabIndex = 15
@@ -1479,7 +1421,7 @@ Partial Class FormSmartStart
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(413, 137)
+        Me.Label3.Location = New System.Drawing.Point(413, 185)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(72, 13)
         Me.Label3.TabIndex = 14
@@ -1487,7 +1429,7 @@ Partial Class FormSmartStart
         '
         'TreeLineLow
         '
-        Me.TreeLineLow.Location = New System.Drawing.Point(416, 154)
+        Me.TreeLineLow.Location = New System.Drawing.Point(416, 202)
         Me.TreeLineLow.Name = "TreeLineLow"
         Me.TreeLineLow.Size = New System.Drawing.Size(49, 20)
         Me.TreeLineLow.TabIndex = 13
@@ -1495,7 +1437,7 @@ Partial Class FormSmartStart
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(413, 90)
+        Me.Label2.Location = New System.Drawing.Point(413, 138)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(70, 13)
         Me.Label2.TabIndex = 12
@@ -1503,19 +1445,19 @@ Partial Class FormSmartStart
         '
         'TreeLineHight
         '
-        Me.TreeLineHight.Location = New System.Drawing.Point(416, 107)
+        Me.TreeLineHight.Location = New System.Drawing.Point(416, 155)
         Me.TreeLineHight.Name = "TreeLineHight"
         Me.TreeLineHight.Size = New System.Drawing.Size(49, 20)
         Me.TreeLineHight.TabIndex = 11
         '
-        'Label1
+        'QtyLabel
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(413, 43)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(46, 13)
-        Me.Label1.TabIndex = 10
-        Me.Label1.Text = "Quantity"
+        Me.QtyLabel.AutoSize = True
+        Me.QtyLabel.Location = New System.Drawing.Point(413, 43)
+        Me.QtyLabel.Name = "QtyLabel"
+        Me.QtyLabel.Size = New System.Drawing.Size(46, 13)
+        Me.QtyLabel.TabIndex = 10
+        Me.QtyLabel.Text = "Quantity"
         '
         'Qty
         '
@@ -1660,11 +1602,6 @@ Partial Class FormSmartStart
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents RadioButton10 As RadioButton
     Friend WithEvents RadioButton24 As RadioButton
-    Friend WithEvents Grass0Radio As RadioButton
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents RadioButton2 As RadioButton
-    Friend WithEvents RadioButton3 As RadioButton
-    Friend WithEvents RadioButton4 As RadioButton
     Friend WithEvents RadioButton22 As RadioButton
     Friend WithEvents RadioButton5 As RadioButton
     Friend WithEvents RadioButton6 As RadioButton
@@ -1678,7 +1615,6 @@ Partial Class FormSmartStart
     Friend WithEvents RadioButton19 As RadioButton
     Friend WithEvents RadioButton17 As RadioButton
     Friend WithEvents RadioButton18 As RadioButton
-    Friend WithEvents RadioButton25 As RadioButton
     Friend WithEvents RadioButton23 As RadioButton
     Friend WithEvents RadioButton21 As RadioButton
     Friend WithEvents RadioButton20 As RadioButton
@@ -1690,7 +1626,7 @@ Partial Class FormSmartStart
     Friend WithEvents TreeLineLow As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents TreeLineHight As TextBox
-    Friend WithEvents Label1 As Label
+    Friend WithEvents QtyLabel As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents EndsizeX As TextBox
     Friend WithEvents PrevButton As PictureBox
@@ -1703,7 +1639,6 @@ Partial Class FormSmartStart
     Friend WithEvents EndsizeY As TextBox
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents TerrainApply As Button
-    Friend WithEvents ApplyEdit As Button
     Friend WithEvents LabelName As Label
     Friend WithEvents RegionMakerEnableCHeckbox As CheckBox
     Friend WithEvents TextBox1 As TextBox
@@ -1736,4 +1671,7 @@ Partial Class FormSmartStart
     Friend WithEvents Label11 As Label
     Friend WithEvents AviName As TextBox
     Friend WithEvents Dogwood As CheckBox
+    Friend WithEvents RadioButton25 As RadioButton
+    Friend WithEvents Radius As Label
+    Friend WithEvents Rad As TextBox
 End Class

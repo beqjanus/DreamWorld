@@ -3545,4 +3545,10 @@
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Trees and Plants</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Radius</value>
+  </data>
 </root>

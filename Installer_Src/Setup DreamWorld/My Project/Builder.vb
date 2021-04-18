@@ -145,30 +145,24 @@ Module Build
                 UseTree.Add(t)
             End If
         Next
-        If UseTree.Count = 0 Then
-            Return
-        End If
 
         If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
-
         If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
         For Each TT As String In TreeList
             If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
         Next
 
-        Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
-        If Debugger.IsAttached Then
-            For Each NewType In UseTree
-                If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
-            Next
+        If UseTree.Count = 0 Then
+            If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
+            Return
         End If
 
+        Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
+
         For Each NewType In UseTree
-            If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} false") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree plant {NewType}") Then Return
-            If Not RPC_Region_Command(RegionUUID, "tree rate 1000") Then Return
-            Sleep(1000)
+            Sleep(2000)
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
         Next
 

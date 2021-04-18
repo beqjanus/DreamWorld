@@ -7168,6 +7168,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Quantity.
+        '''</summary>
+        Friend ReadOnly Property Quantity_word() As String
+            Get
+                Return ResourceManager.GetString("Quantity_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property question_and_answer() As System.Drawing.Bitmap
@@ -7219,6 +7228,15 @@ Namespace My.Resources
         Friend ReadOnly Property Quitting_word() As String
             Get
                 Return ResourceManager.GetString("Quitting_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Radius.
+        '''</summary>
+        Friend ReadOnly Property Radius_Word() As String
+            Get
+                Return ResourceManager.GetString("Radius_Word", resourceCulture)
             End Get
         End Property
         

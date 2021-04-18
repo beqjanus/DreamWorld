@@ -41,16 +41,16 @@ Module SmartStart
                 Name = PropRegionClass.RegionName(RegionUUID)
             End If
 
-            If Not Settings.SmartStart Then
-                If AgentName.ToUpperInvariant = "UUID" Then
-                    Return RegionUUID
-                ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-                    Return Name
-                Else ' Its a sign!
-                    AddEm(RegionUUID, AgentID)
-                    Return Name
-                End If
-            End If
+            '   If Not Settings.SmartStart Then
+            '   If AgentName.ToUpperInvariant = "UUID" Then
+            '   Return RegionUUID
+            'ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+            '   Return Name
+            'Else ' Its a sign!
+            '  AddEm(RegionUUID, AgentID)
+            ' Return Name
+            '     End If
+            '  End If
 
             ' Smart Start below here
             If PropOpensimIsRunning Then

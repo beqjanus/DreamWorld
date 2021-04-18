@@ -81,7 +81,10 @@ Public Class FormSmartStart
 
 #Region "Check boxes"
 
-    Public Shared Sub PutSetting(name As String, value As Boolean)
+    Public Sub PutSetting(name As String, value As Boolean)
+
+        All.Checked = False
+        None.Checked = False
 
         Settings.SetMySetting(name, CStr(value))
         Settings.SaveSettings()
@@ -507,11 +510,12 @@ Public Class FormSmartStart
         RegionMakerEnableCHeckbox.Checked = Settings.AutoFill
         Me.Text = Global.Outworldz.My.Resources.Smart_Start_word
         SmartStartEnabled.Checked = Settings.SmartStart
-        Label1.Text = My.Resources.Enter_1_2
+        QtyLabel.Text = My.Resources.Quantity_word
         TabPage1.Text = My.Resources.Smart_Start_word
         TabPage2.Text = My.Resources.Landscaping
         TabPage3.Text = My.Resources.TreesAndPlants
         ListBox2.SelectedIndex = Settings.Skirtsize - 1
+        Radius.Text = My.Resources.Radius_Word
 
         SmoothTextBox.Text = CStr(Settings.LandStrength)
         TaperTextBox.Text = CStr(Settings.LandTaper)
@@ -1011,6 +1015,10 @@ Public Class FormSmartStart
                             EndsizeY.Text = matchY.Groups(1).Value
                             EndsizeZ.Text = matchZ.Groups(1).Value
 
+                        ElseIf TextReader.Name.ToString() = "m_range" Then
+                            Dim X = TextReader.ReadInnerXml
+                            Rad.Text = X
+
                             ' if node type Is an entity
                         ElseIf (nType = XmlNodeType.Entity) Then
                             Console.WriteLine("Entity:" + TextReader.Name.ToString())
@@ -1052,6 +1060,7 @@ Public Class FormSmartStart
         Dim EndX = CInt("0" & EndsizeX.Text)
         Dim EndY = CInt("0" & EndsizeY.Text)
         Dim EndZ = CInt("0" & EndsizeZ.Text)
+        Dim RadiusTree = CInt("0" & Rad.Text)
 
         Dim xml As String = $"<Copse>
   <m_name>{XMLName}</m_name>
@@ -1065,7 +1074,7 @@ Public Class FormSmartStart
     <Y>{Size / 2}</Y>
     <Z>0</Z>
   </m_seed_point>
-  <m_range>{Size - 5}</m_range>
+  <m_range>{RadiusTree}</m_range>
   <m_initial_scale>
     <X>{StartX}</X>
     <Y>{StartY}</Y>
@@ -1332,14 +1341,6 @@ Public Class FormSmartStart
 
 #Region "Radio"
 
-    Private Sub Grass0Radio_CheckedChanged(sender As Object, e As EventArgs) Handles Grass0Radio.CheckedChanged
-        LoadPlant(CStr(sender.text))
-    End Sub
-
-    Private Sub RadioButton1_CheckedChanged_1(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-        LoadPlant(CStr(sender.text))
-    End Sub
-
     Private Sub RadioButton10_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton10.CheckedChanged
         LoadPlant(CStr(sender.text))
     End Sub
@@ -1380,10 +1381,6 @@ Public Class FormSmartStart
         LoadPlant(CStr(sender.text))
     End Sub
 
-    Private Sub RadioButton2_CheckedChanged_1(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-        LoadPlant(CStr(sender.text))
-    End Sub
-
     Private Sub RadioButton20_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton20.CheckedChanged
         LoadPlant(CStr(sender.text))
     End Sub
@@ -1412,14 +1409,6 @@ Public Class FormSmartStart
         LoadPlant(CStr(sender.text))
     End Sub
 
-    Private Sub RadioButton3_CheckedChanged_1(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
-        LoadPlant(CStr(sender.text))
-    End Sub
-
-    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
-        LoadPlant(CStr(sender.text))
-    End Sub
-
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton5.CheckedChanged
         LoadPlant(CStr(sender.text))
     End Sub
@@ -1444,10 +1433,6 @@ Public Class FormSmartStart
 
 #Region "Size boxes"
 
-    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles ApplyEdit.Click
-        MakeSetting()
-    End Sub
-
     Private Sub Flat_TextChanged(sender As Object, e As EventArgs) Handles FlatLandLevel.TextChanged
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         FlatLandLevel.Text = digitsOnly.Replace(FlatLandLevel.Text, "")
@@ -1458,6 +1443,7 @@ Public Class FormSmartStart
     Private Sub Noise_CheckedChanged(sender As Object, e As EventArgs) Handles Noise.CheckedChanged
         Settings.LandNoise = Noise.Checked
         Settings.SaveSettings()
+
     End Sub
 
     Private Sub OptionRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles OptionRadioButton.CheckedChanged
@@ -1505,6 +1491,7 @@ Public Class FormSmartStart
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         EndsizeX.Text = digitsOnly.Replace(EndsizeX.Text, "")
         If Convert.ToSingle("0" & EndsizeX.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeX.Text = CStr(255)
+        MakeSetting()
     End Sub
 
     Private Sub EndsizeY_TextChanged(sender As Object, e As EventArgs) Handles EndsizeY.TextChanged
@@ -1520,6 +1507,7 @@ Public Class FormSmartStart
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         EndsizeZ.Text = digitsOnly.Replace(EndsizeZ.Text, "")
         If Convert.ToSingle("0" & EndsizeZ.Text, Globalization.CultureInfo.InvariantCulture) > 255 Then EndsizeZ.Text = CStr(255)
+        MakeSetting()
     End Sub
 
     Private Sub MinLandHeight_TextChanged(sender As Object, e As EventArgs) Handles TreeLineLow.TextChanged
@@ -1576,6 +1564,15 @@ Public Class FormSmartStart
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         TreeLineHight.Text = digitsOnly.Replace(TreeLineHight.Text, "")
         If CInt(TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
+        If CInt(TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
+        MakeSetting()
+    End Sub
+
+    Private Sub TextBox2_TextChanged_1(sender As Object, e As EventArgs) Handles Rad.TextChanged
+        If Not _initted Then Return
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Rad.Text = digitsOnly.Replace(Rad.Text, "")
+        If Convert.ToSingle("0" & Rad.Text, Globalization.CultureInfo.InvariantCulture) > (256 * 16) Then Rad.Text = CStr(256 * 16)
         MakeSetting()
     End Sub
 
