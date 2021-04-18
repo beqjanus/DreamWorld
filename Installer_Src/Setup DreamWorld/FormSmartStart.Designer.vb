@@ -127,7 +127,6 @@ Partial Class FormSmartStart
         Me.RadioButton18 = New System.Windows.Forms.RadioButton()
         Me.RadioButton10 = New System.Windows.Forms.RadioButton()
         Me.RadioButton5 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton25 = New System.Windows.Forms.RadioButton()
         Me.RadioButton6 = New System.Windows.Forms.RadioButton()
         Me.RadioButton7 = New System.Windows.Forms.RadioButton()
         Me.RadioButton23 = New System.Windows.Forms.RadioButton()
@@ -1135,7 +1134,6 @@ Partial Class FormSmartStart
         Me.GroupBox3.Controls.Add(Me.RadioButton18)
         Me.GroupBox3.Controls.Add(Me.RadioButton10)
         Me.GroupBox3.Controls.Add(Me.RadioButton5)
-        Me.GroupBox3.Controls.Add(Me.RadioButton25)
         Me.GroupBox3.Controls.Add(Me.RadioButton6)
         Me.GroupBox3.Controls.Add(Me.RadioButton7)
         Me.GroupBox3.Controls.Add(Me.RadioButton23)
@@ -1192,7 +1190,7 @@ Partial Class FormSmartStart
         'RadioButton26
         '
         Me.RadioButton26.AutoSize = True
-        Me.RadioButton26.Location = New System.Drawing.Point(209, 166)
+        Me.RadioButton26.Location = New System.Drawing.Point(209, 141)
         Me.RadioButton26.Name = "RadioButton26"
         Me.RadioButton26.Size = New System.Drawing.Size(71, 17)
         Me.RadioButton26.TabIndex = 20
@@ -1225,7 +1223,7 @@ Partial Class FormSmartStart
         'RadioButton10
         '
         Me.RadioButton10.AutoSize = True
-        Me.RadioButton10.Location = New System.Drawing.Point(209, 189)
+        Me.RadioButton10.Location = New System.Drawing.Point(209, 164)
         Me.RadioButton10.Name = "RadioButton10"
         Me.RadioButton10.Size = New System.Drawing.Size(89, 17)
         Me.RadioButton10.TabIndex = 21
@@ -1243,17 +1241,6 @@ Partial Class FormSmartStart
         Me.RadioButton5.TabStop = True
         Me.RadioButton5.Text = "Cypress1"
         Me.RadioButton5.UseVisualStyleBackColor = True
-        '
-        'RadioButton25
-        '
-        Me.RadioButton25.AutoSize = True
-        Me.RadioButton25.Location = New System.Drawing.Point(209, 143)
-        Me.RadioButton25.Name = "RadioButton25"
-        Me.RadioButton25.Size = New System.Drawing.Size(92, 17)
-        Me.RadioButton25.TabIndex = 19
-        Me.RadioButton25.TabStop = True
-        Me.RadioButton25.Text = "Undergrowth1"
-        Me.RadioButton25.UseVisualStyleBackColor = True
         '
         'RadioButton6
         '
@@ -1683,7 +1670,6 @@ Partial Class FormSmartStart
     Friend WithEvents Label11 As Label
     Friend WithEvents AviName As TextBox
     Friend WithEvents Dogwood As CheckBox
-    Friend WithEvents RadioButton25 As RadioButton
     Friend WithEvents Radius As Label
     Friend WithEvents Rad As TextBox
     Friend WithEvents DeletApply As CheckBox

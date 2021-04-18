@@ -448,17 +448,6 @@ Public Class FormSmartStart
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Undergrowth_CheckedChanged(sender As Object, e As EventArgs)
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PutSetting(thing.Name, thing.Checked)
-        PictureBox1.Image = GetPic(thing.Name)
-    End Sub
-
-    Private Sub Undergrowth_MouseHover(sender As Object, e As EventArgs)
-        Dim thing As CheckBox = CType(sender, CheckBox)
-        PictureBox1.Image = GetPic(thing.Name)
-    End Sub
-
     Private Sub WinterAspen_CheckedChanged(sender As Object, e As EventArgs) Handles WinterAspen.CheckedChanged
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
@@ -1401,7 +1390,7 @@ Public Class FormSmartStart
         LoadPlant(CStr(sender.text))
     End Sub
 
-    Private Sub RadioButton25_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton25.CheckedChanged
+    Private Sub RadioButton25_CheckedChanged(sender As Object, e As EventArgs)
         LoadPlant(CStr(sender.text))
     End Sub
 

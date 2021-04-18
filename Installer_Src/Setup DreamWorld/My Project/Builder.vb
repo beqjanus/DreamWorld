@@ -164,9 +164,12 @@ Module Build
 
         For Each NewType In UseTree
             If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} false") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree plant {NewType}") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"tree rate 1000") Then Return
             Sleep(2000)
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"tree statistics") Then Return
         Next
 
         If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
