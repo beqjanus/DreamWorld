@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Vie kaikki kartat</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Maanrakentaja</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Maisemointi</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Poista iän mukaan</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Pidä aina</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Analysoi loki</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Puut ja kasvit</value>
+  </data>
 </root>

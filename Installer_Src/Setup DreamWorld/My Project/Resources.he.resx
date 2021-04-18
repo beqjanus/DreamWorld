@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>ייצא את כל המפות</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>יצרנית קרקעות</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>אדריכלות נוף</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>מחק לפי גיל</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>שמור תמיד</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>ניתוח יומן</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>עצים וצמחים</value>
+  </data>
 </root>

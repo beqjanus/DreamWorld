@@ -3019,4 +3019,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Exporta tots els mapes</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Creador de terres</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Paisatgisme</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Suprimeix per edat</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Mantingueu sempre</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Analitza el registre</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Arbres i plantes</value>
+  </data>
 </root>

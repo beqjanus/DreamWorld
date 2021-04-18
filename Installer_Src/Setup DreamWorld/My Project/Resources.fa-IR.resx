@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>صادر کردن همه نقشه ها</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>زمین ساز</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>محوطه سازی</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>حذف براساس سن</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>همیشه نگه دارید</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>تجزیه و تحلیل ورود به سیستم</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>درختان و گیاهان</value>
+  </data>
 </root>

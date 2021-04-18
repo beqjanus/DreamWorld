@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Tüm Haritaları Dışa Aktar</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Arazi Yapıcı</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Peyzaj</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Yaşa Göre Sil</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Daima Tut</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Günlüğü Analiz Et</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Ağaçlar ve Bitkiler</value>
+  </data>
 </root>

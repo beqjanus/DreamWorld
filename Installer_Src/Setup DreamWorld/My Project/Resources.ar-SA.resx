@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>تصدير كافة الخرائط</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>صانع الأرض</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>تنسيق حدائق</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>حذف حسب العمر</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>ابق دائما</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>تحليل السجل</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>الأشجار والنباتات</value>
+  </data>
 </root>

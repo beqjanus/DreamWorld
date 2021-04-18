@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Xuất tất cả bản đồ</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Land Maker</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Cảnh quan</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Xóa theo độ tuổi</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Luôn luôn</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Phân tích nhật ký</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Cây cối và Thực vật</value>
+  </data>
 </root>

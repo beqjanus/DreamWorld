@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Gach Léarscáil a Easpórtáil</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Déantóir Talún</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Tírdhreachú</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Scrios de réir Aoise</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Coinnigh i gcónaí</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Logáil Anailíse</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Crainn agus Plandaí</value>
+  </data>
 </root>

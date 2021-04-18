@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Esportatu mapa guztiak</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Lurraren sortzailea</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Lorezaintza</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Ezabatu adinaren arabera</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Jarrai Beti</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Egunkaria aztertu</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Zuhaitzak eta landareak</value>
+  </data>
 </root>

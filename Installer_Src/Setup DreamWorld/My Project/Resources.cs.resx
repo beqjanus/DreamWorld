@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Exportovat všechny mapy</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Land Maker</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Terénní úpravy</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Smazat podle věku</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Ponechat vždy</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Analyzovat protokol</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Stromy a rostliny</value>
+  </data>
 </root>

@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>导出所有地图</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>土地制造商</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>美化环境</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>按年龄删除</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>始终保持</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>分析日志</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>树木和植物</value>
+  </data>
 </root>

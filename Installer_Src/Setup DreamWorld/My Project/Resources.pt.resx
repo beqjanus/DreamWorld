@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Exportar todos os mapas</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Land Maker</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Paisagismo</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Apagar por Idade</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Manter sempre</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Analisar Log</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Árvores e Plantas</value>
+  </data>
 </root>

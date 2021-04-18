@@ -3018,4 +3018,22 @@
   <data name="ExportAllMaps" xml:space="preserve">
     <value>Flytja út öll kort</value>
   </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Landsmaður</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Landmótun</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Eyða eftir aldri</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Haltu alltaf</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Greindu Log</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Tré og plöntur</value>
+  </data>
 </root>
