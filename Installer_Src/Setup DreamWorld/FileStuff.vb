@@ -236,15 +236,18 @@ Module FileStuff
 
     Sub DeleteOldFiles()
 
-        Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")
-        Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)
+        Try
+            Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")
+            Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)
 
-        Dim fileSystemInfo As System.IO.FileSystemInfo
-        For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
-            If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
-                DeleteFile(fileSystemInfo.FullName)
-            End If
-        Next
+            Dim fileSystemInfo As System.IO.FileSystemInfo
+            For Each fileSystemInfo In sourceDirectoryInfo.GetFileSystemInfos
+                If fileSystemInfo.FullName.EndsWith(".rtf", StringComparison.InvariantCulture) Then
+                    DeleteFile(fileSystemInfo.FullName)
+                End If
+            Next
+        Catch
+        End Try
 
     End Sub
 
@@ -312,17 +315,20 @@ Module FileStuff
 
     Private Sub Deletefilesin(LogPath As String)
 
-        FileIO.FileSystem.CreateDirectory(LogPath)
-        Dim directory As New System.IO.DirectoryInfo(LogPath)
-        ' get each file's last modified date
-        For Each File As System.IO.FileInfo In directory.GetFiles()
-            ' get  file's last modified date
-            Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
-            Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
-            If Datedifference > Settings.KeepForDays * 24 Then
-                DeleteFile(File.FullName)
-            End If
-        Next
+        Try
+            FileIO.FileSystem.CreateDirectory(LogPath)
+            Dim directory As New System.IO.DirectoryInfo(LogPath)
+            ' get each file's last modified date
+            For Each File As System.IO.FileInfo In directory.GetFiles()
+                ' get  file's last modified date
+                Dim strLastModified As Date = System.IO.File.GetLastWriteTime(File.FullName)
+                Dim Datedifference = DateDiff("h", strLastModified, Date.Now)
+                If Datedifference > Settings.KeepForDays * 24 Then
+                    DeleteFile(File.FullName)
+                End If
+            Next
+        Catch
+        End Try
 
     End Sub
 

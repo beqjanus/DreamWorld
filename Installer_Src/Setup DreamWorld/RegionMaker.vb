@@ -560,7 +560,6 @@ Public Class RegionMaker
             _RegionListIsInititalized = True
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Debug.Print(ex.Message)
             GetAllRegionsIsBusy = False
             PropUpdateView = True ' make form refresh
             Return -1

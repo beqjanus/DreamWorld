@@ -160,7 +160,7 @@ Public Class FormSetup
             Return ViewedSettings
         End Get
         Set(value As Boolean)
-            Diagnostics.Debug.Print("ViewedSettings =" & value)
+            'Diagnostics.Debug.Print("ViewedSettings =" & value)
             ViewedSettings = value
         End Set
     End Property
@@ -594,7 +594,7 @@ Public Class FormSetup
                             status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Or
                             status = RegionMaker.SIMSTATUSENUM.RecyclingDown
                             ) Then
-                        Diagnostics.Debug.Print(PropRegionClass.RegionName(RegionUUID))
+                        'Diagnostics.Debug.Print(PropRegionClass.RegionName(RegionUUID))
                         wait = True
                         Application.DoEvents()
                     End If

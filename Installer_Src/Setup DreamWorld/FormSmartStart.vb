@@ -599,26 +599,29 @@ Public Class FormSmartStart
 
     Private Sub LoadTerrainList()
 
-        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
-        Dim File As System.IO.FileInfo() = directory.GetFiles()
-        Dim File1 As System.IO.FileInfo
+        Try
+            Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+            Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
+            Dim File As System.IO.FileInfo() = directory.GetFiles()
+            Dim File1 As System.IO.FileInfo
 
-        For Each File1 In File
-            If File1.Name.EndsWith(".jpg", StringComparison.InvariantCultureIgnoreCase) Then
-                Dim pic = Bitmap.FromFile(File1.FullName)
-                Dim newImage = New Bitmap(256, 256)
-                Dim gr = Graphics.FromImage(newImage)
-                gr.DrawImageUnscaled(pic, 0, 0)
+            For Each File1 In File
+                If File1.Name.EndsWith(".jpg", StringComparison.InvariantCultureIgnoreCase) Then
+                    Dim pic = Bitmap.FromFile(File1.FullName)
+                    Dim newImage = New Bitmap(256, 256)
+                    Dim gr = Graphics.FromImage(newImage)
+                    gr.DrawImageUnscaled(pic, 0, 0)
 
-                _TerrainList.Add(newImage)
-                _TerrainName.Add(File1.FullName)
-                If PictureBox3.Image Is Nothing Then
-                    PictureBox3.Image = newImage
+                    _TerrainList.Add(newImage)
+                    _TerrainName.Add(File1.FullName)
+                    If PictureBox3.Image Is Nothing Then
+                        PictureBox3.Image = newImage
+                    End If
+
                 End If
-
-            End If
-        Next
+            Next
+        Catch
+        End Try
 
     End Sub
 
@@ -1041,8 +1044,8 @@ Public Class FormSmartStart
         If XMLName Is Nothing Then Return
 
         Dim quant = CInt("0" & Qty.Text)
-        Dim TreelineLow = CInt("0" & Me.TreeLineLow.Text)
-        Dim TreelineHigh = CInt("0" & TreeLineHight.Text)
+        Dim Tlo = CInt("0" & Me.TreeLineLow.Text)
+        Dim Thi = CInt("0" & TreeLineHight.Text)
         Dim StartX = CInt("0" & StartSizeX.Text)
         Dim StartY = CInt("0" & StartSizeY.Text)
         Dim StartZ = CInt("0" & StartSizeZ.Text)
@@ -1050,18 +1053,19 @@ Public Class FormSmartStart
         Dim EndY = CInt("0" & EndsizeY.Text)
         Dim EndZ = CInt("0" & EndsizeZ.Text)
         Dim RadiusTree = CInt("0" & Rad.Text)
+        Dim average = (Thi + Tlo) / 2
 
-        Dim xml As String = $"<Copse>
+        Dim Xml As String = $"<Copse>
   <m_name>{XMLName}</m_name>
   <m_frozen>false</m_frozen>
   <m_tree_type>{XMLName}</m_tree_type>
   <m_tree_quantity>{quant}</m_tree_quantity>
-  <m_treeline_low>{TreelineLow}</m_treeline_low>
-  <m_treeline_high>{TreelineHigh}</m_treeline_high>
+  <m_treeline_low>{Tlo}</m_treeline_low>
+  <m_treeline_high>{Thi}</m_treeline_high>
   <m_seed_point>
     <X>{Size / 2}</X>
     <Y>{Size / 2}</Y>
-    <Z>0</Z>
+    <Z>{average}</Z>
   </m_seed_point>
   <m_range>{RadiusTree * Size / 256}</m_range>
   <m_initial_scale>
@@ -1080,12 +1084,12 @@ Public Class FormSmartStart
     <Z>0.01</Z>
   </m_rate>
 </Copse>
-  "
+"
         Dim output = IO.Path.Combine(Settings.OpensimBinPath, $"Trees/{XMLName}.xml")
 
         Try
             Using Writer As New StreamWriter(output)
-                Writer.Write(xml)
+                Writer.Write(Xml)
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -1151,32 +1155,39 @@ Public Class FormSmartStart
 
     Private Sub RebuildTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RebuildTerrainsToolStripMenuItem.Click
 
-        Dim RegionName = ChooseRegion(True)
-        If RegionName.Length = 0 Then Return
+        Try
+            Dim RegionName = ChooseRegion(True)
+            If RegionName.Length = 0 Then Return
 
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+            Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
-        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
-        Dim File As System.IO.FileInfo() = directory.GetFiles()
-        Dim File1 As System.IO.FileInfo
-        For Each File1 In File
-            Maketypes(File1, RegionUUID)
-        Next
+            Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+            Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
+            Dim File As System.IO.FileInfo() = directory.GetFiles()
+            Dim File1 As System.IO.FileInfo
+            For Each File1 In File
+                Maketypes(File1, RegionUUID)
+            Next
+        Catch
+        End Try
+
     End Sub
 
     Private Sub SaveAllTerrain_Click(sender As Object, e As EventArgs) Handles SaveAllTerrain.Click
         'Save all
-        Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        For Each RegionUUID In PropRegionClass.RegionUuids
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        Try
+            Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+            For Each RegionUUID In PropRegionClass.RegionUuids
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
-                RPC_Region_Command(RegionUUID, $"change region {RegionName}")
-                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
-                RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
-            End If
-        Next
+                If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                    RPC_Region_Command(RegionUUID, $"change region {RegionName}")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+                End If
+            Next
+        Catch
+        End Try
 
     End Sub
 
@@ -1503,7 +1514,7 @@ Public Class FormSmartStart
         If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         TreeLineLow.Text = digitsOnly.Replace(TreeLineLow.Text, "")
-        If CInt(TreeLineLow.Text) < 0 Then TreeLineLow.Text = CStr(0)
+        If CInt("0" & TreeLineLow.Text) < 0 Then TreeLineLow.Text = CStr(0)
         MakeSetting()
     End Sub
 
@@ -1511,7 +1522,7 @@ Public Class FormSmartStart
         If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Qty.Text = digitsOnly.Replace(Qty.Text, "")
-        If CInt(Qty.Text) > 500 Then Qty.Text = CStr(500)
+        If CInt("0" & Qty.Text) > 500 Then Qty.Text = CStr(500)
         MakeSetting()
     End Sub
 
@@ -1552,8 +1563,7 @@ Public Class FormSmartStart
         If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         TreeLineHight.Text = digitsOnly.Replace(TreeLineHight.Text, "")
-        If CInt(TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
-        If CInt(TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
+        If CInt("0" & TreeLineHight.Text) > 255 Then TreeLineHight.Text = CStr(255)
         MakeSetting()
     End Sub
 
@@ -1561,7 +1571,7 @@ Public Class FormSmartStart
         If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Rad.Text = digitsOnly.Replace(Rad.Text, "")
-        If Convert.ToSingle("0" & Rad.Text, Globalization.CultureInfo.InvariantCulture) > 127 Then Rad.Text = CStr(127)
+        If Convert.ToSingle("0" & Rad.Text, Globalization.CultureInfo.InvariantCulture) > 1024 Then Rad.Text = CStr(1024)
         MakeSetting()
     End Sub
 
@@ -1595,6 +1605,17 @@ Public Class FormSmartStart
                 End If
             End If
         End If
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Dim name = ChooseRegion(True)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        If RegionUUID.Length = 0 Then Return
+        For Each TT As String In TreeList
+            If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
+        Next
 
     End Sub
 

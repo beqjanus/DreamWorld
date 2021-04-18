@@ -2,15 +2,15 @@
   <m_name>Cypress2</m_name>
   <m_frozen>false</m_frozen>
   <m_tree_type>Cypress2</m_tree_type>
-  <m_tree_quantity>30</m_tree_quantity>
-  <m_treeline_low>21</m_treeline_low>
+  <m_tree_quantity>200</m_tree_quantity>
+  <m_treeline_low>0</m_treeline_low>
   <m_treeline_high>45</m_treeline_high>
   <m_seed_point>
     <X>128</X>
     <Y>128</Y>
-    <Z>0</Z>
+    <Z>325</Z>
   </m_seed_point>
-  <m_range>127</m_range>
+  <m_range>300</m_range>
   <m_initial_scale>
     <X>4</X>
     <Y>4</Y>
@@ -27,4 +27,3 @@
     <Z>0.01</Z>
   </m_rate>
 </Copse>
-  

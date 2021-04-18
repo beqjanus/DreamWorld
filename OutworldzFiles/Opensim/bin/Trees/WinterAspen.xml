@@ -8,9 +8,9 @@
   <m_seed_point>
     <X>128</X>
     <Y>128</Y>
-    <Z>0</Z>
+    <Z>45</Z>
   </m_seed_point>
-  <m_range>123</m_range>
+  <m_range>300</m_range>
   <m_initial_scale>
     <X>4</X>
     <Y>4</Y>
@@ -19,7 +19,7 @@
   <m_maximum_scale>
     <X>35</X>
     <Y>35</Y>
-    <Z>52.5</Z>
+    <Z>52</Z>
   </m_maximum_scale>
   <m_rate>
     <X>0.01</X>
@@ -27,4 +27,3 @@
     <Z>0.01</Z>
   </m_rate>
 </Copse>
-  

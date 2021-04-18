@@ -153,6 +153,7 @@ Partial Class FormSmartStart
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
         Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -707,6 +708,7 @@ Partial Class FormSmartStart
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.DeletApply)
         Me.GroupBox1.Controls.Add(Me.Dogwood)
         Me.GroupBox1.Controls.Add(Me.FreezeButton)
@@ -1492,6 +1494,17 @@ Partial Class FormSmartStart
         Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
         '
+        'Button1
+        '
+        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
+        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.Location = New System.Drawing.Point(665, 106)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(111, 34)
+        Me.Button1.TabIndex = 27
+        Me.Button1.Text = "Delete All"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'FormSmartStart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1673,4 +1686,5 @@ Partial Class FormSmartStart
     Friend WithEvents Radius As Label
     Friend WithEvents Rad As TextBox
     Friend WithEvents DeletApply As CheckBox
+    Friend WithEvents Button1 As Button
 End Class

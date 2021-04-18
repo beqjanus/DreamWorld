@@ -271,7 +271,7 @@ Public Module MysqlInterface
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
-                            Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
+                            ' Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
                             Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
                         End While
                     End Using
@@ -300,7 +300,7 @@ Public Module MysqlInterface
                         While reader.Read()
                             Dim f = reader.GetString(0)
                             Dim l = reader.GetString(1)
-                            Debug.Print("ID = {0} {1}", f, l)
+                            '  Debug.Print("ID = {0} {1}", f, l)
                             If f <> "GRID" And l <> "SERVICES" Then
                                 A.Add(f & " " & l)
                             End If
@@ -360,7 +360,7 @@ Public Module MysqlInterface
                             Dim f = reader.GetString(0)
                             Dim l = reader.GetString(1)
                             Dim e = reader.GetString(2)
-                            Debug.Print("{0} {1} {2}", f, l, e)
+                            '     Debug.Print("{0} {1} {2}", f, l, e)
                             If f <> "GRID" And l <> "SERVICES" Then
                                 A.Add(f & " " & l, e)
                             End If
@@ -391,7 +391,7 @@ Public Module MysqlInterface
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
 
                         While reader.Read()
-                            Debug.Print(reader.GetString(0))
+                            ' Debug.Print(reader.GetString(0))
                             Dim LongName = reader.GetString(0)
                             UUID = reader.GetString(1)
                             For Each m In Regex.Matches(LongName, pattern)
@@ -538,7 +538,7 @@ Public Module MysqlInterface
 
                     myCommand1.Parameters.AddWithValue("@p1", p1)
                     answer = CStr(myCommand1.ExecuteScalar())
-                    Debug.Print($"User={p1}, Partner={answer}")
+                    ' Debug.Print($"User={p1}, Partner={answer}")
                     If answer Is Nothing Then
                         Return "00000000-0000-0000-0000-000000000000"
                     End If
@@ -577,7 +577,7 @@ Public Module MysqlInterface
 
             End Using
         Catch ex As Exception
-            Debug.Print(ex.Message)
+            BreakPoint.Show(ex.Message)
         End Try
         Return ""
 
