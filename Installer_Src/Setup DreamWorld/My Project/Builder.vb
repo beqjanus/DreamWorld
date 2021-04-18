@@ -83,10 +83,10 @@ Module Build
         Dim Simcount As Integer
         For Each UUID In PropRegionClass.RegionUuids
             Dim SimSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
-            For Xstep = 1 To SimSize
-                For Ystep = 1 To SimSize
+            For Xstep = 0 To SimSize - 1
+                For Ystep = 0 To SimSize - 1
                     Simcount += 1
-                    RegionXY.Add($"{PropRegionClass.CoordX(UUID) + Xstep - 1}:{PropRegionClass.CoordY(UUID) + Ystep - 1}")
+                    RegionXY.Add($"{PropRegionClass.CoordX(UUID) + Xstep}:{PropRegionClass.CoordY(UUID) + Ystep}")
                 Next
             Next
         Next
@@ -148,7 +148,7 @@ Module Build
         If UseTree.Count = 0 Then
             Return
         End If
-
+        ' Undergrowth1
         If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
 
         If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
@@ -156,23 +156,17 @@ Module Build
             If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
         Next
 
-        Dim r = Between(UseTree.Count, 0)
-        Dim Type As String = UseTree(r)
-
         Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
         If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
 
         For Each NewType In UseTree
-            If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} false") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree plant {NewType}") Then Return
             If Not RPC_Region_Command(RegionUUID, "tree rate 1000") Then Return
             Sleep(1000)
-            'force update - Force the region to send all clients updates about all objects.
-            If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
         Next
-
         If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
 
         'force update - Force the region to send all clients updates about all objects.
