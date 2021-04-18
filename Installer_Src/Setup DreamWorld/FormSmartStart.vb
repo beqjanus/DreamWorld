@@ -83,10 +83,6 @@ Public Class FormSmartStart
 
     Public Sub PutSetting(name As String, value As Boolean)
 
-        If value Then
-            All.Checked = False
-            None.Checked = False
-        End If
         Settings.SetMySetting(name, CStr(value))
         Settings.SaveSettings()
 
@@ -94,14 +90,15 @@ Public Class FormSmartStart
 
     Private Sub All_CheckedChanged(sender As Object, e As EventArgs) Handles All.CheckedChanged
 
-        Settings.AllPlants = True
-
         If All.Checked Then
+            Settings.AllPlants = True
             None.Checked = False
+
             SetSetting(BeachGrass1)
             SetSetting(Cypress1)
             SetSetting(Cypress2)
             SetSetting(Eelgrass)
+            SetSetting(Dogwood)
             SetSetting(Eucalyptus)
             SetSetting(Fern)
             SetSetting(Grass0)
@@ -124,6 +121,8 @@ Public Class FormSmartStart
             SetSetting(WinterAspen)
             SetSetting(WinterPine1)
             SetSetting(WinterPine2)
+
+            Settings.SaveSettings()
         End If
 
     End Sub
@@ -141,12 +140,12 @@ Public Class FormSmartStart
         If None.Checked Then
 
             Settings.NoPlants = True
-
             All.Checked = False
 
             ClrSetting(BeachGrass1)
             ClrSetting(Cypress1)
             ClrSetting(Cypress2)
+            ClrSetting(Dogwood)
             ClrSetting(Eelgrass)
             ClrSetting(Eucalyptus)
             ClrSetting(Fern)
@@ -170,6 +169,9 @@ Public Class FormSmartStart
             ClrSetting(WinterAspen)
             ClrSetting(WinterPine1)
             ClrSetting(WinterPine2)
+
+            Settings.SaveSettings()
+
         End If
 
     End Sub
@@ -1307,15 +1309,6 @@ Public Class FormSmartStart
 
         RPC_Region_Command(RegionUUID, $"change region ""{name}""")
 
-        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If IO.File.Exists($"{backupname}\{name}-Backup.r32") Then
-            DeleteFile($"{backupname}\{name}-Backup.r32")
-        End If
-        RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.r32""")
-        If IO.File.Exists($"{backupname}\{name}-Backup.jpg") Then
-            DeleteFile($"{backupname}\{name}-Backup.jpg")
-        End If
-        RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.jpg""")
         If RegionUUID.Length > 0 Then
             GenTrees(RegionUUID)
         End If
