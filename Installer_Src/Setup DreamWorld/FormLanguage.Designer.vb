@@ -122,7 +122,7 @@ Partial Class Language
         Me.Arabic_Saudi.Location = New System.Drawing.Point(3, 3)
         Me.Arabic_Saudi.Name = "Arabic_Saudi"
         Me.Arabic_Saudi.Size = New System.Drawing.Size(170, 25)
-        Me.Arabic_Saudi.TabIndex = 2
+        Me.Arabic_Saudi.TabIndex = 0
         Me.Arabic_Saudi.Text = "Arabic_Saudi"
         Me.Arabic_Saudi.UseVisualStyleBackColor = True
         '
@@ -133,7 +133,7 @@ Partial Class Language
         Me.Basque.Location = New System.Drawing.Point(179, 3)
         Me.Basque.Name = "Basque"
         Me.Basque.Size = New System.Drawing.Size(170, 25)
-        Me.Basque.TabIndex = 9
+        Me.Basque.TabIndex = 1
         Me.Basque.Text = "Basque"
         Me.Basque.UseVisualStyleBackColor = True
         '
@@ -144,7 +144,7 @@ Partial Class Language
         Me.Brazilian.Location = New System.Drawing.Point(355, 3)
         Me.Brazilian.Name = "Brazilian"
         Me.Brazilian.Size = New System.Drawing.Size(170, 25)
-        Me.Brazilian.TabIndex = 12
+        Me.Brazilian.TabIndex = 2
         Me.Brazilian.Text = "Brazil"
         Me.Brazilian.UseVisualStyleBackColor = True
         '
@@ -155,7 +155,7 @@ Partial Class Language
         Me.Catalan.Location = New System.Drawing.Point(531, 3)
         Me.Catalan.Name = "Catalan"
         Me.Catalan.Size = New System.Drawing.Size(170, 25)
-        Me.Catalan.TabIndex = 21
+        Me.Catalan.TabIndex = 3
         Me.Catalan.Text = "Catalan"
         Me.Catalan.UseVisualStyleBackColor = True
         '
@@ -166,7 +166,7 @@ Partial Class Language
         Me.czech.Location = New System.Drawing.Point(707, 3)
         Me.czech.Name = "czech"
         Me.czech.Size = New System.Drawing.Size(170, 25)
-        Me.czech.TabIndex = 3
+        Me.czech.TabIndex = 4
         Me.czech.Text = "Czech"
         Me.czech.UseVisualStyleBackColor = True
         '
@@ -177,7 +177,7 @@ Partial Class Language
         Me.Taiwan.Location = New System.Drawing.Point(3, 34)
         Me.Taiwan.Name = "Taiwan"
         Me.Taiwan.Size = New System.Drawing.Size(170, 25)
-        Me.Taiwan.TabIndex = 7
+        Me.Taiwan.TabIndex = 5
         Me.Taiwan.Text = "Chinese Traditional"
         Me.Taiwan.UseVisualStyleBackColor = True
         '
@@ -188,7 +188,7 @@ Partial Class Language
         Me.China.Location = New System.Drawing.Point(179, 34)
         Me.China.Name = "China"
         Me.China.Size = New System.Drawing.Size(170, 25)
-        Me.China.TabIndex = 13
+        Me.China.TabIndex = 6
         Me.China.Text = "Chinese Simplifies"
         Me.China.UseVisualStyleBackColor = True
         '
@@ -199,7 +199,7 @@ Partial Class Language
         Me.ChineseHK.Location = New System.Drawing.Point(355, 34)
         Me.ChineseHK.Name = "ChineseHK"
         Me.ChineseHK.Size = New System.Drawing.Size(170, 25)
-        Me.ChineseHK.TabIndex = 31
+        Me.ChineseHK.TabIndex = 7
         Me.ChineseHK.Text = "Chinese (Han HK)"
         Me.ChineseHK.UseVisualStyleBackColor = True
         '
@@ -210,7 +210,7 @@ Partial Class Language
         Me.Danish.Location = New System.Drawing.Point(531, 34)
         Me.Danish.Name = "Danish"
         Me.Danish.Size = New System.Drawing.Size(170, 25)
-        Me.Danish.TabIndex = 30
+        Me.Danish.TabIndex = 8
         Me.Danish.Text = "Danish"
         Me.Danish.UseVisualStyleBackColor = True
         '
@@ -221,7 +221,7 @@ Partial Class Language
         Me.English.Location = New System.Drawing.Point(707, 34)
         Me.English.Name = "English"
         Me.English.Size = New System.Drawing.Size(170, 25)
-        Me.English.TabIndex = 5
+        Me.English.TabIndex = 9
         Me.English.Text = "English"
         Me.English.UseVisualStyleBackColor = True
         '
@@ -232,7 +232,7 @@ Partial Class Language
         Me.Finnish.Location = New System.Drawing.Point(3, 65)
         Me.Finnish.Name = "Finnish"
         Me.Finnish.Size = New System.Drawing.Size(170, 25)
-        Me.Finnish.TabIndex = 25
+        Me.Finnish.TabIndex = 10
         Me.Finnish.Text = "Finnish"
         Me.Finnish.UseVisualStyleBackColor = True
         '
@@ -254,7 +254,7 @@ Partial Class Language
         Me.French.Location = New System.Drawing.Point(179, 65)
         Me.French.Name = "French"
         Me.French.Size = New System.Drawing.Size(170, 25)
-        Me.French.TabIndex = 22
+        Me.French.TabIndex = 11
         Me.French.Text = "French"
         Me.French.UseVisualStyleBackColor = True
         '
@@ -265,7 +265,7 @@ Partial Class Language
         Me.Germany.Location = New System.Drawing.Point(355, 65)
         Me.Germany.Name = "Germany"
         Me.Germany.Size = New System.Drawing.Size(170, 25)
-        Me.Germany.TabIndex = 1
+        Me.Germany.TabIndex = 12
         Me.Germany.Text = "Germany"
         Me.Germany.UseVisualStyleBackColor = True
         '
@@ -276,7 +276,7 @@ Partial Class Language
         Me.Greek.Location = New System.Drawing.Point(531, 65)
         Me.Greek.Name = "Greek"
         Me.Greek.Size = New System.Drawing.Size(170, 25)
-        Me.Greek.TabIndex = 8
+        Me.Greek.TabIndex = 13
         Me.Greek.Text = "Greek"
         Me.Greek.UseVisualStyleBackColor = True
         '
@@ -287,7 +287,7 @@ Partial Class Language
         Me.Hebrew.Location = New System.Drawing.Point(707, 65)
         Me.Hebrew.Name = "Hebrew"
         Me.Hebrew.Size = New System.Drawing.Size(170, 25)
-        Me.Hebrew.TabIndex = 11
+        Me.Hebrew.TabIndex = 14
         Me.Hebrew.Text = "Hebrew"
         Me.Hebrew.UseVisualStyleBackColor = True
         '
@@ -309,7 +309,7 @@ Partial Class Language
         Me.Irish.Location = New System.Drawing.Point(179, 96)
         Me.Irish.Name = "Irish"
         Me.Irish.Size = New System.Drawing.Size(170, 25)
-        Me.Irish.TabIndex = 17
+        Me.Irish.TabIndex = 16
         Me.Irish.Text = "Irish"
         Me.Irish.UseVisualStyleBackColor = True
         '
@@ -320,7 +320,7 @@ Partial Class Language
         Me.Italian.Location = New System.Drawing.Point(355, 96)
         Me.Italian.Name = "Italian"
         Me.Italian.Size = New System.Drawing.Size(170, 25)
-        Me.Italian.TabIndex = 32
+        Me.Italian.TabIndex = 17
         Me.Italian.Text = "Italian"
         Me.Italian.UseVisualStyleBackColor = True
         '
@@ -331,7 +331,7 @@ Partial Class Language
         Me.Khazak.Location = New System.Drawing.Point(531, 96)
         Me.Khazak.Name = "Khazak"
         Me.Khazak.Size = New System.Drawing.Size(170, 25)
-        Me.Khazak.TabIndex = 27
+        Me.Khazak.TabIndex = 18
         Me.Khazak.Text = "Khazak"
         Me.Khazak.UseVisualStyleBackColor = True
         '
@@ -342,7 +342,7 @@ Partial Class Language
         Me.Dutch.Location = New System.Drawing.Point(707, 96)
         Me.Dutch.Name = "Dutch"
         Me.Dutch.Size = New System.Drawing.Size(170, 25)
-        Me.Dutch.TabIndex = 16
+        Me.Dutch.TabIndex = 19
         Me.Dutch.Text = "Netherlands"
         Me.Dutch.UseVisualStyleBackColor = True
         '
@@ -353,7 +353,7 @@ Partial Class Language
         Me.Norway.Location = New System.Drawing.Point(3, 127)
         Me.Norway.Name = "Norway"
         Me.Norway.Size = New System.Drawing.Size(170, 25)
-        Me.Norway.TabIndex = 4
+        Me.Norway.TabIndex = 20
         Me.Norway.Text = "Norwegian"
         Me.Norway.UseVisualStyleBackColor = True
         '
@@ -364,7 +364,7 @@ Partial Class Language
         Me.Persian.Location = New System.Drawing.Point(179, 127)
         Me.Persian.Name = "Persian"
         Me.Persian.Size = New System.Drawing.Size(170, 25)
-        Me.Persian.TabIndex = 6
+        Me.Persian.TabIndex = 21
         Me.Persian.Text = "Persian"
         Me.Persian.UseVisualStyleBackColor = True
         '
@@ -375,7 +375,7 @@ Partial Class Language
         Me.Polish.Location = New System.Drawing.Point(355, 127)
         Me.Polish.Name = "Polish"
         Me.Polish.Size = New System.Drawing.Size(170, 25)
-        Me.Polish.TabIndex = 10
+        Me.Polish.TabIndex = 22
         Me.Polish.Text = "Polish"
         Me.Polish.UseVisualStyleBackColor = True
         '
@@ -386,7 +386,7 @@ Partial Class Language
         Me.Portuguese.Location = New System.Drawing.Point(531, 127)
         Me.Portuguese.Name = "Portuguese"
         Me.Portuguese.Size = New System.Drawing.Size(170, 25)
-        Me.Portuguese.TabIndex = 19
+        Me.Portuguese.TabIndex = 23
         Me.Portuguese.Text = "Portuguese"
         Me.Portuguese.UseVisualStyleBackColor = True
         '
@@ -397,7 +397,7 @@ Partial Class Language
         Me.Russian.Location = New System.Drawing.Point(707, 127)
         Me.Russian.Name = "Russian"
         Me.Russian.Size = New System.Drawing.Size(170, 25)
-        Me.Russian.TabIndex = 23
+        Me.Russian.TabIndex = 24
         Me.Russian.Text = "Russian"
         Me.Russian.UseVisualStyleBackColor = True
         '
@@ -419,7 +419,7 @@ Partial Class Language
         Me.Spain.Location = New System.Drawing.Point(3, 158)
         Me.Spain.Name = "Spain"
         Me.Spain.Size = New System.Drawing.Size(170, 25)
-        Me.Spain.TabIndex = 24
+        Me.Spain.TabIndex = 25
         Me.Spain.Text = "Spanish (Spain)"
         Me.Spain.UseVisualStyleBackColor = True
         '
@@ -430,7 +430,7 @@ Partial Class Language
         Me.Swedish.Location = New System.Drawing.Point(355, 158)
         Me.Swedish.Name = "Swedish"
         Me.Swedish.Size = New System.Drawing.Size(170, 25)
-        Me.Swedish.TabIndex = 20
+        Me.Swedish.TabIndex = 27
         Me.Swedish.Text = "Swedish"
         Me.Swedish.UseVisualStyleBackColor = True
         '

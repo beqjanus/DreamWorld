@@ -53,7 +53,7 @@ Partial Class FormLogging
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(317, 34)
-        Me.MenuStrip1.TabIndex = 186741
+        Me.MenuStrip1.TabIndex = 0
         '
         'HelpToolStripMenuItem
         '
@@ -75,7 +75,7 @@ Partial Class FormLogging
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.GroupBox1.Size = New System.Drawing.Size(100, 185)
-        Me.GroupBox1.TabIndex = 186742
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Log Level"
         '
@@ -85,7 +85,7 @@ Partial Class FormLogging
         Me.RadioFatal.Location = New System.Drawing.Point(13, 123)
         Me.RadioFatal.Name = "RadioFatal"
         Me.RadioFatal.Size = New System.Drawing.Size(48, 17)
-        Me.RadioFatal.TabIndex = 5
+        Me.RadioFatal.TabIndex = 4
         Me.RadioFatal.TabStop = True
         Me.RadioFatal.Text = Global.Outworldz.My.Resources.Resources.Fatal_word
         Me.RadioFatal.UseVisualStyleBackColor = True
@@ -96,7 +96,7 @@ Partial Class FormLogging
         Me.RadioError.Location = New System.Drawing.Point(13, 100)
         Me.RadioError.Name = "RadioError"
         Me.RadioError.Size = New System.Drawing.Size(47, 17)
-        Me.RadioError.TabIndex = 4
+        Me.RadioError.TabIndex = 3
         Me.RadioError.TabStop = True
         Me.RadioError.Text = Global.Outworldz.My.Resources.Resources.Error_word
         Me.RadioError.UseVisualStyleBackColor = True
@@ -107,7 +107,7 @@ Partial Class FormLogging
         Me.RadioWarn.Location = New System.Drawing.Point(13, 77)
         Me.RadioWarn.Name = "RadioWarn"
         Me.RadioWarn.Size = New System.Drawing.Size(51, 17)
-        Me.RadioWarn.TabIndex = 3
+        Me.RadioWarn.TabIndex = 2
         Me.RadioWarn.TabStop = True
         Me.RadioWarn.Text = Global.Outworldz.My.Resources.Resources.Warn_word
         Me.RadioWarn.UseVisualStyleBackColor = True
@@ -118,7 +118,7 @@ Partial Class FormLogging
         Me.RadioInfo.Location = New System.Drawing.Point(13, 53)
         Me.RadioInfo.Name = "RadioInfo"
         Me.RadioInfo.Size = New System.Drawing.Size(43, 17)
-        Me.RadioInfo.TabIndex = 2
+        Me.RadioInfo.TabIndex = 1
         Me.RadioInfo.TabStop = True
         Me.RadioInfo.Text = Global.Outworldz.My.Resources.Resources.Info_word
         Me.RadioInfo.UseVisualStyleBackColor = True
@@ -129,7 +129,7 @@ Partial Class FormLogging
         Me.RadioDebug.Location = New System.Drawing.Point(13, 29)
         Me.RadioDebug.Name = "RadioDebug"
         Me.RadioDebug.Size = New System.Drawing.Size(57, 17)
-        Me.RadioDebug.TabIndex = 1
+        Me.RadioDebug.TabIndex = 0
         Me.RadioDebug.TabStop = True
         Me.RadioDebug.Text = Global.Outworldz.My.Resources.Resources.Debug_word
         Me.RadioDebug.UseVisualStyleBackColor = True
@@ -140,7 +140,7 @@ Partial Class FormLogging
         Me.RadioOff.Location = New System.Drawing.Point(13, 147)
         Me.RadioOff.Name = "RadioOff"
         Me.RadioOff.Size = New System.Drawing.Size(39, 17)
-        Me.RadioOff.TabIndex = 0
+        Me.RadioOff.TabIndex = 5
         Me.RadioOff.TabStop = True
         Me.RadioOff.Text = Global.Outworldz.My.Resources.Resources.Off
         Me.RadioOff.UseVisualStyleBackColor = True
@@ -152,7 +152,7 @@ Partial Class FormLogging
         Me.DeleteOnBoot.Location = New System.Drawing.Point(17, 29)
         Me.DeleteOnBoot.Name = "DeleteOnBoot"
         Me.DeleteOnBoot.Size = New System.Drawing.Size(96, 17)
-        Me.DeleteOnBoot.TabIndex = 186743
+        Me.DeleteOnBoot.TabIndex = 0
         Me.DeleteOnBoot.TabStop = True
         Me.DeleteOnBoot.Text = "Delete on Boot"
         Me.DeleteOnBoot.UseVisualStyleBackColor = True
@@ -163,7 +163,7 @@ Partial Class FormLogging
         Me.KeepLog.Location = New System.Drawing.Point(17, 53)
         Me.KeepLog.Name = "KeepLog"
         Me.KeepLog.Size = New System.Drawing.Size(50, 17)
-        Me.KeepLog.TabIndex = 186744
+        Me.KeepLog.TabIndex = 1
         Me.KeepLog.Text = "Keep"
         Me.KeepLog.UseVisualStyleBackColor = True
         '
@@ -176,7 +176,7 @@ Partial Class FormLogging
         Me.DeletebyAge.Location = New System.Drawing.Point(127, 48)
         Me.DeletebyAge.Name = "DeletebyAge"
         Me.DeletebyAge.Size = New System.Drawing.Size(185, 185)
-        Me.DeletebyAge.TabIndex = 186745
+        Me.DeletebyAge.TabIndex = 2
         Me.DeletebyAge.TabStop = False
         Me.DeletebyAge.Text = "Log Files"
         '
@@ -187,7 +187,7 @@ Partial Class FormLogging
         Me.AnalyzeButton.Location = New System.Drawing.Point(6, 142)
         Me.AnalyzeButton.Name = "AnalyzeButton"
         Me.AnalyzeButton.Size = New System.Drawing.Size(156, 27)
-        Me.AnalyzeButton.TabIndex = 186746
+        Me.AnalyzeButton.TabIndex = 3
         Me.AnalyzeButton.Text = "Analyze Log"
         Me.AnalyzeButton.UseVisualStyleBackColor = True
         '
@@ -198,7 +198,7 @@ Partial Class FormLogging
         Me.ViewLogButton.Location = New System.Drawing.Point(6, 100)
         Me.ViewLogButton.Name = "ViewLogButton"
         Me.ViewLogButton.Size = New System.Drawing.Size(156, 27)
-        Me.ViewLogButton.TabIndex = 186745
+        Me.ViewLogButton.TabIndex = 2
         Me.ViewLogButton.Text = "View"
         Me.ViewLogButton.UseVisualStyleBackColor = True
         '
@@ -208,7 +208,7 @@ Partial Class FormLogging
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 247)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(317, 22)
-        Me.StatusStrip1.TabIndex = 186746
+        Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel1

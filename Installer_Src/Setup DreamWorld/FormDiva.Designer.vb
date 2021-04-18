@@ -83,7 +83,7 @@ Partial Class FormDiva
         Me.Web.Location = New System.Drawing.Point(5, 37)
         Me.Web.Name = "Web"
         Me.Web.Size = New System.Drawing.Size(370, 196)
-        Me.Web.TabIndex = 48
+        Me.Web.TabIndex = 3
         Me.Web.TabStop = False
         Me.Web.Text = "Wifi Interface Admin"
         '
@@ -93,7 +93,7 @@ Partial Class FormDiva
         Me.WifiEnabled.Location = New System.Drawing.Point(19, 28)
         Me.WifiEnabled.Name = "WifiEnabled"
         Me.WifiEnabled.Size = New System.Drawing.Size(111, 17)
-        Me.WifiEnabled.TabIndex = 26
+        Me.WifiEnabled.TabIndex = 0
         Me.WifiEnabled.Text = Global.Outworldz.My.Resources.Resources.Diva_Wifi_Enabled_word
         Me.WifiEnabled.UseVisualStyleBackColor = True
         '
@@ -103,7 +103,7 @@ Partial Class FormDiva
         Me.Label17.Location = New System.Drawing.Point(4, 139)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(62, 13)
-        Me.Label17.TabIndex = 15
+        Me.Label17.TabIndex = 7
         Me.Label17.Text = "Notify Email"
         '
         'AdminEmail
@@ -111,7 +111,7 @@ Partial Class FormDiva
         Me.AdminEmail.Location = New System.Drawing.Point(161, 134)
         Me.AdminEmail.Name = "AdminEmail"
         Me.AdminEmail.Size = New System.Drawing.Size(164, 20)
-        Me.AdminEmail.TabIndex = 30
+        Me.AdminEmail.TabIndex = 8
         '
         'Label12
         '
@@ -119,7 +119,7 @@ Partial Class FormDiva
         Me.Label12.Location = New System.Drawing.Point(4, 89)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(58, 13)
-        Me.Label12.TabIndex = 13
+        Me.Label12.TabIndex = 3
         Me.Label12.Text = "Last Name"
         '
         'AccountConfirmationRequired
@@ -128,7 +128,7 @@ Partial Class FormDiva
         Me.AccountConfirmationRequired.Location = New System.Drawing.Point(19, 173)
         Me.AccountConfirmationRequired.Name = "AccountConfirmationRequired"
         Me.AccountConfirmationRequired.Size = New System.Drawing.Size(171, 17)
-        Me.AccountConfirmationRequired.TabIndex = 31
+        Me.AccountConfirmationRequired.TabIndex = 9
         Me.AccountConfirmationRequired.Text = Global.Outworldz.My.Resources.Resources.Confirm
         Me.AccountConfirmationRequired.UseVisualStyleBackColor = True
         '
@@ -137,14 +137,14 @@ Partial Class FormDiva
         Me.AdminLast.Location = New System.Drawing.Point(160, 88)
         Me.AdminLast.Name = "AdminLast"
         Me.AdminLast.Size = New System.Drawing.Size(165, 20)
-        Me.AdminLast.TabIndex = 28
+        Me.AdminLast.TabIndex = 4
         '
         'AdminFirst
         '
         Me.AdminFirst.Location = New System.Drawing.Point(160, 64)
         Me.AdminFirst.Name = "AdminFirst"
         Me.AdminFirst.Size = New System.Drawing.Size(165, 20)
-        Me.AdminFirst.TabIndex = 27
+        Me.AdminFirst.TabIndex = 2
         '
         'Label11
         '
@@ -152,7 +152,7 @@ Partial Class FormDiva
         Me.Label11.Location = New System.Drawing.Point(4, 67)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(57, 13)
-        Me.Label11.TabIndex = 10
+        Me.Label11.TabIndex = 1
         Me.Label11.Text = "First Name"
         '
         'Label10
@@ -161,7 +161,7 @@ Partial Class FormDiva
         Me.Label10.Location = New System.Drawing.Point(4, 113)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(53, 13)
-        Me.Label10.TabIndex = 9
+        Me.Label10.TabIndex = 6
         Me.Label10.Text = "Password"
         '
         'AdminPassword
@@ -169,7 +169,7 @@ Partial Class FormDiva
         Me.AdminPassword.Location = New System.Drawing.Point(160, 110)
         Me.AdminPassword.Name = "AdminPassword"
         Me.AdminPassword.Size = New System.Drawing.Size(165, 20)
-        Me.AdminPassword.TabIndex = 29
+        Me.AdminPassword.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.AdminPassword, Global.Outworldz.My.Resources.Resources.Password_Text)
         Me.AdminPassword.UseSystemPasswordChar = True
         '
@@ -186,7 +186,7 @@ Partial Class FormDiva
         Me.GroupBox6.Location = New System.Drawing.Point(5, 239)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(370, 135)
-        Me.GroupBox6.TabIndex = 1862
+        Me.GroupBox6.TabIndex = 0
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "SMTP Send Email Account"
         '
@@ -195,7 +195,7 @@ Partial Class FormDiva
         Me.SmtpPort.Location = New System.Drawing.Point(172, 106)
         Me.SmtpPort.Name = "SmtpPort"
         Me.SmtpPort.Size = New System.Drawing.Size(33, 20)
-        Me.SmtpPort.TabIndex = 36
+        Me.SmtpPort.TabIndex = 7
         '
         'Label24
         '
@@ -203,7 +203,7 @@ Partial Class FormDiva
         Me.Label24.Location = New System.Drawing.Point(9, 111)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(59, 13)
-        Me.Label24.TabIndex = 1870
+        Me.Label24.TabIndex = 6
         Me.Label24.Text = "SMTP Port"
         '
         'SmtpHost
@@ -211,7 +211,7 @@ Partial Class FormDiva
         Me.SmtpHost.Location = New System.Drawing.Point(172, 80)
         Me.SmtpHost.Name = "SmtpHost"
         Me.SmtpHost.Size = New System.Drawing.Size(164, 20)
-        Me.SmtpHost.TabIndex = 186735
+        Me.SmtpHost.TabIndex = 5
         '
         'Label23
         '
@@ -219,7 +219,7 @@ Partial Class FormDiva
         Me.Label23.Location = New System.Drawing.Point(9, 84)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(62, 13)
-        Me.Label23.TabIndex = 1868
+        Me.Label23.TabIndex = 4
         Me.Label23.Text = "SMTP Host"
         '
         'GmailPassword
@@ -227,7 +227,7 @@ Partial Class FormDiva
         Me.GmailPassword.Location = New System.Drawing.Point(171, 54)
         Me.GmailPassword.Name = "GmailPassword"
         Me.GmailPassword.Size = New System.Drawing.Size(165, 20)
-        Me.GmailPassword.TabIndex = 34
+        Me.GmailPassword.TabIndex = 3
         Me.GmailPassword.UseSystemPasswordChar = True
         '
         'Label18
@@ -236,7 +236,7 @@ Partial Class FormDiva
         Me.Label18.Location = New System.Drawing.Point(7, 57)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(86, 13)
-        Me.Label18.TabIndex = 1866
+        Me.Label18.TabIndex = 2
         Me.Label18.Text = "SMTP Password"
         '
         'Label14
@@ -245,7 +245,7 @@ Partial Class FormDiva
         Me.Label14.Location = New System.Drawing.Point(9, 33)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(60, 13)
-        Me.Label14.TabIndex = 1865
+        Me.Label14.TabIndex = 0
         Me.Label14.Text = "User Name"
         '
         'GmailUsername
@@ -253,7 +253,7 @@ Partial Class FormDiva
         Me.GmailUsername.Location = New System.Drawing.Point(171, 30)
         Me.GmailUsername.Name = "GmailUsername"
         Me.GmailUsername.Size = New System.Drawing.Size(165, 20)
-        Me.GmailUsername.TabIndex = 33
+        Me.GmailUsername.TabIndex = 1
         '
         'Label2
         '
@@ -261,7 +261,7 @@ Partial Class FormDiva
         Me.Label2.Location = New System.Drawing.Point(12, 21)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(126, 13)
-        Me.Label2.TabIndex = 1867
+        Me.Label2.TabIndex = 0
         Me.Label2.Text = "This Grid's Friendly Name"
         '
         'GridName
@@ -269,7 +269,7 @@ Partial Class FormDiva
         Me.GridName.Location = New System.Drawing.Point(15, 37)
         Me.GridName.Name = "GridName"
         Me.GridName.Size = New System.Drawing.Size(243, 20)
-        Me.GridName.TabIndex = 1869
+        Me.GridName.TabIndex = 1
         '
         'Label19
         '
@@ -277,7 +277,7 @@ Partial Class FormDiva
         Me.Label19.Location = New System.Drawing.Point(13, 59)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(76, 13)
-        Me.Label19.TabIndex = 1868
+        Me.Label19.TabIndex = 2
         Me.Label19.Text = "Splash Screen"
         '
         'SplashPage
@@ -285,7 +285,7 @@ Partial Class FormDiva
         Me.SplashPage.Location = New System.Drawing.Point(13, 75)
         Me.SplashPage.Name = "SplashPage"
         Me.SplashPage.Size = New System.Drawing.Size(245, 20)
-        Me.SplashPage.TabIndex = 1866
+        Me.SplashPage.TabIndex = 3
         '
         'GroupBox1
         '
@@ -303,7 +303,7 @@ Partial Class FormDiva
         Me.GroupBox1.Location = New System.Drawing.Point(393, 37)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(267, 337)
-        Me.GroupBox1.TabIndex = 186736
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Splash Screen"
         '
@@ -322,7 +322,7 @@ Partial Class FormDiva
         Me.CustomRadioButton.Location = New System.Drawing.Point(183, 149)
         Me.CustomRadioButton.Name = "CustomRadioButton"
         Me.CustomRadioButton.Size = New System.Drawing.Size(60, 17)
-        Me.CustomRadioButton.TabIndex = 1877
+        Me.CustomRadioButton.TabIndex = 9
         Me.CustomRadioButton.TabStop = True
         Me.CustomRadioButton.Text = "Custom"
         Me.CustomRadioButton.UseVisualStyleBackColor = False
@@ -333,7 +333,7 @@ Partial Class FormDiva
         Me.Label4.Location = New System.Drawing.Point(13, 97)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(82, 13)
-        Me.Label4.TabIndex = 1876
+        Me.Label4.TabIndex = 4
         Me.Label4.Text = "Viewer Greeting"
         '
         'GreetingTextBox
@@ -341,7 +341,7 @@ Partial Class FormDiva
         Me.GreetingTextBox.Location = New System.Drawing.Point(13, 113)
         Me.GreetingTextBox.Name = "GreetingTextBox"
         Me.GreetingTextBox.Size = New System.Drawing.Size(245, 20)
-        Me.GreetingTextBox.TabIndex = 1875
+        Me.GreetingTextBox.TabIndex = 5
         '
         'Label1
         '
@@ -349,7 +349,7 @@ Partial Class FormDiva
         Me.Label1.Location = New System.Drawing.Point(16, 149)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(43, 13)
-        Me.Label1.TabIndex = 1859
+        Me.Label1.TabIndex = 6
         Me.Label1.Text = "Theme:"
         '
         'WhiteRadioButton
@@ -358,7 +358,7 @@ Partial Class FormDiva
         Me.WhiteRadioButton.Location = New System.Drawing.Point(67, 149)
         Me.WhiteRadioButton.Name = "WhiteRadioButton"
         Me.WhiteRadioButton.Size = New System.Drawing.Size(53, 17)
-        Me.WhiteRadioButton.TabIndex = 1873
+        Me.WhiteRadioButton.TabIndex = 7
         Me.WhiteRadioButton.TabStop = True
         Me.WhiteRadioButton.Text = Global.Outworldz.My.Resources.Resources.White_word
         Me.WhiteRadioButton.UseVisualStyleBackColor = True
@@ -369,7 +369,7 @@ Partial Class FormDiva
         Me.BlackRadioButton.Location = New System.Drawing.Point(125, 149)
         Me.BlackRadioButton.Name = "BlackRadioButton"
         Me.BlackRadioButton.Size = New System.Drawing.Size(52, 17)
-        Me.BlackRadioButton.TabIndex = 1872
+        Me.BlackRadioButton.TabIndex = 8
         Me.BlackRadioButton.TabStop = True
         Me.BlackRadioButton.Text = Global.Outworldz.My.Resources.Resources.Black_word
         Me.BlackRadioButton.UseVisualStyleBackColor = True
@@ -382,7 +382,7 @@ Partial Class FormDiva
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(698, 34)
-        Me.MenuStrip1.TabIndex = 186739
+        Me.MenuStrip1.TabIndex = 0
         '
         'HelpToolStripMenuItem
         '

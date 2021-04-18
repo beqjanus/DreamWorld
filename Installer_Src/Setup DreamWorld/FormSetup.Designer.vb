@@ -679,7 +679,7 @@ Partial Class FormSetup
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(836, 26)
-        Me.MenuStrip1.TabIndex = 21
+        Me.MenuStrip1.TabIndex = 0
         '
         'MnuContent
         '
@@ -979,7 +979,7 @@ Partial Class FormSetup
         Me.AvatarLabel.Location = New System.Drawing.Point(3, 0)
         Me.AvatarLabel.Name = "AvatarLabel"
         Me.AvatarLabel.Size = New System.Drawing.Size(55, 15)
-        Me.AvatarLabel.TabIndex = 32
+        Me.AvatarLabel.TabIndex = 0
         Me.AvatarLabel.Text = "0 Avatars"
         '
         'PercentCPU
@@ -989,7 +989,7 @@ Partial Class FormSetup
         Me.PercentCPU.Location = New System.Drawing.Point(125, 0)
         Me.PercentCPU.Name = "PercentCPU"
         Me.PercentCPU.Size = New System.Drawing.Size(49, 15)
-        Me.PercentCPU.TabIndex = 35
+        Me.PercentCPU.TabIndex = 2
         Me.PercentCPU.Text = "0% CPU"
         '
         'PercentRAM
@@ -999,7 +999,7 @@ Partial Class FormSetup
         Me.PercentRAM.Location = New System.Drawing.Point(64, 0)
         Me.PercentRAM.Name = "PercentRAM"
         Me.PercentRAM.Size = New System.Drawing.Size(55, 15)
-        Me.PercentRAM.TabIndex = 37
+        Me.PercentRAM.TabIndex = 1
         Me.PercentRAM.Text = "0 % RAM"
         '
         'BusyButton
@@ -1047,7 +1047,7 @@ Partial Class FormSetup
         Me.ChartWrapper2.Name = "ChartWrapper2"
         Me.ChartWrapper2.SideLegendVisible = True
         Me.ChartWrapper2.Size = New System.Drawing.Size(495, 190)
-        Me.ChartWrapper2.TabIndex = 33
+        Me.ChartWrapper2.TabIndex = 0
         Me.ChartWrapper2.Title = ""
         '
         'ChartWrapper1
@@ -1068,7 +1068,7 @@ Partial Class FormSetup
         Me.ChartWrapper1.Name = "ChartWrapper1"
         Me.ChartWrapper1.SideLegendVisible = True
         Me.ChartWrapper1.Size = New System.Drawing.Size(495, 185)
-        Me.ChartWrapper1.TabIndex = 31
+        Me.ChartWrapper1.TabIndex = 0
         Me.ChartWrapper1.Title = ""
         '
         'SplitContainer1
@@ -1098,7 +1098,7 @@ Partial Class FormSetup
         Me.DiskSize.Location = New System.Drawing.Point(180, 0)
         Me.DiskSize.Name = "DiskSize"
         Me.DiskSize.Size = New System.Drawing.Size(0, 15)
-        Me.DiskSize.TabIndex = 18611
+        Me.DiskSize.TabIndex = 3
         '
         'TableLayoutPanel1
         '

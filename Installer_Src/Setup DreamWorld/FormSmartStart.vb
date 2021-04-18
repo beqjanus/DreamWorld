@@ -1074,7 +1074,7 @@ Public Class FormSmartStart
     <Y>{Size / 2}</Y>
     <Z>0</Z>
   </m_seed_point>
-  <m_range>{RadiusTree}</m_range>
+  <m_range>{RadiusTree * Size / 256}</m_range>
   <m_initial_scale>
     <X>{StartX}</X>
     <Y>{StartY}</Y>
@@ -1572,7 +1572,7 @@ Public Class FormSmartStart
         If Not _initted Then Return
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Rad.Text = digitsOnly.Replace(Rad.Text, "")
-        If Convert.ToSingle("0" & Rad.Text, Globalization.CultureInfo.InvariantCulture) > (256 * 16) Then Rad.Text = CStr(256 * 16)
+        If Convert.ToSingle("0" & Rad.Text, Globalization.CultureInfo.InvariantCulture) > 127 Then Rad.Text = CStr(127)
         MakeSetting()
     End Sub
 
@@ -1606,6 +1606,12 @@ Public Class FormSmartStart
                 End If
             End If
         End If
+
+    End Sub
+
+    Private Sub DeletApply_CheckedChanged(sender As Object, e As EventArgs) Handles DeletApply.CheckedChanged
+
+        Settings.DeleteTreesFirst = DeletApply.Checked
 
     End Sub
 

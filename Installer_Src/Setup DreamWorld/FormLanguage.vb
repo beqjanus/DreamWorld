@@ -31,7 +31,7 @@
 
 #End Region
 
-    Private Sub arabic_Click(sender As Object, e As EventArgs) Handles Arabic_Saudi.Click
+    Private Sub Arabic_Click(sender As Object, e As EventArgs) Handles Arabic_Saudi.Click
         Settings.Language = "ar-SA"
         FormSetup.Language(sender, e)
     End Sub

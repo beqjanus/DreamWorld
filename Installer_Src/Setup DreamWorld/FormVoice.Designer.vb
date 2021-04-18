@@ -47,7 +47,7 @@ Partial Class FormVoice
         Me.GroupBox1.Location = New System.Drawing.Point(0, 50)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(261, 176)
-        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Setup Voice Service"
         '
@@ -57,7 +57,7 @@ Partial Class FormVoice
         Me.Label2.Location = New System.Drawing.Point(36, 77)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(53, 13)
-        Me.Label2.TabIndex = 5
+        Me.Label2.TabIndex = 4
         Me.Label2.Text = "Password"
         '
         'Label1
@@ -66,7 +66,7 @@ Partial Class FormVoice
         Me.Label1.Location = New System.Drawing.Point(36, 28)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(43, 13)
-        Me.Label1.TabIndex = 4
+        Me.Label1.TabIndex = 3
         Me.Label1.Text = "User ID"
         '
         'VivoxEnable
@@ -75,7 +75,7 @@ Partial Class FormVoice
         Me.VivoxEnable.Location = New System.Drawing.Point(49, 136)
         Me.VivoxEnable.Name = "VivoxEnable"
         Me.VivoxEnable.Size = New System.Drawing.Size(59, 17)
-        Me.VivoxEnable.TabIndex = 1
+        Me.VivoxEnable.TabIndex = 2
         Me.VivoxEnable.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.VivoxEnable.UseVisualStyleBackColor = True
         '
@@ -84,7 +84,7 @@ Partial Class FormVoice
         Me.VivoxPassword.Location = New System.Drawing.Point(39, 93)
         Me.VivoxPassword.Name = "VivoxPassword"
         Me.VivoxPassword.Size = New System.Drawing.Size(186, 20)
-        Me.VivoxPassword.TabIndex = 3
+        Me.VivoxPassword.TabIndex = 1
         Me.VivoxPassword.UseSystemPasswordChar = True
         '
         'VivoxUserName
@@ -92,7 +92,7 @@ Partial Class FormVoice
         Me.VivoxUserName.Location = New System.Drawing.Point(39, 43)
         Me.VivoxUserName.Name = "VivoxUserName"
         Me.VivoxUserName.Size = New System.Drawing.Size(186, 20)
-        Me.VivoxUserName.TabIndex = 2
+        Me.VivoxUserName.TabIndex = 0
         '
         'MenuStrip2
         '
@@ -102,7 +102,7 @@ Partial Class FormVoice
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(285, 34)
-        Me.MenuStrip2.TabIndex = 1888
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30

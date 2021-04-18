@@ -87,7 +87,7 @@ Partial Class FormRegionlist
         Me.RefreshButton.Name = "RefreshButton"
         Me.RefreshButton.Padding = New System.Windows.Forms.Padding(2)
         Me.RefreshButton.Size = New System.Drawing.Size(144, 34)
-        Me.RefreshButton.TabIndex = 1
+        Me.RefreshButton.TabIndex = 0
         Me.RefreshButton.Text = Global.Outworldz.My.Resources.Resources.Refresh_word
         Me.ToolTip1.SetToolTip(Me.RefreshButton, Global.Outworldz.My.Resources.Resources.Reload)
         Me.RefreshButton.UseVisualStyleBackColor = True
@@ -107,7 +107,7 @@ Partial Class FormRegionlist
         Me.AddRegionButton.Name = "AddRegionButton"
         Me.AddRegionButton.Padding = New System.Windows.Forms.Padding(2)
         Me.AddRegionButton.Size = New System.Drawing.Size(144, 34)
-        Me.AddRegionButton.TabIndex = 18593
+        Me.AddRegionButton.TabIndex = 5
         Me.AddRegionButton.Text = Global.Outworldz.My.Resources.Resources.Add_word
         Me.ToolTip1.SetToolTip(Me.AddRegionButton, Global.Outworldz.My.Resources.Resources.Add_Region_word)
         Me.AddRegionButton.UseVisualStyleBackColor = True
@@ -133,7 +133,7 @@ Partial Class FormRegionlist
         Me.RunAllButton.Name = "RunAllButton"
         Me.RunAllButton.Padding = New System.Windows.Forms.Padding(2)
         Me.RunAllButton.Size = New System.Drawing.Size(144, 34)
-        Me.RunAllButton.TabIndex = 18594
+        Me.RunAllButton.TabIndex = 6
         Me.RunAllButton.Text = Global.Outworldz.My.Resources.Resources.Run_All_word
         Me.ToolTip1.SetToolTip(Me.RunAllButton, Global.Outworldz.My.Resources.Resources.StartAll)
         Me.RunAllButton.UseVisualStyleBackColor = True
@@ -148,7 +148,7 @@ Partial Class FormRegionlist
         Me.StopAllButton.Name = "StopAllButton"
         Me.StopAllButton.Padding = New System.Windows.Forms.Padding(2)
         Me.StopAllButton.Size = New System.Drawing.Size(144, 34)
-        Me.StopAllButton.TabIndex = 18595
+        Me.StopAllButton.TabIndex = 7
         Me.StopAllButton.Text = Global.Outworldz.My.Resources.Resources.Stop_All_word
         Me.ToolTip1.SetToolTip(Me.StopAllButton, Global.Outworldz.My.Resources.Resources.Stopsall)
         Me.StopAllButton.UseVisualStyleBackColor = True
@@ -163,7 +163,7 @@ Partial Class FormRegionlist
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Padding = New System.Windows.Forms.Padding(2)
         Me.RestartButton.Size = New System.Drawing.Size(147, 34)
-        Me.RestartButton.TabIndex = 18596
+        Me.RestartButton.TabIndex = 8
         Me.RestartButton.Text = "Restart"
         Me.ToolTip1.SetToolTip(Me.RestartButton, Global.Outworldz.My.Resources.Resources.Restart_All_Checked)
         Me.RestartButton.UseVisualStyleBackColor = True
@@ -178,7 +178,7 @@ Partial Class FormRegionlist
         Me.DetailsButton.Name = "DetailsButton"
         Me.DetailsButton.Padding = New System.Windows.Forms.Padding(2)
         Me.DetailsButton.Size = New System.Drawing.Size(144, 34)
-        Me.DetailsButton.TabIndex = 18599
+        Me.DetailsButton.TabIndex = 1
         Me.DetailsButton.Text = Global.Outworldz.My.Resources.Resources.Details_word
         Me.ToolTip1.SetToolTip(Me.DetailsButton, Global.Outworldz.My.Resources.Resources.View_Details)
         Me.DetailsButton.UseVisualStyleBackColor = True
@@ -193,7 +193,7 @@ Partial Class FormRegionlist
         Me.IconsButton.Name = "IconsButton"
         Me.IconsButton.Padding = New System.Windows.Forms.Padding(2)
         Me.IconsButton.Size = New System.Drawing.Size(144, 34)
-        Me.IconsButton.TabIndex = 18600
+        Me.IconsButton.TabIndex = 2
         Me.IconsButton.Text = Global.Outworldz.My.Resources.Resources.Icons_word
         Me.ToolTip1.SetToolTip(Me.IconsButton, Global.Outworldz.My.Resources.Resources.View_as_Icons)
         Me.IconsButton.UseVisualStyleBackColor = True
@@ -208,7 +208,7 @@ Partial Class FormRegionlist
         Me.AvatarsButton.Name = "AvatarsButton"
         Me.AvatarsButton.Padding = New System.Windows.Forms.Padding(2)
         Me.AvatarsButton.Size = New System.Drawing.Size(147, 34)
-        Me.AvatarsButton.TabIndex = 18602
+        Me.AvatarsButton.TabIndex = 3
         Me.AvatarsButton.Text = Global.Outworldz.My.Resources.Resources.Avatars_word
         Me.ToolTip1.SetToolTip(Me.AvatarsButton, Global.Outworldz.My.Resources.Resources.ListAvatars)
         Me.AvatarsButton.UseVisualStyleBackColor = True
@@ -223,7 +223,7 @@ Partial Class FormRegionlist
         Me.ImportButton.Name = "ImportButton"
         Me.ImportButton.Padding = New System.Windows.Forms.Padding(2)
         Me.ImportButton.Size = New System.Drawing.Size(139, 34)
-        Me.ImportButton.TabIndex = 18603
+        Me.ImportButton.TabIndex = 9
         Me.ImportButton.Text = Global.Outworldz.My.Resources.Resources.Import_word
         Me.ToolTip1.SetToolTip(Me.ImportButton, Global.Outworldz.My.Resources.Resources.Importtext)
         Me.ImportButton.UseVisualStyleBackColor = True
@@ -268,7 +268,7 @@ Partial Class FormRegionlist
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(936, 30)
-        Me.MenuStrip1.TabIndex = 18598
+        Me.MenuStrip1.TabIndex = 1
         '
         'HelpToolStripMenuItem
         '
@@ -335,7 +335,7 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(758, 80)
-        Me.TableLayoutPanel1.TabIndex = 18607
+        Me.TableLayoutPanel1.TabIndex = 2
         '
         'Users
         '
@@ -345,7 +345,7 @@ Partial Class FormRegionlist
         Me.Users.Margin = New System.Windows.Forms.Padding(2)
         Me.Users.Name = "Users"
         Me.Users.Size = New System.Drawing.Size(140, 34)
-        Me.Users.TabIndex = 18604
+        Me.Users.TabIndex = 4
         Me.Users.Text = Global.Outworldz.My.Resources.Resources.Users
         Me.Users.UseVisualStyleBackColor = True
         '

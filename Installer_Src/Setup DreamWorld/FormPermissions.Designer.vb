@@ -53,7 +53,7 @@ Partial Class FormPermissions
         Me.GroupBox4.Location = New System.Drawing.Point(12, 52)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(252, 121)
-        Me.GroupBox4.TabIndex = 49
+        Me.GroupBox4.TabIndex = 1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Permissions"
         '
@@ -96,7 +96,7 @@ Partial Class FormPermissions
         Me.LimitsBox.Location = New System.Drawing.Point(9, 179)
         Me.LimitsBox.Name = "LimitsBox"
         Me.LimitsBox.Size = New System.Drawing.Size(255, 50)
-        Me.LimitsBox.TabIndex = 1861
+        Me.LimitsBox.TabIndex = 2
         Me.LimitsBox.TabStop = False
         Me.LimitsBox.Text = "Prim Limits"
         '
@@ -140,7 +140,7 @@ Partial Class FormPermissions
         Me.CloudBox.Location = New System.Drawing.Point(12, 235)
         Me.CloudBox.Name = "CloudBox"
         Me.CloudBox.Size = New System.Drawing.Size(252, 57)
-        Me.CloudBox.TabIndex = 1863
+        Me.CloudBox.TabIndex = 3
         Me.CloudBox.TabStop = False
         Me.CloudBox.Text = "Clouds"
         '
@@ -171,7 +171,7 @@ Partial Class FormPermissions
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(6, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(276, 34)
-        Me.MenuStrip2.TabIndex = 1889
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
@@ -187,7 +187,7 @@ Partial Class FormPermissions
         Me.GroupBox1.Location = New System.Drawing.Point(9, 299)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(255, 46)
-        Me.GroupBox1.TabIndex = 1864
+        Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Export Permission"
         '

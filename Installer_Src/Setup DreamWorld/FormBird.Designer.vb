@@ -294,7 +294,7 @@ Partial Class FormBird
         Me.LoadIARButton.Location = New System.Drawing.Point(27, 37)
         Me.LoadIARButton.Name = "LoadIARButton"
         Me.LoadIARButton.Size = New System.Drawing.Size(170, 32)
-        Me.LoadIARButton.TabIndex = 0
+        Me.LoadIARButton.TabIndex = 1
         Me.LoadIARButton.Text = Global.Outworldz.My.Resources.Resources.Load_Bird_IAR_word
         Me.LoadIARButton.UseVisualStyleBackColor = True
         '
@@ -306,7 +306,7 @@ Partial Class FormBird
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(345, 30)
-        Me.MenuStrip2.TabIndex = 1890
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'HelpMenuItem

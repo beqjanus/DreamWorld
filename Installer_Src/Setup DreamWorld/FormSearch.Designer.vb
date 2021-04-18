@@ -39,23 +39,23 @@ Partial Class FormSearch
         Me.SearchBox.Controls.Add(Me.RadioButton2)
         Me.SearchBox.Controls.Add(Me.JOpensimRadioButton)
         Me.SearchBox.Controls.Add(Me.HypericaRadioButton)
-        Me.SearchBox.Location = New System.Drawing.Point(22, 48)
-        Me.SearchBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SearchBox.Location = New System.Drawing.Point(16, 39)
+        Me.SearchBox.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.SearchBox.Name = "SearchBox"
-        Me.SearchBox.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.SearchBox.Size = New System.Drawing.Size(226, 139)
-        Me.SearchBox.TabIndex = 4
+        Me.SearchBox.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SearchBox.Size = New System.Drawing.Size(170, 113)
+        Me.SearchBox.TabIndex = 1
         Me.SearchBox.TabStop = False
         Me.SearchBox.Text = "Search Options"
         '
         'RadioButton2
         '
         Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(29, 41)
-        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.RadioButton2.Location = New System.Drawing.Point(22, 33)
+        Me.RadioButton2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(97, 20)
-        Me.RadioButton2.TabIndex = 6
+        Me.RadioButton2.Size = New System.Drawing.Size(76, 17)
+        Me.RadioButton2.TabIndex = 0
         Me.RadioButton2.TabStop = True
         Me.RadioButton2.Text = "No Search"
         Me.RadioButton2.UseVisualStyleBackColor = True
@@ -63,11 +63,11 @@ Partial Class FormSearch
         'JOpensimRadioButton
         '
         Me.JOpensimRadioButton.AutoSize = True
-        Me.JOpensimRadioButton.Location = New System.Drawing.Point(29, 98)
-        Me.JOpensimRadioButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.JOpensimRadioButton.Location = New System.Drawing.Point(22, 80)
+        Me.JOpensimRadioButton.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.JOpensimRadioButton.Name = "JOpensimRadioButton"
-        Me.JOpensimRadioButton.Size = New System.Drawing.Size(140, 20)
-        Me.JOpensimRadioButton.TabIndex = 5
+        Me.JOpensimRadioButton.Size = New System.Drawing.Size(108, 17)
+        Me.JOpensimRadioButton.TabIndex = 2
         Me.JOpensimRadioButton.TabStop = True
         Me.JOpensimRadioButton.Text = Global.Outworldz.My.Resources.Resources.JOpensimSearch_word
         Me.JOpensimRadioButton.UseVisualStyleBackColor = True
@@ -75,11 +75,11 @@ Partial Class FormSearch
         'HypericaRadioButton
         '
         Me.HypericaRadioButton.AutoSize = True
-        Me.HypericaRadioButton.Location = New System.Drawing.Point(29, 71)
-        Me.HypericaRadioButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.HypericaRadioButton.Location = New System.Drawing.Point(22, 58)
+        Me.HypericaRadioButton.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.HypericaRadioButton.Name = "HypericaRadioButton"
-        Me.HypericaRadioButton.Size = New System.Drawing.Size(134, 20)
-        Me.HypericaRadioButton.TabIndex = 4
+        Me.HypericaRadioButton.Size = New System.Drawing.Size(104, 17)
+        Me.HypericaRadioButton.TabIndex = 1
         Me.HypericaRadioButton.TabStop = True
         Me.HypericaRadioButton.Text = Global.Outworldz.My.Resources.Resources.HypericaSearch_word
         Me.HypericaRadioButton.UseVisualStyleBackColor = True
@@ -90,8 +90,8 @@ Partial Class FormSearch
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripLabel1})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(259, 33)
-        Me.ToolStrip1.TabIndex = 5
+        Me.ToolStrip1.Size = New System.Drawing.Size(194, 31)
+        Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
         'ToolStripButton1
@@ -100,24 +100,24 @@ Partial Class FormSearch
         Me.ToolStripButton1.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(34, 28)
+        Me.ToolStripButton1.Size = New System.Drawing.Size(28, 28)
         Me.ToolStripButton1.Text = "ToolStripButton1"
         '
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(49, 28)
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(32, 28)
         Me.ToolStripLabel1.Text = "Help"
         '
         'FormSearch
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(259, 197)
+        Me.ClientSize = New System.Drawing.Size(194, 160)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.SearchBox)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "FormSearch"
         Me.SearchBox.ResumeLayout(False)
         Me.SearchBox.PerformLayout()

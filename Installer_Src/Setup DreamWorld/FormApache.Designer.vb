@@ -53,7 +53,7 @@ Partial Class FormApache
         Me.GroupBox2.Location = New System.Drawing.Point(12, 58)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(220, 118)
-        Me.GroupBox2.TabIndex = 186739
+        Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Apache"
         '
@@ -63,7 +63,7 @@ Partial Class FormApache
         Me.Sitemap.Location = New System.Drawing.Point(16, 85)
         Me.Sitemap.Name = "Sitemap"
         Me.Sitemap.Size = New System.Drawing.Size(118, 17)
-        Me.Sitemap.TabIndex = 3
+        Me.Sitemap.TabIndex = 2
         Me.Sitemap.Text = "Automatic Site Map"
         Me.Sitemap.UseVisualStyleBackColor = True
         '
@@ -80,7 +80,7 @@ Partial Class FormApache
         Me.Label3.Location = New System.Drawing.Point(55, 31)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(115, 13)
-        Me.Label3.TabIndex = 186737
+        Me.Label3.TabIndex = 0
         Me.Label3.Text = "Web Port (80, or 8000)"
         '
         'ApacheCheckbox
@@ -101,7 +101,7 @@ Partial Class FormApache
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(491, 34)
-        Me.MenuStrip1.TabIndex = 186740
+        Me.MenuStrip1.TabIndex = 2
         '
         'HelpToolStripMenuItem
         '
@@ -122,7 +122,7 @@ Partial Class FormApache
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Padding = New System.Windows.Forms.Padding(2, 1, 2, 1)
         Me.GroupBox3.Size = New System.Drawing.Size(224, 150)
-        Me.GroupBox3.TabIndex = 186742
+        Me.GroupBox3.TabIndex = 1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Content Manager"
         '
@@ -131,7 +131,7 @@ Partial Class FormApache
         Me.Other.Location = New System.Drawing.Point(5, 125)
         Me.Other.Name = "Other"
         Me.Other.Size = New System.Drawing.Size(181, 20)
-        Me.Other.TabIndex = 8
+        Me.Other.TabIndex = 4
         '
         'EnableOther
         '
@@ -139,7 +139,7 @@ Partial Class FormApache
         Me.EnableOther.Location = New System.Drawing.Point(14, 103)
         Me.EnableOther.Name = "EnableOther"
         Me.EnableOther.Size = New System.Drawing.Size(87, 17)
-        Me.EnableOther.TabIndex = 7
+        Me.EnableOther.TabIndex = 3
         Me.EnableOther.Text = Global.Outworldz.My.Resources.Resources.EnableOther_Word
         Me.EnableOther.UseVisualStyleBackColor = True
         '
@@ -149,7 +149,7 @@ Partial Class FormApache
         Me.EnableJOpensim.Location = New System.Drawing.Point(14, 78)
         Me.EnableJOpensim.Name = "EnableJOpensim"
         Me.EnableJOpensim.Size = New System.Drawing.Size(71, 17)
-        Me.EnableJOpensim.TabIndex = 6
+        Me.EnableJOpensim.TabIndex = 2
         Me.EnableJOpensim.Text = Global.Outworldz.My.Resources.Resources.JOpensim_word
         Me.EnableJOpensim.UseVisualStyleBackColor = True
         '
@@ -159,7 +159,7 @@ Partial Class FormApache
         Me.EnableDiva.Location = New System.Drawing.Point(14, 31)
         Me.EnableDiva.Name = "EnableDiva"
         Me.EnableDiva.Size = New System.Drawing.Size(111, 17)
-        Me.EnableDiva.TabIndex = 4
+        Me.EnableDiva.TabIndex = 0
         Me.EnableDiva.Text = Global.Outworldz.My.Resources.Resources.EnableDiva
         Me.EnableDiva.UseVisualStyleBackColor = True
         '
@@ -169,7 +169,7 @@ Partial Class FormApache
         Me.EnableWP.Location = New System.Drawing.Point(14, 53)
         Me.EnableWP.Name = "EnableWP"
         Me.EnableWP.Size = New System.Drawing.Size(77, 17)
-        Me.EnableWP.TabIndex = 1867425
+        Me.EnableWP.TabIndex = 1
         Me.EnableWP.Text = Global.Outworldz.My.Resources.Resources.WordPress_Word
         Me.EnableWP.UseVisualStyleBackColor = True
         '

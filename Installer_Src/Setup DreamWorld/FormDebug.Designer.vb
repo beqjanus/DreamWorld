@@ -52,14 +52,14 @@ Partial Class FormDebug
         Me.ComboBox1.Location = New System.Drawing.Point(20, 30)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(149, 21)
-        Me.ComboBox1.TabIndex = 6
+        Me.ComboBox1.TabIndex = 0
         '
         'ApplyButton
         '
         Me.ApplyButton.Location = New System.Drawing.Point(291, 28)
         Me.ApplyButton.Name = "ApplyButton"
         Me.ApplyButton.Size = New System.Drawing.Size(96, 23)
-        Me.ApplyButton.TabIndex = 5
+        Me.ApplyButton.TabIndex = 3
         Me.ApplyButton.Text = "Apply"
         Me.ApplyButton.UseVisualStyleBackColor = True
         '
@@ -71,7 +71,7 @@ Partial Class FormDebug
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(415, 150)
-        Me.TextBox1.TabIndex = 3
+        Me.TextBox1.TabIndex = 4
         '
         'RadioFalse
         '

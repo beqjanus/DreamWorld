@@ -114,7 +114,7 @@ Partial Class FormCaches
         Me.GroupBox1.Location = New System.Drawing.Point(16, 33)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(217, 204)
-        Me.GroupBox1.TabIndex = 5
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Choose which cache to empty"
         '
@@ -135,7 +135,7 @@ Partial Class FormCaches
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip1.Size = New System.Drawing.Size(600, 30)
-        Me.MenuStrip1.TabIndex = 18601
+        Me.MenuStrip1.TabIndex = 0
         '
         'HelpToolStripMenuItem
         '
@@ -158,7 +158,7 @@ Partial Class FormCaches
         Me.GroupBox2.Location = New System.Drawing.Point(239, 84)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(349, 153)
-        Me.GroupBox2.TabIndex = 18602
+        Me.GroupBox2.TabIndex = 3
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Asset Cache"
         '
@@ -178,7 +178,7 @@ Partial Class FormCaches
         Me.Label4.Location = New System.Drawing.Point(47, 23)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(80, 13)
-        Me.Label4.TabIndex = 1864
+        Me.Label4.TabIndex = 1
         Me.Label4.Text = "Cache Enabled"
         '
         'Label1
@@ -187,7 +187,7 @@ Partial Class FormCaches
         Me.Label1.Location = New System.Drawing.Point(43, 53)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(83, 13)
-        Me.Label1.TabIndex = 1861
+        Me.Label1.TabIndex = 2
         Me.Label1.Text = "Cache Directory"
         '
         'Label2
@@ -196,7 +196,7 @@ Partial Class FormCaches
         Me.Label2.Location = New System.Drawing.Point(253, 105)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(54, 13)
-        Me.Label2.TabIndex = 1863
+        Me.Label2.TabIndex = 7
         Me.Label2.Text = "Log Level"
         '
         'CacheTimeout
@@ -213,7 +213,7 @@ Partial Class FormCaches
         Me.Label5.Location = New System.Drawing.Point(77, 129)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(85, 13)
-        Me.Label5.TabIndex = 1865
+        Me.Label5.TabIndex = 6
         Me.Label5.Text = "Timeout in hours"
         '
         'CacheEnabledBox
@@ -222,7 +222,7 @@ Partial Class FormCaches
         Me.CacheEnabledBox.Location = New System.Drawing.Point(21, 23)
         Me.CacheEnabledBox.Name = "CacheEnabledBox"
         Me.CacheEnabledBox.Size = New System.Drawing.Size(15, 14)
-        Me.CacheEnabledBox.TabIndex = 2
+        Me.CacheEnabledBox.TabIndex = 0
         Me.ToolTip1.SetToolTip(Me.CacheEnabledBox, Global.Outworldz.My.Resources.Resources.Default_Checked_word)
         Me.CacheEnabledBox.UseVisualStyleBackColor = True
         '
@@ -247,7 +247,7 @@ Partial Class FormCaches
         Me.GroupBox3.Location = New System.Drawing.Point(239, 24)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(162, 51)
-        Me.GroupBox3.TabIndex = 18603
+        Me.GroupBox3.TabIndex = 2
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Viewer Cache"
         '
@@ -257,7 +257,7 @@ Partial Class FormCaches
         Me.ViewerCacheCheckbox.Location = New System.Drawing.Point(19, 23)
         Me.ViewerCacheCheckbox.Name = "ViewerCacheCheckbox"
         Me.ViewerCacheCheckbox.Size = New System.Drawing.Size(65, 17)
-        Me.ViewerCacheCheckbox.TabIndex = 1
+        Me.ViewerCacheCheckbox.TabIndex = 0
         Me.ViewerCacheCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
         Me.ToolTip1.SetToolTip(Me.ViewerCacheCheckbox, Global.Outworldz.My.Resources.Resources.Viewer_Cache_text)
         Me.ViewerCacheCheckbox.UseVisualStyleBackColor = True

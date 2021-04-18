@@ -47,7 +47,7 @@ Partial Class FormOAR
         Me.DataGridView.ColumnHeadersVisible = False
         Me.DataGridView.Cursor = System.Windows.Forms.Cursors.Hand
         Me.DataGridView.Location = New System.Drawing.Point(11, 47)
-        Me.DataGridView.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.DataGridView.Margin = New System.Windows.Forms.Padding(1)
         Me.DataGridView.MultiSelect = False
         Me.DataGridView.Name = "DataGridView"
         Me.DataGridView.RowHeadersWidth = 62
@@ -65,7 +65,7 @@ Partial Class FormOAR
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(7, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(899, 34)
-        Me.MenuStrip2.TabIndex = 1890
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
@@ -87,7 +87,7 @@ Partial Class FormOAR
         Me.TextBox1.Location = New System.Drawing.Point(193, 7)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(215, 20)
-        Me.TextBox1.TabIndex = 1891
+        Me.TextBox1.TabIndex = 1
         '
         'PictureBox1
         '
@@ -115,7 +115,7 @@ Partial Class FormOAR
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.DataGridView)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
+        Me.Margin = New System.Windows.Forms.Padding(1)
         Me.Name = "FormOAR"
         CType(Me.DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)

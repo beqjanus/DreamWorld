@@ -87,7 +87,7 @@ Partial Class FormRegionPopup
         Me.MsgButton.Location = New System.Drawing.Point(3, 193)
         Me.MsgButton.Name = "MsgButton"
         Me.MsgButton.Size = New System.Drawing.Size(181, 32)
-        Me.MsgButton.TabIndex = 11
+        Me.MsgButton.TabIndex = 5
         Me.MsgButton.Text = "Message"
         Me.MsgButton.UseVisualStyleBackColor = True
         '
@@ -98,7 +98,7 @@ Partial Class FormRegionPopup
         Me.ShowConsoleButton.Location = New System.Drawing.Point(3, 3)
         Me.ShowConsoleButton.Name = "ShowConsoleButton"
         Me.ShowConsoleButton.Size = New System.Drawing.Size(181, 32)
-        Me.ShowConsoleButton.TabIndex = 1
+        Me.ShowConsoleButton.TabIndex = 0
         Me.ShowConsoleButton.Text = Global.Outworldz.My.Resources.Resources.View_Console_word
         Me.ShowConsoleButton.UseVisualStyleBackColor = True
         '
@@ -109,7 +109,7 @@ Partial Class FormRegionPopup
         Me.EditButton1.Location = New System.Drawing.Point(190, 193)
         Me.EditButton1.Name = "EditButton1"
         Me.EditButton1.Size = New System.Drawing.Size(181, 32)
-        Me.EditButton1.TabIndex = 10
+        Me.EditButton1.TabIndex = 11
         Me.EditButton1.Text = Global.Outworldz.My.Resources.Resources.Edit_word
         Me.EditButton1.UseVisualStyleBackColor = True
         '
@@ -120,7 +120,7 @@ Partial Class FormRegionPopup
         Me.ViewMapButton.Location = New System.Drawing.Point(190, 155)
         Me.ViewMapButton.Name = "ViewMapButton"
         Me.ViewMapButton.Size = New System.Drawing.Size(181, 32)
-        Me.ViewMapButton.TabIndex = 9
+        Me.ViewMapButton.TabIndex = 10
         Me.ViewMapButton.Text = Global.Outworldz.My.Resources.Resources.View_Map_word
         Me.ViewMapButton.UseVisualStyleBackColor = True
         '
@@ -131,7 +131,7 @@ Partial Class FormRegionPopup
         Me.LoadOAR.Location = New System.Drawing.Point(190, 41)
         Me.LoadOAR.Name = "LoadOAR"
         Me.LoadOAR.Size = New System.Drawing.Size(181, 32)
-        Me.LoadOAR.TabIndex = 6
+        Me.LoadOAR.TabIndex = 7
         Me.LoadOAR.Text = "Load"
         Me.LoadOAR.UseVisualStyleBackColor = True
         '
@@ -142,7 +142,7 @@ Partial Class FormRegionPopup
         Me.Teleport.Location = New System.Drawing.Point(3, 155)
         Me.Teleport.Name = "Teleport"
         Me.Teleport.Size = New System.Drawing.Size(181, 32)
-        Me.Teleport.TabIndex = 5
+        Me.Teleport.TabIndex = 4
         Me.Teleport.Text = Global.Outworldz.My.Resources.Resources.Teleport_word
         Me.Teleport.UseVisualStyleBackColor = True
         '
@@ -153,7 +153,7 @@ Partial Class FormRegionPopup
         Me.ViewLog.Location = New System.Drawing.Point(190, 117)
         Me.ViewLog.Name = "ViewLog"
         Me.ViewLog.Size = New System.Drawing.Size(181, 32)
-        Me.ViewLog.TabIndex = 8
+        Me.ViewLog.TabIndex = 9
         Me.ViewLog.Text = Global.Outworldz.My.Resources.Resources.View_Log_word
         Me.ViewLog.UseVisualStyleBackColor = True
         '
@@ -164,7 +164,7 @@ Partial Class FormRegionPopup
         Me.StatsButton1.Location = New System.Drawing.Point(190, 3)
         Me.StatsButton1.Name = "StatsButton1"
         Me.StatsButton1.Size = New System.Drawing.Size(181, 32)
-        Me.StatsButton1.TabIndex = 4
+        Me.StatsButton1.TabIndex = 6
         Me.StatsButton1.Text = Global.Outworldz.My.Resources.Resources.View_Statistics_Word
         Me.StatsButton1.UseVisualStyleBackColor = True
         '
@@ -175,7 +175,7 @@ Partial Class FormRegionPopup
         Me.StartButton.Location = New System.Drawing.Point(3, 41)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(181, 32)
-        Me.StartButton.TabIndex = 2
+        Me.StartButton.TabIndex = 1
         Me.StartButton.Text = Global.Outworldz.My.Resources.Resources.Start_word
         Me.StartButton.UseVisualStyleBackColor = True
         '
@@ -186,7 +186,7 @@ Partial Class FormRegionPopup
         Me.Restart.Location = New System.Drawing.Point(3, 79)
         Me.Restart.Name = "Restart"
         Me.Restart.Size = New System.Drawing.Size(181, 32)
-        Me.Restart.TabIndex = 3
+        Me.Restart.TabIndex = 2
         Me.Restart.Text = Global.Outworldz.My.Resources.Resources.Restart_word
         Me.Restart.UseVisualStyleBackColor = True
         '
@@ -197,7 +197,7 @@ Partial Class FormRegionPopup
         Me.StopButton.Location = New System.Drawing.Point(3, 117)
         Me.StopButton.Name = "StopButton"
         Me.StopButton.Size = New System.Drawing.Size(181, 32)
-        Me.StopButton.TabIndex = 5
+        Me.StopButton.TabIndex = 3
         Me.StopButton.Text = Global.Outworldz.My.Resources.Resources.Stop_word
         Me.StopButton.UseVisualStyleBackColor = True
         '
@@ -208,7 +208,7 @@ Partial Class FormRegionPopup
         Me.SaveOAR.Location = New System.Drawing.Point(190, 79)
         Me.SaveOAR.Name = "SaveOAR"
         Me.SaveOAR.Size = New System.Drawing.Size(181, 32)
-        Me.SaveOAR.TabIndex = 7
+        Me.SaveOAR.TabIndex = 8
         Me.SaveOAR.Text = "Save"
         Me.SaveOAR.UseVisualStyleBackColor = True
         '

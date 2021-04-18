@@ -39,13 +39,13 @@ Partial Class FormIcecast
         Me.ShoutcastPort = New System.Windows.Forms.TextBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.HelpToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem3 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.HelpToolStripMenuItem4 = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
@@ -53,30 +53,27 @@ Partial Class FormIcecast
         'ShoutcastEnable
         '
         Me.ShoutcastEnable.AutoSize = True
-        Me.ShoutcastEnable.Location = New System.Drawing.Point(26, 43)
-        Me.ShoutcastEnable.Margin = New System.Windows.Forms.Padding(4)
+        Me.ShoutcastEnable.Location = New System.Drawing.Point(17, 29)
         Me.ShoutcastEnable.Name = "ShoutcastEnable"
-        Me.ShoutcastEnable.Size = New System.Drawing.Size(77, 21)
+        Me.ShoutcastEnable.Size = New System.Drawing.Size(59, 17)
         Me.ShoutcastEnable.TabIndex = 0
         Me.ShoutcastEnable.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.ShoutcastEnable.UseVisualStyleBackColor = True
         '
         'ShoutcastPassword
         '
-        Me.ShoutcastPassword.Location = New System.Drawing.Point(26, 179)
-        Me.ShoutcastPassword.Margin = New System.Windows.Forms.Padding(4)
+        Me.ShoutcastPassword.Location = New System.Drawing.Point(17, 119)
         Me.ShoutcastPassword.Name = "ShoutcastPassword"
-        Me.ShoutcastPassword.Size = New System.Drawing.Size(172, 22)
-        Me.ShoutcastPassword.TabIndex = 5
+        Me.ShoutcastPassword.Size = New System.Drawing.Size(116, 20)
+        Me.ShoutcastPassword.TabIndex = 7
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(219, 179)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(146, 119)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(68, 16)
-        Me.Label1.TabIndex = 2
+        Me.Label1.Size = New System.Drawing.Size(53, 13)
+        Me.Label1.TabIndex = 8
         Me.Label1.Text = "Password"
         '
         'GroupBox1
@@ -92,88 +89,80 @@ Partial Class FormIcecast
         Me.GroupBox1.Controls.Add(Me.ShoutcastPort)
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Controls.Add(Me.ShoutcastPassword)
-        Me.GroupBox1.Location = New System.Drawing.Point(13, 61)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 41)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
-        Me.GroupBox1.Size = New System.Drawing.Size(424, 302)
-        Me.GroupBox1.TabIndex = 3
+        Me.GroupBox1.Size = New System.Drawing.Size(283, 201)
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "IceCast Server"
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(26, 233)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(2)
+        Me.Button1.Location = New System.Drawing.Point(17, 155)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(152, 44)
-        Me.Button1.TabIndex = 1862
+        Me.Button1.Size = New System.Drawing.Size(101, 29)
+        Me.Button1.TabIndex = 9
         Me.Button1.Text = "Start"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(110, 107)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label4.Location = New System.Drawing.Point(73, 71)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(42, 16)
-        Me.Label4.TabIndex = 1861
+        Me.Label4.Size = New System.Drawing.Size(35, 13)
+        Me.Label4.TabIndex = 4
         Me.Label4.Text = "Port 2"
         '
         'ShoutcastPort1
         '
-        Me.ShoutcastPort1.Location = New System.Drawing.Point(26, 107)
-        Me.ShoutcastPort1.Margin = New System.Windows.Forms.Padding(4)
+        Me.ShoutcastPort1.Location = New System.Drawing.Point(17, 71)
         Me.ShoutcastPort1.Name = "ShoutcastPort1"
-        Me.ShoutcastPort1.Size = New System.Drawing.Size(76, 22)
+        Me.ShoutcastPort1.Size = New System.Drawing.Size(52, 20)
         Me.ShoutcastPort1.TabIndex = 3
         '
         'LoadURL
         '
-        Me.LoadURL.Location = New System.Drawing.Point(205, 233)
-        Me.LoadURL.Margin = New System.Windows.Forms.Padding(2)
+        Me.LoadURL.Location = New System.Drawing.Point(137, 155)
+        Me.LoadURL.Margin = New System.Windows.Forms.Padding(1, 1, 1, 1)
         Me.LoadURL.Name = "LoadURL"
-        Me.LoadURL.Size = New System.Drawing.Size(189, 44)
-        Me.LoadURL.TabIndex = 6
+        Me.LoadURL.Size = New System.Drawing.Size(126, 29)
+        Me.LoadURL.TabIndex = 10
         Me.LoadURL.Text = Global.Outworldz.My.Resources.Resources.Admin_Web_Page_word
         Me.LoadURL.UseVisualStyleBackColor = True
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(219, 144)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label3.Location = New System.Drawing.Point(146, 96)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(109, 16)
+        Me.Label3.Size = New System.Drawing.Size(85, 13)
         Me.Label3.TabIndex = 6
         Me.Label3.Text = "Admin Password"
         '
         'AdminPassword
         '
-        Me.AdminPassword.Location = New System.Drawing.Point(26, 141)
-        Me.AdminPassword.Margin = New System.Windows.Forms.Padding(4)
+        Me.AdminPassword.Location = New System.Drawing.Point(17, 94)
         Me.AdminPassword.Name = "AdminPassword"
-        Me.AdminPassword.Size = New System.Drawing.Size(172, 22)
-        Me.AdminPassword.TabIndex = 4
+        Me.AdminPassword.Size = New System.Drawing.Size(116, 20)
+        Me.AdminPassword.TabIndex = 5
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(110, 75)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label2.Location = New System.Drawing.Point(73, 50)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(42, 16)
-        Me.Label2.TabIndex = 4
+        Me.Label2.Size = New System.Drawing.Size(35, 13)
+        Me.Label2.TabIndex = 2
         Me.Label2.Text = "Port 1"
         '
         'ShoutcastPort
         '
-        Me.ShoutcastPort.Location = New System.Drawing.Point(26, 75)
-        Me.ShoutcastPort.Margin = New System.Windows.Forms.Padding(4)
+        Me.ShoutcastPort.Location = New System.Drawing.Point(17, 50)
         Me.ShoutcastPort.Name = "ShoutcastPort"
-        Me.ShoutcastPort.Size = New System.Drawing.Size(76, 22)
-        Me.ShoutcastPort.TabIndex = 2
+        Me.ShoutcastPort.Size = New System.Drawing.Size(52, 20)
+        Me.ShoutcastPort.TabIndex = 1
         '
         'ToolTip1
         '
@@ -181,14 +170,21 @@ Partial Class FormIcecast
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(28, 28)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem4})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Size = New System.Drawing.Size(455, 38)
-        Me.MenuStrip2.TabIndex = 1891
+        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
+        Me.MenuStrip2.Size = New System.Drawing.Size(303, 34)
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
+        '
+        'HelpToolStripMenuItem4
+        '
+        Me.HelpToolStripMenuItem4.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem4.Name = "HelpToolStripMenuItem4"
+        Me.HelpToolStripMenuItem4.Size = New System.Drawing.Size(72, 32)
+        Me.HelpToolStripMenuItem4.Text = "Help"
         '
         'ToolStripMenuItem30
         '
@@ -233,23 +229,15 @@ Partial Class FormIcecast
         Me.HelpToolStripMenuItem3.Size = New System.Drawing.Size(65, 29)
         Me.HelpToolStripMenuItem3.Text = "Help"
         '
-        'HelpToolStripMenuItem4
-        '
-        Me.HelpToolStripMenuItem4.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.HelpToolStripMenuItem4.Name = "HelpToolStripMenuItem4"
-        Me.HelpToolStripMenuItem4.Size = New System.Drawing.Size(93, 34)
-        Me.HelpToolStripMenuItem4.Text = "Help"
-        '
         'FormIcecast
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(455, 370)
+        Me.ClientSize = New System.Drawing.Size(303, 247)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "FormIcecast"
         Me.Text = "Icecast"
         Me.ToolTip1.SetToolTip(Me, Global.Outworldz.My.Resources.Resources.icecast_help)

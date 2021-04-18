@@ -148,9 +148,12 @@ Module Build
 
         If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
         If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
-        For Each TT As String In TreeList
-            If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
-        Next
+
+        If Settings.DeleteTreesFirst Then
+            For Each TT As String In TreeList
+                If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
+            Next
+        End If
 
         If UseTree.Count = 0 Then
             If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return

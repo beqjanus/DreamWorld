@@ -20,6 +20,7 @@ Public Class MySettings
 
     Private ReadOnly Apachein As New List(Of String)
     Private ReadOnly Apacheout As New List(Of String)
+    Private _DeleteTreesFirst As Boolean
     Private _ExternalHostName As String
 
     Private _LANIP As String
@@ -845,24 +846,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
-        End Set
-    End Property
-
     Public Property CPUMAX As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
@@ -914,6 +897,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("DeleteScriptsOnStartupLevel", Value)
+        End Set
+    End Property
+
+    Public Property DeleteTreesFirst() As Boolean
+        Get
+            Return _DeleteTreesFirst
+        End Get
+        Set
+            _DeleteTreesFirst = Value
         End Set
     End Property
 
@@ -2233,6 +2225,24 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("WifiEnabled", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
         End Set
     End Property
 

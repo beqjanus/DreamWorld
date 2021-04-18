@@ -40,22 +40,19 @@ Partial Class FormScripts
         '
         Me.GroupBox1.Controls.Add(Me.YengineButton)
         Me.GroupBox1.Controls.Add(Me.XengineButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(16, 62)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 50)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(340, 114)
-        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.Size = New System.Drawing.Size(255, 93)
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Script Engine"
         '
         'YengineButton
         '
         Me.YengineButton.AutoSize = True
-        Me.YengineButton.Location = New System.Drawing.Point(16, 66)
-        Me.YengineButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.YengineButton.Location = New System.Drawing.Point(12, 54)
         Me.YengineButton.Name = "YengineButton"
-        Me.YengineButton.Size = New System.Drawing.Size(87, 20)
+        Me.YengineButton.Size = New System.Drawing.Size(68, 17)
         Me.YengineButton.TabIndex = 1
         Me.YengineButton.TabStop = True
         Me.YengineButton.Text = Global.Outworldz.My.Resources.Resources.YEngine_word
@@ -64,10 +61,9 @@ Partial Class FormScripts
         'XengineButton
         '
         Me.XengineButton.AutoSize = True
-        Me.XengineButton.Location = New System.Drawing.Point(16, 38)
-        Me.XengineButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.XengineButton.Location = New System.Drawing.Point(12, 31)
         Me.XengineButton.Name = "XengineButton"
-        Me.XengineButton.Size = New System.Drawing.Size(86, 20)
+        Me.XengineButton.Size = New System.Drawing.Size(68, 17)
         Me.XengineButton.TabIndex = 0
         Me.XengineButton.TabStop = True
         Me.XengineButton.Text = Global.Outworldz.My.Resources.Resources.XEngine_word
@@ -76,56 +72,50 @@ Partial Class FormScripts
         'GroupBox8
         '
         Me.GroupBox8.Controls.Add(Me.LSLCheckbox)
-        Me.GroupBox8.Location = New System.Drawing.Point(16, 182)
-        Me.GroupBox8.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox8.Location = New System.Drawing.Point(12, 148)
         Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.GroupBox8.Size = New System.Drawing.Size(340, 59)
-        Me.GroupBox8.TabIndex = 1863
+        Me.GroupBox8.Size = New System.Drawing.Size(255, 48)
+        Me.GroupBox8.TabIndex = 2
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Allow LSL to contact the server"
         '
         'LSLCheckbox
         '
         Me.LSLCheckbox.AutoSize = True
-        Me.LSLCheckbox.Location = New System.Drawing.Point(16, 23)
-        Me.LSLCheckbox.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.LSLCheckbox.Location = New System.Drawing.Point(12, 19)
         Me.LSLCheckbox.Name = "LSLCheckbox"
-        Me.LSLCheckbox.Size = New System.Drawing.Size(77, 21)
-        Me.LSLCheckbox.TabIndex = 210
+        Me.LSLCheckbox.Size = New System.Drawing.Size(59, 17)
+        Me.LSLCheckbox.TabIndex = 0
         Me.LSLCheckbox.Text = Global.Outworldz.My.Resources.Resources.Enable_word
         Me.LSLCheckbox.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
-        Me.MenuStrip2.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem30})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
-        Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(8, 2, 0, 2)
-        Me.MenuStrip2.Size = New System.Drawing.Size(372, 33)
-        Me.MenuStrip2.TabIndex = 1890
+        Me.MenuStrip2.Size = New System.Drawing.Size(279, 32)
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
         '
         Me.ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.Resources.about
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
-        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(89, 29)
+        Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'FormScripts
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(372, 266)
+        Me.ClientSize = New System.Drawing.Size(279, 216)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox8)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormScripts"
         Me.Text = "Scripts"
         Me.GroupBox1.ResumeLayout(False)

@@ -56,7 +56,7 @@ Partial Class FormAutoBackups
         Me.GroupBox3.Location = New System.Drawing.Point(13, 37)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(329, 193)
-        Me.GroupBox3.TabIndex = 1863
+        Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Auto Backup"
         '

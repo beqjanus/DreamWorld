@@ -69,7 +69,7 @@ Partial Class FormMaps
         Me.MapBox.Location = New System.Drawing.Point(15, 32)
         Me.MapBox.Name = "MapBox"
         Me.MapBox.Size = New System.Drawing.Size(171, 294)
-        Me.MapBox.TabIndex = 1866
+        Me.MapBox.TabIndex = 1
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
         '
@@ -78,7 +78,7 @@ Partial Class FormMaps
         Me.ViewMap.Location = New System.Drawing.Point(7, 259)
         Me.ViewMap.Name = "ViewMap"
         Me.ViewMap.Size = New System.Drawing.Size(143, 23)
-        Me.ViewMap.TabIndex = 1858
+        Me.ViewMap.TabIndex = 0
         Me.ViewMap.Text = Global.Outworldz.My.Resources.Resources.DelMaps
         Me.ToolTip1.SetToolTip(Me.ViewMap, Global.Outworldz.My.Resources.Resources.Regen_Map)
         Me.ViewMap.UseVisualStyleBackColor = True
@@ -154,7 +154,7 @@ Partial Class FormMaps
         Me.Button2.Location = New System.Drawing.Point(31, 23)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(141, 23)
-        Me.Button2.TabIndex = 1859
+        Me.Button2.TabIndex = 0
         Me.Button2.Text = Global.Outworldz.My.Resources.Resources.View_Maps
         Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Resources.WifiMap)
         Me.Button2.UseVisualStyleBackColor = True
@@ -164,7 +164,7 @@ Partial Class FormMaps
         Me.LargeMapButton.Location = New System.Drawing.Point(29, 80)
         Me.LargeMapButton.Name = "LargeMapButton"
         Me.LargeMapButton.Size = New System.Drawing.Size(140, 23)
-        Me.LargeMapButton.TabIndex = 1860
+        Me.LargeMapButton.TabIndex = 2
         Me.LargeMapButton.Text = Global.Outworldz.My.Resources.Resources.LargeMap
         Me.LargeMapButton.UseVisualStyleBackColor = True
         '
@@ -173,7 +173,7 @@ Partial Class FormMaps
         Me.SmallMapButton.Location = New System.Drawing.Point(29, 51)
         Me.SmallMapButton.Name = "SmallMapButton"
         Me.SmallMapButton.Size = New System.Drawing.Size(141, 23)
-        Me.SmallMapButton.TabIndex = 1867
+        Me.SmallMapButton.TabIndex = 1
         Me.SmallMapButton.Text = Global.Outworldz.My.Resources.Resources.Small_Map
         Me.SmallMapButton.UseVisualStyleBackColor = True
         '
@@ -196,7 +196,7 @@ Partial Class FormMaps
         Me.GroupBox2.Location = New System.Drawing.Point(192, 32)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(196, 294)
-        Me.GroupBox2.TabIndex = 1869
+        Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Maps"
         '
@@ -205,7 +205,7 @@ Partial Class FormMaps
         Me.ExportAllMaps.Location = New System.Drawing.Point(31, 138)
         Me.ExportAllMaps.Name = "ExportAllMaps"
         Me.ExportAllMaps.Size = New System.Drawing.Size(140, 23)
-        Me.ExportAllMaps.TabIndex = 1878
+        Me.ExportAllMaps.TabIndex = 4
         Me.ExportAllMaps.Text = "Export All  Maps"
         Me.ExportAllMaps.UseVisualStyleBackColor = True
         '
@@ -214,7 +214,7 @@ Partial Class FormMaps
         Me.VieweAllMaps.Location = New System.Drawing.Point(29, 109)
         Me.VieweAllMaps.Name = "VieweAllMaps"
         Me.VieweAllMaps.Size = New System.Drawing.Size(140, 23)
-        Me.VieweAllMaps.TabIndex = 1877
+        Me.VieweAllMaps.TabIndex = 3
         Me.VieweAllMaps.Text = "View All  Maps"
         Me.VieweAllMaps.UseVisualStyleBackColor = True
         '
@@ -224,7 +224,7 @@ Partial Class FormMaps
         Me.Label5.Location = New System.Drawing.Point(27, 206)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(96, 13)
-        Me.Label5.TabIndex = 1876
+        Me.Label5.TabIndex = 6
         Me.Label5.Text = "Render Min Height"
         '
         'Label4
@@ -233,7 +233,7 @@ Partial Class FormMaps
         Me.Label4.Location = New System.Drawing.Point(24, 180)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(99, 13)
-        Me.Label4.TabIndex = 1875
+        Me.Label4.TabIndex = 5
         Me.Label4.Text = "Render Max Height"
         '
         'RenderMinH
@@ -241,7 +241,7 @@ Partial Class FormMaps
         Me.RenderMinH.Location = New System.Drawing.Point(145, 201)
         Me.RenderMinH.Name = "RenderMinH"
         Me.RenderMinH.Size = New System.Drawing.Size(39, 20)
-        Me.RenderMinH.TabIndex = 1874
+        Me.RenderMinH.TabIndex = 8
         Me.ToolTip1.SetToolTip(Me.RenderMinH, "Min -100, Max +100")
         '
         'RenderMaxH
@@ -249,7 +249,7 @@ Partial Class FormMaps
         Me.RenderMaxH.Location = New System.Drawing.Point(145, 178)
         Me.RenderMaxH.Name = "RenderMaxH"
         Me.RenderMaxH.Size = New System.Drawing.Size(39, 20)
-        Me.RenderMaxH.TabIndex = 1873
+        Me.RenderMaxH.TabIndex = 7
         Me.ToolTip1.SetToolTip(Me.RenderMaxH, Global.Outworldz.My.Resources.Resources.Max4096)
         '
         'MapYStart
@@ -257,7 +257,7 @@ Partial Class FormMaps
         Me.MapYStart.Location = New System.Drawing.Point(118, 259)
         Me.MapYStart.Name = "MapYStart"
         Me.MapYStart.Size = New System.Drawing.Size(39, 20)
-        Me.MapYStart.TabIndex = 1872
+        Me.MapYStart.TabIndex = 11
         Me.ToolTip1.SetToolTip(Me.MapYStart, Global.Outworldz.My.Resources.Resources.CenterMap)
         '
         'MapXStart
@@ -265,7 +265,7 @@ Partial Class FormMaps
         Me.MapXStart.Location = New System.Drawing.Point(49, 259)
         Me.MapXStart.Name = "MapXStart"
         Me.MapXStart.Size = New System.Drawing.Size(39, 20)
-        Me.MapXStart.TabIndex = 1871
+        Me.MapXStart.TabIndex = 10
         Me.ToolTip1.SetToolTip(Me.MapXStart, Global.Outworldz.My.Resources.Resources.CenterMap)
         '
         'Label3
@@ -274,7 +274,7 @@ Partial Class FormMaps
         Me.Label3.Location = New System.Drawing.Point(98, 259)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(14, 13)
-        Me.Label3.TabIndex = 1870
+        Me.Label3.TabIndex = 13
         Me.Label3.Text = "Y"
         '
         'Label2
@@ -283,7 +283,7 @@ Partial Class FormMaps
         Me.Label2.Location = New System.Drawing.Point(28, 259)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(14, 13)
-        Me.Label2.TabIndex = 1869
+        Me.Label2.TabIndex = 12
         Me.Label2.Text = "Y"
         '
         'Label1
@@ -292,7 +292,7 @@ Partial Class FormMaps
         Me.Label1.Location = New System.Drawing.Point(28, 238)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(109, 13)
-        Me.Label1.TabIndex = 1868
+        Me.Label1.TabIndex = 9
         Me.Label1.Text = "Map Center Location:"
         '
         'MenuStrip2
@@ -303,7 +303,7 @@ Partial Class FormMaps
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(400, 30)
-        Me.MenuStrip2.TabIndex = 1890
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30

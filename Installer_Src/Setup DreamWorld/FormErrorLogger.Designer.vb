@@ -43,7 +43,7 @@ Partial Class FormErrorLogger
         Me.QuitButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.QuitButton.Name = "QuitButton"
         Me.QuitButton.Size = New System.Drawing.Size(81, 30)
-        Me.QuitButton.TabIndex = 0
+        Me.QuitButton.TabIndex = 4
         Me.QuitButton.Text = "Cancel"
         Me.QuitButton.UseVisualStyleBackColor = True
         '
@@ -55,7 +55,7 @@ Partial Class FormErrorLogger
         Me.ReasonText.Multiline = True
         Me.ReasonText.Name = "ReasonText"
         Me.ReasonText.Size = New System.Drawing.Size(375, 83)
-        Me.ReasonText.TabIndex = 1
+        Me.ReasonText.TabIndex = 0
         Me.ReasonText.Text = "Please tell us what may have caused this."
         '
         'SendButton
@@ -64,7 +64,7 @@ Partial Class FormErrorLogger
         Me.SendButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.SendButton.Name = "SendButton"
         Me.SendButton.Size = New System.Drawing.Size(81, 30)
-        Me.SendButton.TabIndex = 2
+        Me.SendButton.TabIndex = 3
         Me.SendButton.Text = "Send Report"
         Me.SendButton.UseVisualStyleBackColor = True
         '
@@ -100,7 +100,7 @@ Partial Class FormErrorLogger
         Me.PrivacyButton.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.PrivacyButton.Name = "PrivacyButton"
         Me.PrivacyButton.Size = New System.Drawing.Size(116, 30)
-        Me.PrivacyButton.TabIndex = 10
+        Me.PrivacyButton.TabIndex = 5
         Me.PrivacyButton.Text = "Privacy Policy"
         Me.PrivacyButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.PrivacyButton.UseVisualStyleBackColor = True
@@ -111,7 +111,7 @@ Partial Class FormErrorLogger
         Me.EmailTextBox.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.EmailTextBox.Name = "EmailTextBox"
         Me.EmailTextBox.Size = New System.Drawing.Size(230, 20)
-        Me.EmailTextBox.TabIndex = 11
+        Me.EmailTextBox.TabIndex = 1
         '
         'Label5
         '
@@ -162,7 +162,7 @@ Partial Class FormErrorLogger
         Me.Button1.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(73, 30)
-        Me.Button1.TabIndex = 16
+        Me.Button1.TabIndex = 2
         Me.Button1.Text = "View"
         Me.Button1.UseVisualStyleBackColor = True
         '

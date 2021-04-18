@@ -34,29 +34,31 @@ Partial Class FormIARLoad
         '
         'FolderTextbox
         '
-        Me.FolderTextbox.Location = New System.Drawing.Point(24, 121)
-        Me.FolderTextbox.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.FolderTextbox.Location = New System.Drawing.Point(16, 79)
+        Me.FolderTextbox.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.FolderTextbox.Name = "FolderTextbox"
-        Me.FolderTextbox.Size = New System.Drawing.Size(202, 26)
-        Me.FolderTextbox.TabIndex = 0
+        Me.FolderTextbox.Size = New System.Drawing.Size(136, 20)
+        Me.FolderTextbox.TabIndex = 2
         Me.FolderTextbox.Text = "/"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(25, 42)
+        Me.Label1.Location = New System.Drawing.Point(17, 27)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(275, 20)
-        Me.Label1.TabIndex = 1
+        Me.Label1.Size = New System.Drawing.Size(183, 13)
+        Me.Label1.TabIndex = 0
         Me.Label1.Text = "Enter first and last name of the avatar"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(248, 121)
+        Me.Label2.Location = New System.Drawing.Point(165, 79)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(127, 20)
-        Me.Label2.TabIndex = 2
+        Me.Label2.Size = New System.Drawing.Size(86, 13)
+        Me.Label2.TabIndex = 4
         Me.Label2.Text = "Folder to save to"
         '
         'GroupBox1
@@ -66,40 +68,40 @@ Partial Class FormIARLoad
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.FolderTextbox)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(14, 15)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GroupBox1.Location = New System.Drawing.Point(9, 10)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GroupBox1.Size = New System.Drawing.Size(474, 216)
-        Me.GroupBox1.TabIndex = 3
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 3, 2, 3)
+        Me.GroupBox1.Size = New System.Drawing.Size(316, 140)
+        Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(28, 170)
-        Me.Button1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Button1.Location = New System.Drawing.Point(19, 110)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(127, 39)
-        Me.Button1.TabIndex = 4
+        Me.Button1.Size = New System.Drawing.Size(85, 25)
+        Me.Button1.TabIndex = 3
         Me.Button1.Text = "OK"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'AviName
         '
-        Me.AviName.Location = New System.Drawing.Point(28, 68)
-        Me.AviName.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.AviName.Location = New System.Drawing.Point(19, 44)
+        Me.AviName.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(273, 26)
-        Me.AviName.TabIndex = 3
+        Me.AviName.Size = New System.Drawing.Size(183, 20)
+        Me.AviName.TabIndex = 1
         '
         'FormIARLoad
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(507, 248)
+        Me.ClientSize = New System.Drawing.Size(338, 161)
         Me.Controls.Add(Me.GroupBox1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.Margin = New System.Windows.Forms.Padding(2, 3, 2, 3)
         Me.Name = "FormIARLoad"
         Me.Text = "IAR"
         Me.GroupBox1.ResumeLayout(False)

@@ -66,7 +66,7 @@ Partial Class FormRegions
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(1)
         Me.GroupBox2.Size = New System.Drawing.Size(209, 375)
-        Me.GroupBox2.TabIndex = 1862
+        Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Region"
         '
@@ -76,7 +76,7 @@ Partial Class FormRegions
         Me.ConciergeCheckbox.Location = New System.Drawing.Point(16, 324)
         Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
         Me.ConciergeCheckbox.Size = New System.Drawing.Size(111, 17)
-        Me.ConciergeCheckbox.TabIndex = 10
+        Me.ConciergeCheckbox.TabIndex = 9
         Me.ConciergeCheckbox.Text = "Announce Visitors"
         Me.ConciergeCheckbox.UseVisualStyleBackColor = True
         '
@@ -99,7 +99,7 @@ Partial Class FormRegions
         Me.Button1.Margin = New System.Windows.Forms.Padding(1)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(185, 35)
-        Me.Button1.TabIndex = 7
+        Me.Button1.TabIndex = 6
         Me.Button1.Text = Global.Outworldz.My.Resources.Resources.ClearReg
         Me.Button1.UseVisualStyleBackColor = True
         '
@@ -111,7 +111,7 @@ Partial Class FormRegions
         Me.NormalizeButton1.Margin = New System.Windows.Forms.Padding(1)
         Me.NormalizeButton1.Name = "NormalizeButton1"
         Me.NormalizeButton1.Size = New System.Drawing.Size(185, 35)
-        Me.NormalizeButton1.TabIndex = 8
+        Me.NormalizeButton1.TabIndex = 7
         Me.NormalizeButton1.Text = Global.Outworldz.My.Resources.Resources.NormalizeRegions
         Me.NormalizeButton1.UseVisualStyleBackColor = True
         '
@@ -121,7 +121,7 @@ Partial Class FormRegions
         Me.Z.Margin = New System.Windows.Forms.Padding(1)
         Me.Z.Name = "Z"
         Me.Z.Size = New System.Drawing.Size(29, 20)
-        Me.Z.TabIndex = 4
+        Me.Z.TabIndex = 3
         '
         'Y
         '
@@ -129,7 +129,7 @@ Partial Class FormRegions
         Me.Y.Margin = New System.Windows.Forms.Padding(1)
         Me.Y.Name = "Y"
         Me.Y.Size = New System.Drawing.Size(29, 20)
-        Me.Y.TabIndex = 3
+        Me.Y.TabIndex = 2
         '
         'X
         '
@@ -137,7 +137,7 @@ Partial Class FormRegions
         Me.X.Margin = New System.Windows.Forms.Padding(1)
         Me.X.Name = "X"
         Me.X.Size = New System.Drawing.Size(29, 20)
-        Me.X.TabIndex = 2
+        Me.X.TabIndex = 1
         '
         'Label2
         '
@@ -167,7 +167,7 @@ Partial Class FormRegions
         Me.RegionButton.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionButton.Name = "RegionButton"
         Me.RegionButton.Size = New System.Drawing.Size(185, 35)
-        Me.RegionButton.TabIndex = 6
+        Me.RegionButton.TabIndex = 5
         Me.RegionButton.Text = Global.Outworldz.My.Resources.Resources.Configger
         Me.RegionButton.UseVisualStyleBackColor = True
         '
@@ -182,7 +182,7 @@ Partial Class FormRegions
         Me.RegionBox.Name = "RegionBox"
         Me.RegionBox.Size = New System.Drawing.Size(185, 21)
         Me.RegionBox.Sorted = True
-        Me.RegionBox.TabIndex = 9
+        Me.RegionBox.TabIndex = 8
         '
         'WelcomeBox1
         '
@@ -193,7 +193,7 @@ Partial Class FormRegions
         Me.WelcomeBox1.Margin = New System.Windows.Forms.Padding(1)
         Me.WelcomeBox1.Name = "WelcomeBox1"
         Me.WelcomeBox1.Size = New System.Drawing.Size(148, 21)
-        Me.WelcomeBox1.TabIndex = 1
+        Me.WelcomeBox1.TabIndex = 0
         '
         'Label3
         '
@@ -212,7 +212,7 @@ Partial Class FormRegions
         Me.AddRegion.Margin = New System.Windows.Forms.Padding(1)
         Me.AddRegion.Name = "AddRegion"
         Me.AddRegion.Size = New System.Drawing.Size(185, 35)
-        Me.AddRegion.TabIndex = 5
+        Me.AddRegion.TabIndex = 4
         Me.AddRegion.Text = Global.Outworldz.My.Resources.Resources.Add_Region_word
         Me.AddRegion.UseVisualStyleBackColor = True
         '

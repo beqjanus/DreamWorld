@@ -65,7 +65,7 @@ Partial Class FormSettings
         Me.TOSButton.Location = New System.Drawing.Point(240, 460)
         Me.TOSButton.Name = "TOSButton"
         Me.TOSButton.Size = New System.Drawing.Size(180, 35)
-        Me.TOSButton.TabIndex = 15
+        Me.TOSButton.TabIndex = 25
         Me.TOSButton.Text = Global.Outworldz.My.Resources.Resources.Terms_of_Service
         Me.ToolTip1.SetToolTip(Me.TOSButton, Global.Outworldz.My.Resources.Resources.Setup_TOS)
         Me.TOSButton.UseVisualStyleBackColor = True
@@ -77,7 +77,7 @@ Partial Class FormSettings
         Me.TideButton.Location = New System.Drawing.Point(240, 420)
         Me.TideButton.Name = "TideButton"
         Me.TideButton.Size = New System.Drawing.Size(180, 35)
-        Me.TideButton.TabIndex = 14
+        Me.TideButton.TabIndex = 24
         Me.TideButton.Text = Global.Outworldz.My.Resources.Resources.Tides_word
         Me.ToolTip1.SetToolTip(Me.TideButton, Global.Outworldz.My.Resources.Resources.Click_Tides)
         Me.TideButton.UseVisualStyleBackColor = True
@@ -89,7 +89,7 @@ Partial Class FormSettings
         Me.CurrencyButton.Location = New System.Drawing.Point(15, 220)
         Me.CurrencyButton.Name = "CurrencyButton"
         Me.CurrencyButton.Size = New System.Drawing.Size(180, 35)
-        Me.CurrencyButton.TabIndex = 4
+        Me.CurrencyButton.TabIndex = 5
         Me.CurrencyButton.Text = Global.Outworldz.My.Resources.Resources.Currency_word
         Me.ToolTip1.SetToolTip(Me.CurrencyButton, Global.Outworldz.My.Resources.Resources.Click_Currency)
         Me.CurrencyButton.UseVisualStyleBackColor = True
@@ -101,7 +101,7 @@ Partial Class FormSettings
         Me.VoiceButton1.Location = New System.Drawing.Point(239, 500)
         Me.VoiceButton1.Name = "VoiceButton1"
         Me.VoiceButton1.Size = New System.Drawing.Size(180, 35)
-        Me.VoiceButton1.TabIndex = 16
+        Me.VoiceButton1.TabIndex = 26
         Me.VoiceButton1.Text = Global.Outworldz.My.Resources.Resources.Vivox_Voice_word
         Me.ToolTip1.SetToolTip(Me.VoiceButton1, Global.Outworldz.My.Resources.Resources.Click_Voice)
         Me.VoiceButton1.UseVisualStyleBackColor = True
@@ -113,7 +113,7 @@ Partial Class FormSettings
         Me.IcecastButton.Location = New System.Drawing.Point(15, 380)
         Me.IcecastButton.Name = "IcecastButton"
         Me.IcecastButton.Size = New System.Drawing.Size(180, 35)
-        Me.IcecastButton.TabIndex = 6
+        Me.IcecastButton.TabIndex = 9
         Me.IcecastButton.Text = Global.Outworldz.My.Resources.Resources.Icecast_word
         Me.ToolTip1.SetToolTip(Me.IcecastButton, Global.Outworldz.My.Resources.Resources.Click_Icecast)
         Me.IcecastButton.UseVisualStyleBackColor = True
@@ -125,7 +125,7 @@ Partial Class FormSettings
         Me.MapsButton.Location = New System.Drawing.Point(15, 540)
         Me.MapsButton.Name = "MapsButton"
         Me.MapsButton.Size = New System.Drawing.Size(180, 35)
-        Me.MapsButton.TabIndex = 7
+        Me.MapsButton.TabIndex = 13
         Me.MapsButton.Text = Global.Outworldz.My.Resources.Resources.Maps_word
         Me.ToolTip1.SetToolTip(Me.MapsButton, Global.Outworldz.My.Resources.Resources.Click_Maps)
         Me.MapsButton.UseVisualStyleBackColor = True
@@ -137,7 +137,7 @@ Partial Class FormSettings
         Me.Birds.Location = New System.Drawing.Point(15, 140)
         Me.Birds.Name = "Birds"
         Me.Birds.Size = New System.Drawing.Size(180, 35)
-        Me.Birds.TabIndex = 2
+        Me.Birds.TabIndex = 3
         Me.Birds.Text = Global.Outworldz.My.Resources.Resources.Bird_Settings_word
         Me.ToolTip1.SetToolTip(Me.Birds, Global.Outworldz.My.Resources.Resources.Click_Birds)
         Me.Birds.UseVisualStyleBackColor = True
@@ -161,7 +161,7 @@ Partial Class FormSettings
         Me.RegionsButton1.Location = New System.Drawing.Point(240, 180)
         Me.RegionsButton1.Name = "RegionsButton1"
         Me.RegionsButton1.Size = New System.Drawing.Size(180, 35)
-        Me.RegionsButton1.TabIndex = 12
+        Me.RegionsButton1.TabIndex = 18
         Me.RegionsButton1.Text = Global.Outworldz.My.Resources.Resources.Regions_word
         Me.ToolTip1.SetToolTip(Me.RegionsButton1, Global.Outworldz.My.Resources.Resources.Click_Regions)
         Me.RegionsButton1.UseVisualStyleBackColor = True
@@ -173,7 +173,7 @@ Partial Class FormSettings
         Me.DivaButton1.Location = New System.Drawing.Point(239, 540)
         Me.DivaButton1.Name = "DivaButton1"
         Me.DivaButton1.Size = New System.Drawing.Size(180, 35)
-        Me.DivaButton1.TabIndex = 18
+        Me.DivaButton1.TabIndex = 27
         Me.DivaButton1.Text = Global.Outworldz.My.Resources.Resources.Web
         Me.ToolTip1.SetToolTip(Me.DivaButton1, Global.Outworldz.My.Resources.Resources.Click_Web)
         Me.DivaButton1.UseVisualStyleBackColor = True
@@ -185,7 +185,7 @@ Partial Class FormSettings
         Me.PortsButton1.Location = New System.Drawing.Point(240, 20)
         Me.PortsButton1.Name = "PortsButton1"
         Me.PortsButton1.Size = New System.Drawing.Size(180, 35)
-        Me.PortsButton1.TabIndex = 8
+        Me.PortsButton1.TabIndex = 14
         Me.PortsButton1.Text = Global.Outworldz.My.Resources.Resources.Network_Ports
         Me.ToolTip1.SetToolTip(Me.PortsButton1, Global.Outworldz.My.Resources.Resources.Click_Ports)
         Me.PortsButton1.UseVisualStyleBackColor = True
@@ -197,7 +197,7 @@ Partial Class FormSettings
         Me.PhysicsButton1.Location = New System.Drawing.Point(240, 100)
         Me.PhysicsButton1.Name = "PhysicsButton1"
         Me.PhysicsButton1.Size = New System.Drawing.Size(180, 35)
-        Me.PhysicsButton1.TabIndex = 10
+        Me.PhysicsButton1.TabIndex = 16
         Me.PhysicsButton1.Text = Global.Outworldz.My.Resources.Resources.Physics_word
         Me.ToolTip1.SetToolTip(Me.PhysicsButton1, Global.Outworldz.My.Resources.Resources.Click_Physics)
         Me.PhysicsButton1.UseVisualStyleBackColor = True
@@ -209,7 +209,7 @@ Partial Class FormSettings
         Me.DatabaseButton2.Location = New System.Drawing.Point(15, 260)
         Me.DatabaseButton2.Name = "DatabaseButton2"
         Me.DatabaseButton2.Size = New System.Drawing.Size(180, 35)
-        Me.DatabaseButton2.TabIndex = 3
+        Me.DatabaseButton2.TabIndex = 6
         Me.DatabaseButton2.Text = Global.Outworldz.My.Resources.Resources.Database_Setup_word
         Me.ToolTip1.SetToolTip(Me.DatabaseButton2, Global.Outworldz.My.Resources.Resources.Click_Database)
         Me.DatabaseButton2.UseVisualStyleBackColor = True
@@ -221,7 +221,7 @@ Partial Class FormSettings
         Me.RestartButton.Location = New System.Drawing.Point(239, 220)
         Me.RestartButton.Name = "RestartButton"
         Me.RestartButton.Size = New System.Drawing.Size(180, 35)
-        Me.RestartButton.TabIndex = 13
+        Me.RestartButton.TabIndex = 19
         Me.RestartButton.Text = Global.Outworldz.My.Resources.Resources.Restart_Settings_word
         Me.ToolTip1.SetToolTip(Me.RestartButton, Global.Outworldz.My.Resources.Resources.Click_Restart)
         Me.RestartButton.UseVisualStyleBackColor = True
@@ -233,7 +233,7 @@ Partial Class FormSettings
         Me.PermissionsButton.Location = New System.Drawing.Point(240, 60)
         Me.PermissionsButton.Name = "PermissionsButton"
         Me.PermissionsButton.Size = New System.Drawing.Size(180, 35)
-        Me.PermissionsButton.TabIndex = 9
+        Me.PermissionsButton.TabIndex = 15
         Me.PermissionsButton.Text = Global.Outworldz.My.Resources.Resources.Permissions_word
         Me.ToolTip1.SetToolTip(Me.PermissionsButton, Global.Outworldz.My.Resources.Resources.Click_for_God_Mode)
         Me.PermissionsButton.UseVisualStyleBackColor = True
@@ -245,7 +245,7 @@ Partial Class FormSettings
         Me.DNSButton.Location = New System.Drawing.Point(15, 340)
         Me.DNSButton.Name = "DNSButton"
         Me.DNSButton.Size = New System.Drawing.Size(180, 35)
-        Me.DNSButton.TabIndex = 5
+        Me.DNSButton.TabIndex = 8
         Me.DNSButton.Text = Global.Outworldz.My.Resources.Resources.Hypergrid
         Me.ToolTip1.SetToolTip(Me.DNSButton, Global.Outworldz.My.Resources.Resources.Click_HG)
         Me.DNSButton.UseVisualStyleBackColor = True
@@ -257,7 +257,7 @@ Partial Class FormSettings
         Me.PublicityButton.Location = New System.Drawing.Point(240, 140)
         Me.PublicityButton.Name = "PublicityButton"
         Me.PublicityButton.Size = New System.Drawing.Size(180, 35)
-        Me.PublicityButton.TabIndex = 11
+        Me.PublicityButton.TabIndex = 17
         Me.PublicityButton.Text = Global.Outworldz.My.Resources.Resources.Publicity_Word
         Me.ToolTip1.SetToolTip(Me.PublicityButton, Global.Outworldz.My.Resources.Resources.Click_Publicity)
         Me.PublicityButton.UseVisualStyleBackColor = True
@@ -269,7 +269,7 @@ Partial Class FormSettings
         Me.CacheButton1.Location = New System.Drawing.Point(15, 180)
         Me.CacheButton1.Name = "CacheButton1"
         Me.CacheButton1.Size = New System.Drawing.Size(180, 35)
-        Me.CacheButton1.TabIndex = 19
+        Me.CacheButton1.TabIndex = 4
         Me.CacheButton1.Text = Global.Outworldz.My.Resources.Resources.Caches_word
         Me.ToolTip1.SetToolTip(Me.CacheButton1, Global.Outworldz.My.Resources.Resources.Click_Caches)
         Me.CacheButton1.UseVisualStyleBackColor = True
@@ -281,7 +281,7 @@ Partial Class FormSettings
         Me.ServerTypeButton.Location = New System.Drawing.Point(240, 340)
         Me.ServerTypeButton.Name = "ServerTypeButton"
         Me.ServerTypeButton.Size = New System.Drawing.Size(180, 35)
-        Me.ServerTypeButton.TabIndex = 20
+        Me.ServerTypeButton.TabIndex = 22
         Me.ServerTypeButton.Text = Global.Outworldz.My.Resources.Resources.Server_Type_word
         Me.ToolTip1.SetToolTip(Me.ServerTypeButton, Global.Outworldz.My.Resources.Resources.Click_Server)
         Me.ServerTypeButton.UseVisualStyleBackColor = True
@@ -293,7 +293,7 @@ Partial Class FormSettings
         Me.ApacheButton.Location = New System.Drawing.Point(15, 20)
         Me.ApacheButton.Name = "ApacheButton"
         Me.ApacheButton.Size = New System.Drawing.Size(180, 35)
-        Me.ApacheButton.TabIndex = 21
+        Me.ApacheButton.TabIndex = 0
         Me.ApacheButton.Text = Global.Outworldz.My.Resources.Resources.Apache_Webserver
         Me.ToolTip1.SetToolTip(Me.ApacheButton, Global.Outworldz.My.Resources.Resources.ApacheWebServer)
         Me.ApacheButton.UseVisualStyleBackColor = True
@@ -305,7 +305,7 @@ Partial Class FormSettings
         Me.ScriptButton.Location = New System.Drawing.Point(239, 260)
         Me.ScriptButton.Name = "ScriptButton"
         Me.ScriptButton.Size = New System.Drawing.Size(180, 35)
-        Me.ScriptButton.TabIndex = 22
+        Me.ScriptButton.TabIndex = 20
         Me.ScriptButton.Text = Global.Outworldz.My.Resources.Resources.Scripts_word
         Me.ToolTip1.SetToolTip(Me.ScriptButton, Global.Outworldz.My.Resources.Resources.Click_to_View_this_word)
         Me.ScriptButton.UseVisualStyleBackColor = True
@@ -317,7 +317,7 @@ Partial Class FormSettings
         Me.LoggingButton.Location = New System.Drawing.Point(15, 500)
         Me.LoggingButton.Name = "LoggingButton"
         Me.LoggingButton.Size = New System.Drawing.Size(180, 35)
-        Me.LoggingButton.TabIndex = 23
+        Me.LoggingButton.TabIndex = 12
         Me.LoggingButton.Text = Global.Outworldz.My.Resources.Resources.Logging_word
         Me.ToolTip1.SetToolTip(Me.LoggingButton, Global.Outworldz.My.Resources.Resources.Log_Level)
         Me.LoggingButton.UseVisualStyleBackColor = True
@@ -329,7 +329,7 @@ Partial Class FormSettings
         Me.BanListButton.Location = New System.Drawing.Point(15, 100)
         Me.BanListButton.Name = "BanListButton"
         Me.BanListButton.Size = New System.Drawing.Size(180, 35)
-        Me.BanListButton.TabIndex = 24
+        Me.BanListButton.TabIndex = 2
         Me.BanListButton.Text = Global.Outworldz.My.Resources.Resources.Ban_List_word
         Me.ToolTip1.SetToolTip(Me.BanListButton, Global.Outworldz.My.Resources.Resources.BanList_string)
         Me.BanListButton.UseVisualStyleBackColor = True
@@ -341,7 +341,7 @@ Partial Class FormSettings
         Me.JoomlaButton.Location = New System.Drawing.Point(15, 420)
         Me.JoomlaButton.Name = "JoomlaButton"
         Me.JoomlaButton.Size = New System.Drawing.Size(180, 35)
-        Me.JoomlaButton.TabIndex = 25
+        Me.JoomlaButton.TabIndex = 10
         Me.JoomlaButton.Text = "Joomla/jOpensim"
         Me.ToolTip1.SetToolTip(Me.JoomlaButton, Global.Outworldz.My.Resources.Resources.Click_Setup)
         Me.JoomlaButton.UseVisualStyleBackColor = True
@@ -353,7 +353,7 @@ Partial Class FormSettings
         Me.SearchButton.Location = New System.Drawing.Point(240, 300)
         Me.SearchButton.Name = "SearchButton"
         Me.SearchButton.Size = New System.Drawing.Size(180, 35)
-        Me.SearchButton.TabIndex = 26
+        Me.SearchButton.TabIndex = 21
         Me.SearchButton.Text = "Search Options"
         Me.ToolTip1.SetToolTip(Me.SearchButton, Global.Outworldz.My.Resources.Resources.Click_to_Setup_Search)
         Me.SearchButton.UseVisualStyleBackColor = True
@@ -365,7 +365,7 @@ Partial Class FormSettings
         Me.SmartStartButton.Location = New System.Drawing.Point(240, 380)
         Me.SmartStartButton.Name = "SmartStartButton"
         Me.SmartStartButton.Size = New System.Drawing.Size(180, 35)
-        Me.SmartStartButton.TabIndex = 29
+        Me.SmartStartButton.TabIndex = 23
         Me.SmartStartButton.Text = "Smart Start"
         Me.ToolTip1.SetToolTip(Me.SmartStartButton, Global.Outworldz.My.Resources.Resources.Click_Server)
         Me.SmartStartButton.UseVisualStyleBackColor = True
@@ -377,7 +377,7 @@ Partial Class FormSettings
         Me.LanguageButton.Location = New System.Drawing.Point(15, 460)
         Me.LanguageButton.Name = "LanguageButton"
         Me.LanguageButton.Size = New System.Drawing.Size(180, 35)
-        Me.LanguageButton.TabIndex = 28
+        Me.LanguageButton.TabIndex = 11
         Me.LanguageButton.Text = "Language"
         Me.LanguageButton.UseVisualStyleBackColor = True
         '
@@ -389,7 +389,7 @@ Partial Class FormSettings
         Me.FSAssetsButton.Location = New System.Drawing.Point(15, 300)
         Me.FSAssetsButton.Name = "FSAssetsButton"
         Me.FSAssetsButton.Size = New System.Drawing.Size(180, 35)
-        Me.FSAssetsButton.TabIndex = 27
+        Me.FSAssetsButton.TabIndex = 7
         Me.FSAssetsButton.Text = "FSassets"
         Me.FSAssetsButton.UseVisualStyleBackColor = True
         '

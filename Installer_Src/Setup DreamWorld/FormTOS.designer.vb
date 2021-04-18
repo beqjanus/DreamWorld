@@ -37,7 +37,7 @@ Partial Class TosForm
         Me.PreviewButton.Location = New System.Drawing.Point(403, 489)
         Me.PreviewButton.Name = "PreviewButton"
         Me.PreviewButton.Size = New System.Drawing.Size(171, 23)
-        Me.PreviewButton.TabIndex = 3
+        Me.PreviewButton.TabIndex = 0
         Me.PreviewButton.Text = Global.Outworldz.My.Resources.Resources.Preview_in_Browser
         Me.PreviewButton.UseVisualStyleBackColor = True
         '
@@ -55,14 +55,14 @@ Partial Class TosForm
         Me.Editor1.Margin = New System.Windows.Forms.Padding(5)
         Me.Editor1.Name = "Editor1"
         Me.Editor1.Size = New System.Drawing.Size(636, 421)
-        Me.Editor1.TabIndex = 7
+        Me.Editor1.TabIndex = 2
         '
         'SaveButton
         '
         Me.SaveButton.Location = New System.Drawing.Point(86, 489)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(89, 23)
-        Me.SaveButton.TabIndex = 1
+        Me.SaveButton.TabIndex = 3
         Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Ok
         Me.SaveButton.UseVisualStyleBackColor = True
         '
@@ -71,7 +71,7 @@ Partial Class TosForm
         Me.ApplyButton.Location = New System.Drawing.Point(247, 489)
         Me.ApplyButton.Name = "ApplyButton"
         Me.ApplyButton.Size = New System.Drawing.Size(95, 23)
-        Me.ApplyButton.TabIndex = 2
+        Me.ApplyButton.TabIndex = 4
         Me.ApplyButton.Text = Global.Outworldz.My.Resources.Resources.Apply_word
         Me.ApplyButton.UseVisualStyleBackColor = True
         '
@@ -83,7 +83,7 @@ Partial Class TosForm
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(3, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(660, 34)
-        Me.MenuStrip2.TabIndex = 1887
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30

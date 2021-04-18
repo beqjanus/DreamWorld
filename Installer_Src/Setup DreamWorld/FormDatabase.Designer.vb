@@ -73,7 +73,7 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Location = New System.Drawing.Point(318, 37)
         Me.StandaloneGroup.Name = "StandaloneGroup"
         Me.StandaloneGroup.Size = New System.Drawing.Size(277, 177)
-        Me.StandaloneGroup.TabIndex = 56
+        Me.StandaloneGroup.TabIndex = 2
         Me.StandaloneGroup.TabStop = False
         Me.StandaloneGroup.Text = "Region Database"
         '
@@ -82,7 +82,7 @@ Partial Class FormDatabase
         Me.MysqlRegionPort.Location = New System.Drawing.Point(77, 135)
         Me.MysqlRegionPort.Name = "MysqlRegionPort"
         Me.MysqlRegionPort.Size = New System.Drawing.Size(47, 20)
-        Me.MysqlRegionPort.TabIndex = 43
+        Me.MysqlRegionPort.TabIndex = 9
         Me.ToolTip1.SetToolTip(Me.MysqlRegionPort, "3306")
         '
         'Label2
@@ -91,7 +91,7 @@ Partial Class FormDatabase
         Me.Label2.Location = New System.Drawing.Point(135, 135)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(64, 13)
-        Me.Label2.TabIndex = 42
+        Me.Label2.TabIndex = 8
         Me.Label2.Text = "MySQL Port"
         '
         'Label1
@@ -100,7 +100,7 @@ Partial Class FormDatabase
         Me.Label1.Location = New System.Drawing.Point(133, 28)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(75, 13)
-        Me.Label1.TabIndex = 45
+        Me.Label1.TabIndex = 4
         Me.Label1.Text = "Region Server"
         '
         'RegionServer
@@ -108,7 +108,7 @@ Partial Class FormDatabase
         Me.RegionServer.Location = New System.Drawing.Point(17, 25)
         Me.RegionServer.Name = "RegionServer"
         Me.RegionServer.Size = New System.Drawing.Size(107, 20)
-        Me.RegionServer.TabIndex = 46
+        Me.RegionServer.TabIndex = 0
         Me.ToolTip1.SetToolTip(Me.RegionServer, Global.Outworldz.My.Resources.Resources.Region_ServerName)
         '
         'Label22
@@ -117,7 +117,7 @@ Partial Class FormDatabase
         Me.Label22.Location = New System.Drawing.Point(135, 108)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(53, 13)
-        Me.Label22.TabIndex = 17
+        Me.Label22.TabIndex = 7
         Me.Label22.Text = "Password"
         '
         'Label20
@@ -126,7 +126,7 @@ Partial Class FormDatabase
         Me.Label20.Location = New System.Drawing.Point(133, 55)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(90, 13)
-        Me.Label20.TabIndex = 13
+        Me.Label20.TabIndex = 5
         Me.Label20.Text = "Region Database"
         '
         'RegionDbName
@@ -134,7 +134,7 @@ Partial Class FormDatabase
         Me.RegionDbName.Location = New System.Drawing.Point(17, 52)
         Me.RegionDbName.Name = "RegionDbName"
         Me.RegionDbName.Size = New System.Drawing.Size(107, 20)
-        Me.RegionDbName.TabIndex = 42
+        Me.RegionDbName.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.RegionDbName, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         '
         'RegionDBUsername
@@ -142,7 +142,7 @@ Partial Class FormDatabase
         Me.RegionDBUsername.Location = New System.Drawing.Point(17, 77)
         Me.RegionDBUsername.Name = "RegionDBUsername"
         Me.RegionDBUsername.Size = New System.Drawing.Size(107, 20)
-        Me.RegionDBUsername.TabIndex = 43
+        Me.RegionDBUsername.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.RegionDBUsername, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         '
         'Label21
@@ -151,7 +151,7 @@ Partial Class FormDatabase
         Me.Label21.Location = New System.Drawing.Point(135, 81)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(60, 13)
-        Me.Label21.TabIndex = 16
+        Me.Label21.TabIndex = 6
         Me.Label21.Text = "User Name"
         '
         'RegionMySqlPassword
@@ -159,7 +159,7 @@ Partial Class FormDatabase
         Me.RegionMySqlPassword.Location = New System.Drawing.Point(17, 107)
         Me.RegionMySqlPassword.Name = "RegionMySqlPassword"
         Me.RegionMySqlPassword.Size = New System.Drawing.Size(107, 20)
-        Me.RegionMySqlPassword.TabIndex = 44
+        Me.RegionMySqlPassword.TabIndex = 3
         Me.ToolTip1.SetToolTip(Me.RegionMySqlPassword, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         Me.RegionMySqlPassword.UseSystemPasswordChar = True
         '
@@ -178,7 +178,7 @@ Partial Class FormDatabase
         Me.GridGroup.Location = New System.Drawing.Point(25, 37)
         Me.GridGroup.Name = "GridGroup"
         Me.GridGroup.Size = New System.Drawing.Size(287, 177)
-        Me.GridGroup.TabIndex = 55
+        Me.GridGroup.TabIndex = 1
         Me.GridGroup.TabStop = False
         Me.GridGroup.Text = "Robust"
         '
@@ -187,7 +187,7 @@ Partial Class FormDatabase
         Me.RobustServer.Location = New System.Drawing.Point(6, 25)
         Me.RobustServer.Name = "RobustServer"
         Me.RobustServer.Size = New System.Drawing.Size(107, 20)
-        Me.RobustServer.TabIndex = 1
+        Me.RobustServer.TabIndex = 0
         Me.ToolTip1.SetToolTip(Me.RobustServer, Global.Outworldz.My.Resources.Resources.Region_ServerName)
         '
         'Label16
@@ -196,7 +196,7 @@ Partial Class FormDatabase
         Me.Label16.Location = New System.Drawing.Point(138, 26)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(41, 13)
-        Me.Label16.TabIndex = 38
+        Me.Label16.TabIndex = 5
         Me.Label16.Text = "Robust"
         '
         'Dbnameindex
@@ -205,7 +205,7 @@ Partial Class FormDatabase
         Me.Dbnameindex.Location = New System.Drawing.Point(138, 50)
         Me.Dbnameindex.Name = "Dbnameindex"
         Me.Dbnameindex.Size = New System.Drawing.Size(84, 13)
-        Me.Dbnameindex.TabIndex = 35
+        Me.Dbnameindex.TabIndex = 6
         Me.Dbnameindex.Text = "Database Name"
         '
         'Label9
@@ -214,7 +214,7 @@ Partial Class FormDatabase
         Me.Label9.Location = New System.Drawing.Point(138, 102)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(53, 13)
-        Me.Label9.TabIndex = 35
+        Me.Label9.TabIndex = 8
         Me.Label9.Text = "Password"
         '
         'RobustDbPort
@@ -222,7 +222,7 @@ Partial Class FormDatabase
         Me.RobustDbPort.Location = New System.Drawing.Point(66, 125)
         Me.RobustDbPort.Name = "RobustDbPort"
         Me.RobustDbPort.Size = New System.Drawing.Size(47, 20)
-        Me.RobustDbPort.TabIndex = 5
+        Me.RobustDbPort.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.RobustDbPort, Global.Outworldz.My.Resources.Resources.MySQL_Port_Default)
         '
         'RobustDbName
@@ -230,7 +230,7 @@ Partial Class FormDatabase
         Me.RobustDbName.Location = New System.Drawing.Point(6, 50)
         Me.RobustDbName.Name = "RobustDbName"
         Me.RobustDbName.Size = New System.Drawing.Size(107, 20)
-        Me.RobustDbName.TabIndex = 2
+        Me.RobustDbName.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.RobustDbName, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         '
         'Label15
@@ -239,7 +239,7 @@ Partial Class FormDatabase
         Me.Label15.Location = New System.Drawing.Point(138, 79)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(60, 13)
-        Me.Label15.TabIndex = 34
+        Me.Label15.TabIndex = 7
         Me.Label15.Text = "User Name"
         '
         'Label8
@@ -248,7 +248,7 @@ Partial Class FormDatabase
         Me.Label8.Location = New System.Drawing.Point(138, 129)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(64, 13)
-        Me.Label8.TabIndex = 32
+        Me.Label8.TabIndex = 9
         Me.Label8.Text = "MySQL Port"
         '
         'RobustDBPassword
@@ -256,7 +256,7 @@ Partial Class FormDatabase
         Me.RobustDBPassword.Location = New System.Drawing.Point(6, 102)
         Me.RobustDBPassword.Name = "RobustDBPassword"
         Me.RobustDBPassword.Size = New System.Drawing.Size(107, 20)
-        Me.RobustDBPassword.TabIndex = 4
+        Me.RobustDBPassword.TabIndex = 3
         Me.ToolTip1.SetToolTip(Me.RobustDBPassword, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         Me.RobustDBPassword.UseSystemPasswordChar = True
         '
@@ -265,7 +265,7 @@ Partial Class FormDatabase
         Me.RobustDBUsername.Location = New System.Drawing.Point(6, 77)
         Me.RobustDBUsername.Name = "RobustDBUsername"
         Me.RobustDBUsername.Size = New System.Drawing.Size(107, 20)
-        Me.RobustDBUsername.TabIndex = 3
+        Me.RobustDBUsername.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.RobustDBUsername, Global.Outworldz.My.Resources.Resources.Do_NotChange)
         '
         'MenuStrip2
@@ -276,7 +276,7 @@ Partial Class FormDatabase
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(604, 30)
-        Me.MenuStrip2.TabIndex = 1885
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'HelpMenu

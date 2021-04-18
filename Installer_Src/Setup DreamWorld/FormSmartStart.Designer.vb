@@ -80,6 +80,7 @@ Partial Class FormSmartStart
         Me.Rand = New System.Windows.Forms.RadioButton()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.DeletApply = New System.Windows.Forms.CheckBox()
         Me.Dogwood = New System.Windows.Forms.CheckBox()
         Me.FreezeButton = New System.Windows.Forms.Button()
         Me.None = New System.Windows.Forms.CheckBox()
@@ -251,7 +252,7 @@ Partial Class FormSmartStart
         Me.TabControl1.SelectedIndex = 0
         Me.TabControl1.ShowToolTips = True
         Me.TabControl1.Size = New System.Drawing.Size(864, 378)
-        Me.TabControl1.TabIndex = 17
+        Me.TabControl1.TabIndex = 1
         '
         'TabPage1
         '
@@ -406,7 +407,7 @@ Partial Class FormSmartStart
         Me.GroupBox4.Location = New System.Drawing.Point(472, 48)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(298, 284)
-        Me.GroupBox4.TabIndex = 37
+        Me.GroupBox4.TabIndex = 2
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Terrains"
         '
@@ -446,7 +447,7 @@ Partial Class FormSmartStart
         Me.TerrainApply.Location = New System.Drawing.Point(91, 251)
         Me.TerrainApply.Name = "TerrainApply"
         Me.TerrainApply.Size = New System.Drawing.Size(116, 27)
-        Me.TerrainApply.TabIndex = 32
+        Me.TerrainApply.TabIndex = 0
         Me.TerrainApply.Text = "Apply"
         Me.TerrainApply.UseVisualStyleBackColor = True
         '
@@ -533,7 +534,7 @@ Partial Class FormSmartStart
         Me.OptionRadioButton.Location = New System.Drawing.Point(258, 43)
         Me.OptionRadioButton.Name = "OptionRadioButton"
         Me.OptionRadioButton.Size = New System.Drawing.Size(83, 17)
-        Me.OptionRadioButton.TabIndex = 35
+        Me.OptionRadioButton.TabIndex = 4
         Me.OptionRadioButton.TabStop = True
         Me.OptionRadioButton.Text = "Just Options"
         Me.OptionRadioButton.UseVisualStyleBackColor = True
@@ -551,7 +552,7 @@ Partial Class FormSmartStart
         Me.GroupBox5.Location = New System.Drawing.Point(254, 74)
         Me.GroupBox5.Name = "GroupBox5"
         Me.GroupBox5.Size = New System.Drawing.Size(132, 204)
-        Me.GroupBox5.TabIndex = 34
+        Me.GroupBox5.TabIndex = 6
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Options"
         '
@@ -578,7 +579,7 @@ Partial Class FormSmartStart
         Me.SmoothTextBox.Margin = New System.Windows.Forms.Padding(1)
         Me.SmoothTextBox.Name = "SmoothTextBox"
         Me.SmoothTextBox.Size = New System.Drawing.Size(40, 20)
-        Me.SmoothTextBox.TabIndex = 36
+        Me.SmoothTextBox.TabIndex = 5
         '
         'Label9
         '
@@ -586,7 +587,7 @@ Partial Class FormSmartStart
         Me.Label9.Location = New System.Drawing.Point(19, 135)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(43, 13)
-        Me.Label9.TabIndex = 37
+        Me.Label9.TabIndex = 4
         Me.Label9.Text = "Smooth"
         '
         'FlatLandLevel
@@ -595,7 +596,7 @@ Partial Class FormSmartStart
         Me.FlatLandLevel.Margin = New System.Windows.Forms.Padding(1)
         Me.FlatLandLevel.Name = "FlatLandLevel"
         Me.FlatLandLevel.Size = New System.Drawing.Size(40, 20)
-        Me.FlatLandLevel.TabIndex = 34
+        Me.FlatLandLevel.TabIndex = 3
         '
         'Label8
         '
@@ -603,7 +604,7 @@ Partial Class FormSmartStart
         Me.Label8.Location = New System.Drawing.Point(19, 83)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(38, 13)
-        Me.Label8.TabIndex = 35
+        Me.Label8.TabIndex = 2
         Me.Label8.Text = "Height"
         '
         'Noise
@@ -612,7 +613,7 @@ Partial Class FormSmartStart
         Me.Noise.Location = New System.Drawing.Point(22, 50)
         Me.Noise.Name = "Noise"
         Me.Noise.Size = New System.Drawing.Size(53, 17)
-        Me.Noise.TabIndex = 33
+        Me.Noise.TabIndex = 1
         Me.Noise.Text = "Noise"
         Me.Noise.UseVisualStyleBackColor = True
         '
@@ -622,7 +623,7 @@ Partial Class FormSmartStart
         Me.Smooth.Location = New System.Drawing.Point(22, 27)
         Me.Smooth.Name = "Smooth"
         Me.Smooth.Size = New System.Drawing.Size(62, 17)
-        Me.Smooth.TabIndex = 32
+        Me.Smooth.TabIndex = 0
         Me.Smooth.Text = "Smooth"
         Me.Smooth.UseVisualStyleBackColor = True
         '
@@ -632,7 +633,7 @@ Partial Class FormSmartStart
         Me.Water.Location = New System.Drawing.Point(138, 44)
         Me.Water.Name = "Water"
         Me.Water.Size = New System.Drawing.Size(54, 17)
-        Me.Water.TabIndex = 7
+        Me.Water.TabIndex = 3
         Me.Water.TabStop = True
         Me.Water.Text = "Water"
         Me.Water.UseVisualStyleBackColor = True
@@ -677,7 +678,7 @@ Partial Class FormSmartStart
         Me.ApplyTerrainEffectButton.Location = New System.Drawing.Point(65, 251)
         Me.ApplyTerrainEffectButton.Name = "ApplyTerrainEffectButton"
         Me.ApplyTerrainEffectButton.Size = New System.Drawing.Size(127, 32)
-        Me.ApplyTerrainEffectButton.TabIndex = 31
+        Me.ApplyTerrainEffectButton.TabIndex = 0
         Me.ApplyTerrainEffectButton.Text = "Apply"
         Me.ApplyTerrainEffectButton.UseVisualStyleBackColor = True
         '
@@ -707,6 +708,7 @@ Partial Class FormSmartStart
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.DeletApply)
         Me.GroupBox1.Controls.Add(Me.Dogwood)
         Me.GroupBox1.Controls.Add(Me.FreezeButton)
         Me.GroupBox1.Controls.Add(Me.None)
@@ -737,9 +739,19 @@ Partial Class FormSmartStart
         Me.GroupBox1.Location = New System.Drawing.Point(17, 41)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(803, 292)
-        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Plants"
+        '
+        'DeletApply
+        '
+        Me.DeletApply.AutoSize = True
+        Me.DeletApply.Location = New System.Drawing.Point(127, 41)
+        Me.DeletApply.Name = "DeletApply"
+        Me.DeletApply.Size = New System.Drawing.Size(131, 17)
+        Me.DeletApply.TabIndex = 11
+        Me.DeletApply.Text = "Delete and then Apply"
+        Me.DeletApply.UseVisualStyleBackColor = True
         '
         'Dogwood
         '
@@ -747,7 +759,7 @@ Partial Class FormSmartStart
         Me.Dogwood.Location = New System.Drawing.Point(230, 256)
         Me.Dogwood.Name = "Dogwood"
         Me.Dogwood.Size = New System.Drawing.Size(72, 17)
-        Me.Dogwood.TabIndex = 36
+        Me.Dogwood.TabIndex = 24
         Me.Dogwood.Text = "Dogwood"
         Me.Dogwood.UseVisualStyleBackColor = True
         '
@@ -758,7 +770,7 @@ Partial Class FormSmartStart
         Me.FreezeButton.Location = New System.Drawing.Point(665, 150)
         Me.FreezeButton.Name = "FreezeButton"
         Me.FreezeButton.Size = New System.Drawing.Size(111, 34)
-        Me.FreezeButton.TabIndex = 35
+        Me.FreezeButton.TabIndex = 25
         Me.FreezeButton.Text = "Freeze"
         Me.FreezeButton.UseVisualStyleBackColor = True
         '
@@ -768,7 +780,7 @@ Partial Class FormSmartStart
         Me.None.Location = New System.Drawing.Point(19, 41)
         Me.None.Name = "None"
         Me.None.Size = New System.Drawing.Size(52, 17)
-        Me.None.TabIndex = 32
+        Me.None.TabIndex = 2
         Me.None.Text = "None"
         Me.None.UseVisualStyleBackColor = True
         '
@@ -779,7 +791,7 @@ Partial Class FormSmartStart
         Me.RevertButton.Location = New System.Drawing.Point(665, 193)
         Me.RevertButton.Name = "RevertButton"
         Me.RevertButton.Size = New System.Drawing.Size(111, 34)
-        Me.RevertButton.TabIndex = 34
+        Me.RevertButton.TabIndex = 26
         Me.RevertButton.Text = "Revert"
         Me.RevertButton.UseVisualStyleBackColor = True
         '
@@ -789,7 +801,7 @@ Partial Class FormSmartStart
         Me.All.Location = New System.Drawing.Point(19, 18)
         Me.All.Name = "All"
         Me.All.Size = New System.Drawing.Size(37, 17)
-        Me.All.TabIndex = 31
+        Me.All.TabIndex = 1
         Me.All.Text = "All"
         Me.All.UseVisualStyleBackColor = True
         '
@@ -800,7 +812,7 @@ Partial Class FormSmartStart
         Me.ApplyPlantButton.Location = New System.Drawing.Point(665, 239)
         Me.ApplyPlantButton.Name = "ApplyPlantButton"
         Me.ApplyPlantButton.Size = New System.Drawing.Size(111, 37)
-        Me.ApplyPlantButton.TabIndex = 30
+        Me.ApplyPlantButton.TabIndex = 10
         Me.ApplyPlantButton.Text = "Apply"
         Me.ApplyPlantButton.UseVisualStyleBackColor = True
         '
@@ -811,7 +823,7 @@ Partial Class FormSmartStart
         Me.BeachGrass1.Location = New System.Drawing.Point(127, 116)
         Me.BeachGrass1.Name = "BeachGrass1"
         Me.BeachGrass1.Size = New System.Drawing.Size(87, 17)
-        Me.BeachGrass1.TabIndex = 23
+        Me.BeachGrass1.TabIndex = 13
         Me.BeachGrass1.Text = "Beach Grass"
         Me.BeachGrass1.UseVisualStyleBackColor = True
         '
@@ -821,7 +833,7 @@ Partial Class FormSmartStart
         Me.Kelp2.Location = New System.Drawing.Point(127, 207)
         Me.Kelp2.Name = "Kelp2"
         Me.Kelp2.Size = New System.Drawing.Size(56, 17)
-        Me.Kelp2.TabIndex = 22
+        Me.Kelp2.TabIndex = 16
         Me.Kelp2.Text = "Kelp 2"
         Me.Kelp2.UseVisualStyleBackColor = True
         '
@@ -831,7 +843,7 @@ Partial Class FormSmartStart
         Me.Kelp1.Location = New System.Drawing.Point(127, 184)
         Me.Kelp1.Name = "Kelp1"
         Me.Kelp1.Size = New System.Drawing.Size(56, 17)
-        Me.Kelp1.TabIndex = 21
+        Me.Kelp1.TabIndex = 15
         Me.Kelp1.Text = "Kelp 1"
         Me.Kelp1.UseVisualStyleBackColor = True
         '
@@ -841,7 +853,7 @@ Partial Class FormSmartStart
         Me.SeaSword.Location = New System.Drawing.Point(127, 161)
         Me.SeaSword.Name = "SeaSword"
         Me.SeaSword.Size = New System.Drawing.Size(78, 17)
-        Me.SeaSword.TabIndex = 20
+        Me.SeaSword.TabIndex = 14
         Me.SeaSword.Text = "Sea Sword"
         Me.SeaSword.UseVisualStyleBackColor = True
         '
@@ -851,7 +863,7 @@ Partial Class FormSmartStart
         Me.Eelgrass.Location = New System.Drawing.Point(127, 94)
         Me.Eelgrass.Name = "Eelgrass"
         Me.Eelgrass.Size = New System.Drawing.Size(66, 17)
-        Me.Eelgrass.TabIndex = 19
+        Me.Eelgrass.TabIndex = 12
         Me.Eelgrass.Text = "Eelgrass"
         Me.Eelgrass.UseVisualStyleBackColor = True
         '
@@ -861,7 +873,7 @@ Partial Class FormSmartStart
         Me.Fern.Location = New System.Drawing.Point(230, 187)
         Me.Fern.Name = "Fern"
         Me.Fern.Size = New System.Drawing.Size(47, 17)
-        Me.Fern.TabIndex = 18
+        Me.Fern.TabIndex = 21
         Me.Fern.Text = "Fern"
         Me.Fern.UseVisualStyleBackColor = True
         '
@@ -871,7 +883,7 @@ Partial Class FormSmartStart
         Me.Eucalyptus.Location = New System.Drawing.Point(230, 233)
         Me.Eucalyptus.Name = "Eucalyptus"
         Me.Eucalyptus.Size = New System.Drawing.Size(78, 17)
-        Me.Eucalyptus.TabIndex = 17
+        Me.Eucalyptus.TabIndex = 23
         Me.Eucalyptus.Text = "Eucalyptus"
         Me.Eucalyptus.UseVisualStyleBackColor = True
         '
@@ -881,7 +893,7 @@ Partial Class FormSmartStart
         Me.WinterAspen.Location = New System.Drawing.Point(19, 206)
         Me.WinterAspen.Name = "WinterAspen"
         Me.WinterAspen.Size = New System.Drawing.Size(90, 17)
-        Me.WinterAspen.TabIndex = 16
+        Me.WinterAspen.TabIndex = 8
         Me.WinterAspen.Text = "Winter Aspen"
         Me.WinterAspen.UseVisualStyleBackColor = True
         '
@@ -891,7 +903,7 @@ Partial Class FormSmartStart
         Me.WinterPine2.Location = New System.Drawing.Point(19, 253)
         Me.WinterPine2.Name = "WinterPine2"
         Me.WinterPine2.Size = New System.Drawing.Size(90, 17)
-        Me.WinterPine2.TabIndex = 15
+        Me.WinterPine2.TabIndex = 10
         Me.WinterPine2.Text = "Winter Pine 2"
         Me.WinterPine2.UseVisualStyleBackColor = True
         '
@@ -901,7 +913,7 @@ Partial Class FormSmartStart
         Me.WinterPine1.Location = New System.Drawing.Point(19, 230)
         Me.WinterPine1.Name = "WinterPine1"
         Me.WinterPine1.Size = New System.Drawing.Size(90, 17)
-        Me.WinterPine1.TabIndex = 14
+        Me.WinterPine1.TabIndex = 9
         Me.WinterPine1.Text = "Winter Pine 1"
         Me.WinterPine1.UseVisualStyleBackColor = True
         '
@@ -911,7 +923,7 @@ Partial Class FormSmartStart
         Me.Plumeria.Location = New System.Drawing.Point(230, 210)
         Me.Plumeria.Name = "Plumeria"
         Me.Plumeria.Size = New System.Drawing.Size(66, 17)
-        Me.Plumeria.TabIndex = 13
+        Me.Plumeria.TabIndex = 22
         Me.Plumeria.Text = "Plumeria"
         Me.Plumeria.UseVisualStyleBackColor = True
         '
@@ -921,7 +933,7 @@ Partial Class FormSmartStart
         Me.Cypress2.Location = New System.Drawing.Point(19, 117)
         Me.Cypress2.Name = "Cypress2"
         Me.Cypress2.Size = New System.Drawing.Size(72, 17)
-        Me.Cypress2.TabIndex = 12
+        Me.Cypress2.TabIndex = 4
         Me.Cypress2.Text = "Cypress 2"
         Me.Cypress2.UseVisualStyleBackColor = True
         '
@@ -931,7 +943,7 @@ Partial Class FormSmartStart
         Me.Cypress1.Location = New System.Drawing.Point(19, 94)
         Me.Cypress1.Name = "Cypress1"
         Me.Cypress1.Size = New System.Drawing.Size(72, 17)
-        Me.Cypress1.TabIndex = 11
+        Me.Cypress1.TabIndex = 3
         Me.Cypress1.Text = "Cypress 1"
         Me.Cypress1.UseVisualStyleBackColor = True
         '
@@ -941,7 +953,7 @@ Partial Class FormSmartStart
         Me.Palm2.Location = New System.Drawing.Point(230, 117)
         Me.Palm2.Name = "Palm2"
         Me.Palm2.Size = New System.Drawing.Size(58, 17)
-        Me.Palm2.TabIndex = 8
+        Me.Palm2.TabIndex = 18
         Me.Palm2.Text = "Palm 2"
         Me.Palm2.UseVisualStyleBackColor = True
         '
@@ -951,7 +963,7 @@ Partial Class FormSmartStart
         Me.Palm1.Location = New System.Drawing.Point(230, 94)
         Me.Palm1.Name = "Palm1"
         Me.Palm1.Size = New System.Drawing.Size(58, 17)
-        Me.Palm1.TabIndex = 7
+        Me.Palm1.TabIndex = 17
         Me.Palm1.Text = "Palm 1"
         Me.Palm1.UseVisualStyleBackColor = True
         '
@@ -961,7 +973,7 @@ Partial Class FormSmartStart
         Me.TropicalBush2.Location = New System.Drawing.Point(230, 164)
         Me.TropicalBush2.Name = "TropicalBush2"
         Me.TropicalBush2.Size = New System.Drawing.Size(100, 17)
-        Me.TropicalBush2.TabIndex = 6
+        Me.TropicalBush2.TabIndex = 20
         Me.TropicalBush2.Text = "Tropical Bush 2"
         Me.TropicalBush2.UseVisualStyleBackColor = True
         '
@@ -971,7 +983,7 @@ Partial Class FormSmartStart
         Me.TropicalBush1.Location = New System.Drawing.Point(230, 141)
         Me.TropicalBush1.Name = "TropicalBush1"
         Me.TropicalBush1.Size = New System.Drawing.Size(100, 17)
-        Me.TropicalBush1.TabIndex = 3
+        Me.TropicalBush1.TabIndex = 19
         Me.TropicalBush1.Text = "Tropical Bush 1"
         Me.TropicalBush1.UseVisualStyleBackColor = True
         '
@@ -992,7 +1004,7 @@ Partial Class FormSmartStart
         Me.Oak.Location = New System.Drawing.Point(19, 183)
         Me.Oak.Name = "Oak"
         Me.Oak.Size = New System.Drawing.Size(46, 17)
-        Me.Oak.TabIndex = 2
+        Me.Oak.TabIndex = 7
         Me.Oak.Text = "Oak"
         Me.Oak.UseVisualStyleBackColor = True
         '
@@ -1002,7 +1014,7 @@ Partial Class FormSmartStart
         Me.Pine2.Location = New System.Drawing.Point(19, 160)
         Me.Pine2.Name = "Pine2"
         Me.Pine2.Size = New System.Drawing.Size(56, 17)
-        Me.Pine2.TabIndex = 1
+        Me.Pine2.TabIndex = 6
         Me.Pine2.Text = "Pine 2"
         Me.Pine2.UseVisualStyleBackColor = True
         '
@@ -1012,7 +1024,7 @@ Partial Class FormSmartStart
         Me.Pine1.Location = New System.Drawing.Point(19, 137)
         Me.Pine1.Name = "Pine1"
         Me.Pine1.Size = New System.Drawing.Size(56, 17)
-        Me.Pine1.TabIndex = 0
+        Me.Pine1.TabIndex = 5
         Me.Pine1.Text = "Pine 1"
         Me.Pine1.UseVisualStyleBackColor = True
         '
@@ -1030,7 +1042,7 @@ Partial Class FormSmartStart
         Me.MenuStrip5.Location = New System.Drawing.Point(3, 3)
         Me.MenuStrip5.Name = "MenuStrip5"
         Me.MenuStrip5.Size = New System.Drawing.Size(850, 24)
-        Me.MenuStrip5.TabIndex = 6
+        Me.MenuStrip5.TabIndex = 1
         Me.MenuStrip5.Text = "MenuStrip5"
         '
         'HelpLandcapingToolStripMenuItem
@@ -1075,7 +1087,7 @@ Partial Class FormSmartStart
         Me.Radius.Location = New System.Drawing.Point(413, 92)
         Me.Radius.Name = "Radius"
         Me.Radius.Size = New System.Drawing.Size(40, 13)
-        Me.Radius.TabIndex = 68
+        Me.Radius.TabIndex = 11
         Me.Radius.Text = "Radius"
         '
         'Rad
@@ -1083,35 +1095,35 @@ Partial Class FormSmartStart
         Me.Rad.Location = New System.Drawing.Point(416, 108)
         Me.Rad.Name = "Rad"
         Me.Rad.Size = New System.Drawing.Size(49, 20)
-        Me.Rad.TabIndex = 67
+        Me.Rad.TabIndex = 1
         '
         'EndsizeZ
         '
         Me.EndsizeZ.Location = New System.Drawing.Point(489, 300)
         Me.EndsizeZ.Name = "EndsizeZ"
         Me.EndsizeZ.Size = New System.Drawing.Size(30, 20)
-        Me.EndsizeZ.TabIndex = 64
+        Me.EndsizeZ.TabIndex = 9
         '
         'EndsizeY
         '
         Me.EndsizeY.Location = New System.Drawing.Point(454, 300)
         Me.EndsizeY.Name = "EndsizeY"
         Me.EndsizeY.Size = New System.Drawing.Size(30, 20)
-        Me.EndsizeY.TabIndex = 63
+        Me.EndsizeY.TabIndex = 8
         '
         'StartSizeZ
         '
         Me.StartSizeZ.Location = New System.Drawing.Point(489, 251)
         Me.StartSizeZ.Name = "StartSizeZ"
         Me.StartSizeZ.Size = New System.Drawing.Size(30, 20)
-        Me.StartSizeZ.TabIndex = 62
+        Me.StartSizeZ.TabIndex = 6
         '
         'StartSizeY
         '
         Me.StartSizeY.Location = New System.Drawing.Point(454, 252)
         Me.StartSizeY.Name = "StartSizeY"
         Me.StartSizeY.Size = New System.Drawing.Size(30, 20)
-        Me.StartSizeY.TabIndex = 61
+        Me.StartSizeY.TabIndex = 5
         '
         'GroupBox3
         '
@@ -1140,7 +1152,7 @@ Partial Class FormSmartStart
         Me.GroupBox3.Location = New System.Drawing.Point(23, 38)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(344, 284)
-        Me.GroupBox3.TabIndex = 60
+        Me.GroupBox3.TabIndex = 17
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Plants"
         '
@@ -1150,7 +1162,7 @@ Partial Class FormSmartStart
         Me.RadioButton21.Location = New System.Drawing.Point(209, 50)
         Me.RadioButton21.Name = "RadioButton21"
         Me.RadioButton21.Size = New System.Drawing.Size(46, 17)
-        Me.RadioButton21.TabIndex = 54
+        Me.RadioButton21.TabIndex = 14
         Me.RadioButton21.TabStop = True
         Me.RadioButton21.Text = "Fern"
         Me.RadioButton21.UseVisualStyleBackColor = True
@@ -1158,10 +1170,10 @@ Partial Class FormSmartStart
         'RadioButton19
         '
         Me.RadioButton19.AutoSize = True
-        Me.RadioButton19.Location = New System.Drawing.Point(108, 234)
+        Me.RadioButton19.Location = New System.Drawing.Point(120, 74)
         Me.RadioButton19.Name = "RadioButton19"
         Me.RadioButton19.Size = New System.Drawing.Size(52, 17)
-        Me.RadioButton19.TabIndex = 52
+        Me.RadioButton19.TabIndex = 12
         Me.RadioButton19.TabStop = True
         Me.RadioButton19.Text = "Kelp2"
         Me.RadioButton19.UseVisualStyleBackColor = True
@@ -1183,7 +1195,7 @@ Partial Class FormSmartStart
         Me.RadioButton26.Location = New System.Drawing.Point(209, 166)
         Me.RadioButton26.Name = "RadioButton26"
         Me.RadioButton26.Size = New System.Drawing.Size(71, 17)
-        Me.RadioButton26.TabIndex = 59
+        Me.RadioButton26.TabIndex = 20
         Me.RadioButton26.TabStop = True
         Me.RadioButton26.Text = "Dogwood"
         Me.RadioButton26.UseVisualStyleBackColor = True
@@ -1194,7 +1206,7 @@ Partial Class FormSmartStart
         Me.RadioButton22.Location = New System.Drawing.Point(18, 236)
         Me.RadioButton22.Name = "RadioButton22"
         Me.RadioButton22.Size = New System.Drawing.Size(45, 17)
-        Me.RadioButton22.TabIndex = 55
+        Me.RadioButton22.TabIndex = 9
         Me.RadioButton22.TabStop = True
         Me.RadioButton22.Text = "Oak"
         Me.RadioButton22.UseVisualStyleBackColor = True
@@ -1202,10 +1214,10 @@ Partial Class FormSmartStart
         'RadioButton18
         '
         Me.RadioButton18.AutoSize = True
-        Me.RadioButton18.Location = New System.Drawing.Point(108, 212)
+        Me.RadioButton18.Location = New System.Drawing.Point(120, 52)
         Me.RadioButton18.Name = "RadioButton18"
         Me.RadioButton18.Size = New System.Drawing.Size(52, 17)
-        Me.RadioButton18.TabIndex = 51
+        Me.RadioButton18.TabIndex = 11
         Me.RadioButton18.TabStop = True
         Me.RadioButton18.Text = "Kelp1"
         Me.RadioButton18.UseVisualStyleBackColor = True
@@ -1216,7 +1228,7 @@ Partial Class FormSmartStart
         Me.RadioButton10.Location = New System.Drawing.Point(209, 189)
         Me.RadioButton10.Name = "RadioButton10"
         Me.RadioButton10.Size = New System.Drawing.Size(89, 17)
-        Me.RadioButton10.TabIndex = 43
+        Me.RadioButton10.TabIndex = 21
         Me.RadioButton10.TabStop = True
         Me.RadioButton10.Text = "BeachGrass1"
         Me.RadioButton10.UseVisualStyleBackColor = True
@@ -1227,7 +1239,7 @@ Partial Class FormSmartStart
         Me.RadioButton5.Location = New System.Drawing.Point(18, 29)
         Me.RadioButton5.Name = "RadioButton5"
         Me.RadioButton5.Size = New System.Drawing.Size(68, 17)
-        Me.RadioButton5.TabIndex = 38
+        Me.RadioButton5.TabIndex = 0
         Me.RadioButton5.TabStop = True
         Me.RadioButton5.Text = "Cypress1"
         Me.RadioButton5.UseVisualStyleBackColor = True
@@ -1238,7 +1250,7 @@ Partial Class FormSmartStart
         Me.RadioButton25.Location = New System.Drawing.Point(209, 143)
         Me.RadioButton25.Name = "RadioButton25"
         Me.RadioButton25.Size = New System.Drawing.Size(92, 17)
-        Me.RadioButton25.TabIndex = 58
+        Me.RadioButton25.TabIndex = 19
         Me.RadioButton25.TabStop = True
         Me.RadioButton25.Text = "Undergrowth1"
         Me.RadioButton25.UseVisualStyleBackColor = True
@@ -1249,7 +1261,7 @@ Partial Class FormSmartStart
         Me.RadioButton6.Location = New System.Drawing.Point(18, 52)
         Me.RadioButton6.Name = "RadioButton6"
         Me.RadioButton6.Size = New System.Drawing.Size(68, 17)
-        Me.RadioButton6.TabIndex = 39
+        Me.RadioButton6.TabIndex = 1
         Me.RadioButton6.TabStop = True
         Me.RadioButton6.Text = "Cypress2"
         Me.RadioButton6.UseVisualStyleBackColor = True
@@ -1260,7 +1272,7 @@ Partial Class FormSmartStart
         Me.RadioButton7.Location = New System.Drawing.Point(18, 74)
         Me.RadioButton7.Name = "RadioButton7"
         Me.RadioButton7.Size = New System.Drawing.Size(86, 17)
-        Me.RadioButton7.TabIndex = 40
+        Me.RadioButton7.TabIndex = 2
         Me.RadioButton7.TabStop = True
         Me.RadioButton7.Text = "WinterAspen"
         Me.RadioButton7.UseVisualStyleBackColor = True
@@ -1271,7 +1283,7 @@ Partial Class FormSmartStart
         Me.RadioButton23.Location = New System.Drawing.Point(209, 73)
         Me.RadioButton23.Name = "RadioButton23"
         Me.RadioButton23.Size = New System.Drawing.Size(65, 17)
-        Me.RadioButton23.TabIndex = 56
+        Me.RadioButton23.TabIndex = 15
         Me.RadioButton23.TabStop = True
         Me.RadioButton23.Text = "Plumeria"
         Me.RadioButton23.UseVisualStyleBackColor = True
@@ -1282,7 +1294,7 @@ Partial Class FormSmartStart
         Me.RadioButton15.Location = New System.Drawing.Point(209, 97)
         Me.RadioButton15.Name = "RadioButton15"
         Me.RadioButton15.Size = New System.Drawing.Size(93, 17)
-        Me.RadioButton15.TabIndex = 48
+        Me.RadioButton15.TabIndex = 16
         Me.RadioButton15.TabStop = True
         Me.RadioButton15.Text = "TropicalBush1"
         Me.RadioButton15.UseVisualStyleBackColor = True
@@ -1293,7 +1305,7 @@ Partial Class FormSmartStart
         Me.RadioButton8.Location = New System.Drawing.Point(18, 97)
         Me.RadioButton8.Name = "RadioButton8"
         Me.RadioButton8.Size = New System.Drawing.Size(83, 17)
-        Me.RadioButton8.TabIndex = 41
+        Me.RadioButton8.TabIndex = 3
         Me.RadioButton8.TabStop = True
         Me.RadioButton8.Text = "WinterPine1"
         Me.RadioButton8.UseVisualStyleBackColor = True
@@ -1301,10 +1313,10 @@ Partial Class FormSmartStart
         'RadioButton24
         '
         Me.RadioButton24.AutoSize = True
-        Me.RadioButton24.Location = New System.Drawing.Point(108, 189)
+        Me.RadioButton24.Location = New System.Drawing.Point(120, 29)
         Me.RadioButton24.Name = "RadioButton24"
         Me.RadioButton24.Size = New System.Drawing.Size(67, 17)
-        Me.RadioButton24.TabIndex = 57
+        Me.RadioButton24.TabIndex = 10
         Me.RadioButton24.TabStop = True
         Me.RadioButton24.Text = "EelGrass"
         Me.RadioButton24.UseVisualStyleBackColor = True
@@ -1315,7 +1327,7 @@ Partial Class FormSmartStart
         Me.RadioButton9.Location = New System.Drawing.Point(18, 120)
         Me.RadioButton9.Name = "RadioButton9"
         Me.RadioButton9.Size = New System.Drawing.Size(83, 17)
-        Me.RadioButton9.TabIndex = 42
+        Me.RadioButton9.TabIndex = 4
         Me.RadioButton9.TabStop = True
         Me.RadioButton9.Text = "WinterPine2"
         Me.RadioButton9.UseVisualStyleBackColor = True
@@ -1326,7 +1338,7 @@ Partial Class FormSmartStart
         Me.RadioButton16.Location = New System.Drawing.Point(209, 120)
         Me.RadioButton16.Name = "RadioButton16"
         Me.RadioButton16.Size = New System.Drawing.Size(93, 17)
-        Me.RadioButton16.TabIndex = 49
+        Me.RadioButton16.TabIndex = 17
         Me.RadioButton16.TabStop = True
         Me.RadioButton16.Text = "TropicalBush2"
         Me.RadioButton16.UseVisualStyleBackColor = True
@@ -1337,7 +1349,7 @@ Partial Class FormSmartStart
         Me.RadioButton20.Location = New System.Drawing.Point(209, 29)
         Me.RadioButton20.Name = "RadioButton20"
         Me.RadioButton20.Size = New System.Drawing.Size(77, 17)
-        Me.RadioButton20.TabIndex = 53
+        Me.RadioButton20.TabIndex = 13
         Me.RadioButton20.TabStop = True
         Me.RadioButton20.Text = "Eucalyptus"
         Me.RadioButton20.UseVisualStyleBackColor = True
@@ -1348,7 +1360,7 @@ Partial Class FormSmartStart
         Me.RadioButton11.Location = New System.Drawing.Point(18, 144)
         Me.RadioButton11.Name = "RadioButton11"
         Me.RadioButton11.Size = New System.Drawing.Size(52, 17)
-        Me.RadioButton11.TabIndex = 44
+        Me.RadioButton11.TabIndex = 5
         Me.RadioButton11.TabStop = True
         Me.RadioButton11.Text = "Pine1"
         Me.RadioButton11.UseVisualStyleBackColor = True
@@ -1359,7 +1371,7 @@ Partial Class FormSmartStart
         Me.RadioButton14.Location = New System.Drawing.Point(18, 213)
         Me.RadioButton14.Name = "RadioButton14"
         Me.RadioButton14.Size = New System.Drawing.Size(52, 17)
-        Me.RadioButton14.TabIndex = 47
+        Me.RadioButton14.TabIndex = 8
         Me.RadioButton14.TabStop = True
         Me.RadioButton14.Text = "Pine2"
         Me.RadioButton14.UseVisualStyleBackColor = True
@@ -1370,7 +1382,7 @@ Partial Class FormSmartStart
         Me.RadioButton13.Location = New System.Drawing.Point(18, 190)
         Me.RadioButton13.Name = "RadioButton13"
         Me.RadioButton13.Size = New System.Drawing.Size(54, 17)
-        Me.RadioButton13.TabIndex = 46
+        Me.RadioButton13.TabIndex = 7
         Me.RadioButton13.TabStop = True
         Me.RadioButton13.Text = "Palm1"
         Me.RadioButton13.UseVisualStyleBackColor = True
@@ -1381,7 +1393,7 @@ Partial Class FormSmartStart
         Me.RadioButton12.Location = New System.Drawing.Point(18, 167)
         Me.RadioButton12.Name = "RadioButton12"
         Me.RadioButton12.Size = New System.Drawing.Size(52, 17)
-        Me.RadioButton12.TabIndex = 45
+        Me.RadioButton12.TabIndex = 6
         Me.RadioButton12.TabStop = True
         Me.RadioButton12.Text = "Pine2"
         Me.RadioButton12.UseVisualStyleBackColor = True
@@ -1392,7 +1404,7 @@ Partial Class FormSmartStart
         Me.Label5.Location = New System.Drawing.Point(413, 283)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(79, 13)
-        Me.Label5.TabIndex = 18
+        Me.Label5.TabIndex = 15
         Me.Label5.Text = "End Size X Y Z"
         '
         'EndsizeX
@@ -1400,7 +1412,7 @@ Partial Class FormSmartStart
         Me.EndsizeX.Location = New System.Drawing.Point(416, 300)
         Me.EndsizeX.Name = "EndsizeX"
         Me.EndsizeX.Size = New System.Drawing.Size(30, 20)
-        Me.EndsizeX.TabIndex = 17
+        Me.EndsizeX.TabIndex = 7
         '
         'Label4
         '
@@ -1408,7 +1420,7 @@ Partial Class FormSmartStart
         Me.Label4.Location = New System.Drawing.Point(413, 234)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(82, 13)
-        Me.Label4.TabIndex = 16
+        Me.Label4.TabIndex = 14
         Me.Label4.Text = "Start Size X Y Z"
         '
         'StartSizeX
@@ -1416,7 +1428,7 @@ Partial Class FormSmartStart
         Me.StartSizeX.Location = New System.Drawing.Point(416, 252)
         Me.StartSizeX.Name = "StartSizeX"
         Me.StartSizeX.Size = New System.Drawing.Size(30, 20)
-        Me.StartSizeX.TabIndex = 15
+        Me.StartSizeX.TabIndex = 4
         '
         'Label3
         '
@@ -1424,7 +1436,7 @@ Partial Class FormSmartStart
         Me.Label3.Location = New System.Drawing.Point(413, 185)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(72, 13)
-        Me.Label3.TabIndex = 14
+        Me.Label3.TabIndex = 13
         Me.Label3.Text = "TreeLine Low"
         '
         'TreeLineLow
@@ -1432,7 +1444,7 @@ Partial Class FormSmartStart
         Me.TreeLineLow.Location = New System.Drawing.Point(416, 202)
         Me.TreeLineLow.Name = "TreeLineLow"
         Me.TreeLineLow.Size = New System.Drawing.Size(49, 20)
-        Me.TreeLineLow.TabIndex = 13
+        Me.TreeLineLow.TabIndex = 3
         '
         'Label2
         '
@@ -1448,7 +1460,7 @@ Partial Class FormSmartStart
         Me.TreeLineHight.Location = New System.Drawing.Point(416, 155)
         Me.TreeLineHight.Name = "TreeLineHight"
         Me.TreeLineHight.Size = New System.Drawing.Size(49, 20)
-        Me.TreeLineHight.TabIndex = 11
+        Me.TreeLineHight.TabIndex = 2
         '
         'QtyLabel
         '
@@ -1464,7 +1476,7 @@ Partial Class FormSmartStart
         Me.Qty.Location = New System.Drawing.Point(416, 60)
         Me.Qty.Name = "Qty"
         Me.Qty.Size = New System.Drawing.Size(49, 20)
-        Me.Qty.TabIndex = 9
+        Me.Qty.TabIndex = 0
         '
         'PictureBox2
         '
@@ -1483,7 +1495,7 @@ Partial Class FormSmartStart
         Me.MenuStrip6.Location = New System.Drawing.Point(3, 3)
         Me.MenuStrip6.Name = "MenuStrip6"
         Me.MenuStrip6.Size = New System.Drawing.Size(850, 24)
-        Me.MenuStrip6.TabIndex = 66
+        Me.MenuStrip6.TabIndex = 16
         Me.MenuStrip6.Text = "MenuStrip6"
         '
         'HelpPlantEditorToolStripMenuItem
@@ -1674,4 +1686,5 @@ Partial Class FormSmartStart
     Friend WithEvents RadioButton25 As RadioButton
     Friend WithEvents Radius As Label
     Friend WithEvents Rad As TextBox
+    Friend WithEvents DeletApply As CheckBox
 End Class

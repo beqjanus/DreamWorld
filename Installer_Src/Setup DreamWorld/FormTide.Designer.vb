@@ -64,7 +64,7 @@ Partial Class FormTide
         Me.GroupBox1.Location = New System.Drawing.Point(12, 37)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(294, 232)
-        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Global Tide Settings"
         '
@@ -74,7 +74,7 @@ Partial Class FormTide
         Me.TideInfoDebugCheckBox.Location = New System.Drawing.Point(27, 203)
         Me.TideInfoDebugCheckBox.Name = "TideInfoDebugCheckBox"
         Me.TideInfoDebugCheckBox.Size = New System.Drawing.Size(164, 17)
-        Me.TideInfoDebugCheckBox.TabIndex = 8
+        Me.TideInfoDebugCheckBox.TabIndex = 6
         Me.TideInfoDebugCheckBox.Text = Global.Outworldz.My.Resources.Resources.Send_Debug_Info
         Me.ToolTip1.SetToolTip(Me.TideInfoDebugCheckBox, Global.Outworldz.My.Resources.Resources.Provide_Info)
         Me.TideInfoDebugCheckBox.UseVisualStyleBackColor = True
@@ -85,7 +85,7 @@ Partial Class FormTide
         Me.BroadcastTideInfo.Location = New System.Drawing.Point(125, 32)
         Me.BroadcastTideInfo.Name = "BroadcastTideInfo"
         Me.BroadcastTideInfo.Size = New System.Drawing.Size(119, 17)
-        Me.BroadcastTideInfo.TabIndex = 1
+        Me.BroadcastTideInfo.TabIndex = 7
         Me.BroadcastTideInfo.Text = Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Info
         Me.ToolTip1.SetToolTip(Me.BroadcastTideInfo, Global.Outworldz.My.Resources.Resources.Broadcast_Tide_Chat)
         Me.BroadcastTideInfo.UseVisualStyleBackColor = True
@@ -96,7 +96,7 @@ Partial Class FormTide
         Me.Label5.Location = New System.Drawing.Point(21, 177)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(100, 13)
-        Me.Label5.TabIndex = 10
+        Me.Label5.TabIndex = 5
         Me.Label5.Text = "Tide Hi/Lo Channel"
         '
         'TideHiLoChannelTextBox
@@ -104,7 +104,7 @@ Partial Class FormTide
         Me.TideHiLoChannelTextBox.Location = New System.Drawing.Point(141, 173)
         Me.TideHiLoChannelTextBox.Name = "TideHiLoChannelTextBox"
         Me.TideHiLoChannelTextBox.Size = New System.Drawing.Size(48, 20)
-        Me.TideHiLoChannelTextBox.TabIndex = 7
+        Me.TideHiLoChannelTextBox.TabIndex = 12
         '
         'Label4
         '
@@ -112,7 +112,7 @@ Partial Class FormTide
         Me.Label4.Location = New System.Drawing.Point(24, 150)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(91, 13)
-        Me.Label4.TabIndex = 8
+        Me.Label4.TabIndex = 4
         Me.Label4.Text = "Tide Info Channel"
         '
         'TideInfoChannelTextBox
@@ -120,7 +120,7 @@ Partial Class FormTide
         Me.TideInfoChannelTextBox.Location = New System.Drawing.Point(141, 147)
         Me.TideInfoChannelTextBox.Name = "TideInfoChannelTextBox"
         Me.TideInfoChannelTextBox.Size = New System.Drawing.Size(48, 20)
-        Me.TideInfoChannelTextBox.TabIndex = 6
+        Me.TideInfoChannelTextBox.TabIndex = 11
         '
         'Label3
         '
@@ -128,7 +128,7 @@ Partial Class FormTide
         Me.Label3.Location = New System.Drawing.Point(24, 121)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(113, 13)
-        Me.Label3.TabIndex = 6
+        Me.Label3.TabIndex = 3
         Me.Label3.Text = "Cycle Time in seconds"
         '
         'CycleTimeTextBox
@@ -136,7 +136,7 @@ Partial Class FormTide
         Me.CycleTimeTextBox.Location = New System.Drawing.Point(141, 118)
         Me.CycleTimeTextBox.Name = "CycleTimeTextBox"
         Me.CycleTimeTextBox.Size = New System.Drawing.Size(48, 20)
-        Me.CycleTimeTextBox.TabIndex = 4
+        Me.CycleTimeTextBox.TabIndex = 10
         Me.ToolTip1.SetToolTip(Me.CycleTimeTextBox, Global.Outworldz.My.Resources.Resources.Cycle_time_text)
         '
         'Label2
@@ -145,7 +145,7 @@ Partial Class FormTide
         Me.Label2.Location = New System.Drawing.Point(24, 95)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(88, 13)
-        Me.Label2.TabIndex = 4
+        Me.Label2.TabIndex = 2
         Me.Label2.Text = "Low Water Level"
         '
         'TideLowLevelTextBox
@@ -153,7 +153,7 @@ Partial Class FormTide
         Me.TideLowLevelTextBox.Location = New System.Drawing.Point(141, 92)
         Me.TideLowLevelTextBox.Name = "TideLowLevelTextBox"
         Me.TideLowLevelTextBox.Size = New System.Drawing.Size(48, 20)
-        Me.TideLowLevelTextBox.TabIndex = 3
+        Me.TideLowLevelTextBox.TabIndex = 9
         Me.ToolTip1.SetToolTip(Me.TideLowLevelTextBox, Global.Outworldz.My.Resources.Resources.Low_High)
         '
         'Label1
@@ -162,7 +162,7 @@ Partial Class FormTide
         Me.Label1.Location = New System.Drawing.Point(24, 68)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(90, 13)
-        Me.Label1.TabIndex = 2
+        Me.Label1.TabIndex = 1
         Me.Label1.Text = "High Water Level"
         '
         'TideHighLevelTextBox
@@ -170,7 +170,7 @@ Partial Class FormTide
         Me.TideHighLevelTextBox.Location = New System.Drawing.Point(141, 65)
         Me.TideHighLevelTextBox.Name = "TideHighLevelTextBox"
         Me.TideHighLevelTextBox.Size = New System.Drawing.Size(48, 20)
-        Me.TideHighLevelTextBox.TabIndex = 2
+        Me.TideHighLevelTextBox.TabIndex = 8
         Me.ToolTip1.SetToolTip(Me.TideHighLevelTextBox, Global.Outworldz.My.Resources.Resources.High_Water_Level_text)
         '
         'TideEnabledCheckbox
@@ -196,7 +196,7 @@ Partial Class FormTide
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
         Me.MenuStrip2.Size = New System.Drawing.Size(318, 30)
-        Me.MenuStrip2.TabIndex = 1886
+        Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
         'ToolStripMenuItem30
