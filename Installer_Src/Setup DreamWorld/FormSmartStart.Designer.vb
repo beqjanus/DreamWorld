@@ -86,12 +86,6 @@ Partial Class FormSmartStart
         Me.RevertButton = New System.Windows.Forms.Button()
         Me.All = New System.Windows.Forms.CheckBox()
         Me.ApplyPlantButton = New System.Windows.Forms.Button()
-        Me.Undergrowth1 = New System.Windows.Forms.CheckBox()
-        Me.Grass4 = New System.Windows.Forms.CheckBox()
-        Me.Grass3 = New System.Windows.Forms.CheckBox()
-        Me.Grass2 = New System.Windows.Forms.CheckBox()
-        Me.Grass1 = New System.Windows.Forms.CheckBox()
-        Me.Grass0 = New System.Windows.Forms.CheckBox()
         Me.BeachGrass1 = New System.Windows.Forms.CheckBox()
         Me.Kelp2 = New System.Windows.Forms.CheckBox()
         Me.Kelp1 = New System.Windows.Forms.CheckBox()
@@ -723,12 +717,6 @@ Partial Class FormSmartStart
         Me.GroupBox1.Controls.Add(Me.RevertButton)
         Me.GroupBox1.Controls.Add(Me.All)
         Me.GroupBox1.Controls.Add(Me.ApplyPlantButton)
-        Me.GroupBox1.Controls.Add(Me.Undergrowth1)
-        Me.GroupBox1.Controls.Add(Me.Grass4)
-        Me.GroupBox1.Controls.Add(Me.Grass3)
-        Me.GroupBox1.Controls.Add(Me.Grass2)
-        Me.GroupBox1.Controls.Add(Me.Grass1)
-        Me.GroupBox1.Controls.Add(Me.Grass0)
         Me.GroupBox1.Controls.Add(Me.BeachGrass1)
         Me.GroupBox1.Controls.Add(Me.Kelp2)
         Me.GroupBox1.Controls.Add(Me.Kelp1)
@@ -760,7 +748,7 @@ Partial Class FormSmartStart
         'Dogwood
         '
         Me.Dogwood.AutoSize = True
-        Me.Dogwood.Location = New System.Drawing.Point(235, 206)
+        Me.Dogwood.Location = New System.Drawing.Point(230, 256)
         Me.Dogwood.Name = "Dogwood"
         Me.Dogwood.Size = New System.Drawing.Size(72, 17)
         Me.Dogwood.TabIndex = 36
@@ -820,71 +808,11 @@ Partial Class FormSmartStart
         Me.ApplyPlantButton.Text = "Apply"
         Me.ApplyPlantButton.UseVisualStyleBackColor = True
         '
-        'Undergrowth1
-        '
-        Me.Undergrowth1.AutoSize = True
-        Me.Undergrowth1.Location = New System.Drawing.Point(235, 21)
-        Me.Undergrowth1.Name = "Undergrowth1"
-        Me.Undergrowth1.Size = New System.Drawing.Size(87, 17)
-        Me.Undergrowth1.TabIndex = 29
-        Me.Undergrowth1.Text = "Undergrowth"
-        Me.Undergrowth1.UseVisualStyleBackColor = True
-        '
-        'Grass4
-        '
-        Me.Grass4.AutoSize = True
-        Me.Grass4.Location = New System.Drawing.Point(123, 114)
-        Me.Grass4.Name = "Grass4"
-        Me.Grass4.Size = New System.Drawing.Size(62, 17)
-        Me.Grass4.TabIndex = 28
-        Me.Grass4.Text = "Grass 4"
-        Me.Grass4.UseVisualStyleBackColor = True
-        '
-        'Grass3
-        '
-        Me.Grass3.AutoSize = True
-        Me.Grass3.Location = New System.Drawing.Point(123, 91)
-        Me.Grass3.Name = "Grass3"
-        Me.Grass3.Size = New System.Drawing.Size(62, 17)
-        Me.Grass3.TabIndex = 27
-        Me.Grass3.Text = "Grass 3"
-        Me.Grass3.UseVisualStyleBackColor = True
-        '
-        'Grass2
-        '
-        Me.Grass2.AutoSize = True
-        Me.Grass2.Location = New System.Drawing.Point(123, 68)
-        Me.Grass2.Name = "Grass2"
-        Me.Grass2.Size = New System.Drawing.Size(62, 17)
-        Me.Grass2.TabIndex = 26
-        Me.Grass2.Text = "Grass 2"
-        Me.Grass2.UseVisualStyleBackColor = True
-        '
-        'Grass1
-        '
-        Me.Grass1.AutoSize = True
-        Me.Grass1.Location = New System.Drawing.Point(123, 45)
-        Me.Grass1.Name = "Grass1"
-        Me.Grass1.Size = New System.Drawing.Size(62, 17)
-        Me.Grass1.TabIndex = 25
-        Me.Grass1.Text = "Grass 1"
-        Me.Grass1.UseVisualStyleBackColor = True
-        '
-        'Grass0
-        '
-        Me.Grass0.AutoSize = True
-        Me.Grass0.Location = New System.Drawing.Point(123, 21)
-        Me.Grass0.Name = "Grass0"
-        Me.Grass0.Size = New System.Drawing.Size(62, 17)
-        Me.Grass0.TabIndex = 24
-        Me.Grass0.Text = "Grass 0"
-        Me.Grass0.UseVisualStyleBackColor = True
-        '
         'BeachGrass1
         '
         Me.BeachGrass1.AccessibleName = ""
         Me.BeachGrass1.AutoSize = True
-        Me.BeachGrass1.Location = New System.Drawing.Point(123, 161)
+        Me.BeachGrass1.Location = New System.Drawing.Point(127, 116)
         Me.BeachGrass1.Name = "BeachGrass1"
         Me.BeachGrass1.Size = New System.Drawing.Size(87, 17)
         Me.BeachGrass1.TabIndex = 23
@@ -894,7 +822,7 @@ Partial Class FormSmartStart
         'Kelp2
         '
         Me.Kelp2.AutoSize = True
-        Me.Kelp2.Location = New System.Drawing.Point(123, 252)
+        Me.Kelp2.Location = New System.Drawing.Point(127, 207)
         Me.Kelp2.Name = "Kelp2"
         Me.Kelp2.Size = New System.Drawing.Size(56, 17)
         Me.Kelp2.TabIndex = 22
@@ -904,7 +832,7 @@ Partial Class FormSmartStart
         'Kelp1
         '
         Me.Kelp1.AutoSize = True
-        Me.Kelp1.Location = New System.Drawing.Point(123, 229)
+        Me.Kelp1.Location = New System.Drawing.Point(127, 184)
         Me.Kelp1.Name = "Kelp1"
         Me.Kelp1.Size = New System.Drawing.Size(56, 17)
         Me.Kelp1.TabIndex = 21
@@ -914,7 +842,7 @@ Partial Class FormSmartStart
         'SeaSword
         '
         Me.SeaSword.AutoSize = True
-        Me.SeaSword.Location = New System.Drawing.Point(123, 206)
+        Me.SeaSword.Location = New System.Drawing.Point(127, 161)
         Me.SeaSword.Name = "SeaSword"
         Me.SeaSword.Size = New System.Drawing.Size(78, 17)
         Me.SeaSword.TabIndex = 20
@@ -924,7 +852,7 @@ Partial Class FormSmartStart
         'Eelgrass
         '
         Me.Eelgrass.AutoSize = True
-        Me.Eelgrass.Location = New System.Drawing.Point(123, 139)
+        Me.Eelgrass.Location = New System.Drawing.Point(127, 94)
         Me.Eelgrass.Name = "Eelgrass"
         Me.Eelgrass.Size = New System.Drawing.Size(66, 17)
         Me.Eelgrass.TabIndex = 19
@@ -934,7 +862,7 @@ Partial Class FormSmartStart
         'Fern
         '
         Me.Fern.AutoSize = True
-        Me.Fern.Location = New System.Drawing.Point(235, 137)
+        Me.Fern.Location = New System.Drawing.Point(230, 187)
         Me.Fern.Name = "Fern"
         Me.Fern.Size = New System.Drawing.Size(47, 17)
         Me.Fern.TabIndex = 18
@@ -944,7 +872,7 @@ Partial Class FormSmartStart
         'Eucalyptus
         '
         Me.Eucalyptus.AutoSize = True
-        Me.Eucalyptus.Location = New System.Drawing.Point(235, 183)
+        Me.Eucalyptus.Location = New System.Drawing.Point(230, 233)
         Me.Eucalyptus.Name = "Eucalyptus"
         Me.Eucalyptus.Size = New System.Drawing.Size(78, 17)
         Me.Eucalyptus.TabIndex = 17
@@ -984,7 +912,7 @@ Partial Class FormSmartStart
         'Plumeria
         '
         Me.Plumeria.AutoSize = True
-        Me.Plumeria.Location = New System.Drawing.Point(235, 160)
+        Me.Plumeria.Location = New System.Drawing.Point(230, 210)
         Me.Plumeria.Name = "Plumeria"
         Me.Plumeria.Size = New System.Drawing.Size(66, 17)
         Me.Plumeria.TabIndex = 13
@@ -1014,7 +942,7 @@ Partial Class FormSmartStart
         'Palm2
         '
         Me.Palm2.AutoSize = True
-        Me.Palm2.Location = New System.Drawing.Point(235, 67)
+        Me.Palm2.Location = New System.Drawing.Point(230, 117)
         Me.Palm2.Name = "Palm2"
         Me.Palm2.Size = New System.Drawing.Size(58, 17)
         Me.Palm2.TabIndex = 8
@@ -1024,7 +952,7 @@ Partial Class FormSmartStart
         'Palm1
         '
         Me.Palm1.AutoSize = True
-        Me.Palm1.Location = New System.Drawing.Point(235, 44)
+        Me.Palm1.Location = New System.Drawing.Point(230, 94)
         Me.Palm1.Name = "Palm1"
         Me.Palm1.Size = New System.Drawing.Size(58, 17)
         Me.Palm1.TabIndex = 7
@@ -1034,7 +962,7 @@ Partial Class FormSmartStart
         'TropicalBush2
         '
         Me.TropicalBush2.AutoSize = True
-        Me.TropicalBush2.Location = New System.Drawing.Point(235, 114)
+        Me.TropicalBush2.Location = New System.Drawing.Point(230, 164)
         Me.TropicalBush2.Name = "TropicalBush2"
         Me.TropicalBush2.Size = New System.Drawing.Size(100, 17)
         Me.TropicalBush2.TabIndex = 6
@@ -1044,7 +972,7 @@ Partial Class FormSmartStart
         'TropicalBush1
         '
         Me.TropicalBush1.AutoSize = True
-        Me.TropicalBush1.Location = New System.Drawing.Point(235, 91)
+        Me.TropicalBush1.Location = New System.Drawing.Point(230, 141)
         Me.TropicalBush1.Name = "TropicalBush1"
         Me.TropicalBush1.Size = New System.Drawing.Size(100, 17)
         Me.TropicalBush1.TabIndex = 3
@@ -1697,12 +1625,6 @@ Partial Class FormSmartStart
     Friend WithEvents None As CheckBox
     Friend WithEvents All As CheckBox
     Friend WithEvents ApplyPlantButton As Button
-    Friend WithEvents Undergrowth1 As CheckBox
-    Friend WithEvents Grass4 As CheckBox
-    Friend WithEvents Grass3 As CheckBox
-    Friend WithEvents Grass2 As CheckBox
-    Friend WithEvents Grass1 As CheckBox
-    Friend WithEvents Grass0 As CheckBox
     Friend WithEvents BeachGrass1 As CheckBox
     Friend WithEvents Kelp2 As CheckBox
     Friend WithEvents Kelp1 As CheckBox

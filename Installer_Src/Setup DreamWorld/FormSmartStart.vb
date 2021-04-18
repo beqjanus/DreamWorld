@@ -81,7 +81,7 @@ Public Class FormSmartStart
 
 #Region "Check boxes"
 
-    Public Sub PutSetting(name As String, value As Boolean)
+    Public Shared Sub PutSetting(name As String, value As Boolean)
 
         Settings.SetMySetting(name, CStr(value))
         Settings.SaveSettings()
@@ -101,11 +101,7 @@ Public Class FormSmartStart
             SetSetting(Dogwood)
             SetSetting(Eucalyptus)
             SetSetting(Fern)
-            SetSetting(Grass0)
-            SetSetting(Grass1)
-            SetSetting(Grass2)
-            SetSetting(Grass3)
-            SetSetting(Grass4)
+
             SetSetting(Kelp1)
             SetSetting(Kelp2)
             SetSetting(Oak)
@@ -117,7 +113,7 @@ Public Class FormSmartStart
             SetSetting(SeaSword)
             SetSetting(TropicalBush1)
             SetSetting(TropicalBush2)
-            SetSetting(Undergrowth1)
+
             SetSetting(WinterAspen)
             SetSetting(WinterPine1)
             SetSetting(WinterPine2)
@@ -149,11 +145,6 @@ Public Class FormSmartStart
             ClrSetting(Eelgrass)
             ClrSetting(Eucalyptus)
             ClrSetting(Fern)
-            ClrSetting(Grass0)
-            ClrSetting(Grass1)
-            ClrSetting(Grass2)
-            ClrSetting(Grass3)
-            ClrSetting(Grass4)
             ClrSetting(Kelp1)
             ClrSetting(Kelp2)
             ClrSetting(Oak)
@@ -165,7 +156,7 @@ Public Class FormSmartStart
             ClrSetting(SeaSword)
             ClrSetting(TropicalBush1)
             ClrSetting(TropicalBush2)
-            ClrSetting(Undergrowth1)
+
             ClrSetting(WinterAspen)
             ClrSetting(WinterPine1)
             ClrSetting(WinterPine2)
@@ -278,56 +269,56 @@ Public Class FormSmartStart
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass0_CheckedChanged(sender As Object, e As EventArgs) Handles Grass0.CheckedChanged
+    Private Sub Grass0_CheckedChanged(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass0_Hover(sender As Object, e As EventArgs) Handles Grass0.MouseHover
+    Private Sub Grass0_Hover(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass1_CheckedChanged(sender As Object, e As EventArgs) Handles Grass1.CheckedChanged
+    Private Sub Grass1_CheckedChanged(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass1_Hover(sender As Object, e As EventArgs) Handles Grass1.MouseHover
+    Private Sub Grass1_Hover(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass2_CheckedChanged(sender As Object, e As EventArgs) Handles Grass2.CheckedChanged
+    Private Sub Grass2_CheckedChanged(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass2_Hover(sender As Object, e As EventArgs) Handles Grass2.MouseHover
+    Private Sub Grass2_Hover(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass3_CheckedChanged(sender As Object, e As EventArgs) Handles Grass3.CheckedChanged
+    Private Sub Grass3_CheckedChanged(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
     End Sub
 
-    Private Sub Grass3_Hover(sender As Object, e As EventArgs) Handles Grass3.MouseHover
+    Private Sub Grass3_Hover(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass4_CheckedChanged(sender As Object, e As EventArgs) Handles Grass4.CheckedChanged
+    Private Sub Grass4_CheckedChanged(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Grass4_Hover(sender As Object, e As EventArgs) Handles Grass4.MouseHover
+    Private Sub Grass4_Hover(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
@@ -454,13 +445,13 @@ Public Class FormSmartStart
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Undergrowth_CheckedChanged(sender As Object, e As EventArgs) Handles Undergrowth1.CheckedChanged
+    Private Sub Undergrowth_CheckedChanged(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PutSetting(thing.Name, thing.Checked)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
 
-    Private Sub Undergrowth_MouseHover(sender As Object, e As EventArgs) Handles Undergrowth1.MouseHover
+    Private Sub Undergrowth_MouseHover(sender As Object, e As EventArgs)
         Dim thing As CheckBox = CType(sender, CheckBox)
         PictureBox1.Image = GetPic(thing.Name)
     End Sub
@@ -561,11 +552,7 @@ Public Class FormSmartStart
         GetSetting(Eelgrass.Text)
         GetSetting(Eucalyptus.Text)
         GetSetting(Fern.Text)
-        GetSetting(Grass0.Text)
-        GetSetting(Grass1.Text)
-        GetSetting(Grass2.Text)
-        GetSetting(Grass3.Text)
-        GetSetting(Grass4.Text)
+
         GetSetting(Kelp1.Text)
         GetSetting(Kelp2.Text)
         GetSetting(Oak.Text)
@@ -577,7 +564,7 @@ Public Class FormSmartStart
         GetSetting(SeaSword.Text)
         GetSetting(TropicalBush1.Text)
         GetSetting(TropicalBush2.Text)
-        GetSetting(Undergrowth1.Text)
+
         GetSetting(WinterAspen.Text)
         GetSetting(WinterPine1.Text)
         GetSetting(WinterPine2.Text)

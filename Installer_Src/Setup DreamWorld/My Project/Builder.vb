@@ -148,7 +148,7 @@ Module Build
         If UseTree.Count = 0 Then
             Return
         End If
-        ' Undergrowth1
+
         If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
 
         If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
@@ -157,7 +157,11 @@ Module Build
         Next
 
         Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
-        If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
+        If Debugger.IsAttached Then
+            For Each NewType In UseTree
+                If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
+            Next
+        End If
 
         For Each NewType In UseTree
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} false") Then Return
@@ -167,8 +171,9 @@ Module Build
             Sleep(1000)
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
         Next
-        If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
 
+        If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"tree statistics") Then Return
         'force update - Force the region to send all clients updates about all objects.
         If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
 
