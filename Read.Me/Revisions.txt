@@ -2,6 +2,15 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.925
+Git is on V3 branch now.
+Always uses Smart Start Login, even if disabled so both type of signs work in either case.
+Add x 1X1, 2X2, or 3X3 sim surround to Smart Start.
+Reset Tab order on all forms.
+Trees work a little better. Set the rez height to average of min/max. There is no grass, as no one knows the viewer parameters. 
+
+
+
 V3.924
 New Feature: Log file parser added for Opensim.ini and Robust.log with hop links to the defective script/prim.
 Smart start is Alpha code - please do not enable it unless its on a new, blank grid.
