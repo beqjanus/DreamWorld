@@ -421,6 +421,8 @@ Public Module MysqlInterface
     ''' <returns>integer primcount</returns>
     Public Function GetPrimCount(UUID As String) As Integer
 
+        If Not IsMySqlRunning() Then StartMySQL()
+
         Dim count As Integer
         Try
             Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
