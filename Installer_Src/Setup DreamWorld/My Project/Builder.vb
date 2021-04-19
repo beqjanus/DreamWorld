@@ -80,12 +80,11 @@ Module Build
 
         ' Make a map of occupied areas
         Dim RegionXY As New List(Of String)
-        Dim Simcount As Integer
+
         For Each UUID In PropRegionClass.RegionUuids
             Dim SimSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
             For Xstep = 0 To SimSize - 1
                 For Ystep = 0 To SimSize - 1
-                    Simcount += 1
                     RegionXY.Add($"{PropRegionClass.CoordX(UUID) + Xstep}:{PropRegionClass.CoordY(UUID) + Ystep}")
                 Next
             Next
@@ -96,7 +95,6 @@ Module Build
         Dim CenterSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
         Dim xy As New List(Of String)
 
-        Simcount = 0
         ' draw a square around the new sim
         Dim X1 = Xloc - Settings.Skirtsize
         Dim X2 = Xloc + Settings.Skirtsize - 1 + CenterSize
@@ -106,30 +104,31 @@ Module Build
         For XPos As Integer = X1 To X2 Step 1
             For Ypos As Integer = Y1 To Y2 Step 1
                 xy.Add($"{XPos}:{Ypos}")
-                Simcount += 1
             Next
         Next
 
         Dim GroupName As String = ""
-        Simcount = 0
+        Dim Simcount As Integer
+
         Dim l As New List(Of String)
         For Each possible As String In xy
             If Not RegionXY.Contains(possible) Then
                 Dim parts As String() = possible.Split(New Char() {":"c}) ' split at the space
                 Dim nX = CInt(CStr(parts(0).Trim))
                 Dim nY = CInt(CStr(parts(1).Trim))
-                Simcount += 1
+
                 If GroupName.Length = 0 Then
                     GroupName = FantasyName()
                 End If
                 MakeTempRegion(GroupName, nX, nY)
+                Simcount += 1
             End If
         Next
 
         If Simcount > 0 Then
-            Debug.Print($"{Simcount} regions were added to {GroupName}.")
             Landscaper(GroupName)
         End If
+        If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
 
     End Sub
 
@@ -164,12 +163,10 @@ Module Build
 
         For Each NewType In UseTree
             If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
-            '            If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} false") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree plant {NewType}") Then Return
             If Not RPC_Region_Command(RegionUUID, $"tree rate 1000") Then Return
             If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
-            Sleep(2000)
-            'If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
+            Sleep(1500)
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
         Next
 
