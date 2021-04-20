@@ -177,10 +177,10 @@ Public Class FormLogging
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AnalyzeButton.Click
 
-        If PropOpensimIsRunning() Then
-            MsgBox("Cannot examine logs while Opensim is running", vbInformation)
-            Return
-        End If
+        ' If PropOpensimIsRunning() Then
+        '        MsgBox("Cannot examine logs while Opensim is running", vbInformation)
+        '       Return
+        '  End If
 
         AnalyzeButton.Text = Global.Outworldz.My.Resources.Busy_word
 
@@ -219,12 +219,14 @@ Public Class FormLogging
 
                 Dim Robust = IO.Path.Combine(Settings.OpensimBinPath, "Robust.log")
                 If System.IO.File.Exists(Robust) Then
-                    Using reader As StreamReader = System.IO.File.OpenText(Robust)
-                        'now loop through each line
-                        While reader.Peek <> -1
-                            Application.DoEvents()
-                            Lookat(reader.ReadLine(), outputFile)
-                        End While
+                    Using F As FileStream = New FileStream(Robust, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+                        Using S As StreamReader = New StreamReader(F)
+                            'now loop through each line
+                            While S.Peek <> -1
+                                Application.DoEvents()
+                                Lookat(S.ReadLine(), outputFile)
+                            End While
+                        End Using
                     End Using
                 End If
                 outputFile.WriteLine("</table>")
@@ -241,13 +243,15 @@ Public Class FormLogging
         Try
             Dim Region = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Opensim.log")
             If System.IO.File.Exists(Region) Then
-                Using reader As StreamReader = System.IO.File.OpenText(Region)
-                    'now loop through each line
-                    While reader.Peek <> -1
-                        _LineCounter += 1
-                        LookatOpensim(reader.ReadLine(), outputfile, GroupName)
-                        Application.DoEvents()
-                    End While
+                Using F As FileStream = New FileStream(Region, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+                    Using S As StreamReader = New StreamReader(F)
+                        'now loop through each line
+                        While S.Peek <> -1
+                            _LineCounter += 1
+                            LookatOpensim(S.ReadLine(), outputfile, GroupName)
+                            Application.DoEvents()
+                        End While
+                    End Using
                 End Using
             End If
         Catch ex As Exception
