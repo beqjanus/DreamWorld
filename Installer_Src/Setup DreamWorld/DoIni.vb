@@ -197,8 +197,6 @@ Module DoIni
 
         CopyFileFast(s, d)
 
-        DoEditForeigners()
-
         Dim filename = Settings.LoadIni(d, ";")
         If filename Is Nothing Then Return True
 
@@ -369,23 +367,39 @@ Module DoIni
             ' Replace the block with a list of regions with the Region_Name = DefaultRegion, DefaultHGRegion is Welcome Region_Name = FallbackRegion, Persistent if a Smart Start region and SS is
             ' enabled Region_Name = FallbackRegion if not a SmartStart
 
+            ' TODO:  NoDirectLogin
+
             Dim Welcome As String = Settings.WelcomeRegion
             Welcome = DefaultName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-            Dim RegionSetting As String = $"Region_{Welcome}=DefaultRegion,DefaultHGRegion{vbCrLf}"
+            Dim RegionSetting As String = ""
 
             ' make a long list of the various regions with region_ at the start
             For Each RegionUUID As String In PropRegionClass.RegionUuids
+
+                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+
+                Dim Authorizationlist As String = ""
+                If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
+                    Authorizationlist += ", DisallowForeigners"
+                End If
+
+                If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
+                    Authorizationlist += ", DisallowResidents"
+                End If
+
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-                If RegionName <> Settings.WelcomeRegion Then
+                If RegionName = DefaultName Then
+                    RegionSetting += $"Region_{Welcome}=DefaultRegion,DefaultHGRegion"
+                Else
                     If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                        RegionSetting += $"Region_{RegionName}=Persistent{vbCrLf}"
+                        RegionSetting += $"Region_{RegionName}=Persistent{Authorizationlist}"
                     Else
                         RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                        RegionSetting += $"Region_{RegionName}=FallbackRegion{vbCrLf}"
+                        RegionSetting += $"Region_{RegionName}=FallbackRegion{Authorizationlist}"
                     End If
-
                 End If
+                RegionSetting += vbCrLf
             Next
 
             Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini")
@@ -472,75 +486,6 @@ Module DoIni
 
         ' remove double quotes and any comments ";"
         Return Replace(input, """", "")
-
-    End Function
-
-    Private Function DoEditForeigners() As Boolean
-
-        TextPrint("->Set Residents/Foreigners")
-        ' adds a list like 'Region_Test_1 = "DisallowForeigners"' to Gridcommon.ini
-
-        Dim Authorizationlist As String = ""
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-            '(replace spaces with underscore)
-            RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-            Dim df As Boolean = False
-            Dim dr As Boolean = False
-            If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
-                df = True
-            End If
-            If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
-                dr = True
-            End If
-            If Not dr And Not df Then
-
-            ElseIf dr And Not df Then
-                Authorizationlist += "Region_" & RegionName & " = DisallowResidents" & vbCrLf
-            ElseIf Not dr And df Then
-                Authorizationlist += "Region_" & RegionName & " = DisallowForeigners" & vbCrLf
-            ElseIf dr And df Then
-                Authorizationlist += "Region_" & RegionName & " = DisallowResidents " & vbCrLf
-            End If
-            Application.DoEvents()
-        Next
-
-        Dim reader As StreamReader
-        Dim line As String
-        Dim Output As String = ""
-
-        Try
-            Dim Read = IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini")
-
-            reader = System.IO.File.OpenText(Read)
-            'now loop through each line
-            Dim skip As Boolean = False
-            While reader.Peek <> -1
-                line = reader.ReadLine()
-                If line.StartsWith("; START", StringComparison.InvariantCulture) Then
-                    Output += line & vbCrLf
-                    Output += Authorizationlist
-                Else
-                    Output += line & vbCrLf
-                End If
-
-            End While
-
-            'close the reader
-            reader.Close()
-
-            Dim dest = IO.Path.Combine(Settings.OpensimBinPath, "config-include\GridCommon.ini")
-            DeleteFile(dest)
-
-            Using outputFile As New StreamWriter(dest)
-                outputFile.Write(Output)
-            End Using
-        Catch ex As Exception
-            ErrorLog(ex.Message)
-        End Try
-
-        Return False
 
     End Function
 

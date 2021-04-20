@@ -403,7 +403,13 @@ Module Robust
             Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "${Const|PublicPort}/OpenSim.Server.Handlers.dll:UserProfilesConnector")
             Settings.SetIni("UserProfilesService", "Enabled", "True")
             Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
-            Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
+
+            If Settings.GloebitsEnable Then
+                Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
+            Else
+                ' use Landtool.php
+                Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|ApachePort}/Land")
+            End If
         End If
 
         Settings.SetIni("AutoLoadTeleport", "Enabled", CStr(Settings.SmartStart))
@@ -486,7 +492,10 @@ Module Robust
     Private Sub SetupMoney()
 
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
-        If Settings.GloebitsEnable Then
+        If Settings.GCG Then
+            Settings.SetIni("LoginService", "Currency", "MC$")
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
+        ElseIf Settings.GloebitsEnable Then
             Settings.SetIni("LoginService", "Currency", "G$")
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
