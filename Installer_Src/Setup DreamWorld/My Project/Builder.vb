@@ -168,6 +168,7 @@ Module Build
             If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
             Sleep(1500)
             If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
+            If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
         Next
 
         If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
