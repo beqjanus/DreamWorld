@@ -177,11 +177,6 @@ Public Class FormLogging
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles AnalyzeButton.Click
 
-        ' If PropOpensimIsRunning() Then
-        '        MsgBox("Cannot examine logs while Opensim is running", vbInformation)
-        '       Return
-        '  End If
-
         AnalyzeButton.Text = Global.Outworldz.My.Resources.Busy_word
 
         Dim TMPFolder = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp")
@@ -224,7 +219,9 @@ Public Class FormLogging
                             'now loop through each line
                             While S.Peek <> -1
                                 Application.DoEvents()
-                                Lookat(S.ReadLine(), outputFile)
+                                Dim l = S.ReadLine
+                                Lookat(l, outputFile)
+                                LookatMac(l, outputFile)
                             End While
                         End Using
                     End Using
@@ -263,6 +260,7 @@ Public Class FormLogging
 
     Private Sub Lookat(line As String, outputfile As StreamWriter)
 
+
         ToolStripStatusLabel1.Text = $"{CStr(_Avictr)} Avatars,  {CStr(_LineCounter)} Lines"
         Dim pattern = New Regex("^(.*?),.*?INFO.*?Login request for (.*?) \((.*?)\).*?viewer (.*?), channel (.*?), IP (.*?), Mac (.*?), Id0 (.*?),.*?region (.*?) \(.*?\@ (.*)")
         Dim match As Match = pattern.Match(line)
@@ -281,6 +279,20 @@ Public Class FormLogging
             _Avictr += 1
 
             outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{Avatar}</td><td>{UUID}</td><td>{Viewer}</td><td>{Channel}</td><td>{IP}</td><td>{MAC}</td><td>{Id0}</td><td>{Region}</td><td>{Grid}</td></tr>")
+        End If
+
+    End Sub
+    Private Sub LookatMac(line As String, outputfile As StreamWriter)
+
+        '2021-04-19 07:05:46,389 INFO  (99) - OpenSim.Services.HypergridService.GatekeeperService [GATEKEEPER SERVICE]: Login failed, reason: client with mac (.*?) is denied
+        ToolStripStatusLabel1.Text = $"{CStr(_Avictr)} Avatars,  {CStr(_LineCounter)} Lines"
+        Dim pattern = New Regex("^(.*?),.*?INFO.*?mac (.*?) is denied")
+        Dim match As Match = pattern.Match(line)
+        If match.Success Then
+            Dim DateTime = match.Groups(1).Value
+            Dim MAC = match.Groups(2).Value
+
+            outputfile.WriteLine($"<tr bgcolor=""gray""><td>{DateTime}</td><td>MAC BANNED</td><td></td><td></td><td></td><td></td><td>{MAC}</td><td></td><td></td><td></td></tr>")
         End If
 
     End Sub
