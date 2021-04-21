@@ -8,7 +8,11 @@ Always uses Smart Start Login, even if disabled so both type of signs work in ei
 Add x 1X1, 2X2, or 3X3 sim surround to Smart Start.
 Reset Tab order on all forms.
 Trees work a little better. Set the rez height to average of min/max. There is no grass, as no one knows the viewer parameters. 
-
+Load OAR and other commands will start a Paused region and then load it
+Opensim has more debug settings enabled. Slight perofrmace decrease in exchahge for better crash reporting.
+Redirected avatars to the waiting area get admin notices of what is going on.
+Log analyzer runs even if Opensim is running
+MAC address anyloser added to Log Analyzer
 
 
 V3.924
