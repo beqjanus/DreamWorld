@@ -52,7 +52,7 @@ Module OAR
         If RegionName Is Nothing Then Return
         If PropOpensimIsRunning() Then
             If RegionName.Length = 0 Then
-                RegionName = ChooseRegion(True)
+                RegionName = ChooseRegion(False)
                 If RegionName.Length = 0 Then Return
             End If
 
@@ -117,7 +117,7 @@ Module OAR
             Return False
         End If
 
-        Dim RegionName = ChooseRegion(True)
+        Dim RegionName = ChooseRegion(False)
         If RegionName.Length = 0 Then Return False
 
         Dim offset = VarChooser(RegionName)
@@ -177,7 +177,7 @@ Module OAR
         If PropOpensimIsRunning() Then
 
             If RegionName.Length = 0 Then
-                RegionName = ChooseRegion(True)
+                RegionName = ChooseRegion(False)
                 If RegionName.Length = 0 Then Return
             End If
 

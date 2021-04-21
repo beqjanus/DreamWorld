@@ -191,7 +191,6 @@ Module WindowHandlers
             ConsoleCommand(RobustName, "set log level " & msg)
         End If
 
-
     End Sub
 
     Public Sub SendScriptCmd(cmd As String)
@@ -199,7 +198,7 @@ Module WindowHandlers
             TextPrint(My.Resources.Not_Running)
             Return
         End If
-        Dim rname = ChooseRegion(True)
+        Dim rname = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(rname)
         If RegionUUID.Length > 0 Then
             ConsoleCommand(RegionUUID, "change region " & """" & rname & """")
@@ -354,6 +353,7 @@ Module WindowHandlers
         Next
 
     End Sub
+
     Private Function ToLowercaseKeys(Str As String) As String
 
         If My.Computer.Keyboard.CapsLock Then

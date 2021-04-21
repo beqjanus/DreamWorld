@@ -890,11 +890,11 @@ Public Class FormSmartStart
     Private Sub LoadTerrain_Click(sender As Object, e As EventArgs) Handles LoadTerrain.Click
 
         'load menu
-        Dim RegionName = ChooseRegion(True)
+        Dim RegionName = ChooseRegion(False)
         If RegionName.Length = 0 Then Return
-
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
         RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
@@ -1148,11 +1148,11 @@ Public Class FormSmartStart
     Private Sub RebuildTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RebuildTerrainsToolStripMenuItem.Click
 
         Try
-            Dim RegionName = ChooseRegion(True)
+            Dim RegionName = ChooseRegion(False)
             If RegionName.Length = 0 Then Return
-
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-
+            ReBoot(RegionUUID)
+            WaitForBooted(RegionUUID)
             Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
             Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
             Dim File As System.IO.FileInfo() = directory.GetFiles()
@@ -1195,12 +1195,12 @@ Public Class FormSmartStart
 
         'Save menu
         If Not _initialized Then Return
-        Dim RegionName = ChooseRegion(True)
+        Dim RegionName = ChooseRegion(False)
         If RegionName.Length = 0 Then Return
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.r32") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
         If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.jpg") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
 
@@ -1227,10 +1227,11 @@ Public Class FormSmartStart
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyTerrainEffectButton.Click
 
         'AI or .r32
-        Dim name = ChooseRegion(True)
+        Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
-
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
         If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
 
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
@@ -1272,9 +1273,11 @@ Public Class FormSmartStart
     Private Sub TerrainApply_Click(sender As Object, e As EventArgs) Handles TerrainApply.Click
         ' from photo
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        Dim name = ChooseRegion(True)
+        Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
 
         Dim Tname = _TerrainName.Item(_Index)
         Tname = Tname.Replace(".jpg", ".r32")
@@ -1291,10 +1294,11 @@ Public Class FormSmartStart
 
     Private Sub ApplyPlantButton_Click(sender As Object, e As EventArgs) Handles ApplyPlantButton.Click
         'plant apply
-        Dim name = ChooseRegion(True)
+        Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
-
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
         RPC_Region_Command(RegionUUID, $"change region ""{name}""")
 
         If RegionUUID.Length > 0 Then
@@ -1303,29 +1307,29 @@ Public Class FormSmartStart
 
     End Sub
 
-    Private Sub FreezeButton_Click(sender As Object, e As EventArgs) Handles FreezeButton.Click
-
-        Dim name = ChooseRegion(True)
+    Private Sub FreezeButton_Click(sender As Object, e As EventArgs) Handles BakeButton.Click
+        ' TODO Wrong!!!
+        Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
 
-        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        CopyFileFast($"{backupname}\{name}-Backup.r32", $"{backupname}\{name}.r32")
-        CopyFileFast($"{backupname}\{name}-Backup.jpg", $"{backupname}\{name}.jpg")
+        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
+        RPC_Region_Command(RegionUUID, "terrain bake")
 
     End Sub
 
     Private Sub Revert_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
 
-        Dim name = ChooseRegion(True)
+        Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
-
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         RPC_Region_Command(RegionUUID, $"change region ""{name}""")
-        If IO.File.Exists(backupname) Then
-            RPC_Region_Command(RegionUUID, $"terrain load ""{backupname}\{name}-Backup.r32""")
-        End If
+        RPC_Region_Command(RegionUUID, "terrain revert")
 
     End Sub
 
@@ -1602,9 +1606,11 @@ Public Class FormSmartStart
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        Dim name = ChooseRegion(True)
+        Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
         For Each TT As String In TreeList
             If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
         Next

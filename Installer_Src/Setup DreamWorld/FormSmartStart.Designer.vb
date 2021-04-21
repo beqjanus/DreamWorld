@@ -80,9 +80,10 @@ Partial Class FormSmartStart
         Me.Rand = New System.Windows.Forms.RadioButton()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.DeletApply = New System.Windows.Forms.CheckBox()
         Me.Dogwood = New System.Windows.Forms.CheckBox()
-        Me.FreezeButton = New System.Windows.Forms.Button()
+        Me.BakeButton = New System.Windows.Forms.Button()
         Me.None = New System.Windows.Forms.CheckBox()
         Me.RevertButton = New System.Windows.Forms.Button()
         Me.All = New System.Windows.Forms.CheckBox()
@@ -153,7 +154,6 @@ Partial Class FormSmartStart
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
         Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -711,7 +711,7 @@ Partial Class FormSmartStart
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.DeletApply)
         Me.GroupBox1.Controls.Add(Me.Dogwood)
-        Me.GroupBox1.Controls.Add(Me.FreezeButton)
+        Me.GroupBox1.Controls.Add(Me.BakeButton)
         Me.GroupBox1.Controls.Add(Me.None)
         Me.GroupBox1.Controls.Add(Me.RevertButton)
         Me.GroupBox1.Controls.Add(Me.All)
@@ -744,6 +744,17 @@ Partial Class FormSmartStart
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Plants"
         '
+        'Button1
+        '
+        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
+        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.Location = New System.Drawing.Point(665, 106)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(111, 34)
+        Me.Button1.TabIndex = 27
+        Me.Button1.Text = "Delete All"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'DeletApply
         '
         Me.DeletApply.AutoSize = True
@@ -764,16 +775,16 @@ Partial Class FormSmartStart
         Me.Dogwood.Text = "Dogwood"
         Me.Dogwood.UseVisualStyleBackColor = True
         '
-        'FreezeButton
+        'BakeButton
         '
-        Me.FreezeButton.Image = CType(resources.GetObject("FreezeButton.Image"), System.Drawing.Image)
-        Me.FreezeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.FreezeButton.Location = New System.Drawing.Point(665, 150)
-        Me.FreezeButton.Name = "FreezeButton"
-        Me.FreezeButton.Size = New System.Drawing.Size(111, 34)
-        Me.FreezeButton.TabIndex = 25
-        Me.FreezeButton.Text = "Freeze"
-        Me.FreezeButton.UseVisualStyleBackColor = True
+        Me.BakeButton.Image = CType(resources.GetObject("BakeButton.Image"), System.Drawing.Image)
+        Me.BakeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BakeButton.Location = New System.Drawing.Point(665, 150)
+        Me.BakeButton.Name = "BakeButton"
+        Me.BakeButton.Size = New System.Drawing.Size(111, 34)
+        Me.BakeButton.TabIndex = 25
+        Me.BakeButton.Text = "Bake"
+        Me.BakeButton.UseVisualStyleBackColor = True
         '
         'None
         '
@@ -1494,17 +1505,6 @@ Partial Class FormSmartStart
         Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
         '
-        'Button1
-        '
-        Me.Button1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
-        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(665, 106)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(111, 34)
-        Me.Button1.TabIndex = 27
-        Me.Button1.Text = "Delete All"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'FormSmartStart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1574,7 +1574,7 @@ Partial Class FormSmartStart
     Friend WithEvents Flat As RadioButton
     Friend WithEvents Rand As RadioButton
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents FreezeButton As Button
+    Friend WithEvents BakeButton As Button
     Friend WithEvents RevertButton As Button
     Friend WithEvents None As CheckBox
     Friend WithEvents All As CheckBox

@@ -84,7 +84,8 @@ Public Class FormChooser
             End If
 
             ' Only show running sims option
-            If JustRunning AndAlso PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+            If JustRunning AndAlso (PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Or
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended) Then
                 If Not L.Contains(name) Then
                     If name.Length > 0 Then DataGridView.Rows.Add(name)
                 End If
