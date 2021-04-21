@@ -921,7 +921,6 @@ Public Class FormSetup
 
             ReBoot(RegionUUID)
 
-            SequentialPause()   ' wait for previous region to give us some CPU
             ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """")
             ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
                                DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
@@ -1631,6 +1630,13 @@ Public Class FormSetup
         Application.DoEvents()
 
         ClearOldLogFiles() ' clear log files
+
+
+        ' Get Opensimulator Scripts to date if needed
+        If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
+            WipeScripts(True)
+            Settings.DeleteScriptsOnStartupLevel() = PropSimVersion ' we have scripts cleared to proper Opensim Version
+        End If
 
         If Not IO.File.Exists(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm")) Then
             IO.File.Copy(IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm.bak"), IO.Path.Combine(Settings.CurrentDirectory, "BareTail.udm"))
