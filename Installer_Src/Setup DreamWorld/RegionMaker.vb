@@ -1799,15 +1799,10 @@ Public Class RegionMaker
             ' all grids requires these setting in Opensim.ini
             If Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort)) Then Return True
 
-            ' Get Opensimulator Scripts to date if needed
-            If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
-                WipeScripts(True)
-                Settings.DeleteScriptsOnStartupLevel() = PropSimVersion ' we have scripts cleared to proper Opensim Version
-            Else
-                If Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False") Then Return True
-            End If
+            If Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False") Then Return True
 
-            If Not Settings.LSLHTTP Then
+
+                If Not Settings.LSLHTTP Then
                 If Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.LANIP() & ":" & Settings.DiagnosticPort & "|" & Settings.LANIP() & ":" & Settings.HttpPort) Then Return True
             End If
 

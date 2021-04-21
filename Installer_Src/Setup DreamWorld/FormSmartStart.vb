@@ -812,10 +812,8 @@ Public Class FormSmartStart
 
                 If Abort Then Exit For
 
-                ReBoot(RegionUUID)
+                ReBoot(RegionUUID) ' Wait for it to start booting
 
-                ' Wait for it to start booting
-                If Not WaitForBooting(RegionUUID) Then Continue For
                 If Abort Then Exit For
 
                 If sizerow > Max Then Max = sizerow
@@ -825,12 +823,6 @@ Public Class FormSmartStart
                     Y += CInt((Max / 256) + 1)
                     sizerow = 256
                 End If
-
-                If Settings.Sequential Then
-                    If Not WaitForBooted(RegionUUID) Then Continue For
-                End If
-
-                If Abort Then Exit For
 
                 If GetPrimCount(RegionUUID) = 0 Then
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"

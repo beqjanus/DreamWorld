@@ -517,8 +517,11 @@ Module SmartStart
         If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Or
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
 
+            FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
+            WaitForBooting(RegionUUID)
+            PropUpdateView = True ' make form refresh
 
         End If
 
@@ -558,7 +561,7 @@ Module SmartStart
     ''' <param name="RegionUUID">Region UUID</param>
     ''' <returns>True of region is booting</returns>
     Public Function WaitForBooting(RegionUUID As String) As Boolean
-
+        ' TODO remove shutdown, do a more gracful fail mode
         Dim c As Integer = 60
         While c > 0
 

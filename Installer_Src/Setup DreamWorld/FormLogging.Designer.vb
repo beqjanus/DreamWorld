@@ -47,19 +47,20 @@ Partial Class FormLogging
         '
         'MenuStrip1
         '
+        Me.MenuStrip1.GripMargin = New System.Windows.Forms.Padding(2, 2, 0, 2)
         Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(28, 28)
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(317, 34)
+        Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(6, 2, 0, 2)
+        Me.MenuStrip1.Size = New System.Drawing.Size(476, 36)
         Me.MenuStrip1.TabIndex = 0
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(72, 32)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(93, 32)
         Me.HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
         'GroupBox1
@@ -70,11 +71,11 @@ Partial Class FormLogging
         Me.GroupBox1.Controls.Add(Me.RadioInfo)
         Me.GroupBox1.Controls.Add(Me.RadioDebug)
         Me.GroupBox1.Controls.Add(Me.RadioOff)
-        Me.GroupBox1.Location = New System.Drawing.Point(11, 48)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(2, 1, 2, 1)
+        Me.GroupBox1.Location = New System.Drawing.Point(16, 72)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(2, 1, 2, 1)
-        Me.GroupBox1.Size = New System.Drawing.Size(100, 185)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GroupBox1.Size = New System.Drawing.Size(150, 278)
         Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Log Level"
@@ -82,9 +83,10 @@ Partial Class FormLogging
         'RadioFatal
         '
         Me.RadioFatal.AutoSize = True
-        Me.RadioFatal.Location = New System.Drawing.Point(13, 123)
+        Me.RadioFatal.Location = New System.Drawing.Point(20, 184)
+        Me.RadioFatal.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RadioFatal.Name = "RadioFatal"
-        Me.RadioFatal.Size = New System.Drawing.Size(48, 17)
+        Me.RadioFatal.Size = New System.Drawing.Size(70, 24)
         Me.RadioFatal.TabIndex = 4
         Me.RadioFatal.TabStop = True
         Me.RadioFatal.Text = Global.Outworldz.My.Resources.Resources.Fatal_word
@@ -93,9 +95,10 @@ Partial Class FormLogging
         'RadioError
         '
         Me.RadioError.AutoSize = True
-        Me.RadioError.Location = New System.Drawing.Point(13, 100)
+        Me.RadioError.Location = New System.Drawing.Point(20, 150)
+        Me.RadioError.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RadioError.Name = "RadioError"
-        Me.RadioError.Size = New System.Drawing.Size(47, 17)
+        Me.RadioError.Size = New System.Drawing.Size(69, 24)
         Me.RadioError.TabIndex = 3
         Me.RadioError.TabStop = True
         Me.RadioError.Text = Global.Outworldz.My.Resources.Resources.Error_word
@@ -104,9 +107,10 @@ Partial Class FormLogging
         'RadioWarn
         '
         Me.RadioWarn.AutoSize = True
-        Me.RadioWarn.Location = New System.Drawing.Point(13, 77)
+        Me.RadioWarn.Location = New System.Drawing.Point(20, 116)
+        Me.RadioWarn.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RadioWarn.Name = "RadioWarn"
-        Me.RadioWarn.Size = New System.Drawing.Size(51, 17)
+        Me.RadioWarn.Size = New System.Drawing.Size(72, 24)
         Me.RadioWarn.TabIndex = 2
         Me.RadioWarn.TabStop = True
         Me.RadioWarn.Text = Global.Outworldz.My.Resources.Resources.Warn_word
@@ -115,9 +119,10 @@ Partial Class FormLogging
         'RadioInfo
         '
         Me.RadioInfo.AutoSize = True
-        Me.RadioInfo.Location = New System.Drawing.Point(13, 53)
+        Me.RadioInfo.Location = New System.Drawing.Point(20, 80)
+        Me.RadioInfo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RadioInfo.Name = "RadioInfo"
-        Me.RadioInfo.Size = New System.Drawing.Size(43, 17)
+        Me.RadioInfo.Size = New System.Drawing.Size(62, 24)
         Me.RadioInfo.TabIndex = 1
         Me.RadioInfo.TabStop = True
         Me.RadioInfo.Text = Global.Outworldz.My.Resources.Resources.Info_word
@@ -126,9 +131,10 @@ Partial Class FormLogging
         'RadioDebug
         '
         Me.RadioDebug.AutoSize = True
-        Me.RadioDebug.Location = New System.Drawing.Point(13, 29)
+        Me.RadioDebug.Location = New System.Drawing.Point(20, 44)
+        Me.RadioDebug.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RadioDebug.Name = "RadioDebug"
-        Me.RadioDebug.Size = New System.Drawing.Size(57, 17)
+        Me.RadioDebug.Size = New System.Drawing.Size(82, 24)
         Me.RadioDebug.TabIndex = 0
         Me.RadioDebug.TabStop = True
         Me.RadioDebug.Text = Global.Outworldz.My.Resources.Resources.Debug_word
@@ -137,9 +143,10 @@ Partial Class FormLogging
         'RadioOff
         '
         Me.RadioOff.AutoSize = True
-        Me.RadioOff.Location = New System.Drawing.Point(13, 147)
+        Me.RadioOff.Location = New System.Drawing.Point(20, 220)
+        Me.RadioOff.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.RadioOff.Name = "RadioOff"
-        Me.RadioOff.Size = New System.Drawing.Size(39, 17)
+        Me.RadioOff.Size = New System.Drawing.Size(56, 24)
         Me.RadioOff.TabIndex = 5
         Me.RadioOff.TabStop = True
         Me.RadioOff.Text = Global.Outworldz.My.Resources.Resources.Off
@@ -149,9 +156,10 @@ Partial Class FormLogging
         '
         Me.DeleteOnBoot.AutoSize = True
         Me.DeleteOnBoot.Checked = True
-        Me.DeleteOnBoot.Location = New System.Drawing.Point(17, 29)
+        Me.DeleteOnBoot.Location = New System.Drawing.Point(26, 44)
+        Me.DeleteOnBoot.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DeleteOnBoot.Name = "DeleteOnBoot"
-        Me.DeleteOnBoot.Size = New System.Drawing.Size(96, 17)
+        Me.DeleteOnBoot.Size = New System.Drawing.Size(141, 24)
         Me.DeleteOnBoot.TabIndex = 0
         Me.DeleteOnBoot.TabStop = True
         Me.DeleteOnBoot.Text = "Delete on Boot"
@@ -160,9 +168,10 @@ Partial Class FormLogging
         'KeepLog
         '
         Me.KeepLog.AutoSize = True
-        Me.KeepLog.Location = New System.Drawing.Point(17, 53)
+        Me.KeepLog.Location = New System.Drawing.Point(26, 80)
+        Me.KeepLog.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.KeepLog.Name = "KeepLog"
-        Me.KeepLog.Size = New System.Drawing.Size(50, 17)
+        Me.KeepLog.Size = New System.Drawing.Size(71, 24)
         Me.KeepLog.TabIndex = 1
         Me.KeepLog.Text = "Keep"
         Me.KeepLog.UseVisualStyleBackColor = True
@@ -173,9 +182,11 @@ Partial Class FormLogging
         Me.DeletebyAge.Controls.Add(Me.ViewLogButton)
         Me.DeletebyAge.Controls.Add(Me.KeepLog)
         Me.DeletebyAge.Controls.Add(Me.DeleteOnBoot)
-        Me.DeletebyAge.Location = New System.Drawing.Point(127, 48)
+        Me.DeletebyAge.Location = New System.Drawing.Point(190, 72)
+        Me.DeletebyAge.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.DeletebyAge.Name = "DeletebyAge"
-        Me.DeletebyAge.Size = New System.Drawing.Size(185, 185)
+        Me.DeletebyAge.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.DeletebyAge.Size = New System.Drawing.Size(278, 278)
         Me.DeletebyAge.TabIndex = 2
         Me.DeletebyAge.TabStop = False
         Me.DeletebyAge.Text = "Log Files"
@@ -184,9 +195,10 @@ Partial Class FormLogging
         '
         Me.AnalyzeButton.Image = Global.Outworldz.My.Resources.Resources.folder
         Me.AnalyzeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AnalyzeButton.Location = New System.Drawing.Point(6, 142)
+        Me.AnalyzeButton.Location = New System.Drawing.Point(9, 213)
+        Me.AnalyzeButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.AnalyzeButton.Name = "AnalyzeButton"
-        Me.AnalyzeButton.Size = New System.Drawing.Size(156, 27)
+        Me.AnalyzeButton.Size = New System.Drawing.Size(234, 40)
         Me.AnalyzeButton.TabIndex = 3
         Me.AnalyzeButton.Text = "Analyze Log"
         Me.AnalyzeButton.UseVisualStyleBackColor = True
@@ -195,38 +207,42 @@ Partial Class FormLogging
         '
         Me.ViewLogButton.Image = Global.Outworldz.My.Resources.Resources.folder
         Me.ViewLogButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.ViewLogButton.Location = New System.Drawing.Point(6, 100)
+        Me.ViewLogButton.Location = New System.Drawing.Point(9, 150)
+        Me.ViewLogButton.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ViewLogButton.Name = "ViewLogButton"
-        Me.ViewLogButton.Size = New System.Drawing.Size(156, 27)
+        Me.ViewLogButton.Size = New System.Drawing.Size(234, 40)
         Me.ViewLogButton.TabIndex = 2
         Me.ViewLogButton.Text = "View"
         Me.ViewLogButton.UseVisualStyleBackColor = True
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 247)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 382)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(317, 22)
+        Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(2, 0, 21, 0)
+        Me.StatusStrip1.Size = New System.Drawing.Size(476, 22)
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 15)
         '
         'FormLogging
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(144.0!, 144.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(317, 269)
+        Me.ClientSize = New System.Drawing.Size(476, 404)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.DeletebyAge)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "FormLogging"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()

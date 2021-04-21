@@ -221,9 +221,6 @@ Module Build
 
             ReBoot(RegionUUID)
 
-            ' Wait for it
-            WaitForBooting(RegionUUID)
-
             ' this mess is need to get the region to join an estate
             ' There only other way is to append to a file and start Robust again.
             Dim Group = PropRegionClass.GroupName(RegionUUID)
