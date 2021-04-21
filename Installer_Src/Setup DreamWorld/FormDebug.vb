@@ -104,52 +104,60 @@ Public Class FormDebug
             End If
             Settings.SaveSettings()
 
+        ElseIf Command = "Send_alert" Then
+            If Value Then
+                Dim UserId = InputBox("Agent UUID?")
+                RPC_admin_dialog(UserId, "Pop up Alert Test")
+            Else
+                MsgBox("Needs an avatar UUID")
+            End If
+
         ElseIf Command = $"{My.Resources.Debug_word} Off" Then
 
-            If Value Then
-                Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
-            Else
-                ProgressPrint("Unchanged")
-            End If
-            Settings.SaveSettings()
+                If Value Then
+                    Settings.StatusInterval = 0
+                    ProgressPrint($"{My.Resources.Debug_word} Off")
+                Else
+                    ProgressPrint("Unchanged")
+                End If
+                Settings.SaveSettings()
 
-        ElseIf Command = $"{My.Resources.Debug_word} 1 Minute" Then
+            ElseIf Command = $"{My.Resources.Debug_word} 1 Minute" Then
 
-            If Value Then
-                Settings.StatusInterval = 60
-                ProgressPrint($"{My.Resources.Debug_word} 1 Minute")
-            Else
-                Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
-            End If
-            Settings.SaveSettings()
+                If Value Then
+                    Settings.StatusInterval = 60
+                    ProgressPrint($"{My.Resources.Debug_word} 1 Minute")
+                Else
+                    Settings.StatusInterval = 0
+                    ProgressPrint($"{My.Resources.Debug_word} Off")
+                End If
+                Settings.SaveSettings()
 
-        ElseIf Command = $"{My.Resources.Debug_word} 10 Minutes" Then
+            ElseIf Command = $"{My.Resources.Debug_word} 10 Minutes" Then
 
-            If Value Then
-                Settings.StatusInterval = 600
-                ProgressPrint($"{My.Resources.Debug_word} 10 Minutes")
-            Else
-                Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
-            End If
-            Settings.SaveSettings()
+                If Value Then
+                    Settings.StatusInterval = 600
+                    ProgressPrint($"{My.Resources.Debug_word} 10 Minutes")
+                Else
+                    Settings.StatusInterval = 0
+                    ProgressPrint($"{My.Resources.Debug_word} Off")
+                End If
+                Settings.SaveSettings()
 
-        ElseIf Command = $"{My.Resources.Debug_word} 60 Minutes" Then
+            ElseIf Command = $"{My.Resources.Debug_word} 60 Minutes" Then
 
-            If Value Then
-                Settings.StatusInterval = 3600
-                ProgressPrint($"{My.Resources.Debug_word} 60 Minutes")
-            Else
-                Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
-            End If
-            Settings.SaveSettings()
+                If Value Then
+                    Settings.StatusInterval = 3600
+                    ProgressPrint($"{My.Resources.Debug_word} 60 Minutes")
+                Else
+                    Settings.StatusInterval = 0
+                    ProgressPrint($"{My.Resources.Debug_word} Off")
+                End If
+                Settings.SaveSettings()
 
-        ElseIf Command = $"{My.Resources.Debug_word} 24 Hours" Then
+            ElseIf Command = $"{My.Resources.Debug_word} 24 Hours" Then
 
-            If Value Then
+                If Value Then
                 Settings.StatusInterval = 60 * 60 * 24
                 ProgressPrint($"{My.Resources.Debug_word} 24 Hours")
             Else
@@ -178,7 +186,7 @@ Public Class FormDebug
 
         RadioTrue.Text = My.Resources.True_word
         RadioFalse.Text = My.Resources.False_word
-
+        ComboBox1.Items.Add("Send_alert")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} Off")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 Minute")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 10 Minutes")

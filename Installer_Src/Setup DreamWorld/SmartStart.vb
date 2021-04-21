@@ -74,11 +74,13 @@ Module SmartStart
                         If AgentName.ToUpperInvariant = "UUID" Then
                             Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
+                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
                             Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
                             Return u
                         ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
                             Logger("Godot Named Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
+                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
                             Return Settings.WelcomeRegion
                         Else ' Its a sign!
                             If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
@@ -86,7 +88,7 @@ Module SmartStart
                             Else
                                 time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + slop) ' 5 seconds of slop time
                             End If
-
+                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
                             Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             Return Name & time
@@ -139,6 +141,8 @@ Module SmartStart
             TeleportAvatarDict.Remove(AgentID)
         End If
         TeleportAvatarDict.Add(AgentID, RegionUUID)
+
+
 
         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
         Return False

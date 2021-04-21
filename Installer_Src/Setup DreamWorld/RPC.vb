@@ -11,6 +11,20 @@ Module RPC
 
     'http://opensimulator.org/wiki/RemoteAdmin
 
+    ' known web interfaces
+    'http://opensimulator.org/wiki/Known_Web_Interfaces_within_OpenSim
+
+    Public Function RPC_admin_dialog(agentId As String, text As String)
+
+        Dim RegionUUID As String = GetRegionFromAgentID(agentId)
+        Dim ht As Hashtable = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"message", text}
+        }
+        Return SendRPC(RegionUUID, "admin_broadcast", ht)
+
+    End Function
+
     Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
         Dim ht As Hashtable = New Hashtable From {
@@ -106,6 +120,7 @@ Module RPC
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
+
         End Try
         Return False
 
