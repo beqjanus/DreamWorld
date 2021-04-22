@@ -1308,7 +1308,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub FreezeButton_Click(sender As Object, e As EventArgs) Handles BakeButton.Click
-        ' TODO Wrong!!!
+
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return

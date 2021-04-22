@@ -1040,6 +1040,11 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub PokeRegionTimer(UUID As String)
+
+        PropRegionClass.Timer(UUID) = Date.Now ' wait another interval
+
+    End Sub
     Private Sub ExitHandlerPoll()
 
         Dim GroupName As String = ""
@@ -1063,7 +1068,7 @@ Public Class FormSetup
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
 
-            PropRegionClass.Timer(Ruuid) = Date.Now ' wait another interval
+            PokeRegionTimer(Ruuid) ' keep alive
 
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
@@ -1102,44 +1107,45 @@ Public Class FormSetup
 
             GroupName = PropRegionClass.GroupName(RegionUUID)
 
-            Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
-            Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
-
-            Dim timesmartstart = PropRegionClass.Timer(RegionUUID).AddSeconds(Settings.SmartStartTimeout)
-            Dim SSExpired = DateTime.Compare(Date.Now, timesmartstart)
-
-            If (Expired > 0) Then
-                If (Settings.AutoRestartInterval > 0) Then
-                    If Settings.AutoRestartEnabled Then
-                        PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
-                    End If
-                End If
-            End If
+            ' Smart Start Timer
+            Dim SSExpired As Boolean
+            Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
+            If diff > Settings.SmartStartTimeout Then SSExpired = True
 
             ' if it is past time and no one is in the sim... Smart shutdown
             If PropRegionClass.SmartStart(RegionUUID) = "True" _
                     And Settings.SmartStart _
-                    And SSExpired > 0 _
+                    And SSExpired _
                     And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
 
-                ' time consuming, so a separate if
-                If Not AvatarsIsInGroup(GroupName) Then
-                    Logger("State Changed to ShuttingDown", GroupName, "Teleport")
-                    ShutDown(RegionUUID)
-                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                    Next
+                ' if anyone is in home stay alive
+                If AvatarsIsInGroup(GroupName) Then Continue For
 
-                    PropUpdateView = True ' make form refresh
+                ' Find any regions touching this region.
+                ' add them to the area to stay alive.
+                ' if anyone is in any of that area, we do not power down.
+
+                If PropRegionClass.AvatarIsNearby(RegionUUID) Then
                     Continue For
-                Else
-                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                        PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
-                    Next
                 End If
+
+                Logger("State Changed to ShuttingDown", GroupName, "Teleport")
+                ShutDown(RegionUUID)
+                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                Next
+
+                PropUpdateView = True ' make form refresh
+                Continue For
+
             End If
 
             ' auto restart timer
+
+            Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
+            Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
+
+
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
                 And Expired > 0 _
                 And Settings.AutoRestartInterval() > 0 _
@@ -1630,7 +1636,6 @@ Public Class FormSetup
         Application.DoEvents()
 
         ClearOldLogFiles() ' clear log files
-
 
         ' Get Opensimulator Scripts to date if needed
         If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
