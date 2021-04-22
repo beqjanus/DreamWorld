@@ -821,19 +821,19 @@ Public Class FormRegion
 
 #Region "Physics"
 
-    Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
+    Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs)
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub Physics_Default_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
+    Private Sub Physics_Default_CheckedChanged1(sender As Object, e As EventArgs)
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub PhysicsSeparate_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
+    Private Sub PhysicsSeparate_CheckedChanged1(sender As Object, e As EventArgs)
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub PhysicsubODE_CheckedChanged1(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
+    Private Sub PhysicsubODE_CheckedChanged1(sender As Object, e As EventArgs)
         If Initted1 Then Changed1 = True
     End Sub
 
@@ -1552,7 +1552,7 @@ Public Class FormRegion
         End If
 
     End Sub
-
+    ' TODO: Add more physics overrides
     Private Sub XEngineButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
 
         If XEngineButton.Checked Then
@@ -1581,7 +1581,7 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub ODEButton_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ODE.CheckedChanged
+    Private Sub ODEButton_CheckedChanged(sender As Object, e As EventArgs)
         If Initted1 Then Changed1 = True
     End Sub
 
@@ -1589,7 +1589,7 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
+    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs)
         If Initted1 Then Changed1 = True
     End Sub
 
@@ -1604,6 +1604,8 @@ Public Class FormRegion
     Private Sub RadioButton17_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
+
+
 
 #End Region
 
