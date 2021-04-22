@@ -29,8 +29,8 @@ Public Class RegionMaker
     Private Shared FInstance As RegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of RegionMaker.Region_data)
+    Private ReadOnly Map As New Dictionary(Of String, String)
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
-
     Private _GetAllRegionsIsBusy As Boolean
     Private _RegionListIsInititalized As Boolean
     Dim json As New JSONresult
@@ -268,7 +268,7 @@ Public Class RegionMaker
     Public Sub WriteRegionObject(Group As String, Newname As String)
 
         Dim pathtoWelcome As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
-        Dim uuid As String = FindRegionByName(Newname)
+        Dim RegionUUID As String = FindRegionByName(Newname)
         DeleteFile(IO.Path.Combine(pathtoWelcome, $"Region\{Newname}.ini"))
 
         Dim fname = pathtoWelcome + Newname + ".ini"
@@ -282,7 +282,7 @@ Public Class RegionMaker
 
         ' Change estate for Smart Start
         Dim Estate = "Estate"
-        If PropRegionClass.SmartStart(uuid) = "True" Then
+        If PropRegionClass.SmartStart(RegionUUID) = "True" Then
             Estate = "SmartStart"
         End If
 
@@ -292,42 +292,42 @@ Public Class RegionMaker
         & "; Rule2: Only one region per INI file." & vbCrLf _
         & ";" & vbCrLf _
         & "[" & Newname & "]" & vbCrLf _
-        & "RegionUUID = " & uuid & vbCrLf _
-        & "Location = " & CoordX(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(uuid).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
+        & "RegionUUID = " & RegionUUID & vbCrLf _
+        & "Location = " & CoordX(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
-        & "InternalPort = " & RegionPort(uuid) & vbCrLf _
+        & "InternalPort = " & RegionPort(RegionUUID) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
         & "ExternalHostName = " & Settings.ExternalHostName() & vbCrLf _
-        & "SizeX = " & CStr(SizeX(uuid)) & vbCrLf _
-        & "SizeY = " & CStr(SizeY(uuid)) & vbCrLf _
-        & "Enabled = " & CStr(RegionEnabled(uuid)) & vbCrLf _
-        & "NonPhysicalPrimMax = " & CStr(NonPhysicalPrimMax(uuid)) & vbCrLf _
-        & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(uuid)) & vbCrLf _
-        & "ClampPrimSize = " & CStr(ClampPrimSize(uuid)) & vbCrLf _
-        & "MaxPrims = " & MaxPrims(uuid) & vbCrLf _
+        & "SizeX = " & CStr(SizeX(RegionUUID)) & vbCrLf _
+        & "SizeY = " & CStr(SizeY(RegionUUID)) & vbCrLf _
+        & "Enabled = " & CStr(RegionEnabled(RegionUUID)) & vbCrLf _
+        & "NonPhysicalPrimMax = " & CStr(NonPhysicalPrimMax(RegionUUID)) & vbCrLf _
+        & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(RegionUUID)) & vbCrLf _
+        & "ClampPrimSize = " & CStr(ClampPrimSize(RegionUUID)) & vbCrLf _
+        & "MaxPrims = " & MaxPrims(RegionUUID) & vbCrLf _
         & "RegionType = " & Estate & vbCrLf _
         & "MaxAgents = 100" & vbCrLf & vbCrLf _
         & ";# Dreamgrid extended properties" & vbCrLf _
-        & "RegionSnapShot = " & RegionSnapShot(uuid) & vbCrLf _
-        & "MapType = " & MapType(uuid) & vbCrLf _
-        & "Physics = " & Physics(uuid) & vbCrLf _
-        & "GodDefault = " & GodDefault(uuid) & vbCrLf _
-        & "AllowGods = " & AllowGods(uuid) & vbCrLf _
-        & "RegionGod = " & RegionGod(uuid) & vbCrLf _
-        & "ManagerGod = " & ManagerGod(uuid) & vbCrLf _
-        & "Birds = " & Birds(uuid) & vbCrLf _
-        & "Tides = " & Tides(uuid) & vbCrLf _
-        & "Teleport = " & Teleport(uuid) & vbCrLf _
-        & "DisableGloebits = " & DisableGloebits(uuid) & vbCrLf _
-        & "DisallowForeigners = " & DisallowForeigners(uuid) & vbCrLf _
-        & "DisallowResidents = " & DisallowResidents(uuid) & vbCrLf _
-        & "MinTimerInterval =" & MinTimerInterval(uuid) & vbCrLf _
-        & "Frametime =" & FrameTime(uuid) & vbCrLf _
-        & "ScriptEngine =" & ScriptEngine(uuid) & vbCrLf _
-        & "Publicity =" & GDPR(uuid) & vbCrLf _
-        & "Concierge =" & Concierge(uuid) & vbCrLf _
-        & "SmartStart =" & SmartStart(uuid) & vbCrLf _
-        & "LandingSpot =" & LandingSpot(uuid) & vbCrLf
+        & "RegionSnapShot = " & RegionSnapShot(RegionUUID) & vbCrLf _
+        & "MapType = " & MapType(RegionUUID) & vbCrLf _
+        & "Physics = " & Physics(RegionUUID) & vbCrLf _
+        & "GodDefault = " & GodDefault(RegionUUID) & vbCrLf _
+        & "AllowGods = " & AllowGods(RegionUUID) & vbCrLf _
+        & "RegionGod = " & RegionGod(RegionUUID) & vbCrLf _
+        & "ManagerGod = " & ManagerGod(RegionUUID) & vbCrLf _
+        & "Birds = " & Birds(RegionUUID) & vbCrLf _
+        & "Tides = " & Tides(RegionUUID) & vbCrLf _
+        & "Teleport = " & Teleport(RegionUUID) & vbCrLf _
+        & "DisableGloebits = " & DisableGloebits(RegionUUID) & vbCrLf _
+        & "DisallowForeigners = " & DisallowForeigners(RegionUUID) & vbCrLf _
+        & "DisallowResidents = " & DisallowResidents(RegionUUID) & vbCrLf _
+        & "MinTimerInterval =" & MinTimerInterval(RegionUUID) & vbCrLf _
+        & "Frametime =" & FrameTime(RegionUUID) & vbCrLf _
+        & "ScriptEngine =" & ScriptEngine(RegionUUID) & vbCrLf _
+        & "Publicity =" & GDPR(RegionUUID) & vbCrLf _
+        & "Concierge =" & Concierge(RegionUUID) & vbCrLf _
+        & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf _
+        & "LandingSpot =" & LandingSpot(RegionUUID) & vbCrLf
 
         DeleteFile(fname)
 
@@ -339,11 +339,62 @@ Public Class RegionMaker
             BreakPoint.Show(ex.Message)
         End Try
 
+        Add_To_Region_Map(RegionUUID)
+
     End Sub
 
 #End Region
 
 #Region "Functions"
+
+    Public Sub Add_To_Region_Map(RegionUUID As String)
+
+        ' add to the global map this entire DOS box
+        Dim Xloc = CoordX(RegionUUID)
+        Dim Yloc = CoordY(RegionUUID)
+        Dim Name = RegionName(RegionUUID)
+
+        ' draw a box at this size plus the pull down size.
+        For Each UUID In RegionUuidListByName(Name)
+            Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
+            For Xstep = 0 To SimSize - 1
+                For Ystep = 0 To SimSize - 1
+                    Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
+                    If Not Map.ContainsKey(gr) Then Map.Add(gr, UUID)
+                Next
+            Next
+        Next
+
+    End Sub
+
+    Public Function AvatarIsNearby(RegionUUID As String) As Boolean
+
+        Dim Xloc = PropRegionClass.CoordX(RegionUUID)
+        Dim Yloc = PropRegionClass.CoordY(RegionUUID)
+        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+
+        Dim CenterSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
+
+        ' draw a square around the new sim
+        Dim X1 = Xloc - Settings.Skirtsize
+        Dim X2 = Xloc + Settings.Skirtsize - 1 + CenterSize
+        Dim Y1 = Yloc - Settings.Skirtsize
+        Dim Y2 = Yloc + Settings.Skirtsize - 1 + CenterSize
+
+        For XPos As Integer = X1 To X2 Step 1
+            For Ypos As Integer = Y1 To Y2 Step 1
+                Dim gr As String = $"{XPos},{Ypos}"
+                If Map.ContainsKey(gr) Then
+                    If IsAgentInRegion(Map.Item(gr)) Then
+                        Return True
+                    End If
+                End If
+            Next
+        Next
+
+        Return False
+
+    End Function
 
     Public Function CheckOverLap() As Boolean
 
@@ -393,6 +444,26 @@ Public Class RegionMaker
 
     End Function
 
+    Public Sub Delete_Region_Map(RegionUUID As String)
+
+        ' add to the global map this entire DOS box
+        Dim Xloc = PropRegionClass.CoordX(RegionUUID)
+        Dim Yloc = PropRegionClass.CoordY(RegionUUID)
+        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+
+        ' draw a box at this size plus the pull down size.
+        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+            Dim SimSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
+            For Xstep = 0 To SimSize - 1
+                For Ystep = 0 To SimSize - 1
+                    Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
+                    If Map.ContainsKey(gr) Then Map.Remove(gr)
+                Next
+            Next
+        Next
+
+    End Sub
+
     Public Function FindBackupByName(Name As String) As Integer
 
         Dim i As Integer = 0
@@ -408,6 +479,8 @@ Public Class RegionMaker
     End Function
 
     Public Function GetAllRegions() As Integer
+
+        'TODO Do not change ports on a running region!!!!
 
         If PropOpensimIsRunning Then Return 0
 
@@ -543,6 +616,7 @@ Public Class RegionMaker
 
                             End If
                             Settings.SaveINI(ini, System.Text.Encoding.UTF8)
+                            Add_To_Region_Map(uuid)
                             Application.DoEvents()
                         Next
                     Catch ex As Exception
@@ -1801,8 +1875,7 @@ Public Class RegionMaker
 
             If Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False") Then Return True
 
-
-                If Not Settings.LSLHTTP Then
+            If Not Settings.LSLHTTP Then
                 If Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.LANIP() & ":" & Settings.DiagnosticPort & "|" & Settings.LANIP() & ":" & Settings.HttpPort) Then Return True
             End If
 
