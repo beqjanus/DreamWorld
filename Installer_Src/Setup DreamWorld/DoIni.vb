@@ -195,7 +195,48 @@ Module DoIni
         Dim d = IO.Path.Combine(Settings.OpensimBinPath, "config-include\")
         d = IO.Path.Combine(d, "GridCommon.ini")
 
-        CopyFileFast(s, d)
+        ' set the defaults in the INI for the viewer to use. Painful to do as it's a Left hand side edit
+        Dim reader As IO.StreamReader
+        Dim line As String
+
+        Try
+            ' make a long list of the various regions with region_ at the start
+            Dim Authorizationlist As String = ""
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+
+                RegionName += RegionName.Replace(" ", "_")
+
+                If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
+                    Authorizationlist += $"Region_{RegionName}=DisallowForeigners{vbCrLf}"
+                End If
+
+                If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
+                    Authorizationlist += $"Region_{RegionName}=DisallowResidents{vbCrLf}"
+                End If
+            Next
+
+            Using outputFile As New StreamWriter(d)
+                reader = System.IO.File.OpenText(s)
+                'now loop through each line
+                While reader.Peek <> -1
+                    line = reader.ReadLine()
+                    Dim Output As String = Nothing
+                    'Diagnostics.Debug.Print(line)
+                    If line.StartsWith("; START", StringComparison.InvariantCulture) Then
+                        Output += line & vbCrLf ' add back on the ; START
+                        Output += Authorizationlist
+                    Else
+                        Output += line & vbCrLf
+                    End If
+                    outputFile.WriteLine(Output)
+                End While
+            End Using
+            'close your reader
+            reader.Close()
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
         Dim filename = Settings.LoadIni(d, ";")
         If filename Is Nothing Then Return True
@@ -205,12 +246,13 @@ Module DoIni
 
         ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling ;; and available when they return. True by default.
         If Settings.Suitcase Then
-            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "true")
+            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "True")
         Else
-            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "false")
+            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "False")
         End If
 
         Settings.SaveINI(filename, System.Text.Encoding.UTF8)
+
         Return False
 
     End Function
@@ -255,7 +297,7 @@ Module DoIni
                               "     <client-timeout>30</client-timeout>" & vbCrLf +
                               "    <header-timeout>15</header-timeout>" & vbCrLf +
                               "    <source-timeout>10</source-timeout>" & vbCrLf +
-                              "    <burst-on-connect>1</burst-on-connect>" & vbCrLf +
+                              "    <burst-On-connect>1</burst-On-connect>" & vbCrLf +
                               "    <burst-size>65535</burst-size>" & vbCrLf +
                               "</limits>" & vbCrLf +
                               "<authentication>" & vbCrLf +
@@ -272,11 +314,11 @@ Module DoIni
                                   "<logdir>./log</logdir>" & vbCrLf +
                                   "<webroot>./web</webroot>" & vbCrLf +
                                   "<adminroot>./admin</adminroot>" & vbCrLf &  '
-                                   "<alias source=" & """" & "/" & """" & " destination=" & """" & "/status.xsl" & """" & "/>" & vbCrLf +
+                                   "<Alias source=" & """" & "/" & """" & " destination=" & """" & "/status.xsl" & """" & "/>" & vbCrLf +
                               "</paths>" & vbCrLf +
                               "<logging>" & vbCrLf +
                                   "<accesslog>access.log</accesslog>" & vbCrLf +
-                                  "<errorlog>error.log</errorlog>" & vbCrLf +
+                                  "<errorlog>Error.log</errorlog>" & vbCrLf +
                                   "<loglevel>3</loglevel>" & vbCrLf +
                                   "<logsize>10000</logsize>" & vbCrLf +
                               "</logging>" & vbCrLf +
@@ -375,17 +417,6 @@ Module DoIni
 
             ' make a long list of the various regions with region_ at the start
             For Each RegionUUID As String In PropRegionClass.RegionUuids
-
-                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
-
-                Dim Authorizationlist As String = ""
-                If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
-                    Authorizationlist += ", DisallowForeigners"
-                End If
-
-                If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
-                    Authorizationlist += ", DisallowResidents"
-                End If
 
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
                 If RegionName = DefaultName Then

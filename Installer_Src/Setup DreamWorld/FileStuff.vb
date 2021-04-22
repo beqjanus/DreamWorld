@@ -253,6 +253,8 @@ Module FileStuff
 
     Public Sub ExpireLogsByAge()
 
+        ' Hourly
+
         If Not Settings.DeleteByDate Then Return
         Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache"))
         Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs"))
