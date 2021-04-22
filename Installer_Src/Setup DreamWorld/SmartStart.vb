@@ -374,7 +374,7 @@ Module SmartStart
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
-        Dim TheDate As Date = Date.Now()
+
 
         '  If BootName = "Combat" Then
         '  BreakPoint.Show("")
@@ -492,7 +492,7 @@ Module SmartStart
                 ' Mark them before we boot as a crash will immediately trigger the event that it exited
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
-                    PropRegionClass.Timer(RegionUUID) = TheDate
+                    PropRegionClass.Timer(RegionUUID) = Date.Now()
                 Next
             Else
                 BreakPoint.Show("No PID for " & GroupName)
@@ -561,15 +561,13 @@ Module SmartStart
     ''' <param name="RegionUUID">Region UUID</param>
     ''' <returns>True of region is booting</returns>
     Public Function WaitForBooting(RegionUUID As String) As Boolean
-        ' TODO remove shutdown, do a more gracful fail mode
+
         Dim c As Integer = 60
         While c > 0
 
             c -= 1
             If c = 0 Then
                 BreakPoint.Show("Timeout")
-                ShutDown(RegionUUID)
-                ConsoleCommand(RegionUUID, "q{ENTER}")
                 Return False
             End If
 
@@ -577,7 +575,7 @@ Module SmartStart
                 Exit While
             End If
 
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            'Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
             Sleep(1000)
 
         End While
