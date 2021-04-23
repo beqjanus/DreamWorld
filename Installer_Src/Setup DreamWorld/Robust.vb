@@ -475,7 +475,6 @@ Module Robust
             Return
         End If
         RobustCrashCounter = 0
-        RobustIcon(False)
 
         Dim yesno = MsgBox(My.Resources.Robust_exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then

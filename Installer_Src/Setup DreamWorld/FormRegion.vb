@@ -49,7 +49,7 @@ Public Class FormRegion
         GroupBox6.Text = Global.Outworldz.My.Resources.Region_Specific_Settings_word
         GroupBox7.Text = Global.Outworldz.My.Resources.Modules_word
         GroupBox8.Text = Global.Outworldz.My.Resources.Script_Engine_word  '
-        Label16.Text = Global.Outworldz.My.Resources.Region_Port_word
+
         Label4.Text = Global.Outworldz.My.Resources.Maps_X
         ManagerGod.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
         MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
@@ -78,8 +78,6 @@ Public Class FormRegion
         SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Smart_Start_word
         Text = Global.Outworldz.My.Resources.Regions_word
         TidesCheckbox.Text = Global.Outworldz.My.Resources.Tide_Enable
-        ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
-        ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         ToolTip1.SetToolTip(AllowGods, Global.Outworldz.My.Resources.AllowGodsTooltip)
         ToolTip1.SetToolTip(BirdsCheckBox, Global.Outworldz.My.Resources.GBoids)
         ToolTip1.SetToolTip(ClampPrimLabel, Global.Outworldz.My.Resources.ClampSize)
@@ -262,7 +260,7 @@ Public Class FormRegion
             ClampPrimSize.Checked = PropRegionClass.ClampPrimSize(RegionUUID)
             MaxPrims.Text = PropRegionClass.MaxPrims(RegionUUID)
             MaxAgents.Text = PropRegionClass.MaxAgents(RegionUUID)
-            RegionPort.Text = PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture)
+
             ' Size buttons can be zero
             If PropRegionClass.SizeY(RegionUUID) = 0 Or PropRegionClass.SizeX(RegionUUID) = 0 Then
                 RadioButton1.Checked = True
@@ -372,6 +370,8 @@ Public Class FormRegion
             Case "True"
                 DisableGBCheckBox.Checked = True
         End Select
+
+        RichTextBoxMap.Text = My.Resources.MapText
 
         RName1 = Name
 
@@ -1029,7 +1029,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs)
 
         HelpManual("Region")
 
@@ -1283,7 +1283,6 @@ Public Class FormRegion
                             "RegionUUID = " & UUID.Text & vbCrLf &
                             "Location = " & CoordX.Text & "," & CoordY.Text & vbCrLf &
                             "InternalAddress = 0.0.0.0" & vbCrLf &
-                            "InternalPort = " & RegionPort.Text & vbCrLf &
                             "AllowAlternatePorts = False" & vbCrLf &
                             "ExternalHostName = " & Settings.ExternalHostName & vbCrLf &
                             "SizeX = " & BoxSize & vbCrLf &
@@ -1552,6 +1551,7 @@ Public Class FormRegion
         End If
 
     End Sub
+
     ' TODO: Add more physics overrides
     Private Sub XEngineButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
 
@@ -1604,8 +1604,6 @@ Public Class FormRegion
     Private Sub RadioButton17_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
-
-
 
 #End Region
 

@@ -5504,6 +5504,21 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Suggestion: Leave maps off.  Use Best maps once, then disable. 
+        '''•	None:  No maps will be made. This is a good setting as the regions will boot very quickly.  Any existing maps are not deleted.
+        '''•	Simple but Fast: MapImageModule is used with just Land showing
+        '''•	Good:  Uses Warp3D module with just Land showing
+        '''•	Better: Uses Warp3D module with Land, Prims, and land Textures showing
+        '''•	Best: Uses Warp3D module with Land, Prims, Mesh, Sculpts, and all Textures including prims showing.
+        '''.
+        '''</summary>
+        Friend ReadOnly Property MapText() As String
+            Get
+                Return ResourceManager.GetString("MapText", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Map  X:.
         '''</summary>
         Friend ReadOnly Property Mapx() As String
