@@ -205,14 +205,14 @@ Module DoIni
             For Each RegionUUID As String In PropRegionClass.RegionUuids
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-                RegionName += RegionName.Replace(" ", "_")
+                RegionName = RegionName.Replace(" ", "_")
 
                 If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
-                    Authorizationlist += $"Region_{RegionName}=DisallowForeigners{vbCrLf}"
+                    Authorizationlist += $"Region_{RegionName}=DisallowForeigners{vbLf}"
                 End If
 
                 If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
-                    Authorizationlist += $"Region_{RegionName}=DisallowResidents{vbCrLf}"
+                    Authorizationlist += $"Region_{RegionName}=DisallowResidents{vbLf}"
                 End If
             Next
 
@@ -224,10 +224,10 @@ Module DoIni
                     Dim Output As String = Nothing
                     'Diagnostics.Debug.Print(line)
                     If line.StartsWith("; START", StringComparison.InvariantCulture) Then
-                        Output += line & vbCrLf ' add back on the ; START
+                        Output += line & vbLf ' add back on the ; START
                         Output += Authorizationlist
                     Else
-                        Output += line & vbCrLf
+                        Output += line
                     End If
                     outputFile.WriteLine(Output)
                 End While
@@ -419,18 +419,17 @@ Module DoIni
             For Each RegionUUID As String In PropRegionClass.RegionUuids
 
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-                If RegionName = DefaultName Then
-                    RegionSetting += $"Region_{Welcome}=DefaultRegion,DefaultHGRegion"
+                RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
+                If PropRegionClass.RegionName(RegionUUID) = DefaultName Then
+                    RegionSetting += $"Region_{Welcome}=DefaultRegion{vbCrLf}"
                 Else
                     If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
-                        RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                        RegionSetting += $"Region_{RegionName}=Persistent{Authorizationlist}"
+                        RegionSetting += $"Region_{RegionName}=Persistent{vbCrLf}"
                     Else
-                        RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
-                        RegionSetting += $"Region_{RegionName}=FallbackRegion{Authorizationlist}"
+                        RegionSetting += $"Region_{RegionName}=FallbackRegion{vbCrLf}"
                     End If
                 End If
-                RegionSetting += vbCrLf
+
             Next
 
             Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini")
