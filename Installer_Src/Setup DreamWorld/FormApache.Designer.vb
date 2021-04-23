@@ -50,9 +50,9 @@ Partial Class FormApache
         Me.GroupBox2.Controls.Add(Me.ApachePort)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.ApacheCheckbox)
-        Me.GroupBox2.Location = New System.Drawing.Point(12, 58)
+        Me.GroupBox2.Location = New System.Drawing.Point(16, 37)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(220, 118)
+        Me.GroupBox2.Size = New System.Drawing.Size(197, 143)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Apache"
