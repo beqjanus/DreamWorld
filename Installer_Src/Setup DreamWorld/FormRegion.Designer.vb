@@ -39,27 +39,21 @@ Partial Class FormRegion
         Me.NonPhysPrimLabel = New System.Windows.Forms.Label()
         Me.PhysPrimLabel = New System.Windows.Forms.Label()
         Me.PhysicalPrimMax = New System.Windows.Forms.TextBox()
-        Me.ClampPrimLabel = New System.Windows.Forms.Label()
         Me.MaxNPrimsLabel = New System.Windows.Forms.Label()
         Me.MaxPrims = New System.Windows.Forms.TextBox()
         Me.NonphysicalPrimMax = New System.Windows.Forms.TextBox()
         Me.MaxMAvatarsLabel = New System.Windows.Forms.Label()
-        Me.ClampPrimSize = New System.Windows.Forms.CheckBox()
         Me.BirdsCheckBox = New System.Windows.Forms.CheckBox()
         Me.TidesCheckbox = New System.Windows.Forms.CheckBox()
         Me.TPCheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.AllowGods = New System.Windows.Forms.CheckBox()
-        Me.ManagerGod = New System.Windows.Forms.CheckBox()
-        Me.RegionGod = New System.Windows.Forms.CheckBox()
+        Me.GodLevel = New System.Windows.Forms.CheckBox()
+        Me.GodManager = New System.Windows.Forms.CheckBox()
+        Me.GodEstate = New System.Windows.Forms.CheckBox()
         Me.SmartStartCheckBox = New System.Windows.Forms.CheckBox()
-        Me.ScriptRateLabel = New System.Windows.Forms.Label()
-        Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
         Me.DisableGBCheckBox = New System.Windows.Forms.CheckBox()
         Me.DisallowForeigners = New System.Windows.Forms.CheckBox()
         Me.DisallowResidents = New System.Windows.Forms.CheckBox()
-        Me.FrametimeBox = New System.Windows.Forms.TextBox()
         Me.SkipAutoCheckBox = New System.Windows.Forms.CheckBox()
-        Me.FrameRateLabel = New System.Windows.Forms.Label()
         Me.RadioButton8 = New System.Windows.Forms.RadioButton()
         Me.RadioButton7 = New System.Windows.Forms.RadioButton()
         Me.RadioButton6 = New System.Windows.Forms.RadioButton()
@@ -72,10 +66,16 @@ Partial Class FormRegion
         Me.RadioButton15 = New System.Windows.Forms.RadioButton()
         Me.RadioButton14 = New System.Windows.Forms.RadioButton()
         Me.RadioButton13 = New System.Windows.Forms.RadioButton()
-        Me.Advanced = New System.Windows.Forms.GroupBox()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.FrameRateLabel = New System.Windows.Forms.Label()
+        Me.FrametimeBox = New System.Windows.Forms.TextBox()
+        Me.ScriptRateLabel = New System.Windows.Forms.Label()
+        Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
+        Me.ClampPrimSize = New System.Windows.Forms.CheckBox()
+        Me.ClampPrimLabel = New System.Windows.Forms.Label()
+        Me.RegionsGroupbox = New System.Windows.Forms.GroupBox()
+        Me.YLabel = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.XLabel = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.UUID = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -84,23 +84,25 @@ Partial Class FormRegion
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.DeleteButton = New System.Windows.Forms.Button()
         Me.EnabledCheckBox = New System.Windows.Forms.CheckBox()
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.ScriptsGroupbox = New System.Windows.Forms.GroupBox()
         Me.ScriptDefaultButton = New System.Windows.Forms.RadioButton()
         Me.XEngineButton = New System.Windows.Forms.RadioButton()
         Me.YEngineButton = New System.Windows.Forms.RadioButton()
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
-        Me.RichTextBoxModules = New System.Windows.Forms.RichTextBox()
+        Me.ModulesGroupBox = New System.Windows.Forms.GroupBox()
         Me.ConciergeCheckBox = New System.Windows.Forms.CheckBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.RichTextBoxModules = New System.Windows.Forms.RichTextBox()
+        Me.PublicityGroupBox = New System.Windows.Forms.GroupBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Hyperica = New System.Windows.Forms.LinkLabel()
+        Me.APIKey = New System.Windows.Forms.TextBox()
         Me.Publish = New System.Windows.Forms.RadioButton()
+        Me.Opensimworld = New System.Windows.Forms.LinkLabel()
         Me.NoPublish = New System.Windows.Forms.RadioButton()
         Me.PublishDefault = New System.Windows.Forms.RadioButton()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.RichTextBoxPermissions = New System.Windows.Forms.RichTextBox()
+        Me.PermissionsGroupbox = New System.Windows.Forms.GroupBox()
         Me.Gods_Use_Default = New System.Windows.Forms.CheckBox()
-        Me.MapBox = New System.Windows.Forms.GroupBox()
-        Me.RichTextBoxMap = New System.Windows.Forms.RichTextBox()
+        Me.RichTextBoxPermissions = New System.Windows.Forms.RichTextBox()
+        Me.MapGroupBox = New System.Windows.Forms.GroupBox()
         Me.Maps_Use_Default = New System.Windows.Forms.RadioButton()
         Me.MapPicture = New System.Windows.Forms.PictureBox()
         Me.MapNone = New System.Windows.Forms.RadioButton()
@@ -108,16 +110,27 @@ Partial Class FormRegion
         Me.MapBetter = New System.Windows.Forms.RadioButton()
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
+        Me.RichTextBoxMap = New System.Windows.Forms.RichTextBox()
         Me.DeregisterButton = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BasicsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MapsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PhysicsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ScriptsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PermissionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PublicityToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ModulesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.Basics = New System.Windows.Forms.TabPage()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Options = New System.Windows.Forms.TabPage()
+        Me.RichTextBoxOptions = New System.Windows.Forms.RichTextBox()
         Me.Maps = New System.Windows.Forms.TabPage()
         Me.Physics = New System.Windows.Forms.TabPage()
         Me.RichTextBoxPhysics = New System.Windows.Forms.RichTextBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.PhysicsGroupbox = New System.Windows.Forms.GroupBox()
         Me.Physics_ODE = New System.Windows.Forms.RadioButton()
         Me.Physics_Hybrid = New System.Windows.Forms.RadioButton()
         Me.Physics_Bullet = New System.Windows.Forms.RadioButton()
@@ -128,35 +141,32 @@ Partial Class FormRegion
         Me.RichTextBoxScripts = New System.Windows.Forms.RichTextBox()
         Me.Permissions = New System.Windows.Forms.TabPage()
         Me.Publicity = New System.Windows.Forms.TabPage()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Opensimworld = New System.Windows.Forms.LinkLabel()
+        Me.RichTextBoxPublicity = New System.Windows.Forms.RichTextBox()
         Me.Modules = New System.Windows.Forms.TabPage()
-        Me.Advanced.SuspendLayout()
+        Me.RegionsGroupbox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        Me.GroupBox8.SuspendLayout()
-        Me.GroupBox7.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
-        Me.MapBox.SuspendLayout()
+        Me.ScriptsGroupbox.SuspendLayout()
+        Me.ModulesGroupBox.SuspendLayout()
+        Me.PublicityGroupBox.SuspendLayout()
+        Me.PermissionsGroupbox.SuspendLayout()
+        Me.MapGroupBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip2.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.Basics.SuspendLayout()
         Me.Options.SuspendLayout()
         Me.Maps.SuspendLayout()
         Me.Physics.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.PhysicsGroupbox.SuspendLayout()
         Me.Scripts.SuspendLayout()
         Me.Permissions.SuspendLayout()
         Me.Publicity.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
         Me.Modules.SuspendLayout()
         Me.SuspendLayout()
         '
         'CoordY
         '
-        Me.CoordY.Location = New System.Drawing.Point(133, 26)
+        Me.CoordY.Location = New System.Drawing.Point(78, 22)
         Me.CoordY.Name = "CoordY"
         Me.CoordY.Size = New System.Drawing.Size(43, 20)
         Me.CoordY.TabIndex = 2
@@ -164,18 +174,18 @@ Partial Class FormRegion
         '
         'CoordX
         '
-        Me.CoordX.Location = New System.Drawing.Point(67, 26)
+        Me.CoordX.Location = New System.Drawing.Point(12, 22)
         Me.CoordX.Name = "CoordX"
         Me.CoordX.Size = New System.Drawing.Size(40, 20)
-        Me.CoordX.TabIndex = 1
+        Me.CoordX.TabIndex = 0
         Me.ToolTip1.SetToolTip(Me.CoordX, Global.Outworldz.My.Resources.Resources.Coordx)
         '
         'RegionName
         '
-        Me.RegionName.Location = New System.Drawing.Point(95, 16)
+        Me.RegionName.Location = New System.Drawing.Point(16, 28)
         Me.RegionName.Name = "RegionName"
-        Me.RegionName.Size = New System.Drawing.Size(183, 20)
-        Me.RegionName.TabIndex = 3
+        Me.RegionName.Size = New System.Drawing.Size(219, 20)
+        Me.RegionName.TabIndex = 0
         Me.ToolTip1.SetToolTip(Me.RegionName, Global.Outworldz.My.Resources.Resources.Region_Name)
         '
         'RadioButton4
@@ -184,7 +194,7 @@ Partial Class FormRegion
         Me.RadioButton4.Location = New System.Drawing.Point(20, 85)
         Me.RadioButton4.Name = "RadioButton4"
         Me.RadioButton4.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton4.TabIndex = 6
+        Me.RadioButton4.TabIndex = 3
         Me.RadioButton4.TabStop = True
         Me.RadioButton4.Text = "4 X 4"
         Me.ToolTip1.SetToolTip(Me.RadioButton4, "1024 X 1024")
@@ -196,7 +206,7 @@ Partial Class FormRegion
         Me.RadioButton3.Location = New System.Drawing.Point(20, 63)
         Me.RadioButton3.Name = "RadioButton3"
         Me.RadioButton3.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton3.TabIndex = 5
+        Me.RadioButton3.TabIndex = 2
         Me.RadioButton3.TabStop = True
         Me.RadioButton3.Text = "3 X 3"
         Me.ToolTip1.SetToolTip(Me.RadioButton3, "768 X 768")
@@ -208,7 +218,7 @@ Partial Class FormRegion
         Me.RadioButton2.Location = New System.Drawing.Point(20, 39)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton2.TabIndex = 4
+        Me.RadioButton2.TabIndex = 1
         Me.RadioButton2.TabStop = True
         Me.RadioButton2.Text = "2 X 2"
         Me.ToolTip1.SetToolTip(Me.RadioButton2, "512 X 512")
@@ -220,7 +230,7 @@ Partial Class FormRegion
         Me.RadioButton1.Location = New System.Drawing.Point(20, 16)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton1.TabIndex = 3
+        Me.RadioButton1.TabIndex = 0
         Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "1 X 1"
         Me.ToolTip1.SetToolTip(Me.RadioButton1, "256 X 256")
@@ -228,10 +238,10 @@ Partial Class FormRegion
         '
         'MaxAgents
         '
-        Me.MaxAgents.Location = New System.Drawing.Point(12, 121)
+        Me.MaxAgents.Location = New System.Drawing.Point(12, 130)
         Me.MaxAgents.Name = "MaxAgents"
         Me.MaxAgents.Size = New System.Drawing.Size(40, 20)
-        Me.MaxAgents.TabIndex = 16
+        Me.MaxAgents.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.MaxAgents, Global.Outworldz.My.Resources.Resources.Max_Agents)
         '
         'NonPhysPrimLabel
@@ -247,7 +257,7 @@ Partial Class FormRegion
         'PhysPrimLabel
         '
         Me.PhysPrimLabel.AutoSize = True
-        Me.PhysPrimLabel.Location = New System.Drawing.Point(65, 81)
+        Me.PhysPrimLabel.Location = New System.Drawing.Point(64, 82)
         Me.PhysPrimLabel.Name = "PhysPrimLabel"
         Me.PhysPrimLabel.Size = New System.Drawing.Size(115, 13)
         Me.PhysPrimLabel.TabIndex = 11
@@ -256,26 +266,16 @@ Partial Class FormRegion
         '
         'PhysicalPrimMax
         '
-        Me.PhysicalPrimMax.Location = New System.Drawing.Point(12, 77)
+        Me.PhysicalPrimMax.Location = New System.Drawing.Point(11, 78)
         Me.PhysicalPrimMax.Name = "PhysicalPrimMax"
         Me.PhysicalPrimMax.Size = New System.Drawing.Size(40, 20)
-        Me.PhysicalPrimMax.TabIndex = 10
+        Me.PhysicalPrimMax.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.PhysicalPrimMax, Global.Outworldz.My.Resources.Resources.Max_Phys)
-        '
-        'ClampPrimLabel
-        '
-        Me.ClampPrimLabel.AutoSize = True
-        Me.ClampPrimLabel.Location = New System.Drawing.Point(296, 82)
-        Me.ClampPrimLabel.Name = "ClampPrimLabel"
-        Me.ClampPrimLabel.Size = New System.Drawing.Size(82, 13)
-        Me.ClampPrimLabel.TabIndex = 13
-        Me.ClampPrimLabel.Text = "Clamp Prim Size"
-        Me.ToolTip1.SetToolTip(Me.ClampPrimLabel, Global.Outworldz.My.Resources.Resources.ClampSize)
         '
         'MaxNPrimsLabel
         '
         Me.MaxNPrimsLabel.AutoSize = True
-        Me.MaxNPrimsLabel.Location = New System.Drawing.Point(65, 102)
+        Me.MaxNPrimsLabel.Location = New System.Drawing.Point(65, 108)
         Me.MaxNPrimsLabel.Name = "MaxNPrimsLabel"
         Me.MaxNPrimsLabel.Size = New System.Drawing.Size(160, 13)
         Me.MaxNPrimsLabel.TabIndex = 15
@@ -284,10 +284,10 @@ Partial Class FormRegion
         '
         'MaxPrims
         '
-        Me.MaxPrims.Location = New System.Drawing.Point(12, 98)
+        Me.MaxPrims.Location = New System.Drawing.Point(12, 104)
         Me.MaxPrims.Name = "MaxPrims"
         Me.MaxPrims.Size = New System.Drawing.Size(40, 20)
-        Me.MaxPrims.TabIndex = 14
+        Me.MaxPrims.TabIndex = 3
         Me.ToolTip1.SetToolTip(Me.MaxPrims, Global.Outworldz.My.Resources.Resources.Not_Normal)
         '
         'NonphysicalPrimMax
@@ -295,28 +295,18 @@ Partial Class FormRegion
         Me.NonphysicalPrimMax.Location = New System.Drawing.Point(12, 53)
         Me.NonphysicalPrimMax.Name = "NonphysicalPrimMax"
         Me.NonphysicalPrimMax.Size = New System.Drawing.Size(40, 20)
-        Me.NonphysicalPrimMax.TabIndex = 8
+        Me.NonphysicalPrimMax.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.NonphysicalPrimMax, Global.Outworldz.My.Resources.Resources.Normal_Prim)
         '
         'MaxMAvatarsLabel
         '
         Me.MaxMAvatarsLabel.AutoSize = True
-        Me.MaxMAvatarsLabel.Location = New System.Drawing.Point(65, 125)
+        Me.MaxMAvatarsLabel.Location = New System.Drawing.Point(65, 134)
         Me.MaxMAvatarsLabel.Name = "MaxMAvatarsLabel"
         Me.MaxMAvatarsLabel.Size = New System.Drawing.Size(155, 13)
         Me.MaxMAvatarsLabel.TabIndex = 17
         Me.MaxMAvatarsLabel.Text = "Max number of Avatars + NPCs"
         Me.ToolTip1.SetToolTip(Me.MaxMAvatarsLabel, Global.Outworldz.My.Resources.Resources.Max_Agents)
-        '
-        'ClampPrimSize
-        '
-        Me.ClampPrimSize.AutoSize = True
-        Me.ClampPrimSize.Location = New System.Drawing.Point(239, 81)
-        Me.ClampPrimSize.Name = "ClampPrimSize"
-        Me.ClampPrimSize.Size = New System.Drawing.Size(15, 14)
-        Me.ClampPrimSize.TabIndex = 12
-        Me.ToolTip1.SetToolTip(Me.ClampPrimSize, Global.Outworldz.My.Resources.Resources.ClampSize)
-        Me.ClampPrimSize.UseVisualStyleBackColor = True
         '
         'BirdsCheckBox
         '
@@ -351,67 +341,49 @@ Partial Class FormRegion
         Me.ToolTip1.SetToolTip(Me.TPCheckBox1, Global.Outworldz.My.Resources.Resources.Teleport_Tooltip)
         Me.TPCheckBox1.UseVisualStyleBackColor = True
         '
-        'AllowGods
+        'GodLevel
         '
-        Me.AllowGods.AutoSize = True
-        Me.AllowGods.Location = New System.Drawing.Point(15, 52)
-        Me.AllowGods.Name = "AllowGods"
-        Me.AllowGods.Size = New System.Drawing.Size(138, 17)
-        Me.AllowGods.TabIndex = 1
-        Me.AllowGods.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
-        Me.ToolTip1.SetToolTip(Me.AllowGods, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
-        Me.AllowGods.UseVisualStyleBackColor = True
+        Me.GodLevel.AutoSize = True
+        Me.GodLevel.Location = New System.Drawing.Point(15, 52)
+        Me.GodLevel.Name = "GodLevel"
+        Me.GodLevel.Size = New System.Drawing.Size(138, 17)
+        Me.GodLevel.TabIndex = 1
+        Me.GodLevel.Text = Global.Outworldz.My.Resources.Resources.Allow_Or_Disallow_Gods_word
+        Me.ToolTip1.SetToolTip(Me.GodLevel, Global.Outworldz.My.Resources.Resources.AllowGodsTooltip)
+        Me.GodLevel.UseVisualStyleBackColor = True
         '
-        'ManagerGod
+        'GodManager
         '
-        Me.ManagerGod.AutoSize = True
-        Me.ManagerGod.Location = New System.Drawing.Point(15, 99)
-        Me.ManagerGod.Name = "ManagerGod"
-        Me.ManagerGod.Size = New System.Drawing.Size(132, 17)
-        Me.ManagerGod.TabIndex = 3
-        Me.ManagerGod.Text = Global.Outworldz.My.Resources.Resources.EstateManagerIsGod_word
-        Me.ToolTip1.SetToolTip(Me.ManagerGod, Global.Outworldz.My.Resources.Resources.EMGod)
-        Me.ManagerGod.UseVisualStyleBackColor = True
+        Me.GodManager.AutoSize = True
+        Me.GodManager.Location = New System.Drawing.Point(15, 99)
+        Me.GodManager.Name = "GodManager"
+        Me.GodManager.Size = New System.Drawing.Size(132, 17)
+        Me.GodManager.TabIndex = 3
+        Me.GodManager.Text = Global.Outworldz.My.Resources.Resources.EstateManagerIsGod_word
+        Me.ToolTip1.SetToolTip(Me.GodManager, Global.Outworldz.My.Resources.Resources.EMGod)
+        Me.GodManager.UseVisualStyleBackColor = True
         '
-        'RegionGod
+        'GodEstate
         '
-        Me.RegionGod.AutoSize = True
-        Me.RegionGod.Location = New System.Drawing.Point(15, 75)
-        Me.RegionGod.Name = "RegionGod"
-        Me.RegionGod.Size = New System.Drawing.Size(127, 17)
-        Me.RegionGod.TabIndex = 2
-        Me.RegionGod.Text = Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word
-        Me.ToolTip1.SetToolTip(Me.RegionGod, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
-        Me.RegionGod.UseVisualStyleBackColor = True
+        Me.GodEstate.AutoSize = True
+        Me.GodEstate.Location = New System.Drawing.Point(15, 75)
+        Me.GodEstate.Name = "GodEstate"
+        Me.GodEstate.Size = New System.Drawing.Size(127, 17)
+        Me.GodEstate.TabIndex = 2
+        Me.GodEstate.Text = Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word
+        Me.ToolTip1.SetToolTip(Me.GodEstate, Global.Outworldz.My.Resources.Resources.Region_Owner_Is_God_word)
+        Me.GodEstate.UseVisualStyleBackColor = True
         '
         'SmartStartCheckBox
         '
         Me.SmartStartCheckBox.AutoSize = True
-        Me.SmartStartCheckBox.Location = New System.Drawing.Point(382, 20)
+        Me.SmartStartCheckBox.Location = New System.Drawing.Point(16, 78)
         Me.SmartStartCheckBox.Name = "SmartStartCheckBox"
         Me.SmartStartCheckBox.Size = New System.Drawing.Size(78, 17)
         Me.SmartStartCheckBox.TabIndex = 2
         Me.SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Resources.Smart_Start_word
         Me.ToolTip1.SetToolTip(Me.SmartStartCheckBox, Global.Outworldz.My.Resources.Resources.GTide)
         Me.SmartStartCheckBox.UseVisualStyleBackColor = True
-        '
-        'ScriptRateLabel
-        '
-        Me.ScriptRateLabel.AutoSize = True
-        Me.ScriptRateLabel.Location = New System.Drawing.Point(296, 26)
-        Me.ScriptRateLabel.Name = "ScriptRateLabel"
-        Me.ScriptRateLabel.Size = New System.Drawing.Size(113, 13)
-        Me.ScriptRateLabel.TabIndex = 19
-        Me.ScriptRateLabel.Text = "Script Timer Rate (0.2)"
-        Me.ToolTip1.SetToolTip(Me.ScriptRateLabel, Global.Outworldz.My.Resources.Resources.Script_Timer_Text)
-        '
-        'ScriptTimerTextBox
-        '
-        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(239, 26)
-        Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
-        Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
-        Me.ScriptTimerTextBox.TabIndex = 18
-        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, Global.Outworldz.My.Resources.Resources.STComment)
         '
         'DisableGBCheckBox
         '
@@ -446,14 +418,6 @@ Partial Class FormRegion
         Me.ToolTip1.SetToolTip(Me.DisallowResidents, Global.Outworldz.My.Resources.Resources.Only_Owners)
         Me.DisallowResidents.UseVisualStyleBackColor = True
         '
-        'FrametimeBox
-        '
-        Me.FrametimeBox.Location = New System.Drawing.Point(239, 54)
-        Me.FrametimeBox.Name = "FrametimeBox"
-        Me.FrametimeBox.Size = New System.Drawing.Size(40, 20)
-        Me.FrametimeBox.TabIndex = 20
-        Me.ToolTip1.SetToolTip(Me.FrametimeBox, Global.Outworldz.My.Resources.Resources.FrameTime)
-        '
         'SkipAutoCheckBox
         '
         Me.SkipAutoCheckBox.AutoSize = True
@@ -465,23 +429,13 @@ Partial Class FormRegion
         Me.ToolTip1.SetToolTip(Me.SkipAutoCheckBox, Global.Outworldz.My.Resources.Resources.WillNotSave)
         Me.SkipAutoCheckBox.UseVisualStyleBackColor = True
         '
-        'FrameRateLabel
-        '
-        Me.FrameRateLabel.AutoSize = True
-        Me.FrameRateLabel.Location = New System.Drawing.Point(296, 54)
-        Me.FrameRateLabel.Name = "FrameRateLabel"
-        Me.FrameRateLabel.Size = New System.Drawing.Size(104, 13)
-        Me.FrameRateLabel.TabIndex = 21
-        Me.FrameRateLabel.Text = "Frame Rate (0.0909)"
-        Me.ToolTip1.SetToolTip(Me.FrameRateLabel, Global.Outworldz.My.Resources.Resources.FRText)
-        '
         'RadioButton8
         '
         Me.RadioButton8.AutoSize = True
-        Me.RadioButton8.Location = New System.Drawing.Point(89, 83)
+        Me.RadioButton8.Location = New System.Drawing.Point(20, 176)
         Me.RadioButton8.Name = "RadioButton8"
         Me.RadioButton8.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton8.TabIndex = 10
+        Me.RadioButton8.TabIndex = 7
         Me.RadioButton8.TabStop = True
         Me.RadioButton8.Text = "8 X 8"
         Me.ToolTip1.SetToolTip(Me.RadioButton8, "2,048 X 2,048")
@@ -490,10 +444,10 @@ Partial Class FormRegion
         'RadioButton7
         '
         Me.RadioButton7.AutoSize = True
-        Me.RadioButton7.Location = New System.Drawing.Point(89, 60)
+        Me.RadioButton7.Location = New System.Drawing.Point(20, 153)
         Me.RadioButton7.Name = "RadioButton7"
         Me.RadioButton7.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton7.TabIndex = 9
+        Me.RadioButton7.TabIndex = 6
         Me.RadioButton7.TabStop = True
         Me.RadioButton7.Text = "7 X 7"
         Me.ToolTip1.SetToolTip(Me.RadioButton7, "1792 X 1792")
@@ -502,10 +456,10 @@ Partial Class FormRegion
         'RadioButton6
         '
         Me.RadioButton6.AutoSize = True
-        Me.RadioButton6.Location = New System.Drawing.Point(89, 37)
+        Me.RadioButton6.Location = New System.Drawing.Point(20, 130)
         Me.RadioButton6.Name = "RadioButton6"
         Me.RadioButton6.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton6.TabIndex = 8
+        Me.RadioButton6.TabIndex = 5
         Me.RadioButton6.TabStop = True
         Me.RadioButton6.Text = "6 X 6"
         Me.ToolTip1.SetToolTip(Me.RadioButton6, "1536 X 1536")
@@ -514,10 +468,10 @@ Partial Class FormRegion
         'RadioButton5
         '
         Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Location = New System.Drawing.Point(89, 15)
+        Me.RadioButton5.Location = New System.Drawing.Point(20, 108)
         Me.RadioButton5.Name = "RadioButton5"
         Me.RadioButton5.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton5.TabIndex = 7
+        Me.RadioButton5.TabIndex = 4
         Me.RadioButton5.TabStop = True
         Me.RadioButton5.Text = "5 X 5"
         Me.ToolTip1.SetToolTip(Me.RadioButton5, "1280 X 1280")
@@ -526,10 +480,10 @@ Partial Class FormRegion
         'RadioButton10
         '
         Me.RadioButton10.AutoSize = True
-        Me.RadioButton10.Location = New System.Drawing.Point(153, 37)
+        Me.RadioButton10.Location = New System.Drawing.Point(92, 38)
         Me.RadioButton10.Name = "RadioButton10"
         Me.RadioButton10.Size = New System.Drawing.Size(62, 17)
-        Me.RadioButton10.TabIndex = 12
+        Me.RadioButton10.TabIndex = 9
         Me.RadioButton10.TabStop = True
         Me.RadioButton10.Text = "10 X 10"
         Me.ToolTip1.SetToolTip(Me.RadioButton10, "2560 X 2560")
@@ -538,10 +492,10 @@ Partial Class FormRegion
         'RadioButton9
         '
         Me.RadioButton9.AutoSize = True
-        Me.RadioButton9.Location = New System.Drawing.Point(153, 15)
+        Me.RadioButton9.Location = New System.Drawing.Point(92, 16)
         Me.RadioButton9.Name = "RadioButton9"
         Me.RadioButton9.Size = New System.Drawing.Size(50, 17)
-        Me.RadioButton9.TabIndex = 11
+        Me.RadioButton9.TabIndex = 8
         Me.RadioButton9.TabStop = True
         Me.RadioButton9.Text = "9 X 9"
         Me.ToolTip1.SetToolTip(Me.RadioButton9, "2304 X 2304")
@@ -550,10 +504,10 @@ Partial Class FormRegion
         'RadioButton12
         '
         Me.RadioButton12.AutoSize = True
-        Me.RadioButton12.Location = New System.Drawing.Point(155, 83)
+        Me.RadioButton12.Location = New System.Drawing.Point(94, 84)
         Me.RadioButton12.Name = "RadioButton12"
         Me.RadioButton12.Size = New System.Drawing.Size(62, 17)
-        Me.RadioButton12.TabIndex = 14
+        Me.RadioButton12.TabIndex = 11
         Me.RadioButton12.TabStop = True
         Me.RadioButton12.Text = "12 X 12"
         Me.ToolTip1.SetToolTip(Me.RadioButton12, "3072 X 3072")
@@ -562,10 +516,10 @@ Partial Class FormRegion
         'RadioButton11
         '
         Me.RadioButton11.AutoSize = True
-        Me.RadioButton11.Location = New System.Drawing.Point(155, 60)
+        Me.RadioButton11.Location = New System.Drawing.Point(94, 61)
         Me.RadioButton11.Name = "RadioButton11"
         Me.RadioButton11.Size = New System.Drawing.Size(62, 17)
-        Me.RadioButton11.TabIndex = 13
+        Me.RadioButton11.TabIndex = 10
         Me.RadioButton11.TabStop = True
         Me.RadioButton11.Text = "11 X 11"
         Me.ToolTip1.SetToolTip(Me.RadioButton11, "2816 X 2816")
@@ -574,10 +528,10 @@ Partial Class FormRegion
         'RadioButton16
         '
         Me.RadioButton16.AutoSize = True
-        Me.RadioButton16.Location = New System.Drawing.Point(224, 83)
+        Me.RadioButton16.Location = New System.Drawing.Point(94, 176)
         Me.RadioButton16.Name = "RadioButton16"
         Me.RadioButton16.Size = New System.Drawing.Size(62, 17)
-        Me.RadioButton16.TabIndex = 18
+        Me.RadioButton16.TabIndex = 15
         Me.RadioButton16.TabStop = True
         Me.RadioButton16.Text = "16 X 16"
         Me.ToolTip1.SetToolTip(Me.RadioButton16, "4096 X 4096")
@@ -586,10 +540,10 @@ Partial Class FormRegion
         'RadioButton15
         '
         Me.RadioButton15.AutoSize = True
-        Me.RadioButton15.Location = New System.Drawing.Point(224, 60)
+        Me.RadioButton15.Location = New System.Drawing.Point(94, 153)
         Me.RadioButton15.Name = "RadioButton15"
         Me.RadioButton15.Size = New System.Drawing.Size(62, 17)
-        Me.RadioButton15.TabIndex = 17
+        Me.RadioButton15.TabIndex = 14
         Me.RadioButton15.TabStop = True
         Me.RadioButton15.Text = "15 X 15"
         Me.ToolTip1.SetToolTip(Me.RadioButton15, "3840 X 3840")
@@ -598,10 +552,10 @@ Partial Class FormRegion
         'RadioButton14
         '
         Me.RadioButton14.AutoSize = True
-        Me.RadioButton14.Location = New System.Drawing.Point(223, 37)
+        Me.RadioButton14.Location = New System.Drawing.Point(93, 130)
         Me.RadioButton14.Name = "RadioButton14"
         Me.RadioButton14.Size = New System.Drawing.Size(62, 17)
-        Me.RadioButton14.TabIndex = 16
+        Me.RadioButton14.TabIndex = 13
         Me.RadioButton14.TabStop = True
         Me.RadioButton14.Text = "14 X 14"
         Me.ToolTip1.SetToolTip(Me.RadioButton14, "3584 X 3584")
@@ -610,72 +564,124 @@ Partial Class FormRegion
         'RadioButton13
         '
         Me.RadioButton13.AutoSize = True
-        Me.RadioButton13.Location = New System.Drawing.Point(223, 15)
+        Me.RadioButton13.Location = New System.Drawing.Point(93, 108)
         Me.RadioButton13.Name = "RadioButton13"
         Me.RadioButton13.Size = New System.Drawing.Size(62, 17)
-        Me.RadioButton13.TabIndex = 15
+        Me.RadioButton13.TabIndex = 12
         Me.RadioButton13.TabStop = True
         Me.RadioButton13.Text = "13 X 13"
         Me.ToolTip1.SetToolTip(Me.RadioButton13, "3328 X 3328")
         Me.RadioButton13.UseVisualStyleBackColor = True
         '
-        'Advanced
+        'FrameRateLabel
         '
-        Me.Advanced.BackColor = System.Drawing.SystemColors.Window
-        Me.Advanced.Controls.Add(Me.Label7)
-        Me.Advanced.Controls.Add(Me.FrameRateLabel)
-        Me.Advanced.Controls.Add(Me.FrametimeBox)
-        Me.Advanced.Controls.Add(Me.ScriptRateLabel)
-        Me.Advanced.Controls.Add(Me.ScriptTimerTextBox)
-        Me.Advanced.Controls.Add(Me.ClampPrimSize)
-        Me.Advanced.Controls.Add(Me.MaxMAvatarsLabel)
-        Me.Advanced.Controls.Add(Me.ClampPrimLabel)
-        Me.Advanced.Controls.Add(Me.NonphysicalPrimMax)
-        Me.Advanced.Controls.Add(Me.MaxNPrimsLabel)
-        Me.Advanced.Controls.Add(Me.PhysicalPrimMax)
-        Me.Advanced.Controls.Add(Me.Label6)
-        Me.Advanced.Controls.Add(Me.PhysPrimLabel)
-        Me.Advanced.Controls.Add(Me.MaxPrims)
-        Me.Advanced.Controls.Add(Me.NonPhysPrimLabel)
-        Me.Advanced.Controls.Add(Me.MaxAgents)
-        Me.Advanced.Controls.Add(Me.Label4)
-        Me.Advanced.Controls.Add(Me.Label1)
-        Me.Advanced.Controls.Add(Me.UUID)
-        Me.Advanced.Controls.Add(Me.CoordY)
-        Me.Advanced.Controls.Add(Me.CoordX)
-        Me.Advanced.Location = New System.Drawing.Point(17, 11)
-        Me.Advanced.Name = "Advanced"
-        Me.Advanced.Size = New System.Drawing.Size(456, 197)
-        Me.Advanced.TabIndex = 26
-        Me.Advanced.TabStop = False
-        Me.Advanced.Text = "Regions"
+        Me.FrameRateLabel.AutoSize = True
+        Me.FrameRateLabel.Location = New System.Drawing.Point(72, 138)
+        Me.FrameRateLabel.Name = "FrameRateLabel"
+        Me.FrameRateLabel.Size = New System.Drawing.Size(104, 13)
+        Me.FrameRateLabel.TabIndex = 25
+        Me.FrameRateLabel.Text = "Frame Rate (0.0909)"
+        Me.ToolTip1.SetToolTip(Me.FrameRateLabel, Global.Outworldz.My.Resources.Resources.FRText)
         '
-        'Label7
+        'FrametimeBox
         '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(113, 28)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(17, 13)
-        Me.Label7.TabIndex = 22
-        Me.Label7.Text = "Y:"
+        Me.FrametimeBox.Location = New System.Drawing.Point(15, 138)
+        Me.FrametimeBox.Name = "FrametimeBox"
+        Me.FrametimeBox.Size = New System.Drawing.Size(40, 20)
+        Me.FrametimeBox.TabIndex = 4
+        Me.ToolTip1.SetToolTip(Me.FrametimeBox, Global.Outworldz.My.Resources.Resources.FrameTime)
+        '
+        'ScriptRateLabel
+        '
+        Me.ScriptRateLabel.AutoSize = True
+        Me.ScriptRateLabel.Location = New System.Drawing.Point(72, 110)
+        Me.ScriptRateLabel.Name = "ScriptRateLabel"
+        Me.ScriptRateLabel.Size = New System.Drawing.Size(113, 13)
+        Me.ScriptRateLabel.TabIndex = 23
+        Me.ScriptRateLabel.Text = "Script Timer Rate (0.2)"
+        Me.ToolTip1.SetToolTip(Me.ScriptRateLabel, Global.Outworldz.My.Resources.Resources.Script_Timer_Text)
+        '
+        'ScriptTimerTextBox
+        '
+        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(15, 110)
+        Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
+        Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
+        Me.ScriptTimerTextBox.TabIndex = 3
+        Me.ToolTip1.SetToolTip(Me.ScriptTimerTextBox, Global.Outworldz.My.Resources.Resources.STComment)
+        '
+        'ClampPrimSize
+        '
+        Me.ClampPrimSize.AutoSize = True
+        Me.ClampPrimSize.Location = New System.Drawing.Point(12, 156)
+        Me.ClampPrimSize.Name = "ClampPrimSize"
+        Me.ClampPrimSize.Size = New System.Drawing.Size(15, 14)
+        Me.ClampPrimSize.TabIndex = 5
+        Me.ToolTip1.SetToolTip(Me.ClampPrimSize, Global.Outworldz.My.Resources.Resources.ClampSize)
+        Me.ClampPrimSize.UseVisualStyleBackColor = True
+        '
+        'ClampPrimLabel
+        '
+        Me.ClampPrimLabel.AutoSize = True
+        Me.ClampPrimLabel.Location = New System.Drawing.Point(65, 157)
+        Me.ClampPrimLabel.Name = "ClampPrimLabel"
+        Me.ClampPrimLabel.Size = New System.Drawing.Size(82, 13)
+        Me.ClampPrimLabel.TabIndex = 24
+        Me.ClampPrimLabel.Text = "Clamp Prim Size"
+        Me.ToolTip1.SetToolTip(Me.ClampPrimLabel, Global.Outworldz.My.Resources.Resources.ClampSize)
+        '
+        'RegionsGroupbox
+        '
+        Me.RegionsGroupbox.BackColor = System.Drawing.SystemColors.Window
+        Me.RegionsGroupbox.Controls.Add(Me.ClampPrimSize)
+        Me.RegionsGroupbox.Controls.Add(Me.ClampPrimLabel)
+        Me.RegionsGroupbox.Controls.Add(Me.YLabel)
+        Me.RegionsGroupbox.Controls.Add(Me.MaxMAvatarsLabel)
+        Me.RegionsGroupbox.Controls.Add(Me.NonphysicalPrimMax)
+        Me.RegionsGroupbox.Controls.Add(Me.MaxNPrimsLabel)
+        Me.RegionsGroupbox.Controls.Add(Me.PhysicalPrimMax)
+        Me.RegionsGroupbox.Controls.Add(Me.Label6)
+        Me.RegionsGroupbox.Controls.Add(Me.PhysPrimLabel)
+        Me.RegionsGroupbox.Controls.Add(Me.MaxPrims)
+        Me.RegionsGroupbox.Controls.Add(Me.NonPhysPrimLabel)
+        Me.RegionsGroupbox.Controls.Add(Me.MaxAgents)
+        Me.RegionsGroupbox.Controls.Add(Me.XLabel)
+        Me.RegionsGroupbox.Controls.Add(Me.Label1)
+        Me.RegionsGroupbox.Controls.Add(Me.UUID)
+        Me.RegionsGroupbox.Controls.Add(Me.CoordY)
+        Me.RegionsGroupbox.Controls.Add(Me.CoordX)
+        Me.RegionsGroupbox.Location = New System.Drawing.Point(8, 11)
+        Me.RegionsGroupbox.Name = "RegionsGroupbox"
+        Me.RegionsGroupbox.Size = New System.Drawing.Size(263, 207)
+        Me.RegionsGroupbox.TabIndex = 26
+        Me.RegionsGroupbox.TabStop = False
+        Me.RegionsGroupbox.Text = "Regions"
+        '
+        'YLabel
+        '
+        Me.YLabel.AutoSize = True
+        Me.YLabel.Location = New System.Drawing.Point(127, 25)
+        Me.YLabel.Name = "YLabel"
+        Me.YLabel.Size = New System.Drawing.Size(14, 13)
+        Me.YLabel.TabIndex = 22
+        Me.YLabel.Text = "Y"
         '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(194, 147)
+        Me.Label6.Location = New System.Drawing.Point(229, 184)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(34, 13)
         Me.Label6.TabIndex = 6
         Me.Label6.Text = "UUID"
         '
-        'Label4
+        'XLabel
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(19, 28)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(44, 13)
-        Me.Label4.TabIndex = 0
-        Me.Label4.Text = "Map  X:"
+        Me.XLabel.AutoSize = True
+        Me.XLabel.Location = New System.Drawing.Point(58, 25)
+        Me.XLabel.Name = "XLabel"
+        Me.XLabel.Size = New System.Drawing.Size(14, 13)
+        Me.XLabel.TabIndex = 0
+        Me.XLabel.Text = "X"
         '
         'Label1
         '
@@ -687,11 +693,11 @@ Partial Class FormRegion
         '
         'UUID
         '
-        Me.UUID.Enabled = False
-        Me.UUID.Location = New System.Drawing.Point(12, 143)
+        Me.UUID.Location = New System.Drawing.Point(11, 181)
         Me.UUID.Name = "UUID"
-        Me.UUID.Size = New System.Drawing.Size(178, 20)
-        Me.UUID.TabIndex = 7
+        Me.UUID.ReadOnly = True
+        Me.UUID.Size = New System.Drawing.Size(214, 20)
+        Me.UUID.TabIndex = 6
         '
         'GroupBox2
         '
@@ -713,9 +719,9 @@ Partial Class FormRegion
         Me.GroupBox2.Controls.Add(Me.RadioButton1)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Location = New System.Drawing.Point(148, 62)
+        Me.GroupBox2.Location = New System.Drawing.Point(289, 12)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(297, 113)
+        Me.GroupBox2.Size = New System.Drawing.Size(170, 206)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Sim Size"
@@ -738,43 +744,47 @@ Partial Class FormRegion
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(16, 78)
+        Me.SaveButton.Location = New System.Drawing.Point(16, 107)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(102, 23)
-        Me.SaveButton.TabIndex = 5
+        Me.SaveButton.TabIndex = 3
         Me.SaveButton.Text = Global.Outworldz.My.Resources.Resources.Save_word
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'DeleteButton
         '
-        Me.DeleteButton.Location = New System.Drawing.Point(16, 135)
+        Me.DeleteButton.Location = New System.Drawing.Point(16, 165)
         Me.DeleteButton.Name = "DeleteButton"
         Me.DeleteButton.Size = New System.Drawing.Size(101, 23)
-        Me.DeleteButton.TabIndex = 7
+        Me.DeleteButton.TabIndex = 5
         Me.DeleteButton.Text = Global.Outworldz.My.Resources.Resources.Delete_word
         Me.DeleteButton.UseVisualStyleBackColor = True
         '
         'EnabledCheckBox
         '
         Me.EnabledCheckBox.AutoSize = True
-        Me.EnabledCheckBox.Location = New System.Drawing.Point(295, 20)
+        Me.EnabledCheckBox.Location = New System.Drawing.Point(16, 55)
         Me.EnabledCheckBox.Name = "EnabledCheckBox"
         Me.EnabledCheckBox.Size = New System.Drawing.Size(65, 17)
         Me.EnabledCheckBox.TabIndex = 1
         Me.EnabledCheckBox.Text = Global.Outworldz.My.Resources.Resources.Enabled_word
         Me.EnabledCheckBox.UseVisualStyleBackColor = True
         '
-        'GroupBox8
+        'ScriptsGroupbox
         '
-        Me.GroupBox8.Controls.Add(Me.ScriptDefaultButton)
-        Me.GroupBox8.Controls.Add(Me.XEngineButton)
-        Me.GroupBox8.Controls.Add(Me.YEngineButton)
-        Me.GroupBox8.Location = New System.Drawing.Point(10, 19)
-        Me.GroupBox8.Name = "GroupBox8"
-        Me.GroupBox8.Size = New System.Drawing.Size(141, 117)
-        Me.GroupBox8.TabIndex = 4
-        Me.GroupBox8.TabStop = False
-        Me.GroupBox8.Text = "Script Engine"
+        Me.ScriptsGroupbox.Controls.Add(Me.FrameRateLabel)
+        Me.ScriptsGroupbox.Controls.Add(Me.FrametimeBox)
+        Me.ScriptsGroupbox.Controls.Add(Me.ScriptRateLabel)
+        Me.ScriptsGroupbox.Controls.Add(Me.ScriptTimerTextBox)
+        Me.ScriptsGroupbox.Controls.Add(Me.ScriptDefaultButton)
+        Me.ScriptsGroupbox.Controls.Add(Me.XEngineButton)
+        Me.ScriptsGroupbox.Controls.Add(Me.YEngineButton)
+        Me.ScriptsGroupbox.Location = New System.Drawing.Point(8, 13)
+        Me.ScriptsGroupbox.Name = "ScriptsGroupbox"
+        Me.ScriptsGroupbox.Size = New System.Drawing.Size(265, 200)
+        Me.ScriptsGroupbox.TabIndex = 4
+        Me.ScriptsGroupbox.TabStop = False
+        Me.ScriptsGroupbox.Text = "Script Engine"
         '
         'ScriptDefaultButton
         '
@@ -809,32 +819,22 @@ Partial Class FormRegion
         Me.YEngineButton.Text = Global.Outworldz.My.Resources.Resources.YEngine_word
         Me.YEngineButton.UseVisualStyleBackColor = True
         '
-        'GroupBox7
+        'ModulesGroupBox
         '
-        Me.GroupBox7.Controls.Add(Me.RichTextBoxModules)
-        Me.GroupBox7.Controls.Add(Me.ConciergeCheckBox)
-        Me.GroupBox7.Controls.Add(Me.SkipAutoCheckBox)
-        Me.GroupBox7.Controls.Add(Me.DisallowResidents)
-        Me.GroupBox7.Controls.Add(Me.DisallowForeigners)
-        Me.GroupBox7.Controls.Add(Me.DisableGBCheckBox)
-        Me.GroupBox7.Controls.Add(Me.TPCheckBox1)
-        Me.GroupBox7.Controls.Add(Me.TidesCheckbox)
-        Me.GroupBox7.Controls.Add(Me.BirdsCheckBox)
-        Me.GroupBox7.Location = New System.Drawing.Point(21, 11)
-        Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(431, 197)
-        Me.GroupBox7.TabIndex = 0
-        Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "Modules"
-        '
-        'RichTextBoxModules
-        '
-        Me.RichTextBoxModules.Location = New System.Drawing.Point(224, 19)
-        Me.RichTextBoxModules.Margin = New System.Windows.Forms.Padding(2)
-        Me.RichTextBoxModules.Name = "RichTextBoxModules"
-        Me.RichTextBoxModules.Size = New System.Drawing.Size(192, 159)
-        Me.RichTextBoxModules.TabIndex = 8
-        Me.RichTextBoxModules.Text = ""
+        Me.ModulesGroupBox.Controls.Add(Me.ConciergeCheckBox)
+        Me.ModulesGroupBox.Controls.Add(Me.SkipAutoCheckBox)
+        Me.ModulesGroupBox.Controls.Add(Me.DisallowResidents)
+        Me.ModulesGroupBox.Controls.Add(Me.DisallowForeigners)
+        Me.ModulesGroupBox.Controls.Add(Me.DisableGBCheckBox)
+        Me.ModulesGroupBox.Controls.Add(Me.TPCheckBox1)
+        Me.ModulesGroupBox.Controls.Add(Me.TidesCheckbox)
+        Me.ModulesGroupBox.Controls.Add(Me.BirdsCheckBox)
+        Me.ModulesGroupBox.Location = New System.Drawing.Point(8, 13)
+        Me.ModulesGroupBox.Name = "ModulesGroupBox"
+        Me.ModulesGroupBox.Size = New System.Drawing.Size(265, 200)
+        Me.ModulesGroupBox.TabIndex = 0
+        Me.ModulesGroupBox.TabStop = False
+        Me.ModulesGroupBox.Text = "Modules"
         '
         'ConciergeCheckBox
         '
@@ -846,29 +846,58 @@ Partial Class FormRegion
         Me.ConciergeCheckBox.Text = "Announce Visitors"
         Me.ConciergeCheckBox.UseVisualStyleBackColor = True
         '
-        'GroupBox3
+        'RichTextBoxModules
         '
-        Me.GroupBox3.Controls.Add(Me.Hyperica)
-        Me.GroupBox3.Controls.Add(Me.Publish)
-        Me.GroupBox3.Controls.Add(Me.NoPublish)
-        Me.GroupBox3.Controls.Add(Me.PublishDefault)
-        Me.GroupBox3.Location = New System.Drawing.Point(11, 25)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(231, 129)
-        Me.GroupBox3.TabIndex = 1
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Publicity"
+        Me.RichTextBoxModules.Location = New System.Drawing.Point(287, 23)
+        Me.RichTextBoxModules.Margin = New System.Windows.Forms.Padding(2)
+        Me.RichTextBoxModules.Name = "RichTextBoxModules"
+        Me.RichTextBoxModules.ReadOnly = True
+        Me.RichTextBoxModules.Size = New System.Drawing.Size(200, 190)
+        Me.RichTextBoxModules.TabIndex = 8
+        Me.RichTextBoxModules.Text = ""
+        '
+        'PublicityGroupBox
+        '
+        Me.PublicityGroupBox.Controls.Add(Me.Label5)
+        Me.PublicityGroupBox.Controls.Add(Me.Hyperica)
+        Me.PublicityGroupBox.Controls.Add(Me.APIKey)
+        Me.PublicityGroupBox.Controls.Add(Me.Publish)
+        Me.PublicityGroupBox.Controls.Add(Me.Opensimworld)
+        Me.PublicityGroupBox.Controls.Add(Me.NoPublish)
+        Me.PublicityGroupBox.Controls.Add(Me.PublishDefault)
+        Me.PublicityGroupBox.Location = New System.Drawing.Point(8, 13)
+        Me.PublicityGroupBox.Name = "PublicityGroupBox"
+        Me.PublicityGroupBox.Size = New System.Drawing.Size(265, 200)
+        Me.PublicityGroupBox.TabIndex = 1
+        Me.PublicityGroupBox.TabStop = False
+        Me.PublicityGroupBox.Text = "Publicity"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(16, 140)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(25, 13)
+        Me.Label5.TabIndex = 4
+        Me.Label5.Text = "Key"
         '
         'Hyperica
         '
         Me.Hyperica.AutoSize = True
-        Me.Hyperica.Location = New System.Drawing.Point(47, 101)
+        Me.Hyperica.Location = New System.Drawing.Point(115, 27)
         Me.Hyperica.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Hyperica.Name = "Hyperica"
         Me.Hyperica.Size = New System.Drawing.Size(106, 13)
-        Me.Hyperica.TabIndex = 1
+        Me.Hyperica.TabIndex = 3
         Me.Hyperica.TabStop = True
         Me.Hyperica.Text = "https://hyperica.com"
+        '
+        'APIKey
+        '
+        Me.APIKey.Location = New System.Drawing.Point(20, 156)
+        Me.APIKey.Name = "APIKey"
+        Me.APIKey.Size = New System.Drawing.Size(203, 20)
+        Me.APIKey.TabIndex = 5
         '
         'Publish
         '
@@ -880,6 +909,17 @@ Partial Class FormRegion
         Me.Publish.TabStop = True
         Me.Publish.Text = Global.Outworldz.My.Resources.Resources.Publish_Items
         Me.Publish.UseVisualStyleBackColor = True
+        '
+        'Opensimworld
+        '
+        Me.Opensimworld.AutoSize = True
+        Me.Opensimworld.Location = New System.Drawing.Point(78, 140)
+        Me.Opensimworld.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.Opensimworld.Name = "Opensimworld"
+        Me.Opensimworld.Size = New System.Drawing.Size(130, 13)
+        Me.Opensimworld.TabIndex = 6
+        Me.Opensimworld.TabStop = True
+        Me.Opensimworld.Text = "https://opensimworld.com"
         '
         'NoPublish
         '
@@ -903,28 +943,18 @@ Partial Class FormRegion
         Me.PublishDefault.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
         Me.PublishDefault.UseVisualStyleBackColor = True
         '
-        'GroupBox4
+        'PermissionsGroupbox
         '
-        Me.GroupBox4.Controls.Add(Me.RichTextBoxPermissions)
-        Me.GroupBox4.Controls.Add(Me.Gods_Use_Default)
-        Me.GroupBox4.Controls.Add(Me.AllowGods)
-        Me.GroupBox4.Controls.Add(Me.ManagerGod)
-        Me.GroupBox4.Controls.Add(Me.RegionGod)
-        Me.GroupBox4.Location = New System.Drawing.Point(6, 9)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(760, 400)
-        Me.GroupBox4.TabIndex = 2
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Permissions"
-        '
-        'RichTextBoxPermissions
-        '
-        Me.RichTextBoxPermissions.Location = New System.Drawing.Point(260, 27)
-        Me.RichTextBoxPermissions.Margin = New System.Windows.Forms.Padding(2)
-        Me.RichTextBoxPermissions.Name = "RichTextBoxPermissions"
-        Me.RichTextBoxPermissions.Size = New System.Drawing.Size(183, 147)
-        Me.RichTextBoxPermissions.TabIndex = 6
-        Me.RichTextBoxPermissions.Text = ""
+        Me.PermissionsGroupbox.Controls.Add(Me.Gods_Use_Default)
+        Me.PermissionsGroupbox.Controls.Add(Me.GodLevel)
+        Me.PermissionsGroupbox.Controls.Add(Me.GodManager)
+        Me.PermissionsGroupbox.Controls.Add(Me.GodEstate)
+        Me.PermissionsGroupbox.Location = New System.Drawing.Point(8, 13)
+        Me.PermissionsGroupbox.Name = "PermissionsGroupbox"
+        Me.PermissionsGroupbox.Size = New System.Drawing.Size(265, 200)
+        Me.PermissionsGroupbox.TabIndex = 2
+        Me.PermissionsGroupbox.TabStop = False
+        Me.PermissionsGroupbox.Text = "Permissions"
         '
         'Gods_Use_Default
         '
@@ -936,37 +966,37 @@ Partial Class FormRegion
         Me.Gods_Use_Default.Text = Global.Outworldz.My.Resources.Resources.Use_Default_word
         Me.Gods_Use_Default.UseVisualStyleBackColor = True
         '
-        'MapBox
+        'RichTextBoxPermissions
         '
-        Me.MapBox.Controls.Add(Me.RichTextBoxMap)
-        Me.MapBox.Controls.Add(Me.Maps_Use_Default)
-        Me.MapBox.Controls.Add(Me.MapPicture)
-        Me.MapBox.Controls.Add(Me.MapNone)
-        Me.MapBox.Controls.Add(Me.MapSimple)
-        Me.MapBox.Controls.Add(Me.MapBetter)
-        Me.MapBox.Controls.Add(Me.MapBest)
-        Me.MapBox.Controls.Add(Me.MapGood)
-        Me.MapBox.Location = New System.Drawing.Point(3, 3)
-        Me.MapBox.Name = "MapBox"
-        Me.MapBox.Size = New System.Drawing.Size(443, 234)
-        Me.MapBox.TabIndex = 5
-        Me.MapBox.TabStop = False
-        Me.MapBox.Text = "Maps"
+        Me.RichTextBoxPermissions.Location = New System.Drawing.Point(288, 13)
+        Me.RichTextBoxPermissions.Margin = New System.Windows.Forms.Padding(2)
+        Me.RichTextBoxPermissions.Name = "RichTextBoxPermissions"
+        Me.RichTextBoxPermissions.ReadOnly = True
+        Me.RichTextBoxPermissions.Size = New System.Drawing.Size(200, 190)
+        Me.RichTextBoxPermissions.TabIndex = 6
+        Me.RichTextBoxPermissions.Text = ""
         '
-        'RichTextBoxMap
+        'MapGroupBox
         '
-        Me.RichTextBoxMap.Location = New System.Drawing.Point(246, 22)
-        Me.RichTextBoxMap.Margin = New System.Windows.Forms.Padding(2)
-        Me.RichTextBoxMap.Name = "RichTextBoxMap"
-        Me.RichTextBoxMap.Size = New System.Drawing.Size(183, 167)
-        Me.RichTextBoxMap.TabIndex = 139
-        Me.RichTextBoxMap.Text = ""
+        Me.MapGroupBox.Controls.Add(Me.Maps_Use_Default)
+        Me.MapGroupBox.Controls.Add(Me.MapPicture)
+        Me.MapGroupBox.Controls.Add(Me.MapNone)
+        Me.MapGroupBox.Controls.Add(Me.MapSimple)
+        Me.MapGroupBox.Controls.Add(Me.MapBetter)
+        Me.MapGroupBox.Controls.Add(Me.MapBest)
+        Me.MapGroupBox.Controls.Add(Me.MapGood)
+        Me.MapGroupBox.Location = New System.Drawing.Point(8, 13)
+        Me.MapGroupBox.Name = "MapGroupBox"
+        Me.MapGroupBox.Size = New System.Drawing.Size(265, 200)
+        Me.MapGroupBox.TabIndex = 5
+        Me.MapGroupBox.TabStop = False
+        Me.MapGroupBox.Text = "Maps"
         '
         'Maps_Use_Default
         '
         Me.Maps_Use_Default.AutoSize = True
         Me.Maps_Use_Default.Checked = True
-        Me.Maps_Use_Default.Location = New System.Drawing.Point(15, 23)
+        Me.Maps_Use_Default.Location = New System.Drawing.Point(15, 20)
         Me.Maps_Use_Default.Name = "Maps_Use_Default"
         Me.Maps_Use_Default.Size = New System.Drawing.Size(81, 17)
         Me.Maps_Use_Default.TabIndex = 0
@@ -977,9 +1007,9 @@ Partial Class FormRegion
         'MapPicture
         '
         Me.MapPicture.InitialImage = CType(resources.GetObject("MapPicture.InitialImage"), System.Drawing.Image)
-        Me.MapPicture.Location = New System.Drawing.Point(155, 27)
+        Me.MapPicture.Location = New System.Drawing.Point(145, 20)
         Me.MapPicture.Name = "MapPicture"
-        Me.MapPicture.Size = New System.Drawing.Size(70, 69)
+        Me.MapPicture.Size = New System.Drawing.Size(94, 90)
         Me.MapPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.MapPicture.TabIndex = 138
         Me.MapPicture.TabStop = False
@@ -987,7 +1017,7 @@ Partial Class FormRegion
         'MapNone
         '
         Me.MapNone.AutoSize = True
-        Me.MapNone.Location = New System.Drawing.Point(13, 41)
+        Me.MapNone.Location = New System.Drawing.Point(15, 43)
         Me.MapNone.Name = "MapNone"
         Me.MapNone.Size = New System.Drawing.Size(51, 17)
         Me.MapNone.TabIndex = 1
@@ -997,7 +1027,7 @@ Partial Class FormRegion
         'MapSimple
         '
         Me.MapSimple.AutoSize = True
-        Me.MapSimple.Location = New System.Drawing.Point(13, 61)
+        Me.MapSimple.Location = New System.Drawing.Point(15, 67)
         Me.MapSimple.Name = "MapSimple"
         Me.MapSimple.Size = New System.Drawing.Size(94, 17)
         Me.MapSimple.TabIndex = 2
@@ -1007,7 +1037,7 @@ Partial Class FormRegion
         'MapBetter
         '
         Me.MapBetter.AutoSize = True
-        Me.MapBetter.Location = New System.Drawing.Point(15, 100)
+        Me.MapBetter.Location = New System.Drawing.Point(15, 116)
         Me.MapBetter.Name = "MapBetter"
         Me.MapBetter.Size = New System.Drawing.Size(116, 17)
         Me.MapBetter.TabIndex = 4
@@ -1018,7 +1048,7 @@ Partial Class FormRegion
         'MapBest
         '
         Me.MapBest.AutoSize = True
-        Me.MapBest.Location = New System.Drawing.Point(13, 121)
+        Me.MapBest.Location = New System.Drawing.Point(15, 139)
         Me.MapBest.Name = "MapBest"
         Me.MapBest.Size = New System.Drawing.Size(171, 17)
         Me.MapBest.TabIndex = 5
@@ -1028,31 +1058,106 @@ Partial Class FormRegion
         'MapGood
         '
         Me.MapGood.AutoSize = True
-        Me.MapGood.Location = New System.Drawing.Point(15, 80)
+        Me.MapGood.Location = New System.Drawing.Point(15, 93)
         Me.MapGood.Name = "MapGood"
         Me.MapGood.Size = New System.Drawing.Size(100, 17)
         Me.MapGood.TabIndex = 3
         Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
         Me.MapGood.UseVisualStyleBackColor = True
         '
+        'RichTextBoxMap
+        '
+        Me.RichTextBoxMap.Location = New System.Drawing.Point(288, 23)
+        Me.RichTextBoxMap.Margin = New System.Windows.Forms.Padding(2)
+        Me.RichTextBoxMap.Name = "RichTextBoxMap"
+        Me.RichTextBoxMap.ReadOnly = True
+        Me.RichTextBoxMap.Size = New System.Drawing.Size(200, 190)
+        Me.RichTextBoxMap.TabIndex = 139
+        Me.RichTextBoxMap.Text = ""
+        '
         'DeregisterButton
         '
-        Me.DeregisterButton.Location = New System.Drawing.Point(16, 107)
+        Me.DeregisterButton.Location = New System.Drawing.Point(16, 136)
         Me.DeregisterButton.Name = "DeregisterButton"
         Me.DeregisterButton.Size = New System.Drawing.Size(102, 23)
-        Me.DeregisterButton.TabIndex = 6
+        Me.DeregisterButton.TabIndex = 4
         Me.DeregisterButton.Text = Global.Outworldz.My.Resources.Resources.Deregister_word
         Me.DeregisterButton.UseVisualStyleBackColor = True
         '
         'MenuStrip2
         '
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HelpToolStripMenuItem})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(1035, 24)
+        Me.MenuStrip2.Size = New System.Drawing.Size(512, 30)
         Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
+        '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BasicsToolStripMenuItem, Me.OptionsToolStripMenuItem, Me.MapsToolStripMenuItem, Me.PhysicsToolStripMenuItem, Me.ScriptsToolStripMenuItem, Me.PermissionsToolStripMenuItem, Me.PublicityToolStripMenuItem, Me.ModulesToolStripMenuItem})
+        Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(68, 28)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
+        'BasicsToolStripMenuItem
+        '
+        Me.BasicsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        Me.BasicsToolStripMenuItem.Name = "BasicsToolStripMenuItem"
+        Me.BasicsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.BasicsToolStripMenuItem.Text = "Basics"
+        '
+        'OptionsToolStripMenuItem
+        '
+        Me.OptionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_green
+        Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
+        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.OptionsToolStripMenuItem.Text = "Options"
+        '
+        'MapsToolStripMenuItem
+        '
+        Me.MapsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_view
+        Me.MapsToolStripMenuItem.Name = "MapsToolStripMenuItem"
+        Me.MapsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.MapsToolStripMenuItem.Text = "Maps"
+        '
+        'PhysicsToolStripMenuItem
+        '
+        Me.PhysicsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.transform
+        Me.PhysicsToolStripMenuItem.Name = "PhysicsToolStripMenuItem"
+        Me.PhysicsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.PhysicsToolStripMenuItem.Text = "Physics"
+        '
+        'ScriptsToolStripMenuItem
+        '
+        Me.ScriptsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.text_marked
+        Me.ScriptsToolStripMenuItem.Name = "ScriptsToolStripMenuItem"
+        Me.ScriptsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.ScriptsToolStripMenuItem.Text = "Scripts"
+        '
+        'PermissionsToolStripMenuItem
+        '
+        Me.PermissionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.spy
+        Me.PermissionsToolStripMenuItem.Name = "PermissionsToolStripMenuItem"
+        Me.PermissionsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.PermissionsToolStripMenuItem.Text = "Permissions"
+        '
+        'PublicityToolStripMenuItem
+        '
+        Me.PublicityToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.microsoft_edge
+        Me.PublicityToolStripMenuItem.Name = "PublicityToolStripMenuItem"
+        Me.PublicityToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.PublicityToolStripMenuItem.Text = "Publicity"
+        '
+        'ModulesToolStripMenuItem
+        '
+        Me.ModulesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_add
+        Me.ModulesToolStripMenuItem.Name = "ModulesToolStripMenuItem"
+        Me.ModulesToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.ModulesToolStripMenuItem.Text = "Modules"
         '
         'TabControl1
         '
@@ -1064,12 +1169,12 @@ Partial Class FormRegion
         Me.TabControl1.Controls.Add(Me.Permissions)
         Me.TabControl1.Controls.Add(Me.Publicity)
         Me.TabControl1.Controls.Add(Me.Modules)
-        Me.TabControl1.Location = New System.Drawing.Point(0, 32)
+        Me.TabControl1.Location = New System.Drawing.Point(0, 26)
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(2)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(831, 514)
-        Me.TabControl1.TabIndex = 27
+        Me.TabControl1.Size = New System.Drawing.Size(512, 254)
+        Me.TabControl1.TabIndex = 1
         '
         'Basics
         '
@@ -1085,7 +1190,7 @@ Partial Class FormRegion
         Me.Basics.Margin = New System.Windows.Forms.Padding(2)
         Me.Basics.Name = "Basics"
         Me.Basics.Padding = New System.Windows.Forms.Padding(2)
-        Me.Basics.Size = New System.Drawing.Size(823, 488)
+        Me.Basics.Size = New System.Drawing.Size(504, 228)
         Me.Basics.TabIndex = 0
         Me.Basics.Text = "Region Basics"
         Me.Basics.UseVisualStyleBackColor = True
@@ -1093,7 +1198,7 @@ Partial Class FormRegion
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(38, 20)
+        Me.Label8.Location = New System.Drawing.Point(13, 12)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(38, 13)
         Me.Label8.TabIndex = 8
@@ -1101,23 +1206,35 @@ Partial Class FormRegion
         '
         'Options
         '
-        Me.Options.Controls.Add(Me.Advanced)
+        Me.Options.Controls.Add(Me.RichTextBoxOptions)
+        Me.Options.Controls.Add(Me.RegionsGroupbox)
         Me.Options.Location = New System.Drawing.Point(4, 22)
         Me.Options.Margin = New System.Windows.Forms.Padding(2)
         Me.Options.Name = "Options"
         Me.Options.Padding = New System.Windows.Forms.Padding(2)
-        Me.Options.Size = New System.Drawing.Size(823, 488)
+        Me.Options.Size = New System.Drawing.Size(504, 228)
         Me.Options.TabIndex = 1
         Me.Options.Text = "Optional"
         Me.Options.UseVisualStyleBackColor = True
         '
+        'RichTextBoxOptions
+        '
+        Me.RichTextBoxOptions.Location = New System.Drawing.Point(287, 22)
+        Me.RichTextBoxOptions.Margin = New System.Windows.Forms.Padding(2)
+        Me.RichTextBoxOptions.Name = "RichTextBoxOptions"
+        Me.RichTextBoxOptions.ReadOnly = True
+        Me.RichTextBoxOptions.Size = New System.Drawing.Size(200, 190)
+        Me.RichTextBoxOptions.TabIndex = 140
+        Me.RichTextBoxOptions.Text = ""
+        '
         'Maps
         '
-        Me.Maps.Controls.Add(Me.MapBox)
+        Me.Maps.Controls.Add(Me.RichTextBoxMap)
+        Me.Maps.Controls.Add(Me.MapGroupBox)
         Me.Maps.Location = New System.Drawing.Point(4, 22)
         Me.Maps.Margin = New System.Windows.Forms.Padding(2)
         Me.Maps.Name = "Maps"
-        Me.Maps.Size = New System.Drawing.Size(823, 488)
+        Me.Maps.Size = New System.Drawing.Size(504, 228)
         Me.Maps.TabIndex = 2
         Me.Maps.Text = "Maps"
         Me.Maps.UseVisualStyleBackColor = True
@@ -1125,38 +1242,39 @@ Partial Class FormRegion
         'Physics
         '
         Me.Physics.Controls.Add(Me.RichTextBoxPhysics)
-        Me.Physics.Controls.Add(Me.GroupBox1)
+        Me.Physics.Controls.Add(Me.PhysicsGroupbox)
         Me.Physics.Location = New System.Drawing.Point(4, 22)
         Me.Physics.Margin = New System.Windows.Forms.Padding(2)
         Me.Physics.Name = "Physics"
-        Me.Physics.Size = New System.Drawing.Size(823, 488)
+        Me.Physics.Size = New System.Drawing.Size(504, 228)
         Me.Physics.TabIndex = 8
         Me.Physics.Text = "Physics"
         Me.Physics.UseVisualStyleBackColor = True
         '
         'RichTextBoxPhysics
         '
-        Me.RichTextBoxPhysics.Location = New System.Drawing.Point(287, 20)
+        Me.RichTextBoxPhysics.Location = New System.Drawing.Point(287, 23)
         Me.RichTextBoxPhysics.Margin = New System.Windows.Forms.Padding(2)
         Me.RichTextBoxPhysics.Name = "RichTextBoxPhysics"
-        Me.RichTextBoxPhysics.Size = New System.Drawing.Size(183, 179)
+        Me.RichTextBoxPhysics.ReadOnly = True
+        Me.RichTextBoxPhysics.Size = New System.Drawing.Size(200, 190)
         Me.RichTextBoxPhysics.TabIndex = 6
         Me.RichTextBoxPhysics.Text = ""
         '
-        'GroupBox1
+        'PhysicsGroupbox
         '
-        Me.GroupBox1.Controls.Add(Me.Physics_ODE)
-        Me.GroupBox1.Controls.Add(Me.Physics_Hybrid)
-        Me.GroupBox1.Controls.Add(Me.Physics_Bullet)
-        Me.GroupBox1.Controls.Add(Me.Physics_Default)
-        Me.GroupBox1.Controls.Add(Me.Physics_Separate)
-        Me.GroupBox1.Controls.Add(Me.Physics_ubODE)
-        Me.GroupBox1.Location = New System.Drawing.Point(19, 20)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(228, 164)
-        Me.GroupBox1.TabIndex = 4
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Physics"
+        Me.PhysicsGroupbox.Controls.Add(Me.Physics_ODE)
+        Me.PhysicsGroupbox.Controls.Add(Me.Physics_Hybrid)
+        Me.PhysicsGroupbox.Controls.Add(Me.Physics_Bullet)
+        Me.PhysicsGroupbox.Controls.Add(Me.Physics_Default)
+        Me.PhysicsGroupbox.Controls.Add(Me.Physics_Separate)
+        Me.PhysicsGroupbox.Controls.Add(Me.Physics_ubODE)
+        Me.PhysicsGroupbox.Location = New System.Drawing.Point(8, 13)
+        Me.PhysicsGroupbox.Name = "PhysicsGroupbox"
+        Me.PhysicsGroupbox.Size = New System.Drawing.Size(265, 200)
+        Me.PhysicsGroupbox.TabIndex = 4
+        Me.PhysicsGroupbox.TabStop = False
+        Me.PhysicsGroupbox.Text = "Physics"
         '
         'Physics_ODE
         '
@@ -1227,96 +1345,67 @@ Partial Class FormRegion
         'Scripts
         '
         Me.Scripts.Controls.Add(Me.RichTextBoxScripts)
-        Me.Scripts.Controls.Add(Me.GroupBox8)
+        Me.Scripts.Controls.Add(Me.ScriptsGroupbox)
         Me.Scripts.Location = New System.Drawing.Point(4, 22)
         Me.Scripts.Margin = New System.Windows.Forms.Padding(2)
         Me.Scripts.Name = "Scripts"
-        Me.Scripts.Size = New System.Drawing.Size(823, 488)
+        Me.Scripts.Size = New System.Drawing.Size(504, 228)
         Me.Scripts.TabIndex = 3
         Me.Scripts.Text = "Scripts"
         Me.Scripts.UseVisualStyleBackColor = True
         '
         'RichTextBoxScripts
         '
-        Me.RichTextBoxScripts.Location = New System.Drawing.Point(269, 19)
+        Me.RichTextBoxScripts.Location = New System.Drawing.Point(287, 23)
         Me.RichTextBoxScripts.Margin = New System.Windows.Forms.Padding(2)
         Me.RichTextBoxScripts.Name = "RichTextBoxScripts"
-        Me.RichTextBoxScripts.Size = New System.Drawing.Size(183, 179)
+        Me.RichTextBoxScripts.ReadOnly = True
+        Me.RichTextBoxScripts.Size = New System.Drawing.Size(200, 190)
         Me.RichTextBoxScripts.TabIndex = 5
         Me.RichTextBoxScripts.Text = ""
         '
         'Permissions
         '
-        Me.Permissions.Controls.Add(Me.GroupBox4)
+        Me.Permissions.Controls.Add(Me.RichTextBoxPermissions)
+        Me.Permissions.Controls.Add(Me.PermissionsGroupbox)
         Me.Permissions.Location = New System.Drawing.Point(4, 22)
         Me.Permissions.Margin = New System.Windows.Forms.Padding(2)
         Me.Permissions.Name = "Permissions"
-        Me.Permissions.Size = New System.Drawing.Size(823, 488)
+        Me.Permissions.Size = New System.Drawing.Size(504, 228)
         Me.Permissions.TabIndex = 5
         Me.Permissions.Text = "Permissions"
         Me.Permissions.UseVisualStyleBackColor = True
         '
         'Publicity
         '
-        Me.Publicity.Controls.Add(Me.GroupBox6)
-        Me.Publicity.Controls.Add(Me.GroupBox3)
+        Me.Publicity.Controls.Add(Me.RichTextBoxPublicity)
+        Me.Publicity.Controls.Add(Me.PublicityGroupBox)
         Me.Publicity.Location = New System.Drawing.Point(4, 22)
         Me.Publicity.Margin = New System.Windows.Forms.Padding(2)
         Me.Publicity.Name = "Publicity"
-        Me.Publicity.Size = New System.Drawing.Size(823, 488)
+        Me.Publicity.Size = New System.Drawing.Size(504, 228)
         Me.Publicity.TabIndex = 7
         Me.Publicity.Text = "Publicity"
         Me.Publicity.UseVisualStyleBackColor = True
         '
-        'GroupBox6
+        'RichTextBoxPublicity
         '
-        Me.GroupBox6.Controls.Add(Me.Label5)
-        Me.GroupBox6.Controls.Add(Me.TextBox1)
-        Me.GroupBox6.Controls.Add(Me.Opensimworld)
-        Me.GroupBox6.Location = New System.Drawing.Point(263, 25)
-        Me.GroupBox6.Margin = New System.Windows.Forms.Padding(2)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Padding = New System.Windows.Forms.Padding(2)
-        Me.GroupBox6.Size = New System.Drawing.Size(202, 129)
-        Me.GroupBox6.TabIndex = 3
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Opensimworld API Key"
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(15, 33)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(25, 13)
-        Me.Label5.TabIndex = 8
-        Me.Label5.Text = "Key"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Location = New System.Drawing.Point(18, 57)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(167, 20)
-        Me.TextBox1.TabIndex = 9
-        '
-        'Opensimworld
-        '
-        Me.Opensimworld.AutoSize = True
-        Me.Opensimworld.Location = New System.Drawing.Point(35, 101)
-        Me.Opensimworld.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Opensimworld.Name = "Opensimworld"
-        Me.Opensimworld.Size = New System.Drawing.Size(96, 13)
-        Me.Opensimworld.TabIndex = 0
-        Me.Opensimworld.TabStop = True
-        Me.Opensimworld.Text = "Opensimworld.com"
+        Me.RichTextBoxPublicity.Location = New System.Drawing.Point(287, 23)
+        Me.RichTextBoxPublicity.Margin = New System.Windows.Forms.Padding(2)
+        Me.RichTextBoxPublicity.Name = "RichTextBoxPublicity"
+        Me.RichTextBoxPublicity.ReadOnly = True
+        Me.RichTextBoxPublicity.Size = New System.Drawing.Size(200, 190)
+        Me.RichTextBoxPublicity.TabIndex = 7
+        Me.RichTextBoxPublicity.Text = ""
         '
         'Modules
         '
-        Me.Modules.Controls.Add(Me.GroupBox7)
+        Me.Modules.Controls.Add(Me.RichTextBoxModules)
+        Me.Modules.Controls.Add(Me.ModulesGroupBox)
         Me.Modules.Location = New System.Drawing.Point(4, 22)
         Me.Modules.Margin = New System.Windows.Forms.Padding(2)
         Me.Modules.Name = "Modules"
-        Me.Modules.Size = New System.Drawing.Size(823, 488)
+        Me.Modules.Size = New System.Drawing.Size(504, 228)
         Me.Modules.TabIndex = 6
         Me.Modules.Text = "Modules"
         Me.Modules.UseVisualStyleBackColor = True
@@ -1327,7 +1416,7 @@ Partial Class FormRegion
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(1035, 628)
+        Me.ClientSize = New System.Drawing.Size(512, 278)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.MenuStrip2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
@@ -1335,43 +1424,43 @@ Partial Class FormRegion
         Me.MaximizeBox = False
         Me.Name = "FormRegion"
         Me.Text = "Regions"
-        Me.Advanced.ResumeLayout(False)
-        Me.Advanced.PerformLayout()
+        Me.RegionsGroupbox.ResumeLayout(False)
+        Me.RegionsGroupbox.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
-        Me.GroupBox8.ResumeLayout(False)
-        Me.GroupBox8.PerformLayout()
-        Me.GroupBox7.ResumeLayout(False)
-        Me.GroupBox7.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
-        Me.MapBox.ResumeLayout(False)
-        Me.MapBox.PerformLayout()
+        Me.ScriptsGroupbox.ResumeLayout(False)
+        Me.ScriptsGroupbox.PerformLayout()
+        Me.ModulesGroupBox.ResumeLayout(False)
+        Me.ModulesGroupBox.PerformLayout()
+        Me.PublicityGroupBox.ResumeLayout(False)
+        Me.PublicityGroupBox.PerformLayout()
+        Me.PermissionsGroupbox.ResumeLayout(False)
+        Me.PermissionsGroupbox.PerformLayout()
+        Me.MapGroupBox.ResumeLayout(False)
+        Me.MapGroupBox.PerformLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip2.ResumeLayout(False)
+        Me.MenuStrip2.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
         Me.Basics.ResumeLayout(False)
         Me.Basics.PerformLayout()
         Me.Options.ResumeLayout(False)
         Me.Maps.ResumeLayout(False)
         Me.Physics.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.PhysicsGroupbox.ResumeLayout(False)
+        Me.PhysicsGroupbox.PerformLayout()
         Me.Scripts.ResumeLayout(False)
         Me.Permissions.ResumeLayout(False)
         Me.Publicity.ResumeLayout(False)
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
         Me.Modules.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents ToolTip1 As ToolTip
-    Friend WithEvents Advanced As GroupBox
+    Friend WithEvents RegionsGroupbox As GroupBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents Label4 As Label
+    Friend WithEvents XLabel As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents UUID As TextBox
     Friend WithEvents CoordY As TextBox
@@ -1392,20 +1481,18 @@ Partial Class FormRegion
     Friend WithEvents PhysPrimLabel As Label
     Friend WithEvents PhysicalPrimMax As TextBox
     Friend WithEvents MaxMAvatarsLabel As Label
-    Friend WithEvents ClampPrimLabel As Label
     Friend WithEvents NonphysicalPrimMax As TextBox
     Friend WithEvents MaxNPrimsLabel As Label
     Friend WithEvents MaxPrims As TextBox
-    Friend WithEvents ClampPrimSize As CheckBox
-    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents PublicityGroupBox As GroupBox
     Friend WithEvents NoPublish As RadioButton
     Friend WithEvents PublishDefault As RadioButton
-    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents PermissionsGroupbox As GroupBox
     Friend WithEvents Gods_Use_Default As CheckBox
-    Friend WithEvents AllowGods As CheckBox
-    Friend WithEvents ManagerGod As CheckBox
-    Friend WithEvents RegionGod As CheckBox
-    Friend WithEvents MapBox As GroupBox
+    Friend WithEvents GodLevel As CheckBox
+    Friend WithEvents GodManager As CheckBox
+    Friend WithEvents GodEstate As CheckBox
+    Friend WithEvents MapGroupBox As GroupBox
     Friend WithEvents Maps_Use_Default As RadioButton
     Friend WithEvents MapPicture As PictureBox
     Friend WithEvents MapNone As RadioButton
@@ -1414,20 +1501,16 @@ Partial Class FormRegion
     Friend WithEvents MapBest As RadioButton
     Friend WithEvents MapGood As RadioButton
     Friend WithEvents Publish As RadioButton
-    Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents ModulesGroupBox As GroupBox
     Friend WithEvents BirdsCheckBox As CheckBox
     Friend WithEvents TidesCheckbox As CheckBox
     Friend WithEvents TPCheckBox1 As CheckBox
     Friend WithEvents DeregisterButton As Button
     Friend WithEvents SmartStartCheckBox As CheckBox
     Friend WithEvents MenuStrip2 As MenuStrip
-    Friend WithEvents ScriptRateLabel As Label
-    Friend WithEvents ScriptTimerTextBox As TextBox
     Friend WithEvents DisableGBCheckBox As CheckBox
     Friend WithEvents DisallowForeigners As CheckBox
     Friend WithEvents DisallowResidents As CheckBox
-    Friend WithEvents FrameRateLabel As Label
-    Friend WithEvents FrametimeBox As TextBox
     Friend WithEvents SkipAutoCheckBox As CheckBox
     Friend WithEvents RadioButton8 As RadioButton
     Friend WithEvents RadioButton7 As RadioButton
@@ -1441,7 +1524,7 @@ Partial Class FormRegion
     Friend WithEvents RadioButton11 As RadioButton
     Friend WithEvents RadioButton10 As RadioButton
     Friend WithEvents RadioButton9 As RadioButton
-    Friend WithEvents GroupBox8 As GroupBox
+    Friend WithEvents ScriptsGroupbox As GroupBox
     Friend WithEvents ScriptDefaultButton As RadioButton
     Friend WithEvents XEngineButton As RadioButton
     Friend WithEvents YEngineButton As RadioButton
@@ -1456,22 +1539,38 @@ Partial Class FormRegion
     Friend WithEvents Publicity As TabPage
     Friend WithEvents Hyperica As LinkLabel
     Friend WithEvents Physics As TabPage
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents PhysicsGroupbox As GroupBox
     Friend WithEvents Physics_ODE As RadioButton
     Friend WithEvents Physics_Hybrid As RadioButton
     Friend WithEvents Physics_Bullet As RadioButton
     Friend WithEvents Physics_Default As RadioButton
     Friend WithEvents Physics_Separate As RadioButton
     Friend WithEvents Physics_ubODE As RadioButton
-    Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents APIKey As TextBox
     Friend WithEvents Opensimworld As LinkLabel
-    Friend WithEvents Label7 As Label
+    Friend WithEvents YLabel As Label
     Friend WithEvents RichTextBoxModules As RichTextBox
     Friend WithEvents RichTextBoxPermissions As RichTextBox
     Friend WithEvents RichTextBoxMap As RichTextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents RichTextBoxPhysics As RichTextBox
     Friend WithEvents RichTextBoxScripts As RichTextBox
+    Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RichTextBoxPublicity As RichTextBox
+    Friend WithEvents ClampPrimSize As CheckBox
+    Friend WithEvents ClampPrimLabel As Label
+    Friend WithEvents FrameRateLabel As Label
+    Friend WithEvents FrametimeBox As TextBox
+    Friend WithEvents ScriptRateLabel As Label
+    Friend WithEvents ScriptTimerTextBox As TextBox
+    Friend WithEvents RichTextBoxOptions As RichTextBox
+    Friend WithEvents BasicsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OptionsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MapsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PhysicsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ScriptsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PermissionsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PublicityToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ModulesToolStripMenuItem As ToolStripMenuItem
 End Class

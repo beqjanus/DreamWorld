@@ -3551,7 +3551,25 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Radius</value>
   </data>
-  <data name="MapText" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="MapsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapText.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ModulesHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ModulesHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="OptionsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OptionsHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="PermissionsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PermissionsHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="PhysicsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PhysicsHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="PublicityHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PublicityHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ScriptsHelp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ScriptsHelp.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

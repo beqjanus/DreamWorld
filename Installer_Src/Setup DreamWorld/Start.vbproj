@@ -1308,6 +1308,24 @@
   <ItemGroup>
     <None Include="Resources\MapText.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OptionsHelp.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhysicsHelp.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ScriptsHelp.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PermissionsHelp.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PublicityHelp.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ModulesHelp.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -24,97 +24,9 @@ Public Class FormRegion
     Dim oldname As String = ""
     Dim RName As String
 
-    Public Sub New()
+#End Region
 
-        ' This call is required by the designer.
-        InitializeComponent()
-
-        Advanced.Text = Global.Outworldz.My.Resources.Regions_word
-        AllowGods.Text = Global.Outworldz.My.Resources.Allow_Or_Disallow_Gods_word
-        BirdsCheckBox.Text = Global.Outworldz.My.Resources.Bird_Module_word
-        ClampPrimLabel.Text = Global.Outworldz.My.Resources.Clamp_Prim_Size_word
-        ConciergeCheckBox.Text = Global.Outworldz.My.Resources.Announce_visitors
-        DeleteButton.Text = Global.Outworldz.My.Resources.Delete_word
-        DeregisterButton.Text = Global.Outworldz.My.Resources.Deregister_word
-        DisableGBCheckBox.Text = Global.Outworldz.My.Resources.Disable_Gloebits_word
-        DisallowForeigners.Text = Global.Outworldz.My.Resources.Disable_Foreigners_word
-        DisallowResidents.Text = Global.Outworldz.My.Resources.Disable_Residents
-        EnabledCheckBox.Text = Global.Outworldz.My.Resources.Enabled_word
-        FrameRateLabel.Text = Global.Outworldz.My.Resources.FrameRate
-        Gods_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
-        GroupBox1.Text = Global.Outworldz.My.Resources.Physics_word
-        GroupBox2.Text = Global.Outworldz.My.Resources.Sim_Size_word
-        GroupBox3.Text = My.Resources.Publicity_Word
-        GroupBox4.Text = Global.Outworldz.My.Resources.Permissions_word
-        GroupBox6.Text = Global.Outworldz.My.Resources.Region_Specific_Settings_word
-        GroupBox7.Text = Global.Outworldz.My.Resources.Modules_word
-        GroupBox8.Text = Global.Outworldz.My.Resources.Script_Engine_word  '
-
-        Label4.Text = Global.Outworldz.My.Resources.Maps_X
-        ManagerGod.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
-        MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
-        MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
-        MapBox.Text = Global.Outworldz.My.Resources.Maps_word
-        MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
-        MapNone.Text = Global.Outworldz.My.Resources.None
-        Maps_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
-        MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
-        MaxMAvatarsLabel.Text = Global.Outworldz.My.Resources.Max_Avatars
-        MaxNPrimsLabel.Text = Global.Outworldz.My.Resources.Max_NumPrims
-        MenuStrip2.Text = Global.Outworldz.My.Resources._0
-        NonPhysPrimLabel.Text = Global.Outworldz.My.Resources.Nonphysical_Prim
-        NoPublish.Text = Global.Outworldz.My.Resources.No_Publish_Items
-        Physics_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
-        Physics_Separate.Text = Global.Outworldz.My.Resources.BP
-        Physics_ubODE.Text = Global.Outworldz.My.Resources.UBODE_words
-        PhysPrimLabel.Text = Global.Outworldz.My.Resources.Physical_Prim
-        Publish.Text = Global.Outworldz.My.Resources.Publish_Items
-        PublishDefault.Text = Global.Outworldz.My.Resources.Use_Default_word
-        RegionGod.Text = Global.Outworldz.My.Resources.Region_Owner_Is_God_word
-        SaveButton.Text = Global.Outworldz.My.Resources.Save_word
-        ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Use_Default_word
-        ScriptRateLabel.Text = Global.Outworldz.My.Resources.Script_Timer_Rate
-        SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Skip_Autobackup_word
-        SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Smart_Start_word
-        Text = Global.Outworldz.My.Resources.Regions_word
-        TidesCheckbox.Text = Global.Outworldz.My.Resources.Tide_Enable
-        ToolTip1.SetToolTip(AllowGods, Global.Outworldz.My.Resources.AllowGodsTooltip)
-        ToolTip1.SetToolTip(BirdsCheckBox, Global.Outworldz.My.Resources.GBoids)
-        ToolTip1.SetToolTip(ClampPrimLabel, Global.Outworldz.My.Resources.ClampSize)
-        ToolTip1.SetToolTip(ClampPrimSize, Global.Outworldz.My.Resources.ClampSize)
-        ToolTip1.SetToolTip(CoordX, Global.Outworldz.My.Resources.Coordx)
-        ToolTip1.SetToolTip(CoordY, Global.Outworldz.My.Resources.CoordY)
-        ToolTip1.SetToolTip(DisableGBCheckBox, Global.Outworldz.My.Resources.Disable_Gloebits_text)
-        ToolTip1.SetToolTip(DisallowForeigners, Global.Outworldz.My.Resources.No_HG)
-        ToolTip1.SetToolTip(DisallowResidents, Global.Outworldz.My.Resources.Only_Owners)
-        ToolTip1.SetToolTip(FrameRateLabel, Global.Outworldz.My.Resources.FRText)
-        ToolTip1.SetToolTip(FrametimeBox, Global.Outworldz.My.Resources.FrameTime)
-        ToolTip1.SetToolTip(GroupBox1, Global.Outworldz.My.Resources.Sim_Rate)
-        ToolTip1.SetToolTip(ManagerGod, Global.Outworldz.My.Resources.EMGod)
-        ToolTip1.SetToolTip(MaxAgents, Global.Outworldz.My.Resources.Max_Agents)
-        ToolTip1.SetToolTip(MaxMAvatarsLabel, Global.Outworldz.My.Resources.Max_Agents)
-        ToolTip1.SetToolTip(MaxNPrimsLabel, Global.Outworldz.My.Resources.Viewer_Stops_Counting)
-        ToolTip1.SetToolTip(MaxPrims, Global.Outworldz.My.Resources.Not_Normal)
-        ToolTip1.SetToolTip(NonphysicalPrimMax, Global.Outworldz.My.Resources.Normal_Prim)
-        ToolTip1.SetToolTip(NonPhysPrimLabel, Global.Outworldz.My.Resources.Max_NonPhys)
-        ToolTip1.SetToolTip(PhysicalPrimMax, Global.Outworldz.My.Resources.Max_Phys)
-        ToolTip1.SetToolTip(PhysPrimLabel, Global.Outworldz.My.Resources.Max_Phys)
-        ToolTip1.SetToolTip(RegionGod, Global.Outworldz.My.Resources.Region_Owner_Is_God_word)
-        ToolTip1.SetToolTip(RegionName, Global.Outworldz.My.Resources.Region_Name)
-        ToolTip1.SetToolTip(ScriptRateLabel, Global.Outworldz.My.Resources.Script_Timer_Text)
-        ToolTip1.SetToolTip(ScriptRateLabel, Global.Outworldz.My.Resources.STComment)
-        ToolTip1.SetToolTip(ScriptTimerTextBox, Global.Outworldz.My.Resources.STComment)
-        ToolTip1.SetToolTip(SkipAutoCheckBox, Global.Outworldz.My.Resources.WillNotSave)
-        ToolTip1.SetToolTip(SmartStartCheckBox, Global.Outworldz.My.Resources.GTide)
-        ToolTip1.SetToolTip(TidesCheckbox, Global.Outworldz.My.Resources.GTide)
-        ToolTip1.SetToolTip(TPCheckBox1, Global.Outworldz.My.Resources.Teleport_Tooltip)
-        TPCheckBox1.Text = Global.Outworldz.My.Resources.Teleporter_Enable_word
-        UUID.Name = Global.Outworldz.My.Resources.UUID
-        XEngineButton.Text = Global.Outworldz.My.Resources.XEngine_word
-        YEngineButton.Text = Global.Outworldz.My.Resources.YEngine_word
-        ' Add any initialization after the InitializeComponent() call.
-
-    End Sub
+#Region "Properties"
 
     Public Property Changed1 As Boolean
         Get
@@ -172,50 +84,130 @@ Public Class FormRegion
 
 #End Region
 
-#Region "Start_Stop"
+#Region "Start/Stop"
 
-    Public Shared Function FilenameIsOK(ByVal fileName As String) As Boolean
-        ' check for invalid chars in file name for INI file
-        If fileName Is Nothing Then Return False
-        Dim value As Boolean = False
-        Try
-            value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+    Public Sub New()
 
-        Return value
+        ' This call is required by the designer.
+        InitializeComponent()
 
-    End Function
+        Text = Global.Outworldz.My.Resources.Regions_word
 
-    Shared Function RegionChosen(regionName As String) As String
+        RichTextBoxOptions.Text = Global.Outworldz.My.Resources.OptionsHelp
+        RichTextBoxMap.Text = Global.Outworldz.My.Resources.MapsHelp
+        RichTextBoxPhysics.Text = Global.Outworldz.My.Resources.PhysicsHelp
+        RichTextBoxScripts.Text = Global.Outworldz.My.Resources.ScriptsHelp
+        RichTextBoxPermissions.Text = Global.Outworldz.My.Resources.PermissionsHelp
+        RichTextBoxPublicity.Text = Global.Outworldz.My.Resources.PublicityHelp
+        RichTextBoxModules.Text = Global.Outworldz.My.Resources.ModulesHelp
 
-        Dim result As DialogResult
-        Dim chosen As String
+        RegionsGroupbox.Text = Global.Outworldz.My.Resources.Regions_word
+        MapGroupBox.Text = Global.Outworldz.My.Resources.Maps_word
+        PhysicsGroupbox.Text = Global.Outworldz.My.Resources.Physics_word
+        PermissionsGroupbox.Text = Global.Outworldz.My.Resources.Permissions_word
+        ScriptsGroupbox.Text = Global.Outworldz.My.Resources.Scripts_word
+        PublicityGroupBox.Text = Global.Outworldz.My.Resources.Publicity_Word
+        ModulesGroupBox.Text = Global.Outworldz.My.Resources.Modules_word
 
-        Using Chooseform As New FormChooser ' form for choosing a set of regions
-            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
-            Chooseform.FillGrid("Group")  ' populate the grid with either Group or RegionName
-            result = Chooseform.ShowDialog()
-            If result = DialogResult.Cancel Then
-                Return ""
-            End If
+        GodLevel.Text = Global.Outworldz.My.Resources.Allow_Or_Disallow_Gods_word
+        BirdsCheckBox.Text = Global.Outworldz.My.Resources.Bird_Module_word
+        ClampPrimLabel.Text = Global.Outworldz.My.Resources.Clamp_Prim_Size_word
+        ConciergeCheckBox.Text = Global.Outworldz.My.Resources.Announce_visitors
+        DeleteButton.Text = Global.Outworldz.My.Resources.Delete_word
+        DeregisterButton.Text = Global.Outworldz.My.Resources.Deregister_word
+        DisableGBCheckBox.Text = Global.Outworldz.My.Resources.Disable_Gloebits_word
+        DisallowForeigners.Text = Global.Outworldz.My.Resources.Disable_Foreigners_word
+        DisallowResidents.Text = Global.Outworldz.My.Resources.Disable_Residents
+        EnabledCheckBox.Text = Global.Outworldz.My.Resources.Enabled_word
+        FrameRateLabel.Text = Global.Outworldz.My.Resources.FrameRate
 
-            Try
-                ' Read the chosen sim name
-                chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
-                If chosen = "! Add New Name" Then
-                    chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                chosen = ""
-            End Try
 
-        End Using
-        Return chosen
+        'boxes
+        PhysicsGroupbox.Text = Global.Outworldz.My.Resources.Physics_word
+        GroupBox2.Text = Global.Outworldz.My.Resources.Sim_Size_word
+        PublicityGroupBox.Text = My.Resources.Publicity_Word
+        PermissionsGroupbox.Text = Global.Outworldz.My.Resources.Permissions_word
+        ModulesGroupBox.Text = Global.Outworldz.My.Resources.Modules_word
+        ScriptsGroupbox.Text = Global.Outworldz.My.Resources.Script_Engine_word  '
 
-    End Function
+        XLabel.Text = Global.Outworldz.My.Resources.X
+        YLabel.Text = Global.Outworldz.My.Resources.Y
+
+        Gods_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
+        GodEstate.Text = Global.Outworldz.My.Resources.Region_Owner_Is_God_word
+        GodManager.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
+
+
+        MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
+        MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
+        MapGroupBox.Text = Global.Outworldz.My.Resources.Maps_word
+        MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
+        MapNone.Text = Global.Outworldz.My.Resources.None
+        Maps_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
+        MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
+
+        MaxMAvatarsLabel.Text = Global.Outworldz.My.Resources.Max_Avatars
+        MaxNPrimsLabel.Text = Global.Outworldz.My.Resources.Max_NumPrims
+
+        MenuStrip2.Text = Global.Outworldz.My.Resources._0
+        NonPhysPrimLabel.Text = Global.Outworldz.My.Resources.Nonphysical_Prim
+        NoPublish.Text = Global.Outworldz.My.Resources.No_Publish_Items
+
+        Physics_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
+        Physics_Separate.Text = Global.Outworldz.My.Resources.BP
+        Physics_ubODE.Text = Global.Outworldz.My.Resources.UBODE_words
+        PhysPrimLabel.Text = Global.Outworldz.My.Resources.Physical_Prim
+
+        Publish.Text = Global.Outworldz.My.Resources.Publish_Items
+        PublishDefault.Text = Global.Outworldz.My.Resources.Use_Default_word
+
+
+        SaveButton.Text = Global.Outworldz.My.Resources.Save_word
+        ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Use_Default_word
+        ScriptRateLabel.Text = Global.Outworldz.My.Resources.Script_Timer_Rate
+        SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Skip_Autobackup_word
+        SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Smart_Start_word
+        TidesCheckbox.Text = Global.Outworldz.My.Resources.Tide_Enable
+
+        ToolTip1.SetToolTip(GodLevel, Global.Outworldz.My.Resources.AllowGodsTooltip)
+        ToolTip1.SetToolTip(BirdsCheckBox, Global.Outworldz.My.Resources.GBoids)
+        ToolTip1.SetToolTip(ClampPrimLabel, Global.Outworldz.My.Resources.ClampSize)
+        ToolTip1.SetToolTip(ClampPrimSize, Global.Outworldz.My.Resources.ClampSize)
+        ToolTip1.SetToolTip(CoordX, Global.Outworldz.My.Resources.Coordx)
+        ToolTip1.SetToolTip(CoordY, Global.Outworldz.My.Resources.CoordY)
+        ToolTip1.SetToolTip(DisableGBCheckBox, Global.Outworldz.My.Resources.Disable_Gloebits_text)
+        ToolTip1.SetToolTip(DisallowForeigners, Global.Outworldz.My.Resources.No_HG)
+        ToolTip1.SetToolTip(DisallowResidents, Global.Outworldz.My.Resources.Only_Owners)
+        ToolTip1.SetToolTip(FrameRateLabel, Global.Outworldz.My.Resources.FRText)
+        ToolTip1.SetToolTip(FrametimeBox, Global.Outworldz.My.Resources.FrameTime)
+        ToolTip1.SetToolTip(PhysicsGroupbox, Global.Outworldz.My.Resources.Sim_Rate)
+        ToolTip1.SetToolTip(GodManager, Global.Outworldz.My.Resources.EMGod)
+        ToolTip1.SetToolTip(MaxAgents, Global.Outworldz.My.Resources.Max_Agents)
+        ToolTip1.SetToolTip(MaxMAvatarsLabel, Global.Outworldz.My.Resources.Max_Agents)
+        ToolTip1.SetToolTip(MaxNPrimsLabel, Global.Outworldz.My.Resources.Viewer_Stops_Counting)
+        ToolTip1.SetToolTip(MaxPrims, Global.Outworldz.My.Resources.Not_Normal)
+        ToolTip1.SetToolTip(NonphysicalPrimMax, Global.Outworldz.My.Resources.Normal_Prim)
+        ToolTip1.SetToolTip(NonPhysPrimLabel, Global.Outworldz.My.Resources.Max_NonPhys)
+        ToolTip1.SetToolTip(PhysicalPrimMax, Global.Outworldz.My.Resources.Max_Phys)
+        ToolTip1.SetToolTip(PhysPrimLabel, Global.Outworldz.My.Resources.Max_Phys)
+        ToolTip1.SetToolTip(GodEstate, Global.Outworldz.My.Resources.Region_Owner_Is_God_word)
+        ToolTip1.SetToolTip(RegionName, Global.Outworldz.My.Resources.Region_Name)
+        ToolTip1.SetToolTip(ScriptRateLabel, Global.Outworldz.My.Resources.Script_Timer_Text)
+        ToolTip1.SetToolTip(ScriptRateLabel, Global.Outworldz.My.Resources.STComment)
+        ToolTip1.SetToolTip(ScriptTimerTextBox, Global.Outworldz.My.Resources.STComment)
+        ToolTip1.SetToolTip(SkipAutoCheckBox, Global.Outworldz.My.Resources.WillNotSave)
+        ToolTip1.SetToolTip(SmartStartCheckBox, Global.Outworldz.My.Resources.GTide)
+        ToolTip1.SetToolTip(TidesCheckbox, Global.Outworldz.My.Resources.GTide)
+        ToolTip1.SetToolTip(TPCheckBox1, Global.Outworldz.My.Resources.Teleport_Tooltip)
+
+        TPCheckBox1.Text = Global.Outworldz.My.Resources.Teleporter_Enable_word
+        UUID.Name = Global.Outworldz.My.Resources.UUID
+
+        'Scripting
+        XEngineButton.Text = Global.Outworldz.My.Resources.XEngine_word
+        YEngineButton.Text = Global.Outworldz.My.Resources.YEngine_word
+
+    End Sub
 
     Public Sub Init(Name As String)
 
@@ -371,7 +363,14 @@ Public Class FormRegion
                 DisableGBCheckBox.Checked = True
         End Select
 
-        RichTextBoxMap.Text = My.Resources.MapText
+        RichTextBoxMap.Text = My.Resources.MapsHelp
+        RichTextBoxOptions.Text = My.Resources.OptionsHelp
+        RichTextBoxPhysics.Text = My.Resources.PhysicsHelp
+        RichTextBoxPublicity.Text = My.Resources.PublicityHelp
+        RichTextBoxPermissions.Text = My.Resources.PermissionsHelp
+        RichTextBoxScripts.Text = My.Resources.ScriptsHelp
+        RichTextBoxModules.Text = My.Resources.ModulesHelp
+
 
         RName1 = Name
 
@@ -409,41 +408,41 @@ Public Class FormRegion
         End Select
 
         If PropRegionClass.GodDefault(RegionUUID) = "True" Then
-            AllowGods.Checked = False
-            RegionGod.Checked = False
-            ManagerGod.Checked = False
+            GodLevel.Checked = False
+            GodEstate.Checked = False
+            GodManager.Checked = False
             Gods_Use_Default.Checked = True
         Else
             Select Case PropRegionClass.AllowGods(RegionUUID)
                 Case ""
-                    AllowGods.Checked = False
+                    GodLevel.Checked = False
                 Case "False"
-                    AllowGods.Checked = False
+                    GodLevel.Checked = False
                     Gods_Use_Default.Checked = False
                 Case "True"
-                    AllowGods.Checked = True
+                    GodLevel.Checked = True
                     Gods_Use_Default.Checked = False
             End Select
 
             Select Case PropRegionClass.RegionGod(RegionUUID)
                 Case ""
-                    RegionGod.Checked = False
+                    GodEstate.Checked = False
                 Case "False"
-                    RegionGod.Checked = False
+                    GodEstate.Checked = False
                     Gods_Use_Default.Checked = False
                 Case "True"
-                    RegionGod.Checked = True
+                    GodEstate.Checked = True
                     Gods_Use_Default.Checked = False
             End Select
 
             Select Case PropRegionClass.ManagerGod(RegionUUID)
                 Case ""
-                    ManagerGod.Checked = False
+                    GodManager.Checked = False
                 Case "False"
-                    ManagerGod.Checked = False
+                    GodManager.Checked = False
                     Gods_Use_Default.Checked = False
                 Case "True"
-                    ManagerGod.Checked = True
+                    GodManager.Checked = True
                     Gods_Use_Default.Checked = False
             End Select
 
@@ -546,6 +545,46 @@ Public Class FormRegion
 
     End Sub
 
+    Private Sub FormRegion_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+
+        If Changed1 Then
+            FormSetup.PropChangedRegionSettings = True
+            Dim v = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Save_changes_word)
+            If v = vbYes Then
+                Dim message = RegionValidate()
+                If Len(message) > 0 Then
+                    v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+                    If v = vbYes Then
+                        Me.Close()
+                    End If
+                Else
+                    WriteRegion(RegionUUID)
+                    Firewall.SetFirewall()
+                    PropUpdateView() = True
+                    Changed1 = False
+                End If
+            End If
+        End If
+
+    End Sub
+
+#End Region
+
+#Region "Events"
+
+    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles GodLevel.CheckedChanged
+
+        If GodLevel.Checked Then
+            Gods_Use_Default.Checked = False
+            Log(My.Resources.Info_word, "Region " + Name + " Is allowing Gods")
+        Else
+            Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
+        End If
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
         If BirdsCheckBox.Checked Then
@@ -553,6 +592,10 @@ Public Class FormRegion
         End If
         If Initted1 Then Changed1 = True
 
+    End Sub
+
+    Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs)
+        If Initted1 Then Changed1 = True
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
@@ -610,7 +653,11 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub ClampPrimSize_CheckedChanged(sender As Object, e As EventArgs) Handles ClampPrimSize.CheckedChanged
+    Private Sub ClampPrimSize_CheckedChanged(sender As Object, e As EventArgs)
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub ConciergeCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ConciergeCheckBox.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
 
@@ -631,10 +678,6 @@ Public Class FormRegion
             Changed1 = True
         End If
 
-    End Sub
-
-    Private Sub DatabaseSetupToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        HelpManual("Region")
     End Sub
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
@@ -676,200 +719,169 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub FormRegion_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+    Private Sub RLost(sender As Object, e As EventArgs) Handles RegionName.LostFocus
+        RegionName.Text = RegionName.Text.Trim() ' remove spaces
+        If Initted1 Then Changed1 = True
+    End Sub
 
-        If Changed1 Then
-            FormSetup.PropChangedRegionSettings = True
-            Dim v = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Save_changes_word)
-            If v = vbYes Then
-                Dim message = RegionValidate()
-                If Len(message) > 0 Then
-                    v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-                    If v = vbYes Then
-                        Me.Close()
-                    End If
+    Private Sub ScriptDefaultButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptDefaultButton.CheckedChanged
+
+        If ScriptDefaultButton.Checked Then
+            XEngineButton.Checked = False
+            YEngineButton.Checked = False
+        End If
+
+    End Sub
+
+    Private Sub ScriptTimerTextBox_focusChanged(sender As Object, e As EventArgs)
+
+        Try
+            Dim value = Convert.ToDouble(ScriptTimerTextBox.Text, Globalization.CultureInfo.InvariantCulture)
+            If value < 0.01 Then ScriptTimerTextBox.Text = ""
+        Catch ex As Exception
+            ScriptTimerTextBox.Text = ""
+        End Try
+
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs)
+
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub SkipAutoCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SkipAutoCheckBox.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub StopHGCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles DisableGBCheckBox.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub TextBox1_FocusChanged(sender As Object, e As EventArgs)
+
+        Try
+            Dim value = Convert.ToDouble(FrametimeBox.Text, Globalization.CultureInfo.InvariantCulture)
+            If value < 0.01 Then FrametimeBox.Text = ""
+        Catch ex As Exception
+            FrametimeBox.Text = ""
+        End Try
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs)
+
+        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        FrametimeBox.Text = digitsOnly.Replace(FrametimeBox.Text, "")
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub TidesCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TidesCheckbox.CheckedChanged
+
+        If TidesCheckbox.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " has tides enabled")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
+
+        If TPCheckBox1.Checked Then
+            Log(My.Resources.Info_word, "Region " + Name + " has Teleport Board enabled")
+        End If
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
+    Private Sub UUID_LostFocus(sender As Object, e As EventArgs) Handles UUID.LostFocus
+
+        If UUID.Text <> UUID.Text And Initted1 Then
+            Dim resp = MsgBox(My.Resources.Change_UUID, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+            If resp = vbYes Then
+                Changed1 = True
+                Dim result As Guid
+                If Guid.TryParse(UUID.Text, result) Then
                 Else
-                    WriteRegion(RegionUUID)
-                    Firewall.SetFirewall()
-                    PropUpdateView() = True
-                    Changed1 = False
+                    Dim ok = MsgBox(My.Resources.NotValidUUID, MsgBoxStyle.OkCancel Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+                    If ok = vbOK Then
+                        UUID.Text = System.Guid.NewGuid.ToString
+                    End If
                 End If
             End If
         End If
 
     End Sub
 
+    Private Sub UUID_TextChanged(sender As Object, e As EventArgs) Handles UUID.TextChanged
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
+
 #End Region
 
-#Region "Private Methods"
+#Region "Subs"
 
-    Private Sub GodHelp_Click(sender As Object, e As EventArgs)
-        HelpManual("Permissions")
-    End Sub
+    Public Shared Function FilenameIsOK(ByVal fileName As String) As Boolean
+        ' check for invalid chars in file name for INI file
+        If fileName Is Nothing Then Return False
+        Dim value As Boolean = False
+        Try
+            value = Not fileName.Intersect(Path.GetInvalidFileNameChars()).Any()
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
 
-    Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
+        Return value
 
-        If MapBest.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Best")
-            MapPicture.Image = Global.Outworldz.My.Resources.Best
-        End If
-        If Initted1 Then Changed1 = True
+    End Function
 
-    End Sub
+    Shared Function RegionChosen(regionName As String) As String
 
-    Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
+        Dim result As DialogResult
+        Dim chosen As String
 
-        If MapBetter.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Better")
-            MapPicture.Image = Global.Outworldz.My.Resources.Better
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
-
-        If MapGood.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Good")
-            MapPicture.Image = Global.Outworldz.My.Resources.Good
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
-
-        If MapNone.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Map Is set to None")
-            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub Maps_Use_Default_changed(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
-
-        If Maps_Use_Default.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Default")
-            MapNone.Checked = False
-            MapSimple.Checked = False
-            MapGood.Checked = False
-            MapBetter.Checked = False
-            MapBest.Checked = False
-
-            If Settings.MapType = "None" Then
-                MapPicture.Image = Global.Outworldz.My.Resources.blankbox
-            ElseIf Settings.MapType = "Simple" Then
-                MapPicture.Image = Global.Outworldz.My.Resources.Simple
-            ElseIf Settings.MapType = "Good" Then
-                MapPicture.Image = Global.Outworldz.My.Resources.Good
-            ElseIf Settings.MapType = "Better" Then
-                MapPicture.Image = Global.Outworldz.My.Resources.Better
-            ElseIf Settings.MapType = "Best" Then
-                Settings.MapType = "Best"
+        Using Chooseform As New FormChooser ' form for choosing a set of regions
+            ' Show testDialog as a modal dialog and determine if DialogResult = OK.
+            Chooseform.FillGrid("Group")  ' populate the grid with either Group or RegionName
+            result = Chooseform.ShowDialog()
+            If result = DialogResult.Cancel Then
+                Return ""
             End If
-        End If
 
-        If Initted1 Then Changed1 = True
+            Try
+                ' Read the chosen sim name
+                chosen = Chooseform.DataGridView.CurrentCell.Value.ToString()
+                If chosen = "! Add New Name" Then
+                    chosen = InputBox(My.Resources.Enter_Dos_Name, "", regionName)
+                End If
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                chosen = ""
+            End Try
 
-    End Sub
+        End Using
+        Return chosen
 
-    Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
-
-        If MapSimple.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Map Is set to Simple")
-            MapPicture.Image = Global.Outworldz.My.Resources.Simple
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub MaxAgents_TextChanged(sender As Object, e As EventArgs) Handles MaxAgents.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        MaxAgents.Text = digitsOnly.Replace(MaxAgents.Text, "")
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub NonphysicalPrimMax_TextChanged(sender As Object, e As EventArgs) Handles NonphysicalPrimMax.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        NonphysicalPrimMax.Text = digitsOnly.Replace(NonphysicalPrimMax.Text, "")
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub NoPublish_CheckedChanged(sender As Object, e As EventArgs) Handles NoPublish.CheckedChanged
-
-        If NoPublish.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Is Not set to publish snapshots")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub PhysicalPrimMax_TextChanged(sender As Object, e As EventArgs) Handles PhysicalPrimMax.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        PhysicalPrimMax.Text = digitsOnly.Replace(PhysicalPrimMax.Text, "")
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-#End Region
-
-#Region "Physics"
-
-    Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs)
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_Default_CheckedChanged1(sender As Object, e As EventArgs)
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub PhysicsSeparate_CheckedChanged1(sender As Object, e As EventArgs)
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub PhysicsubODE_CheckedChanged1(sender As Object, e As EventArgs)
-        If Initted1 Then Changed1 = True
-    End Sub
-
-#End Region
-
-#Region "Physics"
-
-    Private Sub Publish_CheckedChanged(sender As Object, e As EventArgs) Handles Publish.CheckedChanged
-
-        If Publish.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " is publishing snapshots")
-        Else
-            Log(My.Resources.Info_word, "Region " + Name + " is not publishing snapshots")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub PublishDefault_CheckedChanged(sender As Object, e As EventArgs) Handles PublishDefault.CheckedChanged
-
-        If PublishDefault.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " is set to default for snapshots")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub RChanged(sender As Object, e As EventArgs) Handles RegionName.TextChanged
-        If Len(RegionName.Text) > 0 And Initted1 Then
-            If Not FilenameIsOK(RegionName.Text) Then
-                MsgBox(My.Resources.Region_Names_Special & " < > : """" / \ | ? *", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-                Return
-            End If
-            If Initted1 Then Changed1 = True
-        End If
-    End Sub
+    End Function
 
     Private Function RegionValidate() As String
 
@@ -954,120 +966,6 @@ Public Class FormRegion
         End Try
         Return ""
     End Function
-
-    Private Sub RLost(sender As Object, e As EventArgs) Handles RegionName.LostFocus
-        RegionName.Text = RegionName.Text.Trim() ' remove spaces
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub ScriptTimerTextBox_focusChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.LostFocus
-
-        Try
-            Dim value = Convert.ToDouble(ScriptTimerTextBox.Text, Globalization.CultureInfo.InvariantCulture)
-            If value < 0.01 Then ScriptTimerTextBox.Text = ""
-        Catch ex As Exception
-            ScriptTimerTextBox.Text = ""
-        End Try
-
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub SkipAutoCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SkipAutoCheckBox.CheckedChanged
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub SmartStartCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SmartStartCheckBox.CheckedChanged
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub StopHGCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles DisableGBCheckBox.CheckedChanged
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub TextBox1_FocusChanged(sender As Object, e As EventArgs) Handles FrametimeBox.LostFocus
-
-        Try
-            Dim value = Convert.ToDouble(FrametimeBox.Text, Globalization.CultureInfo.InvariantCulture)
-            If value < 0.01 Then FrametimeBox.Text = ""
-        Catch ex As Exception
-            FrametimeBox.Text = ""
-        End Try
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
-
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
-        FrametimeBox.Text = digitsOnly.Replace(FrametimeBox.Text, "")
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub TidesCheckbox_CheckedChanged(sender As Object, e As EventArgs) Handles TidesCheckbox.CheckedChanged
-
-        If TidesCheckbox.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " has tides enabled")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs)
-
-        HelpManual("Region")
-
-    End Sub
-
-    Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
-
-        If TPCheckBox1.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " has Teleport Board enabled")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub UUID_LostFocus(sender As Object, e As EventArgs) Handles UUID.LostFocus
-
-        If UUID.Text <> UUID.Text And Initted1 Then
-            Dim resp = MsgBox(My.Resources.Change_UUID, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-            If resp = vbYes Then
-                Changed1 = True
-                Dim result As Guid
-                If Guid.TryParse(UUID.Text, result) Then
-                Else
-                    Dim ok = MsgBox(My.Resources.NotValidUUID, MsgBoxStyle.OkCancel Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
-                    If ok = vbOK Then
-                        UUID.Text = System.Guid.NewGuid.ToString
-                    End If
-                End If
-            End If
-        End If
-
-    End Sub
-
-    Private Sub UUID_TextChanged(sender As Object, e As EventArgs) Handles UUID.TextChanged
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
 
     ''' <returns>false if it fails</returns>
     Private Function WriteRegion(RegionUUID As String) As Boolean
@@ -1200,9 +1098,9 @@ Public Class FormRegion
             PropRegionClass.ManagerGod(RegionUUID) = ""
         Else
             PropRegionClass.GodDefault(RegionUUID) = "False"
-            PropRegionClass.AllowGods(RegionUUID) = CStr(AllowGods.Checked)
-            PropRegionClass.RegionGod(RegionUUID) = CStr(RegionGod.Checked)
-            PropRegionClass.ManagerGod(RegionUUID) = CStr(ManagerGod.Checked)
+            PropRegionClass.AllowGods(RegionUUID) = CStr(GodLevel.Checked)
+            PropRegionClass.RegionGod(RegionUUID) = CStr(GodEstate.Checked)
+            PropRegionClass.ManagerGod(RegionUUID) = CStr(GodManager.Checked)
         End If
 
         If DisallowForeigners.Checked Then
@@ -1339,217 +1237,38 @@ Public Class FormRegion
 
 #End Region
 
-#Region "Radio"
+#Region "Scripting"
 
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
-
-        If Initted1 And RadioButton1.Checked Then
-            Changed1 = True
-            BoxSize = 256
-        End If
-
+    Private Sub BasicsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BasicsToolStripMenuItem.Click
+        HelpManual("Region")
     End Sub
 
-    Private Sub RadioButton10_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton9.CheckedChanged
-
-        If Initted1 And RadioButton9.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 9
-        End If
-
+    Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MapsToolStripMenuItem.Click
+        HelpManual("Region Maps")
     End Sub
 
-    Private Sub RadioButton11_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton12.CheckedChanged
-
-        If Initted1 And RadioButton12.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 12
-        End If
-
+    Private Sub ModulesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModulesToolStripMenuItem.Click
+        HelpManual("Region Modules")
     End Sub
 
-    Private Sub RadioButton12_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton11.CheckedChanged
-
-        If Initted1 And RadioButton11.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 11
-        End If
-
+    Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click
+        HelpManual("Region Options")
     End Sub
 
-    Private Sub RadioButton13_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton16.CheckedChanged
-
-        If Initted1 And RadioButton16.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 16
-        End If
-
+    Private Sub PermissionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PermissionsToolStripMenuItem.Click
+        HelpManual("Region Permissions")
     End Sub
 
-    Private Sub RadioButton14_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton15.CheckedChanged
-
-        If Initted1 And RadioButton15.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 15
-        End If
-
+    Private Sub PhysicsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PhysicsToolStripMenuItem.Click
+        HelpManual("Region Physics")
     End Sub
 
-    Private Sub RadioButton15_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton14.CheckedChanged
-
-        If Initted1 And RadioButton14.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 14
-        End If
-
+    Private Sub PublicityToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PublicityToolStripMenuItem.Click
+        HelpManual("Region Publicity")
     End Sub
 
-    Private Sub RadioButton16_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton13.CheckedChanged
-
-        If Initted1 And RadioButton13.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 13
-        End If
-
-    End Sub
-
-    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
-
-        If Initted1 And RadioButton2.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 2
-        End If
-
-    End Sub
-
-    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
-
-        If Initted1 And RadioButton3.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 3
-        End If
-
-    End Sub
-
-    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
-
-        If Initted1 And RadioButton4.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 4
-        End If
-
-    End Sub
-
-    Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton8.CheckedChanged
-
-        If Initted1 And RadioButton8.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 8
-        End If
-
-    End Sub
-
-    Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton7.CheckedChanged
-
-        If Initted1 And RadioButton7.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 7
-        End If
-
-    End Sub
-
-    Private Sub RadioButton7_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton6.CheckedChanged
-
-        If Initted1 And RadioButton6.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 6
-        End If
-
-    End Sub
-
-    Private Sub RadioButton8_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton5.CheckedChanged
-
-        If Initted1 And RadioButton5.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 5
-        End If
-
-    End Sub
-
-    Private Sub RadioButton9_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton10.CheckedChanged
-
-        If Initted1 And RadioButton10.Checked Then
-            Changed1 = True
-            BoxSize = 256 * 10
-        End If
-
-    End Sub
-
-#End Region
-
-#Region "Gods"
-
-    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles AllowGods.CheckedChanged
-
-        If AllowGods.Checked Then
-            Gods_Use_Default.Checked = False
-            Log(My.Resources.Info_word, "Region " + Name + " Is allowing Gods")
-        Else
-            Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
-        End If
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
-
-        If Gods_Use_Default.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " Is set to default for Gods")
-            AllowGods.Checked = False
-            RegionGod.Checked = False
-            ManagerGod.Checked = False
-            Gods_Use_Default.Checked = True
-        Else
-            Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
-        End If
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub ManagerGod_CheckedChanged(sender As Object, e As EventArgs) Handles ManagerGod.CheckedChanged
-
-        If ManagerGod.Checked Then
-            Gods_Use_Default.Checked = False
-            Log(My.Resources.Info_word, "Region " + Name + " Is allowing Manager Gods")
-        Else
-            Log(My.Resources.Info_word, "Region " + Name + " Is Not allowing Manager Gods")
-        End If
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub RegionGod_CheckedChanged(sender As Object, e As EventArgs) Handles RegionGod.CheckedChanged
-
-        If RegionGod.Checked Then
-            Gods_Use_Default.Checked = False
-            Log(My.Resources.Info_word, "Region " + Name + " is allowing Region Gods")
-        Else
-            Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
-        End If
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub ScriptDefaultButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptDefaultButton.CheckedChanged
-
-        If ScriptDefaultButton.Checked Then
-            XEngineButton.Checked = False
-            YEngineButton.Checked = False
-        End If
-
+    Private Sub ScriptsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScriptsToolStripMenuItem.Click
+        HelpManual("Region Scripts")
     End Sub
 
     ' TODO: Add more physics overrides
@@ -1571,38 +1290,6 @@ Public Class FormRegion
         End If
         If Initted1 Then Changed1 = True
 
-    End Sub
-
-#End Region
-
-#Region "Physics"
-
-    Private Sub ConciergeCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ConciergeCheckBox.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub ODEButton_CheckedChanged(sender As Object, e As EventArgs)
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs)
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub PhysicsSeparate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub PhysicsubODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub RadioButton17_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
-        If Initted1 Then Changed1 = True
     End Sub
 
 #End Region

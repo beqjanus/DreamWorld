@@ -1,7 +1,14 @@
-Suggestion: Leave maps off.  Use Best maps once, then disable. 
+Suggestion: Leave maps off.  Use Best maps once, then turn Off. 
 
-• None:  No maps will be made. This is a good setting as the regions will boot very quickly.  Any existing maps are not deleted.
-• Simple but Fast: MapImageModule is used with just Land showing.
-• Good:  Uses Warp3D module with just Land showing.
-• Better: Uses Warp3D module with Land, Prims, and land Textures showing.
-• Best: Uses Warp3D module with Land, Prims, Mesh, Sculpts, and all Textures including prims showing.
+If users reboot regions to make maps, leave maps on. 
+
+• None:  No maps will be made. Regions will boot quickly.  Existing maps are not deleted.
+
+• Simple but Fast: Just Land showing.
+
+• Good:  Better view of just Land showing.
+
+• Better: Land, Prims, and Land Textures showing.
+
+• Best: Land, Prims, Mesh, Sculpts, and all Textures showing.
+

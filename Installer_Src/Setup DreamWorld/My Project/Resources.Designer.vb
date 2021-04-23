@@ -5505,16 +5505,22 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to Suggestion: Leave maps off.  Use Best maps once, then disable. 
-        '''•	None:  No maps will be made. This is a good setting as the regions will boot very quickly.  Any existing maps are not deleted.
-        '''•	Simple but Fast: MapImageModule is used with just Land showing
-        '''•	Good:  Uses Warp3D module with just Land showing
-        '''•	Better: Uses Warp3D module with Land, Prims, and land Textures showing
-        '''•	Best: Uses Warp3D module with Land, Prims, Mesh, Sculpts, and all Textures including prims showing.
+        '''
+        '''• None:  No maps will be made. This is a good setting as the regions will boot very quickly.  Any existing maps are not deleted.
+        '''
+        '''• Simple but Fast: MapImageModule is used with just Land showing.
+        '''
+        '''• Good:  Uses Warp3D module with just Land showing.
+        '''
+        '''• Better: Uses Warp3D module with Land, Prims, and land Textures showing.
+        '''
+        '''• Best: Uses Warp3D module with Land, Prims, Mesh, Sculpts, and all Textures including prims showing.
+        '''
         '''.
         '''</summary>
-        Friend ReadOnly Property MapText() As String
+        Friend ReadOnly Property MapsHelp() As String
             Get
-                Return ResourceManager.GetString("MapText", resourceCulture)
+                Return ResourceManager.GetString("MapsHelp", resourceCulture)
             End Get
         End Property
         
@@ -5830,6 +5836,15 @@ Namespace My.Resources
         Friend ReadOnly Property Modules_word() As String
             Get
                 Return ResourceManager.GetString("Modules_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property ModulesHelp() As String
+            Get
+                Return ResourceManager.GetString("ModulesHelp", resourceCulture)
             End Get
         End Property
         
@@ -6675,6 +6690,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property OptionsHelp() As String
+            Get
+                Return ResourceManager.GetString("OptionsHelp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Or:.
         '''</summary>
         Friend ReadOnly Property ors() As String
@@ -6882,6 +6906,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PermissionsHelp() As String
+            Get
+                Return ResourceManager.GetString("PermissionsHelp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Photo.
         '''</summary>
         Friend ReadOnly Property Photo_Word() As String
@@ -6914,6 +6947,15 @@ Namespace My.Resources
         Friend ReadOnly Property Physics_word() As String
             Get
                 Return ResourceManager.GetString("Physics_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PhysicsHelp() As String
+            Get
+                Return ResourceManager.GetString("PhysicsHelp", resourceCulture)
             End Get
         End Property
         
@@ -7161,6 +7203,15 @@ Namespace My.Resources
         Friend ReadOnly Property Publicity_Word() As String
             Get
                 Return ResourceManager.GetString("Publicity_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property PublicityHelp() As String
+            Get
+                Return ResourceManager.GetString("PublicityHelp", resourceCulture)
             End Get
         End Property
         
@@ -8212,6 +8263,15 @@ Namespace My.Resources
         Friend ReadOnly Property Scripts_word() As String
             Get
                 Return ResourceManager.GetString("Scripts_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property ScriptsHelp() As String
+            Get
+                Return ResourceManager.GetString("ScriptsHelp", resourceCulture)
             End Get
         End Property
         
