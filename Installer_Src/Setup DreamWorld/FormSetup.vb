@@ -1040,11 +1040,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub PokeRegionTimer(UUID As String)
-
-        PropRegionClass.Timer(UUID) = Date.Now ' wait another interval
-
-    End Sub
     Private Sub ExitHandlerPoll()
 
         Dim GroupName As String = ""
@@ -1144,7 +1139,6 @@ Public Class FormSetup
 
             Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
             Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
-
 
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted _
                 And Expired > 0 _
@@ -1341,6 +1335,12 @@ Public Class FormSetup
         End While
 
         PropExitHandlerIsBusy = False
+
+    End Sub
+
+    Private Sub PokeRegionTimer(UUID As String)
+
+        PropRegionClass.Timer(UUID) = Date.Now ' wait another interval
 
     End Sub
 
@@ -1904,23 +1904,22 @@ Public Class FormSetup
         Dim folders As Array = Nothing
         Try
             folders = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help"))
+            For Each aline As String In folders
+                If aline.EndsWith(".htm", StringComparison.InvariantCultureIgnoreCase) Then
+                    aline = System.IO.Path.GetFileNameWithoutExtension(aline)
+                    Dim HelpMenu As New ToolStripMenuItem With {
+                        .Text = aline,
+                        .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
+                        .DisplayStyle = ToolStripItemDisplayStyle.Text,
+                        .Image = Global.Outworldz.My.Resources.question_and_answer
+                    }
+                    AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
+                    HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
+                End If
+            Next
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
-
-        For Each aline As String In folders
-            If aline.EndsWith(".htm", StringComparison.InvariantCultureIgnoreCase) Then
-                aline = System.IO.Path.GetFileNameWithoutExtension(aline)
-                Dim HelpMenu As New ToolStripMenuItem With {
-                    .Text = aline,
-                    .ToolTipText = Global.Outworldz.My.Resources.Click_to_load,
-                    .DisplayStyle = ToolStripItemDisplayStyle.Text,
-                    .Image = Global.Outworldz.My.Resources.question_and_answer
-                }
-                AddHandler HelpMenu.Click, New EventHandler(AddressOf HelpClick)
-                HelpOnSettingsToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {HelpMenu})
-            End If
-        Next
 
         AddLog("All Logs")
         AddLog("Robust")
