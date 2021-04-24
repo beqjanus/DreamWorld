@@ -121,7 +121,6 @@ Public Class FormRegion
         EnabledCheckBox.Text = Global.Outworldz.My.Resources.Enabled_word
         FrameRateLabel.Text = Global.Outworldz.My.Resources.FrameRate
 
-
         'boxes
         PhysicsGroupbox.Text = Global.Outworldz.My.Resources.Physics_word
         GroupBox2.Text = Global.Outworldz.My.Resources.Sim_Size_word
@@ -136,7 +135,6 @@ Public Class FormRegion
         Gods_Use_Default.Text = Global.Outworldz.My.Resources.Use_Default_word
         GodEstate.Text = Global.Outworldz.My.Resources.Region_Owner_Is_God_word
         GodManager.Text = Global.Outworldz.My.Resources.EstateManagerIsGod_word
-
 
         MapBest.Text = Global.Outworldz.My.Resources.Best_Prims
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
@@ -160,7 +158,6 @@ Public Class FormRegion
 
         Publish.Text = Global.Outworldz.My.Resources.Publish_Items
         PublishDefault.Text = Global.Outworldz.My.Resources.Use_Default_word
-
 
         SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Use_Default_word
@@ -335,6 +332,12 @@ Public Class FormRegion
 
         End If
 
+
+        If PropOpensimIsRunning Then
+            UUID.ReadOnly = True
+        Else
+            UUID.ReadOnly = False
+        End If
         ' The following are all options.
         If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
             DisallowResidents.Checked = True
@@ -370,7 +373,6 @@ Public Class FormRegion
         RichTextBoxPermissions.Text = My.Resources.PermissionsHelp
         RichTextBoxScripts.Text = My.Resources.ScriptsHelp
         RichTextBoxModules.Text = My.Resources.ModulesHelp
-
 
         RName1 = Name
 
@@ -833,6 +835,7 @@ Public Class FormRegion
     Private Sub UUID_TextChanged(sender As Object, e As EventArgs) Handles UUID.TextChanged
 
         If Initted1 Then Changed1 = True
+
 
     End Sub
 

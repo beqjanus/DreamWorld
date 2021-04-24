@@ -1,0 +1,5 @@
+• XEngine is and older and very stable Opensimulator script engine.
+
+• YEngine is a new engine that has better support for the llSleep() command.
+
+• Allow LSL:  OpenSimulator does not allow scripts to make HTTP calls to addresses on the simulator's LAN. This stop LSL from scanning your ports inside your firewall and writing and reading them. If you need to allow scripts to make some LAN calls, enable this checkbox. We recommend that you do not enable this unless you are very sure about what you are doing!

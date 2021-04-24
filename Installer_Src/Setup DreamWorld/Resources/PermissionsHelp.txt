@@ -1,0 +1,18 @@
+• Grid god mode allows certain users to take and control permissions over objects. Users can become Gods by using the Request Admin Level button in the Advanced Viewer menu.
+
+Setting Grid God Mode on allows you to control individual users by editing their access level in the Wifi Users Panel. Any user with a level > 100 will be a grid god. You can set any estate owner or estate manager to be a grid god, too. 
+God mode is a useful function. However, making copies of items that are no copy or no transfer and giving them to others could be illegal. Please remember that copyright laws for your country need to be respected.
+
+Allow Gods: God mode is available to selected people if enabled.   These levels can be set for individual users in the Web control panel.
+
+• Level = 0 is a normal user
+
+• Level = 50 (or a level you set) is used to indicate a privileged user (e.g. who can set up new Hypergrid linked regions)
+
+• Level = 100 is a Wifi admin account user
+
+• Level >= 200 can become a God
+
+Estate Owner is God:  If enabled, the region owner may go into God mode.  
+
+Estate Manager is God: If enabled, any region estate manager may go into God mode.  

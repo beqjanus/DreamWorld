@@ -1,0 +1,10 @@
+
+• ODE is a very old physics engine with many limitations.  It does support Ninja Physics.
+
+• UBODE is closer to Second Life in vehicle performance.
+
+• Both BulletSim and UBODE support varregions.
+
+• BulletSim provides the best performance and most functionality.
+
+• Bullet in a separate thread prevents physics crashes from crashing the region. It is the default physics engine.

@@ -143,6 +143,7 @@ Partial Class FormRegion
         Me.Publicity = New System.Windows.Forms.TabPage()
         Me.RichTextBoxPublicity = New System.Windows.Forms.RichTextBox()
         Me.Modules = New System.Windows.Forms.TabPage()
+        Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
         Me.RegionsGroupbox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.ScriptsGroupbox.SuspendLayout()
@@ -612,7 +613,7 @@ Partial Class FormRegion
         'ClampPrimSize
         '
         Me.ClampPrimSize.AutoSize = True
-        Me.ClampPrimSize.Location = New System.Drawing.Point(12, 156)
+        Me.ClampPrimSize.Location = New System.Drawing.Point(36, 157)
         Me.ClampPrimSize.Name = "ClampPrimSize"
         Me.ClampPrimSize.Size = New System.Drawing.Size(15, 14)
         Me.ClampPrimSize.TabIndex = 5
@@ -668,7 +669,7 @@ Partial Class FormRegion
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(229, 184)
+        Me.Label6.Location = New System.Drawing.Point(226, 184)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(34, 13)
         Me.Label6.TabIndex = 6
@@ -696,7 +697,7 @@ Partial Class FormRegion
         Me.UUID.Location = New System.Drawing.Point(11, 181)
         Me.UUID.Name = "UUID"
         Me.UUID.ReadOnly = True
-        Me.UUID.Size = New System.Drawing.Size(214, 20)
+        Me.UUID.Size = New System.Drawing.Size(209, 20)
         Me.UUID.TabIndex = 6
         '
         'GroupBox2
@@ -1107,56 +1108,56 @@ Partial Class FormRegion
         '
         Me.BasicsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
         Me.BasicsToolStripMenuItem.Name = "BasicsToolStripMenuItem"
-        Me.BasicsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.BasicsToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.BasicsToolStripMenuItem.Text = "Basics"
         '
         'OptionsToolStripMenuItem
         '
         Me.OptionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_green
         Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
-        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.OptionsToolStripMenuItem.Text = "Options"
         '
         'MapsToolStripMenuItem
         '
         Me.MapsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.earth_view
         Me.MapsToolStripMenuItem.Name = "MapsToolStripMenuItem"
-        Me.MapsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.MapsToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.MapsToolStripMenuItem.Text = "Maps"
         '
         'PhysicsToolStripMenuItem
         '
         Me.PhysicsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.transform
         Me.PhysicsToolStripMenuItem.Name = "PhysicsToolStripMenuItem"
-        Me.PhysicsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.PhysicsToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.PhysicsToolStripMenuItem.Text = "Physics"
         '
         'ScriptsToolStripMenuItem
         '
         Me.ScriptsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.text_marked
         Me.ScriptsToolStripMenuItem.Name = "ScriptsToolStripMenuItem"
-        Me.ScriptsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.ScriptsToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.ScriptsToolStripMenuItem.Text = "Scripts"
         '
         'PermissionsToolStripMenuItem
         '
         Me.PermissionsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.spy
         Me.PermissionsToolStripMenuItem.Name = "PermissionsToolStripMenuItem"
-        Me.PermissionsToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.PermissionsToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.PermissionsToolStripMenuItem.Text = "Permissions"
         '
         'PublicityToolStripMenuItem
         '
         Me.PublicityToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.microsoft_edge
         Me.PublicityToolStripMenuItem.Name = "PublicityToolStripMenuItem"
-        Me.PublicityToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.PublicityToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.PublicityToolStripMenuItem.Text = "Publicity"
         '
         'ModulesToolStripMenuItem
         '
         Me.ModulesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.window_add
         Me.ModulesToolStripMenuItem.Name = "ModulesToolStripMenuItem"
-        Me.ModulesToolStripMenuItem.Size = New System.Drawing.Size(188, 30)
+        Me.ModulesToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.ModulesToolStripMenuItem.Text = "Modules"
         '
         'TabControl1
@@ -1573,4 +1574,5 @@ Partial Class FormRegion
     Friend WithEvents PermissionsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PublicityToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ModulesToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents HelpProvider1 As HelpProvider
 End Class

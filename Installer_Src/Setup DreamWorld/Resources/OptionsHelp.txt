@@ -1,0 +1,12 @@
+• UUID: You can only change the UUID of the grid is stopped.  
+
+• MaxAgents: The maximum number of agents that can be in the in the region at any given time. The default is 100.
+
+• MaxPrims: The maximum number of prims that the region will be listed as supporting. 
+
+• PhysicalPrimMax: The maximum dimensions of a physical prim. 
+
+• NonphysicalPrimMax: The maximum dimensions for a non-physical prim. 
+
+• ClampPrimSize: If true then if a viewer cannot create a larger prim.
+

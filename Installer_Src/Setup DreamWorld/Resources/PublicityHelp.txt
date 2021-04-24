@@ -1,0 +1,11 @@
+Publicity override is used to publish  one region at a time to Hyperica.com.
+
+• Use Default uses the Settings->Publicity.
+
+• Do Not Publish will not send data to Hyperica.
+
+• Publish Items marked for search will send your grid location, description and any items you have marked for Show In Search in world.
+
+• OpensimWorld Key: You can enter your OpensimWorld key here for this region. Then you do not need to scripted box.  
+
+• Do not use both the box and this setting.

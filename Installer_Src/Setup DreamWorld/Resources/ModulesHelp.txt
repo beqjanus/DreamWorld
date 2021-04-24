@@ -1,0 +1,15 @@
+• Bird module makes flocks of birds possible.  See the help manual on Birds. This must be enabled for birds to appear in a region.
+
+• Enable Tides makes the water level rise and fall in this region. See the help manual on Tides. This must be enabled for tide to appear in a region.
+
+• Teleport Sign Enable lets you use a standardized Outworldz Teleport Sign to direct visitors in your world. 
+
+• Disable all Gloebits should stop the money system on this region.
+
+• Disable Foreign Visitors will prevent hypergrid visitors from entering your region.
+
+• Disable Residents will prevent all resident from entering your region. Only Estate managers or owners can get in.
+
+• Skip Automatic OAR backup will prevent the automatic OAR system from backing up this region.
+
+• Announce visitors will chat any arrivals or departures.
