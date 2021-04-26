@@ -209,9 +209,7 @@ Module DoIni
 
                 If PropRegionClass.DisallowForeigners(RegionUUID) = "True" Then
                     Authorizationlist += $"Region_{RegionName}=DisallowForeigners{vbLf}"
-                End If
-
-                If PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
+                ElseIf PropRegionClass.DisallowResidents(RegionUUID) = "True" Then
                     Authorizationlist += $"Region_{RegionName}=DisallowResidents{vbLf}"
                 End If
             Next
