@@ -25,6 +25,16 @@ Module RPC
 
     End Function
 
+    Public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
+
+        Dim ht As Hashtable = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"region_id", RegionUUID}
+        }
+        Return GetRPC(RegionUUID, "admin_get_agent_count", ht)
+
+    End Function
+
     Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
         Dim ht As Hashtable = New Hashtable From {
@@ -97,6 +107,33 @@ Module RPC
 
     End Function
 
+    Private Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
+
+        Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
+        Dim url = $"http://{Settings.LANIP}:{RegionPort}"
+        Dim bad = New ArrayList
+
+        Dim parameters = New List(Of Hashtable) From {ht}
+        Dim RPC = New XmlRpcRequest(cmd, parameters)
+        Try
+            Dim o = RPC.Invoke(url)
+            If o Is Nothing Then Return 0
+#Disable Warning BC42016 ' Implicit conversion
+
+            For Each s In o
+                'Log("Info", s.Key & ":" & s.Value)
+                If s.key = "count" Then
+                    Return CInt(s.value)
+                End If
+            Next
+#Enable Warning BC42016 ' Implicit conversion
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return 0
+
+    End Function
+
     Private Function SendRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Boolean
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
@@ -116,7 +153,6 @@ Module RPC
                     Return True
                 End If
                 If s.Key = "error" Then BreakPoint.Show(s.Value)
-
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception

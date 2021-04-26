@@ -10,6 +10,9 @@
 	{font-family:Helvetica;
 	panose-1:2 11 6 4 2 2 2 2 2 4;}
 @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
 	{font-family:"MS Mincho";
 	panose-1:2 2 6 9 4 2 5 8 3 4;}
 @font-face
@@ -71,6 +74,7 @@ a:link, span.MsoHyperlink
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
+	font-family:"Times New Roman",serif;
 	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
@@ -88,6 +92,11 @@ span.Heading1Char
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
 	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
 -->
 </style>
 
@@ -104,42 +113,114 @@ div.WordSection1
 </div>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>if
-enabled, the Autobackup module periodically saves data to a folder.    </span></p>
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'><img
-width=252 height=250 id="Picture 2146235493" src="Backup_files/image001.png"></span></p>
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>The
+AutoBackup module periodically saves data to a folder.    </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>If Auto
-Backup is enabled, Opensim will make an OAR backup of each region after Opensim
-has run for <b>Interval</b> time.  If there are checkboxes set in the System
-Backup, then those files will be backup up, too. The files will appear in the
-Outworldzfiles\Autobackup folder.  </span></p>
+10.0pt;margin-left:.5in'><img width=387 height=304 id="Picture 1"
+src="Backup_files/image001.png"></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>When
+AutoBackup is enabled, Opensim will make various backups of each region. For example,
+Opensim will make OAR after Opensim has run for <b>Interval</b> time.  If there
+are checkboxes set in the [Backup Type], then those files will be backup up,
+too. The files will appear in the Outworldzfiles\AutoBackup folder.  </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>Keep
 for Days</span></b><span style='font-family:"Verdana",sans-serif'> will delete
-any OAR or  backup zip older than this period of time.   </span></p>
+any OAR or zip older than this period of time.   </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>Save
 To Folder: </span></b><span style='font-family:"Verdana",sans-serif'>You can
-click on “Autobackup” folder name, or the folder Icon, and set a different
+click on “AutoBackup” folder name, or the folder Icon, and set a different
 location.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>Backup:</span></b></p>
+10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>CAUTION:</span></b><span
+style='font-family:"Verdana",sans-serif'>  These backups can take a great deal
+of room!  <b>It is critical to save them to a different drive</b> so that a
+full drive does not crash your Database and Opensim system.   DreamGrid will
+check for free disk space and warn you if you are low. It will attempt to freeze
+all Opensim Region activity if disk space gets low.  If the disk space is &gt;
+50 MB, it will resume operation. </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'><img
-width=255 height=107 id="Picture 2146235483" src="Backup_files/image002.png"></span></b></p>
+10.0pt;margin-left:.5in'><img width=337 height=301
+src="Backup_files/image002.png"></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>You can
-get Help on Backing up all Data files and how to Export SQL files in the top
-menu.</span></p>
+10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>Backup
+Settings</span></b><span style='font-family:"Verdana",sans-serif'> saves the
+Settings.INI files in a Zip.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>Backup
+Region INI files</span></b><span style='font-family:"Verdana",sans-serif'> saves
+all Region INI files from OutworldzFiles\Opensim\Bin\Regions to a Zip.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>Backup
+FSAssets folder</span></b><span style='font-family:"Verdana",sans-serif'> will
+make a copy of all the the (Very Large) FSassets folder.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>Backup
+Custom Web Pages</span></b><span style='font-family:"Verdana",sans-serif'> are
+the two Wifi-Custom folders.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif'>Backup
+MySql Data Folder</span></b><span style='font-family:"Verdana",sans-serif'> will
+back up the main database.  You need a copy of FSassets, too!</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>Robocopy: 
+The system runs robocopy, a built in DOS program for FSassets. It follows two rules
+for visibility that you set for Regions, such as Always Show or Never Show.  It
+runs with the following switches:<br>
+<br>
+</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:1.0in'><span style='font-family:"Verdana",sans-serif'>/E - Everything
+including empty folders.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:1.0in'><span style='font-family:"Verdana",sans-serif'>/M –Modified
+files are copied that have the A bit set, then clears the bit.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:1.0in'><span style='font-family:"Verdana",sans-serif'>/TBD -
+Wait for share names to be defined by the network.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:1.0in'><span style='font-family:"Verdana",sans-serif'>/IM - Include
+Modified files that have modified times.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:1.0in'><span style='font-family:"Verdana",sans-serif'>/J – Use
+Unbuffered IO for large files.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'><br>
+Robocopy will also add this LFSM switch on Windows 10.  It will not do so on
+Server or Windows 7.<br>
+<br>
+/LFSM:50M – Will operate in low free space mode, enabling copy pause and resume.
+Robocopy will pause whenever a file copy would cause the destination volume's
+free space to go below 50 Megabytes.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>Links:</span></p>

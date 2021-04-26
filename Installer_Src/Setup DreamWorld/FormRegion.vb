@@ -18,7 +18,7 @@ Public Class FormRegion
     Dim changed As Boolean
     Dim initted As Boolean
 
-    ' needed a flag to see if we are initted as the dialogs change on start. true if we need to save a form
+    ' needed a flag to see if we are initialized as the dialogs change on start. true if we need to save a form
     Dim isNew As Boolean
 
     Dim oldname As String = ""
@@ -84,13 +84,44 @@ Public Class FormRegion
 
 #End Region
 
+#Region "ScreenSize"
+
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+    Private _screenPosition As ScreenPos
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
+
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
+    End Sub
+
+    Private Sub SetScreen()
+        Me.Show()
+        ScreenPosition = New ScreenPos(Me.Name)
+        AddHandler ResizeEnd, Handler
+        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+        Me.Left = xy.Item(0)
+        Me.Top = xy.Item(1)
+    End Sub
+
+#End Region
+
 #Region "Start/Stop"
 
     Public Sub New()
 
         ' This call is required by the designer.
         InitializeComponent()
-
+        SetScreen()
         Text = Global.Outworldz.My.Resources.Regions_word
 
         RichTextBoxOptions.Text = Global.Outworldz.My.Resources.OptionsHelp
@@ -238,7 +269,9 @@ Public Class FormRegion
         Else
             ' OLD REGION EDITED all this is required to be filled in!
             IsNew1 = False
+
             RegionUUID = PropRegionClass.FindRegionByName(Name)
+            APIKey.Text = PropRegionClass.OpensimWorldAPIKey(RegionUUID)
             Oldname1 = PropRegionClass.RegionName(RegionUUID) ' backup in case of rename
             EnabledCheckBox.Checked = PropRegionClass.RegionEnabled(RegionUUID)
             Me.Text = Name & " " & Global.Outworldz.My.Resources.Region_word ' on screen
@@ -331,7 +364,6 @@ Public Class FormRegion
             End If
 
         End If
-
 
         If PropOpensimIsRunning Then
             UUID.ReadOnly = True
@@ -836,7 +868,6 @@ Public Class FormRegion
 
         If Initted1 Then Changed1 = True
 
-
     End Sub
 
 #End Region
@@ -1178,43 +1209,44 @@ Public Class FormRegion
         End If
 
         Dim Region = "; * Regions configuration file" &
-                            "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
-                            "; Automatically changed by Dreamworld" & vbCrLf &
-                            "[" & RegionName.Text & "]" & vbCrLf &
-                            "RegionUUID = " & UUID.Text & vbCrLf &
-                            "Location = " & CoordX.Text & "," & CoordY.Text & vbCrLf &
-                            "InternalAddress = 0.0.0.0" & vbCrLf &
-                            "AllowAlternatePorts = False" & vbCrLf &
-                            "ExternalHostName = " & Settings.ExternalHostName & vbCrLf &
-                            "SizeX = " & BoxSize & vbCrLf &
-                            "SizeY = " & BoxSize & vbCrLf &
-                            "Enabled = " & CStr(EnabledCheckBox.Checked) & vbCrLf &
-                            "NonPhysicalPrimMax = " & NonphysicalPrimMax.Text & vbCrLf &
-                            "PhysicalPrimMax = " & PhysicalPrimMax.Text & vbCrLf &
-                            "ClampPrimSize = " & CStr(ClampPrimSize.Checked) & vbCrLf &
-                            "MaxAgents = " & MaxAgents.Text & vbCrLf &
-                            "MaxPrims = " & MaxPrims.Text & vbCrLf &
-                            "RegionType = Estate" & vbCrLf & vbCrLf &
-                            ";# Extended region properties from Dreamgrid" & vbCrLf &
-                            "MinTimerInterval = " & ScriptTimerTextBox.Text & vbCrLf &
-                            "FrameTime = " & FrametimeBox.Text & vbCrLf &
-                            "RegionSnapShot = " & Snapshot & vbCrLf &
-                            "MapType = " & Map & vbCrLf &
-                            "Physics = " & Phys & vbCrLf &
-                            "GodDefault = " & PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
-                            "AllowGods = " & PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
-                            "RegionGod = " & PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
-                            "ManagerGod = " & PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
-                            "Birds = " & PropRegionClass.Birds(RegionUUID) & vbCrLf &
-                            "Tides = " & PropRegionClass.Tides(RegionUUID) & vbCrLf &
-                            "Teleport = " & PropRegionClass.Teleport(RegionUUID) & vbCrLf &
-                            "DisableGloebits = " & PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
-                            "DisallowForeigners = " & PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
-                            "DisallowResidents = " & PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
-                            "SkipAutoBackup = " & PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
-                            "ScriptEngine = " & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
-                            "Publicity = " & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
-                            "SmartStart = " & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
+                        "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
+                        "; Automatically changed by Dreamworld" & vbCrLf &
+                        "[" & RegionName.Text & "]" & vbCrLf &
+                        "RegionUUID = " & UUID.Text & vbCrLf &
+                        "Location = " & CoordX.Text & "," & CoordY.Text & vbCrLf &
+                        "InternalAddress = 0.0.0.0" & vbCrLf &
+                        "AllowAlternatePorts = False" & vbCrLf &
+                        "ExternalHostName = " & Settings.ExternalHostName & vbCrLf &
+                        "SizeX = " & BoxSize & vbCrLf &
+                        "SizeY = " & BoxSize & vbCrLf &
+                        "Enabled = " & CStr(EnabledCheckBox.Checked) & vbCrLf &
+                        "NonPhysicalPrimMax = " & NonphysicalPrimMax.Text & vbCrLf &
+                        "PhysicalPrimMax = " & PhysicalPrimMax.Text & vbCrLf &
+                        "ClampPrimSize = " & CStr(ClampPrimSize.Checked) & vbCrLf &
+                        "MaxAgents = " & MaxAgents.Text & vbCrLf &
+                        "MaxPrims = " & MaxPrims.Text & vbCrLf &
+                        "RegionType = Estate" & vbCrLf & vbCrLf &
+                        ";# Extended region properties from Dreamgrid" & vbCrLf &
+                        "MinTimerInterval = " & ScriptTimerTextBox.Text & vbCrLf &
+                        "FrameTime = " & FrametimeBox.Text & vbCrLf &
+                        "RegionSnapShot = " & Snapshot & vbCrLf &
+                        "MapType = " & Map & vbCrLf &
+                        "Physics = " & Phys & vbCrLf &
+                        "GodDefault = " & PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
+                        "AllowGods = " & PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
+                        "RegionGod = " & PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
+                        "ManagerGod = " & PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
+                        "Birds = " & PropRegionClass.Birds(RegionUUID) & vbCrLf &
+                        "Tides = " & PropRegionClass.Tides(RegionUUID) & vbCrLf &
+                        "Teleport = " & PropRegionClass.Teleport(RegionUUID) & vbCrLf &
+                        "DisableGloebits = " & PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
+                        "DisallowForeigners = " & PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
+                        "DisallowResidents = " & PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
+                        "SkipAutoBackup = " & PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
+                        "ScriptEngine = " & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
+                        "Publicity = " & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
+                        "OpensimWorldAPIKey = " & PropRegionClass.OpensimWorldAPIKey(RegionUUID) & vbCrLf &
+                        "SmartStart = " & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
 
         'Debug.Print(Region)
 
@@ -1242,36 +1274,43 @@ Public Class FormRegion
 
 #Region "Scripting"
 
+    Private Sub APIKey_TextChanged(sender As Object, e As EventArgs) Handles APIKey.TextChanged
+
+        If Initted1 Then Changed1 = True
+        PropRegionClass.OpensimWorldAPIKey(RegionUUID) = APIKey.Text
+
+    End Sub
+
     Private Sub BasicsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BasicsToolStripMenuItem.Click
         HelpManual("Region")
     End Sub
 
     Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MapsToolStripMenuItem.Click
-        HelpManual("Region Maps")
+        HelpManual("Map Overrides")
     End Sub
 
     Private Sub ModulesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModulesToolStripMenuItem.Click
-        HelpManual("Region Modules")
+        HelpManual("Module Overrides")
     End Sub
 
     Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click
-        HelpManual("Region Options")
+        HelpManual("Options for Regions")
     End Sub
 
     Private Sub PermissionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PermissionsToolStripMenuItem.Click
-        HelpManual("Region Permissions")
+        HelpManual("Permission Overrides")
     End Sub
 
     Private Sub PhysicsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PhysicsToolStripMenuItem.Click
-        HelpManual("Region Physics")
+        HelpManual("Physics Overrides")
     End Sub
 
     Private Sub PublicityToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PublicityToolStripMenuItem.Click
-        HelpManual("Region Publicity")
+        HelpManual("Publicity Overrides")
     End Sub
 
     Private Sub ScriptsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScriptsToolStripMenuItem.Click
-        HelpManual("Region Scripts")
+        HelpManual("Script Overrides")
     End Sub
 
     ' TODO: Add more physics overrides

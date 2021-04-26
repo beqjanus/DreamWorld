@@ -32,6 +32,7 @@ Public Class FormSetup
     Private ReadOnly D As New Dictionary(Of String, String)
     Private ReadOnly ExitInterval As Integer = 2
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
+
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
     Private _Adv As FormSettings
@@ -2623,6 +2624,7 @@ Public Class FormSetup
             CalcCPU() ' get a list of running opensim processes
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
+            ScanOpenSimWorld()
         End If
 
         ' print hourly marks on console, after boot

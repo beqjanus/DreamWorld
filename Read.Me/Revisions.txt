@@ -2,18 +2,20 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V3.925
+
+V3.926 
 Git is on V3 branch now.
-Always uses Smart Start Login, even if disabled so both type of signs work in either case.
+Reworked the Region Editor to have better help, tabs and manuals.
+OpensimWorld Beacon API Key can be put in the Region Settings. Makes it easy for me to add to all my regions, and still give them away without spreading my keys around.
+Both type of signs work in Smart Start cases
 Add x 1X1, 2X2, or 3X3 sim surround to Smart Start.
 Reset Tab order on all forms.
 Trees work a little better. Set the rez height to average of min/max. There is no grass, as no one knows the viewer parameters. 
 Load OAR and other commands will start a Paused region and then load it
-Opensim has more debug settings enabled. Slight perofrmace decrease in exchahge for better crash reporting.
-Redirected avatars to the waiting area get admin notices of what is going on.
-Log analyzer runs even if Opensim is running
-MAC address anyloser added to Log Analyzer
-
+Opensim has more debug settings enabled. Slight performance decrease in exchange for better crash reporting to me.
+Redirected avatars get admin notices of what is going on.
+Log analyzer works even if Opensim is running.
+MAC address analysis added to Log Analyzer
 
 V3.924
 New Feature: Log file parser added for Opensim.ini and Robust.log with hop links to the defective script/prim.

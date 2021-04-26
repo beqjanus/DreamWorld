@@ -286,7 +286,12 @@ Public Class Backups
                     End If
                     If Directory.Exists(f) Then
                         Dim dest = IO.Path.Combine(BackupPath, "FSassets")
-                        Dim args = $"""{f}"" ""{dest}"" /MIR /TBD /IM /M  /J "
+                        Dim args = $"""{f}"" ""{dest}"" /E /M /TBD /IM /J "
+                        '/E  Everything including empty folders
+                        '/M Modified with the A bit set, then clears the bit
+                        '/TBD wait for share names to be defined
+                        '/IM include files with modified times
+                        '/J Unbuffered IO
 
                         Dim rev = System.Environment.OSVersion.Version.Major
                         ' Only on 10

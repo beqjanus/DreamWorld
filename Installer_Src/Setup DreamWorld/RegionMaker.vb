@@ -222,6 +222,7 @@ Public Class RegionMaker
             ._MaxAgents = "100",
             ._MaxPrims = "15000",
             ._MinTimerInterval = "",
+            ._AvatarsInRegion = 0,
             ._NonPhysicalPrimMax = "1024",
             ._PhysicalPrimMax = "64",
             ._ProcessID = 0,
@@ -327,7 +328,8 @@ Public Class RegionMaker
         & "Publicity =" & GDPR(RegionUUID) & vbCrLf _
         & "Concierge =" & Concierge(RegionUUID) & vbCrLf _
         & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf _
-        & "LandingSpot =" & LandingSpot(RegionUUID) & vbCrLf
+        & "LandingSpot =" & LandingSpot(RegionUUID) & vbCrLf _
+        & "OpenSimWorldAPIKey = " & PropRegionClass.OpensimWorldAPIKey(RegionUUID)
 
         DeleteFile(fname)
 
@@ -594,6 +596,7 @@ Public Class RegionMaker
                             Concierge(uuid) = CStr(Settings.GetIni(fName, "Concierge", "", "String"))
                             SmartStart(uuid) = CStr(Settings.GetIni(fName, "SmartStart", "False", "String"))
                             LandingSpot(uuid) = CStr(Settings.GetIni(fName, "LandingSpot", "", "String"))
+                            OpensimWorldAPIKey(uuid) = CStr(Settings.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
 
                             RegionPort(uuid) = PropRegionClass.LargestPort
                             GroupPort(uuid) = RegionPort(uuid)
@@ -784,6 +787,7 @@ Public Class RegionMaker
 #Region "OptionalStorage"
 
         Public _AllowGods As String = ""
+        Public _AvatarsInRegion As Integer
         Public _Birds As String = ""
         Public _Concierge As String = ""
         Public _CrashCounter As Integer
@@ -798,6 +802,7 @@ Public Class RegionMaker
         Public _MaxPrims As String = ""
         Public _MinTimerInterval As String = ""
         Public _NonPhysicalPrimMax As String = ""
+        Public _OSWAPIKey As String = ""
         Public _PhysicalPrimMax As String = ""
         Public _Physics As String = "  "
         Public _RegionGod As String = ""
@@ -1271,6 +1276,19 @@ Public Class RegionMaker
         End Set
     End Property
 
+    Public Property InRegion(uuid As String) As Integer
+        Get
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Return CInt(RegionList(uuid)._AvatarsInRegion)
+        End Get
+        Set(ByVal Value As Integer)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._AvatarsInRegion = Value
+        End Set
+    End Property
+
     Public Property LandingSpot(uuid As String) As String
 
         Get
@@ -1324,6 +1342,19 @@ Public Class RegionMaker
             If Value Is Nothing Then Return
             Value = Value.Replace(",", ".")
             RegionList(uuid)._MinTimerInterval = Value
+        End Set
+    End Property
+
+    Public Property OpensimWorldAPIKey(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._OSWAPIKey
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._OSWAPIKey = Value
         End Set
     End Property
 
