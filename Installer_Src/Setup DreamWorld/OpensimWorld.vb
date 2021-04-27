@@ -1,4 +1,5 @@
-﻿Imports System.Net
+﻿Imports System.IO
+Imports System.Net
 
 Module OpensimWorld
 
@@ -12,14 +13,15 @@ Module OpensimWorld
             Dim K = PropRegionClass.OpensimWorldAPIKey(RegionUUID)
             If K.Length = 0 Then Continue For
             Dim pos = Uri.EscapeDataString("<128,128,23>")
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             '  30 minute timer and change detector for OpensimAPI
             Dim Delta = DateAndTime.DateDiff(DateInterval.Minute, LastTimeChecked, Date.Now)
             Dim Avatars As Integer = RPC_admin_get_agent_count(RegionUUID)
-            Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={K}&na={Avatars}&rat=0&pos={pos}"
 
+            Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={K}&na={Avatars}&rat=0&r={RegionName}&pos={pos}"
             If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Then
-                If PokeOpensimworld(URL) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
+                If Poke(URL, RegionUUID) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
                 PropRegionClass.InRegion(RegionUUID) = Avatars
                 LastTimeChecked = Date.Now
             End If
@@ -27,44 +29,34 @@ Module OpensimWorld
 
     End Sub
 
-    Private Function PokeOpensimworld(URL) As Integer
+    Private Function Poke(URL As String, RegionUUID As String) As Integer
 
-        Dim Result As String
+        ' Create a New 'HttpWebRequest' Object to the mentioned URL.
+        Dim myHttpWebRequest As HttpWebRequest = CType(WebRequest.Create(URL), HttpWebRequest)
 
-        Using client As New WebClient ' download client for web pages
-            Try
-                Result = CType(client.DownloadString(URL), String)
-                If Result = "OK" Then Return 1
-                If Result = "DISABLE" Then Return -1
-                TextPrint($"Opensimworld.com Server said: {vbCrLf}{Result}")
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End Using
+        ' Assign the response object of 'HttpWebRequest' to a 'HttpWebResponse' variable.
+        Dim myHttpWebResponse As HttpWebResponse = CType(myHttpWebRequest.GetResponse(), HttpWebResponse)
+        'Debug.Print($"{vbCrLf}The HttpHeaders are {vbCrLf}Name {0}", myHttpWebRequest.Headers)
+        ' Print the HTML contents of the page to the console.
+        Dim streamResponse As Stream = myHttpWebResponse.GetResponseStream()
+        Dim streamRead As StreamReader = New StreamReader(streamResponse)
+        Dim readBuff As Char() = New Char(255) {}
 
+        Dim count As Integer = streamRead.Read(readBuff, 0, 256)
+        Dim outputData As String = New String(readBuff, 0, count)
+        While count > 0
+            count = streamRead.Read(readBuff, 0, 256)
+        End While
+        ' Close the Stream object.
+        streamResponse.Close()
+        streamRead.Close()
+        'Release the HttpWebResponse Resource.
+
+        myHttpWebResponse.Close()
+        If outputData = "OK" Then Return 1
+        If outputData = "DISABLE" Then Return -1
         Return 0
 
     End Function
 
 End Module
-
-'[2140] OSW Beacon: http://beacon.opensimworld.com/index.php/osgate/beacon/?wk=12345
-'[21:40] OSW Beacon: &na=1
-'[21:40] OSW Beacon: &r=Sandbox
-'[21:40] OSW Beacon: &rat=
-'[21:40] OSW Beacon: &pos=%3C130.434860%2C%20132.191223%2C%2022.862379%3E
-
-' TODO:'
-'string BASEURL="http://beacon.opensimworld.com/index.php/osgate";
-'If (nNew!= nTotalAvis || minsSinceLast > 30 ) {
-'nTotalAvis = nNew;
-'beaconHttp = llHTTPRequest(
-'BASEURL + "/beacon/" +
-'   "?wk=" + wkey +
-'  "&na=" + (String)nTotalAvis+
-' "&r="+llEscapeURL(regionName)+
-'"&rat="+s_rating+
-'"&pos="+llEscapeURL((string)llGetPos()),
-'[HTTP_BODY_MAXLENGTH, 16384], ""
-');
-'minsSinceLast = 0;

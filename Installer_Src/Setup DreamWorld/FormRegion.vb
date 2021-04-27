@@ -1285,12 +1285,30 @@ Public Class FormRegion
         HelpManual("Region")
     End Sub
 
+    Private Sub Hyperica_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Hyperica.LinkClicked
+        Dim webAddress As String = "https://hyperica.com"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+    End Sub
+
     Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MapsToolStripMenuItem.Click
         HelpManual("Map Overrides")
     End Sub
 
     Private Sub ModulesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModulesToolStripMenuItem.Click
         HelpManual("Module Overrides")
+    End Sub
+
+    Private Sub Opensimworld_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Opensimworld.LinkClicked
+        Dim webAddress As String = "https://opensimworld.com"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
     End Sub
 
     Private Sub OptionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OptionsToolStripMenuItem.Click

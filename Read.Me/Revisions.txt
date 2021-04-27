@@ -2,6 +2,9 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.927
+False start on V3.926: The OpensimWorld Beacon did not post the region Name - Fixed
+It also always deleted scripts on startup due to an extra space. - Fixed
 
 V3.926 
 Git is on V3 branch now.
