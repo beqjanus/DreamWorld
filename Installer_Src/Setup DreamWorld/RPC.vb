@@ -149,7 +149,7 @@ Module RPC
             For Each s In o
                 'Log("Info", s.Key & ":" & s.Value)
                 If s.Key = "success" And s.Value = "True" Then
-                    Debug.Print(o.ToString)
+                    Debug.Print("Teleport Sent")
                     Return True
                 End If
                 If s.Key = "error" Then BreakPoint.Show(s.Value)

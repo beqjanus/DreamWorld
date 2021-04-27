@@ -40,7 +40,8 @@ Module Teleport
                     Else
                         Fin.Add(AgentID)
                     End If
-
+                Else
+                    ReBoot(RegionToUUID) ' Wait for it to start booting
                 End If
             Next
         Catch

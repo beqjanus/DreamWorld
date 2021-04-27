@@ -23,14 +23,23 @@ Module SmartStart
         ' Smart Start AutoStart Region mode
         Debug.Print("Smart Start:" + post)
 
+        'Smart Start:http://192.168.2.140:8999/?alt=Deliverance_of_JarJar_Binks__Fred_Beckhusen_1X1&agent=Ferd%20Frederix&AgentID=6f285c43-e656-42d9-b0e9-a78684fee15d&password=XYZZY
+
         Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)", RegexOptions.IgnoreCase)
         Dim match As Match = pattern.Match(post)
         If match.Success Then
             Dim Name As String = Uri.UnescapeDataString(match.Groups(1).Value)
+            Debug.Print($"Name={Name}")
             Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
+            Debug.Print($"AgentName={AgentName}")
             Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
+            Debug.Print($"AgentID={AgentID}")
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
-
+            Debug.Print($"Password={Password}")
+            If Password.Length = 0 Then
+                Debug.Print("Bad password")
+                ' Return ""
+            End If
             Dim time As String
 
             ' Region may be a name or a Region UUID
@@ -40,6 +49,7 @@ Module SmartStart
             Else
                 Name = PropRegionClass.RegionName(RegionUUID)
             End If
+            Debug.Print("Tp to " & Name)
 
             '   If Not Settings.SmartStart Then
             '   If AgentName.ToUpperInvariant = "UUID" Then
@@ -142,9 +152,8 @@ Module SmartStart
         End If
         TeleportAvatarDict.Add(AgentID, RegionUUID)
 
+        ReBoot(RegionUUID) ' Wait for it to start booting
 
-
-        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
         Return False
 
     End Function
