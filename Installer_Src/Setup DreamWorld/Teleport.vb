@@ -32,16 +32,19 @@ Module Teleport
                                 Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
                             Else
                                 Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
+                                BreakPoint.Show("Unable to locate region " & RegionToUUID)
                             End If
                             Fin.Add(AgentID)
                         Else
-                            BreakPoint.Show("Unable to locate region " & RegionToUUID)
+                            BreakPoint.Show("Region is not registered yet teleport was requested:" & RegionToUUID)
+                            Fin.Add(AgentID)
                         End If
                     Else
                         Fin.Add(AgentID)
+                        BreakPoint.Show("Region stopped with a Teleport request outstanding:" & RegionToUUID)
                     End If
-                Else
-                    ReBoot(RegionToUUID) ' Wait for it to start booting
+                ElseIf status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                    Fin.Add(AgentID) ' cancel this, the region went away
                 End If
             Next
         Catch
