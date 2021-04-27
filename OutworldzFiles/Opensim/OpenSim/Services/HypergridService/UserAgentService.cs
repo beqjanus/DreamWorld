@@ -53,34 +53,45 @@ namespace OpenSim.Services.HypergridService
     /// </summary>
     public class UserAgentService : UserAgentServiceBase, IUserAgentService
     {
+        protected static bool m_BypassClientVerification;
+
+        protected static IFriendsSimConnector m_FriendsLocalSimConnector;
+
+        protected static IFriendsService m_FriendsService;
+
+        // standalone, points to HGFriendsModule
+        protected static FriendsSimConnector m_FriendsSimConnector;
+
+        protected static GatekeeperServiceConnector m_GatekeeperConnector;
+
+        protected static IGatekeeperService m_GatekeeperService;
+
+        protected static string m_GridName;
+
+        protected static IGridService m_GridService;
+
+        protected static IGridUserService m_GridUserService;
+
+        protected static int m_LevelOutsideContacts;
+
+        // grid
+        protected static string m_MyExternalIP = "";
+
+        protected static IPresenceService m_PresenceService;
+
+        protected static bool m_ShowDetails;
+
+        protected static IUserAccountService m_UserAccountService;
+
         private static readonly ILog m_log =
-                LogManager.GetLogger(
+                                                                                                                                LogManager.GetLogger(
                 MethodBase.GetCurrentMethod().DeclaringType);
 
         // This will need to go into a DB table
         //static Dictionary<UUID, TravelingAgentInfo> m_Database = new Dictionary<UUID, TravelingAgentInfo>();
 
-        private static bool m_Initialized = false;
-
-        protected static IGridUserService m_GridUserService;
-        protected static IGridService m_GridService;
-        protected static GatekeeperServiceConnector m_GatekeeperConnector;
-        protected static IGatekeeperService m_GatekeeperService;
-        protected static IFriendsService m_FriendsService;
-        protected static IPresenceService m_PresenceService;
-        protected static IUserAccountService m_UserAccountService;
-        protected static IFriendsSimConnector m_FriendsLocalSimConnector; // standalone, points to HGFriendsModule
-        protected static FriendsSimConnector m_FriendsSimConnector; // grid
-
-        protected static string m_GridName;
-        protected static string m_MyExternalIP = "";
-
-        protected static int m_LevelOutsideContacts;
-        protected static bool m_ShowDetails;
-
-        protected static bool m_BypassClientVerification;
-
         private static Dictionary<int, bool> m_ForeignTripsAllowed = new Dictionary<int, bool>();
+        private static bool m_Initialized = false;
         private static Dictionary<int, List<string>> m_TripsAllowedExceptions = new Dictionary<int, List<string>>();
         private static Dictionary<int, List<string>> m_TripsDisallowedExceptions = new Dictionary<int, List<string>>();
 
@@ -167,39 +178,6 @@ namespace OpenSim.Services.HypergridService
             }
         }
 
-        protected void LoadTripPermissionsFromConfig(IConfig config, string variable)
-        {
-            foreach (string keyName in config.GetKeys())
-            {
-                if (keyName.StartsWith(variable + "_Level_"))
-                {
-                    int level = 0;
-                    if (Int32.TryParse(keyName.Replace(variable + "_Level_", ""), out level))
-                        m_ForeignTripsAllowed.Add(level, config.GetBoolean(keyName, true));
-                }
-            }
-        }
-
-        protected void LoadDomainExceptionsFromConfig(IConfig config, string variable, Dictionary<int, List<string>> exceptions)
-        {
-            foreach (string keyName in config.GetKeys())
-            {
-                if (keyName.StartsWith(variable + "_Level_"))
-                {
-                    int level = 0;
-                    if (Int32.TryParse(keyName.Replace(variable + "_Level_", ""), out level) && !exceptions.ContainsKey(level))
-                    {
-                        exceptions.Add(level, new List<string>());
-                        string value = config.GetString(keyName, string.Empty);
-                        string[] parts = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        foreach (string s in parts)
-                            exceptions[level].Add(s.Trim());
-                    }
-                }
-            }
-        }
-
         public GridRegion GetHomeRegion(UUID userID, out Vector3 position, out Vector3 lookAt)
         {
             position = new Vector3(128, 128, 0); lookAt = Vector3.UnitY;
@@ -225,6 +203,176 @@ namespace OpenSim.Services.HypergridService
             }
 
             return home;
+        }
+
+        public List<UUID> GetOnlineFriends(UUID foreignUserID, List<string> friends)
+        {
+            List<UUID> online = new List<UUID>();
+
+            if (m_FriendsService == null || m_PresenceService == null)
+            {
+                m_log.WarnFormat("[USER AGENT SERVICE]: Unable to get online friends because friends or presence services are missing");
+                return online;
+            }
+
+            m_log.DebugFormat("[USER AGENT SERVICE]: Foreign user {0} wants to know status of {1} local friends", foreignUserID, friends.Count);
+
+            // First, let's double check that the reported friends are, indeed, friends of that user
+            // And let's check that the secret matches and the rights
+            List<string> usersToBeNotified = new List<string>();
+            foreach (string uui in friends)
+            {
+                UUID localUserID;
+                string secret = string.Empty, tmp = string.Empty;
+                if (Util.ParseUniversalUserIdentifier(uui, out localUserID, out tmp, out tmp, out tmp, out secret))
+                {
+                    FriendInfo[] friendInfos = m_FriendsService.GetFriends(localUserID);
+                    foreach (FriendInfo finfo in friendInfos)
+                    {
+                        if (finfo.Friend.StartsWith(foreignUserID.ToString()) && finfo.Friend.EndsWith(secret) &&
+                            (finfo.TheirFlags & (int)FriendRights.CanSeeOnline) != 0 && (finfo.TheirFlags != -1))
+                        {
+                            // great!
+                            usersToBeNotified.Add(localUserID.ToString());
+                        }
+                    }
+                }
+            }
+
+            // Now, let's find out their status
+            m_log.DebugFormat("[USER AGENT SERVICE]: GetOnlineFriends: user has {0} local friends with status rights", usersToBeNotified.Count);
+
+            // First, let's send notifications to local users who are online in the home grid
+            PresenceInfo[] friendSessions = m_PresenceService.GetAgents(usersToBeNotified.ToArray());
+            if (friendSessions != null && friendSessions.Length > 0)
+            {
+                foreach (PresenceInfo pi in friendSessions)
+                {
+                    UUID presenceID;
+                    if (UUID.TryParse(pi.UserID, out presenceID))
+                        online.Add(presenceID);
+                }
+            }
+
+            return online;
+        }
+
+        public Dictionary<string, object> GetServerURLs(UUID userID)
+        {
+            if (m_UserAccountService == null)
+            {
+                m_log.WarnFormat("[USER AGENT SERVICE]: Unable to get server URLs because user account service is missing");
+                return new Dictionary<string, object>();
+            }
+            UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero /*!!!*/, userID);
+            if (account != null)
+                return account.ServiceURLs;
+
+            return new Dictionary<string, object>();
+        }
+
+        public Dictionary<string, object> GetUserInfo(UUID userID)
+        {
+            Dictionary<string, object> info = new Dictionary<string, object>();
+
+            if (m_UserAccountService == null)
+            {
+                m_log.WarnFormat("[USER AGENT SERVICE]: Unable to get user flags because user account service is missing");
+                info["result"] = "fail";
+                info["message"] = "UserAccountService is missing!";
+                return info;
+            }
+
+            UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero /*!!!*/, userID);
+
+            if (account != null)
+            {
+                info.Add("user_firstname", account.FirstName);
+                info.Add("user_lastname", account.LastName);
+                info.Add("result", "success");
+
+                if (m_ShowDetails)
+                {
+                    info.Add("user_flags", account.UserFlags);
+                    info.Add("user_created", account.Created);
+                    info.Add("user_title", account.UserTitle);
+                }
+                else
+                {
+                    info.Add("user_flags", 0);
+                    info.Add("user_created", 0);
+                    info.Add("user_title", string.Empty);
+                }
+            }
+
+            return info;
+        }
+
+        public string GetUUI(UUID userID, UUID targetUserID)
+        {
+            // Let's see if it's a local user
+            UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero, targetUserID);
+            if (account != null)
+                return targetUserID.ToString() + ";" + m_GridName + ";" + account.FirstName + " " + account.LastName;
+
+            // Let's try the list of friends
+            if (m_FriendsService != null)
+            {
+                FriendInfo[] friends = m_FriendsService.GetFriends(userID);
+                if (friends != null && friends.Length > 0)
+                {
+                    foreach (FriendInfo f in friends)
+                        if (f.Friend.StartsWith(targetUserID.ToString()))
+                        {
+                            // Let's remove the secret
+                            UUID id; string tmp = string.Empty, secret = string.Empty;
+                            if (Util.ParseUniversalUserIdentifier(f.Friend, out id, out tmp, out tmp, out tmp, out secret))
+                                return f.Friend.Replace(secret, "0");
+                        }
+                }
+            }
+            return string.Empty;
+        }
+
+        public UUID GetUUID(String first, String last)
+        {
+            // Let's see if it's a local user
+            UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero, first, last);
+            if (account != null)
+            {
+                // check user level
+                if (account.UserLevel < m_LevelOutsideContacts)
+                    return UUID.Zero;
+                else
+                    return account.PrincipalID;
+            }
+            else
+                return UUID.Zero;
+        }
+
+        // We need to prevent foreign users with the same UUID as a local user
+        public bool IsAgentComingHome(UUID sessionID, string thisGridExternalName)
+        {
+            HGTravelingData hgt = m_Database.Get(sessionID);
+            if (hgt == null)
+                return false;
+
+            TravelingAgentInfo travel = new TravelingAgentInfo(hgt);
+
+            return travel.GridExternalName.ToLower() == thisGridExternalName.ToLower();
+        }
+
+        public string LocateUser(UUID userID)
+        {
+            HGTravelingData[] hgts = m_Database.GetSessions(userID);
+            if (hgts == null)
+                return string.Empty;
+
+            foreach (HGTravelingData t in hgts)
+                if (t.Data.ContainsKey("GridExternalName") && !m_GridName.Equals(t.Data["GridExternalName"]))
+                    return t.Data["GridExternalName"];
+
+            return string.Empty;
         }
 
         public bool LoginAgentToGrid(GridRegion source, AgentCircuitData agentCircuit, GridRegion gatekeeper, GridRegion finalDestination, bool fromLogin, out string reason)
@@ -273,7 +421,8 @@ namespace OpenSim.Services.HypergridService
             region.RegionID = finalDestination.RegionID;
             region.RegionLocX = finalDestination.RegionLocX;
             region.RegionLocY = finalDestination.RegionLocY;
-            //fkb
+            // !!! fkb
+
             // Generate a new service session
             agentCircuit.ServiceSessionID = region.ServerURI + ";" + UUID.Random();
             TravelingAgentInfo old = null;
@@ -326,34 +475,6 @@ namespace OpenSim.Services.HypergridService
             return LoginAgentToGrid(source, agentCircuit, gatekeeper, finalDestination, false, out reason);
         }
 
-        private TravelingAgentInfo CreateTravelInfo(AgentCircuitData agentCircuit, GridRegion region, bool fromLogin, out TravelingAgentInfo existing)
-        {
-            HGTravelingData hgt = m_Database.Get(agentCircuit.SessionID);
-            existing = null;
-
-            if (hgt != null)
-            {
-                // Very important! Override whatever this agent comes with.
-                // UserAgentService always sets the IP for every new agent
-                // with the original IP address.
-                existing = new TravelingAgentInfo(hgt);
-                agentCircuit.IPAddress = existing.ClientIPAddress;
-            }
-
-            TravelingAgentInfo travel = new TravelingAgentInfo(existing);
-            travel.SessionID = agentCircuit.SessionID;
-            travel.UserID = agentCircuit.AgentID;
-            travel.GridExternalName = region.ServerURI;
-            travel.ServiceToken = agentCircuit.ServiceSessionID;
-
-            if (fromLogin)
-                travel.ClientIPAddress = agentCircuit.IPAddress;
-
-            StoreTravelInfo(travel);
-
-            return travel;
-        }
-
         public void LogoutAgent(UUID userID, UUID sessionID)
         {
             m_log.DebugFormat("[USER AGENT SERVICE]: User {0} logged out", userID);
@@ -363,56 +484,6 @@ namespace OpenSim.Services.HypergridService
             GridUserInfo guinfo = m_GridUserService.GetGridUserInfo(userID.ToString());
             if (guinfo != null)
                 m_GridUserService.LoggedOut(userID.ToString(), sessionID, guinfo.LastRegionID, guinfo.LastPosition, guinfo.LastLookAt);
-        }
-
-        // We need to prevent foreign users with the same UUID as a local user
-        public bool IsAgentComingHome(UUID sessionID, string thisGridExternalName)
-        {
-            HGTravelingData hgt = m_Database.Get(sessionID);
-            if (hgt == null)
-                return false;
-
-            TravelingAgentInfo travel = new TravelingAgentInfo(hgt);
-
-            return travel.GridExternalName.ToLower() == thisGridExternalName.ToLower();
-        }
-
-        public bool VerifyClient(UUID sessionID, string reportedIP)
-        {
-            if (m_BypassClientVerification)
-                return true;
-
-            m_log.DebugFormat("[USER AGENT SERVICE]: Verifying Client session {0} with reported IP {1}.",
-                sessionID, reportedIP);
-
-            HGTravelingData hgt = m_Database.Get(sessionID);
-            if (hgt == null)
-                return false;
-
-            TravelingAgentInfo travel = new TravelingAgentInfo(hgt);
-
-            bool result = travel.ClientIPAddress == reportedIP;
-            if (!result && !string.IsNullOrEmpty(m_MyExternalIP))
-                result = reportedIP == m_MyExternalIP; // NATed
-
-            m_log.DebugFormat("[USER AGENT SERVICE]: Comparing {0} with login IP {1} and MyIP {2}; result is {3}",
-                                reportedIP, travel.ClientIPAddress, m_MyExternalIP, result);
-
-            return result;
-        }
-
-        public bool VerifyAgent(UUID sessionID, string token)
-        {
-            HGTravelingData hgt = m_Database.Get(sessionID);
-            if (hgt == null)
-            {
-                m_log.DebugFormat("[USER AGENT SERVICE]: Token verification for session {0}: no such session", sessionID);
-                return false;
-            }
-
-            TravelingAgentInfo travel = new TravelingAgentInfo(hgt);
-            m_log.DebugFormat("[USER AGENT SERVICE]: Verifying agent token {0} against {1}", token, travel.ServiceToken);
-            return travel.ServiceToken == token;
         }
 
         [Obsolete]
@@ -495,6 +566,44 @@ namespace OpenSim.Services.HypergridService
                 return new List<UUID>();
         }
 
+        public bool VerifyAgent(UUID sessionID, string token)
+        {
+            HGTravelingData hgt = m_Database.Get(sessionID);
+            if (hgt == null)
+            {
+                m_log.DebugFormat("[USER AGENT SERVICE]: Token verification for session {0}: no such session", sessionID);
+                return false;
+            }
+
+            TravelingAgentInfo travel = new TravelingAgentInfo(hgt);
+            m_log.DebugFormat("[USER AGENT SERVICE]: Verifying agent token {0} against {1}", token, travel.ServiceToken);
+            return travel.ServiceToken == token;
+        }
+
+        public bool VerifyClient(UUID sessionID, string reportedIP)
+        {
+            if (m_BypassClientVerification)
+                return true;
+
+            m_log.DebugFormat("[USER AGENT SERVICE]: Verifying Client session {0} with reported IP {1}.",
+                sessionID, reportedIP);
+
+            HGTravelingData hgt = m_Database.Get(sessionID);
+            if (hgt == null)
+                return false;
+
+            TravelingAgentInfo travel = new TravelingAgentInfo(hgt);
+
+            bool result = travel.ClientIPAddress == reportedIP;
+            if (!result && !string.IsNullOrEmpty(m_MyExternalIP))
+                result = reportedIP == m_MyExternalIP; // NATed
+
+            m_log.DebugFormat("[USER AGENT SERVICE]: Comparing {0} with login IP {1} and MyIP {2}; result is {3}",
+                                reportedIP, travel.ClientIPAddress, m_MyExternalIP, result);
+
+            return result;
+        }
+
         [Obsolete]
         protected void ForwardStatusNotificationToSim(UUID regionID, UUID foreignUserID, string user, bool online)
         {
@@ -518,162 +627,65 @@ namespace OpenSim.Services.HypergridService
             }
         }
 
-        public List<UUID> GetOnlineFriends(UUID foreignUserID, List<string> friends)
+        protected void LoadDomainExceptionsFromConfig(IConfig config, string variable, Dictionary<int, List<string>> exceptions)
         {
-            List<UUID> online = new List<UUID>();
-
-            if (m_FriendsService == null || m_PresenceService == null)
+            foreach (string keyName in config.GetKeys())
             {
-                m_log.WarnFormat("[USER AGENT SERVICE]: Unable to get online friends because friends or presence services are missing");
-                return online;
-            }
-
-            m_log.DebugFormat("[USER AGENT SERVICE]: Foreign user {0} wants to know status of {1} local friends", foreignUserID, friends.Count);
-
-            // First, let's double check that the reported friends are, indeed, friends of that user
-            // And let's check that the secret matches and the rights
-            List<string> usersToBeNotified = new List<string>();
-            foreach (string uui in friends)
-            {
-                UUID localUserID;
-                string secret = string.Empty, tmp = string.Empty;
-                if (Util.ParseUniversalUserIdentifier(uui, out localUserID, out tmp, out tmp, out tmp, out secret))
+                if (keyName.StartsWith(variable + "_Level_"))
                 {
-                    FriendInfo[] friendInfos = m_FriendsService.GetFriends(localUserID);
-                    foreach (FriendInfo finfo in friendInfos)
+                    int level = 0;
+                    if (Int32.TryParse(keyName.Replace(variable + "_Level_", ""), out level) && !exceptions.ContainsKey(level))
                     {
-                        if (finfo.Friend.StartsWith(foreignUserID.ToString()) && finfo.Friend.EndsWith(secret) &&
-                            (finfo.TheirFlags & (int)FriendRights.CanSeeOnline) != 0 && (finfo.TheirFlags != -1))
-                        {
-                            // great!
-                            usersToBeNotified.Add(localUserID.ToString());
-                        }
+                        exceptions.Add(level, new List<string>());
+                        string value = config.GetString(keyName, string.Empty);
+                        string[] parts = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        foreach (string s in parts)
+                            exceptions[level].Add(s.Trim());
                     }
                 }
             }
+        }
 
-            // Now, let's find out their status
-            m_log.DebugFormat("[USER AGENT SERVICE]: GetOnlineFriends: user has {0} local friends with status rights", usersToBeNotified.Count);
-
-            // First, let's send notifications to local users who are online in the home grid
-            PresenceInfo[] friendSessions = m_PresenceService.GetAgents(usersToBeNotified.ToArray());
-            if (friendSessions != null && friendSessions.Length > 0)
+        protected void LoadTripPermissionsFromConfig(IConfig config, string variable)
+        {
+            foreach (string keyName in config.GetKeys())
             {
-                foreach (PresenceInfo pi in friendSessions)
+                if (keyName.StartsWith(variable + "_Level_"))
                 {
-                    UUID presenceID;
-                    if (UUID.TryParse(pi.UserID, out presenceID))
-                        online.Add(presenceID);
+                    int level = 0;
+                    if (Int32.TryParse(keyName.Replace(variable + "_Level_", ""), out level))
+                        m_ForeignTripsAllowed.Add(level, config.GetBoolean(keyName, true));
                 }
             }
-
-            return online;
         }
 
-        public Dictionary<string, object> GetUserInfo(UUID userID)
+        private TravelingAgentInfo CreateTravelInfo(AgentCircuitData agentCircuit, GridRegion region, bool fromLogin, out TravelingAgentInfo existing)
         {
-            Dictionary<string, object> info = new Dictionary<string, object>();
+            HGTravelingData hgt = m_Database.Get(agentCircuit.SessionID);
+            existing = null;
 
-            if (m_UserAccountService == null)
+            if (hgt != null)
             {
-                m_log.WarnFormat("[USER AGENT SERVICE]: Unable to get user flags because user account service is missing");
-                info["result"] = "fail";
-                info["message"] = "UserAccountService is missing!";
-                return info;
+                // Very important! Override whatever this agent comes with.
+                // UserAgentService always sets the IP for every new agent
+                // with the original IP address.
+                existing = new TravelingAgentInfo(hgt);
+                agentCircuit.IPAddress = existing.ClientIPAddress;
             }
 
-            UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero /*!!!*/, userID);
+            TravelingAgentInfo travel = new TravelingAgentInfo(existing);
+            travel.SessionID = agentCircuit.SessionID;
+            travel.UserID = agentCircuit.AgentID;
+            travel.GridExternalName = region.ServerURI;
+            travel.ServiceToken = agentCircuit.ServiceSessionID;
 
-            if (account != null)
-            {
-                info.Add("user_firstname", account.FirstName);
-                info.Add("user_lastname", account.LastName);
-                info.Add("result", "success");
+            if (fromLogin)
+                travel.ClientIPAddress = agentCircuit.IPAddress;
 
-                if (m_ShowDetails)
-                {
-                    info.Add("user_flags", account.UserFlags);
-                    info.Add("user_created", account.Created);
-                    info.Add("user_title", account.UserTitle);
-                }
-                else
-                {
-                    info.Add("user_flags", 0);
-                    info.Add("user_created", 0);
-                    info.Add("user_title", string.Empty);
-                }
-            }
+            StoreTravelInfo(travel);
 
-            return info;
-        }
-
-        public Dictionary<string, object> GetServerURLs(UUID userID)
-        {
-            if (m_UserAccountService == null)
-            {
-                m_log.WarnFormat("[USER AGENT SERVICE]: Unable to get server URLs because user account service is missing");
-                return new Dictionary<string, object>();
-            }
-            UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero /*!!!*/, userID);
-            if (account != null)
-                return account.ServiceURLs;
-
-            return new Dictionary<string, object>();
-        }
-
-        public string LocateUser(UUID userID)
-        {
-            HGTravelingData[] hgts = m_Database.GetSessions(userID);
-            if (hgts == null)
-                return string.Empty;
-
-            foreach (HGTravelingData t in hgts)
-                if (t.Data.ContainsKey("GridExternalName") && !m_GridName.Equals(t.Data["GridExternalName"]))
-                    return t.Data["GridExternalName"];
-
-            return string.Empty;
-        }
-
-        public string GetUUI(UUID userID, UUID targetUserID)
-        {
-            // Let's see if it's a local user
-            UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero, targetUserID);
-            if (account != null)
-                return targetUserID.ToString() + ";" + m_GridName + ";" + account.FirstName + " " + account.LastName;
-
-            // Let's try the list of friends
-            if (m_FriendsService != null)
-            {
-                FriendInfo[] friends = m_FriendsService.GetFriends(userID);
-                if (friends != null && friends.Length > 0)
-                {
-                    foreach (FriendInfo f in friends)
-                        if (f.Friend.StartsWith(targetUserID.ToString()))
-                        {
-                            // Let's remove the secret
-                            UUID id; string tmp = string.Empty, secret = string.Empty;
-                            if (Util.ParseUniversalUserIdentifier(f.Friend, out id, out tmp, out tmp, out tmp, out secret))
-                                return f.Friend.Replace(secret, "0");
-                        }
-                }
-            }
-            return string.Empty;
-        }
-
-        public UUID GetUUID(String first, String last)
-        {
-            // Let's see if it's a local user
-            UserAccount account = m_UserAccountService.GetUserAccount(UUID.Zero, first, last);
-            if (account != null)
-            {
-                // check user level
-                if (account.UserLevel < m_LevelOutsideContacts)
-                    return UUID.Zero;
-                else
-                    return account.PrincipalID;
-            }
-            else
-                return UUID.Zero;
+            return travel;
         }
 
         #region Misc
@@ -723,11 +735,12 @@ namespace OpenSim.Services.HypergridService
 
     internal class TravelingAgentInfo
     {
-        public UUID SessionID;
-        public UUID UserID;
+        public string ClientIPAddress = string.Empty;
         public string GridExternalName = string.Empty;
         public string ServiceToken = string.Empty;
-        public string ClientIPAddress = string.Empty; // as seen from this user agent service
+        public UUID SessionID;
+        public UUID UserID;
+        // as seen from this user agent service
 
         public TravelingAgentInfo(HGTravelingData t)
         {

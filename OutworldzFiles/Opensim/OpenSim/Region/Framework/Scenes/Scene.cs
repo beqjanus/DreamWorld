@@ -845,6 +845,7 @@ namespace OpenSim.Region.Framework.Scenes
 
         #region Constructors
 
+        //DreamGrid
         public string GetALTRegion(String regionName, UUID agentID)
         {
             // !!!  DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
@@ -4985,6 +4986,7 @@ namespace OpenSim.Region.Framework.Scenes
         {
             m_log.DebugFormat("[SCENE]: regionName {0}, Agent {1}", regionName, remoteClient.AgentId);
 
+            //DreamGrid
             SmartStart SS = new SmartStart();
             regionName = GetALTRegion(regionName, remoteClient.AgentId);   // DreamGrid
 

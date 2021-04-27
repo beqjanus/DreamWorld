@@ -21,7 +21,7 @@ Module OpensimWorld
 
             Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={K}&na={Avatars}&rat=0&r={RegionName}&pos={pos}"
             If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Then
-                If Poke(URL, RegionUUID) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
+                If Poke(URL) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
                 PropRegionClass.InRegion(RegionUUID) = Avatars
                 LastTimeChecked = Date.Now
             End If
@@ -29,7 +29,7 @@ Module OpensimWorld
 
     End Sub
 
-    Private Function Poke(URL As String, RegionUUID As String) As Integer
+    Private Function Poke(URL As String) As Integer
 
         ' Create a New 'HttpWebRequest' Object to the mentioned URL.
         Dim myHttpWebRequest As HttpWebRequest = CType(WebRequest.Create(URL), HttpWebRequest)
