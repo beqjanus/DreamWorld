@@ -522,28 +522,7 @@ Public Class FormSetup
 
                 Application.DoEvents()
                 counter -= 1
-                Dim CountisRunning As Integer = 0
-
-                For Each RegionUUID As String In PropRegionClass.RegionUuids
-                    If (Not PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped) _
-                        And PropRegionClass.RegionEnabled(RegionUUID) Then
-
-                        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-                        For Each p In Process.GetProcessesByName("Opensim")
-                            Try
-                                Application.DoEvents()
-                                If p.MainWindowTitle = GroupName Then
-                                    CountisRunning += 1
-                                    Exit For
-                                End If
-                            Catch
-                            End Try
-                        Next
-                    End If
-                    Application.DoEvents()
-                Next
-
-                ExitHandlerPoll()
+                Dim CountisRunning = Process.GetProcessesByName("Opensim").Length
 
                 If CountisRunning <> LastCount Then
                     If CountisRunning = 1 Then
@@ -558,9 +537,8 @@ Public Class FormSetup
                 If CountisRunning = 0 Then
                     counter = 0
                 End If
-
-                PropUpdateView = True ' make form refresh
-
+                ExitHandlerPoll()
+                Sleep(1000)
             End While
             PropUpdateView = True ' make form refresh
         End If
