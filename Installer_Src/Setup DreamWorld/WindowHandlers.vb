@@ -132,14 +132,13 @@ Module WindowHandlers
 
     Public Function GetPIDofWindow(GroupName As String) As Integer
 
-        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Opensim/bin/Regions/" & GroupName & "/PID.pid")
-
-        If IO.File.Exists(path) Then
-            Using reader As StreamReader = System.IO.File.OpenText(path)
-                While reader.Peek <> -1
-                    Return CInt(reader.ReadLine())
-                End While
-            End Using
+        Dim PID As Integer
+        Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\PID.pid")
+        If IO.File.Exists(INI) Then
+            Dim sPID As String = File.ReadAllText(INI)
+            If Int32.TryParse(sPID, PID) Then
+                Return PID
+            End If
         End If
 
         For Each pList As Process In Process.GetProcessesByName("Opensim")
