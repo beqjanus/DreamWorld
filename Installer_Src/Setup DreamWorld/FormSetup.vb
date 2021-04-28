@@ -1044,7 +1044,6 @@ Public Class FormSetup
     Private Sub ExitHandlerPoll()
 
         Dim GroupName As String = ""
-        Dim TimerValue As Integer
 
         ' booted regions from web server
         While BootedList1.Count > 0
@@ -1282,7 +1281,6 @@ Public Class FormSetup
             ElseIf (Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Or
                 Status = RegionMaker.SIMSTATUSENUM.Booting Or
                 Status = RegionMaker.SIMSTATUSENUM.Booted) And
-                TimerValue >= 0 And
                 Not PropAborting Then
 
                 ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
