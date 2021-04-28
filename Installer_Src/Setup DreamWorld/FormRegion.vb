@@ -412,8 +412,6 @@ Public Class FormRegion
 
         If PropRegionClass.MapType(RegionUUID).Length = 0 Then
             Maps_Use_Default.Checked = True
-        ElseIf PropRegionClass.MapType(RegionUUID) = "None" Then
-            MapNone.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.blankbox
         ElseIf PropRegionClass.MapType(RegionUUID) = "Simple" Then
             MapSimple.Checked = True
@@ -1082,8 +1080,6 @@ Public Class FormRegion
         Dim Map As String = ""
         If MapNone.Checked Then
             Map = ""
-        ElseIf MapNone.Checked Then
-            Map = "None"
         ElseIf MapSimple.Checked Then
             Map = "Simple"
         ElseIf MapGood.Checked Then
