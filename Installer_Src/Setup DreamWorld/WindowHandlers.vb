@@ -107,6 +107,17 @@ Module WindowHandlers
             Next
             Return IntPtr.Zero
         Else
+            Dim PID As Integer
+            Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Groupname}\PID.pid")
+            If IO.File.Exists(INI) Then
+                Dim sPID As String = File.ReadAllText(INI)
+                If Int32.TryParse(sPID, PID) Then
+                    Dim Plist = Process.GetProcessById(PID)
+                    Return Plist.MainWindowHandle
+                End If
+            End If
+
+            ' file may be gone, so look at window name
             Dim AllProcesses = Process.GetProcessesByName("Opensim")
             For Each p As Process In AllProcesses
                 If p.MainWindowTitle = Groupname Then
