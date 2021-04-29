@@ -6,6 +6,7 @@ V3.928
 Right click and editing a running region would lead to an instant crash.  Thankxx to a tip from Luna Dreamweaver.
 The fix for this also fixes an issue where the region could not be started if the Set Window Title function did not work. And this is a very unreliable function.
 Also a less error prone method for detecting how many regions are still running when quitting the system.
+MAC address 469947894f9e298a7726b4a58ff7bf9f cannot be banned.  This is a Windows Loopback Adapter. A note is appended if you try it.
 
 
 V3.927
