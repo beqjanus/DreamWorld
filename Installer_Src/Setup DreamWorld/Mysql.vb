@@ -518,8 +518,10 @@ Public Module MysqlInterface
             Dim version = QueryString("SELECT VERSION()")
             'Debug.Print("MySQL version: " & version)
             IsRunning() = True
+            MySQLIcon(True)
             Return True
         End If
+        MySQLIcon(False)
         Return False
 
     End Function

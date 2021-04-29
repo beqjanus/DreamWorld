@@ -105,7 +105,7 @@ Module Robust
         If Not StartMySQL() Then Return False ' prerequsite
 
         ' prevent recursion
-        Dim ctr = 300
+        Dim ctr = 30
         While RobustIsStarting And ctr > 0
             Sleep(1000)
             ctr -= 1
@@ -235,13 +235,13 @@ Module Robust
         TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
         ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
         Dim ctr As Integer = 0
-        ' wait 60 seconds for robust to quit
-        While IsRobustRunning() And ctr < 60
+        ' wait 30 seconds for robust to quit
+        While IsRobustRunning() And ctr < 30
             Application.DoEvents()
             Sleep(1000)
             ctr += 1
         End While
-
+        If ctr = 30 Then Zap("Robust")
         RobustIcon(False)
 
     End Sub
@@ -437,21 +437,24 @@ Module Robust
             Try
                 Up = client.DownloadString("http://" & Settings.RobustServerIP & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
             Catch ex As Exception
-                Log("INFO", "Robust is running")
                 If ex.Message.Contains("404") Then
+                    RobustIcon(True)
                     Log("INFO", "Robust is running")
                     Return True
                 End If
                 Log("INFO", "Robust is not running")
+                RobustIcon(False)
                 Return False
             End Try
 
             If Up.Length = 0 And PropOpensimIsRunning() Then
                 Log("INFO", "Robust is not running")
+                RobustIcon(False)
                 Return False
             End If
         End Using
         Log("INFO", "Robust is running")
+        RobustIcon(True)
         Return True
 
     End Function
@@ -475,6 +478,8 @@ Module Robust
             Return
         End If
         RobustCrashCounter = 0
+
+        RobustIcon(False)
 
         Dim yesno = MsgBox(My.Resources.Robust_exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then

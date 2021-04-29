@@ -82,7 +82,7 @@ Module RPC
         }
             Return SendRPC(RegionUUID, "admin_shutdown", ht)
         Else
-            ConsoleCommand(RegionUUID, "quit")
+            ConsoleCommand(RegionUUID, "q")
         End If
         Return True
 

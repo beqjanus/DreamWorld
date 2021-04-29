@@ -846,13 +846,13 @@ Public Class FormSmartStart
                     ConsoleCommand(RegionUUID, "alert Power off!")
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
 
-                    ConsoleCommand(RegionUUID, "quit")
-                    ConsoleCommand(RegionUUID, "quit")
+                    ConsoleCommand(RegionUUID, "q")
+                    ConsoleCommand(RegionUUID, "q")
                     Sleep(100)
                 Else
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                    ConsoleCommand(RegionUUID, "quit")
-                    ConsoleCommand(RegionUUID, "quit")
+                    ConsoleCommand(RegionUUID, "q")
+                    ConsoleCommand(RegionUUID, "q")
                 End If
 
                 PropUpdateView = True
