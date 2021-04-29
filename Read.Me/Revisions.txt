@@ -2,6 +2,12 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.928
+Right click and editing a running region would lead to an instant crash.  Thankxx to a tip from Luna Dreamweaver.
+The fix for this also fixes an issue where the region could not be started if the Set Window Title function did not work. And this is a very unreliable function.
+Also a less error prone method for detecting how many regions are still running when quitting the system.
+
+
 V3.927
 False start on V3.926: The OpensimWorld Beacon did not post the region Name - Fixed
 It also always deleted scripts on startup due to an extra space. - Fixed

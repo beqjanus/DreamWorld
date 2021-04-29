@@ -1082,8 +1082,12 @@ Public Class FormSetup
 
             ' Smart Start Timer
             Dim SSExpired As Boolean
-            Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
-            If diff > Settings.SmartStartTimeout Then SSExpired = True
+            If Settings.SmartStart Then
+                Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
+                If diff > Settings.SmartStartTimeout Then
+                    SSExpired = True
+                End If
+            End If
 
             ' if it is past time and no one is in the sim... Smart shutdown
             If PropRegionClass.SmartStart(RegionUUID) = "True" _
