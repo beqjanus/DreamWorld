@@ -225,9 +225,12 @@ Public Class FormBanList
                         line = reader.ReadLine()
                         If line.Length > 1 Then
                             Dim words() = line.Split("|".ToCharArray)
+                            If words(0) = "469947894f9e298a7726b4a58ff7bf9f" Then
+                                words(0) = "#469947894f9e298a7726b4a58ff7bf9f"
+                                words(1) = "Should not be banned as it a loopback adapter. Use Disk ID instead."
+                            End If
                             table.Rows.Add(words(0), words(1))
-
-                            ' remove all IPs from firewall as they are read - new ones or edited ones will be saved back on clode
+                            ' remove all IPs from firewall as they are read - new ones or edited ones will be saved back on close
                             Dim I As System.Net.IPAddress = Nothing
                             If IPAddress.TryParse(words(0), I) Then Firewall.ReleaseIp(words(0))
                         End If
