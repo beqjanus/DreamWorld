@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Net
 Imports System.Text.RegularExpressions
 
 Public Class FormDebug
@@ -104,6 +105,24 @@ Public Class FormDebug
             End If
             Settings.SaveSettings()
 
+        ElseIf Command = "Teleport API" Then
+
+            If Value Then
+                Dim region = ChooseRegion(False)
+                Dim UUID = Guid.NewGuid().ToString
+                Dim url = $"http://{Settings.PublicIP}:{Settings.HttpPort}/alt={region}&agent=Wifi%20Admin&AgentID={UUID}&password={Settings.MachineID}"
+                ProgressPrint(url)
+                Using client As New WebClient ' download client for web pages
+                    Try
+                        client.DownloadString(url)
+                        Application.DoEvents()
+                    Catch ex As Exception
+                        ErrorLog(My.Resources.Wrong & " " & ex.Message)
+                        Return
+                    End Try
+                End Using
+            End If
+
         ElseIf Command = "Send_alert" Then
             If Value Then
                 Dim UserId = InputBox("Agent UUID?")
@@ -114,50 +133,50 @@ Public Class FormDebug
 
         ElseIf Command = $"{My.Resources.Debug_word} Off" Then
 
-                If Value Then
-                    Settings.StatusInterval = 0
-                    ProgressPrint($"{My.Resources.Debug_word} Off")
-                Else
-                    ProgressPrint("Unchanged")
-                End If
-                Settings.SaveSettings()
+            If Value Then
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            Else
+                ProgressPrint("Unchanged")
+            End If
+            Settings.SaveSettings()
 
-            ElseIf Command = $"{My.Resources.Debug_word} 1 Minute" Then
+        ElseIf Command = $"{My.Resources.Debug_word} 1 Minute" Then
 
-                If Value Then
-                    Settings.StatusInterval = 60
-                    ProgressPrint($"{My.Resources.Debug_word} 1 Minute")
-                Else
-                    Settings.StatusInterval = 0
-                    ProgressPrint($"{My.Resources.Debug_word} Off")
-                End If
-                Settings.SaveSettings()
+            If Value Then
+                Settings.StatusInterval = 60
+                ProgressPrint($"{My.Resources.Debug_word} 1 Minute")
+            Else
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            End If
+            Settings.SaveSettings()
 
-            ElseIf Command = $"{My.Resources.Debug_word} 10 Minutes" Then
+        ElseIf Command = $"{My.Resources.Debug_word} 10 Minutes" Then
 
-                If Value Then
-                    Settings.StatusInterval = 600
-                    ProgressPrint($"{My.Resources.Debug_word} 10 Minutes")
-                Else
-                    Settings.StatusInterval = 0
-                    ProgressPrint($"{My.Resources.Debug_word} Off")
-                End If
-                Settings.SaveSettings()
+            If Value Then
+                Settings.StatusInterval = 600
+                ProgressPrint($"{My.Resources.Debug_word} 10 Minutes")
+            Else
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            End If
+            Settings.SaveSettings()
 
-            ElseIf Command = $"{My.Resources.Debug_word} 60 Minutes" Then
+        ElseIf Command = $"{My.Resources.Debug_word} 60 Minutes" Then
 
-                If Value Then
-                    Settings.StatusInterval = 3600
-                    ProgressPrint($"{My.Resources.Debug_word} 60 Minutes")
-                Else
-                    Settings.StatusInterval = 0
-                    ProgressPrint($"{My.Resources.Debug_word} Off")
-                End If
-                Settings.SaveSettings()
+            If Value Then
+                Settings.StatusInterval = 3600
+                ProgressPrint($"{My.Resources.Debug_word} 60 Minutes")
+            Else
+                Settings.StatusInterval = 0
+                ProgressPrint($"{My.Resources.Debug_word} Off")
+            End If
+            Settings.SaveSettings()
 
-            ElseIf Command = $"{My.Resources.Debug_word} 24 Hours" Then
+        ElseIf Command = $"{My.Resources.Debug_word} 24 Hours" Then
 
-                If Value Then
+            If Value Then
                 Settings.StatusInterval = 60 * 60 * 24
                 ProgressPrint($"{My.Resources.Debug_word} 24 Hours")
             Else
@@ -187,7 +206,9 @@ Public Class FormDebug
         RadioTrue.Text = My.Resources.True_word
         RadioFalse.Text = My.Resources.False_word
         ComboBox1.Items.Add("Send_alert")
+        ComboBox1.Items.Add("Teleport API")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} Off")
+
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 Minute")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 10 Minutes")
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 60 Minutes")
