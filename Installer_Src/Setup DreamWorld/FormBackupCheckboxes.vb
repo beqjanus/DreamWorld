@@ -5,6 +5,8 @@
 
 #End Region
 
+Imports System.Threading
+
 Public Class FormBackupCheckboxes
 
     Private initted As Boolean
@@ -58,6 +60,17 @@ Public Class FormBackupCheckboxes
         b.RunAllBackups(True) 'run backup right now
         Application.DoEvents()
         Threading.Thread.Sleep(2000)
+
+        If Not PropOpensimIsRunning() Then
+            TextPrint(My.Resources.Not_Running)
+            Return
+        End If
+
+        Dim WebThread = New Thread(AddressOf Backupper)
+        WebThread.SetApartmentState(ApartmentState.STA)
+        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        WebThread.Start()
+
         Me.Close()
 
     End Sub
@@ -153,6 +166,8 @@ Public Class FormBackupCheckboxes
         Settings.SaveSettings()
 
     End Sub
+
+
 
 #End Region
 
