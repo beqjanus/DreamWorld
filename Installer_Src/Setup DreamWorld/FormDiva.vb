@@ -378,7 +378,8 @@ Public Class FormDiva
         If CustomRadioButton.Checked Then
             Settings.Theme = "Custom"
             Settings.SaveSettings()
-            PictureBox1.Image = My.Resources.NoImage
+            LoadPhoto()
+            CopyWifi()
             TextPrint(My.Resources.Theme_Custom)
         End If
 
