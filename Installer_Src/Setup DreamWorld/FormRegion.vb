@@ -255,7 +255,6 @@ Public Class FormRegion
             ConciergeCheckBox.Checked = False
             CoordX.Text = (PropRegionClass.LargestX() + 8).ToString(Globalization.CultureInfo.InvariantCulture)
             CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
-            'RegionPort.Text = CStr(PropRegionClass.LargestPort())
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
             SmartStartCheckBox.Checked = False
@@ -336,22 +335,7 @@ Public Class FormRegion
                 RadioButton16.Checked = True
                 BoxSize = 256 * 16
             Else
-                RadioButton1.Checked = False
-                RadioButton2.Checked = False
-                RadioButton3.Checked = False
-                RadioButton4.Checked = False
-                RadioButton5.Checked = False
-                RadioButton6.Checked = False
-                RadioButton7.Checked = False
-                RadioButton8.Checked = False
-                RadioButton9.Checked = False
-                RadioButton10.Checked = False
-                RadioButton11.Checked = False
-                RadioButton12.Checked = False
-                RadioButton13.Checked = False
-                RadioButton14.Checked = False
-                RadioButton15.Checked = False
-                RadioButton16.Checked = False
+                RadioButton1.Checked = True
             End If
 
             ' global coordinates
@@ -626,10 +610,6 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub Bullet_CheckedChanged(sender As Object, e As EventArgs)
-        If Initted1 Then Changed1 = True
-    End Sub
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         FormSetup.PropChangedRegionSettings = True
@@ -685,7 +665,7 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub ClampPrimSize_CheckedChanged(sender As Object, e As EventArgs)
+    Private Sub ClampPrimSize_CheckedChanged(sender As Object, e As EventArgs) Handles ClampPrimSize.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
 
@@ -765,7 +745,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub ScriptTimerTextBox_focusChanged(sender As Object, e As EventArgs)
+    Private Sub ScriptTimerTextBox_focusChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.LostFocus
 
         Try
             Dim value = Convert.ToDouble(ScriptTimerTextBox.Text, Globalization.CultureInfo.InvariantCulture)
@@ -777,7 +757,7 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs)
+    Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
 
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
@@ -804,7 +784,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub TextBox1_FocusChanged(sender As Object, e As EventArgs)
+    Private Sub TextBox1_FocusChanged(sender As Object, e As EventArgs) Handles FrametimeBox.LostFocus
 
         Try
             Dim value = Convert.ToDouble(FrametimeBox.Text, Globalization.CultureInfo.InvariantCulture)
@@ -817,7 +797,7 @@ Public Class FormRegion
 
     End Sub
 
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs)
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
 
         Dim digitsOnly As Regex = New Regex("[^\d\.]")
         FrametimeBox.Text = digitsOnly.Replace(FrametimeBox.Text, "")
@@ -996,7 +976,9 @@ Public Class FormRegion
             Message = Global.Outworldz.My.Resources.NVMaxAgents
             Return Message
         End Try
+
         Return ""
+
     End Function
 
     ''' <returns>false if it fails</returns>
@@ -1321,6 +1303,86 @@ Public Class FormRegion
 
     Private Sub PublicityToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PublicityToolStripMenuItem.Click
         HelpManual("Publicity Overrides")
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
+        BoxSize = 256
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton10_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton10.CheckedChanged
+        BoxSize = 256 * 10
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton11_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton11.CheckedChanged
+        BoxSize = 256 * 11
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton12_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton12.CheckedChanged
+        BoxSize = 256 * 12
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton13_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton13.CheckedChanged
+        BoxSize = 256 * 13
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton14_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton14.CheckedChanged
+        BoxSize = 256 * 14
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton15_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton15.CheckedChanged
+        BoxSize = 256 * 15
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton16_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton16.CheckedChanged
+        BoxSize = 256 * 16
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
+        BoxSize = 256 * 2
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
+        BoxSize = 256 * 3
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton4_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton4.CheckedChanged
+        BoxSize = 256 * 4
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton5.CheckedChanged
+        BoxSize = 256 * 5
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton6.CheckedChanged
+        BoxSize = 256 * 6
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton7_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton7.CheckedChanged
+        BoxSize = 256 * 7
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton8_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton8.CheckedChanged
+        BoxSize = 256 * 8
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RadioButton9_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton9.CheckedChanged
+        BoxSize = 256 * 9
+        If Initted1 Then Changed1 = True
     End Sub
 
     Private Sub ScriptsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScriptsToolStripMenuItem.Click
