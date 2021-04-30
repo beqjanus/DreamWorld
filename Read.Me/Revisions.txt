@@ -4,6 +4,7 @@ This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are re
 
 V3.929
 Fixes an issue where you could only make 1X1 regions.
+If you tried to tp into a Smart Boot-enabled region, it shut down as soon as it booted.
 
 V3.928
 Right click and editing a running region would lead to an instant crash.  Thankxx to a tip from Luna Dreamweaver.
@@ -215,7 +216,7 @@ V3.85
 Backups chat how many are running and a message when they are finished.
 Themes would not save the image to the running theme, just to the next running theme.
 Windows on Top control moved to a Menu and added to the main form
-Large fonts and High DPI sscreens would cause icon sizes to change and the Graphs to not fit
+Large fonts and High DPI screens would cause icon sizes to change and the Graphs to not fit
 Changed many icons to just blue
 One of two ways to make a sign showed all regions, instead of just online regions
 Adding a region or deleting one could cause the Region HTTP Port (Group Port) to collide with another region.
