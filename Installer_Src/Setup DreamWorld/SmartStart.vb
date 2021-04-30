@@ -51,17 +51,6 @@ Module SmartStart
             End If
             Debug.Print("Tp to " & Name)
 
-            '   If Not Settings.SmartStart Then
-            '   If AgentName.ToUpperInvariant = "UUID" Then
-            '   Return RegionUUID
-            'ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-            '   Return Name
-            'Else ' Its a sign!
-            '  AddEm(RegionUUID, AgentID)
-            ' Return Name
-            '     End If
-            '  End If
-
             ' Smart Start below here
             If PropOpensimIsRunning Then
                 If PropRegionClass.SmartStart(RegionUUID) = "True" Then
@@ -278,7 +267,7 @@ Module SmartStart
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
         For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
             PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-            PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+            PropRegionClass.Timer(RegionUUID) = DateAdd(DateInterval.Hour, 1, Date.Now) ' wait another interval
         Next
         ShutDown(RegionUUID)
         Application.DoEvents()
@@ -357,7 +346,7 @@ Module SmartStart
             Try
                 SuspendProcess.Start()
                 SuspendProcess.WaitForExit()
-                PropRegionClass.Timer(RegionUUID) = Date.Now ' wait another interval
+                PropRegionClass.Timer(RegionUUID) = DateAdd(DateInterval.Hour, 1, Date.Now) ' wait another interval
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
 
@@ -383,7 +372,6 @@ Module SmartStart
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
-
 
         '  If BootName = "Combat" Then
         '  BreakPoint.Show("")
@@ -419,6 +407,7 @@ Module SmartStart
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
+                    PropRegionClass.Timer(UUID) = Date.Now
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeShowWindow())
                 Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
@@ -501,7 +490,7 @@ Module SmartStart
                 ' Mark them before we boot as a crash will immediately trigger the event that it exited
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
-                    PropRegionClass.Timer(RegionUUID) = Date.Now()
+                    PropRegionClass.Timer(RegionUUID) = Date.Now
                 Next
             Else
                 BreakPoint.Show("No PID for " & GroupName)
