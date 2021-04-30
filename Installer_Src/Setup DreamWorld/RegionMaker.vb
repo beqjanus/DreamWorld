@@ -675,7 +675,7 @@ Public Class RegionMaker
             If val > Max Then Max = val
         Next
         If Max = 0 Then
-            Max = RandomNumber.Between(1010, 990)
+            Max = Between(1010, 990)
         End If
         Return Max
 
