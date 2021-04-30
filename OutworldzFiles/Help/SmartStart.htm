@@ -7,9 +7,6 @@
 <!--
  /* Font Definitions */
  @font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
@@ -18,9 +15,6 @@
 @font-face
 	{font-family:"Calibri Light";
 	panose-1:2 15 3 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@SimSun";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -30,32 +24,39 @@
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
-p.MsoTitle, li.MsoTitle, div.MsoTitle
-	{mso-style-link:"Title Char";
-	margin:0in;
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
 	line-height:115%;
-	font-size:26.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+	background:#4472C4;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
-span.TitleChar
-	{mso-style-name:"Title Char";
-	mso-style-link:Title;
-	font-family:"Calibri Light",sans-serif;
-	color:#5B9BD5;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	color:white;
 	text-transform:uppercase;
-	letter-spacing:.5pt;}
+	letter-spacing:.75pt;
+	background:#4472C4;}
 .MsoChpDefault
-	{font-family:"Calibri",sans-serif;}
+	{font-size:10.0pt;
+	font-family:"Calibri",sans-serif;}
 .MsoPapDefault
 	{margin-top:5.0pt;
 	margin-right:0in;
 	margin-bottom:10.0pt;
 	margin-left:0in;
 	line-height:115%;}
- /* Page Definitions */
- @page WordSection1
+@page WordSection1
 	{size:8.5in 11.0in;
 	margin:1.0in 1.0in 1.0in 1.0in;}
 div.WordSection1
@@ -65,46 +66,110 @@ div.WordSection1
 
 </head>
 
-<body lang=EN-US style='word-wrap:break-word;text-justify-trim:punctuation'>
+<body lang=EN-US style='word-wrap:break-word'>
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='text-align:center'>Smart Start</p>
+<p class=MsoNormal align=center style='margin:0in;text-align:center'><span
+style='font-size:26.0pt;line-height:115%;font-family:"Calibri Light",sans-serif;
+color:#5B9BD5;text-transform:uppercase;letter-spacing:.5pt'>Smart Start</span></p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal>Smart Start regions are shut down when no one is in them.  
-A Smart Start region appears as a dual blue arrow ’recycle’ icon in the Regions
-panel:</p>
+<p class=MsoNormal>Smart Start regions shut down when no one is in
+them.&nbsp;&nbsp; A Smart Start region appears as a dual blue arrow ’recycle’
+icon in the Regions panel:</p>
 
-<p class=MsoNormal><img width=698 height=388 id="Picture 1"
-src="SmartStart_files/image001.png"></p>
+<p class=MsoNormal><img width=698 height=388 id="Picture 4"
+src="SmartStart_files/image001.png"
+alt="Graphical user interface, application, table&#10;&#10;Description automatically generated"></p>
 
-<p class=MsoNormal>Smart start work by deteing teleports.  When someone teleports
-into the system, or logs in, the Grid will determine if their destination ios
-running.  If the region is booted. the teleport happens. If the region is not
-rewady, but enabled, the system send the avatar to a Welcome waiting area.  The
-region is booted. When the original destination region is ready for logins, the
-avatar is telepported to the original detination.</p>
+<p class=MsoNormal>Smart start detects teleports.&nbsp; When someone teleports
+into the system, or logs in, the system decides if their destination is already
+bootet.&nbsp; If so, the teleport happens normally. But If the region is not ready,
+the system sends the avatar to a waiting area while the region is booted. When
+the original destination region is ready for logins, the avatar is teleported
+to the original destination.</p>
 
-<p class=MsoNormal>Enable Smart Start</p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<p class=MsoNormal>Smart tart is disabled by default. You first enable it globaly
-in Setup-&gt;ettings-&gt;Regions:</p>
+<h1 style='background:#4472C4'>Enable Smart Start</h1>
+
+</div>
+
+<p class=MsoNormal>Smart Start is disabled by default. You must first enable it
+in Setup-&gt;Settings-&gt;Smart Start:</p>
+
+<p class=MsoNormal><span style='position:absolute;z-index:251659264;margin-left:
+85px;margin-top:141px;width:229px;height:167px'><img width=229 height=167
+src="SmartStart_files/image002.png" alt="Enable Smart Start"></span>&nbsp;<img
+width=421 height=484 id="Picture 5" src="SmartStart_files/image003.png"
+alt="Graphical user interface, text, application&#10;&#10;Description automatically generated"></p>
+
+<p class=MsoNormal>The system can be set to power down the region when no one
+is in it. This length of time is from 15 seconds upward.</p>
+
+<p class=MsoNormal>Choose a Parking Region</p>
+
+<p class=MsoNormal>If a region is offline and a teleport is initiated, the
+region will be booted. This may take more time than the viewer allows.  The
+avatar is teleported to a waiting region, aka, a “Parking Region”. You  can
+choose any region, such as your Welcome region, which is the Default.</p>
+
+<p class=MsoNormal><img width=234 height=330 id="Picture 8"
+src="SmartStart_files/image004.png"
+alt="A picture containing graphical user interface&#10;&#10;Description automatically generated"></p>
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><img width=446 height=533 src="SmartStart_files/image002.png"></p>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<p class=MsoNormal><img width=288 height=490 src="SmartStart_files/image003.png"></p>
+<h1 style='background:#4472C4'>Region Setup</h1>
 
-<p class=MsoNormal>This can be enabled for any region.  Edit any region and set
-the Smart Start Checkbox to True. This goes into effect immediately.</p>
+</div>
 
-<p class=MsoNormal>If the region is running and no avatar  in it, it will shut
-down within one minute.</p>
+<p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><img width=310 height=258 src="SmartStart_files/image004.png"></p>
+<p class=MsoNormal>You must enable Smart Start in the regions you want to remain
+powered down when no one needs them.  </p>
+
+<p class=MsoNormal>This can be enabled or disabled for any region.&nbsp; Edit
+any region and set the Smart Start Checkbox to True. This goes into effect
+immediately.</p>
+
+<p class=MsoNormal>If the region is running and no avatar &nbsp;in it, it will
+shut down within the time period you set.</p>
+
+<p class=MsoNormal><span style='position:absolute;z-index:251661312;margin-left:
+88px;margin-top:76px;width:418px;height:135px'><img width=418 height=135
+src="SmartStart_files/image005.png" alt="Enable Smart Start"></span><img
+width=310 height=258 id="Picture 1" src="SmartStart_files/image006.png"
+alt="Graphical user interface, application&#10;&#10;Description automatically generated"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1 style='background:#4472C4'>Automatic Fill</h1>
+
+</div>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>Automatic Fill is an optional Feature for Smart Start. If
+enabled, anyone moving into a region will trigger an automatic fill of
+surrounding regions with the Landscaping and Trees/Plants modules.</p>
+
+<p class=MsoNormal>In those screens you can choose water regions, as just one
+example.   If set to water, your avatar can walk, fly, or boat across  the
+entire expanse of your grid. Its literally an Endless sea.</p>
+
+<p class=MsoNormal>You should select an avatar that will own  the Estate  named
+“SimSurround”, which is the owner of these Regions.</p>
+
+<p class=MsoNormal><img width=225 height=324 id="Picture 9"
+src="SmartStart_files/image007.png"
+alt="Chart, box and whisker chart&#10;&#10;Description automatically generated"></p>
 
 <p class=MsoNormal>&nbsp;</p>
 

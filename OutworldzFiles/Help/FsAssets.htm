@@ -27,18 +27,19 @@
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
-h2
-	{mso-style-link:"Heading 2 Char";
+h1
+	{mso-style-link:"Heading 1 Char";
 	margin-top:5.0pt;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:0in;
 	line-height:115%;
-	background:#D9E2F3;
+	background:#4472C4;
 	border:none;
 	padding:0in;
-	font-size:10.0pt;
+	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;
+	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
@@ -51,12 +52,14 @@ p.MsoTitle, li.MsoTitle, div.MsoTitle
 	color:#4472C4;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
-span.Heading2Char
-	{mso-style-name:"Heading 2 Char";
-	mso-style-link:"Heading 2";
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Times New Roman",serif;
+	color:white;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
-	background:#D9E2F3;}
+	background:#4472C4;}
 span.TitleChar
 	{mso-style-name:"Title Char";
 	mso-style-link:Title;
@@ -94,21 +97,20 @@ lang=EN>FSAssets Settings</span></p>
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif;
 background:white'><br>
-FSAssets is intended for larger grids where the size of the database is
-expected to exceed 50GB. This option will save the assets to the file system as
-opposed to the default service which stores assets as blobs in the database.
-This option also provides deduplication abilities. Each asset is hashed when it
-is received for storage. If the asset already exists, the asset service will
-link to the existing file rather than store two copies.</span></p>
+FSAssets is enabled by default.  This option will save the assets to the file
+system as opposed to the default service which stores assets as blobs in the
+database. This option also provides deduplication abilities. Each asset is
+hashed when it is received for storage. If the asset already exists, the asset
+service will link to the existing file rather than store two copies.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><b><span style='font-family:"Times New Roman",serif;
 background:white'>IMPORTANT: </span></b><span style='font-family:"Times New Roman",serif;
 background:white'>This is a major change in database structure.  If you already
 have a MySQL database running with a lot of assets, this will help speed it up,
-but it will cost a lot of disk space.   If you start out with this setting, it
-will use the least space. <b><u>Once you switch to FSAssets, you cannot go back
-to just MySQL without losing data entered since the switch.</u></b></span></p>
+but it will take more disk space. If you start out with this setting, it will
+use the least space. <b><u>Once you switch to FSAssets, you cannot go back to
+just MySQL without losing data entered since the switchover!</u></b></span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 1.2pt;margin-left:.5in;background:white'><span lang=EN style='font-size:11.0pt;
@@ -141,10 +143,9 @@ to the BaseDirectory. This must be on the same file system as the base
 directory.  Default = </span><span style='font-size:9.5pt;font-family:Consolas;
 color:#A31515'>./fsassets/tmp</span></p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
-margin-left:.5in;margin-right:0in'>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>Migration</span></h2>
+<h1>Migration</h1>
 
 </div>
 
@@ -152,16 +153,14 @@ margin-left:.5in;margin-right:0in'>
 10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>FSAssets
 will use the MySQL database to collect the original data.  This will not
 automatically convert all the old assets to the new service. To convert all
-assets from the default service there is a Robust console command provided:<br>
-<br>
-</span></p>
+assets from the default service there is a Robust console command provided:</span></p>
 
 <div style='border:solid windowtext 1.0pt;padding:12.0pt 12.0pt 12.0pt 12.0pt;
 margin-left:.5in;margin-right:.5in'>
 
 <p class=MsoNormal style='line-height:13.2pt;border:none;padding:0in'><span
-style='font-family:"Courier New";color:black'> import &lt;conn&gt; &lt;table&gt;
-[&lt;start&gt; &lt;count&gt;]</span></p>
+style='font-family:"Courier New";color:black'> import &lt;conn&gt;
+&lt;table&gt; [&lt;start&gt; &lt;count&gt;]</span></p>
 
 </div>
 
@@ -179,14 +178,15 @@ margin-left:.5in;margin-right:.5in'>
 <p class=MsoNormal style='line-height:13.2pt;border:none;padding:0in'><span
 style='font-family:"Courier New";color:black'>import &quot;Data
 Source=localhost;Port=3306;Database=robust;User
-ID=robustuser;Password=robustpassword;Old Guids=true;&quot; assets</span></p>
+ID=robustuser;Password=robustpassword;Old Guids=true;Command Timeout=300;&quot;
+assets</span></p>
 
 </div>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>Depending
 on the size of your existing assets table, the import process will take some
-time to complete. The optional parameters, start and count allow you to specify
+time to complete. The optional parameters start and count allow you to specify
 the position and number of rows to convert.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
@@ -196,29 +196,16 @@ default, blank database will look like this:</span></p>
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>R.O.B.U.S.T.#
 import &quot;Data Source=localhost;Port=3306;Database=robust;User
-ID=robustuser;Password=robustpassword;Old Guids=true;&quot; assets</span></p>
+ID=robustuser;Password=robustpassword;Old Guids=true;<span style='color:black'>Command
+Timeout=300;</span>&quot; assets</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>Reading data</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>0 assets
-imported so far</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>100 assets
-imported so far</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>200 assets
-imported so far</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>Import done,
-274 assets imported</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>R.O.B.U.S.T.#</span></p>
+10.0pt;margin-left:.5in'><span style='font-family:"Courier New"'>Reading data<br>
+0 assets imported so far<br>
+100 assets imported so far<br>
+200 assets imported so far<br>
+Import done, 274 assets imported<br>
+R.O.B.U.S.T.#</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>

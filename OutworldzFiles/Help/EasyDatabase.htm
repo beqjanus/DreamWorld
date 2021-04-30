@@ -24,6 +24,22 @@
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#4472C4;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
 h2
 	{mso-style-link:"Heading 2 Char";
 	margin-top:5.0pt;
@@ -52,9 +68,18 @@ a:link, span.MsoHyperlink
 	{font-family:"Times New Roman",serif;
 	color:blue;
 	text-decoration:underline;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Times New Roman",serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#4472C4;}
 span.Heading2Char
 	{mso-style-name:"Heading 2 Char";
 	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
@@ -97,10 +122,9 @@ font-family:"Arial",sans-serif'><br>
 database to save and fetch persistent variables in Second Life and OpenSim
 scripts.</span></p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
-margin-left:.5in;margin-right:0in'>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>Usage</span></h2>
+<h1>Usage</h1>
 
 </div>
 
@@ -118,8 +142,8 @@ href="http://outworldz.appspot.com/store?service=2b307c02-2133-4dba-bcc5-3d8f7db
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><b><span style='color:black'>service uuid:</span></b><span
 style='color:black'>&nbsp;unique identifier for your application. You can use a
-different one for each script or share the same identifier across several
-scripts in order to share data.   To generate a random uuid:&nbsp;<a
+different one for each script or share the same identifier across several scripts
+in order to share data.   To generate a random uuid:&nbsp;<a
 href="https://outworldz.appspot.com/rand">http://outworldz.appspot.com/rand</a></span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
@@ -130,11 +154,9 @@ style='color:black'>&nbsp;variable name or other identifier for your data</span>
 10.0pt;margin-left:.5in'><b><span style='color:black'>datafield:</span></b><span
 style='color:black'>&nbsp;data that you want to be stored.</span></p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
-margin-left:.5in;margin-right:0in'>
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
 
-<h2 style='background:#D9E2F3'><span class=Heading2Char><span style='color:
-black;text-transform:none'>Response</span></span></h2>
+<h1><span class=Heading2Char><span style='font-family:"Calibri",sans-serif'>Response</span></span></h1>
 
 </div>
 
@@ -167,16 +189,17 @@ default<br>
 {<br>
      touch_start(integer counter)<br>
      {<br>
-         string URL = &quot;http://outworldz.appspot.com/load?service=&quot; +
+         string URL = &quot;http://outworldz.appspot.com/load?service=&quot; +
 serviceid + &quot;&amp;keyfield=colors&quot;;<br>
          key httpkey=llHTTPRequest(URL, [] ,&quot;&quot;);<br>
-    }        </span></p>
+    }        </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span style='font-family:"Courier New";color:black'>   
 http_response(key id, integer status, list meta, string body)<br>
    {<br>
-          list colors = llParseString2List(body,[&quot;,&quot;],[&quot; &quot;]);<br>
+          list colors = llParseString2List(body,[&quot;,&quot;],[&quot;
+&quot;]);<br>
           llSetColor(&lt;llList2Float(colors,0), llList2Float(colors,1),
 llList2Float(colors,2)&gt;,ALL_SIDES);</span></p>
 
