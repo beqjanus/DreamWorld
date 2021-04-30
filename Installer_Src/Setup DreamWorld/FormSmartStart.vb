@@ -630,7 +630,7 @@ Public Class FormSmartStart
 #Region "Help"
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        HelpManual("Landscaping")
+        HelpManual("SmartStart")
     End Sub
 
     Private Sub LandscapingToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LandscapingToolStripMenuItem.Click
