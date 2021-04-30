@@ -112,8 +112,12 @@ Module WindowHandlers
             If IO.File.Exists(INI) Then
                 Dim sPID As String = File.ReadAllText(INI)
                 If Int32.TryParse(sPID, PID) Then
-                    Dim Plist = Process.GetProcessById(PID)
-                    Return Plist.MainWindowHandle
+                    Try
+                        Dim Plist = Process.GetProcessById(PID)
+                        Return Plist.MainWindowHandle
+                    Catch
+                    End Try
+
                 End If
             End If
 
