@@ -894,20 +894,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub Backupper()
-
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-
-            ReBoot(RegionUUID)
-
-            ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """")
-            ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
-                               DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
-
-        Next
-
-    End Sub
-
     Private Sub BusyButton_Click(sender As Object, e As EventArgs) Handles BusyButton.Click
 
         PropAborting = True
