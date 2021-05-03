@@ -5,27 +5,36 @@ Module OpensimWorld
 
     Private LastTimeChecked As Date = Date.Now()
 
-    Public Sub ScanOpenSimWorld()
+    Public Sub ScanOpenSimWorld(Force As Boolean)
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
 
             If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
-            Dim K = PropRegionClass.OpensimWorldAPIKey(RegionUUID)
-            If K.Length = 0 Then Continue For
-            Dim pos = Uri.EscapeDataString("<128,128,23>")
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             '  30 minute timer and change detector for OpensimAPI
             Dim Delta = DateAndTime.DateDiff(DateInterval.Minute, LastTimeChecked, Date.Now)
             Dim Avatars As Integer = RPC_admin_get_agent_count(RegionUUID)
-
-            Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={K}&na={Avatars}&rat=0&r={RegionName}&pos={pos}"
-            If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Then
-                If Poke(URL) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
-                PropRegionClass.InRegion(RegionUUID) = Avatars
-                LastTimeChecked = Date.Now
+            PropRegionClass.InRegion(RegionUUID) = Avatars
+            ' force an update for 30 minutes, at 1st boot when no one is there, and in another place, when it is booted, or when avatars leave or go.
+            If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Or Force Then
+                SendToOpensimWorld(RegionUUID, Avatars)
             End If
         Next
+
+    End Sub
+
+    Public Sub SendToOpensimWorld(RegionUUID As String, Avatars As Integer)
+
+        Dim k = PropRegionClass.OpensimWorldAPIKey(RegionUUID)
+        If k.Length = 0 Then Return
+
+        Dim Regionname = PropRegionClass.RegionName(RegionUUID)
+        Dim pos = Uri.EscapeDataString("<128,128,23>")
+
+        Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={k}&na={Avatars}&rat=0&r={Regionname}&pos={pos}"
+        ' If he says to delete it, we do so.
+        If Poke(URL) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
+        LastTimeChecked = Date.Now
 
     End Sub
 

@@ -281,6 +281,11 @@ Public Module MysqlInterface
         Catch ex As Exception
             Console.WriteLine("Error: " & ex.ToString())
         End Try
+
+        If Debugger.IsAttached Then
+            Dict.Add("Ferd Frederix", "SS")
+        End If
+
         Return Dict
 
     End Function
@@ -513,14 +518,15 @@ Public Module MysqlInterface
         Else
             Mysql = CheckPort(Settings.RegionServer, Settings.MySqlRegionDBPort)
         End If
-
         If Mysql Then
             Dim version = QueryString("SELECT VERSION()")
-            'Debug.Print("MySQL version: " & version)
-            IsRunning() = True
-            MySQLIcon(True)
-            Return True
+            If version.Length > 0 Then
+                IsRunning() = True
+                MySQLIcon(True)
+                Return True
+            End If
         End If
+
         MySQLIcon(False)
         Return False
 
