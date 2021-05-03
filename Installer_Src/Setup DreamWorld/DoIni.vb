@@ -312,7 +312,7 @@ Module DoIni
                                   "<logdir>./log</logdir>" & vbCrLf +
                                   "<webroot>./web</webroot>" & vbCrLf +
                                   "<adminroot>./admin</adminroot>" & vbCrLf &  '
-                                   "<Alias source=" & """" & "/" & """" & " destination=" & """" & "/status.xsl" & """" & "/>" & vbCrLf +
+                                   "<alias source=" & """" & "/" & """" & " destination=" & """" & "/status.xsl" & """" & "/>" & vbCrLf +
                               "</paths>" & vbCrLf +
                               "<logging>" & vbCrLf +
                                   "<accesslog>access.log</accesslog>" & vbCrLf +
