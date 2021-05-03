@@ -128,7 +128,6 @@ Module Build
         If Simcount > 0 Then
             Landscaper(GroupName)
         End If
-        If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
 
     End Sub
 
