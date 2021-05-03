@@ -83,18 +83,17 @@ Public Class FormIcecast
     End Sub
 
     Private Sub LoadURL_Click(sender As Object, e As EventArgs) Handles LoadURL.Click
-        If PropOpensimIsRunning() Then
-            Dim webAddress As String = "http://" + Settings.PublicIP + ":" + ShoutcastPort.Text
-            TextPrint(My.Resources.Icecast_Desc & " " + webAddress)
-            Try
-                Process.Start(webAddress)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        ElseIf Settings.SCEnable = False Then
+
+        Dim webAddress As String = "http://" + Settings.PublicIP + ":" + ShoutcastPort.Text
+        TextPrint(My.Resources.Icecast_Desc & " " + webAddress)
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+        If Settings.SCEnable = False Then
             TextPrint(My.Resources.IceCast_disabled)
-        Else
-            TextPrint(My.Resources.Not_Running)
         End If
 
     End Sub
