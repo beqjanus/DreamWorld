@@ -110,16 +110,16 @@ Public Class FormDebug
             If Value Then
                 Dim region = ChooseRegion(False)
                 Dim UUID = Guid.NewGuid().ToString
-                Dim url = $"http://{Settings.PublicIP}:{Settings.HttpPort}/alt={region}&agent=Wifi%20Admin&AgentID={UUID}&password={Settings.MachineID}"
+                Dim url = $"http://{Settings.PublicIP}:{Settings.DiagnosticPort}/alt={region}&agent=Wifi%20Admin&AgentID={UUID}&password={Settings.MachineID}"
                 ProgressPrint(url)
                 Using client As New WebClient ' download client for web pages
+                    Dim r As String = ""
                     Try
-                        client.DownloadString(url)
-                        Application.DoEvents()
+                        r = client.DownloadString(url)
                     Catch ex As Exception
-                        ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                        Return
+                        ProgressPrint(ex.Message)
                     End Try
+                    ProgressPrint(r)
                 End Using
             End If
 
