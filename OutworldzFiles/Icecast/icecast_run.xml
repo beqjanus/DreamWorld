@@ -4,10 +4,10 @@
 <admin>not@set.yet</admin>
 <shoutcast-mount>/stream</shoutcast-mount>
 <listen-socket>
-    <port>8100</port>
+    <port>7100</port>
 </listen-socket>
 <listen-socket>
-   <port>8101</port>
+   <port>7101</port>
    <shoutcast-compat>1</shoutcast-compat>
 </listen-socket>
 <limits>
@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>9ZQykGbQiZwAgDY</source-password>
-<relay-password>9ZQykGbQiZwAgDY</relay-password>
+<source-password>123</source-password>
+<relay-password>123</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>eCnZV8V898tAwZ2</admin-password>
+<admin-password>123</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>
@@ -34,7 +34,7 @@
 <logdir>./log</logdir>
 <webroot>./web</webroot>
 <adminroot>./admin</adminroot>
-<Alias source="/" destination="/status.xsl"/>
+<alias source="/" destination="/status.xsl"/>
 </paths>
 <logging>
 <accesslog>access.log</accesslog>

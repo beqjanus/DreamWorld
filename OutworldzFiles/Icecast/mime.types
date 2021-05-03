@@ -1400,7 +1400,7 @@ audio/mp4                                        mp4a
 audio/mpeg                                       mp3 mpga mp2 mp2a m2a m3a
 # audio/mpeg4-generic                            
 # audio/musepack                                 
-audio/ogg                                        oga ogg spx opus
+audio/ogg                                        oga ogg spx
 # audio/opus                                     
 # audio/parityfec                                
 # audio/pcma                                     
