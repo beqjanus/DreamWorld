@@ -7,7 +7,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "3.929"
+    Public Const _MyVersion As String = "3.931"
     Public Const _SimVersion As String = "#1610c3f741 mantis 8862"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
@@ -237,6 +237,12 @@ Module GlobalSettings
         Return statestring
 
     End Function
+
+    Public Sub PokeRegionTimer(UUID As String)
+
+        PropRegionClass.Timer(UUID) = Date.Now ' wait another interval
+
+    End Sub
 
     Public Function RobustName() As String
 

@@ -2,9 +2,19 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V3.931
+Icecast did not redirect to the /status.xsl home page. An <Alias=..> got wildcarded in, should be <alias= ..>
+Icecast updated to latest 2.4.4
+
+V3.93
+If you click the Run Backups Now button, all Running region OARS will be saved right then. Previously, all OARS were only saved by Opensim after so many hours of run time.
+Wifi-Custom Web pages make themselves from White theme on first click.
+Fixed rare crash in WindowHandler.
+Updated Manuals from Diva to License in alphabetical order.  
+
 V3.929
 Fixes an issue where you could only make 1X1 regions.
-If you tried to tp into a Smart Boot-enabled region, it shut down as soon as it booted.
+If you tried to teleport into a Smart Boot-enabled region, it shut down as soon as it booted.
 
 V3.928
 Right click and editing a running region would lead to an instant crash.  Thankxx to a tip from Luna Dreamweaver.
