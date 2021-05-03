@@ -12,6 +12,7 @@ Public Class FormSmartStart
     Private ReadOnly _TerrainList As New List(Of Image)
     Private ReadOnly _TerrainName As New List(Of String)
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+    Private ReadOnly Zero As String = "0"
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
@@ -813,6 +814,7 @@ Public Class FormSmartStart
                 If Abort Then Exit For
 
                 ReBoot(RegionUUID) ' Wait for it to start booting
+                WaitForBooted(RegionUUID)
 
                 If Abort Then Exit For
 
@@ -1138,6 +1140,7 @@ Public Class FormSmartStart
 
     Private Sub Water_CheckedChanged(sender As Object, e As EventArgs) Handles Water.CheckedChanged
         Settings.TerrainType = "Water"
+        FlatLandLevel.Text = Zero
         TerrainPic.Image = My.Resources.water
     End Sub
 

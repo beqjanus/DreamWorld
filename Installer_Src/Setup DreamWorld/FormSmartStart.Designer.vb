@@ -427,9 +427,8 @@ Partial Class FormSmartStart
         Me.LabelName.AutoSize = True
         Me.LabelName.Location = New System.Drawing.Point(125, 233)
         Me.LabelName.Name = "LabelName"
-        Me.LabelName.Size = New System.Drawing.Size(39, 13)
+        Me.LabelName.Size = New System.Drawing.Size(0, 13)
         Me.LabelName.TabIndex = 36
-        Me.LabelName.Text = "Label6"
         Me.LabelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'NextButton
