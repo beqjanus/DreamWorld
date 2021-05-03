@@ -267,7 +267,7 @@ Module SmartStart
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
         For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
             PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-            PropRegionClass.Timer(RegionUUID) = DateAdd(DateInterval.Hour, 1, Date.Now) ' wait another interval
+            PokeRegionTimer(UUID)
         Next
         ShutDown(RegionUUID)
         Application.DoEvents()
@@ -346,7 +346,7 @@ Module SmartStart
             Try
                 SuspendProcess.Start()
                 SuspendProcess.WaitForExit()
-                PropRegionClass.Timer(RegionUUID) = DateAdd(DateInterval.Hour, 1, Date.Now) ' wait another interval
+                PokeRegionTimer(RegionUUID)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
 
@@ -407,7 +407,8 @@ Module SmartStart
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
-                    PropRegionClass.Timer(UUID) = Date.Now
+                    SendToOpensimWorld(RegionUUID, RPC_admin_get_agent_count(RegionUUID))
+                    PokeRegionTimer(UUID)
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeShowWindow())
                 Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")
@@ -419,7 +420,8 @@ Module SmartStart
                 If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then FormSetup.PropInstanceHandles.Add(PID, GroupName)
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
-                    PropRegionClass.Timer(UUID) = Date.Now
+                    PokeRegionTimer(UUID)
+                    SendToOpensimWorld(RegionUUID, 0)
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeHideWindow())
@@ -490,7 +492,7 @@ Module SmartStart
                 ' Mark them before we boot as a crash will immediately trigger the event that it exited
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
-                    PropRegionClass.Timer(RegionUUID) = Date.Now
+                    PokeRegionTimer(RegionUUID)
                 Next
             Else
                 BreakPoint.Show("No PID for " & GroupName)
@@ -518,7 +520,6 @@ Module SmartStart
             FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
-            WaitForBooting(RegionUUID)
             PropUpdateView = True ' make form refresh
 
         End If
@@ -553,6 +554,8 @@ Module SmartStart
 
     End Function
 
+    ''' deprecated
+    '''
     ''' <summary>
     ''' Waits for a restarted region to be booting
     ''' </summary>
@@ -573,7 +576,7 @@ Module SmartStart
                 Exit While
             End If
 
-            'Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
             Sleep(1000)
 
         End While
