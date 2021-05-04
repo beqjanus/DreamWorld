@@ -1174,7 +1174,8 @@ Public Class FormSmartStart
             Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
             For Each RegionUUID In PropRegionClass.RegionUuids
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-
+                ReBoot(RegionName)
+                WaitForBooted(RegionName)
                 If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                     RPC_Region_Command(RegionUUID, $"change region {RegionName}")
                     RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
