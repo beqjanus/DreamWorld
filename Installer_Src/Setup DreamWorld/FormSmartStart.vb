@@ -903,7 +903,7 @@ Public Class FormSmartStart
         ' Create an instance of the open file dialog box. Set filter options and filter index.
         Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
             .InitialDirectory = Terrainfolder,
-            .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.png,*.r32,*.raw)|*.png;*.r32;*.raw;|All Files (*.*)|*.*",
+            .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.png,*.r32,*.raw, *.ter)|*.png;*.r32;*.raw;*.ter|All Files (*.*)|*.*",
             .FilterIndex = 1,
             .Multiselect = False
             }
@@ -916,12 +916,11 @@ Public Class FormSmartStart
 
                 Dim thing = openFileDialog1.FileName
                 If thing.Length > 0 Then
-                    If Not IO.File.Exists($"""{Terrainfolder}\{Name}-Backup.r32""") Then
-                        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.r32""")
-                    End If
-                    If Not IO.File.Exists($"""{Terrainfolder}\{Name}-Backup.jpg""") Then
-                        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.jpg""")
-                    End If
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.r32""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.raw""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.jpg""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.png""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}-Backup.ter""")
                     RPC_Region_Command(RegionUUID, $"terrain load ""{thing}""")
                 End If
             End If
@@ -1112,10 +1111,11 @@ Public Class FormSmartStart
 
         RegionName = RegionName.Replace($"{extension}", "")
 
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.r32") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.jpg") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.png") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.ter") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
 
     End Sub
 
@@ -1178,7 +1178,10 @@ Public Class FormSmartStart
                 If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                     RPC_Region_Command(RegionUUID, $"change region {RegionName}")
                     RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
                     RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
+                    RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
                 End If
             Next
         Catch
@@ -1204,8 +1207,11 @@ Public Class FormSmartStart
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.r32") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
-        If Not IO.File.Exists($"{Terrainfolder}\{RegionName}.jpg") Then RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
+        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
 
     End Sub
 
@@ -1238,16 +1244,11 @@ Public Class FormSmartStart
         If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
 
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        If IO.File.Exists($"{backupname}\{name}-Backup.r32") Then
-            DeleteFile($"{backupname}\{name}-Backup.r32")
-        End If
-
         If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.r32""") Then Return
-
-        If IO.File.Exists($"{backupname}\{name}-Backup.jpg") Then
-            DeleteFile($"{backupname}\{name}-Backup.jpg")
-        End If
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.raw""") Then Return
         If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.jpg""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.png""") Then Return
+        If Not RPC_Region_Command(RegionUUID, $"terrain save ""{backupname}\{name}-Backup.ter""") Then Return
 
         If RegionUUID.Length > 0 Then
             GenLand(RegionUUID)
