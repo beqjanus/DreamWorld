@@ -114,7 +114,7 @@ but sometimes you just need to know more. This is a list of things to try.</span
 are run once upon installation. You can run them again (Help-&gt;Diagnostics).</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN><img width=439 height=479 id="Picture 1"
+10.0pt;margin-left:.5in'><span lang=EN><img width=435 height=474 id="Picture 1"
 src="TroubleShooting_files/image001.png" alt=Image></span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
@@ -125,17 +125,17 @@ margin-left:.5in;margin-right:0in'>
 </div>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>You
-may need to reset your router by cycling the router power if you change
-settings from the defaults.</span></p>
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Reset
+your router by cycling the router power. This is often the ONLY WAY to clear
+out old UPNP entries.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>UPnP
-settings are removed when the program is stopped to keep your system safe. I
-use Universal Plug and Play (uPnP) and several diagnostics to configure
-compatible routers automatically. uPnP may be disabled or fail. If your router
-does not support uPnP, you must manually open ports in your router and Port
-Forward them to your PC.</span></p>
+settings are usually removed when the program is started to keep your system
+safe. DreamGrid uses Universal Plug and Play (uPnP) and several diagnostics to
+configure compatible routers automatically. uPnP may be disabled or fail. If your
+router does not support uPnP, you must manually open ports in your router and
+Port Forward them to your PC.</span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
@@ -163,6 +163,12 @@ style='color:windowtext;text-decoration:none'>http://127.0.0.1:8002</span></a>
 to the viewer.   You should now be able to log in on the Server from the
 Server. </span></p>
 
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>You
+should see the Welcome region spit out a lot of text as you log in.  If this
+fails, it is not your network, router, or loopback as you are on localhost,
+aka. 127.0.0.1. </span></p>
+
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
@@ -171,11 +177,9 @@ margin-left:.5in;margin-right:0in'>
 </div>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'><br>
-You should see the Welcome region spit out a lot of text as you log in.  If
-this fails, it is not your network, router, or loopback.  You probably forgot
-the password.  You can reset your password with the command 'reset user
-password' in the Robust screen.</span></p>
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'> You
+probably forgot the password.  You can reset your password with the command
+'reset user password' in the Robust screen.</span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
@@ -194,9 +198,42 @@ Robust is running.</span></p>
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>If
 not, you need to Port Forward.  See the manual on Port Forwards.  <br>
 <br>
-After that, if it does not work it highly likely to be an antivirus firewall.
-Windows Defender firewall may be blocking ports. You need to add exclusions to
-Opensim\bin\robust.exe and Opensim\bin\opensim.exe.&nbsp; </span></p>
+If it does not work it is highly likely to be an antivirus firewall. Windows
+Defender firewall may be blocking ports. </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Anti
+Virus</span></b></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Progams
+such as MalwareBytes, Norton, Avast, and others are designed to block Ports. 
+Try disabling them entirely to get Canyouseeme.org to work on port 8002.  You
+have a firewall in your router so should be perfectly safe.  Once you get the
+system running, enables your AV one at a time. If it quits, adde exclusions to
+the ports you used:</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>8001
+– Used by PC for icons, signs and status<br>
+8002  - Robust HTTP port “The Grid”. This is where avatars connect<br>
+8003 – Should not be port forwarded. Must be open to the Server.<br>
+8004 – from 8004 upwards one port per region. </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>AV
+Eclusions</span></b></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>You
+need to add exclusions to Real Time Scanners for Opensim\bin\.  Opensim creates
+millions of files and thousands of DLL’s.   Let it do so peacefully.</span></p>
+
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2><span lang=EN style='color:black'>Step-By-Step</span></h2>
+
+</div>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Try
@@ -210,8 +247,8 @@ running on the machines Network Card loopback adapter.<br>
 &nbsp;&nbsp;&nbsp; If not, start Robust.&nbsp; </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Go
-to the next step only when this test passes.</span></p>
+10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Go
+to the next step only when this test passes.</span></b></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>2.
@@ -229,8 +266,8 @@ sure there are no other gateways enabled.&nbsp; This is usually 192.168.0.1.&nbs
 </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Go
-to the next step only when this test passes.</span></p>
+10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Go
+to the next step only when this test passes.</span></b></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>&nbsp;3.
@@ -253,8 +290,8 @@ working, one at a time, and see when Opensim quits.  Then add the necessary
 exclusions to that anti-virus program.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Go
-to the next step only when this test passes.</span></p>
+10.0pt;margin-left:.5in'><b><span lang=EN style='font-family:"Verdana",sans-serif'>Go
+to the next step only when this test passes.</span></b></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>4.
@@ -263,22 +300,30 @@ All the above tests are LAN-based.&nbsp; So now try the router:<br>
 &nbsp;&nbsp;&nbsp; <a href="http://canyouseeme.org/">http://canyouseeme.org</a>
 on port 8002<br>
 <br>
-This test must pass.&nbsp;&nbsp; If it does not the problem is either the router
-is not forwarding, or another firewall is blocking you.&nbsp; Usually this is
-when people realize they have their router plugged into another router that
-needs to port forward, too.  <br>
+This test must pass.&nbsp;&nbsp; If it does not the problem is you skilled the
+Canyouseeme.org test which is failing, or another firewall is blocking
+you.&nbsp; Usually this is when people realize they have their router plugged
+into another router that needs to port forward, too.   Or that they are running
+3 different Antiviruses.<br>
 <br>
-Go read the manual on Port Forwards.  Look up your router manual.  Go to http://portforward.com
-and look it up, too.<br>
+Go read the manual on Port Forwards.  </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Look
+up your router manual.  Go to http://portforward.com and look it up.<br>
 <br>
-If this fails, it is also likely to be your anti-virus. It can also be the
-Windows Defender windows firewall. Turn them both off.&nbsp; Look for Avast and
-Malwarebytes or other installations that can block the LAN port.&nbsp;&nbsp; You
-have already proven it is not DreamGrid, so there is no point in re0installing the
-grid or restarting it.<br>
+If this still fails, it is still likely to be your anti-virus. The grid was
+running back in Step 4.  </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>It
+can also be the Windows Defender windows firewall. Turn them both off.&nbsp;
+Look again for Avast and Malwarebytes or other installations that can block the
+LAN port.&nbsp;&nbsp; You have already proven it is not DreamGrid, so <u>there
+is no point in re-installing the grid or restarting it</u>.<br>
 <br>
-Do not go to the next step until the above is working.&nbsp; There is no point
-until the above works.&nbsp; <br>
+<b>Do not go to the next step until the above is working</b>.&nbsp; There is no
+point until the above works.&nbsp; <br>
 <br>
 Go to the next step only when this test passes.<br>
 <br>
@@ -290,11 +335,12 @@ Canyouseeme.org shows as the address.&nbsp; The gateway is
 255.255.255.0&nbsp;&nbsp; No other settings are needed.&nbsp;&nbsp; Close those
 settings, and right click the adapter and enable it. <br>
 <br>
-6.&nbsp; Navigate to http://(The Ip address reported by CanyouSeeme.org):8002&nbsp;<br>
+6.&nbsp; Navigate to http://(The Ip address reported by
+CanyouSeeme.org):8002&nbsp;<br>
 <br>
 You should see the web page.  If not, recheck the Loopback settings.  <br>
 <br>
-Go to the next step only when this test passes.<br>
+<b>Go to the next step only when this test passes.</b><br>
 <br>
 7. Right click the Loopback Network Adapter and disable it, if you have
 installed it.  Navigate to http://(The Ip address reported by CanyouSeeme.org):8002.&nbsp;&nbsp;
@@ -302,7 +348,7 @@ It may or may not work.&nbsp; If not, you need to re-enable the adapter.&nbsp;
 If it gives a web page,&nbsp;congratulations, your router supports loopback.
 Leave it disabled.<br>
 <br>
-8. Go to Dreamgrid Settings-&gt; Hypergrid DNS name.&nbsp; Add your desired
+8. Go to DreamGrid Settings-&gt; Hypergrid DNS name.&nbsp; Add your desired
 name, such as in ‘somename.outworldz.net’.&nbsp; The allowed characters are
 a-z, 0-9, and a dash '-'.&nbsp; Press Save.</span></p>
 
@@ -341,9 +387,9 @@ address in your viewer, and teleports on your grid should take just moments. </s
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Try
 uploading a dozen textures. Do they all load without aborting? Now ask some on
-the Hypergrid to do so. If there is a difference, you have issues with the router
-and loopback, as the traffic from you and the outside both go to the region,
-but the region cannot reliably reach some of the ports. </span></p>
+the Hypergrid to do so. If there is a difference, you have issues with the
+router and loopback, as the traffic from you and the outside both go to the
+region, but the region cannot reliably reach some of the ports. </span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Do
@@ -446,7 +492,8 @@ the Hypergrid easily requires a compatible uPnP router with loopback. If your
 router does not support loopback, you can still join the Hypergrid by
 installing a special pointer in /etc/hosts or a special Windows Device Driver. 
 Additional information about routers is available online at the Opensimulator
-site at </span><a href="http://opensimulator.org/wiki/NAT_Loopback_Routers">http://opensimulator.org/wiki/NAT_Loopback_Routers</a>.</p>
+site at <a href="http://opensimulator.org/wiki/NAT_Loopback_Routers"><span
+style='color:windowtext;text-decoration:none'>http://opensimulator.org/wiki/NAT_Loopback_Routers</span></a></span>.</p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
@@ -461,7 +508,7 @@ you have Plug and Play (uPnP) issues? Your Help menu has a useful tool to look
 at uPnP in your router:</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN><img border=0 width=353 height=223
+10.0pt;margin-left:.5in'><span lang=EN><img border=0 width=350 height=223
 id="Picture 2" src="TroubleShooting_files/image002.png" alt=Image></span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
@@ -531,7 +578,7 @@ click the BLANK area next to the files. Or navigate there, as I did below, by
 typing in commands. Then run &quot;StartManually.bat&quot;</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN><img border=0 width=410 height=225
+10.0pt;margin-left:.5in'><span lang=EN><img border=0 width=410 height=223
 id="Picture 3" src="TroubleShooting_files/image003.png" alt=Image></span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
@@ -600,8 +647,9 @@ margin-left:.5in;margin-right:0in'>
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Here
 is more detail about ports and the way the interact with the outside world such
-as <a href="www.canyouseeme.org"><span style='color:windowtext;text-decoration:
-none'>www.canyouseeme.org</span></a> and to my diagnostics tests.</span></p>
+as <a href="file:///G:/Dropbox/Dreamworld/Manuals/www.canyouseeme.org"><span
+style='color:windowtext;text-decoration:none'>www.canyouseeme.org</span></a>
+and to my diagnostics tests.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Port
@@ -620,7 +668,8 @@ signs and the Partners prim.  It is unique to Dreamworld. </span></p>
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Opensim
 has a web server that web browsers understand, using the same protocol
-(TCP/HTTP) that tools such as <a href="www.canyouseeme.org"><span
+(TCP/HTTP) that tools such as <a
+href="file:///G:/Dropbox/Dreamworld/Manuals/www.canyouseeme.org"><span
 style='color:windowtext;text-decoration:none'>www.canyouseeme.org</span></a>
 support. Put simply, Robust listens to port 8002 and answers to http://
 requests on 8002. Port 8002 is much like port 80, the default port for web
@@ -636,12 +685,12 @@ to a port.</span></p>
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>If
 Opensim is not running and your ports are open, it is as if you tried to
-connect to <a href="www.google.com's"><span style='color:windowtext;text-decoration:
-none'>www.google.com's</span></a> web server, but their web server is down.
-Nothing will happen, though your packets can get through the Google firewall
-because it is still open to traffic and is steering it to a dead server. You
-will get no answer. Similarly, if Opensim is not running, there is no web
-server to answer the request.</span></p>
+connect to <a href="file:///G:/Dropbox/Dreamworld/Manuals/www.google.com's"><span
+style='color:windowtext;text-decoration:none'>www.google.com's</span></a> web
+server, but their web server is down. Nothing will happen, though your packets
+can get through the Google firewall because it is still open to traffic and is
+steering it to a dead server. You will get no answer. Similarly, if Opensim is
+not running, there is no web server to answer the request.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>Port
@@ -649,10 +698,10 @@ server to answer the request.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>This
-port is listened to by Robust so regions can chat to the server database for login,
-presence, and other services so people can teleport from one region to another.
-In Dreamgrid, just like OsGrid or any other remotely attachable grid, the
-regions can run on any machine anywhere in the world.</span></p>
+port is listened to by Robust so regions can chat to the server database for
+login, presence, and other services so people can teleport from one region to
+another. In Dreamgrid, just like OsGrid or any other remotely attachable grid,
+the regions can run on any machine anywhere in the world.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>If
@@ -690,8 +739,8 @@ Once it has run once, you can run Opensim without it.</span></p>
 10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>When
 you click [Start], Dreamgrid looks for a MySQL listening on a specific Port. If
 it does not see one, it starts MySQL as a separate process. When you exit, it
-shuts MySQL down gracefully with *MySQL-admin.-u root shutdown*.  Dreamgrid
-will detect Robust running on Port 8002 and just use it. If it does not see it,
+shuts MySQL down gracefully with *MySQL-admin.-u root shutdown*.  Dreamgrid will
+detect Robust running on Port 8002 and just use it. If it does not see it,
 Dreamgrid starts up a Robust.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
@@ -769,7 +818,7 @@ call go Welcome<br>
 call go AnotherRegion</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>                                                                                                        </span></p>
+10.0pt;margin-left:.5in'><span lang=EN style='font-family:"Verdana",sans-serif'>                                                                                                 </span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>

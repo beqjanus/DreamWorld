@@ -124,17 +124,18 @@ div.WordSection1
 
 <p class=MsoNormal>&nbsp;</p>
 
-<p class=MsoNormal><img width=280 height=206 id=image60.png
+<p class=MsoNormal><img width=279 height=204 id=image60.png
 src="Backup%20Manually_files/image001.png"></p>
 
 <p class=MsoNormal>A manual backup uses a lot of disk space, but it backs up
-all critical files quickly and in a usable form.   It will save the selected
+all critical files quickly and in a usable form. It will save the selected
 items in the AUTOBACKUP folder. <br>
-<img width=266 height=258 id="Picture 2146235479"
-src="Backup%20Manually_files/image002.jpg"><br>
+<img width=367 height=356 id="Picture 3"
+src="Backup%20Manually_files/image002.png"
+alt="Graphical user interface, application&#10;&#10;Description automatically generated"><br>
 <br>
-Some of these boxes may be grayed out or uncheckable because the system has not
-installed that service. </p>
+Some of these boxes may be grayed out or uncheckable because the you or the system
+has not installed that service. </p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
 
@@ -143,31 +144,38 @@ installed that service. </p>
 </div>
 
 <p class=MsoNormal><br>
-<b>Backup Region INI files </b>All files from Opensim\bin\Regions are copied. 
-The useful ones are in the bin\Region\DosBoxName\Region\folder</p>
+<b>Backup Settings - </b>saves Settings.ini and XYSettings.ini files in a zip. 
+Setting.ini contains all grid settings. XYSettings.ini contains the last positions
+of all windows. It can be deleted.</p>
 
-<p class=MsoNormal><b>Backup MySQL\Data folder</b>:  This folder holds the database. 
-The rest of the folders in MySQL are just code or changeable settings that come
-in an update.</p>
+<p class=MsoNormal><b>Backup Region INI files - </b>All Useful Region.ini files
+and the directory Structure from Opensim\bin\Regions are saved into a zip.  The
+useful ones are in the bin\Region\DosBoxName\Region\folder</p>
 
-<p class=MsoNormal><b>Backup FSassets Folder</b>: If you are running the
+<p class=MsoNormal><b>Backup FSassets Folder - </b>If you are running the
 FSAssets system, this contains just the assets of the database.  You still need
 to backup MySQL.</p>
 
-<p class=MsoNormal><b>Custom Web Pages</b>: This backs up two folders in
-bin\WifiPages-Custom and WifiPages-Custom in case you have made changes.</p>
+<p class=MsoNormal><b>Backup Custom Web Pages - </b>This backs up two folders
+in bin\WifiPages-Custom and WifiPages-Custom in case you have made changes.</p>
 
-<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+<p class=MsoNormal><b>Backup OARs - </b>runs all regions that enabled and saves
+an OAR from each with the name, date and time in Autobackup.<b> </b></p>
 
-<h2><span style='color:black'>Backup Strategies</span></h2>
+<p class=MsoNormal><b>Backup MySQL\Data</b>:  This Zip holds the robust.sql and
+opensim.sql files that make up the entire database.  </p>
+
+<div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
+
+<h1>Backup Strategies</h1>
 
 </div>
 
-<p class=MsoNormal>There are multiple kinds of backups. Backups are at the region
-level, or at the grid level, which includes regions.&nbsp; Also remember there
-are always two or more databases on a grid: the grid's robust database, and the
-regions Opensim database. There can be more than one Opensim database, as a
-grid can consists of more than one machine.</p>
+<p class=MsoNormal>There are multiple kinds of backups. Backups are at the
+region level, or at the grid level, which includes regions.&nbsp; Also remember
+there are always two or more databases on a grid: the grid's robust database,
+and the regions Opensim database. There can be more than one Opensim database,
+as a grid can consists of more than one machine.</p>
 
 <div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
 
@@ -176,8 +184,8 @@ grid can consists of more than one machine.</p>
 </div>
 
 <p class=MsoNormal>OARs can be created on the fly - look in Content Save Oars
-and you can do them all with one click.&nbsp; You can also set up OARS to be created
-on a schedule. - 24 hours is an excellent choice.</p>
+and you can do them all with one click.&nbsp; You can also set up OARS to be
+created on a schedule. - 24 hours is an excellent choice.</p>
 
 <div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
 
@@ -189,7 +197,8 @@ on a schedule. - 24 hours is an excellent choice.</p>
 need the password.&nbsp;&nbsp; But you should make them on occasion
 anyway.&nbsp; Just in case. They take a long time and can lag a grid when
 running.&nbsp; If you are on OsGrid or Metro, I HIGHLY RECOMMEND you get an IAR
-backup often!&nbsp; I have at different times lost data at both these major grids.</p>
+backup often!&nbsp; I have at different times lost data at both these major
+grids.</p>
 
 <div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
 
@@ -197,10 +206,10 @@ backup often!&nbsp; I have at different times lost data at both these major grid
 
 </div>
 
-<p class=MsoNormal>SQL backup is also slow, but very thorough. It saves outfits,
-logins, and usernames; everything but region UUID's and settings.&nbsp; With
-this you can fix problems in MySQL that are known to develop.&nbsp;&nbsp; This
-is sort of a monthly thing to do.</p>
+<p class=MsoNormal>SQL backup is also slow, but very thorough. It saves
+outfits, logins, and usernames; everything but region UUID's and
+settings.&nbsp; With this you can fix problems in MySQL that are known to
+develop.&nbsp;&nbsp; This is sort of a monthly thing to do.</p>
 
 <div style='border:none;border-top:solid #4472C4 1.0pt;padding:2.0pt 0in 0in 0in'>
 

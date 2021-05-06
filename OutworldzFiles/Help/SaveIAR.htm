@@ -54,6 +54,7 @@ p.MsoTitle, li.MsoTitle, div.MsoTitle
 span.Heading2Char
 	{mso-style-name:"Heading 2 Char";
 	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
@@ -95,23 +96,23 @@ div.WordSection1
 a single file (an IAR). This file can then be loaded into a different
 OpenSimulator installation.<br>
 <br>
-Like Opensim Archives, IARs save all the necessary asset data required to fully
-restore the items including textures, sounds, scripts, and objects contained in
-the inventory of other objects.</p>
+Like Opensim Archives, IARs save all the necessary asset data to fully restore
+the items including textures, sounds, scripts, and objects contained in the
+inventory of other objects.</p>
 
-<p class=MsoNormal style='margin-left:.5in'><img width=422 height=279
-id="Picture 1" src="SaveIAR_files/image001.png"></p>
+<p class=MsoNormal style='margin-left:.5in'><img width=570 height=272
+id="Picture 2" src="SaveIAR_files/image001.png"
+alt="Graphical user interface, application, Word&#10;&#10;Description automatically generated"></p>
 
 <p class=MsoNormal style='margin-left:.5in'>The command to save an IAR on the
 region console is</p>
 
 <p class=MsoNormal style='margin-left:.5in'><span style='font-family:Courier'>save
 iar [-h|--home=&lt;url&gt;] [-v|--verbose] [--noassets]
-[--perm=&lt;permissions&gt;] &lt;user-name&gt; &lt;path&gt; &lt;password&gt;
-[&lt;filename&gt;]</span></p>
+[--perm=&lt;permissions&gt;] &lt;user-name&gt; &lt;path&gt; [&lt;filename&gt;]</span></p>
 
 <p class=MsoNormal style='margin-left:.5in'>where &lt;user-name&gt; is the name
-of the user to save inventory from</p>
+of the user to save inventory.</p>
 
 <p class=MsoNormal style='margin-left:.5in'>&lt;path&gt; is the path to an
 inventory item or folder. If the path is for a folder, that folder and all its
@@ -133,15 +134,12 @@ forward slash (&quot;/&quot;) then it can be escaped with the backslash (i.e.
 &quot;\/&quot;) to stop it being seen as a path separator. Back slashes
 themselves need to be escaped with another backslash (i.e. &quot;\\&quot;).</p>
 
-<p class=MsoNormal style='margin-left:.5in'>One further issue here is that it is
-not possible to distinguish between identically named folders or items on the
-path - the workaround is to rename your items/folders if you need to specify
-them in the path :)</p>
+<p class=MsoNormal style='margin-left:.5in'>One further issue here is that it
+is not possible to distinguish between identically named folders or items on
+the path - the workaround is to rename your items/folders if you need to
+specify them in the path :)</p>
 
-<p class=MsoNormal style='margin-left:.5in'>&lt;password&gt; is the password of
-the user.</p>
-
-<p class=MsoNormal style='margin-left:.5in'>&lt;filename&gt; is an optional
+<p class=MsoNormal style='margin-left:.5in'>filename&gt; is an optional
 filename for the IAR. If none is supplied, then the filename user-inventory.iar
 is used in the current directory. I recommend that IARs have the .iar
 extension.</p>
@@ -149,7 +147,7 @@ extension.</p>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>Switches</span></h2>
+<h2><span style='color:black'>Switches</span></h2>
 
 </div>
 
@@ -169,11 +167,11 @@ IAR.</p>
 <p class=MsoNormal style='margin-left:.5in'>--verbose prints out verbose saving
 messages</p>
 
-<p class=MsoNormal style='margin-left:.5in'>If the --perm option is specified,
-then items with insufficient permissions will not be saved to the IAR. This can
-be useful for grids that allow their customers to export their inventorys to
-IARs, because it ensures that exporting to IAR cannot be used to bypass content
-permissions.</p>
+<p class=MsoNormal style='margin-left:.5in'>When the C/MX switches are set, the
+--perm option is specified, and items with insufficient permissions will not be
+saved to the IAR. This can be useful for grids that allow their customers to
+export their inventory to IARs, because it ensures that exporting to IAR cannot
+be used to bypass content permissions.</p>
 
 <p class=MsoNormal style='margin-left:.5in'>&lt;permissions&gt; specifies which
 permissions are required. It is a string that contains one or more of these
@@ -182,7 +180,7 @@ characters:</p>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>&quot;C&quot; = Copy<br>
+<h2><span style='color:black'>&quot;C&quot; = Copy<br>
 &quot;T&quot; = Transfer<br>
 &quot;M&quot; = Modify<br>
 <br>
@@ -228,8 +226,7 @@ A/FolderB/ItemX&quot; PASSWORD my-items.iar</p>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2 style='background:#D9E2F3'><span style='color:black'>Saving an entire
-user's inventory</span></h2>
+<h2><span style='color:black'>Saving an entire user's inventory</span></h2>
 
 </div>
 
@@ -240,7 +237,7 @@ items.</p>
 <p class=MsoNormal style='margin-left:.5in'>For instance, typing</p>
 
 <p class=MsoNormal style='margin-left:.5in'><span style='font-family:"Courier New"'>save
-iar John Doe /* password</span></p>
+iar John Doe / password</span></p>
 
 <p class=MsoNormal style='margin-left:.5in'>&nbsp;</p>
 

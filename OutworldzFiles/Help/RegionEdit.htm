@@ -7,6 +7,9 @@
 <!--
  /* Font Definitions */
  @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
 	{font-family:SimSun;
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
@@ -22,8 +25,14 @@
 	{font-family:Verdana;
 	panose-1:2 11 6 4 3 5 4 4 2 4;}
 @font-face
+	{font-family:"Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
+@font-face
 	{font-family:"\@SimSun";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@Arial Unicode MS";
+	panose-1:2 11 6 4 2 2 2 2 2 4;}
  /* Style Definitions */
  p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin-top:5.0pt;
@@ -33,6 +42,22 @@
 	line-height:115%;
 	font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#5B9BD5;
+	border:none;
+	padding:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
 h2
 	{mso-style-link:"Heading 2 Char";
 	margin-top:5.0pt;
@@ -57,6 +82,29 @@ p.MsoTitle, li.MsoTitle, div.MsoTitle
 	color:#5B9BD5;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	line-height:115%;
+	font-size:10.0pt;
+	font-family:"Arial Unicode MS",sans-serif;}
+span.MsoBookTitle
+	{letter-spacing:0pt;
+	font-weight:bold;
+	font-style:italic;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	color:white;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#5B9BD5;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#DEEAF6;}
 span.TitleChar
 	{mso-style-name:"Title Char";
 	mso-style-link:Title;
@@ -64,24 +112,12 @@ span.TitleChar
 	color:#5B9BD5;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
-span.Heading2Char
-	{mso-style-name:"Heading 2 Char";
-	mso-style-link:"Heading 2";
-	text-transform:uppercase;
-	letter-spacing:.75pt;
-	background:#DEEAF6;}
 .MsoChpDefault
 	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
-	{margin-top:5.0pt;
-	margin-right:0in;
-	margin-bottom:10.0pt;
-	margin-left:0in;
-	line-height:115%;}
  /* Page Definitions */
  @page WordSection1
 	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
+	margin:.5in .5in .5in .5in;}
 div.WordSection1
 	{page:WordSection1;}
  /* List Definitions */
@@ -98,442 +134,692 @@ ul
 
 <div class=WordSection1>
 
-<p class=MsoTitle align=center style='margin-left:.5in;text-align:center'><a
-name="OLE_LINK12"><b><span lang=EN>Region Edit Panel</span></b></a></p>
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><a name="_Hlk20142551"><span
+lang=EN style='font-size:11.0pt;line-height:115%'>&nbsp;</span></a></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>This panel lets you edit or add new regions.</span></p>
+<p class=MsoTitle align=center style='margin-right:205.5pt;text-align:center'><span
+lang=EN>Region Panel</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>There are four sections: Region Name, Advanced, and Region
-Specific. Each section is covered below </span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>This panel has setting that are is specific to this one region. 
+As an example, if you want maps to made Best quality for just one region, you
+can set it here.  It will override the global maps setting for this region.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'><img width=527 height=412 src="RegionEdit_files/image001.png"></span></p>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:.5in;margin-right:205.5pt'>
 
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span style='color:black'>Region Name Section</span></h2>
+<h1 style='background:#5B9BD5'>Region Basics</h1>
 
 </div>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Give your region a name:</span></p>
+<span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif;
+color:black'><br clear=all style='page-break-before:always'>
+</span>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='color:black'><img
-width=345 height=282 src="RegionEdit_files/image002.png"></span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='color:black'><img width=542
+height=340 id="Picture 1" src="RegionEdit_files/image001.png"></span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Give your region a name and click [Save].    </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Choose a sim size.  Each section is 256 X 256 meters in size.</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Make sure it is Enabled.  Smart Start is discussed in the Manual
+“Smart Start”. </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black'>1X2 =
-256 X 256 (Second life type)</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Sims can be any size from 1X1 (256 X 256 Meters) to 16X16, with 64
+regions.   Larger regions take more RAM and cut the frame rate down
+considerably.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black'>2X2 =
-512 X 512 </span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>If you click [Delete], the region INI file will still be there,
+but the file name will change to .bak from .ini and will be ignored.   This
+should automatically Deregister the region.<br>
+<br>
+[Deregister] will remove the region from the Robust reservation list but not remove
+the region.  A region that shuts off is deregistered automatically.  But a
+crashed region cannot deregister itself. <br>
+<br>
+The result is that you cannot place another region with a different UUID in the
+same registered place.    Deregistering the region lets you move another region
+to the original position.<br>
+<br>
+Smart Start Regions remain registered when powered down so that they appear on
+the map and appear as available. If your region still will not start due to it
+overlapping, type this into the Robust console:</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black'>3X3 =
-768 X 768 </span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>deregister region id &lt;UUID Goes Here&gt;  </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black'>4X4 =
-1024 X 1024</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Regions are stored by DreamGrid in OutworldzFiles\opensim\bin\Regions
+in folders by each DOS box name.  The DOS box folder has a Region folder in it
+that holds the Region.ini file.  See <u>Rules for INI files</u> at the bottom
+of this Help file for more details.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Please be aware that exceptionally large sims can lead to inferior
-performance, extensive RAM use, viewer crashes and inability to edit the land. 
-</span></p>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:40.5pt;margin-right:205.5pt'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Click <img width=54 height=21 src="RegionEdit_files/image003.png"> when
-done.  You can immediately start the new region by clicking the name in the
-Region (Ctrl-R) panel. </span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Delete:  Clicking Delete will remove the region. The region INI
-file will still be there, but the file be renamed to .bak and will not show
-again.  If you want to rename the file back to INI, it will be recoverable. The
-file is in this folder:</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>Outworldzfiles\Opensim\bin\Regions\(DOS BOX NAME)\Region</span></p>
-
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
-
-<h2 style='background:#DEEAF6'><span style='color:black'>Advanced Section</span></h2>
+<h1 style='background:#5B9BD5'>Options</h1>
 
 </div>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>This section at lower left has optional settings for each region.</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>This has optional items that are part of standard Opensim you may
+choose to change.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'><img width=213 height=221 src="RegionEdit_files/image004.png"></span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='color:black'><img width=275
+height=213 src="RegionEdit_files/image002.png"></span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>Map Coords: </span></b><span style='font-family:
-"Verdana",sans-serif;color:black;background:white'>The (x, y) location of the
-region on the grid. Range is from 0,0 to 65536,65536</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>The Options page has the (x, y) Global location of the region on
+the grid. You can set regions next to each other by changing the X and Y
+coordinates and restarting the region. The X and Y is the lower left point on
+the global map.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>Region Port:</span></b><span style='font-family:
-"Verdana",sans-serif;color:black;background:white'>  Read-only. This is
-displayed for information purposes only. All region ports start at the setting
-found in Settings-&gt;Network Ports in the box “Region Port Start #” and
-automatically count up by one.</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>If you get messages saying that regions overlap, change the
+coordinates to some substantial number and retry the region boot.  </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
 color:black'>UUID</span></b><span style='font-family:"Verdana",sans-serif;
-color:black'>: <span style='background:white'>The unique ID of the region. 
-UUID’s are randomly assigned at the very first region startup.  To wipe out a
-region, change a few digits and restart. It will be blank. Change the numbers
-back and it will re-appear.</span></span></p>
+color:black'>: You can only change the UUID of the grid is stopped.  Never
+change the UUID unless you want to start with a blank region again. Altering
+the UUID will force the system to create a new, blank region the next time the
+grid starts, and you will be forced to move your region to another spot if it
+is not deregistered.   This is a read-only field when the grid is running. You
+can only change this by stopping the grid.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>Nonphysical Prim Max Size</span></b><span
-style='font-family:"Verdana",sans-serif;color:black;background:white'>:  The
-maximum dimensions for a non-physical prim. This is a single number which
-applies to X, Y and Z co-ordinates. This will affect resizing of existing
-prims. Default is 256. </span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
+color:black'>MaxAgents</span></b><span style='font-family:"Verdana",sans-serif;
+color:black'>: The maximum number of agents that can be in the in the region at
+any given time. The default is 100.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>Physical Prim Max Size</span></b><span
-style='font-family:"Verdana",sans-serif;color:black;background:white'>: The
-maximum dimensions of a physical prim. This is a single number which applies to
-X, Y and Z co-ordinates. This will affect resizing of existing prims. Default
-is 25. </span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
+color:black'>MaxPrims</span></b><span style='font-family:"Verdana",sans-serif;
+color:black'>: The maximum number of prims that the region will be listed as
+supporting. However, this limit is not currently enforced by OpenSimulator. Due
+to LL protocol constraints, the maximum limit that can be shown is 45000.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>Clamp Prim Size</span></b><span style='font-family:
-"Verdana",sans-serif;color:black;background:white'>: If true then if a viewer
-attempts to create a prim which has any dimension larger than the Nonphysical
-Prim Max, then that dimension is reduced to Nonphysical Prim Max. Default is
-false</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
+color:black'>PhysicalPrimMax</span></b><span style='font-family:"Verdana",sans-serif;
+color:black'>: The maximum dimensions of a physical prim. This is a single
+number which applies to X, Y and Z co-ordinates. This will affect resizing of
+existing prims. Default is 10.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>Max Number of Prims in a Parcel: </span></b><span
-style='font-family:"Verdana",sans-serif;color:black;background:white'>Sets how
-many prims can be in a parcel (not a region, in later versions of Opensim, this
-will change to be regions).  The maximum that can be shown in a viewer is
-45,000.   This limit is not enforced by Opensim unless you also check the Prim
-Limits checkbox in Settings-&gt;Permissions.  </span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
+color:black'>NonphysicalPrimMax</span></b><span style='font-family:"Verdana",sans-serif;
+color:black'>: The maximum dimensions for a non-physical prim. This is a single
+number which applies to X, Y and Z co-ordinates. This will affect resizing of
+existing prims. Default is 256.</span></p>
 
-<p class=MsoNormal align=center style='margin-top:12.0pt;margin-right:31.5pt;
-margin-bottom:6.0pt;margin-left:.5in;text-align:center;background:white'><b><i><u><span
-style='font-family:"Verdana",sans-serif;color:black;background:white'>Caution: </span></u></i></b><b><i><span
-style='font-family:"Verdana",sans-serif;color:black;background:white'>Checking
-this box and<br>
- rebooting may return prims!</span></i></b></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
+color:black'>ClampPrimSize</span></b><span style='font-family:"Verdana",sans-serif;
+color:black'>: If true then if a viewer attempts to create a prim which has any
+dimension larger than the NonphysicalPrimMax, then that dimension is reduced to
+NonphysicalPrimMax. Default is false.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>Max Agents in a Region:</span></b></p>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:.5in;margin-right:205.5pt'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'>The maximum number an estate manager can set for
-how many people and NPCs can be in a region.  Must be set in the viewer to be
-enforced.</span></p>
+<h1 style='background:#5B9BD5'>Map Overrides</h1>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Region Specific Section</span></b></p>
+</div>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>This section overrides defaults set elsewhere.</span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='color:black'><img width=281
+height=210 src="RegionEdit_files/image003.png"></span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='color:black'><img
-width=412 height=416 src="RegionEdit_files/image005.png"></span></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>The Map Overrides change this one region’s map making.  </span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif;
-background:white'>Publish Items Marked for Search:</span></b></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'><img width=179 height=97 src="RegionEdit_files/image006.png"></span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>The default is set in Settings-&gt;Publicity.  This setting
-overrides that setting for one region.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif;
-background:white'>&nbsp;</span></b></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-background:white'>Setting this switch will Send data about any prims or regions
-you set for &quot;Show in Search&quot; into a database at Outworldz that shows
-the data in your viewer in Search.   If you disable this, prims marked for
-Search and the regions marked for Show in Search will not be shown.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-background:white'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif;
-background:white'>Permissions:</span></b></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black;background:white'><br>
-</span></b><span style='font-family:"Verdana",sans-serif;color:black'>The
-default is set in Settings-&gt;Permissions.  This setting overrides that
-setting for one region.</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif;
-background:white'>&nbsp;</span></b></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-background:white'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><img width=237 height=145
-src="RegionEdit_files/image007.png"></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
-background:white'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN style='font-size:
-11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Allow Gods: </span></b><span
-lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>God
-mode is available to selected people if enabled.   These levels can be set for
-individual users in the Web control panel.</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN
-style='font-size:11.0pt;line-height:115%;font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN style='font-size:11.0pt;line-height:115%;
-font-family:"Verdana",sans-serif'>Level = 0 is a normal user</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN
-style='font-size:11.0pt;line-height:115%;font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN style='font-size:11.0pt;line-height:115%;
-font-family:"Verdana",sans-serif'>Level = 50 (or a level you set) is used to
-indicate a privileged user (e.g. who can set up new Hypergrid linked regions)</span></p>
-
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in'><span lang=EN
-style='font-size:11.0pt;line-height:115%;font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=EN style='font-size:11.0pt;line-height:115%;
-font-family:"Verdana",sans-serif'>Level = 100 is a Wifi admin account user</span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif;
-background:white'>Physics Engine:</span></b></p>
-
-<b><span style='font-size:10.0pt;line-height:115%;font-family:"Verdana",sans-serif;
-color:black;background:white'><br clear=all style='page-break-before:always'>
-</span></b>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>The default is set in Settings-&gt;Permissions.  This setting
-overrides that setting for one region. </span></p>
-
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><b><span style='font-family:"Verdana",sans-serif;
-background:white'>&nbsp;</span></b></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='color:black'><img
-width=223 height=114 src="RegionEdit_files/image008.png"></span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>None effectively does not model physics at all, making all objects
-phantom.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.5in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black'>UBODE
-is closer to Second Life in vehicle performance.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.5in;background:white'><span
-style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-family:"Verdana",sans-serif;color:black'>BulletSim
-is the default physics engine.  It provides the best performance and most
-functionality. </span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Maps: </span></b></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>The default is set in Settings-&gt;Maps.  This setting overrides
-that setting for one region.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>&nbsp;</span></b></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'><img width=161 height=253 src="RegionEdit_files/image009.png"></span></b></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
+6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
 style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>None</span></b><span
 style='font-family:"Verdana",sans-serif;color:black'>:  No maps will be made.
-This is a good setting as the regions will  boot very quickly.  Any existing
-maps are not deleted.</span></p>
+This is a good setting as the regions will boot very quickly.  Any existing
+maps are kept.</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
+6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
 style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Simple
 but Fast</span></b><span style='font-family:"Verdana",sans-serif;color:black'>:
 MapImageModule is used with just Land showing</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
+6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
 style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Good</span></b><span
 style='font-family:"Verdana",sans-serif;color:black'>:  Uses Warp3D module with
 just Land showing</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
+6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
 style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Better</span></b><span
 style='font-family:"Verdana",sans-serif;color:black'>: Uses Warp3D module with
 Land, Prims, and land Textures showing</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:.5in;margin-bottom:
-6.0pt;margin-left:.5in;text-indent:-.25in;background:white'><span
+<p class=MsoNormal style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:
+6.0pt;margin-left:.75in;text-indent:-.25in;background:white'><span
 style='font-family:Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><b><span style='font-family:"Verdana",sans-serif;color:black'>Best</span></b><span
 style='font-family:"Verdana",sans-serif;color:black'>: Uses Warp3D module with
 Land, Prims, Mesh, Sculpts, and all Textures including prims showing.</span></p>
 
-<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
-margin-left:.5in;margin-right:0in'>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
 
-<h2 style='background:#DEEAF6'><span style='color:black'>Modules:</span></h2>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:.5in;margin-right:201.0pt'>
+
+<h1 style='background:#5B9BD5'>Physics Overrides</h1>
 
 </div>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>These settings enable features for this region and also require
-the feature be set in the Settings Panel.  Unlike the other settings here,
-these must also be set here to enable them.</span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'><img width=169 height=99 src="RegionEdit_files/image010.png"></span></b></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='color:black'><img width=279
+height=214 src="RegionEdit_files/image004.png"></span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>Bird
-Module: The bird module makes flocks of birds possible.  </span></p>
+10.0pt;margin-left:.5in;text-indent:-.25in'><a name="_Hlk70108171"><span
+style='font-family:Symbol;color:black;background:white'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black;
+background:white'>ODE is a very old physics engine with many limitations.  It
+does support Ninja Physics.</span></a></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
+color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black;
+background:white'>UBODE is closer to Second Life in vehicle performance.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><u><span style='font-family:"Verdana",sans-serif'>You
-must also enable the Bird Module in Settings-&gt;Birds.</span></u><span
-style='font-family:"Verdana",sans-serif'>  </span></p>
+10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
+color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black;
+background:white'>Both BulletSim and UBODE support varregions.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
+color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black;
+background:white'>BulletSim provides the best performance and most
+functionality.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif'>There
-are many settings for the Bird Module. You can use the defaults. You must also
-click Enable on each region and reboot the grid.  If this is checked the birds
-will automatically fly.   If unchecked they will be available but must be
-started manually. </span></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><u><span style='font-family:"Verdana",sans-serif;
-color:black'>See Settings-&gt;Birds for more information.</span></u></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Tides Enable:</span></b></p>
-
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span lang=EN style='font-size:11.0pt;
-line-height:115%;font-family:"Verdana",sans-serif;color:black'>The tide module
-makes water go up and down. It has a buoy with a script to make boats and
-objects float with the changing water level</span></p>
+10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
+color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black;
+background:white'>Bullet in a separate thread prevents physics crashes from
+crashing the region. It is the default physics engine.</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in'><span lang=EN style='font-size:11.0pt;line-height:
-115%;font-family:"Verdana",sans-serif'>Individual region Tide setting must be
-enabled to make the water go up and down in each region.</span></p>
+10.0pt;margin-left:.5in;text-indent:-.25in'><span style='font-family:Symbol;
+color:black;background:white'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black;
+background:white'>ODE Ninja physics are documented in another manual</span></p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><u><span style='font-family:"Verdana",sans-serif;
-color:black'>See Settings-&gt;Tides for more information.</span></u></p>
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><b><span style='font-family:"Verdana",sans-serif;
-color:black'>Teleporter Enable</span></b></p>
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:.5in;margin-right:201.0pt'>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
-color:black'>If the Teleporter Enable checkbox is set, the system will add the
-region to the build-in Teleporter and teleporter HUD.  You can load these into
-your inventory with the Load Local OAR option.</span></p>
+<h1 style='background:#5B9BD5'>Script Overrides</h1>
 
-<p class=MsoNormal style='margin-top:12.0pt;margin-right:31.5pt;margin-bottom:
-6.0pt;margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+</div>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='color:black'><img width=278
+height=211 src="RegionEdit_files/image005.png"></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>XEngine</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>
+is and older and very stable Opensimulator script engine.</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>YEngine</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>
+is a new engine that has better support for the llSleep() command.  YEngine
+offers some features that improve performance and prevent timeouts. The problem
+with using llSleep function in Opensim scripts is that it may cause a script to
+freeze, requiring a reset. This is due to the way XEngine deals with running
+multiple scripts at once. </span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>The parse in Yengine
+is also like Second Life as it uses the same order when evaluating a series of
+expressions.  XEngine parsed the order in the opposite direction from Second
+Life.</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Script Timer Rate</span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>
+is normally no faster than 1/5<sup>th</sup> of a second.  It should rarely, if
+ever be faster than this.  There are many less laggy ways to code a LSL system!</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Frame rate </span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>is
+how fast physics and other ‘steps’ are run.  It is normally set to 1/11ths of a
+second, which is 1/5<sup>th</sup> of Second Life’s rate.  Some systems can
+benefit by running this slower or faster.</span></p>
+
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:.5in;margin-right:201.0pt'>
+
+<h1 style='background:#5B9BD5'>Permission Overrides</h1>
+
+</div>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='color:black'><img width=287
+height=218 src="RegionEdit_files/image006.png"></span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Allow Gods: </span></b><span
+lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>God
+mode is available to selected people if enabled.&nbsp;&nbsp; These levels can
+be set for individual users in the Web control panel.</span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span lang=EN
+style='font-size:11.0pt;line-height:115%;font-family:Symbol'>·</span><span
+lang=EN style='font-size:7.0pt;line-height:115%;font-family:"Times New Roman",serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Level
+= 0 is a normal user</span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span lang=EN
+style='font-size:11.0pt;line-height:115%;font-family:Symbol'>·</span><span
+lang=EN style='font-size:7.0pt;line-height:115%;font-family:"Times New Roman",serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Level
+= 50 (or a level you set) is used to indicate a privileged user (e.g. who can
+set up new Hypergrid linked regions)</span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span lang=EN
+style='font-size:11.0pt;line-height:115%;font-family:Symbol'>·</span><span
+lang=EN style='font-size:7.0pt;line-height:115%;font-family:"Times New Roman",serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Level
+= 100 is a Wifi admin account user</span></p>
+
+<p class=MsoNormal style='margin-left:1.0in;text-indent:-.25in'><span lang=EN
+style='font-size:11.0pt;line-height:115%;font-family:Symbol'>·</span><span
+lang=EN style='font-size:7.0pt;line-height:115%;font-family:"Times New Roman",serif'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><span lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Level
+&gt;= 200 can become a God</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Estate Owner is
+God:&nbsp; </span></b><span lang=EN style='font-size:11.0pt;line-height:115%;
+font-family:"Verdana",sans-serif'>If enabled, the region owner may go into God
+mode.&nbsp; </span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><b><span lang=EN style='font-size:
+11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>Estate Manager is
+God: </span></b><span lang=EN style='font-size:11.0pt;line-height:115%;
+font-family:"Verdana",sans-serif'>If enabled, any region estate manager may go
+into God mode.&nbsp; </span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:.5in;margin-right:201.0pt'>
+
+<h1 style='background:#5B9BD5'>Publicity Overrides</h1>
+
+</div>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='color:black'><img width=281
+height=215 src="RegionEdit_files/image007.png"></span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='color:black'>Publicity
+override  can be used to publish or unpublish one region at a time to
+Hyperica.com.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='color:black'>Use Default </span></b><span
+style='color:black'> uses the Settings-&gt;Publicity.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='color:black'>Do Not Publish</span></b><span
+style='color:black'> will not send data to Hyperica.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='color:black'>Publish Items marked
+for search</span></b><span style='color:black'> will send your  grid location,
+description and any items you have martked for Show In Search in world.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><b><span style='color:black'>OpensimWorld
+Key:</span></b><span style='color:black'> You can enter your OpensimWorld key
+here for this region. Then you do not need to scriptred box.<br>
+<br>
+</span></p>
+
+<div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
+margin-left:.5in;margin-right:201.0pt'>
+
+<h1 style='background:#5B9BD5'>Modules</h1>
+
+</div>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><a name="_Hlk70110020"><span
+style='color:black'><img width=281 height=213
+src="RegionEdit_files/image008.png"></span></a></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><a name="_Hlk535920429"><b><span
+style='font-family:"Verdana",sans-serif'>Bird module</span></b></a><span
+style='font-family:"Verdana",sans-serif'> makes flocks of birds possible.  See
+the help manual on Birds. This must be enabled for birds to appear in a region.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span style='font-family:"Verdana",sans-serif'>Enable
+Tides </span></b><span style='font-family:"Verdana",sans-serif'>makes the water
+level rise and fall in this region. See the help manual on Tides. This must be
+enabled for tide to appear in a region.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span style='font-family:"Verdana",sans-serif'>Teleport
+Sign Enable </span></b><span style='font-family:"Verdana",sans-serif'>lets you
+use a standardized Outworldz Teleport Sign to direct visitors in your world.
+This sign is located in the Content-Inventory IAR Load and Save -&gt;Local IAR
+menu.  There are multiple variations of the sign.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:1.5in;text-indent:-.25in;text-autospace:none'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Verdana",sans-serif'>Outworldz
+Teleport System V2.5.iar </span></b><span style='font-family:"Verdana",sans-serif'>is
+a standardized sign for all uses.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:1.5in;text-indent:-.25in;text-autospace:none'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><b><span style='font-family:"Verdana",sans-serif'>Outworldz
+Teleport System V3.9.iar </span></b><span style='font-family:"Verdana",sans-serif'>is
+for testing of the Smart Start system and is subject to change.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span style='font-family:"Verdana",sans-serif'>Disable
+all Gloebits</span></b><span style='font-family:"Verdana",sans-serif'> should
+stop the Gloebits system on this region.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span style='font-family:"Verdana",sans-serif'>Disable
+Foreign Visitors </span></b><span style='font-family:"Verdana",sans-serif'>will
+prevent hypergrid visitors from entering your region.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span style='font-family:"Verdana",sans-serif'>Disable
+Residents </span></b><span style='font-family:"Verdana",sans-serif'>will
+prevent all resident from entering your region. Only Estate managers or owners
+can get in.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span style='font-family:"Verdana",sans-serif'>Skip
+Automatic OAR backup </span></b><span style='font-family:"Verdana",sans-serif'>will
+prevent the automatic OAR system from backing up this region.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><b><span style='font-family:"Verdana",sans-serif'>Announce
+visitors</span></b><span style='font-family:"Verdana",sans-serif'> will chat
+any arrivals or departures.</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
+10.0pt;margin-left:.5in;text-autospace:none'><span style='font-family:"Verdana",sans-serif'>&nbsp;</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'>&nbsp;</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
 color:black'>&nbsp;</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>&nbsp;</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'><br>
+At lower right are settings to enable Bird, Tides, and Teleporter.  These
+settings extend the Global settings to enable these modules on a per-region
+basis.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Disable Gloebits:   You can disable Gloebits for each region,
+independently of the overall Gloebits setting.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Disable Foreign Visitors:  This switch prevents Hypergrid visitors
+from entering this region.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Disable Resident:  This switch sets it so only Region Owners and
+Estate Managers may enter this region.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>Smart Start is a future Extension of Dreamgrid that is in
+development.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:.5in;background:white'><span style='font-family:"Verdana",sans-serif;
+color:black'>&nbsp;</span></p>
+
+<div style='border:solid #DEEAF6 3.0pt;padding:0in 0in 0in 0in;background:#DEEAF6;
+margin-left:.5in;margin-right:205.5pt'>
+
+<h2 style='background:#DEEAF6'><span style='color:black'>Rules for INI files</span></h2>
+
+</div>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
+color:black'>                          </span></p>
+
+<p class=MsoNormal style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:
+10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
+color:black'>Dreamgrid has several simple rules for *.INI files that differ
+slightly from stock Opensim.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+.5in'><span style='font-family:"Verdana",sans-serif;color:black'><br>
+<br>
+</span></p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+1.0in;text-indent:-.25in'><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>No Duplicates:&nbsp; Do not leave a Region.ini in one folder and
+the same Region.ini in another.&nbsp; All files such as Region.bak are ignored.</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+1.0in;text-indent:-.25in'><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>The only thing you need to put in the <b>SOME DOS BOX NAME</b><span
+style='font-family:"Times New Roman",serif'>\</span><b>Region</b>\ is one or
+more Region.INI files.&nbsp;&nbsp; </p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+1.0in;text-indent:-.25in'><span style='font-family:Symbol'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>All other files, such as Opensim.ini&nbsp; are automatically
+re-created when you start the region.</p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:1.0in;text-indent:-.25in;background:white'><span style='font-family:
+Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:black'>The INI file name must match the
+[Region Name] inside it.  This example region [Welcome] must be saved as “Welcome.ini”.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:1.0in;text-indent:-.25in;background:white'><span style='font-family:
+Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='color:black'>Only one [Region Name] is allowed in an
+INI file.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:1.0in;text-indent:-.25in;background:white'><span style='font-family:
+Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Use
+multiples of 256 such as 256X256, 512X512, and so on.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:1.0in;text-indent:-.25in;background:white'><span style='font-family:
+Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>Each
+region size can be anything from 256 X 256 to 1024 X 1024, or higher. Huge
+region sizes such as 4096 X 4096 can be used for flying or car racing. If you
+go over 8192 X 8192, you can expect it to be slow and laggy as the land size
+gets exceptionally large as it grows exponentially.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:205.5pt;margin-bottom:6.0pt;
+margin-left:1.0in;text-indent:-.25in;background:white'><span style='font-family:
+Symbol;color:black'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-family:"Verdana",sans-serif;color:black'>You
+can replace 4 single regions with a single 2X2&nbsp;region and there will be no
+lag when crossing the (nonexistent) border. Vehicles can move smoothly
+anywhere. Also, NPCs can move about freely. Look in any region settings panel
+and you will see a &quot;size&quot; box. Check the 2X2 box, save it, and
+restart the region. It will grow North and East and will be 4 times larger,
+overall. You will also need to move it in X and/or Y or delete the other
+regions as regions cannot overlap. You can shrink them, too, but objects that
+fall off the right and top edge will be lost.</span></p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+1.0in'>&nbsp;</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'>Example of how regions are organized is found in the file system:</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'>Opensim\bin\Regions\<b>SOME DOS BOX NAME</b><span style='font-family:
+"Times New Roman",serif'>\</span>Region\<b>Fred</b>.ini<br>
+Opensim\bin\Regions\<b>SOME DOS BOX NAME</b><span style='font-family:"Times New Roman",serif'>\</span>Region\<b>Rak</b>.ini</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'>These two regions <b>Fred</b> and <b>Rak</b>&nbsp; will be in a single
+Dos box named &quot;<b>SOME DOS BOX NAME</b>&quot;.</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'>If you rename the folder &quot;<b>SOME DOS BOX NAME</b>&quot; to &quot;<b>Internet</b>&quot;,
+they will be in a DOS box named &quot;<b>Internet</b>&quot;.  If you create a
+new folder named &quot;<b>HEY</b>&quot;, like this:</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'><span style='font-family:"Times New Roman",serif'>                                                                         </span>Opensim\bin\Regions\<b>HEY</b><b><span
+style='font-family:"Times New Roman",serif'>\</span></b></p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'>And then MOVE Region\<b>Rak</b>.ini into it:</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'><span style='font-family:"Times New Roman",serif'>                                          </span>Opensim\bin\Regions\<b>HEY\Region\Rak.ini</b></p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'>You will end up with a DOS box named &quot;<b>Hey</b>&quot; with the
+Region named <b>&quot;Rak&quot; </b>in it.<span style='font-family:"Times New Roman",serif'><br>
+</span>The other Dos box will have just Fred in it:</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'>Opensimulator\bin\Regions\<b>SOME DOS BOX NAME</b><span
+style='font-family:"Times New Roman",serif'>\</span>Region\<b>Fred</b>.ini</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+40.5pt'>&nbsp;</p>
+
+<p style='margin-top:5.0pt;margin-right:205.5pt;margin-bottom:5.0pt;margin-left:
+1.0in'>&nbsp;</p>
 
 </div>
 

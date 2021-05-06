@@ -54,6 +54,7 @@ p.MsoTitle, li.MsoTitle, div.MsoTitle
 span.Heading2Char
 	{mso-style-name:"Heading 2 Char";
 	mso-style-link:"Heading 2";
+	font-family:"Times New Roman",serif;
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#D9E2F3;}
@@ -101,8 +102,7 @@ id=rectole0000000024 src="ServerType_files/image001.jpg"></p>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2 style='background:#D9E2F3'><span lang=EN style='color:black'>Grid Server with
-Robust</span></h2>
+<h2><span lang=EN style='color:black'>Grid Server with Robust</span></h2>
 
 </div>
 
@@ -116,29 +116,49 @@ servers as its memory and CPU capacity allows.</span></p>
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2 style='background:#D9E2F3'><span lang=EN style='color:black'>Region Server</span></h2>
+<h2><span lang=EN style='color:black'>Region Server</span></h2>
 
 </div>
 
 <p class=MsoNormal style='margin-left:.5in'><span lang=EN>A Region server uses
-a separate Dreamgrid Robust Grid Server for all assets and login services. Only
-regions and their content are stored locally.  The grid server may be located
-on the same LAN, or on another WAN.   A Region Server always uses the same
-Domain Name and port as the Hosting server.  </span></p>
+a separate DreamGrid Robust Grid Server for all assets and login services. Only
+regions and their content is stored locally.  The grid server may be located on
+the same LAN, or on another WAN. A Region Server always uses the same Domain
+Name and port as the Hosting server.  </span></p>
 
 <p class=MsoNormal style='margin-left:.5in'><span lang=EN>In cases where the
 Grid server is on a different WAN IP address, you must also enter the Region
 Servers IP address or domain name in the Region Ports setting:</span></p>
 
-<p class=MsoNormal style='margin-left:.5in'><span lang=EN style='font-size:
-11.0pt;line-height:115%'><img width=242 height=312 id="Picture 2"
-src="ServerType_files/image002.png" alt=Image></span></p>
+<p class=MsoNormal><img width=242 height=312 src="ServerType_files/image002.png"
+align=left hspace=12 alt=Image><span lang=EN>The Diagnostic port default is 8001.  
+</span></p>
+
+<p class=MsoNormal><span lang=EN>The HTTP port MUST be the same as the Robust Server
+Port.   Default 8002.</span></p>
+
+<p class=MsoNormal><span lang=EN>Private Port MUST be the same as the Robust Private
+Port. Default is 8003. This port is normally clocked at the Robust server.  You
+need to port forward that Port 8003 and make sure that the Windows firewall
+only allow the region server in by its IP Address.</span></p>
+
+<p class=MsoNormal><span lang=EN>Region Port Start # Default is 8004.</span></p>
+
+<p class=MsoNormal><span lang=EN>Highest Used shows how many ports MUST be open
+and forwarded.  DreamGrid can do this with UPNP in the router and it does it
+automatically in the Windows Firewall.</span></p>
+
+<p class=MsoNormal><span lang=EN>External Hostname: If on the same LAN as the
+Host Robust machine, this can be left alone, as port forwards do the work.  If
+on a Different WAN, the IP address of DNS name of the Region Server MUST be
+enetered here.</span></p>
+
+<p class=MsoNormal style='margin-left:.5in'><span lang=EN>&nbsp;</span></p>
 
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2 style='background:#D9E2F3'><span lang=EN style='color:black'>OsGrid Region
-Server</span></h2>
+<h2><span lang=EN style='color:black'>OsGrid Region Server</span></h2>
 
 </div>
 
@@ -148,8 +168,7 @@ server is a preconfigured region server already set up to connect to <b>OsGrid</
 <div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3;
 margin-left:.5in;margin-right:0in'>
 
-<h2 style='background:#D9E2F3'><span lang=EN style='color:black'>Hypergrid.org
-Region Server</span></h2>
+<h2><span lang=EN style='color:black'>Hypergrid.org Region Server</span></h2>
 
 </div>
 
