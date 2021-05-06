@@ -49,6 +49,8 @@ Partial Class FormSmartStart
         Me.BulkLoadRegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.BakeButton = New System.Windows.Forms.Button()
+        Me.RevertButton = New System.Windows.Forms.Button()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.LabelName = New System.Windows.Forms.Label()
         Me.NextButton = New System.Windows.Forms.PictureBox()
@@ -152,8 +154,6 @@ Partial Class FormSmartStart
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
         Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BakeButton = New System.Windows.Forms.Button()
-        Me.RevertButton = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -412,6 +412,28 @@ Partial Class FormSmartStart
         Me.GroupBox4.TabIndex = 2
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Terrains"
+        '
+        'BakeButton
+        '
+        Me.BakeButton.Image = CType(resources.GetObject("BakeButton.Image"), System.Drawing.Image)
+        Me.BakeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BakeButton.Location = New System.Drawing.Point(283, 154)
+        Me.BakeButton.Name = "BakeButton"
+        Me.BakeButton.Size = New System.Drawing.Size(111, 34)
+        Me.BakeButton.TabIndex = 37
+        Me.BakeButton.Text = "Bake"
+        Me.BakeButton.UseVisualStyleBackColor = True
+        '
+        'RevertButton
+        '
+        Me.RevertButton.Image = CType(resources.GetObject("RevertButton.Image"), System.Drawing.Image)
+        Me.RevertButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RevertButton.Location = New System.Drawing.Point(286, 198)
+        Me.RevertButton.Name = "RevertButton"
+        Me.RevertButton.Size = New System.Drawing.Size(111, 34)
+        Me.RevertButton.TabIndex = 38
+        Me.RevertButton.Text = "Revert"
+        Me.RevertButton.UseVisualStyleBackColor = True
         '
         'PictureBox3
         '
@@ -1481,28 +1503,6 @@ Partial Class FormSmartStart
         Me.HelpPlantEditorToolStripMenuItem.Name = "HelpPlantEditorToolStripMenuItem"
         Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
-        '
-        'BakeButton
-        '
-        Me.BakeButton.Image = CType(resources.GetObject("BakeButton.Image"), System.Drawing.Image)
-        Me.BakeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BakeButton.Location = New System.Drawing.Point(283, 154)
-        Me.BakeButton.Name = "BakeButton"
-        Me.BakeButton.Size = New System.Drawing.Size(111, 34)
-        Me.BakeButton.TabIndex = 37
-        Me.BakeButton.Text = "Bake"
-        Me.BakeButton.UseVisualStyleBackColor = True
-        '
-        'RevertButton
-        '
-        Me.RevertButton.Image = CType(resources.GetObject("RevertButton.Image"), System.Drawing.Image)
-        Me.RevertButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RevertButton.Location = New System.Drawing.Point(286, 198)
-        Me.RevertButton.Name = "RevertButton"
-        Me.RevertButton.Size = New System.Drawing.Size(111, 34)
-        Me.RevertButton.TabIndex = 38
-        Me.RevertButton.Text = "Revert"
-        Me.RevertButton.UseVisualStyleBackColor = True
         '
         'FormSmartStart
         '

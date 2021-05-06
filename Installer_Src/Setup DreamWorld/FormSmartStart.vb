@@ -1312,32 +1312,6 @@ Public Class FormSmartStart
 
     End Sub
 
-    Private Sub FreezeButton_Click(sender As Object, e As EventArgs) Handles BakeButton.Click
-
-        Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
-        If RegionUUID.Length = 0 Then Return
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-
-        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
-        RPC_Region_Command(RegionUUID, "terrain bake")
-
-    End Sub
-
-    Private Sub Revert_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
-
-        Dim name = ChooseRegion(False)
-        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
-        If RegionUUID.Length = 0 Then Return
-        ReBoot(RegionUUID)
-        WaitForBooted(RegionUUID)
-        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
-        RPC_Region_Command(RegionUUID, "terrain revert")
-
-    End Sub
-
 #End Region
 
 #Region "Radio"
@@ -1609,6 +1583,17 @@ Public Class FormSmartStart
 
     End Sub
 
+    Private Sub BakeButton_Click(sender As Object, e As EventArgs) Handles BakeButton.Click
+        Dim name = ChooseRegion(False)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        If RegionUUID.Length = 0 Then Return
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
+
+        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
+        RPC_Region_Command(RegionUUID, "terrain bake")
+    End Sub
+
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
         Dim name = ChooseRegion(False)
@@ -1642,6 +1627,18 @@ Public Class FormSmartStart
 
     Private Sub HelpTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpTerrainsToolStripMenuItem.Click
         HelpManual("Terrains")
+    End Sub
+
+    Private Sub RevertButton_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
+        Dim name = ChooseRegion(False)
+        Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
+        If RegionUUID.Length = 0 Then Return
+        ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
+        Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        RPC_Region_Command(RegionUUID, $"change region ""{name}""")
+        RPC_Region_Command(RegionUUID, "terrain revert")
+
     End Sub
 
 #End Region
