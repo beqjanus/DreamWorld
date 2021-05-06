@@ -553,6 +553,7 @@ Public Class FormSetup
         PropOpensimIsRunning() = False
 
         ToolBar(False)
+
         Return True
 
     End Function
@@ -3305,6 +3306,29 @@ Public Class FormSetup
                 p.Start()
                 p.WaitForExit()
                 ApacheIcon(False)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+    End Sub
+
+    Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceUpdateToolStripMenuItem.Click
+
+        KillAll()
+
+        Using PUpdater As Process = New Process()
+
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .WindowStyle = ProcessWindowStyle.Normal,
+                .WorkingDirectory = Settings.CurrentDirectory,
+                .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
+            }
+            PUpdater.StartInfo = pi
+            TextPrint(My.Resources.Do_Not_Interrupt_word)
+            Try
+                PUpdater.Start()
+                End
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try

@@ -83,9 +83,7 @@ Partial Class FormSmartStart
         Me.Button1 = New System.Windows.Forms.Button()
         Me.DeletApply = New System.Windows.Forms.CheckBox()
         Me.Dogwood = New System.Windows.Forms.CheckBox()
-        Me.BakeButton = New System.Windows.Forms.Button()
         Me.None = New System.Windows.Forms.CheckBox()
-        Me.RevertButton = New System.Windows.Forms.Button()
         Me.All = New System.Windows.Forms.CheckBox()
         Me.ApplyPlantButton = New System.Windows.Forms.Button()
         Me.BeachGrass1 = New System.Windows.Forms.CheckBox()
@@ -154,6 +152,8 @@ Partial Class FormSmartStart
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
         Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BakeButton = New System.Windows.Forms.Button()
+        Me.RevertButton = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -399,14 +399,16 @@ Partial Class FormSmartStart
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.BakeButton)
+        Me.GroupBox4.Controls.Add(Me.RevertButton)
         Me.GroupBox4.Controls.Add(Me.PictureBox3)
         Me.GroupBox4.Controls.Add(Me.LabelName)
         Me.GroupBox4.Controls.Add(Me.NextButton)
         Me.GroupBox4.Controls.Add(Me.TerrainApply)
         Me.GroupBox4.Controls.Add(Me.PrevButton)
-        Me.GroupBox4.Location = New System.Drawing.Point(472, 48)
+        Me.GroupBox4.Location = New System.Drawing.Point(445, 48)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(298, 284)
+        Me.GroupBox4.Size = New System.Drawing.Size(405, 284)
         Me.GroupBox4.TabIndex = 2
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Terrains"
@@ -434,7 +436,7 @@ Partial Class FormSmartStart
         'NextButton
         '
         Me.NextButton.Image = CType(resources.GetObject("NextButton.Image"), System.Drawing.Image)
-        Me.NextButton.Location = New System.Drawing.Point(213, 251)
+        Me.NextButton.Location = New System.Drawing.Point(213, 230)
         Me.NextButton.Name = "NextButton"
         Me.NextButton.Size = New System.Drawing.Size(39, 38)
         Me.NextButton.TabIndex = 32
@@ -443,7 +445,7 @@ Partial Class FormSmartStart
         'TerrainApply
         '
         Me.TerrainApply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.TerrainApply.Location = New System.Drawing.Point(91, 251)
+        Me.TerrainApply.Location = New System.Drawing.Point(283, 241)
         Me.TerrainApply.Name = "TerrainApply"
         Me.TerrainApply.Size = New System.Drawing.Size(116, 27)
         Me.TerrainApply.TabIndex = 0
@@ -453,7 +455,7 @@ Partial Class FormSmartStart
         'PrevButton
         '
         Me.PrevButton.Image = CType(resources.GetObject("PrevButton.Image"), System.Drawing.Image)
-        Me.PrevButton.Location = New System.Drawing.Point(55, 251)
+        Me.PrevButton.Location = New System.Drawing.Point(26, 226)
         Me.PrevButton.Name = "PrevButton"
         Me.PrevButton.Size = New System.Drawing.Size(39, 38)
         Me.PrevButton.TabIndex = 35
@@ -710,9 +712,7 @@ Partial Class FormSmartStart
         Me.GroupBox1.Controls.Add(Me.Button1)
         Me.GroupBox1.Controls.Add(Me.DeletApply)
         Me.GroupBox1.Controls.Add(Me.Dogwood)
-        Me.GroupBox1.Controls.Add(Me.BakeButton)
         Me.GroupBox1.Controls.Add(Me.None)
-        Me.GroupBox1.Controls.Add(Me.RevertButton)
         Me.GroupBox1.Controls.Add(Me.All)
         Me.GroupBox1.Controls.Add(Me.ApplyPlantButton)
         Me.GroupBox1.Controls.Add(Me.BeachGrass1)
@@ -747,7 +747,7 @@ Partial Class FormSmartStart
         '
         Me.Button1.Image = Global.Outworldz.My.Resources.Resources.media_stop_red1
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(665, 106)
+        Me.Button1.Location = New System.Drawing.Point(665, 174)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(111, 34)
         Me.Button1.TabIndex = 27
@@ -774,17 +774,6 @@ Partial Class FormSmartStart
         Me.Dogwood.Text = "Dogwood"
         Me.Dogwood.UseVisualStyleBackColor = True
         '
-        'BakeButton
-        '
-        Me.BakeButton.Image = CType(resources.GetObject("BakeButton.Image"), System.Drawing.Image)
-        Me.BakeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BakeButton.Location = New System.Drawing.Point(665, 150)
-        Me.BakeButton.Name = "BakeButton"
-        Me.BakeButton.Size = New System.Drawing.Size(111, 34)
-        Me.BakeButton.TabIndex = 25
-        Me.BakeButton.Text = "Bake"
-        Me.BakeButton.UseVisualStyleBackColor = True
-        '
         'None
         '
         Me.None.AutoSize = True
@@ -794,17 +783,6 @@ Partial Class FormSmartStart
         Me.None.TabIndex = 2
         Me.None.Text = "None"
         Me.None.UseVisualStyleBackColor = True
-        '
-        'RevertButton
-        '
-        Me.RevertButton.Image = CType(resources.GetObject("RevertButton.Image"), System.Drawing.Image)
-        Me.RevertButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RevertButton.Location = New System.Drawing.Point(665, 193)
-        Me.RevertButton.Name = "RevertButton"
-        Me.RevertButton.Size = New System.Drawing.Size(111, 34)
-        Me.RevertButton.TabIndex = 26
-        Me.RevertButton.Text = "Revert"
-        Me.RevertButton.UseVisualStyleBackColor = True
         '
         'All
         '
@@ -1504,6 +1482,28 @@ Partial Class FormSmartStart
         Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
         '
+        'BakeButton
+        '
+        Me.BakeButton.Image = CType(resources.GetObject("BakeButton.Image"), System.Drawing.Image)
+        Me.BakeButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BakeButton.Location = New System.Drawing.Point(283, 154)
+        Me.BakeButton.Name = "BakeButton"
+        Me.BakeButton.Size = New System.Drawing.Size(111, 34)
+        Me.BakeButton.TabIndex = 37
+        Me.BakeButton.Text = "Bake"
+        Me.BakeButton.UseVisualStyleBackColor = True
+        '
+        'RevertButton
+        '
+        Me.RevertButton.Image = CType(resources.GetObject("RevertButton.Image"), System.Drawing.Image)
+        Me.RevertButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.RevertButton.Location = New System.Drawing.Point(286, 198)
+        Me.RevertButton.Name = "RevertButton"
+        Me.RevertButton.Size = New System.Drawing.Size(111, 34)
+        Me.RevertButton.TabIndex = 38
+        Me.RevertButton.Text = "Revert"
+        Me.RevertButton.UseVisualStyleBackColor = True
+        '
         'FormSmartStart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1573,8 +1573,6 @@ Partial Class FormSmartStart
     Friend WithEvents Flat As RadioButton
     Friend WithEvents Rand As RadioButton
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents BakeButton As Button
-    Friend WithEvents RevertButton As Button
     Friend WithEvents None As CheckBox
     Friend WithEvents All As CheckBox
     Friend WithEvents ApplyPlantButton As Button
@@ -1686,4 +1684,6 @@ Partial Class FormSmartStart
     Friend WithEvents Rad As TextBox
     Friend WithEvents DeletApply As CheckBox
     Friend WithEvents Button1 As Button
+    Friend WithEvents BakeButton As Button
+    Friend WithEvents RevertButton As Button
 End Class
