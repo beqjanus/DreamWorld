@@ -898,7 +898,7 @@
     <value>غیرفعال کردن چمدان موجودی ، تمام موجودی شما را در معرض شبکه های دیگر قرار می دهد. اما دادن اشیا آسان است.</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>بله</value>
+    <value>X</value>
   </data>
   <data name="JOpensimSettings" xml:space="preserve">
     <value>تنظیمات JOpensim</value>
@@ -3035,5 +3035,11 @@
   </data>
   <data name="TreesAndPlants" xml:space="preserve">
     <value>درختان و گیاهان</value>
+  </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>تعداد</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>شعاع</value>
   </data>
 </root>

@@ -3036,4 +3036,10 @@
   <data name="TreesAndPlants" xml:space="preserve">
     <value>树木和植物</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>半径</value>
+  </data>
 </root>

@@ -3036,4 +3036,10 @@
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Trær og planter</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Antall</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Radius</value>
+  </data>
 </root>

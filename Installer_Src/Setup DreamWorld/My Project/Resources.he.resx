@@ -2827,7 +2827,7 @@
     <value>משהו לא בסדר עם האינטרנט</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>איקס</value>
+    <value>X</value>
   </data>
   <data name="XEngine_word" xml:space="preserve">
     <value>מנוע X</value>
@@ -3035,5 +3035,11 @@
   </data>
   <data name="TreesAndPlants" xml:space="preserve">
     <value>עצים וצמחים</value>
+  </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>כמות</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>RADIUS</value>
   </data>
 </root>

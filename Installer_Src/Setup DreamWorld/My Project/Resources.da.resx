@@ -949,7 +949,7 @@
     <value>Deaktivering af beholdningskufferten udsætter al din beholdning for andre net. Men det er let at give genstande.</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>Y</value>
+    <value>X</value>
   </data>
   <data name="JOpensimSettings" xml:space="preserve">
     <value>JOpensim-indstillinger</value>
@@ -3035,5 +3035,11 @@
   </data>
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Træer og planter</value>
+  </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Antal</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Radius</value>
   </data>
 </root>

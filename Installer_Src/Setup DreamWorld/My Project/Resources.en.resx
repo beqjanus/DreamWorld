@@ -898,7 +898,7 @@
     <value>Disabling the Inventory Suitcase exposes all your inventory to other grids. But it is easy to give objects.</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>Y</value>
+    <value>X</value>
   </data>
   <data name="JOpensimSettings" xml:space="preserve">
     <value>JOpensim Settings</value>

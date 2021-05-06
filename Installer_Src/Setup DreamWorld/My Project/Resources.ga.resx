@@ -3036,4 +3036,10 @@
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Crainn agus Plandaí</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Méid</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Ga</value>
+  </data>
 </root>

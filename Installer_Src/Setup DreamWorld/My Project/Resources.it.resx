@@ -949,7 +949,7 @@
     <value>La disabilitazione della valigia dell'inventario espone tutto il tuo inventario ad altre griglie. Ma è facile regalare oggetti.</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>Y</value>
+    <value>X</value>
   </data>
   <data name="JOpensimSettings" xml:space="preserve">
     <value>Impostazioni JOpensim</value>
@@ -3035,5 +3035,11 @@
   </data>
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Alberi e piante</value>
+  </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Quantità</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Radius</value>
   </data>
 </root>

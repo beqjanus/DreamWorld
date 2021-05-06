@@ -949,7 +949,7 @@
     <value>Việc vô hiệu hóa Vali khoảng không quảng cáo sẽ hiển thị tất cả khoảng không quảng cáo của bạn với các lưới khác. Nhưng nó rất dễ dàng cho các đối tượng.</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>Y</value>
+    <value>X</value>
   </data>
   <data name="JOpensimSettings" xml:space="preserve">
     <value>Cài đặt JOpensim</value>
@@ -3035,5 +3035,11 @@
   </data>
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Cây cối và Thực vật</value>
+  </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Số lượng</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Bán kính</value>
   </data>
 </root>

@@ -3036,4 +3036,10 @@
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Zuhaitzak eta landareak</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Kopurua</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Erradioa</value>
+  </data>
 </root>

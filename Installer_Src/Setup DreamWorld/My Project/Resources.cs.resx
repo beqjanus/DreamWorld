@@ -898,7 +898,7 @@
     <value>Zakázáním Inventory Suitcase vystavíte veškerý svůj inventář jiným sítím. Ale je snadné dávat předměty.</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>Y</value>
+    <value>X</value>
   </data>
   <data name="JOpensimSettings" xml:space="preserve">
     <value>Nastavení JOpensim</value>
@@ -3035,5 +3035,11 @@
   </data>
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Stromy a rostliny</value>
+  </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Množství</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Poloměr</value>
   </data>
 </root>

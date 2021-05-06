@@ -2827,7 +2827,7 @@
     <value>Что-то не так с Интернетом</value>
   </data>
   <data name="X" xml:space="preserve">
-    <value>Икс</value>
+    <value>X</value>
   </data>
   <data name="XEngine_word" xml:space="preserve">
     <value>X Двигатель</value>
@@ -3035,5 +3035,11 @@
   </data>
   <data name="TreesAndPlants" xml:space="preserve">
     <value>Деревья и растения</value>
+  </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>Радиус</value>
   </data>
 </root>
