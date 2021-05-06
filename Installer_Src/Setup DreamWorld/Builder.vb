@@ -39,11 +39,10 @@ Module Build
 
         ElseIf Settings.TerrainType = "AI" Then
 
-            'If Not RPC_Region_Command(RegionUUID, "terrain fill 21") Then BreakPoint.Show("No RPC")
-            Dim min = Between(40, 30)
+            Dim min = Between(40, 22)
             Dim taper = Between(135, 0)
 
-            Dim r = Between(5, 0)
+            Dim r = Between(6, 0)
 
             Select Case r
                 Case 1
@@ -53,7 +52,6 @@ Module Build
                     If Not RPC_Region_Command(RegionUUID, $"terrain modify noise 1 0") Then BreakPoint.Show("No RPC")
                     If Not RPC_Region_Command(RegionUUID, $"terrain modify noise 1 0") Then BreakPoint.Show("No RPC")
                     If Not RPC_Region_Command(RegionUUID, $"terrain modify noise 1 0") Then BreakPoint.Show("No RPC")
-
                 Case 3
                     If Not RPC_Region_Command(RegionUUID, $"terrain modify min {Between(40, 20)} -rec=128,128,120 -taper=-{taper}") Then BreakPoint.Show("No RPC")
                     If Not RPC_Region_Command(RegionUUID, $"terrain modify min {Between(40, 20)} -rec=64,64,120 -taper=-{taper}") Then BreakPoint.Show("No RPC")
