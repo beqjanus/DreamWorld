@@ -5504,17 +5504,19 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Suggestion: Leave maps off.  Use Best maps once, then disable. 
+        '''  Looks up a localized string similar to Suggestion: Leave maps off.  Use Best maps once, then turn Off. 
         '''
-        '''• None:  No maps will be made. This is a good setting as the regions will boot very quickly.  Any existing maps are not deleted.
+        '''If users reboot regions to make maps, leave maps on. 
         '''
-        '''• Simple but Fast: MapImageModule is used with just Land showing.
+        '''• None:  No maps will be made. Regions will boot quickly.  Existing maps are not deleted.
         '''
-        '''• Good:  Uses Warp3D module with just Land showing.
+        '''• Simple but Fast: Just Land showing.
         '''
-        '''• Better: Uses Warp3D module with Land, Prims, and land Textures showing.
+        '''• Good:  Better view of just Land showing.
         '''
-        '''• Best: Uses Warp3D module with Land, Prims, Mesh, Sculpts, and all Textures including prims showing.
+        '''• Better: Land, Prims, and Land Textures showing.
+        '''
+        '''• Best: Land, Prims, Mesh, Sculpts, and all Textures showing.
         '''
         '''.
         '''</summary>
@@ -5840,7 +5842,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to • Bird module makes flocks of birds possible.  See the help manual on Birds. This must be enabled for birds to appear in a region.
+        '''
+        '''• Enable Tides makes the water level rise and fall in this region. See the help manual on Tides. This must be enabled for tide to appear in a region.
+        '''
+        '''• Teleport Sign Enable lets you use a standardized Outworldz Teleport Sign to direct visitors in your world. 
+        '''
+        '''• Disable all Gloebits should stop the money system on this region.
+        '''
+        '''• Disable Foreign Visitors will prevent h [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property ModulesHelp() As String
             Get
@@ -6690,7 +6700,19 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to • UUID: You can only change the UUID of the grid is stopped.  
+        '''
+        '''• MaxAgents: The maximum number of agents that can be in the in the region at any given time. The default is 100.
+        '''
+        '''• MaxPrims: The maximum number of prims that the region will be listed as supporting. 
+        '''
+        '''• PhysicalPrimMax: The maximum dimensions of a physical prim. 
+        '''
+        '''• NonphysicalPrimMax: The maximum dimensions for a non-physical prim. 
+        '''
+        '''• ClampPrimSize: If true then if a viewer cannot create a larger prim.
+        '''
+        '''.
         '''</summary>
         Friend ReadOnly Property OptionsHelp() As String
             Get
@@ -6906,7 +6928,10 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to • Grid god mode allows certain users to take and control permissions over objects. Users can become Gods by using the Request Admin Level button in the Advanced Viewer menu.
+        '''
+        '''Setting Grid God Mode on allows you to control individual users by editing their access level in the Wifi Users Panel. Any user with a level &gt; 100 will be a grid god. You can set any estate owner or estate manager to be a grid god, too. 
+        '''God mode is a useful function. However, making copies of items that are no copy or no transfer a [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property PermissionsHelp() As String
             Get
@@ -6951,7 +6976,17 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to 
+        '''• ODE is a very old physics engine with many limitations.  It does support Ninja Physics.
+        '''
+        '''• UBODE is closer to Second Life in vehicle performance.
+        '''
+        '''• Both BulletSim and UBODE support varregions.
+        '''
+        '''• BulletSim provides the best performance and most functionality.
+        '''
+        '''• Bullet in a separate thread prevents physics crashes from crashing the region. It is the default physics engine.
+        '''.
         '''</summary>
         Friend ReadOnly Property PhysicsHelp() As String
             Get
@@ -7207,7 +7242,18 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to Publicity override is used to publish  one region at a time to Hyperica.com.
+        '''
+        '''• Use Default uses the Settings-&gt;Publicity.
+        '''
+        '''• Do Not Publish will not send data to Hyperica.
+        '''
+        '''• Publish Items marked for search will send your grid location, description and any items you have marked for Show In Search in world.
+        '''
+        '''• OpensimWorld Key: You can enter your OpensimWorld key here for this region. Then you do not need to scripted box.  
+        '''
+        '''• Do not use both the box and this setting.
+        '''.
         '''</summary>
         Friend ReadOnly Property PublicityHelp() As String
             Get
@@ -8267,7 +8313,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to .
+        '''  Looks up a localized string similar to • XEngine is and older and very stable Opensimulator script engine.
+        '''
+        '''• YEngine is a new engine that has better support for the llSleep() command.
+        '''
+        '''• Allow LSL:  OpenSimulator does not allow scripts to make HTTP calls to addresses on the simulator&apos;s LAN. This stop LSL from scanning your ports inside your firewall and writing and reading them. If you need to allow scripts to make some LAN calls, enable this checkbox. We recommend that you do not enable this unless you are very sure about what you are doin [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property ScriptsHelp() As String
             Get
@@ -10521,7 +10571,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Y.
+        '''  Looks up a localized string similar to X.
         '''</summary>
         Friend ReadOnly Property X() As String
             Get
