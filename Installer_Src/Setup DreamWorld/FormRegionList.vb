@@ -438,7 +438,15 @@ Public Class FormRegionlist
         UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
         UserView.Columns.Add(My.Resources.Email_word, colsize.ColumnWidth("User" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
-        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
+        ctr += 1
+        UserView.Columns.Add(My.Resources.Items_word, colsize.ColumnWidth("Items" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        ctr += 1
+        UserView.Columns.Add(My.Resources.Level_word, colsize.ColumnWidth("Level" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        ctr += 1
+        UserView.Columns.Add(My.Resources.Birthday_word, colsize.ColumnWidth("Birthday" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        ctr += 1
+        UserView.Columns.Add(My.Resources.Age, colsize.ColumnWidth("Age" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+
 
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
         AddHandler ListView1.ColumnClick, AddressOf ColumnClick
@@ -1002,12 +1010,32 @@ Public Class FormRegionlist
             End If
 
             For Each Agent In M
-                If Agent.Value.Length > 0 Then
-                    Dim item1 As New ListViewItem(Agent.Key, Index)
-                    item1.SubItems.Add(Agent.Value)
-                    UserView.Items.AddRange(New ListViewItem() {item1})
-                    Index += 1
+                Dim item1 As New ListViewItem(Agent.Key, Index)
+
+                Dim parts As String() = Agent.Value.Split("|".ToCharArray())
+                Dim email = parts(0).Trim
+
+                If email.Length = 0 Then
+                    item1.BackColor = Color.DarkGray
+                    item1.ForeColor = Color.White
+                Else
+                    item1.BackColor = Color.White
+                    item1.ForeColor = Color.Black
                 End If
+
+                Dim UUID As String = parts(1)
+                Dim Level As String = parts(2)
+                Dim Birthdate As String = parts(3)
+                Dim age As Integer = CInt(parts(4))
+
+                item1.SubItems.Add(email)
+                item1.SubItems.Add(MysqlInterface.AssetCount(UUID).ToString("000000", Globalization.CultureInfo.CurrentCulture))
+                item1.SubItems.Add(Level)
+                item1.SubItems.Add(Birthdate)
+                item1.SubItems.Add(age.ToString("000000", Globalization.CultureInfo.CurrentCulture))
+                UserView.Items.AddRange(New ListViewItem() {item1})
+
+                Index += 1
             Next
 
             Me.Text = M.Count & " " & My.Resources.Users_word
@@ -1423,9 +1451,11 @@ SetWindowOnTop_Err:
 
             For Each X As ListViewItem In UserView.Items
                 If ItemsAreChecked1 Then
-                    X.Checked = CType(CheckState.Checked, Boolean)
+                    If X.ForeColor = Color.Black Then
+                        X.Checked = CType(CheckState.Checked, Boolean)
+                    End If
                 Else
-                    X.Checked = CType(CheckState.Unchecked, Boolean)
+                        X.Checked = CType(CheckState.Unchecked, Boolean)
                 End If
             Next
 

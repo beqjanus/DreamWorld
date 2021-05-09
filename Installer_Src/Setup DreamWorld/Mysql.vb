@@ -5,6 +5,7 @@
 
 #End Region
 
+Imports System.Globalization
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
@@ -170,6 +171,28 @@ Public Module MysqlInterface
 #End Region
 
 #Region "Public"
+
+    Public Function AssetCount(UUID As String) As Integer
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "select count(*) from inventoryitems where avatarid = @UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            'Debug.Print("ID = {0}", reader.GetString(0))
+                            Return reader.GetInt32(0)
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch
+        End Try
+        Return 0
+
+    End Function
 
     Public Sub DeRegisterPosition(X As Integer, Y As Integer)
         Try
@@ -358,25 +381,42 @@ Public Module MysqlInterface
         Try
             Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
                 MysqlConn.Open()
-                Dim stm = "Select firstname, lastname , email from useraccounts"
+                Dim stm = "Select firstname, lastname , email, principalid, userlevel, created from useraccounts"
                 Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         While reader.Read()
                             Dim f = reader.GetString(0)
                             Dim l = reader.GetString(1)
                             Dim e = reader.GetString(2)
+                            Dim u = reader.GetString(3)
+                            Dim Level = reader.GetString(4)
+                            Dim c As Double = reader.GetDouble(5)
+                            Dim Birthdate As DateTime = UnixTimeStampToDateTime(c)
+                            Dim Age = DateDiff(DateInterval.Day, Birthdate, DateTime.Now)
+
                             '     Debug.Print("{0} {1} {2}", f, l, e)
                             If f <> "GRID" And l <> "SERVICES" Then
-                                A.Add(f & " " & l, e)
+                                A.Add(f & " " & l, e & "|" & u & "|" & Level & "|" & Birthdate.ToString(CultureInfo.CurrentCulture) & "|" & Age)
                             End If
                         End While
                     End Using
                 End Using
             End Using
         Catch ex As Exception
+            BreakPoint.Show(ex.Message)
         End Try
+        Debug.Print("Users " & CStr(A.Count))
 
         Return A
+
+    End Function
+
+    Public Function UnixTimeStampToDateTime(unixTimeStamp As Double) As DateTime
+
+        ' Unix timestamp Is seconds past epoch
+        Dim dtDateTime As System.DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)
+        dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime()
+        Return dtDateTime
 
     End Function
 

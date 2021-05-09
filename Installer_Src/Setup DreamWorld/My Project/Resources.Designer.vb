@@ -191,6 +191,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Age.
+        '''</summary>
+        Friend ReadOnly Property Age() As String
+            Get
+                Return ResourceManager.GetString("Age", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Agents.
         '''</summary>
         Friend ReadOnly Property Agents_word() As String
@@ -938,6 +947,15 @@ Namespace My.Resources
         Friend ReadOnly Property Birds_word() As String
             Get
                 Return ResourceManager.GetString("Birds_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Birthday.
+        '''</summary>
+        Friend ReadOnly Property Birthday_word() As String
+            Get
+                Return ResourceManager.GetString("Birthday_word", resourceCulture)
             End Get
         End Property
         
@@ -5116,6 +5134,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("layout_north", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Level.
+        '''</summary>
+        Friend ReadOnly Property Level_word() As String
+            Get
+                Return ResourceManager.GetString("Level_word", resourceCulture)
             End Get
         End Property
         
