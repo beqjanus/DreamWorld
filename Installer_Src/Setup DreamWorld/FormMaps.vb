@@ -254,7 +254,7 @@ Public Class FormMaps
 
         Dim digitsOnly As Regex = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
-        If Not Integer.TryParse(RenderMaxH.Text, CInt("0" & Settings.RenderMaxHeight)) Then
+        If Not Double.TryParse(RenderMaxH.Text, Settings.RenderMaxHeight) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
         End If
 
