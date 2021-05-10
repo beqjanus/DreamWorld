@@ -30,7 +30,7 @@ Public Class FormSetup
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
-    Private ReadOnly ExitInterval As Integer = 2
+    Private ReadOnly ExitInterval As Integer = 5
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
 
     Private ReadOnly MyCPUCollection As New List(Of Double)
@@ -1042,7 +1042,7 @@ Public Class FormSetup
 
         ' check to see if a handle to all regions exists. If not, then is died.
         For Each RegionUUID As String In PropRegionClass.RegionUuids
-
+            Application.DoEvents()
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             Dim status = PropRegionClass.Status(RegionUUID)
