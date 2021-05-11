@@ -2,11 +2,17 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V4.0 Release
+This update will notify you its time to update.
+Added sortable columns for User Age in days, Birth date, count of inventory items, and User level to User Screen
 
 V.392
+Map Render Max Height could be set to some numbers. 
+X translated as Y, doh!
 Enable script function lsSetWindlightScene so scripted EEP should work. This script function is restricted to the region owner only.
 Added a Force Update to Help Menu so you can get updates on demand instead of waiting for a release.
-ALl manuals updated.
+All manuals updated, including the big PDF.
+
 
 V3.931
 Icecast did not redirect to the /status.xsl home page. An <Alias=..> got wildcarded in, should be <alias= ..>

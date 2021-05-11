@@ -461,19 +461,19 @@ Module Robust
 
     Private Sub RobustProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles RobustProcess.Exited
 
-        FormSetup.RestartRobustIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
-
         ' Handle Exited event and display process information.
         PropRobustProcID = Nothing
         If PropAborting Then Return
 
         If PropRestartRobust Then
+            RobustIcon(False)
             PropRobustExited = True
             Return
         End If
 
         If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
             PropRobustExited = True
+            RobustIcon(False)
             RobustCrashCounter += 1
             Return
         End If
