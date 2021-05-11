@@ -2040,8 +2040,11 @@ Public Class FormSetup
 
         If Not KillAll() Then Return
 
-        cpu.Dispose()
-        Searcher1.Dispose()
+        Try
+            cpu.Dispose()
+            Searcher1.Dispose()
+        Catch
+        End Try
 
         If PropWebServer IsNot Nothing Then
             PropWebServer.StopWebServer()
