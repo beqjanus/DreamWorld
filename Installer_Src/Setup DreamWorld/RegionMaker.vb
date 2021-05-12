@@ -1907,7 +1907,7 @@ Public Class RegionMaker
             If Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False") Then Return True
 
             If Not Settings.LSLHTTP Then
-                If Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", Settings.LANIP() & ":" & Settings.DiagnosticPort & "|" & Settings.LANIP() & ":" & Settings.HttpPort) Then Return True
+                If Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", $"127.0.0.1:{Settings.DiagnosticPort}|{Settings.LANIP()}:{Settings.DiagnosticPort}|{Settings.LANIP()}:{Settings.HttpPort}") Then Return True
             End If
 
             If Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits)) Then Return True
