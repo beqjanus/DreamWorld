@@ -2,6 +2,21 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V4.01 Maintenance
+Just some tweaks, no need to update unless you are a Smart Start Alpha tester.
+Slower machines on first install may miss the Create User dialog. Added a Information MNsgBox in all 30 languages to wait for Robust to finish updating.
+Smart Start has several fixes:
+	A sign V4.0 is in the Local IAR folder.   This suppresses an error and supports
+	ESTATE, NAME and GROUP sorting. It also works on 127.0.0.1:8001.
+	All you need to do is add the password,
+	The "Welcome to Smart Start" Free OAR has the new signs in it.
+	The Help-Debug section has a test setup to teleport any avatar to any region.
+	Added a Mysql check of the region status (0x4=online) before initiating a teleport.
+Added a Mysql Console menu in the main form under the Mysql Menu.
+
+
+
+
 V4.0 Release
 This update will notify you its time to update.
 Added sortable columns for User Age in days, Birth date, count of inventory items, and User level to User Screen
