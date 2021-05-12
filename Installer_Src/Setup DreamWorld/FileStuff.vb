@@ -12,6 +12,7 @@ Module FileStuff
             "DreamGridSetup.exe",
             "Downloader.exe.config",
             "DreamGridSetup.exe.config",
+            "OutworldzFiles\IAR\Outworldz Teleport System V3.9.iar",
             "Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll",
             "Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb",
             "Outworldzfiles\Opensim\bin\config-include\Birds.ini",
@@ -38,8 +39,7 @@ Module FileStuff
         "\Outworldzfiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
         "\Outworldzfiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
         "\Outworldzfiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
-        "\Outworldzfiles\Opensim\bin\Library.proto", ' old Diva library for standalone only
-        "Readme"
+        "\Outworldzfiles\Opensim\bin\Library.proto" ' old Diva library for standalone only
         }
 
         If FormSetup.PropKillSource Then
