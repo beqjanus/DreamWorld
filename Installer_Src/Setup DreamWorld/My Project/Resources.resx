@@ -3581,4 +3581,7 @@
   <data name="Birthday_word" xml:space="preserve">
     <value>Birthday</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Please wait for Robust to completely boot. This may take some minutes.</value>
+  </data>
 </root>
