@@ -25,7 +25,7 @@ Module SmartStart
 
         'Smart Start:http://192.168.2.140:8999/?alt=Deliverance_of_JarJar_Binks__Fred_Beckhusen_1X1&agent=Ferd%20Frederix&AgentID=6f285c43-e656-42d9-b0e9-a78684fee15d&password=XYZZY
 
-        Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*?)", RegexOptions.IgnoreCase)
+        Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*)", RegexOptions.IgnoreCase)
         Dim match As Match = pattern.Match(post)
         If match.Success Then
             Dim Name As String = Uri.UnescapeDataString(match.Groups(1).Value)
@@ -36,20 +36,20 @@ Module SmartStart
             Debug.Print($"AgentID={AgentID}")
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
             Debug.Print($"Password={Password}")
-            If Password.Length = 0 Then
-                Debug.Print("Bad password")
-                ' Return ""
+            If Password <> Settings.MachineID Then
+                Logger("ERROR", "Bad Password for Teleport system", "Outworldz")
+                Return ""
             End If
             Dim time As String
 
             ' Region may be a name or a Region UUID
             Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(Name)
             If RegionUUID.Length = 0 Then
-                RegionUUID = Name
+                RegionUUID = Name ' Its a UUID
             Else
                 Name = PropRegionClass.RegionName(RegionUUID)
             End If
-            Debug.Print("Tp to " & Name)
+            Debug.Print("Teleport to " & Name)
 
             ' Smart Start below here
             If PropOpensimIsRunning Then
