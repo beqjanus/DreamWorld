@@ -305,9 +305,9 @@ Public Module MysqlInterface
             Console.WriteLine("Error: " & ex.ToString())
         End Try
 
-        If Debugger.IsAttached Then
-            Dict.Add("Ferd Frederix", "SS")
-        End If
+        'If Debugger.IsAttached Then
+        'Dict.Add("Ferd Frederix", "SS")
+        'End If
 
         Return Dict
 

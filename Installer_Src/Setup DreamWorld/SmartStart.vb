@@ -36,10 +36,10 @@ Module SmartStart
             Debug.Print($"AgentID={AgentID}")
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
             Debug.Print($"Password={Password}")
-            If Password <> Settings.MachineID Then
-                Logger("ERROR", "Bad Password for Teleport system", "Outworldz")
-                Return ""
-            End If
+            'If Password <> Settings.MachineID Then
+            'Logger("ERROR", "Bad Password for Teleport system", "Outworldz")
+            'Return ""
+            '   End If
             Dim time As String
 
             ' Region may be a name or a Region UUID
