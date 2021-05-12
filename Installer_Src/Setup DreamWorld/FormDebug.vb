@@ -93,35 +93,11 @@ Public Class FormDebug
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         If Command = My.Resources.SmartStartEnable Then
-            If Value Then
-                ProgressPrint(My.Resources.SSisEnabled)
-                Settings.SSVisible = True
-                Settings.SmartStart = True
-                HelpManual("SmartStart")
-            Else
-                ProgressPrint(My.Resources.SSisDisabled)
-                Settings.SSVisible = False
-                Settings.SmartStart = False
-            End If
-            Settings.SaveSettings()
+            EnableSS()
 
         ElseIf Command = "Teleport API" Then
 
-            If Value Then
-                Dim region = ChooseRegion(False)
-                Dim UUID = Guid.NewGuid().ToString
-                Dim url = $"http://{Settings.PublicIP}:{Settings.DiagnosticPort}/alt={region}&agent=Wifi%20Admin&AgentID={UUID}&password={Settings.MachineID}"
-                ProgressPrint(url)
-                Using client As New WebClient ' download client for web pages
-                    Dim r As String = ""
-                    Try
-                        r = client.DownloadString(url)
-                    Catch ex As Exception
-                        ProgressPrint(ex.Message)
-                    End Try
-                    ProgressPrint(r)
-                End Using
-            End If
+            TPAPITest()
 
         ElseIf Command = "Send_alert" Then
             If Value Then
@@ -196,6 +172,20 @@ Public Class FormDebug
 
     End Sub
 
+    Private Sub EnableSS()
+        If Value Then
+            ProgressPrint(My.Resources.SSisEnabled)
+            Settings.SSVisible = True
+            Settings.SmartStart = True
+            HelpManual("SmartStart")
+        Else
+            ProgressPrint(My.Resources.SSisDisabled)
+            Settings.SSVisible = False
+            Settings.SmartStart = False
+        End If
+        Settings.SaveSettings()
+    End Sub
+
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
 
         ComboBox1.Items.Add(My.Resources.SmartStartEnable)
@@ -215,6 +205,55 @@ Public Class FormDebug
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 hours")
 
         SetScreen()
+
+    End Sub
+
+    Private Sub NewMethod()
+        If Value Then
+            Dim region = ChooseRegion(False)
+            Dim UUID = Guid.NewGuid().ToString
+            Dim url = $"http://{Settings.PublicIP}:{Settings.DiagnosticPort}/alt={region}&agent=Wifi%20Admin&AgentID={UUID}&password={Settings.MachineID}"
+            ProgressPrint(url)
+            Using client As New WebClient ' download client for web pages
+                Dim r As String = ""
+                Try
+                    r = client.DownloadString(url)
+                Catch ex As Exception
+                    ProgressPrint(ex.Message)
+                End Try
+                ProgressPrint(r)
+            End Using
+        End If
+    End Sub
+
+    Private Sub TPAPITest()
+
+        If Value Then
+            Dim region = ChooseRegion(False)
+            Dim UUID = Guid.NewGuid().ToString
+            Dim AviName = InputBox("Avatar Name?")
+            Dim AviUUID As String = ""
+            If AviName.Length > 0 Then
+                AviUUID = Uri.EscapeDataString(MysqlInterface.GetAviUUUD(AviName))
+                If AviUUID.Length > 0 Then
+                    Dim url = $"http://{Settings.PublicIP}:{Settings.DiagnosticPort}/alt={region}&agent=AviName&AgentID={AviUUID}&password={Settings.MachineID}"
+                    ProgressPrint(url)
+                    Using client As New WebClient ' download client for web pages
+                        Dim r As String = ""
+                        Try
+                            r = client.DownloadString(url)
+                        Catch ex As Exception
+                            ProgressPrint(ex.Message)
+                        End Try
+                        ProgressPrint(r)
+                    End Using
+                Else
+                    ProgressPrint("Avatar Not located")
+                End If
+            Else
+                ProgressPrint($"{My.Resources.Aborted_word} ")
+            End If
+        End If
 
     End Sub
 
