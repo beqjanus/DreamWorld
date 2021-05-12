@@ -30,7 +30,7 @@ Public Class FormSetup
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
-    Private ReadOnly ExitInterval As Integer = 5
+    Private ReadOnly ExitInterval As Integer = 2
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
 
     Private ReadOnly MyCPUCollection As New List(Of Double)
@@ -666,7 +666,7 @@ Public Class FormSetup
                 Select Case Settings.SmartStart
                     Case True
                         ' Really Smart Start, not in Region table
-                        If PropRegionClass.SmartStart(RegionUUID) = "True" And Not RegionIsRegistered(RegionUUID) Then
+                        If PropRegionClass.SmartStart(RegionUUID) = "True" And Not RegionIsRegisteredOnline(RegionUUID) Then
                             BootNeeded = True
                         End If
 
@@ -774,6 +774,7 @@ Public Class FormSetup
 
         If Not Settings.RunOnce And Settings.ServerType = RobustServerName Then
 
+            MsgBox(My.Resources.PleaseWait, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             Using InitialSetup As New FormInitialSetup ' form for use and password
                 Dim ret = InitialSetup.ShowDialog()
                 If ret = DialogResult.Cancel Then
@@ -3281,6 +3282,10 @@ Public Class FormSetup
 #End Region
 
 #Region "Testing"
+
+    Private Sub ConnectToConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToConsoleToolStripMenuItem.Click
+        MysqlConsole()
+    End Sub
 
     Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
 
