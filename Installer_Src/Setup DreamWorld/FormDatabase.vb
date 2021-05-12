@@ -257,20 +257,7 @@ Public Class FormDatabase
 
     Private Sub ConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConsoleToolStripMenuItem.Click
 
-        Using p As Process = New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .Arguments = $" -u root --port={Settings.MySqlRegionDBPort}",
-                .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysql.exe") & """",
-                .UseShellExecute = True, ' so we can redirect streams and minimize
-                .WindowStyle = ProcessWindowStyle.Normal
-            }
-            p.StartInfo = pi
-            Try
-                p.Start()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End Using
+        MysqlConsole()
 
     End Sub
 

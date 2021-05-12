@@ -411,15 +411,6 @@ Public Module MysqlInterface
 
     End Function
 
-    Public Function UnixTimeStampToDateTime(unixTimeStamp As Double) As DateTime
-
-        ' Unix timestamp Is seconds past epoch
-        Dim dtDateTime As System.DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)
-        dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime()
-        Return dtDateTime
-
-    End Function
-
     Public Function GetHGAgentList() As Dictionary(Of String, String)
 
         '6f285c43-e656-42d9-b0e9-a78684fee15c;http://outworldz.com:9000/;Ferd Frederix
@@ -572,6 +563,26 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Sub MysqlConsole()
+
+        StartMySQL()
+
+        Using p As Process = New Process()
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .Arguments = $" -u root --port={Settings.MySqlRegionDBPort}",
+                .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysql.exe") & """",
+                .UseShellExecute = True, ' so we can redirect streams and minimize
+                .WindowStyle = ProcessWindowStyle.Normal
+            }
+            p.StartInfo = pi
+            Try
+                p.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+    End Sub
+
     Public Function MysqlGetPartner(p1 As String, mysetting As MySettings) As String
 
         If mysetting Is Nothing Then
@@ -633,8 +644,9 @@ Public Module MysqlInterface
 
     End Function
 
+    '' !!! Deprecated
     ''' <summary>
-    ''' Retiurns boolean if a region excists in the regions table
+    ''' Returns boolean if a region exists in the regions table
     ''' </summary>
     ''' <param name="UUID">Region UUID</param>
     ''' <returns>True is region is in table</returns>
@@ -645,6 +657,34 @@ Public Module MysqlInterface
             Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
                 MysqlConn.Open()
                 Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            count = CInt(reader.GetInt16("cnt"))
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return CBool(count)
+
+    End Function
+
+    ''' <summary>
+    ''' Returns boolean if a region exists in the regions table
+    ''' </summary>
+    ''' <param name="UUID">Region UUID</param>
+    ''' <returns>True is region is in table</returns>
+    Public Function RegionIsRegisteredOnline(UUID As String) As Boolean
+
+        Dim count As Integer
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID and flags & 4 = 4"
                 Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -712,6 +752,15 @@ Public Module MysqlInterface
         End Using
 
     End Sub
+
+    Public Function UnixTimeStampToDateTime(unixTimeStamp As Double) As DateTime
+
+        ' Unix timestamp Is seconds past epoch
+        Dim dtDateTime As System.DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)
+        dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime()
+        Return dtDateTime
+
+    End Function
 
     Public Function WhereisAgent(agentName As String) As String
 
