@@ -17,39 +17,42 @@ Module Teleport
             For Each Keypair In TeleportAvatarDict
                 Dim AgentID = Keypair.Key
                 Dim RegionToUUID = Keypair.Value
-                Dim Name = PropRegionClass.RegionName(RegionToUUID)
                 Dim status = PropRegionClass.Status(RegionToUUID)
-                Debug.Print($"Teleport to {Name} = {GetStateString(status)}")
+                Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
 
                 If status = RegionMaker.SIMSTATUSENUM.Booted Then
-                    Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
-                    If DestinationName.Length > 0 Then
-                        Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
-                        Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
-                        Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
-                        If RegionIsRegistered(RegionToUUID) Then
+
+                    Debug.Print($"Teleport to {DestinationName} = {GetStateString(status)}")
+                    Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
+                    Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
+                    Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
+                    If fromName.Length > 0 Then
+
+                        ' Double Check region
+                        If RegionIsRegisteredOnline(RegionToUUID) Then
                             If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
                                 Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
+                                Fin.Add(AgentID)
                             Else
                                 Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
                                 BreakPoint.Show("Unable to locate region " & RegionToUUID)
+                                Fin.Add(AgentID)
                             End If
-                            Fin.Add(AgentID)
                         Else
-                            BreakPoint.Show("Region is not registered yet teleport was requested:" & RegionToUUID)
-                            Fin.Add(AgentID)
+                            BreakPoint.Show("Region is not registered online yet it was ready for logins?:" & RegionToUUID)
+                            'Fin.Add(AgentID)
                         End If
                     Else
-                        Fin.Add(AgentID)
-                        BreakPoint.Show("Region stopped with a Teleport request outstanding:" & RegionToUUID)
+                        Fin.Add(AgentID) ' cancel this, the agent is not anywhere online we can get to
                     End If
+
                 ElseIf status = RegionMaker.SIMSTATUSENUM.Stopped Then
                     Fin.Add(AgentID) ' cancel this, the region went away
                 End If
             Next
         Catch
         End Try
-        ' rem from to list as they have moved on
+        ' rem from the to list as they have moved on
         For Each str As String In Fin
             Logger("Teleport Done", str, "Teleport")
             TeleportAvatarDict.Remove(str)
