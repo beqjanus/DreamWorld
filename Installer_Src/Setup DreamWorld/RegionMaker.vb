@@ -369,6 +369,18 @@ Public Class RegionMaker
 
     End Sub
 
+    Public Function AvatarsIsInGroup(groupname As String) As Boolean
+
+        Dim present As Integer = 0
+        For Each RegionUUID As String In RegionUuidListByName(groupname)
+            If IsAgentInRegion(RegionUUID) Then
+                present += 1
+            End If
+        Next
+        Return CType(present, Boolean)
+
+    End Function
+
     Public Function AvatarIsNearby(RegionUUID As String) As Boolean
 
         Dim Xloc = PropRegionClass.CoordX(RegionUUID)
