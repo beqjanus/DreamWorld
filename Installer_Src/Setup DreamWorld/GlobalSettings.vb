@@ -123,7 +123,7 @@ Module GlobalSettings
             Return _UpdateView
         End Get
         Set(ByVal Value As Boolean)
-            If Debugger.IsAttached Then Diagnostics.Debug.Print("View refresh")
+            'If Debugger.IsAttached Then Diagnostics.Debug.Print("View refresh")
             _UpdateView = Value
         End Set
     End Property

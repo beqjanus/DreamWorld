@@ -671,7 +671,6 @@ Public Class FormSetup
                     If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
                         Exit For
                     End If
-
                 End If
             End If
 
@@ -705,8 +704,6 @@ Public Class FormSetup
         End If
 
         TextPrint(My.Resources.Starting_word)
-
-        'PropRegionClass.RegionEnabled(RegionUUID) = True
 
         PropExitHandlerIsBusy = False
         PropAborting = False  ' suppress exit warning messages
@@ -997,6 +994,10 @@ Public Class FormSetup
     End Sub
 
     Private Sub ExitHandlerPoll()
+
+        If PropExitHandlerIsBusy = True Then Return
+
+        PropExitHandlerIsBusy = True
 
         Dim GroupName As String = ""
 
@@ -1702,9 +1703,9 @@ Public Class FormSetup
         ChartWrapper2.AddMarkers = True
         ChartWrapper2.MarkerFreq = 60
 
-        If Settings.RegionListVisible Then
-            ShowRegionform()
-        End If
+        'If Settings.RegionListVisible Then
+        'ShowRegionform()
+        'End If
 
         TextPrint(My.Resources.Checking_MySql_word)
         Application.DoEvents()
@@ -2561,7 +2562,7 @@ Public Class FormSetup
 
         Chart() ' do charts collection each second
 
-        If TimerBusy > 0 And TimerBusy < 10 Then
+        If TimerBusy > 0 And TimerBusy < 60 Then
             Diagnostics.Debug.Print("Ticker busy")
             TimerBusy += 1
             Timer1.Interval += 100
@@ -2571,13 +2572,11 @@ Public Class FormSetup
 
         Timer1.Interval = 1000
         TimerBusy = 1
+        PropRegionClass.CheckPost() ' get the stack filled ASAP
+        TeleportAgents()
 
         If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
-            PropRegionClass.CheckPost() ' get the stack filled ASAP
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
-            TeleportAgents()
-            RestartDOSboxes()
-            CalcDiskFree()
         End If
 
         Dim thisDate As Date = Now
@@ -2591,12 +2590,16 @@ Public Class FormSetup
 
         ' 10 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
+            RestartDOSboxes()
+            CalcDiskFree()
             ScanAgents() ' update agent count seconds
         End If
 
         ' every minute and at startup
         If SecondsTicker Mod 60 = 0 Then
-            CalcCPU() ' get a list of running opensim processes
+            If Settings.RegionListVisible Then
+                CalcCPU()
+            End If
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
             ScanOpenSimWorld(CBool(SecondsTicker = 0))

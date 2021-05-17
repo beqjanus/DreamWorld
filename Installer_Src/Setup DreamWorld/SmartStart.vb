@@ -425,6 +425,7 @@ Module SmartStart
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeHideWindow())
+
                 PropUpdateView = True ' make form refresh
                 Return True
             End If
@@ -498,6 +499,7 @@ Module SmartStart
                 BreakPoint.Show("No PID for " & GroupName)
             End If
 
+            AddCPU(PID, GroupName) ' get a list of running opensim processes
             For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                 PropRegionClass.ProcessID(UUID) = PID
             Next
