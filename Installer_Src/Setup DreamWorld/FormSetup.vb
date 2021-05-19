@@ -192,7 +192,6 @@ Public Class FormSetup
         End Set
     End Property
 
-
     Public Property PropIPv4Address() As String
         Get
             Return _IPv4Address
@@ -673,37 +672,6 @@ Public Class FormSetup
 
     End Function
 
-    ''' <summary>
-    ''' Checks if a region died, and calculates CPU counters, which is a very timne consuming process
-    ''' </summary>
-    Private Sub StartThreads()
-
-        ' start a thread to see if a region has crashed, if so, add it to an exit list
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start As ParameterizedThreadStart = AddressOf DidItDie
-#Enable Warning BC42016 ' Implicit conversion
-        Dim DeathThread = New Thread(start)
-        DeathThread.SetApartmentState(ApartmentState.STA)
-        DeathThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-        DeathThread.Start(PropExitList)
-
-
-
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
-#Enable Warning BC42016 ' Implicit conversion
-        Dim WebThread = New Thread(start1)
-        WebThread.SetApartmentState(ApartmentState.STA)
-        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-
-        Dim O As New CPUStuff With {
-            .CounterList = CounterList,
-            .CPUValues = CPUValues,
-            .PropInstanceHandles = PropInstanceHandles
-        }
-        WebThread.Start(O)
-
-    End Sub
     ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
     Public Sub Startup()
 
@@ -819,9 +787,77 @@ Public Class FormSetup
 
     End Sub
 
+    ''' <summary>
+    ''' Checks if a region died, and calculates CPU counters, which is a very timne consuming process
+    ''' </summary>
+    Private Sub StartThreads()
+
+        ' start a thread to see if a region has crashed, if so, add it to an exit list
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start As ParameterizedThreadStart = AddressOf DidItDie
+#Enable Warning BC42016 ' Implicit conversion
+        Dim DeathThread = New Thread(start)
+        DeathThread.SetApartmentState(ApartmentState.STA)
+        DeathThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        DeathThread.Start(PropExitList)
+
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
+#Enable Warning BC42016 ' Implicit conversion
+        Dim WebThread = New Thread(start1)
+        WebThread.SetApartmentState(ApartmentState.STA)
+        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+
+        Dim O As New CPUStuff With {
+            .CounterList = CounterList,
+            .CPUValues = CPUValues,
+            .PropInstanceHandles = PropInstanceHandles
+        }
+        WebThread.Start(O)
+
+    End Sub
+
 #End Region
 
 #Region "Misc"
+
+    Public Shared Sub DidItDie(PropExitList As Dictionary(Of String, String))
+
+        While PropOpensimIsRunning
+            ' check to see if a handle to all regions exists. If not, then is died.
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
+                Application.DoEvents()
+
+                If Not PropOpensimIsRunning() Then Return
+                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+
+                Dim status = PropRegionClass.Status(RegionUUID)
+                If CBool((status = RegionMaker.SIMSTATUSENUM.Booted) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.Booting) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.NoError) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.Suspended)) Then
+
+                    Dim G = PropRegionClass.GroupName(RegionUUID)
+
+                    If GetHwnd(G) = IntPtr.Zero Then
+                        Try
+                            If Not PropExitList.ContainsKey(G) Then
+                                PropExitList.Add(G, "Exit")
+                            End If
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+                    End If
+                End If
+
+            Next
+            Sleep(1000)
+        End While
+
+    End Sub
 
     Public Sub ToolBar(visible As Boolean)
 
@@ -1016,44 +1052,6 @@ Public Class FormSetup
 
     End Sub
 
-    Public Sub DidItDie(PropExitList As Dictionary(Of String, String))
-
-        While PropOpensimIsRunning
-            ' check to see if a handle to all regions exists. If not, then is died.
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
-                Application.DoEvents()
-
-                If Not PropOpensimIsRunning() Then Return
-                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
-
-                Dim status = PropRegionClass.Status(RegionUUID)
-                If CBool((status = RegionMaker.SIMSTATUSENUM.Booted) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.Booting) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.NoError) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.Suspended)) Then
-
-                    Dim G = PropRegionClass.GroupName(RegionUUID)
-
-                    If GetHwnd(G) = IntPtr.Zero Then
-                        Try
-                            If Not PropExitList.ContainsKey(G) Then
-                                PropExitList.Add(G, "Exit")
-                            End If
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End If
-                End If
-
-            Next
-            Sleep(1000)
-        End While
-
-    End Sub
-
     Private Sub ExitHandlerPoll()
 
         If PropExitHandlerIsBusy = True Then Return
@@ -1097,7 +1095,6 @@ Public Class FormSetup
 
         'Bench.Print("Bootedlist")
 
-
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
 
@@ -1106,7 +1103,6 @@ Public Class FormSetup
 
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             GroupName = PropRegionClass.GroupName(RegionUUID)
-
 
             Dim status = PropRegionClass.Status(RegionUUID)
             ' Smart Start Timer
@@ -1363,7 +1359,7 @@ Public Class FormSetup
             End If
             PropUpdateView = True
         End While
-        'Bench.Print("State Machine")        
+        'Bench.Print("State Machine")
         'Diagnostics.Debug.Print("ExitHandlerPoll End")
 
         PropExitHandlerIsBusy = False

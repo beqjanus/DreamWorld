@@ -3042,4 +3042,13 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>半径</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>层级</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>年龄</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>生日</value>
+  </data>
 </root>

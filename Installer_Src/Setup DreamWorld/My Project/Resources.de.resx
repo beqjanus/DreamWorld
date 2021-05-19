@@ -3042,4 +3042,16 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Radius</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Niveau</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Alter</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Geburtstag</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Bitte warten Sie, bis Robust vollständig gestartet ist. Dies kann einige Minuten dauern.</value>
+  </data>
 </root>

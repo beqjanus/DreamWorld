@@ -3043,4 +3043,16 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Radi</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Nivell</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Edat</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Aniversari</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Espereu fins que Robust s'iniciï completament. Això pot trigar uns minuts.</value>
+  </data>
 </root>

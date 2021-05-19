@@ -3042,4 +3042,13 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Bán kính</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Mức</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Tuổi</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Sinh nhật</value>
+  </data>
 </root>

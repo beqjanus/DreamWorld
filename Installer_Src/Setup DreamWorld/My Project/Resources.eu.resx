@@ -3042,4 +3042,13 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Erradioa</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Maila:</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Antzinatasuna</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Jaiotza-data</value>
+  </data>
 </root>

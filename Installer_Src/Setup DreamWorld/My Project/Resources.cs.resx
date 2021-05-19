@@ -3042,4 +3042,16 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Poloměr</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Úroveň</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Stáří</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Narozeniny</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Počkejte, až se Robust úplně spustí. To může trvat několik minut.</value>
+  </data>
 </root>

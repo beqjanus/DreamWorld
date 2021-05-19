@@ -3042,4 +3042,13 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Säde</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Taso</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Ikä</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Syntymäpäivä</value>
+  </data>
 </root>
