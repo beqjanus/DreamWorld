@@ -1171,9 +1171,9 @@ namespace OpenSim.Region.Framework.Scenes
 
                 m_ALT_Enabled = startupConfig.GetBoolean("SmartStart", m_ALT_Enabled);
                 if (m_ALT_Enabled)
-                    m_log.Info("[AutoLoadTeleport]: Enabled");
+                    m_log.Info("[SmartStart]: Enabled");
                 else
-                    m_log.Info("[AutoLoadTeleport]: Disabled");
+                    m_log.Info("[SmartStart]: Disabled");
 
                 // Get the http port to talk to from Const Section
                 IConfig ConstConfig = m_config.Configs["Const"];
