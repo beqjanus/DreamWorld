@@ -179,12 +179,12 @@ namespace OpenSim.Services.HypergridService
 
                 // Auto Load Teleport
 
-                IConfig ALTConfig = config.Configs["AutoLoadTeleport"];    // get data from
+                IConfig ALTConfig = config.Configs["SmartStart"];    // get data from
 
                 m_ALT_Enabled = ALTConfig.GetBoolean("Enabled", true);
                 if (m_ALT_Enabled)
                 {
-                    m_log.Info("[AutoLoadTeleport]: Enabled");
+                    m_log.Info("[SmartStart]: Enabled");
 
                     // Get the http port to talk to from Const Section
                     IConfig ConstConfig = config.Configs["Const"];
@@ -194,7 +194,7 @@ namespace OpenSim.Services.HypergridService
                 }
                 else
                 {
-                    m_log.Info("[AutoLoadTeleport]: Disabled");
+                    m_log.Info("[SmartStart]: Disabled");
                 }
 
                 // </Auto Load Teleport>

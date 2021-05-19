@@ -893,7 +893,7 @@ SMTP_SERVER_PASSWORD=Gmail password
 
 ;; Set to True to enable Smart Start
 ;; Set by Dreamgrid
-[AutoLoadTeleport]
+[SmartStart]
 Enabled=False
 
 ;; For Joomla/jOpensim

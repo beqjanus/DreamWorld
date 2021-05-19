@@ -4,18 +4,24 @@ Module DNS
 
     Public Function GetNewDnsName() As String
 
-        Dim client As New WebClient
-        Dim Checkname As String
-        Try
-            Checkname = client.DownloadString("http://ns1.outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            ErrorLog("Error:Cannot get new name:" & ex.Message)
-            client.Dispose()
-            Return ""
-        End Try
-        client.Dispose()
-        Return Checkname
+        Using client As New WebClient
+            Dim Checkname As String
+            Try
+                Checkname = client.DownloadString("http://ns1.outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
+            Catch ex As Exception
+                Try
+                    Checkname = client.DownloadString("http://ns2.outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
+                Catch ex1 As Exception
+                    ErrorLog("Warn: Cannot get new name:" & ex1.Message)
+                    Return ""
+                End Try
+                BreakPoint.Show(ex.Message)
+                ErrorLog("Error:Cannot get new name:" & ex.Message)
+                Return ""
+            End Try
+        End Using
+
+        Return ""
 
     End Function
 
