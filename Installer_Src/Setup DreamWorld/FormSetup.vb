@@ -26,7 +26,7 @@ Public Class FormSetup
 
     Private WithEvents UpdateProcess As New Process()
     Private ReadOnly _exitList As New Dictionary(Of String, String)
-    Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
+
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
@@ -192,11 +192,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
-        Get
-            Return _regionHandles
-        End Get
-    End Property
 
     Public Property PropIPv4Address() As String
         Get
@@ -628,26 +623,7 @@ Public Class FormSetup
 
         PropOpensimIsRunning = True
 
-        ' start a thread to see if a region has crashed, if so, add it to an exit list
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start As ParameterizedThreadStart = AddressOf DidItDie
-#Enable Warning BC42016 ' Implicit conversion
-        Dim DeathThread = New Thread(start)
-        DeathThread.SetApartmentState(ApartmentState.STA)
-        DeathThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-        DeathThread.Start(PropExitList)
-
-
-
-#Disable Warning BC42016 ' Implicit conversion
-        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
-#Enable Warning BC42016 ' Implicit conversion
-        Dim WebThread = New Thread(start1)
-        WebThread.SetApartmentState(ApartmentState.STA)
-        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
-        WebThread.Start(CounterList)
-
-
+        StartThreads()
 
         Dim l = PropRegionClass.RegionUuids()
 
@@ -697,6 +673,37 @@ Public Class FormSetup
 
     End Function
 
+    ''' <summary>
+    ''' Checks if a region died, and calculates CPU counters, which is a very timne consuming process
+    ''' </summary>
+    Private Sub StartThreads()
+
+        ' start a thread to see if a region has crashed, if so, add it to an exit list
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start As ParameterizedThreadStart = AddressOf DidItDie
+#Enable Warning BC42016 ' Implicit conversion
+        Dim DeathThread = New Thread(start)
+        DeathThread.SetApartmentState(ApartmentState.STA)
+        DeathThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        DeathThread.Start(PropExitList)
+
+
+
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
+#Enable Warning BC42016 ' Implicit conversion
+        Dim WebThread = New Thread(start1)
+        WebThread.SetApartmentState(ApartmentState.STA)
+        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+
+        Dim O As New CPUStuff With {
+            .CounterList = CounterList,
+            .CPUValues = CPUValues,
+            .PropInstanceHandles = PropInstanceHandles
+        }
+        WebThread.Start(O)
+
+    End Sub
     ''' <summary>Startup() Starts opensimulator system Called by Start Button or by AutoStart</summary>
     Public Sub Startup()
 

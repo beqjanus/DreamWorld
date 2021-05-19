@@ -3,10 +3,24 @@ Imports System.Threading
 
 Module CPUCounter
 
+    Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
     Private ReadOnly _counterList As New Dictionary(Of String, PerformanceCounter)
     Private ReadOnly _PCList As New Dictionary(Of Integer, PerformanceCounter)
     Private ReadOnly _CPUValues As New Dictionary(Of String, Double)
-    Private OpensimProcesses() As Process
+
+    Public Class CPUStuff
+        Public CounterList As Dictionary(Of String, PerformanceCounter)
+        Public CPUValues As Dictionary(Of String, Double)
+        Public PropInstanceHandles As Dictionary(Of Integer, String)
+    End Class
+
+
+    Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
+        Get
+            Return _regionHandles
+        End Get
+    End Property
+
     Public ReadOnly Property CounterList As Dictionary(Of String, PerformanceCounter)
         Get
             Return _counterList
@@ -39,57 +53,56 @@ Module CPUCounter
     End Sub
 
 
-    Public Sub CalcCPU(CounterList As Dictionary(Of String, PerformanceCounter))
+    Public Sub CalcCPU(O As CPUStuff)
 
         While PropOpensimIsRunning
 
             If Settings.RegionListVisible Then
 
-                Dim OpensimProcesses = Process.GetProcessesByName("Opensim")
+                Dim OpensimProcesses() = Process.GetProcessesByName("Opensim")
                 Try
                     For Each p As Process In OpensimProcesses
-                        Thread.Sleep(10)
-                        Debug.Print(FormSetup.PropInstanceHandles.Count)
+                        Thread.Sleep(100)
 
-                        If FormSetup.PropInstanceHandles.ContainsKey(p.Id) Then
-                            Dim Gname As String = FormSetup.PropInstanceHandles.Item(p.Id)
+                        If PropInstanceHandles.ContainsKey(p.Id) Then
+                            Dim Gname As String = O.PropInstanceHandles.Item(p.Id)
                             Dim c As PerformanceCounter = Nothing
-                            If Not CounterList.ContainsKey(Gname) Then
+                            If Not O.CounterList.ContainsKey(Gname) Then
                                 Try
                                     Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-                                        CounterList.Add(Gname, counter)
+                                        O.CounterList.Add(Gname, counter)
                                         counter.NextValue() ' start the counter
                                     End Using
                                 Catch ex As Exception
-                                    CounterList.Item(Gname).Close()
-                                    CounterList.Remove(Gname)
-                                    CPUValues.Remove(Gname)
+                                    O.CounterList.Item(Gname).Close()
+                                    O.CounterList.Remove(Gname)
+                                    O.CPUValues.Remove(Gname)
                                     Continue For
                                 End Try
                             End If
 
                             If Not CPUValues.ContainsKey(Gname) Then
-                                CPUValues.Add(Gname, 0)
-                                '                    Else
+                                O.CPUValues.Add(Gname, 0)
+
                                 Dim a As Double
                                 Try
-                                    a = CDbl(CounterList.Item(Gname).NextValue())
+                                    a = CDbl(O.CounterList.Item(Gname).NextValue())
                                 Catch ex As Exception
-                                    CounterList.Item(Gname).Close()
+                                    O.CounterList.Item(Gname).Close()
                                 End Try
 
                                 Dim b = (a / Environment.ProcessorCount)
-                                CPUValues.Item(Gname) = Math.Round(b, 3)
+                                O.CPUValues.Item(Gname) = Math.Round(b, 3)
                             End If
                         End If
                     Next
                 Catch ex As Exception
                     'BreakPoint.Show(ex.Message)
-                    CounterList.Clear()
-                    CPUValues.Clear()
+                    O.CounterList.Clear()
+                    O.CPUValues.Clear()
                 End Try
             End If
-            thread.Sleep(15000)
+            Thread.Sleep(1000)
 
         End While
 

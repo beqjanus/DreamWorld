@@ -404,8 +404,8 @@ Module SmartStart
                 Logger("Suspended, Resuming it", BootName, "Teleport")
 
                 Dim PID As Integer = GetPIDofWindow(GroupName)
-                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then
-                    FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                If Not PropInstanceHandles.ContainsKey(PID) Then
+                    PropInstanceHandles.Add(PID, GroupName)
                 End If
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
@@ -420,8 +420,8 @@ Module SmartStart
             Else    ' needs to be captured into the event handler
                 TextPrint(BootName & " " & My.Resources.Running_word)
                 Dim PID As Integer = GetPIDofWindow(GroupName)
-                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then
-                    FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                If Not PropInstanceHandles.ContainsKey(PID) Then
+                    PropInstanceHandles.Add(PID, GroupName)
                 End If
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
@@ -492,8 +492,8 @@ Module SmartStart
                         ErrorLog($"BIG timeout setting title of {GroupName }")
                     End If
                 End If
-                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then
-                    FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                If Not PropInstanceHandles.ContainsKey(PID) Then
+                    PropInstanceHandles.Add(PID, GroupName)
                 End If
                 ' Mark them before we boot as a crash will immediately trigger the event that it exited
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
