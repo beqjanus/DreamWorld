@@ -391,7 +391,7 @@ Module Robust
         Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
         Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
 
-        Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))
+        Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))  ' FKB
         Settings.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
 
         If Settings.CMS = JOpensim Then
@@ -412,7 +412,6 @@ Module Robust
             End If
         End If
 
-        Settings.SetIni("AutoLoadTeleport", "Enabled", CStr(Settings.SmartStart))
         Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         Settings.SaveINI(INI, System.Text.Encoding.UTF8)
