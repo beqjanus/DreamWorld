@@ -328,18 +328,6 @@ Public Class FormSetup
 
 #Region "Public Function"
 
-    Public Shared Function AvatarsIsInGroup(groupname As String) As Boolean
-
-        Dim present As Integer = 0
-        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(groupname)
-            If IsAgentInRegion(RegionUUID) Then
-                present += 1
-            End If
-        Next
-        Return CType(present, Boolean)
-
-    End Function
-
     Public Sub Buttons(b As Button)
 
         If b Is Nothing Then Return
@@ -1020,15 +1008,14 @@ Public Class FormSetup
 
             ' see how long it has been since we booted
             Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
-
             TextPrint($"{RegionName} {My.Resources.Running_word}: {CStr(seconds)} {My.Resources.Seconds_word}")
 
             If PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booting Or
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted Then
 
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
-                SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
                 PokeRegionTimer(Ruuid) ' keep alive
+                SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
             End If
 
             If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid).Length = 0 Then
@@ -1089,7 +1076,7 @@ Public Class FormSetup
                     And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
 
                 ' if anyone is in home stay alive
-                If AvatarsIsInGroup(GroupName) Then
+                If PropRegionClass.AvatarsIsInGroup(GroupName) Then
                     PokeRegionTimer(RegionUUID)
                     Continue For
                 End If
@@ -1125,7 +1112,7 @@ Public Class FormSetup
                 And Settings.AutoRestartInterval() > 0 _
                 And Settings.AutoRestartEnabled Then
 
-                If Not AvatarsIsInGroup(GroupName) Then
+                If Not PropRegionClass.AvatarsIsInGroup(GroupName) Then
 
                     ' shut down the group when AutoRestartInterval has gone by.
                     Logger("State is Time Exceeded, shutdown", GroupName, "Teleport")
@@ -2978,7 +2965,7 @@ Public Class FormSetup
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             Dim Status = PropRegionClass.Status(RegionUUID)
 
-            If PropRegionClass.RegionEnabled(RegionUUID) And AvatarsIsInGroup(GroupName) Then
+            If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.AvatarsIsInGroup(GroupName) Then
                 TextPrint("People are in " & GroupName)
                 Continue For
             End If

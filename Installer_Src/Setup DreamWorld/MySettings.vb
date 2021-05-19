@@ -1954,7 +1954,7 @@ Public Class MySettings
 
     Public Property SmartStartTimeout() As Integer
         Get
-            Return CInt("0" & GetMySetting("SmartStartTimeout", "30"))
+            Return CInt("0" & GetMySetting("SmartStartTimeout", "60"))
         End Get
         Set
             SetMySetting("SmartStartTimeout", CType(Value, String))
@@ -2260,11 +2260,9 @@ Public Class MySettings
     ''' <param name="INI">Path to file</param>
     ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
     ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
-    '''
-#Disable Warning CA1822
-
+    ''
     Public Sub Grep(INI As String, LL As String)
-#Enable Warning CA1822
+
         If INI Is Nothing Then Return
         Dim Retry = 100 ' 10 sec
 
