@@ -19,7 +19,9 @@ Module Teleport
                 Dim RegionToUUID = Keypair.Value
                 Dim status = PropRegionClass.Status(RegionToUUID)
                 Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
-
+                If status = RegionMaker.SIMSTATUSENUM.Booting Then
+                    PokeRegionTimer(RegionToUUID)
+                End If
                 If status = RegionMaker.SIMSTATUSENUM.Booted Then
 
                     Debug.Print($"Teleport to {DestinationName} = {GetStateString(status)}")

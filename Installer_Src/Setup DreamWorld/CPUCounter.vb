@@ -62,8 +62,6 @@ Module CPUCounter
                 Dim OpensimProcesses() = Process.GetProcessesByName("Opensim")
                 Try
                     For Each p As Process In OpensimProcesses
-                        Thread.Sleep(100)
-
                         If PropInstanceHandles.ContainsKey(p.Id) Then
                             Dim Gname As String = O.PropInstanceHandles.Item(p.Id)
                             Dim c As PerformanceCounter = Nothing
@@ -83,7 +81,7 @@ Module CPUCounter
 
                             If Not CPUValues.ContainsKey(Gname) Then
                                 O.CPUValues.Add(Gname, 0)
-
+                            Else
                                 Dim a As Double
                                 Try
                                     a = CDbl(O.CounterList.Item(Gname).NextValue())
@@ -95,6 +93,7 @@ Module CPUCounter
                                 O.CPUValues.Item(Gname) = Math.Round(b, 3)
                             End If
                         End If
+                        Thread.Sleep(100)
                     Next
                 Catch ex As Exception
                     'BreakPoint.Show(ex.Message)
