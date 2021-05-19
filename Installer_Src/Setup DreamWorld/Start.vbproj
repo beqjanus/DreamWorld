@@ -311,6 +311,7 @@
     <Compile Include="Apache.vb" />
     <Compile Include="Backup.vb" />
     <Compile Include="Backups.vb" />
+    <Compile Include="Banchmark.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="FormDebug.Designer.vb">

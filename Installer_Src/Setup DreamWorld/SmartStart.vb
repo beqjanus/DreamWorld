@@ -403,7 +403,9 @@ Module SmartStart
                 Logger("Suspended, Resuming it", BootName, "Teleport")
 
                 Dim PID As Integer = GetPIDofWindow(GroupName)
-                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then
+                    FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                End If
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
@@ -417,7 +419,9 @@ Module SmartStart
             Else    ' needs to be captured into the event handler
                 TextPrint(BootName & " " & My.Resources.Running_word)
                 Dim PID As Integer = GetPIDofWindow(GroupName)
-                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                If Not FormSetup.PropInstanceHandles.ContainsKey(PID) Then
+                    FormSetup.PropInstanceHandles.Add(PID, GroupName)
+                End If
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
                     PokeRegionTimer(UUID)

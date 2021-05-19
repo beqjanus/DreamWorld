@@ -1,4 +1,5 @@
 ﻿Imports System.Diagnostics.Process
+Imports System.Threading
 
 Module CPUCounter
 
@@ -38,49 +39,60 @@ Module CPUCounter
     End Sub
 
 
-    Public Sub CalcCPU()
+    Public Sub CalcCPU(CounterList As Dictionary(Of String, PerformanceCounter))
 
-        OpensimProcesses = Process.GetProcessesByName("Opensim")
-        Try
-            For Each p As Process In OpensimProcesses
+        While PropOpensimIsRunning
 
-                If FormSetup.PropInstanceHandles.ContainsKey(p.Id) Then
-                    Dim Gname As String = FormSetup.PropInstanceHandles.Item(p.Id)
-                    Dim c As PerformanceCounter = Nothing
-                    If Not CounterList.ContainsKey(Gname) Then
-                        Try
-                            Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
-                                CounterList.Add(Gname, counter)
-                                counter.NextValue() ' start the counter
-                            End Using
-                        Catch ex As Exception
-                            CounterList.Item(Gname).Close()
-                            CounterList.Remove(Gname)
-                            CPUValues.Remove(Gname)
-                            Continue For
-                        End Try
-                    End If
+            If Settings.RegionListVisible Then
 
-                    If Not CPUValues.ContainsKey(Gname) Then
-                        CPUValues.Add(Gname, 0)
-                        '                    Else
-                        Dim a As Double
-                        Try
-                            a = CDbl(CounterList.Item(Gname).NextValue())
-                        Catch ex As Exception
-                            CounterList.Item(Gname).Close()
-                        End Try
+                Dim OpensimProcesses = Process.GetProcessesByName("Opensim")
+                Try
+                    For Each p As Process In OpensimProcesses
+                        Thread.Sleep(10)
+                        Debug.Print(FormSetup.PropInstanceHandles.Count)
 
-                        Dim b = (a / Environment.ProcessorCount)
-                        CPUValues.Item(Gname) = Math.Round(b, 3)
-                    End If
-                End If
-            Next
-        Catch ex As Exception
-            'BreakPoint.Show(ex.Message)
-            CounterList.Clear()
-            CPUValues.Clear()
-        End Try
+                        If FormSetup.PropInstanceHandles.ContainsKey(p.Id) Then
+                            Dim Gname As String = FormSetup.PropInstanceHandles.Item(p.Id)
+                            Dim c As PerformanceCounter = Nothing
+                            If Not CounterList.ContainsKey(Gname) Then
+                                Try
+                                    Using counter As PerformanceCounter = GetPerfCounterForProcessId(p.Id)
+                                        CounterList.Add(Gname, counter)
+                                        counter.NextValue() ' start the counter
+                                    End Using
+                                Catch ex As Exception
+                                    CounterList.Item(Gname).Close()
+                                    CounterList.Remove(Gname)
+                                    CPUValues.Remove(Gname)
+                                    Continue For
+                                End Try
+                            End If
+
+                            If Not CPUValues.ContainsKey(Gname) Then
+                                CPUValues.Add(Gname, 0)
+                                '                    Else
+                                Dim a As Double
+                                Try
+                                    a = CDbl(CounterList.Item(Gname).NextValue())
+                                Catch ex As Exception
+                                    CounterList.Item(Gname).Close()
+                                End Try
+
+                                Dim b = (a / Environment.ProcessorCount)
+                                CPUValues.Item(Gname) = Math.Round(b, 3)
+                            End If
+                        End If
+                    Next
+                Catch ex As Exception
+                    'BreakPoint.Show(ex.Message)
+                    CounterList.Clear()
+                    CPUValues.Clear()
+                End Try
+            End If
+            thread.Sleep(15000)
+
+        End While
+
     End Sub
 
     Public Function GetInstanceNameForProcessId(ByVal processId As Integer) As String

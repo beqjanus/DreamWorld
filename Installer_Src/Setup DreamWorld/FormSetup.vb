@@ -30,9 +30,7 @@ Public Class FormSetup
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
-    Private ReadOnly ExitInterval As Integer = 2
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
-
     Private ReadOnly MyCPUCollection As New List(Of Double)
     Private ReadOnly MyRAMCollection As New List(Of Double)
     Private _Adv As FormSettings
@@ -43,11 +41,8 @@ Public Class FormSetup
     Private _ExitHandlerIsBusy As Boolean
     Private _IcecastCrashCounter As Integer
     Private _IceCastExited As Boolean
-
     Private _IPv4Address As String
-
     Private _KillSource As Boolean
-
     Private _OpensimBinPath As String
     Private _regionForm As FormRegionlist
     Private _RestartApache As Boolean
@@ -56,9 +51,7 @@ Public Class FormSetup
     Private _StopMysql As Boolean = True
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
-#Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
-#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ScreenPos
 
 #End Region
@@ -633,6 +626,29 @@ Public Class FormSetup
 
         PropRegionClass.CheckOverLap()
 
+        PropOpensimIsRunning = True
+
+        ' start a thread to see if a region has crashed, if so, add it to an exit list
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start As ParameterizedThreadStart = AddressOf DidItDie
+#Enable Warning BC42016 ' Implicit conversion
+        Dim DeathThread = New Thread(start)
+        DeathThread.SetApartmentState(ApartmentState.STA)
+        DeathThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        DeathThread.Start(PropExitList)
+
+
+
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
+#Enable Warning BC42016 ' Implicit conversion
+        Dim WebThread = New Thread(start1)
+        WebThread.SetApartmentState(ApartmentState.STA)
+        WebThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        WebThread.Start(CounterList)
+
+
+
         Dim l = PropRegionClass.RegionUuids()
 
         If Settings.ServerType = RobustServerName Then
@@ -993,14 +1009,57 @@ Public Class FormSetup
 
     End Sub
 
+    Public Sub DidItDie(PropExitList As Dictionary(Of String, String))
+
+        While PropOpensimIsRunning
+            ' check to see if a handle to all regions exists. If not, then is died.
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
+                Application.DoEvents()
+
+                If Not PropOpensimIsRunning() Then Return
+                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+
+                Dim status = PropRegionClass.Status(RegionUUID)
+                If CBool((status = RegionMaker.SIMSTATUSENUM.Booted) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.Booting) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.NoError) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
+                        Or (status = RegionMaker.SIMSTATUSENUM.Suspended)) Then
+
+                    Dim G = PropRegionClass.GroupName(RegionUUID)
+
+                    If GetHwnd(G) = IntPtr.Zero Then
+                        Try
+                            If Not PropExitList.ContainsKey(G) Then
+                                PropExitList.Add(G, "Exit")
+                            End If
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+                    End If
+                End If
+
+            Next
+            Sleep(1000)
+        End While
+
+    End Sub
+
     Private Sub ExitHandlerPoll()
 
         If PropExitHandlerIsBusy = True Then Return
 
         PropExitHandlerIsBusy = True
 
+        'Diagnostics.Debug.Print("ExitHandlerPoll Start")
+
+        'Dim Bench As New Benchmark()
+
         Dim GroupName As String = ""
 
+        'Bench.Start()
         ' booted regions from web server
         While BootedList1.Count > 0
             Dim Ruuid As String = BootedList1(0)
@@ -1029,38 +1088,20 @@ Public Class FormSetup
             PropUpdateView = True
         End While
 
-        ' check to see if a handle to all regions exists. If not, then is died.
+        'Bench.Print("Bootedlist")
+
+
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-            Dim status = PropRegionClass.Status(RegionUUID)
-            If CBool((status = RegionMaker.SIMSTATUSENUM.Booted) _
-                    Or (status = RegionMaker.SIMSTATUSENUM.Booting) _
-                    Or (status = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
-                    Or (status = RegionMaker.SIMSTATUSENUM.NoError) _
-                    Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
-                    Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
-                    Or (status = RegionMaker.SIMSTATUSENUM.Suspended)) Then
-
-                Dim G = PropRegionClass.GroupName(RegionUUID)
-
-                If GetHwnd(G) = IntPtr.Zero Then
-                    Try
-                        If Not PropExitList.ContainsKey(G) Then
-                            PropExitList.Add(G, "Exit")
-                        End If
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                    End Try
-                End If
-            End If
-
-            If Not PropOpensimIsRunning() Then Exit For
+            If Not PropOpensimIsRunning() Then Return
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             GroupName = PropRegionClass.GroupName(RegionUUID)
 
+
+            Dim status = PropRegionClass.Status(RegionUUID)
             ' Smart Start Timer
             Dim SSExpired As Boolean
             If Settings.SmartStart Then
@@ -1176,6 +1217,8 @@ Public Class FormSetup
                 Continue For
             End If
         Next
+
+        ' Bench.Print("Timers")
 
         ' now look at the exit stack
         While PropExitList.Count > 0
@@ -1313,6 +1356,8 @@ Public Class FormSetup
             End If
             PropUpdateView = True
         End While
+        'Bench.Print("State Machine")        
+        'Diagnostics.Debug.Print("ExitHandlerPoll End")
 
         PropExitHandlerIsBusy = False
 
@@ -2563,19 +2608,17 @@ Public Class FormSetup
         Chart() ' do charts collection each second
 
         If TimerBusy > 0 And TimerBusy < 60 Then
-            Diagnostics.Debug.Print("Ticker busy")
+
             TimerBusy += 1
-            Timer1.Interval += 100
-            Diagnostics.Debug.Print("Timer Is Now at " & CStr(Timer1.Interval) & " ms")
+            Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
             Return
         End If
 
-        Timer1.Interval = 1000
         TimerBusy = 1
         PropRegionClass.CheckPost() ' get the stack filled ASAP
         TeleportAgents()
 
-        If SecondsTicker Mod ExitInterval = 0 And SecondsTicker > 0 Then
+        If SecondsTicker > 0 Then
             ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
         End If
 
@@ -2597,9 +2640,7 @@ Public Class FormSetup
 
         ' every minute and at startup
         If SecondsTicker Mod 60 = 0 Then
-            If Settings.RegionListVisible Then
-                CalcCPU()
-            End If
+
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
             ScanOpenSimWorld(CBool(SecondsTicker = 0))
