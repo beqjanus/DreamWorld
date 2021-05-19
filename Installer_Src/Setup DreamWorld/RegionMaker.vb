@@ -1840,6 +1840,9 @@ Public Class RegionMaker
             Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
             If INI Is Nothing Then Return True
 
+
+            If Settings.SetIni("Const", "MachineID", Settings.MachineID) Then Return True
+
             If Settings.StatusInterval > 0 Then
                 If Settings.SetIni("Startup", "timer_Script", "debug.txt") Then Return True
                 If Settings.SetIni("Startup", "timer_Interval", CStr(Settings.StatusInterval)) Then Return True
@@ -2216,7 +2219,9 @@ Public Class RegionMaker
                 End Select
             End If
 
-            If Settings.SetIni("Startup", "Enabled", SmartStart(uuid)) Then Return True
+            If Settings.SmartStart Then
+                If Settings.SetIni("Startup", "Enabled", SmartStart(uuid)) Then Return True
+            End If
 
             Settings.SaveINI(INI, System.Text.Encoding.UTF8)
 
