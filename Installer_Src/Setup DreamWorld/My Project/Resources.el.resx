@@ -3042,4 +3042,16 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Ακτίνα κύκλου</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Επίπεδο</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Ηλικία</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Γενέθλια</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Περιμένετε να εκκινήσει εντελώς το Robust. Αυτό μπορεί να διαρκέσει μερικά λεπτά.</value>
+  </data>
 </root>

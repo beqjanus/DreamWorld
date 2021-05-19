@@ -3042,4 +3042,13 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>Radius</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Niveau</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Âge</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Anniversaire</value>
+  </data>
 </root>

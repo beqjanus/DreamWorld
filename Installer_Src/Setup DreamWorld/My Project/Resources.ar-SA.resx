@@ -3042,4 +3042,16 @@
   <data name="Radius_Word" xml:space="preserve">
     <value>نصف القطر</value>
   </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>مستوى</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>سن</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>عيد ميلاد</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>يرجى الانتظار حتى يتم تشغيل Robust تمامًا. قد يستغرق هذا بضع دقائق.</value>
+  </data>
 </root>
