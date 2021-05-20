@@ -186,7 +186,8 @@ Module Robust
 
         ' Wait for Robust to start listening
         Dim counter = 0
-        While Not IsRobustRunning() And PropOpensimIsRunning
+        ' While Not IsRobustRunning() And PropOpensimIsRunning
+        While Not IsRobustRunning()
             Log("Error", Global.Outworldz.My.Resources.Waiting_on_Robust)
             Application.DoEvents()
             counter += 1
@@ -195,7 +196,7 @@ Module Robust
                 TextPrint("Robust " & Global.Outworldz.My.Resources.did_not_start_word)
             End If
 
-            If counter > 600 Then
+            If counter > 450 Then
                 TextPrint(My.Resources.Robust_failed_to_start)
                 FormSetup.Buttons(FormSetup.StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
@@ -214,7 +215,7 @@ Module Robust
                 Return False
             End If
 
-            Sleep(100)
+            Sleep(500)
         End While
 
         RobustIsStarting = False
@@ -434,13 +435,14 @@ Module Robust
         Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http://" & Settings.RobustServerIP & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+                ' Up = client.DownloadString("http://" & Settings.RobustServerIP & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
             Catch ex As Exception
-                If ex.Message.Contains("404") Then
-                    RobustIcon(True)
-                    Log("INFO", "Robust is running")
-                    Return True
-                End If
+                ' If ex.Message.Contains("404") Then
+                '   RobustIcon(True)
+                '   Log("INFO", "Robust is running")
+                '   Return True
+                ' End If
                 Log("INFO", "Robust is not running")
                 RobustIcon(False)
                 Return False
