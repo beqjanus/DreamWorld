@@ -229,11 +229,51 @@ Public Module MysqlInterface
 
     End Sub
 
-    ''' <summary>
-    ''' delete regions at specific locations
-    ''' </summary>
-    ''' <param name="X">X Location</param>
-    ''' <param name="Y">Y Location</param>
+    Public Function EstateID(UUID As String) As Integer
+
+        If Not IsMySqlRunning() Then Return 0
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+                MysqlConn.Open()
+                Dim stm = "select EstateID from opensim.estate_map where RegionID=@UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            Return CInt(reader.GetInt16("EstateID"))
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return 0
+
+    End Function
+
+    Public Function DeleteOpensimEstateID(UUID As String) As Integer
+
+        If Not IsMySqlRunning() Then Return 0
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+                MysqlConn.Open()
+                Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return 0
+
+    End Function
+
+
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID">Region UUID</param>
     ''' <returns>Estate Name as string</returns>
@@ -256,6 +296,8 @@ Public Module MysqlInterface
                             'Debug.Print("ID = {0}", reader.GetString(0))
                             Val = reader.GetString(0)
                             If Val.Length = 0 Then Return ""
+                        Else
+                            Return ""
                         End If
                     End Using
                 End Using
@@ -272,7 +314,6 @@ Public Module MysqlInterface
                 End Using
             End Using
         Catch ex As Exception
-            ErrorLog("Error: " & ex.ToString())
             Return ""
         End Try
         Return name
@@ -701,6 +742,26 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Sub SetEstate(UUID As String, EstateID As Integer)
+
+        If Not IsMySqlRunning() Then Return
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+                MysqlConn.Open()
+                Dim stm = "insert into EstateMap (RegionID, EstateID) values (@UUID, @EID)"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    cmd.Parameters.AddWithValue("@EID", EstateID)
+                    cmd.BeginExecuteNonQuery()
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
     Public Sub SetupMutelist()
 
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -835,8 +896,8 @@ Public Module MysqlInterface
     Private Sub MakeMysql()
 
         Dim fname As String = ""
-        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\")
-        If Not System.IO.File.Exists(m & "\Data\ibdata1") Then
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql")
+        If Not System.IO.File.Exists(IO.Path.Combine(m, "Data\ibdata1")) Then
             TextPrint(My.Resources.Create_DB)
             Try
                 Using zip As ZipFile = New ZipFile(IO.Path.Combine(m, "Blank-Mysql-Data-folder.zip"))

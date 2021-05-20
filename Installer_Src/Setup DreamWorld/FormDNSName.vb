@@ -75,9 +75,9 @@ Public Class FormDNSName
         SetScreen()
 
         If PropOpensimIsRunning Then
-            UniqueId.Enabled = False
+            UniqueId.ReadOnly = True
         Else
-            UniqueId.Enabled = True
+            UniqueId.ReadOnly = False
         End If
 
         DNSNameBox.Text = Settings.DNSName

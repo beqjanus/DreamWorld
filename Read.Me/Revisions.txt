@@ -2,13 +2,26 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V4.02 5-18-2021 Fixes to Smart Start  and performance improvements 
+
+
+V4.02 5-18-2021 Fixes to Smart Start, signs, and major performance improvements 
 
 Opensim would still jab the API in some cases even if global SS was disabled. 
 API now requires the Machine ID as a password.
-Moved two sub to separate threads:
-	CPUCalc gathers the CPU percentage when the Region list is displayed.
-	DidItDie scans for exiting processes. Sped up other tasks by 5 to 15X.
+SS created regions have the Teleport sign bit enabled
+Large grids develop a long and longer "stutter" when starting up due to some expensive tasks that ran every 5 seconds. The system would fall further and further behind, which required interlock code to prevent recursion. Moved two subs to their own low priority threads which speeds up other critical tasks such as teleports shutdowns and bootups by 5X to 20X or more.  
+	CPUCalc() gathers the CPU percentages to display only when the Region list is displayed. It's not time critical. This was a massive CPU time killer when I run hundreds of regions - even on a fast machine it delayed things by 30 seconds or more when 180 regions are running .  
+	DidItDie() scans for exiting processes. It has to do an expensive system call on all regions over and over. It's not time critical and can take its time as a separate thread.
+By default, OpenSimulator does not allow scripts to make HTTP calls to addresses on the simulator's LAN. This is for your LAN's security and your safety. An adjustment to this in 4.01 prevented some teleport signs from working. 
+V4.02 added more "allows" to the list of LSL destinations. These are the only LAN Addresses that scripts can reach.
+
+	localhost:DiagnosticPort	http://(loopback via DNS)(8001)   
+	127.0.0.1:DiagnosticPort	http://(loopback IP)(8001)
+	LANIP.DiagnosticPort		http://(PC LAN IP):(8001)
+	LANIP:HttpPort				http://(PC LAN IP):(80)
+	PublicIP:HttpPort			http://(PC WAN IP or DNS Name):(80) in case a loopback adapter is involved
+
+
 
 
 V4.01 Maintenance

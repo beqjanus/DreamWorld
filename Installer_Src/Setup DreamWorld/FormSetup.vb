@@ -51,7 +51,9 @@ Public Class FormSetup
     Private _StopMysql As Boolean = True
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
+#Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
+#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ScreenPos
 
 #End Region
@@ -788,7 +790,7 @@ Public Class FormSetup
     End Sub
 
     ''' <summary>
-    ''' Checks if a region died, and calculates CPU counters, which is a very timne consuming process
+    ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
     ''' </summary>
     Private Sub StartThreads()
 
@@ -1982,7 +1984,7 @@ Public Class FormSetup
 
                 Dim _WebThread1 = New Thread(start)
                 _WebThread1.SetApartmentState(ApartmentState.STA)
-                _WebThread1.Priority = ThreadPriority.BelowNormal
+                _WebThread1.Priority = ThreadPriority.Normal
                 _WebThread1.Start(RegionUUID)
 
             End If
@@ -2453,11 +2455,14 @@ Public Class FormSetup
 
     Private Sub ShowRegionform()
 
-        PropRegionForm = New FormRegionlist
-        PropRegionForm.Show()
-        PropRegionForm.Activate()
-        PropRegionForm.Select()
-        PropRegionForm.BringToFront()
+        Try
+            PropRegionForm = New FormRegionlist
+            PropRegionForm.Show()
+            PropRegionForm.Activate()
+            PropRegionForm.Select()
+            PropRegionForm.BringToFront()
+        Catch
+        End Try
 
     End Sub
 
