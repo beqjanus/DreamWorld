@@ -4986,10 +4986,6 @@ namespace OpenSim.Region.Framework.Scenes
         {
             m_log.DebugFormat("[SCENE]: regionName {0}, Agent {1}", regionName, remoteClient.AgentId);
 
-            //DreamGrid
-            SmartStart SS = new SmartStart();
-            regionName = GetALTRegion(regionName, remoteClient.AgentId);   // DreamGrid
-
             if (EntityTransferModule == null)
             {
                 m_log.DebugFormat("[SCENE]: Unable to perform teleports: no AgentTransferModule is active");

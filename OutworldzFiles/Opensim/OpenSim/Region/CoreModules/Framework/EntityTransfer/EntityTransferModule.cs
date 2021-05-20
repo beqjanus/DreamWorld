@@ -743,6 +743,17 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             string reason;
             EntityTransferContext ctx = new EntityTransferContext();
 
+
+            //DreamGrid
+            //This is still a test.
+            // this possible should only be called if query fails with a limites set of errors like connection refused.
+
+            string regionName = sp.Scene.GetALTRegion(finalDestination.RegionName, sp.ControllingClient.AgentId);   // DreamGrid
+            if(!regionName.Equals(finalDestination.RegionName,StringComparison.InvariantCultureIgnoreCase))
+            {
+                return;
+            }
+
             if (!Scene.SimulationService.QueryAccess(
                 finalDestination, sp.ControllingClient.AgentId, homeURI, true, position, sp.Scene.GetFormatsOffered(), ctx, out reason))
             {
@@ -1487,9 +1498,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
         public virtual bool TeleportHome(UUID id, IClientAPI client)
         {
-            // fkb teleport home
-            // DreamGrid
-
             bool notsame = false;
             if (client == null)
             {
