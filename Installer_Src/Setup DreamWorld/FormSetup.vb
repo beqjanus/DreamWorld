@@ -1109,7 +1109,7 @@ Public Class FormSetup
             Dim status = PropRegionClass.Status(RegionUUID)
             ' Smart Start Timer
             Dim SSExpired As Boolean
-            If Settings.SmartStart Then
+            If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
                 Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
                 If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted And diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
                     SSExpired = True
