@@ -22,27 +22,22 @@ Module Teleport
                 If status = RegionMaker.SIMSTATUSENUM.Booting Then
                     PokeRegionTimer(RegionToUUID)
                 End If
-                If status = RegionMaker.SIMSTATUSENUM.Booted Then
+                If status = RegionMaker.SIMSTATUSENUM.Booted And RegionIsRegisteredOnline(RegionToUUID) Then
 
                     Debug.Print($"Teleport to {DestinationName} = {GetStateString(status)}")
                     Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                     Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
                     Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
-                    If fromName.Length > 0 Then
 
-                        ' Double Check region
-                        If RegionIsRegisteredOnline(RegionToUUID) Then
-                            If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
-                                Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
-                                Fin.Add(AgentID)
-                            Else
-                                Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
-                                BreakPoint.Show("Unable to locate region " & RegionToUUID)
-                                Fin.Add(AgentID)
-                            End If
+                    ' Make sure they are still in the grid and send them onward
+                    If fromName.Length > 0 Then
+                        If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
+                            Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
+                            Fin.Add(AgentID)
                         Else
-                            BreakPoint.Show("Region is not registered online yet it was ready for logins?:" & RegionToUUID)
-                            'Fin.Add(AgentID)
+                            Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
+                            BreakPoint.Show("Unable to locate region " & RegionToUUID)
+                            Fin.Add(AgentID)
                         End If
                     Else
                         Fin.Add(AgentID) ' cancel this, the agent is not anywhere online we can get to
