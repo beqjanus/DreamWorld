@@ -1641,7 +1641,6 @@ Public Class FormSmartStart
     Private Sub DeleteAllRegionData(RegionUUID As String)
 
         Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
 
         PropRegionClass.MapType(RegionUUID) = "" ' force a quick shutdown
@@ -1656,9 +1655,12 @@ Public Class FormSmartStart
             If ctr = 0 Then Exit While
         End While
 
-        ' make a backup and kill it
-        CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"),
+        ' maybe make a backup and kill it
+        If Not Settings.TempRegion Then
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"),
                      IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.bak"))
+        End If
+
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
 
         ' remove from the Robust registry
@@ -1669,7 +1671,7 @@ Public Class FormSmartStart
         DeleteOpensimEstateID(RegionUUID)
         PropRegionClass.Delete_Region_Map(RegionUUID)
         PropRegionClass.DeleteRegion(RegionUUID)
-        PropRegionClass.GetAllRegions()
+        'PropRegionClass.GetAllRegions()
 
         ProgressPrint($"Deleted region {RegionName}")
         PropUpdateView = True
