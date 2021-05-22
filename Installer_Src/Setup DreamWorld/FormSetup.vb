@@ -618,7 +618,7 @@ Public Class FormSetup
         End If
         Application.DoEvents()
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-        Settings.Grep(ini, Settings.LogLevel)
+        Grep(ini, Settings.LogLevel)
 
         PropRegionClass.CheckOverLap()
 
@@ -2111,7 +2111,7 @@ Public Class FormSetup
 
     Private Sub RestartDOSboxes()
 
-        If PropRestartRobust And PropRobustExited = True Then
+        If PropRobustExited = True Then
             PropRobustExited = False
             RobustIcon(False)
             If Not StartRobust() Then Return

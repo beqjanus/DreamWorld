@@ -304,6 +304,53 @@ Module FileStuff
 
     End Sub
 
+#Region "Grep"
+
+    ''' <summary>Replaces .config file XML with log level and path info</summary>
+    ''' <param name="INI">Path to file</param>
+    ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
+    ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
+    ''
+    Public Sub Grep(INI As String, LL As String)
+
+        If INI Is Nothing Then Return
+        Dim Retry = 100 ' 10 sec
+
+        While Retry > 0
+            Try
+                Using file As New System.IO.StreamWriter(INI & ".bak")
+                    Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
+                        While Not Reader.EndOfStream
+                            Dim line As String = Reader.ReadLine
+                            line = line.Replace("${OSIM_LOGLEVEL}", LL)
+                            file.WriteLine(line)
+                        End While
+                    End Using
+                End Using
+                Retry = 0
+            Catch ex As Exception
+                Retry -= 1
+                Sleep(100)
+            End Try
+        End While
+
+        Dim f = System.IO.Path.GetFileName(INI)
+        Retry = 100 ' 10 sec
+        While Retry > 0
+            DeleteFile(INI)
+            Try
+                My.Computer.FileSystem.RenameFile(INI & ".bak", f)
+                Retry = 0
+            Catch
+                Retry -= 1
+                Sleep(100)
+            End Try
+        End While
+
+    End Sub
+
+#End Region
+
     Private Sub CleanDLLs()
 
         If Not Debugger.IsAttached Then
