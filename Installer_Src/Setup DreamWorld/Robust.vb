@@ -17,15 +17,6 @@ Module Robust
     Private _RobustIconStarting As Boolean
     Private _RobustProcID As Integer
 
-    Public Property PropRestartRobust As Boolean
-        Get
-            Return _RestartRobust
-        End Get
-        Set(value As Boolean)
-            _RestartRobust = value
-        End Set
-    End Property
-
     Public Property PropRobustExited() As Boolean
         Get
             Return _RobustExited
@@ -421,7 +412,7 @@ Module Robust
         Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
         CopyFileFast(src, Dest)
         Dim anini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
-        Settings.Grep(anini, Settings.LogLevel)
+        Grep(anini, Settings.LogLevel)
 
         Return False
 
@@ -466,11 +457,6 @@ Module Robust
         PropRobustProcID = Nothing
         If PropAborting Then Return
 
-        If PropRestartRobust Then
-            RobustIcon(False)
-            PropRobustExited = True
-            Return
-        End If
 
         If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
             PropRobustExited = True
