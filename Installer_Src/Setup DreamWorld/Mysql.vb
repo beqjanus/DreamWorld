@@ -194,6 +194,26 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Function DeleteOpensimEstateID(UUID As String) As Integer
+
+        If Not IsMySqlRunning() Then Return 0
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+                MysqlConn.Open()
+                Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return 0
+
+    End Function
+
     Public Sub DeRegisterPosition(X As Integer, Y As Integer)
         Try
             Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
@@ -252,27 +272,6 @@ Public Module MysqlInterface
         Return 0
 
     End Function
-
-    Public Function DeleteOpensimEstateID(UUID As String) As Integer
-
-        If Not IsMySqlRunning() Then Return 0
-
-        Try
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
-                Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-                    cmd.ExecuteNonQuery()
-                End Using
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-        Return 0
-
-    End Function
-
 
     ''' <summary>Returns Estate Name give an Estate UUID</summary>
     ''' <param name="UUID">Region UUID</param>
@@ -749,11 +748,22 @@ Public Module MysqlInterface
         Try
             Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
                 MysqlConn.Open()
-                Dim stm = "insert into EstateMap (RegionID, EstateID) values (@UUID, @EID)"
+                Dim stm = "Select EstateID from estate_map where regionid = @UUID"
                 Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
-                    cmd.Parameters.AddWithValue("@EID", EstateID)
-                    cmd.BeginExecuteNonQuery()
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If Not reader.Read() Then
+                            Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
+                                MysqlConn1.Open()
+                                Dim stm1 = "insert into EstateMap (RegionID, EstateID) values (@UUID, @EID)"
+                                Using cmd1 As MySqlCommand = New MySqlCommand(stm1, MysqlConn1)
+                                    cmd1.Parameters.AddWithValue("@UUID", UUID)
+                                    cmd1.Parameters.AddWithValue("@EID", EstateID)
+                                    cmd1.BeginExecuteNonQuery()
+                                End Using
+                            End Using
+                        End If
+                    End Using
                 End Using
             End Using
         Catch ex As Exception
