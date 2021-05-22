@@ -6,6 +6,8 @@ This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are re
 
 V4.02 5-18-2021 Fixes to Smart Start, signs, and major performance improvements 
 
+Robust could start and would lie about being ready and this could cause a crash when a region boots too early when the database was still being generated.
+
 Opensim would still jab the API in some cases even if global SS was disabled. 
 API now requires the Machine ID as a password.
 SS created regions have the Teleport sign bit enabled
