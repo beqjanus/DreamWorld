@@ -11,7 +11,6 @@ Imports System.Text.RegularExpressions
 Module Robust
 
     Private WithEvents RobustProcess As New Process()
-    Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer
     Private _RobustExited As Boolean
     Private _RobustIconStarting As Boolean
@@ -456,7 +455,6 @@ Module Robust
         ' Handle Exited event and display process information.
         PropRobustProcID = Nothing
         If PropAborting Then Return
-
 
         If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
             PropRobustExited = True

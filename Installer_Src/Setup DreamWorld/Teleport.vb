@@ -10,6 +10,27 @@ Module Teleport
     Public Fin As New List(Of String)
     Public TeleportAvatarDict As New Dictionary(Of String, String)
 
+    ''' <summary>Check if region is ready for l;ogin</summary>
+    ''' <returns>true if up</returns>
+    Public Function IsRegionReady(Port As Integer) As Boolean
+
+        Using client As New Net.WebClient ' download client for web pages
+            Dim Up As String
+            Try
+                Up = client.DownloadString($"http://{Settings.PublicIP}:{CStr(Port)}/index.php") ' ?version does not work, give back a 302 to Opensimulator.orgm though
+            Catch ex As Exception
+                Return False
+            End Try
+
+            If Up.Length = 0 And PropOpensimIsRunning() Then
+                Return False
+            End If
+        End Using
+
+        Return True
+
+    End Function
+
     Public Sub TeleportAgents()
 
         If Not Settings.SmartStart Then Return
@@ -18,19 +39,22 @@ Module Teleport
                 Dim AgentID = Keypair.Key
                 Dim RegionToUUID = Keypair.Value
                 Dim status = PropRegionClass.Status(RegionToUUID)
+                Dim Port As Integer = PropRegionClass.GroupPort(RegionToUUID)
                 Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
                 If status = RegionMaker.SIMSTATUSENUM.Booting Then
                     PokeRegionTimer(RegionToUUID)
-                End If
-                If status = RegionMaker.SIMSTATUSENUM.Booted And RegionIsRegisteredOnline(RegionToUUID) Then
 
-                    Debug.Print($"Teleport to {DestinationName} = {GetStateString(status)}")
+                ElseIf status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                    Fin.Add(AgentID) ' cancel this, the region went away
+
+                ElseIf status = RegionMaker.SIMSTATUSENUM.Booted And
+                    IsRegionReady(Port) And
+                    RegionIsRegisteredOnline(RegionToUUID) Then
+
                     Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                     Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
-                    Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
-
-                    ' Make sure they are still in the grid and send them onward
                     If fromName.Length > 0 Then
+                        Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
                         If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
                             Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
                             Fin.Add(AgentID)
@@ -42,10 +66,8 @@ Module Teleport
                     Else
                         Fin.Add(AgentID) ' cancel this, the agent is not anywhere online we can get to
                     End If
-
-                ElseIf status = RegionMaker.SIMSTATUSENUM.Stopped Then
-                    Fin.Add(AgentID) ' cancel this, the region went away
                 End If
+
             Next
         Catch
         End Try
