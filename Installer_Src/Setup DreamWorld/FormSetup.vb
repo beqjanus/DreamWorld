@@ -51,7 +51,9 @@ Public Class FormSetup
     Private _StopMysql As Boolean = True
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
+#Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
+#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ScreenPos
 
 #End Region
