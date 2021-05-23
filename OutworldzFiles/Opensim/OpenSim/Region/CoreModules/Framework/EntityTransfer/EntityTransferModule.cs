@@ -725,9 +725,37 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 return;
             }
 
-            // Let's do DNS resolution only once in this process, please!
-            // This may be a costly operation. The reg.ExternalEndPoint field is not a passive field,
-            // it's actually doing a lot of work.
+            if (!sp.ValidateAttachments())
+                m_log.DebugFormat(
+                    "[ENTITY TRANSFER MODULE]: Failed validation of all attachments for teleport of {0} from {1} to {2}.  Continuing.",
+                    sp.Name, sp.Scene.Name, finalDestination.RegionName);
+
+
+            //DreamGrid
+            //This is still a test.
+            // this possible should only be called if query fails with a limites set of errors like connection refused.
+            if (reg.RegionLocY != 0) // not on HG
+            {
+                string regionName = sp.Scene.GetALTRegion(finalDestination.RegionName, sp.ControllingClient.AgentId);   // DreamGrid
+                if (!string.IsNullOrWhiteSpace(regionName) && !regionName.Equals(finalDestination.RegionName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if(regionName.Equals(sp.Scene.Name, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
+                        return;
+                    }
+
+                    finalDestination = sp.Scene.GridService.GetRegionByName(sp.Scene.RegionInfo.ScopeID, regionName);
+                    if(finalDestination == null)
+                    {
+                        sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
+                        return;
+                    }
+
+                    reg = finalDestination;
+                }
+            }
+
             IPEndPoint endPoint = finalDestination.ExternalEndPoint;
             if (endPoint == null || endPoint.Address == null)
             {
@@ -735,16 +763,9 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
                 return;
             }
 
-            if (!sp.ValidateAttachments())
-                m_log.DebugFormat(
-                    "[ENTITY TRANSFER MODULE]: Failed validation of all attachments for teleport of {0} from {1} to {2}.  Continuing.",
-                    sp.Name, sp.Scene.Name, finalDestination.RegionName);
-
-            string reason;
             EntityTransferContext ctx = new EntityTransferContext();
-
             if (!Scene.SimulationService.QueryAccess(
-                finalDestination, sp.ControllingClient.AgentId, homeURI, true, position, sp.Scene.GetFormatsOffered(), ctx, out reason))
+                finalDestination, sp.ControllingClient.AgentId, homeURI, true, position, sp.Scene.GetFormatsOffered(), ctx, out string reason))
             {
                 sp.ControllingClient.SendTeleportFailed(reason);
 
@@ -1487,9 +1508,6 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
 
         public virtual bool TeleportHome(UUID id, IClientAPI client)
         {
-            // fkb teleport home
-            // DreamGrid
-
             bool notsame = false;
             if (client == null)
             {

@@ -44,9 +44,7 @@ namespace OpenSim.Server
 {
     public class OpenSimServer
     {
-        private static readonly ILog m_log =
-                LogManager.GetLogger(
-                MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         protected static HttpServerBase m_Server = null;
         protected static List<IServiceConnector> m_ServiceConnectors = new List<IServiceConnector>();
@@ -126,6 +124,8 @@ namespace OpenSim.Server
 
             string[] conns = connList.Split(new char[] {',', ' ', '\n', '\r', '\t'});
 
+            BaseHttpServer serverForPHP = null;
+
             foreach (string c in conns)
             {
                 if (string.IsNullOrEmpty(c))
@@ -164,7 +164,7 @@ namespace OpenSim.Server
                     server = MainServer.Instance;
 
                 if (friendlyName == "LLLoginServiceInConnector")
-                    server.AddSimpleStreamHandler(new IndexPHPHandler(server));
+                    serverForPHP = server;
 
                 m_log.InfoFormat("[SERVER]: Loading {0} on port {1}", friendlyName, server.Port);
 
@@ -191,6 +191,9 @@ namespace OpenSim.Server
             }
 
             loader = new PluginLoader(m_Server.Config, registryLocation);
+
+            if(serverForPHP != null)
+                serverForPHP.AddSimpleStreamHandler(new IndexPHPHandler(serverForPHP));
 
             int res = m_Server.Run();
 

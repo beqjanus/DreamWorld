@@ -42,6 +42,7 @@ Module RPC
            {"command", Message}
         }
         Debug.Print($"admin_console_command {Message}")
+        Application.DoEvents()
         Return SendRPC(RegionUUID, "admin_console_command", ht)
 
     End Function

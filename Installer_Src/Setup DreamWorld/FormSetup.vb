@@ -618,7 +618,7 @@ Public Class FormSetup
         End If
         Application.DoEvents()
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-        Settings.Grep(ini, Settings.LogLevel)
+        Grep(ini, Settings.LogLevel)
 
         PropRegionClass.CheckOverLap()
 
@@ -790,7 +790,7 @@ Public Class FormSetup
     End Sub
 
     ''' <summary>
-    ''' Checks if a region died, and calculates CPU counters, which is a very timne consuming process
+    ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
     ''' </summary>
     Private Sub StartThreads()
 
@@ -1984,7 +1984,7 @@ Public Class FormSetup
 
                 Dim _WebThread1 = New Thread(start)
                 _WebThread1.SetApartmentState(ApartmentState.STA)
-                _WebThread1.Priority = ThreadPriority.BelowNormal
+                _WebThread1.Priority = ThreadPriority.Normal
                 _WebThread1.Start(RegionUUID)
 
             End If
@@ -2111,7 +2111,7 @@ Public Class FormSetup
 
     Private Sub RestartDOSboxes()
 
-        If PropRestartRobust And PropRobustExited = True Then
+        If PropRobustExited = True Then
             PropRobustExited = False
             RobustIcon(False)
             If Not StartRobust() Then Return
@@ -2455,11 +2455,14 @@ Public Class FormSetup
 
     Private Sub ShowRegionform()
 
-        PropRegionForm = New FormRegionlist
-        PropRegionForm.Show()
-        PropRegionForm.Activate()
-        PropRegionForm.Select()
-        PropRegionForm.BringToFront()
+        Try
+            PropRegionForm = New FormRegionlist
+            PropRegionForm.Show()
+            PropRegionForm.Activate()
+            PropRegionForm.Select()
+            PropRegionForm.BringToFront()
+        Catch
+        End Try
 
     End Sub
 

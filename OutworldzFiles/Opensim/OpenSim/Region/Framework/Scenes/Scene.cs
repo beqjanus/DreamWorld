@@ -851,8 +851,8 @@ namespace OpenSim.Region.Framework.Scenes
             // !!!  DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
             // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
 
-            string url = m_PrivURL + ":" + m_DiagnosticsPort + "?alt=" + regionName + "&agent=RegionName&agentid=" + agentID + "&password=" + m_MachineID;
-            m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
+            string url = $"{m_PrivURL}:{m_DiagnosticsPort}?alt={regionName}&agent=RegionName&agentid={agentID}&password={m_MachineID}";
+            m_log.DebugFormat("[SMARTSTART]: {0}", url);
 
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -4985,10 +4985,6 @@ namespace OpenSim.Region.Framework.Scenes
                                             Vector3 lookat, uint teleportFlags)
         {
             m_log.DebugFormat("[SCENE]: regionName {0}, Agent {1}", regionName, remoteClient.AgentId);
-
-            //DreamGrid
-            SmartStart SS = new SmartStart();
-            regionName = GetALTRegion(regionName, remoteClient.AgentId);   // DreamGrid
 
             if (EntityTransferModule == null)
             {

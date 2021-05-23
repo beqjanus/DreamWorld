@@ -697,23 +697,21 @@ Public Class FormRegion
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
 
+            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+
             PropRegionClass.Delete_Region_Map(RegionUUID)
 
-            DeleteFile(Settings.OpensimBinPath & "Regions\" + RegionName.Text + "\Region\" + RegionName.Text + ".bak")
-            Try
-                My.Computer.FileSystem.RenameFile(PropRegionClass.RegionIniFilePath(RegionUUID), RegionName.Text + ".bak")
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.bak"))
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
 
-        If IsRobustRunning() Then
-            ConsoleCommand(RobustName(), "deregister region id " + RegionUUID)
+            If IsRobustRunning() Then
+                ConsoleCommand("Robust", "deregister region id RegionUUID")
+            End If
+            PropRegionClass.DeleteRegion(RegionUUID)
+            PropRegionClass.GetAllRegions()
+            Changed1 = False
+            PropUpdateView = True
         End If
-        PropRegionClass.DeleteRegion(RegionUUID)
-        PropRegionClass.GetAllRegions()
-        Changed1 = False
-        PropUpdateView = True
 
         Me.Close()
 

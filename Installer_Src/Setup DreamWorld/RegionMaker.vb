@@ -188,7 +188,10 @@ Public Class RegionMaker
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 Logger("RegionReady", "Exception:" & ex.Message, "Teleport")
-                WebserverList.Clear()
+                Try
+                    WebserverList.Clear()
+                Catch
+                End Try
             End Try
         End While
 
@@ -369,18 +372,6 @@ Public Class RegionMaker
 
     End Sub
 
-    Public Function AvatarsIsInGroup(groupname As String) As Boolean
-
-        Dim present As Integer = 0
-        For Each RegionUUID As String In RegionUuidListByName(groupname)
-            If IsAgentInRegion(RegionUUID) Then
-                present += 1
-            End If
-        Next
-        Return CType(present, Boolean)
-
-    End Function
-
     Public Function AvatarIsNearby(RegionUUID As String) As Boolean
 
         Dim Xloc = PropRegionClass.CoordX(RegionUUID)
@@ -407,6 +398,18 @@ Public Class RegionMaker
         Next
 
         Return False
+
+    End Function
+
+    Public Function AvatarsIsInGroup(groupname As String) As Boolean
+
+        Dim present As Integer = 0
+        For Each RegionUUID As String In RegionUuidListByName(groupname)
+            If IsAgentInRegion(RegionUUID) Then
+                present += 1
+            End If
+        Next
+        Return CType(present, Boolean)
 
     End Function
 
@@ -493,8 +496,6 @@ Public Class RegionMaker
     End Function
 
     Public Function GetAllRegions() As Integer
-
-        'TODO Do not change ports on a running region!!!!
 
         If PropOpensimIsRunning Then Return 0
 
@@ -624,6 +625,9 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
+                                    If Backup(o)._RegionPort > 0 Then
+                                        RegionPort(uuid) = Backup(o)._RegionPort
+                                    End If
                                     If Backup(o)._GroupPort > 0 Then
                                         GroupPort(uuid) = Backup(o)._GroupPort
                                     End If
@@ -1852,7 +1856,6 @@ Public Class RegionMaker
             Dim INI = Settings.LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";")
             If INI Is Nothing Then Return True
 
-
             If Settings.SetIni("Const", "MachineID", Settings.MachineID) Then Return True
 
             If Settings.StatusInterval > 0 Then
@@ -1922,7 +1925,8 @@ Public Class RegionMaker
             If Settings.SetIni("XEngine", "DeleteScriptsOnStartup", "False") Then Return True
 
             If Not Settings.LSLHTTP Then
-                If Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept", $"127.0.0.1:{Settings.DiagnosticPort}|{Settings.LANIP()}:{Settings.DiagnosticPort}|{Settings.LANIP()}:{Settings.HttpPort}") Then Return True
+                If Settings.SetIni("Network", "OutboundDisallowForUserScriptsExcept",
+                                   $"{Settings.PublicIP}:{Settings.DiagnosticPort}|127.0.0.1:{Settings.DiagnosticPort}|localhost:{Settings.DiagnosticPort}|{Settings.LANIP()}:{Settings.DiagnosticPort}|{Settings.LANIP()}:{Settings.HttpPort}|{Settings.PublicIP()}:{Settings.HttpPort}") Then Return True
             End If
 
             If Settings.SetIni("PrimLimitsModule", "EnforcePrimLimits", CStr(Settings.Primlimits)) Then Return True

@@ -53,67 +53,63 @@ Module SmartStart
             Debug.Print("Teleport to " & Name)
 
             ' Smart Start below here
-            If PropOpensimIsRunning Then
-                If PropRegionClass.SmartStart(RegionUUID) = "True" Then
 
-                    ' smart, and up
-                    If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+            If PropRegionClass.SmartStart(RegionUUID) = "True" Then
 
-                        If AgentName.ToUpperInvariant = "UUID" Then
-                            Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
-                            Return RegionUUID
-                        ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-                            Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
-                            Return Name
-                        Else ' Its a sign!
-                            Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
-                            Return Name & "|0"
-                        End If
-                    Else  ' requires booting
-
-                        If AgentName.ToUpperInvariant = "UUID" Then
-                            Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
-                            AddEm(RegionUUID, AgentID)
-                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
-                            Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
-                            Return u
-                        ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-                            Logger("Godot Named Teleport", Name & ":" & AgentID, "Teleport")
-                            AddEm(RegionUUID, AgentID)
-                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
-                            Return Settings.WelcomeRegion
-                        Else ' Its a sign!
-                            If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
-                                time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + slop) ' 5 seconds of slop time
-                            Else
-                                time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + slop) ' 5 seconds of slop time
-                            End If
-                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
-                            Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
-                            AddEm(RegionUUID, AgentID)
-                            Return Name & time
-                        End If
-
-                    End If
-                Else ' Non Smart Start
+                ' smart, and up
+                If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
 
                     If AgentName.ToUpperInvariant = "UUID" Then
-                        Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                        Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                         Return RegionUUID
                     ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-                        Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                        Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                         Return Name
-                    Else     ' Its a sign!
+                    Else ' Its a sign!
+                        Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
+                        Return Name & "|0"
+                    End If
+                Else  ' requires booting
+                    If AgentName.ToUpperInvariant = "UUID" Then
+                        Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
+                        AddEm(RegionUUID, AgentID)
+                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
+                        Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                        Return u
+                    ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                        Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
+                        AddEm(RegionUUID, AgentID)
+                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
+                        Return Settings.WelcomeRegion
+                    Else ' Its a sign!
+                        If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
+                            time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + slop) ' 5 seconds of slop time
+                        Else
+                            time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + slop) ' 5 seconds of slop time
+                        End If
+                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. {vbCrLf}Please wait in this region.")
                         Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
-                        Return Name
+                        Return Name & time
                     End If
 
                 End If
+            Else ' Non Smart Start
+
+                If AgentName.ToUpperInvariant = "UUID" Then
+                    Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                    Return RegionUUID
+                ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                    Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                    Return Name
+                Else     ' Its a sign!
+                    Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
+                    AddEm(RegionUUID, AgentID)
+                    Return Name
+                End If
+
             End If
 
-            ' not running
-            Return RegionUUID
         End If
 
         Return PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
@@ -179,7 +175,7 @@ Module SmartStart
                 Name = PropRegionClass.RegionName(RegionUUID)
             End If
 
-            'Debug.Print($"Sort by {Name}")
+            Debug.Print($"Sort by {Name}")
 
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
@@ -418,7 +414,7 @@ Module SmartStart
                 PropUpdateView = True ' make form refresh
                 Return True
             Else    ' needs to be captured into the event handler
-                TextPrint(BootName & " " & My.Resources.Running_word)
+                ' TextPrint(BootName & " " & My.Resources.Running_word)
                 Dim PID As Integer = GetPIDofWindow(GroupName)
                 If Not PropInstanceHandles.ContainsKey(PID) Then
                     PropInstanceHandles.Add(PID, GroupName)
@@ -443,7 +439,7 @@ Module SmartStart
         If PropRegionClass.CopyOpensimProto(RegionUUID) Then Return False
 
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
-        Settings.Grep(ini, Settings.LogLevel)
+        Grep(ini, Settings.LogLevel)
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim BootProcess = New Process With {

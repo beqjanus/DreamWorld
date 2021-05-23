@@ -237,7 +237,8 @@ Public Class Backups
                     fs = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\NewCustom.png")
                     If File.Exists(fs) Then Z.AddFile(fs, "Photos")
                     zipused = True
-                Catch
+                Catch ex As Exception
+                    Break(ex.Message)
                 End Try
             End If
 
@@ -273,7 +274,8 @@ Public Class Backups
                 End If
 
                 DeleteFolder(_folder)
-            Catch
+            Catch ex As Exception
+                Break(ex.Message)
             End Try
 
             Try

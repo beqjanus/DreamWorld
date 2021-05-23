@@ -220,8 +220,8 @@ namespace OpenSim.Services.HypergridService
 
             if (m_ALT_Enabled)
             {
-                string url = m_PrivURL + ":" + m_DiagnosticsPort + "?alt=" + regionID + "&agent=UUID&agentid=" + agentID + "&password=" + m_MachineID;
-                m_log.DebugFormat("[AUTOLOADTELEPORT]: {0}", url);
+                string url = $"{m_PrivURL}:{m_DiagnosticsPort}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_MachineID}";
+                m_log.DebugFormat("[SMARTSTART]: {0}", url);
 
                 HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
 

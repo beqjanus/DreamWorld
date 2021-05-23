@@ -846,6 +846,24 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property CoordX() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordX", CStr(Value))
+        End Set
+    End Property
+
+    Public Property CoordY() As Integer
+        Get
+            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
+        End Get
+        Set
+            SetMySetting("CoordY", CStr(Value))
+        End Set
+    End Property
+
     Public Property CPUMAX As Single
         Get
             Return CType(GetMySetting("CPUMax", "90"), Single)
@@ -2070,6 +2088,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property TempRegion() As Boolean
+        Get
+            Return CType(GetMySetting("TempRegion", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("TempRegion", CStr(Value))
+        End Set
+    End Property
+
     Public Property TerrainType() As String
         Get
             Return GetMySetting("TerrainType", "Random")
@@ -2233,71 +2260,6 @@ Public Class MySettings
             SetMySetting("WifiEnabled", CStr(Value))
         End Set
     End Property
-
-    Public Property CoordX() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordX", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordX", CStr(Value))
-        End Set
-    End Property
-
-    Public Property CoordY() As Integer
-        Get
-            Return CInt("0" & GetMySetting("CoordY", CStr(RandomNumber.Between(1010, 990))))
-        End Get
-        Set
-            SetMySetting("CoordY", CStr(Value))
-        End Set
-    End Property
-
-#End Region
-
-#Region "Grep"
-
-    ''' <summary>Replaces .config file XML with log level and path info</summary>
-    ''' <param name="INI">Path to file</param>
-    ''' <param name="LP">OSIM_LOGPATH path to log file in regions folder</param>
-    ''' <param name="LL">OSIM_LOGLEVEL DEBUG, INFO, ALL, etc</param>
-    ''
-    Public Sub Grep(INI As String, LL As String)
-
-        If INI Is Nothing Then Return
-        Dim Retry = 100 ' 10 sec
-
-        While Retry > 0
-            Try
-                Using file As New System.IO.StreamWriter(INI & ".bak")
-                    Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
-                        While Not Reader.EndOfStream
-                            Dim line As String = Reader.ReadLine
-                            line = line.Replace("${OSIM_LOGLEVEL}", LL)
-                            file.WriteLine(line)
-                        End While
-                    End Using
-                End Using
-                Retry = 0
-            Catch ex As Exception
-                Retry -= 1
-                Sleep(100)
-            End Try
-        End While
-
-        Dim f = System.IO.Path.GetFileName(INI)
-        Retry = 100 ' 10 sec
-        While Retry > 0
-            DeleteFile(INI)
-            Try
-                My.Computer.FileSystem.RenameFile(INI & ".bak", f)
-                Retry = 0
-            Catch
-                Retry -= 1
-                Sleep(100)
-            End Try
-        End While
-
-    End Sub
 
 #End Region
 

@@ -589,6 +589,8 @@ Public Class FormSmartStart
             n += 1
         Next
 
+        TempCheckBox.Checked = Settings.TempRegion
+
         ' If Debugger.IsAttached Then
         ' debug
         ' LandMaker("7408caab-9a55-4a9b-aa1a-584d95063c43")
@@ -787,8 +789,10 @@ Public Class FormSmartStart
 
                 PropRegionClass.SmartStart(RegionUUID) = "True"
                 PropRegionClass.Teleport(RegionUUID) = "True"
+
                 PropRegionClass.SizeX(RegionUUID) = sizerow
                 PropRegionClass.SizeY(RegionUUID) = sizerow
+
                 PropRegionClass.GroupName(RegionUUID) = shortname
 
                 PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region\{shortname}.ini")
@@ -831,7 +835,7 @@ Public Class FormSmartStart
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
 
                     ' TODO estate set owner <estate ID> <owner UUID> - Change the owner of an estate. This command supports two forms; this one uses the owner's UUID.
-                    ' TODO Estate create < Owner UUID> <estate name> - Must be a user UUID, m which you can get from 'show names'
+                    ' TODO Estate create < Owner UUID> <estate name> - Must be a user UUID,  which you can get from 'show names'
                     If EstateName(RegionUUID).Length = 0 Then
                         ConsoleCommand(RegionUUID, Estate)
                     End If
@@ -1607,9 +1611,70 @@ Public Class FormSmartStart
 
     End Sub
 
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Dim ctr = 0
+        Dim result = MsgBox("*** This will delete all regions in the Estate 'SmartFill' !", vbOKCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
+        If result = vbOK Then
+            Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+            If msg = vbYes Then
+                For Each RegionUUID In PropRegionClass.RegionUuids
+                    If EstateID(RegionUUID) = 1999 Then
+                        DeleteAllRegionData(RegionUUID)
+                        ctr += 1
+                    End If
+                Next
+            Else
+                ProgressPrint(My.Resources.Cancelled_word)
+            End If
+            ProgressPrint($"Deleted {ctr} regions")
+        Else
+            ProgressPrint(My.Resources.Cancelled_word)
+        End If
+    End Sub
+
     Private Sub DeletApply_CheckedChanged(sender As Object, e As EventArgs) Handles DeletApply.CheckedChanged
 
         Settings.DeleteTreesFirst = DeletApply.Checked
+
+    End Sub
+
+    Private Sub DeleteAllRegionData(RegionUUID As String)
+
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+
+        PropRegionClass.MapType(RegionUUID) = "" ' force a quick shutdown
+        ShutDown(RegionUUID)
+        ' wait a minute for the region to quit
+        Dim ctr = 60
+
+        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped And
+            PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Error
+            Sleep(1000)
+            ctr -= 1
+            If ctr = 0 Then Exit While
+        End While
+
+        ' maybe make a backup and kill it
+        If Not Settings.TempRegion Then
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"),
+                     IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.bak"))
+        End If
+
+        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
+
+        ' remove from the Robust registry
+        If IsRobustRunning() Then
+            ConsoleCommand("Robust", "deregister region id RegionUUID")
+        End If
+
+        DeleteOpensimEstateID(RegionUUID)
+        PropRegionClass.Delete_Region_Map(RegionUUID)
+        PropRegionClass.DeleteRegion(RegionUUID)
+        'PropRegionClass.GetAllRegions()
+
+        ProgressPrint($"Deleted region {RegionName}")
+        PropUpdateView = True
 
     End Sub
 
@@ -1618,7 +1683,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub HelpPlantEditorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpPlantEditorToolStripMenuItem.Click
-        HelpManual("Plant Editor")
+        HelpManual("Landscaping")
     End Sub
 
     Private Sub HelpSmartStartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpSmartStartToolStripMenuItem.Click
@@ -1626,7 +1691,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub HelpTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpTerrainsToolStripMenuItem.Click
-        HelpManual("Terrains")
+        HelpManual("Terrain")
     End Sub
 
     Private Sub RevertButton_Click(sender As Object, e As EventArgs) Handles RevertButton.Click
@@ -1639,6 +1704,12 @@ Public Class FormSmartStart
         RPC_Region_Command(RegionUUID, $"change region ""{name}""")
         RPC_Region_Command(RegionUUID, "terrain revert")
 
+    End Sub
+
+    Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged
+        If Not _initialized Then Return
+        Settings.TempRegion = TempCheckBox.Checked
+        Settings.SaveSettings()
     End Sub
 
 #End Region

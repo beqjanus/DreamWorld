@@ -11,20 +11,10 @@ Imports System.Text.RegularExpressions
 Module Robust
 
     Private WithEvents RobustProcess As New Process()
-    Private _RestartRobust As Boolean
     Private _RobustCrashCounter As Integer
     Private _RobustExited As Boolean
     Private _RobustIconStarting As Boolean
     Private _RobustProcID As Integer
-
-    Public Property PropRestartRobust As Boolean
-        Get
-            Return _RestartRobust
-        End Get
-        Set(value As Boolean)
-            _RestartRobust = value
-        End Set
-    End Property
 
     Public Property PropRobustExited() As Boolean
         Get
@@ -186,7 +176,8 @@ Module Robust
 
         ' Wait for Robust to start listening
         Dim counter = 0
-        While Not IsRobustRunning() And PropOpensimIsRunning
+        ' While Not IsRobustRunning() And PropOpensimIsRunning
+        While Not IsRobustRunning()
             Log("Error", Global.Outworldz.My.Resources.Waiting_on_Robust)
             Application.DoEvents()
             counter += 1
@@ -195,7 +186,7 @@ Module Robust
                 TextPrint("Robust " & Global.Outworldz.My.Resources.did_not_start_word)
             End If
 
-            If counter > 600 Then
+            If counter > 450 Then
                 TextPrint(My.Resources.Robust_failed_to_start)
                 FormSetup.Buttons(FormSetup.StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
@@ -214,7 +205,7 @@ Module Robust
                 Return False
             End If
 
-            Sleep(100)
+            Sleep(500)
         End While
 
         RobustIsStarting = False
@@ -420,7 +411,7 @@ Module Robust
         Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
         CopyFileFast(src, Dest)
         Dim anini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
-        Settings.Grep(anini, Settings.LogLevel)
+        Grep(anini, Settings.LogLevel)
 
         Return False
 
@@ -434,13 +425,14 @@ Module Robust
         Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
-                Up = client.DownloadString("http://" & Settings.RobustServerIP & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+                ' Up = client.DownloadString("http://" & Settings.RobustServerIP & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
+                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
             Catch ex As Exception
-                If ex.Message.Contains("404") Then
-                    RobustIcon(True)
-                    Log("INFO", "Robust is running")
-                    Return True
-                End If
+                ' If ex.Message.Contains("404") Then
+                '   RobustIcon(True)
+                '   Log("INFO", "Robust is running")
+                '   Return True
+                ' End If
                 Log("INFO", "Robust is not running")
                 RobustIcon(False)
                 Return False
@@ -463,12 +455,6 @@ Module Robust
         ' Handle Exited event and display process information.
         PropRobustProcID = Nothing
         If PropAborting Then Return
-
-        If PropRestartRobust Then
-            RobustIcon(False)
-            PropRobustExited = True
-            Return
-        End If
 
         If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
             PropRobustExited = True

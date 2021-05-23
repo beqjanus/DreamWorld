@@ -35,6 +35,8 @@ Partial Class FormSmartStart
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TempCheckBox = New System.Windows.Forms.CheckBox()
+        Me.Button3 = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.AviName = New System.Windows.Forms.TextBox()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
@@ -45,7 +47,6 @@ Partial Class FormSmartStart
         Me.RegionMakerEnableCHeckbox = New System.Windows.Forms.CheckBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.MenuStrip4 = New System.Windows.Forms.MenuStrip()
-        Me.HelpSmartStartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BulkLoadRegionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -154,6 +155,7 @@ Partial Class FormSmartStart
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.MenuStrip6 = New System.Windows.Forms.MenuStrip()
         Me.HelpPlantEditorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpSmartStartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -256,6 +258,8 @@ Partial Class FormSmartStart
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.TempCheckBox)
+        Me.TabPage1.Controls.Add(Me.Button3)
         Me.TabPage1.Controls.Add(Me.Label11)
         Me.TabPage1.Controls.Add(Me.AviName)
         Me.TabPage1.Controls.Add(Me.PictureBox4)
@@ -276,6 +280,26 @@ Partial Class FormSmartStart
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Smart Boot"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'TempCheckBox
+        '
+        Me.TempCheckBox.AutoSize = True
+        Me.TempCheckBox.Location = New System.Drawing.Point(650, 41)
+        Me.TempCheckBox.Margin = New System.Windows.Forms.Padding(1)
+        Me.TempCheckBox.Name = "TempCheckBox"
+        Me.TempCheckBox.Size = New System.Drawing.Size(118, 17)
+        Me.TempCheckBox.TabIndex = 49
+        Me.TempCheckBox.Text = "Temporary Regions"
+        Me.TempCheckBox.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(650, 314)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(159, 23)
+        Me.Button3.TabIndex = 48
+        Me.Button3.Text = "Delete All Autofill Regions"
+        Me.Button3.UseVisualStyleBackColor = True
         '
         'Label11
         '
@@ -299,7 +323,7 @@ Partial Class FormSmartStart
         Me.PictureBox4.Image = Global.Outworldz.My.Resources.Resources._3x3
         Me.PictureBox4.Location = New System.Drawing.Point(650, 177)
         Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(171, 160)
+        Me.PictureBox4.Size = New System.Drawing.Size(124, 122)
         Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox4.TabIndex = 43
         Me.PictureBox4.TabStop = False
@@ -326,7 +350,7 @@ Partial Class FormSmartStart
         '
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.ListBox2.Location = New System.Drawing.Point(650, 122)
+        Me.ListBox2.Location = New System.Drawing.Point(650, 128)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(56, 43)
         Me.ListBox2.TabIndex = 39
@@ -342,7 +366,7 @@ Partial Class FormSmartStart
         'RegionMakerEnableCHeckbox
         '
         Me.RegionMakerEnableCHeckbox.AutoSize = True
-        Me.RegionMakerEnableCHeckbox.Location = New System.Drawing.Point(650, 37)
+        Me.RegionMakerEnableCHeckbox.Location = New System.Drawing.Point(650, 10)
         Me.RegionMakerEnableCHeckbox.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionMakerEnableCHeckbox.Name = "RegionMakerEnableCHeckbox"
         Me.RegionMakerEnableCHeckbox.Size = New System.Drawing.Size(124, 17)
@@ -369,13 +393,6 @@ Partial Class FormSmartStart
         Me.MenuStrip4.Size = New System.Drawing.Size(850, 24)
         Me.MenuStrip4.TabIndex = 44
         Me.MenuStrip4.Text = "MenuStrip4"
-        '
-        'HelpSmartStartToolStripMenuItem
-        '
-        Me.HelpSmartStartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
-        Me.HelpSmartStartToolStripMenuItem.Name = "HelpSmartStartToolStripMenuItem"
-        Me.HelpSmartStartToolStripMenuItem.Size = New System.Drawing.Size(121, 20)
-        Me.HelpSmartStartToolStripMenuItem.Text = "Help Smart Start"
         '
         'BulkLoadRegionsToolStripMenuItem
         '
@@ -1504,6 +1521,13 @@ Partial Class FormSmartStart
         Me.HelpPlantEditorToolStripMenuItem.Size = New System.Drawing.Size(124, 20)
         Me.HelpPlantEditorToolStripMenuItem.Text = "Help Plant Editor"
         '
+        'HelpSmartStartToolStripMenuItem
+        '
+        Me.HelpSmartStartToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
+        Me.HelpSmartStartToolStripMenuItem.Name = "HelpSmartStartToolStripMenuItem"
+        Me.HelpSmartStartToolStripMenuItem.Size = New System.Drawing.Size(121, 20)
+        Me.HelpSmartStartToolStripMenuItem.Text = "Help Smart Start"
+        '
         'FormSmartStart
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1671,7 +1695,6 @@ Partial Class FormSmartStart
     Friend WithEvents PictureBox4 As PictureBox
     Friend WithEvents MenuStrip4 As MenuStrip
     Friend WithEvents BulkLoadRegionsToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents HelpSmartStartToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents HelpTerrainsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MenuStrip5 As MenuStrip
     Friend WithEvents HelpLandcapingToolStripMenuItem As ToolStripMenuItem
@@ -1686,4 +1709,7 @@ Partial Class FormSmartStart
     Friend WithEvents Button1 As Button
     Friend WithEvents BakeButton As Button
     Friend WithEvents RevertButton As Button
+    Friend WithEvents TempCheckBox As CheckBox
+    Friend WithEvents Button3 As Button
+    Friend WithEvents HelpSmartStartToolStripMenuItem As ToolStripMenuItem
 End Class

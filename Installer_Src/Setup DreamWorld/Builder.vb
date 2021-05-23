@@ -14,11 +14,8 @@ Module Build
         If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
         If Settings.TerrainType = "Flat" Then
             If Not RPC_Region_Command(RegionUUID, $"terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Show("No RPC")
-
         ElseIf Settings.TerrainType = "Water" Then
-
             If Not RPC_Region_Command(RegionUUID, "terrain fill {Settings.FlatLandLevel}") Then BreakPoint.Show("No RPC")
-
         ElseIf Settings.TerrainType = "Random" Then
             Dim r = Between(Terrains.Count - 1, 0)
             Dim Type As String = Terrains(r)
@@ -139,6 +136,7 @@ Module Build
         For Each t As String In TreeList
             If GetSetting(t) Then
                 UseTree.Add(t)
+                Application.DoEvents()
             End If
         Next
 
@@ -169,6 +167,7 @@ Module Build
         Next
 
         If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
+        Application.DoEvents()
         If Not RPC_Region_Command(RegionUUID, $"tree statistics") Then Return
         'force update - Force the region to send all clients updates about all objects.
         If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
@@ -222,19 +221,11 @@ Module Build
             ' There only other way is to append to a file and start Robust again.
             Dim Group = PropRegionClass.GroupName(RegionUUID)
             While True
-                Dim keepgoing As Integer = 0
                 For Each UUID In PropRegionClass.RegionUuidListByName(Group)
-                    DoType(RegionUUID, "{Enter}{Enter}")
                     If EstateName(RegionUUID).Length = 0 Then
-                        keepgoing += 1
-                        Sleep(500)
+                        SetEstate(RegionUUID, 1999)
                     End If
                 Next
-                If keepgoing = 0 Then
-                    Exit While
-                End If
-                Sleep(500)
-                DoType(RegionUUID, "{Enter}{Enter}")
             End While
 
             WaitForBooted(RegionUUID)
@@ -243,12 +234,13 @@ Module Build
             If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
 
             For Each UUID In PropRegionClass.RegionUuidListByName(Group)
-
                 RPC_Region_Command(RegionUUID, $"estate link region 1999 {RegionUUID} ")
-                GenLand(RegionUUID)
-                Application.DoEvents()
-                GenTrees(RegionUUID)
-                Application.DoEvents()
+                Try
+                    GenLand(RegionUUID)
+                    GenTrees(RegionUUID)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
 
             Next
         Next
@@ -334,7 +326,7 @@ Module Build
         PropRegionClass.CoordX(RegionUUID) = X
         PropRegionClass.CoordY(RegionUUID) = Y
         PropRegionClass.SmartStart(RegionUUID) = "True"
-        PropRegionClass.Teleport(RegionUUID) = "False"
+        PropRegionClass.Teleport(RegionUUID) = "True"
         PropRegionClass.SizeX(RegionUUID) = 256
         PropRegionClass.SizeY(RegionUUID) = 256
         PropRegionClass.GroupName(RegionUUID) = Group
