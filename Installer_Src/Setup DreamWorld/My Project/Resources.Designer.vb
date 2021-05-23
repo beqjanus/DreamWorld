@@ -6794,6 +6794,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Owner Name.
+        '''</summary>
+        Friend ReadOnly Property Owner_Name() As String
+            Get
+                Return ResourceManager.GetString("Owner_Name", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property package() As System.Drawing.Bitmap

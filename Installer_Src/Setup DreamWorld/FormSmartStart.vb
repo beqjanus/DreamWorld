@@ -698,7 +698,8 @@ Public Class FormSmartStart
             Return
         End If
 
-        Dim Estate = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
+        gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
+        gEstateOwner = InputBox(My.Resources.Owner_Name)
 
         If Abort Then
             ApplyTerrainEffectButton.Text = My.Resources.Apply_word
@@ -743,6 +744,9 @@ Public Class FormSmartStart
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Start() 'Timer starts functioning
         End If
+
+        Dim localEstateName = gEstateName
+        Dim localOwnerName = gEstateOwner
 
         Dim Max As Integer
         Try
@@ -817,8 +821,16 @@ Public Class FormSmartStart
 
                 If Abort Then Exit For
 
+                ' force the Estate Name in Opensim.ini in COpyOpenSimProto
+                gEstateName = localEstateName
+                gEstateOwner = localOwnerName
+
                 ReBoot(RegionUUID) ' Wait for it to start booting
                 WaitForBooted(RegionUUID)
+
+                ' clear out the global estate name so normal prompts are followed
+                gEstateName = ""
+                gEstateOwner = ""
 
                 If Abort Then Exit For
 
@@ -834,27 +846,22 @@ Public Class FormSmartStart
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
 
-                    ' TODO estate set owner <estate ID> <owner UUID> - Change the owner of an estate. This command supports two forms; this one uses the owner's UUID.
-                    ' TODO Estate create < Owner UUID> <estate name> - Must be a user UUID,  which you can get from 'show names'
-                    If EstateName(RegionUUID).Length = 0 Then
-                        ConsoleCommand(RegionUUID, Estate)
-                    End If
-
                     ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                     ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
                     If Settings.MapType <> "None" Or PropRegionClass.MapType(RegionUUID).Length > 0 Then
                         ConsoleCommand(RegionUUID, "generate map")
-                        Sleep(10000) ' wait a bit to let it make a mas
+                        Sleep(1000) ' wait a bit to let it make a map
                     End If
 
                     ConsoleCommand(RegionUUID, "backup")
+                    Sleep(1000)
                     ConsoleCommand(RegionUUID, "alert Power off!")
+                    Sleep(1000)
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-
                     ConsoleCommand(RegionUUID, "q")
                     ConsoleCommand(RegionUUID, "q")
-                    Sleep(100)
+                    Sleep(1000)
                 Else
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     ConsoleCommand(RegionUUID, "q")

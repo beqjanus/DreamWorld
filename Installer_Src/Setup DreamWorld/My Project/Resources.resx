@@ -3584,4 +3584,7 @@
   <data name="PleaseWait" xml:space="preserve">
     <value>Please wait for Robust to completely boot. This may take some minutes.</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Owner Name</value>
+  </data>
 </root>

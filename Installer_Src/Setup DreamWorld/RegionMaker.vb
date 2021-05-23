@@ -269,6 +269,7 @@ Public Class RegionMaker
     ''' <param name="Group">Dos Box name</param>
     ''' <param name="Newname">New Name</param>
     ''' <param name="OldName">Old Name to change</param>
+    ''' <param name="Estate">Optional Estate Name</param>
     Public Sub WriteRegionObject(Group As String, Newname As String)
 
         Dim pathtoWelcome As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
@@ -2238,6 +2239,9 @@ Public Class RegionMaker
             If Settings.SmartStart Then
                 If Settings.SetIni("Startup", "Enabled", SmartStart(uuid)) Then Return True
             End If
+
+            If Settings.SetIni("Estates", "DefaultEstateName", gEstateName) Then Return True
+            If Settings.SetIni("Estates", "DefaultEstateOwnerName", gEstateOwner) Then Return True
 
             Settings.SaveINI(INI, System.Text.Encoding.UTF8)
 
