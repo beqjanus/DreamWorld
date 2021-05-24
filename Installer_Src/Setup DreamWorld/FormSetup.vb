@@ -1079,9 +1079,7 @@ Public Class FormSetup
 
             If PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booting Or
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted Then
-
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
-                PokeRegionTimer(Ruuid) ' keep alive
                 SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
             End If
 
@@ -1171,7 +1169,6 @@ Public Class FormSetup
                     Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                     For Each UUID As String In GroupList
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
-                        PokeRegionTimer(RegionUUID)
                     Next
                     Logger("State changed to RecyclingDown", GroupName, "Teleport")
 
@@ -1258,7 +1255,6 @@ Public Class FormSetup
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoLogin
                 PropUpdateView = True
                 Logger("State changed to NoLogin", PropRegionClass.RegionName(RegionUUID), "Teleport")
-                PokeRegionTimer(RegionUUID)
                 Continue While
             End If
 
@@ -1268,14 +1264,12 @@ Public Class FormSetup
             Diagnostics.Debug.Print($"{RegionName} {GetStateString(Status)}")
 
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then
-                PokeRegionTimer(RegionUUID)
                 Continue While
             End If
 
             If Status = RegionMaker.SIMSTATUSENUM.NoError Then
                 For Each R In GroupList
                     PropRegionClass.Status(R) = RegionMaker.SIMSTATUSENUM.Stopped
-                    PokeRegionTimer(RegionUUID)
                 Next
                 PropUpdateView = True
                 Continue While
@@ -1283,7 +1277,6 @@ Public Class FormSetup
             ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
                 For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped
-                    PokeRegionTimer(RegionUUID)
                 Next
                 PropUpdateView = True ' make form refresh
                 Continue While
@@ -2648,7 +2641,6 @@ Public Class FormSetup
 
         ' every minute and at startup
         If SecondsTicker Mod 60 = 0 Then
-
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
             ScanOpenSimWorld(CBool(SecondsTicker = 0))
