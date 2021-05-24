@@ -93,6 +93,11 @@ Module WindowHandlers
 
     End Sub
 
+    ''' <summary>
+    ''' Returns a handle to the window, by process list, or by reading the PID file.
+    ''' </summary>
+    ''' <param name="Groupname">Name of the DOS box</param>
+    ''' <returns>Handle to a window ot Intptr.zero</returns>
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname = RobustName() Then
@@ -106,29 +111,38 @@ Module WindowHandlers
                 End If
             Next
             Return IntPtr.Zero
-        Else
-            Dim PID As Integer
-            Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Groupname}\PID.pid")
-            If IO.File.Exists(INI) Then
-                Dim sPID As String = File.ReadAllText(INI)
-                If Int32.TryParse(sPID, PID) Then
-                    Try
-                        Dim Plist = Process.GetProcessById(PID)
-                        Return Plist.MainWindowHandle
-                    Catch
-                    End Try
-
-                End If
-            End If
-
-            ' file may be gone, so look at window name
-            Dim AllProcesses = Process.GetProcessesByName("Opensim")
-            For Each p As Process In AllProcesses
-                If p.MainWindowTitle = Groupname Then
-                    Return p.MainWindowHandle
-                End If
-            Next
         End If
+
+        ' non robust
+        Dim PID As Integer
+        Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Groupname}\PID.pid")
+        If IO.File.Exists(INI) Then
+
+            Using F As FileStream = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+                Using S As StreamReader = New StreamReader(F)
+                    'now loop through each line
+                    While S.Peek <> -1
+                        Dim sPID As String = S.ReadLine
+                        If Int32.TryParse(sPID, PID) Then
+                            Try
+                                Dim Plist = Process.GetProcessById(PID)
+                                Return Plist.MainWindowHandle
+                            Catch
+                            End Try
+                        End If
+                    End While
+                End Using
+            End Using
+
+        End If
+
+        ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
+        Dim AllProcesses = Process.GetProcessesByName("Opensim")
+        For Each p As Process In AllProcesses
+            If p.MainWindowTitle = Groupname Then
+                Return p.MainWindowHandle
+            End If
+        Next
 
         Return IntPtr.Zero
 
