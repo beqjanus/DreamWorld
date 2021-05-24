@@ -1083,6 +1083,9 @@ Public Class FormSetup
                 SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
             End If
 
+            'force update - Force the region to send all clients updates about all objects.
+            If Not RPC_Region_Command(Ruuid, "force update") Then BreakPoint.Show("No RPC")
+
             If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid).Length = 0 Then
                 PropRegionClass.BootTime(Ruuid) = CInt(seconds)
             Else
