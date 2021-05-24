@@ -1678,7 +1678,6 @@ Public Class FormSmartStart
         DeleteOpensimEstateID(RegionUUID)
         PropRegionClass.Delete_Region_Map(RegionUUID)
         PropRegionClass.DeleteRegion(RegionUUID)
-        'PropRegionClass.GetAllRegions()
 
         ProgressPrint($"Deleted region {RegionName}")
         PropUpdateView = True
