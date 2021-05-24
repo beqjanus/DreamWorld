@@ -3055,4 +3055,229 @@
   <data name="PleaseWait" xml:space="preserve">
     <value>Espereu fins que Robust s'iniciï completament. Això pot trigar uns minuts.</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Nom del propietari</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Nom alternatiu que utilitzarà Apache o Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>aplicar</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>arribant</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Els avatars encara hi són</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Enfornar</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Herba de la platja</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Regions de càrrega massiva</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Xiprer 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Xiprer 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Xiprer 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Xiprer 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Segons abans d’esperar</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Eliminar tots</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Suprimeix i després Aplica</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dogwood</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Eelgrass</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Mida final XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Eucaliptus</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Falguera</value>
+  </data>
+  <data name="Fernm" xml:space="preserve">
+    <value>Fernm</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Mida de farciment a les regions</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Pis</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Generat</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Alçada</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Ajuda al paisatgisme</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Ajudeu a l'editor de plantes</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Ajuda a Smart Start</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Ajuda a Terrenys</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Només opcions</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Alga 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Alga 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>marxant</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Soroll</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>cap</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Roure</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Propietari de les regions circumdants</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Palma 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Palma 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>ParkingRegion</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Aparcament Sim</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Aparcament Sim</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Pi 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Pi 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Pi 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Pi 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Pi 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Les plantes</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Terreny aleatori</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Creador de regions</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Reverteix</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Desa el terreny</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Espasa de mar</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Segons</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Llis</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Mida d'inici XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Cònic</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Utilitzeu regions temporals</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>Línia d’arbre baixa</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Arbust tropical 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Bush tropical 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Veure la carpeta del terreny</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Aigua</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Winter Aspen</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Winter Aspen</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Pi d’hivern 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Pi d’hivern 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Winter Pine 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Winter Pine 2</value>
+  </data>
 </root>

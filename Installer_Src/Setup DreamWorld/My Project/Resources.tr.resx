@@ -3051,4 +3051,19 @@
   <data name="Birthday_word" xml:space="preserve">
     <value>Doğum Günü</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Lütfen Robust'un tamamen önyüklenmesini bekleyin. Bu birkaç dakika sürebilir.</value>
+  </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Sahip Adı</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Apache veya Jopensim tarafından kullanılmak üzere alternatif ad</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Uygulamak</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Yok</value>
+  </data>
 </root>

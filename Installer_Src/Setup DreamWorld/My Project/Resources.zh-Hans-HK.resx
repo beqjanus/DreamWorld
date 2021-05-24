@@ -3036,4 +3036,34 @@
   <data name="TreesAndPlants" xml:space="preserve">
     <value>树木和植物</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>半径</value>
+  </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>等级</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>年龄</value>
+  </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>请等待Robust完全启动。这可能需要几分钟。</value>
+  </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>所有者名称</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>供Apache或Jopensim使用的备用名称</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>申请</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>没有</value>
+  </data>
 </root>

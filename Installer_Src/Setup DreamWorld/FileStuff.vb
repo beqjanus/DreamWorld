@@ -90,6 +90,7 @@ Module FileStuff
     Public Sub CopyFileFast(From As String, Dest As String)
 
         If Not File.Exists(From) Then Return
+        If From.Contains("Thumbs.db") Then Return
 
         'Create the file stream for the source file
         Try

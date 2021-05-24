@@ -3051,4 +3051,19 @@
   <data name="Birthday_word" xml:space="preserve">
     <value>Syntymäpäivä</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Odota, että Robust käynnistyy kokonaan. Tämä voi kestää muutaman minuutin.</value>
+  </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Omistajan nimi</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Vaihtoehtoinen nimi käytettäväksi Apache tai Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Käytä</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
 </root>

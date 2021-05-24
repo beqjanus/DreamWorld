@@ -56,7 +56,7 @@ Public Class FormDNSName
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         Label1.Text = Global.Outworldz.My.Resources.DynDNS_password_word
         Label2.Text = Global.Outworldz.My.Resources.DNSNameText
-        Label3.Text = Global.Outworldz.My.Resources.DNSNameText
+        Label3.Text = Global.Outworldz.My.Resources.DNSAltWords
         Me.Text = Global.Outworldz.My.Resources.Dynamic_DNS_word
         NextNameButton.Text = Global.Outworldz.My.Resources.Next_Name
         SaveButton1.Text = Global.Outworldz.My.Resources.Save_word

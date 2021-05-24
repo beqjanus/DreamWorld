@@ -494,32 +494,118 @@ Public Class FormSmartStart
 
         _initialized = False
         SetScreen()
-        SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
+
+        AI.Text = My.Resources.Generated_word
+        All.Text = My.Resources.All_word
+        ApplyPlantButton.Text = My.Resources.Apply_word
+        AviName.Text = Settings.SurroundOwner
+        BakeButton.Text = My.Resources.Bakeword
+        BeachGrass1.Text = My.Resources.BeachGrass
+        BulkLoadRegionsToolStripMenuItem.Text = My.Resources.BulkLoad
+        Button1.Text = My.Resources.Delete_All
+        Cypress1.Text = My.Resources.Cypress_1
+        Cypress2.Text = My.Resources.Cypress_2
         DelayLabel.Text = Global.Outworldz.My.Resources.SSDelay
-        ToolTip1.SetToolTip(Seconds, Global.Outworldz.My.Resources.SecondsTips)
-        RegionMakerEnableCHeckbox.Checked = Settings.AutoFill
+        DelayLabel.Text = My.Resources.DelayBeforeExit
+        DeletApply.Text = My.Resources.Delete_and_then_Apply
+        Dogwood.Text = My.Resources.Dogwood
+        Eelgrass.Text = My.Resources.Eelgrass
+        Eucalyptus.Text = My.Resources.Eucalyptus
+        Fern.Text = My.Resources.Fern
+        FillSizeLabel.Text = My.Resources.FillSizeLabel
+        Flat.Text = My.Resources.Flat
+        FlatLandLevel.Text = CStr(Settings.FlatLandLevel)
+        GroupBox1.Text = My.Resources.Plants
+        GroupBox2.Text = My.Resources.Terrain_word
+        GroupBox4.Text = My.Resources.Terrain_word
+        GroupBox5.Text = My.Resources.Options
+        HelpLandcapingToolStripMenuItem.Text = My.Resources.HelpLandcaping
+        HelpPlantEditorToolStripMenuItem.Text = My.Resources.HelpPlantEditor
+        HelpSmartStartToolStripMenuItem.Text = My.Resources.HelpSmartStart
+        HelpTerrainsToolStripMenuItem.Text = My.Resources.HelpTerrains
+        HelpToolStripMenuItem.Text = My.Resources.Help_word
+        Kelp1.Text = My.Resources.Kelp1
+        Kelp2.Text = My.Resources.Kelp2
+        Label10.Text = My.Resources.Taper
+        Label2.Text = My.Resources.TreelineHigh
+        Label3.Text = My.Resources.TreeLineLow
+        Label4.Text = My.Resources.StartSizeXYZ
+        Label5.Text = My.Resources.EndSizeXYZ
+        Label6.Text = My.Resources.ParkingRegion
+        Label8.Text = My.Resources.Height
+        Label9.Text = My.Resources.Smooth
+        LandscapingToolStripMenuItem.Text = My.Resources.Landscaping
+        ListBox2.SelectedIndex = Settings.Skirtsize - 1
+        LoadTerrain.Text = My.Resources.LoadTerrain
         Me.Text = Global.Outworldz.My.Resources.Smart_Start_word
-        SmartStartEnabled.Checked = Settings.SmartStart
+        Noise.Text = My.Resources.Noise
+        None.Text = My.Resources.None
+        Oak.Text = My.Resources.Oak
+        OptionRadioButton.Text = My.Resources.JustOptions
+        OwnerLabel.Text = My.Resources.OwnerOfRegions
+        Palm1.Text = My.Resources.Palm1
+        ParkingSpot.Text = My.Resources.Parking_Spot
+        Pine1.Text = My.Resources.Pine1
+        Pine2.Text = My.Resources.Pine2
+        Plumeria.Text = My.Resources.Plumeria
         QtyLabel.Text = My.Resources.Quantity_word
+        RadioButton10.Text = My.Resources.BeachGrass1
+        RadioButton11.Text = My.Resources.Pine1
+        RadioButton12.Text = My.Resources.Pine2
+        RadioButton13.Text = My.Resources.Palm1
+        RadioButton14.Text = My.Resources.Pine2
+        RadioButton15.Text = My.Resources.TropicalBush1
+        RadioButton16.Text = My.Resources.TropicalBush2
+        RadioButton17.Text = My.Resources.SeaSword
+        RadioButton18.Text = My.Resources.Kelp1
+        RadioButton19.Text = My.Resources.Kelp2
+        RadioButton20.Text = My.Resources.Eucalyptus
+        RadioButton21.Text = My.Resources.Fern
+        RadioButton22.Text = My.Resources.Oak
+        RadioButton23.Text = My.Resources.Plumeria
+        RadioButton24.Text = My.Resources.Eelgrass
+        RadioButton26.Text = My.Resources.Dogwood
+        RadioButton5.Text = My.Resources.Cypress1
+        RadioButton6.Text = My.Resources.Cypress2
+        RadioButton7.Text = My.Resources.WinterAspen
+        RadioButton8.Text = My.Resources.WinterPine1
+        RadioButton9.Text = My.Resources.WinterPine2
+        Radius.Text = My.Resources.Radius_Word
+        Rand.Text = My.Resources.RandomTerrain
+        RebuildTerrainsToolStripMenuItem.Text = My.Resources.RegenTerrains
+        RegionMakerEnableCHeckbox.Checked = Settings.AutoFill
+        RegionMakingToolStripMenuItem.Text = My.Resources.RegionMaker
+        RevertButton.Text = My.Resources.Revert
+        SaveTerrain.Text = My.Resources.SaveTerrain
+        SeaSword.Text = My.Resources.SeaSword
+        Seconds.Name = My.Resources.Seconds
+        Seconds.Text = CStr(Settings.SmartStartTimeout)
+        SmartStartEnabled.Text = Global.Outworldz.My.Resources.Smart_Start_Enable_word
+        SmartStartToolStripMenuItem.Text = My.Resources.Smart_Start_word
+        Smooth.Text = My.Resources.Smooth
+        SmoothTextBox.Text = CStr(Settings.LandStrength)
         TabPage1.Text = My.Resources.Smart_Start_word
         TabPage2.Text = My.Resources.Landscaping
+        TabPage2.Text = My.Resources.Terrain_word
         TabPage3.Text = My.Resources.TreesAndPlants
-        ListBox2.SelectedIndex = Settings.Skirtsize - 1
-        Radius.Text = My.Resources.Radius_Word
-
-        SmoothTextBox.Text = CStr(Settings.LandStrength)
+        TabPage4.Text = My.Resources.EditorWord
         TaperTextBox.Text = CStr(Settings.LandTaper)
-
-        AviName.Text = Settings.SurroundOwner
+        TempCheckBox.Text = My.Resources.Temporary_Regions
+        TerrainApply.Text = My.Resources.Apply
+        ToolTip1.SetToolTip(Seconds, Global.Outworldz.My.Resources.SecondsTips)
+        TropicalBush1.Text = My.Resources.TropicalBush1
+        TropicalBush2.Text = My.Resources.TropicalBush2
+        ViewTerrainFolderToolStripMenuItem.Text = My.Resources.ViewTerrainFolder
+        Water.Text = My.Resources.WaterWord
+        WinterAspen.Text = My.Resources.WinterAspen
+        WinterPine1.Text = My.Resources.WinterPine1
+        WinterPine2.Text = My.Resources.WinterPine2
 
         If AviName.Text.Length = 0 Then
             AviName.BackColor = Color.Red
         End If
 
-        Seconds.Text = CStr(Settings.SmartStartTimeout)
         SetScreen()
-
-        FlatLandLevel.Text = CStr(Settings.FlatLandLevel)
 
         Select Case Settings.TerrainType
             Case "Flat"
@@ -540,28 +626,26 @@ Public Class FormSmartStart
             .AutoCompleteSource = AutoCompleteSource.CustomSource
         End With
 
-        GetSetting(BeachGrass1.Text)
-        GetSetting(Cypress1.Text)
-        GetSetting(Cypress2.Text)
-        GetSetting(Eelgrass.Text)
-        GetSetting(Eucalyptus.Text)
-        GetSetting(Fern.Text)
-
-        GetSetting(Kelp1.Text)
-        GetSetting(Kelp2.Text)
-        GetSetting(Oak.Text)
-        GetSetting(Palm1.Text)
-        GetSetting(Palm2.Text)
-        GetSetting(Pine1.Text)
-        GetSetting(Pine2.Text)
-        GetSetting(Plumeria.Text)
-        GetSetting(SeaSword.Text)
-        GetSetting(TropicalBush1.Text)
-        GetSetting(TropicalBush2.Text)
-
-        GetSetting(WinterAspen.Text)
-        GetSetting(WinterPine1.Text)
-        GetSetting(WinterPine2.Text)
+        BeachGrass1.Checked = GetSetting("BeachGrass1")
+        Cypress1.Checked = GetSetting("Cypress1")
+        Cypress2.Checked = GetSetting("Cypress2")
+        Eelgrass.Checked = GetSetting("Eelgrass")
+        Eucalyptus.Checked = GetSetting("Eucalyptus")
+        Fern.Checked = GetSetting("Fern")
+        Kelp1.Checked = GetSetting("Kelp1")
+        Kelp2.Checked = GetSetting("Kelp2")
+        Oak.Checked = GetSetting("Oak")
+        Palm1.Checked = GetSetting("Palm1")
+        Palm2.Checked = GetSetting("Palm2")
+        Pine1.Checked = GetSetting("Pine1")
+        Pine2.Checked = GetSetting("Pine2")
+        Plumeria.Checked = GetSetting("Plumeria")
+        SeaSword.Checked = GetSetting("SeaSword")
+        TropicalBush1.Checked = GetSetting("TropicalBush1")
+        TropicalBush2.Checked = GetSetting("TropicalBush2")
+        WinterAspen.Checked = GetSetting("WinterAspen")
+        WinterPine1.Checked = GetSetting("WinterPine1")
+        WinterPine2.Checked = GetSetting("WinterPine2")
 
         All.Checked = Settings.AllPlants
         None.Checked = Settings.NoPlants
@@ -698,7 +782,8 @@ Public Class FormSmartStart
             Return
         End If
 
-        Dim Estate = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
+        gEstateName = InputBox(My.Resources.WhatEstateName, My.Resources.WhatEstate, "Outworldz")
+        gEstateOwner = InputBox(My.Resources.Owner_Name)
 
         If Abort Then
             ApplyTerrainEffectButton.Text = My.Resources.Apply_word
@@ -743,6 +828,9 @@ Public Class FormSmartStart
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Start() 'Timer starts functioning
         End If
+
+        Dim localEstateName = gEstateName
+        Dim localOwnerName = gEstateOwner
 
         Dim Max As Integer
         Try
@@ -817,8 +905,16 @@ Public Class FormSmartStart
 
                 If Abort Then Exit For
 
+                ' force the Estate Name in Opensim.ini in COpyOpenSimProto
+                gEstateName = localEstateName
+                gEstateOwner = localOwnerName
+
                 ReBoot(RegionUUID) ' Wait for it to start booting
                 WaitForBooted(RegionUUID)
+
+                ' clear out the global estate name so normal prompts are followed
+                gEstateName = ""
+                gEstateOwner = ""
 
                 If Abort Then Exit For
 
@@ -834,27 +930,22 @@ Public Class FormSmartStart
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
 
-                    ' TODO estate set owner <estate ID> <owner UUID> - Change the owner of an estate. This command supports two forms; this one uses the owner's UUID.
-                    ' TODO Estate create < Owner UUID> <estate name> - Must be a user UUID,  which you can get from 'show names'
-                    If EstateName(RegionUUID).Length = 0 Then
-                        ConsoleCommand(RegionUUID, Estate)
-                    End If
-
                     ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                     ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
 
                     If Settings.MapType <> "None" Or PropRegionClass.MapType(RegionUUID).Length > 0 Then
                         ConsoleCommand(RegionUUID, "generate map")
-                        Sleep(10000) ' wait a bit to let it make a mas
+                        Sleep(1000) ' wait a bit to let it make a map
                     End If
 
                     ConsoleCommand(RegionUUID, "backup")
+                    Sleep(1000)
                     ConsoleCommand(RegionUUID, "alert Power off!")
+                    Sleep(1000)
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-
                     ConsoleCommand(RegionUUID, "q")
                     ConsoleCommand(RegionUUID, "q")
-                    Sleep(100)
+                    Sleep(1000)
                 Else
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     ConsoleCommand(RegionUUID, "q")
@@ -1611,7 +1702,7 @@ Public Class FormSmartStart
 
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles DeleteAllRegions.Click
         Dim ctr = 0
         Dim result = MsgBox("*** This will delete all regions in the Estate 'SmartFill' !", vbOKCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
         If result = vbOK Then
@@ -1671,7 +1762,6 @@ Public Class FormSmartStart
         DeleteOpensimEstateID(RegionUUID)
         PropRegionClass.Delete_Region_Map(RegionUUID)
         PropRegionClass.DeleteRegion(RegionUUID)
-        'PropRegionClass.GetAllRegions()
 
         ProgressPrint($"Deleted region {RegionName}")
         PropUpdateView = True

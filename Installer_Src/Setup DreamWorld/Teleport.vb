@@ -41,16 +41,14 @@ Module Teleport
                 Dim status = PropRegionClass.Status(RegionToUUID)
                 Dim Port As Integer = PropRegionClass.GroupPort(RegionToUUID)
                 Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
-                If status = RegionMaker.SIMSTATUSENUM.Booting Then
-                    PokeRegionTimer(RegionToUUID)
 
-                ElseIf status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                If status = RegionMaker.SIMSTATUSENUM.Stopped Then
                     Fin.Add(AgentID) ' cancel this, the region went away
 
                 ElseIf status = RegionMaker.SIMSTATUSENUM.Booted And
                     IsRegionReady(Port) And
                     RegionIsRegisteredOnline(RegionToUUID) Then
-
+                    Sleep(4000)
                     Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                     Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
                     If fromName.Length > 0 Then

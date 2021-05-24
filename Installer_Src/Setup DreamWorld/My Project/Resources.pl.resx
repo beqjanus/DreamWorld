@@ -3051,4 +3051,19 @@
   <data name="Birthday_word" xml:space="preserve">
     <value>Urodziny</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Poczekaj, aż Robust całkowicie się uruchomi. Może to zająć kilka minut.</value>
+  </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Imię właściciela</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Alternatywna nazwa do użytku przez Apache lub Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Zastosować</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Żaden</value>
+  </data>
 </root>

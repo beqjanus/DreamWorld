@@ -3051,4 +3051,19 @@
   <data name="Birthday_word" xml:space="preserve">
     <value>Jaiotza-data</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Itxaron Robust erabat abiarazteko. Minutu batzuk behar izan ditzake.</value>
+  </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Jabearen izena</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Ordezko izena Apache edo Jopensim-ek erabiltzeko</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>aplikatu</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Bat ere ez</value>
+  </data>
 </root>

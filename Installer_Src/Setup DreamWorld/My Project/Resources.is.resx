@@ -3051,4 +3051,19 @@
   <data name="Birthday_word" xml:space="preserve">
     <value>Fæðingardagur</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Vinsamlegast bíddu eftir að Robust hefjist að fullu. Þetta getur tekið nokkrar mínútur.</value>
+  </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Nafn eiganda</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Varanafn til notkunar hjá Apache eða Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>gilda</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Enginn</value>
+  </data>
 </root>
