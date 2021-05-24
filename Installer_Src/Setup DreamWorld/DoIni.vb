@@ -419,7 +419,7 @@ Module DoIni
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
                 RegionName = RegionName.Replace(" ", "_")    ' because this is a screwy thing they did in the INI file
                 If PropRegionClass.RegionName(RegionUUID) = DefaultName Then
-                    RegionSetting += $"Region_{Welcome}=DefaultRegion{vbCrLf}"
+                    RegionSetting += $"Region_{Welcome}=DefaultRegion, FallbackRegion{vbCrLf}"
                 Else
                     If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
                         RegionSetting += $"Region_{RegionName}=Persistent{vbCrLf}"
