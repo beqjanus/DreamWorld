@@ -44,7 +44,6 @@ Public Class FormRegions
 
     Private Sub AddRegion_Click(sender As Object, e As EventArgs) Handles AddRegion.Click
 
-        PropRegionClass.CreateRegion("New Region")
 #Disable Warning CA2000 ' Dispose objects before losing scope
         Dim RegionForm As New FormRegion
 #Enable Warning CA2000 ' Dispose objects before losing scope
