@@ -261,6 +261,7 @@ Public Class FormRegion
             NonphysicalPrimMax.Text = 1024.ToString(Globalization.CultureInfo.InvariantCulture)
             PhysicalPrimMax.Text = 64.ToString(Globalization.CultureInfo.InvariantCulture)
             ClampPrimSize.Checked = False
+            ConciergeCheckBox.Checked = False
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
             RegionUUID = PropRegionClass.CreateRegion("New Region")
@@ -1041,6 +1042,7 @@ Public Class FormRegion
         PropRegionClass.NonPhysicalPrimMax(RegionUUID) = NonphysicalPrimMax.Text
         PropRegionClass.PhysicalPrimMax(RegionUUID) = PhysicalPrimMax.Text
         PropRegionClass.ClampPrimSize(RegionUUID) = ClampPrimSize.Checked
+        PropRegionClass.Concierge(RegionUUID) = CStr(ConciergeCheckBox.Checked)
         PropRegionClass.MaxAgents(RegionUUID) = MaxAgents.Text
         PropRegionClass.MaxPrims(RegionUUID) = MaxPrims.Text
         PropRegionClass.MinTimerInterval(RegionUUID) = ScriptTimerTextBox.Text
@@ -1199,6 +1201,7 @@ Public Class FormRegion
                         "NonPhysicalPrimMax = " & NonphysicalPrimMax.Text & vbCrLf &
                         "PhysicalPrimMax = " & PhysicalPrimMax.Text & vbCrLf &
                         "ClampPrimSize = " & CStr(ClampPrimSize.Checked) & vbCrLf &
+                        "Concierge =  " & CStr(ConciergeCheckBox.Checked) & vbCrLf &
                         "MaxAgents = " & MaxAgents.Text & vbCrLf &
                         "MaxPrims = " & MaxPrims.Text & vbCrLf &
                         "RegionType = Estate" & vbCrLf & vbCrLf &

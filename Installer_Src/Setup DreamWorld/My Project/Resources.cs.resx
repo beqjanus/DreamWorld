@@ -3054,4 +3054,229 @@
   <data name="PleaseWait" xml:space="preserve">
     <value>Počkejte, až se Robust úplně spustí. To může trvat několik minut.</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Jméno majitele</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Alternativní název pro použití Apache nebo Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Aplikovat</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>přijíždím</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Avatary jsou stále uvnitř</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Upéct</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Plážová tráva</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Oblasti hromadného zatížení</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Cypress 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Cypress 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Sekundy před čekáním</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Smazat všechny</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Odstranit a poté použít</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dřín</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Eelgrass</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Koncová velikost XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Eukalyptus</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Kapradina</value>
+  </data>
+  <data name="Fernm" xml:space="preserve">
+    <value>Fernm</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Velikost výplně v regionech</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Byt</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Generováno</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Výška</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Pomozte terénním úpravám</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Pomozte editoru rostlin</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Pomozte Smart Start</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Pomozte terénům</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Jen Možnosti</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Řasa 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Řasa 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>odcházející</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Hluk</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Žádný</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Dub</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Vlastník okolních regionů</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Dlaň 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Dlaň 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>ParkováníRegion</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Parking Sim</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Parking Sim</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Borovice 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Borovice 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Borovice 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Borovice 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Borovice 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Rostliny</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Náhodný terén</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Region Maker</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Vrátit zpět</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Zachraňte terén</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Mořský meč</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Sekundy</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Hladký</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Počáteční velikost XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Kužel</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Použít dočasné oblasti</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine Low</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Tropický keř 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Tropický keř 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Zobrazit složku Terrain</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Voda</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Zimní osika</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Zimní osika</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Zimní borovice 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Zimní borovice 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Winter Pine 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Winter Pine 2</value>
+  </data>
 </root>

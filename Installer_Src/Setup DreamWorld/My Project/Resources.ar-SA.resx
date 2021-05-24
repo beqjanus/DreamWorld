@@ -3054,4 +3054,229 @@
   <data name="PleaseWait" xml:space="preserve">
     <value>يرجى الانتظار حتى يتم تشغيل Robust تمامًا. قد يستغرق هذا بضع دقائق.</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>اسم المالك</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>اسم بديل للاستخدام بواسطة Apache أو Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>يتقدم</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>قادمة</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>الصور الرمزية لا تزال موجودة</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>خبز</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>عشب الشاطئ</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>عشب الشاطئ 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>مناطق التحميل المجمع</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>السرو 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>السرو 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>السرو 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>السرو 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>ثوان قبل الانتظار</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>حذف الكل</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>حذف ثم تطبيق</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>قرانيا</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>محرر</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>إيلغراس</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>حجم النهاية XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>أوكالبتوس</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>السرخس</value>
+  </data>
+  <data name="Fernm" xml:space="preserve">
+    <value>فرنم</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>حجم التعبئة في المناطق</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>مستوي</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>ولدت</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>ارتفاع</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>مساعدة المناظر الطبيعية</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>مساعدة محرر النبات</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>مساعدة Smart Start</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>مساعدة تضاريس</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>مجرد خيارات</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>عشب البحر 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>عشب البحر 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>مغادرة</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>ضوضاء</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>لا أحد</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>بلوط</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>مالك المناطق المحيطة</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>كف 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>كف 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>منطقة وقوف السيارات</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>سيم وقوف السيارات</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>سيم وقوف السيارات</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>الصنوبر 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>الصنوبر 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>الصنوبر 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>الصنوبر 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>الصنوبر 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>النباتات</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>بلوميريا</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>تضاريس عشوائية</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>ريجين تيراينز</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>صانع المنطقة</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>يرجع</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>حفظ التضاريس</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>سيف البحر</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>ثواني</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>ناعم</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>حجم البداية XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>تفتق</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>استخدم المناطق المؤقتة</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>خط الشجرة منخفض</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>شجيرة استوائية 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>شجيرة استوائية 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>عرض مجلد التضاريس</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>ماء</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>وينتر اسبن</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>وينتر اسبن</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>الشتاء الصنوبر 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>الشتاء الصنوبر 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>الشتاء باين 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>الشتاء باين 2</value>
+  </data>
 </root>

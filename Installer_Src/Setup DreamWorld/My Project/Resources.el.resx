@@ -3054,4 +3054,229 @@
   <data name="PleaseWait" xml:space="preserve">
     <value>Περιμένετε να εκκινήσει εντελώς το Robust. Αυτό μπορεί να διαρκέσει μερικά λεπτά.</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Ονομα ιδιοκτήτη</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Εναλλακτικό όνομα για χρήση από Apache ή Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Ισχύουν</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>φτάνοντας</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Τα είδωλα είναι ακόμα μέσα</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Ψήνω</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Παραλία γρασίδι</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Περιοχές μαζικού φορτίου</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Κυπαρίσσι 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Κυπαρίσσι 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Κυπαρίσσι 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Κυπαρίσσι 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Δευτερόλεπτα πριν από την αναμονή</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Διαγραφή όλων</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Διαγράψτε και μετά εφαρμόστε</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dogwood</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Συντάκτης</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Eelgrass</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Τελικό μέγεθος XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Ευκάλυπτος</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Φτέρη</value>
+  </data>
+  <data name="Fernm" xml:space="preserve">
+    <value>Φερμ</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Συμπληρώστε το μέγεθος σε περιοχές</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Επίπεδος</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Δημιουργούνται</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Υψος</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Βοηθήστε τον εξωραϊσμό</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Βοηθήστε το πρόγραμμα επεξεργασίας φυτών</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Βοηθήστε το Smart Start</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Βοήθεια Terrains</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Απλά Επιλογές</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Kelp 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Kelp 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>φεύγοντας</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Θόρυβος</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Κανένας</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Δρυς</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Ιδιοκτήτης Γειτονικών Περιοχών</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Παλάμη 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Παλάμη 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>Περιοχή στάθμευσης</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Sim στάθμευσης</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Sim στάθμευσης</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Πεύκο 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Πεύκο 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Πεύκο 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Πεύκο 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Πεύκο 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Φυτά</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Πλουμέρια</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Τυχαίο έδαφος</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Δημιουργός περιοχής</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Επαναστρέφω</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Αποθήκευση εδάφους</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Θαλάσσιο σπαθί</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Δευτερόλεπτα</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Λείος</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Έναρξη μεγέθους XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Κωνοειδής</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Χρησιμοποιήστε προσωρινές περιοχές</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine Low</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Τροπικός Μπους 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Τροπικός Μπους 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Προβολή φακέλου εδάφους</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Νερό</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Χειμώνας Άσπεν</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Χειμώνας Άσπεν</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Χειμερινό πεύκο 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Χειμερινό πεύκο 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Χειμερινό πεύκο 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Χειμερινό πεύκο 2</value>
+  </data>
 </root>

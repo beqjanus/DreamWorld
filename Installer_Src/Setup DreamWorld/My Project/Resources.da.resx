@@ -3054,4 +3054,229 @@
   <data name="PleaseWait" xml:space="preserve">
     <value>Vent til Robust starter helt op. Dette kan tage nogle minutter.</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Ejerens navn</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Alternativt navn til brug af Apache eller Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>ansøge</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>ankommer</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Avatarer er stadig inde</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Bage</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Strandgræs</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>Strandgræs 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Regioner til bulkbelastning</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Cypress 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Cypress 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Sekunder inden du venter</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Slet alt</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Slet, og anvend derefter</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dogwood</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Redaktør</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Ålegræs</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Slutstørrelse XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Eukalyptus</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Fern</value>
+  </data>
+  <data name="Fernm" xml:space="preserve">
+    <value>Fernm</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Udfyld størrelse i regioner</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Flad</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Genereret</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Højde</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Hjælp Landcaping</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Hjælp Plant Editor</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Hjælp Smart Start</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Hjælp terræn</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Bare indstillinger</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Tare 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Tare 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>forlader</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Støj</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Egetræ</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Ejer af de omkringliggende regioner</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Håndflade 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Håndflade 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>Parkering Region</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Parkering Sim</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Parkering Sim</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Fyr 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Fyr 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Fyr 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Fyr 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Fyr 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Planter</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Tilfældigt terræn</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Region Maker</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Vende tilbage</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Gem terræn</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Havsværd</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Sekunder</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Glat</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Startstørrelse XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Konisk</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Brug midlertidige regioner</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine Lav</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Tropisk busk 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Tropisk busk 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Vis terrænmappe</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Vand</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Vinter asp</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Vinter asp</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Winter Pine 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Winter Pine 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Winter Pine 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Winter Pine 2</value>
+  </data>
 </root>

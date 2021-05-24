@@ -447,7 +447,6 @@ Public Class FormRegionlist
         ctr += 1
         UserView.Columns.Add(My.Resources.Age, colsize.ColumnWidth("Age" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
 
-
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
         AddHandler ListView1.ColumnClick, AddressOf ColumnClick
         AddHandler IconView.ColumnClick, AddressOf ColumnClick
@@ -1309,7 +1308,7 @@ SetWindowOnTop_Err:
                     If PropRegionClass.AvatarCount(num) = 1 Then
                         response = MsgBox(My.Resources.OneAvatar & " " & PropRegionClass.RegionName(num) & " " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
                     Else
-                        response = MsgBox(PropRegionClass.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & Global.Outworldz.My.Resources.people_are_in & " " + PropRegionClass.RegionName(num) + ". " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+                        response = MsgBox(PropRegionClass.AvatarCount(num).ToString(Globalization.CultureInfo.InvariantCulture) + " " & Global.Outworldz.My.Resources.Avatars_are_in & " " + PropRegionClass.RegionName(num) + ". " & Global.Outworldz.My.Resources.Do_you_still_want_to_Stop_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
                     End If
                     If response = vbNo Then
                         StopIt = False
@@ -1455,7 +1454,7 @@ SetWindowOnTop_Err:
                         X.Checked = CType(CheckState.Checked, Boolean)
                     End If
                 Else
-                        X.Checked = CType(CheckState.Unchecked, Boolean)
+                    X.Checked = CType(CheckState.Unchecked, Boolean)
                 End If
             Next
 

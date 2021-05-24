@@ -388,6 +388,7 @@ Public Class FormSetup
                 BreakPoint.Show(ex.Message)
                 TextPrint(My.Resources.ErrUpdate)
             End Try
+
         End If
 
     End Sub
@@ -505,7 +506,7 @@ Public Class FormSetup
                     If CountisRunning = 1 Then
                         TextPrint(My.Resources.One_region)
                     Else
-                        TextPrint(CStr(CountisRunning) & " " & Global.Outworldz.My.Resources.Regions_Are_Running)
+                        TextPrint($"{CStr(CountisRunning)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
                     End If
                 End If
 
@@ -715,7 +716,7 @@ Public Class FormSetup
             Dim BTime As Integer = CInt("0" & Settings.AutobackupInterval)
             If Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
                 Settings.AutoRestartInterval = BTime + 30
-                TextPrint(My.Resources.AutorestartTime & " " & CStr(BTime) & " + 30 min.")
+                TextPrint($"{My.Resources.AutorestartTime} {CStr(BTime)} + 30 min.")
             End If
         End If
 
@@ -783,7 +784,7 @@ Public Class FormSetup
         End If
 
         Buttons(StopButton)
-        TextPrint(My.Resources.Grid_address_word & vbCrLf & "http://" & Settings.BaseHostName & ":" & Settings.HttpPort)
+        TextPrint($"{My.Resources.Grid_address_word}{vbCrLf}http://{Settings.BaseHostName}:{Settings.HttpPort}")
 
         ' done with boot up
 
@@ -2332,7 +2333,7 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint(Avatar & " is in " & RegionName)
+                    TextPrint($"Avatar My.Resources.Arriving_word {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
                 End If
             Next
@@ -2345,7 +2346,7 @@ Public Class FormSetup
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
                 If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                     PropRegionClass.AvatarCount(RegionUUID) += 1
-                    Str += Avatar & " in " & RegionName & ", "
+                    Str += $"Avatar My.Resources.Arriving_word {RegionName}{vbCrLf}"
                 End If
             Next
 
@@ -2355,7 +2356,7 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not C.ContainsKey(Avatar) Then
-                    TextPrint(Avatar & " left " & RegionName)
+                    TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     E.Add(Avatar)
                 End If
             Next
@@ -2364,7 +2365,7 @@ Public Class FormSetup
             Next
 
             Dim total As Integer = C.Count
-            AvatarLabel.Text = CStr(total) & " " & My.Resources.Avatars_word
+            AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -2445,7 +2446,7 @@ Public Class FormSetup
 
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
-        TextPrint(My.Resources.Grid_Address_is_word & vbCrLf & "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+        TextPrint($"{My.Resources.Grid_Address_is_word}:{vbCrLf}http://{Settings.PublicIP}:{Settings.HttpPort}")
 
     End Sub
 
@@ -2520,7 +2521,7 @@ Public Class FormSetup
             Return
         End If
 
-        TextPrint("MySQL " & Global.Outworldz.My.Resources.Stopping_word)
+        TextPrint($"MySQL {Global.Outworldz.My.Resources.Stopping_word}")
 
         Using p As Process = New Process()
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
@@ -2703,8 +2704,8 @@ Public Class FormSetup
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
-                TextPrint(My.Resources.User_Name_word & ":" & Settings.AdminFirst & " " & Settings.AdminLast)
-                TextPrint(My.Resources.Password_word & ":" & Settings.Password)
+                TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
+                TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
             End If
         Else
             If Settings.ApacheEnable Then
@@ -2880,7 +2881,7 @@ Public Class FormSetup
             If HowManyAreOnline = 0 Then
                 TextPrint(My.Resources.Nobody_Online)
             Else
-                TextPrint(My.Resources.Message_sent_word & ":" & CStr(HowManyAreOnline) & " regions")
+                TextPrint($"{My.Resources.Message_sent_word}:{CStr(HowManyAreOnline)} regions")
             End If
         End If
 
@@ -2919,7 +2920,7 @@ Public Class FormSetup
     Private Sub ViewIcecastWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewIcecastWebPageToolStripMenuItem.Click
         If PropOpensimIsRunning() And Settings.SCEnable Then
             Dim webAddress As String = "http://" & Settings.PublicIP & ":" & CStr(Settings.SCPortBase)
-            TextPrint(My.Resources.Icecast_Desc & webAddress & "/stream")
+            TextPrint($"{My.Resources.Icecast_Desc}{vbCrLf}{webAddress}/stream")
             Try
                 Process.Start(webAddress)
             Catch ex As Exception
@@ -3013,7 +3014,7 @@ Public Class FormSetup
             Dim Status = PropRegionClass.Status(RegionUUID)
 
             If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.AvatarsIsInGroup(GroupName) Then
-                TextPrint("People are in " & GroupName)
+                TextPrint($"{My.Resources.Avatars_are_in} {GroupName}")
                 Continue For
             End If
 
@@ -3058,7 +3059,7 @@ Public Class FormSetup
 
         Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
         If LoadIARContent(File) Then
-            TextPrint(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
+            TextPrint($"{My.Resources.Opensimulator_is_loading} {CStr(sender.Text)}. {Global.Outworldz.My.Resources.Take_time}")
         End If
 
     End Sub
@@ -3191,7 +3192,7 @@ Public Class FormSetup
 
         Dim File As String = IO.Path.Combine(BackupPath, CStr(sender.Text)) 'make a real URL
         If LoadOARContent(File) Then
-            TextPrint(My.Resources.Opensimulator_is_loading & " " & CStr(sender.Text) & ".  " & Global.Outworldz.My.Resources.Take_time)
+            TextPrint($"{My.Resources.Opensimulator_is_loading} {CStr(sender.Text)}. {Global.Outworldz.My.Resources.Take_time}")
         End If
 
     End Sub
@@ -3357,7 +3358,7 @@ Public Class FormSetup
 
     Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceUpdateToolStripMenuItem.Click
 
-        KillAll()
+        If DoStopActions() = False Then Return
 
         Using PUpdater As Process = New Process()
 
@@ -3375,6 +3376,7 @@ Public Class FormSetup
                 BreakPoint.Show(ex.Message)
             End Try
         End Using
+        End
 
     End Sub
 

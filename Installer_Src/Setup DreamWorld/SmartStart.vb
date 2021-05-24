@@ -29,13 +29,13 @@ Module SmartStart
         Dim match As Match = pattern.Match(post)
         If match.Success Then
             Dim Name As String = Uri.UnescapeDataString(match.Groups(1).Value)
-            Debug.Print($"Name={Name}")
+            'Debug.Print($"Name={Name}")
             Dim AgentName As String = Uri.UnescapeDataString(match.Groups(2).Value)
-            Debug.Print($"AgentName={AgentName}")
+            'Debug.Print($"AgentName={AgentName}")
             Dim AgentID As String = Uri.UnescapeDataString(match.Groups(3).Value)
-            Debug.Print($"AgentID={AgentID}")
+            'Debug.Print($"AgentID={AgentID}")
             Dim Password As String = Uri.UnescapeDataString(match.Groups(4).Value)
-            Debug.Print($"Password={Password}")
+            'Debug.Print($"Password={Password}")
             If Password <> Settings.MachineID Then
                 Logger("ERROR", $"Bad Password {Password} for Teleport system. Should be the Dyn DNS password.", "Outworldz")
                 Return ""
@@ -50,7 +50,7 @@ Module SmartStart
             Else
                 Name = PropRegionClass.RegionName(RegionUUID)
             End If
-            Debug.Print("Teleport to " & Name)
+            'Debug.Print("Teleport to " & Name)
 
             ' Smart Start below here
 

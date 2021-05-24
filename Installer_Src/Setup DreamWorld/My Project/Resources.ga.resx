@@ -3051,4 +3051,19 @@
   <data name="Birthday_word" xml:space="preserve">
     <value>Breithlá</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Fan go mbeidh Robust tosaithe go hiomlán. D’fhéadfadh sé seo roinnt nóiméad a thógáil.</value>
+  </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Ainm an Úinéara</value>
+  </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Ainm malartach le húsáid ag Apache nó Jopensim</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Cuir iarratas isteach</value>
+  </data>
+  <data name="None1" xml:space="preserve">
+    <value>Ar bith</value>
+  </data>
 </root>
