@@ -50,7 +50,7 @@ Module Teleport
                 ElseIf status = RegionMaker.SIMSTATUSENUM.Booted And
                     IsRegionReady(Port) And
                     RegionIsRegisteredOnline(RegionToUUID) Then
-
+                    Sleep(4000)
                     Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                     Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
                     If fromName.Length > 0 Then
