@@ -406,7 +406,6 @@ Module SmartStart
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
-                    SendToOpensimWorld(RegionUUID, RPC_admin_get_agent_count(RegionUUID))
                     PokeRegionTimer(UUID)
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeShowWindow())
