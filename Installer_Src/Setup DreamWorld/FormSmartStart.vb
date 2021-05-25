@@ -673,6 +673,7 @@ Public Class FormSmartStart
             n += 1
         Next
 
+        SmartStartEnabled.Checked = Settings.SmartStart
         TempCheckBox.Checked = Settings.TempRegion
 
         ' If Debugger.IsAttached Then
