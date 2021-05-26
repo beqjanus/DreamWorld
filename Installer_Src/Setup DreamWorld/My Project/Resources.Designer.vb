@@ -7251,20 +7251,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Parking Sim.
+        '''  Looks up a localized string similar to Parking Region.
         '''</summary>
-        Friend ReadOnly Property Parking_Spot1() As String
+        Friend ReadOnly Property ParkingRegion1() As String
             Get
-                Return ResourceManager.GetString("Parking_Spot1", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to ParkingRegion.
-        '''</summary>
-        Friend ReadOnly Property ParkingRegion() As String
-            Get
-                Return ResourceManager.GetString("ParkingRegion", resourceCulture)
+                Return ResourceManager.GetString("ParkingRegion1", resourceCulture)
             End Get
         End Property
         

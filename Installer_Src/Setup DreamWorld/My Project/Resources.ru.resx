@@ -3066,4 +3066,214 @@
   <data name="None1" xml:space="preserve">
     <value>Никто</value>
   </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>прибытие</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Аватары все еще в продаже</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Печь</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Пляжная трава</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>ПляжТрава 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Области массовой загрузки</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Кипарисовик 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Кипарисовик 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Кипарисовик 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Кипарисовик 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Секунды до ожидания</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Удалить все</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Удалить, а затем Применить</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Кизил</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>редактор</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Eelgrass</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Конечный размер XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Эвкалипт</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Папоротник</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Размер заливки в регионах</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Плоский</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Высота</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Помощь Landcaping</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Помощь редактору растений</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Помощь Smart Start</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Помощь Terrains</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Просто варианты</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Келп 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Келп 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>уход</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Шум</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>дуб</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Владелец прилегающих регионов</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Пальма 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Пальма 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>ПарковкаРегион</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Симулятор парковки</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Симулятор парковки</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Сосна 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Сосна 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Сосна 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Сосна 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Сосна 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Растения</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Плюмерия</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Случайная местность</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Создатель региона</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Возвращаться</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Сохранить ландшафт</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Морской меч</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Секунды</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Гладкий</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Начальный размер XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Конус</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Использовать временные области</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine низкий</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Тропический куст 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Тропический куст 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Просмотр папки Terrain</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Воды</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Зимняя осина</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Зимняя осина</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Зимняя сосна 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Зимняя сосна 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Зимняя сосна 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Зимняя сосна 2</value>
+  </data>
 </root>

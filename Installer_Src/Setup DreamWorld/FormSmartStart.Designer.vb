@@ -35,16 +35,17 @@ Partial Class FormSmartStart
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TempCheckBox = New System.Windows.Forms.CheckBox()
-        Me.DeleteAllRegions = New System.Windows.Forms.Button()
-        Me.OwnerLabel = New System.Windows.Forms.Label()
+        Me.EndlessLand = New System.Windows.Forms.GroupBox()
         Me.AviName = New System.Windows.Forms.TextBox()
+        Me.DeleteAllRegions = New System.Windows.Forms.Button()
+        Me.TempCheckBox = New System.Windows.Forms.CheckBox()
         Me.PictureBox4 = New System.Windows.Forms.PictureBox()
+        Me.AutoFillEnable = New System.Windows.Forms.CheckBox()
         Me.FillSizeLabel = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
+        Me.OwnerLabel = New System.Windows.Forms.Label()
         Me.ListBox2 = New System.Windows.Forms.ListBox()
+        Me.ParkingRegion = New System.Windows.Forms.Label()
         Me.ParkingSpot = New System.Windows.Forms.ListBox()
-        Me.RegionMakerEnableCHeckbox = New System.Windows.Forms.CheckBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.MenuStrip4 = New System.Windows.Forms.MenuStrip()
         Me.HelpSmartStartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -159,6 +160,7 @@ Partial Class FormSmartStart
         Me.MenuStrip1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.EndlessLand.SuspendLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip4.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -258,16 +260,9 @@ Partial Class FormSmartStart
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.TempCheckBox)
-        Me.TabPage1.Controls.Add(Me.DeleteAllRegions)
-        Me.TabPage1.Controls.Add(Me.OwnerLabel)
-        Me.TabPage1.Controls.Add(Me.AviName)
-        Me.TabPage1.Controls.Add(Me.PictureBox4)
-        Me.TabPage1.Controls.Add(Me.FillSizeLabel)
-        Me.TabPage1.Controls.Add(Me.Label6)
-        Me.TabPage1.Controls.Add(Me.ListBox2)
+        Me.TabPage1.Controls.Add(Me.EndlessLand)
+        Me.TabPage1.Controls.Add(Me.ParkingRegion)
         Me.TabPage1.Controls.Add(Me.ParkingSpot)
-        Me.TabPage1.Controls.Add(Me.RegionMakerEnableCHeckbox)
         Me.TabPage1.Controls.Add(Me.TextBox1)
         Me.TabPage1.Controls.Add(Me.Seconds)
         Me.TabPage1.Controls.Add(Me.SmartStartEnabled)
@@ -281,10 +276,43 @@ Partial Class FormSmartStart
         Me.TabPage1.Text = "Smart Boot"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'EndlessLand
+        '
+        Me.EndlessLand.Controls.Add(Me.AviName)
+        Me.EndlessLand.Controls.Add(Me.DeleteAllRegions)
+        Me.EndlessLand.Controls.Add(Me.TempCheckBox)
+        Me.EndlessLand.Controls.Add(Me.PictureBox4)
+        Me.EndlessLand.Controls.Add(Me.AutoFillEnable)
+        Me.EndlessLand.Controls.Add(Me.FillSizeLabel)
+        Me.EndlessLand.Controls.Add(Me.OwnerLabel)
+        Me.EndlessLand.Controls.Add(Me.ListBox2)
+        Me.EndlessLand.Location = New System.Drawing.Point(621, 39)
+        Me.EndlessLand.Name = "EndlessLand"
+        Me.EndlessLand.Size = New System.Drawing.Size(200, 307)
+        Me.EndlessLand.TabIndex = 50
+        Me.EndlessLand.TabStop = False
+        Me.EndlessLand.Text = "GroupBox6"
+        '
+        'AviName
+        '
+        Me.AviName.Location = New System.Drawing.Point(6, 96)
+        Me.AviName.Name = "AviName"
+        Me.AviName.Size = New System.Drawing.Size(171, 20)
+        Me.AviName.TabIndex = 45
+        '
+        'DeleteAllRegions
+        '
+        Me.DeleteAllRegions.Location = New System.Drawing.Point(6, 262)
+        Me.DeleteAllRegions.Name = "DeleteAllRegions"
+        Me.DeleteAllRegions.Size = New System.Drawing.Size(188, 23)
+        Me.DeleteAllRegions.TabIndex = 48
+        Me.DeleteAllRegions.Text = "Delete All Autofill Regions"
+        Me.DeleteAllRegions.UseVisualStyleBackColor = True
+        '
         'TempCheckBox
         '
         Me.TempCheckBox.AutoSize = True
-        Me.TempCheckBox.Location = New System.Drawing.Point(621, 51)
+        Me.TempCheckBox.Location = New System.Drawing.Point(4, 46)
         Me.TempCheckBox.Margin = New System.Windows.Forms.Padding(1)
         Me.TempCheckBox.Name = "TempCheckBox"
         Me.TempCheckBox.Size = New System.Drawing.Size(118, 17)
@@ -292,68 +320,63 @@ Partial Class FormSmartStart
         Me.TempCheckBox.Text = "Temporary Regions"
         Me.TempCheckBox.UseVisualStyleBackColor = True
         '
-        'DeleteAllRegions
-        '
-        Me.DeleteAllRegions.Location = New System.Drawing.Point(621, 318)
-        Me.DeleteAllRegions.Name = "DeleteAllRegions"
-        Me.DeleteAllRegions.Size = New System.Drawing.Size(201, 23)
-        Me.DeleteAllRegions.TabIndex = 48
-        Me.DeleteAllRegions.Text = "Delete All Autofill Regions"
-        Me.DeleteAllRegions.UseVisualStyleBackColor = True
-        '
-        'OwnerLabel
-        '
-        Me.OwnerLabel.AutoSize = True
-        Me.OwnerLabel.Location = New System.Drawing.Point(618, 71)
-        Me.OwnerLabel.Name = "OwnerLabel"
-        Me.OwnerLabel.Size = New System.Drawing.Size(121, 13)
-        Me.OwnerLabel.TabIndex = 46
-        Me.OwnerLabel.Text = "Owner of Sim Surrounds"
-        '
-        'AviName
-        '
-        Me.AviName.Location = New System.Drawing.Point(621, 87)
-        Me.AviName.Name = "AviName"
-        Me.AviName.Size = New System.Drawing.Size(171, 20)
-        Me.AviName.TabIndex = 45
-        '
         'PictureBox4
         '
         Me.PictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PictureBox4.Image = Global.Outworldz.My.Resources.Resources._3x3
-        Me.PictureBox4.Location = New System.Drawing.Point(621, 181)
+        Me.PictureBox4.Location = New System.Drawing.Point(83, 150)
         Me.PictureBox4.Name = "PictureBox4"
-        Me.PictureBox4.Size = New System.Drawing.Size(124, 122)
+        Me.PictureBox4.Size = New System.Drawing.Size(102, 90)
         Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox4.TabIndex = 43
         Me.PictureBox4.TabStop = False
         '
+        'AutoFillEnable
+        '
+        Me.AutoFillEnable.AutoSize = True
+        Me.AutoFillEnable.Location = New System.Drawing.Point(4, 27)
+        Me.AutoFillEnable.Margin = New System.Windows.Forms.Padding(1)
+        Me.AutoFillEnable.Name = "AutoFillEnable"
+        Me.AutoFillEnable.Size = New System.Drawing.Size(124, 17)
+        Me.AutoFillEnable.TabIndex = 35
+        Me.AutoFillEnable.Text = "Automatic Fill Enable"
+        Me.AutoFillEnable.UseVisualStyleBackColor = True
+        '
         'FillSizeLabel
         '
         Me.FillSizeLabel.AutoSize = True
-        Me.FillSizeLabel.Location = New System.Drawing.Point(618, 110)
+        Me.FillSizeLabel.Location = New System.Drawing.Point(18, 119)
         Me.FillSizeLabel.Name = "FillSizeLabel"
         Me.FillSizeLabel.Size = New System.Drawing.Size(42, 13)
         Me.FillSizeLabel.TabIndex = 42
         Me.FillSizeLabel.Text = "Fill Size"
         '
-        'Label6
+        'OwnerLabel
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(392, 55)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(80, 13)
-        Me.Label6.TabIndex = 40
-        Me.Label6.Text = "Parking Region"
+        Me.OwnerLabel.AutoSize = True
+        Me.OwnerLabel.Location = New System.Drawing.Point(9, 80)
+        Me.OwnerLabel.Name = "OwnerLabel"
+        Me.OwnerLabel.Size = New System.Drawing.Size(121, 13)
+        Me.OwnerLabel.TabIndex = 46
+        Me.OwnerLabel.Text = "Owner of Sim Surrounds"
         '
         'ListBox2
         '
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.ListBox2.Location = New System.Drawing.Point(621, 132)
+        Me.ListBox2.Location = New System.Drawing.Point(21, 150)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(56, 43)
         Me.ListBox2.TabIndex = 39
+        '
+        'ParkingRegion
+        '
+        Me.ParkingRegion.AutoSize = True
+        Me.ParkingRegion.Location = New System.Drawing.Point(392, 55)
+        Me.ParkingRegion.Name = "ParkingRegion"
+        Me.ParkingRegion.Size = New System.Drawing.Size(80, 13)
+        Me.ParkingRegion.TabIndex = 40
+        Me.ParkingRegion.Text = "Parking Region"
         '
         'ParkingSpot
         '
@@ -362,17 +385,6 @@ Partial Class FormSmartStart
         Me.ParkingSpot.Name = "ParkingSpot"
         Me.ParkingSpot.Size = New System.Drawing.Size(202, 264)
         Me.ParkingSpot.TabIndex = 38
-        '
-        'RegionMakerEnableCHeckbox
-        '
-        Me.RegionMakerEnableCHeckbox.AutoSize = True
-        Me.RegionMakerEnableCHeckbox.Location = New System.Drawing.Point(621, 32)
-        Me.RegionMakerEnableCHeckbox.Margin = New System.Windows.Forms.Padding(1)
-        Me.RegionMakerEnableCHeckbox.Name = "RegionMakerEnableCHeckbox"
-        Me.RegionMakerEnableCHeckbox.Size = New System.Drawing.Size(124, 17)
-        Me.RegionMakerEnableCHeckbox.TabIndex = 35
-        Me.RegionMakerEnableCHeckbox.Text = "Automatic Fill Enable"
-        Me.RegionMakerEnableCHeckbox.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
@@ -1183,9 +1195,9 @@ Partial Class FormSmartStart
         Me.GroupBox3.Controls.Add(Me.RadioButton14)
         Me.GroupBox3.Controls.Add(Me.RadioButton13)
         Me.GroupBox3.Controls.Add(Me.RadioButton12)
-        Me.GroupBox3.Location = New System.Drawing.Point(23, 38)
+        Me.GroupBox3.Location = New System.Drawing.Point(44, 38)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(344, 284)
+        Me.GroupBox3.Size = New System.Drawing.Size(323, 284)
         Me.GroupBox3.TabIndex = 17
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Plants"
@@ -1215,7 +1227,7 @@ Partial Class FormSmartStart
         'RadioButton17
         '
         Me.RadioButton17.AutoSize = True
-        Me.RadioButton17.Location = New System.Drawing.Point(-83, 170)
+        Me.RadioButton17.Location = New System.Drawing.Point(120, 98)
         Me.RadioButton17.Name = "RadioButton17"
         Me.RadioButton17.Size = New System.Drawing.Size(74, 17)
         Me.RadioButton17.TabIndex = 50
@@ -1544,6 +1556,8 @@ Partial Class FormSmartStart
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        Me.EndlessLand.ResumeLayout(False)
+        Me.EndlessLand.PerformLayout()
         CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip4.ResumeLayout(False)
         Me.MenuStrip4.PerformLayout()
@@ -1673,13 +1687,13 @@ Partial Class FormSmartStart
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents TerrainApply As Button
     Friend WithEvents LabelName As Label
-    Friend WithEvents RegionMakerEnableCHeckbox As CheckBox
+    Friend WithEvents AutoFillEnable As CheckBox
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents GroupBox4 As GroupBox
     Friend WithEvents Noise As CheckBox
     Friend WithEvents Smooth As CheckBox
     Friend WithEvents GroupBox5 As GroupBox
-    Friend WithEvents Label6 As Label
+    Friend WithEvents ParkingRegion As Label
     Friend WithEvents ListBox2 As ListBox
     Friend WithEvents ParkingSpot As ListBox
     Friend WithEvents FillSizeLabel As Label
@@ -1712,4 +1726,5 @@ Partial Class FormSmartStart
     Friend WithEvents TempCheckBox As CheckBox
     Friend WithEvents DeleteAllRegions As Button
     Friend WithEvents HelpSmartStartToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents EndlessLand As GroupBox
 End Class

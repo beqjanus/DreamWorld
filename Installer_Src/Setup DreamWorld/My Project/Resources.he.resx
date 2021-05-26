@@ -3066,4 +3066,214 @@
   <data name="None1" xml:space="preserve">
     <value>אף אחד</value>
   </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>מגיעים</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>האווטרים עדיין נמצאים</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>לֶאֱפוֹת</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>דשא ביץ '</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>גראס ביץ '1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>אזורי עומס בכמויות גדולות</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>ברוש 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>ברוש 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>ברוש 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>ברוש 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>שניות לפני המתנה</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>מחק הכל</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>מחק ואז החל</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>דוגווד</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>עוֹרֵך</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>עשבונים</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>גודל סוף XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>אֶקָלִיפּטוּס</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>שָׁרָך</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>מילוי גודל באזורים</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>שָׁטוּחַ</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>נוצר</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>גוֹבַה</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>עזרו לגינון</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>עזרו לעורך הצמחים</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>עזור להתחלה חכמה</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>עזרו לשטח</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>רק אפשרויות</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>אצות ים 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>אצה 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>עֲזִיבָה</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>רַעַשׁ</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>אַלוֹן</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>בעל אזורים מסביב</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>כף היד 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>כף היד 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>חניהאזור</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>סים חניה</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>סים חניה</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>אורן 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>אורן 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>אורן 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>אורן 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>אורן 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>צמחים</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>פלומריה</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>שטח אקראי</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>רג'ן שטחים</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>יוצר האזורים</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>לַחֲזוֹר</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>שמור שטח</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>חרב ים</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>שניות</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>חלק</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>גודל גודל XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>לְהִתְחַדֵד</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>השתמש באזורים זמניים</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine נמוך</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>בוש טרופי 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>בוש טרופי 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>צפה בתיקיית השטח</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>מים</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>אספן חורפי</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>אספן חורפי</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>אורן חורף 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>אורן חורף 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>אורן חורף 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>אורן חורף 2</value>
+  </data>
 </root>

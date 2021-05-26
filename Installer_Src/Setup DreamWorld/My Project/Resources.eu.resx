@@ -3066,4 +3066,214 @@
   <data name="None1" xml:space="preserve">
     <value>Bat ere ez</value>
   </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>iristen</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Avatarrak oraindik daude</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Labean</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Hondartzako belarra</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Karga handiko eskualdeak</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Altzifre 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Altzifre 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Itxaron aurretik segundo batzuk</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Ezabatu guztiak</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Ezabatu eta ondoren Aplikatu</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dogwood</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Editorea</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Aingira</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Amaiera Tamaina XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Eukaliptoa</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Iratza</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Bete tamaina eskualdeetan</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Laua</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Sortu</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Altuera</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Lagundu Landcaping-era</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Lagundu Landare editoreari</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Lagundu Smart Start-era</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Lagundu Lurrei</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Aukerak besterik ez</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Kelp 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Kelp 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>uzten</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Zarata</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Haritza</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Inguruko eskualdeen jabea</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Palmondoa 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Palmondoa 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>ParkingRegion</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Parking Sim</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Parking Sim</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Pinua 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Pinua 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>2. pinua</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>2. pinua</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>2. pinua</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Landareak</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Ausazko lurra</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Eskualdeen sortzailea</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Itzuli</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Gorde lurra</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Itsas Ezpata</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Segundoak</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Leuna</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Hasi tamaina XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Taper</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Erabili aldi baterako eskualdeak</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>Zuhaitz-lerroa baxua</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Zuhaixka tropikala 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Zuhaixka tropikala 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Ikusi Lurreko Karpeta</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Ura</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Neguko Aspen</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Neguko Aspen</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Neguko Pinua 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Neguko Pinua 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Neguko Pinua 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Neguko Pinua 2</value>
+  </data>
 </root>

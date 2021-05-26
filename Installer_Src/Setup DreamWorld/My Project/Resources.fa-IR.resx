@@ -3066,4 +3066,214 @@
   <data name="None1" xml:space="preserve">
     <value>هیچ یک</value>
   </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>رسیدن</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>آواتارها هنوز هم هستند</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>پخت</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>چمن ساحلی</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>مناطق بار فله</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>سرو 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>سرو 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>سرو 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>سرو 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>ثانیه قبل از انتظار</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>حذف همه</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>حذف و سپس اعمال کنید</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>چوب سگ</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>ویرایشگر</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>گل مرغ</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>اندازه نهایی XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>اکالیپتوس</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>سرخس</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>اندازه را در مناطق پر کنید</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>تخت</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>تولید شده</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>قد</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>به محوطه سازی کمک کنید</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>به ویرایشگر گیاه کمک کنید</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>به شروع هوشمند کمک کنید</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>به زمین ها کمک کنید</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>فقط گزینه ها</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>کلپ 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>کلپ 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>ترک</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>سر و صدا</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>بلوط</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>مالک مناطق اطراف</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>کف دست 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>کف دست 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>پارکینگ منطقه</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>سیم کارت پارکینگ</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>سیم کارت پارکینگ</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>کاج 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>کاج 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>کاج 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>کاج 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>کاج 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>گیاهان</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>پلامریا</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>زمین تصادفی</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>منطقه ساز</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>برگرداندن</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>زمین را نجات دهید</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>شمشیر دریایی</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>ثانیه ها</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>صاف</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>اندازه XYZ را شروع کنید</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>مخروطی</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>از مناطق موقت استفاده کنید</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine کم است</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>بوش گرمسیری 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>بوش گرمسیری 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>پوشه Terrain را مشاهده کنید</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>اب</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>زمستان آسپن</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>زمستان آسپن</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>کاج زمستانی 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>کاج زمستانی 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>کاج زمستانی 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>کاج زمستانی 2</value>
+  </data>
 </root>

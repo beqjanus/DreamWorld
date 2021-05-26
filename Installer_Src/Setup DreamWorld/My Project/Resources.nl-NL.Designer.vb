@@ -5778,16 +5778,16 @@ Namespace My.Resources
                 Return ResourceManager.GetString("Theme_Black", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Thema ingesteld op Custom.
         '''</summary>
-        Friend Shared ReadOnly Property theme_Custom() As String
+        Friend Shared ReadOnly Property Theme_Custom() As String
             Get
-                Return ResourceManager.GetString("theme_Custom", resourceCulture)
+                Return ResourceManager.GetString("Theme_Custom", resourceCulture)
             End Get
         End Property
-        
+
         '''<summary>
         '''  Looks up a localized string similar to Thema set naar White.
         '''</summary>

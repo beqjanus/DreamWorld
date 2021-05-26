@@ -17,7 +17,7 @@ Module GlobalSettings
 
 #Region "Global Strings"
 
-    Public Const FreeDiskSpaceWarn As Long = 50000000 ' 50 M
+    Public Const FreeDiskSpaceWarn As Long = 100000000 ' 100 M
     Public Const Hyperica As String = "Hyperica"
     Public Const JOpensim As String = "JOpensim"
     Public Const MetroServer As String = "Metro"
