@@ -178,7 +178,7 @@ Public Class FormDisplacement
         Catch ex As Exception
         End Try
 
-        Me.Close()
+        Close()
 
     End Sub
 
