@@ -2334,7 +2334,7 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($"Avatar My.Resources.Arriving_word {RegionName}{vbCrLf}")
+                    TextPrint($"Avatar {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
                 End If
             Next
@@ -2347,7 +2347,7 @@ Public Class FormSetup
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
                 If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                     PropRegionClass.AvatarCount(RegionUUID) += 1
-                    Str += $"Avatar My.Resources.Arriving_word {RegionName}{vbCrLf}"
+                    Str += $"Avatar {My.Resources.Arriving_word} {RegionName}{vbCrLf}"
                 End If
             Next
 
