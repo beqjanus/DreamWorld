@@ -1020,9 +1020,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Не удалось подключиться к веб-сайту.</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Не удалось загрузить настройки INI</value>
-  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>фатальный</value>
   </data>

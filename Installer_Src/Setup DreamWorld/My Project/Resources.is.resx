@@ -1020,9 +1020,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Ekki tókst að tengjast vefsíðu.</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Mistókst að hlaða INI</value>
-  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>Fatal</value>
   </data>

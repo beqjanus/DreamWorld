@@ -2682,9 +2682,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>头像+ NPC的最大数量</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>无法加载设置INI</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>设置图</value>
   </data>

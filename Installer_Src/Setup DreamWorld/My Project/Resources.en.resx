@@ -2547,9 +2547,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Max number of Avatars + NPCs</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Failed to load Settings INI</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>Setup Graphs</value>
   </data>

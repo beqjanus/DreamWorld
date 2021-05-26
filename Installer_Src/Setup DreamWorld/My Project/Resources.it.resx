@@ -2664,9 +2664,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Numero massimo di avatar + NPC</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Impossibile caricare le impostazioni INI</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>Grafici di installazione</value>
   </data>

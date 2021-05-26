@@ -2532,9 +2532,6 @@
   <data name="Theme_Black" xml:space="preserve">
     <value>set tema to Black</value>
   </data>
-  <data name="theme_Custom" xml:space="preserve">
-    <value>set tema personalizado</value>
-  </data>
   <data name="Theme_White" xml:space="preserve">
     <value>set tema Branco</value>
   </data>

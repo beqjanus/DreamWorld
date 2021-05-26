@@ -2547,9 +2547,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>حداکثر تعداد آواتارها + NPC ها</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>تنظیمات INI بارگیری نشد</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>نمودارهای راه اندازی</value>
   </data>

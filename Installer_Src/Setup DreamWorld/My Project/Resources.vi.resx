@@ -2664,9 +2664,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Số lượng Ảnh đại diện + NPC tối đa</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Không tải được INI cài đặt</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>Thiết lập đồ thị</value>
   </data>

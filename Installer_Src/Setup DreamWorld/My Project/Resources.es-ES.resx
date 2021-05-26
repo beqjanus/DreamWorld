@@ -441,9 +441,6 @@
   <data name="Busy_word" xml:space="preserve">
     <value>Ocupado</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value />
-  </data>
   <data name="Caches_word" xml:space="preserve">
     <value>Cachés</value>
   </data>

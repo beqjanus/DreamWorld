@@ -2532,9 +2532,6 @@
   <data name="Theme_Black" xml:space="preserve">
     <value>مجموعه تم برای سیاه</value>
   </data>
-  <data name="theme_Custom" xml:space="preserve">
-    <value>مجموعه تم برای سفارشی</value>
-  </data>
   <data name="Theme_White" xml:space="preserve">
     <value>مجموعه تم برای سفید</value>
   </data>

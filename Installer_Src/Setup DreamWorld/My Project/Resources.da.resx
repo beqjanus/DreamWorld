@@ -2664,9 +2664,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Maks. Antal avatarer + NPC'er</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Kunne ikke indlæse Indstillinger INI</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>Opsæt grafer</value>
   </data>
@@ -3278,5 +3275,8 @@
   </data>
   <data name="WinterPine21" xml:space="preserve">
     <value>Winter Pine 2</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Parkeringsregion</value>
   </data>
 </root>
