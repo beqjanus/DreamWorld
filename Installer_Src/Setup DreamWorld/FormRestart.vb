@@ -112,7 +112,7 @@ Public Class FormRestart
             If Settings.AutoBackup And Settings.AutoRestartInterval > 0 And Settings.AutoRestartInterval < BTime Then
                 Settings.AutoRestartInterval = BTime + 30
                 AutoRestartBox.Text = (BTime + 30).ToString(Globalization.CultureInfo.InvariantCulture)
-                MsgBox(My.Resources.Increasing_time_to_word & " " & BTime.ToString(Globalization.CultureInfo.InvariantCulture) & " + 30 Minutes for Autobackup to complete.", vbInformation)
+                MsgBox(My.Resources.Increasing_time_to_word & " " & BTime.ToString(Globalization.CultureInfo.InvariantCulture) & " + 30 Minutes for Autobackup to complete.", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             End If
         Else
             Settings.AutoRestartEnabled = False

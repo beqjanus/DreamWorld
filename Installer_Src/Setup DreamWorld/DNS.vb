@@ -74,7 +74,7 @@ Module DNS
             Return True
         End If
         If Checkname = "NAK" Then
-            MsgBox(DNSName & ":" & My.Resources.DDNS_In_Use)
+            MsgBox(DNSName & ":" & My.Resources.DDNS_In_Use, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
         End If
         Return False
 

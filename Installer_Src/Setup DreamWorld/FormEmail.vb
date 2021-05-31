@@ -10,7 +10,7 @@ Public Class FormEmail
         If L Is Nothing Then Return
 
         If Settings.SmtPropUserName = "LoginName@gmail.com" Then
-            MsgBox(My.Resources.No_Email, vbInformation, "Oops")
+            MsgBox(My.Resources.No_Email, vbInformation Or MsgBoxStyle.MsgBoxSetForeground, "Oops")
 #Disable Warning CA2000
             Dim FormDiva As New FormDiva
 #Enable Warning CA2000
@@ -33,7 +33,7 @@ Public Class FormEmail
         Me.Text = CStr(counter) & " " & My.Resources.Emails_Selected
 
         If counter = 0 Then
-            MsgBox(My.Resources.No_Emails_Selected, vbInformation, "Oops")
+            MsgBox(My.Resources.No_Emails_Selected, vbInformation Or MsgBoxStyle.MsgBoxSetForeground, "Oops")
             Close()
         End If
 
@@ -44,7 +44,7 @@ Public Class FormEmail
         BringToFront()
 
         If SubjectTextBox.TextLength = 0 Then
-            MsgBox(My.Resources.No_Subject)
+            MsgBox(My.Resources.No_Subject, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             Return
         End If
 
@@ -68,19 +68,19 @@ Public Class FormEmail
             Try
                 client.Connect(Settings.SmtpHost, Settings.SmtpPort, False)
             Catch ex As Exception
-                MsgBox("Could Not Connect:" & ex.Message, vbExclamation, "Error")
+                MsgBox("Could Not Connect:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
                 Return
             End Try
             Try
                 client.Authenticate(Settings.SmtPropUserName, Settings.SmtpPassword)
             Catch ex As Exception
-                MsgBox("Could Not Log In:" & ex.Message, vbExclamation, "Error")
+                MsgBox("Could Not Log In:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
                 Return
             End Try
             Try
                 client.Send(Message)
             Catch ex As Exception
-                MsgBox("Could Not Send:" & ex.Message, vbExclamation, "Error")
+                MsgBox("Could Not Send:" & ex.Message, vbExclamation Or MsgBoxStyle.MsgBoxSetForeground, "Error")
                 Return
             End Try
             Try

@@ -357,7 +357,7 @@ Module DoIni
                 outputFile.WriteLine(phptext)
             End Using
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
 
         Try
@@ -374,7 +374,7 @@ Module DoIni
                 outputFile.WriteLine(phptext)
             End Using
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
 
         Return False

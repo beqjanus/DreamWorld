@@ -104,7 +104,7 @@ Public Class FormDebug
                 Dim UserId = InputBox("Agent UUID?")
                 RPC_admin_dialog(UserId, "Pop up Alert Test")
             Else
-                MsgBox("Needs an avatar UUID")
+                MsgBox("Needs an avatar UUID", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             End If
 
         ElseIf Command = $"{My.Resources.Debug_word} Off" Then

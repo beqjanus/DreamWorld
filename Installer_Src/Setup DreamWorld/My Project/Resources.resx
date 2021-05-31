@@ -3800,4 +3800,10 @@
   <data name="ParkingRegion1" xml:space="preserve">
     <value>Parking Region</value>
   </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Run as a Service</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL did not stop when commanded to stop</value>
+  </data>
 </root>

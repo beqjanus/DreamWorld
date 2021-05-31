@@ -179,7 +179,7 @@ Public Class FormApache
         Dim installed As Boolean = Joomla.IsjOpensimInstalled()
 
         If Not installed Then
-            MsgBox("That folder has no content. Install Joomla and JOpensim first, then enable this.")
+            MsgBox("That folder has no content. Install Joomla and JOpensim first, then enable this.", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             EnableDiva.Checked = True
             Return
         End If
@@ -205,7 +205,7 @@ Public Class FormApache
         End Try
 
         If Not Exist Then
-            MsgBox("That folder has no content. Install a CMS and then enable 'Other'.")
+            MsgBox("That folder has no content. Install a CMS and then enable 'Other'.", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             EnableDiva.Checked = True
             Return
         End If
@@ -231,7 +231,7 @@ Public Class FormApache
         End Try
 
         If Not Exist Then
-            MsgBox("That folder has no content. Install WordPress then enable WordPress.")
+            MsgBox("That folder has no content. Install WordPress then enable WordPress.", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             EnableDiva.Checked = True
             Return
         End If

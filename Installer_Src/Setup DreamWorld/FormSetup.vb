@@ -48,7 +48,7 @@ Public Class FormSetup
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
-    Private _StopMysql As Boolean = True
+
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
 #Disable Warning CA2213 ' Disposable fields should be disposed
@@ -239,15 +239,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropStopMysql As Boolean
-        Get
-            Return _StopMysql
-        End Get
-        Set(value As Boolean)
-            _StopMysql = value
-        End Set
-    End Property
-
     Public Property PropUseIcons As Boolean
 
     Public Property PropWebServer As NetServer
@@ -367,7 +358,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Update_is_available & ":" & Update_version)
 
-        Dim doUpdate = MsgBox(My.Resources.Update_is_available, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Information, My.Resources.Update_is_available)
+        Dim doUpdate = MsgBox(My.Resources.Update_is_available, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Update_is_available)
         If doUpdate = vbOK Then
 
             If DoStopActions() = False Then Return
@@ -433,7 +424,7 @@ Public Class FormSetup
         End If
         IcecastCrashCounter = 0
 
-        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
+        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
 
         If (yesno = vbYes) Then
             Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
@@ -449,7 +440,7 @@ Public Class FormSetup
     Public Function KillAll() As Boolean
 
         If ScanAgents() > 0 Then
-            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Information, My.Resources.Agents_word)
+            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
             If response = vbNo Then Return False
         End If
 
@@ -1757,7 +1748,6 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Checking_MySql_word)
         Application.DoEvents()
-        If MysqlInterface.IsMySqlRunning() Then PropStopMysql() = False
 
         TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
@@ -2056,7 +2046,6 @@ Public Class FormSetup
     Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs)
 
         If MysqlInterface.IsMySqlRunning() Then
-            PropStopMysql = True
             StopMysql()
         Else
             StartMySQL()
@@ -2091,7 +2080,7 @@ Public Class FormSetup
         StopMysql()
 
         TextPrint("Zzzz...")
-        Thread.Sleep(2000)
+        Thread.Sleep(1000)
         End
 
     End Sub
@@ -2172,7 +2161,6 @@ Public Class FormSetup
     Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartMysqlItem.Click
 
         PropAborting = True
-        PropStopMysql = True
         StopMysql()
         StartMySQL()
         PropAborting = False
@@ -2505,51 +2493,6 @@ Public Class FormSetup
 #End Region
 
 #Region "Stopping"
-
-    Public Sub StopMysql()
-
-        If Not MysqlInterface.IsMySqlRunning() Then
-            Application.DoEvents()
-            MysqlInterface.IsRunning = False    ' mark all as not running
-            MySQLIcon(False)
-            Return
-        End If
-
-        If Not PropStopMysql Then
-            MysqlInterface.IsRunning = True    ' mark all as  running
-            MySQLIcon(True)
-            TextPrint(My.Resources.MySQL_Was_Running)
-            Return
-        End If
-
-        TextPrint($"MySQL {Global.Outworldz.My.Resources.Stopping_word}")
-
-        Using p As Process = New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "--port " & CStr(Settings.MySqlRobustDBPort) & " -u root shutdown",
-            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqladmin.exe") & """",
-            .UseShellExecute = True, ' so we can redirect streams and minimize
-            .WindowStyle = ProcessWindowStyle.Hidden
-        }
-            p.StartInfo = pi
-
-            Try
-                p.Start()
-                MysqlInterface.IsRunning = False
-                Application.DoEvents()
-                p.WaitForExit()
-            Catch
-            End Try
-
-        End Using
-
-        MySQLIcon(False)
-        If MysqlInterface.IsMySqlRunning() Then
-            MysqlInterface.IsRunning = True    ' mark all as running
-            MySQLIcon(True)
-        End If
-
-    End Sub
 
     Private Sub StopButton_Click_1(sender As System.Object, e As EventArgs) Handles StopButton.Click
 

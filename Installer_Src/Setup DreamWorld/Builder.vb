@@ -301,7 +301,7 @@ Module Build
                 End If
             End While
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
 
         Return ""

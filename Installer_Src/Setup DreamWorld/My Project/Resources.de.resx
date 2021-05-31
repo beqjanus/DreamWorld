@@ -3279,4 +3279,10 @@
   <data name="ParkingRegion1" xml:space="preserve">
     <value>Parkbereich</value>
   </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Als Dienst ausführen</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL wurde nicht gestoppt, als der Befehl zum Stoppen erteilt wurde</value>
+  </data>
 </root>

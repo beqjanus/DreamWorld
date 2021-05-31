@@ -14,6 +14,7 @@ Module Apache
     Private _ApacheExited As Boolean
     Private _ApacheProcessID As Integer
     Private _ApacheUninstalling As Boolean
+    Private _MysqlUninstalling As Boolean
 
 #Region "Properties"
 
@@ -50,6 +51,15 @@ Module Apache
         End Get
         Set(ByVal Value As Boolean)
             _ApacheUninstalling = Value
+        End Set
+    End Property
+
+    Public Property PropMysqlUninstalling() As Boolean
+        Get
+            Return _MysqlUninstalling
+        End Get
+        Set(ByVal Value As Boolean)
+            _MysqlUninstalling = Value
         End Set
     End Property
 
@@ -146,10 +156,7 @@ Module Apache
 
         End If
 
-        If Settings.CurrentDirectory <> Settings.LastDirectory Or Not ApacheExists() Then
-
-            Settings.LastDirectory = Settings.CurrentDirectory
-            Settings.SaveSettings()
+        If Settings.CurrentDirectory <> Settings.LastDirectory Or Not ServiceExists("ApacheHTTPServer") Then
 
             ' Stop MSFT server if we are on port 80 and enabled
             PropApacheUninstalling = True
@@ -204,7 +211,8 @@ Module Apache
                     ApacheIcon(False)
                 Else
                     PropApacheUninstalling = False ' installed now, trap errors
-                    Settings.OldInstallFolder = Settings.CurrentDirectory
+                    Settings.LastDirectory = Settings.CurrentDirectory
+                    Settings.SaveSettings()
                 End If
 
                 Application.DoEvents()
@@ -278,35 +286,6 @@ Module Apache
         ApacheIcon(False)
 
     End Sub
-
-    Private Function ApacheExists() As Boolean
-
-        Using ApacheProcess As New Process()
-            ApacheProcess.StartInfo.RedirectStandardOutput = True
-            ApacheProcess.StartInfo.RedirectStandardError = True
-            ApacheProcess.StartInfo.RedirectStandardInput = True
-            ApacheProcess.StartInfo.UseShellExecute = False
-            ApacheProcess.StartInfo.FileName = "sc.exe"
-            ApacheProcess.StartInfo.Arguments = "query ApacheHTTPServer"
-            ApacheProcess.StartInfo.CreateNoWindow = True
-            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-
-            Dim console As String = ""
-            Try
-                ApacheProcess.Start()
-                console = ApacheProcess.StandardOutput.ReadToEnd()
-
-                ApacheProcess.WaitForExit()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                TextPrint(My.Resources.ApacheNot_Stopping & ":" & ex.Message)
-            End Try
-            If console.Contains("does not exist") Then Return False
-            Return True
-
-        End Using
-
-    End Function
 
     'Handle Exited Event And display process information.
     Private Sub ApacheProcess_Exited(ByVal sender As Object, ByVal e As EventArgs) Handles ApacheProcess.Exited

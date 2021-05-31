@@ -187,7 +187,7 @@ Public Class FormJoomla
             UpdateButton.Enabled = False
             BackupButton.Enabled = False
             ReinstallButton.Enabled = False
-            MsgBox(My.Resources.Apache_Disabled)
+            MsgBox(My.Resources.Apache_Disabled, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             Return
         End If
 
