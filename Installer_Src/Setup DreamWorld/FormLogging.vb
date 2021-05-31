@@ -205,6 +205,7 @@ Public Class FormLogging
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub ExamineAvatars(Log As String)
 
         Try
@@ -235,6 +236,7 @@ Public Class FormLogging
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub ExamineOpensim(outputfile As StreamWriter, GroupName As String)
 
         Try
