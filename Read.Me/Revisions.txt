@@ -2,8 +2,14 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V4.04 Performance Tweaks to Mysql
+MySQL now supports running as a service. You should only enable this if your server is in a data center on a UPS with a generator backup, or if you have a UPS with a cord that shuts down the PC before the battery is dead.
+Running as a service also relaxes the strict ACID settings in DrewmGrid to allow buffering of writes to disk. 
+Also increased the log size from 10MB to 100MB for performance which may make recovery from a crash take a bit longer.
+Force MsgBoxes to be in foreground
+
 V4.03
-Added Arabic, Spanish (Spain), Persian (Farsi), Brazilian and Portugese languages and translated All Smart Start menus.
+Added Arabic, Spanish (Spain), Persian, Brazilian and Portuguese languages and translated all Smart Start menus.
 Smart Start button would not stick.
 Welcome region has been missing a setting for Fallback region
 Rare crash if the PID file was being read and written at the same time.

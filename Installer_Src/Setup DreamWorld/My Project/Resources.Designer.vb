@@ -6327,6 +6327,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to MySQL did not stop when commanded to stop.
+        '''</summary>
+        Friend ReadOnly Property MySQLDidNotStop() As String
+            Get
+                Return ResourceManager.GetString("MySQLDidNotStop", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to MySQL Port.
         '''</summary>
         Friend ReadOnly Property MySqlPort_word() As String
@@ -8624,6 +8633,15 @@ Namespace My.Resources
         Friend ReadOnly Property Run_as_a_Service_word() As String
             Get
                 Return ResourceManager.GetString("Run_as_a_Service_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Run as a Service.
+        '''</summary>
+        Friend ReadOnly Property RunasaService_word() As String
+            Get
+                Return ResourceManager.GetString("RunasaService_word", resourceCulture)
             End Get
         End Property
         
