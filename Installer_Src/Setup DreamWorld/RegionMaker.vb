@@ -547,7 +547,8 @@ Public Class RegionMaker
 
                             Dim SomeUUID As New Guid
                             If Not Guid.TryParse(uuid, SomeUUID) Then
-                                MsgBox("Cannot read uuid In INI file For " & fName)
+                                MsgBox("Cannot read uuid In INI file For " & fName, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
+                                '  TODO Auto repair this error from a backup
                                 Return -1
                             End If
 
@@ -566,7 +567,7 @@ Public Class RegionMaker
                                 Debug.Print(M.Groups(1).Value)
                                 GroupName(uuid) = M.Groups(1).Value
                             Else
-                                MsgBox("Cannot locate Dos Box name for  " & fName)
+                                MsgBox("Cannot locate Dos Box name for  " & fName, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
                                 Return 0
                             End If
 
