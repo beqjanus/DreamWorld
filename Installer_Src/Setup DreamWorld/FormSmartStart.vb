@@ -890,7 +890,7 @@ Public Class FormSmartStart
                 PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
                 PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
 
-                Dim port = PropRegionClass.LargestPort
+                Dim port = PropRegionClass.LargestPort + 1
                 PropRegionClass.GroupPort(RegionUUID) = port
                 PropRegionClass.RegionPort(RegionUUID) = port
                 PropRegionClass.WriteRegionObject(shortname, shortname)

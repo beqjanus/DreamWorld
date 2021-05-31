@@ -606,7 +606,6 @@ Public Class FormSetup
         ' Reload
         If PropChangedRegionSettings Then
             PropRegionClass.GetAllRegions()
-            PropRegionClass.UpdateAllRegionPorts()
         End If
         Application.DoEvents()
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
@@ -913,7 +912,7 @@ Public Class FormSetup
             Try
                 PowerShell.Start()
             Catch ex As Exception
-                ErrorLog("Cannot set Quickedit off")
+                ErrorLog("Cannot set Quick edit off")
             End Try
         End Using
 
@@ -1742,9 +1741,12 @@ Public Class FormSetup
         ChartWrapper2.AddMarkers = True
         ChartWrapper2.MarkerFreq = 60
 
-        'If Settings.RegionListVisible Then
-        'ShowRegionform()
-        'End If
+        'Redo all the region ports
+        PropRegionClass.UpdateAllRegionPorts()
+
+        If Settings.RegionListVisible Then
+            ShowRegionform()
+        End If
 
         TextPrint(My.Resources.Checking_MySql_word)
         Application.DoEvents()
@@ -1761,7 +1763,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Setup_Ports_word)
         Application.DoEvents()
-        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
+        'PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
 
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)

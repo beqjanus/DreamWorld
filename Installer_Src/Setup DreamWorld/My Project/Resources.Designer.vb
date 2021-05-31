@@ -6627,6 +6627,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to No Estate.
+        '''</summary>
+        Friend ReadOnly Property No_Estate_Word() As String
+            Get
+                Return ResourceManager.GetString("No_Estate_Word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to No Hypergrid visitors will be allowed in this region.
         '''</summary>
         Friend ReadOnly Property No_HG() As String

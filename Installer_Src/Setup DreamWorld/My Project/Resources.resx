@@ -3806,4 +3806,7 @@
   <data name="MySQLDidNotStop" xml:space="preserve">
     <value>MySQL did not stop when commanded to stop</value>
   </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>No Estate</value>
+  </data>
 </root>

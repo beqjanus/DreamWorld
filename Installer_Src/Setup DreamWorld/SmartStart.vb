@@ -370,10 +370,6 @@ Module SmartStart
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
 
-        '  If BootName = "Combat" Then
-        '  BreakPoint.Show("")
-        '  End If
-
         If FormSetup.Timer1.Enabled = False Then
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Start() 'Timer starts functioning
@@ -391,11 +387,9 @@ Module SmartStart
         End If
 
         PropRegionClass.CrashCounter(RegionUUID) = 0
-        Dim GP = PropRegionClass.GroupPort(RegionUUID)
-        Diagnostics.Debug.Print("Group port =" & CStr(GP))
 
-        Dim isRegionRunning As Boolean = CheckPort("127.0.0.1", GP)
-        If isRegionRunning Then
+        If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
+
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
                 Logger("Suspended, Resuming it", BootName, "Teleport")
 

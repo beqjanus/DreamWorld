@@ -211,6 +211,7 @@ Public Class FormRegionlist
         ErrorIcon = 15
         NoLogin = 16
         NoError = 17
+        NoEstate = 18
 
     End Enum
 
@@ -471,6 +472,7 @@ Public Class FormRegionlist
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("package_error", Globalization.CultureInfo.InvariantCulture))  '  15- Error
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("gear_stop", Globalization.CultureInfo.InvariantCulture))  '  16 - NoLogin
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("redo", Globalization.CultureInfo.InvariantCulture))  '  17 - NOError
+        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_minus", Globalization.CultureInfo.InvariantCulture))  '  17 - NoEstate
 
         If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
             Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
@@ -539,6 +541,11 @@ Public Class FormRegionlist
     Private Shared Function GetStatus(RegionUUID As String, ByRef Num As Integer, ByRef Letter As String) As Integer
 
         Dim Status As Integer = PropRegionClass.Status(RegionUUID)
+        Dim Estate As String = "-"
+        If MysqlInterface.IsRunning() Then
+            Estate = MysqlInterface.EstateName(RegionUUID)
+            PropRegionClass.Estate(RegionUUID) = Estate
+        End If
 
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then
             Letter = "Disabled"
@@ -547,6 +554,9 @@ Public Class FormRegionlist
             Else
                 Num = DGICON.disabled
             End If
+        ElseIf Estate.Length = 0 Then
+            Letter = My.Resources.No_Estate_Word
+            Num = DGICON.NoEstate
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart Then
             Letter = My.Resources.Waiting
             Num = DGICON.SmartStart
@@ -796,14 +806,7 @@ Public Class FormRegionlist
                 Dim s As Double = PropRegionClass.SizeX(RegionUUID) / 256
                 Dim size As String = CStr(s) & "X" & CStr(s)
                 item1.SubItems.Add(size)
-
-                ' add estate name
-                Dim Estate = "-".ToUpperInvariant
-                If MysqlInterface.IsRunning() Then
-                    Estate = MysqlInterface.EstateName(RegionUUID)
-                End If
-                item1.SubItems.Add(Estate)
-
+                item1.SubItems.Add(PropRegionClass.Estate(RegionUUID))
                 item1.SubItems.Add(GetPrimCount(RegionUUID).ToString("00000", Globalization.CultureInfo.CurrentCulture))
 
                 item1.SubItems.Add(PropRegionClass.RegionPort(RegionUUID).ToString(Globalization.CultureInfo.CurrentCulture))
@@ -1075,7 +1078,6 @@ Public Class FormRegionlist
         RegionForm.BringToFront()
         RegionForm.Init("")
         RegionForm.Activate()
-        Application.DoEvents()
         RegionForm.Visible = True
         RegionForm.Select()
 
