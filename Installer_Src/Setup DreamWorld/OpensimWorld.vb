@@ -9,16 +9,22 @@ Module OpensimWorld
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
 
-            If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
+            If PropRegionClass.OpensimWorldAPIKey(RegionUUID).Length = 0 Then Continue For
+            If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
-            '  30 minute timer and change detector for OpensimAPI
-            Dim Delta = DateAndTime.DateDiff(DateInterval.Minute, LastTimeChecked, Date.Now)
-            Dim Avatars As Integer = RPC_admin_get_agent_count(RegionUUID)
-            PropRegionClass.InRegion(RegionUUID) = Avatars
-            ' force an update for 30 minutes, at 1st boot when no one is there, and in another place, when it is booted, or when avatars leave or go.
-            If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Or Force Then
-                SendToOpensimWorld(RegionUUID, Avatars)
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Or
+                (PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart) Then
+
+                '  30 minute timer and change detector for OpensimAPI
+                Dim Delta = DateAndTime.DateDiff(DateInterval.Minute, LastTimeChecked, Date.Now)
+                Dim Avatars As Integer = RPC_admin_get_agent_count(RegionUUID)
+                PropRegionClass.InRegion(RegionUUID) = Avatars
+                ' force an update for 30 minutes, at 1st boot when no one is there, and in another place, when it is booted, or when avatars leave or go.
+                If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Or Force Then
+                    SendToOpensimWorld(RegionUUID, Avatars)
+                End If
             End If
+
         Next
 
     End Sub
