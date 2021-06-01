@@ -601,6 +601,8 @@ Public Class FormSetup
             Return False
         End If
 
+        MysqlInterface.DeregisterRegions(False)
+
         DoEstates() ' has to be done after Mysql starts up.
 
         ' Reload
@@ -847,7 +849,7 @@ Public Class FormSetup
                 End If
 
             Next
-            Sleep(1000)
+            Sleep(100)
         End While
 
     End Sub
@@ -1101,45 +1103,37 @@ Public Class FormSetup
 
             Dim status = PropRegionClass.Status(RegionUUID)
             ' Smart Start Timer
-            Dim SSExpired As Boolean
-            If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
+
+            If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                 Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
-                If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted And diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
-                    SSExpired = True
-                End If
-            End If
+                If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
 
-            ' if it is past time and no one is in the sim... Smart shutdown
-            If PropRegionClass.SmartStart(RegionUUID) = "True" _
-                    And Settings.SmartStart _
-                    And SSExpired _
-                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                    ' if anyone is in home stay alive
+                    If PropRegionClass.AvatarsIsInGroup(GroupName) Then
+                        PokeRegionTimer(RegionUUID)
+                        Continue For
+                    End If
 
-                ' if anyone is in home stay alive
-                If PropRegionClass.AvatarsIsInGroup(GroupName) Then
-                    PokeRegionTimer(RegionUUID)
+                    ' Find any regions touching this region.
+                    ' add them to the area to stay alive.
+                    ' if anyone is in any of that area, we do not power down.
+
+                    If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+                        PokeRegionTimer(RegionUUID)
+                        Continue For
+                    End If
+
+                    Logger("State Changed to ShuttingDown", GroupName, "Teleport")
+                    ShutDown(RegionUUID)
+                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                        PokeRegionTimer(RegionUUID)
+                    Next
+
+                    PropUpdateView = True ' make form refresh
                     Continue For
+
                 End If
-
-                ' Find any regions touching this region.
-                ' add them to the area to stay alive.
-                ' if anyone is in any of that area, we do not power down.
-
-                If PropRegionClass.AvatarIsNearby(RegionUUID) Then
-                    PokeRegionTimer(RegionUUID)
-                    Continue For
-                End If
-
-                Logger("State Changed to ShuttingDown", GroupName, "Teleport")
-                ShutDown(RegionUUID)
-                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                    PokeRegionTimer(RegionUUID)
-                Next
-
-                PropUpdateView = True ' make form refresh
-                Continue For
-
             End If
 
             ' auto restart timer
@@ -2589,11 +2583,10 @@ Public Class FormSetup
             ScanAgents() ' update agent count seconds
         End If
 
-        ' every minute and at startup
-        If SecondsTicker Mod 60 = 0 Then
+        If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
-            ScanOpenSimWorld(CBool(SecondsTicker = 0))
+            ScanOpenSimWorld(False)
         End If
 
         ' print hourly marks on console, after boot
