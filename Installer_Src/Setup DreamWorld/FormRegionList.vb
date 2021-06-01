@@ -203,7 +203,7 @@ Public Class FormRegionlist
         warning = 7
         user1 = 8
         user2 = 9
-        SmartStart = 10
+        SmartStartStopped = 10
         Home = 11
         HomeOffline = 12
         Pending = 13
@@ -559,7 +559,7 @@ Public Class FormRegionlist
             Num = DGICON.NoEstate
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart Then
             Letter = My.Resources.Waiting
-            Num = DGICON.SmartStart
+            Num = DGICON.SmartStartStopped
         ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Not Settings.SmartStart Then
             Letter = My.Resources.Stopped_word
             Num = DGICON.stopped
