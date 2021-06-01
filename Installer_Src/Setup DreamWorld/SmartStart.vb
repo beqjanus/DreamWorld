@@ -69,7 +69,9 @@ Module SmartStart
                         Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
                         Return Name & "|0"
                     End If
+
                 Else  ' requires booting
+
                     If AgentName.ToUpperInvariant = "UUID" Then
                         Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
@@ -80,17 +82,20 @@ Module SmartStart
                         Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
                         RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
-                        Return Settings.WelcomeRegion
-                    Else ' Its a sign!
+                        Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                        Return u
+
+                    Else ' Its a v4 sign
+
                         If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
                             time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + slop) ' 5 seconds of slop time
                         Else
                             time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + slop) ' 5 seconds of slop time
                         End If
                         RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. {vbCrLf}Please wait in this region.")
-                        Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
+                        Logger("Agent ", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
-                        Return Name & time
+                        Return Settings.WelcomeRegion
                     End If
 
                 End If
