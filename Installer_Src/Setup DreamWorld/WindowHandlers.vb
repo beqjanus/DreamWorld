@@ -98,6 +98,7 @@ Module WindowHandlers
     ''' </summary>
     ''' <param name="Groupname">Name of the DOS box</param>
     ''' <returns>Handle to a window ot Intptr.zero</returns>
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname = RobustName() Then

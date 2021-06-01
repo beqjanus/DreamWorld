@@ -146,6 +146,7 @@ Public Class UPnp
     ''' </summary>
     ''' <remarks></remarks>
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly")>
     Public Sub Dispose() Implements IDisposable.Dispose
         Try
             Marshal.ReleaseComObject(staticMapping)
