@@ -763,7 +763,7 @@ Public Class RegionMaker
             If runningRegions.Contains(RegionUUID) Then Continue For
 
             If used.Contains(port) Then
-                port = LargestPort()
+                port = LargestPort() + 1
             End If
             RegionPort(RegionUUID) = port
             GroupPort(RegionUUID) = port
