@@ -601,7 +601,7 @@ Public Class FormSetup
             Return False
         End If
 
-        MysqlInterface.DeregisterRegions(False)
+        'MysqlInterface.DeregisterRegions(False)
 
         DoEstates() ' has to be done after Mysql starts up.
 
@@ -1085,7 +1085,7 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
-
+            TeleportAgents()
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
         End While
