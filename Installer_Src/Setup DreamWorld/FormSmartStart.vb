@@ -1238,7 +1238,7 @@ Public Class FormSmartStart
 
     Private Sub Water_CheckedChanged(sender As Object, e As EventArgs) Handles Water.CheckedChanged
         Settings.TerrainType = "Water"
-        FlatLandLevel.Text = Zero
+        FlatLandLevel.Text = "1"
         TerrainPic.Image = My.Resources.water
     End Sub
 
