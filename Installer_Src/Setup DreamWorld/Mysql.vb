@@ -382,7 +382,7 @@ Public Module MysqlInterface
     Public Function EstateName(UUID As String) As String
 
         If Settings.RegionMySqlConnection.Length = 0 Then Return ""
-        If Not IsMySqlRunning() Then Return ""
+        'If Not IsMySqlRunning() Then Return ""
 
         Dim name As String = ""
         Dim Val As String = ""
@@ -827,7 +827,7 @@ Public Module MysqlInterface
         Try
             Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
                 MysqlConn.Open()
-                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID and flags & 4 = 4"
+                Dim stm = "Select count(*) as cnt from robust.regions where uuid = @UUID "
                 Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
