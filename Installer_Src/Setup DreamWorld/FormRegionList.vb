@@ -942,6 +942,12 @@ Public Class FormRegionlist
 
     Private Sub ShowIcons()
 
+
+        If ViewBusy = True Then
+            Return
+        End If
+        ViewBusy = True
+
         ShowTitle()
         Users.Text = My.Resources.Users_word
         AllNone.Visible = False
@@ -980,6 +986,7 @@ Public Class FormRegionlist
         Next
         PropUpdateView() = False
         IconView.EndUpdate()
+        ViewBusy = False
 
     End Sub
 
