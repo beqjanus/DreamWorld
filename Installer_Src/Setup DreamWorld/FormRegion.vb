@@ -252,12 +252,11 @@ Public Class FormRegion
             Gods_Use_Default.Checked = True
             RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word
             UUID.Text = Guid.NewGuid().ToString
-            ConciergeCheckBox.Checked = False
             CoordX.Text = (PropRegionClass.LargestX() + 8).ToString(Globalization.CultureInfo.InvariantCulture)
             CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
-            SmartStartCheckBox.Checked = False
+            SmartStartCheckBox.Checked = Settings.SmartStart
             NonphysicalPrimMax.Text = 1024.ToString(Globalization.CultureInfo.InvariantCulture)
             PhysicalPrimMax.Text = 64.ToString(Globalization.CultureInfo.InvariantCulture)
             ClampPrimSize.Checked = False
@@ -282,6 +281,7 @@ Public Class FormRegion
             ClampPrimSize.Checked = PropRegionClass.ClampPrimSize(RegionUUID)
             MaxPrims.Text = PropRegionClass.MaxPrims(RegionUUID)
             MaxAgents.Text = PropRegionClass.MaxAgents(RegionUUID)
+            RegionPort.Text = CStr(PropRegionClass.RegionPort(RegionUUID))
 
             ' Size buttons can be zero
             If PropRegionClass.SizeY(RegionUUID) = 0 Or PropRegionClass.SizeX(RegionUUID) = 0 Then
@@ -1034,8 +1034,11 @@ Public Class FormRegion
         PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
         PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
         PropRegionClass.RegionName(RegionUUID) = RegionName.Text
-        PropRegionClass.RegionPort(RegionUUID) = PropRegionClass.LargestPort
-        PropRegionClass.GroupPort(RegionUUID) = PropRegionClass.RegionPort(RegionUUID)
+
+        Dim port = PropRegionClass.LargestPort + 1
+        PropRegionClass.RegionPort(RegionUUID) = port
+        PropRegionClass.GroupPort(RegionUUID) = port
+
         PropRegionClass.SizeX(RegionUUID) = BoxSize
         PropRegionClass.SizeY(RegionUUID) = BoxSize
         PropRegionClass.RegionEnabled(RegionUUID) = EnabledCheckBox.Checked
@@ -1193,6 +1196,8 @@ Public Class FormRegion
                         "RegionUUID = " & UUID.Text & vbCrLf &
                         "Location = " & CoordX.Text & "," & CoordY.Text & vbCrLf &
                         "InternalAddress = 0.0.0.0" & vbCrLf &
+                        "InternalPort = " & PropRegionClass.RegionPort(RegionUUID) & vbCrLf &
+                        "GroupPort = " & PropRegionClass.GroupPort(RegionUUID) & vbCrLf &
                         "AllowAlternatePorts = False" & vbCrLf &
                         "ExternalHostName = " & Settings.ExternalHostName & vbCrLf &
                         "SizeX = " & BoxSize & vbCrLf &
@@ -1236,8 +1241,9 @@ Public Class FormRegion
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            Return False
             MsgBox(My.Resources.Cannot_save_region_word + ex.Message, MsgBoxStyle.Critical Or MsgBoxStyle.MsgBoxSetForeground)
+            Return False
+
         End Try
 
         If PropRegionClass.GetAllRegions() = -1 Then Return False
@@ -1384,6 +1390,10 @@ Public Class FormRegion
     Private Sub RadioButton9_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton9.CheckedChanged
         BoxSize = 256 * 9
         If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RegionPort_TextChanged(sender As Object, e As EventArgs) Handles RegionPort.TextChanged
+
     End Sub
 
     Private Sub ScriptsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScriptsToolStripMenuItem.Click

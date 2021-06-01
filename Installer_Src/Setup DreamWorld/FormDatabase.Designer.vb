@@ -53,6 +53,7 @@ Partial Class FormDatabase
         Me.StopToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConsoleToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.RunasaServiceCheckBox = New System.Windows.Forms.CheckBox()
         Me.StandaloneGroup.SuspendLayout()
         Me.GridGroup.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
@@ -70,7 +71,7 @@ Partial Class FormDatabase
         Me.StandaloneGroup.Controls.Add(Me.RegionDBUsername)
         Me.StandaloneGroup.Controls.Add(Me.Label21)
         Me.StandaloneGroup.Controls.Add(Me.RegionMySqlPassword)
-        Me.StandaloneGroup.Location = New System.Drawing.Point(318, 37)
+        Me.StandaloneGroup.Location = New System.Drawing.Point(315, 75)
         Me.StandaloneGroup.Name = "StandaloneGroup"
         Me.StandaloneGroup.Size = New System.Drawing.Size(277, 177)
         Me.StandaloneGroup.TabIndex = 2
@@ -175,7 +176,7 @@ Partial Class FormDatabase
         Me.GridGroup.Controls.Add(Me.Label8)
         Me.GridGroup.Controls.Add(Me.RobustDBPassword)
         Me.GridGroup.Controls.Add(Me.RobustDBUsername)
-        Me.GridGroup.Location = New System.Drawing.Point(25, 37)
+        Me.GridGroup.Location = New System.Drawing.Point(22, 75)
         Me.GridGroup.Name = "GridGroup"
         Me.GridGroup.Size = New System.Drawing.Size(287, 177)
         Me.GridGroup.TabIndex = 1
@@ -275,7 +276,7 @@ Partial Class FormDatabase
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(604, 30)
+        Me.MenuStrip2.Size = New System.Drawing.Size(613, 30)
         Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
@@ -315,12 +316,23 @@ Partial Class FormDatabase
         Me.ConsoleToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.ConsoleToolStripMenuItem.Text = "Console"
         '
+        'RunasaServiceCheckBox
+        '
+        Me.RunasaServiceCheckBox.AutoSize = True
+        Me.RunasaServiceCheckBox.Location = New System.Drawing.Point(28, 43)
+        Me.RunasaServiceCheckBox.Name = "RunasaServiceCheckBox"
+        Me.RunasaServiceCheckBox.Size = New System.Drawing.Size(108, 17)
+        Me.RunasaServiceCheckBox.TabIndex = 3
+        Me.RunasaServiceCheckBox.Text = "Run as a Service"
+        Me.RunasaServiceCheckBox.UseVisualStyleBackColor = True
+        '
         'FormDatabase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(604, 226)
+        Me.ClientSize = New System.Drawing.Size(613, 276)
+        Me.Controls.Add(Me.RunasaServiceCheckBox)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.StandaloneGroup)
         Me.Controls.Add(Me.GridGroup)
@@ -368,4 +380,5 @@ Partial Class FormDatabase
     Friend WithEvents StartToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents StopToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConsoleToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RunasaServiceCheckBox As CheckBox
 End Class

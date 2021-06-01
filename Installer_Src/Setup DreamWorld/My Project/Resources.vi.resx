@@ -2664,9 +2664,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Số lượng Ảnh đại diện + NPC tối đa</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Không tải được INI cài đặt</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>Thiết lập đồ thị</value>
   </data>
@@ -3065,5 +3062,215 @@
   </data>
   <data name="None1" xml:space="preserve">
     <value>không ai</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>đến</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Hình đại diện vẫn còn trong</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Nướng</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Bãi cỏ</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Khu vực tải hàng loạt</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Cây bách 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Cây bách 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Cây bách 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Cây bách 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Giây trước khi chờ đợi</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Xóa hết</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Xóa và sau đó Áp dụng</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dogwood</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Biên tập viên</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Cỏ Eelgrass</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Kích thước cuối XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Bạch đàn</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Cây dương xỉ</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Điền kích thước vào các vùng</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Bằng phẳng</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Đã tạo</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Chiều cao</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Trợ giúp Landcaping</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Help Plant Editor</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Trợ giúp Khởi động Thông minh</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Địa hình trợ giúp</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Just Options</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Kelp 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Kelp 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>rời đi</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Tiếng ồn</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Cây sồi</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Chủ sở hữu của các khu vực xung quanh</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Lòng bàn tay 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Lòng bàn tay 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>Đậu xe</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Sim đậu xe</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Sim đậu xe</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Thông 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Thông 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Thông 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Thông 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Thông 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Cây</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Địa hình ngẫu nhiên</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Nhà sản xuất khu vực</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Hoàn nguyên</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Lưu địa hình</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Sea Sword</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Giây</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Trơn tru</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Kích thước bắt đầu XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Côn</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Sử dụng các khu vực tạm thời</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline cao</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine Low</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Bụi cây nhiệt đới 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Bụi cây nhiệt đới 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Xem thư mục địa hình</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Nước</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Aspen mùa đông</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Aspen mùa đông</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Thông mùa đông 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Thông mùa đông 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Thông mùa đông 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Thông mùa đông 2</value>
   </data>
 </root>

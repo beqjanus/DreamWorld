@@ -31,8 +31,8 @@ Public Module Firewall
 
         ' regions need both
 
-        Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Ports" & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(PropRegionClass.LargestPort - 1) & vbCrLf _
-                  & "netsh advfirewall firewall add rule name=""Region UDP Ports" & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(PropRegionClass.LargestPort - 1) & vbCrLf
+        Command = Command & "netsh advfirewall firewall add rule name=""Region TCP Ports" & """ dir=in action=allow protocol=TCP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(PropRegionClass.LargestPort) & vbCrLf _
+                  & "netsh advfirewall firewall add rule name=""Region UDP Ports" & """ dir=in action=allow protocol=UDP localport=" & CStr(Settings.FirstRegionPort) & "-" & CStr(PropRegionClass.LargestPort) & vbCrLf
 
         Return Command
 

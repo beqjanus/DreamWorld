@@ -1020,9 +1020,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Theip ar nascadh le láithreán gréasáin.</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Theip ar luchtú Socruithe INI</value>
-  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>Marfach</value>
   </data>
@@ -3065,5 +3062,215 @@
   </data>
   <data name="None1" xml:space="preserve">
     <value>Ar bith</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>ag teacht</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Tá avatars fós ann</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Bácáil</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Féar Trá</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Réigiúin Luchtaithe Bulc</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Cypress 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Cypress 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Soicind Roimh Fan</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Scrios Gach</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Scrios agus ansin Cuir Iarratas isteach</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dogwood</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Eagarthóir</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Eascann</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Méid Deiridh XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Eucalyptus</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Raithneach</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Líon Méid i réigiúin</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Maol</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Gineadh</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Airde</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Cuidigh le Tírdhreachú</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Cuidigh le hEagarthóir Plandaí</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Cuidigh le Tús Cliste</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Tír-raon Cabhrach</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Roghanna Díreach</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Ceilp 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Ceilp 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>ag imeacht</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Torann</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Darach</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Úinéir na Réigiún Máguaird</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Pailme 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Pailme 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>PáirceáilRegion</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Páirceáil Sim</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Páirceáil Sim</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Pine 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Pine 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Pine 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Pine 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Pine 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Plandaí</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Tír-raon randamach</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Tír-raon Regen</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Déantóir Réigiúin</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Téigh ar ais</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Sábháil Tír-raon</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Claíomh Farraige</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Soicind</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Smooth</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Tosaigh Méid XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Taper</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Úsáid Réigiúin Sealadacha</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline Ard</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>Líne Crann Íseal</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Bush Teochriosach 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Bush Teochriosach 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Féach ar Fhillteán Tír-raon</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Uisce</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Crann Creathach an Gheimhridh</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Crann Creathach an Gheimhridh</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Pine Geimhridh 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Pine Geimhridh 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Pine Geimhridh 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Pine Geimhridh 2</value>
   </data>
 </root>

@@ -5207,6 +5207,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to is still booting.
+        '''</summary>
+        Friend ReadOnly Property isBooting() As String
+            Get
+                Return ResourceManager.GetString("isBooting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Opensim Is loading your item. You will find it in.
         '''</summary>
         Friend ReadOnly Property isLoading() As String
@@ -6327,6 +6336,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to MySQL did not stop when commanded to stop.
+        '''</summary>
+        Friend ReadOnly Property MySQLDidNotStop() As String
+            Get
+                Return ResourceManager.GetString("MySQLDidNotStop", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to MySQL Port.
         '''</summary>
         Friend ReadOnly Property MySqlPort_word() As String
@@ -6614,6 +6632,15 @@ Namespace My.Resources
         Friend ReadOnly Property No_Emails_Selected() As String
             Get
                 Return ResourceManager.GetString("No_Emails_Selected", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No Estate.
+        '''</summary>
+        Friend ReadOnly Property No_Estate_Word() As String
+            Get
+                Return ResourceManager.GetString("No_Estate_Word", resourceCulture)
             End Get
         End Property
         
@@ -7251,20 +7278,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Parking Sim.
+        '''  Looks up a localized string similar to Parking Region.
         '''</summary>
-        Friend ReadOnly Property Parking_Spot1() As String
+        Friend ReadOnly Property ParkingRegion1() As String
             Get
-                Return ResourceManager.GetString("Parking_Spot1", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to ParkingRegion.
-        '''</summary>
-        Friend ReadOnly Property ParkingRegion() As String
-            Get
-                Return ResourceManager.GetString("ParkingRegion", resourceCulture)
+                Return ResourceManager.GetString("ParkingRegion1", resourceCulture)
             End Get
         End Property
         
@@ -8633,6 +8651,15 @@ Namespace My.Resources
         Friend ReadOnly Property Run_as_a_Service_word() As String
             Get
                 Return ResourceManager.GetString("Run_as_a_Service_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Run as a Service.
+        '''</summary>
+        Friend ReadOnly Property RunasaService_word() As String
+            Get
+                Return ResourceManager.GetString("RunasaService_word", resourceCulture)
             End Get
         End Property
         

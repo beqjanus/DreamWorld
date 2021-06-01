@@ -205,6 +205,7 @@ Public Class FormLogging
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub ExamineAvatars(Log As String)
 
         Try
@@ -230,11 +231,12 @@ Public Class FormLogging
             End Using
             If _Avictr > 0 Then Process.Start(IO.Path.Combine(Log))
         Catch ex As Exception
-            MsgBox("File in use, try later:  " & ex.Message)
+            MsgBox(ex.Message, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub ExamineOpensim(outputfile As StreamWriter, GroupName As String)
 
         Try
@@ -252,14 +254,13 @@ Public Class FormLogging
                 End Using
             End If
         Catch ex As Exception
-            MsgBox("File in use, try later:  " & ex.Message)
+            MsgBox(ex.Message, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
         _FileCounter += 1
 
     End Sub
 
     Private Sub Lookat(line As String, outputfile As StreamWriter)
-
 
         ToolStripStatusLabel1.Text = $"{CStr(_Avictr)} Avatars,  {CStr(_LineCounter)} Lines"
         Dim pattern = New Regex("^(.*?),.*?INFO.*?Login request for (.*?) \((.*?)\).*?viewer (.*?), channel (.*?), IP (.*?), Mac (.*?), Id0 (.*?),.*?region (.*?) \(.*?\@ (.*)")
@@ -282,6 +283,7 @@ Public Class FormLogging
         End If
 
     End Sub
+
     Private Sub LookatMac(line As String, outputfile As StreamWriter)
 
         '2021-04-19 07:05:46,389 INFO  (99) - OpenSim.Services.HypergridService.GatekeeperService [GATEKEEPER SERVICE]: Login failed, reason: client with mac (.*?) is denied

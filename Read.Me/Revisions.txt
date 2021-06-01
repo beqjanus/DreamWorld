@@ -2,11 +2,35 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V4.1 Performance Tweaks to Mysql and Smart Start
 
+This is a new Beta for Smart Start.  The Smart Start Button in "Settings" is now enabled.	
+OpensimWorld Beacons now get pinged when in Smart Start Mode and a region is powered down.
+All teleport types, HG and local work with one exception: Login to an offline region
+There is a new V4.1 Teleport Sign in Load Local IAR. This is just an ordinary sign, much like V2.5, except it does not check to see if a region is online.
+	
+Some Smart Boot features are missing:
+	Four translations are missing due to technical difficulties with a 3rd party tool.
+	You cannot log into a power-off region.  Go to your Welcome region or Home, and set home to a region that is always on.
+	Regions next to you should be powered on so you can walk or fly to them.  They do not. This works in Smart Surround.
+	Run All Start buttons: An unregistered Smart Start Region will boot when you click Run All or Start.  A registered Region is not be bootable from the GUI except by deregistering it or manually clicking it and selecting it from the Regions panel.
+
+MySQL now supports running as a service. You should only enable this if your server is in a data center on a UPS with a generator backup, or if you have a UPS with a cord that shuts down the PC before the battery is dead.
+Running as a service also relaxes the strict ACID settings in DreamGrid to allow buffering of writes to disk. 
+Also increased the log size from 10MB to 100MB for performance which may make recovery from a crash take a bit longer.
+
+
+V4.03
+Added Arabic, Spanish (Spain), Persian, Brazilian and Portuguese languages and translated all Smart Start menus.
+Smart Start button would not stick.
+Welcome region has been missing a setting for Fallback region
+Rare crash if the PID file was being read and written at the same time.
+Force Viewers that are in range to update when a region is ready.
+Region Builder knows how to set estate without typing.
+Added a RPC enable login to force Opensim to accept teleports when it says its ready but is really only mostly ready.
 
 V4.02 5-23-2021 Fixes to Smart Start, signs, and some UI performance improvements 
-
-Thankxx for the Richard Dennis, who reported that adding a Region from the Setup->Settings->Region-[Add] button would always create an extra "New Region".  
+Thankxx to Richard Dennis, who reported that adding a Region from the Setup->Settings->Region-[Add] button would always create an extra "New Region".  
 Robust could start and would lie about being ready and this could cause a crash when a region boots too early when the database was still being generated.
 Opensim would still jab the API in some cases even if global SS was disabled. 
 API now requires the Machine ID as a password.

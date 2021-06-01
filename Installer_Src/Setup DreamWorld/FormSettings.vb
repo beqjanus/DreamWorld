@@ -132,12 +132,6 @@ Public Class FormSettings
 
         VoiceButton1.Text = Global.Outworldz.My.Resources.Vivox_Voice_word
 
-        If Settings.SSVisible Then
-            SmartStartButton.Enabled = True
-        Else
-            SmartStartButton.Enabled = False
-        End If
-
         SetScreen()
 
         Me.Visible = True

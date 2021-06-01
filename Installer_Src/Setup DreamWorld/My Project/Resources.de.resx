@@ -1020,9 +1020,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Fehler bei Website zu verbinden.</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Verhängnisvoll</value>
-  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>Tödlich</value>
   </data>
@@ -3278,5 +3275,17 @@
   </data>
   <data name="WinterPine21" xml:space="preserve">
     <value>Winterkiefer 2</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Parkbereich</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Als Dienst ausführen</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL wurde nicht gestoppt, als der Befehl zum Stoppen erteilt wurde</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Kein Anwesen</value>
   </data>
 </root>

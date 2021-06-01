@@ -220,6 +220,7 @@ Public Class RegionMaker
             ._DisableGloebits = "",
             ._FrameTime = "",
             ._GodDefault = "",
+            ._GroupPort = 0,
             ._ManagerGod = "",
             ._MapType = "",
             ._MaxAgents = "100",
@@ -301,6 +302,7 @@ Public Class RegionMaker
         & "Location = " & CoordX(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) & "," & CoordY(RegionUUID).ToString(Globalization.CultureInfo.InvariantCulture) & vbCrLf _
         & "InternalAddress = 0.0.0.0" & vbCrLf _
         & "InternalPort = " & RegionPort(RegionUUID) & vbCrLf _
+        & "GroupPort = " & GroupPort(RegionUUID) & vbCrLf _
         & "AllowAlternatePorts = False" & vbCrLf _
         & "ExternalHostName = " & Settings.ExternalHostName() & vbCrLf _
         & "SizeX = " & CStr(SizeX(RegionUUID)) & vbCrLf _
@@ -547,7 +549,8 @@ Public Class RegionMaker
 
                             Dim SomeUUID As New Guid
                             If Not Guid.TryParse(uuid, SomeUUID) Then
-                                MsgBox("Cannot read uuid In INI file For " & fName)
+                                MsgBox("Cannot read uuid In INI file For " & fName, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
+                                '  TODO Auto repair this error from a backup
                                 Return -1
                             End If
 
@@ -566,7 +569,7 @@ Public Class RegionMaker
                                 Debug.Print(M.Groups(1).Value)
                                 GroupName(uuid) = M.Groups(1).Value
                             Else
-                                MsgBox("Cannot locate Dos Box name for  " & fName)
+                                MsgBox("Cannot locate Dos Box name for  " & fName, vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
                                 Return 0
                             End If
 
@@ -612,10 +615,16 @@ Public Class RegionMaker
                             LandingSpot(uuid) = CStr(Settings.GetIni(fName, "LandingSpot", "", "String"))
                             OpensimWorldAPIKey(uuid) = CStr(Settings.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
 
-                            RegionPort(uuid) = PropRegionClass.LargestPort
-                            GroupPort(uuid) = RegionPort(uuid)
+                            If RegionPort(uuid) = 0 Then
+                                Dim p = PropRegionClass.LargestPort + 1
+                                RegionPort(uuid) = p
+                                GroupPort(uuid) = p
+                            End If
 
-                            Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
+                            If GroupPort(uuid) = 0 Then
+                                GroupPort(uuid) = RegionPort(uuid)
+                            End If
+                            'Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
 
                             If _RegionListIsInititalized Then
                                 ' restore backups of transient data
@@ -628,9 +637,13 @@ Public Class RegionMaker
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
                                     If Backup(o)._RegionPort > 0 Then
                                         RegionPort(uuid) = Backup(o)._RegionPort
+                                    Else
+                                        BreakPoint.Show("oops")
                                     End If
                                     If Backup(o)._GroupPort > 0 Then
                                         GroupPort(uuid) = Backup(o)._GroupPort
+                                    Else
+                                        BreakPoint.Show("No Group Port yet")
                                     End If
                                 End If
 
@@ -677,7 +690,7 @@ Public Class RegionMaker
             End If
         Next
 
-        Return MaxNum + 1
+        Return MaxNum
 
     End Function
 
@@ -715,55 +728,48 @@ Public Class RegionMaker
 
     End Function
 
-    Function LowestPort() As Integer
-        ' locate lowest port
-        Dim Min As Integer = 65536
-        Dim Portlist As New Dictionary(Of Integer, String)
-        Dim pair As KeyValuePair(Of String, Region_data)
-
-        For Each pair In RegionList
-            Try
-                Portlist.Add(pair.Value._RegionPort, pair.Value._RegionName)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        Next
-
-        If Portlist.Count = 0 Then
-            Return 8004
-        End If
-
-        For Each thing In Portlist
-            If thing.Key < Min Then
-                Min = thing.Key ' Min is always the current value
-            End If
-
-        Next
-        If Min = 65536 Then Return 8004
-
-        Return Min
-    End Function
-
     ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     Public Sub UpdateAllRegionPorts()
 
-        TextPrint("-> " & My.Resources.Updating_Ports_word)
+        TextPrint(My.Resources.Updating_Ports_word)
+        Dim used As New List(Of Integer)
+        ' Do not want to reuse any ports.
+        ' Get all the running regions so we can collect their ports.
+        Dim runningRegions As New List(Of String)
+        For Each RegionUUID As String In RegionUuids()
+            Dim Name = PropRegionClass.RegionName(RegionUUID)
 
-        Dim Portnumber As Integer = Settings.FirstRegionPort()
+            If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
+                TextPrint($"-->{Name} {My.Resources.Running_word}")
+                runningRegions.Add(RegionUUID)
+                Dim ini = Settings.LoadIni(RegionIniFilePath(RegionUUID), ";")
+                If ini Is Nothing Then Continue For
 
-        For Each uuid As String In RegionUuids()
-            Dim Name = RegionName(uuid)
-            Dim ini = Settings.LoadIni(RegionIniFilePath(uuid), ";")
-            If ini Is Nothing Then Return
+                Dim Rp = Settings.GetIni(Name, "InternalPort", "0")
+                Dim Gp = Settings.GetIni(Name, "GroupPort", "0")
+                RegionPort(RegionUUID) = CInt("0" & Rp)
+                GroupPort(RegionUUID) = CInt("0" & Gp)
 
-            Settings.SetIni(Name, "InternalPort", CStr(Portnumber))
-            RegionPort(uuid) = Portnumber
+                If Not used.Contains(CInt("0" & Rp)) Then
+                    used.Add(CInt("0" & Rp))
+                End If
+            Else
+                TextPrint($"-->{My.Resources.Region_word} {Name} {My.Resources.Stopped_word}")
+            End If
+        Next
 
-            GroupPort(uuid) = Portnumber
-            Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
+        Dim port = Settings.FirstRegionPort
+        For Each RegionUUID As String In RegionUuids()
+            If runningRegions.Contains(RegionUUID) Then Continue For
 
-            Settings.SaveINI(ini, System.Text.Encoding.UTF8)
-            Portnumber += 1
+            If used.Contains(port) Then
+                port = LargestPort() + 1
+            End If
+            RegionPort(RegionUUID) = port
+            GroupPort(RegionUUID) = port
+
+            Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(RegionUUID)))
+            port += 1
         Next
 
         TextPrint(My.Resources.Setup_Firewall_word)
@@ -783,6 +789,7 @@ Public Class RegionMaker
         Public _CoordY As Integer = 1000
         Public _DisallowForeigners As String = ""
         Public _DisallowResidents As String = ""
+        Public _Estate As String = ""
         Public _FolderPath As String = ""
         Public _Group As String = ""
         Public _IniPath As String = "" ' the path to the folder that holds the region ini
@@ -918,6 +925,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._CrashCounter = Value
+        End Set
+    End Property
+
+    Public Property Estate(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._Estate
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Estate = Value
         End Set
     End Property
 
@@ -2251,6 +2271,7 @@ Public Class RegionMaker
             If INI Is Nothing Then Return True
 
             If Settings.SetIni(Name, "InternalPort", CStr(RegionPort(uuid))) Then Return True
+            If Settings.SetIni(Name, "GroupPort", CStr(GroupPort(uuid))) Then Return True
             If Settings.SetIni(Name, "ExternalHostName", Settings.ExternalHostName()) Then Return True
             If Settings.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid))) Then Return True
 

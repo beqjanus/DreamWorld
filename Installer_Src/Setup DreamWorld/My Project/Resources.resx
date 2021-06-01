@@ -3704,13 +3704,7 @@
   <data name="Palm11" xml:space="preserve">
     <value>Palm 1</value>
   </data>
-  <data name="ParkingRegion" xml:space="preserve">
-    <value>ParkingRegion</value>
-  </data>
   <data name="Parking_Spot" xml:space="preserve">
-    <value>Parking Sim</value>
-  </data>
-  <data name="Parking_Spot1" xml:space="preserve">
     <value>Parking Sim</value>
   </data>
   <data name="Pine1" xml:space="preserve">
@@ -3802,5 +3796,20 @@
   </data>
   <data name="WinterPine21" xml:space="preserve">
     <value>Winter Pine 2</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Parking Region</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Run as a Service</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL did not stop when commanded to stop</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>No Estate</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>is still booting</value>
   </data>
 </root>

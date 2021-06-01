@@ -167,6 +167,7 @@ Public Class FormDisplacement
         HelpManual("Load OAR")
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Sub PictureBox_Click(sender As Object, e As EventArgs)
 
         If sender Is Nothing Then Return
@@ -178,7 +179,7 @@ Public Class FormDisplacement
         Catch ex As Exception
         End Try
 
-        Me.Close()
+        Close()
 
     End Sub
 

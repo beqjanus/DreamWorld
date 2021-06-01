@@ -48,7 +48,7 @@ Public Class FormSetup
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
-    Private _StopMysql As Boolean = True
+
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
 #Disable Warning CA2213 ' Disposable fields should be disposed
@@ -239,15 +239,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropStopMysql As Boolean
-        Get
-            Return _StopMysql
-        End Get
-        Set(value As Boolean)
-            _StopMysql = value
-        End Set
-    End Property
-
     Public Property PropUseIcons As Boolean
 
     Public Property PropWebServer As NetServer
@@ -367,7 +358,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Update_is_available & ":" & Update_version)
 
-        Dim doUpdate = MsgBox(My.Resources.Update_is_available, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Information, My.Resources.Update_is_available)
+        Dim doUpdate = MsgBox(My.Resources.Update_is_available, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Update_is_available)
         If doUpdate = vbOK Then
 
             If DoStopActions() = False Then Return
@@ -433,7 +424,7 @@ Public Class FormSetup
         End If
         IcecastCrashCounter = 0
 
-        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
+        Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
 
         If (yesno = vbYes) Then
             Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
@@ -449,7 +440,7 @@ Public Class FormSetup
     Public Function KillAll() As Boolean
 
         If ScanAgents() > 0 Then
-            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Information, My.Resources.Agents_word)
+            Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
             If response = vbNo Then Return False
         End If
 
@@ -610,12 +601,13 @@ Public Class FormSetup
             Return False
         End If
 
+        MysqlInterface.DeregisterRegions(False)
+
         DoEstates() ' has to be done after Mysql starts up.
 
         ' Reload
         If PropChangedRegionSettings Then
             PropRegionClass.GetAllRegions()
-            PropRegionClass.UpdateAllRegionPorts()
         End If
         Application.DoEvents()
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
@@ -857,7 +849,7 @@ Public Class FormSetup
                 End If
 
             Next
-            Sleep(1000)
+            Sleep(100)
         End While
 
     End Sub
@@ -922,7 +914,7 @@ Public Class FormSetup
             Try
                 PowerShell.Start()
             Catch ex As Exception
-                ErrorLog("Cannot set Quickedit off")
+                ErrorLog("Cannot set Quick edit off")
             End Try
         End Using
 
@@ -1111,45 +1103,37 @@ Public Class FormSetup
 
             Dim status = PropRegionClass.Status(RegionUUID)
             ' Smart Start Timer
-            Dim SSExpired As Boolean
-            If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" Then
+
+            If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                 Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
-                If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted And diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
-                    SSExpired = True
-                End If
-            End If
+                If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
 
-            ' if it is past time and no one is in the sim... Smart shutdown
-            If PropRegionClass.SmartStart(RegionUUID) = "True" _
-                    And Settings.SmartStart _
-                    And SSExpired _
-                    And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                    ' if anyone is in home stay alive
+                    If PropRegionClass.AvatarsIsInGroup(GroupName) Then
+                        PokeRegionTimer(RegionUUID)
+                        Continue For
+                    End If
 
-                ' if anyone is in home stay alive
-                If PropRegionClass.AvatarsIsInGroup(GroupName) Then
-                    PokeRegionTimer(RegionUUID)
+                    ' Find any regions touching this region.
+                    ' add them to the area to stay alive.
+                    ' if anyone is in any of that area, we do not power down.
+
+                    If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+                        PokeRegionTimer(RegionUUID)
+                        Continue For
+                    End If
+
+                    Logger("State Changed to ShuttingDown", GroupName, "Teleport")
+                    ShutDown(RegionUUID)
+                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                        PokeRegionTimer(RegionUUID)
+                    Next
+
+                    PropUpdateView = True ' make form refresh
                     Continue For
+
                 End If
-
-                ' Find any regions touching this region.
-                ' add them to the area to stay alive.
-                ' if anyone is in any of that area, we do not power down.
-
-                If PropRegionClass.AvatarIsNearby(RegionUUID) Then
-                    PokeRegionTimer(RegionUUID)
-                    Continue For
-                End If
-
-                Logger("State Changed to ShuttingDown", GroupName, "Teleport")
-                ShutDown(RegionUUID)
-                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                    PokeRegionTimer(RegionUUID)
-                Next
-
-                PropUpdateView = True ' make form refresh
-                Continue For
-
             End If
 
             ' auto restart timer
@@ -1751,13 +1735,15 @@ Public Class FormSetup
         ChartWrapper2.AddMarkers = True
         ChartWrapper2.MarkerFreq = 60
 
-        'If Settings.RegionListVisible Then
-        'ShowRegionform()
-        'End If
+        'Redo all the region ports
+        PropRegionClass.UpdateAllRegionPorts()
+
+        If Settings.RegionListVisible Then
+            ShowRegionform()
+        End If
 
         TextPrint(My.Resources.Checking_MySql_word)
         Application.DoEvents()
-        If MysqlInterface.IsMySqlRunning() Then PropStopMysql() = False
 
         TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
@@ -1771,7 +1757,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Setup_Ports_word)
         Application.DoEvents()
-        PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
+        'PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
 
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)
@@ -2056,7 +2042,6 @@ Public Class FormSetup
     Private Sub MysqlPictureBox_Click(sender As Object, e As EventArgs)
 
         If MysqlInterface.IsMySqlRunning() Then
-            PropStopMysql = True
             StopMysql()
         Else
             StartMySQL()
@@ -2091,7 +2076,7 @@ Public Class FormSetup
         StopMysql()
 
         TextPrint("Zzzz...")
-        Thread.Sleep(2000)
+        Thread.Sleep(1000)
         End
 
     End Sub
@@ -2172,7 +2157,6 @@ Public Class FormSetup
     Private Sub RestartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RestartMysqlItem.Click
 
         PropAborting = True
-        PropStopMysql = True
         StopMysql()
         StartMySQL()
         PropAborting = False
@@ -2334,7 +2318,7 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($"Avatar My.Resources.Arriving_word {RegionName}{vbCrLf}")
+                    TextPrint($"Avatar {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
                 End If
             Next
@@ -2347,7 +2331,7 @@ Public Class FormSetup
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
                 If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                     PropRegionClass.AvatarCount(RegionUUID) += 1
-                    Str += $"Avatar My.Resources.Arriving_word {RegionName}{vbCrLf}"
+                    Str += $"Avatar {My.Resources.Arriving_word} {RegionName}{vbCrLf}"
                 End If
             Next
 
@@ -2506,51 +2490,6 @@ Public Class FormSetup
 
 #Region "Stopping"
 
-    Public Sub StopMysql()
-
-        If Not MysqlInterface.IsMySqlRunning() Then
-            Application.DoEvents()
-            MysqlInterface.IsRunning = False    ' mark all as not running
-            MySQLIcon(False)
-            Return
-        End If
-
-        If Not PropStopMysql Then
-            MysqlInterface.IsRunning = True    ' mark all as  running
-            MySQLIcon(True)
-            TextPrint(My.Resources.MySQL_Was_Running)
-            Return
-        End If
-
-        TextPrint($"MySQL {Global.Outworldz.My.Resources.Stopping_word}")
-
-        Using p As Process = New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "--port " & CStr(Settings.MySqlRobustDBPort) & " -u root shutdown",
-            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqladmin.exe") & """",
-            .UseShellExecute = True, ' so we can redirect streams and minimize
-            .WindowStyle = ProcessWindowStyle.Hidden
-        }
-            p.StartInfo = pi
-
-            Try
-                p.Start()
-                MysqlInterface.IsRunning = False
-                Application.DoEvents()
-                p.WaitForExit()
-            Catch
-            End Try
-
-        End Using
-
-        MySQLIcon(False)
-        If MysqlInterface.IsMySqlRunning() Then
-            MysqlInterface.IsRunning = True    ' mark all as running
-            MySQLIcon(True)
-        End If
-
-    End Sub
-
     Private Sub StopButton_Click_1(sender As System.Object, e As EventArgs) Handles StopButton.Click
 
         DoStopActions()
@@ -2644,11 +2583,10 @@ Public Class FormSetup
             ScanAgents() ' update agent count seconds
         End If
 
-        ' every minute and at startup
-        If SecondsTicker Mod 60 = 0 Then
+        If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
-            ScanOpenSimWorld(CBool(SecondsTicker = 0))
+            ScanOpenSimWorld(False)
         End If
 
         ' print hourly marks on console, after boot

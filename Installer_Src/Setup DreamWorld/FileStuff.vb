@@ -21,6 +21,8 @@ Module FileStuff
             "Outworldzfiles\Opensim\bin\OpenSimRegion.proto",
             "Outworldzfiles\Opensim\bin\OpensimMetro.proto",
             "Outworldzfiles\Opensim\bin\OpensimOsGrid.proto",
+            "OutworldzFiles\IAR\Outworldz Smart Start Alpha Teleport System V4.iar",
+            "OutworldzFiles\IAR\Outworldz Teleport System V2.5.iar",
             "How_to_Start_and_Login.txt",
             "How_to_Compile.txt",
             "PRIVACYNOTICE.txt",

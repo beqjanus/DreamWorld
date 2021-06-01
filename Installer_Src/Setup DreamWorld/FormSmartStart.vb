@@ -128,7 +128,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs)
-        Settings.AutoFill = RegionMakerEnableCHeckbox.Checked
+        Settings.AutoFill = AutoFillEnable.Checked
     End Sub
 
     Private Sub ClrSetting(check As CheckBox)
@@ -498,6 +498,7 @@ Public Class FormSmartStart
         AI.Text = My.Resources.Generated_word
         All.Text = My.Resources.All_word
         ApplyPlantButton.Text = My.Resources.Apply_word
+        AutoFillEnable.Text = My.Resources.Enabled_word
         AviName.Text = Settings.SurroundOwner
         BakeButton.Text = My.Resources.Bakeword
         BeachGrass1.Text = My.Resources.BeachGrass
@@ -510,6 +511,7 @@ Public Class FormSmartStart
         DeletApply.Text = My.Resources.Delete_and_then_Apply
         Dogwood.Text = My.Resources.Dogwood
         Eelgrass.Text = My.Resources.Eelgrass
+        EndlessLand.Text = My.Resources.AutoFill
         Eucalyptus.Text = My.Resources.Eucalyptus
         Fern.Text = My.Resources.Fern
         FillSizeLabel.Text = My.Resources.FillSizeLabel
@@ -531,7 +533,7 @@ Public Class FormSmartStart
         Label3.Text = My.Resources.TreeLineLow
         Label4.Text = My.Resources.StartSizeXYZ
         Label5.Text = My.Resources.EndSizeXYZ
-        Label6.Text = My.Resources.ParkingRegion
+        ParkingRegion.Text = My.Resources.ParkingRegion1
         Label8.Text = My.Resources.Height
         Label9.Text = My.Resources.Smooth
         LandscapingToolStripMenuItem.Text = My.Resources.Landscaping
@@ -573,7 +575,7 @@ Public Class FormSmartStart
         Radius.Text = My.Resources.Radius_Word
         Rand.Text = My.Resources.RandomTerrain
         RebuildTerrainsToolStripMenuItem.Text = My.Resources.RegenTerrains
-        RegionMakerEnableCHeckbox.Checked = Settings.AutoFill
+        AutoFillEnable.Checked = Settings.AutoFill
         RegionMakingToolStripMenuItem.Text = My.Resources.RegionMaker
         RevertButton.Text = My.Resources.Revert
         SaveTerrain.Text = My.Resources.SaveTerrain
@@ -888,7 +890,7 @@ Public Class FormSmartStart
                 PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}\Region")
                 PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{shortname}")
 
-                Dim port = PropRegionClass.LargestPort
+                Dim port = PropRegionClass.LargestPort + 1
                 PropRegionClass.GroupPort(RegionUUID) = port
                 PropRegionClass.RegionPort(RegionUUID) = port
                 PropRegionClass.WriteRegionObject(shortname, shortname)
@@ -1236,7 +1238,7 @@ Public Class FormSmartStart
 
     Private Sub Water_CheckedChanged(sender As Object, e As EventArgs) Handles Water.CheckedChanged
         Settings.TerrainType = "Water"
-        FlatLandLevel.Text = Zero
+        FlatLandLevel.Text = "1"
         TerrainPic.Image = My.Resources.water
     End Sub
 
@@ -1528,9 +1530,9 @@ Public Class FormSmartStart
         Settings.SaveSettings()
     End Sub
 
-    Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles RegionMakerEnableCHeckbox.CheckedChanged
+    Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoFillEnable.CheckedChanged
         If Not _initialized Then Return
-        Settings.AutoFill = RegionMakerEnableCHeckbox.Checked
+        Settings.AutoFill = AutoFillEnable.Checked
         Settings.SaveSettings()
     End Sub
 

@@ -172,8 +172,8 @@ Public Class MySettings
         Try
             SettingsData = ReadINIFile(arg)
         Catch ex As Exception
-            MsgBox(ex.Message)
-            Logger("Warn", ex.Message, "Error")
+            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
+            ErrorLog(ex.Message)
             Return ""
         End Try
 
@@ -1438,6 +1438,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property MysqlLastDirectory() As String
+        Get
+            Return GetMySetting("MysqlLastDirectory", "")
+        End Get
+        Set
+            SetMySetting("MysqlLastDirectory", Value)
+        End Set
+    End Property
+
     Public Property MySqlRegionDBPort() As Integer
         Get
             Return CInt("0" & GetMySetting("MySqlRegionDBPort", "3306"))
@@ -1463,6 +1472,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("MySqlRobustDBPort", CStr(Value))
+        End Set
+    End Property
+
+    Public Property MysqlRunasaService() As Boolean
+        Get
+            Return CType(GetMySetting("MysqlRunasaService", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("MysqlRunasaService", CStr(Value))
         End Set
     End Property
 
@@ -1499,15 +1517,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("NoPlants", CStr(Value))
-        End Set
-    End Property
-
-    Public Property OldInstallFolder() As String
-        Get
-            Return GetMySetting("OldInstallFolder", "")
-        End Get
-        Set
-            SetMySetting("OldInstallFolder", Value)
         End Set
     End Property
 

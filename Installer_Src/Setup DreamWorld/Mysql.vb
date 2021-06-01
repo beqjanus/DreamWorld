@@ -56,6 +56,9 @@ Public Module MysqlInterface
 #Region "StartMysql"
 
     Public Function StartMySQL() As Boolean
+
+        PropAborting = False
+
         Log("INFO", "Checking Mysql")
         If MysqlInterface.IsMySqlRunning() Then
             MysqlInterface.IsRunning = True
@@ -78,10 +81,34 @@ Public Module MysqlInterface
         Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#")
         If INI Is Nothing Then Return False
 
+        If Settings.MysqlRunasaService Then
+            Settings.SetIni("mysqld", "innodb_max_dirty_pages_pct", "75")
+            Settings.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "2")
+        Else
+            ' when we are a service we can wait until we have 75 % of the buffer full before we flush
+            ' if not, too dangerous, so we always write at 0% for ACID behavior.
+            ' InnoDB tries to flush data from the buffer pool so that the percentage of dirty pages does Not exceed this value. The default value Is 75.
+            ' The innodb_max_dirty_pages_pct setting establishes a target for flushing activity. It does Not affect the rate of flushing.
+
+            Settings.SetIni("mysqld", "innodb_max_dirty_pages_pct", "0")
+
+            'If Set To 1, InnoDB will flush (fsync) the transaction logs To the
+            ' disk at Each commit, which offers full ACID behavior. If you are
+            ' willing To compromise this safety, And you are running small
+            ' transactions, you may Set this To 0 Or 2 To reduce disk I/O To the
+            ' logs. Value 0 means that the log Is only written To the log file And
+            ' the log file flushed To disk approximately once per second. Value 2
+            ' means the log Is written To the log file at Each commit, but the log
+            ' file Is only flushed To disk approximately once per second.
+
+            Settings.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "1")
+        End If
+
         Settings.SetIni("mysqld", "basedir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql""")
         Settings.SetIni("mysqld", "datadir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql/Data""")
         Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
         Settings.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
+
         Settings.SaveINI(INI, System.Text.Encoding.ASCII)
 
         ' create test program slants the other way:
@@ -102,59 +129,135 @@ Public Module MysqlInterface
         CreateService()
         CreateStopMySql()
 
-        Application.DoEvents()
-        ' Mysql was not running, so lets start it up.
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = $"--defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini""",
-            .WindowStyle = ProcessWindowStyle.Hidden,
-            .FileName = $"""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqld.exe")}"""
-        }
-        ProcessMySql.StartInfo = pi
-        ProcessMySql.EnableRaisingEvents = True
-        Try
-            ProcessMySql.Start()
-            MysqlInterface.IsRunning = True
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
+        If Settings.MysqlRunasaService Then
 
-        ' wait for MySql to come up
-        Dim MysqlOk As Boolean
-        Dim ctr As Integer = 0
-        While Not MysqlOk
+            If Settings.CurrentDirectory <> Settings.MysqlLastDirectory Or Not ServiceExists("MySQLDreamGrid") Then
+                Using MysqlProcess As New Process With {
+                .EnableRaisingEvents = False
+            }
+                    MysqlProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
+                    MysqlProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\mysqld.exe")
+                    MysqlProcess.StartInfo.Arguments = $"--install MySQLDreamGrid --defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini"""
+                    MysqlProcess.StartInfo.CreateNoWindow = True
+                    MysqlProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\")
+                    MysqlProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
 
-            Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
-            If ctr = 60 Then ' about 60 seconds when it fails
-
-                Dim yesno = MsgBox(My.Resources.Mysql_Failed, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
-                If (yesno = vbYes) Then
-                    Dim files As Array = Nothing
                     Try
-                        files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
+                        MysqlProcess.Start()
+                        MysqlProcess.WaitForExit()
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
+                        ApacheIcon(False)
                     End Try
+                    Application.DoEvents()
 
-                    For Each FileName As String In files
+                    If MysqlProcess.ExitCode <> 0 Then
+                        TextPrint(My.Resources.Mysql_Failed)
+                        MySQLIcon(False)
+                    Else
+                        Settings.MysqlLastDirectory = Settings.CurrentDirectory
+                        Settings.SaveSettings()
+                    End If
+
+                    Application.DoEvents()
+                End Using
+
+            End If
+
+            TextPrint(My.Resources.Mysql_Starting)
+
+            Using MysqlProcess As New Process With {
+                        .EnableRaisingEvents = False
+                    }
+                MysqlProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                MysqlProcess.StartInfo.FileName = "net"
+                MysqlProcess.StartInfo.Arguments = "start MySQLDreamGrid"
+                MysqlProcess.StartInfo.UseShellExecute = False
+                MysqlProcess.StartInfo.CreateNoWindow = True
+                MysqlProcess.StartInfo.RedirectStandardError = True
+                MysqlProcess.StartInfo.RedirectStandardOutput = True
+                Dim response As String = ""
+
+                Try
+                    MysqlProcess.Start()
+                    response = MysqlProcess.StandardOutput.ReadToEnd() & MysqlProcess.StandardError.ReadToEnd()
+                    MysqlProcess.WaitForExit()
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                    TextPrint(My.Resources.Mysql_Failed & ":" & ex.Message)
+                End Try
+                Application.DoEvents()
+
+                If MysqlProcess.ExitCode <> 0 Then
+                    If response.Contains("has already been started") Then
+                        MySQLIcon(True)
+                        Return True
+                    End If
+                    TextPrint(My.Resources.Mysql_Failed & ":" & CStr(MysqlProcess.ExitCode))
+                    ApacheIcon(False)
+                Else
+                    TextPrint(My.Resources.Mysql_is_Running & ":" & Settings.ApachePort)
+                    ApacheIcon(True)
+                End If
+
+            End Using
+        Else
+
+            Application.DoEvents()
+            ' Mysql was not running, so lets start it up.
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .Arguments = $"--defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini""",
+                .WindowStyle = ProcessWindowStyle.Hidden,
+                .FileName = $"""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqld.exe")}"""
+            }
+            ProcessMySql.StartInfo = pi
+            ProcessMySql.EnableRaisingEvents = True
+            Try
+                ProcessMySql.Start()
+                MysqlInterface.IsRunning = True
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+
+            ' wait for MySql to come up
+            Dim MysqlOk As Boolean
+            Dim ctr As Integer = 0
+            While Not MysqlOk
+
+                Dim MysqlLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\data")
+                If ctr = 60 Then ' about 60 seconds when it fails
+
+                    Dim yesno = MsgBox(My.Resources.Mysql_Failed, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
+                    If (yesno = vbYes) Then
+                        Dim files As Array = Nothing
                         Try
-                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
+                            files = Directory.GetFiles(MysqlLog, "*.err", SearchOption.TopDirectoryOnly)
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
-                        Application.DoEvents()
-                    Next
-                End If
-                FormSetup.Buttons(FormSetup.StartButton)
-                Return False
-            End If
-            ctr += 1
-            ' check again
-            Sleep(1000)
-            Application.DoEvents()
-            MysqlOk = MysqlInterface.IsMySqlRunning()
-        End While
 
-        If Not MysqlOk Then Return False
+                        For Each FileName As String In files
+                            Try
+                                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & FileName & """")
+                            Catch ex As Exception
+                                BreakPoint.Show(ex.Message)
+                            End Try
+                            Application.DoEvents()
+                        Next
+                    End If
+                    FormSetup.Buttons(FormSetup.StartButton)
+                    Return False
+                End If
+                ctr += 1
+                ' check again
+                Sleep(1000)
+                Application.DoEvents()
+                MysqlOk = MysqlInterface.IsMySqlRunning()
+            End While
+
+            If Not MysqlOk Then Return False
+
+        End If
 
         UpgradeMysql()
 

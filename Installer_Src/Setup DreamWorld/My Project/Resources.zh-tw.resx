@@ -1020,9 +1020,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>未能連接到網站。</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>無法加載設置INI</value>
-  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>致命的</value>
   </data>
@@ -3065,5 +3062,215 @@
   </data>
   <data name="None1" xml:space="preserve">
     <value>沒有</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>到達</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>頭像仍在</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>烤</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>海灘草</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>海灘草1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>批量加載區域</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>柏樹1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>柏樹2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>柏樹1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>柏樹2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>等待之前的秒數</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>刪除所有</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>刪除然後應用</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>萸</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>鰻草</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>端部尺寸XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>桉樹</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>蕨類</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>區域填充大小</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>平坦的</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>產生的</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>幫助美化</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>幫助工廠編輯</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>幫助智能啟動</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>幫助地形</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>公正的選擇</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>海帶1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>海帶2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>離開</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>負載地形</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>噪音</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>橡木</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>周邊地區的所有者</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>棕櫚1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>棕櫚1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>停車區</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>停車模擬</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>停車模擬</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>松樹1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>松樹1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>松2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>松2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>松2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>植物</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>雞蛋花</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>隨機地形</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>雷根地形</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>區域製造商</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>恢復</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>保存地形</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>海劍</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>光滑的</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>起始尺寸XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>錐度</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>使用臨時區域</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>樹線高</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>樹線低</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>熱帶灌木叢1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>熱帶叢林2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>查看地形文件夾</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>水</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>冬季白楊</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>冬季白楊</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>冬松1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>冬松1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>冬松2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>冬松2</value>
   </data>
 </root>

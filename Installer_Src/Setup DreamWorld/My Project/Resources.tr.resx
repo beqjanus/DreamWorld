@@ -2664,9 +2664,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Maks Avatar sayısı + NPC</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Ayarlar INI yüklenemedi</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>Kurulum Grafikleri</value>
   </data>
@@ -3065,5 +3062,215 @@
   </data>
   <data name="None1" xml:space="preserve">
     <value>Yok</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>varış</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Avatarlar hala içeride</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Pişirmek</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Sahil Çim</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Toplu Yükleme Bölgeleri</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Selvi 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Selvi 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Selvi 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Selvi 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Beklemeden Önce Saniyeler</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Hepsini sil</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Sil ve ardından Uygula</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Kızılcık</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Editör</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Eelgrass</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Bitiş Boyutu XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Okaliptüs</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Eğreltiotu</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Bölgelerde Dolgu Boyutu</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Düz</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Oluşturulan</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Yükseklik</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Peyzaj Düzenlemesine Yardım</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Bitki Düzenleyicisine Yardım Et</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Smart Start'a Yardım Edin</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Yardım Arazileri</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Sadece Seçenekler</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Kelp 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Kelp 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>ayrılma</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>gürültü, ses</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Meşe</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Çevre Bölgelerin Sahibi</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Palm 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Palm 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>Park Bölgesi</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Park Sim</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Park Sim</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Çam 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Çam 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Çam 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Çam 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Çam 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Bitkiler</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Rastgele Arazi</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Arazileri</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Bölge Oluşturucu</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Geri döndür</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Araziyi Kaydet</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Deniz Kılıcı</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Saniye</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Pürüzsüz</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Başlangıç Boyutu XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Konik</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Geçici Bölgeleri Kullan</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline Yüksek</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine Düşük</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Tropikal Çalı 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Tropikal Çalı 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Arazi Klasörünü Görüntüle</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Su</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Kış Kavak</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Kış Kavak</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Kış Çamı 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Kış Çamı 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Kış Çamı 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Kış Çamı 2</value>
   </data>
 </root>

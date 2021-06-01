@@ -9,16 +9,22 @@ Module OpensimWorld
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
 
-            If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
+            If PropRegionClass.OpensimWorldAPIKey(RegionUUID).Length = 0 Then Continue For
+            If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
-            '  30 minute timer and change detector for OpensimAPI
-            Dim Delta = DateAndTime.DateDiff(DateInterval.Minute, LastTimeChecked, Date.Now)
-            Dim Avatars As Integer = RPC_admin_get_agent_count(RegionUUID)
-            PropRegionClass.InRegion(RegionUUID) = Avatars
-            ' force an update for 30 minutes, at 1st boot when no one is there, and in another place, when it is booted, or when avatars leave or go.
-            If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Or Force Then
-                SendToOpensimWorld(RegionUUID, Avatars)
+            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Or
+                (PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart) Then
+
+                '  30 minute timer and change detector for OpensimAPI
+                Dim Delta = DateAndTime.DateDiff(DateInterval.Minute, LastTimeChecked, Date.Now)
+                Dim Avatars As Integer = RPC_admin_get_agent_count(RegionUUID)
+                PropRegionClass.InRegion(RegionUUID) = Avatars
+                ' force an update for 30 minutes, at 1st boot when no one is there, and in another place, when it is booted, or when avatars leave or go.
+                If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Or Force Then
+                    SendToOpensimWorld(RegionUUID, Avatars)
+                End If
             End If
+
         Next
 
     End Sub
@@ -38,27 +44,26 @@ Module OpensimWorld
 
     End Sub
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Private Function Poke(URL As String) As Integer
 
         ' Create a New 'HttpWebRequest' Object to the mentioned URL.
         Dim myHttpWebRequest As HttpWebRequest = CType(WebRequest.Create(URL), HttpWebRequest)
-
+        Dim outputData As String
         ' Assign the response object of 'HttpWebRequest' to a 'HttpWebResponse' variable.
         Dim myHttpWebResponse As HttpWebResponse = CType(myHttpWebRequest.GetResponse(), HttpWebResponse)
         'Debug.Print($"{vbCrLf}The HttpHeaders are {vbCrLf}Name {0}", myHttpWebRequest.Headers)
         ' Print the HTML contents of the page to the console.
-        Dim streamResponse As Stream = myHttpWebResponse.GetResponseStream()
-        Dim streamRead As StreamReader = New StreamReader(streamResponse)
-        Dim readBuff As Char() = New Char(255) {}
-
-        Dim count As Integer = streamRead.Read(readBuff, 0, 256)
-        Dim outputData As String = New String(readBuff, 0, count)
-        While count > 0
-            count = streamRead.Read(readBuff, 0, 256)
-        End While
-        ' Close the Stream object.
-        streamResponse.Close()
-        streamRead.Close()
+        Using streamResponse As Stream = myHttpWebResponse.GetResponseStream()
+            Using streamRead As StreamReader = New StreamReader(streamResponse)
+                Dim readBuff As Char() = New Char(255) {}
+                Dim count As Integer = streamRead.Read(readBuff, 0, 256)
+                outputData = New String(readBuff, 0, count)
+                While count > 0
+                    count = streamRead.Read(readBuff, 0, 256)
+                End While
+            End Using
+        End Using
         'Release the HttpWebResponse Resource.
 
         myHttpWebResponse.Close()

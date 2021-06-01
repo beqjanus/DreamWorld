@@ -1020,9 +1020,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Yhdistäminen epäonnistui kotisivuilta.</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Lataaminen epäonnistui Asetukset INI</value>
-  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>kohtalokas</value>
   </data>
@@ -3065,5 +3062,215 @@
   </data>
   <data name="None1" xml:space="preserve">
     <value>Ei mitään</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>saapuvat</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Avatarit ovat edelleen sisällä</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Leipoa</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Rantaruoho</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>Rantaruoho 1</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Irtolastialueet</value>
+  </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Cypress 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Cypress 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Cypress 2</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Sekuntia ennen odottamista</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Poista kaikki</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Poista ja sitten Käytä</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dogwood</value>
+  </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Toimittaja</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Ankeriasruoho</value>
+  </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Päätykoko XYZ</value>
+  </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Eukalyptus</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Saniainen</value>
+  </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Täytä koko alueittain</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Tasainen</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Luotu</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Korkeus</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Auta maisemointia</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Auta Plant Editoria</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Auta Smart Startia</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Auta maastoja</value>
+  </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Vain asetukset</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Rakkolevä 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Rakkolevä 2</value>
+  </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>lähdössä</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
+  </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Melu</value>
+  </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Tammi</value>
+  </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Ympäröivien alueiden omistaja</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Palm 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Palm 1</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>Pysäköinti-alue</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Pysäköinti Sim</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Pysäköinti Sim</value>
+  </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Mänty 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Mänty 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Mänty 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Mänty 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Mänty 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Kasvit</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Satunnainen maasto</value>
+  </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Region Maker</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Palaa</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Tallenna maasto</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Merimiekka</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>Sekuntia</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Sileä</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Aloita koko XYZ</value>
+  </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Taper</value>
+  </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Käytä väliaikaisia alueita</value>
+  </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>Puurivi matala</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Trooppinen holkki 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Trooppinen holkki 2</value>
+  </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Näytä maaston kansio</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>Vesi</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Talvi haapa</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Talvi haapa</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Talvimänty 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Talvimänty 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Talvimänty 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Talvimänty 2</value>
   </data>
 </root>

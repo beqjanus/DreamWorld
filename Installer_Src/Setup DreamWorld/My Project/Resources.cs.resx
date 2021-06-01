@@ -2547,9 +2547,6 @@
   <data name="Region_full_msg" xml:space="preserve">
     <value>Maximální počet Avatarů + NPC</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Načtení nastavení INI se nezdařilo</value>
-  </data>
   <data name="Setup_Graphs_word" xml:space="preserve">
     <value>Nastavení grafů</value>
   </data>
@@ -3278,5 +3275,17 @@
   </data>
   <data name="WinterPine21" xml:space="preserve">
     <value>Winter Pine 2</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Parkovací region</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Spustit jako službu</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL se nezastavil, když dostal příkaz zastavit</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Žádný majetek</value>
   </data>
 </root>

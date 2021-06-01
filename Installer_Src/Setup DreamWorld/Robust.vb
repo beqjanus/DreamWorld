@@ -180,13 +180,14 @@ Module Robust
         While Not IsRobustRunning()
             Log("Error", Global.Outworldz.My.Resources.Waiting_on_Robust)
             Application.DoEvents()
-            counter += 1
-            ' wait a minute for it to start
-            If counter Mod 5 = 0 Then
-                TextPrint("Robust " & Global.Outworldz.My.Resources.did_not_start_word)
-            End If
 
-            If counter > 450 Then
+            ' wait a minute for it to start
+            If counter > 0 And counter Mod 10 = 0 Then
+                TextPrint("Robust " & Global.Outworldz.My.Resources.isBooting)
+            End If
+            counter += 1
+            ' 2 minutes to boot on bad hardware
+            If counter > 120 Then
                 TextPrint(My.Resources.Robust_failed_to_start)
                 FormSetup.Buttons(FormSetup.StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
@@ -199,13 +200,12 @@ Module Robust
                     End Try
                 End If
                 FormSetup.Buttons(FormSetup.StartButton)
-
                 RobustIcon(False)
                 RobustIsStarting = False
                 Return False
             End If
 
-            Sleep(500)
+            Sleep(1000)
         End While
 
         RobustIsStarting = False
@@ -222,17 +222,19 @@ Module Robust
     Public Sub StopRobust()
 
         If Settings.ServerType <> RobustServerName Then Return
-
-        TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
-        ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
-        Dim ctr As Integer = 0
-        ' wait 30 seconds for robust to quit
-        While IsRobustRunning() And ctr < 30
-            Application.DoEvents()
-            Sleep(1000)
-            ctr += 1
-        End While
-        If ctr = 30 Then Zap("Robust")
+        If IsRobustRunning() Then
+            TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
+            ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
+            Dim ctr As Integer = 0
+            ' wait 30 seconds for robust to quit
+            While IsRobustRunning() And ctr < 30
+                Application.DoEvents()
+                Sleep(1000)
+                ctr += 1
+                ConsoleCommand(RobustName, "q{ENTER}")
+            End While
+            If ctr = 30 Then Zap("Robust")
+        End If
         RobustIcon(False)
 
     End Sub

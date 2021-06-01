@@ -1021,9 +1021,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>No s'ha pogut connectar a la web.</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>No s'ha pogut carregar la configuració INI</value>
-  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>fatal</value>
   </data>
@@ -3279,5 +3276,17 @@
   </data>
   <data name="WinterPine21" xml:space="preserve">
     <value>Winter Pine 2</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Zona d'aparcament</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Funciona com a servei</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL no es va aturar quan se li va demanar que s'aturés</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Sense finca</value>
   </data>
 </root>

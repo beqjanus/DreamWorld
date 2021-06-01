@@ -1020,9 +1020,6 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Αποτυχία σύνδεσης στο web site.</value>
   </data>
-  <data name="c" xml:space="preserve">
-    <value>Αποτυχία φόρτωσης ρυθμίσεων INI</value>
-  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>Μοιραίος</value>
   </data>
@@ -3278,5 +3275,17 @@
   </data>
   <data name="WinterPine21" xml:space="preserve">
     <value>Χειμερινό πεύκο 2</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Περιοχή στάθμευσης</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Εκτελέστε ως υπηρεσία</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>Η MySQL δεν σταμάτησε όταν του ζητήθηκε να σταματήσει</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Χωρίς κτήμα</value>
   </data>
 </root>

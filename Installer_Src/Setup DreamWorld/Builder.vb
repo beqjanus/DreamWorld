@@ -301,7 +301,7 @@ Module Build
                 End If
             End While
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
 
         Return ""
@@ -335,7 +335,7 @@ Module Build
         PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region")
         PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}")
 
-        Dim port = PropRegionClass.LargestPort
+        Dim port = PropRegionClass.LargestPort + 1
         PropRegionClass.GroupPort(RegionUUID) = port
         PropRegionClass.RegionPort(RegionUUID) = port
 

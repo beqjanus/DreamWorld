@@ -90,8 +90,11 @@ Public Class FormDatabase
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
+        ' Robust DB
         Dbnameindex.Text = Global.Outworldz.My.Resources.DBName_word
         GridGroup.Text = Global.Outworldz.My.Resources.Robust_word
+        HelpMenu.Image = Global.Outworldz.My.Resources.question_and_answer
+        HelpMenu.Text = Global.Outworldz.My.Resources.Help_word
         Label1.Text = Global.Outworldz.My.Resources.Region_Server_word
         Label15.Text = Global.Outworldz.My.Resources.User_Name_word
         Label16.Text = Global.Outworldz.My.Resources.Robust_word
@@ -99,37 +102,34 @@ Public Class FormDatabase
         Label20.Text = Outworldz.My.Resources.Region_Database
         Label21.Text = Global.Outworldz.My.Resources.User_Name_word
         Label22.Text = Global.Outworldz.My.Resources.Password_word
-
         Label8.Text = Global.Outworldz.My.Resources.MySqlPort_word
         Label9.Text = Global.Outworldz.My.Resources.Password_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
-        StandaloneGroup.Text = Global.Outworldz.My.Resources.Region_Database
-        Text = Global.Outworldz.My.Resources.Database_word
-        HelpMenu.Image = Global.Outworldz.My.Resources.question_and_answer
-        HelpMenu.Text = Global.Outworldz.My.Resources.Help_word
-        ToolTip1.SetToolTip(RegionDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
-        ToolTip1.SetToolTip(RegionDbName, Global.Outworldz.My.Resources.Do_NotChange)
-        ToolTip1.SetToolTip(RegionMySqlPassword, Global.Outworldz.My.Resources.Do_NotChange)
-        ToolTip1.SetToolTip(RegionServer, Global.Outworldz.My.Resources.Region_ServerName)
-        ToolTip1.SetToolTip(RobustDBPassword, Global.Outworldz.My.Resources.Do_NotChange)
-        ToolTip1.SetToolTip(RobustDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
-        ToolTip1.SetToolTip(RobustDbName, Global.Outworldz.My.Resources.Do_NotChange)
-        ToolTip1.SetToolTip(RobustDbPort, Global.Outworldz.My.Resources.MySQL_Port_Default)
-        ToolTip1.SetToolTip(RobustServer, Global.Outworldz.My.Resources.Region_ServerName)
-
+        MysqlRegionPort.Text = CStr(Settings.MySqlRegionDBPort)
         RegionDbName.Text = Settings.RegionDBName
         RegionDBUsername.Text = Settings.RegionDBUsername
         RegionMySqlPassword.Text = Settings.RegionDbPassword
         RegionServer.Text = Settings.RegionServer
-        MysqlRegionPort.Text = CStr(Settings.MySqlRegionDBPort)
-
-        ' Robust DB
-        RobustServer.Text = Settings.RobustServerIP
         RobustDbName.Text = Settings.RobustDataBaseName
         RobustDBPassword.Text = Settings.RobustPassword
-        RobustDBUsername.Text = Settings.RobustUsername
-        RobustDbPort.Text = Settings.MySqlRobustDBPort.ToString(Globalization.CultureInfo.InvariantCulture)
         RobustDBPassword.UseSystemPasswordChar = True
+        RobustDbPort.Text = Settings.MySqlRobustDBPort.ToString(Globalization.CultureInfo.InvariantCulture)
+        RobustDBUsername.Text = Settings.RobustUsername
+        RobustServer.Text = Settings.RobustServerIP
+        RunasaServiceCheckBox.Text = My.Resources.RunasaService_word
+        StandaloneGroup.Text = Global.Outworldz.My.Resources.Region_Database
+        Text = Global.Outworldz.My.Resources.Database_word
+        ToolTip1.SetToolTip(RegionDbName, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RegionDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RegionMySqlPassword, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RegionServer, Global.Outworldz.My.Resources.Region_ServerName)
+        ToolTip1.SetToolTip(RobustDbName, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RobustDBPassword, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RobustDbPort, Global.Outworldz.My.Resources.MySQL_Port_Default)
+        ToolTip1.SetToolTip(RobustDBUsername, Global.Outworldz.My.Resources.Do_NotChange)
+        ToolTip1.SetToolTip(RobustServer, Global.Outworldz.My.Resources.Region_ServerName)
+
+        RunasaServiceCheckBox.Checked = Settings.MysqlRunasaService
 
         SetScreen()
 
@@ -265,6 +265,35 @@ Public Class FormDatabase
         HelpManual("Database")
     End Sub
 
+    Private Sub RunasaServiceCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RunasaServiceCheckBox.CheckedChanged
+
+        If Not initted Then Return
+        If RunasaServiceCheckBox.Checked Then
+            Dim result1 = MsgBox("Is this PC in a data center with a UPS and Backup Generator?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+            If result1 = vbYes Then
+                Settings.MysqlRunasaService = RunasaServiceCheckBox.Checked
+                Settings.SaveSettings()
+                StopMysql()
+                StartMySQL()
+                Return
+            End If
+            Dim result2 = MsgBox("Is this PC connected to a UPS with a cable to automatically shut off the PC in a power failure?", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground)
+            If result2 = vbYes Then
+                Settings.MysqlRunasaService = RunasaServiceCheckBox.Checked
+                Settings.SaveSettings()
+                StopMysql()
+                StartMySQL()
+                Return
+            End If
+            MsgBox("You should not be running MySQL as a service", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+            Settings.MysqlRunasaService = False
+            RunasaServiceCheckBox.Checked = False
+        Else
+            Settings.MysqlRunasaService = False
+        End If
+
+    End Sub
+
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
 
         StartMySQL()
@@ -273,8 +302,7 @@ Public Class FormDatabase
 
     Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
 
-        FormSetup.PropStopMysql = True
-        FormSetup.StopMysql()
+        StopMysql()
 
     End Sub
 

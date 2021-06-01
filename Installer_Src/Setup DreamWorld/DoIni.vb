@@ -357,7 +357,7 @@ Module DoIni
                 outputFile.WriteLine(phptext)
             End Using
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
 
         Try
@@ -374,7 +374,7 @@ Module DoIni
                 outputFile.WriteLine(phptext)
             End Using
         Catch ex As Exception
-            MsgBox(ex.Message)
+            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
         End Try
 
         Return False
@@ -397,9 +397,12 @@ Module DoIni
             If WelcomeUUID.Length = 0 And Settings.ServerType = RobustServerName Then
                 MsgBox(My.Resources.Cannot_locate, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
                 Dim RegionName = ChooseRegion(False)
-                If RegionName.Length > 0 Then
+
+                If RegionName.Length = 0 Then
                     Return False
                 End If
+                Settings.WelcomeRegion = RegionName
+                Settings.SaveSettings()
             End If
 
             DeleteFile(Settings.OpensimBinPath & "Robust.HG.ini")
