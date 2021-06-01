@@ -3285,4 +3285,7 @@
   <data name="MySQLDidNotStop" xml:space="preserve">
     <value>MySQL se nezastavil, když dostal příkaz zastavit</value>
   </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Žádný majetek</value>
+  </data>
 </root>

@@ -5207,6 +5207,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to is still booting.
+        '''</summary>
+        Friend ReadOnly Property isBooting() As String
+            Get
+                Return ResourceManager.GetString("isBooting", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Opensim Is loading your item. You will find it in.
         '''</summary>
         Friend ReadOnly Property isLoading() As String

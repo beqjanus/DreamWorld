@@ -3809,4 +3809,7 @@
   <data name="No_Estate_Word" xml:space="preserve">
     <value>No Estate</value>
   </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>is still booting</value>
+  </data>
 </root>

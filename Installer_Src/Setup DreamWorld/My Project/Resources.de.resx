@@ -3285,4 +3285,7 @@
   <data name="MySQLDidNotStop" xml:space="preserve">
     <value>MySQL wurde nicht gestoppt, als der Befehl zum Stoppen erteilt wurde</value>
   </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Kein Anwesen</value>
+  </data>
 </root>

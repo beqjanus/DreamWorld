@@ -3285,4 +3285,7 @@
   <data name="MySQLDidNotStop" xml:space="preserve">
     <value>MySQL stoppede ikke, da kommandoen om at stoppe</value>
   </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Ingen ejendom</value>
+  </data>
 </root>
