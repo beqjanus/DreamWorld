@@ -120,7 +120,7 @@
 
                     Dim Name = SaveIAR.GAvatarName
 
-                    Dim opt As String = " -c "
+                    Dim opt As String = "  "
                     If Settings.DNSName.Length > 0 Then
                         opt += " -h " & Settings.DNSName & " "
                     End If
