@@ -4,6 +4,8 @@ This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are re
 
 V4.1 Performance Tweaks to Mysql and Smart Start
 
+Partner Control Panel Is now Rev 4.1  now has a pretty look and works in both XEngine and YEngine.
+
 This is a new Beta for Smart Start.  The Smart Start Button in "Settings" is now enabled.	
 OpensimWorld Beacons now get pinged when in Smart Start Mode and a region is powered down.
 All teleport types, HG and local work with one exception: Login to an offline region
