@@ -14,7 +14,7 @@ Imports System.Linq
 Module SmartStart
 
     Private ReadOnly Sleeping As New List(Of String)
-    Private ReadOnly slop = 5     ' amount of extra time to add in for booting
+    Private ReadOnly slop = 10     ' amount of extra time to add in for booting
 
 #Region "SmartBegin"
 
@@ -69,7 +69,6 @@ Module SmartStart
                         Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
                         Return Name & "|0"
                     End If
-
                 Else  ' requires booting
 
                     If AgentName.ToUpperInvariant = "UUID" Then
@@ -84,7 +83,6 @@ Module SmartStart
                         RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
                         Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
                         Return u
-
                     Else ' Its a v4 sign
 
                         If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
