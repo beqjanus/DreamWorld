@@ -3288,4 +3288,7 @@
   <data name="No_Estate_Word" xml:space="preserve">
     <value>Χωρίς κτήμα</value>
   </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>εκκινεί ακόμα</value>
+  </data>
 </root>
