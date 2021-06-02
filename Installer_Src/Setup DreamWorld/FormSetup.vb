@@ -640,7 +640,7 @@ Public Class FormSetup
                 Select Case Settings.SmartStart
                     Case True
                         ' Really Smart Start, not in Region table
-                        If PropRegionClass.SmartStart(RegionUUID) = "True" And Not RegionIsRegisteredOnline(RegionUUID) Then
+                        If PropRegionClass.SmartStart(RegionUUID) = "True" And Not RegionIsRegistered(RegionUUID) Then
                             BootNeeded = True
                         End If
 
