@@ -119,21 +119,26 @@ Module WindowHandlers
         Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Groupname}\PID.pid")
         If IO.File.Exists(INI) Then
 
-            Using F As FileStream = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
-                Using S As StreamReader = New StreamReader(F)
-                    'now loop through each line
-                    While S.Peek <> -1
-                        Dim sPID As String = S.ReadLine
-                        If Int32.TryParse(sPID, PID) Then
-                            Try
-                                Dim Plist = Process.GetProcessById(PID)
-                                Return Plist.MainWindowHandle
-                            Catch
-                            End Try
-                        End If
-                    End While
+            ' TODO  !!! read or readwrite
+            Try
+                Using F As FileStream = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
+                    Using S As StreamReader = New StreamReader(F)
+                        'now loop through each line
+                        While S.Peek <> -1
+                            Dim sPID As String = S.ReadLine
+                            If Int32.TryParse(sPID, PID) Then
+                                Try
+                                    Dim Plist = Process.GetProcessById(PID)
+                                    Return Plist.MainWindowHandle
+                                Catch
+                                End Try
+                            End If
+                        End While
+                    End Using
                 End Using
-            End Using
+            Catch
+            End Try
+
 
         End If
 
