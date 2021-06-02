@@ -352,6 +352,27 @@ Public Module MysqlInterface
 
     End Sub
 
+    ''' <summary>
+    ''' deletes one region from robust.regions
+    ''' </summary>
+    ''' <param name="UUID">UUID of region</param>
+    Public Sub DeregisterRegionUUID(RegionUUID As String)
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "delete from robust.regions where uuid = @UUID;"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
     Public Function EstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0

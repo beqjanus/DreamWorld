@@ -23,6 +23,7 @@ Module FileStuff
             "Outworldzfiles\Opensim\bin\OpensimOsGrid.proto",
             "OutworldzFiles\IAR\Outworldz Smart Start Alpha Teleport System V4.iar",
             "OutworldzFiles\IAR\Outworldz Teleport System V2.5.iar",
+            "OutworldzFiles\IAR\Partner Control Panel.iar",
             "How_to_Start_and_Login.txt",
             "How_to_Compile.txt",
             "PRIVACYNOTICE.txt",

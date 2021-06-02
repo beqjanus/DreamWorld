@@ -3288,4 +3288,7 @@
   <data name="No_Estate_Word" xml:space="preserve">
     <value>لا عقارات</value>
   </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>لا يزال قيد التشغيل</value>
+  </data>
 </root>

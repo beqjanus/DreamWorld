@@ -48,6 +48,7 @@ Module Teleport
                                 IsRegionReady(Port) And
                                 RegionIsRegisteredOnline(RegionToUUID) Then
 
+
                     Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
                     Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                     Dim fromName = PropRegionClass.RegionName(FromRegionUUID)

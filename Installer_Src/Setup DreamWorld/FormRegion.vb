@@ -987,6 +987,9 @@ Public Class FormRegion
         ' rename is possible
         If Oldname1 <> RegionName.Text And Not IsNew1 Then
             Try
+                StartMySQL()
+                MysqlInterface.DeregisterRegionUUID(RegionUUID)
+
                 My.Computer.FileSystem.RenameFile(PropRegionClass.RegionIniFilePath(RegionUUID), RegionName.Text + ".ini")
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
