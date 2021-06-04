@@ -1084,9 +1084,7 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
-
-
-            ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
+            Sleep(4000)
             TeleportAgents()
             PropUpdateView = True
         End While
@@ -2319,7 +2317,7 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($"Avatar {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
                 End If
             Next
@@ -2520,7 +2518,7 @@ Public Class FormSetup
         Dim pUpdate As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = Filename,
-            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
+            .Filename = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
         }
         pUpdate.StartInfo = pi
         TextPrint(My.Resources.SeeYouSoon)

@@ -3273,4 +3273,19 @@
   <data name="WinterPine21" xml:space="preserve">
     <value>אורן חורף 2</value>
   </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>אזור חניה</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>הפעל כשירות</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL לא הפסיק כשצוי להפסיק</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>אין אחוזה</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>עדיין מתחיל</value>
+  </data>
 </root>

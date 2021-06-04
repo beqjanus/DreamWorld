@@ -3273,4 +3273,19 @@
   <data name="WinterPine21" xml:space="preserve">
     <value>Winter Pine 2</value>
   </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Bílastæðasvæði</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Keyrðu sem þjónusta</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL stöðvaði ekki þegar honum var boðið að hætta</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Ekkert bú</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>er enn að fara í gang</value>
+  </data>
 </root>

@@ -3273,4 +3273,19 @@
   <data name="WinterPine21" xml:space="preserve">
     <value>Neguko Pinua 2</value>
   </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Eskualde</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Abiarazi zerbitzu gisa</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>Eginbide hau falta da oraindik.</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL ez zen gelditzeko agindua ematean</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Jabetzarik ez</value>
+  </data>
 </root>

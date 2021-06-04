@@ -3273,4 +3273,19 @@
   <data name="WinterPine21" xml:space="preserve">
     <value>Зимняя сосна 2</value>
   </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Если ранее вы не осуществляли выполнение как службы:</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Парковочный регион</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL не останавливался, когда ему приказывали остановиться</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Нет недвижимости</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>все еще загружается</value>
+  </data>
 </root>
