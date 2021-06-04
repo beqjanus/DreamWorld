@@ -3273,4 +3273,19 @@
   <data name="WinterPine21" xml:space="preserve">
     <value>冬松2</value>
   </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>停車區</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>作為服務運行</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>當命令停止時 MySQL 沒有停止</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>沒有莊園</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>仍在啟動</value>
+  </data>
 </root>

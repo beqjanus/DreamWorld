@@ -3273,4 +3273,19 @@
   <data name="WinterPine21" xml:space="preserve">
     <value>کاج زمستانی 2</value>
   </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>منطقه پارکینگ!</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>اجرا به عنوان یک سرویس!</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL متوقف نشد زمانی که دستور توقف!</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>بدون املاک!</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>هنوز در حال بوت شدن است</value>
+  </data>
 </root>

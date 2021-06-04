@@ -3273,4 +3273,19 @@
   <data name="WinterPine21" xml:space="preserve">
     <value>Winter Pine 2</value>
   </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>registrer - registrer for å kjøre som en tjeneste og legg til standard</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Parkeringsregion</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL stoppet ikke når du ble bedt om å stoppe</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Ingen eiendom</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>starter fortsatt</value>
+  </data>
 </root>

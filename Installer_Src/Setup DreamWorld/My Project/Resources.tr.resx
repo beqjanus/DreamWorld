@@ -3273,4 +3273,19 @@
   <data name="WinterPine21" xml:space="preserve">
     <value>Kış Çamı 2</value>
   </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Yukarıda bir hizmet olarak çalıştırmadıysanız:</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Otopark Bölgesi</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>Dur komutu verildiğinde MySQL durmadı</value>
+  </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Emlak Yok</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>hala açılıyor</value>
+  </data>
 </root>
