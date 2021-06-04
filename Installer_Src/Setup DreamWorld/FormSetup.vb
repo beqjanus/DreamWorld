@@ -1085,7 +1085,7 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
-            Sleep(4000)
+            'Sleep(000)
             TeleportAgents()
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
             PropUpdateView = True
@@ -2319,7 +2319,7 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($"Avatar {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
                 End If
             Next
