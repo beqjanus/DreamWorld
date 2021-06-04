@@ -740,7 +740,7 @@ Public Class RegionMaker
             Dim Name = PropRegionClass.RegionName(RegionUUID)
 
             If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
-                TextPrint($"-->{Name} {My.Resources.Running_word}")
+                'TextPrint($"-->{Name} {My.Resources.Running_word}")
                 runningRegions.Add(RegionUUID)
                 Dim ini = Settings.LoadIni(RegionIniFilePath(RegionUUID), ";")
                 If ini Is Nothing Then Continue For
@@ -754,7 +754,7 @@ Public Class RegionMaker
                     used.Add(CInt("0" & Rp))
                 End If
             Else
-                TextPrint($"-->{My.Resources.Region_word} {Name} {My.Resources.Stopped_word}")
+                'TextPrint($"-->{My.Resources.Region_word} {Name} {My.Resources.Stopped_word}")
             End If
         Next
 
@@ -768,7 +768,7 @@ Public Class RegionMaker
             RegionPort(RegionUUID) = port
             GroupPort(RegionUUID) = port
 
-            Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(RegionUUID)))
+            'Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(RegionUUID)))
             port += 1
         Next
 

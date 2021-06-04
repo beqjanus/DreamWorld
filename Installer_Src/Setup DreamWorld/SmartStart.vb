@@ -16,6 +16,7 @@ Module SmartStart
     Private ReadOnly Sleeping As New List(Of String)
     Private ReadOnly slop = 10     ' amount of extra time to add in for booting
 
+
 #Region "SmartBegin"
 
     Public Function SmartStartParse(post As String) As String
@@ -23,6 +24,8 @@ Module SmartStart
         ' Smart Start AutoStart Region mode
         Debug.Print("Smart Start:" + post)
 
+        Bench.Start()
+        Bench.Print("Tp Request")
         'Smart Start:http://192.168.2.140:8999/?alt=Deliverance_of_JarJar_Binks__Fred_Beckhusen_1X1&agent=Ferd%20Frederix&AgentID=6f285c43-e656-42d9-b0e9-a78684fee15d&password=XYZZY
 
         Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*)", RegexOptions.IgnoreCase)
@@ -60,19 +63,19 @@ Module SmartStart
                 If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
 
                     If AgentName.ToUpperInvariant = "UUID" Then
-                        Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
+                        'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                         Return RegionUUID
                     ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-                        Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
+                        'Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                         Return Name
                     Else ' Its a sign!
-                        Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
+                        ' Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
                         Return Name & "|0"
                     End If
                 Else  ' requires booting
 
                     If AgentName.ToUpperInvariant = "UUID" Then
-                        Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
+                        'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
                         RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
                         Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
@@ -103,10 +106,10 @@ Module SmartStart
                     Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
                     Return RegionUUID
                 ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-                    Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
+                    'Logger("Teleport Non Smart", Name & ":" & AgentID, "Teleport")
                     Return Name
                 Else     ' Its a sign!
-                    Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
+                    'Logger("Teleport Sign ", Name & ":" & AgentID, "Teleport")
                     AddEm(RegionUUID, AgentID)
                     Return Name
                 End If
@@ -133,16 +136,18 @@ Module SmartStart
             Return False
         End If
 
-        TextPrint(My.Resources.Smart_Start_word & " " & PropRegionClass.RegionName(RegionUUID))
-        Logger("Teleport Request", PropRegionClass.RegionName(RegionUUID) & ":" & AgentID, "Teleport")
+        'TextPrint(My.Resources.Smart_Start_word & " " & PropRegionClass.RegionName(RegionUUID))
+        'Logger("Teleport Request", PropRegionClass.RegionName(RegionUUID) & ":" & AgentID, "Teleport")
 
         If TeleportAvatarDict.ContainsKey(AgentID) Then
             TeleportAvatarDict.Remove(AgentID)
         End If
         TeleportAvatarDict.Add(AgentID, RegionUUID)
+        Bench.Print("Teleport Added")
 
         ReBoot(RegionUUID) ' Wait for it to start booting
 
+        Bench.Print("Reboot Signaled")
         Return False
 
     End Function
@@ -373,6 +378,8 @@ Module SmartStart
         ''' <param name="BootName">Name of region to start</param>
         ''' <returns>success = true</returns>
 
+        Bench.Print($"Boot {BootName}")
+
         If FormSetup.Timer1.Enabled = False Then
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Start() 'Timer starts functioning
@@ -512,6 +519,7 @@ Module SmartStart
 
     Public Sub ReBoot(RegionUUID As String)
 
+        Bench.Print($"Reboot")
         If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Or
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
 
@@ -519,7 +527,8 @@ Module SmartStart
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
             PropUpdateView = True ' make form refresh
-
+        Else
+            Bench.Print($"Reboot Not needed, already running")
         End If
 
     End Sub

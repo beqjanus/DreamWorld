@@ -14,20 +14,9 @@ Module Teleport
     ''' <returns>true if up</returns>
     Public Function IsRegionReady(Port As Integer) As Boolean
 
-        Using client As New Net.WebClient ' download client for web pages
-            Dim Up As String
-            Try
-                Up = client.DownloadString($"http://{Settings.PublicIP}:{CStr(Port)}/index.php") ' ?version does not work, give back a 302 to Opensimulator.orgm though
-            Catch ex As Exception
-                Return False
-            End Try
-
-            If Up.Length = 0 And PropOpensimIsRunning() Then
-                Return False
-            End If
-        End Using
-
-        Return True
+        Dim up As Boolean
+        up = CheckPort(Settings.LANIP, Port)
+        Return up
 
     End Function
 
@@ -53,6 +42,7 @@ Module Teleport
                     Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
                     Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
                     If fromName.Length > 0 Then
+                        Bench.Print("Teleport Initiated")
                         Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
                         If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
                             Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
@@ -74,6 +64,7 @@ Module Teleport
         For Each str As String In Fin
             Logger("Teleport Done", str, "Teleport")
             TeleportAvatarDict.Remove(str)
+            Bench.Print("Teleport Finished")
         Next
         Fin.Clear()
 

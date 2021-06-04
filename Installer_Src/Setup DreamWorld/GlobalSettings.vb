@@ -29,6 +29,7 @@ Module GlobalSettings
 
 #Region "Globals"
 
+    Public Bench As New Benchmark()
     Public gEstateName As String = ""
     Public gEstateOwner As String = ""
     Public MapX As Integer = 100

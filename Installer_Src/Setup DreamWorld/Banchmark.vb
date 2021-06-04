@@ -10,9 +10,9 @@
 
     Public Sub Print(Name As String)
 
+        If Not Debugger.IsAttached Then Return
         Dim seconds = DateAndTime.DateDiff(DateInterval.Second, _startDate, DateTime.Now)
         Debug.Print($"{Name}:{CStr(seconds)} {My.Resources.Seconds_word}")
-        _startDate = Date.Now
 
     End Sub
 

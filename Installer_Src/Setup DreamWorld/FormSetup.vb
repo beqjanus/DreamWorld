@@ -18,6 +18,8 @@ Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
 
+
+
 Public Class FormSetup
 
     Dim searcher As ManagementObjectSearcher
@@ -591,6 +593,8 @@ Public Class FormSetup
 
     Public Function StartOpensimulator() As Boolean
 
+        Bench.Start()
+
         PropExitHandlerIsBusy = False
         PropAborting = False
 
@@ -729,12 +733,9 @@ Public Class FormSetup
         ' create tables in case we need them
         SetupWordPress()
         SetupMutelist()
-
         StartApache()
         StartIcecast()
-
         UploadPhoto()
-
         SetBirdsOnOrOff()
 
         If Not StartRobust() Then
@@ -1049,17 +1050,15 @@ Public Class FormSetup
 
     Private Sub ExitHandlerPoll()
 
-        If PropExitHandlerIsBusy = True Then Return
+        If PropExitHandlerIsBusy = True Then
+            Bench.Print("ExitHandlerPoll is BUSY")
+            Return
+        End If
+        Bench.Print("ExitHandlerPoll")
 
         PropExitHandlerIsBusy = True
-
-        'Diagnostics.Debug.Print("ExitHandlerPoll Start")
-
-        'Dim Bench As New Benchmark()
-
         Dim GroupName As String = ""
 
-        'Bench.Start()
         ' booted regions from web server
         While BootedList1.Count > 0
             Dim Ruuid As String = BootedList1(0)
@@ -1085,13 +1084,14 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
-            Sleep(4000)
-            TeleportAgents()
+
+
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
+            TeleportAgents()
             PropUpdateView = True
         End While
 
-        'Bench.Print("Bootedlist")
+        Bench.Print("Bootedlist Start")
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
@@ -1210,7 +1210,7 @@ Public Class FormSetup
             End If
         Next
 
-        ' Bench.Print("Timers")
+        Bench.Print("Timers")
 
         ' now look at the exit stack
         While PropExitList.Count > 0
@@ -1344,7 +1344,7 @@ Public Class FormSetup
             End If
             PropUpdateView = True
         End While
-        'Bench.Print("State Machine")
+        Bench.Print("ExitHandler done")
         'Diagnostics.Debug.Print("ExitHandlerPoll End")
 
         PropExitHandlerIsBusy = False
@@ -2554,7 +2554,6 @@ Public Class FormSetup
         Chart() ' do charts collection each second
 
         If TimerBusy > 0 And TimerBusy < 60 Then
-
             TimerBusy += 1
             Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
             Return
@@ -2562,6 +2561,8 @@ Public Class FormSetup
 
         TimerBusy = 1
         PropRegionClass.CheckPost() ' get the stack filled ASAP
+
+        Bench.Print("Teleport Agents")
         TeleportAgents()
 
         If SecondsTicker > 0 Then
@@ -2573,21 +2574,26 @@ Public Class FormSetup
 
         ' print how many backups are running
         Dim t = BackupsRunning(dt)
+
         If t.Length > 0 Then
             TextPrint(t)
         End If
 
         ' 10 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
+            Bench.Print("5 second worker")
             RestartDOSboxes()
             CalcDiskFree()
             ScanAgents() ' update agent count seconds
+            Bench.Print("5 second work done")
         End If
 
         If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
+            Bench.Print("60 second worker")
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
-            RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
+            RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards            
             ScanOpenSimWorld(False)
+            Bench.Print("60 second work done")
         End If
 
         ' print hourly marks on console, after boot
