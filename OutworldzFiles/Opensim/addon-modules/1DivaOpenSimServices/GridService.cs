@@ -57,11 +57,12 @@ namespace Diva.OpenSimServices
             return m_HypergridLinker.TryUnlinkRegion(mapName);
         }
 
+        // TODO:  GetLocalRegionsCountPlusSize
         public long GetLocalRegionsCount(UUID scopeID)
         {
             try
             {
-                const RegionFlags flags = RegionFlags.RegionOnline;
+                const RegionFlags flags = RegionFlags.RegionOnline | RegionFlags.Persistent; // fkb SmartStart
                 const RegionFlags excludeFlags = RegionFlags.Hyperlink;
                 return ((Diva.Data.IRegionData)m_Database).GetCount(scopeID, (int)flags, (int)excludeFlags);
             }
