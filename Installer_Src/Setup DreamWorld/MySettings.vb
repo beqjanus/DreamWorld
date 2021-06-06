@@ -10,6 +10,7 @@ Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports IniParser
 Imports IniParser.Model
+Imports Nini
 
 Public Class MySettings
 

@@ -901,7 +901,7 @@ Public Module MysqlInterface
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                 .FileName = "Create_Mutelist.bat",
                 .UseShellExecute = True,
-                .CreateNoWindow = False,
+                .CreateNoWindow = True,
                 .WindowStyle = ProcessWindowStyle.Minimized,
                 .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
             }
@@ -927,7 +927,7 @@ Public Module MysqlInterface
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .FileName = "Create_WordPress.bat",
             .UseShellExecute = True,
-            .CreateNoWindow = False,
+            .CreateNoWindow = True,
             .WindowStyle = ProcessWindowStyle.Minimized,
             .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
         }
@@ -950,7 +950,7 @@ Public Module MysqlInterface
 
     Public Function UnixTimeStampToDateTime(unixTimeStamp As Double) As DateTime
 
-        ' Unix timestamp Is seconds past epoch
+        ' Unix time stamp Is seconds past epoch
         Dim dtDateTime As System.DateTime = New DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)
         dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime()
         Return dtDateTime

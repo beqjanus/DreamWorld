@@ -993,8 +993,10 @@ Public Class FormSmartStart
         Dim RegionName = ChooseRegion(False)
         If RegionName.Length = 0 Then Return
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
+
         RPC_Region_Command(RegionUUID, $"change region ""{RegionName}""")
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
@@ -1254,8 +1256,10 @@ Public Class FormSmartStart
             Dim RegionName = ChooseRegion(False)
             If RegionName.Length = 0 Then Return
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+
             ReBoot(RegionUUID)
             WaitForBooted(RegionUUID)
+
             Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
             Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
             Dim File As System.IO.FileInfo() = directory.GetFiles()
@@ -1274,8 +1278,10 @@ Public Class FormSmartStart
             Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
             For Each RegionUUID In PropRegionClass.RegionUuids
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+
                 ReBoot(RegionName)
                 WaitForBooted(RegionName)
+
                 If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
                     RPC_Region_Command(RegionUUID, $"change region {RegionName}")
                     RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
@@ -1305,8 +1311,10 @@ Public Class FormSmartStart
         Dim RegionName = ChooseRegion(False)
         If RegionName.Length = 0 Then Return
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
+
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
@@ -1340,8 +1348,10 @@ Public Class FormSmartStart
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
+
         If Not RPC_Region_Command(RegionUUID, $"change region ""{name}""") Then Return
 
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
@@ -1381,6 +1391,7 @@ Public Class FormSmartStart
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
 
@@ -1402,8 +1413,10 @@ Public Class FormSmartStart
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
+
         RPC_Region_Command(RegionUUID, $"change region ""{name}""")
 
         If RegionUUID.Length > 0 Then
@@ -1687,6 +1700,7 @@ Public Class FormSmartStart
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
 
@@ -1699,8 +1713,10 @@ Public Class FormSmartStart
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
+
         For Each TT As String In TreeList
             If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
         Next
@@ -1793,8 +1809,10 @@ Public Class FormSmartStart
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
+
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
+
         Dim backupname = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         RPC_Region_Command(RegionUUID, $"change region ""{name}""")
         RPC_Region_Command(RegionUUID, "terrain revert")

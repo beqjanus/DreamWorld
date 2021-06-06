@@ -18,8 +18,6 @@ Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
 
-
-
 Public Class FormSetup
 
     Dim searcher As ManagementObjectSearcher
@@ -746,7 +744,6 @@ Public Class FormSetup
 
         If Not Settings.RunOnce And Settings.ServerType = RobustServerName Then
 
-            MsgBox(My.Resources.PleaseWait, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
             Using InitialSetup As New FormInitialSetup ' form for use and password
                 Dim ret = InitialSetup.ShowDialog()
                 If ret = DialogResult.Cancel Then
@@ -902,10 +899,12 @@ Public Class FormSetup
     End Sub
 
     Private Shared Sub SetQuickEditOff()
+
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0",
             .FileName = "powershell.exe",
             .WindowStyle = ProcessWindowStyle.Hidden,
+            .CreateNoWindow = True,
             .Verb = "runas"
         }
         Using PowerShell As Process = New Process With {
@@ -1075,6 +1074,8 @@ Public Class FormSetup
                 SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
             End If
 
+            ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
+
             'force update - Force the region to send all clients updates about all objects.
             If Not RPC_Region_Command(Ruuid, "force update") Then BreakPoint.Show("No RPC")
             If Not RPC_Region_Command(Ruuid, "login enable") Then BreakPoint.Show("No RPC")
@@ -1084,12 +1085,13 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
-            Sleep(4000)
+
             TeleportAgents()
             PropUpdateView = True
+
         End While
 
-        Bench.Print("Bootedlist Start")
+        Bench.Print("Booted list Start")
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
@@ -2518,7 +2520,7 @@ Public Class FormSetup
         Dim pUpdate As Process = New Process()
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .Arguments = Filename,
-            .Filename = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
+            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
         }
         pUpdate.StartInfo = pi
         TextPrint(My.Resources.SeeYouSoon)
@@ -2589,7 +2591,7 @@ Public Class FormSetup
         If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
             Bench.Print("60 second worker")
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
-            RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards            
+            RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
             ScanOpenSimWorld(False)
             Bench.Print("60 second work done")
         End If
@@ -3284,6 +3286,7 @@ Public Class FormSetup
         Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
             .WindowStyle = ProcessWindowStyle.Hidden,
+            .CreateNoWindow = True,
             .FileName = win,
             .Arguments = "delete ApacheHTTPServer"
         }

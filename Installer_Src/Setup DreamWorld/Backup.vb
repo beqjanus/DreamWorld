@@ -21,11 +21,13 @@
     Public Sub Backupper()
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
+
             ReBoot(RegionUUID)
             WaitForBooted(RegionUUID)
+
             ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """")
             ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
-                               DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
+                               DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar {ENTER}" & """")
 
         Next
 
@@ -46,6 +48,7 @@
 
         If _lastbackup <> count Then
             If _lastbackup = 0 And count = 1 Then
+                text = dt & " " & CStr(count) & " " & "backup running"
                 text = dt & " " & CStr(count) & " " & "backup running"
             ElseIf _lastbackup > 0 And count > 1 Then
                 text = dt & " " & CStr(count) & " " & "backups running"

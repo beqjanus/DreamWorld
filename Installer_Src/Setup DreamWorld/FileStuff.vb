@@ -418,7 +418,7 @@ Module FileStuff
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
         FileIO.FileSystem.CreateDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"))
-
+        Application.ExitThread()
     End Sub
 
     Private Function GetDlls(fname As String) As List(Of String)

@@ -706,7 +706,7 @@ Public Class FormRegion
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
 
             If IsRobustRunning() Then
-                ConsoleCommand("Robust", "deregister region id RegionUUID")
+                ConsoleCommand("Robust", $"deregister region id {RegionUUID}")
             End If
             PropRegionClass.DeleteRegion(RegionUUID)
             PropRegionClass.GetAllRegions()
@@ -816,7 +816,7 @@ Public Class FormRegion
     Private Sub TPCheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles TPCheckBox1.CheckedChanged
 
         If TPCheckBox1.Checked Then
-            Log(My.Resources.Info_word, "Region " + Name + " has Teleport Board enabled")
+            Log(My.Resources.Info_word, $"Region {Name} has Teleport Board enabled")
         End If
         If Initted1 Then Changed1 = True
 

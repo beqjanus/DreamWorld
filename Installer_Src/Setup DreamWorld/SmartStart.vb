@@ -16,7 +16,6 @@ Module SmartStart
     Private ReadOnly Sleeping As New List(Of String)
     Private ReadOnly slop = 10     ' amount of extra time to add in for booting
 
-
 #Region "SmartBegin"
 
     Public Function SmartStartParse(post As String) As String
@@ -332,6 +331,7 @@ Module SmartStart
         Busy = False
 
         PropUpdateView = True ' make form refresh
+        Application.ExitThread()
 
     End Sub
 

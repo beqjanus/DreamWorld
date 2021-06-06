@@ -116,6 +116,7 @@ Public Module Firewall
             _WebThread1.Priority = ThreadPriority.BelowNormal
             _WebThread1.Start(CMD1)
             Settings.FirewallMigrated = True
+            Sleep(5000)
         End If
 
         Dim CMD2 As Object = DeleteNewFirewallRules() & AddFirewallRules()
@@ -154,7 +155,7 @@ Public Module Firewall
                 Log(My.Resources.Error_word, "Could not set firewall:" & ex.Message)
             End Try
         End Using
-
+        Application.ExitThread()
     End Sub
 
 End Module

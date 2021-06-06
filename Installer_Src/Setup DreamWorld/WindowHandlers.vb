@@ -47,6 +47,7 @@ Module WindowHandlers
                     Try
                         If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
                     End Try
                 End If
                 DoType(RegionUUID, "{ENTER}")
@@ -85,7 +86,9 @@ Module WindowHandlers
         Else
             Try
                 AppActivate(PID)
+                Sleep(100)
                 SendKeys.SendWait(command)
+                SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
             Catch ex As Exception
             End Try
@@ -138,7 +141,6 @@ Module WindowHandlers
                 End Using
             Catch
             End Try
-
 
         End If
 

@@ -942,7 +942,6 @@ Public Class FormRegionlist
 
     Private Sub ShowIcons()
 
-
         If ViewBusy = True Then
             Return
         End If
@@ -1351,6 +1350,7 @@ SetWindowOnTop_Err:
         ElseIf chosen = "Console" Then
 
             ReBoot(RegionUUID)
+            WaitForBooted(RegionUUID)
 
             Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
 
@@ -1403,6 +1403,7 @@ SetWindowOnTop_Err:
         ElseIf chosen = "Teleport" Then
 
             ReBoot(RegionUUID)
+            WaitForBooted(RegionUUID)
 
             'secondlife://http|!!hg.osgrid.org|80+Lbsa+Plaza
 
@@ -1414,11 +1415,11 @@ SetWindowOnTop_Err:
             End Try
 
         ElseIf chosen = "Load" Then
-            ReBoot(RegionUUID)
+
             LoadOar(RegionName)
 
         ElseIf chosen = "Save" Then
-            ReBoot(RegionUUID)
+
             SaveOar(RegionName)
 
         End If

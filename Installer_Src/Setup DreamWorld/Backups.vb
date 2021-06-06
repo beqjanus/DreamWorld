@@ -143,6 +143,8 @@ Public Class Backups
             BackupSQLDB(Settings.RobustDataBaseName)
         End If
 
+        Application.ExitThread()
+
     End Sub
 
     Public Sub SQLBackup(DBName As String)
@@ -307,7 +309,8 @@ Public Class Backups
                             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                                 .Arguments = args,
                                 .FileName = win,
-                                .UseShellExecute = True
+                                .UseShellExecute = True,
+                                .CreateNoWindow = True
                             }
                             ProcessRobocopy.StartInfo = pi
                             ProcessRobocopy.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
@@ -333,6 +336,7 @@ Public Class Backups
             End Try
 
         End Using
+        Application.ExitThread()
 
     End Sub
 

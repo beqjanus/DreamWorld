@@ -79,7 +79,7 @@ Module OAR
                         thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
                         Dim Group = PropRegionClass.GroupName(RegionUUID)
-                        ReBoot(RegionUUID)
+
                         Dim ForceParcel As String = ""
                         If PropForceParcel() Then ForceParcel = " --force-parcels "
                         Dim ForceTerrain As String = ""
@@ -91,6 +91,9 @@ Module OAR
                             Dim m = MsgBox(My.Resources.Erase_all, vbYesNoCancel Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Caution_word)
                             If m = vbNo Or m = vbCancel Then Return
                         End If
+
+                        ReBoot(RegionUUID)
+                        WaitForBooted(RegionUUID)
 
                         If PropUserName.Length > 0 Then
                             UserName = " --default-user " & """" & PropUserName & """" & " "
@@ -135,6 +138,7 @@ Module OAR
         If thing IsNot Nothing Then thing = thing.Replace("\", "/")    ' because Opensim uses UNIX-like slashes, that's why
 
         ReBoot(RegionUUID)
+        WaitForBooted(RegionUUID)
 
         Try
             If backMeUp = vbYes Then
@@ -200,6 +204,9 @@ Module OAR
             Else
                 myValue += ".oar"
             End If
+
+            ReBoot(RegionUUID)
+            WaitForBooted(RegionUUID)
 
             If PropRegionClass.IsBooted(RegionUUID) Then
                 Dim Group = PropRegionClass.GroupName(RegionUUID)
