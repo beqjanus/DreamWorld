@@ -2,20 +2,22 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V4.1 Performance Tweaks to Mysql and Smart Start
+Fixed a crash in Diva web pages where a URL could (and did) crash robust. 
+
 V4.04 Performance Tweaks to Mysql and Smart Start
 
 Partner Control Panel Is now Rev 4.1  now has a pretty look and works in both XEngine and YEngine.
-
 This is a new Beta for Smart Start.  The Smart Start Button in "Settings" is now enabled.	
 OpensimWorld Beacons now get pinged when in Smart Start Mode and a region is powered down.
+The region count on the Diva Home Page adds in the number of ready-to-run Smart Start Regions.  
 All teleport types, HG and local work with one exception: Login to an offline region
 There is a new V4.1 Teleport Sign in Load Local IAR. This is just an ordinary sign, much like V2.5, except it does not check to see if a region is online.
 	
-Some Smart Boot features are missing:
-	Four translations are missing due to technical difficulties with a 3rd party tool.
-	You cannot log into a power-off region.  Go to your Welcome region or Home, and set home to a region that is always on.
+Some Smart Boot features are missing:	
+	You cannot log into a powered-off region.  Go to your Welcome region or Home, and set home to a region that is always on.
 	Regions next to you should be powered on so you can walk or fly to them.  They do not. This works in Smart Surround.
-	Run All Start buttons: An unregistered Smart Start Region will boot when you click Run All or Start.  A registered Region is not be bootable from the GUI except by deregistering it or manually clicking it and selecting it from the Regions panel.
+	Run All Start buttons: An unregistered Smart Start Region will boot when you click Run All or Start. But a registered region is not be bootable from the GUI except by deregistering it or manually clicking it and selecting it from the Regions panel.
 
 MySQL now supports running as a service. You should only enable this if your server is in a data center on a UPS with a generator backup, or if you have a UPS with a cord that shuts down the PC before the battery is dead.
 Running as a service also relaxes the strict ACID settings in DreamGrid to allow buffering of writes to disk. 

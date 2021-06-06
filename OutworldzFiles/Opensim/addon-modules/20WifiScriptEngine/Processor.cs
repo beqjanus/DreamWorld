@@ -141,6 +141,9 @@ namespace Diva.Wifi.WifiScript
         private string Include(string argStr)
         {
 
+            if (m_Index > 100)      // Fred Beckhusen DreamGrid Mod
+                return string.Empty; // stop recursing before we run out of RAM
+
             Match match = args.Match(argStr);
             m_log.DebugFormat("Match {0} args? {1} {2}", args.ToString(), match.Success, match.Groups.Count);
             if (match.Groups.Count == 3)
