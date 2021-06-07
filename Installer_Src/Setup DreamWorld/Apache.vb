@@ -36,14 +36,6 @@ Module Apache
         End Set
     End Property
 
-    Public Property PropApacheProcessID As Integer
-        Get
-            Return _ApacheProcessID
-        End Get
-        Set(value As Integer)
-            _ApacheProcessID = value
-        End Set
-    End Property
 
     Public Property PropApacheUninstalling() As Boolean
         Get
@@ -54,14 +46,6 @@ Module Apache
         End Set
     End Property
 
-    Public Property PropMysqlUninstalling() As Boolean
-        Get
-            Return _MysqlUninstalling
-        End Get
-        Set(ByVal Value As Boolean)
-            _MysqlUninstalling = Value
-        End Set
-    End Property
 
     Public Sub ApacheIcon(Running As Boolean)
 
@@ -302,7 +286,7 @@ Module Apache
             Return
         End If
         ApacheCrashCounter = 0
-        PropApacheProcessID = Nothing
+
 
         Dim yesno = MsgBox(My.Resources.Apache_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then
