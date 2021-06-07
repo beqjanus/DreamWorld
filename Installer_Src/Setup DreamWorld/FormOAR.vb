@@ -381,7 +381,8 @@ Public Class FormOAR
         json = ImageToJson(json)
         SearchArray = json
         _initted = True
-        Application.ExitThread()
+
+        Return Nothing
 
     End Function
 
