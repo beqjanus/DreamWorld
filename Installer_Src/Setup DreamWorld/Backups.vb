@@ -58,67 +58,67 @@ Public Class Backups
                 outputFile.Write("use " & Name & ";" + vbCrLf)
             End Using
 
-            Dim ProcessSqlDump = New Process With {
+            Using ProcessSqlDump As New Process With {
                 .EnableRaisingEvents = True
             }
 
-            Dim port As String
-            Dim host As String
-            Dim password As String
-            Dim user As String
-            Dim dbname As String
-            If OP = Settings.RobustDataBaseName Then
-                port = CStr(Settings.MySqlRobustDBPort)
-                host = Settings.RobustServerIP
-                user = Settings.RobustUsername
-                password = Settings.RobustPassword
-                dbname = Settings.RobustDataBaseName
-            ElseIf OP = "Joomla" Then
-                port = CStr(Settings.MySqlRegionDBPort)
-                host = Settings.RegionServer
-                user = Settings.RegionDBUsername
-                password = Settings.RegionDbPassword
-                dbname = "jOpensim"
-            Else
-                port = CStr(Settings.MySqlRegionDBPort)
-                host = Settings.RegionServer
-                user = Settings.RegionDBUsername
-                password = Settings.RegionDbPassword
-                dbname = Settings.RegionDBName
-            End If
+                Dim port As String
+                Dim host As String
+                Dim password As String
+                Dim user As String
+                Dim dbname As String
+                If OP = Settings.RobustDataBaseName Then
+                    port = CStr(Settings.MySqlRobustDBPort)
+                    host = Settings.RobustServerIP
+                    user = Settings.RobustUsername
+                    password = Settings.RobustPassword
+                    dbname = Settings.RobustDataBaseName
+                ElseIf OP = "Joomla" Then
+                    port = CStr(Settings.MySqlRegionDBPort)
+                    host = Settings.RegionServer
+                    user = Settings.RegionDBUsername
+                    password = Settings.RegionDbPassword
+                    dbname = "jOpensim"
+                Else
+                    port = CStr(Settings.MySqlRegionDBPort)
+                    host = Settings.RegionServer
+                    user = Settings.RegionDBUsername
+                    password = Settings.RegionDbPassword
+                    dbname = Settings.RegionDBName
+                End If
 
-            Dim options = " --host=" & host & " --port=" & port _
-                & " --opt --hex-blob --add-drop-table --allow-keywords  --skip-lock-tables --compress --quick " _
-                & " -u" & user _
-                & " -p" & password _
-                & " --verbose --log-error=Mysqldump.log " _
-                & " --result-file=" & """" & SQLFile & """" _
-                & " " & dbname
-            Debug.Print(options)
-            '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
-            ' --verbose --log-error=Mysqldump.log
-            ' --result-file="C:\Opensim\Outworldz_Dreamgrid\OutworldzFiles\AutoBackup\tmp\opensim_2020-12-09_00_25_24.sql"
-            ' opensim
+                Dim options = " --host=" & host & " --port=" & port _
+                    & " --opt --hex-blob --add-drop-table --allow-keywords  --skip-lock-tables --compress --quick " _
+                    & " -u" & user _
+                    & " -p" & password _
+                    & " --verbose --log-error=Mysqldump.log " _
+                    & " --result-file=" & """" & SQLFile & """" _
+                    & " " & dbname
+                Debug.Print(options)
+                '--host=127.0.0.1 --port=3306 --opt --hex-blob --add-drop-table --allow-keywords  -uroot
+                ' --verbose --log-error=Mysqldump.log
+                ' --result-file="C:\Opensim\Outworldz_Dreamgrid\OutworldzFiles\AutoBackup\tmp\opensim_2020-12-09_00_25_24.sql"
+                ' opensim
 
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = options,
-            .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqldump.exe") & """",
-            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"),
-            .UseShellExecute = False,
-            .RedirectStandardError = True,
-            .RedirectStandardOutput = True,
-            .CreateNoWindow = True
-            }
+                Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .Arguments = options,
+                .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqldump.exe") & """",
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"),
+                .UseShellExecute = False,
+                .RedirectStandardError = True,
+                .RedirectStandardOutput = True,
+                .CreateNoWindow = True
+                }
 
-            ProcessSqlDump.StartInfo = pi
-            Try
-                ProcessSqlDump.Start()
-            Catch ex As Exception
-                Break(ex.Message)
-            End Try
+                ProcessSqlDump.StartInfo = pi
+                Try
+                    ProcessSqlDump.Start()
+                Catch ex As Exception
+                    Break(ex.Message)
+                End Try
 
-            ProcessSqlDump.WaitForExit()
-            ProcessSqlDump.Close()
+                ProcessSqlDump.WaitForExit()
+            End Using
 
             Dim Bak = IO.Path.Combine(_folder, _filename & ".zip")
             DeleteFile(Bak)
@@ -147,14 +147,14 @@ Public Class Backups
 
     End Sub
 
-    Public Sub SQLBackup(DBName As String)
+    Public Sub SqlBackup(dbName As String)
 
         Dim currentdatetime As Date = Date.Now()
 
         _WebThread1 = New Thread(AddressOf RunSQLBackup)
         _WebThread1.SetApartmentState(ApartmentState.STA)
         _WebThread1.Priority = ThreadPriority.BelowNormal
-        _WebThread1.Start(DBName)
+        _WebThread1.Start(dbName)
 
     End Sub
 
@@ -162,10 +162,10 @@ Public Class Backups
 
 #Region "File Backup"
 
-    Public Sub RunAllBackups(RunNow As Boolean)
+    Public Sub RunAllBackups(run As Boolean)
 
         Dim currentdatetime As Date = Date.Now
-        If RunNow Then
+        If run Then
             _WebThread2 = New Thread(AddressOf FullBackupThread)
             _WebThread2.SetApartmentState(ApartmentState.STA)
             _WebThread2.Priority = ThreadPriority.BelowNormal
