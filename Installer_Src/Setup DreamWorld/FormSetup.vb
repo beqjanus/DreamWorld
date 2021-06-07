@@ -17,6 +17,9 @@ Imports System.Net
 Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
+<Assembly: CLSCompliant(True)>
+Namespace DesignLibrary
+End Namespace
 
 Public Class FormSetup
 

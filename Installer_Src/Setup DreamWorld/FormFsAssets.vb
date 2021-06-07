@@ -5,7 +5,7 @@
 
 #End Region
 
-Public Class FormFsAssets
+Public Class FormFSAssets
 
 #Region "Declarations"
 

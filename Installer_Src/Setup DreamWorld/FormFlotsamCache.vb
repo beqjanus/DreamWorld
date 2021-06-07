@@ -9,7 +9,6 @@ Public Class FormFlotsamCache
 
 #Region "Private Fields"
 
-    Private gInitted As Boolean
 
 #End Region
 
@@ -58,7 +57,6 @@ Public Class FormFlotsamCache
         Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0} Kb", fsize)
         CacheSizeLabel.Text = Text
 
-        gInitted = True
 
     End Sub
 
