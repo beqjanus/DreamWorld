@@ -100,14 +100,14 @@ Module DoIni
     Public Function DoEstates() As Boolean
 
         If Settings.ServerType = RobustServerName Then
-            Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";")
+            Dim INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";", System.Text.Encoding.UTF8)
             Dim AvatarUUID As String = GetAviUUUD(Settings.SurroundOwner)
-            Settings.SetIni("SimSurround", "Owner", AvatarUUID)
-            Settings.SaveINI(INI, System.Text.Encoding.ASCII)
+            INI.SetIni("SimSurround", "Owner", AvatarUUID)
+            INI.SaveINI()
         Else
-            Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";")
-            Settings.SetIni("SimSurround", "Owner", "")
-            Settings.SaveINI(INI, System.Text.Encoding.ASCII)
+            Dim INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";", System.Text.Encoding.UTF8)
+            INI.SetIni("SimSurround", "Owner", "")
+            INI.SaveINI()
         End If
         Return False
 
@@ -117,34 +117,33 @@ Module DoIni
 
         'Gloebits.ini
 
-        Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";")
-        If filename Is Nothing Then Return True
+        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Gloebit.ini", ";", System.Text.Encoding.UTF8)
 
-        Settings.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
-        Settings.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
-        Settings.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM))
-        Settings.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage))
+        INI.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable))
+        INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM))
+        INI.SetIni("Gloebit", "GLBShowNewSessionPurchaseIM", CStr(Settings.GLBShowNewSessionPurchaseIM))
+        INI.SetIni("Gloebit", "GLBShowWelcomeMessage", CStr(Settings.GLBShowWelcomeMessage))
 
         If Settings.GloebitsMode Then
-            Settings.SetIni("Gloebit", "GLBEnvironment", "production")
-            Settings.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
-            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
+            INI.SetIni("Gloebit", "GLBEnvironment", "production")
+            INI.SetIni("Gloebit", "GLBKey", Settings.GLProdKey)
+            INI.SetIni("Gloebit", "GLBSecret", Settings.GLProdSecret)
         Else
-            Settings.SetIni("Gloebit", "GLBEnvironment", "sandbox")
-            Settings.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
-            Settings.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
+            INI.SetIni("Gloebit", "GLBEnvironment", "sandbox")
+            INI.SetIni("Gloebit", "GLBKey", Settings.GLSandKey)
+            INI.SetIni("Gloebit", "GLBSecret", Settings.GLSandSecret)
         End If
 
-        Settings.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
-        Settings.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
+        INI.SetIni("Gloebit", "GLBOwnerName", Settings.GLBOwnerName)
+        INI.SetIni("Gloebit", "GLBOwnerEmail", Settings.GLBOwnerEmail)
 
         If Settings.ServerType = RobustServerName Then
-            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
+            INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RobustDBConnection)
         Else
-            Settings.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
+            INI.SetIni("Gloebit", "GLBSpecificConnectionString", Settings.RegionDBConnection)
         End If
 
-        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
+        INI.SaveINI()
 
         Return False
 
@@ -236,20 +235,19 @@ Module DoIni
             BreakPoint.Show(ex.Message)
         End Try
 
-        Dim filename = Settings.LoadIni(d, ";")
-        If filename Is Nothing Then Return True
+        Dim INI = New LoadIni(d, ";", System.Text.Encoding.UTF8)
 
-        Settings.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
-        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
+        INI.SetIni("HGInventoryAccessModule", "OutboundPermission", CStr(Settings.OutBoundPermissions))
+        INI.SetIni("DatabaseService", "ConnectionString", Settings.RegionDBConnection)
 
         ' ;; Send visual reminder to local users that their inventories are unavailable while they are traveling ;; and available when they return. True by default.
         If Settings.Suitcase Then
-            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "True")
+            INI.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "True")
         Else
-            Settings.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "False")
+            INI.SetIni("HGInventoryAccessModule", "RestrictInventoryAccessAbroad", "False")
         End If
 
-        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
+        INI.SaveINI()
 
         Return False
 
@@ -464,11 +462,9 @@ Module DoIni
 
     Public Function DoWhoGotWhat() As Boolean
 
-        Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";")
-        If filename Is Nothing Then Return True
-
-        Settings.SetIni("WhoGotWhat", "MachineID", Settings.MachineID)
-        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
+        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\WhoGotWhat.ini", ";", System.Text.Encoding.UTF8)
+        INI.SetIni("WhoGotWhat", "MachineID", Settings.MachineID)
+        INI.SaveINI()
         Return False
 
     End Function
@@ -522,15 +518,14 @@ Module DoIni
 
     Private Function DoFlotsamINI() As Boolean
 
-        Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-include\FlotsamCache.ini", ";")
-        If filename Is Nothing Then Return True
+        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-include\FlotsamCache.ini", ";", System.Text.Encoding.UTF8)
 
         TextPrint("->Set Flotsam Cache")
-        Settings.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
-        Settings.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
-        Settings.SetIni("AssetCache", "FileCacheEnabled", CStr(Settings.CacheEnabled))
-        Settings.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
-        Settings.SaveINI(filename, System.Text.Encoding.ASCII)
+        INI.SetIni("AssetCache", "LogLevel", Settings.CacheLogLevel)
+        INI.SetIni("AssetCache", "CacheDirectory", Settings.CacheFolder)
+        INI.SetIni("AssetCache", "FileCacheEnabled", CStr(Settings.CacheEnabled))
+        INI.SetIni("AssetCache", "FileCacheTimeout", Settings.CacheTimeout)
+        INI.SaveINI()
         Return False
 
     End Function
@@ -633,55 +628,52 @@ Module DoIni
 
         ' There are two Wifi's so search will work
 
-        Dim filename = Settings.LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Wifi.ini", ";")
-        If filename Is Nothing Then Return True
-
+        Dim INI = New LoadIni(Settings.OpensimBinPath & "config-addon-opensim\Wifi.ini", ";", System.Text.Encoding.UTF8)
         TextPrint("->Set Diva Wifi page")
-        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
-        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
+        INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
+        INI.SaveINI()
 
-        filename = Settings.LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Wifi.ini"), ";")
-        If filename Is Nothing Then Return True
+        INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Wifi.ini"), ";", System.Text.Encoding.UTF8)
 
-        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
+        INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
         If Settings.ServerType = RobustServerName Then ' wifi could be on or off
             If (Settings.WifiEnabled) Then
-                Settings.SetIni("WifiService", "Enabled", "True")
+                INI.SetIni("WifiService", "Enabled", "True")
             Else
-                Settings.SetIni("WifiService", "Enabled", "False")
+                INI.SetIni("WifiService", "Enabled", "False")
             End If
         Else ' it is always off
             ' shutdown wifi in Attached mode
-            Settings.SetIni("WifiService", "Enabled", "False")
+            INI.SetIni("WifiService", "Enabled", "False")
         End If
 
-        Settings.SetIni("WifiService", "GridName", Settings.SimName)
-        Settings.SetIni("WifiService", "LoginURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
-        Settings.SetIni("WifiService", "WebAddress", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+        INI.SetIni("WifiService", "GridName", Settings.SimName)
+        INI.SetIni("WifiService", "LoginURL", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
+        INI.SetIni("WifiService", "WebAddress", "http://" & Settings.PublicIP & ":" & Settings.HttpPort)
 
         ' Wifi Admin'
-        Settings.SetIni("WifiService", "AdminFirst", Settings.AdminFirst)    ' Wifi
-        Settings.SetIni("WifiService", "AdminLast", Settings.AdminLast)      ' Admin
-        Settings.SetIni("WifiService", "AdminPassword", Settings.Password)   ' secret
-        Settings.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notifications to this person
+        INI.SetIni("WifiService", "AdminFirst", Settings.AdminFirst)    ' Wifi
+        INI.SetIni("WifiService", "AdminLast", Settings.AdminLast)      ' Admin
+        INI.SetIni("WifiService", "AdminPassword", Settings.Password)   ' secret
+        INI.SetIni("WifiService", "AdminEmail", Settings.AdminEmail)    ' send notifications to this person
 
         'Gmail and other SMTP mailers
         ' Gmail requires you set to set low security access
-        Settings.SetIni("WifiService", "SmtpHost", Settings.SmtpHost)
-        Settings.SetIni("WifiService", "SmtpPort", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("WifiService", "SmtpUsername", Settings.SmtPropUserName)
-        Settings.SetIni("WifiService", "SmtpPassword", Settings.SmtpPassword)
+        INI.SetIni("WifiService", "SmtpHost", Settings.SmtpHost)
+        INI.SetIni("WifiService", "SmtpPort", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
+        INI.SetIni("WifiService", "SmtpUsername", Settings.SmtPropUserName)
+        INI.SetIni("WifiService", "SmtpPassword", Settings.SmtpPassword)
 
-        Settings.SetIni("WifiService", "HomeLocation", Settings.WelcomeRegion & "/" & Settings.HomeVectorX & "/" & Settings.HomeVectorY & "/" & Settings.HomeVectorZ)
+        INI.SetIni("WifiService", "HomeLocation", Settings.WelcomeRegion & "/" & Settings.HomeVectorX & "/" & Settings.HomeVectorY & "/" & Settings.HomeVectorZ)
 
         If Settings.AccountConfirmationRequired Then
-            Settings.SetIni("WifiService", "AccountConfirmationRequired", "True")
+            INI.SetIni("WifiService", "AccountConfirmationRequired", "True")
         Else
-            Settings.SetIni("WifiService", "AccountConfirmationRequired", "False")
+            INI.SetIni("WifiService", "AccountConfirmationRequired", "False")
         End If
 
-        Settings.SaveINI(filename, System.Text.Encoding.UTF8)
+        INI.SaveINI()
         Return False
 
     End Function

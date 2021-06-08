@@ -17,9 +17,6 @@ Imports System.Net
 Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
-<Assembly: CLSCompliant(True)>
-Namespace DesignLibrary
-End Namespace
 
 Public Class FormSetup
 
@@ -606,8 +603,6 @@ Public Class FormSetup
             Return False
         End If
 
-        'MysqlInterface.DeregisterRegions(False)
-
         DoEstates() ' has to be done after Mysql starts up.
 
         ' Reload
@@ -615,6 +610,7 @@ Public Class FormSetup
             PropRegionClass.GetAllRegions()
         End If
         Application.DoEvents()
+
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
         Grep(ini, Settings.LogLevel)
 
@@ -667,6 +663,9 @@ Public Class FormSetup
 
             Application.DoEvents()
         Next
+
+        Buttons(StopButton)
+        TextPrint(My.Resources.Ready)
 
         Return True
 
@@ -1387,8 +1386,7 @@ Public Class FormSetup
             Create_ShortCut(_myFolder & "\Start.exe")
         End If
 
-        'Load Settings, if any
-        Settings.Init(_myFolder)
+        Settings = New MySettings(_myFolder)
 
         Settings.CurrentDirectory = _myFolder
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
@@ -1402,6 +1400,7 @@ Public Class FormSetup
         End If
 
         Log("Startup:", DisplayObjectInfo(Me))
+
         SetScreen()     ' move Form to fit screen from SetXY.ini
 
         Dim cinfo() = System.Globalization.CultureInfo.GetCultures(CultureTypes.AllCultures)
@@ -1598,10 +1597,12 @@ Public Class FormSetup
         Application.EnableVisualStyles()
         Buttons(BusyButton)
 
+
         TextBox1.BackColor = Me.BackColor
         ' initialize the scrolling text box
 
         ToolBar(False)
+
 
         Adv1 = New FormSettings
 

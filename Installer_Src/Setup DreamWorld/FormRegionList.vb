@@ -1210,10 +1210,10 @@ Public Class FormRegionlist
             Else
                 PropRegionClass.RegionEnabled(RegionUUID) = True
             End If
-            Dim INI = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
-            If INI Is Nothing Or INI.Length = 0 Then Return
-            Settings.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
-            Settings.SaveINI(INI, System.Text.Encoding.UTF8)
+
+            Dim INI = New LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
+            INI.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
+            INI.SaveINI()
         Next
 
     End Sub
@@ -1481,10 +1481,10 @@ SetWindowOnTop_Err:
                 If name.Length > 0 Then
                     RegionUUID = PropRegionClass.FindRegionByName(name)
                     PropRegionClass.RegionEnabled(RegionUUID) = X.Checked
-                    Dim INI = Settings.LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";")
-                    If INI Is Nothing Then Return
-                    Settings.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(X.Checked))
-                    Settings.SaveINI(INI, System.Text.Encoding.UTF8)
+
+                    Dim INI = New LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
+                    INI.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(X.Checked))
+                    INI.SaveINI()
                 End If
 
             Next

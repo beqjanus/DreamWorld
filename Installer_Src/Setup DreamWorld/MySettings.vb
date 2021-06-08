@@ -6,10 +6,6 @@
 #End Region
 
 Imports System.IO
-Imports System.Text.RegularExpressions
-Imports System.Threading
-Imports IniParser
-Imports IniParser.Model
 Imports Nini
 
 Public Class MySettings
@@ -29,28 +25,18 @@ Public Class MySettings
     Private _PublicIP As String
     Private _RamUsed As Double
     Private _WANIP As String
-    Dim MyData As IniParser.Model.IniData
+
     Dim myINI As String = ""
-    Dim Myparser As IniParser.FileIniDataParser
-    Dim parser As IniParser.FileIniDataParser
-    Dim SettingsData As New IniParser.Model.IniData
+
+    Private _Settings As LoadIni
 
 #Region "New"
 
-    Public Sub New()
-
-        MyData = New IniData
-        parser = New FileIniDataParser()
-        parser.Parser.Configuration.SkipInvalidLines = True
-        parser.Parser.Configuration.AssigmentSpacer = ""
-
-    End Sub
-
-    Public Sub Init(Folder As String)
+    Public Sub New(Folder As String)
 
         myINI = Folder + "\OutworldzFiles\Settings.ini"
         If File.Exists(myINI) Then
-            LoadSettingsIni(myINI)
+            _Settings = New LoadIni(myINI, ";", System.Text.Encoding.UTF8)
         Else
             Dim contents = "[Data]" + vbCrLf
             Try
@@ -61,20 +47,8 @@ Public Class MySettings
                 BreakPoint.Show(ex.Message)
             End Try
 
-            LoadSettingsIni(myINI)
+            _Settings = New LoadIni(myINI, ";", System.Text.Encoding.UTF8)
 
-            Dim SCPasswordAdmin = New PassGen
-            SCPassword() = SCPasswordAdmin.GeneratePass()
-            SCAdminPassword() = SCPasswordAdmin.GeneratePass()
-
-            'email
-            SmtpHost() = "smtp.gmail.com"
-            SmtpPort() = 587
-
-        End If
-
-        If Theme().Length = 0 Then
-            Theme() = "White"
         End If
 
     End Sub
@@ -89,43 +63,7 @@ Public Class MySettings
 
     End Function
 
-    Public Function GetIni(section As String, key As String, Value As String, Optional V As String = Nothing) As Object
 
-        Dim Variable = Stripqq(SettingsData(section)(key))
-        If Variable = Nothing Then Variable = Value
-        If Variable Is Nothing Then Return Value
-
-        Dim bool As Boolean
-        If V = "Boolean" Then
-            If Not Boolean.TryParse(Variable, bool) Then
-                Return Variable
-            End If
-            Return bool
-        ElseIf V = "String" Then
-            Return Variable.Trim
-        ElseIf V = "Double" Then
-            Dim DBL As Double
-            If Not Double.TryParse(Variable, DBL) Then
-                Return Variable
-            End If
-            Return DBL
-        ElseIf V = "Single" Then
-            Dim SNG As Single
-            If Not Single.TryParse(Variable, SNG) Then
-                Return Variable
-            End If
-            Return SNG
-        ElseIf V = "Integer" Then
-            Dim I As Integer
-            If Not Integer.TryParse(Variable, I) Then
-                Return Variable
-            End If
-            Return I
-        End If
-
-        Return Variable
-
-    End Function
 
     Public Function GetMapTime(UUID As String) As Integer
 
@@ -135,15 +73,7 @@ Public Class MySettings
 
     Public Function GetMySetting(key As String, Optional D As String = "") As String
 
-        Try
-            Dim value = Stripqq(MyData("Data")(key))
-            If value = Nothing Then value = D
-
-            Return value.ToString(Globalization.CultureInfo.InvariantCulture).Trim
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            Return D
-        End Try
+        Return CStr(_Settings.GetIni("Data", key, D, "String"))
 
     End Function
 
@@ -161,175 +91,18 @@ Public Class MySettings
 
 #End Region
 
-    Public Function LoadIni(arg As String, comment As String) As String
+    Public Sub SetMySetting(key As String, value As String)
 
-        If arg Is Nothing Then Return ""
-        If arg.Contains("/Regions/") Then CheckINI(arg)
-
-        parser = New FileIniDataParser()
-        parser.Parser.Configuration.SkipInvalidLines = True
-        parser.Parser.Configuration.AssigmentSpacer = ""
-        parser.Parser.Configuration.CommentString = comment ' Opensim uses semicolons
-        Try
-            SettingsData = ReadINIFile(arg)
-        Catch ex As Exception
-            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
-            ErrorLog(ex.Message)
-            Return ""
-        End Try
-
-        Return arg
-    End Function
-
-    Public Sub LoadSettingsIni(File As String)
-
-        Myparser = New FileIniDataParser()
-
-        Myparser.Parser.Configuration.SkipInvalidLines = True
-        parser.Parser.Configuration.AssigmentSpacer = ""
-        Myparser.Parser.Configuration.CommentString = ";" ' Opensim uses semicolons
-
-        Dim waiting As Integer = 100 ' 10 sec
-        While waiting > 0
-            Try
-                MyData = ReadINIFile(File)
-                waiting = 0
-            Catch ex As Exception
-                waiting -= 1
-                Sleep(100)
-            End Try
-        End While
-
-    End Sub
-
-    Public Sub SaveINI(Filename As String, encoding As System.Text.Encoding)
-
-        Dim Retry As Integer = 10 ' 1 sec
-        While Retry > 0
-            Try
-                parser.WriteFile(Filename, SettingsData, encoding)
-                Retry = 0
-            Catch ex As Exception
-                'ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Thread.Sleep(100)
-            End Try
-        End While
-
-        parser = Nothing
-        SettingsData = Nothing
+        _Settings.SetIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
 
     Public Sub SaveSettings()
 
-        Dim Retry As Integer = 100 ' 10 sec
-        While Retry > 0
-            Try
-                Myparser.WriteFile(myINI, MyData, System.Text.Encoding.UTF8)
-                Retry = 0
-            Catch ex As Exception
-                ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Thread.Sleep(100)
-            End Try
-        End While
+        _Settings.SaveINI()
 
     End Sub
 
-    ''' <summary>Save to the ini the name value pair.</summary>
-    ''' <param name="section"></param>
-    ''' <param name="key"></param>
-    ''' <param name="value"></param>
-    ''' <returns></returns>
-    Public Function SetIni(section As String, key As String, value As String) As Boolean
-
-        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
-        Try
-            SettingsData(section)(key) = value
-        Catch ex As Exception
-            ErrorLog(ex.Message)
-            Return True
-        End Try
-        Return False
-
-    End Function
-
-    Public Sub SetMyIni(section As String, key As String, value As String)
-
-        If value = Nothing Then value = ""
-        ' sets values into any INI file
-        Try
-            MyData(section)(key) = value
-        Catch ex As Exception
-            ErrorLog(ex.Message)
-        End Try
-
-    End Sub
-
-    Public Sub SetMySetting(key As String, value As String)
-
-        If value Is Nothing Then Return
-        Dim Retry As Integer = 100 ' 10 sec
-        While Retry > 0
-            Try
-                SetMyIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
-                Retry = 0
-            Catch ex As Exception
-                ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Thread.Sleep(100)
-            End Try
-        End While
-
-    End Sub
-
-    ''' <summary>
-    ''' Repair INI files with extra [sections]
-    ''' </summary>
-    ''' <param name="file">Path to region ini file</param>
-    Private Shared Sub CheckINI(file As String)
-        Dim c As Integer
-        Using Reader As New System.IO.StreamReader(file)
-            Dim RepairedLine As String = ""
-            While Not Reader.EndOfStream
-                Dim line As String = Reader.ReadLine
-
-                Dim pattern As Regex = New Regex("^\[.*?\]")
-                Dim match As Match = pattern.Match(line)
-                If match.Success Then
-                    c += 1
-                End If
-                If c > 1 Then
-                    FileStuff.DeleteFile(file)
-                    Using Writer As New StreamWriter(file)
-                        Writer.Write(RepairedLine)
-                    End Using
-                    Exit While
-                End If
-                'Debug.Print(line)
-                RepairedLine += line & vbCrLf
-            End While
-        End Using
-
-    End Sub
-
-    Private Function ReadINIFile(MyIni As String) As IniData
-
-        Dim waiting As Integer = 10 ' 1 sec
-        While waiting > 0
-            Try
-                Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
-                Return Data
-            Catch ex As Exception
-                waiting -= 1
-                Sleep(100)
-            End Try
-        End While
-
-        Return Nothing
-
-    End Function
 
 #End Region
 
@@ -888,7 +661,7 @@ Public Class MySettings
             Return GetMySetting("Myfolder") ' no default
         End Get
         Set
-            SetMySetting("Myfolder", Value)
+            SetMySetting("Myfolder", Value) ' DEBUG           
         End Set
     End Property
 
@@ -1789,9 +1562,13 @@ Public Class MySettings
         End Set
     End Property
 
+    Private Function SCAdmin() As String
+        Dim SCPasswordAdmin As New PassGen()
+        Return SCPasswordAdmin.GeneratePass()
+    End Function
     Public Property SCAdminPassword() As String
         Get
-            Return GetMySetting("SC_AdminPassword")
+            Return GetMySetting("SC_AdminPassword", SCAdmin())
         End Get
         Set
             SetMySetting("SC_AdminPassword", Value)
@@ -1807,9 +1584,14 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Function SCPass() As String
+        Dim SCPasswordAdmin = New PassGen
+        Return SCPasswordAdmin.GeneratePass()
+    End Function
+
     Public Property SCPassword() As String
         Get
-            Return GetMySetting("SC_Password")
+            Return GetMySetting("SC_Password", SCPass())
         End Get
         Set
             SetMySetting("SC_Password", Value)
