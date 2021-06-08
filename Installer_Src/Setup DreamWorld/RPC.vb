@@ -14,7 +14,7 @@ Module RPC
     ' known web interfaces
     'http://opensimulator.org/wiki/Known_Web_Interfaces_within_OpenSim
 
-    Public Function RPC_admin_dialog(agentId As String, text As String)
+    Public Function RPC_admin_dialog(agentId As String, text As String) As Boolean
 
         Dim RegionUUID As String = GetRegionFromAgentID(agentId)
         Dim ht As Hashtable = New Hashtable From {

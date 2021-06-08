@@ -65,7 +65,7 @@ Public Class FormPublicity
 
         Dim category As String = ""
         For Each i In CategoryCheckbox.CheckedItems
-            If i.length > 0 Then category += CStr(i) & ","
+            If i.ToString.Length > 0 Then category += CStr(i) & ","
         Next
 
         Settings.Categories = category

@@ -17,9 +17,6 @@ Imports System.Net
 Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
-<Assembly: CLSCompliant(True)>
-Namespace DesignLibrary
-End Namespace
 
 Public Class FormSetup
 
@@ -1815,7 +1812,8 @@ Public Class FormSetup
 
     Private Sub HelpClick(sender As Object, e As EventArgs)
 
-        If sender.Text.toupper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then HelpManual(CStr(sender.Text))
+        If sender Is Nothing Then Return
+        If sender.ToString.ToUpper(Globalization.CultureInfo.InvariantCulture) <> "DreamGrid Manual.pdf".ToUpper(Globalization.CultureInfo.InvariantCulture) Then HelpManual(CStr(sender.Text))
 
     End Sub
 

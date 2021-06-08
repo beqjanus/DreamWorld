@@ -1057,7 +1057,7 @@ Public Class FormRegionlist
 
             For Each col In UserView.Columns
                 Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
-                    Dim w = colsize.ColumnWidth(CStr(col.name))
+                    Dim w = colsize.ColumnWidth(CStr(col))
                     If w > 0 Then col.Width = w
                 End Using
             Next

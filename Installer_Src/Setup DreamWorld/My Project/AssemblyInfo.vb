@@ -13,7 +13,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyProduct("DreamGrid")>
 <Assembly: AssemblyCopyright("Copyright © 2017")>
 <Assembly: AssemblyTrademark("")>
-
+<Assembly: CLSCompliant(False)>
 <Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM

@@ -14,7 +14,7 @@ Imports System.Linq
 Module SmartStart
 
     Private ReadOnly Sleeping As New List(Of String)
-    Private ReadOnly slop = 10     ' amount of extra time to add in for booting
+    Private ReadOnly slop As Integer = 10     ' amount of extra time to add in for booting
 
 #Region "SmartBegin"
 

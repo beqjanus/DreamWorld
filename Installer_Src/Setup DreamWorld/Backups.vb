@@ -33,7 +33,7 @@ Public Class Backups
             Return
         End If
 
-        SQLBackup(DBName)
+        SqlBackup(DBName)
 
     End Sub
 
@@ -67,13 +67,13 @@ Public Class Backups
                 Dim password As String
                 Dim user As String
                 Dim dbname As String
-                If OP = Settings.RobustDataBaseName Then
+                If OP.ToString Is Settings.RobustDataBaseName Then
                     port = CStr(Settings.MySqlRobustDBPort)
                     host = Settings.RobustServerIP
                     user = Settings.RobustUsername
                     password = Settings.RobustPassword
                     dbname = Settings.RobustDataBaseName
-                ElseIf OP = "Joomla" Then
+                ElseIf OP.ToString Is "Joomla" Then
                     port = CStr(Settings.MySqlRegionDBPort)
                     host = Settings.RegionServer
                     user = Settings.RegionDBUsername

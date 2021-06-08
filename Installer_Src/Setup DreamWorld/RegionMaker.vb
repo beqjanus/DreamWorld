@@ -745,8 +745,8 @@ Public Class RegionMaker
                 Dim ini = Settings.LoadIni(RegionIniFilePath(RegionUUID), ";")
                 If ini Is Nothing Then Continue For
 
-                Dim Rp = Settings.GetIni(Name, "InternalPort", "0")
-                Dim Gp = Settings.GetIni(Name, "GroupPort", "0")
+                Dim Rp As String = CStr(Settings.GetIni(Name, "InternalPort", "0"))
+                Dim Gp As String = CStr(Settings.GetIni(Name, "GroupPort", "0"))
                 RegionPort(RegionUUID) = CInt("0" & Rp)
                 GroupPort(RegionUUID) = CInt("0" & Gp)
 
