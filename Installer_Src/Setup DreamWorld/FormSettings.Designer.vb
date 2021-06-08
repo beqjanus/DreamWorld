@@ -156,7 +156,7 @@ Partial Class FormSettings
         '
         'RegionsButton1
         '
-        Me.RegionsButton1.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        Me.RegionsButton1.Image = Global.Outworldz.My.Resources.Resources.cube_green
         Me.RegionsButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.RegionsButton1.Location = New System.Drawing.Point(240, 180)
         Me.RegionsButton1.Name = "RegionsButton1"

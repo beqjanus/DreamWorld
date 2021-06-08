@@ -1110,7 +1110,7 @@ Partial Class FormRegion
         '
         'BasicsToolStripMenuItem
         '
-        Me.BasicsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        Me.BasicsToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_green
         Me.BasicsToolStripMenuItem.Name = "BasicsToolStripMenuItem"
         Me.BasicsToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.BasicsToolStripMenuItem.Text = "Basics"

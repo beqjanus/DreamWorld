@@ -1527,7 +1527,7 @@ Public Class FormSetup
         RestartTheInstanceToolStripMenuItem.Text = Global.Outworldz.My.Resources.Restart_one_instance_word
         RestartToolStripMenuItem2.Image = Global.Outworldz.My.Resources.recycle
         RestartToolStripMenuItem2.Text = Global.Outworldz.My.Resources.Restart_word
-        RestoreDatabaseToolStripMenuItem1.Image = Global.Outworldz.My.Resources.cube_blue
+        RestoreDatabaseToolStripMenuItem1.Image = Global.Outworldz.My.Resources.cube_green
         RestoreDatabaseToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Restore_Database_word
         RevisionHistoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_dirty
         RevisionHistoryToolStripMenuItem.Text = Global.Outworldz.My.Resources.Revision_History_word
@@ -1560,7 +1560,7 @@ Public Class FormSetup
         TroubleshootingToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_view
         TroubleshootingToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_Troubleshooting_word
         UsersToolStripMenuItem.Text = Global.Outworldz.My.Resources.Users_word
-        ViewIcecastWebPageToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_blue
+        ViewIcecastWebPageToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_green
         ViewIcecastWebPageToolStripMenuItem.Text = Global.Outworldz.My.Resources.View_Icecast
         ViewLogsToolStripMenuItem.Image = Global.Outworldz.My.Resources.document_view
         ViewLogsToolStripMenuItem.Text = Global.Outworldz.My.Resources.View_Logs
@@ -1597,12 +1597,10 @@ Public Class FormSetup
         Application.EnableVisualStyles()
         Buttons(BusyButton)
 
-
         TextBox1.BackColor = Me.BackColor
         ' initialize the scrolling text box
 
         ToolBar(False)
-
 
         Adv1 = New FormSettings
 

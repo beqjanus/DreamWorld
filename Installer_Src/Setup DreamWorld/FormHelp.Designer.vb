@@ -102,7 +102,7 @@ Partial Class FormHelp
         '
         'DreamgridToolStripMenuItem
         '
-        Me.DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        Me.DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_green
         Me.DreamgridToolStripMenuItem.Name = "DreamgridToolStripMenuItem"
         Me.DreamgridToolStripMenuItem.Size = New System.Drawing.Size(236, 34)
         Me.DreamgridToolStripMenuItem.Text = Global.Outworldz.My.Resources.Resources.Home_word

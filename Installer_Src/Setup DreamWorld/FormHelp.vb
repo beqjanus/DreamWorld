@@ -53,7 +53,7 @@ Public Class FormHelp
 
         SetScreen(Webpage)
 
-        DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_blue
+        DreamgridToolStripMenuItem.Image = Global.Outworldz.My.Resources.cube_green
         DreamgridToolStripMenuItem.Text = Global.Outworldz.My.Resources.Home_word
         ExitToolStripMenuItem.Image = Global.Outworldz.My.Resources.exit_icon
         ExitToolStripMenuItem.Text = Global.Outworldz.My.Resources.Exit__word

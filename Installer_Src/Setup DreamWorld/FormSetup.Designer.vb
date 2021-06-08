@@ -609,7 +609,7 @@ Partial Class FormSetup
         '
         'ViewIcecastWebPageToolStripMenuItem
         '
-        Me.ViewIcecastWebPageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        Me.ViewIcecastWebPageToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_green
         Me.ViewIcecastWebPageToolStripMenuItem.Name = "ViewIcecastWebPageToolStripMenuItem"
         Me.ViewIcecastWebPageToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.B), System.Windows.Forms.Keys)
         Me.ViewIcecastWebPageToolStripMenuItem.Size = New System.Drawing.Size(432, 34)
@@ -851,7 +851,7 @@ Partial Class FormSetup
         '
         'RestoreDatabaseToolStripMenuItem1
         '
-        Me.RestoreDatabaseToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.cube_blue
+        Me.RestoreDatabaseToolStripMenuItem1.Image = Global.Outworldz.My.Resources.Resources.cube_green
         Me.RestoreDatabaseToolStripMenuItem1.Name = "RestoreDatabaseToolStripMenuItem1"
         Me.RestoreDatabaseToolStripMenuItem1.Size = New System.Drawing.Size(319, 34)
         Me.RestoreDatabaseToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Resources.Restore_Database_word

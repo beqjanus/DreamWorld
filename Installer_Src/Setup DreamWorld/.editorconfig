@@ -3,3 +3,6 @@
 
 # CA1031: Do not catch general exception types
 dotnet_diagnostic.CA1031.severity = silent
+
+# BC30136: Error creating Win32 resources: Icon stream is not in the expected format.
+dotnet_diagnostic.BC30136.severity = error

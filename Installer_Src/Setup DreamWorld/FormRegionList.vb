@@ -458,7 +458,7 @@ Public Class FormRegionlist
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down2", Globalization.CultureInfo.InvariantCulture)) ' 1 shutting down
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("check2", Globalization.CultureInfo.InvariantCulture)) ' 2 okay, up
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_cross", Globalization.CultureInfo.InvariantCulture)) ' 3 disabled
-        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("cube_blue", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
+        ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("cube_green", Globalization.CultureInfo.InvariantCulture))  ' 4 enabled, stopped
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_down", Globalization.CultureInfo.InvariantCulture))  ' 5 Recycling down
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_up", Globalization.CultureInfo.InvariantCulture))  ' 6 Recycling Up
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("warning", Globalization.CultureInfo.InvariantCulture))  ' 7 Unknown
@@ -1057,7 +1057,7 @@ Public Class FormRegionlist
 
             For Each col In UserView.Columns
                 Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
-                    Dim w = colsize.ColumnWidth(col.text)
+                    Dim w = colsize.ColumnWidth(CStr(col.Name))
                     If w > 0 Then
                         col.Width = w
                     End If
