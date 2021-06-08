@@ -14,10 +14,6 @@ Public Class FormFlotsamCache
 
 #Region "Private Methods"
 
-    Private Sub CacheEnabledBox_CheckedChanged(sender As Object, e As EventArgs) Handles CacheEnabledBox.CheckedChanged
-
-    End Sub
-
     Private Sub Form_Load() Handles Me.Load
 
         Button1.Text = Global.Outworldz.My.Resources.Clear_Cache_word

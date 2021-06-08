@@ -78,19 +78,19 @@ Public Module MysqlInterface
         TextPrint(My.Resources.Mysql_Starting)
 
         ' SAVE INI file
-        Dim INI = Settings.LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#")
-        If INI Is Nothing Then Return False
+        Dim INI = New LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#", System.Text.Encoding.ASCII)
+
 
         If Settings.MysqlRunasaService Then
-            Settings.SetIni("mysqld", "innodb_max_dirty_pages_pct", "75")
-            Settings.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "2")
+            INI.SetIni("mysqld", "innodb_max_dirty_pages_pct", "75")
+            INI.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "2")
         Else
             ' when we are a service we can wait until we have 75 % of the buffer full before we flush
             ' if not, too dangerous, so we always write at 0% for ACID behavior.
             ' InnoDB tries to flush data from the buffer pool so that the percentage of dirty pages does Not exceed this value. The default value Is 75.
             ' The innodb_max_dirty_pages_pct setting establishes a target for flushing activity. It does Not affect the rate of flushing.
 
-            Settings.SetIni("mysqld", "innodb_max_dirty_pages_pct", "0")
+            INI.SetIni("mysqld", "innodb_max_dirty_pages_pct", "0")
 
             'If Set To 1, InnoDB will flush (fsync) the transaction logs To the
             ' disk at Each commit, which offers full ACID behavior. If you are
@@ -101,15 +101,15 @@ Public Module MysqlInterface
             ' means the log Is written To the log file at Each commit, but the log
             ' file Is only flushed To disk approximately once per second.
 
-            Settings.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "1")
+            INI.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "1")
         End If
 
-        Settings.SetIni("mysqld", "basedir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql""")
-        Settings.SetIni("mysqld", "datadir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql/Data""")
-        Settings.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
-        Settings.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
+        INI.SetIni("mysqld", "basedir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql""")
+        INI.SetIni("mysqld", "datadir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql/Data""")
+        INI.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
+        INI.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
 
-        Settings.SaveINI(INI, System.Text.Encoding.ASCII)
+        INI.SaveINI()
 
         ' create test program slants the other way:
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StartManually.bat")

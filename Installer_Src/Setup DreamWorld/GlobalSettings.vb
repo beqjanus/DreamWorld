@@ -37,7 +37,7 @@ Module GlobalSettings
 
     Dim _Data As IniParser.Model.IniData
     Private _IsRunning As Boolean
-    Private _mySetting As New MySettings
+    Private _mySetting As MySettings
     Private _PropAborting As Boolean
     Private _regionClass As RegionMaker
     Private _SelectedBox As String = ""

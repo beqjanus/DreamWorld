@@ -241,7 +241,7 @@ Module Robust
 
 #End Region
 
-    Public Sub DoBanList()
+    Public Sub DoBanList(INI As LoadIni)
 
         Dim MACString As String = ""
         Dim ViewerString As String = ""
@@ -297,14 +297,14 @@ Module Robust
         If GridString.Length > 0 Then
             GridString = Mid(GridString, 1, GridString.Length - 1)
         End If
-        Settings.SetIni("GatekeeperService", "AllowExcept", GridString)
+        INI.SetIni("GatekeeperService", "AllowExcept", GridString)
 
         ' Ban Macs
         If MACString.Length > 0 Then
             MACString = Mid(MACString, 1, MACString.Length - 1)
         End If
-        Settings.SetIni("LoginService", "DeniedMacs", MACString)
-        Settings.SetIni("GatekeeperService", "DeniedMacs", MACString)
+        INI.SetIni("LoginService", "DeniedMacs", MACString)
+        INI.SetIni("GatekeeperService", "DeniedMacs", MACString)
 
         'Ban Viewers
         If ViewerString.Length > 0 Then
@@ -314,7 +314,7 @@ Module Robust
             ViewerString = Mid(ViewerString, 1, ViewerString.Length - 1)
         End If
 
-        Settings.SetIni("AccessControl", "DeniedClients", ViewerString)
+        INI.SetIni("AccessControl", "DeniedClients", ViewerString)
 
     End Sub
 
@@ -325,89 +325,88 @@ Module Robust
         If DoSetDefaultSims() Then Return True
 
         ' Robust Process
-        Dim INI = Settings.LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";")
-        If INI Is Nothing Then Return False
+        Dim INI = New LoadIni(Settings.OpensimBinPath & "Robust.HG.ini", ";", System.Text.Encoding.UTF8)
 
         'For GetTexture Service
         If Settings.FsAssetsEnabled Then
-            Settings.SetIni("CapsService", "AssetService", """" & "OpenSim.Services.FSAssetService.dll:FSAssetConnector" & """")
+            INI.SetIni("CapsService", "AssetService", """" & "OpenSim.Services.FSAssetService.dll:FSAssetConnector" & """")
         Else
-            Settings.SetIni("CapsService", "AssetService", """" & "OpenSim.Services.AssetService.dll:AssetService" & """")
+            INI.SetIni("CapsService", "AssetService", """" & "OpenSim.Services.AssetService.dll:AssetService" & """")
         End If
 
         If Settings.AltDnsName.Length > 0 Then
-            Settings.SetIni("Hypergrid", "HomeURIAlias", Settings.AltDnsName)
-            Settings.SetIni("Hypergrid", "GatekeeperURIAlias", Settings.AltDnsName)
+            INI.SetIni("Hypergrid", "HomeURIAlias", Settings.AltDnsName)
+            INI.SetIni("Hypergrid", "GatekeeperURIAlias", Settings.AltDnsName)
         End If
 
-        Settings.SetIni("Const", "GridName", Settings.SimName)
-        Settings.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
+        INI.SetIni("Const", "GridName", Settings.SimName)
+        INI.SetIni("Const", "BaseURL", "http://" & Settings.PublicIP)
 
-        DoBanList()
+        DoBanList(INI)
 
-        Settings.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
-        Settings.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
-        Settings.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
-        Settings.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort))
-        Settings.SetIni("Const", "http_listener_port", CStr(Settings.HttpPort))
-        Settings.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
-        Settings.SetIni("Const", "MachineID", CStr(Settings.MachineID))
+        INI.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort))
+        INI.SetIni("Const", "PrivURL", "http://" & Settings.LANIP())
+        INI.SetIni("Const", "PublicPort", CStr(Settings.HttpPort)) ' 8002
+        INI.SetIni("Const", "PrivatePort", CStr(Settings.PrivatePort))
+        INI.SetIni("Const", "http_listener_port", CStr(Settings.HttpPort))
+        INI.SetIni("Const", "ApachePort", CStr(Settings.ApachePort))
+        INI.SetIni("Const", "MachineID", CStr(Settings.MachineID))
 
         If Settings.Suitcase() Then
-            Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
+            INI.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGSuitcaseInventoryService")
         Else
-            Settings.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.InventoryService.dll:XInventoryService")
+            INI.SetIni("HGInventoryService", "LocalServiceModule", "OpenSim.Services.InventoryService.dll:XInventoryService")
         End If
 
         ' LSL emails
-        Settings.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
-        Settings.SetIni("SMTP", "SMTP_SERVER_PORT", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
-        Settings.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
+        INI.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost)
+        INI.SetIni("SMTP", "SMTP_SERVER_PORT", Convert.ToString(Settings.SmtpPort, Globalization.CultureInfo.InvariantCulture))
+        INI.SetIni("SMTP", "SMTP_SERVER_LOGIN", Settings.SmtPropUserName)
+        INI.SetIni("SMTP", "SMTP_SERVER_PASSWORD", Settings.SmtpPassword)
 
-        SetupRobustSearchINI()
+        SetupRobustSearchINI(INI)
 
-        SetupMoney()
+        SetupMoney(INI)
 
-        Settings.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
+        INI.SetIni("LoginService", "WelcomeMessage", Settings.WelcomeMessage)
 
         'FSASSETS
         If Settings.FsAssetsEnabled Then
-            Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
-            Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
+            INI.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.FSAssetService.dll:FSAssetConnector")
+            INI.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGFSAssetService")
         Else
-            Settings.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
-            Settings.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
+            INI.SetIni("AssetService", "LocalServiceModule", "OpenSim.Services.AssetService.dll:AssetService")
+            INI.SetIni("HGAssetService", "LocalServiceModule", "OpenSim.Services.HypergridService.dll:HGAssetService")
         End If
 
-        Settings.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
-        Settings.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
-        Settings.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
+        INI.SetIni("AssetService", "BaseDirectory", Settings.BaseDirectory & "/data")
+        INI.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
+        INI.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
 
-        Settings.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))  ' FKB
-        Settings.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
+        INI.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))  ' FKB
+        INI.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
 
         If Settings.CMS = JOpensim Then
-            Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "")
-            Settings.SetIni("UserProfilesService", "Enabled", "False")
-            Settings.SetIni("GridInfoService", "welcome", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim")
-            Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/components/com_opensim/")
+            INI.SetIni("ServiceList", "UserProfilesServiceConnector", "")
+            INI.SetIni("UserProfilesService", "Enabled", "False")
+            INI.SetIni("GridInfoService", "welcome", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/index.php?option=com_opensim")
+            INI.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|ApachePort}/jOpensim/components/com_opensim/")
         Else
-            Settings.SetIni("ServiceList", "UserProfilesServiceConnector", "${Const|PublicPort}/OpenSim.Server.Handlers.dll:UserProfilesConnector")
-            Settings.SetIni("UserProfilesService", "Enabled", "True")
-            Settings.SetIni("GridInfoService", "welcome", Settings.SplashPage)
+            INI.SetIni("ServiceList", "UserProfilesServiceConnector", "${Const|PublicPort}/OpenSim.Server.Handlers.dll:UserProfilesConnector")
+            INI.SetIni("UserProfilesService", "Enabled", "True")
+            INI.SetIni("GridInfoService", "welcome", Settings.SplashPage)
 
             If Settings.GloebitsEnable Then
-                Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
+                INI.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|PublicPort}")
             Else
                 ' use Landtool.php
-                Settings.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|ApachePort}/Land")
+                INI.SetIni("GridInfoService", "economy", "${Const|BaseURL}:${Const|ApachePort}/Land")
             End If
         End If
 
-        Settings.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
+        INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
 
-        Settings.SaveINI(INI, System.Text.Encoding.UTF8)
+        INI.SaveINI()
 
         Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config.proto")
         Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
@@ -480,37 +479,37 @@ Module Robust
 
     End Sub
 
-    Private Sub SetupMoney()
+    Private Sub SetupMoney(INI)
 
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpenSim.Money.dll"))
         If Settings.GCG Then
-            Settings.SetIni("LoginService", "Currency", "MC$")
+            INI.SetIni("LoginService", "Currency", "MC$")
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         ElseIf Settings.GloebitsEnable Then
-            Settings.SetIni("LoginService", "Currency", "G$")
+            INI.SetIni("LoginService", "Currency", "G$")
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll.bak"), IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         ElseIf Settings.GloebitsEnable = False And Settings.CMS = JOpensim Then
-            Settings.SetIni("LoginService", "Currency", "jO$")
+            INI.SetIni("LoginService", "Currency", "jO$")
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         Else
-            Settings.SetIni("LoginService", "Currency", "$")
+            INI.SetIni("LoginService", "Currency", "$")
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "Gloebit.dll"))
         End If
 
     End Sub
 
-    Private Sub SetupRobustSearchINI()
+    Private Sub SetupRobustSearchINI(INI)
 
         If Settings.CMS = JOpensim And Settings.SearchOptions = JOpensim Then
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=inworldsearch&task=viewersearch&tmpl=component&"
-            Settings.SetIni("LoginService", "SearchURL", SearchURL)
-            Settings.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
+            INI.SetIni("LoginService", "SearchURL", SearchURL)
+            INI.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
         ElseIf Settings.SearchOptions = Hyperica Then
-            Settings.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
-            Settings.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
+            INI.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+            INI.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
         Else
-            Settings.SetIni("LoginService", "SearchURL", "")
-            Settings.SetIni("LoginService", "DestinationGuide", "")
+            INI.SetIni("LoginService", "SearchURL", "")
+            INI.SetIni("LoginService", "DestinationGuide", "")
         End If
 
     End Sub
