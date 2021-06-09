@@ -1302,7 +1302,6 @@
     <None Include="Resources\ModulesHelp.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\a_cube_blue.png" />
     <None Include="Resources\cubes_blue.png" />
     <Content Include="Resources\exit.png" />
     <Content Include="Resources\jar.ico" />

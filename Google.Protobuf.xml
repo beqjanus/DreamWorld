@@ -3134,6 +3134,13 @@
             <param name="message">The message to merge the data into.</param>
             <param name="input">Stream containing the data to merge, which must be protobuf-encoded binary data.</param>
         </member>
+        <member name="M:Google.Protobuf.MessageExtensions.MergeFrom(Google.Protobuf.IMessage,System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Merges data from the given span into an existing message.
+            </summary>
+            <param name="message">The message to merge the data into.</param>
+            <param name="span">Span containing the data to merge, which must be protobuf-encoded binary data.</param>
+        </member>
         <member name="M:Google.Protobuf.MessageExtensions.MergeDelimitedFrom(Google.Protobuf.IMessage,System.IO.Stream)">
             <summary>
             Merges length-delimited data from the given stream into an existing message.
@@ -3239,6 +3246,13 @@
         <member name="M:Google.Protobuf.MessageParser.ParseFrom(System.Buffers.ReadOnlySequence{System.Byte})">
             <summary>
             Parses a message from the given sequence.
+            </summary>
+            <param name="data">The data to parse.</param>
+            <returns>The parsed message.</returns>
+        </member>
+        <member name="M:Google.Protobuf.MessageParser.ParseFrom(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Parses a message from the given span.
             </summary>
             <param name="data">The data to parse.</param>
             <returns>The parsed message.</returns>
@@ -3355,6 +3369,13 @@
             <param name="data">The data to parse.</param>
             <returns>The parsed message.</returns>
         </member>
+        <member name="M:Google.Protobuf.MessageParser`1.ParseFrom(System.ReadOnlySpan{System.Byte})">
+            <summary>
+            Parses a message from the given span.
+            </summary>
+            <param name="data">The data to parse.</param>
+            <returns>The parsed message.</returns>
+        </member>
         <member name="M:Google.Protobuf.MessageParser`1.ParseDelimitedFrom(System.IO.Stream)">
             <summary>
             Parses a length-delimited message from the given stream.
@@ -3408,6 +3429,17 @@
             as the parsing proceeds.
             All the public methods are intended to be invoked only by the generated code,
             users should never invoke them directly.
+            </summary>
+        </member>
+        <member name="M:Google.Protobuf.ParseContext.Initialize(System.ReadOnlySpan{System.Byte},Google.Protobuf.ParseContext@)">
+            <summary>
+            Initialize a <see cref="T:Google.Protobuf.ParseContext"/>, building all <see cref="T:Google.Protobuf.ParserInternalState"/> from defaults and
+            the given <paramref name="buffer"/>.
+            </summary>
+        </member>
+        <member name="M:Google.Protobuf.ParseContext.Initialize(System.ReadOnlySpan{System.Byte},Google.Protobuf.ParserInternalState@,Google.Protobuf.ParseContext@)">
+            <summary>
+            Initialize a <see cref="T:Google.Protobuf.ParseContext"/> using existing <see cref="T:Google.Protobuf.ParserInternalState"/>, e.g. from <see cref="T:Google.Protobuf.CodedInputStream"/>.
             </summary>
         </member>
         <member name="M:Google.Protobuf.ParseContext.Initialize(Google.Protobuf.CodedInputStream,Google.Protobuf.ParseContext@)">

@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6c0e2fcb74019f96f175b6d9dd349507f2fcf6a0718a8d6f2b10f3e55368ce6b
-size 615
+An easy and complete installer for standalone hypergrid Opensimulator for Windows.  It is licensed as AGPL 3.
+
+OpenSimulator is normally not easy to run and install. This automates setup pre-set with grid info, ready to go.
+
+Upon completion of setup, the program displays a Start button which boots up MySQL, Opensim, the Wifi Web Interface and the viewer, ready to log in.  
+
+A third click will close everything down.
+
+Download binaries and much help at http://www.outworldz.com/Outworldz_installer/
+
+This project follows the Microsoft Code of Conduct at https://opensource.microsoft.com/codeofconduct/

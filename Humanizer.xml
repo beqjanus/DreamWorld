@@ -3995,6 +3995,36 @@
             Units of data
             </summary>
         </member>
+        <member name="F:Humanizer.Localisation.DataUnit.Bit">
+            <summary>
+            Bit
+            </summary>
+        </member>
+        <member name="F:Humanizer.Localisation.DataUnit.Byte">
+            <summary>
+            Byte
+            </summary>
+        </member>
+        <member name="F:Humanizer.Localisation.DataUnit.Kilobyte">
+            <summary>
+            Kilobyte
+            </summary>
+        </member>
+        <member name="F:Humanizer.Localisation.DataUnit.Megabyte">
+            <summary>
+            Megabyte
+            </summary>
+        </member>
+        <member name="F:Humanizer.Localisation.DataUnit.Gigabyte">
+            <summary>
+            Gigabyte
+            </summary>
+        </member>
+        <member name="F:Humanizer.Localisation.DataUnit.Terabyte">
+            <summary>
+            Terrabyte
+            </summary>
+        </member>
         <member name="T:Humanizer.Localisation.DateToOrdinalWords.IDateToOrdinalWordConverter">
             <summary>
             The interface used to localise the ToOrdinalWords method.
