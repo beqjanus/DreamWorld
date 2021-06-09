@@ -27,10 +27,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using Diva.Interfaces;
 using log4net;
 
 using OpenSim.Services.Interfaces;
+using Diva.Interfaces;
 
 namespace Diva.Utils
 {

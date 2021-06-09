@@ -73,14 +73,14 @@ namespace Diva.Wifi
                 IOSHttpRequest httpRequest, IOSHttpResponse httpResponse)
         {
             // path = /wifi/...
-            m_log.DebugFormat("[Wifi]: path = {0}", path);
-            m_log.DebugFormat("[Wifi]: ip address = {0}", httpRequest.RemoteIPEndPoint);
-            foreach (object o in httpRequest.Query.Keys)
-                m_log.DebugFormat("  >> {0}={1}", o, httpRequest.Query[o]);
+            //m_log.DebugFormat("[Wifi]: path = {0}", path);
+            //m_log.DebugFormat("[Wifi]: ip address = {0}", httpRequest.RemoteIPEndPoint);
+            //foreach (object o in httpRequest.Query.Keys)
+            //    m_log.DebugFormat("  >> {0}={1}", o, httpRequest.Query[o]);
 
             string resource = GetParam(path);
             resource = Uri.UnescapeDataString(resource).Trim(WebAppUtils.DirectorySeparatorChars);
-            m_log.DebugFormat("[Wifi]: resource {0}", resource);
+            //m_log.DebugFormat("[Wifi]: resource {0}", resource);
 
             Request request = RequestFactory.CreateRequest(resource, httpRequest, Localization.GetLanguageInfo(httpRequest.Headers.Get("accept-language")));
             Environment env = new Environment(request);

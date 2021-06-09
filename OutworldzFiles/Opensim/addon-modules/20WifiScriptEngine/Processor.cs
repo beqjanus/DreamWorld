@@ -141,18 +141,15 @@ namespace Diva.Wifi.WifiScript
         private string Include(string argStr)
         {
 
-            if (m_Index > 100)      // Fred Beckhusen DreamGrid Mod
-                return string.Empty; // stop recursing before we run out of RAM
-
             Match match = args.Match(argStr);
-            m_log.DebugFormat("Match {0} args? {1} {2}", args.ToString(), match.Success, match.Groups.Count);
+            //m_log.DebugFormat("Match {0} args? {1} {2}", args.ToString(), match.Success, match.Groups.Count);
             if (match.Groups.Count == 3)
             {
                 string name = match.Groups[1].Value;
                 string value = match.Groups[2].Value;
                 // ignore the name which should be file
                 string file = m_WebApp.LocalizePath(m_Env, value);
-                m_log.DebugFormat("[WifiScript]: Including file {0} with index = {1} (previous file is {2})", file, m_Index, m_FileName);
+                //m_log.DebugFormat("[WifiScript]: Including file {0} with index = {1} (previous file is {2})", file, m_Index, m_FileName);
 
                 string content = string.Empty;
                 using (StreamReader sr = new StreamReader(file))
@@ -201,7 +198,7 @@ namespace Diva.Wifi.WifiScript
         private string Get(string argStr)
         {
             Match match = args.Match(argStr);
-            //m_log.DebugFormat("[WifiScript]: Get matched {0} groups", match.Groups.Count);
+            //m_log.DebugFormat("[WifiScript]: Get macthed {0} groups", match.Groups.Count);
             if (match.Groups.Count == 3)
             {
                 string kind = match.Groups[1].Value;
