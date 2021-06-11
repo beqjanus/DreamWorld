@@ -7,6 +7,7 @@
 \OutworldzFiles\Opensim\bin\Diva.Data.MySQL.dll
 \OutworldzFiles\Opensim\bin\Diva.Data.SQLite.dll
 \OutworldzFiles\Opensim\bin\Diva.Interfaces.dll
+\OutworldzFiles\Opensim\bin\Diva.OnLook.dll
 \OutworldzFiles\Opensim\bin\Diva.OpenSimServices.dll
 \OutworldzFiles\Opensim\bin\Diva.Utils.dll
 \OutworldzFiles\Opensim\bin\Diva.Wifi.dll
@@ -26,7 +27,6 @@
 \OutworldzFiles\Opensim\bin\MySql.Data.dll
 \OutworldzFiles\Opensim\bin\NDesk.Options.dll
 \OutworldzFiles\Opensim\bin\netcd.dll
-\OutworldzFiles\Opensim\bin\Newtonsoft.Json.dll
 \OutworldzFiles\Opensim\bin\Nini.dll
 \OutworldzFiles\Opensim\bin\Npgsql.dll
 \OutworldzFiles\Opensim\bin\nunit.framework.dll
@@ -142,10 +142,6 @@
 \OutworldzFiles\Opensim\bin\lib64\BulletSim.dll
 \OutworldzFiles\Opensim\bin\lib64\ode.dll
 \OutworldzFiles\Opensim\bin\lib64\sqlite3.dll
-\OutworldzFiles\Opensim\bin\lib64\de\Diva.Wifi.resources.dll
-\OutworldzFiles\Opensim\bin\lib64\en\Diva.Wifi.resources.dll
-\OutworldzFiles\Opensim\bin\lib64\fr\Diva.Wifi.resources.dll
-\OutworldzFiles\Opensim\bin\lib64\pt\Diva.Wifi.resources.dll
 \OutworldzFiles\Opensim\bin\pt\Diva.Wifi.resources.dll
 \OutworldzFiles\opensim\bin\jOpensimProfile.Modules.dll
 \OutworldzFiles\opensim\bin\jOpensimSearch.Modules.dll

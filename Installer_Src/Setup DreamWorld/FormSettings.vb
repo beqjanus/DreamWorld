@@ -39,6 +39,7 @@ Public Class FormSettings
     Dim Tide As New FormTide
     Dim Tos As New TosForm
     Dim Voice As New FormVoice
+
 #Enable Warning CA2213
 
 #End Region
@@ -282,9 +283,9 @@ Public Class FormSettings
 
         FormServerType.Close()
         FormServerType.Dispose()
-        FormServerType = New FormServerType
-        FormCaches.Activate()
-        FormServerType.Visible = True
+        FormServerType = New FormServerType With {
+            .Visible = True
+        }
         FormServerType.Select()
         FormServerType.BringToFront()
 

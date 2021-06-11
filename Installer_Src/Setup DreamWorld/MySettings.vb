@@ -24,11 +24,10 @@ Public Class MySettings
     Private _MacAddress As String
     Private _PublicIP As String
     Private _RamUsed As Double
+    Private _Settings As LoadIni
     Private _WANIP As String
 
     Dim myINI As String = ""
-
-    Private _Settings As LoadIni
 
 #Region "New"
 
@@ -63,8 +62,6 @@ Public Class MySettings
 
     End Function
 
-
-
     Public Function GetMapTime(UUID As String) As Integer
 
         Return CInt("0" & GetMySetting("MapTime_" & PropRegionClass.RegionName(UUID), "0"))
@@ -91,18 +88,17 @@ Public Class MySettings
 
 #End Region
 
-    Public Sub SetMySetting(key As String, value As String)
-
-        _Settings.SetIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
-
-    End Sub
-
     Public Sub SaveSettings()
 
         _Settings.SaveINI()
 
     End Sub
 
+    Public Sub SetMySetting(key As String, value As String)
+
+        _Settings.SetIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
+
+    End Sub
 
 #End Region
 
@@ -661,7 +657,7 @@ Public Class MySettings
             Return GetMySetting("Myfolder") ' no default
         End Get
         Set
-            SetMySetting("Myfolder", Value) ' DEBUG           
+            SetMySetting("Myfolder", Value) ' DEBUG
         End Set
     End Property
 
@@ -937,6 +933,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("GLSandSecret", Value)
+        End Set
+    End Property
+
+    Public Property GraphVisible() As Boolean
+        Get
+            Return CType(GetMySetting("GraphVisible", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("GraphVisible", CStr(Value))
         End Set
     End Property
 
@@ -1562,10 +1567,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Private Function SCAdmin() As String
-        Dim SCPasswordAdmin As New PassGen()
-        Return SCPasswordAdmin.GeneratePass()
-    End Function
     Public Property SCAdminPassword() As String
         Get
             Return GetMySetting("SC_AdminPassword", SCAdmin())
@@ -1583,11 +1584,6 @@ Public Class MySettings
             SetMySetting("SC_Enable", CStr(Value))
         End Set
     End Property
-
-    Public Function SCPass() As String
-        Dim SCPasswordAdmin = New PassGen
-        Return SCPasswordAdmin.GeneratePass()
-    End Function
 
     Public Property SCPassword() As String
         Get
@@ -1900,7 +1896,7 @@ Public Class MySettings
 
     Public Property Theme() As String
         Get
-            Return GetMySetting("Theme", "") ' no default, so we copy it.
+            Return GetMySetting("Theme", "White") ' no default, so we copy it.
         End Get
         Set
             SetMySetting("Theme", Value)
@@ -2052,6 +2048,16 @@ Public Class MySettings
             SetMySetting("WifiEnabled", CStr(Value))
         End Set
     End Property
+
+    Public Function SCPass() As String
+        Dim SCPasswordAdmin = New PassGen
+        Return SCPasswordAdmin.GeneratePass()
+    End Function
+
+    Private Function SCAdmin() As String
+        Dim SCPasswordAdmin As New PassGen()
+        Return SCPasswordAdmin.GeneratePass()
+    End Function
 
 #End Region
 

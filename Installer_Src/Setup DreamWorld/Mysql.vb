@@ -80,7 +80,6 @@ Public Module MysqlInterface
         ' SAVE INI file
         Dim INI = New LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#", System.Text.Encoding.ASCII)
 
-
         If Settings.MysqlRunasaService Then
             INI.SetIni("mysqld", "innodb_max_dirty_pages_pct", "75")
             INI.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "2")
@@ -1072,7 +1071,7 @@ Public Module MysqlInterface
             BreakPoint.Show(ex.Message)
         End Try
 
-        If files.Length > 0 Then
+        If files IsNot Nothing Then
             Dim yesno = MsgBox(My.Resources.MySql_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
             If (yesno = vbYes) Then
 

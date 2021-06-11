@@ -67,12 +67,16 @@ Public Class UpdateGrid
                 StopMYSQL()
                 Label1.Text = "Stopping Apache"
                 StopApache()
-
+                Label1.Text = "Stopping Apache"
                 For Each p As Process In Process.GetProcessesByName("Robust")
                     p.Kill()
                 Next
-
+                Label1.Text = "Stopping Opensim"
                 For Each p As Process In Process.GetProcessesByName("Opensim")
+                    p.Kill()
+                Next
+                Label1.Text = "Stopping Icecast"
+                For Each p As Process In Process.GetProcessesByName("Icecast")
                     p.Kill()
                 Next
 
@@ -89,9 +93,8 @@ Public Class UpdateGrid
                 End If
 
                 Dim ZipContains As Integer = 0
-
+                Dim counter As Integer = 0
                 Try
-                    Dim counter As Integer = 0
                     Using zip As ZipArchive = ZipFile.Open(MyFolder & "\" & Filename, ZipArchiveMode.Read)
                         ZipContains = zip.Entries.Count
                         For Each ZipEntry In zip.Entries
@@ -114,14 +117,21 @@ Public Class UpdateGrid
                         Next
                     End Using
 
-                    If counter <> ZipContains Then
-                        err += 1
-                        TextPrint("Aborting, did not extract all files. Perhaps Opensim is still running?")
-                    End If
+
                 Catch ex As Exception
                     TextPrint("Unable to extract file: " & fname & ":" & ex.Message)
+                    Thread.Sleep(5000)
                     err += 1
                 End Try
+
+                If counter <> ZipContains Then
+                    err += 1
+                    TextPrint("Aborting, did not extract all files.")
+                    Thread.Sleep(5000)
+                    End
+                End If
+
+
                 If Not err Then TextPrint("Completed!")
 
                 Application.DoEvents()
@@ -134,6 +144,7 @@ Public Class UpdateGrid
                     ApacheProcess.Start()
                 Catch ex As Exception
                     TextPrint("Could not start DreamGrid!")
+                    Thread.Sleep(5000)
                 End Try
 
                 End

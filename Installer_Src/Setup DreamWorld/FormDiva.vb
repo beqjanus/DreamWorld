@@ -12,7 +12,7 @@ Public Class FormDiva
 #Region "Private Fields"
 
     Dim initted As Boolean
-    Private path As String
+    Private path As String = ""
     Dim setpassword As Boolean
 
 #End Region
@@ -154,9 +154,11 @@ Public Class FormDiva
             path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewWhite.png")
         ElseIf Settings.Theme = "Custom" Then
             path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewCustom.png")
+        Else
+            path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/White.png")
         End If
-
         Dim newpath = path
+
         If Not System.IO.File.Exists(path) Then
             newpath = path.Replace("New", "")
         End If

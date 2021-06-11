@@ -1,0 +1,94 @@
+﻿Public Class FormGraphs
+
+#Region "ScreenSize"
+
+    Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+    Private _screenPosition As ScreenPos
+
+    Public Property ScreenPosition As ScreenPos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ScreenPos)
+            _screenPosition = value
+        End Set
+    End Property
+
+    'The following detects  the location of the form in screen coordinates
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
+        'Me.Text = "Form screen position = " + Me.Location.ToString
+        ScreenPosition.SaveXY(Me.Left, Me.Top)
+    End Sub
+
+    Private Sub SetScreen()
+        Me.Show()
+        ScreenPosition = New ScreenPos(Me.Name)
+        AddHandler ResizeEnd, Handler
+        Dim xy As List(Of Integer) = ScreenPosition.GetXY()
+        Me.Left = xy.Item(0)
+        Me.Top = xy.Item(1)
+    End Sub
+
+#End Region
+
+    Private Sub CPU() Handles Me.Load
+
+        SetScreen()
+        Me.Text = My.Resources.CPU_word & "  " & My.Resources.RAM_Word & "%"
+
+        TimerGraph.Interval = 1000
+        TimerGraph.Enabled = True
+
+        ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Minutes_word
+        ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Minutes_word
+
+        Dim msChart = ChartWrapper1.TheChart
+        msChart.ChartAreas(0).AxisX.Maximum = 180
+        msChart.ChartAreas(0).AxisX.Minimum = 0
+        msChart.ChartAreas(0).AxisY.Maximum = 100
+        msChart.ChartAreas(0).AxisY.Minimum = 0
+        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
+        msChart.ChartAreas(0).AxisX.LabelStyle.Enabled = False
+        ChartWrapper1.AddMarkers = False
+        ChartWrapper1.MarkerFreq = 60
+
+        msChart = ChartWrapper2.TheChart
+        msChart.ChartAreas(0).AxisX.Maximum = 180
+        msChart.ChartAreas(0).AxisX.Minimum = 0
+        msChart.ChartAreas(0).AxisY.Maximum = 100
+        msChart.ChartAreas(0).AxisY.Minimum = 0
+        msChart.ChartAreas(0).AxisX.LabelStyle.Enabled = False
+        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
+        ChartWrapper2.AddMarkers = False
+        ChartWrapper2.MarkerFreq = 60
+
+        ChartWrapper1.ClearChart()
+        Dim CPU1() As Double = FormSetup.MyCPUCollection.ToArray()
+        ChartWrapper1.AddLinePlot("CPU", CPU1)
+
+        ChartWrapper2.ClearChart()
+        Dim RAM() As Double = FormSetup.MyRAMCollection.ToArray()
+        ChartWrapper2.AddLinePlot("RAM", RAM)
+
+        Settings.GraphVisible = True
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub Form_FormClosed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+
+        Settings.GraphVisible = False
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub Timer() Handles TimerGraph.Tick
+        ChartWrapper1.ClearChart()
+        Dim CPU1() As Double = FormSetup.MyCPUCollection.ToArray()
+        ChartWrapper1.AddLinePlot("CPU", CPU1)
+        ChartWrapper2.ClearChart()
+        Dim RAM() As Double = FormSetup.MyRAMCollection.ToArray()
+        ChartWrapper2.AddLinePlot("RAM", RAM)
+    End Sub
+
+End Class

@@ -45,8 +45,8 @@ say ('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
-
-my @languages = qw (ar-SA es-ES ca cs da de el en es-MX eu fa-IR fi fr ga he  is it nl-NL no pl pt pt-BR ru sv tr vi zh-cn zh-tw zh-Hans-HK    );
+my $start = GetDate() . " " . GetTime() . "\n";
+my @languages = qw (ar ar-SA es-ES fa ca cs da de el en es-MX eu fa-IR fi fr ga he  is it nl-NL no pl pt pt-BR ru sv tr vi zh-cn zh-tw zh-Hans-HK    );
 foreach my $lang (@languages)
 {
 	JustDelete ($lang);
@@ -264,8 +264,8 @@ unless  ( $zip->writeToFileNamed($dest) == AZ_OK ) {
 unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid-Update$type.zip" ;
 unlink "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Older Versions/DreamGrid/DreamGrid$type.zip" ;	
 	
-if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid$type.zip"))  {die $!;}
-if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid/DreamGrid-Update$type.zip"))  {die $!;}
+if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid$type.zip"))  {die $!;}
+if (!copy ("../Zips/DreamGrid$type.zip", "Y:/Inetpub/Secondlife/Outworldz_Installer/Grid/Other Versions/DreamGrid-Update$type.zip"))  {die $!;}
 	
 	
 if ($publish =~ /p/ ) {
@@ -297,9 +297,10 @@ foreach my $lang (@languages)
 	JustDelete ($lang);
 }
 
-
-
+print $start . "\n";
+print GetDate() . " " . GetTime() . "\n";
 say "Done!";
+
 
 sub Write
 {
@@ -490,3 +491,14 @@ sub process_file {
 	print OUT $fullpath . "\n";	
 }
 
+sub GetDate
+{
+	use DateTime;
+	return DateTime->now->set_time_zone('America/Chicago')->ymd('/');
+}
+
+sub GetTime
+{
+	use DateTime;
+	return DateTime->now->set_time_zone('America/Chicago')->hms(':');
+}

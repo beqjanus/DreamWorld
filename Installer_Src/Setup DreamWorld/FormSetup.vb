@@ -20,6 +20,9 @@ Imports IWshRuntimeLibrary
 
 Public Class FormSetup
 
+    Public ReadOnly MyCPUCollection As New List(Of Double)
+    Public ReadOnly MyRAMCollection As New List(Of Double)
+
     Dim searcher As ManagementObjectSearcher
 
 #Region "Private Declarations"
@@ -31,8 +34,6 @@ Public Class FormSetup
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
-    Private ReadOnly MyCPUCollection As New List(Of Double)
-    Private ReadOnly MyRAMCollection As New List(Of Double)
     Private _Adv As FormSettings
     Private _ContentIAR As FormOAR
     Private _ContentOAR As FormOAR
@@ -53,6 +54,7 @@ Public Class FormSetup
     Private _viewedSettings As Boolean
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
+    Private Graphs As New FormGraphs
 #Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ScreenPos
 
@@ -634,6 +636,10 @@ Public Class FormSetup
         End If
         Application.DoEvents()
 
+        If Settings.GraphVisible Then
+            G()
+        End If
+
         ' Boot them up
         For Each RegionUUID As String In l
             If PropRegionClass.RegionEnabled(RegionUUID) Then
@@ -987,12 +993,6 @@ Public Class FormSetup
             If MyCPUCollection.Count > 180 Then MyCPUCollection.RemoveAt(0)
 
             PercentCPU.Text = $"CPU: {CPUAverageSpeed / 100:P1}"
-
-            ''reverse series
-
-            ChartWrapper1.ClearChart()
-            Dim CPU1() As Double = MyCPUCollection.ToArray()
-            ChartWrapper1.AddLinePlot("CPU", CPU1)
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
@@ -1009,9 +1009,7 @@ Public Class FormSetup
                 Settings.Ramused = value
                 PercentRAM.Text = $"RAM: {value / 100:p1}"
             Next
-            ChartWrapper2.ClearChart()
-            Dim RAM() As Double = MyRAMCollection.ToArray()
-            ChartWrapper2.AddLinePlot("RAM", RAM)
+
             results.Dispose()
         Catch ex As Exception
             ErrorLog(ex.Message)
@@ -1442,8 +1440,7 @@ Public Class FormSetup
         CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.download
         CHeckForUpdatesToolStripMenuItem.Text = Global.Outworldz.My.Resources.Check_for_Updates_word
         ChangePasswordToolStripMenuItem.Text = Global.Outworldz.My.Resources.Change_Password_word
-        ChartWrapper1.AxisXTitle = Global.Outworldz.My.Resources.Minutes_word
-        ChartWrapper2.AxisXTitle = Global.Outworldz.My.Resources.Minutes_word
+
         CheckAndRepairDatbaseToolStripMenuItem.Image = Global.Outworldz.My.Resources.Server_Client
         CheckAndRepairDatbaseToolStripMenuItem.Text = Global.Outworldz.My.Resources.Check_and_Repair_Database_word
         ClothingInventoryToolStripMenuItem.Image = Global.Outworldz.My.Resources.user1_into
@@ -1605,19 +1602,17 @@ Public Class FormSetup
         Adv1 = New FormSettings
 
         Me.Show()
-        TextPrint("GitVersion: #" & GitVersion())
-        TextPrint(My.Resources.Version_word & " " & PropMyVersion)
-        TextPrint(My.Resources.Version_word & " " & PropSimVersion)
+
         TextPrint(My.Resources.Getting_regions_word)
         PropRegionClass = RegionMaker.Instance()
 
         PropRegionClass.Init()
 
         UpgradeDotNet()
-
+        Application.DoEvents()
         Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
         Searcher1 = New ManagementObjectSearcher(wql)
-
+        Application.DoEvents()
         CopyWifi()
         Cleanup() ' old files thread
         PropMyUPnpMap = New UPnp()
@@ -1639,9 +1634,14 @@ Public Class FormSetup
         ViewWebUI.Visible = Settings.WifiEnabled
 
         Me.Text += " V" & PropMyVersion
+        TextPrint(My.Resources.Version_word)
+        TextPrint($"--> DreamGrid {My.Resources.Version_word} {PropMyVersion}")
+        TextPrint($"--> Git Version: #{GitVersion()}")
+        TextPrint($"--> Opensimulator {My.Resources.Version_word} {_SimVersion}")
+        TextPrint($"--> Joomla {My.Resources.Version_word} {jRev}")
+        TextPrint($"--> MySQL {My.Resources.Version_word} {MySqlRev}")
 
         PropOpensimIsRunning() = False ' true when opensim is running
-
         Application.DoEvents()
 
         ClearOldLogFiles() ' clear log files
@@ -1657,13 +1657,12 @@ Public Class FormSetup
         End If
 
         CheckDefaultPorts()
+        Application.DoEvents()
 
         TextPrint(My.Resources.Setup_Network)
-        Application.DoEvents()
         SetPublicIP()
-
         SetServerType()
-        Application.DoEvents()
+
         TextPrint(My.Resources.Setup_Ports_word)
         OpenPorts()
 
@@ -1672,6 +1671,7 @@ Public Class FormSetup
         Application.DoEvents()
         SetLoopback()
         Application.DoEvents()
+
         'mnuShow shows the DOS box for Opensimulator
         Select Case Settings.ConsoleShow
             Case "True"
@@ -1715,29 +1715,6 @@ Public Class FormSetup
             Settings.Password = Password.GeneratePass()
         End If
 
-        TextPrint(My.Resources.Setup_Graphs_word)
-        ' Graph fill
-
-        Dim msChart = ChartWrapper1.TheChart
-        msChart.ChartAreas(0).AxisX.Maximum = 180
-        msChart.ChartAreas(0).AxisX.Minimum = 0
-        msChart.ChartAreas(0).AxisY.Maximum = 100
-        msChart.ChartAreas(0).AxisY.Minimum = 0
-        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
-        msChart.ChartAreas(0).AxisX.LabelStyle.Enabled = False
-        ChartWrapper1.AddMarkers = True
-        ChartWrapper1.MarkerFreq = 60
-
-        msChart = ChartWrapper2.TheChart
-        msChart.ChartAreas(0).AxisX.Maximum = 180
-        msChart.ChartAreas(0).AxisX.Minimum = 0
-        msChart.ChartAreas(0).AxisY.Maximum = 100
-        msChart.ChartAreas(0).AxisY.Minimum = 0
-        msChart.ChartAreas(0).AxisX.LabelStyle.Enabled = False
-        msChart.ChartAreas(0).AxisY.LabelStyle.Enabled = True
-        ChartWrapper2.AddMarkers = True
-        ChartWrapper2.MarkerFreq = 60
-
         'Redo all the region ports
         PropRegionClass.UpdateAllRegionPorts()
 
@@ -1745,13 +1722,10 @@ Public Class FormSetup
             ShowRegionform()
         End If
 
-        TextPrint(My.Resources.Checking_MySql_word)
-        Application.DoEvents()
-
         TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
         ContentOAR.Init("OAR")
-
+        TextPrint(My.Resources.RefreshingIAR)
         ContentIAR = New FormOAR
         ContentIAR.Init("IAR")
 
@@ -1760,8 +1734,14 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Setup_Ports_word)
         Application.DoEvents()
-        'PropRegionClass.UpdateAllRegionPorts() ' must be after SetIniData
+        ' Get the names of all the lands
+        InitLand()
+        InitTrees()
 
+        HelpOnce("License") ' license on bottom
+        HelpOnce("Startup")
+
+        Joomla.CheckForjOpensimUpdate()
         If Settings.Autostart Then
             TextPrint(My.Resources.Auto_Startup_word)
             Application.DoEvents()
@@ -1772,15 +1752,6 @@ Public Class FormSetup
             Application.DoEvents()
             Buttons(StartButton)
         End If
-
-        ' Get the names of all the lands
-        InitLand()
-        InitTrees()
-
-        HelpOnce("License") ' license on bottom
-        HelpOnce("Startup")
-
-        Joomla.CheckForjOpensimUpdate()
 
     End Sub
 
@@ -2068,7 +2039,14 @@ Public Class FormSetup
 
         Try
             cpu.Dispose()
+        Catch
+        End Try
+        Try
             Searcher1.Dispose()
+        Catch
+        End Try
+        Try
+            Graphs.Dispose()
         Catch
         End Try
 
@@ -3328,6 +3306,27 @@ Public Class FormSetup
         End Using
         End
 
+    End Sub
+
+    Private Sub G()
+
+        Graphs.Close()
+        Graphs.Dispose()
+        Graphs = New FormGraphs With {
+            .Visible = True
+        }
+        Graphs.Activate()
+        Graphs.Select()
+        Graphs.BringToFront()
+
+    End Sub
+
+    Private Sub PercentCPU_Click(sender As Object, e As EventArgs) Handles PercentCPU.Click
+        G()
+    End Sub
+
+    Private Sub PercentRAM_Click(sender As Object, e As EventArgs) Handles PercentRAM.Click
+        G()
     End Sub
 
     Private Sub StartToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem.Click
