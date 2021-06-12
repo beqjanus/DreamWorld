@@ -850,35 +850,38 @@ namespace OpenSim.Region.Framework.Scenes
         {
             // !!!  DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
             // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
-
-            string url = $"{m_PrivURL}:{m_DiagnosticsPort}?alt={regionName}&agent=RegionName&agentid={agentID}&password={m_MachineID}";
-            m_log.DebugFormat("[SMARTSTART]: {0}", url);
-
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-
-            webRequest.Timeout = 15000; //15 Second Timeout
-            m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
-
-            try
+            if (m_ALT_Enabled)
             {
-                HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-                System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
-                string Result = String.Empty;
-                string tempStr = reader.ReadLine();
-                while (tempStr != null)
+                string url = $"{m_PrivURL}:{m_DiagnosticsPort}?alt={regionName}&agent=RegionName&agentid={agentID}&password={m_MachineID}";
+                m_log.DebugFormat("[SMARTSTART]: {0}", url);
+
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+
+                webRequest.Timeout = 15000; //15 Second Timeout
+                m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
+
+                try
                 {
-                    Result = Result + tempStr;
-                    tempStr = reader.ReadLine();
+                    HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+                    System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
+                    string Result = String.Empty;
+                    string tempStr = reader.ReadLine();
+                    while (tempStr != null)
+                    {
+                        Result = Result + tempStr;
+                        tempStr = reader.ReadLine();
+                    }
+                    m_log.Debug("[SMARTSTART]: Destination is " + Result);
+                    regionName = Result;
                 }
-                m_log.Debug("[SMARTSTART]: Destination is " + Result);
-                regionName = Result;
-            }
-            catch (WebException ex)
-            {
-                m_log.Warn("[SMARTSTART]: " + ex.Message);
-            }
+                catch (WebException ex)
+                {
+                    m_log.Warn("[SMARTSTART]: " + ex.Message);
+                }
 
-            return regionName;
+                return regionName;
+            }
+            else return regionName;
         }
 
         public Scene(RegionInfo regInfo, AgentCircuitManager authen,
