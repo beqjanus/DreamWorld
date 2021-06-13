@@ -1199,6 +1199,7 @@ Public Class FormRegionlist
             BreakPoint.Show(ex.Message)
         End Try
         If Item.Text.Length = 0 Then Return
+        If Item.Text = "New Region" Then Return
 
         Dim UUID As String = PropRegionClass.FindRegionByName(Item.Text)
         Dim out As New Guid
