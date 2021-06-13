@@ -510,6 +510,7 @@ Public Class RegionMaker
         Try
             Backup.Clear()
             Dim pair As KeyValuePair(Of String, Region_data)
+            Dim UsedPorts As New List(Of Integer)
 
             For Each pair In RegionList
                 Backup.Add(pair.Value)
@@ -612,15 +613,10 @@ Public Class RegionMaker
                             LandingSpot(uuid) = CStr(INI.GetIni(fName, "LandingSpot", "", "String"))
                             OpensimWorldAPIKey(uuid) = CStr(INI.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
 
-                            If RegionPort(uuid) = 0 Then
-                                Dim p = LargestPort() + 1
-                                RegionPort(uuid) = p
-                                GroupPort(uuid) = p
-                            End If
+                            Dim p = LargestPort() + 1
+                            RegionPort(uuid) = p
+                            GroupPort(uuid) = p
 
-                            If GroupPort(uuid) = 0 Then
-                                GroupPort(uuid) = RegionPort(uuid)
-                            End If
                             'Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
 
                             If _RegionListIsInititalized Then
@@ -632,6 +628,9 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
+
+                                    ' If region Is Running, use its port as they cannot chenge while up.
+
                                     If Backup(o)._RegionPort > 0 Then
                                         RegionPort(uuid) = Backup(o)._RegionPort
                                     Else
@@ -642,6 +641,7 @@ Public Class RegionMaker
                                     Else
                                         BreakPoint.Show("No Group Port yet")
                                     End If
+
                                 End If
 
                             End If
