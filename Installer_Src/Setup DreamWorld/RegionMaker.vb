@@ -288,7 +288,7 @@ Public Class RegionMaker
 
         ' Change estate for Smart Start
         Dim Estate = "Estate"
-        If PropRegionClass.SmartStart(RegionUUID) = "True" Then
+        If SmartStart(RegionUUID) = "True" Then
             Estate = "SmartStart"
         End If
 
@@ -335,7 +335,7 @@ Public Class RegionMaker
         & "Concierge =" & Concierge(RegionUUID) & vbCrLf _
         & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf _
         & "LandingSpot =" & LandingSpot(RegionUUID) & vbCrLf _
-        & "OpenSimWorldAPIKey = " & PropRegionClass.OpensimWorldAPIKey(RegionUUID)
+        & "OpenSimWorldAPIKey = " & OpensimWorldAPIKey(RegionUUID)
 
         DeleteFile(fname)
 
@@ -377,11 +377,10 @@ Public Class RegionMaker
 
     Public Function AvatarIsNearby(RegionUUID As String) As Boolean
 
-        Dim Xloc = PropRegionClass.CoordX(RegionUUID)
-        Dim Yloc = PropRegionClass.CoordY(RegionUUID)
-        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+        Dim Xloc = CoordX(RegionUUID)
+        Dim Yloc = CoordY(RegionUUID)
 
-        Dim CenterSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
+        Dim CenterSize As Integer = CInt(SizeX(RegionUUID) / 256)
 
         ' draw a square around the new sim
         Dim X1 = Xloc - Settings.Skirtsize
@@ -467,13 +466,12 @@ Public Class RegionMaker
     Public Sub Delete_Region_Map(RegionUUID As String)
 
         ' add to the global map this entire DOS box
-        Dim Xloc = PropRegionClass.CoordX(RegionUUID)
-        Dim Yloc = PropRegionClass.CoordY(RegionUUID)
-        Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+        Dim Xloc = CoordX(RegionUUID)
+        Dim Yloc = CoordY(RegionUUID)
 
         ' draw a box at this size plus the pull down size.
-        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-            Dim SimSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
+        For Each UUID In RegionUuidListByName(GroupName(RegionUUID))
+            Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
             For Xstep = 0 To SimSize - 1
                 For Ystep = 0 To SimSize - 1
                     Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
@@ -615,7 +613,7 @@ Public Class RegionMaker
                             OpensimWorldAPIKey(uuid) = CStr(INI.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
 
                             If RegionPort(uuid) = 0 Then
-                                Dim p = PropRegionClass.LargestPort + 1
+                                Dim p = LargestPort() + 1
                                 RegionPort(uuid) = p
                                 GroupPort(uuid) = p
                             End If
@@ -736,9 +734,9 @@ Public Class RegionMaker
         ' Get all the running regions so we can collect their ports.
         Dim runningRegions As New List(Of String)
         For Each RegionUUID As String In RegionUuids()
-            Dim Name = PropRegionClass.RegionName(RegionUUID)
+            Dim Name = RegionName(RegionUUID)
 
-            If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
+            If CBool(GetHwnd(GroupName(RegionUUID))) Then
                 'TextPrint($"-->{Name} {My.Resources.Running_word}")
                 runningRegions.Add(RegionUUID)
 
