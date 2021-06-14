@@ -167,17 +167,6 @@ Public Class FormRegionlist
 
     End Sub
 
-    Private Sub RegionList_Layout(sender As Object, e As LayoutEventArgs) Handles Me.Layout
-
-        ' Dim X = Me.Width - 45
-        'Dim Y = Me.Height - 150
-        'ListView1.Size = New System.Drawing.Size(X, Y)
-        'AvatarView.Size = New System.Drawing.Size(X, Y)
-        'UserView.Size = New System.Drawing.Size(X, Y)
-        'IconView.Size = New System.Drawing.Size(X, Y)
-
-    End Sub
-
     Private Sub Userview_ColumnWidthChanged(sender As Object, e As ColumnWidthChangedEventArgs) Handles UserView.ColumnWidthChanged
 
         Dim w = UserView.Columns(e.ColumnIndex).Width
