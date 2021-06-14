@@ -19,6 +19,8 @@ Public Class FormRegionlist
 #Enable Warning CA2213
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
+    Private SearchArray As New List(Of String)
+    Private SearchBusy As Boolean
     Private TheView As Integer = ViewType.Details
     Private ViewNotBusy As Boolean
 
@@ -271,6 +273,7 @@ Public Class FormRegionlist
         ViewBusy = True
 
         AllNone.Checked = True
+        AllButton.Checked = True
 
         ListView1.Visible = False
         DoubleBuff(ListView1, True)
@@ -488,6 +491,7 @@ Public Class FormRegionlist
 
         Timer1.Start()
         LoadMyListView()
+
         initted = True
 
     End Sub
@@ -503,7 +507,7 @@ Public Class FormRegionlist
         Dim TotalSize As Double
         Dim RegionCount As Integer
         Dim TotalRegionCount As Integer
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
+        For Each RegionUUID As String In SearchArray
             TotalSize += PropRegionClass.SizeX(RegionUUID) / 256 * PropRegionClass.SizeY(RegionUUID) / 256
             If PropRegionClass.RegionEnabled(RegionUUID) Then RegionCount += 1
             TotalRegionCount += 1
@@ -626,7 +630,7 @@ Public Class FormRegionlist
 
     End Function
 
-    Private Sub LoadMyListView()
+    Private Sub Search()
 
         BringToFront()
 
@@ -749,8 +753,12 @@ Public Class FormRegionlist
         Dim p As PerformanceCounter = Nothing
 
         Try
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
+            For Each RegionUUID As String In SearchArray
                 ' Application.DoEvents() ' bad idea
+
+                If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+                If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+                If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
 
                 Dim Num As Integer = 0
                 Dim Letter As String = ""
@@ -961,7 +969,12 @@ Public Class FormRegionlist
         IconView.BeginUpdate()
         IconView.Items.Clear()
         Dim max_length As Integer
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
+        For Each RegionUUID As String In SearchArray
+
+            If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+            If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+            If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
+
             Try
                 Dim Num As Integer = 0
                 Dim Letter As String = ""
@@ -980,9 +993,10 @@ Public Class FormRegionlist
             End Try
         Next
 
-        For Each l In IconView.Items
-            l.Text = l.Text.PadRight(max_length)
+        For Each part In IconView.Items
+            part.Text = part.Text.PadRight(max_length)
         Next
+
         PropUpdateView() = False
         IconView.EndUpdate()
         ViewBusy = False
@@ -1462,6 +1476,7 @@ SetWindowOnTop_Err:
         If TheView1 = ViewType.Users Then
 
             For Each X As ListViewItem In UserView.Items
+
                 If ItemsAreChecked1 Then
                     If X.ForeColor = Color.Black Then
                         X.Checked = CType(CheckState.Checked, Boolean)
@@ -1475,15 +1490,21 @@ SetWindowOnTop_Err:
 
             For Each X As ListViewItem In ListView1.Items
                 Dim RegionUUID As String
-                If ItemsAreChecked1 Then
-                    X.Checked = CType(CheckState.Checked, Boolean)
-                Else
-                    X.Checked = CType(CheckState.Unchecked, Boolean)
-                End If
+
                 Dim name = X.Text
                 If name.Length > 0 Then
                     RegionUUID = PropRegionClass.FindRegionByName(name)
+
+                    If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+                    If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+                    If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
+
                     PropRegionClass.RegionEnabled(RegionUUID) = X.Checked
+                    If ItemsAreChecked1 Then
+                        X.Checked = CType(CheckState.Checked, Boolean)
+                    Else
+                        X.Checked = CType(CheckState.Unchecked, Boolean)
+                    End If
 
                     Dim INI = New LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
                     INI.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(X.Checked))
@@ -1598,6 +1619,10 @@ SetWindowOnTop_Err:
 
     End Function
 
+    Private Sub AllButton_CheckedChanged(sender As Object, e As EventArgs) Handles AllButton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
 
         Using ofd As New OpenFileDialog With {
@@ -1687,6 +1712,40 @@ SetWindowOnTop_Err:
 
     End Sub
 
+    Private Sub LoadMyListView()
+
+        If SearchBusy = True Then Return
+        SearchBusy = True
+        Try
+
+            SearchArray.Clear()
+
+            For Each RegionUUID In PropRegionClass.RegionUuids
+                If SearchBox.Text.Length > 0 Then
+                    If PropRegionClass.RegionName(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
+                        SearchArray.Add(RegionUUID)
+                    End If
+                Else
+                    SearchArray.Add(RegionUUID)
+                End If
+            Next
+        Catch ex As Exception
+            ErrorLog(ex.Message)
+        End Try
+
+        Search()
+        SearchBusy = False
+
+    End Sub
+
+    Private Sub OffButton_CheckedChanged(sender As Object, e As EventArgs) Handles OffButton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
+    Private Sub OnButton_CheckedChanged(sender As Object, e As EventArgs) Handles OnButton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
     Private Sub OnTopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OnTopToolStripMenuItem.Click
 
         OnTopToolStripMenuItem.Checked = True
@@ -1694,6 +1753,16 @@ SetWindowOnTop_Err:
         Me.TopMost = True
         Settings.KeepOnTop = True
         Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub SmartButton_CheckedChanged(sender As Object, e As EventArgs) Handles SmartButton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
+    Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles SearchBox.KeyUp
+
+        Search()
 
     End Sub
 

@@ -11,9 +11,9 @@ Imports Newtonsoft.Json
 
 Public Class FormOAR
 
-    Dim SearchBusy As Boolean
-    Dim TimerBusy As Boolean
-    Dim WebThread As Thread
+    Private SearchBusy As Boolean
+    Private TimerBusy As Boolean
+    Private WebThread As Thread
 
 #Region "JSON"
 

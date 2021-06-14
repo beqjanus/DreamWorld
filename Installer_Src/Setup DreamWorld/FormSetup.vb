@@ -2420,6 +2420,14 @@ Public Class FormSetup
     Private Sub ShowRegionform()
 
         Try
+            If PropRegionForm IsNot Nothing Then
+                PropRegionForm.Close()
+                PropRegionForm.Dispose()
+            End If
+        Catch
+        End Try
+
+        Try
             PropRegionForm = New FormRegionlist
             PropRegionForm.Show()
             PropRegionForm.Activate()
