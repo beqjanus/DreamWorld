@@ -507,12 +507,20 @@ Public Class FormRegionlist
         Dim TotalSize As Double
         Dim RegionCount As Integer
         Dim TotalRegionCount As Integer
+        Dim SSRegionCount As Integer
+
         For Each RegionUUID As String In SearchArray
             TotalSize += PropRegionClass.SizeX(RegionUUID) / 256 * PropRegionClass.SizeY(RegionUUID) / 256
-            If PropRegionClass.RegionEnabled(RegionUUID) Then RegionCount += 1
+            If PropRegionClass.RegionEnabled(RegionUUID) Then
+                RegionCount += 1
+            End If
+            If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.SmartStart(RegionUUID) = "True" Then
+                SSRegionCount += 1
+            End If
             TotalRegionCount += 1
         Next
-        Me.Text = "Regions:  " & CStr(TotalRegionCount) & ".  Enabled: " & CStr(RegionCount) & ". Total Area: " & CStr(TotalSize) & " Regions"
+        Me.Text = $"{My.Resources.Regions_word}:  {CStr(TotalRegionCount)}.  {My.Resources.TotalArea_word)}: {CStr(RegionCount)}. {My.Resources.Smart_Start_word}: {CStr(SSRegionCount)}.         Me.Text = $"{My.Resources.Regions_word}:  {CStr(TotalRegionCount)}.  {My.Resources.Enabled_word}: {CStr(RegionCount)}. {My.Resources.Regions_word}: {CStr(SSRegionCount)}. Total Area: {CStr(TotalSize)} Regions"
+: {CStr(TotalSize)} Regions"
 
     End Sub
 
@@ -1734,6 +1742,7 @@ SetWindowOnTop_Err:
         End Try
 
         Search()
+
         SearchBusy = False
 
     End Sub
@@ -1762,7 +1771,7 @@ SetWindowOnTop_Err:
 
     Private Sub TbSecurity_KeyPress(sender As System.Object, e As System.EventArgs) Handles SearchBox.KeyUp
 
-        Search()
+        LoadMyListView()
 
     End Sub
 
