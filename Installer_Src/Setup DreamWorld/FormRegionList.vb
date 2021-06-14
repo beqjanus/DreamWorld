@@ -237,26 +237,25 @@ Public Class FormRegionlist
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        ImageListSmall.ImageSize = New Drawing.Size(16, 16)
-        IconView.SmallImageList = ImageListSmall
-        ListView1.SmallImageList = ImageListSmall
         AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
         AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
         AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
         DetailsButton.Text = Global.Outworldz.My.Resources.Details_word
+        FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Float
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         IconsButton.Text = Global.Outworldz.My.Resources.Icons_word
+        IconView.SmallImageList = ImageListSmall
+        ImageListSmall.ImageSize = New Drawing.Size(16, 16)
         ImportButton.Text = Global.Outworldz.My.Resources.Import_word
+        KOT.Text = Global.Outworldz.My.Resources.Window_Word
+        ListView1.SmallImageList = ImageListSmall
+        OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.On_Top
         RefreshButton.Text = Global.Outworldz.My.Resources.Refresh_word
         RestartButton.Text = Global.Outworldz.My.Resources.Restart_word
         RunAllButton.Text = Global.Outworldz.My.Resources.Run_All_word
+        SearchBox.Text = Global.Outworldz.My.Resources.Search_word
         StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
-        KOT.Text = Global.Outworldz.My.Resources.Window_Word
-        Users.Text = Global.Outworldz.My.Resources.Users_word
-        OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.On_Top
-        FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Float
-
         ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Add_Region_word)
         ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Selectallnone)
         ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.ListAvatars)
@@ -269,6 +268,7 @@ Public Class FormRegionlist
         ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.StartAll)
         ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Stopsall)
         ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row
+        Users.Text = Global.Outworldz.My.Resources.Users_word
 
         ViewBusy = True
 
@@ -519,8 +519,7 @@ Public Class FormRegionlist
             End If
             TotalRegionCount += 1
         Next
-        Me.Text = $"{My.Resources.Regions_word}:  {CStr(TotalRegionCount)}.  {My.Resources.TotalArea_word)}: {CStr(RegionCount)}. {My.Resources.Smart_Start_word}: {CStr(SSRegionCount)}.         Me.Text = $"{My.Resources.Regions_word}:  {CStr(TotalRegionCount)}.  {My.Resources.Enabled_word}: {CStr(RegionCount)}. {My.Resources.Regions_word}: {CStr(SSRegionCount)}. Total Area: {CStr(TotalSize)} Regions"
-: {CStr(TotalSize)} Regions"
+        Me.Text = $"{CStr(TotalRegionCount)} {My.Resources.Regions_word}.  {CStr(RegionCount)} {My.Resources.Enabled_word} {My.Resources.Regions_word}. {CStr(SSRegionCount)} {My.Resources.Smart_Start_word} {My.Resources.Regions_word}. {My.Resources.TotalArea_word}: {CStr(TotalSize)} {My.Resources.Regions_word}"
 
     End Sub
 
@@ -1724,22 +1723,17 @@ SetWindowOnTop_Err:
 
         If SearchBusy = True Then Return
         SearchBusy = True
-        Try
 
-            SearchArray.Clear()
-
-            For Each RegionUUID In PropRegionClass.RegionUuids
-                If SearchBox.Text.Length > 0 Then
-                    If PropRegionClass.RegionName(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
-                        SearchArray.Add(RegionUUID)
-                    End If
-                Else
+        SearchArray.Clear()
+        For Each RegionUUID In PropRegionClass.RegionUuids
+            If SearchBox.Text.Length > 0 And SearchBox.Text <> "Search" Then
+                If PropRegionClass.RegionName(RegionUUID).ToUpper(Globalization.CultureInfo.InvariantCulture).Contains(SearchBox.Text.ToUpper(Globalization.CultureInfo.InvariantCulture)) Then
                     SearchArray.Add(RegionUUID)
                 End If
-            Next
-        Catch ex As Exception
-            ErrorLog(ex.Message)
-        End Try
+            Else
+                SearchArray.Add(RegionUUID)
+            End If
+        Next
 
         Search()
 
@@ -1763,6 +1757,13 @@ SetWindowOnTop_Err:
         Settings.KeepOnTop = True
         Settings.SaveSettings()
 
+    End Sub
+
+    Private Sub SearchBox_TextChanged(sender As Object, e As EventArgs) Handles SearchBox.Click
+        If Not initted Then Return
+        If SearchBox.Text = My.Resources.Search_word Then
+            SearchBox.Text = ""
+        End If
     End Sub
 
     Private Sub SmartButton_CheckedChanged(sender As Object, e As EventArgs) Handles SmartButton.CheckedChanged

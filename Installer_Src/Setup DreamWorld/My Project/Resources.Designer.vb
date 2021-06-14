@@ -8902,6 +8902,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Search.
+        '''</summary>
+        Friend ReadOnly Property Search_word() As String
+            Get
+                Return ResourceManager.GetString("Search_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Search Options.
         '''</summary>
         Friend ReadOnly Property SearchOptions_word() As String
