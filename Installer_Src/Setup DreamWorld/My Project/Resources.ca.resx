@@ -3292,4 +3292,7 @@
   <data name="isBooting" xml:space="preserve">
     <value>encara arrenca</value>
   </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Àrea total</value>
+  </data>
 </root>

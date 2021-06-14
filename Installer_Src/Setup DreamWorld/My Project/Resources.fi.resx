@@ -3288,4 +3288,7 @@
   <data name="isBooting" xml:space="preserve">
     <value>käynnistyy edelleen</value>
   </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Kokonais&amp;ala:</value>
+  </data>
 </root>

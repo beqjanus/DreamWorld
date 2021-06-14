@@ -3288,4 +3288,7 @@
   <data name="isBooting" xml:space="preserve">
     <value>startar fortfarande</value>
   </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>&amp;Totalt område:</value>
+  </data>
 </root>

@@ -3291,4 +3291,7 @@
   <data name="isBooting" xml:space="preserve">
     <value>εκκινεί ακόμα</value>
   </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Συνολική έκταση</value>
+  </data>
 </root>

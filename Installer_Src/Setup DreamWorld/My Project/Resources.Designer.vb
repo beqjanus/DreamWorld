@@ -10149,6 +10149,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Total Area.
+        '''</summary>
+        Friend ReadOnly Property TotalArea_word() As String
+            Get
+                Return ResourceManager.GetString("TotalArea_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Transfer.
         '''</summary>
         Friend ReadOnly Property Transfer_word() As String
