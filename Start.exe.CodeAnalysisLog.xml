@@ -12,7 +12,7 @@
          <Members>
           <Member Name="#GetPIDofWindow(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2021-06-14 16:15:37Z" FixCategory="DependsOnFix">
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2021-06-14 22:05:51Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\Opensim\Outworldz_Dreamgrid\Installer_Src\Setup DreamWorld" File="WindowHandlers.vb" Line="174">Object 'F' can be disposed more than once in method 'WindowHandlers.GetPIDofWindow(String)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 174</Issue>
             </Message>
            </Messages>

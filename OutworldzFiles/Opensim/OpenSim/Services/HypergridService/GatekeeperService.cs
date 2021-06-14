@@ -184,7 +184,7 @@ namespace OpenSim.Services.HypergridService
                 m_ALT_Enabled = ALTConfig.GetBoolean("Enabled", true);
                 if (m_ALT_Enabled)
                 {
-                    m_log.Info("[SmartStart]: Enabled");
+                    m_log.Info("[SmartStart]: Enabled in Gatekeeper");
 
                     // Get the http port to talk to from Const Section
                     IConfig ConstConfig = config.Configs["Const"];
@@ -194,7 +194,7 @@ namespace OpenSim.Services.HypergridService
                 }
                 else
                 {
-                    m_log.Info("[SmartStart]: Disabled");
+                    m_log.Info("[SmartStart]: Disabled in Gatekeeper");
                 }
 
                 // </Auto Load Teleport>

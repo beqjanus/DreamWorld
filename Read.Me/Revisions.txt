@@ -2,11 +2,12 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V4.41 
+V4.41
+Finally fixed the crash in some machines sinve 4.03.  Its timing in thread exits.
 Crash report # 234345360: a crash could happen when restarting if two processes are using the PID file.
 Expires files by age did not apply to all files in AutoBackup. 
 
-V4.4  Not a release as some machines still crash
+V4.4  
 Fixed a crash in Diva Panel when missing the Photo.
 Prevent possible crash if no region is selected after starting to create one.
 Use running Ports from INI if Opensim is running.

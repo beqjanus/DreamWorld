@@ -1174,9 +1174,9 @@ namespace OpenSim.Region.Framework.Scenes
 
                 m_ALT_Enabled = startupConfig.GetBoolean("SmartStart", m_ALT_Enabled);
                 if (m_ALT_Enabled)
-                    m_log.Info("[SmartStart]: Enabled");
+                    m_log.Info("[SmartStart]: Enabled in Scene");
                 else
-                    m_log.Info("[SmartStart]: Disabled");
+                    m_log.Info("[SmartStart]: Disabled in Scene");
 
                 // Get the http port to talk to from Const Section
                 IConfig ConstConfig = m_config.Configs["Const"];
