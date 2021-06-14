@@ -69,15 +69,18 @@ Partial Class FormRegionlist
         'ListView1
         '
         Me.ListView1.AllowColumnReorder = True
+        Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListView1.FullRowSelect = True
         Me.ListView1.GridLines = True
         Me.ListView1.HideSelection = False
         Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1})
-        Me.ListView1.Location = New System.Drawing.Point(12, 117)
+        Me.ListView1.Location = New System.Drawing.Point(14, 118)
         Me.ListView1.MultiSelect = False
         Me.ListView1.Name = "ListView1"
         Me.ListView1.ShowItemToolTips = True
-        Me.ListView1.Size = New System.Drawing.Size(714, 188)
+        Me.ListView1.Size = New System.Drawing.Size(976, 196)
         Me.ListView1.TabIndex = 5
         Me.ToolTip1.SetToolTip(Me.ListView1, Global.Outworldz.My.Resources.Resources.ClickStartStoptxt)
         Me.ListView1.UseCompatibleStateImageBehavior = False
@@ -237,15 +240,18 @@ Partial Class FormRegionlist
         'IconView
         '
         Me.IconView.AllowColumnReorder = True
+        Me.IconView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.IconView.Font = New System.Drawing.Font("Lucida Console", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.IconView.FullRowSelect = True
         Me.IconView.HideSelection = False
         Me.IconView.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem2})
-        Me.IconView.Location = New System.Drawing.Point(14, 117)
+        Me.IconView.Location = New System.Drawing.Point(14, 118)
         Me.IconView.MultiSelect = False
         Me.IconView.Name = "IconView"
         Me.IconView.ShowItemToolTips = True
-        Me.IconView.Size = New System.Drawing.Size(714, 188)
+        Me.IconView.Size = New System.Drawing.Size(976, 196)
         Me.IconView.TabIndex = 18609
         Me.ToolTip1.SetToolTip(Me.IconView, "XXXXXXXXXXX")
         Me.IconView.UseCompatibleStateImageBehavior = False
@@ -254,14 +260,17 @@ Partial Class FormRegionlist
         'AvatarView
         '
         Me.AvatarView.AllowColumnReorder = True
+        Me.AvatarView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AvatarView.FullRowSelect = True
         Me.AvatarView.GridLines = True
         Me.AvatarView.HideSelection = False
-        Me.AvatarView.Location = New System.Drawing.Point(14, 117)
+        Me.AvatarView.Location = New System.Drawing.Point(14, 118)
         Me.AvatarView.MultiSelect = False
         Me.AvatarView.Name = "AvatarView"
         Me.AvatarView.ShowItemToolTips = True
-        Me.AvatarView.Size = New System.Drawing.Size(714, 188)
+        Me.AvatarView.Size = New System.Drawing.Size(976, 196)
         Me.AvatarView.TabIndex = 18597
         Me.AvatarView.UseCompatibleStateImageBehavior = False
         Me.AvatarView.View = System.Windows.Forms.View.Details
@@ -273,7 +282,7 @@ Partial Class FormRegionlist
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1035, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1009, 30)
         Me.MenuStrip1.TabIndex = 1
         '
         'HelpToolStripMenuItem
@@ -311,7 +320,7 @@ Partial Class FormRegionlist
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.Label1.Location = New System.Drawing.Point(272, 105)
+        Me.Label1.Location = New System.Drawing.Point(271, 93)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(0, 25)
         Me.Label1.TabIndex = 18606
@@ -358,14 +367,17 @@ Partial Class FormRegionlist
         'UserView
         '
         Me.UserView.AllowColumnReorder = True
+        Me.UserView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.UserView.FullRowSelect = True
         Me.UserView.GridLines = True
         Me.UserView.HideSelection = False
-        Me.UserView.Location = New System.Drawing.Point(12, 117)
+        Me.UserView.Location = New System.Drawing.Point(14, 118)
         Me.UserView.MultiSelect = False
         Me.UserView.Name = "UserView"
         Me.UserView.ShowItemToolTips = True
-        Me.UserView.Size = New System.Drawing.Size(714, 188)
+        Me.UserView.Size = New System.Drawing.Size(976, 196)
         Me.UserView.TabIndex = 18608
         Me.UserView.UseCompatibleStateImageBehavior = False
         Me.UserView.View = System.Windows.Forms.View.Details
@@ -430,7 +442,7 @@ Partial Class FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1035, 330)
+        Me.ClientSize = New System.Drawing.Size(1009, 338)
         Me.Controls.Add(Me.SearchBox)
         Me.Controls.Add(Me.AllButton)
         Me.Controls.Add(Me.SmartButton)
