@@ -287,6 +287,7 @@ Module FileStuff
         Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Apache"))
         Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs"))
         Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log"))
+        Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Autobackup"))
 
         DeleteThisOldFile(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
 
