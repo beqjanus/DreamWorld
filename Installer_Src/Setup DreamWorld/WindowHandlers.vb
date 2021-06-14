@@ -100,7 +100,7 @@ Module WindowHandlers
     ''' Returns a handle to the window, by process list, or by reading the PID file.
     ''' </summary>
     ''' <param name="Groupname">Name of the DOS box</param>
-    ''' <returns>Handle to a window ot Intptr.zero</returns>
+    ''' <returns>Handle to a window to Intptr.zero</returns>
     <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Public Function GetHwnd(Groupname As String) As IntPtr
 
@@ -122,7 +122,6 @@ Module WindowHandlers
         Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Groupname}\PID.pid")
         If IO.File.Exists(INI) Then
 
-            ' TODO  !!! read or readwrite
             Try
                 Using F As FileStream = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
                     Using S As StreamReader = New StreamReader(F)
@@ -130,11 +129,8 @@ Module WindowHandlers
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
                             If Int32.TryParse(sPID, PID) Then
-                                Try
-                                    Dim Plist = Process.GetProcessById(PID)
-                                    Return Plist.MainWindowHandle
-                                Catch
-                                End Try
+                                Dim Plist = Process.GetProcessById(PID)
+                                Return Plist.MainWindowHandle
                             End If
                         End While
                     End Using
@@ -160,12 +156,25 @@ Module WindowHandlers
 
         Dim PID As Integer
         Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\PID.pid")
-        If IO.File.Exists(INI) Then
-            Dim sPID As String = File.ReadAllText(INI)
-            If Int32.TryParse(sPID, PID) Then
-                Return PID
+        Try
+            If IO.File.Exists(INI) Then
+                Using F As FileStream = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
+
+                    Using S As StreamReader = New StreamReader(F)
+                        'now loop through each line
+                        While S.Peek <> -1
+                            Dim sPID As String = S.ReadLine
+
+                            If Int32.TryParse(sPID, PID) Then
+                                Return PID
+                            End If
+
+                        End While
+                    End Using
+                End Using
             End If
-        End If
+        Catch
+        End Try
 
         For Each pList As Process In Process.GetProcessesByName("Opensim")
             Try
