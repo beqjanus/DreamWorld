@@ -331,7 +331,7 @@ Module SmartStart
         Busy = False
 
         PropUpdateView = True ' make form refresh
-        Application.ExitThread()
+        'Application.ExitThread()
 
     End Sub
 

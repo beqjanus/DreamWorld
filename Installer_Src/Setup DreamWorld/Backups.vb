@@ -143,7 +143,7 @@ Public Class Backups
             BackupSQLDB(Settings.RobustDataBaseName)
         End If
 
-        Application.ExitThread()
+        'Application.ExitThread()
 
     End Sub
 
@@ -336,7 +336,7 @@ Public Class Backups
             End Try
 
         End Using
-        Application.ExitThread()
+        'Application.ExitThread()
 
     End Sub
 

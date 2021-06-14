@@ -131,7 +131,7 @@ Module Build
             Landscaper(GroupName)
         End If
 
-        Application.ExitThread()
+        'Application.ExitThread()
 
     End Sub
 

@@ -177,7 +177,7 @@ Public Class NetServer
         End Using
 
         running = False
-        Application.ExitThread()
+        'Application.ExitThread()
 
     End Sub
 
