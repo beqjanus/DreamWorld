@@ -850,38 +850,36 @@ namespace OpenSim.Region.Framework.Scenes
         {
             // !!!  DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
             // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
-            if (m_ALT_Enabled)
+            
+            string url = $"{m_PrivURL}:{m_DiagnosticsPort}?alt={regionName}&agent=RegionName&agentid={agentID}&password={m_MachineID}";
+            m_log.DebugFormat("[SMARTSTART]: {0}", url);
+
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+
+            webRequest.Timeout = 2000; //15 Second Timeout
+            m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
+
+            try
             {
-                string url = $"{m_PrivURL}:{m_DiagnosticsPort}?alt={regionName}&agent=RegionName&agentid={agentID}&password={m_MachineID}";
-                m_log.DebugFormat("[SMARTSTART]: {0}", url);
-
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-
-                webRequest.Timeout = 15000; //15 Second Timeout
-                m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
-
-                try
+                HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
+                System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
+                string Result = String.Empty;
+                string tempStr = reader.ReadLine();
+                while (tempStr != null)
                 {
-                    HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-                    System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
-                    string Result = String.Empty;
-                    string tempStr = reader.ReadLine();
-                    while (tempStr != null)
-                    {
-                        Result = Result + tempStr;
-                        tempStr = reader.ReadLine();
-                    }
-                    m_log.Debug("[SMARTSTART]: Destination is " + Result);
-                    regionName = Result;
+                    Result = Result + tempStr;
+                    tempStr = reader.ReadLine();
                 }
-                catch (WebException ex)
-                {
-                    m_log.Warn("[SMARTSTART]: " + ex.Message);
-                }
-
-                return regionName;
+                m_log.Debug("[SMARTSTART]: Destination is " + Result);
+                regionName = Result;
             }
-            else return regionName;
+            catch (WebException ex)
+            {
+                m_log.Warn("[SMARTSTART]: " + ex.Message);
+            }
+
+            return regionName;
+
         }
 
         public Scene(RegionInfo regInfo, AgentCircuitManager authen,
@@ -1174,9 +1172,9 @@ namespace OpenSim.Region.Framework.Scenes
 
                 m_ALT_Enabled = startupConfig.GetBoolean("SmartStart", m_ALT_Enabled);
                 if (m_ALT_Enabled)
-                    m_log.Info("[SmartStart]: Enabled in Scene");
+                    m_log.Info("[SmartStart]: Enabled");
                 else
-                    m_log.Info("[SmartStart]: Disabled in Scene");
+                    m_log.Info("[SmartStart]: Disabled");
 
                 // Get the http port to talk to from Const Section
                 IConfig ConstConfig = m_config.Configs["Const"];
