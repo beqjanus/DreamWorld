@@ -129,7 +129,7 @@ Public Module Firewall
 
     Private Sub RunFirewall(CMD As Object)
 
-        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/tmp/" & CStr(DateTime.Now.Ticks) & "_fw.bat")
+        Dim file = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/tmp/" & CStr(DateTime.Now.Ticks) & "_fw.bat")
         Try
             Using ns As StreamWriter = New StreamWriter(file, False)
                 ns.WriteLine(CStr(CMD))

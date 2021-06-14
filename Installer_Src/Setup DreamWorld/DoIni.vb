@@ -1,4 +1,11 @@
-﻿Imports System.IO
+﻿#Region "Copyright AGPL3.0"
+
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
+
+Imports System.IO
 Imports System.Text.RegularExpressions
 
 Module DoIni
@@ -9,27 +16,27 @@ Module DoIni
         TextPrint("->Set Apache")
 
         ' lean rightward paths for Apache
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\conf\httpd.conf")
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\conf\httpd.conf")
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
-        Settings.SetLiteralIni("Define SRVROOT", "Define SRVROOT " & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Apache" & """")
-        Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Apache/htdocs" & """")
-        Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/PHP7" & """")
+        Settings.SetLiteralIni("Define SRVROOT", "Define SRVROOT " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Apache" & """")
+        Settings.SetLiteralIni("DocumentRoot", "DocumentRoot " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Apache/htdocs" & """")
+        Settings.SetLiteralIni("Use VDir", "Use VDir " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Apache/htdocs" & """")
+        Settings.SetLiteralIni("PHPIniDir", "PHPIniDir " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/PHP7" & """")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
         Settings.SetLiteralIni("ServerAdmin", "ServerAdmin " & Settings.AdminEmail)
         Settings.SetLiteralIni("<VirtualHost", "<VirtualHost  *:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & ">")
-        Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Logs/Apache/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
-        Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & FormSetup.PropCurSlashDir & "/Outworldzfiles/Logs/Apache/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog")
+        Settings.SetLiteralIni("ErrorLog", "ErrorLog " & """|bin/rotatelogs.exe  -l \" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Logs/Apache/Error-%Y-%m-%d.log" & "\" & """" & " 86400""")
+        Settings.SetLiteralIni("CustomLog", "CustomLog " & """|bin/rotatelogs.exe -l \" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/Logs/Apache/access-%Y-%m-%d.log" & "\" & """" & " 86400""" & " common env=!dontlog")
         Settings.SetLiteralIni("LoadModule php7_module", "LoadModule php7_module " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/PHP7/php7apache2_4.dll" & """")
 
         Settings.SaveLiteralIni(ini, "httpd.conf")
 
-        DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP5"))
-        FileIO.FileSystem.CreateDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache"))
+        DeleteFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP5"))
+        FileIO.FileSystem.CreateDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Apache"))
 
         ' lean rightward paths for Apache
-        ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\conf\extra\httpd-ssl.conf")
+        ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\conf\extra\httpd-ssl.conf")
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("Listen", "Listen " & Settings.LANIP() & ":" & "443")
         Settings.SetLiteralIni("ServerName", "ServerName " & Settings.PublicIP)
@@ -320,7 +327,7 @@ Module DoIni
                               "</logging>" & vbCrLf +
                           "</icecast>" & vbCrLf
 
-        Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\icecast_run.xml"), False)
+        Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\icecast_run.xml"), False)
             outputFile.WriteLine(icecast)
         End Using
 
@@ -533,7 +540,7 @@ Module DoIni
     Private Function DoPHP() As Boolean
 
         TextPrint("->Set PHP7")
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\PHP7\php.ini")
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\php.ini")
         If ini Is Nothing Then Return True
 
         Settings.LoadLiteralIni(ini)
@@ -613,7 +620,7 @@ Module DoIni
             End While
             reader.Close()
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory + "\Outworldzfiles\Opensim\bin\WifiPages\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception

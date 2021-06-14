@@ -49,7 +49,7 @@ Public Class TosForm
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\opensim\bin\WifiPages\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception
@@ -102,7 +102,7 @@ Public Class TosForm
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\opensim\bin\WifiPages\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\opensim\bin\WifiPages\tos.html"))
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception

@@ -135,10 +135,10 @@ Public Module MysqlInterface
                 .EnableRaisingEvents = False
             }
                     MysqlProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                    MysqlProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\mysqld.exe")
+                    MysqlProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\mysqld.exe")
                     MysqlProcess.StartInfo.Arguments = $"--install MySQLDreamGrid --defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini"""
                     MysqlProcess.StartInfo.CreateNoWindow = True
-                    MysqlProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\")
+                    MysqlProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\")
                     MysqlProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
 
                     Try
@@ -902,7 +902,7 @@ Public Module MysqlInterface
                 .UseShellExecute = True,
                 .CreateNoWindow = True,
                 .WindowStyle = ProcessWindowStyle.Minimized,
-                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
             }
         Using Mutelist As Process = New Process With {
                 .StartInfo = pi
@@ -928,7 +928,7 @@ Public Module MysqlInterface
             .UseShellExecute = True,
             .CreateNoWindow = True,
             .WindowStyle = ProcessWindowStyle.Minimized,
-            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\mysql\bin\")
+            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
         }
         Using MysqlWordpress As Process = New Process With {
             .StartInfo = pi

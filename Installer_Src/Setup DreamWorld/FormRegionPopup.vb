@@ -160,7 +160,7 @@ Public Class FormRegionPopup
 
         Dim UUID = PropRegionClass.FindRegionByName(_RegionName)
         Dim GroupName As String = PropRegionClass.GroupName(UUID)
-        Dim path = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Opensim\bin\Regions\{GroupName}\OpenSim.log")
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, $"OutworldzFiles\Opensim\bin\Regions\{GroupName}\OpenSim.log")
 
         Using Baretail As New Process
             Baretail.StartInfo.UseShellExecute = True ' so we can redirect streams

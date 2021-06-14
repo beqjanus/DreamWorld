@@ -1,4 +1,11 @@
-﻿Imports System.Globalization
+﻿#Region "Copyright AGPL3.0"
+
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
+
+Imports System.Globalization
 Imports System.Net
 
 Public Class FormBanList
@@ -214,7 +221,7 @@ Public Class FormBanList
                     End If
                 Next
             Else
-                filename = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/Opensim/BanListProto.txt")
+                filename = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/Opensim/BanListProto.txt")
             End If
 
             If filename.Length > 0 Then

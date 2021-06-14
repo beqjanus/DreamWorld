@@ -1,4 +1,11 @@
-﻿Imports IniParser
+﻿#Region "Copyright AGPL3.0"
+
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
+
+Imports IniParser
 Imports IniParser.Model
 Imports System.IO
 Imports System.Text.RegularExpressions
@@ -6,11 +13,11 @@ Imports System.Threading
 
 Public Class LoadIni
 
-    Private _parser As FileIniDataParser
-    Private _SettingsData As IniParser.Model.IniData
-    Private _filename As String
-    Private _sep As String
     Private _encoding As System.Text.Encoding
+    Private _filename As String
+    Private _parser As FileIniDataParser
+    Private _sep As String
+    Private _SettingsData As IniParser.Model.IniData
 
     Public Sub New(File As String, arg As String, encoding As System.Text.Encoding)
 
@@ -28,26 +35,6 @@ Public Class LoadIni
         _SettingsData = ReadINIFile()
 
     End Sub
-
-
-
-    ''' <summary>Save to the ini the name value pair.</summary>
-    ''' <param name="section"></param>
-    ''' <param name="key"></param>
-    ''' <param name="value"></param>
-    ''' <returns></returns>
-    Public Function SetIni(section As String, key As String, value As String) As Boolean
-
-        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
-        Try
-            _SettingsData(section)(key) = value
-        Catch ex As Exception
-            ErrorLog(ex.Message)
-            Return True
-        End Try
-        Return False
-
-    End Function
 
     Public Function GetIni(section As String, key As String, Value As String, Optional V As String = Nothing) As Object
 
@@ -93,23 +80,39 @@ Public Class LoadIni
 
     End Function
 
-    Private Function ReadINIFile() As IniData
+    Public Sub SaveINI()
 
-        Dim waiting As Integer = 10 ' 1 sec
-        While waiting > 0
+        Dim Retry As Integer = 10 ' 1 sec
+        While Retry > 0
             Try
-                Dim Data As IniData = _parser.ReadFile(_filename, _encoding)
-                Return Data
+                _parser.WriteFile(_filename, _SettingsData, _encoding)
+                Retry = 0
             Catch ex As Exception
-                waiting -= 1
-                Sleep(100)
+                'ErrorLog("Error:" + ex.Message)
+                Retry -= 1
+                Thread.Sleep(100)
             End Try
         End While
 
-        Return Nothing
+    End Sub
+
+    ''' <summary>Save to the ini the name value pair.</summary>
+    ''' <param name="section"></param>
+    ''' <param name="key"></param>
+    ''' <param name="value"></param>
+    ''' <returns></returns>
+    Public Function SetIni(section As String, key As String, value As String) As Boolean
+
+        ' sets values into any INI file Form1.Log(My.Resources.Info, "Writing section [" + section + "] " + key + "=" + value)
+        Try
+            _SettingsData(section)(key) = value
+        Catch ex As Exception
+            ErrorLog(ex.Message)
+            Return True
+        End Try
+        Return False
 
     End Function
-
 
     ''' <summary>
     ''' Repair INI files with extra [sections]
@@ -141,23 +144,21 @@ Public Class LoadIni
 
     End Sub
 
+    Private Function ReadINIFile() As IniData
 
-    Public Sub SaveINI()
-
-        Dim Retry As Integer = 10 ' 1 sec
-        While Retry > 0
+        Dim waiting As Integer = 10 ' 1 sec
+        While waiting > 0
             Try
-                _parser.WriteFile(_filename, _SettingsData, _encoding)
-                Retry = 0
+                Dim Data As IniData = _parser.ReadFile(_filename, _encoding)
+                Return Data
             Catch ex As Exception
-                'ErrorLog("Error:" + ex.Message)
-                Retry -= 1
-                Thread.Sleep(100)
+                waiting -= 1
+                Sleep(100)
             End Try
         End While
 
-    End Sub
+        Return Nothing
 
-
+    End Function
 
 End Class

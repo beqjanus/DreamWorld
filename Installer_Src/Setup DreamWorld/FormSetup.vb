@@ -429,7 +429,7 @@ Public Class FormSetup
         Dim yesno = MsgBox(My.Resources.Icecast_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
 
         If (yesno = vbYes) Then
-            Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\error.log")
+            Dim IceCastLog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log\error.log")
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{IceCastLog}""")
             Catch ex As Exception
@@ -613,7 +613,7 @@ Public Class FormSetup
         End If
         Application.DoEvents()
 
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
         Grep(ini, Settings.LogLevel)
 
         PropRegionClass.CheckOverLap()
@@ -1886,7 +1886,7 @@ Public Class FormSetup
 
         Dim folders As Array = Nothing
         Try
-            folders = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help"))
+            folders = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help"))
             For Each aline As String In folders
                 If aline.EndsWith(".htm", StringComparison.InvariantCultureIgnoreCase) Then
                     aline = System.IO.Path.GetFileNameWithoutExtension(aline)
@@ -2025,7 +2025,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub PDFManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFManualToolStripMenuItem.Click
-        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\Dreamgrid Manual.pdf")
+        Dim webAddress As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\Dreamgrid Manual.pdf")
         Try
             Process.Start(webAddress)
         Catch ex As Exception

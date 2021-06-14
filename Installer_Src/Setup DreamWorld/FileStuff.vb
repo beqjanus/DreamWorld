@@ -1,4 +1,11 @@
-﻿Imports System.IO
+﻿#Region "Copyright AGPL3.0"
+
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
+
+Imports System.IO
 Imports System.Threading
 
 Module FileStuff
@@ -13,14 +20,14 @@ Module FileStuff
             "Downloader.exe.config",
             "DreamGridSetup.exe.config",
             "OutworldzFiles\IAR\Outworldz Teleport System V3.9.iar",
-            "Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll",
-            "Outworldzfiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb",
-            "Outworldzfiles\Opensim\bin\config-include\Birds.ini",
+            "OutworldzFiles\Opensim\bin\OpenSim.Additional.AutoRestart.dll",
+            "OutworldzFiles\Opensim\bin\OpenSim.Additional.AutoRestart.pdb",
+            "OutworldzFiles\Opensim\bin\config-include\Birds.ini",
             "SET_externalIP-Log.txt",
-            "Outworldzfiles\Opensim\bin\Opensim.proto",
-            "Outworldzfiles\Opensim\bin\OpenSimRegion.proto",
-            "Outworldzfiles\Opensim\bin\OpensimMetro.proto",
-            "Outworldzfiles\Opensim\bin\OpensimOsGrid.proto",
+            "OutworldzFiles\Opensim\bin\Opensim.proto",
+            "OutworldzFiles\Opensim\bin\OpenSimRegion.proto",
+            "OutworldzFiles\Opensim\bin\OpensimMetro.proto",
+            "OutworldzFiles\Opensim\bin\OpensimOsGrid.proto",
             "OutworldzFiles\IAR\Outworldz Smart Start Alpha Teleport System V4.iar",
             "OutworldzFiles\IAR\Outworldz Teleport System V2.5.iar",
             "OutworldzFiles\IAR\Partner Control Panel.iar",
@@ -37,21 +44,21 @@ Module FileStuff
 
         Dim files As New List(Of String) From {
         "\Shoutcast", ' deprecated
-        "\Icecast",   ' moved to Outworldzfiles
-        "\Outworldzfiles\Opensim\bin\addins",' moved to Outworldzfiles
-        "\Outworldzfiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
-        "\Outworldzfiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
-        "\Outworldzfiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
-        "\Outworldzfiles\Opensim\bin\Library.proto" ' old Diva library for standalone only
+        "\Icecast",   ' moved to OutworldzFiles
+        "\OutworldzFiles\Opensim\bin\addins",' moved to OutworldzFiles
+        "\OutworldzFiles\Opensim\bin\addin-db-002", ' must be cleared or opensim updates can break.
+        "\OutworldzFiles\Opensim\bin\addin-db-001", ' must be cleared or opensim updates can break.
+        "\OutworldzFiles\Opensim\bin\addin-db",' must be cleared or opensim updates can break.
+        "\OutworldzFiles\Opensim\bin\Library.proto" ' old Diva library for standalone only
         }
 
         If FormSetup.PropKillSource Then
-            files.Add("Outworldzfiles\Opensim\.nant")
-            files.Add("Outworldzfiles\Opensim\doc")
-            files.Add("Outworldzfiles\Opensim\Opensim")
-            files.Add("Outworldzfiles\Opensim\Prebuild")
-            files.Add("Outworldzfiles\Opensim\share")
-            files.Add("Outworldzfiles\Opensim\Thirdparty")
+            files.Add("OutworldzFiles\Opensim\.nant")
+            files.Add("OutworldzFiles\Opensim\doc")
+            files.Add("OutworldzFiles\Opensim\Opensim")
+            files.Add("OutworldzFiles\Opensim\Prebuild")
+            files.Add("OutworldzFiles\Opensim\share")
+            files.Add("OutworldzFiles\Opensim\Thirdparty")
 
         End If
 
@@ -177,29 +184,29 @@ Module FileStuff
         Dim Path As String = ""
         If Settings.Theme = "Black" Then
 
-            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
-            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
+            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages"))
+            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages"))
 
-            Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewBlack.png")
+            Path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/NewBlack.png")
         ElseIf Settings.Theme = "White" Then
 
-            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
-            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
+            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages"))
+            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages"))
 
-            Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewWhite.png")
+            Path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/NewWhite.png")
         ElseIf Settings.Theme = "Custom" Then
 
-            Dim L As Integer = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Settings.Theme), "*", SearchOption.TopDirectoryOnly).Length
+            Dim L As Integer = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-" & Settings.Theme), "*", SearchOption.TopDirectoryOnly).Length
 
             If L <= 1 Then
-                CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-White"), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-Custom"))
-                CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-White"), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-Custom"))
+                CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages-White"), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages-Custom"))
+                CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-White"), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-Custom"))
             End If
 
-            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\WifiPages"))
-            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages"))
+            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\WifiPages"))
+            CopyFolder(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages-" & Settings.Theme), IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages"))
 
-            Path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewCustom.png")
+            Path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/NewCustom.png")
 
         End If
 
@@ -207,7 +214,7 @@ Module FileStuff
             Path = Path.Replace("New", "")
         End If
 
-        CopyFileFast(Path, IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\WifiPages\images\Photo.png"))
+        CopyFileFast(Path, IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\WifiPages\images\Photo.png"))
 
     End Sub
 
@@ -258,7 +265,7 @@ Module FileStuff
     Sub DeleteOldFiles()
 
         Try
-            Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help")
+            Dim folder As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help")
             Dim sourceDirectoryInfo As New System.IO.DirectoryInfo(folder)
 
             Dim fileSystemInfo As System.IO.FileSystemInfo
@@ -277,8 +284,8 @@ Module FileStuff
         ' Hourly
 
         If Not Settings.DeleteByDate Then Return
-        Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache"))
-        Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs"))
+        Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Apache"))
+        Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs"))
         Deletefilesin(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log"))
 
         DeleteThisOldFile(IO.Path.Combine(Settings.OpensimBinPath, "Robust.log"))
@@ -415,9 +422,9 @@ Module FileStuff
 
     Private Sub Deltmp() ' thread
 
-        DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
+        DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
         DeleteDirectory(IO.Path.Combine(Settings.CurrentDirectory, "tmp"), FileIO.DeleteDirectoryOption.DeleteAllContents)
-        FileIO.FileSystem.CreateDirectory(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\tmp"))
+        FileIO.FileSystem.CreateDirectory(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\tmp"))
         Application.ExitThread()
     End Sub
 

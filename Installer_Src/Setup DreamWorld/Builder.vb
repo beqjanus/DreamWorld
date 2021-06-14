@@ -1,4 +1,11 @@
-﻿Imports System.IO
+﻿#Region "Copyright AGPL3.0"
+
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
+
+Imports System.IO
 
 Module Build
 

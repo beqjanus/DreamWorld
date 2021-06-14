@@ -45,7 +45,7 @@ Module Runtimes
         Using UpgradeProcess As New Process()
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
               .Arguments = "",
-              .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Mysql\bin\mysql_upgrade.exe") & """"
+              .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\mysql_upgrade.exe") & """"
           }
 
             pi.WindowStyle = ProcessWindowStyle.Normal

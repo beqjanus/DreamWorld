@@ -36,7 +36,6 @@ Module Apache
         End Set
     End Property
 
-
     Public Property PropApacheUninstalling() As Boolean
         Get
             Return _ApacheUninstalling
@@ -45,7 +44,6 @@ Module Apache
             _ApacheUninstalling = Value
         End Set
     End Property
-
 
     Public Sub ApacheIcon(Running As Boolean)
 
@@ -173,10 +171,10 @@ Module Apache
                     .EnableRaisingEvents = False
                 }
                 ApacheProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\httpd.exe")
+                ApacheProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\bin\httpd.exe")
                 ApacheProcess.StartInfo.Arguments = "-k install -n " & """" & "ApacheHTTPServer" & """"
                 ApacheProcess.StartInfo.CreateNoWindow = True
-                ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\bin\")
+                ApacheProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\bin\")
                 ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
 
                 DoApache()
@@ -287,10 +285,9 @@ Module Apache
         End If
         ApacheCrashCounter = 0
 
-
         Dim yesno = MsgBox(My.Resources.Apache_Exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then
-            Dim Apachelog As String = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Logs\Apache\error*.log")
+            Dim Apachelog As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Apache\error*.log")
             Try
                 System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), """" & Apachelog & """")
             Catch ex As Exception

@@ -66,7 +66,7 @@ Public Class FormHelp
         WebSiteToolStripMenuItem.Image = Global.Outworldz.My.Resources.about
         WebSiteToolStripMenuItem.Text = Global.Outworldz.My.Resources.More_Help
 
-        Dim u As New Uri(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\" & Webpage + ".htm"))
+        Dim u As New Uri(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\" & Webpage + ".htm"))
         WebBrowser1.Navigate(u)
 
     End Sub
@@ -103,7 +103,7 @@ Public Class FormHelp
 
     Private Sub PrintToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem1.Click
 
-        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Help\" & Document & ".htm")
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help\" & Document & ".htm")
         Dim info = New ProcessStartInfo(path) With {
             .Verb = "Print",
             .WindowStyle = ProcessWindowStyle.Normal

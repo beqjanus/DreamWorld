@@ -47,18 +47,18 @@ Module Icecast
 
         DoIceCast()
 
-        DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Icecast\log\access.log"))
+        DeleteFile(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Icecast\log\access.log"))
         'Launch .\bin\icecast.exe -c .\icecast_run.xml
 
         PropIcecastProcID = 0
         TextPrint(My.Resources.Icecast_starting)
         IcecastProcess.EnableRaisingEvents = True
         IcecastProcess.StartInfo.UseShellExecute = True
-        IcecastProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast\bin\icecast.exe")
+        IcecastProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\icecast\bin\icecast.exe")
         IcecastProcess.StartInfo.CreateNoWindow = True
         IcecastProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
         IcecastProcess.StartInfo.Arguments = "-c .\icecast_run.xml"
-        IcecastProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\icecast")
+        IcecastProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\icecast")
         AddHandler IcecastProcess.Exited, AddressOf FormSetup.IceCastExited
 
         Try

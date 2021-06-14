@@ -408,10 +408,10 @@ Module Robust
 
         INI.SaveINI()
 
-        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config.proto")
-        Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
+        Dim src = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.exe.config.proto")
+        Dim Dest = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.exe.config")
         CopyFileFast(src, Dest)
-        Dim anini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\Robust.exe.config")
+        Dim anini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\Robust.exe.config")
         Grep(anini, Settings.LogLevel)
 
         Return False

@@ -441,7 +441,7 @@ Module SmartStart
 
         If PropRegionClass.CopyOpensimProto(RegionUUID) Then Return False
 
-        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Opensim\bin\OpenSim.exe.config")
+        Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Opensim\bin\OpenSim.exe.config")
         Grep(ini, Settings.LogLevel)
 
 #Disable Warning CA2000 ' Dispose objects before losing scope

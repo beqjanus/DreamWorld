@@ -149,13 +149,13 @@ Public Class FormDiva
         'Black at first, then can save a NewBlack later date and we will use it
 
         If Settings.Theme = "Black" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewBlack.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/NewBlack.png")
         ElseIf Settings.Theme = "White" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewWhite.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/NewWhite.png")
         ElseIf Settings.Theme = "Custom" Then
-            path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/NewCustom.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/NewCustom.png")
         Else
-            path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles/White.png")
+            path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles/White.png")
         End If
         Dim newpath = path
 

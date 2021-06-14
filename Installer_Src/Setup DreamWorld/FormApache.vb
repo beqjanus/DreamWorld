@@ -196,7 +196,7 @@ Public Class FormApache
         Dim Exist As Boolean
         Try
             If Other.Text.Length > 0 Then
-                Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\" & Other.Text))
+                Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\" & Other.Text))
                 If folders.Length > 1 Then
                     Exist = True
                 End If
@@ -223,7 +223,7 @@ Public Class FormApache
 
         Dim Exist As Boolean
         Try
-            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\WordPress"))
+            Dim folders() = IO.Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\WordPress"))
             If folders.Length > 1 Then
                 Exist = True
             End If

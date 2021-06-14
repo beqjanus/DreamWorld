@@ -160,7 +160,7 @@ Public Class FormJoomla
 
     Private Sub ReinstallButton_Click(sender As Object, e As EventArgs) Handles ReinstallButton.Click
 
-        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles")
+        Dim path = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles")
         CopyFileFast(IO.Path.Combine(path, "jOpensim_Files\kickstart.php"), IO.Path.Combine(path, "Apache\htdocs\JOpensim\kickstart.php"))
         CopyFileFast(IO.Path.Combine(path, "jOpensim_Files\en-GB.kickstart.ini"), IO.Path.Combine(path, "Apache\htdocs\JOpensim\en-GB.kickstart.ini"))
         CopyFileFast(IO.Path.Combine(path, "jOpensim_Files\Joomla+JOpensimV5.jpa"), IO.Path.Combine(path, "Apache\htdocs\JOpensim\Joomla+JOpensimV5.jpa"))
