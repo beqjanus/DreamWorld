@@ -26,7 +26,7 @@ Partial Class FormSmartStart
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormSmartStart))
         Me.SmartStartEnabled = New System.Windows.Forms.CheckBox()
         Me.Seconds = New System.Windows.Forms.TextBox()
-        Me.DelayLabel = New System.Windows.Forms.Label()
+        Me.DelayLabelShutDown = New System.Windows.Forms.Label()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SmartStartToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -35,6 +35,8 @@ Partial Class FormSmartStart
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.DelayRegionReady = New System.Windows.Forms.TextBox()
+        Me.DelayLabelRegionReady = New System.Windows.Forms.Label()
         Me.EndlessLand = New System.Windows.Forms.GroupBox()
         Me.AviName = New System.Windows.Forms.TextBox()
         Me.DeleteAllRegions = New System.Windows.Forms.Button()
@@ -185,7 +187,7 @@ Partial Class FormSmartStart
         'SmartStartEnabled
         '
         Me.SmartStartEnabled.AutoSize = True
-        Me.SmartStartEnabled.Location = New System.Drawing.Point(48, 51)
+        Me.SmartStartEnabled.Location = New System.Drawing.Point(17, 95)
         Me.SmartStartEnabled.Margin = New System.Windows.Forms.Padding(1)
         Me.SmartStartEnabled.Name = "SmartStartEnabled"
         Me.SmartStartEnabled.Size = New System.Drawing.Size(114, 17)
@@ -195,20 +197,20 @@ Partial Class FormSmartStart
         '
         'Seconds
         '
-        Me.Seconds.Location = New System.Drawing.Point(183, 48)
+        Me.Seconds.Location = New System.Drawing.Point(17, 39)
         Me.Seconds.Margin = New System.Windows.Forms.Padding(1)
         Me.Seconds.Name = "Seconds"
         Me.Seconds.Size = New System.Drawing.Size(40, 20)
         Me.Seconds.TabIndex = 13
         '
-        'DelayLabel
+        'DelayLabelShutDown
         '
-        Me.DelayLabel.AutoSize = True
-        Me.DelayLabel.Location = New System.Drawing.Point(239, 55)
-        Me.DelayLabel.Name = "DelayLabel"
-        Me.DelayLabel.Size = New System.Drawing.Size(122, 13)
-        Me.DelayLabel.TabIndex = 14
-        Me.DelayLabel.Text = "Seconds Before Waiting"
+        Me.DelayLabelShutDown.AutoSize = True
+        Me.DelayLabelShutDown.Location = New System.Drawing.Point(73, 46)
+        Me.DelayLabelShutDown.Name = "DelayLabelShutDown"
+        Me.DelayLabelShutDown.Size = New System.Drawing.Size(120, 13)
+        Me.DelayLabelShutDown.TabIndex = 14
+        Me.DelayLabelShutDown.Text = "Seconds Until PowerOff"
         '
         'MenuStrip1
         '
@@ -260,13 +262,15 @@ Partial Class FormSmartStart
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.DelayRegionReady)
+        Me.TabPage1.Controls.Add(Me.DelayLabelRegionReady)
         Me.TabPage1.Controls.Add(Me.EndlessLand)
         Me.TabPage1.Controls.Add(Me.ParkingRegion)
         Me.TabPage1.Controls.Add(Me.ParkingSpot)
         Me.TabPage1.Controls.Add(Me.TextBox1)
         Me.TabPage1.Controls.Add(Me.Seconds)
         Me.TabPage1.Controls.Add(Me.SmartStartEnabled)
-        Me.TabPage1.Controls.Add(Me.DelayLabel)
+        Me.TabPage1.Controls.Add(Me.DelayLabelShutDown)
         Me.TabPage1.Controls.Add(Me.MenuStrip4)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
@@ -275,6 +279,23 @@ Partial Class FormSmartStart
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Smart Boot"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'DelayRegionReady
+        '
+        Me.DelayRegionReady.Location = New System.Drawing.Point(17, 63)
+        Me.DelayRegionReady.Margin = New System.Windows.Forms.Padding(1)
+        Me.DelayRegionReady.Name = "DelayRegionReady"
+        Me.DelayRegionReady.Size = New System.Drawing.Size(40, 20)
+        Me.DelayRegionReady.TabIndex = 52
+        '
+        'DelayLabelRegionReady
+        '
+        Me.DelayLabelRegionReady.AutoSize = True
+        Me.DelayLabelRegionReady.Location = New System.Drawing.Point(73, 70)
+        Me.DelayLabelRegionReady.Name = "DelayLabelRegionReady"
+        Me.DelayLabelRegionReady.Size = New System.Drawing.Size(139, 13)
+        Me.DelayLabelRegionReady.TabIndex = 51
+        Me.DelayLabelRegionReady.Text = "Seconds Before Teleporting"
         '
         'EndlessLand
         '
@@ -291,18 +312,18 @@ Partial Class FormSmartStart
         Me.EndlessLand.Size = New System.Drawing.Size(200, 307)
         Me.EndlessLand.TabIndex = 50
         Me.EndlessLand.TabStop = False
-        Me.EndlessLand.Text = "GroupBox6"
+        Me.EndlessLand.Text = "Endless Land & Seas"
         '
         'AviName
         '
-        Me.AviName.Location = New System.Drawing.Point(6, 96)
+        Me.AviName.Location = New System.Drawing.Point(14, 115)
         Me.AviName.Name = "AviName"
         Me.AviName.Size = New System.Drawing.Size(171, 20)
         Me.AviName.TabIndex = 45
         '
         'DeleteAllRegions
         '
-        Me.DeleteAllRegions.Location = New System.Drawing.Point(6, 262)
+        Me.DeleteAllRegions.Location = New System.Drawing.Point(6, 278)
         Me.DeleteAllRegions.Name = "DeleteAllRegions"
         Me.DeleteAllRegions.Size = New System.Drawing.Size(188, 23)
         Me.DeleteAllRegions.TabIndex = 48
@@ -324,7 +345,7 @@ Partial Class FormSmartStart
         '
         Me.PictureBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.PictureBox4.Image = Global.Outworldz.My.Resources.Resources._3x3
-        Me.PictureBox4.Location = New System.Drawing.Point(83, 150)
+        Me.PictureBox4.Location = New System.Drawing.Point(83, 172)
         Me.PictureBox4.Name = "PictureBox4"
         Me.PictureBox4.Size = New System.Drawing.Size(102, 90)
         Me.PictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -345,7 +366,7 @@ Partial Class FormSmartStart
         'FillSizeLabel
         '
         Me.FillSizeLabel.AutoSize = True
-        Me.FillSizeLabel.Location = New System.Drawing.Point(18, 119)
+        Me.FillSizeLabel.Location = New System.Drawing.Point(18, 156)
         Me.FillSizeLabel.Name = "FillSizeLabel"
         Me.FillSizeLabel.Size = New System.Drawing.Size(42, 13)
         Me.FillSizeLabel.TabIndex = 42
@@ -354,7 +375,7 @@ Partial Class FormSmartStart
         'OwnerLabel
         '
         Me.OwnerLabel.AutoSize = True
-        Me.OwnerLabel.Location = New System.Drawing.Point(9, 80)
+        Me.OwnerLabel.Location = New System.Drawing.Point(17, 99)
         Me.OwnerLabel.Name = "OwnerLabel"
         Me.OwnerLabel.Size = New System.Drawing.Size(121, 13)
         Me.OwnerLabel.TabIndex = 46
@@ -364,7 +385,7 @@ Partial Class FormSmartStart
         '
         Me.ListBox2.FormattingEnabled = True
         Me.ListBox2.Items.AddRange(New Object() {"1", "2", "3"})
-        Me.ListBox2.Location = New System.Drawing.Point(21, 150)
+        Me.ListBox2.Location = New System.Drawing.Point(21, 172)
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(56, 43)
         Me.ListBox2.TabIndex = 39
@@ -372,7 +393,7 @@ Partial Class FormSmartStart
         'ParkingRegion
         '
         Me.ParkingRegion.AutoSize = True
-        Me.ParkingRegion.Location = New System.Drawing.Point(392, 55)
+        Me.ParkingRegion.Location = New System.Drawing.Point(392, 99)
         Me.ParkingRegion.Name = "ParkingRegion"
         Me.ParkingRegion.Size = New System.Drawing.Size(80, 13)
         Me.ParkingRegion.TabIndex = 40
@@ -381,20 +402,20 @@ Partial Class FormSmartStart
         'ParkingSpot
         '
         Me.ParkingSpot.FormattingEnabled = True
-        Me.ParkingSpot.Location = New System.Drawing.Point(395, 83)
+        Me.ParkingSpot.Location = New System.Drawing.Point(395, 122)
         Me.ParkingSpot.Name = "ParkingSpot"
-        Me.ParkingSpot.Size = New System.Drawing.Size(202, 264)
+        Me.ParkingSpot.Size = New System.Drawing.Size(202, 225)
         Me.ParkingSpot.TabIndex = 38
         '
         'TextBox1
         '
         Me.TextBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.Location = New System.Drawing.Point(6, 83)
+        Me.TextBox1.Location = New System.Drawing.Point(17, 122)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(369, 263)
+        Me.TextBox1.Size = New System.Drawing.Size(369, 225)
         Me.TextBox1.TabIndex = 34
         '
         'MenuStrip4
@@ -1204,6 +1225,7 @@ Partial Class FormSmartStart
         '
         'RadioButton21
         '
+        Me.RadioButton21.AccessibleDescription = "Fern"
         Me.RadioButton21.AutoSize = True
         Me.RadioButton21.Location = New System.Drawing.Point(209, 50)
         Me.RadioButton21.Name = "RadioButton21"
@@ -1215,6 +1237,7 @@ Partial Class FormSmartStart
         '
         'RadioButton19
         '
+        Me.RadioButton19.AccessibleDescription = "Kelp2"
         Me.RadioButton19.AutoSize = True
         Me.RadioButton19.Location = New System.Drawing.Point(120, 74)
         Me.RadioButton19.Name = "RadioButton19"
@@ -1226,6 +1249,7 @@ Partial Class FormSmartStart
         '
         'RadioButton17
         '
+        Me.RadioButton17.AccessibleDescription = "SeaSword"
         Me.RadioButton17.AutoSize = True
         Me.RadioButton17.Location = New System.Drawing.Point(120, 98)
         Me.RadioButton17.Name = "RadioButton17"
@@ -1237,6 +1261,7 @@ Partial Class FormSmartStart
         '
         'RadioButton26
         '
+        Me.RadioButton26.AccessibleDescription = "DogWood"
         Me.RadioButton26.AutoSize = True
         Me.RadioButton26.Location = New System.Drawing.Point(209, 141)
         Me.RadioButton26.Name = "RadioButton26"
@@ -1248,6 +1273,7 @@ Partial Class FormSmartStart
         '
         'RadioButton22
         '
+        Me.RadioButton22.AccessibleDescription = "Ok"
         Me.RadioButton22.AutoSize = True
         Me.RadioButton22.Location = New System.Drawing.Point(18, 236)
         Me.RadioButton22.Name = "RadioButton22"
@@ -1259,6 +1285,7 @@ Partial Class FormSmartStart
         '
         'RadioButton18
         '
+        Me.RadioButton18.AccessibleDescription = "Kelp1"
         Me.RadioButton18.AutoSize = True
         Me.RadioButton18.Location = New System.Drawing.Point(120, 52)
         Me.RadioButton18.Name = "RadioButton18"
@@ -1270,6 +1297,7 @@ Partial Class FormSmartStart
         '
         'RadioButton10
         '
+        Me.RadioButton10.AccessibleDescription = "BeechGrass1"
         Me.RadioButton10.AutoSize = True
         Me.RadioButton10.Location = New System.Drawing.Point(209, 164)
         Me.RadioButton10.Name = "RadioButton10"
@@ -1281,6 +1309,7 @@ Partial Class FormSmartStart
         '
         'RadioButton5
         '
+        Me.RadioButton5.AccessibleDescription = "Cypress1"
         Me.RadioButton5.AutoSize = True
         Me.RadioButton5.Location = New System.Drawing.Point(18, 29)
         Me.RadioButton5.Name = "RadioButton5"
@@ -1292,6 +1321,7 @@ Partial Class FormSmartStart
         '
         'RadioButton6
         '
+        Me.RadioButton6.AccessibleDescription = "Cypress2"
         Me.RadioButton6.AutoSize = True
         Me.RadioButton6.Location = New System.Drawing.Point(18, 52)
         Me.RadioButton6.Name = "RadioButton6"
@@ -1303,6 +1333,7 @@ Partial Class FormSmartStart
         '
         'RadioButton7
         '
+        Me.RadioButton7.AccessibleDescription = "WinterAspen"
         Me.RadioButton7.AutoSize = True
         Me.RadioButton7.Location = New System.Drawing.Point(18, 74)
         Me.RadioButton7.Name = "RadioButton7"
@@ -1314,6 +1345,7 @@ Partial Class FormSmartStart
         '
         'RadioButton23
         '
+        Me.RadioButton23.AccessibleDescription = "Plumeria"
         Me.RadioButton23.AutoSize = True
         Me.RadioButton23.Location = New System.Drawing.Point(209, 73)
         Me.RadioButton23.Name = "RadioButton23"
@@ -1325,6 +1357,7 @@ Partial Class FormSmartStart
         '
         'RadioButton15
         '
+        Me.RadioButton15.AccessibleDescription = "TropicalBush1"
         Me.RadioButton15.AutoSize = True
         Me.RadioButton15.Location = New System.Drawing.Point(209, 97)
         Me.RadioButton15.Name = "RadioButton15"
@@ -1336,6 +1369,7 @@ Partial Class FormSmartStart
         '
         'RadioButton8
         '
+        Me.RadioButton8.AccessibleDescription = "WinterPine1"
         Me.RadioButton8.AutoSize = True
         Me.RadioButton8.Location = New System.Drawing.Point(18, 97)
         Me.RadioButton8.Name = "RadioButton8"
@@ -1347,6 +1381,7 @@ Partial Class FormSmartStart
         '
         'RadioButton24
         '
+        Me.RadioButton24.AccessibleDescription = "EelGrass"
         Me.RadioButton24.AutoSize = True
         Me.RadioButton24.Location = New System.Drawing.Point(120, 29)
         Me.RadioButton24.Name = "RadioButton24"
@@ -1358,6 +1393,7 @@ Partial Class FormSmartStart
         '
         'RadioButton9
         '
+        Me.RadioButton9.AccessibleDescription = "WinterPine2"
         Me.RadioButton9.AutoSize = True
         Me.RadioButton9.Location = New System.Drawing.Point(18, 120)
         Me.RadioButton9.Name = "RadioButton9"
@@ -1369,6 +1405,7 @@ Partial Class FormSmartStart
         '
         'RadioButton16
         '
+        Me.RadioButton16.AccessibleDescription = "TropicalBush2"
         Me.RadioButton16.AutoSize = True
         Me.RadioButton16.Location = New System.Drawing.Point(209, 120)
         Me.RadioButton16.Name = "RadioButton16"
@@ -1380,6 +1417,7 @@ Partial Class FormSmartStart
         '
         'RadioButton20
         '
+        Me.RadioButton20.AccessibleDescription = "Eucalyptus"
         Me.RadioButton20.AutoSize = True
         Me.RadioButton20.Location = New System.Drawing.Point(209, 29)
         Me.RadioButton20.Name = "RadioButton20"
@@ -1391,6 +1429,7 @@ Partial Class FormSmartStart
         '
         'RadioButton11
         '
+        Me.RadioButton11.AccessibleDescription = "Pine1"
         Me.RadioButton11.AutoSize = True
         Me.RadioButton11.Location = New System.Drawing.Point(18, 144)
         Me.RadioButton11.Name = "RadioButton11"
@@ -1402,6 +1441,7 @@ Partial Class FormSmartStart
         '
         'RadioButton14
         '
+        Me.RadioButton14.AccessibleDescription = "Palm2"
         Me.RadioButton14.AutoSize = True
         Me.RadioButton14.Location = New System.Drawing.Point(18, 213)
         Me.RadioButton14.Name = "RadioButton14"
@@ -1413,6 +1453,7 @@ Partial Class FormSmartStart
         '
         'RadioButton13
         '
+        Me.RadioButton13.AccessibleDescription = "Palm1"
         Me.RadioButton13.AutoSize = True
         Me.RadioButton13.Location = New System.Drawing.Point(18, 190)
         Me.RadioButton13.Name = "RadioButton13"
@@ -1424,6 +1465,7 @@ Partial Class FormSmartStart
         '
         'RadioButton12
         '
+        Me.RadioButton12.AccessibleDescription = "Pine2"
         Me.RadioButton12.AutoSize = True
         Me.RadioButton12.Location = New System.Drawing.Point(18, 167)
         Me.RadioButton12.Name = "RadioButton12"
@@ -1596,7 +1638,7 @@ Partial Class FormSmartStart
 
     Friend WithEvents SmartStartEnabled As CheckBox
     Friend WithEvents Seconds As TextBox
-    Friend WithEvents DelayLabel As Label
+    Friend WithEvents DelayLabelShutDown As Label
     Friend WithEvents MenuStrip1 As MenuStrip
     Friend WithEvents HelpToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolTip1 As ToolTip
@@ -1727,4 +1769,6 @@ Partial Class FormSmartStart
     Friend WithEvents DeleteAllRegions As Button
     Friend WithEvents HelpSmartStartToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents EndlessLand As GroupBox
+    Friend WithEvents DelayRegionReady As TextBox
+    Friend WithEvents DelayLabelRegionReady As Label
 End Class
