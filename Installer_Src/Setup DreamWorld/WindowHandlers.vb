@@ -159,7 +159,7 @@ Module WindowHandlers
         Try
             If IO.File.Exists(INI) Then
                 Using F As FileStream = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
-0
+
                     Using S As StreamReader = New StreamReader(F)
                         'now loop through each line
                         While S.Peek <> -1

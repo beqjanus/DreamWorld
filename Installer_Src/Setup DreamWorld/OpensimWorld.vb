@@ -15,12 +15,13 @@ Module OpensimWorld
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Or
                 (PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart) Then
 
-                '  30 minute timer and change detector for OpensimAPI
-                Dim Delta = DateAndTime.DateDiff(DateInterval.Minute, LastTimeChecked, Date.Now)
                 Dim Avatars As Integer = RPC_admin_get_agent_count(RegionUUID)
-                PropRegionClass.InRegion(RegionUUID) = Avatars
-                ' force an update for 30 minutes, at 1st boot when no one is there, and in another place, when it is booted, or when avatars leave or go.
-                If Avatars <> PropRegionClass.InRegion(RegionUUID) Or Delta >= 30 Or Force Then
+                If Avatars <> PropRegionClass.InRegion(RegionUUID) Then
+                    PropRegionClass.InRegion(RegionUUID) = Avatars
+                    SendToOpensimWorld(RegionUUID, Avatars)
+                    PropRegionClass.InRegion(RegionUUID) = Avatars
+                ElseIf Force Then
+                    PropRegionClass.InRegion(RegionUUID) = Avatars
                     SendToOpensimWorld(RegionUUID, Avatars)
                 End If
             End If
@@ -36,7 +37,7 @@ Module OpensimWorld
 
         Dim Regionname = PropRegionClass.RegionName(RegionUUID)
         Dim pos = Uri.EscapeDataString("<128,128,23>")
-
+        Logger("OpensimWorld", $"Update {Regionname}", "Outworldz")
         Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={k}&na={Avatars}&rat=0&r={Regionname}&pos={pos}"
         ' If he says to delete it, we do so.
         If Poke(URL) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""

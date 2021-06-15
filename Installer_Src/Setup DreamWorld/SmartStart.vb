@@ -411,6 +411,7 @@ Module SmartStart
                     PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
                     PokeRegionTimer(UUID)
+                    SendToOpensimWorld(RegionUUID, 0)
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeShowWindow())
                 Logger("Info", "Region " & BootName & " skipped as it is Suspended, Resuming it instead", "Teleport")

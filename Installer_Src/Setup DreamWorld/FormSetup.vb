@@ -2578,11 +2578,15 @@ Public Class FormSetup
         End If
 
         If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
+            ScanOpenSimWorld(False)
             Bench.Print("60 second worker")
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
-            ScanOpenSimWorld(False)
             Bench.Print("60 second work done")
+        End If
+
+        If SecondsTicker Mod 1800 = 0 Then
+            ScanOpenSimWorld(True)
         End If
 
         ' print hourly marks on console, after boot
