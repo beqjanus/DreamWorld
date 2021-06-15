@@ -185,7 +185,7 @@ Public Class FormSmartStart
                 Dim I As Image = Image.FromStream(fs)
                 Return I
             End Using
-        Catch
+        Catch ex As Exception
         End Try
 
         Return My.Resources.NoImage
@@ -506,8 +506,8 @@ Public Class FormSmartStart
         Button1.Text = My.Resources.Delete_All
         Cypress1.Text = My.Resources.Cypress_1
         Cypress2.Text = My.Resources.Cypress_2
-        DelayLabel.Text = Global.Outworldz.My.Resources.SSDelay
-        DelayLabel.Text = My.Resources.DelayBeforeExit
+        DelayLabelRegionReady.Text = Global.Outworldz.My.Resources.DelayAfterRegionReady
+        DelayLabelShutDown.Text = My.Resources.SSDelay
         DeletApply.Text = My.Resources.Delete_and_then_Apply
         Dogwood.Text = My.Resources.Dogwood
         Eelgrass.Text = My.Resources.Eelgrass
@@ -607,6 +607,19 @@ Public Class FormSmartStart
             AviName.BackColor = Color.Red
         End If
 
+        Select Case Settings.Skirtsize
+            Case 1
+                PictureBox4.Image = My.Resources._3x3
+            Case 2
+                PictureBox4.Image = My.Resources._5x5
+            Case 3
+                PictureBox4.Image = My.Resources._7x7
+        End Select
+
+        SmartStartEnabled.Checked = Settings.SmartStart
+        TempCheckBox.Checked = Settings.TempRegion
+        DelayRegionReady.Text = Settings.TeleportSleepTime
+
         SetScreen()
 
         Select Case Settings.TerrainType
@@ -652,15 +665,6 @@ Public Class FormSmartStart
         All.Checked = Settings.AllPlants
         None.Checked = Settings.NoPlants
 
-        Select Case Settings.Skirtsize
-            Case 1
-                PictureBox4.Image = My.Resources._3x3
-            Case 2
-                PictureBox4.Image = My.Resources._5x5
-            Case 3
-                PictureBox4.Image = My.Resources._7x7
-        End Select
-
         LoadTerrainList()
 
         Dim n = 0
@@ -674,9 +678,6 @@ Public Class FormSmartStart
             End If
             n += 1
         Next
-
-        SmartStartEnabled.Checked = Settings.SmartStart
-        TempCheckBox.Checked = Settings.TempRegion
 
         ' If Debugger.IsAttached Then
         ' debug
@@ -943,16 +944,21 @@ Public Class FormSmartStart
 
                     ConsoleCommand(RegionUUID, "backup")
                     Sleep(1000)
-                    ConsoleCommand(RegionUUID, "alert Power off!")
-                    Sleep(1000)
+
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                    ConsoleCommand(RegionUUID, "q")
-                    ConsoleCommand(RegionUUID, "q")
-                    Sleep(1000)
+
+                    If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
+                        ConsoleCommand(RegionUUID, "q")
+                        ConsoleCommand(RegionUUID, "q")
+                        Sleep(1000)
+                    End If
                 Else
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                    ConsoleCommand(RegionUUID, "q")
-                    ConsoleCommand(RegionUUID, "q")
+                    If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
+                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                        ConsoleCommand(RegionUUID, "q")
+                        ConsoleCommand(RegionUUID, "q")
+                    End If
+
                 End If
 
                 PropUpdateView = True
@@ -1300,8 +1306,8 @@ Public Class FormSmartStart
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Seconds.Text = digitsOnly.Replace(Seconds.Text, "")
         Settings.SmartStartTimeout = CInt("0" & Seconds.Text)
-        If Settings.SmartStartTimeout < 15 Then Settings.SmartStartTimeout = 15
-        ProgressPrint("Minimum time is 15 seconds. Default is 30 seconds.")
+        If Settings.SmartStartTimeout < 0 Then Settings.SmartStartTimeout = 0
+        ProgressPrint(My.Resources.minkeepalive)
     End Sub
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles SaveTerrain.Click
@@ -1430,91 +1436,91 @@ Public Class FormSmartStart
 #Region "Radio"
 
     Private Sub RadioButton10_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton10.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton11_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton11.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton12_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton12.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton13_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton13.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton14_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton14.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton15_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton15.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton16_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton16.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton17_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton17.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton18_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton18.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton19_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton19.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton20_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton20.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton21_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton21.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton22_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton22.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton23_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton23.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton24_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton24.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton25_CheckedChanged(sender As Object, e As EventArgs)
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton26_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton26.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton5_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton5.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton6.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton7_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton7.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton8_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton8.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
     Private Sub RadioButton9_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton9.CheckedChanged
-        LoadPlant(CStr(sender.text))
+        LoadPlant(CStr(sender.AccessibleDescription))
     End Sub
 
 #End Region
@@ -1744,6 +1750,13 @@ Public Class FormSmartStart
         Else
             ProgressPrint(My.Resources.Cancelled_word)
         End If
+    End Sub
+
+    Private Sub DelayRegionReady_TextChanged(sender As Object, e As EventArgs) Handles DelayRegionReady.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        DelayRegionReady.Text = digitsOnly.Replace(DelayRegionReady.Text, "")
+        Settings.TeleportSleepTime = CInt("0" & DelayRegionReady.Text)
+        ProgressPrint("Minimum time is 0 seconds. Default is 10 seconds.")
     End Sub
 
     Private Sub DeletApply_CheckedChanged(sender As Object, e As EventArgs) Handles DeletApply.CheckedChanged

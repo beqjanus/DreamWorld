@@ -1876,6 +1876,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property TeleportSleepTime() As Integer
+        Get
+            Return CInt("0" & GetMySetting("TeleportSleepTime", "10"))
+        End Get
+        Set
+            SetMySetting("TeleportSleepTime", CType(Value, String))
+        End Set
+    End Property
+
     Public Property TempRegion() As Boolean
         Get
             Return CType(GetMySetting("TempRegion", "True"), Boolean)

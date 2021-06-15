@@ -14,7 +14,6 @@ Imports System.Linq
 Module SmartStart
 
     Private ReadOnly Sleeping As New List(Of String)
-    Private ReadOnly slop As Integer = 10     ' amount of extra time to add in for booting
 
 #Region "SmartBegin"
 
@@ -76,23 +75,23 @@ Module SmartStart
                     If AgentName.ToUpperInvariant = "UUID" Then
                         'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
-                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
+                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. Please wait in this region.")
                         Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
                         Return u
                     ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
                         Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
-                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. Please wait in this region.")
+                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. Please wait in this region.")
                         Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
                         Return u
                     Else ' Its a v4 sign
 
                         If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
-                            time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + slop) ' 5 seconds of slop time
+                            time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)
                         Else
-                            time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + slop) ' 5 seconds of slop time
+                            time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + Settings.TeleportSleepTime + 5)
                         End If
-                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + slop)} seconds. {vbCrLf}Please wait in this region.")
+                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. {vbCrLf}Please wait in this region.")
                         Logger("Agent ", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
                         Return Settings.WelcomeRegion

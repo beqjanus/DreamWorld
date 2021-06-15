@@ -2585,11 +2585,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Seconds Before Waiting.
+        '''  Looks up a localized string similar to Region Ready Delay.
         '''</summary>
-        Friend ReadOnly Property DelayBeforeExit() As String
+        Friend ReadOnly Property DelayAfterRegionReady() As String
             Get
-                Return ResourceManager.GetString("DelayBeforeExit", resourceCulture)
+                Return ResourceManager.GetString("DelayAfterRegionReady", resourceCulture)
             End Get
         End Property
         
@@ -6134,6 +6134,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("microsoft_edge", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Minimum time is 0 seconds. Default is 60 seconds..
+        '''</summary>
+        Friend ReadOnly Property minkeepalive() As String
+            Get
+                Return ResourceManager.GetString("minkeepalive", resourceCulture)
             End Get
         End Property
         
