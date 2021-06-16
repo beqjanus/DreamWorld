@@ -35,6 +35,15 @@ Module RPC
 
     End Function
 
+    Public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
+
+        Dim ht As Hashtable = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"region_id", RegionUUID}
+        }
+        Return GetRPC(RegionUUID, "admin_get_avatar_count", ht)
+
+    End Function
     Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
         Dim ht As Hashtable = New Hashtable From {
@@ -118,7 +127,9 @@ Module RPC
         Dim RPC = New XmlRpcRequest(cmd, parameters)
         Try
             Dim o = RPC.Invoke(url)
-            If o Is Nothing Then Return 0
+            If o Is Nothing Then
+                Return 0
+            End If
 #Disable Warning BC42016 ' Implicit conversion
 
             For Each s In o
