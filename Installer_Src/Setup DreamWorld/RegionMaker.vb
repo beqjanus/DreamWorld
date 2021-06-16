@@ -613,11 +613,28 @@ Public Class RegionMaker
                             LandingSpot(uuid) = CStr(INI.GetIni(fName, "LandingSpot", "", "String"))
                             OpensimWorldAPIKey(uuid) = CStr(INI.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
 
-                            Dim p = LargestPort() + 1
-                            RegionPort(uuid) = p
-                            GroupPort(uuid) = p
+                            ' Four  scenarios for ports
+                            ' if the system was shut down safely ( default = true after an update), then
+                            ' sequence them.
+                            ' if not, read them from the INI files.
+                            ' If the iNI files have Nothing, Then  go Max
+                            ' if this is after boot up, use the backed up settings.
+                            ' Adding a new region always uses Max
 
-                            'Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
+                            If Settings.SafeShutdown Then
+                                Dim p = LargestPort() + 1
+                                RegionPort(uuid) = p
+                                GroupPort(uuid) = p
+                                Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
+                            Else
+                                RegionPort(uuid) = CInt("0" + INI.GetIni(fName, "InternalPort", "", "Integer"))
+                                If RegionPort(uuid) = 0 Then RegionPort(uuid) = LargestPort() + 1
+
+                                GroupPort(uuid) = CInt("0" + INI.GetIni(fName, "GroupPort", "", "Integer"))
+                                If GroupPort(uuid) = 0 Then GroupPort(uuid) = LargestPort() + 1
+                            End If
+
+                            ' If region Is already set, use its port as they cannot change while up.
 
                             If _RegionListIsInititalized Then
                                 ' restore backups of transient data
@@ -628,8 +645,6 @@ Public Class RegionMaker
                                     Status(uuid) = Backup(o)._Status
                                     Timer(uuid) = Backup(o)._Timer
                                     CrashCounter(uuid) = Backup(o)._CrashCounter
-
-                                    ' If region Is Running, use its port as they cannot chenge while up.
 
                                     If Backup(o)._RegionPort > 0 Then
                                         RegionPort(uuid) = Backup(o)._RegionPort
@@ -1595,6 +1610,19 @@ Public Class RegionMaker
         Next
 
     End Sub
+
+    Public Function RegionPIDs() As List(Of Integer)
+
+        Dim L As New List(Of Integer)
+        Dim pair As KeyValuePair(Of String, Region_data)
+
+        For Each pair In RegionList
+            L.Add(pair.Value._ProcessID)
+        Next
+
+        Return L
+
+    End Function
 
     ''' <summary>
     ''' Returns a list if UUIDS of all regions in this group
