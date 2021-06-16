@@ -358,9 +358,9 @@ Public Class FormSetup
             Return
         End Try
 
-        TextPrint(My.Resources.Update_is_available & ":" & Update_version)
+        TextPrint($"{My.Resources.Update_is_available}: {PropMyVersion}==>{Update_version}")
 
-        Dim doUpdate = MsgBox(My.Resources.Update_is_available, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Update_is_available)
+        Dim doUpdate = MsgBox($"{My.Resources.Update_is_available}: {PropMyVersion}==>{Update_version}", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Update_is_available)
         If doUpdate = vbOK Then
 
             If DoStopActions() = False Then Return
@@ -408,6 +408,10 @@ Public Class FormSetup
         Buttons(StartButton)
         TextPrint(My.Resources.Stopped_word)
         ToolBar(False)
+
+        Settings.SafeShutdown = True
+        Settings.SaveSettings()
+
         Return True
 
     End Function
@@ -490,22 +494,29 @@ Public Class FormSetup
             If PropOpensimIsRunning Then TextPrint(My.Resources.Waiting_text)
 
             While (counter > 0 And PropOpensimIsRunning())
-
                 Application.DoEvents()
                 counter -= 1
-                Dim CountisRunning = Process.GetProcessesByName("Opensim").Length
 
-                If CountisRunning <> LastCount Then
-                    If CountisRunning = 1 Then
+                Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
+                Dim ListofPIDs = PropRegionClass.RegionPIDs()
+                Dim CountisRunning As New List(Of Integer)
+                For Each P In RunningTasks
+                    If ListofPIDs.Contains(P.Id) Then
+                        CountisRunning.Add(P.Id)
+                    End If
+                Next
+
+                If CountisRunning.Count <> LastCount Then
+                    If CountisRunning.Count = 1 Then
                         TextPrint(My.Resources.One_region)
                     Else
-                        TextPrint($"{CStr(CountisRunning)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
+                        TextPrint($"{CStr(CountisRunning.Count)} {Global.Outworldz.My.Resources.Regions_Are_Running}")
                     End If
                 End If
 
-                LastCount = CountisRunning
+                LastCount = CountisRunning.Count
 
-                If CountisRunning = 0 Then
+                If CountisRunning.Count = 0 Then
                     counter = 0
                 End If
                 ExitHandlerPoll()
@@ -515,13 +526,14 @@ Public Class FormSetup
         End If
 
         ClearAllRegions()
-
         StopRobust()
 
         Timer1.Stop()
         TimerBusy = 0
 
         PropOpensimIsRunning() = False
+        Settings.SafeShutdown = True
+        Settings.SaveSettings()
 
         ToolBar(False)
 
@@ -799,7 +811,7 @@ Public Class FormSetup
 #Enable Warning BC42016 ' Implicit conversion
         Dim DeathThread = New Thread(start)
         DeathThread.SetApartmentState(ApartmentState.STA)
-        DeathThread.Priority = ThreadPriority.BelowNormal ' UI gets priority
+        DeathThread.Priority = ThreadPriority.Lowest ' UI gets priority
         DeathThread.Start(PropExitList)
 
 #Disable Warning BC42016 ' Implicit conversion
@@ -821,44 +833,6 @@ Public Class FormSetup
 #End Region
 
 #Region "Misc"
-
-    Public Shared Sub DidItDie(PropExitList As Dictionary(Of String, String))
-
-        While PropOpensimIsRunning
-            ' check to see if a handle to all regions exists. If not, then is died.
-            For Each RegionUUID As String In PropRegionClass.RegionUuids
-                Application.DoEvents()
-
-                If Not PropOpensimIsRunning() Then Return
-                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
-
-                Dim status = PropRegionClass.Status(RegionUUID)
-                If CBool((status = RegionMaker.SIMSTATUSENUM.Booted) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.Booting) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.NoError) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
-                        Or (status = RegionMaker.SIMSTATUSENUM.Suspended)) Then
-
-                    Dim G = PropRegionClass.GroupName(RegionUUID)
-
-                    If GetHwnd(G) = IntPtr.Zero Then
-                        Try
-                            If Not PropExitList.ContainsKey(G) Then
-                                PropExitList.Add(G, "Exit")
-                            End If
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End If
-                End If
-
-            Next
-            Sleep(100)
-        End While
-
-    End Sub
 
     Public Sub ToolBar(visible As Boolean)
 
@@ -1047,6 +1021,41 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub DidItDie()
+
+        ' check to see if a handle to all regions exists. If not, then is died.
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
+            Application.DoEvents()
+
+            If Not PropOpensimIsRunning() Then Return
+            If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+
+            Dim status = PropRegionClass.Status(RegionUUID)
+            If CBool((status = RegionMaker.SIMSTATUSENUM.Booted) _
+                    Or (status = RegionMaker.SIMSTATUSENUM.Booting) _
+                    Or (status = RegionMaker.SIMSTATUSENUM.RecyclingDown) _
+                    Or (status = RegionMaker.SIMSTATUSENUM.NoError) _
+                    Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDown) _
+                    Or (status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
+                    Or (status = RegionMaker.SIMSTATUSENUM.Suspended)) Then
+
+                Dim G = PropRegionClass.GroupName(RegionUUID)
+
+                If GetHwnd(G) = IntPtr.Zero Then
+                    Try
+                        If Not PropExitList.ContainsKey(G) Then
+                            PropExitList.Add(G, "Exit")
+                        End If
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+                End If
+            End If
+
+        Next
+
+    End Sub
+
     Private Sub ExitHandlerPoll()
 
         If PropExitHandlerIsBusy = True Then
@@ -1212,8 +1221,11 @@ Public Class FormSetup
 
         Bench.Print("Timers")
 
+        DidItDie()
+
         ' now look at the exit stack
         While PropExitList.Count > 0
+
             GroupName = PropExitList.Keys.First
             Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
             PropExitList.Remove(GroupName)
@@ -1341,6 +1353,8 @@ Public Class FormSetup
                     End If
 
                 End If
+            Else
+                StopGroup(GroupName)
             End If
             PropUpdateView = True
         End While
@@ -1738,6 +1752,9 @@ Public Class FormSetup
         InitLand()
         InitTrees()
 
+        Settings.SafeShutdown() = False
+        Settings.SaveSettings()
+
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
 
@@ -2056,6 +2073,9 @@ Public Class FormSetup
 
         PropAborting = True
         StopMysql()
+
+        Settings.SafeShutdown() = True
+        Settings.SaveSettings()
 
         TextPrint("Zzzz...")
         Thread.Sleep(1000)

@@ -256,31 +256,33 @@ Public Class FormRegionlist
         ToolTip1.SetToolTip(RestartButton, Global.Outworldz.My.Resources.Restart_All_Checked)
         ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.StartAll)
         ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Stopsall)
-        ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row
+        ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row_note
         Users.Text = Global.Outworldz.My.Resources.Users_word
 
         ViewBusy = True
 
         AllNone.Checked = True
+        AllNone.Visible = False
+
         AllButton.Checked = True
 
-        ListView1.Visible = False
         DoubleBuff(ListView1, True)
         DoubleBuff(IconView, True)
-        ListView1.LabelWrap = True
-        ListView1.AutoArrange = True
 
         Settings.RegionListVisible = True
 
         Me.Name = "Region List"
-
         Me.Text = Global.Outworldz.My.Resources.Region_List
 
         AvatarView.CheckBoxes = False
         AvatarView.TabIndex = 0
         AvatarView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
         AvatarView.GridLines = False
+        AvatarView.ShowItemToolTips = True
 
+        ListView1.Visible = False
+        ListView1.LabelWrap = True
+        ListView1.AutoArrange = True
         ListView1.TabIndex = 0
         ListView1.CheckBoxes = True
         ListView1.View = View.Details
@@ -290,8 +292,8 @@ Public Class FormRegionlist
         ListView1.GridLines = True
         ListView1.AllowColumnReorder = True
         ListView1.Sorting = SortOrder.Ascending
-        AllNone.Visible = True
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+        ListView1.ShowItemToolTips = True
 
         IconView.TabIndex = 0
         IconView.View = View.SmallIcon
@@ -300,8 +302,8 @@ Public Class FormRegionlist
         IconView.GridLines = True
         IconView.AllowColumnReorder = False
         IconView.Sorting = SortOrder.Ascending
-        AllNone.Visible = False
         IconView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+        IconView.ShowItemToolTips = True
 
         UserView.TabIndex = 0
         UserView.View = View.Details
@@ -311,8 +313,7 @@ Public Class FormRegionlist
         UserView.GridLines = True
         UserView.AllowColumnReorder = True
         UserView.Sorting = SortOrder.Ascending
-        AllNone.Visible = True
-        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None)
+        UserView.ShowItemToolTips = True
 
         If Settings.KeepOnTop Then
             Me.TopMost = True

@@ -15,7 +15,7 @@ Module OpensimWorld
             If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Or
                 (PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart) Then
 
-                Dim Avatars As Integer = RPC_admin_get_agent_count(RegionUUID)
+                Dim Avatars As Integer = RPC_admin_get_avatar_count(RegionUUID)
                 If Avatars <> PropRegionClass.InRegion(RegionUUID) Then
                     PropRegionClass.InRegion(RegionUUID) = Avatars
                     SendToOpensimWorld(RegionUUID, Avatars)

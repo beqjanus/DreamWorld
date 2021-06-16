@@ -8617,21 +8617,21 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Click an enabled row to start or stop the region.  Click a disabled row to edit the region..
-        '''</summary>
-        Friend ReadOnly Property Row() As String
-            Get
-                Return ResourceManager.GetString("Row", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property row_add() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("row_add", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Click a row to control the region. Check the box to enable/disable..
+        '''</summary>
+        Friend ReadOnly Property Row_note() As String
+            Get
+                Return ResourceManager.GetString("Row_note", resourceCulture)
             End Get
         End Property
         

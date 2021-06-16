@@ -130,8 +130,8 @@
   <data name="Cache_Directory_word" xml:space="preserve">
     <value>Cache Directory</value>
   </data>
-  <data name="Row" xml:space="preserve">
-    <value>Click an enabled row to start or stop the region.  Click a disabled row to edit the region.</value>
+  <data name="Row_note" xml:space="preserve">
+    <value>Click a row to control the region. Check the box to enable/disable.</value>
   </data>
   <data name="Region_Port_Start" xml:space="preserve">
     <value>Region Port Start #</value>

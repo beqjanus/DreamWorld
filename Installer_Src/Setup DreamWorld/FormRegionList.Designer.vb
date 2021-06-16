@@ -104,7 +104,6 @@ Partial Class FormRegionlist
         'ToolTip1
         '
         Me.ToolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info
-        Me.ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Resources.Row
         '
         'AddRegionButton
         '

@@ -72,7 +72,9 @@ Partial Class FormRegion
         Me.ScriptTimerTextBox = New System.Windows.Forms.TextBox()
         Me.ClampPrimSize = New System.Windows.Forms.CheckBox()
         Me.ClampPrimLabel = New System.Windows.Forms.Label()
+        Me.RegionPort = New System.Windows.Forms.TextBox()
         Me.RegionsGroupbox = New System.Windows.Forms.GroupBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.YLabel = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.XLabel = New System.Windows.Forms.Label()
@@ -144,8 +146,6 @@ Partial Class FormRegion
         Me.RichTextBoxPublicity = New System.Windows.Forms.RichTextBox()
         Me.Modules = New System.Windows.Forms.TabPage()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
-        Me.RegionPort = New System.Windows.Forms.TextBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.RegionsGroupbox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.ScriptsGroupbox.SuspendLayout()
@@ -632,6 +632,15 @@ Partial Class FormRegion
         Me.ClampPrimLabel.Text = "Clamp Prim Size"
         Me.ToolTip1.SetToolTip(Me.ClampPrimLabel, Global.Outworldz.My.Resources.Resources.ClampSize)
         '
+        'RegionPort
+        '
+        Me.RegionPort.Location = New System.Drawing.Point(162, 22)
+        Me.RegionPort.Name = "RegionPort"
+        Me.RegionPort.ReadOnly = True
+        Me.RegionPort.Size = New System.Drawing.Size(43, 20)
+        Me.RegionPort.TabIndex = 25
+        Me.ToolTip1.SetToolTip(Me.RegionPort, Global.Outworldz.My.Resources.Resources.CoordY)
+        '
         'RegionsGroupbox
         '
         Me.RegionsGroupbox.BackColor = System.Drawing.SystemColors.Window
@@ -660,6 +669,15 @@ Partial Class FormRegion
         Me.RegionsGroupbox.TabIndex = 26
         Me.RegionsGroupbox.TabStop = False
         Me.RegionsGroupbox.Text = "Regions"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(211, 25)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(26, 13)
+        Me.Label4.TabIndex = 26
+        Me.Label4.Text = "Port"
         '
         'YLabel
         '
@@ -1414,24 +1432,6 @@ Partial Class FormRegion
         Me.Modules.TabIndex = 6
         Me.Modules.Text = "Modules"
         Me.Modules.UseVisualStyleBackColor = True
-        '
-        'RegionPort
-        '
-        Me.RegionPort.Location = New System.Drawing.Point(162, 22)
-        Me.RegionPort.Name = "RegionPort"
-        Me.RegionPort.ReadOnly = True
-        Me.RegionPort.Size = New System.Drawing.Size(43, 20)
-        Me.RegionPort.TabIndex = 25
-        Me.ToolTip1.SetToolTip(Me.RegionPort, Global.Outworldz.My.Resources.Resources.CoordY)
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(211, 25)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(26, 13)
-        Me.Label4.TabIndex = 26
-        Me.Label4.Text = "Port"
         '
         'FormRegion
         '

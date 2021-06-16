@@ -3,23 +3,10 @@ Imports System.Threading
 
 Module CPUCounter
 
-    Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
     Private ReadOnly _counterList As New Dictionary(Of String, PerformanceCounter)
-    Private ReadOnly _PCList As New Dictionary(Of Integer, PerformanceCounter)
     Private ReadOnly _CPUValues As New Dictionary(Of String, Double)
-
-    Public Class CPUStuff
-        Public CounterList As Dictionary(Of String, PerformanceCounter)
-        Public CPUValues As Dictionary(Of String, Double)
-        Public PropInstanceHandles As Dictionary(Of Integer, String)
-    End Class
-
-
-    Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
-        Get
-            Return _regionHandles
-        End Get
-    End Property
+    Private ReadOnly _regionHandles As New Dictionary(Of Integer, String)
+    Private _PCList As Dictionary(Of Integer, PerformanceCounter)
 
     Public ReadOnly Property CounterList As Dictionary(Of String, PerformanceCounter)
         Get
@@ -27,14 +14,22 @@ Module CPUCounter
         End Get
     End Property
 
-    Public ReadOnly Property PCList As Dictionary(Of Integer, PerformanceCounter)
-        Get
-            Return _PCList
-        End Get
-    End Property
     Public ReadOnly Property CPUValues As Dictionary(Of String, Double)
         Get
             Return _CPUValues
+        End Get
+    End Property
+
+    Public ReadOnly Property PCList As Dictionary(Of Integer, PerformanceCounter)
+        Get
+            If _PCList Is Nothing Then _PCList = New Dictionary(Of Integer, PerformanceCounter)
+            Return _PCList
+        End Get
+    End Property
+
+    Public ReadOnly Property PropInstanceHandles As Dictionary(Of Integer, String)
+        Get
+            Return _regionHandles
         End Get
     End Property
 
@@ -51,7 +46,6 @@ Module CPUCounter
         End If
 
     End Sub
-
 
     Public Sub CalcCPU(O As CPUStuff)
 
@@ -144,5 +138,11 @@ Module CPUCounter
         Return PC
 
     End Function
+
+    Public Class CPUStuff
+        Public CounterList As Dictionary(Of String, PerformanceCounter)
+        Public CPUValues As Dictionary(Of String, Double)
+        Public PropInstanceHandles As Dictionary(Of Integer, String)
+    End Class
 
 End Module

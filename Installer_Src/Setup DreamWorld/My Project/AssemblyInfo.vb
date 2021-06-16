@@ -8,7 +8,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("DreamGrid")>
-<Assembly: AssemblyDescription("Virtual World installer for Opensimulator")>
+<Assembly: AssemblyDescription("Virtual World Installer for Opensimulator")>
 <Assembly: AssemblyCompany("Outworldz, LLC.")>
 <Assembly: AssemblyProduct("DreamGrid")>
 <Assembly: AssemblyCopyright("Copyright © 2017")>
@@ -26,6 +26,6 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers by using the '*'
 ' as shown below: <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("3.6.9.1")>
-<Assembly: AssemblyFileVersion("3.6.9.1")>
+<Assembly: AssemblyVersion("4.4.2.0")>
+<Assembly: AssemblyFileVersion("4.4.2")>
 <Assembly: NeutralResourcesLanguage("en")>

@@ -618,7 +618,7 @@ Public Class FormSmartStart
 
         SmartStartEnabled.Checked = Settings.SmartStart
         TempCheckBox.Checked = Settings.TempRegion
-        DelayRegionReady.Text = Settings.TeleportSleepTime
+        DelayRegionReady.Text = CStr(Settings.TeleportSleepTime)
 
         SetScreen()
 
