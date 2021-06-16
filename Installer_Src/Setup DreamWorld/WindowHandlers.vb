@@ -152,6 +152,7 @@ Module WindowHandlers
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Public Function GetPIDofWindow(GroupName As String) As Integer
 
         Dim PID As Integer
@@ -159,16 +160,13 @@ Module WindowHandlers
         Try
             If IO.File.Exists(INI) Then
                 Using F As FileStream = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
-
                     Using S As StreamReader = New StreamReader(F)
                         'now loop through each line
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
-
                             If Int32.TryParse(sPID, PID) Then
                                 Return PID
                             End If
-
                         End While
                     End Using
                 End Using
