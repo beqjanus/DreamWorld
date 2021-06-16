@@ -177,6 +177,7 @@ namespace OpenSim.ApplicationPlugins.RemoteController
                     availableMethods["admin_refresh_map"] = (req, ep) => InvokeXmlRpcMethod(req, ep, XmlRpcRefreshMap);
                     availableMethods["admin_get_opensim_version"] = (req, ep) => InvokeXmlRpcMethod(req, ep, XmlRpcGetOpenSimVersion);
                     availableMethods["admin_get_agent_count"] = (req, ep) => InvokeXmlRpcMethod(req, ep, XmlRpcGetAgentCount);
+                    availableMethods["admin_get_avatar_count"] = (req, ep) => InvokeXmlRpcMethod(req, ep, XmlRpcGetAvatarCount);
 
                     // Either enable full remote functionality or just selected features
                     string enabledMethods = m_config.GetString("enabled_methods", "all");
@@ -1720,7 +1721,7 @@ namespace OpenSim.ApplicationPlugins.RemoteController
 
         private void XmlRpcConsoleCommandMethod(XmlRpcRequest request, XmlRpcResponse response, IPEndPoint remoteClient)
         {
-            m_log.Info("[RADMIN]: Received Command XML Administrator Request");
+            m_log.Debug("[RADMIN]: Received Command XML Administrator Request");
 
             Hashtable responseData = (Hashtable)response.Value;
             Hashtable requestData = (Hashtable)request.Params[0];
@@ -1729,7 +1730,7 @@ namespace OpenSim.ApplicationPlugins.RemoteController
 
             MainConsole.Instance.RunCommand(requestData["command"].ToString());
 
-            m_log.Info("[RADMIN]: Command XML Administrator Request complete");
+            m_log.Debug("[RADMIN]: Command XML Administrator Request complete");
         }
 
         /// <summary>
@@ -2220,6 +2221,30 @@ namespace OpenSim.ApplicationPlugins.RemoteController
             m_log.Info("[RADMIN]: Estate Reload Request complete");
         }
 
+        private void XmlRpcGetAvatarCount(XmlRpcRequest request, XmlRpcResponse response, IPEndPoint remoteClient)
+        {
+            m_log.Debug("[RADMIN]: Received Get Avatar Count Request");
+
+            Hashtable responseData = (Hashtable)response.Value;
+            Hashtable requestData = (Hashtable)request.Params[0];
+
+            CheckRegionParams(requestData, responseData);
+
+            Scene scene = null;
+            GetSceneFromRegionParams(requestData, responseData, out scene);
+
+            if (scene == null)
+            {
+                responseData["success"] = false;
+            }
+            else
+            {
+                responseData["count"] = scene.GetRootAvatarCount();
+                responseData["success"] = true;
+            }
+
+            m_log.Debug("[RADMIN]: Get Avatar Count Request complete");
+        }
         private void XmlRpcGetAgentCount(XmlRpcRequest request, XmlRpcResponse response, IPEndPoint remoteClient)
         {
             m_log.Debug("[RADMIN]: Received Get Agent Count Request");

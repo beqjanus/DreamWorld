@@ -5268,6 +5268,11 @@ namespace OpenSim.Region.Framework.Scenes
             return m_sceneGraph.GetRootAgentCount();
         }
 
+        public int GetRootAvatarCount()
+        {
+            return m_sceneGraph.GetRootAvatarCount();
+        }
+
         public int GetChildAgentCount()
         {
             return m_sceneGraph.GetChildAgentCount();

@@ -79,6 +79,7 @@ namespace OpenSim.Region.Framework.Scenes
         private PhysicsScene _PhyScene;
 
         private int m_numRootAgents = 0;
+        private int m_numRootAvatars = 0;
         private int m_numTotalPrim = 0;
         private int m_numPrim = 0;
         private int m_numMesh = 0;
@@ -830,6 +831,17 @@ namespace OpenSim.Region.Framework.Scenes
             return m_numRootAgents;
         }
 
+        public int GetRootAvatarCount()
+        {
+            
+            int roots = 0;
+            foreach (ScenePresence sp in GetScenePresences())
+                if (!sp.IsChildAgent && !sp.IsNPC)
+                    roots++;
+
+            return roots;
+
+        }
         public int GetTotalObjectsCount()
         {
             return m_numTotalPrim;
