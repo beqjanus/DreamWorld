@@ -223,6 +223,10 @@ Module Robust
 
         If Settings.ServerType <> RobustServerName Then Return
         If IsRobustRunning() Then
+
+
+
+
             TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
             ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
             Dim ctr As Integer = 0
@@ -426,8 +430,13 @@ Module Robust
         Using client As New WebClient ' download client for web pages
             Dim Up As String
             Try
+
+                Up = New TimedWebClient With {
+                    .Timeout = 500
+                    }.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
+
                 ' Up = client.DownloadString("http://" & Settings.RobustServerIP & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
-                Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
+                'Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
             Catch ex As Exception
                 ' If ex.Message.Contains("404") Then
                 '   RobustIcon(True)
@@ -439,15 +448,19 @@ Module Robust
                 Return False
             End Try
 
-            If Up.Length = 0 And PropOpensimIsRunning() Then
+            If Up.Contains("OpenSim") Then
+                Log("INFO", "Robust is running")
+                RobustIcon(True)
+                Return True
+            ElseIf Up.Length = 0 And PropOpensimIsRunning() Then
                 Log("INFO", "Robust is not running")
                 RobustIcon(False)
                 Return False
             End If
         End Using
-        Log("INFO", "Robust is running")
-        RobustIcon(True)
-        Return True
+
+        RobustIcon(False)
+        Return False
 
     End Function
 
@@ -463,8 +476,8 @@ Module Robust
             RobustCrashCounter += 1
             Return
         End If
-        RobustCrashCounter = 0
 
+        RobustCrashCounter = 0
         RobustIcon(False)
 
         Dim yesno = MsgBox(My.Resources.Robust_exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
@@ -513,5 +526,22 @@ Module Robust
         End If
 
     End Sub
+
+    Public Class TimedWebClient
+        Inherits WebClient
+
+        Public Sub New()
+            Me.Timeout = 2000
+        End Sub
+
+        Public Property Timeout As Integer
+
+        Protected Overrides Function GetWebRequest(ByVal address As Uri) As WebRequest
+            Dim objWebRequest = MyBase.GetWebRequest(address)
+            objWebRequest.Timeout = Me.Timeout
+            Return objWebRequest
+        End Function
+
+    End Class
 
 End Module
