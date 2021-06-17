@@ -59,6 +59,8 @@ Partial Class FormRegionlist
         Me.AllButton = New System.Windows.Forms.RadioButton()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.SearchBox = New System.Windows.Forms.TextBox()
+        Me.Bootedbutton = New System.Windows.Forms.RadioButton()
+        Me.StoppedButton = New System.Windows.Forms.RadioButton()
         Me.MenuStrip1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.SuspendLayout()
@@ -343,7 +345,7 @@ Partial Class FormRegionlist
         Me.TableLayoutPanel1.Controls.Add(Me.IconsButton, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.AvatarsButton, 3, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.Users, 4, 0)
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(224, 12)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(243, 15)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
@@ -384,7 +386,7 @@ Partial Class FormRegionlist
         'OffButton
         '
         Me.OffButton.AutoSize = True
-        Me.OffButton.Location = New System.Drawing.Point(97, 59)
+        Me.OffButton.Location = New System.Drawing.Point(81, 57)
         Me.OffButton.Name = "OffButton"
         Me.OffButton.Size = New System.Drawing.Size(39, 17)
         Me.OffButton.TabIndex = 18610
@@ -395,7 +397,7 @@ Partial Class FormRegionlist
         'OnButton
         '
         Me.OnButton.AutoSize = True
-        Me.OnButton.Location = New System.Drawing.Point(97, 36)
+        Me.OnButton.Location = New System.Drawing.Point(81, 34)
         Me.OnButton.Name = "OnButton"
         Me.OnButton.Size = New System.Drawing.Size(39, 17)
         Me.OnButton.TabIndex = 18611
@@ -437,11 +439,35 @@ Partial Class FormRegionlist
         Me.SearchBox.Size = New System.Drawing.Size(110, 20)
         Me.SearchBox.TabIndex = 18615
         '
+        'Bootedbutton
+        '
+        Me.Bootedbutton.AutoSize = True
+        Me.Bootedbutton.Location = New System.Drawing.Point(142, 34)
+        Me.Bootedbutton.Name = "Bootedbutton"
+        Me.Bootedbutton.Size = New System.Drawing.Size(65, 17)
+        Me.Bootedbutton.TabIndex = 18616
+        Me.Bootedbutton.TabStop = True
+        Me.Bootedbutton.Text = "Running"
+        Me.Bootedbutton.UseVisualStyleBackColor = True
+        '
+        'StoppedButton
+        '
+        Me.StoppedButton.AutoSize = True
+        Me.StoppedButton.Location = New System.Drawing.Point(142, 57)
+        Me.StoppedButton.Name = "StoppedButton"
+        Me.StoppedButton.Size = New System.Drawing.Size(65, 17)
+        Me.StoppedButton.TabIndex = 18617
+        Me.StoppedButton.TabStop = True
+        Me.StoppedButton.Text = "Stopped"
+        Me.StoppedButton.UseVisualStyleBackColor = True
+        '
         'FormRegionlist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1009, 338)
+        Me.Controls.Add(Me.StoppedButton)
+        Me.Controls.Add(Me.Bootedbutton)
         Me.Controls.Add(Me.SearchBox)
         Me.Controls.Add(Me.AllButton)
         Me.Controls.Add(Me.SmartButton)
@@ -498,4 +524,6 @@ Partial Class FormRegionlist
     Friend WithEvents AllButton As RadioButton
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents SearchBox As TextBox
+    Friend WithEvents Bootedbutton As RadioButton
+    Friend WithEvents StoppedButton As RadioButton
 End Class
