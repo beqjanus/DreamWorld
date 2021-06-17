@@ -3291,4 +3291,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>Área total de la tienda, incluida el área de venta y de almacenamiento.</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Haga clic en una fila para controlar la región. Marque la casilla para activar/desactivar.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>buscar</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Retraso de región lista</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>El tiempo mínimo es de 0 segundos. El valor predeterminado es 60 segundos.</value>
+  </data>
 </root>

@@ -3288,4 +3288,19 @@
   <data name="isBooting" xml:space="preserve">
     <value>er enn að fara í gang</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Smelltu á röð til að stjórna svæðinu. Merktu við reitinn til að virkja / slökkva.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Leitaðu</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Samtals svæði</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Svæði tilbúin töf</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Lágmarks tími er 0 sekúndur. Sjálfgefið er 60 sekúndur.</value>
+  </data>
 </root>

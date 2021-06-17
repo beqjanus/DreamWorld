@@ -3295,4 +3295,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>Àrea total</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Feu clic a una fila per controlar la regió. Marqueu la casella per activar / desactivar.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Cerca</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Retard preparat per a la regió</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>El temps mínim és de 0 segons. El valor predeterminat és de 60 segons.</value>
+  </data>
 </root>

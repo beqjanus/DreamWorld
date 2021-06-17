@@ -3291,4 +3291,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>Áre&amp;a total:</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Clique em uma linha para controlar a região. Marque a caixa para ativar / desativar.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Procurar</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Atraso de preparação da região</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>O tempo mínimo é 0 segundos. O padrão é 60 segundos.</value>
+  </data>
 </root>

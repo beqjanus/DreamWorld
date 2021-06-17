@@ -3294,4 +3294,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>Συνολική έκταση</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Κάντε κλικ σε μια σειρά για να ελέγξετε την περιοχή. Επιλέξτε το πλαίσιο για ενεργοποίηση / απενεργοποίηση.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Αναζήτηση</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Καθυστέρηση ετοιμότητας περιοχής</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Ο ελάχιστος χρόνος είναι 0 δευτερόλεπτα. Η προεπιλογή είναι 60 δευτερόλεπτα.</value>
+  </data>
 </root>

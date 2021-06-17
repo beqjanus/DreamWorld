@@ -229,6 +229,7 @@ Public Class FormRegionlist
         AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
         AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
         AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
+        Bootedbutton.Text = Global.Outworldz.My.Resources.Running_word
         DetailsButton.Text = Global.Outworldz.My.Resources.Details_word
         FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Float
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
@@ -245,6 +246,7 @@ Public Class FormRegionlist
         RunAllButton.Text = Global.Outworldz.My.Resources.Run_All_word
         SearchBox.Text = Global.Outworldz.My.Resources.Search_word
         StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
+        StoppedButton.Text = Global.Outworldz.My.Resources.Stopped_word
         ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Add_Region_word)
         ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Selectallnone)
         ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.ListAvatars)
@@ -756,8 +758,8 @@ Public Class FormRegionlist
                 If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
                 If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
                 If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
-                If Bootedbutton.Checked And Not PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
-                If StoppedButton.Checked And Not PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then Continue For
+                If Bootedbutton.Checked And PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
+                If StoppedButton.Checked And PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then Continue For
 
                 Dim Num As Integer = 0
                 Dim Letter As String = ""
@@ -973,8 +975,8 @@ Public Class FormRegionlist
             If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
             If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
             If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
-            If Bootedbutton.Checked And Not PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
-            If StoppedButton.Checked And Not PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then Continue For
+            If Bootedbutton.Checked And PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
+            If StoppedButton.Checked And PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then Continue For
 
             Try
                 Dim Num As Integer = 0
@@ -1624,6 +1626,10 @@ SetWindowOnTop_Err:
         LoadMyListView()
     End Sub
 
+    Private Sub Bootedbutton_CheckedChanged(sender As Object, e As EventArgs) Handles Bootedbutton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ImportButton.Click
 
         Using ofd As New OpenFileDialog With {
@@ -1761,6 +1767,10 @@ SetWindowOnTop_Err:
     End Sub
 
     Private Sub SmartButton_CheckedChanged(sender As Object, e As EventArgs) Handles SmartButton.CheckedChanged
+        LoadMyListView()
+    End Sub
+
+    Private Sub StoppedButton_CheckedChanged(sender As Object, e As EventArgs) Handles StoppedButton.CheckedChanged
         LoadMyListView()
     End Sub
 

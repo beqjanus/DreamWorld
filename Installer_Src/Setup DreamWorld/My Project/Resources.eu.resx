@@ -3288,4 +3288,19 @@
   <data name="No_Estate_Word" xml:space="preserve">
     <value>Jabetzarik ez</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Egin klik errenkada batean eskualdea kontrolatzeko. Markatu laukia gaitzeko / desgaitzeko.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Bilatu</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Azalera osoa</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Eskualdearen Prest Atzerapena</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Gutxieneko denbora 0 segundo da. Lehenetsia 60 segundokoa da.</value>
+  </data>
 </root>

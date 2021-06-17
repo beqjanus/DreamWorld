@@ -3294,4 +3294,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>المساحة الكلية</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>انقر فوق صف للتحكم في المنطقة. حدد المربع لتمكين / تعطيل.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>يبحث</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>المنطقة جاهزة التأخير</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>الحد الأدنى للوقت 0 ثانية. الافتراضي 60 ثانية.</value>
+  </data>
 </root>

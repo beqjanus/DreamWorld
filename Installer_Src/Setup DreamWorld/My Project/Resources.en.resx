@@ -3288,4 +3288,19 @@
   <data name="isBooting" xml:space="preserve">
     <value>is still booting!</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Click a row to control the region. Check the box to enable/disable.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Total Area</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Region Ready Delay</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Minimum time is 0 seconds. Default is 60 seconds.</value>
+  </data>
 </root>

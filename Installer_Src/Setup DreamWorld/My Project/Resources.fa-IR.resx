@@ -3288,4 +3288,19 @@
   <data name="isBooting" xml:space="preserve">
     <value>هنوز در حال بوت شدن است</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>برای کنترل منطقه روی یک ردیف کلیک کنید. برای فعال / غیرفعال کردن کادر را علامت بزنید.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>جستجو کردن</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>مساحت کل</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>تأخیر آماده منطقه</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>حداقل زمان 0 ثانیه است. پیش فرض 60 ثانیه است.</value>
+  </data>
 </root>

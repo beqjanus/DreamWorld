@@ -3288,4 +3288,19 @@
   <data name="isBooting" xml:space="preserve">
     <value>vẫn đang khởi động</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Nhấp vào một hàng để kiểm soát khu vực. Chọn hộp để bật / tắt.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Tìm kiếm</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Toàn bộ khu vực</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Khu vực sẵn sàng trì hoãn</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Thời gian tối thiểu là 0 giây. Mặc định là 60 giây.</value>
+  </data>
 </root>

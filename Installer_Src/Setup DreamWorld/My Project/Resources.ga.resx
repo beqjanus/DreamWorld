@@ -3288,4 +3288,19 @@
   <data name="isBooting" xml:space="preserve">
     <value>fós ag tosaithe</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Cliceáil as a chéile chun an réigiún a rialú. Seiceáil an bosca chun a chumasú / a dhíchumasú.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Cuardaigh</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Achar Iomlán</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Moill Réidh Réigiúin</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Is é 0 soicind an t-íosmhéid ama. Is é 60 soicind an réamhshocrú.</value>
+  </data>
 </root>

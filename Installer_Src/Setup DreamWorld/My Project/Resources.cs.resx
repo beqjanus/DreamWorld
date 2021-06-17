@@ -3294,4 +3294,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>Celková plocha</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Klepnutím na řádek můžete ovládat oblast. Zaškrtnutím políčka povolíte / zakážete.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Vyhledávání</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Zpoždění připravenosti regionu</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Minimální doba je 0 sekund. Výchozí hodnota je 60 sekund.</value>
+  </data>
 </root>

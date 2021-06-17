@@ -3291,4 +3291,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>Toplam &amp;alan:</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Bölgeyi kontrol etmek için bir satırı tıklayın. Etkinleştirmek/devre dışı bırakmak için kutuyu işaretleyin.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Arama</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Bölge Hazır Gecikmesi</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Minimum süre 0 saniyedir. Varsayılan 60 saniyedir.</value>
+  </data>
 </root>

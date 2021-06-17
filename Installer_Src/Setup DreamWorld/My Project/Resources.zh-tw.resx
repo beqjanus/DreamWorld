@@ -3288,4 +3288,19 @@
   <data name="isBooting" xml:space="preserve">
     <value>仍在啟動</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>單擊一行以控制區域。選中該框以啟用/禁用。</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>總面積</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>區域就緒延遲</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>最短時間為 0 秒。默認值為 60 秒。</value>
+  </data>
 </root>

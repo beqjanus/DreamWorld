@@ -3294,4 +3294,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>Samlet areal</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Klik på en række for at kontrollere regionen. Marker afkrydsningsfeltet for at aktivere / deaktivere.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Søg</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Region Ready Delay</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Minimum tid er 0 sekunder. Standard er 60 sekunder.</value>
+  </data>
 </root>

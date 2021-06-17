@@ -3291,4 +3291,16 @@
   <data name="TotalArea_word" xml:space="preserve">
     <value>Totale &amp;oppervlakte:</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Klik op een rij om de regio te beheren. Vink het vakje aan om in/uit te schakelen.</value>
+  </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Vertraging regio gereed</value>
+  </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Minimale tijd is 0 seconden. Standaard is 60 seconden.</value>
+  </data>
 </root>
