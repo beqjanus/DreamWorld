@@ -756,6 +756,8 @@ Public Class FormRegionlist
                 If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
                 If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
                 If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
+                If Bootedbutton.Checked And Not PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
+                If StoppedButton.Checked And Not PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then Continue For
 
                 Dim Num As Integer = 0
                 Dim Letter As String = ""
@@ -971,6 +973,8 @@ Public Class FormRegionlist
             If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
             If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
             If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
+            If Bootedbutton.Checked And Not PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
+            If StoppedButton.Checked And Not PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then Continue For
 
             Try
                 Dim Num As Integer = 0
