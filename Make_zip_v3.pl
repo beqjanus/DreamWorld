@@ -45,6 +45,8 @@ say ('Server Publish ? <p = publish, c = clean, enter = make the zip only>');
 my $publish = <stdin>;
 chomp $publish;
 
+$v > io("$dir/Version.txt");
+
 my $start = GetDate() . " " . GetTime() . "\n";
 my @languages = qw (ar ar-SA es-ES fa ca cs da de el en es-MX eu fa-IR fi fr ga he  is it nl-NL no pl pt pt-BR ru sv tr vi zh-cn zh-tw zh-Hans-HK    );
 foreach my $lang (@languages)
