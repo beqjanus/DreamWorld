@@ -2,13 +2,19 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V4.44
+Two more filters for regions: a Stopped and a Running filter
+Two new free OARs. A dragon riding sim, and a Gateway to Africa, our Virunga sim.
+Nooblets get the region list Pop Up.
+Sped up detection of offline Robust to speed up shutdown by 59.5 seconds. 
+
 V4.43
 Reworked the port mapping to better handle adding or deleting regions while running. It detects safe shutdowns so it will reclaim/recycle ports from 8004 upward.
 If running, it always adds a port to the end. Restarting will reuse the ports that are in the region files.
 SmartStart: Added a settable number of seconds for regions to stabilize after boot before launching the teleport.   This lest you tune the length of time to let the region stabilize.
 Running more than one grid on a server would improperly detect all running regions during shutdown and so would never shut down.
 Explicit version message of VersionIS==> WillBe when prompted to update.  As in 4.3 ==> 4.4
-Opnsimworld shows the avatars + NPCs, instead of the avatars. Oops.   The RPC call admin_get_agent_count command is  basically an antique.  I added a admin_get_avatar_count.
+Opensim world shows the avatars + NPCs, instead of the avatars. Oops.   The RPC call admin_get_agent_count command is  basically an antique.  I added a admin_get_avatar_count.
 
 
 V.42 Internal alpha test
