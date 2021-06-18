@@ -53,7 +53,7 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
     {
         private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        //        private const int DEBUG_CHANNEL = 2147483647; use base value
+//        private const int DEBUG_CHANNEL = 2147483647; use base value
 
         private new List<IScene> m_scenes = new List<IScene>();
         private List<IScene> m_conciergedScenes = new List<IScene>();
@@ -75,7 +75,6 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
         internal new bool m_enabled = false;
 
         #region ISharedRegionModule Members
-
         public override void Initialise(IConfigSource configSource)
         {
             IConfig config = configSource.Configs["Concierge"];
@@ -101,7 +100,7 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
                 }
                 else
                 {
-                    m_replacingChatModule = !configSource.Configs["Chat"].GetBoolean("enabled", true);
+                    m_replacingChatModule  = !configSource.Configs["Chat"].GetBoolean("enabled", true);
                 }
             }
             catch (Exception)
@@ -217,11 +216,9 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
         {
             get { return "ConciergeModule"; }
         }
-
-        #endregion ISharedRegionModule Members
+        #endregion
 
         #region ISimChat Members
-
         public override void OnChatBroadcast(Object sender, OSChatMessage c)
         {
             if (m_replacingChatModule)
@@ -292,8 +289,8 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
             }
             return;
         }
+        #endregion
 
-        #endregion ISimChat Members
 
         public override void OnNewClient(IClientAPI client)
         {
@@ -302,6 +299,8 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
             if (m_replacingChatModule)
                 client.OnChatFromClient += OnChatFromClient;
         }
+
+
 
         public void OnClientLoggedOut(IClientAPI client)
         {
@@ -317,6 +316,7 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
             }
         }
 
+
         public void OnMakeRootAgent(ScenePresence agent)
         {
             if (m_conciergedScenes.Contains(agent.Scene))
@@ -324,13 +324,12 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
                 Scene scene = agent.Scene;
                 m_log.DebugFormat("[Concierge]: {0} enters {1}", agent.Name, scene.RegionInfo.RegionName);
                 WelcomeAvatar(agent, scene);
-                m_log.DebugFormat("[Concierge]: Welcome {0} ", agent.Name);
                 AnnounceToAgentsRegion(scene, String.Format(m_announceEntering, agent.Name,
                                                             scene.RegionInfo.RegionName, scene.GetRootAgentCount()));
-                m_log.DebugFormat("[Concierge]: Welcome {0}, N Avatars = {1}", agent.Name, scene.GetRootAgentCount());
                 UpdateBroker(scene);
             }
         }
+
 
         public void OnMakeChildAgent(ScenePresence agent)
         {
@@ -364,23 +363,16 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
             if (String.IsNullOrEmpty(m_brokerURI))
                 return;
 
-            m_log.DebugFormat("[Concierge]: UpdateBroker");
-
             string uri = String.Format(m_brokerURI, scene.RegionInfo.RegionName, scene.RegionInfo.RegionID);
-            m_log.DebugFormat("[Concierge]: URL {0}", uri);
 
             // create XML sniplet
-            string s = String.Format("<avatars count=\"{0}\" region_name=\"{1}\" region_uuid=\"{2}\" timestamp=\"{3}\">\n",
+            StringBuilder list = new StringBuilder();
+            list.Append(String.Format("<avatars count=\"{0}\" region_name=\"{1}\" region_uuid=\"{2}\" timestamp=\"{3}\">\n",
                                           scene.GetRootAgentCount(), scene.RegionInfo.RegionName,
                                           scene.RegionInfo.RegionID,
-                                          DateTime.UtcNow.ToString("s"));
+                                          DateTime.UtcNow.ToString("s")));
 
-            StringBuilder list = new StringBuilder();
-            m_log.DebugFormat("[Concierge]: S {0}", s);
-
-            list.Append(s);
-
-            scene.ForEachRootScenePresence(delegate (ScenePresence sp)
+            scene.ForEachRootScenePresence(delegate(ScenePresence sp)
             {
                 list.Append(String.Format("    <avatar name=\"{0}\" uuid=\"{1}\" />\n", sp.Name, sp.UUID));
             });
@@ -395,8 +387,9 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
             updatePost.ContentLength = payload.Length;
             updatePost.UserAgent = "OpenSim.Concierge";
 
+
             BrokerState bs = new BrokerState(uri, payload, updatePost);
-            bs.Timer = new Timer(delegate (object state)
+            bs.Timer = new Timer(delegate(object state)
                                  {
                                      BrokerState b = state as BrokerState;
                                      b.Poster.Abort();
@@ -467,7 +460,7 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
 
                         if (resp.ContentLength > 0)
                         {
-                            using (StreamReader content = new StreamReader(resp.GetResponseStream()))
+                            using(StreamReader content = new StreamReader(resp.GetResponseStream()))
                                 m_log.ErrorFormat("[Concierge] response from {0} content:     {1}", bs.Uri, content.ReadToEnd());
                         }
                     }
@@ -478,7 +471,7 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
         protected void WelcomeAvatar(ScenePresence agent, Scene scene)
         {
             // welcome mechanics: check whether we have a welcomes
-            // directory set and whether there is a region specific
+            // directory set and wether there is a region specific
             // welcome file there: if yes, send it to the agent
             if (!String.IsNullOrEmpty(m_welcomes))
             {
@@ -553,13 +546,13 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
             c.Scene = agent.Scene;
 
             agent.ControllingClient.SendChatMessage(
-                msg, (byte)ChatTypeEnum.Say, PosOfGod, m_whoami, UUID.Zero, UUID.Zero,
+                msg, (byte) ChatTypeEnum.Say, PosOfGod, m_whoami, UUID.Zero, UUID.Zero,
                  (byte)ChatSourceType.Object, (byte)ChatAudibleLevel.Fully);
         }
 
         private static void checkStringParameters(XmlRpcRequest request, string[] param)
         {
-            Hashtable requestData = (Hashtable)request.Params[0];
+            Hashtable requestData = (Hashtable) request.Params[0];
             foreach (string p in param)
             {
                 if (!requestData.Contains(p))
@@ -592,7 +585,7 @@ namespace OpenSim.Region.OptionalModules.Avatar.Concierge
                     throw new Exception("empty parameter \"welcome\"");
 
                 string regionName = (string)requestData["region"];
-                IScene scene = m_scenes.Find(delegate (IScene s) { return s.RegionInfo.RegionName == regionName; });
+                IScene scene = m_scenes.Find(delegate(IScene s) { return s.RegionInfo.RegionName == regionName; });
                 if (scene == null)
                     throw new Exception(String.Format("unknown region \"{0}\"", regionName));
 

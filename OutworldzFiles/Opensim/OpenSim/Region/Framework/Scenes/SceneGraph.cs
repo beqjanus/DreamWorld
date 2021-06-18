@@ -78,8 +78,7 @@ namespace OpenSim.Region.Framework.Scenes
         private Scene m_parentScene;
         private PhysicsScene _PhyScene;
 
-        private int m_numRootAgents = 0;
-        private int m_numRootAvatars = 0;
+        private int m_numRootAgents = 0;        
         private int m_numTotalPrim = 0;
         private int m_numPrim = 0;
         private int m_numMesh = 0;
