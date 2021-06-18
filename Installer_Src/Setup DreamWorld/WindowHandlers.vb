@@ -69,7 +69,9 @@ Module WindowHandlers
 
         Dim PID As Integer
         If RegionUUID = "Robust" Then
-            PID = PropRobustProcID
+            If IsRobustRunning() Then
+                PID = PropRobustProcID
+            End If
         Else
             PID = PropRegionClass.ProcessID(RegionUUID)
         End If
@@ -87,6 +89,7 @@ Module WindowHandlers
             Try
                 AppActivate(PID)
                 Sleep(100)
+
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
