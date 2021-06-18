@@ -20,3 +20,4 @@ find . -name "*.mdb" -type f -print0 | xargs -0 /bin/rm -f
 echo "*obj"
 find . -name "*obj" -type f -print0 | xargs -0 /bin/rm -rf
 echo "obj"
+find . -name "*.swp" -type f -print0 | xargs -0 /bin/rm -f
