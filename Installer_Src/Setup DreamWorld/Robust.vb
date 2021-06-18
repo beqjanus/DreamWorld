@@ -437,7 +437,7 @@ Module Robust
 
         Log("INFO", "Checking Robust")
 
-        Dim Up As String
+        Dim Up As String = ""
 
         Using TimedCLient As New TimedWebClient With {
                 .Timeout = 500
