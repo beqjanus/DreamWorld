@@ -79,6 +79,17 @@ Module Robust
 
     End Function
 
+    ''' <summary>
+    ''' Log and show that Robust is offline. PID = 0
+    ''' </summary>
+    Public Sub MarkRobustOffline()
+
+        Log("INFO", "Robust is not running")
+        RobustIcon(False)
+        PropRobustProcID = 0
+
+    End Sub
+
     Public Sub RobustIcon(Running As Boolean)
 
         If Not Running Then
@@ -159,14 +170,14 @@ Module Robust
             TextPrint("Robust " & Global.Outworldz.My.Resources.did_not_start_word & ex.Message)
             FormSetup.KillAll()
             FormSetup.Buttons(FormSetup.StartButton)
-            RobustIcon(False)
+            MarkRobustOffline()
             RobustIsStarting = False
             Return False
         End Try
 
         PropRobustProcID = WaitForPID(RobustProcess)
         If PropRobustProcID = 0 Then
-            RobustIcon(False)
+            MarkRobustOffline()
             Log("Error", Global.Outworldz.My.Resources.Robust_failed_to_start)
             RobustIsStarting = False
             Return False
@@ -200,7 +211,7 @@ Module Robust
                     End Try
                 End If
                 FormSetup.Buttons(FormSetup.StartButton)
-                RobustIcon(False)
+                MarkRobustOffline()
                 RobustIsStarting = False
                 Return False
             End If
@@ -224,9 +235,6 @@ Module Robust
         If Settings.ServerType <> RobustServerName Then Return
         If IsRobustRunning() Then
 
-
-
-
             TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
             ConsoleCommand(RobustName, "q{ENTER}" & vbCrLf & "q{ENTER}" & vbCrLf)
             Dim ctr As Integer = 0
@@ -239,7 +247,8 @@ Module Robust
             End While
             If ctr = 30 Then Zap("Robust")
         End If
-        RobustIcon(False)
+
+        MarkRobustOffline()
 
     End Sub
 
@@ -427,39 +436,31 @@ Module Robust
     Public Function IsRobustRunning() As Boolean
 
         Log("INFO", "Checking Robust")
-        Using client As New WebClient ' download client for web pages
-            Dim Up As String
+
+        Dim Up As String
+
+        Using TimedCLient As New TimedWebClient With {
+                .Timeout = 500
+            }
             Try
-
-                Up = New TimedWebClient With {
-                    .Timeout = 500
-                    }.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
-
-                ' Up = client.DownloadString("http://" & Settings.RobustServerIP & ":" & Settings.HttpPort & "/?_Opensim=" & RandomNumber.Random())
-                'Up = client.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
-            Catch ex As Exception
-                ' If ex.Message.Contains("404") Then
-                '   RobustIcon(True)
-                '   Log("INFO", "Robust is running")
-                '   Return True
-                ' End If
-                Log("INFO", "Robust is not running")
-                RobustIcon(False)
-                Return False
+                Up = TimedCLient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
+            Catch
             End Try
 
-            If Up.Contains("OpenSim") Then
-                Log("INFO", "Robust is running")
-                RobustIcon(True)
-                Return True
-            ElseIf Up.Length = 0 And PropOpensimIsRunning() Then
-                Log("INFO", "Robust is not running")
-                RobustIcon(False)
-                Return False
-            End If
         End Using
 
-        RobustIcon(False)
+        If Up Is Nothing Then
+            MarkRobustOffline()
+            Return False
+        ElseIf Up.Contains("OpenSim") Then
+            Log("INFO", "Robust is running")
+            RobustIcon(True)
+            Return True
+        ElseIf Up.Length = 0 And PropOpensimIsRunning() Then
+            MarkRobustOffline()
+            Return False
+        End If
+        MarkRobustOffline()
         Return False
 
     End Function
@@ -472,13 +473,13 @@ Module Robust
 
         If Settings.RestartOnCrash And RobustCrashCounter < 10 Then
             PropRobustExited = True
-            RobustIcon(False)
+            MarkRobustOffline()
             RobustCrashCounter += 1
             Return
         End If
 
         RobustCrashCounter = 0
-        RobustIcon(False)
+        MarkRobustOffline()
 
         Dim yesno = MsgBox(My.Resources.Robust_exited, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         If (yesno = vbYes) Then
