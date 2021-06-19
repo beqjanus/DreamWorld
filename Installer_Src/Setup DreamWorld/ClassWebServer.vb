@@ -171,13 +171,17 @@ Public Class NetServer
             Dim result As IAsyncResult
             While listen
                 result = listener.BeginGetContext((AddressOf ListenerCallback), listener)
-                result.AsyncWaitHandle.WaitOne()
+                Try
+                    result.AsyncWaitHandle.WaitOne()
+                Catch
+                End Try
+
             End While
 
         End Using
 
         running = False
-        'Application.ExitThread()
+        Application.ExitThread()
 
     End Sub
 
