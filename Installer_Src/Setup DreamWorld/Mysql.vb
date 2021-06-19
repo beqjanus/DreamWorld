@@ -153,6 +153,7 @@ Public Module MysqlInterface
                     If MysqlProcess.ExitCode <> 0 Then
                         TextPrint(My.Resources.Mysql_Failed)
                         MySQLIcon(False)
+                        Return False
                     Else
                         Settings.MysqlLastDirectory = Settings.CurrentDirectory
                         Settings.SaveSettings()
@@ -192,10 +193,12 @@ Public Module MysqlInterface
                         MySQLIcon(True)
                         Return True
                     End If
-                    TextPrint(My.Resources.Mysql_Failed & ":" & CStr(MysqlProcess.ExitCode))
+                    TextPrint(My.Resources.Mysql_Failed & ":" & response)
                     ApacheIcon(False)
+                    Return False
+
                 Else
-                    TextPrint(My.Resources.Mysql_is_Running & ":" & Settings.ApachePort)
+                    TextPrint(My.Resources.Mysql_is_Running & ":" & Settings.MySqlRobustDBPort)
                     ApacheIcon(True)
                 End If
 

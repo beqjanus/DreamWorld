@@ -90,6 +90,8 @@ Module WindowHandlers
                 AppActivate(PID)
                 Sleep(100)
 
+
+
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
