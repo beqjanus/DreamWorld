@@ -1,6 +1,6 @@
 @echo OFF
 
-bin\Prebuild.exe /target vs2019
+bin\Prebuild.exe /target vs2015
 
 setlocal ENABLEEXTENSIONS
 set VALUE_NAME=MSBuildToolsPath
@@ -55,9 +55,9 @@ goto :done
     @echo Found msbuild at %ValueValue%
     @echo Creating compile.bat
 rem To compile in debug mode
-rem    @echo %ValueValue% opensim.sln > compile.bat
+    @echo %ValueValue% opensim.sln > compile.bat
 rem To compile in release mode comment line (add rem to start) above and uncomment next (remove rem)
-    @echo %ValueValue% /p:Configuration=Release opensim.sln > compile.bat
+rem    @echo %ValueValue% /p:Configuration=Release opensim.sln > compile.bat
 :done
 if exist "bin\addin-db-002" (
 	del /F/Q/S bin\addin-db-002 > NUL

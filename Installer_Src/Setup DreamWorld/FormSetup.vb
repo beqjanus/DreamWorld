@@ -799,7 +799,7 @@ Public Class FormSetup
         End If
 
         Buttons(StopButton)
-        TextPrint($"{My.Resources.Grid_address_word}{vbCrLf}http://{Settings.BaseHostName}:{Settings.HttpPort}")
+        TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.BaseHostName}:{Settings.HttpPort}")
 
         ' done with boot up
 
@@ -2435,7 +2435,7 @@ Public Class FormSetup
 
     Private Sub ShowHyperGridAddressToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ShowHyperGridAddressToolStripMenuItem.Click
 
-        TextPrint($"{My.Resources.Grid_Address_is_word}:{vbCrLf}http://{Settings.PublicIP}:{Settings.HttpPort}")
+        TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.PublicIP}:{Settings.HttpPort}")
 
     End Sub
 

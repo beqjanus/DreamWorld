@@ -68,6 +68,7 @@ Module FileStuff
 
         ' crap load of old DLLS have to be eliminated
         CleanDLLs() ' drop old opensim Dll's
+        CleanPDB()  ' drop all opensim debug
 
         DeleteDirectoryTmp()
 
@@ -363,11 +364,22 @@ Module FileStuff
 
 #End Region
 
+    Private Sub CleanPDB()
+
+        If Not Debugger.IsAttached Then
+            Dim pdbs As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath, "*.pdb")
+            For Each localname As String In pdbs
+                Application.DoEvents()
+                DeleteFile(localname)
+            Next
+        End If
+
+    End Sub
     Private Sub CleanDLLs()
 
         If Not Debugger.IsAttached Then
             Dim dlls As List(Of String) = GetDlls(IO.Path.Combine(Settings.CurrentDirectory, "dlls.txt"))
-            Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath)
+            Dim localdlls As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath, "*.dll")
             For Each localdllname In localdlls
                 Application.DoEvents()
                 Dim x = localdllname.IndexOf("OutworldzFiles", StringComparison.InvariantCulture)
@@ -447,7 +459,7 @@ Module FileStuff
 
     End Function
 
-    Private Function GetFilesRecursive(ByVal initial As String) As List(Of String)
+    Private Function GetFilesRecursive(ByVal initial As String, t As String) As List(Of String)
         ''' <summary>This method starts at the specified directory. It traverses all subdirectories. It returns a List of those directories.</summary>
         ''' ' This list stores the results.
         Dim result As New List(Of String)
@@ -465,7 +477,7 @@ Module FileStuff
 
             ' Add all immediate file paths
             Try
-                result.AddRange(Directory.GetFiles(dir, "*.dll"))
+                result.AddRange(Directory.GetFiles(dir, t))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
