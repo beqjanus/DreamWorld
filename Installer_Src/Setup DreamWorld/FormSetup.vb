@@ -652,6 +652,11 @@ Public Class FormSetup
             G()
         End If
 
+
+        If Settings.RegionListVisible Then
+            ShowRegionform()
+        End If
+
         ' Boot them up
         For Each RegionUUID As String In l
             If PropRegionClass.RegionEnabled(RegionUUID) Then
@@ -1732,9 +1737,6 @@ Public Class FormSetup
         'Redo all the region ports
         PropRegionClass.UpdateAllRegionPorts()
 
-        If Settings.RegionListVisible Then
-            ShowRegionform()
-        End If
 
         TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
