@@ -516,26 +516,37 @@ Module SmartStart
 
             If PID > 0 Then
                 ' 0 is all cores
-                BootProcess.ProcessorAffinity = CType(PropRegionClass.Cores(RegionUUID), IntPtr)
-                Dim Priority = PropRegionClass.Priority(RegionUUID)
+                Try
+                    If PropRegionClass.Cores(RegionUUID) > 0 Then
+                        BootProcess.ProcessorAffinity = CType(PropRegionClass.Cores(RegionUUID), IntPtr)
+                    End If
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+                Try
+                    Dim Priority = PropRegionClass.Priority(RegionUUID)
 
-                Dim E = New PRIEnum
-                Dim P As ProcessPriorityClass
-                If Priority = "RealTime" Then
-                    P = E.RealTime
-                ElseIf Priority = "High" Then
-                    P = E.High
-                ElseIf Priority = "AboveNormal" Then
-                    P = E.AboveNormal
-                ElseIf Priority = "Normal" Then
-                    P = E.Normal
-                ElseIf Priority = "BelowNormal" Then
-                    P = E.BelowNormal
-                Else
-                    P = E.Normal
-                End If
+                    Dim E = New PRIEnum
+                    Dim P As ProcessPriorityClass
+                    If Priority = "RealTime" Then
+                        P = E.RealTime
+                    ElseIf Priority = "High" Then
+                        P = E.High
+                    ElseIf Priority = "AboveNormal" Then
+                        P = E.AboveNormal
+                    ElseIf Priority = "Normal" Then
+                        P = E.Normal
+                    ElseIf Priority = "BelowNormal" Then
+                        P = E.BelowNormal
+                    Else
+                        P = E.Normal
+                    End If
 
-                BootProcess.PriorityClass = P
+                    BootProcess.PriorityClass = P
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+
 
                 If Not SetWindowTextCall(BootProcess, GroupName) Then
                     ' Try again

@@ -652,7 +652,6 @@ Public Class FormSetup
             G()
         End If
 
-
         If Settings.RegionListVisible Then
             ShowRegionform()
         End If
