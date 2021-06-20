@@ -84,15 +84,14 @@ Module WindowHandlers
         command = command.Replace(")", "{)}")
 
         If PID = 0 Then
-            ' BreakPoint.Show("PID = 0")
+            BreakPoint.Show("PID = 0")
         Else
             Try
                 AppActivate(PID)
                 Sleep(100)
-
-
-
                 SendKeys.SendWait(command)
+                SendKeys.SendWait("{ENTER}")
+                SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
             Catch ex As Exception
