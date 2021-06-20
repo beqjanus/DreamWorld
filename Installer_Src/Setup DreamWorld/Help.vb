@@ -21,7 +21,9 @@ Module Help
 
         Using NewScreenPosition1 = New ScreenPos(Webpage)
             If Not NewScreenPosition1.Exists() Then
+#Disable Warning CA2000
                 Dim FormHelp As New FormHelp
+#Enable Warning CA2000
                 FormHelp.Init(Webpage)
                 FormHelp.Activate()
                 Try

@@ -2,6 +2,15 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
+V4.5 release
+Possible crash if you delete a .bak file for Baretail. It's needed.
+HelpOnce function was exiting immediately.
+CHange default image for web pages.
+Aborting the webserver thread could lead to a crash when debugging.
+
+
+
+
 V4.46
 Added start/stop/Delete Service controls to Mysql Icon.
 Added Process Priority To Each Region. 
