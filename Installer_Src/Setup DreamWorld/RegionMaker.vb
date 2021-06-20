@@ -214,6 +214,7 @@ Public Class RegionMaker
             ._Birds = "",
             ._ClampPrimSize = False,
             ._Concierge = "",
+            ._Cores = 0,
             ._CoordX = LargestX() + 8,
             ._CoordY = LargestY() + 0,
             ._CrashCounter = 0,
@@ -230,6 +231,7 @@ Public Class RegionMaker
             ._NonPhysicalPrimMax = "1024",
             ._PhysicalPrimMax = "64",
             ._ProcessID = 0,
+            ._Priority = "",
             ._RegionEnabled = True,
             ._RegionGod = "",
             ._RegionName = name,
@@ -335,6 +337,8 @@ Public Class RegionMaker
         & "Concierge =" & Concierge(RegionUUID) & vbCrLf _
         & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf _
         & "LandingSpot =" & LandingSpot(RegionUUID) & vbCrLf _
+        & "Cores =" & Cores(RegionUUID) & vbCrLf _
+        & "Priority =" & Priority(RegionUUID) & vbCrLf _
         & "OpenSimWorldAPIKey = " & OpensimWorldAPIKey(RegionUUID)
 
         DeleteFile(fname)
@@ -612,6 +616,8 @@ Public Class RegionMaker
                             SmartStart(uuid) = CStr(INI.GetIni(fName, "SmartStart", "False", "String"))
                             LandingSpot(uuid) = CStr(INI.GetIni(fName, "LandingSpot", "", "String"))
                             OpensimWorldAPIKey(uuid) = CStr(INI.GetIni(fName, "OpensimWorldAPIKey", "", "String"))
+                            Cores(uuid) = CInt(0 & INI.GetIni(fName, "Cores", "", "String"))
+                            Priority(uuid) = CStr(INI.GetIni(fName, "Priority", "", "String"))
 
                             ' Four  scenarios for ports
                             ' if the system was shut down safely ( default = true after an update), then
@@ -799,6 +805,7 @@ Public Class RegionMaker
         Public _ClampPrimSize As Boolean
         Public _CoordX As Integer = 1000
         Public _CoordY As Integer = 1000
+        Public _Cores As Integer = 0
         Public _DisallowForeigners As String = ""
         Public _DisallowResidents As String = ""
         Public _Estate As String = ""
@@ -806,6 +813,7 @@ Public Class RegionMaker
         Public _Group As String = ""
         Public _IniPath As String = "" ' the path to the folder that holds the region ini
         Public _MapTime As Integer
+        Public _Priority As String = "Normal"
         Public _ProcessID As Integer ' the folder name that holds the region(s), can be different named
         Public _RegionEnabled As Boolean = True
         Public _RegionName As String = ""
@@ -898,6 +906,32 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._ClampPrimSize = Value
+        End Set
+    End Property
+
+    Public Property Priority(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return "Normal"
+            If Bad(uuid) Then Return "Normal"
+            Return RegionList(uuid)._Priority
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Priority = Value
+        End Set
+    End Property
+
+    Public Property Cores(uuid As String) As Integer
+        Get
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Return RegionList(uuid)._Cores
+        End Get
+        Set(ByVal Value As Integer)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Cores = Value
         End Set
     End Property
 

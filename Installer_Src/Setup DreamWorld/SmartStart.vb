@@ -11,12 +11,44 @@ Imports System
 Imports System.Collections.Generic
 Imports System.Linq
 
+Public Class PRIEnum
+
+    Public AboveNormal As ProcessPriorityClass = ProcessPriorityClass.AboveNormal
+    Public BelowNormal As ProcessPriorityClass = ProcessPriorityClass.BelowNormal
+    Public High As ProcessPriorityClass = ProcessPriorityClass.High
+    Public Normal As ProcessPriorityClass = ProcessPriorityClass.Normal
+    Public RealTime As ProcessPriorityClass = ProcessPriorityClass.RealTime
+End Class
+
 Module SmartStart
-
     Private ReadOnly Sleeping As New List(Of String)
-
 #Region "SmartBegin"
 
+    ''' <summary>
+    ''' Waits for a restarted region to be fully up
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <returns>True of region is booted</returns>
+    Public Function WaitForBooted(RegionUUID As String) As Boolean
+
+        Dim c As Integer = 600 ' 5 minutes
+        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted
+
+            c -= 1  ' skip on timeout error
+            If c = 0 Then
+                BreakPoint.Show("Timeout")
+                ShutDown(RegionUUID)
+                ConsoleCommand(RegionUUID, "q{ENTER}")
+                Return False
+            End If
+
+            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
     Public Function SmartStartParse(post As String) As String
 
         ' Smart Start AutoStart Region mode
@@ -470,7 +502,6 @@ Module SmartStart
         Environment.SetEnvironmentVariable("OSIM_LOGPATH", Settings.OpensimBinPath() & "Regions\" & GroupName)
 
         FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
-        Logger("Booting", GroupName, "Teleport")
 
         Dim ok As Boolean = False
         Try
@@ -484,6 +515,28 @@ Module SmartStart
             Dim PID = WaitForPID(BootProcess)           ' check if it gave us a PID, if not, it failed.
 
             If PID > 0 Then
+                ' 0 is all cores
+                BootProcess.ProcessorAffinity = CType(PropRegionClass.Cores(RegionUUID), IntPtr)
+                Dim Priority = PropRegionClass.Priority(RegionUUID)
+
+                Dim E = New PRIEnum
+                Dim P As ProcessPriorityClass
+                If Priority = "RealTime" Then
+                    P = E.RealTime
+                ElseIf Priority = "High" Then
+                    P = E.High
+                ElseIf Priority = "AboveNormal" Then
+                    P = E.AboveNormal
+                ElseIf Priority = "Normal" Then
+                    P = E.Normal
+                ElseIf Priority = "BelowNormal" Then
+                    P = E.BelowNormal
+                Else
+                    P = E.Normal
+                End If
+
+                BootProcess.PriorityClass = P
+
                 If Not SetWindowTextCall(BootProcess, GroupName) Then
                     ' Try again
                     If Not SetWindowTextCall(BootProcess, GroupName) Then
@@ -534,61 +587,5 @@ Module SmartStart
     End Sub
 
 #End Region
-
-    ''' <summary>
-    ''' Waits for a restarted region to be fully up
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <returns>True of region is booted</returns>
-    Public Function WaitForBooted(RegionUUID As String) As Boolean
-
-        Dim c As Integer = 600 ' 5 minutes
-        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted
-
-            c -= 1  ' skip on timeout error
-            If c = 0 Then
-                BreakPoint.Show("Timeout")
-                ShutDown(RegionUUID)
-                ConsoleCommand(RegionUUID, "q{ENTER}")
-                Return False
-            End If
-
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
-
-    ''' deprecated
-    '''
-    ''' <summary>
-    ''' Waits for a restarted region to be booting
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <returns>True of region is booting</returns>
-    Public Function WaitForBooting(RegionUUID As String) As Boolean
-
-        Dim c As Integer = 60
-        While c > 0
-
-            c -= 1
-            If c = 0 Then
-                BreakPoint.Show("Timeout")
-                Return False
-            End If
-
-            If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Resume Then
-                Exit While
-            End If
-
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
 
 End Module

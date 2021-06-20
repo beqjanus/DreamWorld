@@ -124,7 +124,7 @@ Partial Class FormRegion
         Me.PermissionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PublicityToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ModulesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.CPUTab = New System.Windows.Forms.TabControl()
         Me.Basics = New System.Windows.Forms.TabPage()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Options = New System.Windows.Forms.TabPage()
@@ -145,7 +145,33 @@ Partial Class FormRegion
         Me.Publicity = New System.Windows.Forms.TabPage()
         Me.RichTextBoxPublicity = New System.Windows.Forms.RichTextBox()
         Me.Modules = New System.Windows.Forms.TabPage()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.BelowNormal = New System.Windows.Forms.RadioButton()
+        Me.Normal = New System.Windows.Forms.RadioButton()
+        Me.AboveNormal = New System.Windows.Forms.RadioButton()
+        Me.High = New System.Windows.Forms.RadioButton()
+        Me.RealTime = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Core1Button = New System.Windows.Forms.CheckBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
+        Me.Core2Button = New System.Windows.Forms.CheckBox()
+        Me.Core3Button = New System.Windows.Forms.CheckBox()
+        Me.Core4Button = New System.Windows.Forms.CheckBox()
+        Me.Core8Button = New System.Windows.Forms.CheckBox()
+        Me.Core7Button = New System.Windows.Forms.CheckBox()
+        Me.Core5Button = New System.Windows.Forms.CheckBox()
+        Me.Core15Button = New System.Windows.Forms.CheckBox()
+        Me.Core14Button = New System.Windows.Forms.CheckBox()
+        Me.Core13Button = New System.Windows.Forms.CheckBox()
+        Me.Core12Button = New System.Windows.Forms.CheckBox()
+        Me.Core11Button = New System.Windows.Forms.CheckBox()
+        Me.Core10Button = New System.Windows.Forms.CheckBox()
+        Me.Core9Button = New System.Windows.Forms.CheckBox()
+        Me.Core6Button = New System.Windows.Forms.CheckBox()
+        Me.Core16Button = New System.Windows.Forms.CheckBox()
         Me.RegionsGroupbox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.ScriptsGroupbox.SuspendLayout()
@@ -155,7 +181,7 @@ Partial Class FormRegion
         Me.MapGroupBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
-        Me.TabControl1.SuspendLayout()
+        Me.CPUTab.SuspendLayout()
         Me.Basics.SuspendLayout()
         Me.Options.SuspendLayout()
         Me.Maps.SuspendLayout()
@@ -165,6 +191,9 @@ Partial Class FormRegion
         Me.Permissions.SuspendLayout()
         Me.Publicity.SuspendLayout()
         Me.Modules.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'CoordY
@@ -1182,22 +1211,23 @@ Partial Class FormRegion
         Me.ModulesToolStripMenuItem.Size = New System.Drawing.Size(137, 22)
         Me.ModulesToolStripMenuItem.Text = "Modules"
         '
-        'TabControl1
+        'CPUTab
         '
-        Me.TabControl1.Controls.Add(Me.Basics)
-        Me.TabControl1.Controls.Add(Me.Options)
-        Me.TabControl1.Controls.Add(Me.Maps)
-        Me.TabControl1.Controls.Add(Me.Physics)
-        Me.TabControl1.Controls.Add(Me.Scripts)
-        Me.TabControl1.Controls.Add(Me.Permissions)
-        Me.TabControl1.Controls.Add(Me.Publicity)
-        Me.TabControl1.Controls.Add(Me.Modules)
-        Me.TabControl1.Location = New System.Drawing.Point(0, 26)
-        Me.TabControl1.Margin = New System.Windows.Forms.Padding(2)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(512, 254)
-        Me.TabControl1.TabIndex = 1
+        Me.CPUTab.Controls.Add(Me.Basics)
+        Me.CPUTab.Controls.Add(Me.Options)
+        Me.CPUTab.Controls.Add(Me.Maps)
+        Me.CPUTab.Controls.Add(Me.Physics)
+        Me.CPUTab.Controls.Add(Me.Scripts)
+        Me.CPUTab.Controls.Add(Me.Permissions)
+        Me.CPUTab.Controls.Add(Me.Publicity)
+        Me.CPUTab.Controls.Add(Me.Modules)
+        Me.CPUTab.Controls.Add(Me.TabPage1)
+        Me.CPUTab.Location = New System.Drawing.Point(0, 32)
+        Me.CPUTab.Margin = New System.Windows.Forms.Padding(2)
+        Me.CPUTab.Name = "CPUTab"
+        Me.CPUTab.SelectedIndex = 0
+        Me.CPUTab.Size = New System.Drawing.Size(512, 254)
+        Me.CPUTab.TabIndex = 1
         '
         'Basics
         '
@@ -1433,6 +1463,290 @@ Partial Class FormRegion
         Me.Modules.Text = "Modules"
         Me.Modules.UseVisualStyleBackColor = True
         '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.GroupBox3)
+        Me.TabPage1.Controls.Add(Me.GroupBox1)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(504, 228)
+        Me.TabPage1.TabIndex = 9
+        Me.TabPage1.Text = "CPU"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.BelowNormal)
+        Me.GroupBox3.Controls.Add(Me.Normal)
+        Me.GroupBox3.Controls.Add(Me.AboveNormal)
+        Me.GroupBox3.Controls.Add(Me.High)
+        Me.GroupBox3.Controls.Add(Me.RealTime)
+        Me.GroupBox3.Location = New System.Drawing.Point(214, 8)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(154, 177)
+        Me.GroupBox3.TabIndex = 6
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Priority"
+        '
+        'BelowNormal
+        '
+        Me.BelowNormal.AutoSize = True
+        Me.BelowNormal.Location = New System.Drawing.Point(22, 130)
+        Me.BelowNormal.Name = "BelowNormal"
+        Me.BelowNormal.Size = New System.Drawing.Size(87, 17)
+        Me.BelowNormal.TabIndex = 4
+        Me.BelowNormal.TabStop = True
+        Me.BelowNormal.Text = "BelowNormal"
+        Me.BelowNormal.UseVisualStyleBackColor = True
+        '
+        'Normal
+        '
+        Me.Normal.AutoSize = True
+        Me.Normal.Location = New System.Drawing.Point(22, 107)
+        Me.Normal.Name = "Normal"
+        Me.Normal.Size = New System.Drawing.Size(58, 17)
+        Me.Normal.TabIndex = 3
+        Me.Normal.TabStop = True
+        Me.Normal.Text = "Normal"
+        Me.Normal.UseVisualStyleBackColor = True
+        '
+        'AboveNormal
+        '
+        Me.AboveNormal.AutoSize = True
+        Me.AboveNormal.Location = New System.Drawing.Point(22, 84)
+        Me.AboveNormal.Name = "AboveNormal"
+        Me.AboveNormal.Size = New System.Drawing.Size(89, 17)
+        Me.AboveNormal.TabIndex = 2
+        Me.AboveNormal.TabStop = True
+        Me.AboveNormal.Text = "AboveNormal"
+        Me.AboveNormal.UseVisualStyleBackColor = True
+        '
+        'High
+        '
+        Me.High.AutoSize = True
+        Me.High.Location = New System.Drawing.Point(22, 61)
+        Me.High.Name = "High"
+        Me.High.Size = New System.Drawing.Size(47, 17)
+        Me.High.TabIndex = 1
+        Me.High.TabStop = True
+        Me.High.Text = "High"
+        Me.High.UseVisualStyleBackColor = True
+        '
+        'RealTime
+        '
+        Me.RealTime.AutoSize = True
+        Me.RealTime.Location = New System.Drawing.Point(22, 36)
+        Me.RealTime.Name = "RealTime"
+        Me.RealTime.Size = New System.Drawing.Size(70, 17)
+        Me.RealTime.TabIndex = 0
+        Me.RealTime.TabStop = True
+        Me.RealTime.Text = "RealTime"
+        Me.RealTime.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Core16Button)
+        Me.GroupBox1.Controls.Add(Me.Core6Button)
+        Me.GroupBox1.Controls.Add(Me.Core15Button)
+        Me.GroupBox1.Controls.Add(Me.Core14Button)
+        Me.GroupBox1.Controls.Add(Me.Core13Button)
+        Me.GroupBox1.Controls.Add(Me.Core12Button)
+        Me.GroupBox1.Controls.Add(Me.Core11Button)
+        Me.GroupBox1.Controls.Add(Me.Core10Button)
+        Me.GroupBox1.Controls.Add(Me.Core9Button)
+        Me.GroupBox1.Controls.Add(Me.Core8Button)
+        Me.GroupBox1.Controls.Add(Me.Core7Button)
+        Me.GroupBox1.Controls.Add(Me.Core5Button)
+        Me.GroupBox1.Controls.Add(Me.Core4Button)
+        Me.GroupBox1.Controls.Add(Me.Core3Button)
+        Me.GroupBox1.Controls.Add(Me.Core2Button)
+        Me.GroupBox1.Controls.Add(Me.Core1Button)
+        Me.GroupBox1.Controls.Add(Me.Label7)
+        Me.GroupBox1.Controls.Add(Me.Label9)
+        Me.GroupBox1.Location = New System.Drawing.Point(19, 6)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(122, 206)
+        Me.GroupBox1.TabIndex = 5
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Cores"
+        '
+        'Core1Button
+        '
+        Me.Core1Button.AutoSize = True
+        Me.Core1Button.Location = New System.Drawing.Point(6, 24)
+        Me.Core1Button.Name = "Core1Button"
+        Me.Core1Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core1Button.TabIndex = 7
+        Me.Core1Button.Text = "1"
+        Me.Core1Button.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(148, 47)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(0, 13)
+        Me.Label7.TabIndex = 3
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(148, 25)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(0, 13)
+        Me.Label9.TabIndex = 2
+        '
+        'Core2Button
+        '
+        Me.Core2Button.AutoSize = True
+        Me.Core2Button.Location = New System.Drawing.Point(6, 46)
+        Me.Core2Button.Name = "Core2Button"
+        Me.Core2Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core2Button.TabIndex = 8
+        Me.Core2Button.Text = "2"
+        Me.Core2Button.UseVisualStyleBackColor = True
+        '
+        'Core3Button
+        '
+        Me.Core3Button.AutoSize = True
+        Me.Core3Button.Location = New System.Drawing.Point(6, 69)
+        Me.Core3Button.Name = "Core3Button"
+        Me.Core3Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core3Button.TabIndex = 9
+        Me.Core3Button.Text = "3"
+        Me.Core3Button.UseVisualStyleBackColor = True
+        '
+        'Core4Button
+        '
+        Me.Core4Button.AutoSize = True
+        Me.Core4Button.Location = New System.Drawing.Point(6, 92)
+        Me.Core4Button.Name = "Core4Button"
+        Me.Core4Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core4Button.TabIndex = 10
+        Me.Core4Button.Text = "4"
+        Me.Core4Button.UseVisualStyleBackColor = True
+        '
+        'Core8Button
+        '
+        Me.Core8Button.AutoSize = True
+        Me.Core8Button.Location = New System.Drawing.Point(6, 184)
+        Me.Core8Button.Name = "Core8Button"
+        Me.Core8Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core8Button.TabIndex = 13
+        Me.Core8Button.Text = "8"
+        Me.Core8Button.UseVisualStyleBackColor = True
+        '
+        'Core7Button
+        '
+        Me.Core7Button.AutoSize = True
+        Me.Core7Button.Location = New System.Drawing.Point(6, 161)
+        Me.Core7Button.Name = "Core7Button"
+        Me.Core7Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core7Button.TabIndex = 12
+        Me.Core7Button.Text = "7"
+        Me.Core7Button.UseVisualStyleBackColor = True
+        '
+        'Core5Button
+        '
+        Me.Core5Button.AutoSize = True
+        Me.Core5Button.Location = New System.Drawing.Point(6, 115)
+        Me.Core5Button.Name = "Core5Button"
+        Me.Core5Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core5Button.TabIndex = 11
+        Me.Core5Button.Text = "5"
+        Me.Core5Button.UseVisualStyleBackColor = True
+        '
+        'Core15Button
+        '
+        Me.Core15Button.AutoSize = True
+        Me.Core15Button.Location = New System.Drawing.Point(61, 161)
+        Me.Core15Button.Name = "Core15Button"
+        Me.Core15Button.Size = New System.Drawing.Size(38, 17)
+        Me.Core15Button.TabIndex = 21
+        Me.Core15Button.Text = "15"
+        Me.Core15Button.UseVisualStyleBackColor = True
+        '
+        'Core14Button
+        '
+        Me.Core14Button.AutoSize = True
+        Me.Core14Button.Location = New System.Drawing.Point(61, 138)
+        Me.Core14Button.Name = "Core14Button"
+        Me.Core14Button.Size = New System.Drawing.Size(38, 17)
+        Me.Core14Button.TabIndex = 20
+        Me.Core14Button.Text = "14"
+        Me.Core14Button.UseVisualStyleBackColor = True
+        '
+        'Core13Button
+        '
+        Me.Core13Button.AutoSize = True
+        Me.Core13Button.Location = New System.Drawing.Point(61, 116)
+        Me.Core13Button.Name = "Core13Button"
+        Me.Core13Button.Size = New System.Drawing.Size(38, 17)
+        Me.Core13Button.TabIndex = 19
+        Me.Core13Button.Text = "13"
+        Me.Core13Button.UseVisualStyleBackColor = True
+        '
+        'Core12Button
+        '
+        Me.Core12Button.AutoSize = True
+        Me.Core12Button.Location = New System.Drawing.Point(61, 93)
+        Me.Core12Button.Name = "Core12Button"
+        Me.Core12Button.Size = New System.Drawing.Size(38, 17)
+        Me.Core12Button.TabIndex = 18
+        Me.Core12Button.Text = "12"
+        Me.Core12Button.UseVisualStyleBackColor = True
+        '
+        'Core11Button
+        '
+        Me.Core11Button.AutoSize = True
+        Me.Core11Button.Location = New System.Drawing.Point(61, 70)
+        Me.Core11Button.Name = "Core11Button"
+        Me.Core11Button.Size = New System.Drawing.Size(38, 17)
+        Me.Core11Button.TabIndex = 17
+        Me.Core11Button.Text = "11"
+        Me.Core11Button.UseVisualStyleBackColor = True
+        '
+        'Core10Button
+        '
+        Me.Core10Button.AutoSize = True
+        Me.Core10Button.Location = New System.Drawing.Point(61, 47)
+        Me.Core10Button.Name = "Core10Button"
+        Me.Core10Button.Size = New System.Drawing.Size(38, 17)
+        Me.Core10Button.TabIndex = 16
+        Me.Core10Button.Text = "10"
+        Me.Core10Button.UseVisualStyleBackColor = True
+        '
+        'Core9Button
+        '
+        Me.Core9Button.AutoSize = True
+        Me.Core9Button.Location = New System.Drawing.Point(61, 25)
+        Me.Core9Button.Name = "Core9Button"
+        Me.Core9Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core9Button.TabIndex = 15
+        Me.Core9Button.Text = "9"
+        Me.Core9Button.UseVisualStyleBackColor = True
+        '
+        'Core6Button
+        '
+        Me.Core6Button.AutoSize = True
+        Me.Core6Button.Location = New System.Drawing.Point(6, 138)
+        Me.Core6Button.Name = "Core6Button"
+        Me.Core6Button.Size = New System.Drawing.Size(32, 17)
+        Me.Core6Button.TabIndex = 22
+        Me.Core6Button.Text = "6"
+        Me.Core6Button.UseVisualStyleBackColor = True
+        '
+        'Core16Button
+        '
+        Me.Core16Button.AutoSize = True
+        Me.Core16Button.Location = New System.Drawing.Point(61, 183)
+        Me.Core16Button.Name = "Core16Button"
+        Me.Core16Button.Size = New System.Drawing.Size(38, 17)
+        Me.Core16Button.TabIndex = 23
+        Me.Core16Button.Text = "16"
+        Me.Core16Button.UseVisualStyleBackColor = True
+        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1440,7 +1754,7 @@ Partial Class FormRegion
         Me.AutoSize = True
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(512, 278)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.CPUTab)
         Me.Controls.Add(Me.MenuStrip2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -1464,7 +1778,7 @@ Partial Class FormRegion
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
-        Me.TabControl1.ResumeLayout(False)
+        Me.CPUTab.ResumeLayout(False)
         Me.Basics.ResumeLayout(False)
         Me.Basics.PerformLayout()
         Me.Options.ResumeLayout(False)
@@ -1476,6 +1790,11 @@ Partial Class FormRegion
         Me.Permissions.ResumeLayout(False)
         Me.Publicity.ResumeLayout(False)
         Me.Modules.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1552,7 +1871,7 @@ Partial Class FormRegion
     Friend WithEvents XEngineButton As RadioButton
     Friend WithEvents YEngineButton As RadioButton
     Friend WithEvents ConciergeCheckBox As CheckBox
-    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents CPUTab As TabControl
     Friend WithEvents Basics As TabPage
     Friend WithEvents Options As TabPage
     Friend WithEvents Maps As TabPage
@@ -1599,4 +1918,30 @@ Partial Class FormRegion
     Friend WithEvents HelpProvider1 As HelpProvider
     Friend WithEvents Label4 As Label
     Friend WithEvents RegionPort As TextBox
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents BelowNormal As RadioButton
+    Friend WithEvents Normal As RadioButton
+    Friend WithEvents AboveNormal As RadioButton
+    Friend WithEvents High As RadioButton
+    Friend WithEvents RealTime As RadioButton
+    Friend WithEvents Core1Button As CheckBox
+    Friend WithEvents Core16Button As CheckBox
+    Friend WithEvents Core6Button As CheckBox
+    Friend WithEvents Core15Button As CheckBox
+    Friend WithEvents Core14Button As CheckBox
+    Friend WithEvents Core13Button As CheckBox
+    Friend WithEvents Core12Button As CheckBox
+    Friend WithEvents Core11Button As CheckBox
+    Friend WithEvents Core10Button As CheckBox
+    Friend WithEvents Core9Button As CheckBox
+    Friend WithEvents Core8Button As CheckBox
+    Friend WithEvents Core7Button As CheckBox
+    Friend WithEvents Core5Button As CheckBox
+    Friend WithEvents Core4Button As CheckBox
+    Friend WithEvents Core3Button As CheckBox
+    Friend WithEvents Core2Button As CheckBox
 End Class

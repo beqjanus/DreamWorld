@@ -21,10 +21,10 @@
     <burst-size>65535</burst-size>
 </limits>
 <authentication>
-<source-password>kN9cWOz8yiK8F9k</source-password>
-<relay-password>qIUbQMkLdsCAB1D</relay-password>
+<source-password>Bx8gEtFlneMD3Bc</source-password>
+<relay-password>IO0lKNMyWtr4Kth</relay-password>
 <admin-user>admin</admin-user>
-<admin-password>7QgL81SUSjBKyhO</admin-password>
+<admin-password>ZEVuEZiMolDpFeB</admin-password>
 </authentication>
 <http-headers>
     <header name="Access-Control-Allow-Origin" value="*"/>

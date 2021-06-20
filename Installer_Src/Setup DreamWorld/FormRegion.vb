@@ -265,6 +265,25 @@ Public Class FormRegion
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
             RegionUUID = PropRegionClass.CreateRegion("New Region")
             Gods_Use_Default.Checked = True
+
+            Core1Button.Checked = True
+            Core2Button.Checked = True
+            Core3Button.Checked = True
+            Core4Button.Checked = True
+            Core5Button.Checked = True
+            Core6Button.Checked = True
+            Core7Button.Checked = True
+            Core8Button.Checked = True
+            Core9Button.Checked = True
+            Core10Button.Checked = True
+            Core11Button.Checked = True
+            Core12Button.Checked = True
+            Core13Button.Checked = True
+            Core14Button.Checked = True
+            Core15Button.Checked = True
+            Core16Button.Checked = True
+
+            Normal.Checked = True
         Else
             ' OLD REGION EDITED all this is required to be filled in!
             IsNew1 = False
@@ -282,6 +301,70 @@ Public Class FormRegion
             MaxPrims.Text = PropRegionClass.MaxPrims(RegionUUID)
             MaxAgents.Text = PropRegionClass.MaxAgents(RegionUUID)
             RegionPort.Text = CStr(PropRegionClass.RegionPort(RegionUUID))
+
+            If PropRegionClass.Priority(RegionUUID) = "" Then
+                Normal.Checked = True
+            Else
+                RealTime.Checked = PropRegionClass.Priority(RegionUUID) = "RealTime"
+                High.Checked = PropRegionClass.Priority(RegionUUID) = "High"
+                AboveNormal.Checked = PropRegionClass.Priority(RegionUUID) = "AboveNormal"
+                Normal.Checked = PropRegionClass.Priority(RegionUUID) = "Normal"
+                BelowNormal.Checked = PropRegionClass.Priority(RegionUUID) = "BelowNormal"
+            End If
+
+            Core1Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H11)
+            Core2Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H2)
+            Core3Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H4)
+            Core4Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H8)
+            Core5Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H10)
+            Core6Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H20)
+            Core7Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H40)
+            Core8Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H80)
+            Core9Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H100)
+            Core10Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H200)
+            Core11Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H400)
+            Core12Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H800)
+            Core13Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H1000)
+            Core14Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H2000)
+            Core15Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H4000)
+            Core16Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H8000)
+
+            Dim C = Environment.ProcessorCount
+            If C >= 1 Then Core1Button.Visible = True Else Core1Button.Visible = False
+            If C >= 2 Then Core2Button.Visible = True Else Core2Button.Visible = False
+            If C >= 3 Then Core3Button.Visible = True Else Core3Button.Visible = False
+            If C >= 4 Then Core4Button.Visible = True Else Core4Button.Visible = False
+            If C >= 5 Then Core5Button.Visible = True Else Core5Button.Visible = False
+            If C >= 6 Then Core6Button.Visible = True Else Core6Button.Visible = False
+            If C >= 7 Then Core7Button.Visible = True Else Core7Button.Visible = False
+            If C >= 8 Then Core8Button.Visible = True Else Core8Button.Visible = False
+            If C >= 9 Then Core9Button.Visible = True Else Core9Button.Visible = False
+            If C >= 10 Then Core10Button.Visible = True Else Core10Button.Visible = False
+            If C >= 11 Then Core11Button.Visible = True Else Core11Button.Visible = False
+            If C >= 12 Then Core12Button.Visible = True Else Core12Button.Visible = False
+            If C >= 13 Then Core13Button.Visible = True Else Core13Button.Visible = False
+            If C >= 14 Then Core14Button.Visible = True Else Core14Button.Visible = False
+            If C >= 15 Then Core15Button.Visible = True Else Core15Button.Visible = False
+            If C >= 16 Then Core16Button.Visible = True Else Core16Button.Visible = False
+
+            If PropRegionClass.Cores(RegionUUID) = 0 Then
+                Core1Button.Checked = True
+                Core2Button.Checked = True
+                Core3Button.Checked = True
+                Core4Button.Checked = True
+                Core5Button.Checked = True
+                Core6Button.Checked = True
+                Core7Button.Checked = True
+                Core8Button.Checked = True
+                Core9Button.Checked = True
+                Core10Button.Checked = True
+                Core11Button.Checked = True
+                Core12Button.Checked = True
+                Core13Button.Checked = True
+                Core14Button.Checked = True
+                Core15Button.Checked = True
+                Core16Button.Checked = True
+            End If
 
             ' Size buttons can be zero
             If PropRegionClass.SizeY(RegionUUID) = 0 Or PropRegionClass.SizeX(RegionUUID) = 0 Then
@@ -1034,6 +1117,42 @@ Public Class FormRegion
 
         ' save the changes to the memory structure, then to disk
 
+        'CPU Affinity
+        Dim cores = 0
+        If Core1Button.Checked Then cores += &H1
+        If Core2Button.Checked Then cores += &H2
+        If Core3Button.Checked Then cores += &H4
+        If Core4Button.Checked Then cores += &H8
+        If Core5Button.Checked Then cores += &H10
+        If Core6Button.Checked Then cores += &H20
+        If Core7Button.Checked Then cores += &H40
+        If Core8Button.Checked Then cores += &H80
+        If Core9Button.Checked Then cores += &H100
+        If Core10Button.Checked Then cores += &H200
+        If Core10Button.Checked Then cores += &H400
+        If Core12Button.Checked Then cores += &H800
+        If Core13Button.Checked Then cores += &H1000
+        If Core14Button.Checked Then cores += &H2000
+        If Core15Button.Checked Then cores += &H4000
+        If Core16Button.Checked Then cores += &H8000
+
+        If cores = 0 Then cores = &HFFFF
+        PropRegionClass.Cores(RegionUUID) = cores
+
+        If RealTime.Checked Then
+            PropRegionClass.Priority(RegionUUID) = "RealTime"
+        ElseIf High.Checked Then
+            PropRegionClass.Priority(RegionUUID) = "High"
+        ElseIf AboveNormal.Checked Then
+            PropRegionClass.Priority(RegionUUID) = "AboveNormal"
+        ElseIf Normal.Checked Then
+            PropRegionClass.Priority(RegionUUID) = "Normal"
+        ElseIf BelowNormal.Checked Then
+            PropRegionClass.Priority(RegionUUID) = "BelowNormal"
+        Else
+            PropRegionClass.Priority(RegionUUID) = "Normal"
+        End If
+
         PropRegionClass.CoordX(RegionUUID) = CInt("0" & CoordX.Text)
         PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
         PropRegionClass.RegionName(RegionUUID) = RegionName.Text
@@ -1233,6 +1352,8 @@ Public Class FormRegion
                         "ScriptEngine = " & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
                         "Publicity = " & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
                         "OpensimWorldAPIKey = " & PropRegionClass.OpensimWorldAPIKey(RegionUUID) & vbCrLf &
+                        "Priority = " & PropRegionClass.Priority(RegionUUID) & vbCrLf &
+                        "Cores = " & CStr(PropRegionClass.Cores(RegionUUID)) & vbCrLf &
                         "SmartStart = " & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
 
         'Debug.Print(Region)
@@ -1403,7 +1524,6 @@ Public Class FormRegion
         HelpManual("Script Overrides")
     End Sub
 
-    ' TODO: Add more physics overrides
     Private Sub XEngineButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
 
         If XEngineButton.Checked Then
@@ -1422,6 +1542,90 @@ Public Class FormRegion
         End If
         If Initted1 Then Changed1 = True
 
+    End Sub
+
+    Private Sub RealTime_CheckedChanged(sender As Object, e As EventArgs) Handles RealTime.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub High_CheckedChanged(sender As Object, e As EventArgs) Handles High.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub AboveNormal_CheckedChanged(sender As Object, e As EventArgs) Handles AboveNormal.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Normal_CheckedChanged(sender As Object, e As EventArgs) Handles Normal.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub BelowNormal_CheckedChanged(sender As Object, e As EventArgs) Handles BelowNormal.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core1Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core1Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core2Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core2Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core3Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core3Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core4Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core4Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core5Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core5Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core6Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core6Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core7Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core7Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core8Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core8Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core9Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core9Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core10Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core10Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core11Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core11Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core12Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core12Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core13Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core13Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core14Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core14Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core15Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core15Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core16Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core16Button.CheckedChanged
+        If Initted1 Then Changed1 = True
     End Sub
 
 #End Region

@@ -3371,6 +3371,70 @@ Public Class FormSetup
         StopApache(True)
     End Sub
 
+    Private Sub ConnectToWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToWebPageToolStripMenuItem.Click
+
+        If PropOpensimIsRunning() Then
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            Else
+                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+                TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
+                TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
+            End If
+        Else
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            Else
+                TextPrint(My.Resources.Not_Running)
+            End If
+        End If
+    End Sub
+
+    Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
+        StopMysql()
+    End Sub
+
+    Private Sub StartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem1.Click
+        StartMySQL()
+    End Sub
+
+    Private Sub DeleteServiceToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem1.Click
+
+        StopMysql()
+        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .CreateNoWindow = True,
+            .FileName = win,
+            .Arguments = "delete MySQLDreamGrid"
+        }
+        Using p As New Process
+            p.StartInfo = pi
+            Try
+                p.Start()
+                p.WaitForExit()
+                MySQLIcon(False)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+    End Sub
+
 #End Region
 
 End Class
