@@ -50,6 +50,9 @@ Module OAR
     Public Sub LoadOar(RegionName As String)
 
         If RegionName Is Nothing Then Return
+
+        HelpOnce("Load OAR")
+
         If PropOpensimIsRunning() Then
             If RegionName.Length = 0 Then
                 RegionName = ChooseRegion(False)
