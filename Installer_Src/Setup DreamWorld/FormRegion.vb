@@ -733,7 +733,7 @@ Public Class FormRegion
                 End While
 
                 If loopctr > 0 Then
-                    ConsoleCommand(RobustName(), "deregister region id " + RegionUUID)
+                    DeregisterRegionUUID(RegionUUID)
                     TextPrint(My.Resources.Region_Removed)
                 End If
             End If
@@ -778,19 +778,27 @@ Public Class FormRegion
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
+        If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then
+            MsgBox(My.Resources.Regions_Are_Running, vbInformation Or vbMsgBoxSetForeground)
+            Return
+        End If
+
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
 
+
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
             PropRegionClass.Delete_Region_Map(RegionUUID)
 
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.bak"))
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
+            DeleteMaps(RegionUUID)
 
-            If IsRobustRunning() Then
-                ConsoleCommand("Robust", $"deregister region id {RegionUUID}")
-            End If
+            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.bak"))
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
+
+            DeregisterRegionUUID(RegionUUID)
+
             PropRegionClass.DeleteRegion(RegionUUID)
             PropRegionClass.GetAllRegions()
             Changed1 = False
