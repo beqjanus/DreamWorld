@@ -47,11 +47,13 @@
         Label1.Text = My.Resources.Enter_1_2
         Label2.Text = My.Resources.Folder_To_Save_To_word
 
+
         With AviName
             .AutoCompleteCustomSource = MysqlInterface.GetAvatarList()
             .AutoCompleteMode = AutoCompleteMode.Suggest
             .AutoCompleteSource = AutoCompleteSource.CustomSource
         End With
+
 
     End Sub
 
@@ -59,4 +61,7 @@
         GFolder = FolderTextbox.Text
     End Sub
 
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        HelpManual("Load IAR")
+    End Sub
 End Class
