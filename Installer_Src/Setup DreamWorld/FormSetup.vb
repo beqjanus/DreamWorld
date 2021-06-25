@@ -143,15 +143,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property OpensimBinPath As String
-        Get
-            Return _OpensimBinPath
-        End Get
-        Set(value As String)
-            _OpensimBinPath = value
-        End Set
-    End Property
-
     ' TODO:  Implement PropChangedRegionSettings as a dictionary in a module we can prompt for restart with
     Public Property PropChangedRegionSettings As Boolean
         Get
@@ -611,6 +602,7 @@ Public Class FormSetup
         PropAborting = False
 
         Buttons(BusyButton)
+
 
         If Not StartRobust() Then
             Buttons(StopButton)
@@ -1116,26 +1108,32 @@ Public Class FormSetup
             GroupName = PropRegionClass.GroupName(RegionUUID)
 
             Dim status = PropRegionClass.Status(RegionUUID)
-            ' Smart Start Timer
 
-            If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+
+            ' if anyone is in home stay alive
+            If PropRegionClass.AvatarsIsInGroup(GroupName) Then
+                PokeRegionTimer(RegionUUID)
+                Continue For
+            End If
+
+            ' Find any regions touching this region.
+            ' add them to the area to stay alive.            
+            If PropRegionClass.AvatarIsNearby(RegionUUID) And
+                 status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                TextPrint($"{GroupName} {My.Resources.StartingNearby}")
+                ReBoot(RegionUUID)
+                Continue For
+            End If
+
+            If PropRegionClass.AvatarIsNearby(GroupName) Then
+                PokeRegionTimer(RegionUUID)
+                Continue For
+            End If
+
+            ' Smart Start Timer
+            If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And status = RegionMaker.SIMSTATUSENUM.Booted Then
                 Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
                 If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
-
-                    ' if anyone is in home stay alive
-                    If PropRegionClass.AvatarsIsInGroup(GroupName) Then
-                        PokeRegionTimer(RegionUUID)
-                        Continue For
-                    End If
-
-                    ' Find any regions touching this region.
-                    ' add them to the area to stay alive.
-                    ' if anyone is in any of that area, we do not power down.
-
-                    If PropRegionClass.AvatarIsNearby(RegionUUID) Then
-                        PokeRegionTimer(RegionUUID)
-                        Continue For
-                    End If
 
                     Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                     ShutDown(RegionUUID)
@@ -2247,11 +2245,11 @@ Public Class FormSetup
                         Using outputFile As New StreamWriter(filename, True)
                             outputFile.WriteLine("@REM A program to restore Mysql from a backup" & vbCrLf _
                                 & "mysql -u root " & db & " < " & """" & thing & """" _
-                                & vbCrLf & "@pause" & vbCrLf)
+                                & vbCrLf & " @pause" & vbCrLf)
                         End Using
                     Catch ex As Exception
 
-                        ErrorLog("Failed to create restore file:" & ex.Message)
+                        ErrorLog(" Failed to create restore file:" & ex.Message)
                         Return
                     End Try
 
@@ -2259,8 +2257,8 @@ Public Class FormSetup
                         ' pi.Arguments = thing
                         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                             .WindowStyle = ProcessWindowStyle.Normal,
-                            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
-                            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
+                            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, " OutworldzFiles\mysql\bin\"),
+                            .FileName = IO.Path.Combine(Settings.CurrentDirectory, " OutworldzFiles\mysql\bin\RestoreMysql.bat")
                         }
                         pMySqlRestore.StartInfo = pi
                         TextPrint(My.Resources.Do_Not_Interrupt_word)
@@ -2279,7 +2277,7 @@ Public Class FormSetup
 
     Private Sub RevisionHistoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RevisionHistoryToolStripMenuItem.Click
 
-        HelpManual("Revisions")
+        HelpManual(" Revisions")
 
     End Sub
 
@@ -2321,10 +2319,10 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
+                    TextPrint($" {Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
-                End If
-            Next
+            End If
+        Next
 
             Dim Str As String = ""
             For Each NameValue In C
