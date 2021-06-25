@@ -83,16 +83,14 @@ Module WindowHandlers
         command = command.Replace("(", "{(}")
         command = command.Replace(")", "{)}")
 
-        If PID = 0 Then
-            ' BreakPoint.Show("PID = 0")
-        Else
+        If PID <> 0 Then
+
             Try
                 AppActivate(PID)
                 Sleep(100)
-
-
-
                 SendKeys.SendWait(command)
+                SendKeys.SendWait("{ENTER}")
+                SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
             Catch ex As Exception
@@ -363,10 +361,11 @@ Module WindowHandlers
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
 
-        Do While TooMany < 10
+        Do While TooMany < 60
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
+                BreakPoint.Show(ex.Message)
             End Try
 
             If p IsNot Nothing Then

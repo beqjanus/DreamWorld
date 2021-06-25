@@ -73,9 +73,7 @@ Public Module MysqlInterface
         MakeMysql()
 
         MySQLIcon(False)
-        ' Start MySql in background.
-
-        TextPrint(My.Resources.Mysql_Starting)
+        ' Start MySql in background.        
 
         ' SAVE INI file
         Dim INI = New LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#", System.Text.Encoding.ASCII)
@@ -146,7 +144,7 @@ Public Module MysqlInterface
                         MysqlProcess.WaitForExit()
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
-                        ApacheIcon(False)
+                        MySQLIcon(False)
                     End Try
                     Application.DoEvents()
 
@@ -190,16 +188,16 @@ Public Module MysqlInterface
 
                 If MysqlProcess.ExitCode <> 0 Then
                     If response.Contains("has already been started") Then
+                        TextPrint(My.Resources.Mysql_is_Running & ":" & Settings.MySqlRobustDBPort)
                         MySQLIcon(True)
                         Return True
                     End If
                     TextPrint(My.Resources.Mysql_Failed & ":" & response)
-                    ApacheIcon(False)
+                    MySQLIcon(False)
                     Return False
-
                 Else
                     TextPrint(My.Resources.Mysql_is_Running & ":" & Settings.MySqlRobustDBPort)
-                    ApacheIcon(True)
+                    MySQLIcon(True)
                 End If
 
             End Using
@@ -210,6 +208,7 @@ Public Module MysqlInterface
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                 .Arguments = $"--defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini""",
                 .WindowStyle = ProcessWindowStyle.Hidden,
+                .CreateNoWindow = True,
                 .FileName = $"""{IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\mysqld.exe")}"""
             }
             ProcessMySql.StartInfo = pi

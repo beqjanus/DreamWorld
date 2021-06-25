@@ -3818,4 +3818,7 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Minimum time is 0 seconds. Default is 60 seconds.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>starting as an Avatar is nearby</value>
+  </data>
 </root>

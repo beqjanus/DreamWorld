@@ -21,17 +21,19 @@ Module Help
 
         Using NewScreenPosition1 = New ScreenPos(Webpage)
             If Not NewScreenPosition1.Exists() Then
-                Using FormHelp As New FormHelp
-                    FormHelp.Init(Webpage)
-                    FormHelp.Activate()
-                    Try
-                        FormHelp.Select()
-                        FormHelp.BringToFront()
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                    End Try
-                End Using
+#Disable Warning CA2000
+                Dim FormHelp As New FormHelp
+#Enable Warning CA2000
+                FormHelp.Init(Webpage)
+                FormHelp.Activate()
+                Try
+                    FormHelp.Select()
+                    FormHelp.BringToFront()
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
             End If
+
         End Using
 
     End Sub

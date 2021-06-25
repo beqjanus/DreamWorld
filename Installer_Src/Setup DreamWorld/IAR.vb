@@ -11,6 +11,8 @@ Module IAR
 
     Public Sub LoadIAR()
 
+        HelpOnce("Load IAR")
+
         If PropOpensimIsRunning() Then
             ' Create an instance of the open file dialog box. Set filter options and filter index.
             Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
