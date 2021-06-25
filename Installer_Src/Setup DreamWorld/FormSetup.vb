@@ -1078,6 +1078,8 @@ Public Class FormSetup
             BootedList1.RemoveAt(0)
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
 
+            PokeRegionTimer(Ruuid)
+
             ' see how long it has been since we booted
             Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
             TextPrint($"{RegionName} {My.Resources.Running_word}: {CStr(seconds)} {My.Resources.Seconds_word}")
