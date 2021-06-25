@@ -2576,7 +2576,12 @@ Public Class FormSetup
         TeleportAgents()
 
         If SecondsTicker > 0 Then
-            ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+            Try
+                ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+            Catch ex As Exception
+                ErrorLog(ex.Message)
+            End Try
+
         End If
 
         Dim thisDate As Date = Now
