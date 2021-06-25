@@ -2,14 +2,22 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V4.5 release
+V4.51 
+Deleting a region now deletes the regions map tiles.
+Added a check so you cannot delete a running region. 
+Now de-registering regions with MySQL instead of typing for efficiency/less error prone.
+System would not delete a region. Run time problem where an undefined RegionName was confused with a control by the same name
+Shutdown Time (default of 60 seconds) for Smart Boot region did not consider the boot time leading to a too early an exit on slow regions.
+Smart Boot regions that are next door to an Avatar will boot up so you can cross borders.
+Increased timeout from 10 to 60 seconds on Robust while waiting for process ID. 
+No Help menu in Load IAR and Load OAR forms.
+Help Once function was not working. This pops up Help when you first look at a control.
+
+V4.5 
 Possible crash if you delete a .bak file for Baretail. It's needed.
 HelpOnce function was exiting immediately.
 CHange default image for web pages.
 Aborting the webserver thread could lead to a crash when debugging.
-
-
-
 
 V4.46
 Added start/stop/Delete Service controls to Mysql Icon.
