@@ -583,16 +583,17 @@ Module SmartStart
 
     Public Sub ReBoot(RegionUUID As String)
 
-        Bench.Print($"Reboot")
+
         If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Or
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
 
+            Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
             FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
             PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
             Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
             PropUpdateView = True ' make form refresh
-        Else
-            Bench.Print($"Reboot Not needed, already running")
+            PokeRegionTimer(RegionUUID)
+
         End If
 
     End Sub

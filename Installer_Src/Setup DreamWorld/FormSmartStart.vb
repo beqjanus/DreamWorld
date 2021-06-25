@@ -1790,10 +1790,7 @@ Public Class FormSmartStart
 
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
 
-        ' remove from the Robust registry
-        If IsRobustRunning() Then
-            ConsoleCommand("Robust", "deregister region id RegionUUID")
-        End If
+        DeregisterRegionUUID(RegionUUID)
 
         DeleteOpensimEstateID(RegionUUID)
         PropRegionClass.Delete_Region_Map(RegionUUID)

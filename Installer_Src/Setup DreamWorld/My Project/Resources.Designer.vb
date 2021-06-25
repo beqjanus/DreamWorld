@@ -9664,6 +9664,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to starting as an Avatar is nearby.
+        '''</summary>
+        Friend ReadOnly Property StartingNearby() As String
+            Get
+                Return ResourceManager.GetString("StartingNearby", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to There is no need to click the Start button again.  Starts when launched..
         '''</summary>
         Friend ReadOnly Property StartLaunch() As String
