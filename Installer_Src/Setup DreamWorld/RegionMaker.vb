@@ -211,12 +211,14 @@ Public Class RegionMaker
         Dim r As New Region_data With {
             ._AllowGods = "",
             ._AvatarCount = 0,
+            ._AvatarsInRegion = 0,
             ._Birds = "",
+            ._BootTime = 0,
             ._ClampPrimSize = False,
             ._Concierge = "",
-            ._Cores = 0,
             ._CoordX = LargestX() + 8,
             ._CoordY = LargestY() + 0,
+            ._Cores = 0,
             ._CrashCounter = 0,
             ._DisableGloebits = "",
             ._FrameTime = "",
@@ -227,24 +229,22 @@ Public Class RegionMaker
             ._MaxAgents = "100",
             ._MaxPrims = "15000",
             ._MinTimerInterval = "",
-            ._AvatarsInRegion = 0,
             ._NonPhysicalPrimMax = "1024",
             ._PhysicalPrimMax = "64",
-            ._ProcessID = 0,
             ._Priority = "",
+            ._ProcessID = 0,
             ._RegionEnabled = True,
             ._RegionGod = "",
+            ._RegionLandingSpot = "",
             ._RegionName = name,
             ._RegionPort = 0,
             ._RegionSmartStart = "",
-            ._RegionLandingSpot = "",
             ._RegionSnapShot = "",
             ._ScriptEngine = "",
             ._SizeX = 256,
             ._SizeY = 256,
             ._SkipAutobackup = "",
             ._Status = SIMSTATUSENUM.Stopped,
-            ._BootTime = 0,
             ._Teleport = "",
             ._Tides = "",
             ._Timer = Date.Now,
@@ -291,7 +291,7 @@ Public Class RegionMaker
         ' Change estate for Smart Start
         Dim Estate = "Estate"
         If SmartStart(RegionUUID) = "True" Then
-            Estate = "SmartStart"
+            Estate = "SimSurround"
         End If
 
         Dim proto = "; * Regions configuration file; " & vbCrLf _
@@ -402,7 +402,7 @@ Public Class RegionMaker
                 End If
             Next
         Next
-        'Return True
+
         Return False
 
     End Function
@@ -545,6 +545,10 @@ Public Class RegionMaker
                         For Each file As String In inis
                             fName = System.IO.Path.GetFileNameWithoutExtension(file)
 
+                            If fName.Contains("The Ocean of Marldare") Then
+                                BreakPoint.Show("Stopped")
+                                ' TODO delete
+                            End If
                             Dim INI = New LoadIni(file, ";", System.Text.Encoding.ASCII)
 
                             uuid = CStr(INI.GetIni(fName, "RegionUUID", "", "String"))
@@ -701,6 +705,9 @@ Public Class RegionMaker
         For Each pair In RegionList
             If pair.Value._RegionPort > MaxNum Then
                 MaxNum = pair.Value._RegionPort
+            End If
+            If pair.Value._GroupPort > MaxNum Then
+                MaxNum = pair.Value._GroupPort
             End If
         Next
 
@@ -2323,114 +2330,120 @@ Public Class RegionMaker
             '============== Region.ini =====================
             ' Region.ini in Region Folder specific to this region
 
-            INI = New LoadIni(RegionIniFilePath(uuid), ";", System.Text.Encoding.UTF8)
 
-            If INI.SetIni(Name, "InternalPort", CStr(RegionPort(uuid))) Then Return True
-            If INI.SetIni(Name, "GroupPort", CStr(GroupPort(uuid))) Then Return True
-            If INI.SetIni(Name, "ExternalHostName", Settings.ExternalHostName()) Then Return True
-            If INI.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid))) Then Return True
+            For Each uuid In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(uuid))
 
-            ' not a standard only use by the Dreamers
-            If RegionEnabled(uuid) Then
-                If INI.SetIni(Name, "Enabled", "True") Then Return True
-            Else
-                If INI.SetIni(Name, "Enabled", "False") Then Return True
-            End If
+                INI = New LoadIni(RegionIniFilePath(uuid), ";", System.Text.Encoding.UTF8)
 
-            Select Case NonPhysicalPrimMax(uuid)
-                Case ""
-                    If INI.SetIni(Name, "NonPhysicalPrimMax", CStr(1024)) Then Return True
-                Case Else
-                    If INI.SetIni(Name, "NonPhysicalPrimMax", NonPhysicalPrimMax(uuid)) Then Return True
-            End Select
+                If INI.SetIni(Name, "InternalPort", CStr(RegionPort(uuid))) Then Return True
+                If INI.SetIni(Name, "GroupPort", CStr(GroupPort(uuid))) Then Return True
+                If INI.SetIni(Name, "ExternalHostName", Settings.ExternalHostName()) Then Return True
+                If INI.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid))) Then Return True
 
-            Select Case PhysicalPrimMax(uuid)
-                Case ""
-                    If INI.SetIni(Name, "PhysicalPrimMax", CStr(64)) Then Return True
-                Case Else
-                    If INI.SetIni(Name, "PhysicalPrimMax", PhysicalPrimMax(uuid)) Then Return True
-            End Select
+                ' not a standard only use by the Dreamers
+                If RegionEnabled(uuid) Then
+                    If INI.SetIni(Name, "Enabled", "True") Then Return True
+                Else
+                    If INI.SetIni(Name, "Enabled", "False") Then Return True
+                End If
 
-            If Settings.Primlimits Then
-                Select Case MaxPrims(uuid)
+                Select Case NonPhysicalPrimMax(uuid)
                     Case ""
-                        If INI.SetIni(Name, "MaxPrims", CStr(45000)) Then Return True
+                        If INI.SetIni(Name, "NonPhysicalPrimMax", CStr(1024)) Then Return True
                     Case Else
-                        If INI.SetIni(Name, "MaxPrims", MaxPrims(uuid)) Then Return True
+                        If INI.SetIni(Name, "NonPhysicalPrimMax", NonPhysicalPrimMax(uuid)) Then Return True
                 End Select
-            Else
-                Select Case MaxPrims(uuid)
+
+                Select Case PhysicalPrimMax(uuid)
                     Case ""
-                        If INI.SetIni(Name, "MaxPrims", CStr(45000)) Then Return True
+                        If INI.SetIni(Name, "PhysicalPrimMax", CStr(64)) Then Return True
                     Case Else
-                        If INI.SetIni(Name, "MaxPrims", MaxPrims(uuid)) Then Return True
+                        If INI.SetIni(Name, "PhysicalPrimMax", PhysicalPrimMax(uuid)) Then Return True
                 End Select
-            End If
 
-            Select Case MaxAgents(uuid)
-                Case ""
-                    If INI.SetIni(Name, "MaxAgents", CStr(100)) Then Return True
-                Case Else
-                    If INI.SetIni(Name, "MaxAgents", MaxAgents(uuid)) Then Return True
-            End Select
+                If Settings.Primlimits Then
+                    Select Case MaxPrims(uuid)
+                        Case ""
+                            If INI.SetIni(Name, "MaxPrims", CStr(45000)) Then Return True
+                        Case Else
+                            If INI.SetIni(Name, "MaxPrims", MaxPrims(uuid)) Then Return True
+                    End Select
+                Else
+                    Select Case MaxPrims(uuid)
+                        Case ""
+                            If INI.SetIni(Name, "MaxPrims", CStr(45000)) Then Return True
+                        Case Else
+                            If INI.SetIni(Name, "MaxPrims", MaxPrims(uuid)) Then Return True
+                    End Select
+                End If
 
-            ' Maps
-            If MapType(uuid) = "None" Then
-                If INI.SetIni(Name, "GenerateMaptiles", "False") Then Return True
-            ElseIf MapType(uuid) = "Simple" Then
-                If INI.SetIni(Name, "GenerateMaptiles", "True") Then Return True
-                If INI.SetIni(Name, "MapImageModule", "MapImageModule") Then Return True ' versus Warp3DImageModule
-                If INI.SetIni(Name, "TextureOnMapTile", "False") Then Return True        ' versus True
-                If INI.SetIni(Name, "DrawPrimOnMapTile", "False") Then Return True
-                If INI.SetIni(Name, "TexturePrims", "False") Then Return True
-                If INI.SetIni(Name, "RenderMeshes", "False") Then Return True
-            ElseIf MapType(uuid) = "Good" Then
-                If INI.SetIni(Name, "GenerateMaptiles", "True") Then Return True
-                If INI.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
-                If INI.SetIni(Name, "TextureOnMapTile", "False") Then Return True        ' versus True
-                If INI.SetIni(Name, "DrawPrimOnMapTile", "False") Then Return True
-                If INI.SetIni(Name, "TexturePrims", "False") Then Return True
-                If INI.SetIni(Name, "RenderMeshes", "False") Then Return True
-            ElseIf MapType(uuid) = "Better" Then
-                If INI.SetIni(Name, "GenerateMaptiles", "True") Then Return True
-                If INI.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
-                If INI.SetIni(Name, "TextureOnMapTile", "True") Then Return True        ' versus True
-                If INI.SetIni(Name, "DrawPrimOnMapTile", "True") Then Return True
-                If INI.SetIni(Name, "TexturePrims", "False") Then Return True
-                If INI.SetIni(Name, "RenderMeshes", "False") Then Return True
-            ElseIf MapType(uuid) = "Best" Then
-                If INI.SetIni(Name, "GenerateMaptiles", "True") Then Return True
-                If INI.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
-                If INI.SetIni(Name, "TextureOnMapTile", "True") Then Return True     ' versus True
-                If INI.SetIni(Name, "DrawPrimOnMapTile", "True") Then Return True
-                If INI.SetIni(Name, "TexturePrims", "True") Then Return True
-                If INI.SetIni(Name, "RenderMeshes", "True") Then Return True
-            Else
-                If INI.SetIni(Name, "GenerateMaptiles", "") Then Return True
-                If INI.SetIni(Name, "MapImageModule", "") Then Return True  ' versus MapImageModule
-                If INI.SetIni(Name, "TextureOnMapTile", "") Then Return True      ' versus True
-                If INI.SetIni(Name, "DrawPrimOnMapTile", "") Then Return True
-                If INI.SetIni(Name, "TexturePrims", "") Then Return True
-                If INI.SetIni(Name, "RenderMeshes", "") Then Return True
-            End If
+                Select Case MaxAgents(uuid)
+                    Case ""
+                        If INI.SetIni(Name, "MaxAgents", CStr(100)) Then Return True
+                    Case Else
+                        If INI.SetIni(Name, "MaxAgents", MaxAgents(uuid)) Then Return True
+                End Select
 
-            'Options and overrides
+                ' Maps
+                If MapType(uuid) = "None" Then
+                    If INI.SetIni(Name, "GenerateMaptiles", "False") Then Return True
+                ElseIf MapType(uuid) = "Simple" Then
+                    If INI.SetIni(Name, "GenerateMaptiles", "True") Then Return True
+                    If INI.SetIni(Name, "MapImageModule", "MapImageModule") Then Return True ' versus Warp3DImageModule
+                    If INI.SetIni(Name, "TextureOnMapTile", "False") Then Return True        ' versus True
+                    If INI.SetIni(Name, "DrawPrimOnMapTile", "False") Then Return True
+                    If INI.SetIni(Name, "TexturePrims", "False") Then Return True
+                    If INI.SetIni(Name, "RenderMeshes", "False") Then Return True
+                ElseIf MapType(uuid) = "Good" Then
+                    If INI.SetIni(Name, "GenerateMaptiles", "True") Then Return True
+                    If INI.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
+                    If INI.SetIni(Name, "TextureOnMapTile", "False") Then Return True        ' versus True
+                    If INI.SetIni(Name, "DrawPrimOnMapTile", "False") Then Return True
+                    If INI.SetIni(Name, "TexturePrims", "False") Then Return True
+                    If INI.SetIni(Name, "RenderMeshes", "False") Then Return True
+                ElseIf MapType(uuid) = "Better" Then
+                    If INI.SetIni(Name, "GenerateMaptiles", "True") Then Return True
+                    If INI.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
+                    If INI.SetIni(Name, "TextureOnMapTile", "True") Then Return True        ' versus True
+                    If INI.SetIni(Name, "DrawPrimOnMapTile", "True") Then Return True
+                    If INI.SetIni(Name, "TexturePrims", "False") Then Return True
+                    If INI.SetIni(Name, "RenderMeshes", "False") Then Return True
+                ElseIf MapType(uuid) = "Best" Then
+                    If INI.SetIni(Name, "GenerateMaptiles", "True") Then Return True
+                    If INI.SetIni(Name, "MapImageModule", "Warp3DImageModule") Then Return True ' versus MapImageModule
+                    If INI.SetIni(Name, "TextureOnMapTile", "True") Then Return True     ' versus True
+                    If INI.SetIni(Name, "DrawPrimOnMapTile", "True") Then Return True
+                    If INI.SetIni(Name, "TexturePrims", "True") Then Return True
+                    If INI.SetIni(Name, "RenderMeshes", "True") Then Return True
+                Else
+                    If INI.SetIni(Name, "GenerateMaptiles", "") Then Return True
+                    If INI.SetIni(Name, "MapImageModule", "") Then Return True  ' versus MapImageModule
+                    If INI.SetIni(Name, "TextureOnMapTile", "") Then Return True      ' versus True
+                    If INI.SetIni(Name, "DrawPrimOnMapTile", "") Then Return True
+                    If INI.SetIni(Name, "TexturePrims", "") Then Return True
+                    If INI.SetIni(Name, "RenderMeshes", "") Then Return True
+                End If
 
-            If INI.SetIni(Name, "Concierge", Concierge(uuid)) Then Return True
-            If INI.SetIni(Name, "DisableGloebits", DisableGloebits(uuid)) Then Return True
-            If INI.SetIni(Name, "RegionSnapShot", RegionSnapShot(uuid)) Then Return True
-            If INI.SetIni(Name, "Birds", Birds(uuid)) Then Return True
-            If INI.SetIni(Name, "Tides", Tides(uuid)) Then Return True
-            If INI.SetIni(Name, "Teleport", Teleport(uuid)) Then Return True
-            If INI.SetIni(Name, "DisallowForeigners", DisallowForeigners(uuid)) Then Return True
-            If INI.SetIni(Name, "DisallowResidents", DisallowResidents(uuid)) Then Return True
-            If INI.SetIni(Name, "SkipAutoBackup", SkipAutobackup(uuid)) Then Return True
-            If INI.SetIni(Name, "Physics", Physics(uuid)) Then Return True
-            If INI.SetIni(Name, "FrameTime", FrameTime(uuid)) Then Return True
+                'Options and overrides
 
-            INI.SaveINI()
+                If INI.SetIni(Name, "Concierge", Concierge(uuid)) Then Return True
+                If INI.SetIni(Name, "DisableGloebits", DisableGloebits(uuid)) Then Return True
+                If INI.SetIni(Name, "RegionSnapShot", RegionSnapShot(uuid)) Then Return True
+                If INI.SetIni(Name, "Birds", Birds(uuid)) Then Return True
+                If INI.SetIni(Name, "Tides", Tides(uuid)) Then Return True
+                If INI.SetIni(Name, "Teleport", Teleport(uuid)) Then Return True
+                If INI.SetIni(Name, "DisallowForeigners", DisallowForeigners(uuid)) Then Return True
+                If INI.SetIni(Name, "DisallowResidents", DisallowResidents(uuid)) Then Return True
+                If INI.SetIni(Name, "SkipAutoBackup", SkipAutobackup(uuid)) Then Return True
+                If INI.SetIni(Name, "Physics", Physics(uuid)) Then Return True
+                If INI.SetIni(Name, "FrameTime", FrameTime(uuid)) Then Return True
+
+                INI.SaveINI()
+
+            Next
 
             Settings.SaveSettings()
+
         Catch ex As Exception
             ErrorLog(ex.Message)
             Return True
