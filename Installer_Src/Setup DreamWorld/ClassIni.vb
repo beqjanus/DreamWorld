@@ -23,7 +23,7 @@ Public Class LoadIni
 
         _filename = File
         If arg Is Nothing Then Return
-        If arg.Contains("/Regions/") Then CheckINI()
+        If File.Contains("\Region\") Then CheckINI()
         _sep = arg
 
         _encoding = encoding
@@ -131,6 +131,7 @@ Public Class LoadIni
                     c += 1
                 End If
                 If c > 1 Then
+                    Reader.Close()
                     FileStuff.DeleteFile(_filename)
                     Using Writer As New StreamWriter(_filename)
                         Writer.Write(RepairedLine)
