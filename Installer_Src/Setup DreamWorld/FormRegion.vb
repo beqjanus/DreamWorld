@@ -1165,9 +1165,11 @@ Public Class FormRegion
         PropRegionClass.CoordY(RegionUUID) = CInt("0" & CoordY.Text)
         PropRegionClass.RegionName(RegionUUID) = RegionName.Text
 
-        Dim port = PropRegionClass.LargestPort + 1
-        PropRegionClass.RegionPort(RegionUUID) = port
-        PropRegionClass.GroupPort(RegionUUID) = port
+        If PropRegionClass.RegionPort(RegionUUID) = 0 Then
+            Dim port = PropRegionClass.LargestPort + 1
+            PropRegionClass.RegionPort(RegionUUID) = port
+            PropRegionClass.GroupPort(RegionUUID) = port
+        End If
 
         PropRegionClass.SizeX(RegionUUID) = BoxSize
         PropRegionClass.SizeY(RegionUUID) = BoxSize
@@ -1635,6 +1637,27 @@ Public Class FormRegion
     Private Sub Core16Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core16Button.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
+
+    Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
 
 
 

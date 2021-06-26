@@ -654,13 +654,9 @@ Public Class RegionMaker
 
                                     If Backup(o)._RegionPort > 0 Then
                                         RegionPort(uuid) = Backup(o)._RegionPort
-                                    Else
-                                        BreakPoint.Show("oops")
                                     End If
                                     If Backup(o)._GroupPort > 0 Then
                                         GroupPort(uuid) = Backup(o)._GroupPort
-                                    Else
-                                        ' BreakPoint.Show("No Group Port yet")
                                     End If
 
                                 End If

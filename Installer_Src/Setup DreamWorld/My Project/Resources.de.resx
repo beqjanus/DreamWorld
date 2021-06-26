@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Aborted_word" xml:space="preserve">
-    <value>abgebrochen</value>
+    <value>Abgebrochen</value>
   </data>
   <data name="About_word" xml:space="preserve">
     <value>Über</value>
@@ -199,7 +199,7 @@
     <value>Der Webserver wurde nicht gestoppt</value>
   </data>
   <data name="ApacheWebServer" xml:space="preserve">
-    <value>Webserver + Suche und Karte</value>
+    <value>Webserver</value>
   </data>
   <data name="Apache_Disabled" xml:space="preserve">
     <value>Web-Server ist nicht aktiviert</value>
@@ -232,7 +232,7 @@
     <value>Eine Anwendung Ausnahme ist aufgetreten. Wollen Sie versuchen weiterhin, oder Abbruch / Ausgang?</value>
   </data>
   <data name="Apply_word" xml:space="preserve">
-    <value>anwenden</value>
+    <value>Anwenden</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
     <value>Bist du sicher? Ihre Datenbank wird aus dem Backup geladen und alle vorhandenen Inhalte ersetzt. Avatare, sims, Inventar wird every überschrieben.</value>
@@ -3058,7 +3058,7 @@
     <value>Alternativer Name zur Verwendung durch Apache oder Jopensim</value>
   </data>
   <data name="Apply" xml:space="preserve">
-    <value>anwenden</value>
+    <value>Anwenden</value>
   </data>
   <data name="Arriving_word" xml:space="preserve">
     <value>ankommen</value>
