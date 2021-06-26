@@ -312,7 +312,7 @@ Public Class FormRegion
                 BelowNormal.Checked = PropRegionClass.Priority(RegionUUID) = "BelowNormal"
             End If
 
-            Core1Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H11)
+            Core1Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H1)
             Core2Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H2)
             Core3Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H4)
             Core4Button.Checked = CBool(PropRegionClass.Cores(RegionUUID) And &H8)
