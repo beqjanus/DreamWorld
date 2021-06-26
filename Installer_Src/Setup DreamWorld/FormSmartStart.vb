@@ -1791,11 +1791,10 @@ Public Class FormSmartStart
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
 
         DeregisterRegionUUID(RegionUUID)
-
         DeleteOpensimEstateID(RegionUUID)
         PropRegionClass.Delete_Region_Map(RegionUUID)
+        DeleteMaps(RegionUUID)
         PropRegionClass.DeleteRegion(RegionUUID)
-
         ProgressPrint($"Deleted region {RegionName}")
         PropUpdateView = True
 
