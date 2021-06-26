@@ -678,6 +678,9 @@ Public Class FormSetup
             Application.DoEvents()
         Next
 
+        Settings.SafeShutdown() = False
+        Settings.SaveSettings()
+
         Buttons(StopButton)
         TextPrint(My.Resources.Ready)
 
@@ -1752,9 +1755,6 @@ Public Class FormSetup
         ' Get the names of all the lands
         InitLand()
         InitTrees()
-
-        Settings.SafeShutdown() = False
-        Settings.SaveSettings()
 
         HelpOnce("License") ' license on bottom
         HelpOnce("Startup")
