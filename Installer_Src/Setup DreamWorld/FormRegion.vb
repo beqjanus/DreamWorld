@@ -256,7 +256,7 @@ Public Class FormRegion
             CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
             EnabledCheckBox.Checked = True
             RadioButton1.Checked = True
-            SmartStartCheckBox.Checked = Settings.SmartStart
+            SmartStartCheckBox.Checked = False
             NonphysicalPrimMax.Text = 1024.ToString(Globalization.CultureInfo.InvariantCulture)
             PhysicalPrimMax.Text = 64.ToString(Globalization.CultureInfo.InvariantCulture)
             ClampPrimSize.Checked = False
@@ -1206,6 +1206,7 @@ Public Class FormRegion
         ElseIf MapBest.Checked Then
             Map = "Best"
         End If
+
 
         PropRegionClass.MapType(RegionUUID) = Map
 
