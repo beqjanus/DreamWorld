@@ -5,13 +5,14 @@ This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are re
 V4.51 
 Deleting a region now deletes the regions map tiles.
 Added a check so you cannot delete a running region. 
-Now de-registering regions with MySQL instead of typing for efficiency/less error prone.
-System would not delete a region. Run time problem where an undefined RegionName was confused with a control by the same name
-Shutdown Time (default of 60 seconds) for Smart Boot region did not consider the boot time leading to a too early an exit on slow regions.
-Smart Boot regions that are next door to an Avatar will boot up so you can cross borders.
-Increased timeout from 10 to 60 seconds on Robust while waiting for process ID. 
-No Help menu in Load IAR and Load OAR forms.
-Help Once function was not working. This pops up Help when you first look at a control.
+De-registering regions with MySQL instead of typing for efficiency/less error prone.
+System would not delete a region. Run time problem where an undefined RegionName was confused with a control by the same name.
+Shutdown Timer for Smart Boot did not consider the boot time leading to a too early an exit on slow regions. 
+Smart Boot regions that are next door to an Avatar will boot up so you can cross borders. 
+Increased timeout from 10 to 60 seconds on Robust while waiting for process ID for slow PC's.
+There was no help menu in Load IAR and Load OAR forms.
+Help Once function was not working. This pops up Help when you first look at a control. It Just opened and closed.
+The count of regions on the Diva home page did not include Smart Boot enabled regions.
 
 V4.5 
 Possible crash if you delete a .bak file for Baretail. It's needed.
