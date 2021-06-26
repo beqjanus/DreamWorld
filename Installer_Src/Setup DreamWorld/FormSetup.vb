@@ -4,9 +4,6 @@
 
 #End Region
 
-#Region "To do"
-
-#End Region
 
 'Option Strict On
 
@@ -23,10 +20,11 @@ Public Class FormSetup
     Public ReadOnly MyCPUCollection As New List(Of Double)
     Public ReadOnly MyRAMCollection As New List(Of Double)
 
-    Dim searcher As ManagementObjectSearcher
+
 
 #Region "Private Declarations"
 
+    Private searcher As ManagementObjectSearcher
     Private WithEvents UpdateProcess As New Process()
     Private ReadOnly _exitList As New Dictionary(Of String, String)
 
@@ -1869,7 +1867,6 @@ Public Class FormSetup
 
 #Region "Loopback"
 
-#End Region
 
     Private Shared Sub SetLoopback()
 
@@ -1895,6 +1892,8 @@ Public Class FormSetup
         Next
 
     End Sub
+
+#End Region
 
 #Region "Help"
 
@@ -2398,7 +2397,7 @@ Public Class FormSetup
 
     ''' <summary>Sets H,W and pos of screen on load</summary>
     Private Sub SetScreen()
-        '365, 238 default
+        '351, 200 default
         ScreenPosition1 = New ScreenPos("Form1")
         AddHandler ResizeEnd, HandlerSetup
         Dim xy As List(Of Integer) = ScreenPosition1.GetXY()
@@ -2408,7 +2407,7 @@ Public Class FormSetup
         Dim hw As List(Of Integer) = ScreenPosition1.GetHW()
 
         If hw.Item(0) = 0 Then
-            Me.Height = 238
+            Me.Height = 200
         Else
             Try
                 Me.Height = hw.Item(0)
@@ -2418,10 +2417,9 @@ Public Class FormSetup
         End If
 
         If hw.Item(1) = 0 Then
-            Me.Width = 365
+            Me.Width = 351
         Else
             Me.Width = hw.Item(1)
-
         End If
 
         ScreenPosition1.SaveHW(Me.Height, Me.Width)
