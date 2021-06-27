@@ -1322,8 +1322,6 @@
     <None Include="Resources\welcome_toolbox.png" />
     <None Include="Resources\cubes_blue.png" />
     <None Include="Resources\1253433.png" />
-    <None Include="Resources\divider1.png" />
-    <None Include="Resources\divider.png" />
     <Content Include="Resources\exit.png" />
     <Content Include="Resources\jar.ico" />
     <Content Include="Resources\mail.ico" />

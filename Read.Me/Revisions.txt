@@ -2,9 +2,11 @@ REVISIONS FOR DREAMGRID
 
 This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
 
-V4.51 
+V4.52
+New grid only - Initial startup timing issue in Process.PID could cause the Robust to not capture the grid owner name.
 Deleting a region now deletes the regions map tiles.
 Added a check so you cannot delete a running region. 
+Multiple sims per dos box could cause a port clash.
 De-registering regions with MySQL instead of typing for efficiency/less error prone.
 System would not delete a region. Run time problem where an undefined RegionName was confused with a control by the same name.
 Shutdown Timer for Smart Boot did not consider the boot time leading to a too early an exit on slow regions. 
@@ -13,6 +15,9 @@ Increased timeout from 10 to 60 seconds on Robust while waiting for process ID f
 There was no help menu in Load IAR and Load OAR forms.
 Help Once function was not working. This pops up Help when you first look at a control. It Just opened and closed.
 The count of regions on the Diva home page did not include Smart Boot enabled regions.
+
+
+V4.51 removed due to an isue with multipl sims per DOS box.
 
 V4.5 
 Possible crash if you delete a .bak file for Baretail. It's needed.
