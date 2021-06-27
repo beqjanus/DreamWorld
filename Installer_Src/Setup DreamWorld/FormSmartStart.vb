@@ -1,4 +1,12 @@
-﻿' TODO New terrain commands
+﻿#Region "Copyright AGPL3.0"
+
+' Copyright Outworldz, LLC.
+' AGPL3.0  https://opensource.org/licenses/AGPL
+
+#End Region
+
+
+' TODO New terrain commands
 '   set terrain heights <corner> <min> <max> [<x>] [<y>] - Sets the terrain texture heights on corner #<corner> to <min>/<max>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wildcard that coordinate. Corner # SW = 0, NW = 1, SE = 2, NE = 3.
 '   set terrain texture <number> <uuid> [<x>] [<y>] - Sets the terrain <number> to <uuid>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wild card that coordinate.
 
