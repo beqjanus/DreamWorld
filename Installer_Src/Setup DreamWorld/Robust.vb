@@ -189,11 +189,11 @@ Module Robust
         Dim counter = 0
         ' While Not IsRobustRunning() And PropOpensimIsRunning
         While Not IsRobustRunning()
-            Log("Error", Global.Outworldz.My.Resources.Waiting_on_Robust)
+
             Application.DoEvents()
 
             ' wait a minute for it to start
-            If counter > 0 And counter Mod 10 = 0 Then
+            If counter > 0 And counter Mod 30 = 0 Then
                 TextPrint("Robust " & Global.Outworldz.My.Resources.isBooting)
             End If
             counter += 1
@@ -220,6 +220,7 @@ Module Robust
         End While
 
         RobustIsStarting = False
+        PropRobustProcID = WaitForPID(RobustProcess)
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         RobustIcon(True)

@@ -693,12 +693,15 @@ Public Class FormSetup
                 End If
 
                 ' Read the chosen sim name
+                If PropRobustProcID > 0 Then
+                    ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email)
+                    ConsoleCommand(RobustName, "{ENTER}")
+                    Settings.RunOnce = True
+                    Settings.SaveSettings()
+                Else
+                    BreakPoint.Show("Whoops, no robust")
+                End If
 
-                ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email)
-                ConsoleCommand(RobustName, "{ENTER}")
-
-                Settings.RunOnce = True
-                Settings.SaveSettings()
             End Using
         End If
 
