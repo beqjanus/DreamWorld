@@ -120,28 +120,31 @@ Public Class LoadIni
     ''' <param name="file">Path to region ini file</param>
     Private Sub CheckINI()
         Dim c As Integer
+        Dim RepairedLine As String = ""
         Using Reader As New System.IO.StreamReader(_filename)
-            Dim RepairedLine As String = ""
             While Not Reader.EndOfStream
                 Dim line As String = Reader.ReadLine
-
                 Dim pattern As Regex = New Regex("^\[.*?\]")
                 Dim match As Match = pattern.Match(line)
                 If match.Success Then
                     c += 1
                 End If
+
+                ' more than one [Section], skip lines
                 If c > 1 Then
-                    Reader.Close()
-                    FileStuff.DeleteFile(_filename)
-                    Using Writer As New StreamWriter(_filename)
-                        Writer.Write(RepairedLine)
-                    End Using
-                    Exit While
+                    Continue While
                 End If
-                'Debug.Print(line)
+
                 RepairedLine += line & vbCrLf
             End While
         End Using
+
+        If c > 1 Then
+            FileStuff.DeleteFile(_filename)
+            Using Writer As New StreamWriter(_filename)
+                Writer.Write(RepairedLine)
+            End Using
+        End If
 
     End Sub
 
