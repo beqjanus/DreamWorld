@@ -570,6 +570,12 @@
     <Compile Include="FormTOS.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormUpdate.Designer.vb">
+      <DependentUpon>FormUpdate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormUpdate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GlobalSettings.vb" />
     <Compile Include="GridNames.vb" />
     <Compile Include="Help.vb" />
@@ -649,6 +655,7 @@
     <Compile Include="SmartStart.vb" />
     <Compile Include="Sorter.vb" />
     <Compile Include="Teleport.vb" />
+    <Compile Include="Updater.vb" />
     <Compile Include="UploadImage.vb" />
     <Compile Include="WindowHandlers.vb" />
     <Compile Include="WordWrap.vb" />
@@ -821,6 +828,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormTOS.resx">
       <DependentUpon>FormTOS.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormUpdate.resx">
+      <DependentUpon>FormUpdate.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.ar-SA.resx">
       <SubType>Designer</SubType>
@@ -1153,9 +1163,6 @@
     <None Include="Resources\map-1-9510-10006-objects.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Outworldz ad by Marianna Monentes.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Simple.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -1312,11 +1319,16 @@
     <None Include="Resources\ModulesHelp.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\welcome_toolbox.png" />
     <None Include="Resources\cubes_blue.png" />
+    <None Include="Resources\1253433.png" />
+    <None Include="Resources\divider1.png" />
+    <None Include="Resources\divider.png" />
     <Content Include="Resources\exit.png" />
     <Content Include="Resources\jar.ico" />
     <Content Include="Resources\mail.ico" />
     <Content Include="Resources\Martin-Berube-Flat-Animal-Bird.ico" />
+    <None Include="Resources\Outworldz ad by Marianna Monentes.png" />
     <Content Include="Resources\registry.ico" />
     <Content Include="Resources\spy.ico" />
     <Content Include="Resources\view.ico" />

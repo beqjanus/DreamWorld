@@ -1546,7 +1546,7 @@ SetWindowOnTop_Err:
 
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
 
-        FormSetup.DoStopActions()
+        DoStopActions()
 
     End Sub
 

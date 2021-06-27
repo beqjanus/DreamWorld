@@ -2894,6 +2894,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property divider_Line() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("divider-Line", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to DNS Name &amp; Hypergrid.
         '''</summary>
         Friend ReadOnly Property DNS_HG_Name() As String
@@ -6572,6 +6582,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to A new version is available...
+        '''</summary>
+        Friend ReadOnly Property NewVersion() As String
+            Get
+                Return ResourceManager.GetString("NewVersion", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Next Name.
         '''</summary>
         Friend ReadOnly Property Next_Name() As String
@@ -7121,6 +7140,16 @@ Namespace My.Resources
         Friend ReadOnly Property OSGrid_Region_Server() As String
             Get
                 Return ResourceManager.GetString("OSGrid_Region_Server", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Outworld() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Outworld", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
@@ -11083,6 +11112,16 @@ Namespace My.Resources
         Friend ReadOnly Property WebServerPanel() As String
             Get
                 Return ResourceManager.GetString("WebServerPanel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property welcome_toolbox() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("welcome_toolbox", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

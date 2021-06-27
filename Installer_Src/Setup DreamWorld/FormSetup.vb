@@ -25,7 +25,7 @@ Public Class FormSetup
 #Region "Private Declarations"
 
     Private searcher As ManagementObjectSearcher
-    Private WithEvents UpdateProcess As New Process()
+
     Private ReadOnly _exitList As New Dictionary(Of String, String)
 
     ReadOnly BackupThread As New Backups
@@ -64,7 +64,7 @@ Public Class FormSetup
     Private speed1 As Double
     Private speed2 As Double
     Private speed3 As Double
-    Private Update_version As String
+
     Private ws As NetServer
 
 #End Region
@@ -313,69 +313,6 @@ Public Class FormSetup
 
 #End Region
 
-#Region "Updater"
-
-    ''' <summary>Checks the Outworldz Web site to see if a new version exist,.</summary>
-    Public Sub CheckForUpdates()
-
-        Using client As New WebClient ' download client for web pages
-            TextPrint(My.Resources.Checking_for_Updates_word)
-            Try
-                Update_version = client.DownloadString(PropDomain & "/Outworldz_Installer/UpdateGrid.plx" & GetPostData())
-            Catch ex As Exception
-                ErrorLog(My.Resources.Wrong & " " & ex.Message)
-                Return
-            End Try
-        End Using
-
-        ' Update Error check could be nothing
-        If Update_version.Length = 0 Then Update_version = PropMyVersion
-
-        Try
-            Dim uv As Single = 0
-            uv = Convert.ToSingle(Update_version, Globalization.CultureInfo.InvariantCulture)
-            Dim ToVersion = Convert.ToSingle(Settings.SkipUpdateCheck, Globalization.CultureInfo.InvariantCulture)
-            ' could be the same or later version already
-            If uv <= ToVersion Then
-                Return
-            End If
-            If uv <= Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture) Then
-                Return
-            End If
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-            Return
-        End Try
-
-        TextPrint($"{My.Resources.Update_is_available}: {PropMyVersion}==>{Update_version}")
-
-        Dim doUpdate = MsgBox($"{My.Resources.Update_is_available}: {PropMyVersion}==>{Update_version}", MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Update_is_available)
-        If doUpdate = vbOK Then
-
-            If DoStopActions() = False Then Return
-
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .WindowStyle = ProcessWindowStyle.Normal,
-                .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
-            }
-
-            UpdateProcess.StartInfo = pi
-
-            Try
-                UpdateProcess.Start()
-                Settings.SkipUpdateCheck() = Update_version
-                Settings.SaveSettings()
-                End
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                TextPrint(My.Resources.ErrUpdate)
-            End Try
-
-        End If
-
-    End Sub
-
-#End Region
 
 #Region "Misc"
 
@@ -389,21 +326,7 @@ Public Class FormSetup
 
     End Sub
 
-    Public Function DoStopActions() As Boolean
 
-        TextPrint(My.Resources.Stopping_word)
-        Buttons(BusyButton)
-        If Not KillAll() Then Return False
-        Buttons(StartButton)
-        TextPrint(My.Resources.Stopped_word)
-        ToolBar(False)
-
-        Settings.SafeShutdown = True
-        Settings.SaveSettings()
-
-        Return True
-
-    End Function
 
     ''' <summary>Event handler for Icecast</summary>
     Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
@@ -1720,7 +1643,7 @@ Public Class FormSetup
             .InstanceName = "_Total"
         End With
 
-        CheckForUpdates()
+        CheckForUpdates(False)
         Application.DoEvents()
 
         mnuSettings.Visible = True
@@ -2781,7 +2704,7 @@ Public Class FormSetup
 
     Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
 
-        CheckForUpdates()
+        CheckForUpdates(True)
 
     End Sub
 
