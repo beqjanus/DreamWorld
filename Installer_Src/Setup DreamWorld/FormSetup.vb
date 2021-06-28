@@ -1070,9 +1070,9 @@ Public Class FormSetup
 
                     Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                     ShutDown(RegionUUID)
+                    PokeGroupTimer(GroupName)
                     For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        PokeRegionTimer(RegionUUID)
                     Next
 
                     PropUpdateView = True ' make form refresh
