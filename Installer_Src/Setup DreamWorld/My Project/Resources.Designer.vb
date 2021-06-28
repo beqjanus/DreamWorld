@@ -72,6 +72,16 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property _1253433() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("1253433", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property _3x3() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("_3x3", resourceCulture)
@@ -3016,6 +3026,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Do Not Show Again.
+        '''</summary>
+        Friend ReadOnly Property DoNotShowAgain() As String
+            Get
+                Return ResourceManager.GetString("DoNotShowAgain", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to DOS Box.
         '''</summary>
         Friend ReadOnly Property DOS_Box_word() As String
@@ -5107,6 +5126,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Install Now.
+        '''</summary>
+        Friend ReadOnly Property InstallNow() As String
+            Get
+                Return ResourceManager.GetString("InstallNow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to This will install JOpensim. Do you wish to continue?.
         '''</summary>
         Friend ReadOnly Property InstallOpensim() As String
@@ -6568,15 +6596,6 @@ Namespace My.Resources
         Friend ReadOnly Property New_User_Home() As String
             Get
                 Return ResourceManager.GetString("New_User_Home", resourceCulture)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized string similar to A new version is available...
-        '''</summary>
-        Friend ReadOnly Property NewVersion() As String
-            Get
-                Return ResourceManager.GetString("NewVersion", resourceCulture)
             End Get
         End Property
         
@@ -8308,6 +8327,15 @@ Namespace My.Resources
         Friend ReadOnly Property Reload() As String
             Get
                 Return ResourceManager.GetString("Reload", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Remind Me Later.
+        '''</summary>
+        Friend ReadOnly Property RemindMeLater() As String
+            Get
+                Return ResourceManager.GetString("RemindMeLater", resourceCulture)
             End Get
         End Property
         

@@ -95,7 +95,6 @@ Partial Class FormSetup
         Me.DiagnosticsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SeePortsInUseToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ForceUpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CHeckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.DebugToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
@@ -277,7 +276,7 @@ Partial Class FormSetup
         '
         'HelpToolStripMenuItem
         '
-        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHyperGridAddressToolStripMenuItem, Me.ToolStripSeparator1, Me.HelpStartingUpToolStripMenuItem1, Me.HelpOnSettingsToolStripMenuItem, Me.LoopBackToolStripMenuItem, Me.ToolStripMenuItem1, Me.HelpOnIARSToolStripMenuItem, Me.HelpOnOARsToolStripMenuItem, Me.TroubleshootingToolStripMenuItem, Me.TechnicalInfoToolStripMenuItem, Me.ConsoleCOmmandsToolStripMenuItem1, Me.ToolStripSeparator7, Me.CommonConsoleCommandsToolStripMenuItem, Me.ToolStripSeparator2, Me.ViewLogsToolStripMenuItem, Me.SimulatorStatsToolStripMenuItem, Me.ViewWebUI, Me.ViewRegionMapToolStripMenuItem, Me.ViewIcecastWebPageToolStripMenuItem, Me.ToolStripSeparator4, Me.DiagnosticsToolStripMenuItem, Me.SeePortsInUseToolStripMenuItem, Me.ToolStripSeparator8, Me.ForceUpdateToolStripMenuItem, Me.CHeckForUpdatesToolStripMenuItem, Me.ToolStripSeparator5, Me.DebugToolStripMenuItem1, Me.RevisionHistoryToolStripMenuItem, Me.mnuAbout})
+        Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ShowHyperGridAddressToolStripMenuItem, Me.ToolStripSeparator1, Me.HelpStartingUpToolStripMenuItem1, Me.HelpOnSettingsToolStripMenuItem, Me.LoopBackToolStripMenuItem, Me.ToolStripMenuItem1, Me.HelpOnIARSToolStripMenuItem, Me.HelpOnOARsToolStripMenuItem, Me.TroubleshootingToolStripMenuItem, Me.TechnicalInfoToolStripMenuItem, Me.ConsoleCOmmandsToolStripMenuItem1, Me.ToolStripSeparator7, Me.CommonConsoleCommandsToolStripMenuItem, Me.ToolStripSeparator2, Me.ViewLogsToolStripMenuItem, Me.SimulatorStatsToolStripMenuItem, Me.ViewWebUI, Me.ViewRegionMapToolStripMenuItem, Me.ViewIcecastWebPageToolStripMenuItem, Me.ToolStripSeparator4, Me.DiagnosticsToolStripMenuItem, Me.SeePortsInUseToolStripMenuItem, Me.ToolStripSeparator8, Me.CHeckForUpdatesToolStripMenuItem, Me.ToolStripSeparator5, Me.DebugToolStripMenuItem1, Me.RevisionHistoryToolStripMenuItem, Me.mnuAbout})
         Me.HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.about
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(64, 24)
@@ -639,16 +638,9 @@ Partial Class FormSetup
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
         Me.ToolStripSeparator8.Size = New System.Drawing.Size(281, 6)
         '
-        'ForceUpdateToolStripMenuItem
-        '
-        Me.ForceUpdateToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue_add
-        Me.ForceUpdateToolStripMenuItem.Name = "ForceUpdateToolStripMenuItem"
-        Me.ForceUpdateToolStripMenuItem.Size = New System.Drawing.Size(284, 22)
-        Me.ForceUpdateToolStripMenuItem.Text = "Force Update"
-        '
         'CHeckForUpdatesToolStripMenuItem
         '
-        Me.CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.download
+        Me.CHeckForUpdatesToolStripMenuItem.Image = Global.Outworldz.My.Resources.Resources.cube_blue_add
         Me.CHeckForUpdatesToolStripMenuItem.Name = "CHeckForUpdatesToolStripMenuItem"
         Me.CHeckForUpdatesToolStripMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Alt Or System.Windows.Forms.Keys.U), System.Windows.Forms.Keys)
         Me.CHeckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(284, 22)
@@ -1110,13 +1102,13 @@ Partial Class FormSetup
         Me.TextBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TextBox1.AutoWordSelection = True
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.TextBox1.Location = New System.Drawing.Point(16, 62)
-        Me.TextBox1.MaxLength = 32000
+        Me.TextBox1.Font = New System.Drawing.Font("Calibri", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(12, 58)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(307, 91)
-        Me.TextBox1.TabIndex = 2
+        Me.TextBox1.Size = New System.Drawing.Size(311, 96)
+        Me.TextBox1.TabIndex = 18612
         Me.TextBox1.Text = ""
         '
         'FormSetup
@@ -1278,12 +1270,11 @@ Partial Class FormSetup
     Friend WithEvents DeleteServiceToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DiskSize As Label
     Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
-    Friend WithEvents TextBox1 As RichTextBox
-    Friend WithEvents ForceUpdateToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ConnectToConsoleToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator8 As ToolStripSeparator
     Friend WithEvents StopToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents StartToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents DeleteServiceToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents ConnectToWebPageToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TextBox1 As RichTextBox
 End Class

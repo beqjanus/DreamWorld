@@ -387,9 +387,9 @@ Public Class FormSetup
                 SequentialPause()
                 Dim s As Boolean = ShutDown(RegionUUID)
                 TextPrint(PropRegionClass.GroupName(RegionUUID) & " " & Global.Outworldz.My.Resources.Stopping_word)
-                Dim GroupName = PropRegionClass.GroupName(RegionUUID)
+                Dim Group = PropRegionClass.GroupName(RegionUUID)
                 If s Then
-                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                    For Each UUID In PropRegionClass.RegionUuidListByName(Group)
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                     Next
                     PropUpdateView = True ' make form refresh
@@ -992,8 +992,13 @@ Public Class FormSetup
 
         ' booted regions from web server
         While BootedList1.Count > 0
-            Dim Ruuid As String = BootedList1(0)
-            BootedList1.RemoveAt(0)
+            Dim Ruuid As String = ""
+            Try
+                Ruuid = BootedList1(0)
+                BootedList1.RemoveAt(0)
+            Catch
+            End Try
+
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
 
             PokeRegionTimer(Ruuid)
@@ -1038,24 +1043,22 @@ Public Class FormSetup
 
             Dim status = PropRegionClass.Status(RegionUUID)
 
-
             ' if anyone is in home stay alive
             If PropRegionClass.AvatarsIsInGroup(GroupName) Then
-                PokeRegionTimer(RegionUUID)
+                PokeGroupTimer(RegionUUID)
                 Continue For
             End If
 
             ' Find any regions touching this region.
             ' add them to the area to stay alive.            
-            If PropRegionClass.AvatarIsNearby(RegionUUID) And
-                 status = RegionMaker.SIMSTATUSENUM.Stopped Then
+            If PropRegionClass.AvatarIsNearby(RegionUUID) And status = RegionMaker.SIMSTATUSENUM.Stopped Then
                 TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                 ReBoot(RegionUUID)
                 Continue For
             End If
 
             If PropRegionClass.AvatarIsNearby(GroupName) Then
-                PokeRegionTimer(RegionUUID)
+                PokeGroupTimer(GroupName)
                 Continue For
             End If
 
@@ -1357,8 +1360,6 @@ Public Class FormSetup
 
         Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture
 
-        TextPrint("Language is " & CultureInfo.CurrentCulture.Name)
-
         Me.Controls.Clear() 'removes all the controls on the form
         InitializeComponent() 'load all the controls again
         Application.DoEvents()
@@ -1368,7 +1369,9 @@ Public Class FormSetup
 
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
-        'Console.WriteLine("CurrentCulture is {0}.", CultureInfo.CurrentCulture.Name)
+        'Console.WriteLine("CurrentCulture Is {0}.", CultureInfo.CurrentCulture.Name)
+
+        TextPrint("Language Is " & CultureInfo.CurrentCulture.Name)
 
         AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Add_User_word
         AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.earth_network
@@ -1540,6 +1543,16 @@ Public Class FormSetup
         Buttons(BusyButton)
 
         TextBox1.BackColor = Me.BackColor
+
+        TextBox1.SelectAll()
+        TextBox1.SelectionIndent += 15 ' play With this values To match yours
+        TextBox1.SelectionRightIndent += 15 ' this too
+        TextBox1.SelectionLength = 0
+        ' this Is a little hack because without this
+        ' I've got the first line of my richTB selected anyway.
+        TextBox1.SelectionBackColor = TextBox1.BackColor
+
+
         ' initialize the scrolling text box
 
         ToolBar(False)
@@ -1555,7 +1568,7 @@ Public Class FormSetup
 
         UpgradeDotNet()
         Application.DoEvents()
-        Dim wql As ObjectQuery = New ObjectQuery("SELECT TotalVisibleMemorySize,FreePhysicalMemory FROM Win32_OperatingSystem")
+        Dim wql As ObjectQuery = New ObjectQuery("Select TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
         Searcher1 = New ManagementObjectSearcher(wql)
         Application.DoEvents()
         CopyWifi()
@@ -1581,7 +1594,7 @@ Public Class FormSetup
         Me.Text += " V" & PropMyVersion
         TextPrint(My.Resources.Version_word)
         TextPrint($"--> DreamGrid {My.Resources.Version_word} {PropMyVersion}")
-        TextPrint($"--> Git Version: #{GitVersion()}")
+        TextPrint($"--> Git Version:  #{GitVersion()}")
         TextPrint($"--> Opensimulator {My.Resources.Version_word} {_SimVersion}")
         TextPrint($"--> Joomla {My.Resources.Version_word} {jRev}")
         TextPrint($"--> MySQL {My.Resources.Version_word} {MySqlRev}")
@@ -1646,7 +1659,7 @@ Public Class FormSetup
             .InstanceName = "_Total"
         End With
 
-        CheckForUpdates(False)
+        CheckForUpdates()
         Application.DoEvents()
 
         mnuSettings.Visible = True
@@ -2204,7 +2217,7 @@ Public Class FormSetup
 
     Private Sub RevisionHistoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RevisionHistoryToolStripMenuItem.Click
 
-        HelpManual(" Revisions")
+        HelpManual("Revisions")
 
     End Sub
 
@@ -2248,8 +2261,8 @@ Public Class FormSetup
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
                     TextPrint($" {Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
-            End If
-        Next
+                End If
+            Next
 
             Dim Str As String = ""
             For Each NameValue In C
@@ -2705,11 +2718,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
 
-        CheckForUpdates(True)
-
-    End Sub
 
     Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
 
@@ -3246,29 +3255,7 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceUpdateToolStripMenuItem.Click
 
-        If DoStopActions() = False Then Return
-
-        Using PUpdater As Process = New Process()
-
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .WindowStyle = ProcessWindowStyle.Normal,
-                .WorkingDirectory = Settings.CurrentDirectory,
-                .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
-            }
-            PUpdater.StartInfo = pi
-            TextPrint(My.Resources.Do_Not_Interrupt_word)
-            Try
-                PUpdater.Start()
-                End
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End Using
-        End
-
-    End Sub
 
     Private Sub G()
 
@@ -3361,6 +3348,42 @@ Public Class FormSetup
                 BreakPoint.Show(ex.Message)
             End Try
         End Using
+    End Sub
+
+    Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+
+        ShowUpdateForm("latest version Including beta versions.")
+
+
+        Return
+
+        If DoStopActions() = False Then Return
+
+        Using PUpdater As Process = New Process()
+
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .WindowStyle = ProcessWindowStyle.Normal,
+                .WorkingDirectory = Settings.CurrentDirectory,
+                .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
+            }
+            PUpdater.StartInfo = pi
+            TextPrint(My.Resources.Do_Not_Interrupt_word)
+            Try
+                PUpdater.Start()
+                End
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+        End
+
+    End Sub
+
+    Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
+
+        ShowUpdateForm(" latest version.")
+
     End Sub
 
 #End Region

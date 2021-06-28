@@ -2331,7 +2331,7 @@ Public Class RegionMaker
             ' Region.ini in Region Folder specific to this region
 
 
-            For Each uuid In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(uuid))
+            For Each uuid In PropRegionClass.RegionUuidListByName(Group)
 
                 INI = New LoadIni(RegionIniFilePath(uuid), ";", System.Text.Encoding.UTF8)
 

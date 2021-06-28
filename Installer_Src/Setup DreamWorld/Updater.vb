@@ -14,7 +14,7 @@ Module Updater
 #Region "Updater"
 
     ''' <summary>Checks the Outworldz Web site to see if a new version exist,.</summary>
-    Public Sub CheckForUpdates(doanyway As Boolean)
+    Public Sub CheckForUpdates()
 
         Dim Update_To_version As String
 
@@ -52,7 +52,14 @@ Module Updater
 
         TextPrint($"{My.Resources.Update_is_available}: {PropMyVersion}==>{Update_To_version}")
 
-        If CDbl(Settings.SkipUpdateCheck()) = -1 And Not doanyway Then Return
+        If CDbl(Settings.SkipUpdateCheck()) = -1 Then Return
+
+        ShowUpdateForm(Update_To_version)
+
+    End Sub
+
+    Public Sub ShowUpdateForm(Update_To_version As String)
+
 
 #Disable Warning CA2000
         Dim FormUpdate = New FormUpdate()

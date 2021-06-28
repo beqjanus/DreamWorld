@@ -248,6 +248,14 @@ Module GlobalSettings
         Return statestring
 
     End Function
+    Public Sub PokeGroupTimer(GroupName As String)
+
+        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+            PokeRegionTimer(UUID)
+        Next
+
+    End Sub
+
 
     Public Sub PokeRegionTimer(UUID As String)
 
