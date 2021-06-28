@@ -1051,7 +1051,8 @@ Public Class FormSetup
 
             ' Find any regions touching this region.
             ' add them to the area to stay alive.            
-            If PropRegionClass.AvatarIsNearby(RegionUUID) And status = RegionMaker.SIMSTATUSENUM.Stopped Then
+            If PropRegionClass.AvatarIsNearby(RegionUUID) And (status = RegionMaker.SIMSTATUSENUM.Stopped Or
+                status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) Then
                 TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                 ReBoot(RegionUUID)
                 Continue For
