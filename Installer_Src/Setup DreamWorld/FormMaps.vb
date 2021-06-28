@@ -164,6 +164,9 @@ Public Class FormMaps
         ElseIf Settings.MapType = "Best" Then
             MapBest.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Best
+        Else
+            MapNone.Checked = True
+            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
         End If
 
         If PropOpensimIsRunning Then
