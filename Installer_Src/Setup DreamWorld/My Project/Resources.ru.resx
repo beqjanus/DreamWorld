@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Минимальное время - 0 секунд. По умолчанию 60 секунд.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>начиная с аватара рядом</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Не показывай снова</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Установите сейчас</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Напомни мне позже</value>
+  </data>
 </root>

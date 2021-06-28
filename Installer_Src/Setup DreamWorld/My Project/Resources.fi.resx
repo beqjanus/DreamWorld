@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Pienin aika on 0 sekuntia. Oletus on 60 sekuntia.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>alkaen kuin Avatar on lähellä</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Älä näytä uudelleen</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Asenna nyt</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Muistuta minua myöhemmin</value>
+  </data>
 </root>

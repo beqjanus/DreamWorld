@@ -3306,4 +3306,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Minimální doba je 0 sekund. Výchozí hodnota je 60 sekund.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>začínající jako Avatar je poblíž</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Znovu se neukazuj</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Nainstalovat nyní</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Připomeň mi později</value>
+  </data>
 </root>

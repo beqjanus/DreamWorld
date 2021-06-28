@@ -3306,4 +3306,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>الحد الأدنى للوقت 0 ثانية. الافتراضي 60 ثانية.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>بدءًا من الصورة الرمزية في مكان قريب</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>لا تظهر مرة أخرى</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>تثبيت الآن</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>ذكرني لاحقا</value>
+  </data>
 </root>

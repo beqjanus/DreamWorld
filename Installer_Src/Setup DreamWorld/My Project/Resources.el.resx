@@ -3306,4 +3306,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Ο ελάχιστος χρόνος είναι 0 δευτερόλεπτα. Η προεπιλογή είναι 60 δευτερόλεπτα.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>ξεκινώντας ως Avatar είναι κοντά</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Να μην εμφανιστεί ξανά</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Εγκατάσταση τώρα</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Θύμισέ μου αργότερα</value>
+  </data>
 </root>

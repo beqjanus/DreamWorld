@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Minimum süre 0 saniyedir. Varsayılan 60 saniyedir.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>Avatar olarak başlamak yakında</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Tekrar gösterme</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Şimdi kur</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Bana daha sonra hatırlat</value>
+  </data>
 </root>

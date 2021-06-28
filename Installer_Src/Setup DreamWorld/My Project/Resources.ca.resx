@@ -3307,4 +3307,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>El temps mínim és de 0 segons. El valor predeterminat és de 60 segons.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>començant com un Avatar és a prop</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>No mostrar de nou</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Instal · lar ara</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Recorda-m'ho més tard</value>
+  </data>
 </root>
