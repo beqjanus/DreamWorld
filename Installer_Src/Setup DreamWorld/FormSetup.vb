@@ -996,15 +996,13 @@ Public Class FormSetup
             BootedList1.RemoveAt(0)
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
 
-            PokeRegionTimer(Ruuid)
-
             ' see how long it has been since we booted
             Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
             TextPrint($"{RegionName} {My.Resources.Running_word}: {CStr(seconds)} {My.Resources.Seconds_word}")
+            PokeRegionTimer(Ruuid)
 
             If PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booting Or
                 PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted Then
-                PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
                 SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
             End If
 
