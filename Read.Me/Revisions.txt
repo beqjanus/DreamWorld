@@ -1,6 +1,5 @@
 REVISIONS FOR DREAMGRID
-
-This is a high-level view of major changes. Two digits such as 3.8 or 3.9 are releases and will trigger Update Is Available messages in the app. Anything with two digits such as 3.52 is a beta or Post Fix for an earlier rev, and will not trigger the Update Is Available Message.
+This is a high-level view of major changes. 
 
 V4.52
 New grid only - Initial startup timing issue in Process.PID could cause the Robust to not capture the grid owner name.

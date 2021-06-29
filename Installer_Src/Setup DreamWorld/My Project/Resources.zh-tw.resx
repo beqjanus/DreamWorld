@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>最短時間為 0 秒。默認值為 60 秒。</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>從附近的頭像開始</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>不再顯示</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>現在安裝</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>稍後提醒我</value>
+  </data>
 </root>

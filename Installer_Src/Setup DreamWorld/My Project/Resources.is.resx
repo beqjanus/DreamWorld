@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Lágmarks tími er 0 sekúndur. Sjálfgefið er 60 sekúndur.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>byrjað sem Avatar er nálægt</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Ekki sýna aftur</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Setja upp núna</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Minntu mig á það seinna</value>
+  </data>
 </root>

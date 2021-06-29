@@ -589,11 +589,13 @@ Module SmartStart
 
             Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
             FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
-            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
-            Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
-            PropUpdateView = True ' make form refresh
-            PokeRegionTimer(RegionUUID)
 
+            For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+                Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
+                PokeRegionTimer(RegionUUID)
+            Next
+            PropUpdateView = True ' make form refresh
         End If
 
     End Sub

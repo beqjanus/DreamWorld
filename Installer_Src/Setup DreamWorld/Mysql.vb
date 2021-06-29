@@ -869,35 +869,36 @@ Public Module MysqlInterface
     Public Sub SetEstate(UUID As String, EstateID As Integer)
 
         If Not IsMySqlRunning() Then Return
+        Dim exists As Boolean
 
         Try
             Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
                 MysqlConn.Open()
+                Dim stm = "Select EstateID from estate_map where regionid = @UUID"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Try
+                        Using reader As MySqlDataReader = cmd.ExecuteReader()
+                            If reader.Read() Then
+                                exists = True
+                            End If
+                        End Using
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+                End Using
+            End Using
+
+            If Not exists Then
                 Try
-                    Dim stm = "Select EstateID from estate_map where regionid = @UUID"
-                    Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-                        cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
+                        MysqlConn1.Open()
+                        Dim stm1 = "insert into EstateMap (RegionID, EstateID) values (@UUID, @EID)"
                         Try
-                            Using reader As MySqlDataReader = cmd.ExecuteReader()
-                                If Not reader.Read() Then
-                                    Try
-                                        Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
-                                            MysqlConn1.Open()
-                                            Dim stm1 = "insert into EstateMap (RegionID, EstateID) values (@UUID, @EID)"
-                                            Try
-                                                Using cmd1 As MySqlCommand = New MySqlCommand(stm1, MysqlConn1)
-                                                    cmd1.Parameters.AddWithValue("@UUID", UUID)
-                                                    cmd1.Parameters.AddWithValue("@EID", EstateID)
-                                                    cmd1.BeginExecuteNonQuery()
-                                                End Using
-                                            Catch ex As Exception
-                                                BreakPoint.Show(ex.Message)
-                                            End Try
-                                        End Using
-                                    Catch ex As Exception
-                                        BreakPoint.Show(ex.Message)
-                                    End Try
-                                End If
+                            Using cmd1 As MySqlCommand = New MySqlCommand(stm1, MysqlConn1)
+                                cmd1.Parameters.AddWithValue("@UUID", UUID)
+                                cmd1.Parameters.AddWithValue("@EID", EstateID)
+                                cmd1.BeginExecuteNonQuery()
                             End Using
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
@@ -905,8 +906,9 @@ Public Module MysqlInterface
                     End Using
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
-        End Try
-        End Using
+                End Try
+            End If
+
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try

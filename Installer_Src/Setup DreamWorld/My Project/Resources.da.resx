@@ -3306,4 +3306,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Minimum tid er 0 sekunder. Standard er 60 sekunder.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>startende som en avatar er i nærheden</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Vis ikke igen</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Installer nu</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Mind mig om det senere</value>
+  </data>
 </root>

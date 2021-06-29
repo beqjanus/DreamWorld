@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Is é 0 soicind an t-íosmhéid ama. Is é 60 soicind an réamhshocrú.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>ag tosú mar Avatar in aice láimhe</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Ná taispeáin Arís</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Shuiteáil anois</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Cuir i gcuimhne dom níos déanaí</value>
+  </data>
 </root>

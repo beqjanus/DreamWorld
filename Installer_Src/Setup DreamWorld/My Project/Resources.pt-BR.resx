@@ -3306,4 +3306,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>O tempo mínimo é 0 segundos. O padrão é 60 segundos.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>começando como um Avatar está próximo</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Não mostrar novamente</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>instale agora</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Lembre-me mais tarde</value>
+  </data>
 </root>

@@ -2,7 +2,17 @@
 
     Public Sub Init(str As String)
 
-        RichTextBox1.Text = My.Resources.NewVersion
+        Button3.Text = My.Resources.InstallNow
+        Button2.Text = My.Resources.RemindMeLater
+        Button1.Text = My.Resources.DoNotShowAgain
+        RichTextBox3.SelectAll()
+        RichTextBox3.SelectionIndent += 15 ' play With this values To match yours
+        RichTextBox3.SelectionRightIndent += 15 ' this too
+        RichTextBox3.SelectionLength = 0
+        ' this Is a little hack because without this
+        ' I've got the first line of my richTB selected anyway.
+        RichTextBox3.SelectionBackColor = RichTextBox3.BackColor
+
         Using client As New Net.WebClient ' download client for web pages
             TextPrint(My.Resources.Checking_for_Updates_word)
             Try

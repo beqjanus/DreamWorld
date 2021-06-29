@@ -3306,4 +3306,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>حداقل زمان 0 ثانیه است. پیش فرض 60 ثانیه است.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>شروع به عنوان یک آواتار در این نزدیکی هست</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>دوباره نشان نده</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>الآن نصب کن</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>بعدا به من یادآوری کن</value>
+  </data>
 </root>

@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Thời gian tối thiểu là 0 giây. Mặc định là 60 giây.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>bắt đầu như một Avatar đang ở gần đây</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Không hiển thị trở lại</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Cài đặt ngay</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Nhắc tôi sau</value>
+  </data>
 </root>

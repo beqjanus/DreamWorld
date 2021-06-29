@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>Gutxieneko denbora 0 segundo da. Lehenetsia 60 segundokoa da.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>Avatar gertu dagoen moduan hasten da</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Ez erakutsi berriro</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Instalatu orain</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Gogorarazi gero</value>
+  </data>
 </root>

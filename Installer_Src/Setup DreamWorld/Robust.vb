@@ -187,8 +187,7 @@ Module Robust
 
         ' Wait for Robust to start listening
         Dim counter = 0
-        ' While Not IsRobustRunning() And PropOpensimIsRunning
-        While Not IsRobustRunning()
+        While Not IsRobustRunning() And PropOpensimIsRunning
 
             Application.DoEvents()
 
@@ -197,8 +196,8 @@ Module Robust
                 TextPrint("Robust " & Global.Outworldz.My.Resources.isBooting)
             End If
             counter += 1
-            ' 2 minutes to boot on bad hardware
-            If counter > 120 Then
+            ' 2 minutes to boot on bad hardware at 1.5 sec per spin
+            If counter > 90 Then
                 TextPrint(My.Resources.Robust_failed_to_start)
                 FormSetup.Buttons(FormSetup.StartButton)
                 Dim yesno = MsgBox(My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)

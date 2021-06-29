@@ -3303,4 +3303,16 @@
   <data name="minkeepalive" xml:space="preserve">
     <value>זמן מינימלי הוא 0 שניות. ברירת המחדל היא 60 שניות.</value>
   </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>החל מאווטאר נמצא בקרבת מקום</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>אל תציג שוב</value>
+  </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>להתקין עכשיו</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>תזכיר לי אחר כך</value>
+  </data>
 </root>
