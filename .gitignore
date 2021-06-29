@@ -134,7 +134,6 @@ OutworldzFiles/opensim/bin/OpenSim.log
 OutworldzFiles/opensim/bin/crashes/
 OutworldzFiles/opensim/Examples/*.dll
 OutworldzFiles/opensim/OpenSim.build
-OutworldzFiles/opensim/OpenSim.sln
 OutworldzFiles/opensim/OpenSim.suo
 OutworldzFiles/opensim/Prebuild/Prebuild.build
 OutworldzFiles/opensim/Prebuild/Prebuild.sln
