@@ -313,7 +313,6 @@ Public Class FormSetup
 
 #End Region
 
-
 #Region "Misc"
 
     ''' <summary>Brings up a region chooser with no buttons, of all regions</summary>
@@ -518,6 +517,11 @@ Public Class FormSetup
     Public Function StartOpensimulator() As Boolean
 
         Bench.Start()
+
+        If Settings.SafeShutdown And Not Settings.DeregisteredOnce Then
+            DeregisterRegions(True)
+            Settings.DeregisteredOnce = True
+        End If
 
         PropExitHandlerIsBusy = False
         PropAborting = False

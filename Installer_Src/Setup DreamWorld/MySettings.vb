@@ -936,6 +936,16 @@ Public Class MySettings
         End Set
     End Property
 
+
+    Public Property DeregisteredOnce() As Boolean
+        Get
+            Return CType(GetMySetting("DeregisteredOnce", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("DeregisteredOnce", CStr(Value))
+        End Set
+    End Property
+
     Public Property GraphVisible() As Boolean
         Get
             Return CType(GetMySetting("GraphVisible", "True"), Boolean)
