@@ -16,6 +16,9 @@
 --
 -- Table structure for table `mutelist`
 --
+CREATE DATABASE IF NOT EXISTS  osmodules character set = 'utf8' collate = 'utf8_general_ci';
+use osmodules;
+
 
 CREATE TABLE IF NOT EXISTS `mutelist` (
   `AgentID` char(36) COLLATE utf8_unicode_ci NOT NULL,
@@ -28,4 +31,5 @@ CREATE TABLE IF NOT EXISTS `mutelist` (
   KEY `AgentID` (`AgentID`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
+grant all on osmodules.* to 'robustuser'@'localhost';
+quit;

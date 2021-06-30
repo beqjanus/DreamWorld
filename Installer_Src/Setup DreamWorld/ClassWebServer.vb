@@ -168,6 +168,7 @@ Public Class NetServer
                 Return
             End Try
 
+            Log(My.Resources.Info_word, "Webserver is running")
             Dim result As IAsyncResult
             While listen
                 result = listener.BeginGetContext((AddressOf ListenerCallback), listener)
@@ -175,7 +176,6 @@ Public Class NetServer
                     result.AsyncWaitHandle.WaitOne()
                 Catch
                 End Try
-
             End While
 
         End Using

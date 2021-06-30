@@ -302,6 +302,7 @@
     <Compile Include="Backup.vb" />
     <Compile Include="Backups.vb" />
     <Compile Include="Banchmark.vb" />
+    <Compile Include="Birds.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="ClassIni.vb" />
     <Compile Include="Clear_Cache.vb" />
@@ -602,6 +603,7 @@
     <Compile Include="OpensimWorld.vb" />
     <Compile Include="ProcessExtension.vb" />
     <Compile Include="PublicIP.vb" />
+    <Compile Include="Quickedit.vb" />
     <Compile Include="RandomNumber.vb" />
     <Compile Include="Robust.vb" />
     <Compile Include="RPC.vb" />

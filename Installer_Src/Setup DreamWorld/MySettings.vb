@@ -1660,10 +1660,10 @@ Public Class MySettings
 
     Public Property SearchOptions() As String
         Get
-            Return GetMySetting("JOpensimSearch", "")
+            Return GetMySetting("OpensimSearch", "Hyperica")
         End Get
         Set
-            SetMySetting("JOpensimSearch", Value)
+            SetMySetting("OpensimSearch", Value)
         End Set
     End Property
 

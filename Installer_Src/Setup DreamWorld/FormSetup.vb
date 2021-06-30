@@ -20,14 +20,62 @@ Public Class FormSetup
     Public ReadOnly MyCPUCollection As New List(Of Double)
     Public ReadOnly MyRAMCollection As New List(Of Double)
 
+#Region "Resize"
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
+        ScreenPosition1.SaveXY(Me.Left, Me.Top)
+        ScreenPosition1.SaveHW(Me.Height, Me.Width)
+    End Sub
 
+
+    Public Property ScreenPosition1 As ScreenPos
+        Get
+            Return ScreenPosition
+        End Get
+        Set(value As ScreenPos)
+            ScreenPosition = value
+        End Set
+    End Property
+
+    ''' <summary>Sets H,W and pos of screen on load</summary>
+    Private Sub SetScreen()
+        '351, 200 default
+        ScreenPosition1 = New ScreenPos("Form1")
+        AddHandler ResizeEnd, HandlerSetup
+        Dim xy As List(Of Integer) = ScreenPosition1.GetXY()
+        Left = xy.Item(0)
+        Top = xy.Item(1)
+
+        Dim hw As List(Of Integer) = ScreenPosition1.GetHW()
+
+        If hw.Item(0) = 0 Then
+            Me.Height = 200
+        Else
+            Try
+                Me.Height = hw.Item(0)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
+
+        If hw.Item(1) = 0 Then
+            Me.Width = 351
+        Else
+            Me.Width = hw.Item(1)
+        End If
+
+        ScreenPosition1.SaveHW(Me.Height, Me.Width)
+
+    End Sub
+
+
+#End Region
 
 #Region "Private Declarations"
 
     Private searcher As ManagementObjectSearcher
 
     Private ReadOnly _exitList As New Dictionary(Of String, String)
-
+    Private Parser As Process
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
@@ -241,14 +289,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property ScreenPosition1 As ScreenPos
-        Get
-            Return ScreenPosition
-        End Get
-        Set(value As ScreenPos)
-            ScreenPosition = value
-        End Set
-    End Property
 
     Public Property Searcher1 As ManagementObjectSearcher
         Get
@@ -360,6 +400,8 @@ Public Class FormSetup
             Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
             If response = vbNo Then Return False
         End If
+
+        If Parser IsNot Nothing Then Parser.Kill()
 
         AvatarLabel.Text = ""
         PropAborting = True
@@ -499,9 +541,6 @@ Public Class FormSetup
 
     End Sub
 
-#End Region
-
-#Region "StartOpensim"
 
     Public Shared Sub StopGroup(Groupname As String)
 
@@ -514,6 +553,9 @@ Public Class FormSetup
 
     End Sub
 
+#End Region
+
+#Region "StartOpensim"
     Public Function StartOpensimulator() As Boolean
 
         Bench.Start()
@@ -528,13 +570,13 @@ Public Class FormSetup
 
         Buttons(BusyButton)
 
+        DoEstates() ' has to be done after Mysql starts up.
+        PropOpensimIsRunning = True
 
         If Not StartRobust() Then
             Buttons(StopButton)
             Return False
         End If
-
-        DoEstates() ' has to be done after Mysql starts up.
 
         ' Reload
         If PropChangedRegionSettings Then
@@ -546,8 +588,6 @@ Public Class FormSetup
         Grep(ini, Settings.LogLevel)
 
         PropRegionClass.CheckOverLap()
-
-        PropOpensimIsRunning = True
 
         StartThreads()
 
@@ -675,6 +715,7 @@ Public Class FormSetup
         ' create tables in case we need them
         SetupWordPress()
         SetupMutelist()
+        SetupLocalSearch()
         StartApache()
         StartIcecast()
         UploadPhoto()
@@ -783,57 +824,6 @@ Public Class FormSetup
         MyShortcut.Save()
 
     End Sub
-
-    Private Shared Sub SetBirdsOnOrOff()
-
-        If Settings.BirdsModuleStartup Then
-            Try
-                If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.dll") Then
-                    CopyFileFast(Settings.OpensimBinPath & "OpenSimBirds.Module.bak", Settings.OpensimBinPath & "OpenSimBirds.Module.dll")
-                End If
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        Else
-            Try
-                If Not IO.File.Exists(Settings.OpensimBinPath & "OpenSimBirds.Module.bak") Then
-                    CopyFileFast(Settings.OpensimBinPath & "OpenSimBirds.Module.dll", Settings.OpensimBinPath & "OpenSimBirds.Module.bak")
-                End If
-            Catch
-            End Try
-
-            DeleteFile(Settings.OpensimBinPath & "\OpenSimBirds.Module.dll")
-        End If
-
-    End Sub
-
-    Private Shared Sub SetQuickEditOff()
-
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .Arguments = "Set-ItemProperty -path HKCU:\Console -name QuickEdit -value 0",
-            .FileName = "powershell.exe",
-            .WindowStyle = ProcessWindowStyle.Hidden,
-            .CreateNoWindow = True,
-            .Verb = "runas"
-        }
-        Using PowerShell As Process = New Process With {
-             .StartInfo = pi
-            }
-
-            Try
-                PowerShell.Start()
-            Catch ex As Exception
-                ErrorLog("Cannot set Quick edit off")
-            End Try
-        End Using
-
-    End Sub
-
-    Private Shared Function Stripqq(input As String) As String
-
-        Return Replace(input, """", "")
-
-    End Function
 
     Private Sub ApachePictureBox_Click(sender As Object, e As EventArgs)
 
@@ -1005,15 +995,14 @@ Public Class FormSetup
 
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
 
-            PokeRegionTimer(Ruuid)
-
             ' see how long it has been since we booted
             Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
             TextPrint($"{RegionName} {My.Resources.Running_word}: {CStr(seconds)} {My.Resources.Seconds_word}")
+            PokeRegionTimer(Ruuid)
+            Dim status = PropRegionClass.Status(Ruuid)
 
-            If PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booting Or
-                PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted Then
-                PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
+            If status = RegionMaker.SIMSTATUSENUM.Booting Or
+                status = RegionMaker.SIMSTATUSENUM.Booted Then
                 SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
             End If
 
@@ -1028,7 +1017,7 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
-
+            PropRegionClass.Status(Ruuid) = RegionMaker.SIMSTATUSENUM.Booted
             TeleportAgents()
             PropUpdateView = True
 
@@ -1074,9 +1063,9 @@ Public Class FormSetup
 
                     Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                     ShutDown(RegionUUID)
+                    PokeGroupTimer(GroupName)
                     For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        PokeRegionTimer(RegionUUID)
                     Next
 
                     PropUpdateView = True ' make form refresh
@@ -1342,17 +1331,8 @@ Public Class FormSetup
         Settings.CurrentDirectory = _myFolder
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
 
-        If Settings.KeepOnTopMain Then
-            Me.TopMost = True
-            KeepOnTopToolStripMenuItem.Image = My.Resources.tables
-        Else
-            Me.TopMost = False
-            KeepOnTopToolStripMenuItem.Image = My.Resources.table
-        End If
 
         Log("Startup:", DisplayObjectInfo(Me))
-
-        SetScreen()     ' move Form to fit screen from SetXY.ini
 
         Dim cinfo() = System.Globalization.CultureInfo.GetCultures(CultureTypes.AllCultures)
         Try
@@ -1374,9 +1354,9 @@ Public Class FormSetup
 
     Private Sub FrmHome_Load(ByVal sender As Object, ByVal e As EventArgs)
 
-        'Console.WriteLine("CurrentCulture Is {0}.", CultureInfo.CurrentCulture.Name)
-
         TextPrint("Language Is " & CultureInfo.CurrentCulture.Name)
+
+        SetScreen()     ' move Form to fit screen from SetXY.ini
 
         AddUserToolStripMenuItem.Text = Global.Outworldz.My.Resources.Add_User_word
         AdvancedSettingsToolStripMenuItem.Image = Global.Outworldz.My.Resources.earth_network
@@ -1546,6 +1526,15 @@ Public Class FormSetup
         ' show box styled nicely.
         Application.EnableVisualStyles()
         Buttons(BusyButton)
+
+        If Settings.KeepOnTopMain Then
+            Me.TopMost = True
+            KeepOnTopToolStripMenuItem.Image = My.Resources.tables
+        Else
+            Me.TopMost = False
+            KeepOnTopToolStripMenuItem.Image = My.Resources.table
+        End If
+
 
         TextBox1.BackColor = Me.BackColor
 
@@ -1809,6 +1798,27 @@ Public Class FormSetup
 
 #End Region
 
+#Region "Parser"
+    Private Sub RunParser()
+
+        If Settings.SearchOptions <> "Local" Then Return
+        Using Parser As New Process
+            Parser.StartInfo.UseShellExecute = True ' so we can redirect streams
+            Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
+            Parser.StartInfo.FileName = "php.exe"
+            Parser.StartInfo.Arguments = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Search\parser.bat")
+            Parser.StartInfo.CreateNoWindow = True
+            Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            Try
+                Parser.Start()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+    End Sub
+#End Region
+
 #Region "Loopback"
 
 
@@ -2010,6 +2020,10 @@ Public Class FormSetup
             Graphs.Dispose()
         Catch
         End Try
+        Try
+            Parser.Dispose()
+        Catch
+        End Try
 
         If PropWebServer IsNot Nothing Then
             PropWebServer.StopWebServer()
@@ -2033,10 +2047,6 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
-        ScreenPosition1.SaveXY(Me.Left, Me.Top)
-        ScreenPosition1.SaveHW(Me.Height, Me.Width)
-    End Sub
 
     Private Sub RestartDOSboxes()
 
@@ -2339,37 +2349,6 @@ Public Class FormSetup
 
     End Sub
 
-    ''' <summary>Sets H,W and pos of screen on load</summary>
-    Private Sub SetScreen()
-        '351, 200 default
-        ScreenPosition1 = New ScreenPos("Form1")
-        AddHandler ResizeEnd, HandlerSetup
-        Dim xy As List(Of Integer) = ScreenPosition1.GetXY()
-        Left = xy.Item(0)
-        Top = xy.Item(1)
-
-        Dim hw As List(Of Integer) = ScreenPosition1.GetHW()
-
-        If hw.Item(0) = 0 Then
-            Me.Height = 200
-        Else
-            Try
-                Me.Height = hw.Item(0)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End If
-
-        If hw.Item(1) = 0 Then
-            Me.Width = 351
-        Else
-            Me.Width = hw.Item(1)
-        End If
-
-        ScreenPosition1.SaveHW(Me.Height, Me.Width)
-
-    End Sub
-
 #End Region
 
 #Region "Things"
@@ -2536,7 +2515,7 @@ Public Class FormSetup
             TextPrint(t)
         End If
 
-        ' 10 seconds, not at boot
+        ' 5 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             Bench.Print("5 second worker")
             RestartDOSboxes()
@@ -2553,8 +2532,15 @@ Public Class FormSetup
             Bench.Print("60 second work done")
         End If
 
-        If SecondsTicker Mod 1800 = 0 Then
+        ' Run Search once at 5 minute mark
+        If SecondsTicker = 300 Then
+            RunParser()
+        End If
+
+        ' half hour
+        If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
             ScanOpenSimWorld(True)
+            RunParser()
         End If
 
         ' print hourly marks on console, after boot

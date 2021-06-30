@@ -940,6 +940,31 @@ Public Module MysqlInterface
         End Using
 
     End Sub
+    Public Sub SetupLocalSearch()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .FileName = "Create_ossearch.bat",
+                .UseShellExecute = True,
+                .CreateNoWindow = True,
+                .WindowStyle = ProcessWindowStyle.Minimized,
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
+            }
+        Using os_search As Process = New Process With {
+                .StartInfo = pi
+            }
+
+            Try
+                os_search.Start()
+                os_search.WaitForExit()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog("Could not create os_search Database: " & ex.Message)
+                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                Return
+            End Try
+        End Using
+
+    End Sub
 
     Public Sub SetupWordPress()
 
