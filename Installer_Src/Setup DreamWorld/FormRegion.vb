@@ -696,6 +696,7 @@ Public Class FormRegion
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
+
         FormSetup.PropChangedRegionSettings = True
         Dim message = RegionValidate()
         If Len(message) > 0 Then
@@ -704,6 +705,7 @@ Public Class FormRegion
                 Changed1 = False
             End If
         Else
+            DeregisterRegionUUID(RegionUUID)
             WriteRegion(RegionUUID)
             Firewall.SetFirewall()
             PropUpdateView() = True
