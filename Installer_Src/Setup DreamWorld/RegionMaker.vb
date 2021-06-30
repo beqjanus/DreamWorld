@@ -127,6 +127,7 @@ Public Class RegionMaker
         While WebserverList.Count > 0
 
             Try
+
                 Dim ProcessString As String = WebserverList(0) ' recover the PID as string
                 WebserverList.RemoveAt(0)
 
@@ -2485,6 +2486,8 @@ Public Class RegionMaker
             INI.SetIni("DataSnapshot", "data_services", "")
         ElseIf Settings.SearchOptions = Hyperica Then
             INI.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
+        ElseIf Settings.SearchOptions = "Local" Then
+            INI.SetIni("DataSnapshot", "data_services", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/register.php")
         Else
             INI.SetIni("DataSnapshot", "data_services", "")
         End If
@@ -2505,6 +2508,11 @@ Public Class RegionMaker
                          IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
         ElseIf Settings.SearchOptions = Hyperica Then
             Dim SearchURL = "http://hyperica.com/Search/query.php"
+            INI.SetIni("Search", "SearchURL", SearchURL)
+            INI.SetIni("LoginService", "SearchURL", SearchURL)
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+        ElseIf Settings.SearchOptions = "Local" Then
+            Dim SearchURL = $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/query.php"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))

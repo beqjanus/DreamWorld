@@ -22,7 +22,7 @@ Module Teleport
 
     Public Sub TeleportAgents()
 
-        If Not Settings.SmartStart Then Return
+        'If Not Settings.SmartStart Then Return
         Try
             For Each Keypair In TeleportAvatarDict
                 Dim AgentID = Keypair.Key
