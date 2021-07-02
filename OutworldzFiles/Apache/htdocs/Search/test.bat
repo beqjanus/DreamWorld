@@ -1,1 +1,0 @@
-"O:\Opensim\Outworldz DreamGrid Master\DreamWorld\OutworldzFiles\PHP7\php.exe" parsernow.php
