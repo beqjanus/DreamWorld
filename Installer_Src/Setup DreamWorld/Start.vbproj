@@ -588,7 +588,6 @@
     <Compile Include="Logging.vb" />
     <Compile Include="Builder.vb" />
     <Compile Include="Maps.vb" />
-    <Compile Include="Module2.vb" />
     <Compile Include="My Project\Resources.cz.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
