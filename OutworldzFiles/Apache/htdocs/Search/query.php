@@ -3,10 +3,12 @@
 //DirFindFlags enum which is defined in OpenMetaverse/DirectoryManager.cs
 //of the libopenmetaverse library.
 
-require( "flog.php" );
-include("database.php");
 
 header("content-type: text/html; charset=UTF-8");
+
+
+require( "flog.php" );
+include("database.php");
 
 
 #

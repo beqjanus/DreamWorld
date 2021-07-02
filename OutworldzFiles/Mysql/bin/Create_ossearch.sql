@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `allparcels` (
   `landingpoint` varchar(255) NOT NULL,
   `parcelUUID` char(36) NOT NULL default '00000000-0000-0000-0000-000000000000',
   `infoUUID` char(36) NOT NULL default '00000000-0000-0000-0000-000000000000',
-  `parcelarea` int(11) NOT NULL,
+  `parcelarea` int(11) NOT NULL,    
   PRIMARY KEY  (`parcelUUID`),
   KEY `regionUUID` (`regionUUID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `events` (
   `parcelUUID` char(36) NOT NULL,
   `globalPos` varchar(255) NOT NULL,
   `eventflags` int(1) NOT NULL,
+  `gateway` char(64) NOT NULL default '',
   PRIMARY KEY (`eventid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -94,6 +95,8 @@ CREATE TABLE IF NOT EXISTS `hostsregister` (
   `nextcheck` int(10) NOT NULL,
   `checked` tinyint(1) NOT NULL,
   `failcounter` int(10) NOT NULL,
+  `online` int(1) NOT NULL,
+  `gateway` char(64) NOT NULL default '',
   PRIMARY KEY (`host`,`port`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -132,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `parcels` (
   `dwell` float NOT NULL default '0',
   `infouuid` varchar(36) NOT NULL default '',
   `mature` varchar(10) NOT NULL default 'PG',
+  `gateway` char(64) NOT NULL default '',
   PRIMARY KEY  (`regionUUID`,`parcelUUID`),
   KEY `name` (`parcelname`),
   KEY `description` (`description`),
@@ -188,6 +192,7 @@ CREATE TABLE IF NOT EXISTS `regions` (
   `url` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
   `owneruuid` char(36) NOT NULL,
+  `gateway` char(64) NOT NULL default '',
   PRIMARY KEY  (`regionUUID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

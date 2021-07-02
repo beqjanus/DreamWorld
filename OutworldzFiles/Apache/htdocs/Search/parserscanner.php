@@ -8,11 +8,7 @@ function startsWith ($string, $startString)
 }
 
 function GetURL($host, $port, $url, $header)
-{
-    if (startsWith($host, "localhost")) return "";
-    if (startsWith($host, "127")) return "";
-    if (startsWith($host, "10.")) return "";
-    if (startsWith($host, "192.168")) return "";    
+{    
         
     $url = "http://$host:$port/$url";
     flog("Checking $url\n");

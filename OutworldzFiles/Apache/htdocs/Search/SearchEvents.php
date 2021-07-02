@@ -2,8 +2,8 @@
 // AGPL 3.0 by Fred Beckhusen
 
    header("Content-type: application/json"); 
-   require( "flog.php" );
 
+   require( "flog.php" );
    include("database.php");
    
   $text = $_GET['query'] ;
@@ -113,8 +113,9 @@
         
     }
     if ($total == 0) {
+      $total = 1;
 	  flog("Nothing found");
-      $row = array("hop"=>"", "Name"=>"No records","Description"=>"No records","Regionname"=>"No records","Location"=>"No records");
+      $row = array("name"=>"No Records","time"=>"","description"=>"","duration"=>"","location"=>"","utc"=>"");
       $rowobj = new Row();
       $rowobj->cell = $row;
       array_push($stack, $rowobj);
