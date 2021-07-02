@@ -697,7 +697,6 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-
             End Using
         Catch ex As Exception
             Console.WriteLine("Error: " & ex.ToString())
@@ -1087,24 +1086,23 @@ Public Module MysqlInterface
 
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
-        Dim MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
-        Try
-            MysqlConn.Open()
-            Dim stm = "Select RegionName from regions where uuid=@UUID;"
-            Using cmd As New MySqlCommand(stm, MysqlConn)
-                cmd.Parameters.AddWithValue("@UUID", UUID)
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        ' Debug.Print("Region Name = {0}", reader.GetString(0))
-                        Val = reader.GetString(0)
-                    End If
+        Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "Select RegionName from regions where uuid=@UUID;"
+                Using cmd As New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            ' Debug.Print("Region Name = {0}", reader.GetString(0))
+                            Val = reader.GetString(0)
+                        End If
+                    End Using
                 End Using
-            End Using
-        Catch ex As Exception
-            Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            MysqlConn.Close()
-        End Try
+            Catch ex As Exception
+                Console.WriteLine("Error: " & ex.ToString())
+            End Try
+        End Using
 
         Return Val
 
