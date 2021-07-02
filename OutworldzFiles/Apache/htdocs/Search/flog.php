@@ -34,7 +34,7 @@
  *  Date:   26-Nov-2011
  */
 
-// define ("FLOG_IGNORE", true);	// comment  to get data in logs
+define ("FLOG_IGNORE", true);	// comment  to get data in logs
 
 define ("FLOG_SHOW_TIME",true);
 
