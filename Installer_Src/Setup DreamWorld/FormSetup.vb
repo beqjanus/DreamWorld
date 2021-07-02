@@ -2014,25 +2014,23 @@ Public Class FormSetup
         If Not KillAll() Then Return
 
         Try
-            cpu.Dispose()
+            If cpu IsNot Nothing Then cpu.Dispose()
         Catch
         End Try
         Try
-            Searcher1.Dispose()
+            If Searcher1 IsNot Nothing Then Searcher1.Dispose()
         Catch
         End Try
         Try
-            Graphs.Dispose()
+            If Graphs IsNot Nothing Then Graphs.Dispose()
         Catch
         End Try
         Try
-            Parser.Dispose()
+            If Parser IsNot Nothing Then Parser.Dispose()
         Catch
         End Try
 
-        If PropWebServer IsNot Nothing Then
-            PropWebServer.StopWebServer()
-        End If
+        If PropWebServer IsNot Nothing Then PropWebServer.StopWebServer()
 
         PropAborting = True
         StopMysql()
@@ -2519,6 +2517,8 @@ Public Class FormSetup
         If t.Length > 0 Then
             TextPrint(t)
         End If
+
+        ' GetEvents()
 
         ' 5 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
