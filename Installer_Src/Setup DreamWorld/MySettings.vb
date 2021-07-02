@@ -2112,7 +2112,7 @@ Public Class MySettings
 
         ' make a backup
         DeleteFile(ini & ".bak")
-
+        Sleep(100)
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")
         Catch ex As Exception
