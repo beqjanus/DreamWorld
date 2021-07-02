@@ -94,14 +94,10 @@ Module WindowHandlers
         command = command.Replace(")", "{)}")
 
         If PID <> 0 Then
-
             Try
                 AppActivate(PID)
                 Sleep(100)
                 SendKeys.SendWait(command)
-                SendKeys.SendWait("{ENTER}")
-                SendKeys.SendWait("{ENTER}")
-                SendKeys.SendWait("{ENTER}")
                 SendKeys.SendWait("{ENTER}")
             Catch ex As Exception
             End Try

@@ -741,6 +741,11 @@ Public Class FormSetup
                 If PropRobustProcID > 0 Then
                     ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email)
                     ConsoleCommand(RobustName, "{ENTER}")
+                    ConsoleCommand(RobustName, "{ENTER}")
+                    ConsoleCommand(RobustName, "{ENTER}")
+                    ConsoleCommand(RobustName, "{ENTER}")
+                    ConsoleCommand(RobustName, "{ENTER}")
+
                     Settings.RunOnce = True
                     Settings.SaveSettings()
                 Else
