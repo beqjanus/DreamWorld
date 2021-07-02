@@ -2537,15 +2537,17 @@ Public Class FormSetup
             Bench.Print("60 second work done")
         End If
 
-        ' Run Search once at 5 minute mark
+        ' Run Search and events once at 5 minute mark
         If SecondsTicker = 300 Then
             RunParser()
+            GetEvents()
         End If
 
         ' half hour
         If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
             ScanOpenSimWorld(True)
             RunParser()
+            GetEvents()
         End If
 
         ' print hourly marks on console, after boot

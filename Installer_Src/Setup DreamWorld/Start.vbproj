@@ -306,6 +306,7 @@
     <Compile Include="BreakPoint.vb" />
     <Compile Include="ClassIni.vb" />
     <Compile Include="Clear_Cache.vb" />
+    <Compile Include="Events.vb" />
     <Compile Include="FormDebug.Designer.vb">
       <DependentUpon>FormDebug.vb</DependentUpon>
     </Compile>
@@ -587,6 +588,7 @@
     <Compile Include="Logging.vb" />
     <Compile Include="Builder.vb" />
     <Compile Include="Maps.vb" />
+    <Compile Include="Module2.vb" />
     <Compile Include="My Project\Resources.cz.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
