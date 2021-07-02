@@ -61,13 +61,10 @@
   }
   
   $stack = array();
-//left  JOIN hostsregister ON  hostsregister.gateway  =Regions.gateway 
+
   $q = "SELECT Regions.gateway as AGateway, Name, Description, Location, Regions.Regionname as  Regioname FROM ossearch.Objects
     left  JOIN ossearch.Regions ON Objects.regionuuid = Regions.regionuuid    
-            where
-            Regions.gateway not like '192.168%'
-            and Name <> ''
-           
+            where  Name <> ''           
             and " . $qtype . "  like CONCAT('%', :text1, '%')
             order by " . $sort . ' ' .  $ord ;
     
