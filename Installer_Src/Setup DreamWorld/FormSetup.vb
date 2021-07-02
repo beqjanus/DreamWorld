@@ -1806,7 +1806,7 @@ Public Class FormSetup
 #Region "Parser"
     Private Sub RunParser()
 
-        If Settings.SearchOptions <> "Local" Then Return
+        If Settings.SearchOptions = "Local" Then Return
         Using Parser As New Process
             Parser.StartInfo.UseShellExecute = True ' so we can redirect streams
             Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
