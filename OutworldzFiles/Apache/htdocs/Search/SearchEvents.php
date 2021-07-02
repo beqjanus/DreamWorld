@@ -74,14 +74,15 @@
     while ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
     
-        //$hop    = "hop://" . $row["gateway"] ;
-        $v3     = "secondlife://http|!!" . $row["gateway"] ;
-        //$hg     = "secondlife://" . $row["gateway"] ;
+        $hop    = "hop://" . $row["gateway"]  . '/' . $row["landingpoint"];
+        $v3     = "secondlife://http|!!" . $gateway  .  '+' . $regionname. '/' . $row["landingpoint"];
+        $hg     = "secondlife://" . $row["gateway"]  . '/' . $row["landingpoint"];
+            
         
-        
-        #$link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
-        $link = "<br><a href=\"$v3\"><img src=\"v3hg2.png\" height=\"24\"></a>";
+        $link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
+        #$link = "<a href=\"$v3\"><img src=\"v3hg2.png\" height=\"24\"></a>";
         #$link .= "<br><a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a>";
+
   
         $d =  $row["description"];
         flog("description2raw:" . $d);
@@ -103,9 +104,7 @@
         
         $rowobj = new Row();
         $rowobj->cell = $row;
-        
-        #$myJSON = json_encode($rowobj);
-        #echo $myJSON . "<br>";
+                
         if ($total >= (($page-1) *$rc) && $total < ($page) *$rc) {
           array_push($stack, $rowobj);
         }
