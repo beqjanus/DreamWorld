@@ -31,14 +31,32 @@ Module SmartStart
     ''' <returns>True of region is booted</returns>
     Public Function WaitForBooted(RegionUUID As String) As Boolean
 
-        Dim c As Integer = 600 ' 5 minutes
+        Dim c As Integer = 120 ' 1 minutes
         While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted
 
             c -= 1  ' skip on timeout error
-            If c = 0 Then
+            If c < 0 Then
                 BreakPoint.Show("Timeout")
-                ShutDown(RegionUUID)
-                ConsoleCommand(RegionUUID, "q{ENTER}")
+                'ShutDown(RegionUUID)
+                'ConsoleCommand(RegionUUID, "q{ENTER}")
+                Return False
+            End If
+
+            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
+    Public Function WaitForBooting(RegionUUID As String) As Boolean
+
+        Dim c As Integer = 60 ' 1 minutes
+        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booting
+
+            c -= 1  ' skip on timeout error
+            If c < 0 Then
+                BreakPoint.Show("Timeout")
                 Return False
             End If
 
