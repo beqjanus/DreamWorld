@@ -2483,44 +2483,40 @@ Public Class RegionMaker
         ' RegionSnapShot
         INI.SetIni("DataSnapshot", "index_sims", "True")
         If Settings.CMS = JOpensim And Settings.SearchOptions = JOpensim Then
-            INI.SetIni("DataSnapshot", "data_services", "")
-        ElseIf Settings.SearchOptions = Hyperica Then
-            INI.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-        ElseIf Settings.SearchOptions = "Local" Then
-            INI.SetIni("DataSnapshot", "data_services", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/register.php")
-        Else
-            INI.SetIni("DataSnapshot", "data_services", "")
-        End If
 
-        If Settings.CMS = JOpensim Then
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll.bak"),
-                         IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
-        Else
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
-        End If
-
-        If Settings.SearchOptions = JOpensim Then
+            INI.SetIni("DataSnapshot", "data_services", "")
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort &
                 "/jOpensim/index.php?option=com_opensim&view=interface"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll.bak"),
                          IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+
         ElseIf Settings.SearchOptions = Hyperica Then
+
+            INI.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
             Dim SearchURL = "http://hyperica.com/Search/query.php"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+
         ElseIf Settings.SearchOptions = "Local" Then
+
+            INI.SetIni("DataSnapshot", "data_services", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/register.php")
             Dim SearchURL = $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/query.php"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+
         Else
+            INI.SetIni("DataSnapshot", "data_services", "")
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
             INI.SetIni("Search", "SearchURL", "")
             INI.SetIni("LoginService", "SearchURL", "")
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
         End If
+
+
 
     End Sub
 

@@ -521,6 +521,9 @@ Module Robust
         ElseIf Settings.SearchOptions = Hyperica Then
             INI.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
             INI.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
+        ElseIf Settings.SearchOptions = "Local" Then
+            INI.SetIni("LoginService", "SearchURL", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/query.php")
+            INI.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
         Else
             INI.SetIni("LoginService", "SearchURL", "")
             INI.SetIni("LoginService", "DestinationGuide", "")
