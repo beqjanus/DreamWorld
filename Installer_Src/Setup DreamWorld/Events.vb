@@ -5,7 +5,7 @@ Imports MySql.Data.MySqlClient
 Module Events
     Public Sub GetEvents()
 
-        If Not Settings.SearchOptions = "Local" Then Return
+        If Settings.SearchOptions <> "Local" Then Return
 
         DeleteEvents()
 
@@ -20,6 +20,8 @@ Module Events
                 Using client As New WebClient()
                     Dim Stream = client.OpenRead(PropDomain() & "/events.txt?r=" & RandomNumber.Random)
                     Using reader = New StreamReader(Stream)
+                        Application.DoEvents()
+
                         While reader.Peek <> -1
                             Dim s = reader.ReadLine
                             ' Split line on comma.
@@ -90,33 +92,5 @@ Module Events
 
     End Sub
 
-
-    Public Sub WriteEvent(Connection As MySqlConnection, D As Dictionary(Of String, String))
-
-        If D Is Nothing Then Return
-
-        Dim stm = "insert into ossearch.events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge, coveramount,parcelUUID, globalPos,gateway,eventflags) "
-        stm += " values (@simname,@category,@creatoruuid,@owneruuid,@name,@description,@dateUTC,@duration,@covercharge,@coveramount,@parcelUUID,@globalPos,@gateway,@eventflags)"
-        Try
-            Using cmd1 As MySqlCommand = New MySqlCommand(stm, Connection)
-                cmd1.Parameters.AddWithValue("@simname", D.Item("simname"))
-                cmd1.Parameters.AddWithValue("@category", D.Item("category"))
-                cmd1.Parameters.AddWithValue("@creatoruuid", D.Item("creatoruuid"))
-                cmd1.Parameters.AddWithValue("@owneruuid", D.Item("owneruuid"))
-                cmd1.Parameters.AddWithValue("@name", D.Item("name"))
-                cmd1.Parameters.AddWithValue("@description", D.Item("description"))
-                cmd1.Parameters.AddWithValue("@dateUTC", D.Item("dateUTC"))
-                cmd1.Parameters.AddWithValue("@duration", D.Item("duration"))
-                cmd1.Parameters.AddWithValue("@covercharge", D.Item("covercharge"))
-                cmd1.Parameters.AddWithValue("@parcelUUID", D.Item("parcelUUID"))
-                cmd1.Parameters.AddWithValue("@globalPos", D.Item("globalPos"))
-                cmd1.Parameters.AddWithValue("@gateway", D.Item("gateway"))
-                cmd1.Parameters.AddWithValue("@eventflags", D.Item("eventflags"))
-                cmd1.BeginExecuteNonQuery()
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-    End Sub
 
 End Module
