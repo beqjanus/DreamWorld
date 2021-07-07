@@ -351,6 +351,7 @@ Module FileStuff
         Retry = 100 ' 10 sec
         While Retry > 0
             DeleteFile(INI)
+            Sleep(100)
             Try
                 My.Computer.FileSystem.RenameFile(INI & ".bak", f)
                 Retry = 0

@@ -61,29 +61,8 @@
     $stack = array();
     
     $query = "SELECT * FROM ossearch.parcels  t1
-            inner join  ossearch.regions on t1.regionUUID = regions.regionUUID
-            
-            where
-                t1.gateway not like '192.168%'
-            and t1.gateway not like '172.16%'
-            and t1.gateway not like '172.17%'
-            and t1.gateway not like '172.18%'
-            and t1.gateway not like '172.19%'
-            and t1.gateway not like '172.20%'
-            and t1.gateway not like '172.21%'
-            and t1.gateway not like '172.22%'
-            and t1.gateway not like '172.23%'
-            and t1.gateway not like '172.24%'
-            and t1.gateway not like '172.25%'
-            and t1.gateway not like '172.26%'
-            and t1.gateway not like '172.27%'
-            and t1.gateway not like '172.28%'
-            and t1.gateway not like '172.29%'
-            and t1.gateway not like '172.30%'
-            and t1.gateway not like '172.31%'            
-            and t1.gateway <> 'http://127.0.0.1'
-            and t1.gateway not like '10.%'
-            and $qtype  like  CONCAT('%', :text1, '%')
+            inner join  ossearch.regions on t1.regionUUID = regions.regionUUID            
+            where $qtype  like  CONCAT('%', :text1, '%')
             order by  $sort  $ord";
 
     flog($query);
@@ -121,13 +100,13 @@
         $regionname = str_replace(' ','+',$row["regionname"]);
         
         
-        #$hop    = "hop://" . $row["gateway"]  . '/' . $row["landingpoint"];
+        $hop    = "hop://" . $row["gateway"]  . '/' . $row["landingpoint"];
         $v3     = "secondlife://http|!!" . $gateway  .  '+' . $regionname. '/' . $row["landingpoint"];
-        #$hg     = "secondlife://" . $row["gateway"]  . '/' . $row["landingpoint"];
+        $hg     = "secondlife://" . $row["gateway"]  . '/' . $row["landingpoint"];
             
         
-        #$link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
-        $link = "<a href=\"$v3\"><img src=\"v3hg2.png\" height=\"24\"></a>";
+        $link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
+        #$link = "<a href=\"$v3\"><img src=\"v3hg2.png\" height=\"24\"></a>";
         #$link .= "<br><a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a>";
   
         
@@ -189,7 +168,8 @@
     
     if ($total == 0) {
         flog("Nothing found");
-        $row = array("Grid"=>"No records");
+        $total =1;
+        $row = array("hop"=>"","Grid"=>"","Description"=>"","Regionname"=>"","Parcelname"=>"No Records","Build"=>"","Script"=>"","Dwell"=>"","Location"=>"","Category"=>"","Mature"=>"","dwell"=> ""       );
         $rowobj = new Row();
         $rowobj->cell = $row;
         array_push($stack, $rowobj);

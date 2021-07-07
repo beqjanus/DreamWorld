@@ -1370,7 +1370,7 @@ SetWindowOnTop_Err:
         ElseIf chosen = "Console" Then
 
             ReBoot(RegionUUID)
-            WaitForBooted(RegionUUID)
+            WaitForBooting(RegionUUID)
 
             Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
 

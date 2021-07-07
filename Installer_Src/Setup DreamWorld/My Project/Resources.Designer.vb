@@ -9259,6 +9259,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Setup Search Database.
+        '''</summary>
+        Friend ReadOnly Property Setup_search() As String
+            Get
+                Return ResourceManager.GetString("Setup_search", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Click to set up your Terms of Service.
         '''</summary>
         Friend ReadOnly Property Setup_TOS() As String

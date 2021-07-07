@@ -936,6 +936,16 @@ Public Class MySettings
         End Set
     End Property
 
+
+    Public Property DeregisteredOnce() As Boolean
+        Get
+            Return CType(GetMySetting("DeregisteredOnce", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("DeregisteredOnce", CStr(Value))
+        End Set
+    End Property
+
     Public Property GraphVisible() As Boolean
         Get
             Return CType(GetMySetting("GraphVisible", "True"), Boolean)
@@ -2102,7 +2112,7 @@ Public Class MySettings
 
         ' make a backup
         DeleteFile(ini & ".bak")
-
+        Sleep(100)
         Try
             My.Computer.FileSystem.RenameFile(ini, name & ".bak")
         Catch ex As Exception

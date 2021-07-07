@@ -370,8 +370,6 @@ Public Class FormSetup
     ''' <summary>Event handler for Icecast</summary>
     Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
 
-        'RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
-
         If PropAborting Then Return
 
         If Settings.RestartOnCrash And IcecastCrashCounter < 10 Then
@@ -560,6 +558,11 @@ Public Class FormSetup
 
         Bench.Start()
 
+        If Settings.SafeShutdown And Not Settings.DeregisteredOnce Then
+            DeregisterRegions(True)
+            Settings.DeregisteredOnce = True
+        End If
+
         PropExitHandlerIsBusy = False
         PropAborting = False
 
@@ -736,6 +739,11 @@ Public Class FormSetup
                 If PropRobustProcID > 0 Then
                     ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email)
                     ConsoleCommand(RobustName, "{ENTER}")
+                    ConsoleCommand(RobustName, "{ENTER}")
+                    ConsoleCommand(RobustName, "{ENTER}")
+                    ConsoleCommand(RobustName, "{ENTER}")
+                    ConsoleCommand(RobustName, "{ENTER}")
+
                     Settings.RunOnce = True
                     Settings.SaveSettings()
                 Else
@@ -988,6 +996,10 @@ Public Class FormSetup
             Catch
             End Try
 
+            If PropAborting Then Continue While
+            If Not PropOpensimIsRunning() Then Continue While
+            If Not PropRegionClass.RegionEnabled(Ruuid) Then Continue While
+
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
 
             ' see how long it has been since we booted
@@ -1022,8 +1034,8 @@ Public Class FormSetup
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
-
-            If Not PropOpensimIsRunning() Then Return
+            If PropAborting Then Continue For
+            If Not PropOpensimIsRunning() Then Continue For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
@@ -1093,7 +1105,6 @@ Public Class FormSetup
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                     Next
                     Logger("State changed to RecyclingDown", GroupName, "Teleport")
-
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
                     PropUpdateView = True
                     Continue For
@@ -1102,8 +1113,12 @@ Public Class FormSetup
 
             ' if a RestartPending is signaled, boot it up
             If status = RegionMaker.SIMSTATUSENUM.RestartPending Then
-                Logger("State is RestartPending", GroupName, "Teleport")
+
                 'RestartPending = 6
+                If PropAborting Then Continue For
+                If Not PropOpensimIsRunning() Then Continue For
+
+                Logger("State is RestartPending", GroupName, "Teleport")
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                 For Each R As String In GroupList
                     PokeRegionTimer(RegionUUID)
@@ -1117,6 +1132,9 @@ Public Class FormSetup
 
             If status = RegionMaker.SIMSTATUSENUM.Resume Then
                 '[Resume] = 8
+                If PropAborting Then Continue For
+                If Not PropOpensimIsRunning() Then Continue For
+
                 Logger("State is Resuming", GroupName, "Teleport")
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                 For Each R As String In GroupList
@@ -1129,6 +1147,8 @@ Public Class FormSetup
 
             If status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
                 'RestartStage2 = 11
+                If PropAborting Then Continue For
+                If Not PropOpensimIsRunning() Then Continue For
 
                 TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Pending_word)
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
@@ -1796,7 +1816,7 @@ Public Class FormSetup
 #Region "Parser"
     Private Sub RunParser()
 
-        If Settings.SearchOptions <> "Local" Then Return
+        If Settings.SearchOptions = "Local" Then Return
         Using Parser As New Process
             Parser.StartInfo.UseShellExecute = True ' so we can redirect streams
             Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
@@ -2004,25 +2024,23 @@ Public Class FormSetup
         If Not KillAll() Then Return
 
         Try
-            cpu.Dispose()
+            If cpu IsNot Nothing Then cpu.Dispose()
         Catch
         End Try
         Try
-            Searcher1.Dispose()
+            If Searcher1 IsNot Nothing Then Searcher1.Dispose()
         Catch
         End Try
         Try
-            Graphs.Dispose()
+            If Graphs IsNot Nothing Then Graphs.Dispose()
         Catch
         End Try
         Try
-            Parser.Dispose()
+            If Parser IsNot Nothing Then Parser.Dispose()
         Catch
         End Try
 
-        If PropWebServer IsNot Nothing Then
-            PropWebServer.StopWebServer()
-        End If
+        If PropWebServer IsNot Nothing Then PropWebServer.StopWebServer()
 
         PropAborting = True
         StopMysql()
@@ -2510,6 +2528,8 @@ Public Class FormSetup
             TextPrint(t)
         End If
 
+        ' GetEvents()
+
         ' 5 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             Bench.Print("5 second worker")
@@ -2527,15 +2547,17 @@ Public Class FormSetup
             Bench.Print("60 second work done")
         End If
 
-        ' Run Search once at 5 minute mark
+        ' Run Search and events once at 5 minute mark
         If SecondsTicker = 300 Then
             RunParser()
+            GetEvents()
         End If
 
         ' half hour
         If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
             ScanOpenSimWorld(True)
             RunParser()
+            GetEvents()
         End If
 
         ' print hourly marks on console, after boot

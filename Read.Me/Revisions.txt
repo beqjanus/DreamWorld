@@ -1,6 +1,10 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.53
+Local Search of your grid is available.  You can choose from no Search,m Hyperica ( all grid search) or local.  Of jOpensim is enabled, you can use its search engine.
+
+
 V4.52
 New grid only - Initial startup timing issue in Process.PID could cause the Robust to not capture the grid owner name.
 Deleting a region now deletes the regions map tiles.

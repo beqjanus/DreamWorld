@@ -3839,4 +3839,7 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Remind Me Later</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Setup Search Database</value>
+  </data>
 </root>

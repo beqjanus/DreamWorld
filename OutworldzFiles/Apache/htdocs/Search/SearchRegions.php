@@ -1,10 +1,11 @@
 <?php
   // AGPL 3.0 by Fred Beckhusen
   
+    header("content-type: text/html; charset=UTF-8");    
+
     require( "flog.php" );
     include("database.php");
-    header("content-type: text/html; charset=UTF-8");    
- 
+     
 
     $text = $_GET['query'];     
     $sqldata['text1'] = $text;
@@ -68,25 +69,6 @@
     $counter = 0;
     
     $query = "SELECT * FROM ossearch.regions  where " .  $qtype  . " like  CONCAT('%', :text1, '%')  
-            and regions.gateway not like '192.16%'
-            and regions.gateway not like '172.16%'
-            and regions.gateway not like '172.17%'
-            and regions.gateway not like '172.18%'
-            and regions.gateway not like '172.19%'
-            and regions.gateway not like '172.20%'
-            and regions.gateway not like '172.21%'
-            and regions.gateway not like '172.22%'
-            and regions.gateway not like '172.23%'
-            and regions.gateway not like '172.24%'
-            and regions.gateway not like '172.25%'
-            and regions.gateway not like '172.26%'
-            and regions.gateway not like '172.27%'
-            and regions.gateway not like '172.28%'
-            and regions.gateway not like '172.29%'
-            and regions.gateway not like '172.30%'
-            and regions.gateway not like '172.31%'            
-            and regions.gateway <> 'http:127.0.0.1'
-            and regions.gateway not like '10.%'
             order by " .  $sort . " " . " $ord";
     
    
@@ -105,15 +87,14 @@
         $gateway = str_replace (':', '|', $row["gateway"] );
         $regionname = str_replace(' ','+',$row["regionname"]);
         
-       # $hop    = "hop://" . $row["gateway"] .  '/' .$row["Regioname"] ;
-        $v3     = "secondlife://http|!!" . $gateway  .  '+' . $regionname ;
-        #$hg     = "secondlife://" . $row["gateway"]  .   '/' .$row["Regioname"];
+        $hop    = "hop://" . $row["gateway"]  . '/' . $row["landingpoint"];
+        $v3     = "secondlife://http|!!" . $gateway  .  '+' . $regionname. '/' . $row["landingpoint"];
+        $hg     = "secondlife://" . $row["gateway"]  . '/' . $row["landingpoint"];
+            
         
-        
-        #$link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
-        $link = "<a href=\"$v3\"><img src=\"v3hg2.png\" height=\"24\"></a>";
+        $link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
+        #$link = "<a href=\"$v3\"><img src=\"v3hg2.png\" height=\"24\"></a>";
         #$link .= "<br><a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a>";
-        
         
         $row = array("hop"=>$link,
                      "Grid"         =>$row["gateway"],
@@ -132,8 +113,9 @@
     }
     
     if ($total == 0) {
+        $total = 1;
         flog("Nothing found");
-        $row = array("Grid"=>"No records");
+        $row = array("hop"=>"","Grid"=>"","RegionName"=>"No records","Owner"=>"");
         $rowobj = new Row();
         $rowobj->cell = $row;
         array_push($stack, $rowobj);

@@ -3,18 +3,14 @@
 
 require( "flog.php" );
 include("database.php");
-flog("Booting parsernow.php")
+
+flog("Booting parsernow.php");
 
 $now = time();
 
 include("./parserscanner.php");
 
 $failcounter = 0;
-
-$sql = "SELECT gateway, host, port FROM hostsregister
-            where host like '%great%'
-            order by host asc
-            ";
 
 $sql = "SELECT gateway, host, port FROM hostsregister  where online = 1 order by host asc";
 
@@ -41,7 +37,7 @@ if ($jobsearch->rowCount() == 0)
 
 while ($jobs = $jobsearch->fetch(PDO::FETCH_NUM))
 {    
-    #echo "Checking " . $jobs[0] . " @ " . $jobs[1] . ":" . $jobs[2] . "\n" ;
+    echo "Checking " . $jobs[0] . " @ " . $jobs[1] . ":" . $jobs[2] . "\n" ;
     flog("Checking " . $jobs[0] . " @ " . $jobs[1] . ":" . $jobs[2] );
     $jobs[0] = str_replace('http://','',$jobs[0]);
     CheckHost($jobs[0], $jobs[1],$jobs[2]);

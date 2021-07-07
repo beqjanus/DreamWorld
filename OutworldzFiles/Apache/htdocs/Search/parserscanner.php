@@ -8,11 +8,7 @@ function startsWith ($string, $startString)
 }
 
 function GetURL($host, $port, $url, $header)
-{
-    if (startsWith($host, "localhost")) return "";
-    if (startsWith($host, "127")) return "";
-    if (startsWith($host, "10.")) return "";
-    if (startsWith($host, "192.168")) return "";    
+{    
         
     $url = "http://$host:$port/$url";
     flog("Checking $url\n");
@@ -277,9 +273,9 @@ function parse($gateway,$hostname, $port, $xml)
                                   ) );
             
             
-
             if ($parceldirectory == "true")
             {
+                
                 $query = $db->prepare("DELETE FROM parcels WHERE regionUUID = ?");
                 $query->execute( array($regionuuid) );
                 
@@ -290,7 +286,7 @@ function parse($gateway,$hostname, $port, $xml)
                                        ":desc, :cat, :build, :script, :public, ".
                                        ":dwell, :i_uuid, :r_cat, :r_gateway )");
                 
-                                    
+                                 
                 $query->execute( array(
                                        "r_uuid"  => $regionuuid,
                                        "p_name"  => $parcelname,
@@ -309,7 +305,8 @@ function parse($gateway,$hostname, $port, $xml)
 
                 $query = $db->prepare("DELETE FROM popularplaces WHERE parceluuid = ?");
                 $query->execute( array($parceluuid) );                     
-                                      
+                
+
                 $query = $db->prepare("INSERT INTO popularplaces(parceluuid, name, dwell, infouuid,
                                       has_picture, mature, gateway) VALUES(" .
                                        ":p_uuid, :p_name, :dwell, " .
@@ -323,7 +320,9 @@ function parse($gateway,$hostname, $port, $xml)
                                        "r_cat"   => $regioncategory,
                                        "r_gateway" => $gateway
                                     ) );
+                
             }
+            
 
             if ($parcelforsale == "true")
             {
@@ -358,11 +357,13 @@ function parse($gateway,$hostname, $port, $xml)
         //
         // Handle objects
         //
+        echo "Search objects\n";            
         $objects = $data->getElementsByTagName("object");
 
         $query = $db->prepare("DELETE FROM objects WHERE regionuuid = ?");
         $query->execute( array($regionuuid) );
-            
+
+        
         foreach ($objects as $value)
         {
             $uuid = $value->getElementsByTagName("uuid")->item(0)->nodeValue;
@@ -375,11 +376,13 @@ function parse($gateway,$hostname, $port, $xml)
 
             $flags = $value->getElementsByTagName("flags")->item(0)->nodeValue;
 
+            
             $query = $db->prepare("INSERT INTO objects (objectuuid,parceluuid, location, name, description,
                                   regionuuid, gateway, flags) VALUES(" .
                                    ":uuid, :p_uuid, :location, " .
                                    ":title, :desc, :r_uuid, :r_gateway, :flags)");
                 
+
             try {
                 $query->execute( array(
                                        "uuid"     => $uuid,
@@ -390,7 +393,8 @@ function parse($gateway,$hostname, $port, $xml)
                                        "r_uuid"   => $regionuuid,
                                        "r_gateway" => $gateway,
                                        "flags"      => 0                                                                      
-                                      ) );
+                                      ) );                
+            
                 
                 echo "Inserted uuid=$uuid, p_uui = $parceluuid, location = $location, title = $title, desc = $description, r_uuid = $regionuuid, r_gateway = $gateway\n";
                 
@@ -399,7 +403,7 @@ function parse($gateway,$hostname, $port, $xml)
                 echo "Error:" . $e->getMessage() . "\n";
             }
         }
-       //fscanf(STDIN, "%s" , $a); 
+       
     }
 }
 ?>

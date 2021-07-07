@@ -696,6 +696,7 @@ Public Class FormRegion
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
+
         FormSetup.PropChangedRegionSettings = True
         Dim message = RegionValidate()
         If Len(message) > 0 Then
@@ -704,6 +705,7 @@ Public Class FormRegion
                 Changed1 = False
             End If
         Else
+            DeregisterRegionUUID(RegionUUID)
             WriteRegion(RegionUUID)
             Firewall.SetFirewall()
             PropUpdateView() = True
@@ -1005,7 +1007,7 @@ Public Class FormRegion
         If Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) < 0 Then
             Message = Global.Outworldz.My.Resources.Region_Coordinate_X_cannot_be_less_than_0_word
             Return Message
-        ElseIf Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 2 ^ 14 Then
+        ElseIf Convert.ToInt32("0" & CoordX.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = Global.Outworldz.My.Resources.Region_Coordinate_X_is_too_large
             Return Message
         End If
@@ -1013,7 +1015,7 @@ Public Class FormRegion
         If Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) < 32 Then
             Message = Global.Outworldz.My.Resources.Region_Coordinate_Y_cannot_be_less_than_32
             Return Message
-        ElseIf Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 2 ^ 14 Then
+        ElseIf Convert.ToInt32("0" & CoordY.Text, Globalization.CultureInfo.InvariantCulture) > 65536 Then
             Message = Global.Outworldz.My.Resources.Region_Coordinate_Y_Is_too_large
             Return Message
         End If

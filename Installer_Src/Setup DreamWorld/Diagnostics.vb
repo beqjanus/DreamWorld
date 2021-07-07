@@ -48,6 +48,10 @@ Module Diags
     Public Function GetPostData(Optional Name As String = "") As String
 
         If Name.Length = 0 Then Name = Settings.DNSName   ' optional Alt DNS name can come in
+        Dim TotalSize As Double
+        For Each RegionUUID As String In PropRegionClass.RegionUuids
+            TotalSize += PropRegionClass.SizeX(RegionUUID) / 256 * PropRegionClass.SizeY(RegionUUID) / 256
+        Next
 
         Dim fs = CreateObject("Scripting.FileSystemObject")
         Dim d As Object = fs.GetDrive(fs.GetDriveName(fs.GetAbsolutePathName("C:")))
@@ -65,6 +69,7 @@ Module Diags
         & "&ServerType=" & Settings.ServerType _
         & "&MAC=" & Settings.MacAddress _
         & "&ID0=" & CreateMD5(CStr(d.SerialNumber)) _
+        & "&RegionSize=" & CStr(TotalSize) _
         & "&r=" & RandomNumber.Random()
         Return data
 

@@ -697,7 +697,6 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-
             End Using
         Catch ex As Exception
             Console.WriteLine("Error: " & ex.ToString())
@@ -940,29 +939,68 @@ Public Module MysqlInterface
         End Using
 
     End Sub
+    Private Sub DeleteSearchDatabase()
+
+        If Not IsMySqlRunning() Then Return
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "drop database ossearch"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    Try
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+                End Using
+            End Using
+        Catch
+        End Try
+
+    End Sub
+
     Public Sub SetupLocalSearch()
 
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .FileName = "Create_ossearch.bat",
-                .UseShellExecute = True,
-                .CreateNoWindow = True,
-                .WindowStyle = ProcessWindowStyle.Minimized,
-                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
-            }
-        Using os_search As Process = New Process With {
-                .StartInfo = pi
-            }
+        If Settings.ServerType <> "Robust" Then Return
 
-            Try
-                os_search.Start()
-                os_search.WaitForExit()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ErrorLog("Could not create os_search Database: " & ex.Message)
-                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                Return
-            End Try
-        End Using
+        ' modify this to migrate search database upwards a rev
+        If Not Settings.SearchMigration = 3 Then
+
+            MysqlInterface.DeleteSearchDatabase()
+
+            TextPrint(My.Resources.Setup_search)
+            Dim pi As ProcessStartInfo = New ProcessStartInfo()
+
+            FileIO.FileSystem.CurrentDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin")
+            pi.FileName = "Create_OsSearch.bat"
+            pi.UseShellExecute = True
+            pi.CreateNoWindow = False
+            pi.WindowStyle = ProcessWindowStyle.Hidden
+            Using ProcessMysql As Process = New Process With {
+                    .StartInfo = pi
+                }
+
+                Try
+                    ProcessMysql.Start()
+                    ProcessMysql.WaitForExit()
+                Catch ex As InvalidOperationException
+                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                    Return
+                Catch ex As System.ComponentModel.Win32Exception
+                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                    Return
+                End Try
+            End Using
+
+            FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+
+            Settings.SearchMigration = 3
+            Settings.SaveSettings()
+
+        End If
 
     End Sub
 
@@ -973,7 +1011,7 @@ Public Module MysqlInterface
             .UseShellExecute = True,
             .CreateNoWindow = True,
             .WindowStyle = ProcessWindowStyle.Minimized,
-            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
+            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin")
         }
         Using MysqlWordpress As Process = New Process With {
             .StartInfo = pi
@@ -1048,24 +1086,23 @@ Public Module MysqlInterface
 
     Private Function GetRegionName(UUID As String) As String
         Dim Val As String = ""
-        Dim MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
-        Try
-            MysqlConn.Open()
-            Dim stm = "Select RegionName from regions where uuid=@UUID;"
-            Using cmd As New MySqlCommand(stm, MysqlConn)
-                cmd.Parameters.AddWithValue("@UUID", UUID)
-                Using reader As MySqlDataReader = cmd.ExecuteReader()
-                    If reader.Read() Then
-                        ' Debug.Print("Region Name = {0}", reader.GetString(0))
-                        Val = reader.GetString(0)
-                    End If
+        Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = "Select RegionName from regions where uuid=@UUID;"
+                Using cmd As New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            ' Debug.Print("Region Name = {0}", reader.GetString(0))
+                            Val = reader.GetString(0)
+                        End If
+                    End Using
                 End Using
-            End Using
-        Catch ex As Exception
-            Console.WriteLine("Error: " & ex.ToString())
-        Finally
-            MysqlConn.Close()
-        End Try
+            Catch ex As Exception
+                Console.WriteLine("Error: " & ex.ToString())
+            End Try
+        End Using
 
         Return Val
 

@@ -1,24 +1,23 @@
 <?php
   
 	header("content-type: text/html; charset=UTF-8");
-  
 	require( "flog.php" );
 	include("database.php");
-  
+    
 	$text = '';
-    if (isset($_GET['query']))     $text = $_GET['query'];	
-    $sqldata['text1'] = $text;
+	if (isset($_GET['query']))     $text = $_GET['query'];	
+	$sqldata['text1'] = $text;
 
 	$rc = '';
-    if (isset($_GET['rp']))    $rc = intval($_GET['rp'] )  ;
-
-    if ($rc == "") {
-      $rc = 100;
-    }
+	if (isset($_GET['rp']))    $rc = intval($_GET['rp'] )  ;
+    
+	if ($rc == "") {
+	  $rc = 100;
+	}
 
 	$sort = '';
 	if (isset($_GET['sort']))     $sort = $_GET['sortname'] ;
-    $sort = 'host';
+	$sort = 'host';
 
 	$ord = '';
     if (isset($_GET['sortorder']))    $ord = $_GET['sortorder']   ;
@@ -48,36 +47,29 @@
 
     $out = new OUT();
 
+  
     $counter = 0;
 
     $sql = "SELECT distinct host as host FROM ossearch.hostsregister  where
             failcounter = 0
-	    and online = 1
-            and host not like '192.168%'
-            and host not like '172.16%'
-            and host not like '172.17%'
-            and host not like '172.18%'
-            and host not like '172.19%'
-            and host not like '172.20%'
-            and host not like '172.21%'
-            and host not like '172.22%'
-            and host not like '172.23%'
-            and host not like '172.24%'
-            and host not like '172.25%'
-            and host not like '172.26%'
-            and host not like '172.27%'
-            and host not like '172.28%'
-            and host not like '172.29%'
-            and host not like '172.30%'
-            and host not like '172.31%'
-            and host not like '127.0.0.1%'
-            and host not like '10.%'
-	    and " . $qtype . "  like CONCAT('%', :text1, '%')
+	        and online = 1
+                and " . $qtype . "  like CONCAT('%', :text1, '%')
             order by " . $sort . ' ' .  $ord ;
-            
+
 
     $query = $db->prepare($sql);
+
+#    if (!$query) {
+#        echo "\nPDO::errorInfo():\n";
+#        print_r($db->errorInfo());
+#    }
+    
     $result = $query->execute($sqldata);
+         
+#    if (!$result) {
+#        echo "\nPDO::errorInfo():\n";
+#        print_r($db->errorInfo());
+#    }
 
     $host = '';
 
@@ -100,10 +92,14 @@
         $gateway = str_replace (':', '|', $gateway );
         #$regionname = str_replace(' ','+',$row["regionname"]);
         
-        // make hyperlink
-        #$v3    = "hop://" . $gateway;
-        $v3     =  "secondlife://http|!!" . $gateway  ;
-        $link = "<a href=\"$v3\"><img src=\"v3hg2.png\" height=\"24\"></a><br>";
+        $hop    = "hop://" . $row["gateway"]  . '/' . $row["landingpoint"];
+        $v3     = "secondlife://http|!!" . $gateway  .  '+' . $regionname. '/' . $row["landingpoint"];
+        $hg     = "secondlife://" . $row["gateway"]  . '/' . $row["landingpoint"];
+            
+        
+        $link = "<a href=\"$hop\"><img src=\"hop.png\" height=\"24\"></a>";
+        #$link = "<a href=\"$v3\"><img src=\"v3hg2.png\" height=\"24\"></a>";
+        #$link .= "<br><a href=\"$hg\"><img src=\"hg.png\" height=\"24\"></a>";
 
         // get the hours of runtime
         $sql1 = "SELECT sum(checked) as minutes FROM ossearch.hostsregister where host = :text1";
@@ -139,8 +135,9 @@
     }
 
     if ($total == 0) {
+        $total = 1;
         flog("Nothing found");
-        $row = array("Grid"=>"No records");
+        $row = array("hop"=>"","Hours"=>"","Grid"=>"No records");
         $rowobj = new Row();
         $rowobj->cell = $row;
         array_push($stack, $rowobj);
