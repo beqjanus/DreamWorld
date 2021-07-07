@@ -173,7 +173,11 @@ Public Class FormDisplacement
         If sender Is Nothing Then Return
 
         Try
-            If sender.Tag Is Nothing Then Me.Close()
+            If sender.Tag Is Nothing Then
+                Me.Close()
+                Return
+            End If
+
             Dim tag As String = sender.Tag.ToString
             PropSelectedBox = " --displacement " & tag & " "
         Catch ex As Exception
