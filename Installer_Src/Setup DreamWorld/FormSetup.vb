@@ -370,8 +370,6 @@ Public Class FormSetup
     ''' <summary>Event handler for Icecast</summary>
     Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
 
-        'RestartIcecastIcon.Image = Global.Outworldz.My.Resources.nav_plain_red
-
         If PropAborting Then Return
 
         If Settings.RestartOnCrash And IcecastCrashCounter < 10 Then
@@ -998,6 +996,10 @@ Public Class FormSetup
             Catch
             End Try
 
+            If PropAborting Then Continue While
+            If Not PropOpensimIsRunning() Then Continue While
+            If Not PropRegionClass.RegionEnabled(Ruuid) Then Continue While
+
             Dim RegionName = PropRegionClass.RegionName(Ruuid)
 
             ' see how long it has been since we booted
@@ -1032,8 +1034,8 @@ Public Class FormSetup
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
-
-            If Not PropOpensimIsRunning() Then Return
+            If PropAborting Then Continue For
+            If Not PropOpensimIsRunning() Then Continue For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
@@ -1103,7 +1105,6 @@ Public Class FormSetup
                         PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown
                     Next
                     Logger("State changed to RecyclingDown", GroupName, "Teleport")
-
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
                     PropUpdateView = True
                     Continue For
@@ -1112,8 +1113,12 @@ Public Class FormSetup
 
             ' if a RestartPending is signaled, boot it up
             If status = RegionMaker.SIMSTATUSENUM.RestartPending Then
-                Logger("State is RestartPending", GroupName, "Teleport")
+
                 'RestartPending = 6
+                If PropAborting Then Continue For
+                If Not PropOpensimIsRunning() Then Continue For
+
+                Logger("State is RestartPending", GroupName, "Teleport")
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                 For Each R As String In GroupList
                     PokeRegionTimer(RegionUUID)
@@ -1127,6 +1132,9 @@ Public Class FormSetup
 
             If status = RegionMaker.SIMSTATUSENUM.Resume Then
                 '[Resume] = 8
+                If PropAborting Then Continue For
+                If Not PropOpensimIsRunning() Then Continue For
+
                 Logger("State is Resuming", GroupName, "Teleport")
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
                 For Each R As String In GroupList
@@ -1139,6 +1147,8 @@ Public Class FormSetup
 
             If status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
                 'RestartStage2 = 11
+                If PropAborting Then Continue For
+                If Not PropOpensimIsRunning() Then Continue For
 
                 TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Pending_word)
                 Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
