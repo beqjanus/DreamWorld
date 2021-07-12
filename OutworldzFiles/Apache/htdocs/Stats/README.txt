@@ -1,17 +1,22 @@
+1) after you add Perl, navigate to http://localhost/Stats with Apache enabled to see the charts.
 
-This will run any anything that Opensim and Perl runs on.
+2) You need Perl.  Install Perl from http://strawberryperl.com/
 
-1) You need Perl.  Install Perl from http://strawberryperl.com/
+3) If necessary setup your Database Connection. Normally this is not necessary.
 
-2) Install DBIX::Class:
-    From the command prompt type in 'cpan DBIx::Class<ret>'.
+Edit the file lib/Util.pm and set your Robust database name, username, and password.
+-------------------------
+    Highsoft 
+Non-Commercial License Statement
 
-3) Install Template::Toolkit
-    From the command prompt type in 'cpan Toolkit<ret>'.
 
-4) Setup your Database Connection:
+License holder:
+  Fred Beckhusen
+  Outworldz, LLC.
 
-    Edit the file lib/Util.pm and set your Opensim database name, username, and password.
+This license is valid for:
+  Not-for-Profit usage of the following product(s):
+  Highcharts.
 
-    These can be found in your GridCommon.ini or StandaloneCommon.ini files in the "ConnectionString" area as shown below.
-    ConnectionString = "Data Source=localhost;Database=opensim;User ID=opensimuser;Password=opensimpassword;"
+
+This software is released under Creative Commons Attribution-NonCommercial 3.0
