@@ -32,31 +32,34 @@ print header;
 
 my @sims;
 
-my $rs = $schema->resultset('Sim')->search({dateupdated => {'>' => \["dateadd(dd,-15,getdate())"]}},{order_by => { -asc => 'regionname' }});
-
+my $rs = $schema->resultset('Sim')->search({},{order_by => { -asc => 'regionname' }});
+my $width= '400';
 my %unique;
 foreach my $row ($rs->all) {
 	
-	my $width = '32';
-	$width= '400';
-	my $X = $row->X;
-	my $Y = $row->Y;
+	
+	my $X = $row->locationX;
+	my $Y = $row->locationY;
 	my $map = "map-1-$X-$Y-objects.jpg";
-	my $size = $Input->param('size');
-	$size =~ /.*?(\d+).*?, (\d+)/;		# <768.000000, 768.000000, 0.000000>
-	$size = $1 . 'X' . $2;
+	
 		
-	push @sims, {name => $row->regionname,				 
-				 regionsize => $size,
-				 dateupdated => $row->dateupdated,
-				 map=> $map,
+	push @sims, {regionname => $row->regionname,				 
+				 regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
+				 map=> '/Stats/map/' . $map,
 				 width=>$width,
-				 link => "/stats/?q=" . $row->regionname,
-				 location => $row->location,
+				 link=>'/Stats/map.htm?q=' . $row->regionname,
 				 };
 
 }
 
+if (!@sims) {
+	push @sims, {regionname => 'No Regions Found',				 
+				 regionsize =>  0,
+				 map=> '/Stats/images/blankbox.jpg',
+				 width=>$width,
+				 };
+
+}
 my $vars = {sims => \@sims};
 my $out;
 $tt->process('listmaps.tt', $vars, \$out)  || die $tt->error(), "\n";

@@ -1,4 +1,4 @@
-#  Strawberry Perl program to keep a monthly backup  in $src and move all others to $newpath
+#  Strawberry Perl program to save one backup per month into a different folder
 
 use 5.010;
 use strict;
@@ -9,7 +9,6 @@ use File::Basename;
 use CGI;
 $| = 1;  #non buffered out
 
-print header;
 
 # fill these in with $src and $Destination paths.
 my $src = 'B:/OAR';
@@ -21,8 +20,7 @@ my %result;
 
 foreach my $folder (sort @f) {
     
-    my @files    = io->dir($folder)->all;
-    
+    my @files    = io->dir($folder)->all;    
       
     foreach my $file (sort @files) {            
         

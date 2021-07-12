@@ -238,13 +238,11 @@ link {
 -----------------------------------------------------------------------------------------------
 ===============================================================================================*/
 body {
-	font-family: Verdana,Helvetica, "Helvetica Neue", Arial, sans-serif;
+  padding-top: 50px;
+	font-family: Verdana,Helvetica, Arial, sans-serif;
 	font-size: 100%;
-	line-height: 1.5;
-	color: #4B4B4B;
+	line-height: 1.5;	
 	color: #000000;
-
-	background: #333333 url(/cgi/background.plx) center top repeat-y;
 	padding-bottom: 5px;
 }
 
