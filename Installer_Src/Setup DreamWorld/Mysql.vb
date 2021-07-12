@@ -1200,4 +1200,51 @@ Public Module MysqlInterface
 
 #End Region
 
+#Region "Visitors"
+
+    ''' <summary>
+    ''' Is not used as the necessary functions to locate the avatar X and Y do not exist yet
+    ''' </summary>
+    ''' <param name="AvatarName"></param>
+    ''' <param name="RegionName"></param>
+    ''' <param name="LocX"></param>
+    ''' <param name="LocY"></param>
+    Public Sub VisitorCount()
+
+        If FormSetup.Visitor.Count > 0 Then
+            Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
+                MysqlConn1.Open()
+                For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
+
+                    Dim Avatar = Visit.Key
+                    Dim RegionName = Visit.Value
+                    Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(RegionName)
+                    Dim result As AvatarData = RPC_admin_get_agent_list(RegionUUID)
+
+                    If result IsNot Nothing Then
+
+                        Dim stm1 = "insert into Robust.visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
+                        Try
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                            Using cmd1 As MySqlCommand = New MySqlCommand(stm1, MysqlConn1)
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                                cmd1.Parameters.AddWithValue("@NAME", Avatar)
+                                cmd1.Parameters.AddWithValue("@REGIONNAME", RegionName)
+                                cmd1.Parameters.AddWithValue("@LOCX", result.X)
+                                cmd1.Parameters.AddWithValue("@LOCY", result.Y)
+                                cmd1.BeginExecuteNonQuery()
+                            End Using
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+                    End If
+                Next
+            End Using
+        End If
+    End Sub
+
+#End Region
+
+
+
 End Module
