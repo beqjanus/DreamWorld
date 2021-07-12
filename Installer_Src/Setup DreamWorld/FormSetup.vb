@@ -72,8 +72,8 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
+    Public Visitor As Dictionary(Of String, String)
     Private searcher As ManagementObjectSearcher
-
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private Parser As Process
     ReadOnly BackupThread As New Backups
@@ -2289,8 +2289,9 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($" {Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
+                    Visitor.Add(Avatar, RegionName)
                 End If
             Next
 
@@ -2302,7 +2303,8 @@ Public Class FormSetup
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
                 If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                     PropRegionClass.AvatarCount(RegionUUID) += 1
-                    Str += $"Avatar {My.Resources.Arriving_word} {RegionName}{vbCrLf}"
+                    Str += $"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}"
+                    Visitor.Add(Avatar, RegionName)
                 End If
             Next
 
@@ -2314,6 +2316,9 @@ Public Class FormSetup
                 If Not C.ContainsKey(Avatar) Then
                     TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     E.Add(Avatar)
+                    If Visitor.ContainsKey(Avatar) Then
+                        Visitor.Remove(Avatar)
+                    End If
                 End If
             Next
             For Each F In E
@@ -2546,7 +2551,9 @@ Public Class FormSetup
             Bench.Print("60 second worker")
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
+            VisitorCount()
             Bench.Print("60 second work done")
+
         End If
 
         ' Run Search and events once at 5 minute mark
