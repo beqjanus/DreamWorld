@@ -3,16 +3,14 @@
 <!--  author - Fred Beckhusen -->
 <!--  AGPL3.0  https://opensource.org/licenses/AGPL -->
 <!-------- COPYRIGHT 2011 ---------------->
-  
+<!-- Highcharts released under Creative Commons Attribution-NonCommercial 3.0 -->
+ 
 <meta name="description" content="Stats for your Opensimulator sim" />
 <title>Stats for your sim</title>
-
-<!-- liquidscripts.html begins -->
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 <meta name="author" content="Fred Beckhusen" />
-<meta name="copyright" content="Copyright 2011">
+<meta name="copyright" content="Copyright AGPL 2011">
 <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-precomposed.png">
 <link rel="shortcut icon" type="image/x-ico" href="/favicon.ico" />
 <link rel="stylesheet" href="/assets/css/master.css" />
@@ -21,8 +19,8 @@
 
 <!-- Jquery -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <!-- tooltips -->
 <link rel="stylesheet" type="text/css" media="all" href="/stats/common/css/tipTip.css" />
@@ -56,8 +54,7 @@ form
 }
 </style>
 <script src="https://code.highcharts.com/highcharts.src.js"></script>
-
-<link type="text/css" href="/stats/jqueryui/css/ui-lightness/jquery-ui-1.8.22.custom.css" rel="Stylesheet" />	
+<!-- Highcharts released under Creative Commons Attribution-NonCommercial 3.0 -->
 <link type="text/css" href="/stats/timepicker/jquery.ui.timepicker.css" rel="Stylesheet" />	
 <script type="text/javascript" src="/stats/timepicker/jquery.ui.timepicker.js"></script>
 <script src="/flexgrid/js/flexigrid.js"></script>
@@ -75,14 +72,12 @@ form
         return results[1];
 }
 
-var edata = {};
 var chart;
 var chart2;
 var chart3;
 var title;
 var start;
 var person;
-var GridName;
 
 $(document).ready(function () {
 
@@ -119,7 +114,6 @@ $(document).ready(function () {
         end = '';
     }
 
-
     what = gup("person");
     if (what.length > 0) {
         person = what;
@@ -127,21 +121,15 @@ $(document).ready(function () {
         person = '';
     }
 
-    
-
     $('#submit').click(function () {
         if ($("#datepicker1").val()) {
             start = $("#datepicker1").val();
         }
-
         if ($("#datepicker2").val()) {
             end = $("#datepicker2").val();
         }
-
         var simname = $("#mySelect").val();
-
-
-        var url = '/stats/Map.htm?q=' + simname + '&Start=' + escape(start) + '&End=' + escape(end) + '&Password=' + Password;
+        var url = '/stats/Map.htm?q=' + simname + '&Start=' + escape(start) + '&End=' + escape(end) ;
         window.location = url;
     });
 
