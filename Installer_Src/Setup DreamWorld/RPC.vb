@@ -9,6 +9,14 @@ Imports Nwc.XmlRpc
 
 Module RPC
 
+    Public Class AvatarData
+
+        Public AvatarName As String
+        Public X As Integer
+        Public Y As Integer
+
+    End Class
+
     'http://opensimulator.org/wiki/RemoteAdmin
 
     ' known web interfaces
@@ -24,7 +32,18 @@ Module RPC
         Return SendRPC(RegionUUID, "admin_broadcast", ht)
 
     End Function
+    Public Function RPC_admin_get_agent_list(RegionUUID As String) As AvatarData
 
+        '!!!
+        Return Nothing
+
+        Dim ht As Hashtable = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"region_id", RegionUUID}
+        }
+        Return GetRPCAvatarPos(RegionUUID, "admin_get_agent_list", ht)
+
+    End Function
     Public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
 
         Dim ht As Hashtable = New Hashtable From {
@@ -121,7 +140,7 @@ Module RPC
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
-        Dim bad = New ArrayList
+
 
         Dim parameters = New List(Of Hashtable) From {ht}
         Dim RPC = New XmlRpcRequest(cmd, parameters)
@@ -143,6 +162,36 @@ Module RPC
             BreakPoint.Show(ex.Message)
         End Try
         Return 0
+
+    End Function
+
+    Private Function GetRPCAvatarPos(FromRegionUUID As String, cmd As String, ht As Hashtable) As AvatarData
+
+        Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
+        Dim url = $"http://{Settings.LANIP}:{RegionPort}"
+
+
+        Dim parameters = New List(Of Hashtable) From {ht}
+        Dim RPC = New XmlRpcRequest(cmd, parameters)
+        Try
+            Dim o = RPC.Invoke(url)
+            If o Is Nothing Then
+                Return Nothing
+            End If
+#Disable Warning BC42016 ' Implicit conversion
+            Dim result As New AvatarData
+            For Each s In o
+                Log("Info", s.Key & ":" & s.Value)
+                If s.Key = "Avatar" Then
+                    result.AvatarName = s.value
+                End If
+            Next
+            Return result
+#Enable Warning BC42016 ' Implicit conversion
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+        Return Nothing
 
     End Function
 
