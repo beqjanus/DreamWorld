@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Threading
 Imports System.IO.Compression
 
+
 ' Copyright 2019 Fred Beckhusen
 ' AGPL 3.0 Licensed
 ' Redistribution and use in binary and source form is permitted provided
@@ -33,8 +34,12 @@ Public Class UpdateGrid
 
         EnsureInitialized()
 
-        Label1.Text = "DreamGrid Updater/Installer"
-        Me.Text = "Outworldz DreamGrid Setup"
+
+        Label1.Text = "DreamGrid is downloading"
+        Me.Text = "DreamGrid Updater/Installer"
+
+        Me.Left = 100
+        Me.Top = 100
         Me.Show()
         Application.DoEvents()
         MyFolder = My.Application.Info.DirectoryPath
@@ -47,6 +52,9 @@ Public Class UpdateGrid
         End If
 
         ChDir(MyFolder)
+        ProgressBar1.Enabled = True
+        ProgressBar1.Maximum = 100
+        ProgressBar1.Value = 10
 
         Dim f1 = New Downloader
 
@@ -58,32 +66,52 @@ Public Class UpdateGrid
                 End
             Else
 
-                Dim result = MsgBox("Ready to update your system. Proceed?", vbYesNo)
-                If result = vbNo Then End
-
                 Application.DoEvents()
 
                 Label1.Text = "Stopping MySQL"
                 StopMYSQL()
+                ProgressBar1.Value = 20
+                Application.DoEvents()
+                Thread.Sleep(1000)
+
                 Label1.Text = "Stopping Apache"
                 StopApache()
-                Label1.Text = "Stopping Apache"
+                ProgressBar1.Value = 30
+                Application.DoEvents()
+                Thread.Sleep(1000)
+
+                Label1.Text = "Stopping Robust"
                 For Each p As Process In Process.GetProcessesByName("Robust")
                     p.Kill()
                 Next
+                ProgressBar1.Value = 40
+                Application.DoEvents()
+                Thread.Sleep(1000)
+
                 Label1.Text = "Stopping Opensim"
                 For Each p As Process In Process.GetProcessesByName("Opensim")
                     p.Kill()
                 Next
+                ProgressBar1.Value = 50
+                Application.DoEvents()
+                Thread.Sleep(1000)
+
                 Label1.Text = "Stopping Icecast"
                 For Each p As Process In Process.GetProcessesByName("Icecast")
                     p.Kill()
                 Next
+                ProgressBar1.Value = 60
+                Application.DoEvents()
+                Thread.Sleep(1000)
 
+                Label1.Text = ""
                 Try
                     My.Computer.FileSystem.DeleteDirectory(MyFolder & "\Outworldzfiles\opensim\bin\addin-db-002", FileIO.DeleteDirectoryOption.DeleteAllContents)
                 Catch ex As Exception
                 End Try
+                ProgressBar1.Value = 70
+                Application.DoEvents()
+
                 Dim err As Integer = 0
                 Dim fname As String = ""
 
@@ -97,8 +125,18 @@ Public Class UpdateGrid
                 Try
                     Using zip As ZipArchive = ZipFile.Open(MyFolder & "\" & Filename, ZipArchiveMode.Read)
                         ZipContains = zip.Entries.Count
+
+                        Label1.Text = "Unzipping"
+                        ProgressBar1.Value = 100
+                        Thread.Sleep(1000)
+
                         For Each ZipEntry In zip.Entries
                             counter += 1
+                            Dim percent As Double = counter / ZipContains
+
+                            If percent * 100 > 100 Then percent = 1
+                            ProgressBar1.Value = percent * 100
+
                             fname = ZipEntry.Name
                             If fname.Length = 0 Then
                                 Continue For
@@ -106,6 +144,7 @@ Public Class UpdateGrid
                             If ZipEntry.Name <> "DreamGridUpdater.exe" Then
                                 TextPrint(CStr(counter) & " of " & CStr(ZipContains) & ":" & Path.GetFileName(ZipEntry.Name))
                                 Application.DoEvents()
+
                                 Dim destinationPath As String = Path.GetFullPath(Path.Combine(extractPath, ZipEntry.FullName))
                                 If File.Exists(destinationPath) Then
                                     File.Delete(destinationPath)
@@ -113,29 +152,49 @@ Public Class UpdateGrid
                                 Dim folder = Path.GetDirectoryName(destinationPath)
                                 Directory.CreateDirectory(folder)
                                 ZipEntry.ExtractToFile(folder & "\" & ZipEntry.Name)
+                                Log($"Extracted {ZipEntry.Name}")
                             End If
                         Next
                     End Using
 
 
                 Catch ex As Exception
-                    TextPrint("Unable to extract file: " & fname & ":" & ex.Message)
-                    Thread.Sleep(5000)
+                    Log("Unable to extract file: " & fname & ":" & ex.Message)
                     err += 1
                 End Try
 
                 If counter <> ZipContains Then
                     err += 1
                     TextPrint("Aborting, did not extract all files.")
-                    Thread.Sleep(5000)
+                    Log("Aborting, did not extract all files.")
+                    Application.DoEvents()
+                    Thread.Sleep(3000)
+                    Dim Logname As String = MyFolder & "\Updater.log"
+                    Try
+                        Dim dest As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "Wordpad.exe")
+
+                        Using ApacheProcess As New Process()
+                            ApacheProcess.StartInfo.FileName = "notepad.exe"
+                            ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+                            ApacheProcess.StartInfo.Arguments = Logname
+                            ApacheProcess.Start()
+                            Application.DoEvents()
+                        End Using
+
+
+                    Catch ex As Exception
+                    End Try
                     End
                 End If
 
-
-                If Not err Then TextPrint("Completed!")
+                If Not err Then
+                    ProgressBar1.Value = 100
+                    TextPrint("Completed!")
+                    Log("Completed!")
+                End If
 
                 Application.DoEvents()
-                Thread.Sleep(3000)
+                Thread.Sleep(1000)
 
                 ApacheProcess.StartInfo.FileName = "Start.exe"
                 ApacheProcess.StartInfo.WindowStyle = ProcessWindowStyle.Normal
@@ -151,6 +210,7 @@ Public Class UpdateGrid
             End If
         Else
             TextPrint("Canceled")
+            ProgressBar1.Value = 0
         End If
 
         End
@@ -167,6 +227,7 @@ Public Class UpdateGrid
             ApacheProcess.Start()
             Application.DoEvents()
             ApacheProcess.WaitForExit()
+            Log("Stopped Apache")
         End Using
 
         Zap("httpd")
@@ -192,14 +253,12 @@ Public Class UpdateGrid
         p.StartInfo = pi
         Try
             p.Start()
+            p.WaitForExit()
+            Log($"Stopped Mysql")
         Catch
+            Log($"Failed to stop Mysql")
         End Try
-        pi.Arguments = "-u root -port=3309 shutdown"
-        p.StartInfo = pi
-        Try
-            p.Start()
-        Catch
-        End Try
+
 
     End Sub
 
@@ -210,11 +269,19 @@ Public Class UpdateGrid
             Try
                 P.Kill()
             Catch
+                Log($"Failed to stop {processName}")
             End Try
         Next
 
     End Sub
+    Public Sub Log(message As String)
+        Try
+            Using outputFile As New StreamWriter(MyFolder & "\Updater.log", True)
+                outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":" + message)
+            End Using
+        Catch
+        End Try
 
+    End Sub
 #End Region
-
 End Class

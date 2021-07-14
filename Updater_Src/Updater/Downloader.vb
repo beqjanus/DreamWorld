@@ -60,6 +60,8 @@ Public Class Downloader
 
     Private Async Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Me.Left = 200
+        Me.Top = 300
         MyFolder = My.Application.Info.DirectoryPath
         Label1.Text = ""
         If Debugger.IsAttached = True Then
@@ -73,10 +75,10 @@ Public Class Downloader
         Dim Filename As String = ""
         whereToSave = MyFolder & "\" & "DreamGrid.zip"
         IO.File.Delete(MyFolder & "\Updater.log")
-        Log("Downloading " + Filename)
+        Log($"Downloading {whereToSave}")
 
         'Creating the request and getting the response
-        Label1.Text = "Downloading " + Filename
+        Label1.Text = "Downloading DreamGrid.zip"
 
         Dim client As New WebClient()
         Dim urlContents As Byte() = Await GetURLContentsAsync(gFileName)
