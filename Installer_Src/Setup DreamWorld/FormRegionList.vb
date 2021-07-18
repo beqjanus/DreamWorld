@@ -19,7 +19,7 @@ Public Class FormRegionlist
 #Enable Warning CA2213
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
-    Private SearchArray As New List(Of String)
+    Private ReadOnly SearchArray As New List(Of String)
     Private SearchBusy As Boolean
     Private TheView As Integer = ViewType.Details
     Private ViewNotBusy As Boolean
@@ -1345,26 +1345,7 @@ SetWindowOnTop_Err:
             Next
 
             If (StopIt) Then
-
-                Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-                If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
-                    FormSetup.SequentialPause()
-
-                    TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
-                    ShutDown(RegionUUID)
-
-                    ' shut down all regions in the DOS box
-                    For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
-                    Next
-                Else
-                    ' shut down all regions in the DOS box
-                    For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                        PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
-                    Next
-                End If
-
-                PropUpdateView = True ' make form refresh
+                PropRegionClass.StopRegion(RegionUUID)
             End If
 
         ElseIf chosen = "Console" Then
