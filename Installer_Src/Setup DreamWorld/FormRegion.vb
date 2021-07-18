@@ -13,6 +13,7 @@ Public Class FormRegion
 
 #Region "Declarations"
 
+    Private _NotSmarttStart As Boolean
     Dim _RegionUUID As String = ""
     Dim BoxSize As Integer = 256
     Dim changed As Boolean
@@ -81,6 +82,35 @@ Public Class FormRegion
             RName = value
         End Set
     End Property
+
+#End Region
+
+#Region "RestartRobustIfNeeded"
+
+    Private Sub RestartRobustIfNeeded(RegionUUID As String)
+
+        Me.Hide()
+
+        If Not _NotSmarttStart And SmartStartCheckBox.Checked And IsRobustRunning() Then
+
+            PropAborting = True
+            Dim loopctr = 60 ' wait 1 minute
+            PropRegionClass.StopRegion(RegionUUID)
+            While CheckPort(Settings.PublicIP(), PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
+                loopctr -= 1
+                Sleep(1000)
+            End While
+
+            StopRobust()
+            PropAborting = False
+            StartRobust()
+
+            Boot(PropRegionClass.RegionName(RegionUUID))
+
+        End If
+
+    End Sub
+
 
 #End Region
 
@@ -302,7 +332,7 @@ Public Class FormRegion
             MaxAgents.Text = PropRegionClass.MaxAgents(RegionUUID)
             RegionPort.Text = CStr(PropRegionClass.RegionPort(RegionUUID))
 
-            If PropRegionClass.Priority(RegionUUID) = "" Then
+            If PropRegionClass.Priority(RegionUUID).Length = 0 Then
                 Normal.Checked = True
             Else
                 RealTime.Checked = PropRegionClass.Priority(RegionUUID) = "RealTime"
@@ -633,6 +663,8 @@ Public Class FormRegion
                 ConciergeCheckBox.Checked = False
         End Select
 
+        _NotSmarttStart = SmartStartCheckBox.Checked
+
         Try
             Me.Show() ' time to show the results
             Me.Activate()
@@ -660,8 +692,10 @@ Public Class FormRegion
                 Else
                     WriteRegion(RegionUUID)
                     Firewall.SetFirewall()
+                    RestartRobustIfNeeded(RegionUUID)
                     PropUpdateView() = True
                     Changed1 = False
+
                 End If
             End If
         End If
@@ -708,6 +742,7 @@ Public Class FormRegion
             DeregisterRegionUUID(RegionUUID)
             WriteRegion(RegionUUID)
             Firewall.SetFirewall()
+            RestartRobustIfNeeded(RegionUUID)
             PropUpdateView() = True
             Changed1 = False
         End If
