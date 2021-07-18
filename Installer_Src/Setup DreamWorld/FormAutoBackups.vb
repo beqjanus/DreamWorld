@@ -45,11 +45,12 @@ Public Class FormAutoBackups
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
         AutoBackup.Text = Global.Outworldz.My.Resources.Enabled_word
-
         GroupBox3.Text = Global.Outworldz.My.Resources.Auto_Backup_word
         Label6.Text = Global.Outworldz.My.Resources.Backup_Folder
         LabelInterval.Text = Global.Outworldz.My.Resources.Interval_word
         LabelDays.Text = Global.Outworldz.My.Resources.Keep_for_Days_word
+        Label1.Text = My.Resources.View_Folder
+        Label2.Text = My.Resources.Choose_folder_for_backups
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
         PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.folder
         Text = Global.Outworldz.My.Resources.Auto_Backup_word
@@ -187,10 +188,12 @@ Public Class FormAutoBackups
 
     Private Sub BackupFolderDialog()
 
+        Dim f = Settings.BackupFolder.Replace("/", "\")
         'Create an instance of the open file dialog box.
         Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
-            .Description = Global.Outworldz.My.Resources.Choose_folder_for_backups
+            .Description = Global.Outworldz.My.Resources.Choose_folder_for_backups,
+            .SelectedPath = f
         }
             Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
             ' Process input if the user clicked OK.
@@ -248,6 +251,13 @@ Public Class FormAutoBackups
 
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Backup")
+    End Sub
+
+    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
+
+        Dim f = Settings.BackupFolder.Replace("/", "\")
+        System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
+
     End Sub
 
 #End Region

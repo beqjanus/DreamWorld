@@ -8,6 +8,7 @@ Module Events
         If Settings.SearchOptions <> "Local" Then Return
 
         DeleteEvents()
+        Application.DoEvents()
 
         Try
 
@@ -62,11 +63,12 @@ Module Events
                                 cmd1.Parameters.AddWithValue("@eventflags", Simevent.Item("eventflags"))
 
                                 cmd1.BeginExecuteNonQuery()
-
+                                Application.DoEvents()
                             End Using ' command
                         End While
                     End Using ' reader
                 End Using ' client
+
             End Using ' connection
 
         Catch ex As Exception

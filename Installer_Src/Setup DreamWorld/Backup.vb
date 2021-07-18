@@ -49,7 +49,6 @@
         If _lastbackup <> count Then
             If _lastbackup = 0 And count = 1 Then
                 text = dt & " " & CStr(count) & " " & "backup running"
-                text = dt & " " & CStr(count) & " " & "backup running"
             ElseIf _lastbackup > 0 And count > 1 Then
                 text = dt & " " & CStr(count) & " " & "backups running"
             ElseIf _lastbackup > 0 And count = 0 Then

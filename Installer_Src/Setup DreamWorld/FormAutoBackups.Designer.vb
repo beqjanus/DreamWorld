@@ -25,6 +25,8 @@ Partial Class FormAutoBackups
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormAutoBackups))
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.BackupTypeButton = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -37,13 +39,18 @@ Partial Class FormAutoBackups
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox3.SuspendLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.Label2)
+        Me.GroupBox3.Controls.Add(Me.Label1)
+        Me.GroupBox3.Controls.Add(Me.PictureBox2)
         Me.GroupBox3.Controls.Add(Me.BackupTypeButton)
         Me.GroupBox3.Controls.Add(Me.PictureBox1)
         Me.GroupBox3.Controls.Add(Me.Label6)
@@ -55,14 +62,34 @@ Partial Class FormAutoBackups
         Me.GroupBox3.Controls.Add(Me.AutoBackup)
         Me.GroupBox3.Location = New System.Drawing.Point(13, 37)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(329, 193)
+        Me.GroupBox3.Size = New System.Drawing.Size(329, 242)
         Me.GroupBox3.TabIndex = 0
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Auto Backup"
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(45, 168)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(62, 13)
+        Me.Label1.TabIndex = 1860
+        Me.Label1.Text = "View Folder"
+        '
+        'PictureBox2
+        '
+        Me.PictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.PictureBox2.Image = Global.Outworldz.My.Resources.Resources.document_view
+        Me.PictureBox2.Location = New System.Drawing.Point(8, 159)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(31, 23)
+        Me.PictureBox2.TabIndex = 1859
+        Me.PictureBox2.TabStop = False
+        Me.ToolTip1.SetToolTip(Me.PictureBox2, Global.Outworldz.My.Resources.Resources.Click_to_change_the_folder)
+        '
         'BackupTypeButton
         '
-        Me.BackupTypeButton.Location = New System.Drawing.Point(7, 149)
+        Me.BackupTypeButton.Location = New System.Drawing.Point(7, 199)
         Me.BackupTypeButton.Name = "BackupTypeButton"
         Me.BackupTypeButton.Size = New System.Drawing.Size(131, 24)
         Me.BackupTypeButton.TabIndex = 5
@@ -73,7 +100,7 @@ Partial Class FormAutoBackups
         '
         Me.PictureBox1.BackgroundImage = Global.Outworldz.My.Resources.Resources.folder
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.PictureBox1.Location = New System.Drawing.Point(285, 113)
+        Me.PictureBox1.Location = New System.Drawing.Point(140, 159)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(31, 23)
         Me.PictureBox1.TabIndex = 1858
@@ -83,7 +110,7 @@ Partial Class FormAutoBackups
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(1, 103)
+        Me.Label6.Location = New System.Drawing.Point(3, 117)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(76, 13)
         Me.Label6.TabIndex = 16
@@ -91,9 +118,9 @@ Partial Class FormAutoBackups
         '
         'BaseFolder
         '
-        Me.BaseFolder.Location = New System.Drawing.Point(5, 119)
+        Me.BaseFolder.Location = New System.Drawing.Point(7, 133)
         Me.BaseFolder.Name = "BaseFolder"
-        Me.BaseFolder.Size = New System.Drawing.Size(277, 20)
+        Me.BaseFolder.Size = New System.Drawing.Size(316, 20)
         Me.BaseFolder.TabIndex = 4
         Me.ToolTip1.SetToolTip(Me.BaseFolder, Global.Outworldz.My.Resources.Resources.Normally_Set)
         '
@@ -163,12 +190,21 @@ Partial Class FormAutoBackups
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(177, 168)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(76, 13)
+        Me.Label2.TabIndex = 1861
+        Me.Label2.Text = "Change Folder"
+        '
         'FormAutoBackups
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(357, 241)
+        Me.ClientSize = New System.Drawing.Size(357, 291)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox3)
         Me.HelpButton = True
@@ -178,6 +214,7 @@ Partial Class FormAutoBackups
         Me.Text = "Auto Backup"
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
@@ -199,4 +236,7 @@ Partial Class FormAutoBackups
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents BackupTypeButton As Button
+    Friend WithEvents Label1 As Label
+    Friend WithEvents PictureBox2 As PictureBox
+    Friend WithEvents Label2 As Label
 End Class
