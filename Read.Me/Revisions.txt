@@ -1,6 +1,11 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.54
+Smart Boot Regions would shut down too soon. It poked their timer with a UUID instead of by name when an avatar was in it.
+Setting a Region to Smart Boot would not take until Robust (or the grid) was restarted.  Robust will now restart if you set the SS switch.
+AutoBackup view folder added, and also set the initial place for thew backups to Autobackup.
+
 V4.53
 You can Search just your grid if you run Apache.  You can also choose no Search, or DreamGrid's Hyperica search (DreamGrid-wide search, works without needing Apache). if Apache is enabled, you can use jOpensim search.
 
