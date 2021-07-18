@@ -1311,11 +1311,13 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Seconds_TextChanged(sender As Object, e As EventArgs) Handles Seconds.TextChanged
+
         Dim digitsOnly As Regex = New Regex("[^\d]")
         Seconds.Text = digitsOnly.Replace(Seconds.Text, "")
         Settings.SmartStartTimeout = CInt("0" & Seconds.Text)
         If Settings.SmartStartTimeout < 0 Then Settings.SmartStartTimeout = 0
         ProgressPrint(My.Resources.minkeepalive)
+
     End Sub
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles SaveTerrain.Click
@@ -1341,7 +1343,6 @@ Public Class FormSmartStart
 #End Region
 
 #Region "SmartStart"
-
     Private Sub SetSetting(check As CheckBox)
         check.Checked = True
     End Sub
@@ -1555,7 +1556,7 @@ Public Class FormSmartStart
 
     Private Sub ParkingSpot_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ParkingSpot.SelectedIndexChanged
         Settings.ParkingLot = ParkingSpot.SelectedItem.ToString
-        ProgressPrint("Arrivals to powered-off sims are redirected to " & ParkingSpot.SelectedItem.ToString)
+        ProgressPrint($"{My.Resources.arrivals} {ParkingSpot.SelectedItem}")
         Settings.SaveSettings()
     End Sub
 
@@ -1713,6 +1714,7 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub BakeButton_Click(sender As Object, e As EventArgs) Handles BakeButton.Click
+
         Dim name = ChooseRegion(False)
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(name)
         If RegionUUID.Length = 0 Then Return
@@ -1722,6 +1724,7 @@ Public Class FormSmartStart
 
         RPC_Region_Command(RegionUUID, $"change region ""{name}""")
         RPC_Region_Command(RegionUUID, "terrain bake")
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -1740,8 +1743,9 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles DeleteAllRegions.Click
+
         Dim ctr = 0
-        Dim result = MsgBox("*** This will delete all regions in the Estate 'SmartFill' !", vbOKCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
+        Dim result = MsgBox(My.Resources.DeleteSims, vbOKCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
         If result = vbOK Then
             Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If msg = vbYes Then
@@ -1754,17 +1758,20 @@ Public Class FormSmartStart
             Else
                 ProgressPrint(My.Resources.Cancelled_word)
             End If
-            ProgressPrint($"Deleted {ctr} regions")
+            ProgressPrint($"{ctr} {My.Resources.Regions_Deleted}")
         Else
             ProgressPrint(My.Resources.Cancelled_word)
         End If
+
     End Sub
 
     Private Sub DelayRegionReady_TextChanged(sender As Object, e As EventArgs) Handles DelayRegionReady.TextChanged
+
         Dim digitsOnly As Regex = New Regex("[^\d]")
         DelayRegionReady.Text = digitsOnly.Replace(DelayRegionReady.Text, "")
         Settings.TeleportSleepTime = CInt("0" & DelayRegionReady.Text)
-        ProgressPrint("Minimum time is 0 seconds. Default is 10 seconds.")
+        ProgressPrint(My.Resources.Min_time)
+
     End Sub
 
     Private Sub DeletApply_CheckedChanged(sender As Object, e As EventArgs) Handles DeletApply.CheckedChanged
@@ -1839,9 +1846,11 @@ Public Class FormSmartStart
     End Sub
 
     Private Sub TempCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles TempCheckBox.CheckedChanged
+
         If Not _initialized Then Return
         Settings.TempRegion = TempCheckBox.Checked
         Settings.SaveSettings()
+
     End Sub
 
 #End Region
