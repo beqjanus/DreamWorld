@@ -360,6 +360,29 @@ Public Class RegionMaker
 
 #Region "Functions"
 
+    Public Sub StopRegion(RegionUUID As String)
+
+        Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+        If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+            FormSetup.SequentialPause()
+
+            TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
+            ShutDown(RegionUUID)
+
+            ' shut down all regions in the DOS box
+            For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
+            Next
+        Else
+            ' shut down all regions in the DOS box
+            For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+            Next
+        End If
+
+        PropUpdateView = True ' make form refresh
+
+    End Sub
     Public Sub Add_To_Region_Map(RegionUUID As String)
 
         ' add to the global map this entire DOS box
