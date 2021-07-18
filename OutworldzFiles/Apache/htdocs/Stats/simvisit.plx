@@ -10,7 +10,7 @@ my $debug = 0;
 BEGIN
 {
 	$|=1;
- 	use CGI::Carp('fatalsToBrowser');
+ 	#use CGI::Carp('fatalsToBrowser');
 	use CGI qw(:standard);
 	
 	my $env = $ENV{REMOTE_ADDR} ;
