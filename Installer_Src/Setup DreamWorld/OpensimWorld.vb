@@ -3,7 +3,6 @@ Imports System.Net
 
 Module OpensimWorld
 
-    Private LastTimeChecked As Date = Date.Now()
 
     Public Sub ScanOpenSimWorld(Force As Boolean)
 
@@ -41,7 +40,6 @@ Module OpensimWorld
         Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={k}&na={Avatars}&rat=0&r={Regionname}&pos={pos}"
         ' If he says to delete it, we do so.
         If Poke(URL) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
-        LastTimeChecked = Date.Now
 
     End Sub
 
