@@ -440,7 +440,7 @@ Module Robust
         Dim Up As String = ""
 
         Using TimedCLient As New TimedWebClient With {
-                .Timeout = 500
+                .Timeout = 1000
             }
             Try
                 Up = TimedCLient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
