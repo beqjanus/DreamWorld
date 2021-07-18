@@ -19,15 +19,13 @@ Public Class MySettings
     Private ReadOnly Apacheout As New List(Of String)
     Private _DeleteTreesFirst As Boolean
     Private _ExternalHostName As String
-
     Private _LANIP As String
     Private _MacAddress As String
     Private _PublicIP As String
     Private _RamUsed As Double
     Private _Settings As LoadIni
     Private _WANIP As String
-
-    Dim myINI As String = ""
+    Dim myINI As String
 
 #Region "New"
 
@@ -1897,7 +1895,7 @@ Public Class MySettings
 
     Public Property TeleportSleepTime() As Integer
         Get
-            Return CInt("0" & GetMySetting("TeleportSleepTime", "10"))
+            Return CInt("0" & GetMySetting("TeleportSleepTime", "15"))
         End Get
         Set
             SetMySetting("TeleportSleepTime", CType(Value, String))
@@ -2077,7 +2075,7 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Function SCPass() As String
+    Public Shared Function SCPass() As String
         Dim SCPasswordAdmin = New PassGen
         Return SCPasswordAdmin.GeneratePass()
     End Function

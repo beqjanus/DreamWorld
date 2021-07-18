@@ -535,6 +535,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Arrivals to powered-off sims are redirected to.
+        '''</summary>
+        Friend ReadOnly Property arrivals() As String
+            Get
+                Return ResourceManager.GetString("arrivals", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to arriving.
         '''</summary>
         Friend ReadOnly Property Arriving_word() As String
@@ -2645,6 +2654,15 @@ Namespace My.Resources
         Friend ReadOnly Property Deleted_word() As String
             Get
                 Return ResourceManager.GetString("Deleted_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to *** This will delete all regions in the Estate &apos;SimSurround&apos; !.
+        '''</summary>
+        Friend ReadOnly Property DeleteSims() As String
+            Get
+                Return ResourceManager.GetString("DeleteSims", resourceCulture)
             End Get
         End Property
         
@@ -6166,6 +6184,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Minimum time is 0 seconds. Default is 15 seconds..
+        '''</summary>
+        Friend ReadOnly Property Min_time() As String
+            Get
+                Return ResourceManager.GetString("Min_time", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Minimum time is 0 seconds. Default is 60 seconds..
         '''</summary>
         Friend ReadOnly Property minkeepalive() As String
@@ -8299,6 +8326,15 @@ Namespace My.Resources
         Friend ReadOnly Property Regions_Are_Running() As String
             Get
                 Return ResourceManager.GetString("Regions_Are_Running", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Regions Deleted.
+        '''</summary>
+        Friend ReadOnly Property Regions_Deleted() As String
+            Get
+                Return ResourceManager.GetString("Regions_Deleted", resourceCulture)
             End Get
         End Property
         
@@ -10812,6 +10848,15 @@ Namespace My.Resources
         Friend ReadOnly Property View_Details() As String
             Get
                 Return ResourceManager.GetString("View_Details", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to View Folder.
+        '''</summary>
+        Friend ReadOnly Property View_Folder() As String
+            Get
+                Return ResourceManager.GetString("View_Folder", resourceCulture)
             End Get
         End Property
         

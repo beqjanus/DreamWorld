@@ -3842,4 +3842,19 @@
   <data name="Setup_search" xml:space="preserve">
     <value>Setup Search Database</value>
   </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>View Folder</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Arrivals to powered-off sims are redirected to</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** This will delete all regions in the Estate 'SimSurround' !</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minimum time is 0 seconds. Default is 15 seconds.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regions Deleted</value>
+  </data>
 </root>
