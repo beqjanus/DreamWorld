@@ -72,7 +72,7 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
-    Public Visitor As Dictionary(Of String, String)
+    Public Visitor As New Dictionary(Of String, String)
     Private searcher As ManagementObjectSearcher
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     Private Parser As Process
@@ -90,7 +90,6 @@ Public Class FormSetup
     Private _IceCastExited As Boolean
     Private _IPv4Address As String
     Private _KillSource As Boolean
-    Private _OpensimBinPath As String
     Private _regionForm As FormRegionlist
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
@@ -1019,7 +1018,6 @@ Public Class FormSetup
 
             'force update - Force the region to send all clients updates about all objects.
             If Not RPC_Region_Command(Ruuid, "force update") Then BreakPoint.Show("No RPC")
-            If Not RPC_Region_Command(Ruuid, "login enable") Then BreakPoint.Show("No RPC")
 
             If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid).Length = 0 Then
                 PropRegionClass.BootTime(Ruuid) = CInt(seconds)
@@ -1034,6 +1032,8 @@ Public Class FormSetup
 
         Bench.Print("Booted list Start")
 
+        Dim ContinueNeeded As Boolean
+
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
             If PropAborting Then Continue For
@@ -1047,8 +1047,8 @@ Public Class FormSetup
 
             ' if anyone is in home stay alive
             If PropRegionClass.AvatarsIsInGroup(GroupName) Then
-                PokeGroupTimer(RegionUUID)
-                Continue For
+                PokeGroupTimer(GroupName)
+                ContinueNeeded = True
             End If
 
             ' Find any regions touching this region.
@@ -1057,17 +1057,22 @@ Public Class FormSetup
                 status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) Then
                 TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                 ReBoot(RegionUUID)
-                Continue For
+                ContinueNeeded = True
             End If
 
             If PropRegionClass.AvatarIsNearby(GroupName) Then
                 PokeGroupTimer(GroupName)
+                ContinueNeeded = True
+            End If
+
+            If ContinueNeeded Then
                 Continue For
             End If
 
             ' Smart Start Timer
             If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And status = RegionMaker.SIMSTATUSENUM.Booted Then
                 Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
+
                 If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
 
                     Logger("State Changed to ShuttingDown", GroupName, "Teleport")
@@ -1343,9 +1348,9 @@ Public Class FormSetup
             Create_ShortCut(_myFolder & "\Start.exe")
         End If
 
-        Settings = New MySettings(_myFolder)
-
-        Settings.CurrentDirectory = _myFolder
+        Settings = New MySettings(_myFolder) With {
+            .CurrentDirectory = _myFolder
+        }
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
 
 
@@ -1824,8 +1829,14 @@ Public Class FormSetup
             Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
             Parser.StartInfo.FileName = "php.exe"
             Parser.StartInfo.Arguments = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Search\parser.bat")
-            Parser.StartInfo.CreateNoWindow = True
-            Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            If Debugger.IsAttached Then
+                Parser.StartInfo.CreateNoWindow = False
+                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Else
+                Parser.StartInfo.CreateNoWindow = True
+                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            End If
+
             Try
                 Parser.Start()
             Catch ex As Exception
@@ -2291,7 +2302,7 @@ Public Class FormSetup
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
                     D.Add(Avatar, RegionName)
-                    Visitor.Add(Avatar, RegionName)
+                    If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
                 End If
             Next
 
@@ -2304,7 +2315,7 @@ Public Class FormSetup
                 If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                     PropRegionClass.AvatarCount(RegionUUID) += 1
                     Str += $"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}"
-                    Visitor.Add(Avatar, RegionName)
+                    If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
                 End If
             Next
 
@@ -2565,8 +2576,8 @@ Public Class FormSetup
         ' half hour
         If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
             ScanOpenSimWorld(True)
-            RunParser()
             GetEvents()
+            RunParser()
         End If
 
         ' print hourly marks on console, after boot
@@ -2574,6 +2585,7 @@ Public Class FormSetup
             TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()
             ExpireLogsByAge()
+
             DeleteDirectoryTmp()
         End If
 
