@@ -34,9 +34,6 @@ Module RPC
     End Function
     Public Function RPC_admin_get_agent_list(RegionUUID As String) As AvatarData
 
-        '!!!
-        Return Nothing
-
         Dim ht As Hashtable = New Hashtable From {
            {"password", Settings.MachineID},
            {"region_id", RegionUUID}
