@@ -2298,23 +2298,19 @@ Public Class FormSetup
             For Each NameValue In C
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
-
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     D.Add(Avatar, RegionName)
                     If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
                 End If
             Next
 
-            Dim Str As String = ""
             For Each NameValue In C
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
-
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
                 If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                     PropRegionClass.AvatarCount(RegionUUID) += 1
-                    Str += $"{Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}"
                     If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
                 End If
             Next
