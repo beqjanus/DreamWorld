@@ -119,8 +119,11 @@ Public Class LoadIni
     ''' </summary>
     ''' <param name="file">Path to region ini file</param>
     Private Sub CheckINI()
+
         Dim c As Integer
         Dim RepairedLine As String = ""
+        If Not File.Exists(_filename) Then Return ' bug 39914812
+
         Using Reader As New System.IO.StreamReader(_filename)
             While Not Reader.EndOfStream
                 Dim line As String = Reader.ReadLine
