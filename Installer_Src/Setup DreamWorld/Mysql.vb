@@ -17,7 +17,7 @@ Public Module MysqlInterface
     Private _IsRunning As Boolean
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
-
+    Private EstateConnection As MySqlConnection
     Sub New()
         'nothing
     End Sub
@@ -301,12 +301,16 @@ Public Module MysqlInterface
     Public Function DeleteOpensimEstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0
+        If EstateConnection Is Nothing Then
+            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+            EstateConnection.Open()
+        End If
 
         Try
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
+            Using EstateConnection
+                EstateConnection.Open()
                 Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     cmd.ExecuteNonQuery()
                 End Using
@@ -377,12 +381,14 @@ Public Module MysqlInterface
     Public Function EstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0
-
+        If EstateConnection Is Nothing Then
+            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+            EstateConnection.Open()
+        End If
         Try
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
+            Using EstateConnection
                 Dim stm = "select EstateID from opensim.estate_map where RegionID=@UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
@@ -408,12 +414,14 @@ Public Module MysqlInterface
 
         Dim name As String = ""
         Dim Val As String = ""
-
+        If EstateConnection Is Nothing Then
+            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+            EstateConnection.Open()
+        End If
         Try
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
+            Using EstateConnection
                 Dim stm = "Select EstateID from estate_map where regionid = @UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
@@ -427,7 +435,7 @@ Public Module MysqlInterface
                 End Using
 
                 Dim stm1 = "Select EstateName from estate_settings where EstateID = @ID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
+                Using cmd As MySqlCommand = New MySqlCommand(stm1, EstateConnection)
                     cmd.Parameters.AddWithValue("@ID", Val)
                     Using reader2 As MySqlDataReader = cmd.ExecuteReader()
                         If reader2.Read() Then
