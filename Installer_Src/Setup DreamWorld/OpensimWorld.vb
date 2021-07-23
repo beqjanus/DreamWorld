@@ -48,24 +48,26 @@ Module OpensimWorld
 
         ' Create a New 'HttpWebRequest' Object to the mentioned URL.
         Dim myHttpWebRequest As HttpWebRequest = CType(WebRequest.Create(URL), HttpWebRequest)
-        Dim outputData As String
+        Dim outputData As String = ""
         ' Assign the response object of 'HttpWebRequest' to a 'HttpWebResponse' variable.
-        Dim myHttpWebResponse As HttpWebResponse = CType(myHttpWebRequest.GetResponse(), HttpWebResponse)
-        'Debug.Print($"{vbCrLf}The HttpHeaders are {vbCrLf}Name {0}", myHttpWebRequest.Headers)
-        ' Print the HTML contents of the page to the console.
-        Using streamResponse As Stream = myHttpWebResponse.GetResponseStream()
-            Using streamRead As StreamReader = New StreamReader(streamResponse)
-                Dim readBuff As Char() = New Char(255) {}
-                Dim count As Integer = streamRead.Read(readBuff, 0, 256)
-                outputData = New String(readBuff, 0, count)
-                While count > 0
-                    count = streamRead.Read(readBuff, 0, 256)
-                End While
+        Try
+            Using myHttpWebResponse As HttpWebResponse = CType(myHttpWebRequest.GetResponse(), HttpWebResponse)
+                'Debug.Print($"{vbCrLf}The HttpHeaders are {vbCrLf}Name {0}", myHttpWebRequest.Headers)
+                ' Print the HTML contents of the page to the console.
+                Using streamResponse As Stream = myHttpWebResponse.GetResponseStream()
+                    Using streamRead As New StreamReader(streamResponse)
+                        Dim readBuff As Char() = New Char(255) {}
+                        Dim count As Integer = streamRead.Read(readBuff, 0, 256)
+                        outputData = New String(readBuff, 0, count)
+                        While count > 0
+                            count = streamRead.Read(readBuff, 0, 256)
+                        End While
+                    End Using
+                End Using
             End Using
-        End Using
-        'Release the HttpWebResponse Resource.
+        Catch
+        End Try
 
-        myHttpWebResponse.Close()
         If outputData = "OK" Then Return 1
         If outputData = "DISABLE" Then Return -1
         Return 0
