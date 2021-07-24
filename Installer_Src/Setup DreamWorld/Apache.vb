@@ -12,9 +12,8 @@ Module Apache
     Private WithEvents ApacheProcess As New Process()
     Private _ApacheCrashCounter As Integer
     Private _ApacheExited As Boolean
-    Private _ApacheProcessID As Integer
     Private _ApacheUninstalling As Boolean
-    Private _MysqlUninstalling As Boolean
+
 
 #Region "Properties"
 

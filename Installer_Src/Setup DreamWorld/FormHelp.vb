@@ -88,7 +88,6 @@ Public Class FormHelp
         Me.Close()
     End Sub
 
-
     Private Sub HomeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HomeToolStripMenuItem.Click
         Dim webAddress As String = "https://outworldz.com"
         Try
@@ -122,8 +121,6 @@ Public Class FormHelp
         End Try
 
     End Sub
-
-
 
 #End Region
 

@@ -111,7 +111,6 @@ Public Class FormRegion
 
     End Sub
 
-
 #End Region
 
 #Region "ScreenSize"
@@ -730,7 +729,6 @@ Public Class FormRegion
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
-
         FormSetup.PropChangedRegionSettings = True
         Dim message = RegionValidate()
         If Len(message) > 0 Then
@@ -822,7 +820,6 @@ Public Class FormRegion
 
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
-
 
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
@@ -1244,7 +1241,6 @@ Public Class FormRegion
             Map = "Best"
         End If
 
-
         PropRegionClass.MapType(RegionUUID) = Map
 
         'Case "" : Physics_Default.Checked = True
@@ -1431,6 +1427,10 @@ Public Class FormRegion
 
 #Region "Scripting"
 
+    Private Sub AboveNormal_CheckedChanged(sender As Object, e As EventArgs) Handles AboveNormal.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
     Private Sub APIKey_TextChanged(sender As Object, e As EventArgs) Handles APIKey.TextChanged
 
         If Initted1 Then Changed1 = True
@@ -1442,6 +1442,78 @@ Public Class FormRegion
         HelpManual("Region")
     End Sub
 
+    Private Sub BelowNormal_CheckedChanged(sender As Object, e As EventArgs) Handles BelowNormal.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core10Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core10Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core11Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core11Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core12Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core12Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core13Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core13Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core14Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core14Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core15Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core15Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core16Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core16Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core1Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core1Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core2Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core2Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core3Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core3Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core4Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core4Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core5Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core5Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core6Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core6Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core7Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core7Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core8Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core8Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Core9Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core9Button.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub High_CheckedChanged(sender As Object, e As EventArgs) Handles High.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
     Private Sub Hyperica_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Hyperica.LinkClicked
         Dim webAddress As String = "https://hyperica.com"
         Try
@@ -1451,12 +1523,36 @@ Public Class FormRegion
         End Try
     End Sub
 
+    Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
     Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MapsToolStripMenuItem.Click
         HelpManual("Map Overrides")
     End Sub
 
     Private Sub ModulesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ModulesToolStripMenuItem.Click
         HelpManual("Module Overrides")
+    End Sub
+
+    Private Sub Normal_CheckedChanged(sender As Object, e As EventArgs) Handles Normal.CheckedChanged
+        If Initted1 Then Changed1 = True
     End Sub
 
     Private Sub Opensimworld_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles Opensimworld.LinkClicked
@@ -1564,6 +1660,10 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
+    Private Sub RealTime_CheckedChanged(sender As Object, e As EventArgs) Handles RealTime.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
     Private Sub RegionPort_TextChanged(sender As Object, e As EventArgs) Handles RegionPort.TextChanged
 
     End Sub
@@ -1591,113 +1691,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
-
-    Private Sub RealTime_CheckedChanged(sender As Object, e As EventArgs) Handles RealTime.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub High_CheckedChanged(sender As Object, e As EventArgs) Handles High.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub AboveNormal_CheckedChanged(sender As Object, e As EventArgs) Handles AboveNormal.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Normal_CheckedChanged(sender As Object, e As EventArgs) Handles Normal.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub BelowNormal_CheckedChanged(sender As Object, e As EventArgs) Handles BelowNormal.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core1Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core1Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core2Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core2Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core3Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core3Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core4Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core4Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core5Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core5Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core6Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core6Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core7Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core7Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core8Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core8Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core9Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core9Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core10Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core10Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core11Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core11Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core12Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core12Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core13Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core13Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core14Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core14Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core15Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core15Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Core16Button_CheckedChanged(sender As Object, e As EventArgs) Handles Core16Button.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-
-
 
 #End Region
 

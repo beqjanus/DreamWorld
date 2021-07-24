@@ -365,17 +365,6 @@ Module FileStuff
 
 #End Region
 
-    Private Sub CleanPDB()
-
-        If Not Debugger.IsAttached Then
-            Dim pdbs As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath, "*.pdb")
-            For Each localname As String In pdbs
-                Application.DoEvents()
-                DeleteFile(localname)
-            Next
-        End If
-
-    End Sub
     Private Sub CleanDLLs()
 
         If Not Debugger.IsAttached Then
@@ -388,6 +377,18 @@ Module FileStuff
                 If Not CompareDLLignoreCase(newlocaldllname, dlls) Then
                     DeleteFile(localdllname)
                 End If
+            Next
+        End If
+
+    End Sub
+
+    Private Sub CleanPDB()
+
+        If Not Debugger.IsAttached Then
+            Dim pdbs As List(Of String) = GetFilesRecursive(Settings.OpensimBinPath, "*.pdb")
+            For Each localname As String In pdbs
+                Application.DoEvents()
+                DeleteFile(localname)
             Next
         End If
 

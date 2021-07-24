@@ -24,7 +24,6 @@
         End Using
     End Sub
 
-
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         DialogResult = DialogResult.OK
     End Sub
@@ -36,4 +35,5 @@
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         DialogResult = DialogResult.Yes
     End Sub
+
 End Class

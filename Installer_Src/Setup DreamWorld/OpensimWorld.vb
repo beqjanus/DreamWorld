@@ -3,7 +3,6 @@ Imports System.Net
 
 Module OpensimWorld
 
-
     Public Sub ScanOpenSimWorld(Force As Boolean)
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids

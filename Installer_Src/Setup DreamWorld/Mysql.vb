@@ -18,6 +18,7 @@ Public Module MysqlInterface
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
     Private EstateConnection As MySqlConnection
+
     Sub New()
         'nothing
     End Sub
@@ -73,7 +74,7 @@ Public Module MysqlInterface
         MakeMysql()
 
         MySQLIcon(False)
-        ' Start MySql in background.        
+        ' Start MySql in background.
 
         ' SAVE INI file
         Dim INI = New LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#", System.Text.Encoding.ASCII)
@@ -915,10 +916,53 @@ Public Module MysqlInterface
                     BreakPoint.Show(ex.Message)
                 End Try
             End If
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
+
+    End Sub
+
+    Public Sub SetupLocalSearch()
+
+        If Settings.ServerType <> "Robust" Then Return
+
+        ' modify this to migrate search database upwards a rev
+        If Not Settings.SearchMigration = 3 Then
+
+            MysqlInterface.DeleteSearchDatabase()
+
+            TextPrint(My.Resources.Setup_search)
+            Dim pi As ProcessStartInfo = New ProcessStartInfo()
+
+            FileIO.FileSystem.CurrentDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin")
+            pi.FileName = "Create_OsSearch.bat"
+            pi.UseShellExecute = True
+            pi.CreateNoWindow = False
+            pi.WindowStyle = ProcessWindowStyle.Hidden
+            Using ProcessMysql As Process = New Process With {
+                    .StartInfo = pi
+                }
+
+                Try
+                    ProcessMysql.Start()
+                    ProcessMysql.WaitForExit()
+                Catch ex As InvalidOperationException
+                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                    Return
+                Catch ex As System.ComponentModel.Win32Exception
+                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
+                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                    Return
+                End Try
+            End Using
+
+            FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+
+            Settings.SearchMigration = 3
+            Settings.SaveSettings()
+
+        End If
 
     End Sub
 
@@ -971,70 +1015,6 @@ Public Module MysqlInterface
                 Return
             End Try
         End Using
-
-    End Sub
-    Private Sub DeleteSearchDatabase()
-
-        If Not IsMySqlRunning() Then Return
-
-        Try
-            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-                MysqlConn.Open()
-                Dim stm = "drop database ossearch"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-                    Try
-                        cmd.ExecuteNonQuery()
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                    End Try
-                End Using
-            End Using
-        Catch
-        End Try
-
-    End Sub
-
-    Public Sub SetupLocalSearch()
-
-        If Settings.ServerType <> "Robust" Then Return
-
-        ' modify this to migrate search database upwards a rev
-        If Not Settings.SearchMigration = 3 Then
-
-            MysqlInterface.DeleteSearchDatabase()
-
-            TextPrint(My.Resources.Setup_search)
-            Dim pi As ProcessStartInfo = New ProcessStartInfo()
-
-            FileIO.FileSystem.CurrentDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin")
-            pi.FileName = "Create_OsSearch.bat"
-            pi.UseShellExecute = True
-            pi.CreateNoWindow = False
-            pi.WindowStyle = ProcessWindowStyle.Hidden
-            Using ProcessMysql As Process = New Process With {
-                    .StartInfo = pi
-                }
-
-                Try
-                    ProcessMysql.Start()
-                    ProcessMysql.WaitForExit()
-                Catch ex As InvalidOperationException
-                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
-                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                    Return
-                Catch ex As System.ComponentModel.Win32Exception
-                    ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
-                    FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                    Return
-                End Try
-            End Using
-
-            FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-
-            Settings.SearchMigration = 3
-            Settings.SaveSettings()
-
-        End If
 
     End Sub
 
@@ -1114,6 +1094,27 @@ Public Module MysqlInterface
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub DeleteSearchDatabase()
+
+        If Not IsMySqlRunning() Then Return
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "drop database ossearch"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    Try
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+                End Using
+            End Using
+        Catch
         End Try
 
     End Sub
@@ -1252,7 +1253,5 @@ Public Module MysqlInterface
     End Sub
 
 #End Region
-
-
 
 End Module

@@ -5,11 +5,11 @@
 
 #End Region
 
-Imports IniParser
-Imports IniParser.Model
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
+Imports IniParser
+Imports IniParser.Model
 
 Public Class LoadIni
 

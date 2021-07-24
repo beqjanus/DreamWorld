@@ -7,9 +7,8 @@
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
-Imports System
-Imports System.Collections.Generic
-Imports System.Linq
+
+
 
 Public Class PRIEnum
 
@@ -21,7 +20,9 @@ Public Class PRIEnum
 End Class
 
 Module SmartStart
+
     Private ReadOnly Sleeping As New List(Of String)
+
 #Region "SmartBegin"
 
     ''' <summary>
@@ -49,6 +50,7 @@ Module SmartStart
         Return True
 
     End Function
+
     Public Function WaitForBooting(RegionUUID As String) As Boolean
 
         Dim c As Integer = 60 ' 1 minutes
@@ -67,6 +69,7 @@ Module SmartStart
         Return True
 
     End Function
+
     Public Function SmartStartParse(post As String) As String
 
         ' Smart Start AutoStart Region mode
@@ -565,7 +568,6 @@ Module SmartStart
                     BreakPoint.Show(ex.Message)
                 End Try
 
-
                 If Not SetWindowTextCall(BootProcess, GroupName) Then
                     ' Try again
                     If Not SetWindowTextCall(BootProcess, GroupName) Then
@@ -600,7 +602,6 @@ Module SmartStart
     End Function
 
     Public Sub ReBoot(RegionUUID As String)
-
 
         If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Or
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then

@@ -36,6 +36,15 @@
 
     End Sub
 
+    Private Sub LocalButton_CheckedChanged(sender As Object, e As EventArgs) Handles LocalButton.CheckedChanged
+
+        If LocalButton.Checked Then
+            Settings.SearchOptions = "Local"
+            Settings.SaveSettings()
+        End If
+
+    End Sub
+
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles HypericaRadioButton.CheckedChanged
 
         If HypericaRadioButton.Checked Then
@@ -61,16 +70,6 @@
             Settings.SaveSettings()
         End If
 
-
     End Sub
 
-    Private Sub LocalButton_CheckedChanged(sender As Object, e As EventArgs) Handles LocalButton.CheckedChanged
-
-        If LocalButton.Checked Then
-            Settings.SearchOptions = "Local"
-            Settings.SaveSettings()
-        End If
-
-
-    End Sub
 End Class

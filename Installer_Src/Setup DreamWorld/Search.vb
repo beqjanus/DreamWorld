@@ -4,7 +4,7 @@
 
     End Sub
 
-    Private Shared Function levenshtein(a As String, b As String) As Integer
+    Private Shared Function Levenshtein(a As String, b As String) As Integer
 
         Dim i As Integer
         Dim j As Integer
@@ -15,12 +15,12 @@
         Dim min3 As Integer
 
         If Len(a) = 0 Then
-            levenshtein = Len(b)
+            Levenshtein = Len(b)
             Exit Function
         End If
 
         If Len(b) = 0 Then
-            levenshtein = Len(a)
+            Levenshtein = Len(a)
             Exit Function
         End If
 
@@ -61,7 +61,7 @@
             Next
         Next
 
-        levenshtein = d(Len(a), Len(b))
+        Levenshtein = d(Len(a), Len(b))
 
     End Function
 

@@ -5,14 +5,12 @@
 
 #End Region
 
-
 ' TODO New terrain commands
 '   set terrain heights <corner> <min> <max> [<x>] [<y>] - Sets the terrain texture heights on corner #<corner> to <min>/<max>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wildcard that coordinate. Corner # SW = 0, NW = 1, SE = 2, NE = 3.
 '   set terrain texture <number> <uuid> [<x>] [<y>] - Sets the terrain <number> to <uuid>, if <x> Or <y> are specified, it will only set it on regions with a matching coordinate. Specify -1 in <x> Or <y> to wild card that coordinate.
 
 Imports System.IO
 Imports System.Text.RegularExpressions
-Imports System.Threading
 Imports System.Xml
 
 Public Class FormSmartStart
@@ -1343,6 +1341,7 @@ Public Class FormSmartStart
 #End Region
 
 #Region "SmartStart"
+
     Private Sub SetSetting(check As CheckBox)
         check.Checked = True
     End Sub

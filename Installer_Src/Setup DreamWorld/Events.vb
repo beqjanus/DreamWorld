@@ -3,6 +3,23 @@ Imports System.Net
 Imports MySql.Data.MySqlClient
 
 Module Events
+
+    Public Sub DeleteEvents()
+
+        Try
+            Using osconnection = New MySqlConnection(Settings.RobustMysqlConnection())
+                osconnection.Open()
+                Dim stm = "delete from ossearch.events"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
+                    Dim rowsdeleted = cmd.ExecuteNonQuery()
+                    Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Globalization.CultureInfo.InvariantCulture))
+                End Using
+            End Using
+        Catch
+        End Try
+
+    End Sub
+
     Public Sub GetEvents()
 
         If Settings.SearchOptions <> "Local" Then Return
@@ -70,29 +87,10 @@ Module Events
                 End Using ' client
 
             End Using ' connection
-
         Catch ex As Exception
             ErrorLog(ex.Message)
         End Try
 
     End Sub
-
-
-    Public Sub DeleteEvents()
-
-        Try
-            Using osconnection = New MySqlConnection(Settings.RobustMysqlConnection())
-                osconnection.Open()
-                Dim stm = "delete from ossearch.events"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
-                    Dim rowsdeleted = cmd.ExecuteNonQuery()
-                    Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Globalization.CultureInfo.InvariantCulture))
-                End Using
-            End Using
-        Catch
-        End Try
-
-    End Sub
-
 
 End Module

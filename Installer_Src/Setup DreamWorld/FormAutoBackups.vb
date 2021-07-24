@@ -249,15 +249,15 @@ Public Class FormAutoBackups
 
     End Sub
 
-    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
-        HelpManual("Backup")
-    End Sub
-
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles PictureBox2.Click
 
         Dim f = Settings.BackupFolder.Replace("/", "\")
         System.Diagnostics.Process.Start("explorer.exe", $"/open, {f}")
 
+    End Sub
+
+    Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
+        HelpManual("Backup")
     End Sub
 
 #End Region

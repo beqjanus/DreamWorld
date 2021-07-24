@@ -1,6 +1,11 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.56
+Search in Region list in non-English Languages blanked out all regions.  As "Search" <> "Suche". Fixed.
+Cleanup and reorganize by running it through the CodeMaid extension
+Opensim recompiled to not spam the bin region with Map-* maptiles which are just for debug.
+
 V4.55
 Important Fix for Default Hypergrid region - made it hard to visit a HG System!
 Several potential crashes fixed in OpensimWorld and other places.

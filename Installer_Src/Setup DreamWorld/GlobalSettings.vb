@@ -14,7 +14,7 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "4.55"
+    Public Const _MyVersion As String = "4.56"
     Public Const _SimVersion As String = "#2100f41067d2ec5 add other animation asset"
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
@@ -248,6 +248,7 @@ Module GlobalSettings
         Return statestring
 
     End Function
+
     Public Sub PokeGroupTimer(GroupName As String)
 
         For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
@@ -255,7 +256,6 @@ Module GlobalSettings
         Next
 
     End Sub
-
 
     Public Sub PokeRegionTimer(UUID As String)
 

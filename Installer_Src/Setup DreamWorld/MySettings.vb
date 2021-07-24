@@ -6,7 +6,6 @@
 #End Region
 
 Imports System.IO
-Imports Nini
 
 Public Class MySettings
 
@@ -24,27 +23,25 @@ Public Class MySettings
     Private _PublicIP As String
     Private _RamUsed As Double
     Private _Settings As LoadIni
-    Private _WANIP As String
-    Dim myINI As String
 
 #Region "New"
 
     Public Sub New(Folder As String)
 
-        myINI = Folder + "\OutworldzFiles\Settings.ini"
-        If File.Exists(myINI) Then
-            _Settings = New LoadIni(myINI, ";", System.Text.Encoding.UTF8)
+        Dim _myINI = Folder + "\OutworldzFiles\Settings.ini"
+        If File.Exists(_myINI) Then
+            Settings = New LoadIni(_myINI, ";", System.Text.Encoding.UTF8)
         Else
             Dim contents = "[Data]" + vbCrLf
             Try
-                Using outputFile As New StreamWriter(myINI, False)
+                Using outputFile As New StreamWriter(_myINI, False)
                     outputFile.WriteLine(contents)
                 End Using
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
 
-            _Settings = New LoadIni(myINI, ";", System.Text.Encoding.UTF8)
+            Settings = New LoadIni(_myINI, ";", System.Text.Encoding.UTF8)
 
         End If
 
@@ -68,7 +65,7 @@ Public Class MySettings
 
     Public Function GetMySetting(key As String, Optional D As String = "") As String
 
-        Return CStr(_Settings.GetIni("Data", key, D, "String"))
+        Return CStr(Settings.GetIni("Data", key, D, "String"))
 
     End Function
 
@@ -88,13 +85,13 @@ Public Class MySettings
 
     Public Sub SaveSettings()
 
-        _Settings.SaveINI()
+        Settings.SaveINI()
 
     End Sub
 
     Public Sub SetMySetting(key As String, value As String)
 
-        _Settings.SetIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
+        Settings.SetIni("Data", key, value.ToString(Globalization.CultureInfo.InvariantCulture))
 
     End Sub
 
@@ -568,7 +565,7 @@ Public Class MySettings
             Dim var = GetMySetting("CMS", DreamGrid)
             If var = "Joomla" Then var = JOpensim
             Dim installed As Boolean = Joomla.IsjOpensimInstalled()
-            If (Not installed) & Settings.SearchOptions = JOpensim Then
+            If (Not installed) & GlobalSettings.Settings.SearchOptions = JOpensim Then
                 Return DreamGrid
             End If
             Return var
@@ -706,6 +703,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("Density", CStr(Value))
+        End Set
+    End Property
+
+    Public Property DeregisteredOnce() As Boolean
+        Get
+            Return CType(GetMySetting("DeregisteredOnce", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("DeregisteredOnce", CStr(Value))
         End Set
     End Property
 
@@ -931,16 +937,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("GLSandSecret", Value)
-        End Set
-    End Property
-
-
-    Public Property DeregisteredOnce() As Boolean
-        Get
-            Return CType(GetMySetting("DeregisteredOnce", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("DeregisteredOnce", CStr(Value))
         End Set
     End Property
 
@@ -1170,7 +1166,7 @@ Public Class MySettings
 
     Public Property MapCenterX() As Integer
         Get
-            If Settings.ServerType = RobustServerName Then
+            If GlobalSettings.Settings.ServerType = RobustServerName Then
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
                 Dim Center As String = CStr(PropRegionClass.CoordX(RegionUUID))
                 Return CInt("0" & GetMySetting("MapCenterX", Center))
@@ -1186,7 +1182,7 @@ Public Class MySettings
 
     Public Property MapCenterY() As Integer
         Get
-            If Settings.ServerType = RobustServerName Then
+            If GlobalSettings.Settings.ServerType = RobustServerName Then
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(WelcomeRegion)
                 Dim Center As String = CStr(PropRegionClass.CoordY(RegionUUID))
                 Return CInt("0" & GetMySetting("MapCenterY", Center))
@@ -1683,6 +1679,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property Settings As LoadIni
+        Get
+            Return _Settings
+        End Get
+        Set(value As LoadIni)
+            _Settings = value
+        End Set
+    End Property
+
     'ShowConsoleStats
     Public Property ShowConsoleStats() As String
         Get
@@ -2039,13 +2044,6 @@ Public Class MySettings
     End Property
 
     Public Property WANIP() As String
-        Get
-            Return _WANIP
-        End Get
-        Set
-            _WANIP = Value
-        End Set
-    End Property
 
     Public Property WelcomeMessage() As String
         Get

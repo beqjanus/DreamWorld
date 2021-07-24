@@ -9,19 +9,6 @@ Imports Nwc.XmlRpc
 
 Module RPC
 
-    Public Class AvatarData
-
-        Public AvatarName As String
-        Public X As Integer
-        Public Y As Integer
-
-    End Class
-
-    'http://opensimulator.org/wiki/RemoteAdmin
-
-    ' known web interfaces
-    'http://opensimulator.org/wiki/Known_Web_Interfaces_within_OpenSim
-
     Public Function RPC_admin_dialog(agentId As String, text As String) As Boolean
 
         Dim RegionUUID As String = GetRegionFromAgentID(agentId)
@@ -32,15 +19,7 @@ Module RPC
         Return SendRPC(RegionUUID, "admin_broadcast", ht)
 
     End Function
-    Public Function RPC_admin_get_agent_list(RegionUUID As String) As AvatarData
 
-        Dim ht As Hashtable = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"region_id", RegionUUID}
-        }
-        Return GetRPCAvatarPos(RegionUUID, "admin_get_agent_list", ht)
-
-    End Function
     Public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
 
         Dim ht As Hashtable = New Hashtable From {
@@ -51,6 +30,19 @@ Module RPC
 
     End Function
 
+    ' known web interfaces
+    'http://opensimulator.org/wiki/Known_Web_Interfaces_within_OpenSim
+    Public Function RPC_admin_get_agent_list(RegionUUID As String) As AvatarData
+
+        Dim ht As Hashtable = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"region_id", RegionUUID}
+        }
+        Return GetRPCAvatarPos(RegionUUID, "admin_get_agent_list", ht)
+
+    End Function
+
+    'http://opensimulator.org/wiki/RemoteAdmin
     Public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
 
         Dim ht As Hashtable = New Hashtable From {
@@ -60,6 +52,7 @@ Module RPC
         Return GetRPC(RegionUUID, "admin_get_avatar_count", ht)
 
     End Function
+
     Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
         Dim ht As Hashtable = New Hashtable From {
@@ -139,7 +132,6 @@ Module RPC
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
-
         Dim parameters = New List(Of Hashtable) From {ht}
         Dim RPC = New XmlRpcRequest(cmd, parameters)
         Try
@@ -167,7 +159,6 @@ Module RPC
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
-
 
         Dim parameters = New List(Of Hashtable) From {ht}
         Dim RPC = New XmlRpcRequest(cmd, parameters)
@@ -220,5 +211,13 @@ Module RPC
         Return False
 
     End Function
+
+    Public Class AvatarData
+
+        Public AvatarName As String
+        Public X As Integer
+        Public Y As Integer
+
+    End Class
 
 End Module
