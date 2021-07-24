@@ -215,8 +215,9 @@ namespace OpenSim.Region.CoreModules.World.Warp3DMap
 
             Bitmap tile = GenImage();
             // image may be reloaded elsewhere, so no compression format
-            string filename = "MAP-" + m_scene.RegionInfo.RegionID.ToString() + ".png";
-            tile.Save(filename, ImageFormat.Png);
+            // string filename = "MAP-" + m_scene.RegionInfo.RegionID.ToString() + ".png";
+            // http://opensimulator.org/mantis/view.php?id=8522
+            // tile.Save(filename, ImageFormat.Png);
             m_primMesher = null;
             return tile;
         }
