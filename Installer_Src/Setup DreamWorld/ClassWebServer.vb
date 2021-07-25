@@ -182,7 +182,6 @@ Public Class NetServer
 
         running = False
 
-
     End Sub
 
 #End Region

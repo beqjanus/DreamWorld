@@ -4,13 +4,11 @@
 
 #End Region
 
-
 'Option Strict On
 
 Imports System.Globalization
 Imports System.IO
 Imports System.Management
-Imports System.Net
 Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
@@ -21,11 +19,6 @@ Public Class FormSetup
     Public ReadOnly MyRAMCollection As New List(Of Double)
 
 #Region "Resize"
-    Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
-        ScreenPosition1.SaveXY(Me.Left, Me.Top)
-        ScreenPosition1.SaveHW(Me.Height, Me.Width)
-    End Sub
-
 
     Public Property ScreenPosition1 As ScreenPos
         Get
@@ -35,6 +28,11 @@ Public Class FormSetup
             ScreenPosition = value
         End Set
     End Property
+
+    Private Sub Resize_page(ByVal sender As Object, ByVal e As EventArgs)
+        ScreenPosition1.SaveXY(Me.Left, Me.Top)
+        ScreenPosition1.SaveHW(Me.Height, Me.Width)
+    End Sub
 
     ''' <summary>Sets H,W and pos of screen on load</summary>
     Private Sub SetScreen()
@@ -67,15 +65,12 @@ Public Class FormSetup
 
     End Sub
 
-
 #End Region
 
 #Region "Private Declarations"
 
-    Private searcher As ManagementObjectSearcher
-
+    Public Visitor As New Dictionary(Of String, String)
     Private ReadOnly _exitList As New Dictionary(Of String, String)
-    Private Parser As Process
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
     Private ReadOnly D As New Dictionary(Of String, String)
@@ -90,19 +85,16 @@ Public Class FormSetup
     Private _IceCastExited As Boolean
     Private _IPv4Address As String
     Private _KillSource As Boolean
-    Private _OpensimBinPath As String
     Private _regionForm As FormRegionlist
     Private _RestartApache As Boolean
     Private _RestartMysql As Boolean
     Private _speed As Double = 50
-
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
-#Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
     Private Graphs As New FormGraphs
-#Enable Warning CA2213 ' Disposable fields should be disposed
     Private ScreenPosition As ScreenPos
+    Private searcher As ManagementObjectSearcher
 
 #End Region
 
@@ -289,7 +281,6 @@ Public Class FormSetup
         End Set
     End Property
 
-
     Public Property Searcher1 As ManagementObjectSearcher
         Get
             Return Searcher2
@@ -365,7 +356,16 @@ Public Class FormSetup
 
     End Sub
 
+    Public Shared Sub StopGroup(Groupname As String)
 
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(Groupname)
+            Logger(My.Resources.Info_word, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Teleport")
+            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
+            PokeRegionTimer(RegionUUID)
+        Next
+        Logger("Info", Groupname & " Group is now stopped", "Teleport")
+
+    End Sub
 
     ''' <summary>Event handler for Icecast</summary>
     Public Sub IceCastExited(ByVal sender As Object, ByVal e As EventArgs)
@@ -398,8 +398,6 @@ Public Class FormSetup
             Dim response = MsgBox(My.Resources.Avatars_in_World, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Agents_word)
             If response = vbNo Then Return False
         End If
-
-        If Parser IsNot Nothing Then Parser.Kill()
 
         AvatarLabel.Text = ""
         PropAborting = True
@@ -539,21 +537,10 @@ Public Class FormSetup
 
     End Sub
 
-
-    Public Shared Sub StopGroup(Groupname As String)
-
-        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(Groupname)
-            Logger(My.Resources.Info_word, PropRegionClass.RegionName(RegionUUID) & " is Stopped", "Teleport")
-            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped
-            PokeRegionTimer(RegionUUID)
-        Next
-        Logger("Info", Groupname & " Group is now stopped", "Teleport")
-
-    End Sub
-
 #End Region
 
 #Region "StartOpensim"
+
     Public Function StartOpensimulator() As Boolean
 
         Bench.Start()
@@ -711,9 +698,11 @@ Public Class FormSetup
         End If
 
         ' create tables in case we need them
-        SetupWordPress()
-        SetupMutelist()
-        SetupLocalSearch()
+        SetupWordPress()    ' in case they want to use WordPress
+        SetupMutelist()     ' old way of doing mutes
+        SetupSimStats()     ' Perl code
+        SetupLocalSearch()  ' local search database
+
         StartApache()
         StartIcecast()
         UploadPhoto()
@@ -1017,7 +1006,6 @@ Public Class FormSetup
 
             'force update - Force the region to send all clients updates about all objects.
             If Not RPC_Region_Command(Ruuid, "force update") Then BreakPoint.Show("No RPC")
-            If Not RPC_Region_Command(Ruuid, "login enable") Then BreakPoint.Show("No RPC")
 
             If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid).Length = 0 Then
                 PropRegionClass.BootTime(Ruuid) = CInt(seconds)
@@ -1032,6 +1020,8 @@ Public Class FormSetup
 
         Bench.Print("Booted list Start")
 
+        Dim ContinueNeeded As Boolean
+
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
             If PropAborting Then Continue For
@@ -1045,27 +1035,32 @@ Public Class FormSetup
 
             ' if anyone is in home stay alive
             If PropRegionClass.AvatarsIsInGroup(GroupName) Then
-                PokeGroupTimer(RegionUUID)
-                Continue For
+                PokeGroupTimer(GroupName)
+                ContinueNeeded = True
             End If
 
             ' Find any regions touching this region.
-            ' add them to the area to stay alive.            
+            ' add them to the area to stay alive.
             If PropRegionClass.AvatarIsNearby(RegionUUID) And (status = RegionMaker.SIMSTATUSENUM.Stopped Or
                 status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) Then
                 TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                 ReBoot(RegionUUID)
-                Continue For
+                ContinueNeeded = True
             End If
 
             If PropRegionClass.AvatarIsNearby(GroupName) Then
                 PokeGroupTimer(GroupName)
+                ContinueNeeded = True
+            End If
+
+            If ContinueNeeded Then
                 Continue For
             End If
 
             ' Smart Start Timer
             If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And status = RegionMaker.SIMSTATUSENUM.Booted Then
                 Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
+
                 If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
 
                     Logger("State Changed to ShuttingDown", GroupName, "Teleport")
@@ -1341,11 +1336,10 @@ Public Class FormSetup
             Create_ShortCut(_myFolder & "\Start.exe")
         End If
 
-        Settings = New MySettings(_myFolder)
-
-        Settings.CurrentDirectory = _myFolder
+        Settings = New MySettings(_myFolder) With {
+            .CurrentDirectory = _myFolder
+        }
         Settings.OpensimBinPath() = _myFolder & "\OutworldzFiles\Opensim\bin\"
-
 
         Log("Startup:", DisplayObjectInfo(Me))
 
@@ -1550,7 +1544,6 @@ Public Class FormSetup
             KeepOnTopToolStripMenuItem.Image = My.Resources.table
         End If
 
-
         TextBox1.BackColor = Me.BackColor
 
         TextBox1.SelectAll()
@@ -1560,7 +1553,6 @@ Public Class FormSetup
         ' this Is a little hack because without this
         ' I've got the first line of my richTB selected anyway.
         TextBox1.SelectionBackColor = TextBox1.BackColor
-
 
         ' initialize the scrolling text box
 
@@ -1684,7 +1676,6 @@ Public Class FormSetup
 
         'Redo all the region ports
         PropRegionClass.UpdateAllRegionPorts()
-
 
         TextPrint(My.Resources.RefreshingOAR)
         ContentOAR = New FormOAR
@@ -1814,16 +1805,23 @@ Public Class FormSetup
 #End Region
 
 #Region "Parser"
+
     Private Sub RunParser()
 
-        If Settings.SearchOptions = "Local" Then Return
+        If Settings.SearchOptions <> "Local" Then Return
         Using Parser As New Process
             Parser.StartInfo.UseShellExecute = True ' so we can redirect streams
             Parser.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\")
             Parser.StartInfo.FileName = "php.exe"
             Parser.StartInfo.Arguments = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\Search\parser.bat")
-            Parser.StartInfo.CreateNoWindow = True
-            Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            If Debugger.IsAttached Then
+                Parser.StartInfo.CreateNoWindow = False
+                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Normal
+            Else
+                Parser.StartInfo.CreateNoWindow = True
+                Parser.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            End If
+
             Try
                 Parser.Start()
             Catch ex As Exception
@@ -1832,10 +1830,10 @@ Public Class FormSetup
         End Using
 
     End Sub
+
 #End Region
 
 #Region "Loopback"
-
 
     Private Shared Sub SetLoopback()
 
@@ -2035,10 +2033,6 @@ Public Class FormSetup
             If Graphs IsNot Nothing Then Graphs.Dispose()
         Catch
         End Try
-        Try
-            If Parser IsNot Nothing Then Parser.Dispose()
-        Catch
-        End Try
 
         If PropWebServer IsNot Nothing Then PropWebServer.StopWebServer()
 
@@ -2059,7 +2053,6 @@ Public Class FormSetup
         ShowRegionform()
 
     End Sub
-
 
     Private Sub RestartDOSboxes()
 
@@ -2285,22 +2278,20 @@ Public Class FormSetup
             For Each NameValue In C
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
-
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($" {Avatar} {My.Resources.Arriving_word} {RegionName}{vbCrLf}")
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     D.Add(Avatar, RegionName)
+                    If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
                 End If
             Next
 
-            Dim Str As String = ""
             For Each NameValue In C
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
-
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
                 If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                     PropRegionClass.AvatarCount(RegionUUID) += 1
-                    Str += $"Avatar {My.Resources.Arriving_word} {RegionName}{vbCrLf}"
+                    If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
                 End If
             Next
 
@@ -2312,6 +2303,9 @@ Public Class FormSetup
                 If Not C.ContainsKey(Avatar) Then
                     TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     E.Add(Avatar)
+                    If Visitor.ContainsKey(Avatar) Then
+                        Visitor.Remove(Avatar)
+                    End If
                 End If
             Next
             For Each F In E
@@ -2544,7 +2538,9 @@ Public Class FormSetup
             Bench.Print("60 second worker")
             BackupThread.RunAllBackups(False) ' run background based on time of day = false
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
+            VisitorCount()
             Bench.Print("60 second work done")
+
         End If
 
         ' Run Search and events once at 5 minute mark
@@ -2556,8 +2552,8 @@ Public Class FormSetup
         ' half hour
         If SecondsTicker Mod 1800 = 0 And SecondsTicker > 0 Then
             ScanOpenSimWorld(True)
-            RunParser()
             GetEvents()
+            RunParser()
         End If
 
         ' print hourly marks on console, after boot
@@ -2565,6 +2561,7 @@ Public Class FormSetup
             TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()
             ExpireLogsByAge()
+
             DeleteDirectoryTmp()
         End If
 
@@ -2725,8 +2722,6 @@ Public Class FormSetup
         ChDir(Settings.CurrentDirectory)
 
     End Sub
-
-
 
     Private Sub ClothingInventoryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClothingInventoryToolStripMenuItem.Click
 
@@ -3224,8 +3219,48 @@ Public Class FormSetup
 
 #Region "Testing"
 
+    Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
+
+        ShowUpdateForm(" latest version.")
+
+    End Sub
+
     Private Sub ConnectToConsoleToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToConsoleToolStripMenuItem.Click
         MysqlConsole()
+    End Sub
+
+    Private Sub ConnectToWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToWebPageToolStripMenuItem.Click
+
+        If PropOpensimIsRunning() Then
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            Else
+                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+                TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
+                TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
+            End If
+        Else
+            If Settings.ApacheEnable Then
+                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Try
+                    Process.Start(webAddress)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            Else
+                TextPrint(My.Resources.Not_Running)
+            End If
+        End If
     End Sub
 
     Private Sub DebugToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DebugToolStripMenuItem1.Click
@@ -3263,7 +3298,55 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub DeleteServiceToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem1.Click
 
+        StopMysql()
+        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            .WindowStyle = ProcessWindowStyle.Hidden,
+            .CreateNoWindow = True,
+            .FileName = win,
+            .Arguments = "delete MySQLDreamGrid"
+        }
+        Using p As New Process
+            p.StartInfo = pi
+            Try
+                p.Start()
+                p.WaitForExit()
+                MySQLIcon(False)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+    End Sub
+
+    Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs)
+
+        ShowUpdateForm("latest version Including beta versions.")
+
+        Return
+
+        If DoStopActions() = False Then Return
+
+        Using PUpdater As Process = New Process()
+
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .WindowStyle = ProcessWindowStyle.Normal,
+                .WorkingDirectory = Settings.CurrentDirectory,
+                .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
+            }
+            PUpdater.StartInfo = pi
+            TextPrint(My.Resources.Do_Not_Interrupt_word)
+            Try
+                PUpdater.Start()
+                End
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+        End
+
+    End Sub
 
     Private Sub G()
 
@@ -3290,108 +3373,16 @@ Public Class FormSetup
         StartApache()
     End Sub
 
-    Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
-        StopApache(True)
-    End Sub
-
-    Private Sub ConnectToWebPageToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ConnectToWebPageToolStripMenuItem.Click
-
-        If PropOpensimIsRunning() Then
-            If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            Else
-                Dim webAddress As String = "http://127.0.0.1:" & Settings.HttpPort
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-                TextPrint($"{My.Resources.User_Name_word}:{Settings.AdminFirst} {Settings.AdminLast}")
-                TextPrint($"{My.Resources.Password_word}:{Settings.Password}")
-            End If
-        Else
-            If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
-                Try
-                    Process.Start(webAddress)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            Else
-                TextPrint(My.Resources.Not_Running)
-            End If
-        End If
-    End Sub
-
-    Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
-        StopMysql()
-    End Sub
-
     Private Sub StartToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StartToolStripMenuItem1.Click
         StartMySQL()
     End Sub
 
-    Private Sub DeleteServiceToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles DeleteServiceToolStripMenuItem1.Click
+    Private Sub StopToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem.Click
+        StopApache(True)
+    End Sub
 
+    Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
         StopMysql()
-        Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-            .WindowStyle = ProcessWindowStyle.Hidden,
-            .CreateNoWindow = True,
-            .FileName = win,
-            .Arguments = "delete MySQLDreamGrid"
-        }
-        Using p As New Process
-            p.StartInfo = pi
-            Try
-                p.Start()
-                p.WaitForExit()
-                MySQLIcon(False)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End Using
-    End Sub
-
-    Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs)
-
-
-        ShowUpdateForm("latest version Including beta versions.")
-
-
-        Return
-
-        If DoStopActions() = False Then Return
-
-        Using PUpdater As Process = New Process()
-
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .WindowStyle = ProcessWindowStyle.Normal,
-                .WorkingDirectory = Settings.CurrentDirectory,
-                .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")
-            }
-            PUpdater.StartInfo = pi
-            TextPrint(My.Resources.Do_Not_Interrupt_word)
-            Try
-                PUpdater.Start()
-                End
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End Using
-        End
-
-    End Sub
-
-    Private Sub CHeckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHeckForUpdatesToolStripMenuItem.Click
-
-        ShowUpdateForm(" latest version.")
-
     End Sub
 
 #End Region

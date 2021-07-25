@@ -5,23 +5,17 @@ use warnings;
 
 use parent 'DBIx::Class::Core';
 
-__PACKAGE__->table("Visitor");
+__PACKAGE__->table("visitor");
 
 __PACKAGE__->add_columns(
-  "location",
-  { data_type => "bigint", is_nullable => 0 },
-  "dateandtime",
-  { data_type => "datetime", is_nullable => 1 },
+	
+	'name',			{ data_type => "nvarchar", is_nullable => 0, size => 255 },
+	'regionname',	{ data_type => "nvarchar", is_nullable => 0, size => 255 },
+	'locationY',	{ data_type => "bigint", is_nullable => 0 },
+	'locationX',	{ data_type => "bigint", is_nullable => 0 },
+	'dateupdated',	{ data_type => "datetime", is_nullable => 0 },
 );
 
-
-sub TO_JSON {
-	my $self = shift;
-	{
-		location 		=> $self->location,
-		dateandtime 	=> $self->dateandtime,
-	}
-}
 
 
 1;

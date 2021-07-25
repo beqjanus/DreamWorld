@@ -1,9 +1,24 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
-V4.53
-Local Search of your grid is available.  You can choose from no Search,m Hyperica ( all grid search) or local.  Of jOpensim is enabled, you can use its search engine.
+V4.56
+Search in Region list in non-English Languages blanked out all regions.  As "Search" <> "Suche". Fixed.
+Cleanup and reorganize by running it through the CodeMaid extension
+Opensim recompiled to not spam the bin region with Map-* maptiles which are just for debug.
 
+V4.55
+Important Fix for Default Hypergrid region - made it hard to visit a HG System!
+Several potential crashes fixed in OpensimWorld and other places.
+
+V4.54
+Smart Boot Regions would shut down too soon. It poked their timer with a UUID instead of by name when an avatar was in it.
+Setting a Region to Smart Boot would not take until Robust (or the grid) was restarted.  Robust will now restart if you set the SS switch.
+AutoBackup view folder added, and also set the initial place for thew backups to Autobackup.
+
+V4.53
+You can Search just your grid if you run Apache.  You can also choose no Search, or DreamGrid's Hyperica search (DreamGrid-wide search, works without needing Apache). if Apache is enabled, you can use jOpensim search.
+
+Allow 16-bit 64K global placement of regions again.  It was changed to 16K in Smart Start. Placement above 16K or 32K may lead to issues.
 
 V4.52
 New grid only - Initial startup timing issue in Process.PID could cause the Robust to not capture the grid owner name.

@@ -360,6 +360,8 @@ Public Class RegionMaker
 
 #Region "Functions"
 
+#Disable Warning CA1822 ' Mark members as static
+
     Public Sub Add_To_Region_Map(RegionUUID As String)
 
         ' add to the global map this entire DOS box
@@ -750,6 +752,31 @@ Public Class RegionMaker
 
     End Function
 
+    Public Sub StopRegion(RegionUUID As String)
+#Enable Warning CA1822 ' Mark members as static
+
+        Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+        If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+            FormSetup.SequentialPause()
+
+            TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
+            ShutDown(RegionUUID)
+
+            ' shut down all regions in the DOS box
+            For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
+            Next
+        Else
+            ' shut down all regions in the DOS box
+            For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+            Next
+        End If
+
+        PropUpdateView = True ' make form refresh
+
+    End Sub
+
     ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     Public Sub UpdateAllRegionPorts()
 
@@ -913,32 +940,6 @@ Public Class RegionMaker
         End Set
     End Property
 
-    Public Property Priority(uuid As String) As String
-        Get
-            If uuid Is Nothing Then Return "Normal"
-            If Bad(uuid) Then Return "Normal"
-            Return RegionList(uuid)._Priority
-        End Get
-        Set(ByVal Value As String)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._Priority = Value
-        End Set
-    End Property
-
-    Public Property Cores(uuid As String) As Integer
-        Get
-            If uuid Is Nothing Then Return 0
-            If Bad(uuid) Then Return 0
-            Return RegionList(uuid)._Cores
-        End Get
-        Set(ByVal Value As Integer)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._Cores = Value
-        End Set
-    End Property
-
     Public Property CoordX(uuid As String) As Integer
         Get
             If uuid Is Nothing Then Return 0
@@ -962,6 +963,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._CoordY = Value
+        End Set
+    End Property
+
+    Public Property Cores(uuid As String) As Integer
+        Get
+            If uuid Is Nothing Then Return 0
+            If Bad(uuid) Then Return 0
+            Return RegionList(uuid)._Cores
+        End Get
+        Set(ByVal Value As Integer)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Cores = Value
         End Set
     End Property
 
@@ -1061,6 +1075,19 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._PhysicalPrimMax = Value
+        End Set
+    End Property
+
+    Public Property Priority(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return "Normal"
+            If Bad(uuid) Then Return "Normal"
+            Return RegionList(uuid)._Priority
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._Priority = Value
         End Set
     End Property
 
@@ -2331,7 +2358,6 @@ Public Class RegionMaker
             '============== Region.ini =====================
             ' Region.ini in Region Folder specific to this region
 
-
             For Each uuid In PropRegionClass.RegionUuidListByName(Group)
 
                 INI = New LoadIni(RegionIniFilePath(uuid), ";", System.Text.Encoding.UTF8)
@@ -2444,7 +2470,6 @@ Public Class RegionMaker
             Next
 
             Settings.SaveSettings()
-
         Catch ex As Exception
             ErrorLog(ex.Message)
             Return True
@@ -2483,40 +2508,33 @@ Public Class RegionMaker
         ' RegionSnapShot
         INI.SetIni("DataSnapshot", "index_sims", "True")
         If Settings.CMS = JOpensim And Settings.SearchOptions = JOpensim Then
-            INI.SetIni("DataSnapshot", "data_services", "")
-        ElseIf Settings.SearchOptions = Hyperica Then
-            INI.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
-        ElseIf Settings.SearchOptions = "Local" Then
-            INI.SetIni("DataSnapshot", "data_services", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/register.php")
-        Else
-            INI.SetIni("DataSnapshot", "data_services", "")
-        End If
 
-        If Settings.CMS = JOpensim Then
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll.bak"),
-                         IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
-        Else
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
-        End If
-
-        If Settings.SearchOptions = JOpensim Then
+            INI.SetIni("DataSnapshot", "data_services", "")
             Dim SearchURL = "http://" & Settings.PublicIP & ":" & Settings.ApachePort &
                 "/jOpensim/index.php?option=com_opensim&view=interface"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll.bak"),
                          IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+
         ElseIf Settings.SearchOptions = Hyperica Then
+
+            INI.SetIni("DataSnapshot", "data_services", "http://hyperica.com/Search/register.php")
             Dim SearchURL = "http://hyperica.com/Search/query.php"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+
         ElseIf Settings.SearchOptions = "Local" Then
+
+            INI.SetIni("DataSnapshot", "data_services", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/register.php")
             Dim SearchURL = $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/query.php"
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
         Else
+            INI.SetIni("DataSnapshot", "data_services", "")
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
             INI.SetIni("Search", "SearchURL", "")
             INI.SetIni("LoginService", "SearchURL", "")
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))

@@ -17,6 +17,7 @@ Public Module MysqlInterface
     Private _IsRunning As Boolean
     Private _MysqlCrashCounter As Integer
     Private _MysqlExited As Boolean
+    Private EstateConnection As MySqlConnection
 
     Sub New()
         'nothing
@@ -73,7 +74,7 @@ Public Module MysqlInterface
         MakeMysql()
 
         MySQLIcon(False)
-        ' Start MySql in background.        
+        ' Start MySql in background.
 
         ' SAVE INI file
         Dim INI = New LoadIni(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\my.ini"), "#", System.Text.Encoding.ASCII)
@@ -301,12 +302,16 @@ Public Module MysqlInterface
     Public Function DeleteOpensimEstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0
+        If EstateConnection Is Nothing Then
+            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+            EstateConnection.Open()
+        End If
 
         Try
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
+            Using EstateConnection
+                EstateConnection.Open()
                 Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     cmd.ExecuteNonQuery()
                 End Using
@@ -377,12 +382,14 @@ Public Module MysqlInterface
     Public Function EstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0
-
+        If EstateConnection Is Nothing Then
+            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+            EstateConnection.Open()
+        End If
         Try
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
+            Using EstateConnection
                 Dim stm = "select EstateID from opensim.estate_map where RegionID=@UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
@@ -408,12 +415,14 @@ Public Module MysqlInterface
 
         Dim name As String = ""
         Dim Val As String = ""
-
+        If EstateConnection Is Nothing Then
+            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+            EstateConnection.Open()
+        End If
         Try
-            Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
-                MysqlConn.Open()
+            Using EstateConnection
                 Dim stm = "Select EstateID from estate_map where regionid = @UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
@@ -427,7 +436,7 @@ Public Module MysqlInterface
                 End Using
 
                 Dim stm1 = "Select EstateName from estate_settings where EstateID = @ID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm1, MysqlConn)
+                Using cmd As MySqlCommand = New MySqlCommand(stm1, EstateConnection)
                     cmd.Parameters.AddWithValue("@ID", Val)
                     Using reader2 As MySqlDataReader = cmd.ExecuteReader()
                         If reader2.Read() Then
@@ -699,7 +708,7 @@ Public Module MysqlInterface
                 End Using
             End Using
         Catch ex As Exception
-            Console.WriteLine("Error: " & ex.ToString())
+            BreakPoint.Show("Error: " & ex.ToString())
         End Try
         Return False
 
@@ -907,55 +916,8 @@ Public Module MysqlInterface
                     BreakPoint.Show(ex.Message)
                 End Try
             End If
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
-
-    Public Sub SetupMutelist()
-
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
-                .FileName = "Create_Mutelist.bat",
-                .UseShellExecute = True,
-                .CreateNoWindow = True,
-                .WindowStyle = ProcessWindowStyle.Minimized,
-                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
-            }
-        Using Mutelist As Process = New Process With {
-                .StartInfo = pi
-            }
-
-            Try
-                Mutelist.Start()
-                Mutelist.WaitForExit()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-                ErrorLog("Could not create Mutelist Database: " & ex.Message)
-                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                Return
-            End Try
-        End Using
-
-    End Sub
-    Private Sub DeleteSearchDatabase()
-
-        If Not IsMySqlRunning() Then Return
-
-        Try
-            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
-                MysqlConn.Open()
-                Dim stm = "drop database ossearch"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
-                    Try
-                        cmd.ExecuteNonQuery()
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                    End Try
-                End Using
-            End Using
-        Catch
         End Try
 
     End Sub
@@ -1001,6 +963,58 @@ Public Module MysqlInterface
             Settings.SaveSettings()
 
         End If
+
+    End Sub
+
+    Public Sub SetupMutelist()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .FileName = "Create_Mutelist.bat",
+                .UseShellExecute = True,
+                .CreateNoWindow = True,
+                .WindowStyle = ProcessWindowStyle.Minimized,
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
+            }
+        Using Mutelist As Process = New Process With {
+                .StartInfo = pi
+            }
+
+            Try
+                Mutelist.Start()
+                Mutelist.WaitForExit()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog("Could not create Mutelist Database: " & ex.Message)
+                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                Return
+            End Try
+        End Using
+
+    End Sub
+
+    Public Sub SetupSimStats()
+
+        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                .FileName = "Create_Simstats.bat",
+                .UseShellExecute = True,
+                .CreateNoWindow = True,
+                .WindowStyle = ProcessWindowStyle.Minimized,
+                .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\")
+            }
+        Using Mutelist As Process = New Process With {
+                .StartInfo = pi
+            }
+
+            Try
+                Mutelist.Start()
+                Mutelist.WaitForExit()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                ErrorLog("Could not create SimStats Database: " & ex.Message)
+                FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
+                Return
+            End Try
+        End Using
 
     End Sub
 
@@ -1080,6 +1094,27 @@ Public Module MysqlInterface
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub DeleteSearchDatabase()
+
+        If Not IsMySqlRunning() Then Return
+
+        Try
+            Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                MysqlConn.Open()
+                Dim stm = "drop database ossearch"
+                Using cmd As MySqlCommand = New MySqlCommand(stm, MysqlConn)
+                    Try
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        BreakPoint.Show(ex.Message)
+                    End Try
+                End Using
+            End Using
+        Catch
         End Try
 
     End Sub
@@ -1170,6 +1205,51 @@ Public Module MysqlInterface
             MsgBox(My.Resources.Error_word, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
         End If
 
+    End Sub
+
+#End Region
+
+#Region "Visitors"
+
+    ''' <summary>
+    ''' Is not used as the necessary functions to locate the avatar X and Y do not exist yet
+    ''' </summary>
+    ''' <param name="AvatarName"></param>
+    ''' <param name="RegionName"></param>
+    ''' <param name="LocX"></param>
+    ''' <param name="LocY"></param>
+    Public Sub VisitorCount()
+
+        If FormSetup.Visitor.Count > 0 Then
+            Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
+                MysqlConn1.Open()
+                For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
+
+                    Dim Avatar = Visit.Key
+                    Dim RegionName = Visit.Value
+                    Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(RegionName)
+                    Dim result As AvatarData = RPC_admin_get_agent_list(RegionUUID)
+
+                    If result IsNot Nothing Then
+
+                        Dim stm1 = "insert into Robust.visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
+                        Try
+#Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                            Using cmd1 As MySqlCommand = New MySqlCommand(stm1, MysqlConn1)
+#Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
+                                cmd1.Parameters.AddWithValue("@NAME", Avatar)
+                                cmd1.Parameters.AddWithValue("@REGIONNAME", RegionName)
+                                cmd1.Parameters.AddWithValue("@LOCX", result.X)
+                                cmd1.Parameters.AddWithValue("@LOCY", result.Y)
+                                cmd1.BeginExecuteNonQuery()
+                            End Using
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+                    End If
+                Next
+            End Using
+        End If
     End Sub
 
 #End Region

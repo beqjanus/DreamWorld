@@ -112,19 +112,20 @@ Public Class FormJoomla
             InstallButton.Image = Nothing
             StartApache()
 
-            Dim JoomlaProcess As New Process()
-            JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
-            JoomlaProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
-            JoomlaProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
+            Using JoomlaProcess As New Process()
+                JoomlaProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\Create_Joomla.bat")
+                JoomlaProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
+                JoomlaProcess.StartInfo.WindowStyle = ProcessWindowStyle.Minimized
 
-            Try
-                JoomlaProcess.Start()
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-            Application.DoEvents()
-            JoomlaProcess.WaitForExit()
-            JoomlaProcess.Dispose()
+                Try
+                    JoomlaProcess.Start()
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+                Application.DoEvents()
+                JoomlaProcess.WaitForExit()
+            End Using
+
             Dim ctr As Integer = 0
             Dim extractPath = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\htdocs\JOpensim")
             InstallButton.Text = Global.Outworldz.My.Resources.Busy_word

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+
+<title>Simulator stats for Opensim</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+
+
+  <!-- Begin  Toolkit -->
+
+   <h1 class="videotitle">Visitors</h1>
+   
+   [% FOREACH item IN sims  %]
+      <p>
+   	  <a href="[% item.link %]">[% item.regionname %]</a>  Size: [% item.regionsize  %] 
+      </p>
+      
+      <img src="[% item.map %]" width="[% item.width %]">	
+   
+   [% END %]
+   
+  </body
+
+</html>

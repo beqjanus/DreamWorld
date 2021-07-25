@@ -9,7 +9,6 @@ Public Class FormFlotsamCache
 
 #Region "Private Fields"
 
-
 #End Region
 
 #Region "Private Methods"
@@ -52,7 +51,6 @@ Public Class FormFlotsamCache
         fsize /= 1024
         Text = String.Format(Globalization.CultureInfo.InvariantCulture, "{0: 0} Kb", fsize)
         CacheSizeLabel.Text = Text
-
 
     End Sub
 

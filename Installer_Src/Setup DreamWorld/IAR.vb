@@ -75,7 +75,7 @@ Module IAR
             Dim chosen = LoadIAR.DialogResult()
             If chosen = DialogResult.OK Then
                 Dim p As String = LoadIAR.GFolder
-                If p = "" Then p = "/"
+                If p.Length = 0 Then p = "/"
                 Dim u As String = LoadIAR.GAvatar
                 If u Is Nothing Then
                     TextPrint(My.Resources.Canceled_IAR)

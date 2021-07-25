@@ -5,11 +5,9 @@
 
 #End Region
 
-
 Module Updater
 
     Private WithEvents UpdateProcess As New Process()
-
 
 #Region "Updater"
 
@@ -44,7 +42,6 @@ Module Updater
             If uv <= Convert.ToSingle(PropMyVersion, Globalization.CultureInfo.InvariantCulture) Then
                 Return
             End If
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
             Return
@@ -59,7 +56,6 @@ Module Updater
     End Sub
 
     Public Sub ShowUpdateForm(Update_To_version As String)
-
 
 #Disable Warning CA2000
         Dim FormUpdate = New FormUpdate()

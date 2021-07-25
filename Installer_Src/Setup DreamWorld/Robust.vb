@@ -440,7 +440,7 @@ Module Robust
         Dim Up As String = ""
 
         Using TimedCLient As New TimedWebClient With {
-                .Timeout = 500
+                .Timeout = 1000
             }
             Try
                 Up = TimedCLient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
@@ -520,6 +520,9 @@ Module Robust
             INI.SetIni("LoginService", "DestinationGuide", "http://" & Settings.PublicIP & ":" & Settings.ApachePort & "/jOpensim/index.php?option=com_opensim&view=guide&tmpl=component")
         ElseIf Settings.SearchOptions = Hyperica Then
             INI.SetIni("LoginService", "SearchURL", "http://hyperica.com/Search/query.php")
+            INI.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
+        ElseIf Settings.SearchOptions = "Local" Then
+            INI.SetIni("LoginService", "SearchURL", $"http://{Settings.PublicIP}:{Settings.ApachePort}/Search/query.php")
             INI.SetIni("LoginService", "DestinationGuide", "http://hyperica.com/destination-guide")
         Else
             INI.SetIni("LoginService", "SearchURL", "")

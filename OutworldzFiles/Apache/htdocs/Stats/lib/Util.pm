@@ -6,9 +6,9 @@ use strict;use warnings;
 # ConnectionString = "Data Source=localhost;Database=opensim;User ID=opensimuser;Password=opensimpassword;"
 
 sub mysql_connect {
-   my $dbname     = 'opensim';
-   my $user       = 'opensimuser';
-   my $password   = 'opensimpassword';
+   my $dbname     = 'robust';
+   my $user       = 'robustuser';
+   my $password   = 'robustpassword';
 
    require Schema;
    Schema->connect("dbi:mysql:dbname=$dbname",$user,$password,{quote_names => 1,});

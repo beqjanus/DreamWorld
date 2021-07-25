@@ -1,7 +1,5 @@
 ﻿Module Services
 
-    Private _StopMysql As Boolean = True
-
     Public Function ServiceExists(name As String) As Boolean
 
         Using ServiceProcess As New Process()

@@ -1,5 +1,4 @@
-﻿
-#Region "Copyright AGPL3.0"
+﻿#Region "Copyright AGPL3.0"
 
 ' Copyright Outworldz, LLC.
 ' AGPL3.0  https://opensource.org/licenses/AGPL

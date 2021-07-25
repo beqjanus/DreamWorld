@@ -72,14 +72,14 @@ Module PublicIP
     Public Function WANIP() As String
 
         Dim ipaddress As String = "127.0.0.1"
-        Dim client As New System.Net.WebClient ' download client for web page
-        Try
-            ipaddress = client.DownloadString("https://api.ipify.org")
-        Catch ex As Exception
-        Finally
-            client.Dispose()
-        End Try
+        Using client As New System.Net.WebClient ' download client for web page
+            Try
+                ipaddress = client.DownloadString("https://api.ipify.org")
+            Catch ex As Exception
+            End Try
+        End Using
         Return ipaddress
+
     End Function
 
 End Module

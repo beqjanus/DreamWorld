@@ -1,6 +1,5 @@
 ﻿Module Birds
 
-
     Public Sub SetBirdsOnOrOff()
 
         If Settings.BirdsModuleStartup Then
@@ -22,6 +21,6 @@
             DeleteFile(Settings.OpensimBinPath & "\OpenSimBirds.Module.dll")
         End If
 
-
     End Sub
+
 End Module

@@ -3,8 +3,6 @@ Imports System.Net
 
 Module OpensimWorld
 
-    Private LastTimeChecked As Date = Date.Now()
-
     Public Sub ScanOpenSimWorld(Force As Boolean)
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -41,7 +39,6 @@ Module OpensimWorld
         Dim URL = $"http://beacon.opensimworld.com/index.php/osgate/beacon/?wk={k}&na={Avatars}&rat=0&r={Regionname}&pos={pos}"
         ' If he says to delete it, we do so.
         If Poke(URL) = -1 Then PropRegionClass.OpensimWorldAPIKey(RegionUUID) = ""
-        LastTimeChecked = Date.Now
 
     End Sub
 
@@ -50,24 +47,26 @@ Module OpensimWorld
 
         ' Create a New 'HttpWebRequest' Object to the mentioned URL.
         Dim myHttpWebRequest As HttpWebRequest = CType(WebRequest.Create(URL), HttpWebRequest)
-        Dim outputData As String
+        Dim outputData As String = ""
         ' Assign the response object of 'HttpWebRequest' to a 'HttpWebResponse' variable.
-        Dim myHttpWebResponse As HttpWebResponse = CType(myHttpWebRequest.GetResponse(), HttpWebResponse)
-        'Debug.Print($"{vbCrLf}The HttpHeaders are {vbCrLf}Name {0}", myHttpWebRequest.Headers)
-        ' Print the HTML contents of the page to the console.
-        Using streamResponse As Stream = myHttpWebResponse.GetResponseStream()
-            Using streamRead As StreamReader = New StreamReader(streamResponse)
-                Dim readBuff As Char() = New Char(255) {}
-                Dim count As Integer = streamRead.Read(readBuff, 0, 256)
-                outputData = New String(readBuff, 0, count)
-                While count > 0
-                    count = streamRead.Read(readBuff, 0, 256)
-                End While
+        Try
+            Using myHttpWebResponse As HttpWebResponse = CType(myHttpWebRequest.GetResponse(), HttpWebResponse)
+                'Debug.Print($"{vbCrLf}The HttpHeaders are {vbCrLf}Name {0}", myHttpWebRequest.Headers)
+                ' Print the HTML contents of the page to the console.
+                Using streamResponse As Stream = myHttpWebResponse.GetResponseStream()
+                    Using streamRead As New StreamReader(streamResponse)
+                        Dim readBuff As Char() = New Char(255) {}
+                        Dim count As Integer = streamRead.Read(readBuff, 0, 256)
+                        outputData = New String(readBuff, 0, count)
+                        While count > 0
+                            count = streamRead.Read(readBuff, 0, 256)
+                        End While
+                    End Using
+                End Using
             End Using
-        End Using
-        'Release the HttpWebResponse Resource.
+        Catch
+        End Try
 
-        myHttpWebResponse.Close()
         If outputData = "OK" Then Return 1
         If outputData = "DISABLE" Then Return -1
         Return 0
