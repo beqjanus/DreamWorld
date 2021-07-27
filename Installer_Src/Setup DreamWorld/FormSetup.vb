@@ -91,11 +91,17 @@ Public Class FormSetup
     Private _speed As Double = 50
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
-    Private cpu As New PerformanceCounter
-    Private Graphs As New FormGraphs
+
     Private ScreenPosition As ScreenPos
     Private searcher As ManagementObjectSearcher
 
+#End Region
+
+#Region "NonDisposable fields "
+#Disable Warning CA2213 ' Disposable fields should be disposed
+    Private cpu As New PerformanceCounter
+    Private Graphs As New FormGraphs
+#Enable Warning CA2213 ' Disposable fields should be disposed
 #End Region
 
 #Region "Globals"
