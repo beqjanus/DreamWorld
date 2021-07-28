@@ -541,13 +541,17 @@ Public Class FormRegionlist
 
 #Region "LoadListView"
 
-    Private Shared Function GetStatus(RegionUUID As String, ByRef Num As Integer, ByRef Letter As String) As Integer
+    Private Function GetStatus(RegionUUID As String, ByRef Num As Integer, ByRef Letter As String) As Integer
 
         Dim Status As Integer = PropRegionClass.Status(RegionUUID)
-        Dim Estate As String = "-"
-        If MysqlInterface.IsRunning() Then
-            Estate = MysqlInterface.EstateName(RegionUUID)
-            PropRegionClass.Estate(RegionUUID) = Estate
+
+        ' Get Estate name (cached)
+        Dim Estate = PropRegionClass.Estate(RegionUUID)
+        If TheView1 = ViewType.Details Then
+            If Estate.Length = 0 Then
+                Estate = MysqlInterface.EstateName(RegionUUID)
+                PropRegionClass.Estate(RegionUUID) = Estate
+            End If
         End If
 
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then

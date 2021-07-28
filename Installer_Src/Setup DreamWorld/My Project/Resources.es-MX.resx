@@ -3315,4 +3315,22 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Recuérdame más tarde</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Configurar base de datos de búsqueda</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Ver carpeta</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Las llegadas a los sims apagados se redirigen a</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>Esto eliminará todas las regiones en el Patrimonio 'SimSurround' !</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>El tiempo mínimo es de 0 segundos. El valor predeterminado es 15 segundos.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regiones eliminadas</value>
+  </data>
 </root>

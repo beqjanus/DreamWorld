@@ -3319,4 +3319,22 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Recorda-m'ho més tard</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Configura la base de dades de cerca</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Mostra la carpeta</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Les arribades a simuladors apagats es redirigeixen a</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Això suprimirà totes les regions de la finca "SimSurround".</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>El temps mínim és de 0 segons. El valor predeterminat és de 15 segons.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regions suprimides</value>
+  </data>
 </root>
