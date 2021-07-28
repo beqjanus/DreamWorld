@@ -716,19 +716,11 @@ Public Module MysqlInterface
 
     Public Function IsMySqlRunning() As Boolean
 
-        Dim Mysql As Boolean
-        If (Settings.ServerType = RobustServerName) Then
-            Mysql = CheckPort(Settings.RobustServerIP, Settings.MySqlRobustDBPort)
-        Else
-            Mysql = CheckPort(Settings.RegionServer, Settings.MySqlRegionDBPort)
-        End If
-        If Mysql Then
-            Dim version = QueryString("SELECT VERSION()")
-            If version.Length > 0 Then
-                IsRunning() = True
-                MySQLIcon(True)
-                Return True
-            End If
+        Dim version = QueryString("SELECT VERSION()")
+        If version.Length > 0 Then
+            IsRunning() = True
+            MySQLIcon(True)
+            Return True
         End If
 
         MySQLIcon(False)
@@ -800,15 +792,19 @@ Public Module MysqlInterface
 
     <CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")>
     Public Function QueryString(SQL As String) As String
+        Dim MysqlConn As MySqlConnection
         Try
-            Using MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
-
+            If (Settings.ServerType = RobustServerName) Then
+                MysqlConn = New MySqlConnection(Settings.RobustMysqlConnection)
+            Else
+                MysqlConn = New MySqlConnection(Settings.RegionMySqlConnection)
+            End If
+            Using MysqlConn
                 MysqlConn.Open()
                 Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
                     Dim v As String = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                     Return v
                 End Using
-
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
