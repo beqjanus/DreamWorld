@@ -3318,4 +3318,22 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Θύμισέ μου αργότερα</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Ρύθμιση βάσης δεδομένων αναζήτησης</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Προβολή φακέλου</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Οι αφίξεις σε απενεργοποιημένα sims ανακατευθύνονται στο</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Αυτό θα διαγράψει όλες τις περιοχές στο κτήμα «SimSurround»!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Ο ελάχιστος χρόνος είναι 0 δευτερόλεπτα. Η προεπιλογή είναι 15 δευτερόλεπτα.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Οι περιοχές διαγράφηκαν</value>
+  </data>
 </root>

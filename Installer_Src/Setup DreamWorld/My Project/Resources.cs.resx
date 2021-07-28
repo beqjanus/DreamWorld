@@ -3318,4 +3318,22 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Připomeň mi později</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Nastavit vyhledávací databázi</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Zobrazit složku</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Příjezdy k vypnutým simům jsou přesměrovány na</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Tímto vymažete všechny regiony v Estate 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minimální doba je 0 sekund. Výchozí hodnota je 15 sekund.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Oblasti smazány</value>
+  </data>
 </root>

@@ -3318,4 +3318,22 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>ذكرني لاحقا</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>إعداد قاعدة بيانات البحث</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>مشاهدة الملف</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>يتم إعادة توجيه الوافدين إلى sims التي تم إيقاف تشغيلها إلى</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** سيؤدي هذا إلى حذف جميع المناطق في "SimSurround" العقارية!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>الحد الأدنى للوقت 0 ثانية. الافتراضي 15 ثانية.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>المناطق المحذوفة</value>
+  </data>
 </root>

@@ -11,6 +11,7 @@ Public Class FormDiva
 
 #Region "Private Fields"
 
+    Dim _SaveNeeded = False
     Dim initted As Boolean
     Private path As String = ""
     Dim setpassword As Boolean
@@ -52,8 +53,15 @@ Public Class FormDiva
 
     Private Sub Close_form(sender As Object, e As EventArgs) Handles Me.Closed
 
-        Settings.SaveSettings()
-        If setpassword And PropOpensimIsRunning() And Settings.Password.Length > 5 Then
+        If _SaveNeeded = True Then
+            Settings.SaveSettings()
+            If IsRobustRunning() Then
+                StopRobust()
+                StartRobust()
+            End If
+        End If
+
+        If setpassword And PropOpensimIsRunning() And Settings.Password.Length > 0 Then
             ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password)
         End If
 
@@ -221,7 +229,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.AccountConfirmationRequired = AccountConfirmationRequired.Checked
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
     End Sub
 
@@ -235,7 +243,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.WifiEnabled = WifiEnabled.Checked
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
         If WifiEnabled.Checked Then
             AdminFirst.Enabled = True
@@ -266,7 +274,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.AdminFirst = AdminFirst.Text
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
     End Sub
 
@@ -274,7 +282,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.AdminLast = AdminLast.Text
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
     End Sub
 
@@ -289,7 +297,7 @@ Public Class FormDiva
         If Not initted Then Return
         If AdminPassword.Text.Length > 5 Then
             Settings.Password = AdminPassword.Text
-            Settings.SaveSettings()
+            _SaveNeeded = True
         End If
 
     End Sub
@@ -304,7 +312,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.SmtpPassword = GmailPassword.Text
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
     End Sub
 
@@ -312,7 +320,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.SmtPropUserName = GmailUsername.Text
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
     End Sub
 
@@ -321,7 +329,7 @@ Public Class FormDiva
         If Not initted Then Return
         If AdminPassword.Text.Length > 5 Then
             Settings.Password = AdminPassword.Text
-            Settings.SaveSettings()
+            _SaveNeeded = True
             setpassword = True
         Else
             MsgBox(My.Resources.Passwordtooshort_word, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -333,7 +341,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.SmtpHost = SmtpHost.Text
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
     End Sub
 
@@ -343,7 +351,7 @@ Public Class FormDiva
         SmtpPort.Text = digitsOnly.Replace(SmtpPort.Text, "")
         If Not initted Then Return
         Settings.SmtpPort = CInt("0" & SmtpPort.Text)
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
     End Sub
 
@@ -351,7 +359,7 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.AdminEmail = AdminEmail.Text
-        Settings.SaveSettings()
+        _SaveNeeded = True
 
     End Sub
 
@@ -368,7 +376,6 @@ Public Class FormDiva
             LoadPhoto()
             CopyWifi()
             TextPrint(My.Resources.Theme_Black)
-
         End If
 
     End Sub
@@ -391,12 +398,14 @@ Public Class FormDiva
 
         If Not initted Then Return
         Settings.WelcomeMessage = GreetingTextBox.Text
+        _SaveNeeded = True
 
     End Sub
 
     Private Sub GridName_TextChanged(sender As Object, e As EventArgs) Handles GridName.TextChanged
         If Not initted Then Return
         Settings.SimName = GridName.Text
+        _SaveNeeded = True
 
     End Sub
 
@@ -411,8 +420,8 @@ Public Class FormDiva
         If Not SplashPage.Text.Contains("http://") Then
             SplashPage.Text = "http://" & SplashPage.Text
         End If
-
         Settings.SplashPage = SplashPage.Text
+        _SaveNeeded = True
 
     End Sub
 
