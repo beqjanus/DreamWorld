@@ -2524,6 +2524,7 @@ Public Class RegionMaker
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
 
         ElseIf Settings.SearchOptions = "Local" Then
 
@@ -2532,6 +2533,7 @@ Public Class RegionMaker
             INI.SetIni("Search", "SearchURL", SearchURL)
             INI.SetIni("LoginService", "SearchURL", SearchURL)
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimSearch.Modules.dll"))
+            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
         Else
             INI.SetIni("DataSnapshot", "data_services", "")
             DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, "jOpensimProfile.Modules.dll"))
