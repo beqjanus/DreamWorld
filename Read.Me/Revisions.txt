@@ -1,6 +1,11 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.57
+More translations to 30 languages.
+jOpensimProfiles.dll was not being deleted at startup, even if Joomla was off.
+Fixed estate name not always showing in Region List. They will not show if MySQL is off, otherwise they will. 
+
 V4.56
 Search in Region list in non-English Languages blanked out all regions.  As "Search" <> "Suche". Fixed.
 Cleanup and reorganize by running it through the CodeMaid extension

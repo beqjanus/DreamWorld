@@ -34,7 +34,6 @@ Public Class UpdateGrid
 
         EnsureInitialized()
 
-
         Label1.Text = "DreamGrid is downloading"
         Me.Text = "DreamGrid Updater/Installer"
 
@@ -165,7 +164,7 @@ Public Class UpdateGrid
 
                 If counter <> ZipContains Then
                     err += 1
-                    TextPrint("Aborting, did not extract all files.")
+                    TextPrint($"Aborting, did not extract all files. Stopped at {fname}")
                     Log("Aborting, did not extract all files.")
                     Application.DoEvents()
                     Thread.Sleep(3000)

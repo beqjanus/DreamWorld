@@ -3318,4 +3318,22 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Mind mig om det senere</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Opsæt søgedatabase</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Vis mappe</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Ankomster til deaktiverede sims omdirigeres til</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Dette sletter alle regioner i Estate 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minimum tid er 0 sekunder. Standard er 15 sekunder.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regioner slettet</value>
+  </data>
 </root>
