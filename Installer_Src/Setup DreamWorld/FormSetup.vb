@@ -97,6 +97,7 @@ Public Class FormSetup
 
 #End Region
 
+
 #Region "NonDisposable fields "
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
@@ -1026,8 +1027,6 @@ Public Class FormSetup
 
         Bench.Print("Booted list Start")
 
-        Dim ContinueNeeded As Boolean
-
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
             If PropAborting Then Continue For
@@ -1036,13 +1035,12 @@ Public Class FormSetup
 
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             GroupName = PropRegionClass.GroupName(RegionUUID)
-
+            Diagnostics.Debug.Print(GroupName)
             Dim status = PropRegionClass.Status(RegionUUID)
 
             ' if anyone is in home stay alive
             If PropRegionClass.AvatarsIsInGroup(GroupName) Then
                 PokeGroupTimer(GroupName)
-                ContinueNeeded = True
             End If
 
             ' Find any regions touching this region.
@@ -1051,24 +1049,20 @@ Public Class FormSetup
                 status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) Then
                 TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                 ReBoot(RegionUUID)
-                ContinueNeeded = True
-            End If
-
-            If PropRegionClass.AvatarIsNearby(GroupName) Then
-                PokeGroupTimer(GroupName)
-                ContinueNeeded = True
-            End If
-
-            If ContinueNeeded Then
                 Continue For
             End If
+
+            If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+                PokeGroupTimer(GroupName)
+            End If
+
 
             ' Smart Start Timer
             If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And status = RegionMaker.SIMSTATUSENUM.Booted Then
                 Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
 
                 If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
-
+                    'Continue For
                     Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                     ShutDown(RegionUUID)
                     PokeGroupTimer(GroupName)

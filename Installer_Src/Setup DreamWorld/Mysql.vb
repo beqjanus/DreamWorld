@@ -302,14 +302,12 @@ Public Module MysqlInterface
     Public Function DeleteOpensimEstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0
-        If EstateConnection Is Nothing Then
-            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
-            EstateConnection.Open()
-        End If
+
+        EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+        EstateConnection.Open()
 
         Try
             Using EstateConnection
-                EstateConnection.Open()
                 Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
                 Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
@@ -382,10 +380,10 @@ Public Module MysqlInterface
     Public Function EstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0
-        If EstateConnection Is Nothing Then
-            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
-            EstateConnection.Open()
-        End If
+
+        EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+        EstateConnection.Open()
+
         Try
             Using EstateConnection
                 Dim stm = "select EstateID from opensim.estate_map where RegionID=@UUID"
@@ -415,10 +413,10 @@ Public Module MysqlInterface
 
         Dim name As String = ""
         Dim Val As String = ""
-        If EstateConnection Is Nothing Then
-            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
-            EstateConnection.Open()
-        End If
+
+        EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+        EstateConnection.Open()
+
         Try
             Using EstateConnection
                 Dim stm = "Select EstateID from estate_map where regionid = @UUID"
