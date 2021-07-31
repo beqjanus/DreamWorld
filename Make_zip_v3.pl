@@ -213,6 +213,8 @@ JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.sh');
 
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/jOpenSimProfile.Modules.dll');
+JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/jOpenSimSearch.Modules.dll');
 
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/clean.sh');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/cleanaot.sh');
