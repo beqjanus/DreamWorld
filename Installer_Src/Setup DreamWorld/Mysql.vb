@@ -302,10 +302,9 @@ Public Module MysqlInterface
     Public Function DeleteOpensimEstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0
-        If EstateConnection Is Nothing Then
-            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
-            EstateConnection.Open()
-        End If
+
+        EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+        EstateConnection.Open()
 
         Try
             Using EstateConnection
@@ -382,10 +381,10 @@ Public Module MysqlInterface
     Public Function EstateID(UUID As String) As Integer
 
         If Not IsMySqlRunning() Then Return 0
-        If EstateConnection Is Nothing Then
-            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
-            EstateConnection.Open()
-        End If
+
+        EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+        EstateConnection.Open()
+
         Try
             Using EstateConnection
                 Dim stm = "select EstateID from opensim.estate_map where RegionID=@UUID"
@@ -410,47 +409,34 @@ Public Module MysqlInterface
     ''' <returns>Estate Name as string</returns>
     Public Function EstateName(UUID As String) As String
 
-        If Settings.RegionMySqlConnection.Length = 0 Then Return ""
-        'If Not IsMySqlRunning() Then Return ""
-
         Dim name As String = ""
-        Dim Val As String = ""
-        If EstateConnection Is Nothing Then
-            EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
-            EstateConnection.Open()
+        If MysqlInterface.IsRunning() Then
+
+            Dim Val As String = ""
+            Try
+                EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+                EstateConnection.Open()
+
+                Using EstateConnection
+                    Dim stm = "SELECT estate_settings.EstateName FROM opensim.estate_settings estate_settings INNER JOIN opensim.estate_map estate_map ON (estate_settings.EstateID = estate_map.EstateID) where regionid = @UUID"
+                    Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
+                        cmd.Parameters.AddWithValue("@UUID", UUID)
+                        Using reader As MySqlDataReader = cmd.ExecuteReader()
+                            If reader.Read() Then
+                                'Debug.Print("ID = {0}", reader.GetString(0))
+                                Val = reader.GetString(0)
+                                Return Val
+                            Else
+                                Return ""
+                            End If
+                        End Using
+                    End Using
+                End Using
+            Catch ex As Exception
+                Return ""
+            End Try
         End If
-        Try
-            Using EstateConnection
-                Dim stm = "Select EstateID from estate_map where regionid = @UUID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
-                            'Debug.Print("ID = {0}", reader.GetString(0))
-                            Val = reader.GetString(0)
-                            If Val.Length = 0 Then Return ""
-                        Else
-                            Return ""
-                        End If
-                    End Using
-                End Using
-
-                Dim stm1 = "Select EstateName from estate_settings where EstateID = @ID"
-                Using cmd As MySqlCommand = New MySqlCommand(stm1, EstateConnection)
-                    cmd.Parameters.AddWithValue("@ID", Val)
-                    Using reader2 As MySqlDataReader = cmd.ExecuteReader()
-                        If reader2.Read() Then
-                            'Debug.Print("Name = {0}", reader2.GetString(0))
-                            name = reader2.GetString(0)
-                        End If
-                    End Using
-                End Using
-            End Using
-        Catch ex As Exception
-            Return ""
-        End Try
         Return name
-
     End Function
 
     ''' <summary>
