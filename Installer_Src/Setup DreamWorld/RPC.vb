@@ -133,8 +133,9 @@ Module RPC
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
         Dim parameters = New List(Of Hashtable) From {ht}
-        Dim RPC = New XmlRpcRequest(cmd, parameters)
         Try
+
+            Dim RPC = New XmlRpcRequest(cmd, parameters)
             Dim o = RPC.Invoke(url)
             If o Is Nothing Then
                 Return 0

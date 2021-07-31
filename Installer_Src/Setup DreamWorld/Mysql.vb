@@ -308,7 +308,6 @@ Public Module MysqlInterface
 
         Try
             Using EstateConnection
-                EstateConnection.Open()
                 Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
                 Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                     cmd.Parameters.AddWithValue("@UUID", UUID)
@@ -410,6 +409,7 @@ Public Module MysqlInterface
     Public Function EstateName(UUID As String) As String
 
         Dim name As String = ""
+
         If MysqlInterface.IsRunning() Then
 
             Dim Val As String = ""
@@ -669,6 +669,7 @@ Public Module MysqlInterface
         If Settings.ServerType <> RobustServerName Then Return False
 
         Dim UserStmt = "SELECT LastRegionID from GridUser where online = 'True' and LastRegionID = @R;  "
+        Application.DoEvents()
 
         Try
             Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)

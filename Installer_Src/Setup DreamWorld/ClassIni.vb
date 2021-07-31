@@ -141,13 +141,17 @@ Public Class LoadIni
                 RepairedLine += line & vbCrLf
             End While
         End Using
-
-        If c > 1 Then
-            FileStuff.DeleteFile(_filename)
-            Using Writer As New StreamWriter(_filename)
-                Writer.Write(RepairedLine)
-            End Using
-        End If
+        Try
+            If c > 1 Then
+                Sleep(100)
+                FileStuff.DeleteFile(_filename)
+                Sleep(100)
+                Using Writer As New StreamWriter(_filename)
+                    Writer.Write(RepairedLine)
+                End Using
+            End If
+        Catch
+        End Try
 
     End Sub
 
