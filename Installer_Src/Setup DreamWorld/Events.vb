@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports System.Threading
 Imports MySql.Data.MySqlClient
 
 Module Events
@@ -24,11 +25,23 @@ Module Events
 
         If Settings.SearchOptions <> "Local" Then Return
 
+        ' start a thread to see if a region has crashed, if so, add it to an exit list
+#Disable Warning BC42016 ' Implicit conversion
+        Dim start As ParameterizedThreadStart = AddressOf Events
+#Enable Warning BC42016 ' Implicit conversion
+        Dim T = New Thread(start)
+        T.SetApartmentState(ApartmentState.STA)
+        T.Priority = ThreadPriority.Lowest ' UI gets priority
+        T.Start()
+
+        Return
+    End Sub
+
+    Private Sub Events()
+
         DeleteEvents()
-        Application.DoEvents()
 
         Try
-
             Using osconnection = New MySqlConnection(Settings.RobustMysqlConnection())
                 osconnection.Open()
                 Dim stm = "insert into ossearch.events (simname,category,creatoruuid, owneruuid,name, description, dateUTC,duration,covercharge,coveramount,parcelUUID, globalPos,gateway,eventflags) "
@@ -88,7 +101,7 @@ Module Events
 
             End Using ' connection
         Catch ex As Exception
-            ErrorLog(ex.Message)
+
         End Try
 
     End Sub
