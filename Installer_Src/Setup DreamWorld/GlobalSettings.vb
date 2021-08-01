@@ -15,7 +15,7 @@ Module GlobalSettings
 
     Public Const _Domain As String = "http://outworldz.com"
     Public Const _MyVersion As String = "4.57"
-    Public Const _SimVersion As String = "#2100f41067d2ec5 add other animation asset"
+    Public Const _SimVersion As String = "#d0e41f747b9054 there should be no need..."
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
     Public Const MySqlRev = "5.6.5"
