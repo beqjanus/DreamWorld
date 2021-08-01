@@ -96,6 +96,7 @@ unlink "$dir/SET_externalIP-log.txt";
 unlink "$dir/OutworldzFiles/Photo.png";
 unlink "$dir/OutworldzFiles/XYSettings.ini";
 unlink "$dir/OutworldzFiles/Opensim/bin/OpensimConsoleHistory.txt" ;
+unlink "$dir/OutworldzFiles/Opensim/bin/RobustConsoleHistory.txt" ;
 unlink "$dir/OutworldzFiles/Opensim/bin/LocalUserStatistics.db" ;
 unlink "$dir/OutworldzFiles/BanList.txt" ;
 
