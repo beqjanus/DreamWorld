@@ -1719,10 +1719,9 @@ SetWindowOnTop_Err:
                 SearchArray.Add(RegionUUID)
             End If
         Next
-
+        SearchBusy = False
         Search()
 
-        SearchBusy = False
 
     End Sub
 

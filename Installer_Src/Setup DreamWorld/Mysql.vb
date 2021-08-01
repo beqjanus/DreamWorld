@@ -418,7 +418,7 @@ Public Module MysqlInterface
                 EstateConnection.Open()
 
                 Using EstateConnection
-                    Dim stm = "SELECT estate_settings.EstateName FROM opensim.estate_settings estate_settings INNER JOIN opensim.estate_map estate_map ON (estate_settings.EstateID = estate_map.EstateID) where regionid = @UUID"
+                    Dim stm = "SELECT estate_settings.EstateName FROM estate_settings estate_settings INNER JOIN estate_map estate_map ON (estate_settings.EstateID = estate_map.EstateID) where regionid = @UUID"
                     Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                         cmd.Parameters.AddWithValue("@UUID", UUID)
                         Using reader As MySqlDataReader = cmd.ExecuteReader()
