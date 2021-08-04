@@ -2,18 +2,19 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
 V4.57  
-Git is Rev V4 so it's `git checkout V4`.  My code is mostly written in Visual Basic and anyone can compile it for free. 
-Many more translations to 30 languages using the 
+Git is Rev V4 so it's `git checkout V4`.  My code is mostly written in Visual Basic and anyone can compile it for free.
+Opensim is now same as core as of 7/31/2021. Rev is "#d0e41f747b9054 there should be no need..."
+Many more translations to all 30 languages.
 jOpensimProfiles.dll was not being deleted at startup, even if Joomla/jOpensim was off.  Is now deleted from the Zip, and is deleted by code if jOpenaim is off on startup. 
  This is necessary as Opensim stupidly loads all DLLs it finds - a big security issue to say the least!   have always removed any DLLs that a hacker could insert 
  as DreamGrid maintains its own curated list of allowed DLL's. But this one was allowed as it is needed for jOpensim. Catch-22, but its fixed in code so any slip-ups 
  like this will not happen again.
 Estate name: not always showing in Region List. They will not show if MySQL is off, otherwise they will.
-Smart Start:  Neighbor regions would not always start when an avatar was present in the center. This is a standard feature so you can walk to the next sim.
+Smart Start:  Neighbor regions would not always start when an avatar was present in the center. This is a standard feature so you can walk to the next sim.  It follows the sim surround rules of 1,2, or 3 rings.
 Events: seems to sometimes hang as its Http. And can take more time that should not be interfering with the main thread. Its been moved to a new thread.
 Jopensim: Kickstart added back into the installer. Also a rev file added to show or suppress the you need to update screen.
 Crash fix:  Windows caching could cause a crash when renaming a file during INI file checks.  The Crash report I added a while back has worked beautifully and thanks to the you folks, the reporters, 39 sneaky bugs have been fixed.
-Changes to Diva settings causes robust to restart, if running.
+Changes to Diva settings causes robust to restart, if running, as it should.
 
 V4.56
 Search in Region list in non-English Languages blanked out all regions.  As "Search" <> "Suche". Fixed.
