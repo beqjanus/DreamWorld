@@ -30,7 +30,7 @@ my $RS =  $schema->resultset('Asset');
 
 
 my $counter = 1;
-foreach my $r ($RS->all) #  read each row object into $contact
+foreach my $r ($RS->all) #  read each row object as $r 
 {
    print "$counter ". $r->id . "\n";
    if ($counter == 1) {
