@@ -4437,6 +4437,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Hello and welcome to this test of the text To Speech application.  Feel free to look around and explore your grid..
+        '''</summary>
+        Friend ReadOnly Property HelloToSpeech() As String
+            Get
+                Return ResourceManager.GetString("HelloToSpeech", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Help On Console Commands.
         '''</summary>
         Friend ReadOnly Property Help_Console() As String
@@ -4723,6 +4732,15 @@ Namespace My.Resources
         Friend ReadOnly Property Home_word() As String
             Get
                 Return ResourceManager.GetString("Home_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Hours.
+        '''</summary>
+        Friend ReadOnly Property Hours() As String
+            Get
+                Return ResourceManager.GetString("Hours", resourceCulture)
             End Get
         End Property
         
@@ -6198,6 +6216,24 @@ Namespace My.Resources
         Friend ReadOnly Property minkeepalive() As String
             Get
                 Return ResourceManager.GetString("minkeepalive", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Minute.
+        '''</summary>
+        Friend ReadOnly Property Minute() As String
+            Get
+                Return ResourceManager.GetString("Minute", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Minutes.
+        '''</summary>
+        Friend ReadOnly Property Minutes() As String
+            Get
+                Return ResourceManager.GetString("Minutes", resourceCulture)
             End Get
         End Property
         
@@ -9122,6 +9158,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Send Alert.
+        '''</summary>
+        Friend ReadOnly Property Send_alert() As String
+            Get
+                Return ResourceManager.GetString("Send_alert", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Send Alert Message.
         '''</summary>
         Friend ReadOnly Property Send_Alert_Message_word() As String
@@ -9620,6 +9665,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Speak.
+        '''</summary>
+        Friend ReadOnly Property Speak() As String
+            Get
+                Return ResourceManager.GetString("Speak", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Viewer Splash Screen URL:.
         '''</summary>
         Friend ReadOnly Property Splash() As String
@@ -10063,6 +10117,15 @@ Namespace My.Resources
         Friend ReadOnly Property Teleport_word() As String
             Get
                 Return ResourceManager.GetString("Teleport_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Teleport API.
+        '''</summary>
+        Friend ReadOnly Property TeleportAPI() As String
+            Get
+                Return ResourceManager.GetString("TeleportAPI", resourceCulture)
             End Get
         End Property
         
@@ -10589,6 +10652,15 @@ Namespace My.Resources
         Friend ReadOnly Property UnassignedPerson() As String
             Get
                 Return ResourceManager.GetString("UnassignedPerson", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Unchanged.
+        '''</summary>
+        Friend ReadOnly Property Unchanged() As String
+            Get
+                Return ResourceManager.GetString("Unchanged", resourceCulture)
             End Get
         End Property
         

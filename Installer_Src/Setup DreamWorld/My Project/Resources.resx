@@ -3857,4 +3857,28 @@
   <data name="Regions_Deleted" xml:space="preserve">
     <value>Regions Deleted</value>
   </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hello and welcome to this test of the text To Speech application.  Feel free to look around and explore your grid.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Speak</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Send Alert</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Unchanged</value>
+  </data>
 </root>

@@ -257,6 +257,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Speech" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -305,6 +306,7 @@
     <Compile Include="Birds.vb" />
     <Compile Include="BreakPoint.vb" />
     <Compile Include="ClassIni.vb" />
+    <Compile Include="ClassSpeech.vb" />
     <Compile Include="Clear_Cache.vb" />
     <Compile Include="Events.vb" />
     <Compile Include="FormDebug.Designer.vb">

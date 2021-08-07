@@ -90,14 +90,17 @@ Public Class FormDebug
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
-        If Command = My.Resources.SmartStartEnable Then
+        If Command = My.Resources.Speak Then
+            Speechtest()
+
+        ElseIf Command = My.Resources.SmartStartEnable Then
             EnableSS()
 
-        ElseIf Command = "Teleport API" Then
+        ElseIf Command = My.Resources.TeleportAPI Then
 
             TPAPITest()
 
-        ElseIf Command = "Send_alert" Then
+        ElseIf Command = My.Resources.Send_alert Then
             If Value Then
                 Dim UserId = InputBox("Agent UUID?")
                 RPC_admin_dialog(UserId, "Pop up Alert Test")
@@ -105,61 +108,68 @@ Public Class FormDebug
                 MsgBox("Needs an avatar UUID", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
             End If
 
-        ElseIf Command = $"{My.Resources.Debug_word} Off" Then
+        ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
 
             If Value Then
                 Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
+                ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
             Else
-                ProgressPrint("Unchanged")
+                ProgressPrint(My.Resources.Unchanged)
             End If
             Settings.SaveSettings()
 
-        ElseIf Command = $"{My.Resources.Debug_word} 1 Minute" Then
+        ElseIf Command = $"{My.Resources.Debug_word} 1 {My.Resources.Minute}" Then
 
             If Value Then
                 Settings.StatusInterval = 60
-                ProgressPrint($"{My.Resources.Debug_word} 1 Minute")
+                ProgressPrint($"{My.Resources.Debug_word} 1 {My.Resources.Minute}")
             Else
                 Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
+                ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
             End If
             Settings.SaveSettings()
 
-        ElseIf Command = $"{My.Resources.Debug_word} 10 Minutes" Then
+        ElseIf Command = $"{My.Resources.Debug_word} 10 {My.Resources.Minutes}" Then
 
             If Value Then
                 Settings.StatusInterval = 600
-                ProgressPrint($"{My.Resources.Debug_word} 10 Minutes")
+                ProgressPrint($"{My.Resources.Debug_word} 10 {My.Resources.Minutes}")
             Else
                 Settings.StatusInterval = 0
                 ProgressPrint($"{My.Resources.Debug_word} Off")
             End If
             Settings.SaveSettings()
 
-        ElseIf Command = $"{My.Resources.Debug_word} 60 Minutes" Then
+        ElseIf Command = $"{My.Resources.Debug_word} 60 {My.Resources.Minutes}" Then
 
             If Value Then
                 Settings.StatusInterval = 3600
-                ProgressPrint($"{My.Resources.Debug_word} 60 Minutes")
+                ProgressPrint($"{My.Resources.Debug_word} 60 {My.Resources.Minutes}")
             Else
                 Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
+                ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
             End If
             Settings.SaveSettings()
 
-        ElseIf Command = $"{My.Resources.Debug_word} 24 Hours" Then
+        ElseIf Command = $"{My.Resources.Debug_word} 24 {My.Resources.Hours}" Then
 
             If Value Then
                 Settings.StatusInterval = 60 * 60 * 24
-                ProgressPrint($"{My.Resources.Debug_word} 24 Hours")
+                ProgressPrint($"{My.Resources.Debug_word} 24 {My.Resources.Hours}")
             Else
                 Settings.StatusInterval = 0
-                ProgressPrint($"{My.Resources.Debug_word} Off")
+                ProgressPrint($"{My.Resources.Debug_word} {My.Resources.Off}")
             End If
             Settings.SaveSettings()
 
         End If
+
+    End Sub
+
+    Private Sub Speechtest()
+
+        Dim S = New Speech
+        ProgressPrint(S.SpeachTest(My.Resources.HelloToSpeech, Value))
 
     End Sub
 
@@ -193,14 +203,15 @@ Public Class FormDebug
 
         RadioTrue.Text = My.Resources.True_word
         RadioFalse.Text = My.Resources.False_word
-        ComboBox1.Items.Add("Send_alert")
-        ComboBox1.Items.Add("Teleport API")
-        ComboBox1.Items.Add($"{My.Resources.Debug_word} Off")
+        ComboBox1.Items.Add(My.Resources.Speak)
+        ComboBox1.Items.Add(My.Resources.Send_alert)
+        ComboBox1.Items.Add(My.Resources.TeleportAPI)
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} {My.Resources.Off}")
 
-        ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 Minute")
-        ComboBox1.Items.Add($"{My.Resources.Debug_word} 10 Minutes")
-        ComboBox1.Items.Add($"{My.Resources.Debug_word} 60 Minutes")
-        ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 hours")
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} 1 {My.Resources.Minute}")
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} 10 {My.Resources.Minutes}")
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} 60 {My.Resources.Minutes}")
+        ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 {My.Resources.Hours}")
 
         SetScreen()
 
