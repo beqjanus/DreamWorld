@@ -57,7 +57,7 @@ Module SmartStart
 
     Public Function WaitForBooting(RegionUUID As String) As Boolean
 
-        Dim c As Integer = 60 ' 1 minutes
+        Dim c As Integer = 20 ' 20 seconds
         While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booting
 
             c -= 1  ' skip on timeout error
@@ -611,7 +611,6 @@ Module SmartStart
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
 
             Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
-            FormSetup.SequentialPause()   ' wait for previous region to give us some CPU
 
             For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
                 PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume

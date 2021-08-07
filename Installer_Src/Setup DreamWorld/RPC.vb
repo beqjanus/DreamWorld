@@ -158,6 +158,13 @@ Module RPC
 
     Private Function GetRPCAvatarPos(FromRegionUUID As String, cmd As String, ht As Hashtable) As AvatarData
 
+        '!!! DEBUG as this function does not exist yet
+        Dim result As New AvatarData
+        result.AvatarName = "Ferd Frederix"
+        result.X = 128
+        result.Y = 128
+        Return result
+
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
@@ -169,7 +176,7 @@ Module RPC
                 Return Nothing
             End If
 #Disable Warning BC42016 ' Implicit conversion
-            Dim result As New AvatarData
+
             For Each s In o
                 Log("Info", s.Key & ":" & s.Value)
                 If s.Key = "Avatar" Then
