@@ -100,6 +100,7 @@ Outworldzfiles/Settings.ini
 Outworldzfiles/Settings.bak
 Outworldzfiles/Mysql/Data
 Outworldzfiles/Apache/htdocs/Jopensim
+Outworldzfiles/Apache/htdocs/TTS
 
 Installer_Src/Setup Dreamworld/bin/*
 **/teleports.htm
