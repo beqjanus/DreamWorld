@@ -945,24 +945,22 @@ Public Class FormSmartStart
 
                     If Settings.MapType <> "None" Or PropRegionClass.MapType(RegionUUID).Length > 0 Then
                         ConsoleCommand(RegionUUID, "generate map")
-                        Sleep(1000) ' wait a bit to let it make a map
                     End If
 
                     ConsoleCommand(RegionUUID, "backup")
-                    Sleep(1000)
 
                     PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
 
                     If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
-                        ConsoleCommand(RegionUUID, "q")
-                        ConsoleCommand(RegionUUID, "q")
-                        Sleep(1000)
+                        ConsoleCommand(RegionUUID, "q{ENTER}")
+                        ConsoleCommand(RegionUUID, "q{ENTER}")
+
                     End If
                 Else
                     If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
                         PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        ConsoleCommand(RegionUUID, "q")
-                        ConsoleCommand(RegionUUID, "q")
+                        ConsoleCommand(RegionUUID, "q{ENTER}")
+                        ConsoleCommand(RegionUUID, "q{ENTER}")
                     End If
 
                 End If
