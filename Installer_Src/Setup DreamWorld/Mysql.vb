@@ -682,7 +682,13 @@ Public Module MysqlInterface
                         End While
                     End Using
                 End Using
-
+            End Using
+        Catch ex As Exception
+            BreakPoint.Show("Error: " & ex.ToString())
+        End Try
+        Try
+            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                NewSQLConn.Open()
                 Dim stm As String = "SELECT count(*) FROM presence  INNER JOIN regions ON presence.RegionID = regions.uuid where regions.uuid = @R ;"
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     cmd.Parameters.AddWithValue("@R", RegionUUID)
@@ -1208,7 +1214,7 @@ Public Module MysqlInterface
                 Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
                     MysqlConn1.Open()
                     For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
-
+                        Application.DoEvents()
                         Dim Avatar = Visit.Key
                         Dim RegionName = Visit.Value
                         Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(RegionName)

@@ -7,6 +7,8 @@ Module OpensimWorld
 
         For Each RegionUUID As String In PropRegionClass.RegionUuids
 
+            Application.DoEvents()
+
             If PropRegionClass.OpensimWorldAPIKey(RegionUUID).Length = 0 Then Continue For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 

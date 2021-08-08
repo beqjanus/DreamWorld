@@ -939,7 +939,7 @@ Public Class FormSetup
 
     Private Sub DidItDie()
 
-        ' check to see if a handle to all regions exists. If not, then is died.
+        ' check to see if a handle to all regions exists. If not, then it died.
         For Each RegionUUID As String In PropRegionClass.RegionUuids
             Application.DoEvents()
 
@@ -1035,7 +1035,7 @@ Public Class FormSetup
 
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             GroupName = PropRegionClass.GroupName(RegionUUID)
-            Diagnostics.Debug.Print(GroupName)
+            'Diagnostics.Debug.Print(GroupName)
             Dim status = PropRegionClass.Status(RegionUUID)
 
             ' if anyone is in home stay alive
@@ -1045,14 +1045,15 @@ Public Class FormSetup
 
             ' Find any regions touching this region.
             ' add them to the area to stay alive.
-            If PropRegionClass.AvatarIsNearby(RegionUUID) And (status = RegionMaker.SIMSTATUSENUM.Stopped Or
+
+            If Settings.SmartStart And PropRegionClass.AvatarIsNearby(RegionUUID) And (status = RegionMaker.SIMSTATUSENUM.Stopped Or
                 status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood) Then
                 TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                 ReBoot(RegionUUID)
                 Continue For
             End If
 
-            If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+            If Settings.SmartStart And PropRegionClass.AvatarIsNearby(RegionUUID) Then
                 PokeGroupTimer(GroupName)
             End If
 
@@ -2522,8 +2523,6 @@ Public Class FormSetup
             TextPrint(t)
         End If
 
-        ' GetEvents()
-
         ' 5 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             Bench.Print("5 second worker")
@@ -2540,7 +2539,6 @@ Public Class FormSetup
             RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
             VisitorCount()
             Bench.Print("60 second work done")
-
         End If
 
         ' Run Search and events once at 5 minute mark
@@ -2561,7 +2559,6 @@ Public Class FormSetup
             TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()
             ExpireLogsByAge()
-
             DeleteDirectoryTmp()
         End If
 

@@ -1962,7 +1962,7 @@ Public Class RegionMaker
             ' copy the prototype to the regions Opensim.ini
 
             CopyFileFast(GetOpensimProto(), IO.Path.Combine(OpensimPathName, "Opensim.ini"))
-            Sleep(10) ' this should not be necessary but it is on some file systames
+            Sleep(10) ' this should not be necessary but it is on some file systems
 
             Dim INI = New LoadIni(IO.Path.Combine(OpensimPathName, "Opensim.ini"), ";", System.Text.Encoding.UTF8)
             If INI Is Nothing Then Return True
