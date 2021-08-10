@@ -7,7 +7,9 @@ Public Class Speech
     Public Function SpeachTest(texttospeak As String, SaveWave As Boolean) As String
 
         Dim pathinfo As String = ""
+#Disable Warning CA1304 ' Specify CultureInfo
         For Each voice In s1.GetInstalledVoices()
+#Enable Warning CA1304 ' Specify CultureInfo
             s1.SelectVoice(voice.VoiceInfo.Name)
             Console.WriteLine(s1.Volume)
             Console.WriteLine(voice.VoiceInfo.Name)
