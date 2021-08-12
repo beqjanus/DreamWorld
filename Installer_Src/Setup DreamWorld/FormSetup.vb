@@ -2219,8 +2219,8 @@ Public Class FormSetup
                         ' pi.Arguments = thing
                         Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                             .WindowStyle = ProcessWindowStyle.Normal,
-                            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, " OutworldzFiles\mysql\bin\"),
-                            .FileName = IO.Path.Combine(Settings.CurrentDirectory, " OutworldzFiles\mysql\bin\RestoreMysql.bat")
+                            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
+                            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
                         }
                         pMySqlRestore.StartInfo = pi
                         TextPrint(My.Resources.Do_Not_Interrupt_word)
