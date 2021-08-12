@@ -77,7 +77,7 @@ my @deletions = (
 	"$dir/OutworldzFiles/Opensim/bin/ScriptEngines",
 	"$dir/OutworldzFiles/Opensim/bin/maptiles",
 	"$dir/OutworldzFiles/Opensim/bin/Regions",
-	"$dir/OutworldzFiles/Opensim/bin/bakes",	
+	"$dir/OutworldzFiles/Opensim/bin/bakes",	,
 	"$dir/OutworldzFiles/Opensim/bin/fsassets",	
 	"$dir/OutworldzFiles/Apache/logs/",
 	"$dir/OutworldzFiles/Apache/htdocs/TTS",

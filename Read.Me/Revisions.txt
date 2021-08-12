@@ -1,6 +1,11 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.6
+General release
+Could not restore from a .sql backup. A typo added a space in a file path
+
+
 V4.58
 Lots of small tweaks to UI to improve performance.
 Linkset: Max number of prims increased to 1024.
