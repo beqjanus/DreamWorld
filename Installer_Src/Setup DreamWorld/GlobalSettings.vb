@@ -182,15 +182,14 @@ Module GlobalSettings
     Public Sub Sleep(value As Integer)
         ''' <summary>Sleep(ms)</summary>
         ''' <param name="value">millseconds</param>
-        ' value is in milliseconds, but we do it in 25 passes so we can doevents() to free up console
-        Dim slices As Integer = 25
-        Dim sleeptime As Double = value
+        ' value is in milliseconds, but we do it in 10 passes a second so we can doevents() to free up console
+        Dim slices As Integer = 10
 
-
-        While slices > 0
+        While value > 0
             Application.DoEvents()
-            Thread.Sleep(CInt(1000 / slices))
-            slices -= 1
+            Dim t = CInt(1000 / slices)
+            Thread.Sleep(t)
+            value -= t
         End While
 
     End Sub

@@ -411,8 +411,6 @@ Public Module MysqlInterface
         Dim name As String = ""
 
         If MysqlInterface.IsRunning() Then
-
-            Dim Val As String = ""
             Try
                 EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
                 EstateConnection.Open()
@@ -424,7 +422,7 @@ Public Module MysqlInterface
                         Using reader As MySqlDataReader = cmd.ExecuteReader()
                             If reader.Read() Then
                                 'Debug.Print("ID = {0}", reader.GetString(0))
-                                Val = reader.GetString(0)
+                                Dim Val = reader.GetString(0)
                                 Return Val
                             Else
                                 Return ""

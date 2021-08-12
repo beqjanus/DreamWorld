@@ -159,10 +159,11 @@ Module RPC
     Private Function GetRPCAvatarPos(FromRegionUUID As String, cmd As String, ht As Hashtable) As AvatarData
 
         '!!! DEBUG as this function does not exist yet
-        Dim result As New AvatarData
-        result.AvatarName = "Ferd Frederix"
-        result.X = 128
-        result.Y = 128
+        Dim result As New AvatarData With {
+            .AvatarName = "Ferd Frederix",
+            .X = 128,
+            .Y = 128
+        }
         Return result
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
