@@ -422,8 +422,7 @@ Public Module MysqlInterface
                         Using reader As MySqlDataReader = cmd.ExecuteReader()
                             If reader.Read() Then
                                 'Debug.Print("ID = {0}", reader.GetString(0))
-                                Dim Val = reader.GetString(0)
-                                Return Val
+                                Return reader.GetString(0)
                             Else
                                 Return ""
                             End If
