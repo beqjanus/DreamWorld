@@ -2,7 +2,7 @@
 
 Public Module Speech
 
-    Dim WithEvents Spk As SpeechSynthesizer = New SpeechSynthesizer()
+    Dim WithEvents Spk As New SpeechSynthesizer()
     Dim B As Integer
     Private Sub EventHandler() Handles Spk.SpeakCompleted
         B = 0

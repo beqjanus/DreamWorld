@@ -83,7 +83,7 @@ Module SmartStart
         Bench.Print("Tp Request")
         'Smart Start:http://192.168.2.140:8999/?alt=Deliverance_of_JarJar_Binks__Fred_Beckhusen_1X1&agent=Ferd%20Frederix&AgentID=6f285c43-e656-42d9-b0e9-a78684fee15d&password=XYZZY
 
-        Dim pattern As Regex = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*)", RegexOptions.IgnoreCase)
+        Dim pattern = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*)", RegexOptions.IgnoreCase)
         Dim match As Match = pattern.Match(post)
         If match.Success Then
             Dim Name As String = Uri.UnescapeDataString(match.Groups(1).Value)
@@ -394,7 +394,7 @@ Module SmartStart
     Private Sub FreezeThaw(RegionUUID As String, Arg As String)
 
         Using SuspendProcess As New Process()
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            Dim pi = New ProcessStartInfo With {
                 .Arguments = Arg,
                 .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "NtSuspendProcess64.exe") & """"
             }

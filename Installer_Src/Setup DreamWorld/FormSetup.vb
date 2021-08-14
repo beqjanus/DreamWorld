@@ -773,9 +773,8 @@ Public Class FormSetup
     Private Sub StartThreads()
 
         ' start a thread to see if a region has crashed, if so, add it to an exit list
-#Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf DidItDie
-#Enable Warning BC42016 ' Implicit conversion
+
         Dim DeathThread = New Thread(start)
         DeathThread.SetApartmentState(ApartmentState.STA)
         DeathThread.Priority = ThreadPriority.Lowest ' UI gets priority
@@ -812,7 +811,7 @@ Public Class FormSetup
 
     Private Shared Sub Create_ShortCut(ByVal sTargetPath As String)
         ' Requires reference to Windows Script Host Object Model
-        Dim WshShell As WshShellClass = New WshShellClass
+        Dim WshShell = New WshShellClass
         Dim MyShortcut As IWshShortcut
         ' The shortcut will be created on the desktop
         Dim DesktopFolder As String = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)
@@ -862,8 +861,8 @@ Public Class FormSetup
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 If Not Settings.CPUPatched Then
-                    Dim pUpdate As Process = New Process()
-                    Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                    Dim pUpdate = New Process()
+                    Dim pi = New ProcessStartInfo With {
                         .Arguments = "/ R",
                         .FileName = "loadctr"
                     }
@@ -1570,7 +1569,7 @@ Public Class FormSetup
 
         UpgradeDotNet()
         Application.DoEvents()
-        Dim wql As ObjectQuery = New ObjectQuery("Select TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
+        Dim wql = New ObjectQuery("Select TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
         Searcher1 = New ManagementObjectSearcher(wql)
         Application.DoEvents()
         CopyWifi()
@@ -2175,7 +2174,7 @@ Public Class FormSetup
         End If
 
         ' Create an instance of the open file dialog box. Set filter options and filter index.
-        Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+        Dim openFileDialog1 = New OpenFileDialog With {
             .InitialDirectory = BackupPath(),
             .Filter = Global.Outworldz.My.Resources.Backup_Folder & "(*.sql)|*.sql|All Files (*.*)|*.*",
             .FilterIndex = 1,
@@ -2215,9 +2214,9 @@ Public Class FormSetup
                         Return
                     End Try
 
-                    Using pMySqlRestore As Process = New Process()
+                    Using pMySqlRestore = New Process()
                         ' pi.Arguments = thing
-                        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+                        Dim pi = New ProcessStartInfo With {
                             .WindowStyle = ProcessWindowStyle.Normal,
                             .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
                             .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
@@ -2456,8 +2455,8 @@ Public Class FormSetup
         StopApache(True) 'really stop it, even if a service
         StopMysql()
         Application.DoEvents()
-        Dim pUpdate As Process = New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+        Dim pUpdate = New Process()
+        Dim pi = New ProcessStartInfo With {
             .Arguments = Filename,
             .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "DreamGridSetup.exe") & """"
         }
@@ -2701,14 +2700,14 @@ Public Class FormSetup
             Return
         End If
 
-        Dim pi As ProcessStartInfo = New ProcessStartInfo()
+        Dim pi = New ProcessStartInfo()
 
         ChDir(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin"))
         pi.WindowStyle = ProcessWindowStyle.Normal
         pi.Arguments = CStr(Settings.MySqlRobustDBPort)
 
         pi.FileName = "CheckAndRepair.bat"
-        Using pMySqlDiag1 As Process = New Process With {
+        Using pMySqlDiag1 = New Process With {
                 .StartInfo = pi
             }
             Try
@@ -3279,7 +3278,7 @@ Public Class FormSetup
 
         StopApache(True)
         Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+        Dim pi = New ProcessStartInfo With {
             .WindowStyle = ProcessWindowStyle.Hidden,
             .CreateNoWindow = True,
             .FileName = win,
@@ -3302,7 +3301,7 @@ Public Class FormSetup
 
         StopMysql()
         Dim win = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "sc.exe")
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+        Dim pi = New ProcessStartInfo With {
             .WindowStyle = ProcessWindowStyle.Hidden,
             .CreateNoWindow = True,
             .FileName = win,
@@ -3328,9 +3327,9 @@ Public Class FormSetup
 
         If DoStopActions() = False Then Return
 
-        Using PUpdater As Process = New Process()
+        Using PUpdater = New Process()
 
-            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+            Dim pi = New ProcessStartInfo With {
                 .WindowStyle = ProcessWindowStyle.Normal,
                 .WorkingDirectory = Settings.CurrentDirectory,
                 .FileName = IO.Path.Combine(Settings.CurrentDirectory, "DreamGridUpdater.exe")

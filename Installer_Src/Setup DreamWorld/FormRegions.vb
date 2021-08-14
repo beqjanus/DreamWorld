@@ -12,7 +12,7 @@ Imports System.Text.RegularExpressions
 
 Public Class FormRegions
 
-    Dim s1 As SpeechSynthesizer = New SpeechSynthesizer()
+    ReadOnly s1 = New SpeechSynthesizer()
 
 #Region "ScreenSize"
 
@@ -158,9 +158,8 @@ Public Class FormRegions
         ConciergeCheckbox.Checked = Settings.Concierge
 
 
-#Disable Warning CA1304 ' Specify CultureInfo
+
         For Each voice In s1.GetInstalledVoices()
-#Enable Warning CA1304 ' Specify CultureInfo
             SpeechBox.Items.Add(voice.VoiceInfo.Name)
         Next
         SpeechBox.Items.Add("No Speech")
@@ -244,7 +243,7 @@ Public Class FormRegions
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         X.Text = digitsOnly.Replace(X.Text, "")
         Settings.HomeVectorX = X.Text
     End Sub
@@ -254,13 +253,13 @@ Public Class FormRegions
     End Sub
 
     Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         Y.Text = digitsOnly.Replace(Y.Text, "")
         Settings.HomeVectorY = Y.Text
     End Sub
 
     Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles Z.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         Z.Text = digitsOnly.Replace(Z.Text, "")
         Settings.HomeVectorZ = Z.Text
     End Sub
