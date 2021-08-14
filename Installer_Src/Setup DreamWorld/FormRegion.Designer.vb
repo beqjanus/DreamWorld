@@ -91,7 +91,6 @@ Partial Class FormRegion
         Me.XEngineButton = New System.Windows.Forms.RadioButton()
         Me.YEngineButton = New System.Windows.Forms.RadioButton()
         Me.ModulesGroupBox = New System.Windows.Forms.GroupBox()
-        Me.ConciergeCheckBox = New System.Windows.Forms.CheckBox()
         Me.RichTextBoxModules = New System.Windows.Forms.RichTextBox()
         Me.PublicityGroupBox = New System.Windows.Forms.GroupBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -172,6 +171,7 @@ Partial Class FormRegion
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
+        Me.ConciergeCheckBox = New System.Windows.Forms.CheckBox()
         Me.RegionsGroupbox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.ScriptsGroupbox.SuspendLayout()
@@ -343,7 +343,7 @@ Partial Class FormRegion
         'BirdsCheckBox
         '
         Me.BirdsCheckBox.AutoSize = True
-        Me.BirdsCheckBox.Location = New System.Drawing.Point(15, 19)
+        Me.BirdsCheckBox.Location = New System.Drawing.Point(15, 20)
         Me.BirdsCheckBox.Name = "BirdsCheckBox"
         Me.BirdsCheckBox.Size = New System.Drawing.Size(82, 17)
         Me.BirdsCheckBox.TabIndex = 0
@@ -354,7 +354,7 @@ Partial Class FormRegion
         'TidesCheckbox
         '
         Me.TidesCheckbox.AutoSize = True
-        Me.TidesCheckbox.Location = New System.Drawing.Point(15, 41)
+        Me.TidesCheckbox.Location = New System.Drawing.Point(15, 40)
         Me.TidesCheckbox.Name = "TidesCheckbox"
         Me.TidesCheckbox.Size = New System.Drawing.Size(194, 17)
         Me.TidesCheckbox.TabIndex = 1
@@ -365,7 +365,7 @@ Partial Class FormRegion
         'TPCheckBox1
         '
         Me.TPCheckBox1.AutoSize = True
-        Me.TPCheckBox1.Location = New System.Drawing.Point(15, 65)
+        Me.TPCheckBox1.Location = New System.Drawing.Point(15, 60)
         Me.TPCheckBox1.Name = "TPCheckBox1"
         Me.TPCheckBox1.Size = New System.Drawing.Size(125, 17)
         Me.TPCheckBox1.TabIndex = 2
@@ -420,7 +420,7 @@ Partial Class FormRegion
         'DisableGBCheckBox
         '
         Me.DisableGBCheckBox.AutoSize = True
-        Me.DisableGBCheckBox.Location = New System.Drawing.Point(15, 85)
+        Me.DisableGBCheckBox.Location = New System.Drawing.Point(15, 80)
         Me.DisableGBCheckBox.Name = "DisableGBCheckBox"
         Me.DisableGBCheckBox.Size = New System.Drawing.Size(116, 17)
         Me.DisableGBCheckBox.TabIndex = 3
@@ -431,7 +431,7 @@ Partial Class FormRegion
         'DisallowForeigners
         '
         Me.DisallowForeigners.AutoSize = True
-        Me.DisallowForeigners.Location = New System.Drawing.Point(15, 107)
+        Me.DisallowForeigners.Location = New System.Drawing.Point(15, 100)
         Me.DisallowForeigners.Name = "DisallowForeigners"
         Me.DisallowForeigners.Size = New System.Drawing.Size(135, 17)
         Me.DisallowForeigners.TabIndex = 4
@@ -442,7 +442,7 @@ Partial Class FormRegion
         'DisallowResidents
         '
         Me.DisallowResidents.AutoSize = True
-        Me.DisallowResidents.Location = New System.Drawing.Point(15, 128)
+        Me.DisallowResidents.Location = New System.Drawing.Point(15, 120)
         Me.DisallowResidents.Name = "DisallowResidents"
         Me.DisallowResidents.Size = New System.Drawing.Size(128, 17)
         Me.DisallowResidents.TabIndex = 5
@@ -453,7 +453,7 @@ Partial Class FormRegion
         'SkipAutoCheckBox
         '
         Me.SkipAutoCheckBox.AutoSize = True
-        Me.SkipAutoCheckBox.Location = New System.Drawing.Point(15, 151)
+        Me.SkipAutoCheckBox.Location = New System.Drawing.Point(15, 140)
         Me.SkipAutoCheckBox.Name = "SkipAutoCheckBox"
         Me.SkipAutoCheckBox.Size = New System.Drawing.Size(162, 17)
         Me.SkipAutoCheckBox.TabIndex = 6
@@ -887,16 +887,6 @@ Partial Class FormRegion
         Me.ModulesGroupBox.TabIndex = 0
         Me.ModulesGroupBox.TabStop = False
         Me.ModulesGroupBox.Text = "Modules"
-        '
-        'ConciergeCheckBox
-        '
-        Me.ConciergeCheckBox.AutoSize = True
-        Me.ConciergeCheckBox.Location = New System.Drawing.Point(15, 172)
-        Me.ConciergeCheckBox.Name = "ConciergeCheckBox"
-        Me.ConciergeCheckBox.Size = New System.Drawing.Size(111, 17)
-        Me.ConciergeCheckBox.TabIndex = 7
-        Me.ConciergeCheckBox.Text = "Announce Visitors"
-        Me.ConciergeCheckBox.UseVisualStyleBackColor = True
         '
         'RichTextBoxModules
         '
@@ -1747,6 +1737,16 @@ Partial Class FormRegion
         Me.Label9.Size = New System.Drawing.Size(0, 13)
         Me.Label9.TabIndex = 2
         '
+        'ConciergeCheckBox
+        '
+        Me.ConciergeCheckBox.AutoSize = True
+        Me.ConciergeCheckBox.Location = New System.Drawing.Point(15, 160)
+        Me.ConciergeCheckBox.Name = "ConciergeCheckBox"
+        Me.ConciergeCheckBox.Size = New System.Drawing.Size(111, 17)
+        Me.ConciergeCheckBox.TabIndex = 7
+        Me.ConciergeCheckBox.Text = "Announce Visitors"
+        Me.ConciergeCheckBox.UseVisualStyleBackColor = True
+        '
         'FormRegion
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1870,7 +1870,6 @@ Partial Class FormRegion
     Friend WithEvents ScriptDefaultButton As RadioButton
     Friend WithEvents XEngineButton As RadioButton
     Friend WithEvents YEngineButton As RadioButton
-    Friend WithEvents ConciergeCheckBox As CheckBox
     Friend WithEvents CPUTab As TabControl
     Friend WithEvents Basics As TabPage
     Friend WithEvents Options As TabPage
@@ -1944,4 +1943,5 @@ Partial Class FormRegion
     Friend WithEvents Core4Button As CheckBox
     Friend WithEvents Core3Button As CheckBox
     Friend WithEvents Core2Button As CheckBox
+    Friend WithEvents ConciergeCheckBox As CheckBox
 End Class

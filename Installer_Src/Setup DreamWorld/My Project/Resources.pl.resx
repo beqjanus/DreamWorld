@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Przypomnij mi później</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>godziny</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minuty</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Konfiguracja bazy danych wyszukiwania</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Wyświetl folder</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Przyjazdy do wyłączonych simów są przekierowywane do</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Spowoduje to usunięcie wszystkich regionów w posiadłości „SimSurround”!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minimalny czas to 0 sekund. Wartość domyślna to 15 sekund.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Usunięto regiony</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Witam w tym teście aplikacji tekstowej na mowę. Rozejrzyj się i zbadaj swoją siatkę.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Mówić</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuta</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Wyślij alert</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleportuj API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Bez zmian</value>
+  </data>
 </root>

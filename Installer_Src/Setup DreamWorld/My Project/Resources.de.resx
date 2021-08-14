@@ -3336,4 +3336,28 @@
   <data name="Regions_Deleted" xml:space="preserve">
     <value>Regionen gelöscht</value>
   </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hallo und willkommen zu diesem Test der Text-To-Speech-Anwendung. Schauen Sie sich gerne um und erkunden Sie Ihr Raster.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Sprechen</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Std</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Protokoll</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Benachrichtigung senden</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport-API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Unverändert</value>
+  </data>
 </root>

@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Påminn mig senare</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>timmar</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minuter</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Konfigurera sökdatabas</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Se fil</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Ankomster till avstängda sims omdirigeras till</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Detta kommer att ta bort alla regioner i Estate 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minsta tid är 0 sekunder. Standard är 15 sekunder.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regioner raderade</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hej och välkommen till detta test av text To Speech -applikationen. Titta gärna runt och utforska ditt rutnät.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Tala</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minut</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Skicka varning</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Oförändrad</value>
+  </data>
 </root>

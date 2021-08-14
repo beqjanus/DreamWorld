@@ -3336,4 +3336,28 @@
   <data name="Regions_Deleted" xml:space="preserve">
     <value>Oblasti smazány</value>
   </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Dobrý den, vítejte u tohoto testu aplikace Text To Speech. Neváhejte se rozhlédnout a prozkoumat svou mřížku.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Mluvit</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hodin</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuta</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minut</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Odeslat upozornění</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Beze změny</value>
+  </data>
 </root>

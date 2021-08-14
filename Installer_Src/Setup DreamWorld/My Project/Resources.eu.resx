@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Gogorarazi gero</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Orduak</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutu</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Konfiguratu bilaketa datu basea</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Ikusi karpeta</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Itzalitako simulazioetara iritsitakoak bertara bideratzen dira</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Honek 'SimSurround' Estate-ko eskualde guztiak ezabatuko ditu!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Gutxieneko denbora 0 segundo da. Lehenetsia 15 segundokoa da.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Eskualdeak ezabatuak</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Kaixo eta ongi etorri To Speech aplikazioaren testuaren proba honetara. Anima zaitez ingurura begiratzera eta zure sareta arakatzera.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Hitz egin</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minutu</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Bidali Alerta</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport APIa</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Aldatu gabe</value>
+  </data>
 </root>

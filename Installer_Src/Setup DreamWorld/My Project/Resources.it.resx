@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Ricordamelo più tardi</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Ore</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minuti</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Imposta database di ricerca</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Vedi cartella</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Gli arrivi a sim spenti vengono reindirizzati a</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Questo cancellerà tutte le regioni nella tenuta 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Il tempo minimo è 0 secondi. L'impostazione predefinita è 15 secondi.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regioni eliminate</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Ciao e benvenuto in questo test dell'applicazione text To Speech. Sentiti libero di guardarti intorno ed esplorare la tua griglia.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Parlare</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuto</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Invia avviso</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API di teletrasporto</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>invariato</value>
+  </data>
 </root>

@@ -3337,4 +3337,28 @@
   <data name="Regions_Deleted" xml:space="preserve">
     <value>Regions suprimides</value>
   </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hola i benvinguts a aquesta prova de l'aplicació text To Speech. No dubteu a mirar al vostre voltant i explorar la vostra graella.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Parla</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hores</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minut</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>acta</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Enviar alerta</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API Teleport</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Sense canvis</value>
+  </data>
 </root>

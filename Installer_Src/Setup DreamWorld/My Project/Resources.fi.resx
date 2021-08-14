@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Muistuta minua myöhemmin</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>tuntia</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Pöytäkirja</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Määritä hakutietokanta</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Näytä kansio</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Saapumiset sammutetuille sim-laitteille ohjataan osoitteeseen</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Tämä poistaa kaikki SimSurround -kartanon alueet!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Vähimmäisaika on 0 sekuntia. Oletus on 15 sekuntia.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Alueet poistettu</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hei ja tervetuloa tähän tekstistä puheeksi -sovelluksen testiin. Voit vapaasti katsoa ympärillesi ja tutkia verkkoasi.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Puhua</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuutti</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Lähetä hälytys</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Ei muutoksia</value>
+  </data>
 </root>

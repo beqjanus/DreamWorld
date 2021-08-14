@@ -3333,4 +3333,28 @@
   <data name="Regions_Deleted" xml:space="preserve">
     <value>Regiones eliminadas</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Horas</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutos</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hola y bienvenidos a esta prueba del texto a la aplicación de voz.  Siéntase libre de mirar a su alrededor y explorar su cuadrícula.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Hablar</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuto</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Enviar alerta</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API de teletransporte</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Inalterado</value>
+  </data>
 </root>

@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Minntu mig á það seinna</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>klukkustundir</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>mínútur</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Setja upp leitargagnagrunn</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Skoða möppu</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Komum í slökkt sims er vísað á</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Þetta mun eyða öllum svæðum í búinu 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Lágmarks tími er 0 sekúndur. Sjálfgefið er 15 sekúndur.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Svæðum eytt</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Halló og velkomin í þetta próf á textanum To Speech forritinu. Ekki hika við að líta í kringum þig og kanna ristina þína.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Tala</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Mínúta</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Sendu viðvörun</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Óbreytt</value>
+  </data>
 </root>

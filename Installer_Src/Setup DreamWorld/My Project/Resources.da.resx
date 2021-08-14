@@ -3336,4 +3336,28 @@
   <data name="Regions_Deleted" xml:space="preserve">
     <value>Regioner slettet</value>
   </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hej og velkommen til denne test af teksten To Speech -applikationen. Kig gerne rundt og udforsk dit gitter.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Tale</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Timer</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minut</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Protokoller</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Send besked</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Uændret</value>
+  </data>
 </root>
