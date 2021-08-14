@@ -40,6 +40,7 @@ Partial Class FormRegions
         Me.AddRegion = New System.Windows.Forms.Button()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SpeechBox = New System.Windows.Forms.ComboBox()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.MenuStrip2.SuspendLayout()
@@ -47,6 +48,7 @@ Partial Class FormRegions
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.SpeechBox)
         Me.GroupBox2.Controls.Add(Me.ConciergeCheckbox)
         Me.GroupBox2.Controls.Add(Me.PictureBox2)
         Me.GroupBox2.Controls.Add(Me.Button1)
@@ -61,11 +63,11 @@ Partial Class FormRegions
         Me.GroupBox2.Controls.Add(Me.WelcomeBox1)
         Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.AddRegion)
-        Me.GroupBox2.Location = New System.Drawing.Point(17, 35)
+        Me.GroupBox2.Location = New System.Drawing.Point(10, 35)
         Me.GroupBox2.Margin = New System.Windows.Forms.Padding(1)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Padding = New System.Windows.Forms.Padding(1)
-        Me.GroupBox2.Size = New System.Drawing.Size(209, 375)
+        Me.GroupBox2.Size = New System.Drawing.Size(216, 387)
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Region"
@@ -73,7 +75,7 @@ Partial Class FormRegions
         'ConciergeCheckbox
         '
         Me.ConciergeCheckbox.AutoSize = True
-        Me.ConciergeCheckbox.Location = New System.Drawing.Point(16, 324)
+        Me.ConciergeCheckbox.Location = New System.Drawing.Point(16, 332)
         Me.ConciergeCheckbox.Name = "ConciergeCheckbox"
         Me.ConciergeCheckbox.Size = New System.Drawing.Size(111, 17)
         Me.ConciergeCheckbox.TabIndex = 9
@@ -95,7 +97,7 @@ Partial Class FormRegions
         '
         Me.Button1.Image = Global.Outworldz.My.Resources.Resources.package_delete
         Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button1.Location = New System.Drawing.Point(4, 183)
+        Me.Button1.Location = New System.Drawing.Point(16, 182)
         Me.Button1.Margin = New System.Windows.Forms.Padding(1)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(185, 35)
@@ -107,7 +109,7 @@ Partial Class FormRegions
         '
         Me.NormalizeButton1.Image = Global.Outworldz.My.Resources.Resources.package_preferences
         Me.NormalizeButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.NormalizeButton1.Location = New System.Drawing.Point(2, 222)
+        Me.NormalizeButton1.Location = New System.Drawing.Point(14, 221)
         Me.NormalizeButton1.Margin = New System.Windows.Forms.Padding(1)
         Me.NormalizeButton1.Name = "NormalizeButton1"
         Me.NormalizeButton1.Size = New System.Drawing.Size(185, 35)
@@ -152,7 +154,7 @@ Partial Class FormRegions
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(1, 272)
+        Me.Label1.Location = New System.Drawing.Point(13, 271)
         Me.Label1.Margin = New System.Windows.Forms.Padding(1, 0, 1, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(62, 13)
@@ -163,7 +165,7 @@ Partial Class FormRegions
         '
         Me.RegionButton.Image = Global.Outworldz.My.Resources.Resources.package_find
         Me.RegionButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RegionButton.Location = New System.Drawing.Point(4, 146)
+        Me.RegionButton.Location = New System.Drawing.Point(16, 145)
         Me.RegionButton.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionButton.Name = "RegionButton"
         Me.RegionButton.Size = New System.Drawing.Size(185, 35)
@@ -176,7 +178,7 @@ Partial Class FormRegions
         Me.RegionBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
         Me.RegionBox.FormattingEnabled = True
         Me.RegionBox.Items.AddRange(New Object() {Global.Outworldz.My.Resources.Resources.Choose_Region_word})
-        Me.RegionBox.Location = New System.Drawing.Point(2, 288)
+        Me.RegionBox.Location = New System.Drawing.Point(14, 287)
         Me.RegionBox.Margin = New System.Windows.Forms.Padding(1)
         Me.RegionBox.MaxDropDownItems = 15
         Me.RegionBox.Name = "RegionBox"
@@ -208,7 +210,7 @@ Partial Class FormRegions
         '
         Me.AddRegion.Image = Global.Outworldz.My.Resources.Resources.package_add
         Me.AddRegion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.AddRegion.Location = New System.Drawing.Point(4, 109)
+        Me.AddRegion.Location = New System.Drawing.Point(16, 108)
         Me.AddRegion.Margin = New System.Windows.Forms.Padding(1)
         Me.AddRegion.Name = "AddRegion"
         Me.AddRegion.Size = New System.Drawing.Size(185, 35)
@@ -233,6 +235,18 @@ Partial Class FormRegions
         Me.ToolStripMenuItem30.Name = "ToolStripMenuItem30"
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(72, 32)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
+        '
+        'SpeechBox
+        '
+        Me.SpeechBox.AutoCompleteCustomSource.AddRange(New String() {"1 Hour", "4 Hour", "12 Hour", "Daily", "Weekly"})
+        Me.SpeechBox.FormattingEnabled = True
+        Me.SpeechBox.Location = New System.Drawing.Point(14, 353)
+        Me.SpeechBox.Margin = New System.Windows.Forms.Padding(1)
+        Me.SpeechBox.MaxDropDownItems = 15
+        Me.SpeechBox.Name = "SpeechBox"
+        Me.SpeechBox.Size = New System.Drawing.Size(185, 21)
+        Me.SpeechBox.Sorted = True
+        Me.SpeechBox.TabIndex = 1889
         '
         'FormRegions
         '
@@ -275,4 +289,5 @@ Partial Class FormRegions
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents ConciergeCheckbox As CheckBox
+    Friend WithEvents SpeechBox As ComboBox
 End Class

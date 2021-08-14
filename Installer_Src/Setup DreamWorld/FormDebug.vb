@@ -168,8 +168,7 @@ Public Class FormDebug
 
     Private Sub Speechtest()
 
-        Dim S = New Speech
-        ProgressPrint(S.SpeachTest(My.Resources.HelloToSpeech, Value))
+        ProgressPrint(Speach(My.Resources.HelloToSpeech, Value))
 
     End Sub
 

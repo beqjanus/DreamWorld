@@ -118,6 +118,7 @@ Public Class RegionMaker
 
 #End Region
 
+
 #Region "CheckPost"
 
     Public Sub CheckPost()
@@ -127,7 +128,6 @@ Public Class RegionMaker
         While WebserverList.Count > 0
 
             Try
-
                 Dim ProcessString As String = WebserverList(0) ' recover the PID as string
                 WebserverList.RemoveAt(0)
 
@@ -865,6 +865,7 @@ Public Class RegionMaker
         Public _AvatarsInRegion As Integer
         Public _Birds As String = ""
         Public _Concierge As String = ""
+        Public _ConciergeSpeech As String = ""
         Public _CrashCounter As Integer
         Public _DisableGloebits As String = ""
         Public _FrameTime As String = ""
@@ -1294,6 +1295,18 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._Birds = Value
+        End Set
+    End Property
+    Public Property ConciergeSpeech(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._ConciergeSpeech
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._ConciergeSpeech = Value
         End Set
     End Property
 
@@ -1789,7 +1802,8 @@ Public Class RegionMaker
 
         If post.Contains("/broker/") Then
             '{0} avatar name, {1} region name, {2} number of avatars
-            BreakPoint.Show(post)
+            'http://127.0.0.1:${Const|DiagnosticsPort}/broker/{0}/{1}/{2}"
+            SpeechList.Enqueue(post)
         ElseIf post.Contains("""alert"":""region_ready""") Then
             WebserverList.Add(post)
         ElseIf post.ToUpperInvariant.Contains("ALT=") Then

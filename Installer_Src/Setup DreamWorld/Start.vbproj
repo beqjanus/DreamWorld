@@ -659,6 +659,7 @@
     </Compile>
     <Compile Include="SmartStart.vb" />
     <Compile Include="Sorter.vb" />
+    <Compile Include="Speech.vb" />
     <Compile Include="Teleport.vb" />
     <Compile Include="Updater.vb" />
     <Compile Include="UploadImage.vb" />

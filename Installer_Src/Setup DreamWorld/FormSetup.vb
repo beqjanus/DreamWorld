@@ -2505,6 +2505,9 @@ Public Class FormSetup
         TeleportAgents()
 
         If SecondsTicker > 0 Then
+
+            Chat2Speech()
+
             Try
                 ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
             Catch ex As Exception

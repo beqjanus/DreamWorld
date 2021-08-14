@@ -7,9 +7,12 @@
 
 Option Explicit On
 
+Imports System.Speech.Synthesis
 Imports System.Text.RegularExpressions
 
 Public Class FormRegions
+
+    Dim s1 As SpeechSynthesizer = New SpeechSynthesizer()
 
 #Region "ScreenSize"
 
@@ -154,6 +157,15 @@ Public Class FormRegions
 
         ConciergeCheckbox.Checked = Settings.Concierge
 
+
+#Disable Warning CA1304 ' Specify CultureInfo
+        For Each voice In s1.GetInstalledVoices()
+#Enable Warning CA1304 ' Specify CultureInfo
+            SpeechBox.Items.Add(voice.VoiceInfo.Name)
+        Next
+        SpeechBox.Items.Add("No Speech")
+        SpeechBox.SelectedItem = "No Speech"
+
         HelpOnce("Regions")
         SetScreen()
 
@@ -253,4 +265,19 @@ Public Class FormRegions
         Settings.HomeVectorZ = Z.Text
     End Sub
 
+    Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
+
+        Dim selected = SpeechBox.SelectedItem.ToString
+        If selected = "No Speech" Then Return
+        Try
+            s1.SelectVoice(selected)
+            Dim SaveWave As Boolean = False
+            Settings.VoiceName = selected
+            Settings.SaveSettings()
+            Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", SaveWave)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
 End Class
