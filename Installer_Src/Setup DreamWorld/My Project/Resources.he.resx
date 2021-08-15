@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>תזכיר לי אחר כך</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>שעה (ות</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>דקות</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>הגדרת מסד נתונים לחיפוש</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>הצג תיקיה</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>הגעות לסימס כבוי מופנות אל</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** פעולה זו תמחק את כל האזורים באחוזה 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>הזמן המינימלי הוא 0 שניות. ברירת המחדל היא 15 שניות.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>אזורים נמחקו</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>שלום וברוכים הבאים למבחן זה של יישום text To Speech. אל תהסס להסתכל מסביב ולחקור את הרשת שלך.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>לְדַבֵּר</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>דַקָה</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>שלח התראה</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>ממשק API של טלפורט</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>ללא שינוי</value>
+  </data>
 </root>

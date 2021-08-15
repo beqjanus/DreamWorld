@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Herinner me er later aan</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>uren</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minuten</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Zoekdatabase instellen</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Map bekijken</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Aankomsten bij uitgeschakelde sims worden omgeleid naar</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Hiermee worden alle regio's in het landgoed 'SimSurround' verwijderd!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minimale tijd is 0 seconden. Standaard is 15 seconden.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regio's verwijderd</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hallo en welkom bij deze test van de tekst To Speech-toepassing. Voel je vrij om rond te kijken en je raster te verkennen.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Spreken</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuut</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Melding verzenden</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport-API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Ongewijzigd</value>
+  </data>
 </root>

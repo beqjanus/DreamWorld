@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Nhắc tôi sau</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Giờ</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Phút</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Thiết lập cơ sở dữ liệu tìm kiếm</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Xem thư mục</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Các lượt đến sim đã tắt nguồn được chuyển hướng đến</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Điều này sẽ xóa tất cả các khu vực trong 'SimSurround' của Bất động sản!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Thời gian tối thiểu là 0 giây. Mặc định là 15 giây.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Các khu vực đã bị xóa</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Xin chào và chào mừng bạn đến với thử nghiệm này của ứng dụng văn bản thành giọng nói. Hãy thoải mái nhìn xung quanh và khám phá lưới của bạn.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Nói</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Phút</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Gửi thông báo</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API dịch chuyển</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Không thay đổi</value>
+  </data>
 </root>

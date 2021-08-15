@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Minn meg på det senere</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>timer</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutter</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Oppsett søkedatabase</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Vis mappe</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Ankomster til sims som slås av blir omdirigert til</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Dette vil slette alle regioner i Estate 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minimum tid er 0 sekunder. Standard er 15 sekunder.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regioner slettet</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hei og velkommen til denne testen av tekst til tale -applikasjonen. Se deg rundt og utforsk rutenettet.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Snakke</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minutt</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Send varsel</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Uendret</value>
+  </data>
 </root>

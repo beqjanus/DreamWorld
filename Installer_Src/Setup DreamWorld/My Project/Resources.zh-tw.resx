@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>稍後提醒我</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>設置搜索數據庫</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>查看文件夾</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>到達斷電的模擬人生被重定向到</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** 這將刪除“SimSurround”莊園中的所有區域！</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>最短時間為 0 秒。默認值為 15 秒。</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>刪除的地區</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>您好，歡迎來到文本轉語音應用程序的測試。隨意環顧四周並探索您的網格。</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>說話</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>發送警報</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>傳送API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>不變</value>
+  </data>
 </root>

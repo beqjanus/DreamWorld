@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Cuir i gcuimhne dom níos déanaí</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Uaireanta</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Miontuairiscí</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Bunachar Sonraí Cuardaigh Socraithe</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Féach ar Fhillteán</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Déantar atreorú chuig sims faoi thiomáint</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Scriosfaidh sé seo gach réigiún san Eastát 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Is é 0 soicind an t-íosmhéid ama. Réamhshocrú 15 soicind.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Réigiúin Scriosta</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Dia duit agus fáilte romhat chuig an tástáil seo ar an bhfeidhmchlár téacs Chun Urlabhra. Ná bíodh leisce ort féachaint timpeall agus iniúchadh a dhéanamh ar do ghreille.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Labhair</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Nóiméad</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Seol Foláireamh</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API Teleport</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Gan athrú</value>
+  </data>
 </root>

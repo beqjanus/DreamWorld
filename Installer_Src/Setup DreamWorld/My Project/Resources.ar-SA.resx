@@ -3336,4 +3336,28 @@
   <data name="Regions_Deleted" xml:space="preserve">
     <value>المناطق المحذوفة</value>
   </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>أهلا ومرحبا بكم في هذا الاختبار لتطبيق text To Speech. لا تتردد في النظر حولك واستكشاف شبكتك.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>يتكلم</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>ساعات</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>دقيقة</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>محضر جلسة</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>إرسال تنبيه</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API النقل الفضائي</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>دون تغيير</value>
+  </data>
 </root>

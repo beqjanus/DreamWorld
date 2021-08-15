@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Напомни мне позже</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Часы</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>минут</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Настроить базу данных поиска</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Просмотр папки</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Прибытие к отключенным симуляторам перенаправляется на</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Это приведет к удалению всех регионов в поместье «SimSurround»!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Минимальное время - 0 секунд. По умолчанию 15 секунд.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Удаленные регионы</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Здравствуйте и добро пожаловать в этот тест приложения для преобразования текста в речь. Не стесняйтесь осматриваться и исследовать свою сетку.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Говорить</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Минуты</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Отправить оповещение</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Без изменений</value>
+  </data>
 </root>

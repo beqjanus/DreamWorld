@@ -3336,4 +3336,28 @@
   <data name="Regions_Deleted" xml:space="preserve">
     <value>Οι περιοχές διαγράφηκαν</value>
   </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Γεια σας και καλώς ήλθατε σε αυτήν τη δοκιμή της εφαρμογής κειμένου στην ομιλία. Μη διστάσετε να κοιτάξετε γύρω σας και να εξερευνήσετε το πλέγμα σας.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Μιλώ</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Ωρες</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Λεπτό</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Λεπτά</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Αποστολή ειδοποίησης</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleport API</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Αμετάβλητος</value>
+  </data>
 </root>

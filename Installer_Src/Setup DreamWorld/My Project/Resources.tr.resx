@@ -3315,4 +3315,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Bana daha sonra hatırlat</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Saatler</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Dakika</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Arama Veritabanını Kur</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Dosya görüntüle</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Kapalı sims'e gelenler şuraya yönlendirilir:</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Bu, Estate 'SimSurround'daki tüm bölgeleri silecektir!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minimum süre 0 saniyedir. Varsayılan 15 saniyedir.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Bölgeler Silindi</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Merhaba ve Metin To Speech uygulamasının bu testine hoş geldiniz. Etrafınıza bakmaktan ve ızgaranızı keşfetmekten çekinmeyin.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Konuşmak</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Dakika</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Uyarı Gönder</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Işınlanma API'sı</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>değişmedi</value>
+  </data>
 </root>

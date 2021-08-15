@@ -653,6 +653,7 @@ Public Class FormRegion
                 YEngineButton.Checked = True
         End Select
 
+
         Select Case PropRegionClass.Concierge(RegionUUID)
             Case ""
                 ConciergeCheckBox.Checked = False
@@ -1211,7 +1212,9 @@ Public Class FormRegion
         PropRegionClass.NonPhysicalPrimMax(RegionUUID) = NonphysicalPrimMax.Text
         PropRegionClass.PhysicalPrimMax(RegionUUID) = PhysicalPrimMax.Text
         PropRegionClass.ClampPrimSize(RegionUUID) = ClampPrimSize.Checked
+
         PropRegionClass.Concierge(RegionUUID) = CStr(ConciergeCheckBox.Checked)
+
         PropRegionClass.MaxAgents(RegionUUID) = MaxAgents.Text
         PropRegionClass.MaxPrims(RegionUUID) = MaxPrims.Text
         PropRegionClass.MinTimerInterval(RegionUUID) = ScriptTimerTextBox.Text
@@ -1664,9 +1667,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
-    Private Sub RegionPort_TextChanged(sender As Object, e As EventArgs) Handles RegionPort.TextChanged
-
-    End Sub
 
     Private Sub ScriptsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScriptsToolStripMenuItem.Click
         HelpManual("Script Overrides")
@@ -1691,6 +1691,7 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
+
 
 #End Region
 

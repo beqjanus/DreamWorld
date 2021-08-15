@@ -3318,4 +3318,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>بعدا به من یادآوری کن</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>ساعت ها</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>دقایق</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>راه اندازی پایگاه داده جستجو</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>مشاهده پوشه</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>ورود به سیم کارتهای خاموش به این قسمت هدایت می شود</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** با این کار همه مناطق موجود در "SimSurround" املاک حذف می شود!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>حداقل زمان 0 ثانیه است. پیش فرض 15 ثانیه است.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>مناطق حذف شده است</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>با سلام و خوش آمدید به این آزمون برنامه کاربردی To To Speech. با خیال راحت به اطراف خود نگاه کنید و شبکه خود را کاوش کنید.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>صحبت</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>دقیقه</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>ارسال هشدار</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API Teleport</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>بدون تغییر</value>
+  </data>
 </root>

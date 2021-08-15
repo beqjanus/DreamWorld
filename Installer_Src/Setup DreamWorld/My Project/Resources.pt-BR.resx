@@ -3318,4 +3318,46 @@
   <data name="RemindMeLater" xml:space="preserve">
     <value>Lembre-me mais tarde</value>
   </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Horas</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutos</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Configurar banco de dados de pesquisa</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Ver pasta</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Chegadas de sims desligados são redirecionadas para</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Isso excluirá todas as regiões da propriedade 'SimSurround'!</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>O tempo mínimo é 0 segundos. O padrão é 15 segundos.</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regiões excluídas</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Olá e bem-vindo a este teste do aplicativo de texto para fala. Sinta-se à vontade para olhar ao redor e explorar sua grade.</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Falar</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuto</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Enviar Alerta</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API de teletransporte</value>
+  </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Inalterado</value>
+  </data>
 </root>
