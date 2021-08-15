@@ -3690,6 +3690,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Finished.
+        '''</summary>
+        Friend ReadOnly Property Finished_word() As String
+            Get
+                Return ResourceManager.GetString("Finished_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Finnish.
         '''</summary>
         Friend ReadOnly Property Finnish() As String

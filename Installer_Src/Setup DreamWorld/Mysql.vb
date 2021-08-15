@@ -276,7 +276,19 @@ Public Module MysqlInterface
 #End Region
 
 #Region "Public"
+    Public Sub DeleteOnlineUsers()
 
+        If PropOpensimIsRunning Then
+            Return
+        End If
+
+        Dim Mysql = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
+        If Mysql Then
+            QueryString("delete from presence;")
+            QueryString("update robust.griduser set online = 'false';")
+        End If
+
+    End Sub
     Public Function AssetCount(UUID As String) As Integer
 
         Try

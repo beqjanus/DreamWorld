@@ -12,9 +12,10 @@ Imports System.Management
 Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
+Imports MySql.Data.MySqlClient
 
 Public Class FormSetup
-
+    Public Visitor As New Dictionary(Of String, String)
     Public ReadOnly MyCPUCollection As New List(Of Double)
     Public ReadOnly MyRAMCollection As New List(Of Double)
 
@@ -69,7 +70,7 @@ Public Class FormSetup
 
 #Region "Private Declarations"
 
-    Public Visitor As New Dictionary(Of String, String)
+
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
@@ -91,7 +92,6 @@ Public Class FormSetup
     Private _speed As Double = 50
     Private _timerBusy1 As Integer
     Private _viewedSettings As Boolean
-
     Private ScreenPosition As ScreenPos
     Private searcher As ManagementObjectSearcher
 
@@ -750,6 +750,7 @@ Public Class FormSetup
         End If
 
         ToolBar(True)
+        TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.BaseHostName}:{Settings.HttpPort}")
 
         ' Launch the rockets
         TextPrint(My.Resources.Start_Regions_word)
@@ -761,8 +762,7 @@ Public Class FormSetup
         End If
 
         Buttons(StopButton)
-        TextPrint($"{My.Resources.Grid_Address_is_word} http://{Settings.BaseHostName}:{Settings.HttpPort}")
-
+        TextPrint(My.Resources.Finished_word)
         ' done with boot up
 
     End Sub
@@ -1570,13 +1570,14 @@ Public Class FormSetup
 
         UpgradeDotNet()
         Application.DoEvents()
+
         Dim wql As ObjectQuery = New ObjectQuery("Select TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
         Searcher1 = New ManagementObjectSearcher(wql)
         Application.DoEvents()
+
         CopyWifi()
         Cleanup() ' old files thread
         PropMyUPnpMap = New UPnp()
-
         DeleteOldFiles()
 
         TextPrint(My.Resources.Starting_WebServer_word)
@@ -1605,6 +1606,10 @@ Public Class FormSetup
         Application.DoEvents()
 
         ClearOldLogFiles() ' clear log files
+
+        CheckForUpdates()
+        Application.DoEvents()
+
 
         ' Get Opensimulator Scripts to date if needed
         If Settings.DeleteScriptsOnStartupLevel <> PropSimVersion Then
@@ -1661,13 +1666,9 @@ Public Class FormSetup
             .InstanceName = "_Total"
         End With
 
-        CheckForUpdates()
-        Application.DoEvents()
-
         mnuSettings.Visible = True
 
         LoadHelp()      ' Help loads once
-
         FixUpdater()    ' replace DreamGridUpdater.exe with DreamGridUpdater.new
 
         If Settings.Password = "secret" Or Settings.Password.Length = 0 Then
@@ -1690,6 +1691,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Setup_Ports_word)
         Application.DoEvents()
+
         ' Get the names of all the lands
         InitLand()
         InitTrees()
@@ -2036,6 +2038,8 @@ Public Class FormSetup
         End Try
 
         If PropWebServer IsNot Nothing Then PropWebServer.StopWebServer()
+
+        DeleteOnlineUsers()
 
         PropAborting = True
         StopMysql()

@@ -100,6 +100,7 @@ Module Updater
 
         TextPrint(My.Resources.Stopping_word)
         FormSetup.Buttons(FormSetup.BusyButton)
+
         If Not FormSetup.KillAll() Then Return False
         FormSetup.Buttons(FormSetup.StartButton)
         TextPrint(My.Resources.Stopped_word)
