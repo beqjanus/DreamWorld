@@ -577,7 +577,7 @@ Public Class MySettings
 
     Public Property VoiceName() As String
         Get
-            Return GetMySetting("VoiceName")
+            Return GetMySetting("VoiceName", "No Speech")
         End Get
         Set
             SetMySetting("VoiceName", Value)

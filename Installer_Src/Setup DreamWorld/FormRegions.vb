@@ -119,9 +119,7 @@ Public Class FormRegions
     End Sub
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Closed
-
         Settings.SaveSettings()
-
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
@@ -157,11 +155,14 @@ Public Class FormRegions
 
         ConciergeCheckbox.Checked = Settings.Concierge
 
-        For Each voice In s1.GetInstalledVoices()
+        For Each voice In CType(s1.GetInstalledVoices(), IEnumerable(Of Object))
             SpeechBox.Items.Add(voice.VoiceInfo.Name)
         Next
         SpeechBox.Items.Add("No Speech")
-        SpeechBox.SelectedItem = "No Speech"
+
+        ' set the speech box to the saved voice
+        Dim Index = SpeechBox.FindString(Settings.VoiceName)
+        SpeechBox.SelectedIndex = Index
 
         HelpOnce("Regions")
         SetScreen()
@@ -265,12 +266,13 @@ Public Class FormRegions
     Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
 
         Dim selected = SpeechBox.SelectedItem.ToString
+        Settings.VoiceName = selected
+        Settings.SaveSettings()
         If selected = "No Speech" Then Return
         Try
             s1.SelectVoice(selected)
             Dim SaveWave As Boolean = False
-            Settings.VoiceName = selected
-            Settings.SaveSettings()
+
             Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", SaveWave)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
