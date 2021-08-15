@@ -1569,12 +1569,7 @@ Public Class FormSetup
 
         UpgradeDotNet()
         Application.DoEvents()
-<<<<<<< HEAD
-
-        Dim wql As ObjectQuery = New ObjectQuery("Select TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
-=======
         Dim wql = New ObjectQuery("Select TotalVisibleMemorySize, FreePhysicalMemory FROM Win32_OperatingSystem")
->>>>>>> a4f0052915be39246bde38d11a4e0a00a8194b6e
         Searcher1 = New ManagementObjectSearcher(wql)
         Application.DoEvents()
 

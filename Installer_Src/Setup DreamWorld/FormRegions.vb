@@ -157,8 +157,6 @@ Public Class FormRegions
 
         ConciergeCheckbox.Checked = Settings.Concierge
 
-
-
         For Each voice In s1.GetInstalledVoices()
             SpeechBox.Items.Add(voice.VoiceInfo.Name)
         Next
