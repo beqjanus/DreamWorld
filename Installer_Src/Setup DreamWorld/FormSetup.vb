@@ -2280,6 +2280,7 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     D.Add(Avatar, RegionName)
                     If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
                 End If
@@ -2302,6 +2303,7 @@ Public Class FormSetup
 
                 If Not C.ContainsKey(Avatar) Then
                     TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     E.Add(Avatar)
                     If Visitor.ContainsKey(Avatar) Then
                         Visitor.Remove(Avatar)

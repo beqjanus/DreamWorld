@@ -1,9 +1,12 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
-V4.6
-General release
-Could not restore from a .sql backup. A typo added a space in a file path
+V4.61 Beta 
+Added a Chat to Speech announcer to the Settings->Region. When enabled, this announces 
+in a male or female voice arrivals and departures. It does not depend upon Concierge module which announces in-world in chat.
+
+V4.6 General release
+Could not restore from a .sql backup. A typo added a space in a file path.
 
 
 V4.58

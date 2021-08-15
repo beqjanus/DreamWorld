@@ -28,22 +28,27 @@ Public Module Speech
             B -= 1
         End While
 
-        Spk.SelectVoice(Settings.VoiceName)
+        Try
+            Spk.SelectVoice(Settings.VoiceName)
 
-        If SaveWave Then
-            pathinfo = "http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "TTS"
-            Dim fname = Random() + ".wav"
-            pathinfo = IO.Path.Combine(pathinfo, fname)
-            Dim filepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS")
-            FileIO.FileSystem.CreateDirectory(filepath)
-            filepath = IO.Path.Combine(filepath, fname)
-            Spk.SetOutputToWaveFile(filepath)
-        End If
+            If SaveWave Then
+                pathinfo = "http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "TTS"
+                Dim fname = Random() + ".wav"
+                pathinfo = IO.Path.Combine(pathinfo, fname)
+                Dim filepath = IO.Path.Combine(Settings.CurrentDirectory, $"Outworldzfiles\Apache\htdocs\TTS")
+                FileIO.FileSystem.CreateDirectory(filepath)
+                filepath = IO.Path.Combine(filepath, fname)
+                Spk.SetOutputToWaveFile(filepath)
+            End If
 
-        If B <= 0 Then
-            B = 30 ' max 30 seconds to speak
-        End If
-        Spk.SpeakAsync(texttospeak)
+            If B <= 0 Then
+                B = 30 ' max 30 seconds to speak
+            End If
+            Spk.SpeakAsync(texttospeak)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
         Return pathinfo
 
     End Function
