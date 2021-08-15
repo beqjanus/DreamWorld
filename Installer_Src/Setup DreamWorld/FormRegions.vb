@@ -7,9 +7,12 @@
 
 Option Explicit On
 
+Imports System.Speech.Synthesis
 Imports System.Text.RegularExpressions
 
 Public Class FormRegions
+
+    ReadOnly s1 = New SpeechSynthesizer()
 
 #Region "ScreenSize"
 
@@ -154,6 +157,14 @@ Public Class FormRegions
 
         ConciergeCheckbox.Checked = Settings.Concierge
 
+
+
+        For Each voice In s1.GetInstalledVoices()
+            SpeechBox.Items.Add(voice.VoiceInfo.Name)
+        Next
+        SpeechBox.Items.Add("No Speech")
+        SpeechBox.SelectedItem = "No Speech"
+
         HelpOnce("Regions")
         SetScreen()
 
@@ -232,7 +243,7 @@ Public Class FormRegions
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         X.Text = digitsOnly.Replace(X.Text, "")
         Settings.HomeVectorX = X.Text
     End Sub
@@ -242,15 +253,30 @@ Public Class FormRegions
     End Sub
 
     Private Sub Y_TextChanged(sender As Object, e As EventArgs) Handles Y.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         Y.Text = digitsOnly.Replace(Y.Text, "")
         Settings.HomeVectorY = Y.Text
     End Sub
 
     Private Sub Z_TextChanged(sender As Object, e As EventArgs) Handles Z.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         Z.Text = digitsOnly.Replace(Z.Text, "")
         Settings.HomeVectorZ = Z.Text
     End Sub
 
+    Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
+
+        Dim selected = SpeechBox.SelectedItem.ToString
+        If selected = "No Speech" Then Return
+        Try
+            s1.SelectVoice(selected)
+            Dim SaveWave As Boolean = False
+            Settings.VoiceName = selected
+            Settings.SaveSettings()
+            Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", SaveWave)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
 End Class

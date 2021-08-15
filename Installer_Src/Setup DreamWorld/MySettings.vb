@@ -575,9 +575,17 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property VoiceName() As String
+        Get
+            Return GetMySetting("VoiceName")
+        End Get
+        Set
+            SetMySetting("VoiceName", Value)
+        End Set
+    End Property
     Public Property Concierge() As Boolean
         Get
-            Return CType(GetMySetting("Concierge", "False"), Boolean)
+            Return CType(GetMySetting("Concierge", "True"), Boolean)
         End Get
         Set
             SetMySetting("Concierge", CStr(Value))

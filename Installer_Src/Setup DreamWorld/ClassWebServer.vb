@@ -85,7 +85,7 @@ Public Class NetServer
 
             Dim body As Stream = request.InputStream
             Dim responseString As String = ""
-            Using reader As System.IO.StreamReader = New System.IO.StreamReader(body, request.ContentEncoding)
+            Using reader = New System.IO.StreamReader(body, request.ContentEncoding)
 
                 Dim original = request.Url.OriginalString
 

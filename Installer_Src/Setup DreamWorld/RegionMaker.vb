@@ -118,6 +118,7 @@ Public Class RegionMaker
 
 #End Region
 
+
 #Region "CheckPost"
 
     Public Sub CheckPost()
@@ -127,7 +128,6 @@ Public Class RegionMaker
         While WebserverList.Count > 0
 
             Try
-
                 Dim ProcessString As String = WebserverList(0) ' recover the PID as string
                 WebserverList.RemoveAt(0)
 
@@ -359,8 +359,6 @@ Public Class RegionMaker
 #End Region
 
 #Region "Functions"
-
-#Disable Warning CA1822 ' Mark members as static
 
     Public Sub Add_To_Region_Map(RegionUUID As String)
 
@@ -753,7 +751,6 @@ Public Class RegionMaker
     End Function
 
     Public Sub StopRegion(RegionUUID As String)
-#Enable Warning CA1822 ' Mark members as static
 
         Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
         If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
@@ -865,6 +862,7 @@ Public Class RegionMaker
         Public _AvatarsInRegion As Integer
         Public _Birds As String = ""
         Public _Concierge As String = ""
+        Public _ConciergeSpeech As String = ""
         Public _CrashCounter As Integer
         Public _DisableGloebits As String = ""
         Public _FrameTime As String = ""
@@ -1294,6 +1292,18 @@ Public Class RegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._Birds = Value
+        End Set
+    End Property
+    Public Property ConciergeSpeech(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._ConciergeSpeech
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._ConciergeSpeech = Value
         End Set
     End Property
 
@@ -1731,7 +1741,7 @@ Public Class RegionMaker
         If machine Is Nothing Then Return False
 
         ' Returns true is password is blank or matching
-        Dim pattern1 As Regex = New Regex("(?i)pw=(.*?)&", RegexOptions.IgnoreCase)
+        Dim pattern1 = New Regex("(?i)pw=(.*?)&", RegexOptions.IgnoreCase)
         Dim match1 As Match = pattern1.Match(post, RegexOptions.IgnoreCase)
         If match1.Success Then
             Dim p1 As String = match1.Groups(1).Value
@@ -1789,7 +1799,8 @@ Public Class RegionMaker
 
         If post.Contains("/broker/") Then
             '{0} avatar name, {1} region name, {2} number of avatars
-            BreakPoint.Show(post)
+            'http://127.0.0.1:${Const|DiagnosticsPort}/broker/{0}/{1}/{2}"
+            'SpeechList.Enqueue(post)
         ElseIf post.Contains("""alert"":""region_ready""") Then
             WebserverList.Add(post)
         ElseIf post.ToUpperInvariant.Contains("ALT=") Then
@@ -1826,13 +1837,13 @@ Public Class RegionMaker
             post = post.Replace("{ENTER}", "")
             post = post.Replace("\r", "")
 
-            Dim pattern As Regex = New Regex("uid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
+            Dim pattern = New Regex("uid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
             Dim match As Match = pattern.Match(post)
             If match.Success Then
                 uid = Guid.Parse(match.Groups(1).Value)
             End If
 
-            Dim pattern2 As Regex = New Regex("sid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
+            Dim pattern2 = New Regex("sid=([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})")
             Dim match2 As Match = pattern2.Match(post)
             If match2.Success Then
                 sid = Guid.Parse(match2.Groups(1).Value)
@@ -1843,10 +1854,10 @@ Public Class RegionMaker
                 ' Only works in Standalone, anyway. Not implemented at all in Grid mode - the Diva DLL Diva is stubbed off.
                 Dim result As Integer = 1
 
-                Dim myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
+                Dim myConnection = New MySqlConnection(Settings.RobustMysqlConnection)
 
                 Dim Query1 = "update opensim.griduser set TOS = 1 where UserID = @p1; "
-                Dim myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                Dim myCommand1 = New MySqlCommand(Query1) With {
                     .Connection = myConnection
                 }
                 myConnection.Open()
@@ -1876,7 +1887,7 @@ Public Class RegionMaker
         Dim PWok As Boolean = CheckPassword(post, Settings.MachineID())
         If Not PWok Then Return ""
 
-        Dim pattern1 As Regex = New Regex("User=(.*)", RegexOptions.IgnoreCase)
+        Dim pattern1 = New Regex("User=(.*)", RegexOptions.IgnoreCase)
         Dim match1 As Match = pattern1.Match(post)
         Dim p1 As String
         If match1.Success Then
@@ -1899,13 +1910,13 @@ Public Class RegionMaker
         Dim PWok As Boolean = CheckPassword(post, CStr(Settings.MachineID()))
         If Not PWok Then Return ""
 
-        Dim pattern1 As Regex = New Regex("User=(.*?)&", RegexOptions.IgnoreCase)
+        Dim pattern1 = New Regex("User=(.*?)&", RegexOptions.IgnoreCase)
         Dim match1 As Match = pattern1.Match(post)
         If match1.Success Then
 
             Dim p2 As String = ""
             Dim p1 = match1.Groups(1).Value
-            Dim pattern2 As Regex = New Regex("Partner=(.*)", RegexOptions.IgnoreCase)
+            Dim pattern2 = New Regex("Partner=(.*)", RegexOptions.IgnoreCase)
             Dim match2 As Match = pattern2.Match(post)
             If match2.Success Then
                 p2 = match2.Groups(1).Value
@@ -1920,10 +1931,10 @@ Public Class RegionMaker
                         Partner = ""
                     End If
 
-                    Using myConnection As MySqlConnection = New MySqlConnection(Settings.RobustMysqlConnection)
+                    Using myConnection = New MySqlConnection(Settings.RobustMysqlConnection)
                         myConnection.Open()
                         Dim Query1 = "update userprofile set profilePartner=@p2 where useruuid=@p1; "
-                        Using myCommand1 As MySqlCommand = New MySqlCommand(Query1) With {
+                        Using myCommand1 = New MySqlCommand(Query1) With {
                                 .Connection = myConnection
                             }
 
