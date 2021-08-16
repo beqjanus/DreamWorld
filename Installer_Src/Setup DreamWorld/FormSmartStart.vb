@@ -915,7 +915,7 @@ Public Class FormSmartStart
 
                 If Abort Then Exit For
 
-                ' force the Estate Name in Opensim.ini in COpyOpenSimProto
+                ' force the Estate Name in Opensim.ini in CopyOpenSimProto
                 gEstateName = localEstateName
                 gEstateOwner = localOwnerName
 

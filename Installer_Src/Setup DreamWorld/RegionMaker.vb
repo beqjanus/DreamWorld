@@ -408,15 +408,20 @@ Public Class RegionMaker
 
     End Function
 
+    ''' <summary>
+    ''' Detects if an avatars is in the DOS box
+    ''' </summary>
+    ''' <param name="groupname">Pass it the DOS box name</param>
+    ''' <returns>true if avatar is present</returns>
     Public Function AvatarsIsInGroup(groupname As String) As Boolean
 
         Dim present As Integer = 0
         For Each RegionUUID As String In RegionUuidListByName(groupname)
             If IsAgentInRegion(RegionUUID) Then
-                present += 1
+                Return True
             End If
         Next
-        Return CType(present, Boolean)
+        Return False
 
     End Function
 

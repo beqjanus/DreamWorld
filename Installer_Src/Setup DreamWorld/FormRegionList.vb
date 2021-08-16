@@ -478,6 +478,7 @@ Public Class FormRegionlist
 
         ' Set the view to show whatever
         TheView1 = Settings.RegionListView()
+        If TheView1 = ViewType.Details Then PropRegionClass.GetAllRegions()
 
         SetScreen(TheView1)
 
@@ -549,7 +550,7 @@ Public Class FormRegionlist
         Dim Estate = PropRegionClass.Estate(RegionUUID)
         If TheView1 = ViewType.Details Then
             If Estate.Length = 0 Then
-                Estate = MysqlInterface.EstateName(RegionUUID)
+                Estate = EstateName(RegionUUID)
                 PropRegionClass.Estate(RegionUUID) = Estate
             End If
         End If
