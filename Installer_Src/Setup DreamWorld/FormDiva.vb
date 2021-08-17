@@ -56,13 +56,16 @@ Public Class FormDiva
         If _SaveNeeded = True Then
             Settings.SaveSettings()
             If IsRobustRunning() Then
+                PropAborting = True
                 StopRobust()
+                PropAborting = False
                 StartRobust()
             End If
         End If
 
         If setpassword And PropOpensimIsRunning() And Settings.Password.Length > 0 Then
             ConsoleCommand(RobustName(), "reset user password " & Settings.AdminFirst & " " & Settings.AdminLast & " " & Settings.Password)
+            ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         End If
 
     End Sub
@@ -292,16 +295,6 @@ Public Class FormDiva
 
     End Sub
 
-    Private Sub AdminPassword_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
-
-        If Not initted Then Return
-        If AdminPassword.Text.Length > 5 Then
-            Settings.Password = AdminPassword.Text
-            _SaveNeeded = True
-        End If
-
-    End Sub
-
     Private Sub GmailPassword_Click(sender As Object, e As EventArgs) Handles GmailPassword.Click
 
         GmailPassword.UseSystemPasswordChar = False
@@ -327,13 +320,10 @@ Public Class FormDiva
     Private Sub Password_TextChanged(sender As Object, e As EventArgs) Handles AdminPassword.TextChanged
 
         If Not initted Then Return
-        If AdminPassword.Text.Length > 5 Then
-            Settings.Password = AdminPassword.Text
-            _SaveNeeded = True
-            setpassword = True
-        Else
-            MsgBox(My.Resources.Passwordtooshort_word, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-        End If
+
+        Settings.Password = AdminPassword.Text
+        _SaveNeeded = True
+        setpassword = True
 
     End Sub
 

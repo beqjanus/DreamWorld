@@ -2,8 +2,10 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
 V4.62 Beta
-Old Bug: Region Renormalize which outs the selected region at 1000,1000 and moves the rest to match was just not working right at all. This is used by the original Javascript map. 
-
+Old Bug: Region re-normalize puts the selected region at 1000,1000 and moves the rest to match was just not working right at all. This is used by the original Javascript map. 
+Fix glitches in Port renumbering. Reworked refresh button to re-fetch the ports from INI files.
+Region Estates not always showing in Region list.
+Setting Wifi Password prompted for password length too often and the Robust box did not close in some situations.
 
 V4.61 Beta 
 Added a Chat to Speech announcer to the Settings->Region. When enabled, this announces 
@@ -15,7 +17,7 @@ Could not restore from a .sql backup. A typo added a space in a file path.
 
 V4.58
 Lots of small tweaks to UI to improve performance.
-Linkset: Max number of prims increased to 1024.
+Link set: Max number of prims increased to 1024.
 Chat to Speech:  Added a Speech class for the future Chat to Speech system.  Will also be adding a translator. 
 Bug:  Surrounding sims would start with nearby visitor when SS was disabled.
 Bump connections to Mysql in my.ini for large grids like mine.
