@@ -1,6 +1,10 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.62 Beta
+Old Bug: Region Renormalize which outs the selected region at 1000,1000 and moves the rest to match was just not working right at all. This is used by the original Javascript map. 
+
+
 V4.61 Beta 
 Added a Chat to Speech announcer to the Settings->Region. When enabled, this announces 
 in a male or female voice arrivals and departures. It does not depend upon Concierge module which announces in-world in chat.

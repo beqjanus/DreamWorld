@@ -14,7 +14,7 @@ Public Class FormRegionlist
 #Region "Declarations"
 
 #Disable Warning CA2213
-    Private ReadOnly colsize As New ScreenPos("Region List")
+    Private ReadOnly colsize As New ClassScreenpos("Region List")
     Private ReadOnly SearchArray As New List(Of String)
     Private _ImageListSmall As New ImageList
 #Enable Warning CA2213
@@ -68,11 +68,11 @@ Public Class FormRegionlist
         End Set
     End Property
 
-    Public Property ScreenPosition As ScreenPos
+    Public Property ScreenPosition As ClassScreenpos
         Get
             Return _screenPosition
         End Get
-        Set(value As ScreenPos)
+        Set(value As ClassScreenpos)
             _screenPosition = value
         End Set
     End Property
@@ -100,7 +100,7 @@ Public Class FormRegionlist
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    Private _screenPosition As ScreenPos
+    Private _screenPosition As ClassScreenpos
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -114,7 +114,7 @@ Public Class FormRegionlist
 
         Me.Show()
         Try
-            ScreenPosition = New ScreenPos(MyBase.Name & "_View_" & CStr(View))
+            ScreenPosition = New ClassScreenpos(MyBase.Name & "_View_" & CStr(View))
             AddHandler ResizeEnd, Handler
             Dim xy As List(Of Integer) = ScreenPosition.GetXY()
             Me.Left = xy.Item(0)
@@ -565,60 +565,60 @@ Public Class FormRegionlist
         ElseIf Estate.Length = 0 Then
             Letter = My.Resources.No_Estate_Word
             Num = DGICON.NoEstate
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart Then
             Letter = My.Resources.Waiting
             Num = DGICON.SmartStartStopped
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Not Settings.SmartStart Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Not Settings.SmartStart Then
             Letter = My.Resources.Stopped_word
             Num = DGICON.stopped
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) <> "True" Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) <> "True" Then
             Letter = My.Resources.Stopped_word
             Num = DGICON.stopped
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Error Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Error Then
             Letter = My.Resources.Error_word
             Num = DGICON.ErrorIcon
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Suspended Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Suspended Then
             Letter = My.Resources.Suspended_word
             Num = DGICON.Suspended
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingDown Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown Then
             Letter = My.Resources.Recycling_Down_word
             Num = DGICON.recyclingdown
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.RecyclingUp Then
             Letter = My.Resources.Recycling_Up_word
             Num = DGICON.recyclingup
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartPending Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.RestartPending Then
             Letter = My.Resources.Restart_Pending_word
             Num = DGICON.recyclingup
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.RetartingNow Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.RetartingNow Then
             Letter = My.Resources.Restarting_Now_word
             Num = DGICON.recyclingup
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Resume Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Resume Then
             Letter = "Restarting Now"
             Num = DGICON.recyclingup
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Booting Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Booting Then
             Letter = My.Resources.Booting_word
             Num = DGICON.bootingup
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.NoLogin Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.NoLogin Then
             Letter = My.Resources.NoLogin_word
             Num = DGICON.NoLogin
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
             Letter = My.Resources.Quitting_word
             Num = DGICON.shuttingdown
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown Then
             Letter = My.Resources.Stopping_word
             Num = DGICON.shuttingdown
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.RestartStage2 Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.RestartStage2 Then
             Letter = My.Resources.Pending_word
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.NoError Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.NoError Then
             Letter = My.Resources.Stopped_word
             Num = DGICON.NoError
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted And PropRegionClass.AvatarCount(RegionUUID) = 1 Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Booted And PropRegionClass.AvatarCount(RegionUUID) = 1 Then
             Letter = My.Resources.Running_word
             Num = DGICON.user1
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted And PropRegionClass.AvatarCount(RegionUUID) > 1 Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Booted And PropRegionClass.AvatarCount(RegionUUID) > 1 Then
             Letter = CStr(PropRegionClass.AvatarCount(RegionUUID) & " " & My.Resources.Avatars_word)
             Num = DGICON.user2
-        ElseIf Status = RegionMaker.SIMSTATUSENUM.Booted Then
+        ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             If PropRegionClass.RegionName(RegionUUID) = Settings.WelcomeRegion Then
                 Num = DGICON.Home
                 Letter = My.Resources.Home_word
@@ -714,7 +714,7 @@ Public Class FormRegionlist
             End If
 
             For Each col In AvatarView.Columns
-                Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
+                Using colsize As New ClassScreenpos(MyBase.Name & "ColumnSize")
                     Dim w = colsize.ColumnWidth(CStr(col.name))
                     If w > 0 Then col.Width = w
                 End Using
@@ -763,8 +763,8 @@ Public Class FormRegionlist
                 If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
                 If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
                 If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
-                If Bootedbutton.Checked And PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
-                If StoppedButton.Checked And PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then Continue For
+                If Bootedbutton.Checked And PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted Then Continue For
+                If StoppedButton.Checked And PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped Then Continue For
 
                 Dim Num As Integer = 0
                 Dim Letter As String = ""
@@ -783,10 +783,10 @@ Public Class FormRegionlist
                 Dim fmtRam = "0.0" ' 9999 MB
                 ' RAM
 
-                If status = RegionMaker.SIMSTATUSENUM.Booting _
-                        Or status = RegionMaker.SIMSTATUSENUM.Booted _
-                        Or status = RegionMaker.SIMSTATUSENUM.RecyclingUp _
-                        Or status = RegionMaker.SIMSTATUSENUM.RecyclingDown _
+                If status = ClassRegionMaker.SIMSTATUSENUM.Booting _
+                        Or status = ClassRegionMaker.SIMSTATUSENUM.Booted _
+                        Or status = ClassRegionMaker.SIMSTATUSENUM.RecyclingUp _
+                        Or status = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown _
                         Then
 
                     Try
@@ -802,7 +802,7 @@ Public Class FormRegionlist
                 End If
 
                 Dim cpupercent As Double = 0
-                If Not status = RegionMaker.SIMSTATUSENUM.Stopped And Not status = RegionMaker.SIMSTATUSENUM.Error Then
+                If Not status = ClassRegionMaker.SIMSTATUSENUM.Stopped And Not status = ClassRegionMaker.SIMSTATUSENUM.Error Then
                     Dim Groupname As String = PropRegionClass.GroupName(RegionUUID)
                     CPUValues.TryGetValue(Groupname, cpupercent)
                 End If
@@ -942,7 +942,7 @@ Public Class FormRegionlist
         End Try
 
         For Each col In ListView1.Columns
-            Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
+            Using colsize As New ClassScreenpos(MyBase.Name & "ColumnSize")
                 Dim w = colsize.ColumnWidth(CStr(col.name))
                 If w > 0 Then col.Width = w
             End Using
@@ -980,8 +980,8 @@ Public Class FormRegionlist
             If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
             If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
             If SmartButton.Checked And Not PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
-            If Bootedbutton.Checked And PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted Then Continue For
-            If StoppedButton.Checked And PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then Continue For
+            If Bootedbutton.Checked And PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted Then Continue For
+            If StoppedButton.Checked And PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped Then Continue For
 
             Try
                 Dim Num As Integer = 0
@@ -1078,7 +1078,7 @@ Public Class FormRegionlist
             End If
 
             For Each col In UserView.Columns
-                Using colsize As New ScreenPos(MyBase.Name & "ColumnSize")
+                Using colsize As New ClassScreenpos(MyBase.Name & "ColumnSize")
                     Dim w = colsize.ColumnWidth(CStr(col.Name))
                     If w > 0 Then
                         col.Width = w
@@ -1303,8 +1303,8 @@ SetWindowOnTop_Err:
 
         If chosen = "Start" Then
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Then
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Resume
                 Return
             End If
 
@@ -1321,7 +1321,7 @@ SetWindowOnTop_Err:
 
             PropAborting = False
 
-            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RestartPending
+            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.RestartPending
 
             Application.DoEvents()
             FormSetup.Timer1.Interval = 1000
@@ -1363,7 +1363,7 @@ SetWindowOnTop_Err:
             If hwnd = IntPtr.Zero Then
                 ' shut down all regions in the DOS box
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+                    PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
                 Next
                 PropUpdateView = True ' make form refresh
             Else
@@ -1396,7 +1396,7 @@ SetWindowOnTop_Err:
             Dim GroupName = PropRegionClass.GroupName(RegionUUID)
             Logger("RecyclingDown", GroupName, "Teleport")
             For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
+                PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown ' request a recycle.
                 Logger("RecyclingDown", PropRegionClass.RegionName(UUID), "Teleport")
             Next
 
@@ -1533,6 +1533,8 @@ SetWindowOnTop_Err:
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
 
         DoStopActions()
+        PropRegionClass.GetAllRegions()
+        LoadMyListView()
 
     End Sub
 

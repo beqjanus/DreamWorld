@@ -18,7 +18,7 @@ Public Class NetServer
     Dim listen As Boolean = True
     Private MyPort As String
 
-    Dim PropRegionClass As RegionMaker = RegionMaker.Instance()
+    Dim PropRegionClass As ClassRegionMaker = ClassRegionMaker.Instance()
     Private running As Boolean
     Dim Setting As MySettings
     Private WebThread As Thread
@@ -27,11 +27,11 @@ Public Class NetServer
 
 #Region "Public Properties"
 
-    Public Property PropRegionClass1 As RegionMaker
+    Public Property PropRegionClass1 As ClassRegionMaker
         Get
             Return PropRegionClass
         End Get
-        Set(value As RegionMaker)
+        Set(value As ClassRegionMaker)
             PropRegionClass = value
         End Set
     End Property

@@ -37,7 +37,7 @@ Module SmartStart
     Public Function WaitForBooted(RegionUUID As String) As Boolean
 
         Dim c As Integer = 120 ' 1 minutes
-        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booted
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted
 
             c -= 1  ' skip on timeout error
             If c < 0 Then
@@ -58,7 +58,7 @@ Module SmartStart
     Public Function WaitForBooting(RegionUUID As String) As Boolean
 
         Dim c As Integer = 20 ' 20 seconds
-        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Booting
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting
 
             c -= 1  ' skip on timeout error
             If c < 0 Then
@@ -115,7 +115,7 @@ Module SmartStart
             If PropRegionClass.SmartStart(RegionUUID) = "True" Then
 
                 ' smart, and up
-                If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
 
                     If AgentName.ToUpperInvariant = "UUID" Then
                         'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
@@ -211,7 +211,7 @@ Module SmartStart
 
 #Region "HTML"
 
-    Public Function RegionListHTML(Settings As MySettings, PropRegionClass As RegionMaker, Data As String) As String
+    Public Function RegionListHTML(Settings As MySettings, PropRegionClass As ClassRegionMaker, Data As String) As String
 
         ' http://localhost:8001/teleports.htm
         ' http://YourURL:8001/teleports.htm
@@ -242,7 +242,7 @@ Module SmartStart
 
             Dim status = PropRegionClass.Status(RegionUUID)
             If (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
-                status = RegionMaker.SIMSTATUSENUM.Booted) Or
+                status = ClassRegionMaker.SIMSTATUSENUM.Booted) Or
                (PropRegionClass.Teleport(RegionUUID) = "True" AndAlso
                 PropRegionClass.SmartStart(RegionUUID) = "True" AndAlso
                 Settings.SmartStart) Then
@@ -326,7 +326,7 @@ Module SmartStart
         Logger("State Changed to ShuttingDown", RegionName, "Teleport")
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
         For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-            PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+            PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
             PokeRegionTimer(UUID)
         Next
         ShutDown(RegionUUID)
@@ -343,25 +343,25 @@ Module SmartStart
             If Not Sleeping.Contains(RegionUUID) Then
                 Sleeping.Add(RegionUUID)
                 Select Case status
-                    Case RegionMaker.SIMSTATUSENUM.Booted
+                    Case ClassRegionMaker.SIMSTATUSENUM.Booted
                         Pause(RegionUUID)
                         running = True
-                    Case RegionMaker.SIMSTATUSENUM.Booting
+                    Case ClassRegionMaker.SIMSTATUSENUM.Booting
                         Pause(RegionUUID)
                         running = True
-                    Case RegionMaker.SIMSTATUSENUM.Error
-                    Case RegionMaker.SIMSTATUSENUM.NoLogin
+                    Case ClassRegionMaker.SIMSTATUSENUM.Error
+                    Case ClassRegionMaker.SIMSTATUSENUM.NoLogin
                         Pause(RegionUUID)
                         running = True
-                    Case RegionMaker.SIMSTATUSENUM.RecyclingDown
+                    Case ClassRegionMaker.SIMSTATUSENUM.RecyclingDown
                         Pause(RegionUUID)
                         running = True
-                    Case RegionMaker.SIMSTATUSENUM.RecyclingUp
-                    Case RegionMaker.SIMSTATUSENUM.RestartPending
-                    Case RegionMaker.SIMSTATUSENUM.RestartStage2
-                    Case RegionMaker.SIMSTATUSENUM.RetartingNow
-                    Case RegionMaker.SIMSTATUSENUM.Stopped
-                    Case RegionMaker.SIMSTATUSENUM.Suspended
+                    Case ClassRegionMaker.SIMSTATUSENUM.RecyclingUp
+                    Case ClassRegionMaker.SIMSTATUSENUM.RestartPending
+                    Case ClassRegionMaker.SIMSTATUSENUM.RestartStage2
+                    Case ClassRegionMaker.SIMSTATUSENUM.RetartingNow
+                    Case ClassRegionMaker.SIMSTATUSENUM.Stopped
+                    Case ClassRegionMaker.SIMSTATUSENUM.Suspended
                 End Select
             End If
         Next
@@ -380,7 +380,7 @@ Module SmartStart
         For Each RegionUUID In Sleeping
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
             FreezeThaw(RegionUUID, "-rpid " & PropRegionClass.ProcessID(RegionUUID))
-            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted
+            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
         Next
 
         Sleeping.Clear()
@@ -420,7 +420,7 @@ Module SmartStart
 
         Dim RegionName = PropRegionClass.RegionName(RegionUUID)
         FreezeThaw(RegionUUID, "-pid " & PropRegionClass.ProcessID(RegionUUID))
-        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended
+        PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended
         Application.DoEvents()
 
     End Sub
@@ -456,7 +456,7 @@ Module SmartStart
 
         If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Then
                 Logger("Suspended, Resuming it", BootName, "Teleport")
 
                 Dim PID As Integer = GetPIDofWindow(GroupName)
@@ -464,7 +464,7 @@ Module SmartStart
                     PropInstanceHandles.Add(PID, GroupName)
                 End If
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Resume
+                    PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Resume
                     PropRegionClass.ProcessID(UUID) = PID
                     PokeRegionTimer(UUID)
                     SendToOpensimWorld(RegionUUID, 0)
@@ -480,7 +480,7 @@ Module SmartStart
                     PropInstanceHandles.Add(PID, GroupName)
                 End If
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booted
+                    PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
                     PokeRegionTimer(UUID)
                     SendToOpensimWorld(RegionUUID, 0)
                     PropRegionClass.ProcessID(UUID) = PID
@@ -583,7 +583,7 @@ Module SmartStart
                 End If
                 ' Mark them before we boot as a crash will immediately trigger the event that it exited
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Booting
+                    PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booting
                     PokeRegionTimer(RegionUUID)
                 Next
             Else
@@ -607,13 +607,13 @@ Module SmartStart
 
     Public Sub ReBoot(RegionUUID As String)
 
-        If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Or
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
+        If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Or
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
 
             Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
 
             For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Resume
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Resume
                 Logger("State Changed to Resume", PropRegionClass.RegionName(RegionUUID), "Teleport")
                 PokeRegionTimer(RegionUUID)
             Next

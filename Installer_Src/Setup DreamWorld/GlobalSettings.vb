@@ -46,7 +46,7 @@ Module GlobalSettings
     Private _IsRunning As Boolean
     Private _mySetting As MySettings
     Private _PropAborting As Boolean
-    Private _regionClass As RegionMaker
+    Private _regionClass As ClassRegionMaker
     Private _SelectedBox As String = ""
     Private _SkipSetup As Boolean = True
     Private _UpdateView As Boolean = True
@@ -105,11 +105,11 @@ Module GlobalSettings
         End Set
     End Property
 
-    Public Property PropRegionClass As RegionMaker
+    Public Property PropRegionClass As ClassRegionMaker
         Get
             Return _regionClass
         End Get
-        Set(value As RegionMaker)
+        Set(value As ClassRegionMaker)
             _regionClass = value
         End Set
     End Property

@@ -17,13 +17,13 @@ Public Class FormRegionPopup
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    Private _screenPosition As ScreenPos
+    Private _screenPosition As ClassScreenpos
 
-    Public Property ScreenPosition As ScreenPos
+    Public Property ScreenPosition As ClassScreenpos
         Get
             Return _screenPosition
         End Get
-        Set(value As ScreenPos)
+        Set(value As ClassScreenpos)
             _screenPosition = value
         End Set
     End Property
@@ -36,7 +36,7 @@ Public Class FormRegionPopup
 
     Private Sub SetScreen()
         Me.Show()
-        ScreenPosition = New ScreenPos(MyBase.Name)
+        ScreenPosition = New ClassScreenpos(MyBase.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -79,7 +79,7 @@ Public Class FormRegionPopup
             EditButton1.Enabled = True
         Else
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Suspended Then
+            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = True
@@ -91,7 +91,7 @@ Public Class FormRegionPopup
                 MsgButton.Enabled = False
             End If
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = True
                 StartButton.Enabled = False
@@ -103,8 +103,8 @@ Public Class FormRegionPopup
                 MsgButton.Enabled = True
             End If
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingDown Or
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown Then
+            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown Or
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = False
@@ -116,8 +116,8 @@ Public Class FormRegionPopup
                 EditButton1.Enabled = True
             End If
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booting Or
-            PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.RecyclingUp Then
+            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booting Or
+            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.RecyclingUp Then
                 ShowConsoleButton.Enabled = True
                 StatsButton1.Enabled = False
                 StartButton.Enabled = False
@@ -130,7 +130,7 @@ Public Class FormRegionPopup
             End If
 
             ' stopped
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Stopped Then
+            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
                 ShowConsoleButton.Enabled = False
                 StatsButton1.Enabled = False
                 StartButton.Enabled = True

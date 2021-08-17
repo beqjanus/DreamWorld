@@ -611,7 +611,7 @@
     <Compile Include="Robust.vb" />
     <Compile Include="RPC.vb" />
     <Compile Include="Runtimes.vb" />
-    <Compile Include="Screenpos.vb" />
+    <Compile Include="ClassScreenpos.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="ClassUPnP.vb" />
     <Compile Include="ClassWebServer.vb" />
@@ -647,7 +647,7 @@
     </Compile>
     <Compile Include="MySettings.vb" />
     <Compile Include="Mysql.vb" />
-    <Compile Include="RegionMaker.vb" />
+    <Compile Include="ClassRegionMaker.vb" />
     <Compile Include="Search.vb" />
     <Compile Include="Services.vb" />
     <Compile Include="Settings.vb" />
@@ -658,7 +658,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SmartStart.vb" />
-    <Compile Include="Sorter.vb" />
+    <Compile Include="ClassSorter.vb" />
     <Compile Include="Speech.vb" />
     <Compile Include="Teleport.vb" />
     <Compile Include="Updater.vb" />

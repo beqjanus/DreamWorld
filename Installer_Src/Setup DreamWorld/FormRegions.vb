@@ -17,13 +17,13 @@ Public Class FormRegions
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    Private _screenPosition As ScreenPos
+    Private _screenPosition As ClassScreenpos
 
-    Public Property ScreenPosition As ScreenPos
+    Public Property ScreenPosition As ClassScreenpos
         Get
             Return _screenPosition
         End Get
-        Set(value As ScreenPos)
+        Set(value As ClassScreenpos)
             _screenPosition = value
         End Set
     End Property
@@ -36,7 +36,7 @@ Public Class FormRegions
 
     Private Sub SetScreen()
         Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
+        ScreenPosition = New ClassScreenpos(Me.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -74,11 +74,11 @@ Public Class FormRegions
             Dim DeltaX = 1000 - X
             Dim DeltaY = 1000 - Y
             For Each UUID As String In PropRegionClass.RegionUuids
-                If (PropRegionClass.CoordX(UUID) + DeltaX) <= 0 Then
+                If X + DeltaX <= 0 Then
                     Err = True
                     Failed = PropRegionClass.RegionName(UUID)
                 End If
-                If (PropRegionClass.CoordY(RegionUUID) + DeltaY) <= 0 Then
+                If Y + DeltaY <= 0 Then
                     Err = True
                     Failed = PropRegionClass.RegionName(UUID)
                 End If
@@ -90,8 +90,8 @@ Public Class FormRegions
             End If
 
             For Each UUID As String In PropRegionClass.RegionUuids
-                PropRegionClass.CoordX(RegionUUID) = PropRegionClass.CoordX(UUID) + DeltaX
-                PropRegionClass.CoordY(RegionUUID) = PropRegionClass.CoordY(UUID) + DeltaY
+                PropRegionClass.CoordX(UUID) = PropRegionClass.CoordX(UUID) + DeltaX
+                PropRegionClass.CoordY(UUID) = PropRegionClass.CoordY(UUID) + DeltaY
                 PropRegionClass.WriteRegionObject(PropRegionClass.GroupName(UUID), PropRegionClass.RegionName(UUID))
             Next
 

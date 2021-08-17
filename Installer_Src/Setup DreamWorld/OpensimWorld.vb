@@ -12,7 +12,7 @@ Module OpensimWorld
             If PropRegionClass.OpensimWorldAPIKey(RegionUUID).Length = 0 Then Continue For
             If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
-            If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Or
+            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Or
                 (PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart) Then
 
                 Dim Avatars As Integer = RPC_admin_get_avatar_count(RegionUUID)

@@ -10,7 +10,7 @@ Imports System.Text.RegularExpressions
 Imports MySql.Data.MySqlClient
 Imports Newtonsoft.Json
 
-Public Class RegionMaker
+Public Class ClassRegionMaker
 
 #Region "Public Fields"
 
@@ -26,9 +26,9 @@ Public Class RegionMaker
 #Region "Declarations"
 
     Public WebserverList As New List(Of String)
-    Private Shared FInstance As RegionMaker
+    Private Shared FInstance As ClassRegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
-    ReadOnly Backup As New List(Of RegionMaker.Region_data)
+    ReadOnly Backup As New List(Of ClassRegionMaker.Region_data)
     Private ReadOnly Map As New Dictionary(Of String, String)
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
     Private _GetAllRegionsIsBusy As Boolean
@@ -67,10 +67,10 @@ Public Class RegionMaker
 
 #Region "Instance"
 
-    Public Shared ReadOnly Property Instance() As RegionMaker
+    Public Shared ReadOnly Property Instance() As ClassRegionMaker
         Get
             If (FInstance Is Nothing) Then
-                FInstance = New RegionMaker()
+                FInstance = New ClassRegionMaker()
                 SkipSetup = False
             End If
             Return FInstance
@@ -278,9 +278,9 @@ Public Class RegionMaker
 
         Dim pathtoWelcome As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
         Dim RegionUUID As String = FindRegionByName(Newname)
-        DeleteFile(IO.Path.Combine(pathtoWelcome, $"Region\{Newname}.ini"))
+        CopyFileFast(IO.Path.Combine(pathtoWelcome, $"{Newname}.ini"), IO.Path.Combine(pathtoWelcome, $"{Newname}.bak"))
+        DeleteFile(IO.Path.Combine(pathtoWelcome, $"{Newname}.ini"))
 
-        Dim fname = pathtoWelcome + Newname + ".ini"
         If Not Directory.Exists(pathtoWelcome) Then
             Try
                 Directory.CreateDirectory(pathtoWelcome)
@@ -290,9 +290,9 @@ Public Class RegionMaker
         End If
 
         ' Change estate for Smart Start
-        Dim Estate = "Estate"
-        If SmartStart(RegionUUID) = "True" Then
-            Estate = "SimSurround"
+
+        If SmartStart(RegionUUID) = "True" And Estate(RegionUUID) = "" Then
+            Estate(RegionUUID) = "SimSurround"
         End If
 
         Dim proto = "; * Regions configuration file; " & vbCrLf _
@@ -315,7 +315,7 @@ Public Class RegionMaker
         & "PhysicalPrimMax = " & CStr(PhysicalPrimMax(RegionUUID)) & vbCrLf _
         & "ClampPrimSize = " & CStr(ClampPrimSize(RegionUUID)) & vbCrLf _
         & "MaxPrims = " & MaxPrims(RegionUUID) & vbCrLf _
-        & "RegionType = " & Estate & vbCrLf _
+        & "RegionType = " & Estate(RegionUUID) & vbCrLf _
         & "MaxAgents = 100" & vbCrLf & vbCrLf _
         & ";# Dreamgrid extended properties" & vbCrLf _
         & "RegionSnapShot = " & RegionSnapShot(RegionUUID) & vbCrLf _
@@ -340,12 +340,11 @@ Public Class RegionMaker
         & "LandingSpot =" & LandingSpot(RegionUUID) & vbCrLf _
         & "Cores =" & Cores(RegionUUID) & vbCrLf _
         & "Priority =" & Priority(RegionUUID) & vbCrLf _
-        & "OpenSimWorldAPIKey = " & OpensimWorldAPIKey(RegionUUID)
+        & "OpenSimWorldAPIKey = " & OpensimWorldAPIKey(RegionUUID) & vbCrLf
 
-        DeleteFile(fname)
 
         Try
-            Using outputFile As New StreamWriter(fname, True)
+            Using outputFile As New StreamWriter(IO.Path.Combine(pathtoWelcome, $"{Newname}.ini"), True)
                 outputFile.WriteLine(proto)
             End Using
         Catch ex As Exception
@@ -508,7 +507,7 @@ Public Class RegionMaker
 
     Public Function GetAllRegions() As Integer
 
-        If PropOpensimIsRunning Then Return 0
+        '  If PropOpensimIsRunning Then Return 0
 
         Dim ctr = 600
         While GetAllRegionsIsBusy And ctr > 0
@@ -555,6 +554,8 @@ Public Class RegionMaker
                                 BreakPoint.Show("Stopped")
                                 ' TODO delete
                             End If
+
+
                             Dim INI = New LoadIni(file, ";", System.Text.Encoding.ASCII)
 
                             uuid = CStr(INI.GetIni(fName, "RegionUUID", "", "String"))
@@ -766,12 +767,12 @@ Public Class RegionMaker
 
             ' shut down all regions in the DOS box
             For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
             Next
         Else
             ' shut down all regions in the DOS box
             For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                PropRegionClass.Status(UUID) = RegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+                PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
             Next
         End If
 

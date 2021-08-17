@@ -116,13 +116,13 @@ Public Class FormRegion
 #Region "ScreenSize"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    Private _screenPosition As ScreenPos
+    Private _screenPosition As ClassScreenpos
 
-    Public Property ScreenPosition As ScreenPos
+    Public Property ScreenPosition As ClassScreenpos
         Get
             Return _screenPosition
         End Get
-        Set(value As ScreenPos)
+        Set(value As ClassScreenpos)
             _screenPosition = value
         End Set
     End Property
@@ -135,7 +135,7 @@ Public Class FormRegion
 
     Private Sub SetScreen()
         Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
+        ScreenPosition = New ClassScreenpos(Me.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -273,7 +273,7 @@ Public Class FormRegion
         If Name Is Nothing Then Return
         Name = Name.Trim() ' remove spaces
 
-        PropRegionClass = RegionMaker.Instance()
+        PropRegionClass = ClassRegionMaker.Instance()
 
         ' NEW REGION
         If Name.Length = 0 Then
@@ -814,7 +814,7 @@ Public Class FormRegion
 
     Private Sub DeleteButton_Click(sender As Object, e As EventArgs) Handles DeleteButton.Click
 
-        If PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped Then
+        If PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped Then
             MsgBox(My.Resources.Regions_Are_Running, vbInformation Or vbMsgBoxSetForeground)
             Return
         End If

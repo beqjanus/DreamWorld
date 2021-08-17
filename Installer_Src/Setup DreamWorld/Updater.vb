@@ -96,21 +96,5 @@ Module Updater
 
 #End Region
 
-    Public Function DoStopActions() As Boolean
-
-        TextPrint(My.Resources.Stopping_word)
-        FormSetup.Buttons(FormSetup.BusyButton)
-
-        If Not FormSetup.KillAll() Then Return False
-        FormSetup.Buttons(FormSetup.StartButton)
-        TextPrint(My.Resources.Stopped_word)
-        FormSetup.ToolBar(False)
-
-        Settings.SafeShutdown = True
-        Settings.SaveSettings()
-
-        Return True
-
-    End Function
 
 End Module
