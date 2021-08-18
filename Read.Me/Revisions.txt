@@ -1,6 +1,10 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.63 Beta
+Suppressed a possible crash in visitor counter. Something is fucky in Mysql connections to Robust.
+Removed Robust restart when Smart start settings are changed.  
+
 V4.62 Beta
 Old Bug: Region re-normalize puts the selected region at 1000,1000 and moves the rest to match was just not working right at all. This is used by the original Javascript map. 
 Fix glitches in Port renumbering. Reworked refresh button to re-fetch the ports from INI files.
