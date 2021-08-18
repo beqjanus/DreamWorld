@@ -226,6 +226,14 @@ Public Class FormRegionlist
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
+
+        ' Set the view to show whatever
+        TheView1 = Settings.RegionListView()
+        If TheView1 = ViewType.Details Then PropRegionClass.GetAllRegions()
+
+        SetScreen(TheView1)
+
+
         AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
         AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
         AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
@@ -476,11 +484,6 @@ Public Class FormRegionlist
 
         ViewBusy = False
 
-        ' Set the view to show whatever
-        TheView1 = Settings.RegionListView()
-        If TheView1 = ViewType.Details Then PropRegionClass.GetAllRegions()
-
-        SetScreen(TheView1)
 
         Timer1.Start()
         LoadMyListView()
@@ -562,9 +565,9 @@ Public Class FormRegionlist
             Else
                 Num = DGICON.disabled
             End If
-        ElseIf Estate.Length = 0 Then
-            Letter = My.Resources.No_Estate_Word
-            Num = DGICON.NoEstate
+            '   ElseIf Estate.Length = 0 Then
+            '      Letter = My.Resources.No_Estate_Word
+            '     Num = DGICON.NoEstate
         ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.Stopped And PropRegionClass.SmartStart(RegionUUID) = "True" And Settings.SmartStart Then
             Letter = My.Resources.Waiting
             Num = DGICON.SmartStartStopped

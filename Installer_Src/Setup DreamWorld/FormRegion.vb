@@ -101,9 +101,9 @@ Public Class FormRegion
                 Sleep(1000)
             End While
 
-            StopRobust()
-            PropAborting = False
-            StartRobust()
+            'StopRobust()
+            'PropAborting = False
+            'StartRobust()
 
             Boot(PropRegionClass.RegionName(RegionUUID))
 

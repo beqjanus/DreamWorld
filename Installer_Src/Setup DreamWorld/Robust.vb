@@ -241,6 +241,7 @@ Module Robust
             While IsRobustRunning() And ctr < 30
                 Application.DoEvents()
                 Sleep(1000)
+                ConsoleCommand(RobustName, "q{ENTER}")
                 ctr += 1
             End While
             If ctr = 30 Then Zap("Robust")
