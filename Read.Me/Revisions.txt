@@ -2,6 +2,7 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
 V4.63 Beta
+Read and print Mysql Version that we are connected to.
 Suppressed a possible crash in visitor counter. Something is fucky in Mysql connections to Robust.
 Removed Robust restart when Smart start settings are changed.  
 

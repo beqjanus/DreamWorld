@@ -712,6 +712,7 @@ Public Module MysqlInterface
 
         Dim version = QueryString("SELECT VERSION()")
         If version.Length > 0 Then
+            MySqlRev = version
             IsRunning() = True
             MySQLIcon(True)
             Return True
