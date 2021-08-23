@@ -1218,6 +1218,7 @@ Public Module MysqlInterface
     ''' <param name="LocY"></param>
     Public Sub VisitorCount()
 
+        Return '!!! TODO
         If FormSetup.Visitor.Count > 0 Then
             Try
                 Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
