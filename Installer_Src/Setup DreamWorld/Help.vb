@@ -19,7 +19,7 @@ Module Help
 
     Public Sub HelpOnce(Webpage As String)
 
-        Using NewScreenPosition1 = New ScreenPos(Webpage)
+        Using NewScreenPosition1 = New ClassScreenpos(Webpage)
             If Not NewScreenPosition1.Exists() Then
 #Disable Warning CA2000
                 Dim FormHelp As New FormHelp

@@ -28,7 +28,7 @@ Public Class FormSmartStart
 #Region "ScreenSize"
 
     'The following detects  the location of the form in screen coordinates
-    Private _screenPosition As ScreenPos
+    Private _screenPosition As ClassScreenpos
 
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
         'Me.Text = "Form screen position = " + Me.Location.ToString
@@ -37,7 +37,7 @@ Public Class FormSmartStart
 
     Private Sub SetScreen()
         Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
+        ScreenPosition = New ClassScreenpos(Me.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)
@@ -57,11 +57,11 @@ Public Class FormSmartStart
         End Set
     End Property
 
-    Public Property ScreenPosition As ScreenPos
+    Public Property ScreenPosition As ClassScreenpos
         Get
             Return _screenPosition
         End Get
-        Set(value As ScreenPos)
+        Set(value As ClassScreenpos)
             _screenPosition = value
         End Set
     End Property
@@ -915,7 +915,7 @@ Public Class FormSmartStart
 
                 If Abort Then Exit For
 
-                ' force the Estate Name in Opensim.ini in COpyOpenSimProto
+                ' force the Estate Name in Opensim.ini in CopyOpenSimProto
                 gEstateName = localEstateName
                 gEstateOwner = localOwnerName
 
@@ -938,7 +938,7 @@ Public Class FormSmartStart
 
                 If GetPrimCount(RegionUUID) = 0 Then
                     Dim File = $"{PropDomain}/Outworldz_Installer/OAR/{J.Name}"
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.NoError
+                    PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.NoError
 
                     ConsoleCommand(RegionUUID, $"change region ""{RegionName}""")
                     ConsoleCommand(RegionUUID, $"load oar --force-terrain --force-parcels ""{File}""")
@@ -949,7 +949,7 @@ Public Class FormSmartStart
 
                     ConsoleCommand(RegionUUID, "backup")
 
-                    PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                    PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
 
                     If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
                         ConsoleCommand(RegionUUID, "q{ENTER}")
@@ -958,7 +958,7 @@ Public Class FormSmartStart
                     End If
                 Else
                     If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
-                        PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                        PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                         ConsoleCommand(RegionUUID, "q{ENTER}")
                         ConsoleCommand(RegionUUID, "q{ENTER}")
                     End If
@@ -973,7 +973,7 @@ Public Class FormSmartStart
                 Dim ctr = 120
                 If Settings.Sequential Then
                     If Abort Then Exit For
-                    While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped AndAlso Not Abort
+                    While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped AndAlso Not Abort
                         Sleep(1000)
                         Application.DoEvents()
                         ctr -= 1
@@ -1292,7 +1292,7 @@ Public Class FormSmartStart
                 ReBoot(RegionName)
                 WaitForBooted(RegionName)
 
-                If PropRegionClass.Status(RegionUUID) = RegionMaker.SIMSTATUSENUM.Booted Then
+                If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
                     RPC_Region_Command(RegionUUID, $"change region {RegionName}")
                     RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
                     RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
@@ -1787,8 +1787,8 @@ Public Class FormSmartStart
         ' wait a minute for the region to quit
         Dim ctr = 60
 
-        While PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Stopped And
-            PropRegionClass.Status(RegionUUID) <> RegionMaker.SIMSTATUSENUM.Error
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped And
+            PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Error
             Sleep(1000)
             ctr -= 1
             If ctr = 0 Then Exit While

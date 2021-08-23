@@ -3360,4 +3360,7 @@
   <data name="Unchanged" xml:space="preserve">
     <value>Αμετάβλητος</value>
   </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Πεπερασμένος</value>
+  </data>
 </root>

@@ -104,7 +104,7 @@ Module Robust
     Public Function StartRobust() As Boolean
 
         If Not StartMySQL() Then Return False ' prerequsite
-
+        PropOpensimIsRunning = True
         ' prevent recursion
         Dim ctr = 30
         While RobustIsStarting And ctr > 0
@@ -136,6 +136,7 @@ Module Robust
             RobustIcon(True)
             Return True
         End If
+
 
         RobustIsStarting = True
         SetServerType()
@@ -184,19 +185,18 @@ Module Robust
         End If
 
         SetWindowTextCall(RobustProcess, RobustName)
-
+        Sleep(2000)
         ' Wait for Robust to start listening
         Dim counter = 0
         While Not IsRobustRunning() And PropOpensimIsRunning
 
-            Application.DoEvents()
-
+            Sleep(5000)
             ' wait a minute for it to start
             If counter > 0 And counter Mod 30 = 0 Then
                 TextPrint("Robust " & Global.Outworldz.My.Resources.isBooting)
             End If
             counter += 1
-            ' 2 minutes to boot on bad hardware at 1.5 sec per spin
+            ' 2 minutes to boot on bad hardware at 5 sec per spin
             If counter > 90 Then
                 TextPrint(My.Resources.Robust_failed_to_start)
                 FormSetup.Buttons(FormSetup.StartButton)
@@ -215,11 +215,9 @@ Module Robust
                 Return False
             End If
 
-            Sleep(1000)
         End While
 
         RobustIsStarting = False
-        PropRobustProcID = WaitForPID(RobustProcess)
         Log(My.Resources.Info_word, Global.Outworldz.My.Resources.Robust_running)
         ShowDOSWindow(GetHwnd(RobustName), MaybeHideWindow())
         RobustIcon(True)
@@ -243,6 +241,7 @@ Module Robust
             While IsRobustRunning() And ctr < 30
                 Application.DoEvents()
                 Sleep(1000)
+                ConsoleCommand(RobustName, "q{ENTER}")
                 ctr += 1
             End While
             If ctr = 30 Then Zap("Robust")

@@ -14,18 +14,18 @@ Public Class FormBanList
 
 #Region "ScreenSize"
 
-    Private ReadOnly colsize As New ScreenPos("BanList")
+    Private ReadOnly colsize As New ClassScreenpos("BanList")
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
 
     'The following detects  the location of the form in screen coordinates
-    Private _screenPosition As ScreenPos
+    Private _screenPosition As ClassScreenpos
 
-    Public Property ScreenPosition As ScreenPos
+    Public Property ScreenPosition As ClassScreenpos
         Get
             Return _screenPosition
         End Get
-        Set(value As ScreenPos)
+        Set(value As ClassScreenpos)
             _screenPosition = value
         End Set
     End Property
@@ -39,7 +39,7 @@ Public Class FormBanList
     Private Sub SetScreen()
 
         Me.Show()
-        ScreenPosition = New ScreenPos(MyBase.Name)
+        ScreenPosition = New ClassScreenpos(MyBase.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)

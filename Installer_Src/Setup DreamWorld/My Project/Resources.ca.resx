@@ -3361,4 +3361,7 @@
   <data name="Unchanged" xml:space="preserve">
     <value>Sense canvis</value>
   </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Acabat</value>
+  </data>
 </root>

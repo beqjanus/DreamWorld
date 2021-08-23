@@ -24,13 +24,13 @@ Public Class FormLogging
 #Region "FormPos"
 
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    Private _screenPosition As ScreenPos
+    Private _screenPosition As ClassScreenpos
 
-    Public Property ScreenPosition As ScreenPos
+    Public Property ScreenPosition As ClassScreenpos
         Get
             Return _screenPosition
         End Get
-        Set(value As ScreenPos)
+        Set(value As ClassScreenpos)
             _screenPosition = value
         End Set
     End Property
@@ -43,7 +43,7 @@ Public Class FormLogging
 
     Private Sub SetScreen()
         Me.Show()
-        ScreenPosition = New ScreenPos(Me.Name)
+        ScreenPosition = New ClassScreenpos(Me.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()
         Me.Left = xy.Item(0)

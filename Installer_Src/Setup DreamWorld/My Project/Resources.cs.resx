@@ -3360,4 +3360,7 @@
   <data name="Unchanged" xml:space="preserve">
     <value>Beze změny</value>
   </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Hotovo</value>
+  </data>
 </root>

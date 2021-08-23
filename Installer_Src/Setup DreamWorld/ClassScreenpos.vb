@@ -9,7 +9,7 @@ Imports System.IO
 Imports IniParser
 Imports IniParser.Model
 
-Public Class ScreenPos
+Public Class ClassScreenpos
     Implements IDisposable
 
 #Region "Private Fields"

@@ -424,10 +424,8 @@ Public Module MysqlInterface
 
         If MysqlInterface.IsRunning() Then
             Try
-                EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
-                EstateConnection.Open()
-
-                Using EstateConnection
+                Using EstateConnection = New MySqlConnection(Settings.RegionMySqlConnection)
+                    EstateConnection.Open()
                     Dim stm = "SELECT estate_settings.EstateName FROM estate_settings estate_settings INNER JOIN estate_map estate_map ON (estate_settings.EstateID = estate_map.EstateID) where regionid = @UUID"
                     Using cmd As MySqlCommand = New MySqlCommand(stm, EstateConnection)
                         cmd.Parameters.AddWithValue("@UUID", UUID)
@@ -686,19 +684,13 @@ Public Module MysqlInterface
                 Using cmd As MySqlCommand = New MySqlCommand(UserStmt, NewSQLConn)
                     cmd.Parameters.AddWithValue("@R", RegionUUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        While reader.Read()
+                        If reader.Read() Then
                             Return True
-                        End While
+                        End If
                     End Using
                 End Using
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show("Error: " & ex.ToString())
-        End Try
-        Try
-            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-                NewSQLConn.Open()
-                Dim stm As String = "SELECT count(*) FROM presence  INNER JOIN regions ON presence.RegionID = regions.uuid where regions.uuid = @R ;"
+
+                Dim stm As String = "SELECT count(*) FROM presence where presence.RegionID = @R ;"
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
                     cmd.Parameters.AddWithValue("@R", RegionUUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
@@ -720,6 +712,7 @@ Public Module MysqlInterface
 
         Dim version = QueryString("SELECT VERSION()")
         If version.Length > 0 Then
+            MySqlRev = version
             IsRunning() = True
             MySQLIcon(True)
             Return True

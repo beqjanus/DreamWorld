@@ -30,10 +30,10 @@ Module Teleport
                 Dim status = PropRegionClass.Status(RegionToUUID)
                 Dim Port As Integer = PropRegionClass.GroupPort(RegionToUUID)
 
-                If status = RegionMaker.SIMSTATUSENUM.Stopped Then
+                If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
                     Fin.Add(AgentID) ' cancel this, the region went away
 
-                ElseIf status = RegionMaker.SIMSTATUSENUM.Booted And
+                ElseIf status = ClassRegionMaker.SIMSTATUSENUM.Booted And
                                 IsRegionReady(Port) And
                                 RegionIsRegisteredOnline(RegionToUUID) Then
 

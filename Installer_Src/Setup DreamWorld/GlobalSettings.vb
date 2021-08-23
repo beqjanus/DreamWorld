@@ -14,11 +14,11 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "4.61"
+    Public Const _MyVersion As String = "4.63"
     Public Const _SimVersion As String = "#d0e41f747b9054 there should be no need..."
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
-    Public Const MySqlRev = "5.6.5"
+    Public MySqlRev As String = "5.6.50"
 
 #End Region
 
@@ -46,7 +46,7 @@ Module GlobalSettings
     Private _IsRunning As Boolean
     Private _mySetting As MySettings
     Private _PropAborting As Boolean
-    Private _regionClass As RegionMaker
+    Private _regionClass As ClassRegionMaker
     Private _SelectedBox As String = ""
     Private _SkipSetup As Boolean = True
     Private _UpdateView As Boolean = True
@@ -105,11 +105,11 @@ Module GlobalSettings
         End Set
     End Property
 
-    Public Property PropRegionClass As RegionMaker
+    Public Property PropRegionClass As ClassRegionMaker
         Get
             Return _regionClass
         End Get
-        Set(value As RegionMaker)
+        Set(value As ClassRegionMaker)
             _regionClass = value
         End Set
     End Property
