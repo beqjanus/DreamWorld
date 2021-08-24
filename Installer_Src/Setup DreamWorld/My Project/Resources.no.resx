@@ -3357,4 +3357,7 @@
   <data name="Unchanged" xml:space="preserve">
     <value>Uendret</value>
   </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Fullført</value>
+  </data>
 </root>

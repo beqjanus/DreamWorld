@@ -3357,4 +3357,7 @@
   <data name="Unchanged" xml:space="preserve">
     <value>Không thay đổi</value>
   </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Đã kết thúc</value>
+  </data>
 </root>

@@ -3357,4 +3357,7 @@
   <data name="Unchanged" xml:space="preserve">
     <value>Aldatu gabe</value>
   </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Amaituta</value>
+  </data>
 </root>

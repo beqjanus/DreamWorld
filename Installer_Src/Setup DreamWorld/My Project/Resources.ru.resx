@@ -3357,4 +3357,7 @@
   <data name="Unchanged" xml:space="preserve">
     <value>Без изменений</value>
   </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Завершено</value>
+  </data>
 </root>
