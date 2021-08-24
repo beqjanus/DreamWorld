@@ -184,13 +184,16 @@ Public Class FormLogging
         Dim Out = IO.Path.Combine(TMPFolder, "Avatars.htm")
         DeleteFile(Out)
         ExamineAvatars(Out)
+        Process.Start(Out)
 
         Out = IO.Path.Combine(TMPFolder, "Regions.htm")
         DeleteFile(Out)
         _Err = 0
         Using outputFile As New StreamWriter(Out, True)
-            outputFile.WriteLine("<table>")
-            outputFile.WriteLine("<tr><td>DateType</td><td>Problem</td><td>Text</td></tr>")
+            outputFile.WriteLine("<style>table, th, td {border: 1px solid black; padding: 5px; text-align: left;border-spacing: 0px;border-collapse: collapse;}</style>")
+            outputFile.WriteLine("<style>#t01 tr:nth-child(even) {  background-color: #eee;}#t01 tr:nth-child(odd) { background-color: #fff;}#t01 th {  background-color: black;  color: white;}</style>")
+            outputFile.WriteLine("<table id=""t01"">")
+            outputFile.WriteLine("<tr><td>DateType</td><td>Region</td><td>Message</td></tr>")
 
             For Each UUID As String In PropRegionClass.RegionUuids
                 Application.DoEvents()
@@ -205,13 +208,16 @@ Public Class FormLogging
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
+    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do Not dispose objects multiple times")>
     Private Sub ExamineAvatars(Log As String)
 
         Try
             Using outputFile As New StreamWriter(Log, True)
-                outputFile.WriteLine("<table>")
-                outputFile.WriteLine("<tr><td>Date</td><td>Avatar</td><td>UUID</td><td>Viewer</td><td>Channel</td><td>IP</td><td>MAC</td><td>ID0</td><td>Region</td><td>Grid</td></tr>")
+                outputFile.WriteLine("<style>table, th, td {border: 1px solid black; padding: 5px; text-align: left;border-spacing: 0px;border-collapse: collapse;}</style>")
+                outputFile.WriteLine("<style>#t01 tr:nth-child(even) {  background-color: #eee;}#t01 tr:nth-child(odd) { background-color: #fff;}#t01 th {  background-color: black;  color: white;}</style>")
+                outputFile.WriteLine("<table id=""t01"">")
+
+                outputFile.WriteLine("<tr><td>Date</td><td>Avatar</td><td>IP</td><td>UUID</td><td>Viewer</td><td>Channel</td><td>IP</td><td>MAC</td><td>ID0</td></tr>")
 
                 Dim Robust = IO.Path.Combine(Settings.OpensimBinPath, "Robust.log")
                 If System.IO.File.Exists(Robust) Then
@@ -247,7 +253,9 @@ Public Class FormLogging
                         'now loop through each line
                         While S.Peek <> -1
                             _LineCounter += 1
-                            LookatOpensim(S.ReadLine(), outputfile, GroupName)
+                            Dim line = S.ReadLine()
+                            LookatOpensim(line, outputfile, GroupName)
+                            LookatYengine(line, outputfile, GroupName)
                             Application.DoEvents()
                         End While
                     End Using
@@ -262,12 +270,17 @@ Public Class FormLogging
 
     Private Sub Lookat(line As String, outputfile As StreamWriter)
 
+        '2021-06-27 19:50:17,103 INFO  (31) - OpenSim.Services.HypergridService.GatekeeperService [GATEKEEPER SERVICE]:
+        ''Login request for Test User @ http: //192.168.2.100:8002/ (44bc90a1-407a-48e8-9cc3-9fcf0a6d32fa)
+        ''at 74159a1f-1019-4947-943c-9686a1ccf466 using viewer Firestorm-Releasex64 6.4.12.62831, channel Firestorm-Releasex64,
+        ''IP 192.168.2.100, Mac 1cd06720d0cb1737ad6e4f159e25a0db, Id0 a5e2d9cb0462874d43f24feeb248d6e7, Teleport Flags: ViaLogin, ViaRegionID.From region Unknown
+
         ToolStripStatusLabel1.Text = $"{CStr(_Avictr)} Avatars,  {CStr(_LineCounter)} Lines"
-        Dim pattern = New Regex("^(.*?),.*?INFO.*?Login request for (.*?) \((.*?)\).*?viewer (.*?), channel (.*?), IP (.*?), Mac (.*?), Id0 (.*?),.*?region (.*?) \(.*?\@ (.*)")
+        Dim pattern = New Regex("^(.*?),.*?Login request for (.*?) \@ (.*?) \((.*?)\).*?viewer (.*?), channel (.*?), IP (.*?), Mac (.*?), Id0 (.*?,)")
         Dim match As Match = pattern.Match(line)
         If match.Success Then
             Dim DateTime = match.Groups(1).Value
-            Dim Avatar = match.Groups(2).Value.Replace(" ", "")
+            Dim Avatar = match.Groups(2) '.Value.Replace(" ", " ")
             Dim UUID = match.Groups(3).Value
             Dim Viewer = match.Groups(4).Value
             Dim Channel = match.Groups(5).Value
@@ -275,11 +288,9 @@ Public Class FormLogging
             Dim MAC = match.Groups(7).Value
             Dim Id0 = match.Groups(8).Value
             Dim Region = match.Groups(9).Value
-            Dim Grid = match.Groups(10).Value
-            Grid = Grid.Replace("\n", "").Replace("\r", "")
             _Avictr += 1
 
-            outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{Avatar}</td><td>{UUID}</td><td>{Viewer}</td><td>{Channel}</td><td>{IP}</td><td>{MAC}</td><td>{Id0}</td><td>{Region}</td><td>{Grid}</td></tr>")
+            outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{Avatar}</td><td>{UUID}</td><td>{Viewer}</td><td>{Channel}</td><td>{IP}</td><td>{MAC}</td><td>{Id0}</td><td>{Region}</td></tr>")
         End If
 
     End Sub
@@ -308,7 +319,7 @@ Public Class FormLogging
             Dim Preamble = match.Groups(2).Value
             Dim Vector = match.Groups(3).Value
             Dim Last = match.Groups(4).Value
-            outputfile.WriteLine($"<tr><td>{DateTime}</td><td>ERROR</td><td>{Preamble} <a href=""hop://{Settings.PublicIP}:{Settings.HttpPort} {GroupName}""> {Vector} </a> {Last} {GroupName}</td></tr>")
+            outputfile.WriteLine($"<tr><td>{DateTime}</td><td>{GroupName}</td><td>{Preamble} <a href=""hop://{Settings.PublicIP}:{Settings.HttpPort} {GroupName}""> {Vector} </a> {Last} {GroupName}</td></tr>")
             _Err += 1
             Return 1
         End If
@@ -316,6 +327,35 @@ Public Class FormLogging
 
     End Function
 
+
+    Private Function LookatYengine(line As String, outputfile As StreamWriter, GroupName As String) As Integer
+        ToolStripStatusLabel1.Text = $"{CStr(_Err)} Errors,  {CStr(_LineCounter)} Lines  {CStr(_FileCounter)} Files"
+        Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)|^(.*?)(\[YEngine\]\:.*)")
+        Dim match As Match = pattern.Match(line)
+        If match.Success Then
+            Dim DateTime1 As String
+            Dim A As String
+            Try
+                DateTime1 = match.Groups(1).Value
+                A = match.Groups(2).Value
+            Catch
+            End Try
+            Dim DateTime2 As String
+            Dim B As String
+            Try
+                DateTime2 = match.Groups(3).Value
+                B = match.Groups(4).Value
+            Catch
+            End Try
+            outputfile.WriteLine($"<tr><td>{DateTime1}{DateTime2}</td><td>{GroupName}</td><td>{A}{B}</td></tr>")
+            _Err += 1
+            Return 1
+        End If
+        Return 0
+
+
+
+    End Function
 #End Region
 
 End Class
