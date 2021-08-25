@@ -72,13 +72,14 @@ Module WindowHandlers
                 End If
                 DoType(RegionUUID, "{ENTER}")
                 DoType(RegionUUID, command)
-
+                Sleep(1000)
                 Try
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
                 Catch ex As Exception
                 End Try
             Else ' Robust
                 Try
+                    Sleep(1000)
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
