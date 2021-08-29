@@ -585,6 +585,7 @@ Public Class FormSetup
 
         PropRegionClass.CheckOverLap()
 
+
         StartThreads()
 
         Dim l = PropRegionClass.RegionUuids()
@@ -607,6 +608,11 @@ Public Class FormSetup
 
         If Settings.RegionListVisible Then
             ShowRegionform()
+        End If
+
+        Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
+        If RunningTasks.Length = 0 Then
+            Settings.SafeShutdown = True
         End If
 
         ' Boot them up

@@ -63,11 +63,11 @@ Module WindowHandlers
                     Try
                         If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeShowWindow())
                     Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
+                        'BreakPoint.Show(ex.Message)
                         Return
                     End Try
                 Else
-                    BreakPoint.Show("No PID")
+                    'BreakPoint.Show("No PID")
                     Return
                 End If
                 DoType(RegionUUID, "{ENTER}")
@@ -82,7 +82,7 @@ Module WindowHandlers
                     Sleep(1000)
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
+                    'BreakPoint.Show(ex.Message)
                     Return
                 End Try
                 DoType("Robust", "{ENTER}")

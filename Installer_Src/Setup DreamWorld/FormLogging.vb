@@ -221,8 +221,8 @@ Public Class FormLogging
 
                 Dim Robust = IO.Path.Combine(Settings.OpensimBinPath, "Robust.log")
                 If System.IO.File.Exists(Robust) Then
-                    Using F As FileStream = New FileStream(Robust, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
-                        Using S As StreamReader = New StreamReader(F)
+                    Using F As New FileStream(Robust, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+                        Using S = New StreamReader(F)
                             'now loop through each line
                             While S.Peek <> -1
                                 Application.DoEvents()
@@ -248,8 +248,8 @@ Public Class FormLogging
         Try
             Dim Region = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Opensim.log")
             If System.IO.File.Exists(Region) Then
-                Using F As FileStream = New FileStream(Region, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
-                    Using S As StreamReader = New StreamReader(F)
+                Using F = New FileStream(Region, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+                    Using S = New StreamReader(F)
                         'now loop through each line
                         While S.Peek <> -1
                             _LineCounter += 1
@@ -333,15 +333,15 @@ Public Class FormLogging
         Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)|^(.*?)(\[YEngine\]\:.*)")
         Dim match As Match = pattern.Match(line)
         If match.Success Then
-            Dim DateTime1 As String
-            Dim A As String
+            Dim DateTime1 As String = ""
+            Dim A As String = ""
             Try
                 DateTime1 = match.Groups(1).Value
                 A = match.Groups(2).Value
             Catch
             End Try
-            Dim DateTime2 As String
-            Dim B As String
+            Dim DateTime2 As String = ""
+            Dim B As String = ""
             Try
                 DateTime2 = match.Groups(3).Value
                 B = match.Groups(4).Value
