@@ -1,5 +1,11 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
+Environment.processorcount used to set initial core counts
+VisitorCount could fail to count local visitors.
+Select Region name on form load
+Set SafeShutdown if no Opensim processes detected
+Mysql try catch cleanup in lots of places
+
 V4.64 Beta
 Logging reports (Setup->Setting->Logging->{Analyse Logs] are styled better and report YEngine script errors now
 
@@ -28,7 +34,7 @@ Link set: Max number of prims increased to 1024.
 Chat to Speech:  Added a Speech class for the future Chat to Speech system.  Will also be adding a translator. 
 Bug:  Surrounding sims would start with nearby visitor when SS was disabled.
 Bump connections to Mysql in my.ini for large grids like mine.
-Added three more free OARS. - 2 adult and an older prim-based region.
+Added three more free OARS. 2 adult and an older prim-based region.
 
 V4.57  
 Git is Rev V4 so it's `git checkout V4`.  My code is mostly written in Visual Basic and anyone can compile it for free.
