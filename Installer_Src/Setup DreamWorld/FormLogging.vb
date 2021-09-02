@@ -333,15 +333,15 @@ Public Class FormLogging
         Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)|^(.*?)(\[YEngine\]\:.*)")
         Dim match As Match = pattern.Match(line)
         If match.Success Then
-            Dim DateTime1 As String
-            Dim A As String
+            Dim DateTime1 As String = ""
+            Dim A As String = ""
             Try
                 DateTime1 = match.Groups(1).Value
                 A = match.Groups(2).Value
             Catch
             End Try
-            Dim DateTime2 As String
-            Dim B As String
+            Dim DateTime2 As String = ""
+            Dim B As String = ""
             Try
                 DateTime2 = match.Groups(3).Value
                 B = match.Groups(4).Value
