@@ -414,7 +414,7 @@ Public Class ClassRegionMaker
     ''' <returns>true if avatar is present</returns>
     Public Function AvatarsIsInGroup(groupname As String) As Boolean
 
-        Dim present As Integer = 0
+        Dim present As Integer
         For Each RegionUUID As String In RegionUuidListByName(groupname)
             If IsAgentInRegion(RegionUUID) Then
                 Return True
