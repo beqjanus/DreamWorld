@@ -1693,6 +1693,30 @@ Public Class FormRegion
 
     End Sub
 
+    Private Sub Physics_ODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ODE.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_ubODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_Bullet_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_Separate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
 
 
 #End Region
