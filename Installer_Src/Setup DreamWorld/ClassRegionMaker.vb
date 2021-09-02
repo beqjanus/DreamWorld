@@ -102,7 +102,12 @@ Public Class ClassRegionMaker
 
     Public Function Init() As Boolean
 
+        Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
+        If RunningTasks.Length = 0 Then
+            Settings.SafeShutdown = True
+        End If
         GetAllRegions()
+
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
             Settings.WelcomeRegion = "Welcome"
@@ -424,6 +429,8 @@ Public Class ClassRegionMaker
 
     End Function
 
+
+
     Public Function CheckOverLap() As Boolean
 
         Dim FailedCheck As Boolean
@@ -637,6 +644,7 @@ Public Class ClassRegionMaker
                             ' If the iNI files have Nothing, Then  go Max
                             ' if this is after boot up, use the backed up settings.
                             ' Adding a new region always uses Max
+
 
                             If Settings.SafeShutdown Then
                                 Dim p = LargestPort() + 1

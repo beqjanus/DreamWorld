@@ -91,6 +91,7 @@ Partial Class FormRegion
         Me.XEngineButton = New System.Windows.Forms.RadioButton()
         Me.YEngineButton = New System.Windows.Forms.RadioButton()
         Me.ModulesGroupBox = New System.Windows.Forms.GroupBox()
+        Me.ConciergeCheckBox = New System.Windows.Forms.CheckBox()
         Me.RichTextBoxModules = New System.Windows.Forms.RichTextBox()
         Me.PublicityGroupBox = New System.Windows.Forms.GroupBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -171,7 +172,6 @@ Partial Class FormRegion
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.HelpProvider1 = New System.Windows.Forms.HelpProvider()
-        Me.ConciergeCheckBox = New System.Windows.Forms.CheckBox()
         Me.RegionsGroupbox.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.ScriptsGroupbox.SuspendLayout()
@@ -887,6 +887,16 @@ Partial Class FormRegion
         Me.ModulesGroupBox.TabIndex = 0
         Me.ModulesGroupBox.TabStop = False
         Me.ModulesGroupBox.Text = "Modules"
+        '
+        'ConciergeCheckBox
+        '
+        Me.ConciergeCheckBox.AutoSize = True
+        Me.ConciergeCheckBox.Location = New System.Drawing.Point(15, 160)
+        Me.ConciergeCheckBox.Name = "ConciergeCheckBox"
+        Me.ConciergeCheckBox.Size = New System.Drawing.Size(111, 17)
+        Me.ConciergeCheckBox.TabIndex = 7
+        Me.ConciergeCheckBox.Text = "Announce Visitors"
+        Me.ConciergeCheckBox.UseVisualStyleBackColor = True
         '
         'RichTextBoxModules
         '
@@ -1736,16 +1746,6 @@ Partial Class FormRegion
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(0, 13)
         Me.Label9.TabIndex = 2
-        '
-        'ConciergeCheckBox
-        '
-        Me.ConciergeCheckBox.AutoSize = True
-        Me.ConciergeCheckBox.Location = New System.Drawing.Point(15, 160)
-        Me.ConciergeCheckBox.Name = "ConciergeCheckBox"
-        Me.ConciergeCheckBox.Size = New System.Drawing.Size(111, 17)
-        Me.ConciergeCheckBox.TabIndex = 7
-        Me.ConciergeCheckBox.Text = "Announce Visitors"
-        Me.ConciergeCheckBox.UseVisualStyleBackColor = True
         '
         'FormRegion
         '

@@ -221,8 +221,8 @@ Public Class FormLogging
 
                 Dim Robust = IO.Path.Combine(Settings.OpensimBinPath, "Robust.log")
                 If System.IO.File.Exists(Robust) Then
-                    Using F As FileStream = New FileStream(Robust, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
-                        Using S As StreamReader = New StreamReader(F)
+                    Using F As New FileStream(Robust, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+                        Using S = New StreamReader(F)
                             'now loop through each line
                             While S.Peek <> -1
                                 Application.DoEvents()
@@ -248,8 +248,8 @@ Public Class FormLogging
         Try
             Dim Region = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Opensim.log")
             If System.IO.File.Exists(Region) Then
-                Using F As FileStream = New FileStream(Region, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
-                    Using S As StreamReader = New StreamReader(F)
+                Using F = New FileStream(Region, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)
+                    Using S = New StreamReader(F)
                         'now loop through each line
                         While S.Peek <> -1
                             _LineCounter += 1
