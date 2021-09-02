@@ -2,11 +2,11 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
 V4.65 Beta
-Environment.processorcount used to set initial core counts- minor fix
+Environment.processorcount now used to set initial core counts- minor fix to suppress a try catch
 VisitorCount could fail to count local visitors. 
-Set focus to Region name on form load7
+Set focus to Region name on form load
 Set SafeShutdown flag if no Opensim processes detected so ports get renumbered
-
+Changing physics tab in Regions did not trigger a save warning if panel was closed
 
 V4.64 Beta
 Logging reports (Setup->Setting->Logging->{Analyze Logs] are styled better and report YEngine script errors now
