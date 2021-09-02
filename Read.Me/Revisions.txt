@@ -1,13 +1,16 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
-Environment.processorcount used to set initial core counts
-VisitorCount could fail to count local visitors.
-Select Region name on form load
-Set SafeShutdown if no Opensim processes detected
-Mysql try catch cleanup in lots of places
+
+V4.65 Beta
+Environment.processorcount used to set initial core counts- minor fix
+VisitorCount could fail to count local visitors. 
+Set focus to Region name on form load7
+Set SafeShutdown flag if no Opensim processes detected so ports get renumbered
+
 
 V4.64 Beta
-Logging reports (Setup->Setting->Logging->{Analyse Logs] are styled better and report YEngine script errors now
+Logging reports (Setup->Setting->Logging->{Analyze Logs] are styled better and report YEngine script errors now
+Added a 1 second sleep after typed commands before potentially closing windows for readability
 
 V4.63 Beta
 Read and print Mysql Version that we are connected to.
