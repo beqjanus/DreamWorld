@@ -548,6 +548,7 @@ Module SmartStart
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
+
                 Try
                     Dim Priority = PropRegionClass.Priority(RegionUUID)
 

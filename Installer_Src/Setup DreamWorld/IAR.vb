@@ -15,7 +15,7 @@ Module IAR
 
         If PropOpensimIsRunning() Then
             ' Create an instance of the open file dialog box. Set filter options and filter index.
-            Dim openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+            Dim openFileDialog1 = New OpenFileDialog With {
                             .InitialDirectory = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles") & """",
                             .Filter = Global.Outworldz.My.Resources.IAR_Load_and_Save_word & " (*.iar)|*.iar|All Files (*.*)|*.*",
                             .FilterIndex = 1,

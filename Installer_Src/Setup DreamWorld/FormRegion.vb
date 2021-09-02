@@ -260,6 +260,7 @@ Public Class FormRegion
         TPCheckBox1.Text = Global.Outworldz.My.Resources.Teleporter_Enable_word
         UUID.Name = Global.Outworldz.My.Resources.UUID
 
+        RegionName.Select()
         'Scripting
         XEngineButton.Text = Global.Outworldz.My.Resources.XEngine_word
         YEngineButton.Text = Global.Outworldz.My.Resources.YEngine_word
@@ -796,7 +797,7 @@ Public Class FormRegion
     Private Sub CoordX_TextChanged(sender As Object, e As EventArgs) Handles CoordX.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         CoordX.Text = digitsOnly.Replace(CoordX.Text, "")
         Changed1 = True
 
@@ -804,7 +805,7 @@ Public Class FormRegion
 
     Private Sub Coordy_TextChanged(sender As Object, e As EventArgs) Handles CoordY.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         CoordY.Text = digitsOnly.Replace(CoordY.Text, "")
         If Initted1 And CoordY.Text.Length >= 0 Then
             Changed1 = True
@@ -850,7 +851,7 @@ Public Class FormRegion
 
     Private Sub EnableMaxPrims_text(sender As Object, e As EventArgs) Handles MaxPrims.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         MaxPrims.Text = digitsOnly.Replace(MaxPrims.Text, "")
         If Initted1 Then Changed1 = True
 
@@ -884,7 +885,7 @@ Public Class FormRegion
 
     Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         ScriptTimerTextBox.Text = digitsOnly.Replace(ScriptTimerTextBox.Text, "")
 
         If Initted1 Then Changed1 = True
@@ -924,7 +925,7 @@ Public Class FormRegion
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles FrametimeBox.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         FrametimeBox.Text = digitsOnly.Replace(FrametimeBox.Text, "")
         If Initted1 Then Changed1 = True
 
@@ -1179,7 +1180,7 @@ Public Class FormRegion
         If Core15Button.Checked Then cores += &H4000
         If Core16Button.Checked Then cores += &H8000
 
-        If cores = 0 Then cores = &HFFFF
+        If cores = 0 Then cores = Environment.ProcessorCount
         PropRegionClass.Cores(RegionUUID) = cores
 
         If RealTime.Checked Then
@@ -1691,6 +1692,7 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
+
 
 
 #End Region
