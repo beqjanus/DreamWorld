@@ -587,7 +587,7 @@ Public Class FormSetup
 
 
         StartThreads()
-
+        Application.DoEvents()
         Dim l = PropRegionClass.RegionUuids()
 
         If Settings.ServerType = RobustServerName Then

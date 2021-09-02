@@ -452,6 +452,10 @@ Module SmartStart
             Return False
         End If
 
+        If PropRegionClass.Cores(RegionUUID) = 0 Or PropRegionClass.Cores(RegionUUID) > Environment.ProcessorCount Then
+            PropRegionClass.Cores(RegionUUID) = CInt(2 ^ Environment.ProcessorCount - 1)
+        End If
+
         PropRegionClass.CrashCounter(RegionUUID) = 0
 
         If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
