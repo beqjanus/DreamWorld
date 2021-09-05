@@ -31,6 +31,9 @@
 	{font-family:"Segoe UI";
 	panose-1:2 11 5 2 4 2 4 2 2 3;}
 @font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
 	{font-family:"\@SimSun";
 	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
@@ -70,6 +73,14 @@ p.MsoTitle, li.MsoTitle, div.MsoTitle
 	color:#5B9BD5;
 	text-transform:uppercase;
 	letter-spacing:.5pt;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+em
+	{color:#1F4D78;
+	text-transform:uppercase;
+	letter-spacing:.25pt;
+	font-style:normal;}
 p
 	{margin-right:0in;
 	margin-left:0in;
@@ -410,16 +421,16 @@ XEngine parsed the order in the opposite direction from Second Life.</span></p>
 10.0pt;margin-left:.5in'><b><span lang=EN style='font-size:11.0pt;line-height:
 115%;font-family:"Verdana",sans-serif'>Script Timer Rate</span></b><span
 lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>
-is normally no faster than 1/5<sup>th</sup> of a second.  It should rarely, if
+is normally no faster than 1/5<sup>th</sup> of a second.  It should rarely, if
 ever be faster than this.  There are many less laggy ways to code a LSL system!</span></p>
 
 <p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
 10.0pt;margin-left:.5in'><b><span lang=EN style='font-size:11.0pt;line-height:
 115%;font-family:"Verdana",sans-serif'>Frame rate </span></b><span lang=EN
 style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'>is how
-fast physics and other ‘steps’ are run.  It is normally set to 1/11ths of a second,
-which is 1/5<sup>th</sup> of Second Life’s rate.  Some systems can benefit by
-running this slower or faster.</span></p>
+fast physics and other ‘steps’ are run.  It is normally set to 1/11ths of a
+second, which is 1/5<sup>th</sup> of Second Life’s rate.  Some systems can
+benefit by running this slower or faster.</span></p>
 
 <span lang=EN style='font-size:11.0pt;line-height:115%;font-family:"Verdana",sans-serif'><br
 clear=all style='page-break-before:always'>
@@ -661,13 +672,118 @@ processor for a thread can improve performance under heavy system loads by
 reducing the number of times the processor cache is reloaded.  The system
 schedules threads on their preferred processors whenever possible.</span></p>
 
-<span style='font-size:10.0pt;line-height:115%;font-family:"Segoe UI",sans-serif;
-color:#171717;background:white'><br clear=all style='page-break-before:always'>
-</span>
+<p style='margin-top:0in;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+background:white'><em><b><span style='font-size:10.5pt;line-height:115%;
+font-family:"Arial",sans-serif;color:#373737'>best use of “Real Time,” vs High,
+or using “low” </span></b></em></p>
 
-<p class=MsoNormal style='margin-top:5.0pt;margin-right:.5in;margin-bottom:
-10.0pt;margin-left:.5in;text-autospace:none'><span style='font-family:"Segoe UI",sans-serif;
-color:#171717;background:white'>&nbsp;</span></p>
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;background:white;font-variant-ligatures: normal;font-variant-caps: normal;
+orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width: 0px;
+text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+word-spacing:0px'><span style='font-size:10.5pt;line-height:115%;font-family:
+"Arial",sans-serif;color:#373737'>A scenery/low script region has no need for
+any optimization. It is already low lag, and load load. You need to think about
+these system-wide, and what the regions are doing under load.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;background:white;font-variant-ligatures: normal;font-variant-caps: normal;
+orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width: 0px;
+text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+word-spacing:0px'><span style='font-size:10.5pt;line-height:115%;font-family:
+"Arial",sans-serif;color:#373737'>You could just dedicate all such regions to
+Core 1 and set priority normal. If one person was in one of those regions, it
+would seem 'normal to them even if all other cores were hard at work. Opensim
+loves cores, so this may not be ideal, but it does protect that region from the
+other CPU cores.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;background:white;font-variant-ligatures: normal;font-variant-caps: normal;
+orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width: 0px;
+text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+word-spacing:0px'><strong><span style='font-size:10.5pt;line-height:115%;
+font-family:"Arial",sans-serif;color:#373737'>Limit:</span></strong><span
+style='font-size:10.5pt;line-height:115%;font-family:"Arial",sans-serif;
+color:#373737'>&nbsp;Scripts or physics may need to be limited. A limit may be
+needed on large Satyr Farms. They make a great number of changes to prims which
+can swamp a server with MySQL writes. I can show you a half dozen regions on
+two different grids that write to SSD's as fast as possible - 7 to 15 MB a
+second! I upgraded one to more cores and it just wrote even faster. So these
+sims really need to be much lower in priority for CPU. It's horrible - a
+Contabo machine costing $50 a month is barely capable of running one region
+because of Satyr Farm!</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;background:white;font-variant-ligatures: normal;font-variant-caps: normal;
+orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width: 0px;
+text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+word-spacing:0px'><strong><span style='font-size:10.5pt;line-height:115%;
+font-family:"Arial",sans-serif;color:#373737'>Unlimited:</span></strong><span
+style='font-size:10.5pt;line-height:115%;font-family:"Arial",sans-serif;
+color:#373737'>&nbsp;The opposite example would be a racing simulation, where
+you want more responsiveness. Set that region to a higher priority. Look at </span><span
+style='font-size:10.5pt;line-height:115%;font-family:"Tahoma",sans-serif;
+color:#373737'>&#65279;</span><a
+href="https://mewe.com/group/5bc12bdc322b35103f0965d3/members/profile/5d463db2ea9ee17fa4d50a61"
+data-userid=5d463db2ea9ee17fa4d50a61 style='cursor:pointer;border-radius: 6px;
+background-color:rgba(102, 207, 255, 0.2);user-select: all;text-overflow: ellipsis;
+max-width:100%;overflow:hidden'><span style='font-size:10.5pt;line-height:115%;
+font-family:"Arial",sans-serif;color:#007DA1'>@Cuteulala Artis</span></a><span
+style='font-size:10.5pt;line-height:115%;font-family:"Tahoma",sans-serif;
+color:#373737'>&#65279;</span><span style='font-size:10.5pt;line-height:115%;
+font-family:"Arial",sans-serif;color:#373737'> wonderful organ simulation in
+your free OARs list near the bottom. This wonderful creation requires a faster
+script timer in region settings to play properly. It could potentially benefit
+from a higher priority above 'Normal' on a heavily loaded server.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;background:white;font-variant-ligatures: normal;font-variant-caps: normal;
+orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width: 0px;
+text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+word-spacing:0px'><strong><span style='font-size:10.5pt;line-height:115%;
+font-family:"Arial",sans-serif;color:#373737'>Dedicated Cores</span></strong><span
+style='font-size:10.5pt;line-height:115%;font-family:"Arial",sans-serif;
+color:#373737'>&nbsp;is something else. To increase performance even more, you
+can dedicate one or more cores or more to a DOS box. Default is all cores are
+served to all DOS boxes. A dedicated core is more efficient as the system does
+not share the cores with other tasks and the hardware scheduler can make
+smarter decisions about this one DOS box.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;background:white;font-variant-ligatures: normal;font-variant-caps: normal;
+orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width: 0px;
+text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+word-spacing:0px'><span style='font-size:10.5pt;line-height:115%;font-family:
+"Arial",sans-serif;color:#373737'>Dedicated Cores are a marketable product. SL
+sells a dedicated core with one 256 X 256 region in it for $229 a month. We are
+not SL, obviously , but if someone wanted to sell a dedicated core for more
+than the usual fee, they can now.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;background:white;font-variant-ligatures: normal;font-variant-caps: normal;
+orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width: 0px;
+text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+word-spacing:0px'><span style='font-size:10.5pt;line-height:115%;font-family:
+"Arial",sans-serif;color:#373737'>Src:&nbsp;</span><a
+href="https://secondlife.com/land/private-pricing" target="_blank"
+style='cursor:pointer'><span style='font-size:10.5pt;line-height:115%;
+font-family:"Arial",sans-serif;color:#007DA1'>https://secondlife.com/land/private-pricing</span></a><span
+style='font-size:10.5pt;line-height:115%;font-family:"Arial",sans-serif;
+color:#373737'>. It has a higher value than sharing a machine with all others.</span></p>
+
+<p style='margin-top:12.0pt;margin-right:0in;margin-bottom:0in;margin-left:
+.5in;background:white;font-variant-ligatures: normal;font-variant-caps: normal;
+orphans: 2;text-align:start;widows: 2;-webkit-text-stroke-width: 0px;
+text-decoration-thickness: initial;text-decoration-style: initial;text-decoration-color: initial;
+word-spacing:0px'><span style='font-size:10.5pt;line-height:115%;font-family:
+"Arial",sans-serif;color:#373737'>Assume you are running a high CPU load on an
+8-CPU Intel machine with hyperthreads so 16 cores are available. (AMD is not
+hyperthreadable). Assume also that the GUI in DreamGrid is lagging, or Windows
+is not being very responsive. You can set all your regions to use, lets say 14,
+of those 16 cores so two cores would be left for Windows and DreamGrid GUI,
+Robust, and Mysql, and other tasks without being bothered by Satyr Farm. ( I
+currently do not have code to dedicate a core to Robust and Mysql, but I will add
+that soon)</span></p>
 
 <div style='border:solid #5B9BD5 3.0pt;padding:0in 0in 0in 0in;background:#5B9BD5;
 margin-left:.5in;margin-right:.5in'>
@@ -684,9 +800,6 @@ color:black'>                          </span></p>
 10.0pt;margin-left:.5in'><span style='font-family:"Verdana",sans-serif;
 color:black'>DreamGrid has several simple rules for *.INI files that differ
 slightly from stock Opensim.</span></p>
-
-<p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
-.5in;text-indent:1.0in;line-height:normal'><span style='font-family:"Times New Roman",serif'>&nbsp;</span></p>
 
 <p style='margin-top:5.0pt;margin-right:.5in;margin-bottom:5.0pt;margin-left:
 1.0in;text-indent:-40.5pt;line-height:normal'><span style='font-family:Symbol'>·<span
