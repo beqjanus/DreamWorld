@@ -1,6 +1,10 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.66 Beta
+Added a Save All IAR background task., Choose a region, click Start
+
+
 V4.65 Beta
 Environment.processorcount now used to set initial core counts- minor fix to suppress a try catch
 VisitorCount could fail to count local visitors. 
