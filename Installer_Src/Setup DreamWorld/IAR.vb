@@ -9,7 +9,7 @@ Imports System.Threading
 
 Module IAR
 
-    Public Class params
+    Public Class Params
         Public RegionName As String
         Public opt As String
         Public itemName As String
@@ -92,7 +92,7 @@ Module IAR
                 End If
                 If u.Length > 0 Then
                     ConsoleCommand(UUID, "load iar --merge " & u & " " & p & " " & """" & thing & """")
-                    SendMessage(UUID, "IAR content Is loading")
+                    SendMessage(UUID, "IAR content is loading")
                     TextPrint(My.Resources.isLoading & vbCrLf & p)
                 Else
                     TextPrint(My.Resources.Canceled_IAR)
@@ -108,7 +108,7 @@ Module IAR
 
         If PropOpensimIsRunning() Then
 
-            Dim RegionName = ChooseRegion(True)
+            Dim RegionName = ChooseRegion(False)
             If RegionName.Length = 0 Then Return
 
             Using SaveIAR As New FormIARSaveAll
@@ -128,7 +128,7 @@ Module IAR
 
                     Dim opt As String = "  "
                     If Settings.DNSName.Length > 0 Then
-                        opt += " -h " & Settings.DNSName & " "
+                        opt += " -h " & Settings.DNSName & ":" & Settings.HttpPort & " "
                     End If
 
                     Dim Perm As String = ""
@@ -148,13 +148,16 @@ Module IAR
                         opt += " --perm=" & Perm & " "
                     End If
 
-                    Dim p As New params
-                    p.RegionName = RegionName
-                    p.opt = opt
-                    p.itemName = itemName
+                    Dim p As New Params With {
+                        .RegionName = RegionName,
+                        .opt = opt,
+                        .itemName = itemName
+                    }
 
                     ' start a thread to see if a region has crashed, if so, add it to an exit list
+#Disable Warning BC42016 ' Implicit conversion
                     Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
+#Enable Warning BC42016 ' Implicit conversion
                     Dim SaveIARThread = New Thread(start)
                     SaveIARThread.SetApartmentState(ApartmentState.STA)
                     SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
@@ -179,7 +182,15 @@ Module IAR
         For Each k As String In UserList
             Dim newname = k.Replace(" ", "_")
             Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
-            ToBackup = IO.Path.Combine(BackupPath(), BackupName)
+            If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
+                Try
+                    System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            End If
+
+            ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
             ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
             WaitforComplete(ToBackup)
         Next
@@ -189,18 +200,25 @@ Module IAR
 
     Private Sub WaitforComplete(BackupName As String)
 
+        Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
-        Dim fi = New System.IO.FileInfo(BackupName)
         While same < 5
-            Dim s = fi.Length
+            Dim fi = New System.IO.FileInfo(BackupName)
+            Try
+                s = fi.Length
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
             If s = oldsize Then
                 same += 1
             Else
-                Sleep(1000)
+                same = 0
             End If
-            oldsize = fi.Length
+            Sleep(1000)
+            oldsize = s
         End While
+
 
     End Sub
     Public Sub SaveIARTask()
