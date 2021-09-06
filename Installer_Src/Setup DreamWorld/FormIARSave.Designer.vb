@@ -180,7 +180,7 @@ Partial Class FormIARSave
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(395, 166)
+        Me.Button1.Location = New System.Drawing.Point(28, 166)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(108, 23)
         Me.Button1.TabIndex = 2

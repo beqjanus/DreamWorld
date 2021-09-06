@@ -5,7 +5,16 @@
 
 #End Region
 
+Imports System.Threading
+
 Module IAR
+
+    Public Class params
+        Public RegionName As String
+        Public opt As String
+        Public itemName As String
+    End Class
+
 
 #Region "Load"
 
@@ -95,6 +104,105 @@ Module IAR
 
     End Function
 
+    Public Sub SaveIARTaskAll()
+
+        If PropOpensimIsRunning() Then
+
+            Dim RegionName = ChooseRegion(True)
+            If RegionName.Length = 0 Then Return
+
+            Using SaveIAR As New FormIARSaveAll
+                SaveIAR.ShowDialog()
+
+                Dim chosen = SaveIAR.DialogResult()
+                If chosen = DialogResult.OK Then
+                    Dim itemName = SaveIAR.GObject
+                    If itemName = "/=everything, /Objects/Folder, etc." Then
+                        itemName = "/"
+                    End If
+
+                    If itemName.Length = 0 Then
+                        MsgBox(My.Resources.MustHaveName, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+                        Return
+                    End If
+
+                    Dim opt As String = "  "
+                    If Settings.DNSName.Length > 0 Then
+                        opt += " -h " & Settings.DNSName & " "
+                    End If
+
+                    Dim Perm As String = ""
+                    If Not SaveIAR.GCopy Then
+                        Perm += "C"
+                    End If
+
+                    If Not SaveIAR.GTransfer Then
+                        Perm += "T"
+                    End If
+
+                    If Not SaveIAR.GModify Then
+                        Perm += "M"
+                    End If
+
+                    If Perm.Length > 0 Then
+                        opt += " --perm=" & Perm & " "
+                    End If
+
+                    Dim p As New params
+                    p.RegionName = RegionName
+                    p.opt = opt
+                    p.itemName = itemName
+
+                    ' start a thread to see if a region has crashed, if so, add it to an exit list
+                    Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
+                    Dim SaveIARThread = New Thread(start)
+                    SaveIARThread.SetApartmentState(ApartmentState.STA)
+                    SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
+                    SaveIARThread.Start(p)
+                End If
+            End Using
+        Else
+            TextPrint(My.Resources.Not_Running)
+        End If
+    End Sub
+    Private Function DoIARBackground(o As params) As Boolean
+
+        Dim RegionName As String = o.RegionName
+        Dim opt As String = o.opt
+        Dim itemName As String = o.itemName
+
+        Dim ToBackup As String
+        Dim UserList = GetAvatarList()
+
+        Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+        If Not PropRegionClass.IsBooted(RegionUUID) Then Return False
+        For Each k As String In UserList
+            Dim newname = k.Replace(" ", "_")
+            Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
+            ToBackup = IO.Path.Combine(BackupPath(), BackupName)
+            ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
+            WaitforComplete(ToBackup)
+        Next
+        Return True
+
+    End Function
+
+    Private Sub WaitforComplete(BackupName As String)
+
+        Dim oldsize As Long = 0
+        Dim same As Integer = 0
+        Dim fi = New System.IO.FileInfo(BackupName)
+        While same < 5
+            Dim s = fi.Length
+            If s = oldsize Then
+                same += 1
+            Else
+                Sleep(1000)
+            End If
+            oldsize = fi.Length
+        End While
+
+    End Sub
     Public Sub SaveIARTask()
 
         If PropOpensimIsRunning() Then
@@ -167,7 +275,6 @@ Module IAR
             TextPrint(My.Resources.Not_Running)
         End If
     End Sub
-
 #End Region
 
 End Module

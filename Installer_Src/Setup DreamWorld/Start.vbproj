@@ -400,6 +400,12 @@
     <Compile Include="FormIARSave.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormIARSaveAll.Designer.vb">
+      <DependentUpon>FormIARSaveAll.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormIARSaveAll.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormInitialSetup.Designer.vb">
       <DependentUpon>FormInitialSetup.vb</DependentUpon>
     </Compile>
@@ -711,6 +717,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormIARSave.resx">
       <DependentUpon>FormIARSave.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormIARSaveAll.resx">
+      <DependentUpon>FormIARSaveAll.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInitialSetup.resx">
       <DependentUpon>FormInitialSetup.vb</DependentUpon>

@@ -3399,6 +3399,13 @@ Public Class FormSetup
         StopMysql()
     End Sub
 
+    Private Sub BackupAllIARsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackupAllIARsToolStripMenuItem.Click
+
+
+        SaveIARTaskAll()
+
+    End Sub
+
 #End Region
 
 End Class
