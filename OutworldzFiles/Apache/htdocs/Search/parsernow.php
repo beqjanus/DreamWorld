@@ -12,7 +12,7 @@ include("./parserscanner.php");
 
 $failcounter = 0;
 
-$sql = "SELECT gateway, host, port FROM hostsregister  where online = 1 order by host asc";
+$sql = "SELECT gateway, host, port FROM hostsregister where online = 1 order by host asc";
 
 
 // Skip after 10 tries, they need to re-register
@@ -28,10 +28,6 @@ if ($jobsearch->rowCount() == 0)
 {
     
     echo "Nothing to do\n";
-  
-    #$jobsearch = $db->query("UPDATE hostsregister SET checked = 0");
-    # the above is a bad idea. The 
-
     $jobsearch = $db->query($sql);
 }
 
