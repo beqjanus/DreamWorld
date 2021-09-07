@@ -849,19 +849,20 @@ Public Module MysqlInterface
         End Try
 
         Try
-            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Using NewSQLConn1 As New MySqlConnection(Settings.RobustMysqlConnection)
                 Try
-                    NewSQLConn.Open()
+                    NewSQLConn1.Open()
                     Dim stm As String = "SELECT count(*) FROM presence where presence.RegionID = @R ;"
-                    Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    Using cmd1 As New MySqlCommand(stm, NewSQLConn1)
                         Try
-                            cmd.Parameters.AddWithValue("@R", RegionUUID)
-                            Using reader As MySqlDataReader = cmd.ExecuteReader()
-                                While reader.Read()
-                                    Dim c = CInt("0" & reader.GetString(0))
-                                    Return c > 0
+                            cmd1.Parameters.AddWithValue("@R", RegionUUID)
+                            Dim c As Integer
+                            Using reader1 As MySqlDataReader = cmd1.ExecuteReader()
+                                While reader1.Read()
+                                    c = CInt("0" & reader1.GetString(0))
                                 End While
                             End Using
+                            Return c > 0
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                         End Try
@@ -976,10 +977,11 @@ Public Module MysqlInterface
                 Using MysqlConn
                     MysqlConn.Open()
                     Try
-                        Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
-                            Dim v As String = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
-                            Return v
+                        Dim v As String
+                        Using cmd As New MySqlCommand(SQL, MysqlConn)
+                            v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                         End Using
+                        Return v
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                     End Try
