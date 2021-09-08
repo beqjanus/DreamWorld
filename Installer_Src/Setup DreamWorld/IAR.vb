@@ -208,7 +208,7 @@ Module IAR
             Try
                 s = fi.Length
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                'BreakPoint.Show(ex.Message)
             End Try
             If s = oldsize Then
                 same += 1
