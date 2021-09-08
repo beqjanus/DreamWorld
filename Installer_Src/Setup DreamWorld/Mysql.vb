@@ -822,8 +822,6 @@ Public Module MysqlInterface
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return False
 
         Dim UserStmt = "SELECT LastRegionID from GridUser where online = 'True' and LastRegionID = @R;  "
-
-
         Try
             Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
                 Try
