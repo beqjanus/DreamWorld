@@ -2390,7 +2390,7 @@ namespace OpenSim.ApplicationPlugins.RemoteController
         }
         private void XmlRpcGetAgentCount(XmlRpcRequest request, XmlRpcResponse response, IPEndPoint remoteClient)
         {
-            m_log.Info("[RADMIN]: Received Get Agent Count Request");
+            m_log.Debug("[RADMIN]: Received Get Agent Count Request");
 
             Hashtable responseData = (Hashtable)response.Value;
             Hashtable requestData = (Hashtable)request.Params[0];
@@ -2410,7 +2410,7 @@ namespace OpenSim.ApplicationPlugins.RemoteController
                 responseData["success"] = true;
             }
 
-            m_log.Info("[RADMIN]: Get Agent Count Request complete");
+            m_log.Debug("[RADMIN]: Get Agent Count Request complete");
         }
 
         /// <summary>
