@@ -2540,6 +2540,13 @@ Public Class FormSetup
             TextPrint(t)
         End If
 
+        ' only at boot
+        If SecondsTicker = 0 Then
+            Bench.Print("At boot worker")
+            CalcDiskFree()
+            VisitorCount()
+        End If
+
         ' 5 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             Bench.Print("5 second worker")
