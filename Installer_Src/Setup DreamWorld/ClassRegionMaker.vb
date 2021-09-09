@@ -556,12 +556,6 @@ Public Class ClassRegionMaker
                         For Each file As String In inis
                             fName = System.IO.Path.GetFileNameWithoutExtension(file)
 
-                            If fName.Contains("The Ocean of Marldare") Then
-                                BreakPoint.Show("Stopped")
-                                ' TODO delete
-                            End If
-
-
                             Dim INI = New LoadIni(file, ";", System.Text.Encoding.ASCII)
 
                             uuid = CStr(INI.GetIni(fName, "RegionUUID", "", "String"))

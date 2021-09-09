@@ -823,60 +823,6 @@ Public Module MysqlInterface
 
         Return CBool(RPC_admin_get_agent_count(RegionUUID))
 
-        ' TODO Remove
-        Dim UserStmt = "SELECT LastRegionID from GridUser where online = 'True' and LastRegionID = @R;  "
-        Try
-            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-                Try
-                    NewSQLConn.Open()
-                    Using cmd = New MySqlCommand(UserStmt, NewSQLConn)
-                        Try
-                            cmd.Parameters.AddWithValue("@R", RegionUUID)
-                            Using reader As MySqlDataReader = cmd.ExecuteReader()
-                                If reader.Read() Then
-                                    Return True
-                                End If
-                            End Using
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End Using
-                Catch ex As Exception
-                    BreakPoint.Show("Error: " & ex.ToString())
-                End Try
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show("Error: " & ex.ToString())
-        End Try
-
-        Try
-            Using NewSQLConn1 As New MySqlConnection(Settings.RobustMysqlConnection)
-                Try
-                    NewSQLConn1.Open()
-                    Dim stm As String = "SELECT count(*) FROM presence where presence.RegionID = @R ;"
-                    Using cmd1 As New MySqlCommand(stm, NewSQLConn1)
-                        Try
-                            cmd1.Parameters.AddWithValue("@R", RegionUUID)
-                            Dim c As Integer
-                            Using reader1 As MySqlDataReader = cmd1.ExecuteReader()
-                                While reader1.Read()
-                                    c = CInt("0" & reader1.GetString(0))
-                                End While
-                            End Using
-                            Return c > 0
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End Using
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show("Error: " & ex.ToString())
-        End Try
-        Return False
-
     End Function
 
     Public Function IsMySqlRunning() As Boolean
@@ -1446,6 +1392,7 @@ Public Module MysqlInterface
     ''' <param name="LocY"></param>
     Public Sub VisitorCount()
 
+        ' TODO Add clear vistor database at some TBD interval
 
         If FormSetup.Visitor.Count > 0 Then
             Try

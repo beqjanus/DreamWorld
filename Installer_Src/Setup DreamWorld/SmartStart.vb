@@ -457,7 +457,6 @@ Module SmartStart
             Return False
         End If
 
-        ' TODO
         ' possible math overflow?
         ' bug 171036640
         Try
