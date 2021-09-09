@@ -211,8 +211,6 @@ if (!copy ('\\Opensim\\Zip\\Outworldzfiles\\jOpensim_Files\\default.htm', '\\Ope
 say("Drop Opensim Source code from update");
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/Opensim');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
-JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/packages');
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/runprebuild19.sh');
 
 JustDelete('/Opensim/Zip/Outworldzfiles/Opensim/jOpenSimProfile.Modules.dll');
