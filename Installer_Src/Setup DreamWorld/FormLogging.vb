@@ -189,19 +189,24 @@ Public Class FormLogging
         Out = IO.Path.Combine(TMPFolder, "Regions.htm")
         DeleteFile(Out)
         _Err = 0
-        Using outputFile As New StreamWriter(Out, True)
-            outputFile.WriteLine("<style>table, th, td {border: 1px solid black; padding: 5px; text-align: left;border-spacing: 0px;border-collapse: collapse;}</style>")
-            outputFile.WriteLine("<style>#t01 tr:nth-child(even) {  background-color: #eee;}#t01 tr:nth-child(odd) { background-color: #fff;}#t01 th {  background-color: black;  color: white;}</style>")
-            outputFile.WriteLine("<table id=""t01"">")
-            outputFile.WriteLine("<tr><td>DateType</td><td>Region</td><td>Message</td></tr>")
+        ' bug bfd
+        Try
+            Using outputFile As New StreamWriter(Out, True)
+                outputFile.WriteLine("<style>table, th, td {border: 1px solid black; padding: 5px; text-align: left;border-spacing: 0px;border-collapse: collapse;}</style>")
+                outputFile.WriteLine("<style>#t01 tr:nth-child(even) {  background-color: #eee;}#t01 tr:nth-child(odd) { background-color: #fff;}#t01 th {  background-color: black;  color: white;}</style>")
+                outputFile.WriteLine("<table id=""t01"">")
+                outputFile.WriteLine("<tr><td>DateType</td><td>Region</td><td>Message</td></tr>")
 
-            For Each UUID As String In PropRegionClass.RegionUuids
-                Application.DoEvents()
-                Dim GroupName = PropRegionClass.GroupName(UUID)
-                ExamineOpensim(outputFile, GroupName)
-            Next
-            outputFile.WriteLine("</table>")
-        End Using
+                For Each UUID As String In PropRegionClass.RegionUuids
+                    Application.DoEvents()
+                    Dim GroupName = PropRegionClass.GroupName(UUID)
+                    ExamineOpensim(outputFile, GroupName)
+                Next
+                outputFile.WriteLine("</table>")
+            End Using
+        Catch
+        End Try
+
         If _Err > 0 Then Process.Start(Out)
 
         AnalyzeButton.Text = Global.Outworldz.My.Resources.AnalyzeLogButton

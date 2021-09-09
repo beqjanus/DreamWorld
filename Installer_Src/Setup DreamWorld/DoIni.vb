@@ -541,7 +541,6 @@ Module DoIni
 
         TextPrint("->Set PHP7")
         Dim ini = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\PHP7\php.ini")
-        If ini Is Nothing Then Return True
 
         Settings.LoadLiteralIni(ini)
         Settings.SetLiteralIni("extension_dir", "extension_dir = " & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/PHP7/ext/""")
