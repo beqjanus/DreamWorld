@@ -8,6 +8,14 @@
 Imports Nwc.XmlRpc
 
 Module RPC
+    Public Class AvatarData
+
+        Public AvatarName As String
+        Public X As Single
+        Public Y As Single
+
+    End Class
+
 
     Public Function RPC_admin_dialog(agentId As String, text As String) As Boolean
 
@@ -22,7 +30,7 @@ Module RPC
 
     ''' http://opensimulator.org/wiki/Remoteadmin:admin_get_agent_count
     ''' 
-    Public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
+    public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
 
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
@@ -33,13 +41,13 @@ Module RPC
     End Function
 
     ''' <summary>
-    ''' Returns Object with Root, Regions and Agents
+    ''' Returns count of ALL agents + NPC in region
     ''' </summary>
     ''' <param name="RegionUUID"></param>
     ''' <returns>Object</returns>
     ''' 
     'http://opensimulator.org/wiki/Remoteadmin:admin_get_agents
-    Public Function admin_get_agents(RegionUUID As String) As Integer
+    public Function admin_get_agents(RegionUUID As String) As Integer
 
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
@@ -66,7 +74,7 @@ Module RPC
     ''' </summary>
     ''' <param name="RegionUUID">RegionUUID</param>
     ''' <returns>integer</returns>
-    Public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
+    public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
 
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
@@ -76,7 +84,7 @@ Module RPC
 
     End Function
 
-    Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
+    public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
@@ -88,7 +96,7 @@ Module RPC
 
     End Function
 
-    Public Function SendAdminMessage(RegionUUID As String, Message As String) As Boolean
+    public Function SendAdminMessage(RegionUUID As String, Message As String) As Boolean
 
         'http://opensimulator.org/wiki/RemoteAdmin:admin_dialog
 
@@ -102,7 +110,7 @@ Module RPC
 
     End Function
 
-    Public Function SendMessage(RegionUUID As String, Message As String) As Boolean
+    public Function SendMessage(RegionUUID As String, Message As String) As Boolean
 
         'http://opensimulator.org/wiki/RemoteAdmin:admin_broadcast
 
@@ -115,7 +123,7 @@ Module RPC
 
     End Function
 
-    Public Function ShutDown(RegionUUID As String) As Boolean
+    public Function ShutDown(RegionUUID As String) As Boolean
 
         If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
             Dim ht = New Hashtable From {
@@ -131,7 +139,7 @@ Module RPC
 
     End Function
 
-    Public Function TeleportTo(FromRegionUUID As String, ToRegionName As String, AgentID As String) As Boolean
+    public Function TeleportTo(FromRegionUUID As String, ToRegionName As String, AgentID As String) As Boolean
 
         'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
 
@@ -150,7 +158,7 @@ Module RPC
 
     End Function
 
-    Private Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
+    public Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
@@ -178,7 +186,7 @@ Module RPC
 
     End Function
 
-    Private Function GetRPCAsObject(FromRegionUUID As String, cmd As String, ht As Hashtable) As Root
+    Public Function GetRPCAsObject(FromRegionUUID As String, cmd As String, ht As Hashtable) As Object
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
@@ -186,8 +194,7 @@ Module RPC
         Dim parameters = New List(Of Hashtable) From {ht}
         Try
             Dim RPC = New XmlRpcRequest(cmd, parameters)
-            Dim o As Root = CType(RPC.Invoke(url), Root)
-            Return o
+            Return RPC.Invoke(url)
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
@@ -195,13 +202,10 @@ Module RPC
 
     End Function
 
-    Public Function RPC_admin_get_agent_list(RegionUUID As String) As AvatarData
+    Public Function RPC_admin_get_agent_list(RegionUUID As String) As List(Of AvatarData)
 
-        Dim result As New AvatarData With {
-            .AvatarName = "",
-            .X = 0,
-            .Y = 0
-        }
+
+        Dim result As New List(Of AvatarData)
 
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
@@ -211,15 +215,27 @@ Module RPC
         Try
             Dim o = GetRPCAsObject(RegionUUID, "admin_get_agents", ht)
             If o Is Nothing Then Return result
-            If Not o.success Then Return result
+            Dim data As Hashtable = CType(o, Hashtable)
 
-            For Each region In o.regions
-                For Each agent In region.agent
-                    result.AvatarName = agent.name
-                    result.X = agent.pos_x
-                    result.Y = agent.pos_y
+            If data.Item("success") <> True Then Return result
+
+            Dim regions As ArrayList = CType(data.Item("regions"), ArrayList)
+            For Each region In regions
+                'Dim name = region.item("name")
+                Dim agents = region.item("agents")
+                Dim ag As ArrayList = CType(agents, ArrayList)
+                For Each agent In ag
+                    If agent.item("type") = "User" Then
+                        Dim avi = New AvatarData
+                        avi.AvatarName = CStr(agent.Item("name"))
+                        avi.X = CSng(agent.Item("pos_x"))
+                        avi.Y = CSng(agent.item("pos_y"))
+                        result.Add(avi)
+                    End If
                 Next
             Next
+
+
 
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -256,43 +272,6 @@ Module RPC
 
     End Function
 
-    Public Class AvatarData
-
-        Public AvatarName As String
-        Public X As Single
-        Public Y As Single
-
-    End Class
-
-    Public Class Root
-        Public success As Boolean
-        Public regions As List(Of CRegions)
-    End Class
-
-    Public Class CRegions
-        Public name As String
-        Public id As String
-        Public agent As List(Of CAgents)
-    End Class
-
-    Public Class CAgents
-        Public name As String       ' Name of Avatar
-        Public type As String       ' NPC or User
-        Public id As String         ' uuid of region
-        Public current_parcel_id As String ' UUID of parcel the agent is currently over
-        Public pos_x As Single      ' X position of the agent
-        Public pos_y As Single      ' Y position Of the agent	
-        Public pos_z As Single      ' Z position Of the agent	
-        Public vel_x As Single      ' X velocity Of the agent	
-        Public vel_y As Single      ' Y velocity Of the agent	
-        Public v As Single          ' Z velocity Of the agent	
-        Public lookat_x As Single   ' X gaze direction Of the agent	
-        Public lookat_y As Single   ' X gaze direction Of the agent	
-        Public lookat_z As Single   ' X gaze direction Of the agent	
-        Public is_sat_on As Boolean ' True If the agent Is sat On the ground	
-        Public is_sat_o As Boolean  ' True If the agent Is sat On an Object	
-        Public is_flying As Boolean ' True If the agent Is flying
 
 
-    End Class
 End Module

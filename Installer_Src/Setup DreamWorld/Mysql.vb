@@ -1438,7 +1438,7 @@ Public Module MysqlInterface
 #Region "Visitors"
 
     ''' <summary>
-    ''' Is not used as the necessary functions to locate the avatar X and Y do not exist yet
+    ''' Adds visitor X and Y to Visitor database each minute
     ''' </summary>
     ''' <param name="AvatarName"></param>
     ''' <param name="RegionName"></param>
@@ -1446,37 +1446,33 @@ Public Module MysqlInterface
     ''' <param name="LocY"></param>
     Public Sub VisitorCount()
 
-        ' Return '!!! TODO
+
         If FormSetup.Visitor.Count > 0 Then
             Try
                 Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
                     Try
-
+                        Dim stm1 = "insert into Robust.visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
                         MysqlConn1.Open()
                         For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
                             Application.DoEvents()
-                            Dim Avatar = Visit.Key
                             Dim RegionName = Visit.Value
                             Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(RegionName)
-                            Dim result As AvatarData = RPC_admin_get_agent_list(RegionUUID)
-
-                            If result IsNot Nothing Then
-
-                                Dim stm1 = "insert into Robust.visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
+                            Dim result As List(Of AvatarData) = RPC_admin_get_agent_list(RegionUUID)
+                            For Each Avi In result
                                 Try
 #Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
                                     Using cmd1 As MySqlCommand = New MySqlCommand(stm1, MysqlConn1)
 #Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                                        cmd1.Parameters.AddWithValue("@NAME", Avatar)
+                                        cmd1.Parameters.AddWithValue("@NAME", Avi.AvatarName)
                                         cmd1.Parameters.AddWithValue("@REGIONNAME", RegionName)
-                                        cmd1.Parameters.AddWithValue("@LOCX", result.X)
-                                        cmd1.Parameters.AddWithValue("@LOCY", result.Y)
+                                        cmd1.Parameters.AddWithValue("@LOCX", Avi.X)
+                                        cmd1.Parameters.AddWithValue("@LOCY", Avi.Y)
                                         cmd1.BeginExecuteNonQuery()
                                     End Using
                                 Catch ex As Exception
                                     BreakPoint.Show(ex.Message)
                                 End Try
-                            End If
+                            Next
                         Next
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
