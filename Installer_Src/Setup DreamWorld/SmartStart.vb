@@ -357,9 +357,15 @@ Module SmartStart
                         Pause(RegionUUID)
                         running = True
                     Case ClassRegionMaker.SIMSTATUSENUM.RecyclingUp
+                        Pause(RegionUUID)
+                        running = True
                     Case ClassRegionMaker.SIMSTATUSENUM.RestartPending
                     Case ClassRegionMaker.SIMSTATUSENUM.RestartStage2
+                        Pause(RegionUUID)
+                        running = True
                     Case ClassRegionMaker.SIMSTATUSENUM.RetartingNow
+                        Pause(RegionUUID)
+                        running = True
                     Case ClassRegionMaker.SIMSTATUSENUM.Stopped
                     Case ClassRegionMaker.SIMSTATUSENUM.Suspended
                 End Select
@@ -410,7 +416,6 @@ Module SmartStart
                 PokeRegionTimer(RegionUUID)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
-
             End Try
         End Using
 
