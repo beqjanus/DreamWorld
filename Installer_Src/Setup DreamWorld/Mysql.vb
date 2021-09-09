@@ -821,6 +821,9 @@ Public Module MysqlInterface
         If Settings.ServerType <> RobustServerName Then Return False
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return False
 
+        Return CBool(RPC_admin_get_agent_count(RegionUUID))
+
+        ' TODO Remove
         Dim UserStmt = "SELECT LastRegionID from GridUser where online = 'True' and LastRegionID = @R;  "
         Try
             Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
@@ -985,7 +988,7 @@ Public Module MysqlInterface
                     End Try
                 End Using
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                'BreakPoint.Show(ex.Message)
             End Try
         Catch ex As Exception
                 BreakPoint.Show(ex.Message)
@@ -1443,7 +1446,7 @@ Public Module MysqlInterface
     ''' <param name="LocY"></param>
     Public Sub VisitorCount()
 
-        Return '!!! TODO
+        ' Return '!!! TODO
         If FormSetup.Visitor.Count > 0 Then
             Try
                 Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
