@@ -132,13 +132,13 @@ Module SmartStart
                     If AgentName.ToUpperInvariant = "UUID" Then
                         'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
-                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. Please wait in this region.")
+                        'RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. Please wait in this region.")
                         Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
                         Return u
                     ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
                         Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
-                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. Please wait in this region.")
+                        'RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. Please wait in this region.")
                         Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
                         Return u
                     Else ' Its a v4 sign
@@ -148,7 +148,7 @@ Module SmartStart
                         Else
                             time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + Settings.TeleportSleepTime + 5)
                         End If
-                        RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. {vbCrLf}Please wait in this region.")
+                        ' RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. {vbCrLf}Please wait in this region.")
                         Logger("Agent ", Name & ":" & AgentID, "Teleport")
                         AddEm(RegionUUID, AgentID)
                         Return Settings.WelcomeRegion
@@ -457,9 +457,16 @@ Module SmartStart
             Return False
         End If
 
-        If PropRegionClass.Cores(RegionUUID) = 0 Or PropRegionClass.Cores(RegionUUID) > Environment.ProcessorCount Then
-            PropRegionClass.Cores(RegionUUID) = CInt(2 ^ Environment.ProcessorCount - 1)
-        End If
+        ' TODO
+        ' possible math overflow?
+        ' bug 171036640
+        Try
+            If PropRegionClass.Cores(RegionUUID) = 0 Or PropRegionClass.Cores(RegionUUID) > Environment.ProcessorCount Then
+                PropRegionClass.Cores(RegionUUID) = CInt(2 ^ Environment.ProcessorCount - 1)
+            End If
+        Catch
+            PropRegionClass.Cores(RegionUUID) = &HFFFF
+        End Try
 
         PropRegionClass.CrashCounter(RegionUUID) = 0
 
