@@ -2125,12 +2125,17 @@ Public Class MySettings
 
         DeleteFile(ini)
 
-        Dim file As System.IO.StreamWriter
-        file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
-        For Each Item As String In Apachein
-            file.WriteLine(Item)
-        Next
-        file.Close()
+        ' bug 10627092
+        Try
+            Dim file As System.IO.StreamWriter
+            file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
+            For Each Item As String In Apachein
+                file.WriteLine(Item)
+            Next
+            file.Close()
+        Catch ex As Exception
+            ErrorLog($"{ini} {ex.Message}")
+        End Try
 
     End Sub
 
@@ -2140,7 +2145,6 @@ Public Class MySettings
         Dim found As Boolean = False
         For Each Item As String In Apachein
             If Item.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase) Then
-
                 Apacheout.Add(value)
                 found = True
             Else

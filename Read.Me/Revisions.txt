@@ -2,8 +2,7 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
 V4.66 Beta
-Added a Save All IAR background task., Choose a region, click Start
-
+Added a Save All IAR background task. Choose a region, click Start.  It will save each IAR for all users one at a time using that region.
 
 V4.65 Beta
 Environment.processorcount now used to set initial core counts- minor fix to suppress a try catch

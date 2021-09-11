@@ -821,59 +821,7 @@ Public Module MysqlInterface
         If Settings.ServerType <> RobustServerName Then Return False
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return False
 
-        Dim UserStmt = "SELECT LastRegionID from GridUser where online = 'True' and LastRegionID = @R;  "
-        Application.DoEvents()
-
-        Try
-            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-                Try
-                    NewSQLConn.Open()
-                    Using cmd = New MySqlCommand(UserStmt, NewSQLConn)
-                        Try
-                            cmd.Parameters.AddWithValue("@R", RegionUUID)
-                            Using reader As MySqlDataReader = cmd.ExecuteReader()
-                                If reader.Read() Then
-                                    Return True
-                                End If
-                            End Using
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End Using
-                Catch ex As Exception
-                    BreakPoint.Show("Error: " & ex.ToString())
-                End Try
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show("Error: " & ex.ToString())
-        End Try
-
-        Try
-            Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-                Try
-                    NewSQLConn.Open()
-                    Dim stm As String = "SELECT count(*) FROM presence where presence.RegionID = @R ;"
-                    Using cmd As New MySqlCommand(stm, NewSQLConn)
-                        Try
-                            cmd.Parameters.AddWithValue("@R", RegionUUID)
-                            Using reader As MySqlDataReader = cmd.ExecuteReader()
-                                While reader.Read()
-                                    Dim c = CInt("0" & reader.GetString(0))
-                                    Return c > 0
-                                End While
-                            End Using
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End Using
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            End Using
-        Catch ex As Exception
-            BreakPoint.Show("Error: " & ex.ToString())
-        End Try
-        Return False
+        Return CBool(RPC_admin_get_agent_count(RegionUUID))
 
     End Function
 
@@ -976,16 +924,17 @@ Public Module MysqlInterface
                 Using MysqlConn
                     MysqlConn.Open()
                     Try
-                        Using cmd As MySqlCommand = New MySqlCommand(SQL, MysqlConn)
-                            Dim v As String = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
-                            Return v
+                        Dim v As String
+                        Using cmd As New MySqlCommand(SQL, MysqlConn)
+                            v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                         End Using
+                        Return v
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                     End Try
                 End Using
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+                'BreakPoint.Show(ex.Message)
             End Try
         Catch ex As Exception
                 BreakPoint.Show(ex.Message)
@@ -1435,7 +1384,7 @@ Public Module MysqlInterface
 #Region "Visitors"
 
     ''' <summary>
-    ''' Is not used as the necessary functions to locate the avatar X and Y do not exist yet
+    ''' Adds visitor X and Y to Visitor database each minute
     ''' </summary>
     ''' <param name="AvatarName"></param>
     ''' <param name="RegionName"></param>
@@ -1443,37 +1392,34 @@ Public Module MysqlInterface
     ''' <param name="LocY"></param>
     Public Sub VisitorCount()
 
-        Return '!!! TODO
+        ' TODO Add clear vistor database at some TBD interval
+
         If FormSetup.Visitor.Count > 0 Then
             Try
                 Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
                     Try
-
+                        Dim stm1 = "insert into Robust.visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
                         MysqlConn1.Open()
                         For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
                             Application.DoEvents()
-                            Dim Avatar = Visit.Key
                             Dim RegionName = Visit.Value
                             Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(RegionName)
-                            Dim result As AvatarData = RPC_admin_get_agent_list(RegionUUID)
-
-                            If result IsNot Nothing Then
-
-                                Dim stm1 = "insert into Robust.visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
+                            Dim result As List(Of AvatarData) = RPC_admin_get_agent_list(RegionUUID)
+                            For Each Avi In result
                                 Try
 #Disable Warning CA2100 ' Review SQL queries for security vulnerabilities
                                     Using cmd1 As MySqlCommand = New MySqlCommand(stm1, MysqlConn1)
 #Enable Warning CA2100 ' Review SQL queries for security vulnerabilities
-                                        cmd1.Parameters.AddWithValue("@NAME", Avatar)
+                                        cmd1.Parameters.AddWithValue("@NAME", Avi.AvatarName)
                                         cmd1.Parameters.AddWithValue("@REGIONNAME", RegionName)
-                                        cmd1.Parameters.AddWithValue("@LOCX", result.X)
-                                        cmd1.Parameters.AddWithValue("@LOCY", result.Y)
+                                        cmd1.Parameters.AddWithValue("@LOCX", Avi.X)
+                                        cmd1.Parameters.AddWithValue("@LOCY", Avi.Y)
                                         cmd1.BeginExecuteNonQuery()
                                     End Using
                                 Catch ex As Exception
                                     BreakPoint.Show(ex.Message)
                                 End Try
-                            End If
+                            Next
                         Next
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)

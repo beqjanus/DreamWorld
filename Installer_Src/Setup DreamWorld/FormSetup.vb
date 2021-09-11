@@ -2530,19 +2530,26 @@ Public Class FormSetup
 
         End If
 
-        Dim thisDate As Date = Now
-        Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
-
-        ' print how many backups are running
-        Dim t = BackupsRunning(dt)
-
-        If t.Length > 0 Then
-            TextPrint(t)
+        ' only at boot
+        If SecondsTicker = 0 Then
+            Bench.Print("At boot worker")
+            CalcDiskFree()
+            ScanAgents() ' update agent count seconds
+            VisitorCount()
         End If
 
         ' 5 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             Bench.Print("5 second worker")
+
+            ' print how many backups are running
+            Dim thisDate As Date = Now
+            Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
+            Dim t = BackupsRunning(dt)
+            If t.Length > 0 Then
+                TextPrint(t)
+            End If
+
             RestartDOSboxes()
             CalcDiskFree()
             ScanAgents() ' update agent count seconds
@@ -2573,6 +2580,7 @@ Public Class FormSetup
 
         ' print hourly marks on console, after boot
         If SecondsTicker Mod 3600 = 0 Then
+            Dim dt As String = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
             TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
             SetPublicIP()
             ExpireLogsByAge()
