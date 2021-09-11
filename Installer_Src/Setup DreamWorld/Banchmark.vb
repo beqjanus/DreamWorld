@@ -6,7 +6,7 @@
 
         If Not Debugger.IsAttached Then Return
         Dim seconds = DateAndTime.DateDiff(DateInterval.Second, _startDate, DateTime.Now)
-        Debug.Print($"{Name}:{CStr(seconds)} {My.Resources.Seconds_word}")
+        Debug.Print($"Benchmark: {Name}:{CStr(seconds)} {My.Resources.Seconds_word}")
 
     End Sub
 

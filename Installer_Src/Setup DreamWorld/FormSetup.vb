@@ -1307,7 +1307,6 @@ Public Class FormSetup
             PropUpdateView = True
         End While
         Bench.Print("ExitHandler done")
-        'Diagnostics.Debug.Print("ExitHandlerPoll End")
 
         PropExitHandlerIsBusy = False
 
@@ -2511,7 +2510,7 @@ Public Class FormSetup
             Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
             Return
         End If
-
+        Bench.Start()
         TimerBusy = 1
         PropRegionClass.CheckPost() ' get the stack filled ASAP
 

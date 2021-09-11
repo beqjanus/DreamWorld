@@ -412,6 +412,7 @@ Public Class ClassRegionMaker
 
     End Function
 
+
     ''' <summary>
     ''' Detects if an avatars is in the DOS box
     ''' </summary>
