@@ -212,6 +212,9 @@ Module GlobalSettings
 
         Dim statestring As String
         Select Case state
+            Case -1
+                statestring = "*** BAD UUID **"
+                BreakPoint.Show(statestring)
             Case 0
                 statestring = "Stopped"
             Case 1

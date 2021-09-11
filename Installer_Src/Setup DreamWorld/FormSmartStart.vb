@@ -1284,13 +1284,15 @@ Public Class FormSmartStart
 
     Private Sub SaveAllTerrain_Click(sender As Object, e As EventArgs) Handles SaveAllTerrain.Click
         'Save all
+
+
         Try
             Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
             For Each RegionUUID In PropRegionClass.RegionUuids
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-                ReBoot(RegionName)
-                WaitForBooted(RegionName)
+                ReBoot(RegionUUID)
+                WaitForBooted(RegionUUID)
 
                 If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
                     RPC_Region_Command(RegionUUID, $"change region {RegionName}")
