@@ -1,19 +1,21 @@
-﻿Public Class Benchmark
+﻿Imports System.Diagnostics
+Public Class Benchmark
 
-    Private _startDate As Date
+    Private _stopWatch As Stopwatch
 
     Public Sub Print(Name As String)
 
         If Not Debugger.IsAttached Then Return
-        Dim seconds = DateAndTime.DateDiff(DateInterval.Second, _startDate, DateTime.Now)
-        Debug.Print($"Benchmark: {Name}:{CStr(seconds)} {My.Resources.Seconds_word}")
+
+        Debug.Print($"Benchmark: {Name}:{CStr(_stopWatch.Elapsed.TotalMilliseconds / 1000)} {My.Resources.Seconds_word}")
 
     End Sub
 
     Public Sub Start()
 
-        _startDate = Date.Now
-
+        _stopWatch = New Stopwatch()
+        _stopWatch.Start()
+        Debug.Print("Benchmark: ----------------")
     End Sub
 
 End Class

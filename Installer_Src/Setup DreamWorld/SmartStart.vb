@@ -250,7 +250,10 @@ Module SmartStart
                 Settings.SmartStart) Then
 
                 If Settings.WelcomeRegion = PropRegionClass.RegionName(RegionUUID) Then Continue For
-                ToSort.Add(PropRegionClass.RegionName(RegionUUID), Name)
+                ' Bugreport #286942400
+                If Not ToSort.ContainsKey(PropRegionClass.RegionName(RegionUUID)) Then
+                    ToSort.Add(PropRegionClass.RegionName(RegionUUID), Name)
+                End If
             End If
         Next
 
@@ -443,8 +446,10 @@ Module SmartStart
 
         Bench.Print($"Boot {BootName}")
 
+
         If FormSetup.Timer1.Enabled = False Then
             FormSetup.Timer1.Interval = 1000
+            FormSetup.Timer1.Enabled = True  ' Bug report #485227296 timer started but not enabled 
             FormSetup.Timer1.Start() 'Timer starts functioning
         End If
 
