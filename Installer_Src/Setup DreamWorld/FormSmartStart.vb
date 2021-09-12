@@ -1267,8 +1267,10 @@ Public Class FormSmartStart
             If RegionName.Length = 0 Then Return
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
+
             ReBoot(RegionUUID)
             WaitForBooted(RegionUUID)
+            Application.DoEvents()
 
             Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
             Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
@@ -1293,6 +1295,7 @@ Public Class FormSmartStart
 
                 ReBoot(RegionUUID)
                 WaitForBooted(RegionUUID)
+                Application.DoEvents()
 
                 If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
                     RPC_Region_Command(RegionUUID, $"change region {RegionName}")
