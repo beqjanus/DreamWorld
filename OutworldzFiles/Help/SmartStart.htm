@@ -40,6 +40,26 @@ h1
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	font-weight:normal;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:5.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	line-height:115%;
+	background:#D9E2F3;
+	border:none;
+	padding:0in;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	font-weight:normal;}
+p
+	{margin-right:0in;
+	margin-left:0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
 span.Heading1Char
 	{mso-style-name:"Heading 1 Char";
 	mso-style-link:"Heading 1";
@@ -47,6 +67,12 @@ span.Heading1Char
 	text-transform:uppercase;
 	letter-spacing:.75pt;
 	background:#4472C4;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	text-transform:uppercase;
+	letter-spacing:.75pt;
+	background:#D9E2F3;}
 .MsoChpDefault
 	{font-size:10.0pt;
 	font-family:"Calibri",sans-serif;}
@@ -124,6 +150,67 @@ clear=all style='page-break-before:always'>
 
 <p class=MsoNormal>&nbsp;</p>
 
+<div style='border:solid #D9E2F3 3.0pt;padding:0in 0in 0in 0in;background:#D9E2F3'>
+
+<h2 style='background:#D9E2F3'><span style='color:black'>Details</span></h2>
+
+</div>
+
+<p><span style='font-size:10.0pt;font-family:"Calibri",sans-serif'>Smart Boot
+for any region is indicated by a blue pause icon on the Regions report
+:&nbsp;&nbsp; || </span></p>
+
+<p><span style='font-size:10.0pt;font-family:"Calibri",sans-serif'>These
+regions will always boot once to register themselves.&nbsp; The Smart Settings
+only go into effect when the entire grid restart, or Robust restarts and the
+Region restarts.</span></p>
+
+<p><span style='font-size:10.0pt;font-family:"Calibri",sans-serif'>On all
+teleport requests such as a map search, a landmark, or Hypergrid teleport, the
+request is first intercepted in Opensim, and sent to DreamGrid.&nbsp;&nbsp;
+&nbsp; It is sent Region UUID = &quot;000-A&quot; and DreamGrid returns&nbsp;
+&quot;UUID -000A&quot; if the region is ready, or UUID = 000B, or other region
+UUID, if not ready.&nbsp; </span></p>
+
+<p><span style='font-size:10.0pt;font-family:"Calibri",sans-serif'>You get a
+message in the viewer saying your region will be available in so many seconds.
+This is the recorded time it took to previously boot the sim.&nbsp;&nbsp; There
+is a different time saved in a Map TIme variable if maps are enabled.&nbsp;
+Ideally, maps are off for fastest boot time.</span></p>
+
+<p><span style='font-size:10.0pt;font-family:"Calibri",sans-serif'>There is one
+missing teleport I have not yet coded for.&nbsp; When you log in the first
+time, you cannot log into a offline Smart Boot enabled region.&nbsp; If the
+region is online, the teleport is allowed to continue.&nbsp; </span></p>
+
+<p><span style='font-size:10.0pt;font-family:"Calibri",sans-serif'>The region
+must be a) enabled to boot b) Smart Start is enabled globally, c) the region
+must be Smart Boot-enabled in its Modules section of the region setting for
+this region.&nbsp; It then shows the Pause icon of || in the regions
+listings.&nbsp;&nbsp; If this is set, the region will power up.&nbsp;&nbsp; All
+3 conditions must be met. </span></p>
+
+<p><span style='font-size:10.0pt;font-family:"Calibri",sans-serif'>After the
+region reports it is ready, there needs to be a pause so&nbsp; some internal
+things can finish up that cannot be detected before the teleport can
+occur.&nbsp; The default delay is 15 seconds.&nbsp; It depends on the PC speed,
+and other unknown factors, so you may be able to reduce this or may have to
+increase it. If you get a region booting up and then after it boots your viewer
+tells you it cannot connect, you need a larger timer in Setting-Smart Start.</span></p>
+
+<p><span style='font-size:10.0pt;font-family:"Calibri",sans-serif'>Once
+DreamGrid determines the timer is finished, you will be located wherever you
+are (if still on the grid) and teleported to the destination. If you leave, the
+system will shut off the region.&nbsp; The last teleport&nbsp; always overrides
+the earlier on.&nbsp; So if you try three different landmarks in a few
+seconds,&nbsp; you will end up in the 3rd.</span></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
+
 <p class=MsoNormal>&nbsp;</p>
 
 <div style='border:solid #4472C4 3.0pt;padding:0in 0in 0in 0in;background:#4472C4'>
@@ -134,12 +221,18 @@ clear=all style='page-break-before:always'>
 
 <p class=MsoNormal>If a region is offline and a teleport is initiated, the
 region will be booted. This may take more time than the viewer allows.  The
-avatar is teleported to a waiting region, aka, a “Parking Region”. You  can
-choose any region, such as your Welcome region, which is the Default.</p>
+avatar is teleported to a waiting region, aka, a “Parking Region”. You may choose
+any Always-On region, such as your Welcome region, which is the Default.</p>
 
 <p class=MsoNormal><img width=234 height=330 id="Picture 8"
 src="SmartStart_files/image004.png"
 alt="A picture containing graphical user interface&#10;&#10;Description automatically generated"></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
@@ -166,6 +259,12 @@ shut down within the time period you set.</p>
 src="SmartStart_files/image005.png" alt="Enable Smart Start"></span><img
 width=310 height=258 id="Picture 1" src="SmartStart_files/image006.png"
 alt="Graphical user interface, application&#10;&#10;Description automatically generated"></p>
+
+<span style='font-size:10.0pt;line-height:115%;font-family:"Calibri",sans-serif'><br
+clear=all style='page-break-before:always'>
+</span>
+
+<p class=MsoNormal>&nbsp;</p>
 
 <p class=MsoNormal>&nbsp;</p>
 
