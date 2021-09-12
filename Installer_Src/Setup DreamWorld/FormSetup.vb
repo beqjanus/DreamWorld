@@ -983,7 +983,7 @@ Public Class FormSetup
 
     Private Sub ExitHandlerPoll()
 
-        If PropExitHandlerIsBusy = True Then
+        If PropExitHandlerIsBusy Then
             Bench.Print("ExitHandlerPoll is BUSY")
             Return
         End If
@@ -2507,7 +2507,7 @@ Public Class FormSetup
 
         If TimerBusy > 0 And TimerBusy < 60 Then
             TimerBusy += 1
-            Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
+            'Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
             Return
         End If
         Bench.Start()
