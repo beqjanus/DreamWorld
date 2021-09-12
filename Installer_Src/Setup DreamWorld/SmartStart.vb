@@ -36,8 +36,10 @@ Module SmartStart
     ''' <returns>True of region is booted</returns>
     Public Function WaitForBooted(RegionUUID As String) As Boolean
 
-        Dim c As Integer = 120 ' 1 minutes
-        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted
+
+        Dim c As Integer = 30 ' 1/2 minutes
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted And
+            PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped
 
             c -= 1  ' skip on timeout error
             If c < 0 Then
@@ -635,7 +637,7 @@ Module SmartStart
             Next
             PropUpdateView = True ' make form refresh
         End If
-
+        Application.DoEvents()
     End Sub
 
 #End Region
