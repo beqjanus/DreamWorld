@@ -123,7 +123,6 @@ Public Class ClassRegionMaker
 
 #End Region
 
-
 #Region "CheckPost"
 
     Public Sub CheckPost()
@@ -429,7 +428,10 @@ Public Class ClassRegionMaker
 
     End Function
 
-
+    ''' <summary>
+    ''' Check Overlap of any region including Var 
+    ''' </summary>
+    ''' <returns>True is a region overlaps another</returns>
 
     Public Function CheckOverLap() As Boolean
 
