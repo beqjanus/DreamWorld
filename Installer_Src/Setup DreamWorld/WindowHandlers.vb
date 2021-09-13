@@ -70,8 +70,7 @@ Module WindowHandlers
                     'BreakPoint.Show("No PID")
                     Return
                 End If
-                DoType(RegionUUID, "{ENTER}")
-                DoType(RegionUUID, command)
+                DoType(RegionUUID, "{ENTER}" & command & "{ENTER}")
                 Sleep(1000)
                 Try
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PID).MainWindowHandle, MaybeHideWindow())
@@ -85,8 +84,7 @@ Module WindowHandlers
                     'BreakPoint.Show(ex.Message)
                     Return
                 End Try
-                DoType("Robust", "{ENTER}")
-                DoType("Robust", command)
+                DoType("Robust", "{ENTER}" & command & "{ENTER}")
             End If
         End If
 
@@ -114,11 +112,14 @@ Module WindowHandlers
             Try
                 AppActivate(PID)
                 Sleep(100)
-
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
             Catch ex As Exception
             End Try
+        ElseIf RegionUUID = "Robust" And command = "{ENTER}q{ENTER}" Then
+            Zap("Robust")
+        Else
+            BreakPoint.Show("No PID for this window")
         End If
 
     End Sub

@@ -42,7 +42,7 @@ Module SmartStart
             If c < 0 Then
                 BreakPoint.Show("Timeout")
                 'ShutDown(RegionUUID)
-                'ConsoleCommand(RegionUUID, "q{ENTER}")
+                'ConsoleCommand(RegionUUID, "q")
                 Return False
             End If
 
@@ -439,11 +439,8 @@ Module SmartStart
     Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
-        ''' <returns>success = true</returns>
-
+        ''' <returns>success = true</returns>        
         Bench.Print($"Boot {BootName}")
-
-
         If FormSetup.Timer1.Enabled = False Then
             FormSetup.Timer1.Interval = 1000
             FormSetup.Timer1.Enabled = True  ' Bug report #485227296 timer started but not enabled 
@@ -461,7 +458,6 @@ Module SmartStart
             Return False
         End If
 
-        ' possible math overflow?
         ' bug 171036640
         Try
             If PropRegionClass.Cores(RegionUUID) = 0 Or PropRegionClass.Cores(RegionUUID) > Environment.ProcessorCount Then

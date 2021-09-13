@@ -235,13 +235,13 @@ Module Robust
 
             TextPrint("Robust " & Global.Outworldz.My.Resources.Stopping_word)
 
-            ConsoleCommand(RobustName, "q{ENTER}")
+            ConsoleCommand(RobustName, "q")
             Dim ctr As Integer = 0
             ' wait 30 seconds for robust to quit
             While IsRobustRunning() And ctr < 30
                 Application.DoEvents()
                 Sleep(1000)
-                ConsoleCommand(RobustName, "q{ENTER}")
+                ConsoleCommand(RobustName, "q")
                 ctr += 1
             End While
             If ctr = 30 Then Zap("Robust")
