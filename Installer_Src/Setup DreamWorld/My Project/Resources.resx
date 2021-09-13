@@ -3890,4 +3890,7 @@
   <data name="Map_Time" xml:space="preserve">
     <value>Map Boot TIme</value>
   </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Benchmark</value>
+  </data>
 </root>
