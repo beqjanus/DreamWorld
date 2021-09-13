@@ -33,27 +33,27 @@ Module Teleport
                 If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
                     Fin.Add(AgentID) ' cancel this, the region went away
 
-                ElseIf status = ClassRegionMaker.SIMSTATUSENUM.Booted And
-                                IsRegionReady(Port) And
-                                RegionIsRegisteredOnline(RegionToUUID) Then
+                ElseIf status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
 
-                    Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
-                    Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
-                    Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
-                    If fromName.Length > 0 Then
-                        Bench.Print("Teleport Initiated")
-                        Sleep(Settings.TeleportSleepTime * 1000)
-                        Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
-                        If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
-                            Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
-                            Fin.Add(AgentID)
+                    If IsRegionReady(Port) And RegionIsRegisteredOnline(RegionToUUID) Then
+                        Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
+                        Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
+                        Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
+                        If fromName.Length > 0 Then
+                            Bench.Print("Teleport Initiated")
+                            Sleep(Settings.TeleportSleepTime * 1000)
+                            Logger("Teleport", $"Teleport from {fromName} to {DestinationName} initiated", "Teleport")
+                            If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
+                                Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
+                                Fin.Add(AgentID)
+                            Else
+                                Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
+                                BreakPoint.Show("Unable to locate region " & RegionToUUID)
+                                Fin.Add(AgentID)
+                            End If
                         Else
-                            Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
-                            BreakPoint.Show("Unable to locate region " & RegionToUUID)
-                            Fin.Add(AgentID)
+                            Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                         End If
-                    Else
-                        Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                     End If
                 End If
 
