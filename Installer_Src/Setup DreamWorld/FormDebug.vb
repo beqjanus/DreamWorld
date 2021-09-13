@@ -90,7 +90,10 @@ Public Class FormDebug
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
-        If Command = My.Resources.Speak Then
+        If Command = My.Resources.Benchmark Then
+            Benchmark()
+
+        ElseIf Command = My.Resources.Speak Then
             Speechtest()
 
         ElseIf Command = My.Resources.SmartStartEnable Then
@@ -179,6 +182,13 @@ Public Class FormDebug
 
     End Sub
 
+    Private Sub Benchmark()
+
+        ProgressPrint($"{My.Resources.Benchmark} = {CStr(Value)}")
+        Settings.LogBenchmarks = Value
+        Settings.SaveSettings()
+
+    End Sub
     Private Sub EnableSS()
         If Value Then
             ProgressPrint(My.Resources.SSisEnabled)
@@ -202,6 +212,7 @@ Public Class FormDebug
 
         RadioTrue.Text = My.Resources.True_word
         RadioFalse.Text = My.Resources.False_word
+        ComboBox1.Items.Add(My.Resources.Benchmark)
         ComboBox1.Items.Add(My.Resources.Speak)
         ComboBox1.Items.Add(My.Resources.Send_alert)
         ComboBox1.Items.Add(My.Resources.TeleportAPI)
