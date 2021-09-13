@@ -398,10 +398,14 @@ Public Class ClassRegionMaker
 
         For XPos As Integer = X1 To X2 Step 1
             For Ypos As Integer = Y1 To Y2 Step 1
-                Dim gr As String = $"{XPos},{Ypos}"
-                If Map.ContainsKey(gr) Then
-                    If IsAgentInRegion(Map.Item(gr)) Then
-                        Return True
+                If XPos <> Xloc And Ypos <> Yloc Then
+                    Dim gr As String = $"{XPos},{Ypos}"
+                    If Map.ContainsKey(gr) Then
+                        Application.DoEvents()
+
+                        If IsAgentInRegion(Map.Item(gr)) Then
+                            Return True
+                        End If
                     End If
                 End If
             Next

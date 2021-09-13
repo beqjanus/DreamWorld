@@ -32,6 +32,9 @@ Module RPC
     ''' 
     public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
 
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return 0
+        End If
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"region_id", RegionUUID}
@@ -48,6 +51,10 @@ Module RPC
     ''' 
     'http://opensimulator.org/wiki/Remoteadmin:admin_get_agents
     public Function admin_get_agents(RegionUUID As String) As Integer
+
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return 0
+        End If
 
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
@@ -76,6 +83,9 @@ Module RPC
     ''' <returns>integer</returns>
     public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
 
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return 0
+        End If
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"region_id", RegionUUID}
@@ -86,6 +96,9 @@ Module RPC
 
     public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
 
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return False
+        End If
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"command", Message}
@@ -98,6 +111,9 @@ Module RPC
 
     public Function SendAdminMessage(RegionUUID As String, Message As String) As Boolean
 
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return False
+        End If
         'http://opensimulator.org/wiki/RemoteAdmin:admin_dialog
 
         Dim ht = New Hashtable From {
@@ -112,6 +128,9 @@ Module RPC
 
     public Function SendMessage(RegionUUID As String, Message As String) As Boolean
 
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return False
+        End If
         'http://opensimulator.org/wiki/RemoteAdmin:admin_broadcast
 
         Dim ht = New Hashtable From {
@@ -124,6 +143,7 @@ Module RPC
     End Function
 
     public Function ShutDown(RegionUUID As String) As Boolean
+
 
         If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
             Dim ht = New Hashtable From {
@@ -161,6 +181,7 @@ Module RPC
     public Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
+
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
         Dim parameters = New List(Of Hashtable) From {ht}
@@ -188,6 +209,9 @@ Module RPC
 
     Public Function GetRPCAsObject(FromRegionUUID As String, cmd As String, ht As Hashtable) As Object
 
+        If Not PropRegionClass.Status(FromRegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return Nothing
+        End If
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
@@ -204,9 +228,11 @@ Module RPC
 
     Public Function RPC_admin_get_agent_list(RegionUUID As String) As List(Of AvatarData)
 
-
         Dim result As New List(Of AvatarData)
 
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return result
+        End If
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"region_id", RegionUUID}
@@ -244,9 +270,9 @@ Module RPC
 
     End Function
 
-    Private Function SendRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Boolean
+    Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable) As Boolean
 
-        Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
+        Dim RegionPort = PropRegionClass.GroupPort(RegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
         Dim parameters = New List(Of Hashtable) From {ht}
@@ -266,7 +292,6 @@ Module RPC
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
-
         End Try
         Return False
 
