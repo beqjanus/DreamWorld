@@ -1055,34 +1055,41 @@ Public Class FormSetup
             ' Find any regions touching this region.
             ' add them to the area to stay alive.
 
-            If Settings.SmartStart And PropRegionClass.AvatarIsNearby(RegionUUID) And (status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or
+            If Settings.SmartStart Then
+                If PropRegionClass.AvatarIsNearby(RegionUUID) And (status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or
                 status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood) Then
-                TextPrint($"{GroupName} {My.Resources.StartingNearby}")
-                ReBoot(RegionUUID)
-                Continue For
+                    TextPrint($"{GroupName} {My.Resources.StartingNearby}")
+                    ReBoot(RegionUUID)
+                    Continue For
+                End If
             End If
 
-            If Settings.SmartStart And PropRegionClass.AvatarIsNearby(RegionUUID) Then
-                PokeGroupTimer(GroupName)
+            If Settings.SmartStart Then
+                If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+                    PokeGroupTimer(GroupName)
+                End If
             End If
+
 
 
             ' Smart Start Timer
-            If Settings.SmartStart And PropRegionClass.SmartStart(RegionUUID) = "True" And status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-                Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
+            If Settings.SmartStart Then
+                If PropRegionClass.SmartStart(RegionUUID) = "True" And status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+                    Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
 
-                If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
-                    'Continue For
-                    Logger("State Changed to ShuttingDown", GroupName, "Teleport")
-                    ShutDown(RegionUUID)
-                    PokeGroupTimer(GroupName)
-                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                        PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                    Next
+                    If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
+                        'Continue For
+                        Logger("State Changed to ShuttingDown", GroupName, "Teleport")
+                        ShutDown(RegionUUID)
+                        PokeGroupTimer(GroupName)
+                        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                            PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                        Next
 
-                    PropUpdateView = True ' make form refresh
-                    Continue For
+                        PropUpdateView = True ' make form refresh
+                        Continue For
 
+                    End If
                 End If
             End If
 
