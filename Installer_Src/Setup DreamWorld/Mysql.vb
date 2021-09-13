@@ -940,7 +940,7 @@ Public Module MysqlInterface
                 'BreakPoint.Show(ex.Message)
             End Try
         Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+            BreakPoint.Show(ex.Message)
         End Try
         Return ""
 
@@ -978,7 +978,7 @@ Public Module MysqlInterface
                             BreakPoint.Show(ex.Message)
                         End Try
                     Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
+                        BreakPoint.Show(ex.Message)
                     End Try
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
@@ -1021,7 +1021,7 @@ Public Module MysqlInterface
                         BreakPoint.Show(ex.Message)
                     End Try
                 Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex.Message)
                 End Try
             End Using
         Catch ex As Exception
@@ -1059,7 +1059,7 @@ Public Module MysqlInterface
                         BreakPoint.Show(ex.Message)
                     End Try
                 Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
+                    BreakPoint.Show(ex.Message)
                 End Try
             End Using
 
@@ -1117,7 +1117,7 @@ Public Module MysqlInterface
                 Try
                     ProcessMysql.Start()
                     ProcessMysql.WaitForExit()
-                Catch ex As exception
+                Catch ex As Exception
                     ErrorLog("Error ProcessMysql failed to launch: " & ex.Message)
                     FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
                     Return
