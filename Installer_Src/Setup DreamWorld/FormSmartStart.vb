@@ -952,15 +952,15 @@ Public Class FormSmartStart
                     PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
 
                     If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
-                        ConsoleCommand(RegionUUID, "q{ENTER}")
-                        ConsoleCommand(RegionUUID, "q{ENTER}")
+                        ConsoleCommand(RegionUUID, "q")
+                        ConsoleCommand(RegionUUID, "q")
 
                     End If
                 Else
                     If Not PropRegionClass.AvatarsIsInGroup(PropRegionClass.GroupName(RegionUUID)) Then
                         PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        ConsoleCommand(RegionUUID, "q{ENTER}")
-                        ConsoleCommand(RegionUUID, "q{ENTER}")
+                        ConsoleCommand(RegionUUID, "q")
+                        ConsoleCommand(RegionUUID, "q")
                     End If
 
                 End If
@@ -1813,6 +1813,9 @@ Public Class FormSmartStart
         DeleteMaps(RegionUUID)
         PropRegionClass.DeleteRegion(RegionUUID)
         ProgressPrint($"Deleted region {RegionName}")
+
+        ' TODO Delete all Opensim data files for this UUID
+
         PropUpdateView = True
 
     End Sub
