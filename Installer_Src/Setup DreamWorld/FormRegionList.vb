@@ -424,17 +424,27 @@ Public Class FormRegionlist
         ctr += 1
         ListView1.Columns.Add(My.Resources.Frame_Rate_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 80), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+        ' Timers
+        ctr += 1
+        ListView1.Columns.Add(My.Resources.Boot_Time, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+        ctr += 1
+        ListView1.Columns.Add(My.Resources.Map_Time, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
+        ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
+
 
         'Avatars
         ctr = 0
         AvatarView.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        AvatarView.Columns(ctr).Name = "Agent" & ctr & "_" & CStr(ViewType.Avatars)
+        AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
         ctr += 1
         AvatarView.Columns.Add(My.Resources.Region_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        AvatarView.Columns(ctr).Name = "Agent" & ctr & "_" & CStr(ViewType.Avatars)
+        AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
         ctr += 1
         AvatarView.Columns.Add(My.Resources.Type_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
-        AvatarView.Columns(ctr).Name = "Agent" & ctr & "_" & CStr(ViewType.Avatars)
+        AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
+
+
 
         'Users
         ctr = 0
@@ -442,14 +452,19 @@ Public Class FormRegionlist
         UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
         UserView.Columns.Add(My.Resources.Email_word, colsize.ColumnWidth("User" & ctr & "_" & CStr(ViewType.Users), 250), HorizontalAlignment.Left)
+        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
         UserView.Columns.Add(My.Resources.Items_word, colsize.ColumnWidth("Items" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
         UserView.Columns.Add(My.Resources.Level_word, colsize.ColumnWidth("Level" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
         UserView.Columns.Add(My.Resources.Birthday_word, colsize.ColumnWidth("Birthday" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
         ctr += 1
         UserView.Columns.Add(My.Resources.Age, colsize.ColumnWidth("Age" & ctr & "_" & CStr(ViewType.Users), 90), HorizontalAlignment.Left)
+        UserView.Columns(ctr).Name = "User" & ctr & "_" & CStr(ViewType.Users)
 
         ' Connect the ListView.ColumnClick event to the ColumnClick event handler.
         AddHandler ListView1.ColumnClick, AddressOf ColumnClick
@@ -935,6 +950,10 @@ Public Class FormRegionlist
                 Else
                     item1.SubItems.Add("-".ToUpperInvariant)
                 End If
+
+                item1.SubItems.Add(PropRegionClass.BootTime(RegionUUID).ToString("0.0", Globalization.CultureInfo.CurrentCulture))
+                item1.SubItems.Add(PropRegionClass.MapTime(RegionUUID).ToString("0.0", Globalization.CultureInfo.CurrentCulture))
+
                 item1.ForeColor = c
                 ListView1.Items.AddRange(New ListViewItem() {item1})
 

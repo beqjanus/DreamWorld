@@ -1082,6 +1082,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Boot Time.
+        '''</summary>
+        Friend ReadOnly Property Boot_Time() As String
+            Get
+                Return ResourceManager.GetString("Boot_Time", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Booting.
         '''</summary>
         Friend ReadOnly Property Booting_word() As String
@@ -5878,6 +5887,15 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("map_delete", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Map Boot TIme.
+        '''</summary>
+        Friend ReadOnly Property Map_Time() As String
+            Get
+                Return ResourceManager.GetString("Map_Time", resourceCulture)
             End Get
         End Property
         

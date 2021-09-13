@@ -3884,4 +3884,10 @@
   <data name="Finished_word" xml:space="preserve">
     <value>Finished</value>
   </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Boot Time</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Map Boot TIme</value>
+  </data>
 </root>
