@@ -5,8 +5,14 @@ Public Class Benchmark
 
     Public Sub Print(Name As String)
 
-        If Not Debugger.IsAttached Then Return
+        If _stopWatch Is Nothing Then
+            Return
+        End If
+        If Settings.LogBenchmarks Then
+            Logger("Benchmark", $"{Name}:{CStr(_stopWatch.Elapsed.TotalMilliseconds / 1000)} {My.Resources.Seconds_word}", "Benchmark")
+        End If
 
+        If Not Debugger.IsAttached Then Return
         Debug.Print($"Benchmark: {Name}:{CStr(_stopWatch.Elapsed.TotalMilliseconds / 1000)} {My.Resources.Seconds_word}")
 
     End Sub
@@ -15,7 +21,12 @@ Public Class Benchmark
 
         _stopWatch = New Stopwatch()
         _stopWatch.Start()
-        Debug.Print("Benchmark: ----------------")
+        If Settings.LogBenchmarks Then
+            Logger("Benchmark", "---START---", "Benchmark")
+        End If
+
+        Debug.Print("Benchmark: ---START---")
+
     End Sub
 
 End Class
