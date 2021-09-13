@@ -640,7 +640,7 @@ Public Class FormSetup
 
                 If Not BootNeeded And PropOpensimIsRunning And PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
                     If PropRegionClass.SmartStart(RegionUUID) = "True" Then
-                        If Not CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
+                        If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
                             PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
                         End If
                     End If
@@ -1081,6 +1081,7 @@ Public Class FormSetup
                 End If
             End If
 
+            Application.DoEvents()
 
             ' Smart Start Timer
             If Settings.SmartStart Then

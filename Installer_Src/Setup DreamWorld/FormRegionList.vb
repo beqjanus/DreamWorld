@@ -1621,7 +1621,7 @@ SetWindowOnTop_Err:
         Using reader = New StreamReader(Region)
             While reader.Peek <> -1 And p1.Length = 0
                 Dim line = reader.ReadLine
-                Dim pattern1 As Regex = New Regex("^ *\[(.*?)\] *$")
+                Dim pattern1 = New Regex("^ *\[(.*?)\] *$")
                 Dim match1 As Match = pattern1.Match(line)
                 If match1.Success Then
                     p1 = match1.Groups(1).Value
