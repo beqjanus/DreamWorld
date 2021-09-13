@@ -101,9 +101,9 @@ Public Class FormRegion
                 Sleep(1000)
             End While
 
-            'StopRobust()
-            'PropAborting = False
-            'StartRobust()
+            StopRobust()
+            PropAborting = False
+            StartRobust()
 
             Boot(PropRegionClass.RegionName(RegionUUID))
 
@@ -281,7 +281,6 @@ Public Class FormRegion
             IsNew1 = True
             Gods_Use_Default.Checked = True
             RegionName.Text = Global.Outworldz.My.Resources.Name_of_Region_Word
-            UUID.Text = Guid.NewGuid().ToString
             CoordX.Text = (PropRegionClass.LargestX() + 8).ToString(Globalization.CultureInfo.InvariantCulture)
             CoordY.Text = (PropRegionClass.LargestY() + 0).ToString(Globalization.CultureInfo.InvariantCulture)
             EnabledCheckBox.Checked = True
@@ -294,6 +293,7 @@ Public Class FormRegion
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
             RegionUUID = PropRegionClass.CreateRegion("New Region")
+            UUID.Text = RegionUUID
             Gods_Use_Default.Checked = True
 
             Core1Button.Checked = True
@@ -692,11 +692,11 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(RegionUUID)
+                    PropRegionClass.GetAllRegions()
                     Firewall.SetFirewall()
                     RestartRobustIfNeeded(RegionUUID)
                     PropUpdateView() = True
                     Changed1 = False
-
                 End If
             End If
         End If
@@ -741,6 +741,7 @@ Public Class FormRegion
         Else
             DeregisterRegionUUID(RegionUUID)
             WriteRegion(RegionUUID)
+            PropRegionClass.GetAllRegions()
             Firewall.SetFirewall()
             RestartRobustIfNeeded(RegionUUID)
             PropUpdateView() = True
@@ -1714,6 +1715,12 @@ Public Class FormRegion
 
     Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
         If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub RegionName_TextChanged(sender As Object, e As EventArgs) Handles RegionName.Click
+
+        RegionName.Text = RegionName.Text.Replace("Name of Region", "")
+
     End Sub
 
 
