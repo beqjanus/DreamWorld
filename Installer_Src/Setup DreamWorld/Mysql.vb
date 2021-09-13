@@ -12,6 +12,8 @@ Imports System.Threading
 Imports Ionic.Zip
 Imports MySql.Data.MySqlClient
 
+'TODO SELECT inventoryname, inventoryID, assetID FROM robust.inventoryitems WHERE replace(assetID, '-', '') Not IN (SELECT hex(id) FROM opensim.fsassets);
+
 Public Module MysqlInterface
     Private WithEvents ProcessMySql As Process = New Process()
     Private _IsRunning As Boolean
