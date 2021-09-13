@@ -24,9 +24,6 @@ Module SmartStart
     Private ReadOnly Sleeping As New List(Of String)
 
 
-
-
-
 #Region "SmartBegin"
 
     ''' <summary>
@@ -146,9 +143,9 @@ Module SmartStart
                     Else ' Its a v4 sign
 
                         If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
-                            time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)
+                            time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)
                         Else
-                            time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + Settings.TeleportSleepTime + 5)
+                            time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + Settings.TeleportSleepTime)
                         End If
                         ' RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. {vbCrLf}Please wait in this region.")
                         Logger("Agent ", Name & ":" & AgentID, "Teleport")
