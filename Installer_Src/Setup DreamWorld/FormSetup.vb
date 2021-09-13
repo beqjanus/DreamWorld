@@ -635,11 +635,23 @@ Public Class FormSetup
                         BootNeeded = True
                 End Select
 
+                ' A region in initial boot up may be really running, but showing as stopped in SS made 
+                ' And so it needs to be shut down by timers. But first we have to show it as Booted.
+
+                If Not BootNeeded And PropOpensimIsRunning And PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
+                    If PropRegionClass.SmartStart(RegionUUID) = "True" Then
+                        If Not CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
+                            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
+                        End If
+                    End If
+                End If
+
                 If BootNeeded And PropOpensimIsRunning Then
                     If Not Boot(PropRegionClass.RegionName(RegionUUID)) Then
                         Exit For
                     End If
                 End If
+
             End If
 
             Application.DoEvents()
@@ -747,9 +759,6 @@ Public Class FormSetup
                     ConsoleCommand(RobustName, "{ENTER}")
                     ConsoleCommand(RobustName, "{ENTER}")
                     ConsoleCommand(RobustName, "{ENTER}")
-                    ConsoleCommand(RobustName, "{ENTER}")
-                    ConsoleCommand(RobustName, "{ENTER}")
-
                     Settings.RunOnce = True
                     Settings.SaveSettings()
                 Else
@@ -984,10 +993,10 @@ Public Class FormSetup
     Private Sub ExitHandlerPoll()
 
         If PropExitHandlerIsBusy Then
-            Bench.Print("ExitHandlerPoll is BUSY")
+            Bench.Print("ExitHandlerPoll BUSY")
             Return
         End If
-        Bench.Print("ExitHandlerPoll")
+        Bench.Print("ExitHandlerPoll Begins")
 
         PropExitHandlerIsBusy = True
         Dim GroupName As String = ""
@@ -1028,6 +1037,7 @@ Public Class FormSetup
             Else
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
+
             PropRegionClass.Status(Ruuid) = ClassRegionMaker.SIMSTATUSENUM.Booted
             TeleportAgents()
             PropUpdateView = True
@@ -1064,12 +1074,12 @@ Public Class FormSetup
                 End If
             End If
 
+            ' keep smart start regions alive if someone is near
             If Settings.SmartStart Then
                 If PropRegionClass.AvatarIsNearby(RegionUUID) Then
                     PokeGroupTimer(GroupName)
                 End If
             End If
-
 
 
             ' Smart Start Timer
@@ -1174,7 +1184,7 @@ Public Class FormSetup
             End If
         Next
 
-        Bench.Print("Timers")
+        Bench.Print("ExitList Begins")
 
         DidItDie()
 
