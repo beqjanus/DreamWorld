@@ -1,5 +1,4 @@
-﻿Imports System.Text.RegularExpressions
-Imports System.Threading
+﻿Imports System.Threading
 Module ChatToSpeech
 
     Public SpeechList As New Queue(Of String)

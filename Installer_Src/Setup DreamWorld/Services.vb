@@ -31,7 +31,6 @@
 
         If Not MysqlInterface.IsMySqlRunning() Then
             Application.DoEvents()
-            MysqlInterface.IsRunning = False    ' mark all as not running
             MySQLIcon(False)
             Return True
         End If
@@ -87,7 +86,6 @@
             p.StartInfo = pi
             Try
                 p.Start()
-                MysqlInterface.IsRunning = False
                 Application.DoEvents()
                 p.WaitForExit()
             Catch
@@ -96,7 +94,6 @@
 
         MySQLIcon(False)
         If MysqlInterface.IsMySqlRunning() Then
-            MysqlInterface.IsRunning = True    ' mark all as running
             MySQLIcon(True)
             MsgBox(My.Resources.MySQLDidNotStop, vbCritical Or vbMsgBoxSetForeground)
             Return False

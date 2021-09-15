@@ -50,7 +50,7 @@ Module RPC
     ''' <returns>Object</returns>
     ''' 
     'http://opensimulator.org/wiki/Remoteadmin:admin_get_agents
-    public Function admin_get_agents(RegionUUID As String) As Integer
+    Public Function Admin_get_agents(RegionUUID As String) As Integer
 
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return 0
@@ -81,7 +81,7 @@ Module RPC
     ''' </summary>
     ''' <param name="RegionUUID">RegionUUID</param>
     ''' <returns>integer</returns>
-    public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
+    Public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
 
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return 0
@@ -252,10 +252,11 @@ Module RPC
                 Dim ag As ArrayList = CType(agents, ArrayList)
                 For Each agent In ag
                     If agent.item("type") = "User" Then
-                        Dim avi = New AvatarData
-                        avi.AvatarName = CStr(agent.Item("name"))
-                        avi.X = CSng(agent.Item("pos_x"))
-                        avi.Y = CSng(agent.item("pos_y"))
+                        Dim avi = New AvatarData With {
+                            .AvatarName = CStr(agent.Item("name")),
+                            .X = CSng(agent.Item("pos_x")),
+                            .Y = CSng(agent.item("pos_y"))
+                        }
                         result.Add(avi)
                     End If
                 Next

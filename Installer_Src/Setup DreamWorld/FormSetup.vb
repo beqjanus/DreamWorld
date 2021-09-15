@@ -12,7 +12,6 @@ Imports System.Management
 Imports System.Net.NetworkInformation
 Imports System.Threading
 Imports IWshRuntimeLibrary
-Imports MySql.Data.MySqlClient
 
 Public Class FormSetup
     Public Visitor As New Dictionary(Of String, String)
@@ -622,8 +621,10 @@ Public Class FormSetup
                 Select Case Settings.SmartStart
                     Case True
                         ' Really Smart Start, not in Region table
-                        If PropRegionClass.SmartStart(RegionUUID) = "True" And Not RegionIsRegistered(RegionUUID) Then
-                            BootNeeded = True
+                        If PropRegionClass.SmartStart(RegionUUID) = "True" Then
+                            If Not RegionIsRegistered(RegionUUID) Then
+                                BootNeeded = True
+                            End If
                         End If
 
                         ' if set to default, which is true

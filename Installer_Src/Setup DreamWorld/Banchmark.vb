@@ -1,5 +1,4 @@
-﻿Imports System.Diagnostics
-Public Class Benchmark
+﻿Public Class Benchmark
 
     Private _stopWatch As Stopwatch
 

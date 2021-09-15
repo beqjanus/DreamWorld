@@ -1668,7 +1668,7 @@ SetWindowOnTop_Err:
 
                     For Each ofdFilename As String In ofd.FileNames
 
-                        Dim noquotes As Regex = New Regex("'")
+                        Dim noquotes = New Regex("'")
                         dirpathname = noquotes.Replace(dirpathname, "")
 
                         Dim extension As String = Path.GetExtension(ofdFilename)
