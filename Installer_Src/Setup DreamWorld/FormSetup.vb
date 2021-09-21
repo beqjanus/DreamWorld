@@ -1067,11 +1067,12 @@ Public Class FormSetup
             ' add them to the area to stay alive.
 
             If Settings.SmartStart Then
-                If PropRegionClass.AvatarIsNearby(RegionUUID) And (status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or
-                status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood) Then
-                    TextPrint($"{GroupName} {My.Resources.StartingNearby}")
-                    ReBoot(RegionUUID)
-                    Continue For
+                If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+                    If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+                        TextPrint($"{GroupName} {My.Resources.StartingNearby}")
+                        ReBoot(RegionUUID)
+                        Continue For
+                    End If
                 End If
             End If
 
