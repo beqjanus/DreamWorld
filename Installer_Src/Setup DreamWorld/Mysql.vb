@@ -605,8 +605,8 @@ Public Module MysqlInterface
                             Dim l = reader.GetString(1)
                             Dim e = reader.GetString(2)
                             Dim u = reader.GetString(3)
-                            Dim Level = reader.GetString(4)
-                            Dim c As Double = reader.GetDouble(5)
+                            Dim Level = reader.GetInt32(4)
+                            Dim c = reader.GetInt32(5)
                             Dim Birthdate As DateTime = UnixTimeStampToDateTime(c)
                             Dim Age = DateDiff(DateInterval.Day, Birthdate, DateTime.Now)
 
@@ -697,7 +697,7 @@ Public Module MysqlInterface
                     cmd.Parameters.AddWithValue("@UUID", UUID)
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
                         If reader.Read() Then
-                            count = CInt(reader.GetString(0))
+                            count = reader.GetInt32(0)
                         End If
                     End Using
                 End Using
