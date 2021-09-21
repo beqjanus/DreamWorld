@@ -7,7 +7,7 @@
 Imports System.IO
 
 Imports System.Text.RegularExpressions
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 Imports Newtonsoft.Json
 
 Public Class ClassRegionMaker

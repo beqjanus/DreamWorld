@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.Threading
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Module Events
 
@@ -11,7 +11,7 @@ Module Events
             Using osconnection = New MySqlConnection(Settings.RobustMysqlConnection())
                 osconnection.Open()
                 Dim stm = "delete from ossearch.events"
-                Using cmd As MySqlCommand = New MySqlCommand(stm, osconnection)
+                Using cmd = New MySqlCommand(stm, osconnection)
                     Dim rowsdeleted = cmd.ExecuteNonQuery()
                     Diagnostics.Debug.Print("Rows: {0}", rowsdeleted.ToString(Globalization.CultureInfo.InvariantCulture))
                 End Using
@@ -26,9 +26,7 @@ Module Events
         If Settings.SearchOptions <> "Local" Then Return
 
         ' start a thread to see if a region has crashed, if so, add it to an exit list
-#Disable Warning BC42016 ' Implicit conversion
         Dim start As ParameterizedThreadStart = AddressOf Events
-#Enable Warning BC42016 ' Implicit conversion
         Dim T = New Thread(start)
         T.SetApartmentState(ApartmentState.STA)
         T.Priority = ThreadPriority.Lowest ' UI gets priority
@@ -76,7 +74,7 @@ Module Events
 
                                 Diagnostics.Debug.Print(Simevent.Item("description"))
 
-                                Using cmd1 As MySqlCommand = New MySqlCommand(stm, osconnection)
+                                Using cmd1 = New MySqlCommand(stm, osconnection)
 
                                     cmd1.Parameters.AddWithValue("@owneruuid", Simevent.Item("owneruuid"))
                                     cmd1.Parameters.AddWithValue("@name", Simevent.Item("name"))
@@ -93,7 +91,7 @@ Module Events
                                     cmd1.Parameters.AddWithValue("@gateway", Simevent.Item("gateway"))
                                     cmd1.Parameters.AddWithValue("@eventflags", Simevent.Item("eventflags"))
 
-                                    cmd1.BeginExecuteNonQuery()
+                                    cmd1.ExecuteNonQuery()
                                     Application.DoEvents()
                                 End Using ' command
                             End While

@@ -10,7 +10,7 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports Ionic.Zip
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 'TODO SELECT inventoryname, inventoryID, assetID FROM robust.inventoryitems WHERE replace(assetID, '-', '') Not IN (SELECT hex(id) FROM opensim.fsassets);
 
@@ -134,9 +134,6 @@ Public Module MysqlInterface
                     Try
                         MysqlProcess.Start()
                         MysqlProcess.WaitForExit()
-                    Catch ex As MySqlException
-                        BreakPoint.Show(ex.Message)
-                        MySQLIcon(False)
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                         MySQLIcon(False)
@@ -991,7 +988,7 @@ Public Module MysqlInterface
                         Using cmd1 = New MySqlCommand(stm1, MysqlConn1)
                             cmd1.Parameters.AddWithValue("@UUID", UUID)
                             cmd1.Parameters.AddWithValue("@EID", EstateID)
-                            cmd1.BeginExecuteNonQuery()
+                            cmd1.ExecuteNonQuery()
                         End Using
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
@@ -1322,7 +1319,7 @@ Public Module MysqlInterface
                                 cmd1.Parameters.AddWithValue("@REGIONNAME", RegionName)
                                 cmd1.Parameters.AddWithValue("@LOCX", Avi.X)
                                 cmd1.Parameters.AddWithValue("@LOCY", Avi.Y)
-                                cmd1.BeginExecuteNonQuery()
+                                cmd1.ExecuteNonQuery()
                             End Using
                         Next
                     Next
