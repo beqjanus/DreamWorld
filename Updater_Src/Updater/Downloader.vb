@@ -15,7 +15,7 @@ Public Class Downloader
     Dim gCurDir = Nothing
 
     ' Holds the current folder that we are running in
-    ReadOnly gFileName As String = "https://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip"
+    ReadOnly gFileName As String = "http://www.outworldz.com/Outworldz_Installer/Grid/DreamGrid.zip"
     ' Outworldz_Installer/Grid/DreamGrid.zip
     Dim whereToSave As String = Nothing
 

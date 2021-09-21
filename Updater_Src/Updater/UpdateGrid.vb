@@ -236,8 +236,8 @@ Public Class UpdateGrid
 
     Private Sub StopMYSQL()
 
-        Dim p As Process = New Process()
-        Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+        Dim p = New Process()
+        Dim pi = New ProcessStartInfo With {
             .Arguments = "-u root shutdown",
             .FileName = MyFolder + "\OutworldzFiles\mysql\bin\mysqladmin.exe",
             .WindowStyle = ProcessWindowStyle.Minimized
