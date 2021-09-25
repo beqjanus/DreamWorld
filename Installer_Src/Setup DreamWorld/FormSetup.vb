@@ -1082,12 +1082,11 @@ Public Class FormSetup
                 If PropRegionClass.AvatarIsNearby(RegionUUID) Then
                     PokeGroupTimer(GroupName)
                 End If
-            End If
 
-            Application.DoEvents()
+                Application.DoEvents()
 
-            ' Smart Start Timer
-            If Settings.SmartStart Then
+                ' Smart Start Timer
+
                 If PropRegionClass.SmartStart(RegionUUID) = "True" And status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
                     Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
 
@@ -1095,7 +1094,7 @@ Public Class FormSetup
                         'Continue For
                         Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                         ShutDown(RegionUUID)
-                        PokeGroupTimer(GroupName)
+
                         For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
                             PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
                         Next
