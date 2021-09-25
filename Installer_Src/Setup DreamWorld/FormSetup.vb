@@ -1028,6 +1028,7 @@ Public Class FormSetup
                 SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
             End If
 
+            PropRegionClass.Status(Ruuid) = ClassRegionMaker.SIMSTATUSENUM.Booted
             ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
 
             'force update - Force the region to send all clients updates about all objects.
@@ -1039,7 +1040,7 @@ Public Class FormSetup
                 PropRegionClass.MapTime(Ruuid) = CInt(seconds)
             End If
 
-            PropRegionClass.Status(Ruuid) = ClassRegionMaker.SIMSTATUSENUM.Booted
+
             TeleportAgents()
             PropUpdateView = True
 
