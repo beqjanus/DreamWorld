@@ -423,6 +423,11 @@ Public Class ClassRegionMaker
     ''' <returns>true if avatar is present</returns>
     Public Function AvatarsIsInGroup(groupname As String) As Boolean
 
+        ' If groupname.Contains("Danger") Then
+        ' BreakPoint.Show("Braak")
+        'End If
+
+
         For Each RegionUUID As String In RegionUuidListByName(groupname)
             If IsAgentInRegion(RegionUUID) Then
                 Return True
