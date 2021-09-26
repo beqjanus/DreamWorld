@@ -21,7 +21,6 @@ Module DoIni
         Settings.SetLiteralIni("Listen", "Listen " & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture))
         Settings.SetLiteralIni("Define SRVROOT", $"Define SRVROOT ""{FormSetup.PropCurSlashDir}/OutworldzFiles/Apache""")
         Settings.SetLiteralIni("DocumentRoot", $"DocumentRoot ""{FormSetup.PropCurSlashDir}/OutworldzFiles/Apache/htdocs""")
-
         Settings.SetLiteralIni("Use VDir", $"Use VDir ""{FormSetup.PropCurSlashDir}/OutworldzFiles/Apache/htdocs""")
         Settings.SetLiteralIni("AliasMatch ", $"AliasMatch ""Stats/map/(.+)"" ""{FormSetup.PropCurSlashDir}/OutworldzFiles/Opensim/bin/maptiles/00000000-0000-0000-0000-000000000000/$1""")
         Settings.SetLiteralIni("PHPIniDir", $"PHPIniDir ""{FormSetup.PropCurSlashDir}/OutworldzFiles/PHP7""")

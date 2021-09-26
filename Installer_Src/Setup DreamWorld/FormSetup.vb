@@ -1811,7 +1811,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub HelpOnIARSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpOnIARSToolStripMenuItem.Click
-        Dim webAddress As String = "http: //opensimulator.org/wiki/Inventory_Archives"
+        Dim webAddress As String = "http://opensimulator.org/wiki/Inventory_Archives"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
@@ -2644,6 +2644,7 @@ Public Class FormSetup
             SetPublicIP()
             ExpireLogsByAge()
             DeleteDirectoryTmp()
+            DeleteOldVisitors()
         End If
 
         SecondsTicker += 1

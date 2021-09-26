@@ -266,6 +266,13 @@ Public Module MysqlInterface
 
 #Region "Public"
 
+    Public Sub DeleteOldVisitors()
+
+        Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
+        QueryString(stm)
+
+    End Sub
+
     Public Function AssetCount(UUID As String) As Integer
 
         Dim Val = 0

@@ -112,6 +112,7 @@ Module WindowHandlers
             Try
                 AppActivate(PID)
                 Sleep(100)
+
                 SendKeys.SendWait(command)
                 SendKeys.SendWait("{ENTER}")
             Catch ex As Exception

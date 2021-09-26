@@ -342,7 +342,7 @@ Partial Class FormMaps
         Me.Visitor.Controls.Add(Me.ViewMapButton)
         Me.Visitor.Location = New System.Drawing.Point(395, 34)
         Me.Visitor.Name = "Visitor"
-        Me.Visitor.Size = New System.Drawing.Size(171, 140)
+        Me.Visitor.Size = New System.Drawing.Size(171, 120)
         Me.Visitor.TabIndex = 3
         Me.Visitor.TabStop = False
         Me.Visitor.Text = "Visitors"
