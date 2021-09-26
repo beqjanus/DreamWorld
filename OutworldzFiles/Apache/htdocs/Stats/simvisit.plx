@@ -13,7 +13,7 @@ BEGIN
  	#use CGI::Carp('fatalsToBrowser');
 	use CGI qw(:standard);
 	
-	my $env = $ENV{REMOTE_ADDR} ;
+	my $env = $ENV{REMOTE_ADDR} || '127.0.0.1' ;
 	if ($env ne '127.0.0.1')
 	{
 		print header;		

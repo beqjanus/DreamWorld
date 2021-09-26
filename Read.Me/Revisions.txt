@@ -2,12 +2,13 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
 V4.67
-Add Normal boot time and when Maps are enabled boot times to region list
-Added an Are You Sure? message  when you try to quit.
-Editing a map in a specific region did not change the preview image,  or show the default.
+Added a visitor map to Setup->Map. This requires you to install Strawberry Perl which it will prompt on first boot.
+Add normal boot time and Map boot times to region list.
+Added an Are You Sure? message when you try to quit.
+Editing a map in a specific region did not change the preview image, or show the default.
 
 V4.66 Beta
-Added a Save All IAR background task. Choose a region, click Start.  It will save each IAR for all users one at a time using that region.
+Added a Save All IAR background task. Choose a region, click Start. It will save each IAR for all users one at a time using that region.
 
 V4.65 Beta
 Environment.processorcount now used to set initial core counts- minor fix to suppress a try catch
@@ -23,7 +24,7 @@ Added a 1 second sleep after typed commands before potentially closing windows f
 V4.63 Beta
 Read and print Mysql Version that we are connected to.
 Suppressed a possible crash in visitor counter. Something is fucky in Mysql connections to Robust.
-Removed Robust restart when Smart start settings are changed.  
+Removed Robust restart when Smart start settings are changed. 
 
 V4.62 Beta
 Old Bug: Region re-normalize puts the selected region at 1000,1000 and moves the rest to match was just not working right at all. This is used by the original Javascript map. 
@@ -42,28 +43,28 @@ Could not restore from a .sql backup. A typo added a space in a file path.
 V4.58
 Lots of small tweaks to UI to improve performance.
 Link set: Max number of prims increased to 1024.
-Chat to Speech:  Added a Speech class for the future Chat to Speech system.  Will also be adding a translator. 
-Bug:  Surrounding sims would start with nearby visitor when SS was disabled.
+Chat to Speech: Added a Speech class for the future Chat to Speech system. Will also be adding a translator. 
+Bug: Surrounding sims would start with nearby visitor when SS was disabled.
 Bump connections to Mysql in my.ini for large grids like mine.
 Added three more free OARS. 2 adult and an older prim-based region.
 
-V4.57  
-Git is Rev V4 so it's `git checkout V4`.  My code is mostly written in Visual Basic and anyone can compile it for free.
+V4.57 
+Git is Rev V4 so it's `git checkout V4`. My code is mostly written in Visual Basic and anyone can compile it for free.
 Opensim is now same as core as of 7/31/2021. Rev is "#d0e41f747b9054 there should be no need..."
 Many more translations to all 30 languages.
-jOpensimProfiles.dll was not being deleted at startup, even if Joomla/jOpensim was off.  Is now deleted from the Zip, and is deleted by code if jOpenaim is off on startup. 
- This is necessary as Opensim stupidly loads all DLLs it finds - a big security issue to say the least!   have always removed any DLLs that a hacker could insert 
+jOpensimProfiles.dll was not being deleted at startup, even if Joomla/jOpensim was off. Is now deleted from the Zip, and is deleted by code if jOpenaim is off on startup. 
+ This is necessary as Opensim stupidly loads all DLLs it finds - a big security issue to say the least! have always removed any DLLs that a hacker could insert 
  as DreamGrid maintains its own curated list of allowed DLL's. But this one was allowed as it is needed for jOpensim. Catch-22, but its fixed in code so any slip-ups 
  like this will not happen again.
 Estate name: not always showing in Region List. They will not show if MySQL is off, otherwise they will.
-Smart Start:  Neighbor regions would not always start when an avatar was present in the center. This is a standard feature so you can walk to the next sim.  It follows the sim surround rules of 1,2, or 3 rings.
+Smart Start: Neighbor regions would not always start when an avatar was present in the center. This is a standard feature so you can walk to the next sim. It follows the sim surround rules of 1,2, or 3 rings.
 Events: seems to sometimes hang as its Http. And can take more time that should not be interfering with the main thread. Its been moved to a new thread.
 Jopensim: Kickstart added back into the installer. Also a rev file added to show or suppress the you need to update screen.
-Crash fix:  Windows caching could cause a crash when renaming a file during INI file checks.  The Crash report I added a while back has worked beautifully and thanks to the you folks, the reporters, 39 sneaky bugs have been fixed.
+Crash fix: Windows caching could cause a crash when renaming a file during INI file checks. The Crash report I added a while back has worked beautifully and thanks to the you folks, the reporters, 39 sneaky bugs have been fixed.
 Changes to Diva settings causes robust to restart, if running, as it should.
 
 V4.56
-Search in Region list in non-English Languages blanked out all regions.  As "Search" <> "Suche". Fixed.
+Search in Region list in non-English Languages blanked out all regions. As "Search" <> "Suche". Fixed.
 Cleanup and reorganize by running it through the CodeMaid extension
 Opensim recompiled to not spam the bin region with Map-* maptiles which are just for debug.
 
@@ -73,13 +74,13 @@ Several potential crashes fixed in OpensimWorld and other places.
 
 V4.54
 Smart Boot Regions would shut down too soon. It poked their timer with a UUID instead of by name when an avatar was in it.
-Setting a Region to Smart Boot would not take until Robust (or the grid) was restarted.  Robust will now restart if you set the SS switch.
+Setting a Region to Smart Boot would not take until Robust (or the grid) was restarted. Robust will now restart if you set the SS switch.
 AutoBackup view folder added, and also set the initial place for thew backups to Autobackup.
 
 V4.53
-You can Search just your grid if you run Apache.  You can also choose no Search, or DreamGrid's Hyperica search (DreamGrid-wide search, works without needing Apache). if Apache is enabled, you can use jOpensim search.
+You can Search just your grid if you run Apache. You can also choose no Search, or DreamGrid's Hyperica search (DreamGrid-wide search, works without needing Apache). if Apache is enabled, you can use jOpensim search.
 
-Allow 16-bit 64K global placement of regions again.  It was changed to 16K in Smart Start. Placement above 16K or 32K may lead to issues.
+Allow 16-bit 64K global placement of regions again. It was changed to 16K in Smart Start. Placement above 16K or 32K may lead to issues.
 
 V4.52
 New grid only - Initial startup timing issue in Process.PID could cause the Robust to not capture the grid owner name.
@@ -110,7 +111,7 @@ Added Process Priority To Each Region.
 Added CPU affinity for each Region
 
 V4.45
-Map security was lacking.  Fixed in core Opensim.
+Map security was lacking. Fixed in core Opensim.
 Firestorm Beta fixes along with at least 100 more Opensim repairs by Ubit Umarov.
 
 V4.44
@@ -122,20 +123,20 @@ Sped up detection of offline Robust to speed up shutdown by 59.5 seconds.
 V4.43
 Reworked the port mapping to better handle adding or deleting regions while running. It detects safe shutdowns so it will reclaim/recycle ports from 8004 upward.
 If running, it always adds a port to the end. Restarting will reuse the ports that are in the region files.
-SmartStart: Added a settable number of seconds for regions to stabilize after boot before launching the teleport.   This lest you tune the length of time to let the region stabilize.
+SmartStart: Added a settable number of seconds for regions to stabilize after boot before launching the teleport. This lest you tune the length of time to let the region stabilize.
 Running more than one grid on a server would improperly detect all running regions during shutdown and so would never shut down.
-Explicit version message of VersionIS==> WillBe when prompted to update.  As in 4.3 ==> 4.4
-Opensim world shows the avatars + NPCs, instead of the avatars. Oops.   The RPC call admin_get_agent_count command is  basically an antique.  I added a admin_get_avatar_count.
+Explicit version message of VersionIS==> WillBe when prompted to update. As in 4.3 ==> 4.4
+Opensim world shows the avatars + NPCs, instead of the avatars. Oops. The RPC call admin_get_agent_count command is basically an antique. I added a admin_get_avatar_count.
 
 
 V.42 Internal alpha test
 
 V4.41
-Finally fixed the crash in some machines since 4.03.  Its timing in thread exits.
+Finally fixed the crash in some machines since 4.03. Its timing in thread exits.
 Crash report # 234345360: a crash could happen when restarting if two processes are using the PID file.
 Expires files by age did not apply to all files in AutoBackup. 
 
-V4.4  
+V4.4 
 Fixed a crash in Diva Panel when missing the Photo.
 Prevent possible crash if no region is selected after starting to create one.
 Use running Ports from INI if Opensim is running.
@@ -152,16 +153,16 @@ Fixed a crash in Diva web pages where a URL could (and did) crash robust.
 
 V4.04 Performance Tweaks to Mysql and Smart Start
 
-Partner Control Panel Is now Rev 4.1  now has a pretty look and works in both XEngine and YEngine.
-This is a new Beta for Smart Start.  The Smart Start Button in "Settings" is now enabled.	
+Partner Control Panel Is now Rev 4.1 now has a pretty look and works in both XEngine and YEngine.
+This is a new Beta for Smart Start. The Smart Start Button in "Settings" is now enabled.	
 OpensimWorld Beacons now get pinged when in Smart Start Mode and a region is powered down.
-The region count on the Diva Home Page adds in the number of ready-to-run Smart Start Regions.  
+The region count on the Diva Home Page adds in the number of ready-to-run Smart Start Regions. 
 All teleport types, HG and local work with one exception: Login to an offline region
 There is a new V4.1 Teleport Sign in Load Local IAR. This is just an ordinary sign, much like V2.5, except it does not check to see if a region is online.
 	
 Some Smart Boot features are missing:	
-	You cannot log into a powered-off region.  Go to your Welcome region or Home, and set home to a region that is always on.
-	Regions next to you should be powered on so you can walk or fly to them.  They do not. This works in Smart Surround.
+	You cannot log into a powered-off region. Go to your Welcome region or Home, and set home to a region that is always on.
+	Regions next to you should be powered on so you can walk or fly to them. They do not. This works in Smart Surround.
 	Run All Start buttons: An unregistered Smart Start Region will boot when you click Run All or Start. But a registered region is not be bootable from the GUI except by deregistering it or manually clicking it and selecting it from the Regions panel.
 
 MySQL now supports running as a service. You should only enable this if your server is in a data center on a UPS with a generator backup, or if you have a UPS with a cord that shuts down the PC before the battery is dead.
@@ -179,18 +180,18 @@ Region Builder knows how to set estate without typing.
 Added a RPC enable login to force Opensim to accept teleports when it says its ready but is really only mostly ready.
 
 V4.02 5-23-2021 Fixes to Smart Start, signs, and some UI performance improvements 
-Thankxx to Richard Dennis, who reported that adding a Region from the Setup->Settings->Region-[Add] button would always create an extra "New Region".  
+Thankxx to Richard Dennis, who reported that adding a Region from the Setup->Settings->Region-[Add] button would always create an extra "New Region". 
 Robust could start and would lie about being ready and this could cause a crash when a region boots too early when the database was still being generated.
 Opensim would still jab the API in some cases even if global SS was disabled. 
 API now requires the Machine ID as a password.
 SS created regions have the Teleport sign bit enabled.
-Large grids develop a long and longer "stutter" when starting up due to some expensive tasks that ran every 5 seconds. The system would fall further and further behind, which required interlock code to prevent recursion. Moved two subs to their own low priority threads which speeds up other critical tasks such as teleports shutdowns and bootups by 5X to 20X or more.  
-	CPUCalc() gathers the CPU percentages to display only when the Region list is displayed. It's not time critical. This was a massive CPU time killer when I run hundreds of regions - even on a fast machine it delayed things by 30 seconds or more when 180 regions are running .  
+Large grids develop a long and longer "stutter" when starting up due to some expensive tasks that ran every 5 seconds. The system would fall further and further behind, which required interlock code to prevent recursion. Moved two subs to their own low priority threads which speeds up other critical tasks such as teleports shutdowns and bootups by 5X to 20X or more. 
+	CPUCalc() gathers the CPU percentages to display only when the Region list is displayed. It's not time critical. This was a massive CPU time killer when I run hundreds of regions - even on a fast machine it delayed things by 30 seconds or more when 180 regions are running . 
 	DidItDie() scans for exiting processes. It has to do an expensive system call on all regions over and over. It's not time critical and can take its time as a separate thread.
 By default, OpenSimulator does not allow scripts to make HTTP calls to addresses on the simulator's LAN. This is for your LAN's security and your safety. An adjustment to this in 4.01 prevented some teleport signs from working. 
 Added more "allows" to the list of LSL destinations. These are the only LAN Addresses that scripts can reach.
 
-	localhost:DiagnosticPort	http://(loopback via DNS)(8001)   
+	localhost:DiagnosticPort	http://(loopback via DNS)(8001) 
 	127.0.0.1:DiagnosticPort	http://(loopback IP)(8001)
 	LANIP.DiagnosticPort		http://(PC LAN IP):(8001)
 	LANIP:HttpPort				http://(PC LAN IP):(80)
@@ -200,7 +201,7 @@ V4.01 Maintenance
 Just some tweaks, no need to update unless you are a Smart Start Alpha tester.
 Slower machines on first install may miss the Create User dialog. Added a Information MNsgBox in all 30 languages to wait for Robust to finish updating.
 Smart Start has several fixes:
-	A sign V4.0 is in the Local IAR folder.   This suppresses an error and supports
+	A sign V4.0 is in the Local IAR folder. This suppresses an error and supports
 	ESTATE, NAME and GROUP sorting. It also works on 127.0.0.1:8001.
 	All you need to do is add the password,
 	The "Welcome to Smart Start" Free OAR has the new signs in it.
@@ -228,17 +229,17 @@ V3.93
 If you click the Run Backups Now button, all Running region OARS will be saved right then. Previously, all OARS were only saved by Opensim after so many hours of run time.
 Wifi-Custom Web pages make themselves from White theme on first click.
 Fixed rare crash in WindowHandler.
-Updated Manuals from Diva to License in alphabetical order.  
+Updated Manuals from Diva to License in alphabetical order. 
 
 V3.929
 Fixes an issue where you could only make 1X1 regions.
 If you tried to teleport into a Smart Boot-enabled region, it shut down as soon as it booted.
 
 V3.928
-Right click and editing a running region would lead to an instant crash.  Thankxx to a tip from Luna Dreamweaver.
+Right click and editing a running region would lead to an instant crash. Thankxx to a tip from Luna Dreamweaver.
 The fix for this also fixes an issue where the region could not be started if the Set Window Title function did not work. And this is a very unreliable function.
 Also a less error prone method for detecting how many regions are still running when quitting the system.
-MAC address 469947894f9e298a7726b4a58ff7bf9f cannot be banned.  This is a Windows Loopback Adapter. A note is appended if you try it.
+MAC address 469947894f9e298a7726b4a58ff7bf9f cannot be banned. This is a Windows Loopback Adapter. A note is appended if you try it.
 
 
 V3.927
@@ -267,7 +268,7 @@ Smart Start has choice for Estate Owner for [SimSurround] Landfill function. Lan
 More crashes detected by users, thank you for sending in the reports!: Icecast log folder may not have been created due to a missing .keep, This causes a crash when a log sweep occurs. 
 Region panel may open in detailed mode before mysql has started.
 Dogwood trees were missing from the Tree and Plant Selection, so it always tried to plant it as the default was True. Dogwood default is now off, and we also know that Dogwood is both a tree and a flower and is the state flower of Virginia. 
-The land filler would incorrectly fill in non-1X1 region.  If a pre-existing 4X4 was located, it would only see the lower left, and the 15 remaining slots would collide.
+The land filler would incorrectly fill in non-1X1 region. If a pre-existing 4X4 was located, it would only see the lower left, and the 15 remaining slots would collide.
 
 V3.923
 Apache could be missing a default folder in OutworldzFiles\Logs\Apache due to a missing .keep, which I use to force git to keep the empty folder.
@@ -281,7 +282,7 @@ Setting->logs has a view logs button and an Analyze button. It does only one thi
 Plans are to have it make a list of bad prims and other things that you can clean up.
 Concierge defaults to Off.
 Auto Filling of empty lands allows up to 3 region-wide sim surround
-About 1,000 names randomly chosen for new regions.  You can make your own list in Outworldzfiles.
+About 1,000 names randomly chosen for new regions. You can make your own list in Outworldzfiles.
 Added photos of all Trees and Bushes.
 Autofill regions are placed in Estate 1999 "SimSurround"
 Various changes to AI generated lands, and add settings for smooth, bump and land level to GUI
@@ -312,7 +313,7 @@ Change the Load OAR options to be more visible. These remember the last setting.
 V3.8996
 Zip 64 functions are enabled now, should stop all the Backup crashes. Whodathunk thats not on by default? Not me!
 If disk < 50 MB free, suspend all running regions. Mysql and robust are left running to flush to disk. When disk space is available, thaw the regions.
-Now 29,950 Translation. in the spreadsheet.  Edits should me emailed to fred@outworldz.com so they can be compiled in, thank you very much! This uses a new mechanism thats much easier to merge and make them
+Now 29,950 Translation. in the spreadsheet. Edits should me emailed to fred@outworldz.com so they can be compiled in, thank you very much! This uses a new mechanism thats much easier to merge and make them
 Now Showing prim counts! in Region Details.
 Teleport Sign shows all Smart Boot Regions + running regions. Signs just show running region if Smart Boot is off.
 Halved setup time by setting INI files just once unless you changed something.
@@ -323,7 +324,7 @@ Parcels in OARs are loaded by default.
 Check if sims overlap and issue a warning of which overlap, and where.
 Added buttons in Load OAR as no everyone is blind to the Options.
 Git failed to save important DLLs so WhoGotWhat failed on every development machine.Thank you, core. Not every DLL can be compiled as you don't include libOpenMetaverse and many others such as Log4Net.
-7Zip will not add a file named 'magic'. Or any file without a file extension.  Not no way, not no how. 
+7Zip will not add a file named 'magic'. Or any file without a file extension. Not no way, not no how. 
 
 V3.8995
 Add a debug entries screen to toggle internal stuff on and off
@@ -340,7 +341,7 @@ V3.8993
 Multiple tests of the LoadAllOArs function now pass.
 Show Disk free space and warn if disk space gets low.
 More Icons everywhere.
-Backup just the region INI, not all the other rebuilt  stuff in Regions.
+Backup just the region INI, not all the other rebuilt stuff in Regions.
 Added a Teleport log
 
 
@@ -359,12 +360,12 @@ Add DefaultRegion to all regions that are not Smart Start. Both HG and Local vis
 V3.899
 Changes to the way signs work for Smart Start. 
 Splash page could be entered without a http, which breaks the splash page and gives a cryptic error.
-Fix in restore SQL database  - just click the .sql and restore it.
+Fix in restore SQL database - just click the .sql and restore it.
 Tmp folder could fill up in V3.98 and fill a hard drive. Now gets emptied on startup.
 
 V3.898
 Add path to robocopy as Windows Server can't seem to find it.
-MysqlDump timeout  with --compress and  --skip-lock-tables --compress --quick.  Lets us back up while running without killing the Sims.
+MysqlDump timeout with --compress and --skip-lock-tables --compress --quick. Lets us back up while running without killing the Sims.
 Add 10 more language translations - 30 Languages now!
 Fix crash if no name when loading an OAR.
 Re-enable all Physics engines.
@@ -375,18 +376,18 @@ Firewall may not be properly set due to a race condition in V3.896. Depends upon
 Firewall script now runs as a parameterized thread with unique file name, fw.bat no longer used
 Small improvement in speed in Region List for estate queries.
 MySQLdump (.sql) backup speedup and better transactional stability option.
-Add a Fix_presence.bat file in case an  avatar gets stuck.
+Add a Fix_presence.bat file in case an avatar gets stuck.
 
 V3.896
 More changes so you can save a region while running.
-Added Concierge module which announces people coming and going in each region. Enable it globally in Setup-Settings->Regions and restart the region.  Selectable on/off per region. 
+Added Concierge module which announces people coming and going in each region. Enable it globally in Setup-Settings->Regions and restart the region. Selectable on/off per region. 
 Latest FSassets file backup would not work if paths had spaces in them.
 
 V3.895
-jOpensim fixes for profiles and many other settings.  Many thanks to Rich Dennis for his help and good ideas.
+jOpensim fixes for profiles and many other settings. Many thanks to Rich Dennis for his help and good ideas.
 PHP has OpenSSL enabled so jOpensim can send emails via PHP.
 Modern viewers will bypass the Region bottleneck and get textures directly from the Robust service.
-FSAssets: Backups of FSassets are no longer compressed into a zip instead there is a Mirrored copy to Autobackup/FSAssets.  This makes it more efficient to backup files over a network as only files that have changed need to be copied or moved.
+FSAssets: Backups of FSassets are no longer compressed into a zip instead there is a Mirrored copy to Autobackup/FSAssets. This makes it more efficient to backup files over a network as only files that have changed need to be copied or moved.
 FSAssets: Backups can be done over a \\shared name, and it will wait for the share to be initialized.
 FSAssets:If destination free disk space is < 50 MB, the backup of FSAssets will stop.
 FSAssets:It should run very quickly after the first run as it only copies assets with the A bit set, then it resets it. The A bit is set if a file is created or modified.
@@ -407,7 +408,7 @@ V3.891
 IARs required a password again due to update of Opensim. This sets it back to no password.
 
 V3.89
-Backups run on Calendar time now, not on runtime.  So if set for daily, and you shut down for a day it will make a backup when you start it. Previous versions required the sim to run for a day or longer before a backup occurred.
+Backups run on Calendar time now, not on runtime. So if set for daily, and you shut down for a day it will make a backup when you start it. Previous versions required the sim to run for a day or longer before a backup occurred.
 Backups run in a single thread, sequentially to keep from overwhelming slow CPU's
 Error Logger now reports the stack contents and line number where the error was logged. 
 Possible crash fix in Web page settings if an image had been deleted manually.
@@ -460,32 +461,32 @@ Ban Lists did not reload automatically. It required you to click the Ban list af
 
 V3.83 Post Fixes
 GUI Crash may be happening when running backup tasks. Added code to help spot the issue.
-Added SQL backup to the backup scheduler. Caution ! FSAssets and SQL backups will fill up a disk quickly. Most useful if you want all  backups with one click, or have lots of disk space and a small number of days to keep.
+Added SQL backup to the backup scheduler. Caution ! FSAssets and SQL backups will fill up a disk quickly. Most useful if you want all backups with one click, or have lots of disk space and a small number of days to keep.
 Graphs now float to fill the screen correctly.
 MySqlBackup could not be turned off.
 
 
 V3.82 Post fixes
-Backup of SQL files did not work.  Zip was never made
+Backup of SQL files did not work. Zip was never made
 Added a crash logger for all unhandled exceptions. It pops up a request to send the error securely to me.
 Icons for Robust, Mysql, etc did not change color on a crash.
 Add longer timeout to manual for FSassets help, and the Opensimulator wiki.
 
 V3.81 Post-fixes
 Adding a new Region no longer requires restarting the grid
-Backups used to make a copy, then zipped the copies folder. This used 1.5 times the original data while being backed up.  Now it uses about half, depending on compression, throughout the entire process. Thanks for the idea, Marianna!
+Backups used to make a copy, then zipped the copies folder. This used 1.5 times the original data while being backed up. Now it uses about half, depending on compression, throughout the entire process. Thanks for the idea, Marianna!
 Apache sometimes would not install. Added an isApacheInstalled function to detect and install. Thanks for the tip, Garrt Beaumont!
 Mysql could not restore or backup some very large assets > 100 MB.
 System no longer types in console, except for Robust
 Deleted Regions de-register from robust so you can place a new region there
-Added a Region Message button to Region Pop Up so you can send Blue alerts more easily.  
+Added a Region Message button to Region Pop Up so you can send Blue alerts more easily. 
 Shutting down while zipping up backups would create large tmp files. These took a long time at startup to delete.
 
 V3.8 Release
 
 V3.799
 XMLRPC is deprecated.
-MaxPort prevented you from adding a region and restarting it.  Now adds Region port to the end of the list
+MaxPort prevented you from adding a region and restarting it. Now adds Region port to the end of the list
 Save IAR does no longer ask for passwords.
 Server 2019 C++ Service Pack added.
 
@@ -526,7 +527,7 @@ Error starting Icecast due to a missing slash.
 
 V3.792
 Prior version mixed up a INI file and never re-wrote the Opensim.ini.
-Depending upon your situation, it would  boot but not let you log in. Or crash regions and not boot.
+Depending upon your situation, it would boot but not let you log in. Or crash regions and not boot.
 
 
 V3.791
@@ -541,11 +542,11 @@ MySQL tweaks to 50 MB logs and larger buffer for imports of large mesh items.
 
 V3.782 
 Autobackups now support periodic backups of Regions, Mysql, and Settings.ioni into zip files. 
-This function used to just do OARs. Now any running region makes oars and DreamGrid backs up Settings.ini, region .ini files,  and a copy of the entire database, then zips them. If you have fsassets enabled, you can back it up and compress it too.  Each setting can be enabled and disabled.  The system deletes every file older than the number of days you set.   These are the same settings you are familiar with in Backups, just set to very low.
+This function used to just do OARs. Now any running region makes oars and DreamGrid backs up Settings.ini, region .ini files, and a copy of the entire database, then zips them. If you have fsassets enabled, you can back it up and compress it too. Each setting can be enabled and disabled. The system deletes every file older than the number of days you set. These are the same settings you are familiar with in Backups, just set to very low.
  
 When you load this rev, if Joomla is installed, this will prompt for an update if one is available. There is a easy way to update jOpensim included in Setup->Settings->Joomla/jOpensim. Your content will not be overwritten.
 
-Maps, local Search, Users and Groups all work.  jMoney does not yet work (it crashes, so the DLL is disabled).
+Maps, local Search, Users and Groups all work. jMoney does not yet work (it crashes, so the DLL is disabled).
 
 Joomla is now 3.9.23, jOpensim is 0.3.2.0. The jOpensim webpage is now at V5 which has web page instructions on how to edit after an install. 
 
@@ -566,15 +567,15 @@ Enable WhoGotWhat to capture in world events.
 BanList changes for IP addresses which now support /24 subnets
 
 
-V3.781 JOpensim  Update
-This rev of DreamGrid supports Rev 0.3.2.0.  If you are running Jopensim at an earlier rev, you must update JOpensim in the Joomla/administrator menu. There are minor changes in new added features, but huge changes to the internal communication structure between OpenSimulator and Joomla.
+V3.781 JOpensim Update
+This rev of DreamGrid supports Rev 0.3.2.0. If you are running Jopensim at an earlier rev, you must update JOpensim in the Joomla/administrator menu. There are minor changes in new added features, but huge changes to the internal communication structure between OpenSimulator and Joomla.
 
-Step 1) To Update Joomla, navigate to your Joomla admin panel at http://127.0.0.1/JOpensim/administrator and log in as Admin.  In the top menu, go to Component->Joomla Update and update your Joomla system.  
-Step 2)Go to Extensions-Manage->Install and click Browse to File.   The file you install is in OutworldzFiles\Apache\JOpensim_Files\Version0.3.2.0. Select and install pkg_jopensim.0.3.2.0.zip. There is no need to unzip it first.
+Step 1) To Update Joomla, navigate to your Joomla admin panel at http://127.0.0.1/JOpensim/administrator and log in as Admin. In the top menu, go to Component->Joomla Update and update your Joomla system. 
+Step 2)Go to Extensions-Manage->Install and click Browse to File. The file you install is in OutworldzFiles\Apache\JOpensim_Files\Version0.3.2.0. Select and install pkg_jopensim.0.3.2.0.zip. There is no need to unzip it first.
 
 
 V3.78 JOpensim fix
-A password was accidentally put in the JOpensim Backup.  Fix has been back ported to V3.77.
+A password was accidentally put in the JOpensim Backup. Fix has been back ported to V3.77.
 Minor fix to ban list to prevent a blank line from creeping in.
 Hyperica.com rewritten to get rid of ancient PHP5 code with many improvements for Search. Only V3.77 and higher are supported.
 Load Local IAR crashed system - leftover old code
@@ -601,7 +602,7 @@ To Do list:
 ⬜ ADD PARAMS FOR Restart time and CPU %
 ⬜ Allow editing of UUID when region is not running. If it changes, update the UUID in the dictionary.
 ⬜ Script for Partners only works in XEngine
-⬜ Add Classifieds in Viewer.  The viewer can read them, just no way to add them yet.
+⬜ Add Classifieds in Viewer. The viewer can read them, just no way to add them yet.
 
 
 
@@ -927,7 +928,7 @@ Possible hard crash in Check for Update if going from from V3.34 to V3.35. A var
 V3.35 Beta
 Added Search to Load OAR and Load IAR (web)
 Stopped a crash on Server 2016 if Publicity was blank.
-Several Updater and Downloader changes so updates can be skipped. Updates are automatically downloaded to a zip file in the root folder. The next startup or Help->Check For Updates, it detects the fresh zip and asks if you want to update to that version. If yes, it brings up the Backup screen, then shuts down mysql and Apache, and launches an unzipper.  if you chose No, it will not prompt you again until the next version is ready.
+Several Updater and Downloader changes so updates can be skipped. Updates are automatically downloaded to a zip file in the root folder. The next startup or Help->Check For Updates, it detects the fresh zip and asks if you want to update to that version. If yes, it brings up the Backup screen, then shuts down mysql and Apache, and launches an unzipper. if you chose No, it will not prompt you again until the next version is ready.
 
 V3.34 Beta
 When region is not running, speed up region click from 15 seconds to 1 second by using an async TCPCLient to probe the port.

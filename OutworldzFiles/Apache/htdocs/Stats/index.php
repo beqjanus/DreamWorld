@@ -25,13 +25,13 @@ Log in to <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>">Opensimulat
 
 
 <p>
-      <iframe frameborder="0" height="900" width="1600" src="/Stats/listmaps.plx"></iframe>
-      
+      <iframe frameborder="0" height="900" width="1024" src="/Stats/listmaps.plx"></iframe>
+</p>      
  
 <a rel="license" href="https://www.outworldz.com">Dreamgrid by Outworldz.com is licensed AGPL 3.0</a>
-        <p>
-    DreamGrid is a <a href="https://www.outworldz.com/Outworldz_installer/">free Opensimulator server</a> powered by <a href="https://www.Outworldz.com">Outworldz.com</a>
-        </p>
+<p>
+DreamGrid is a <a href="https://www.outworldz.com/Outworldz_installer/">free Opensimulator server</a> powered by <a href="https://www.Outworldz.com">Outworldz.com</a>
+</p>
 
  </body>
 </html>

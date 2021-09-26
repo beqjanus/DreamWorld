@@ -152,15 +152,15 @@ $(document).ready(function () {
         var xsize = tsv.xsize;
         var ysize = tsv.ysize;
 
-		var mapimage = '/Stats/map/map-1-' + tsv.XCoord + '-' + tsv.YCoord + '-objects.jpg' ;
+		var mapimage = '/Stats/map/map-' + xsize/256 + '-' + tsv.XCoord + '-' + tsv.YCoord + '-objects.jpg' ;
 
         jQuery.each(tsv.data, function (name, line) {
 
             var point = {};
 
-            var red = Math.floor(Math.random() * 128 + 128);
-            var green = Math.floor(Math.random() * 128 + 128);
-            var blue = Math.floor(Math.random() * 128 + 128);
+            var red = Math.floor(Math.random() * 255 );
+            var green = Math.floor(Math.random() * 255 );
+            var blue = Math.floor(Math.random() * 255 );
             var color = 'rgba(' + red + ',' + green + ',' + blue + ', 1.0)';
 
             point.color = color;
@@ -175,7 +175,7 @@ $(document).ready(function () {
                 var x = line.Y;
                 var z = line.Z;
 
-                point.name = aname + ' (' + visit + ' min) &lt;' + x + ',' + y + ',' + z + '&gt;';
+                point.name = aname + ' (' + visit + ' min) ';
 
                 //x = x * 255/xsize;
                 //y = y * 255/ysize;
@@ -253,7 +253,7 @@ $(document).ready(function () {
                 max: ysize,
                 min: 0,
                 title: {
-                    enabled: true,
+                    enabled: false,
                     text: 'Y (0-' + ysize + ')'
                 },
                 startOnTick: false,
@@ -269,7 +269,7 @@ $(document).ready(function () {
             Options: {
                 scatter: {
                     marker: {
-                        radius: 5,
+                        radius: 10,
                         states: {
                             hover: {
                                 enabled: true,

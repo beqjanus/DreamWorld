@@ -36,18 +36,19 @@ my $rs = $schema->resultset('Sim')->search({},{order_by => { -asc => 'regionname
 my $width= '400';
 my %unique;
 foreach my $row ($rs->all) {
-	
-	
+		
 	my $X = $row->locationX;
 	my $Y = $row->locationY;
-	my $map = "map-1-$X-$Y-objects.jpg";
+	my $S = $row->regionsize/256;
 	
-		
+	
+	my $map = "map-$S-$X-$Y-objects.jpg";
+
 	push @sims, {regionname => $row->regionname,				 
 				 regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
 				 map=> '/Stats/map/' . $map,
 				 width=>$width,
-				 link=>'/Stats/map.htm?q=' . $row->regionname,
+				 link=>'/Stats/map.htm?q=' . $row->regionname,				 
 				 };
 
 }
