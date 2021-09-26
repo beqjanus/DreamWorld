@@ -3893,4 +3893,7 @@
   <data name="Benchmark" xml:space="preserve">
     <value>Benchmark</value>
   </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Shut down the Grid?</value>
+  </data>
 </root>

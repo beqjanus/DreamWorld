@@ -3,6 +3,8 @@ This is a high-level view of major changes.
 
 V4.67
 Add Normal boot time and when Maps are enabled boot times to region list
+Added an Are You Sure? message  when you try to quit.
+Editing a map in a specific region did not change the preview image,  or show the default.
 
 V4.66 Beta
 Added a Save All IAR background task. Choose a region, click Start.  It will save each IAR for all users one at a time using that region.

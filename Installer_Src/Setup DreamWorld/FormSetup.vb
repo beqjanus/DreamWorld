@@ -1338,7 +1338,10 @@ Public Class FormSetup
 
     Private Sub Form1_Closed(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles MyBase.FormClosing
 
-        ReallyQuit()
+        Dim result = MsgBox(My.Resources.AreYouSure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Quit_Now_Word)
+        If result = vbYes Then
+            ReallyQuit()
+        End If
 
     End Sub
 
@@ -1991,7 +1994,12 @@ Public Class FormSetup
     End Sub
 
     Private Sub MnuExit_Click(sender As System.Object, e As EventArgs) Handles mnuExit.Click
-        ReallyQuit()
+
+        Dim result = MsgBox(My.Resources.AreYouSure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Quit_Now_Word)
+        If result = vbYes Then
+            ReallyQuit()
+        End If
+
     End Sub
 
     Private Sub MnuHide_Click(sender As System.Object, e As EventArgs) Handles mnuHide.Click
@@ -2832,9 +2840,13 @@ Public Class FormSetup
     ''' <summary>The main startup - done this way so languages can reload the entire form</summary>
     Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
 
-        TextPrint("Zzzz...")
-        Thread.Sleep(100)
-        End
+        Dim result = MsgBox(My.Resources.AreYouSure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Quit_Now_Word)
+        If result = vbYes Then
+            TextPrint("Zzzz...")
+            Thread.Sleep(100)
+            End
+        End If
+
 
     End Sub
 
