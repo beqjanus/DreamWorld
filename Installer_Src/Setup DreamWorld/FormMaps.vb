@@ -214,7 +214,6 @@ Public Class FormMaps
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
 
         Settings.MapType = "Good"
-
         MapPicture.Image = Global.Outworldz.My.Resources.Good
 
     End Sub

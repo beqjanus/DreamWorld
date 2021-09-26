@@ -265,6 +265,7 @@ Public Class FormRegion
         XEngineButton.Text = Global.Outworldz.My.Resources.XEngine_word
         YEngineButton.Text = Global.Outworldz.My.Resources.YEngine_word
 
+
     End Sub
 
     Public Sub Init(Name As String)
@@ -510,7 +511,7 @@ Public Class FormRegion
 
         If PropRegionClass.MapType(RegionUUID).Length = 0 Then
             Maps_Use_Default.Checked = True
-            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
+            DefaultMap()
         ElseIf PropRegionClass.MapType(RegionUUID) = "Simple" Then
             MapSimple.Checked = True
             MapPicture.Image = Global.Outworldz.My.Resources.Simple
@@ -678,6 +679,23 @@ Public Class FormRegion
 
     End Sub
 
+    Private Sub DefaultMap()
+
+        If Settings.MapType = "None" Then
+            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
+        ElseIf Settings.MapType = "Simple" Then
+            MapPicture.Image = Global.Outworldz.My.Resources.Simple
+        ElseIf Settings.MapType = "Good" Then
+            MapPicture.Image = Global.Outworldz.My.Resources.Good
+        ElseIf Settings.MapType = "Better" Then
+            MapPicture.Image = Global.Outworldz.My.Resources.Better
+        ElseIf Settings.MapType = "Best" Then
+            MapPicture.Image = Global.Outworldz.My.Resources.Best
+        Else
+            MapPicture.Image = Global.Outworldz.My.Resources.blankbox
+        End If
+
+    End Sub
     Private Sub FormRegion_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         If Changed1 Then
@@ -1529,22 +1547,27 @@ Public Class FormRegion
 
     Private Sub MapBest_CheckedChanged(sender As Object, e As EventArgs) Handles MapBest.CheckedChanged
         If Initted1 Then Changed1 = True
+        MapPicture.Image = Global.Outworldz.My.Resources.Best
     End Sub
 
     Private Sub MapBetter_CheckedChanged(sender As Object, e As EventArgs) Handles MapBetter.CheckedChanged
         If Initted1 Then Changed1 = True
+        MapPicture.Image = Global.Outworldz.My.Resources.Better
     End Sub
 
     Private Sub MapGood_CheckedChanged(sender As Object, e As EventArgs) Handles MapGood.CheckedChanged
         If Initted1 Then Changed1 = True
+        MapPicture.Image = Global.Outworldz.My.Resources.Good
     End Sub
 
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
         If Initted1 Then Changed1 = True
+        MapPicture.Image = Global.Outworldz.My.Resources.blankbox
     End Sub
 
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
         If Initted1 Then Changed1 = True
+        MapPicture.Image = Global.Outworldz.My.Resources.Simple
     End Sub
 
     Private Sub MapsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MapsToolStripMenuItem.Click
@@ -1720,6 +1743,13 @@ Public Class FormRegion
     Private Sub RegionName_TextChanged(sender As Object, e As EventArgs) Handles RegionName.Click
 
         RegionName.Text = RegionName.Text.Replace("Name of Region", "")
+
+    End Sub
+
+    Private Sub Maps_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+        DefaultMap()
 
     End Sub
 
