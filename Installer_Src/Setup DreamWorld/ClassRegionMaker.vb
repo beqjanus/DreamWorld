@@ -1819,7 +1819,7 @@ Public Class ClassRegionMaker
         If post.Contains("/broker/") Then
             '{0} avatar name, {1} region name, {2} number of avatars
             'http://127.0.0.1:${Const|DiagnosticsPort}/broker/{0}/{1}/{2}"
-            'SpeechList.Enqueue(post)
+            'SpeechList.Enqueue(post)        
         ElseIf post.Contains("""alert"":""region_ready""") Then
             WebserverList.Add(post)
         ElseIf post.ToUpperInvariant.Contains("ALT=") Then

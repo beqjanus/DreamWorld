@@ -96,7 +96,6 @@ Public Class FormSetup
 
 #End Region
 
-
 #Region "NonDisposable fields "
 #Disable Warning CA2213 ' Disposable fields should be disposed
     Private cpu As New PerformanceCounter
@@ -1594,6 +1593,8 @@ Public Class FormSetup
 
         Me.Show()
 
+        SetupPerl()
+
         TextPrint(My.Resources.Getting_regions_word)
         PropRegionClass = ClassRegionMaker.Instance()
 
@@ -1743,6 +1744,37 @@ Public Class FormSetup
 
     End Sub
 
+    Private Sub SetupPerl()
+
+
+        'msiexec.exe / i mypackage.msi /qn
+
+        Dim Perl = "C:/Strawberry"
+        Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi"
+
+        If Not IO.Directory.Exists(Perl) Then
+            TextPrint(My.Resources.Setup_Perl)
+            Using pPerl As New Process()
+                Dim pi = New ProcessStartInfo With {
+                        .Arguments = "",
+                        .FileName = path
+                    }
+                pPerl.StartInfo = pi
+                Try
+                    pPerl.Start()
+                    pPerl.WaitForExit()
+                    Settings.VisitorsEnabled = True
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            End Using
+        Else
+            Settings.VisitorsEnabled = True
+        End If
+
+
+    End Sub
+
 #End Region
 
 #Region "Language"
@@ -1779,7 +1811,7 @@ Public Class FormSetup
     End Sub
 
     Private Sub HelpOnIARSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpOnIARSToolStripMenuItem.Click
-        Dim webAddress As String = "http://opensimulator.org/wiki/Inventory_Archives"
+        Dim webAddress As String = "http: //opensimulator.org/wiki/Inventory_Archives"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

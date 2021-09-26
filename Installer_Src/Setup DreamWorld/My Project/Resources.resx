@@ -3896,4 +3896,7 @@
   <data name="AreYouSure" xml:space="preserve">
     <value>Shut down the Grid?</value>
   </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Setup Perl Language</value>
+  </data>
 </root>

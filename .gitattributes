@@ -13,3 +13,4 @@ core.autocrlf true
 MSFT_Runtimes filter=lfs diff=lfs merge=lfs -text
 DreamGridUpdater.exe filter=lfs diff=lfs merge=lfs -text
 Start.exe filter=lfs diff=lfs merge=lfs -text
+*.msi filter=lfs diff=lfs merge=lfs -text

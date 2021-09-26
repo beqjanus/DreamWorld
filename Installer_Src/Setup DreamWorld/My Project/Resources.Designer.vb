@@ -9376,6 +9376,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Setup Perl Language.
+        '''</summary>
+        Friend ReadOnly Property Setup_Perl() As String
+            Get
+                Return ResourceManager.GetString("Setup_Perl", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Setup Ports.
         '''</summary>
         Friend ReadOnly Property Setup_Ports_word() As String

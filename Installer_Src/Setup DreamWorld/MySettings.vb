@@ -1002,6 +1002,17 @@ Public Class MySettings
         End Set
     End Property
 
+
+    Public Property VisitorsEnabled() As Boolean
+        Get
+            Return CType(GetMySetting("VisitorsEnabled", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("VisitorsEnabled", CStr(Value))
+        End Set
+
+    End Property
+
     Public Property InstalledRuntime() As Boolean
         Get
             Return CType(GetMySetting("InstalledRuntime", "True"), Boolean)
@@ -1010,6 +1021,15 @@ Public Class MySettings
             SetMySetting("InstalledRuntime", CStr(Value))
         End Set
 
+    End Property
+
+    Public Property KeepVisits() As Integer
+        Get
+            Return CInt("0" & GetMySetting("KeepVisits", "90"))
+        End Get
+        Set
+            SetMySetting("KeepVisits", CStr(Value))
+        End Set
     End Property
 
     Public Property KeepForDays() As Integer

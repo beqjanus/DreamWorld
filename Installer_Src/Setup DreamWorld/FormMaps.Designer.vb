@@ -33,7 +33,7 @@ Partial Class FormMaps
         Me.MapBetter = New System.Windows.Forms.RadioButton()
         Me.MapBest = New System.Windows.Forms.RadioButton()
         Me.MapGood = New System.Windows.Forms.RadioButton()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.ViewRegionMapsButton = New System.Windows.Forms.Button()
         Me.LargeMapButton = New System.Windows.Forms.Button()
         Me.SmallMapButton = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -49,12 +49,17 @@ Partial Class FormMaps
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ViewMapButton = New System.Windows.Forms.Button()
+        Me.Days2KeepBox = New System.Windows.Forms.TextBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Visitor = New System.Windows.Forms.GroupBox()
+        Me.K4Days = New System.Windows.Forms.Label()
         Me.MapBox.SuspendLayout()
         CType(Me.MapPicture, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
+        Me.Visitor.SuspendLayout()
         Me.SuspendLayout()
         '
         'MapBox
@@ -149,15 +154,15 @@ Partial Class FormMaps
         Me.MapGood.Text = Global.Outworldz.My.Resources.Resources.Good_Warp3D_word
         Me.MapGood.UseVisualStyleBackColor = True
         '
-        'Button2
+        'ViewRegionMapsButton
         '
-        Me.Button2.Location = New System.Drawing.Point(31, 23)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(141, 23)
-        Me.Button2.TabIndex = 0
-        Me.Button2.Text = Global.Outworldz.My.Resources.Resources.View_Maps
-        Me.ToolTip1.SetToolTip(Me.Button2, Global.Outworldz.My.Resources.Resources.WifiMap)
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ViewRegionMapsButton.Location = New System.Drawing.Point(31, 23)
+        Me.ViewRegionMapsButton.Name = "ViewRegionMapsButton"
+        Me.ViewRegionMapsButton.Size = New System.Drawing.Size(141, 23)
+        Me.ViewRegionMapsButton.TabIndex = 0
+        Me.ViewRegionMapsButton.Text = Global.Outworldz.My.Resources.Resources.View_Maps
+        Me.ToolTip1.SetToolTip(Me.ViewRegionMapsButton, Global.Outworldz.My.Resources.Resources.WifiMap)
+        Me.ViewRegionMapsButton.UseVisualStyleBackColor = True
         '
         'LargeMapButton
         '
@@ -185,7 +190,7 @@ Partial Class FormMaps
         Me.GroupBox2.Controls.Add(Me.Label4)
         Me.GroupBox2.Controls.Add(Me.RenderMinH)
         Me.GroupBox2.Controls.Add(Me.RenderMaxH)
-        Me.GroupBox2.Controls.Add(Me.Button2)
+        Me.GroupBox2.Controls.Add(Me.ViewRegionMapsButton)
         Me.GroupBox2.Controls.Add(Me.MapYStart)
         Me.GroupBox2.Controls.Add(Me.MapXStart)
         Me.GroupBox2.Controls.Add(Me.Label3)
@@ -295,6 +300,23 @@ Partial Class FormMaps
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "Map Center Location:"
         '
+        'ViewMapButton
+        '
+        Me.ViewMapButton.Location = New System.Drawing.Point(15, 21)
+        Me.ViewMapButton.Name = "ViewMapButton"
+        Me.ViewMapButton.Size = New System.Drawing.Size(141, 23)
+        Me.ViewMapButton.TabIndex = 1
+        Me.ViewMapButton.Text = "View Visitor Maps"
+        Me.ToolTip1.SetToolTip(Me.ViewMapButton, Global.Outworldz.My.Resources.Resources.WifiMap)
+        Me.ViewMapButton.UseVisualStyleBackColor = True
+        '
+        'Days2KeepBox
+        '
+        Me.Days2KeepBox.Location = New System.Drawing.Point(117, 62)
+        Me.Days2KeepBox.Name = "Days2KeepBox"
+        Me.Days2KeepBox.Size = New System.Drawing.Size(39, 20)
+        Me.Days2KeepBox.TabIndex = 14
+        '
         'MenuStrip2
         '
         Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
@@ -302,7 +324,7 @@ Partial Class FormMaps
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
         Me.MenuStrip2.Padding = New System.Windows.Forms.Padding(4, 1, 0, 1)
-        Me.MenuStrip2.Size = New System.Drawing.Size(400, 30)
+        Me.MenuStrip2.Size = New System.Drawing.Size(584, 30)
         Me.MenuStrip2.TabIndex = 0
         Me.MenuStrip2.Text = "0"
         '
@@ -313,12 +335,34 @@ Partial Class FormMaps
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
+        'Visitor
+        '
+        Me.Visitor.Controls.Add(Me.K4Days)
+        Me.Visitor.Controls.Add(Me.Days2KeepBox)
+        Me.Visitor.Controls.Add(Me.ViewMapButton)
+        Me.Visitor.Location = New System.Drawing.Point(395, 34)
+        Me.Visitor.Name = "Visitor"
+        Me.Visitor.Size = New System.Drawing.Size(171, 140)
+        Me.Visitor.TabIndex = 3
+        Me.Visitor.TabStop = False
+        Me.Visitor.Text = "Visitors"
+        '
+        'K4Days
+        '
+        Me.K4Days.AutoSize = True
+        Me.K4Days.Location = New System.Drawing.Point(12, 65)
+        Me.K4Days.Name = "K4Days"
+        Me.K4Days.Size = New System.Drawing.Size(74, 13)
+        Me.K4Days.TabIndex = 15
+        Me.K4Days.Text = "Keep for Days"
+        '
         'FormMaps
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.ClientSize = New System.Drawing.Size(400, 345)
+        Me.ClientSize = New System.Drawing.Size(584, 345)
+        Me.Controls.Add(Me.Visitor)
         Me.Controls.Add(Me.MenuStrip2)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.MapBox)
@@ -333,6 +377,8 @@ Partial Class FormMaps
         Me.GroupBox2.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
+        Me.Visitor.ResumeLayout(False)
+        Me.Visitor.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -346,7 +392,7 @@ Partial Class FormMaps
     Friend WithEvents MapBest As RadioButton
     Friend WithEvents MapGood As RadioButton
     Friend WithEvents ViewMap As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents ViewRegionMapsButton As Button
     Friend WithEvents LargeMapButton As Button
     Friend WithEvents SmallMapButton As Button
     Friend WithEvents GroupBox2 As GroupBox
@@ -364,4 +410,8 @@ Partial Class FormMaps
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
     Friend WithEvents VieweAllMaps As Button
     Friend WithEvents ExportAllMaps As Button
+    Friend WithEvents Visitor As GroupBox
+    Friend WithEvents K4Days As Label
+    Friend WithEvents Days2KeepBox As TextBox
+    Friend WithEvents ViewMapButton As Button
 End Class

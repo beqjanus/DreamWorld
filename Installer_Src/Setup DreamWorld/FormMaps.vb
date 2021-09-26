@@ -55,7 +55,7 @@ Public Class FormMaps
         End Try
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ViewRegionMapsButton.Click
 
         Dim X As Integer = Settings.MapCenterX
         Dim Y As Integer = Settings.MapCenterY
@@ -119,8 +119,7 @@ Public Class FormMaps
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load
 
-        Button2.Text = Global.Outworldz.My.Resources.View_Maps
-
+        ViewRegionMapsButton.Text = Global.Outworldz.My.Resources.View_Maps
         GroupBox2.Text = Global.Outworldz.My.Resources.Maps_word
         Label1.Text = Global.Outworldz.My.Resources.Map_Center_Location_word
         Label2.Text = Global.Outworldz.My.Resources.X
@@ -132,7 +131,8 @@ Public Class FormMaps
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         MapBox.Text = Global.Outworldz.My.Resources.Maps_word
         MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
-
+        ViewMapButton.Text = Global.Outworldz.My.Resources.ViewAllMaps
+        K4Days.Text = Global.Outworldz.My.Resources.Keep_for_Days_word
         MapNone.Text = Global.Outworldz.My.Resources.None
         MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
         MenuStrip2.Text = Global.Outworldz.My.Resources._0
@@ -140,7 +140,7 @@ Public Class FormMaps
         Text = Global.Outworldz.My.Resources.Maps_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-        ToolTip1.SetToolTip(Button2, Global.Outworldz.My.Resources.WifiMap)
+        ToolTip1.SetToolTip(ViewRegionMapsButton, Global.Outworldz.My.Resources.WifiMap)
         ToolTip1.SetToolTip(MapXStart, Global.Outworldz.My.Resources.CenterMap)
         ToolTip1.SetToolTip(MapYStart, Global.Outworldz.My.Resources.CenterMap)
         ToolTip1.SetToolTip(RenderMaxH, Global.Outworldz.My.Resources.Max4096)
@@ -170,9 +170,9 @@ Public Class FormMaps
         End If
 
         If PropOpensimIsRunning Then
-            Button2.Enabled = True
+            ViewRegionMapsButton.Enabled = True
         Else
-            Button2.Enabled = False
+            ViewRegionMapsButton.Enabled = False
         End If
 
         If Settings.ApacheEnable Then
@@ -191,6 +191,15 @@ Public Class FormMaps
 
         RenderMaxH.Text = CStr(Settings.RenderMaxHeight)
         RenderMinH.Text = CStr(Settings.RenderMinHeight)
+
+        Days2KeepBox.Text = CStr(Settings.KeepVisits)
+
+        If Settings.VisitorsEnabled Then
+            ViewMap.Visible = True
+        Else
+            ViewMap.Visible = False
+        End If
+
 
         HelpOnce("Maps")
         SetScreen()
@@ -297,6 +306,25 @@ Public Class FormMaps
             Application.DoEvents()
         Next
 
+    End Sub
+
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewMapButton.Click
+        Dim webAddress As String = "http://127.0.0.1/Stats"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles Days2KeepBox.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Days2KeepBox.Text = digitsOnly.Replace(Days2KeepBox.Text, "")
+
+        If Not Integer.TryParse(Days2KeepBox.Text, Settings.KeepVisits) Then
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+            Settings.SaveSettings()
+        End If
     End Sub
 
 #End Region
