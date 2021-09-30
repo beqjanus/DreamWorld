@@ -1,11 +1,15 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.68 (In process, not in beta code)
+Adding a visitor map to Setup->Map. This requires you to install Strawberry Perl which it will prompt on first boot.
+
 V4.67
-Added a visitor map to Setup->Map. This requires you to install Strawberry Perl which it will prompt on first boot.
+Allow scripts to be disabled globally or per region for troubleshooting
 Add normal boot time and Map boot times to region list.
-Added an Are You Sure? message when you try to quit.
+Added a "Are You Sure?" message when you try to quit.
 Editing a map in a specific region did not change the preview image, or show the default.
+Replaced the troublesome Oracle Mysql driver with a 3rd party driver. The oracle driver would often report an unmanaged code crash 'connection already open', when it clearly was not.
 
 V4.66 Beta
 Added a Save All IAR background task. Choose a region, click Start. It will save each IAR for all users one at a time using that region.
