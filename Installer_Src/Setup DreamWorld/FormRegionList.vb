@@ -850,6 +850,8 @@ Public Class FormRegionlist
                         item1.SubItems.Add(My.Resources.YEngine_word)
                     Case "XEngine"
                         item1.SubItems.Add(My.Resources.XEngine_word)
+                    Case "Off"
+                        item1.SubItems.Add("Off".ToUpperInvariant)
                     Case Else
                         item1.SubItems.Add("-".ToUpperInvariant)
                 End Select

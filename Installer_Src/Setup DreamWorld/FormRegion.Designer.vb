@@ -87,6 +87,7 @@ Partial Class FormRegion
         Me.DeleteButton = New System.Windows.Forms.Button()
         Me.EnabledCheckBox = New System.Windows.Forms.CheckBox()
         Me.ScriptsGroupbox = New System.Windows.Forms.GroupBox()
+        Me.ScriptOffButton = New System.Windows.Forms.RadioButton()
         Me.ScriptDefaultButton = New System.Windows.Forms.RadioButton()
         Me.XEngineButton = New System.Windows.Forms.RadioButton()
         Me.YEngineButton = New System.Windows.Forms.RadioButton()
@@ -608,7 +609,7 @@ Partial Class FormRegion
         'FrameRateLabel
         '
         Me.FrameRateLabel.AutoSize = True
-        Me.FrameRateLabel.Location = New System.Drawing.Point(72, 138)
+        Me.FrameRateLabel.Location = New System.Drawing.Point(71, 153)
         Me.FrameRateLabel.Name = "FrameRateLabel"
         Me.FrameRateLabel.Size = New System.Drawing.Size(104, 13)
         Me.FrameRateLabel.TabIndex = 25
@@ -617,7 +618,7 @@ Partial Class FormRegion
         '
         'FrametimeBox
         '
-        Me.FrametimeBox.Location = New System.Drawing.Point(15, 138)
+        Me.FrametimeBox.Location = New System.Drawing.Point(14, 153)
         Me.FrametimeBox.Name = "FrametimeBox"
         Me.FrametimeBox.Size = New System.Drawing.Size(40, 20)
         Me.FrametimeBox.TabIndex = 4
@@ -626,7 +627,7 @@ Partial Class FormRegion
         'ScriptRateLabel
         '
         Me.ScriptRateLabel.AutoSize = True
-        Me.ScriptRateLabel.Location = New System.Drawing.Point(72, 110)
+        Me.ScriptRateLabel.Location = New System.Drawing.Point(71, 125)
         Me.ScriptRateLabel.Name = "ScriptRateLabel"
         Me.ScriptRateLabel.Size = New System.Drawing.Size(113, 13)
         Me.ScriptRateLabel.TabIndex = 23
@@ -635,7 +636,7 @@ Partial Class FormRegion
         '
         'ScriptTimerTextBox
         '
-        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(15, 110)
+        Me.ScriptTimerTextBox.Location = New System.Drawing.Point(14, 125)
         Me.ScriptTimerTextBox.Name = "ScriptTimerTextBox"
         Me.ScriptTimerTextBox.Size = New System.Drawing.Size(40, 20)
         Me.ScriptTimerTextBox.TabIndex = 3
@@ -824,6 +825,7 @@ Partial Class FormRegion
         '
         'ScriptsGroupbox
         '
+        Me.ScriptsGroupbox.Controls.Add(Me.ScriptOffButton)
         Me.ScriptsGroupbox.Controls.Add(Me.FrameRateLabel)
         Me.ScriptsGroupbox.Controls.Add(Me.FrametimeBox)
         Me.ScriptsGroupbox.Controls.Add(Me.ScriptRateLabel)
@@ -838,10 +840,21 @@ Partial Class FormRegion
         Me.ScriptsGroupbox.TabStop = False
         Me.ScriptsGroupbox.Text = "Script Engine"
         '
+        'ScriptOffButton
+        '
+        Me.ScriptOffButton.AutoSize = True
+        Me.ScriptOffButton.Location = New System.Drawing.Point(15, 44)
+        Me.ScriptOffButton.Name = "ScriptOffButton"
+        Me.ScriptOffButton.Size = New System.Drawing.Size(39, 17)
+        Me.ScriptOffButton.TabIndex = 26
+        Me.ScriptOffButton.TabStop = True
+        Me.ScriptOffButton.Text = "Off"
+        Me.ScriptOffButton.UseVisualStyleBackColor = True
+        '
         'ScriptDefaultButton
         '
         Me.ScriptDefaultButton.AutoSize = True
-        Me.ScriptDefaultButton.Location = New System.Drawing.Point(15, 25)
+        Me.ScriptDefaultButton.Location = New System.Drawing.Point(16, 19)
         Me.ScriptDefaultButton.Name = "ScriptDefaultButton"
         Me.ScriptDefaultButton.Size = New System.Drawing.Size(81, 17)
         Me.ScriptDefaultButton.TabIndex = 0
@@ -852,7 +865,7 @@ Partial Class FormRegion
         'XEngineButton
         '
         Me.XEngineButton.AutoSize = True
-        Me.XEngineButton.Location = New System.Drawing.Point(13, 47)
+        Me.XEngineButton.Location = New System.Drawing.Point(16, 67)
         Me.XEngineButton.Name = "XEngineButton"
         Me.XEngineButton.Size = New System.Drawing.Size(68, 17)
         Me.XEngineButton.TabIndex = 1
@@ -863,7 +876,7 @@ Partial Class FormRegion
         'YEngineButton
         '
         Me.YEngineButton.AutoSize = True
-        Me.YEngineButton.Location = New System.Drawing.Point(12, 67)
+        Me.YEngineButton.Location = New System.Drawing.Point(16, 90)
         Me.YEngineButton.Name = "YEngineButton"
         Me.YEngineButton.Size = New System.Drawing.Size(68, 17)
         Me.YEngineButton.TabIndex = 2
@@ -1944,4 +1957,5 @@ Partial Class FormRegion
     Friend WithEvents Core3Button As CheckBox
     Friend WithEvents Core2Button As CheckBox
     Friend WithEvents ConciergeCheckBox As CheckBox
+    Friend WithEvents ScriptOffButton As RadioButton
 End Class

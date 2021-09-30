@@ -527,9 +527,10 @@ Public Class ClassRegionMaker
 
         '  If PropOpensimIsRunning Then Return 0
 
-        Dim ctr = 600
+        Dim ctr = 5
+
         While GetAllRegionsIsBusy And ctr > 0
-            Sleep(100)
+            Sleep(1000)
             ctr -= 1
         End While
 
@@ -2050,10 +2051,13 @@ Public Class ClassRegionMaker
                 If INI.SetIni("Startup", "DefaultScriptEngine", "XEngine") Then Return True
                 If INI.SetIni("XEngine", "Enabled", "True") Then Return True
                 If INI.SetIni("YEngine", "Enabled", "False") Then Return True
-            Else
+            ElseIf Settings.ScriptEngine = "YEngine" Then
                 If INI.SetIni("Startup", "DefaultScriptEngine", "YEngine") Then Return True
                 If INI.SetIni("XEngine", "Enabled", "False") Then Return True
                 If INI.SetIni("YEngine", "Enabled", "True") Then Return True
+            Else
+                If INI.SetIni("XEngine", "Enabled", "False") Then Return True
+                If INI.SetIni("YEngine", "Enabled", "False") Then Return True
             End If
 
             ' set new Min Timer Interval for how fast a script can go.
@@ -2204,9 +2208,6 @@ Public Class ClassRegionMaker
                 End If
             End If
 
-            If INI.SetIni("XEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture)) Then Return True
-            If INI.SetIni("YEngine", "MinTimerInterval", Convert.ToString(Xtime, Globalization.CultureInfo.InvariantCulture)) Then Return True
-
             ' Gloebit
             If INI.SetIni("Gloebit", "Enabled", CStr(Settings.GloebitsEnable)) Then Return True
             If INI.SetIni("Gloebit", "GLBShowNewSessionAuthIM", CStr(Settings.GLBShowNewSessionAuthIM)) Then Return True
@@ -2354,16 +2355,7 @@ Public Class ClassRegionMaker
                     If INI.SetIni("DataSnapshot", "index_sims", "False") Then Return True
             End Select
 
-            'ScriptEngine Overrides
-            If ScriptEngine(uuid) = "XEngine" Then
-                If INI.SetIni("Startup", "DefaultScriptEngine", "XEngine") Then Return True
-                If INI.SetIni("XEngine", "Enabled", "True") Then Return True
-                If INI.SetIni("YEngine", "Enabled", "False") Then Return True
-            ElseIf ScriptEngine(uuid) = "YEngine" Then
-                If INI.SetIni("Startup", "DefaultScriptEngine", "YEngine") Then Return True
-                If INI.SetIni("XEngine", "Enabled", "False") Then Return True
-                If INI.SetIni("YEngine", "Enabled", "True") Then Return True
-            End If
+
 
             If Settings.Concierge Then
                 Select Case Concierge(uuid)
@@ -2396,6 +2388,20 @@ Public Class ClassRegionMaker
                 If INI.SetIni(Name, "GroupPort", CStr(GroupPort(uuid))) Then Return True
                 If INI.SetIni(Name, "ExternalHostName", Settings.ExternalHostName()) Then Return True
                 If INI.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid))) Then Return True
+
+                If ScriptEngine(uuid) = "XEngine" Then
+                    If INI.SetIni("Startup", "DefaultScriptEngine", "XEngine") Then Return True
+                    If INI.SetIni("XEngine", "Enabled", "True") Then Return True
+                    If INI.SetIni("YEngine", "Enabled", "False") Then Return True
+                ElseIf ScriptEngine(uuid) = "YEngine" Then
+                    If INI.SetIni("Startup", "DefaultScriptEngine", "YEngine") Then Return True
+                    If INI.SetIni("XEngine", "Enabled", "False") Then Return True
+                    If INI.SetIni("YEngine", "Enabled", "True") Then Return True
+                ElseIf ScriptEngine(uuid) = "Off" Then
+                    If INI.SetIni("XEngine", "Enabled", "False") Then Return True
+                    If INI.SetIni("YEngine", "Enabled", "False") Then Return True
+                End If
+
 
                 ' not a standard only use by the Dreamers
                 If RegionEnabled(uuid) Then

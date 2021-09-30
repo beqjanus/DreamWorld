@@ -31,6 +31,7 @@ Partial Class FormScripts
         Me.LSLCheckbox = New System.Windows.Forms.CheckBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ScriptsOff = New System.Windows.Forms.RadioButton()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
@@ -38,6 +39,7 @@ Partial Class FormScripts
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.ScriptsOff)
         Me.GroupBox1.Controls.Add(Me.YengineButton)
         Me.GroupBox1.Controls.Add(Me.XengineButton)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 50)
@@ -50,7 +52,7 @@ Partial Class FormScripts
         'YengineButton
         '
         Me.YengineButton.AutoSize = True
-        Me.YengineButton.Location = New System.Drawing.Point(12, 54)
+        Me.YengineButton.Location = New System.Drawing.Point(12, 70)
         Me.YengineButton.Name = "YengineButton"
         Me.YengineButton.Size = New System.Drawing.Size(68, 17)
         Me.YengineButton.TabIndex = 1
@@ -61,7 +63,7 @@ Partial Class FormScripts
         'XengineButton
         '
         Me.XengineButton.AutoSize = True
-        Me.XengineButton.Location = New System.Drawing.Point(12, 31)
+        Me.XengineButton.Location = New System.Drawing.Point(12, 47)
         Me.XengineButton.Name = "XengineButton"
         Me.XengineButton.Size = New System.Drawing.Size(68, 17)
         Me.XengineButton.TabIndex = 0
@@ -106,6 +108,17 @@ Partial Class FormScripts
         Me.ToolStripMenuItem30.Size = New System.Drawing.Size(68, 28)
         Me.ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Resources.Help_word
         '
+        'ScriptsOff
+        '
+        Me.ScriptsOff.AutoSize = True
+        Me.ScriptsOff.Location = New System.Drawing.Point(12, 24)
+        Me.ScriptsOff.Name = "ScriptsOff"
+        Me.ScriptsOff.Size = New System.Drawing.Size(39, 17)
+        Me.ScriptsOff.TabIndex = 2
+        Me.ScriptsOff.TabStop = True
+        Me.ScriptsOff.Text = "Off"
+        Me.ScriptsOff.UseVisualStyleBackColor = True
+        '
         'FormScripts
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -136,4 +149,5 @@ Partial Class FormScripts
     Friend WithEvents LSLCheckbox As CheckBox
     Friend WithEvents MenuStrip2 As MenuStrip
     Friend WithEvents ToolStripMenuItem30 As ToolStripMenuItem
+    Friend WithEvents ScriptsOff As RadioButton
 End Class

@@ -28,6 +28,7 @@ Public Class FormScripts
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
         XengineButton.Text = Global.Outworldz.My.Resources.XEngine_word
         YengineButton.Text = Global.Outworldz.My.Resources.YEngine_word
+        ScriptsOff.Text = Global.Outworldz.My.Resources.Off
 
         SetScreen()
 
@@ -35,10 +36,12 @@ Public Class FormScripts
 
         If Settings.ScriptEngine() = "YEngine" Then
             YengineButton.Checked = True
-            XengineButton.Checked = False
-        Else
+        ElseIf Settings.ScriptEngine() = "XEngine" Then
             XengineButton.Checked = True
-            YengineButton.Checked = False
+        ElseIf Settings.ScriptEngine() = "Off" Then
+            ScriptsOff.Checked = True
+        Else
+            YengineButton.Checked = True
         End If
         initted = True
 
@@ -64,6 +67,13 @@ Public Class FormScripts
 
         If Not initted Then Return
         Settings.ScriptEngine() = "XEngine"
+        Settings.SaveSettings()
+
+    End Sub
+    Private Sub ScriptsOff_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptsOff.CheckedChanged
+
+        If Not initted Then Return
+        Settings.ScriptEngine() = "Off"
         Settings.SaveSettings()
 
     End Sub
@@ -107,6 +117,7 @@ Public Class FormScripts
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Scripts")
     End Sub
+
 
 #End Region
 

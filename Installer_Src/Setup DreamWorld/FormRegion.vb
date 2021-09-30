@@ -17,7 +17,6 @@ Public Class FormRegion
     Dim _RegionUUID As String = ""
     Dim BoxSize As Integer = 256
     Dim changed As Boolean
-    Dim initted As Boolean
 
     ' needed a flag to see if we are initialized as the dialogs change on start. true if we need to save a form
     Dim isNew As Boolean
@@ -40,10 +39,10 @@ Public Class FormRegion
 
     Public Property Initted1 As Boolean
         Get
-            Return initted
+            Return Initted2
         End Get
         Set(value As Boolean)
-            initted = value
+            Initted2 = value
         End Set
     End Property
 
@@ -126,6 +125,17 @@ Public Class FormRegion
             _screenPosition = value
         End Set
     End Property
+
+    Public Property Initted2 As Boolean
+        Get
+            Return Initted3
+        End Get
+        Set(value As Boolean)
+            Initted3 = value
+        End Set
+    End Property
+
+    Public Property Initted3 As Boolean
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -221,6 +231,7 @@ Public Class FormRegion
 
         SaveButton.Text = Global.Outworldz.My.Resources.Save_word
         ScriptDefaultButton.Text = Global.Outworldz.My.Resources.Use_Default_word
+        ScriptOffButton.Text = My.Resources.Off
         ScriptRateLabel.Text = Global.Outworldz.My.Resources.Script_Timer_Rate
         SkipAutoCheckBox.Text = Global.Outworldz.My.Resources.Skip_Autobackup_word
         SmartStartCheckBox.Text = Global.Outworldz.My.Resources.Smart_Start_word
@@ -649,6 +660,8 @@ Public Class FormRegion
         Select Case PropRegionClass.ScriptEngine(RegionUUID)
             Case ""
                 ScriptDefaultButton.Checked = True
+            Case "Off"
+                ScriptOffButton.Checked = True
             Case "XEngine"
                 XEngineButton.Checked = True
             Case "YEngine"
@@ -815,7 +828,7 @@ Public Class FormRegion
 
     Private Sub CoordX_TextChanged(sender As Object, e As EventArgs) Handles CoordX.TextChanged
 
-        If Not initted Then Return
+        If Not Initted2 Then Return
         Dim digitsOnly = New Regex("[^\d]")
         CoordX.Text = digitsOnly.Replace(CoordX.Text, "")
         Changed1 = True
@@ -877,16 +890,12 @@ Public Class FormRegion
     End Sub
 
     Private Sub RLost(sender As Object, e As EventArgs) Handles RegionName.LostFocus
-        RegionName.Text = RegionName.Text.Trim() ' remove spaces
-        If Initted1 Then Changed1 = True
+        RegionName.Text = RegionName.Text.Trim() ' remove spaces        
     End Sub
 
     Private Sub ScriptDefaultButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptDefaultButton.CheckedChanged
 
-        If ScriptDefaultButton.Checked Then
-            XEngineButton.Checked = False
-            YEngineButton.Checked = False
-        End If
+        If Initted1 Then Changed1 = True
 
     End Sub
 
@@ -900,6 +909,7 @@ Public Class FormRegion
         End Try
 
         If Initted1 Then Changed1 = True
+
     End Sub
 
     Private Sub ScriptTimerTextBox_TextChanged(sender As Object, e As EventArgs) Handles ScriptTimerTextBox.TextChanged
@@ -1367,12 +1377,15 @@ Public Class FormRegion
         End If
 
         Dim ScriptEngine As String = ""
-        PropRegionClass.ScriptEngine(RegionUUID) = ""
-        If XEngineButton.Checked = True Then
+        PropRegionClass.ScriptEngine(RegionUUID) = "" ' default is blank
+
+        If ScriptOffButton.Checked = True Then
+            ScriptEngine = "Off"
+            PropRegionClass.ScriptEngine(RegionUUID) = "Off"
+        ElseIf XEngineButton.Checked = True Then
             ScriptEngine = "XEngine"
             PropRegionClass.ScriptEngine(RegionUUID) = "XEngine"
-        End If
-        If YEngineButton.Checked = True Then
+        ElseIf YEngineButton.Checked = True Then
             ScriptEngine = "YEngine"
             PropRegionClass.ScriptEngine(RegionUUID) = "YEngine"
         End If
@@ -1698,20 +1711,12 @@ Public Class FormRegion
 
     Private Sub XEngineButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles XEngineButton.CheckedChanged
 
-        If XEngineButton.Checked Then
-            ScriptDefaultButton.Checked = False
-            YEngineButton.Checked = False
-        End If
         If Initted1 Then Changed1 = True
 
     End Sub
 
     Private Sub YEngineButton_CheckedChanged_1(sender As Object, e As EventArgs) Handles YEngineButton.CheckedChanged
 
-        If YEngineButton.Checked Then
-            ScriptDefaultButton.Checked = False
-            XEngineButton.Checked = False
-        End If
         If Initted1 Then Changed1 = True
 
     End Sub
@@ -1750,6 +1755,12 @@ Public Class FormRegion
 
         If Initted1 Then Changed1 = True
         DefaultMap()
+
+    End Sub
+
+    Private Sub ScriptsOffButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptOffButton.CheckedChanged
+
+        If Initted1 Then Changed1 = True
 
     End Sub
 
