@@ -1746,18 +1746,16 @@ Public Class FormSetup
 
     Private Sub SetupPerl()
 
-
-        'msiexec.exe / i mypackage.msi /qn
-
         Dim Perl = "C:/Strawberry"
-        Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi"
+        Dim exe = "msiexec.exe"
+        Dim path = $"/i {Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi /qn"
 
         If Not IO.Directory.Exists(Perl) Then
             TextPrint(My.Resources.Setup_Perl)
             Using pPerl As New Process()
                 Dim pi = New ProcessStartInfo With {
-                        .Arguments = "",
-                        .FileName = path
+                        .Arguments = path,
+                        .FileName = exe
                     }
                 pPerl.StartInfo = pi
                 Try
