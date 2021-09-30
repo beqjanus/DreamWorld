@@ -346,7 +346,6 @@ Public Class ClassRegionMaker
         & "Priority =" & Priority(RegionUUID) & vbCrLf _
         & "OpenSimWorldAPIKey = " & OpensimWorldAPIKey(RegionUUID) & vbCrLf
 
-
         Try
             Using outputFile As New StreamWriter(IO.Path.Combine(pathtoWelcome, $"{Newname}.ini"), True)
                 outputFile.WriteLine(proto)
@@ -415,7 +414,6 @@ Public Class ClassRegionMaker
 
     End Function
 
-
     ''' <summary>
     ''' Detects if an avatars is in the DOS box
     ''' </summary>
@@ -427,7 +425,6 @@ Public Class ClassRegionMaker
         ' BreakPoint.Show("Braak")
         'End If
 
-
         For Each RegionUUID As String In RegionUuidListByName(groupname)
             If IsAgentInRegion(RegionUUID) Then
                 Return True
@@ -438,7 +435,7 @@ Public Class ClassRegionMaker
     End Function
 
     ''' <summary>
-    ''' Check Overlap of any region including Var 
+    ''' Check Overlap of any region including Var
     ''' </summary>
     ''' <returns>True is a region overlaps another</returns>
 
@@ -650,7 +647,6 @@ Public Class ClassRegionMaker
                             ' If the iNI files have Nothing, Then  go Max
                             ' if this is after boot up, use the backed up settings.
                             ' Adding a new region always uses Max
-
 
                             If Settings.SafeShutdown Then
                                 Dim p = LargestPort() + 1
@@ -1314,18 +1310,6 @@ Public Class ClassRegionMaker
             RegionList(uuid)._Birds = Value
         End Set
     End Property
-    Public Property ConciergeSpeech(uuid As String) As String
-        Get
-            If uuid Is Nothing Then Return ""
-            If Bad(uuid) Then Return ""
-            Return RegionList(uuid)._ConciergeSpeech
-        End Get
-        Set(ByVal Value As String)
-            If uuid Is Nothing Then Return
-            If Bad(uuid) Then Return
-            RegionList(uuid)._ConciergeSpeech = Value
-        End Set
-    End Property
 
     Public Property Concierge(uuid As String) As String
         Get
@@ -1337,6 +1321,19 @@ Public Class ClassRegionMaker
             If uuid Is Nothing Then Return
             If Bad(uuid) Then Return
             RegionList(uuid)._Concierge = Value
+        End Set
+    End Property
+
+    Public Property ConciergeSpeech(uuid As String) As String
+        Get
+            If uuid Is Nothing Then Return ""
+            If Bad(uuid) Then Return ""
+            Return RegionList(uuid)._ConciergeSpeech
+        End Get
+        Set(ByVal Value As String)
+            If uuid Is Nothing Then Return
+            If Bad(uuid) Then Return
+            RegionList(uuid)._ConciergeSpeech = Value
         End Set
     End Property
 
@@ -1820,7 +1817,7 @@ Public Class ClassRegionMaker
         If post.Contains("/broker/") Then
             '{0} avatar name, {1} region name, {2} number of avatars
             'http://127.0.0.1:${Const|DiagnosticsPort}/broker/{0}/{1}/{2}"
-            'SpeechList.Enqueue(post)        
+            'SpeechList.Enqueue(post)
         ElseIf post.Contains("""alert"":""region_ready""") Then
             WebserverList.Add(post)
         ElseIf post.ToUpperInvariant.Contains("ALT=") Then
@@ -2056,6 +2053,17 @@ Public Class ClassRegionMaker
                 If INI.SetIni("XEngine", "Enabled", "False") Then Return True
                 If INI.SetIni("YEngine", "Enabled", "True") Then Return True
             Else
+                If INI.SetIni("XEngine", "Enabled", "False") Then Return True
+                If INI.SetIni("YEngine", "Enabled", "False") Then Return True
+            End If
+
+            If ScriptEngine(uuid) = "XEngine" Then
+                If INI.SetIni("XEngine", "Enabled", "True") Then Return True
+                If INI.SetIni("YEngine", "Enabled", "False") Then Return True
+            ElseIf ScriptEngine(uuid) = "YEngine" Then
+                If INI.SetIni("XEngine", "Enabled", "False") Then Return True
+                If INI.SetIni("YEngine", "Enabled", "True") Then Return True
+            ElseIf ScriptEngine(uuid) = "Off" Then
                 If INI.SetIni("XEngine", "Enabled", "False") Then Return True
                 If INI.SetIni("YEngine", "Enabled", "False") Then Return True
             End If
@@ -2355,8 +2363,6 @@ Public Class ClassRegionMaker
                     If INI.SetIni("DataSnapshot", "index_sims", "False") Then Return True
             End Select
 
-
-
             If Settings.Concierge Then
                 Select Case Concierge(uuid)
                     Case ""
@@ -2388,20 +2394,6 @@ Public Class ClassRegionMaker
                 If INI.SetIni(Name, "GroupPort", CStr(GroupPort(uuid))) Then Return True
                 If INI.SetIni(Name, "ExternalHostName", Settings.ExternalHostName()) Then Return True
                 If INI.SetIni(Name, "ClampPrimSize", CStr(ClampPrimSize(uuid))) Then Return True
-
-                If ScriptEngine(uuid) = "XEngine" Then
-                    If INI.SetIni("Startup", "DefaultScriptEngine", "XEngine") Then Return True
-                    If INI.SetIni("XEngine", "Enabled", "True") Then Return True
-                    If INI.SetIni("YEngine", "Enabled", "False") Then Return True
-                ElseIf ScriptEngine(uuid) = "YEngine" Then
-                    If INI.SetIni("Startup", "DefaultScriptEngine", "YEngine") Then Return True
-                    If INI.SetIni("XEngine", "Enabled", "False") Then Return True
-                    If INI.SetIni("YEngine", "Enabled", "True") Then Return True
-                ElseIf ScriptEngine(uuid) = "Off" Then
-                    If INI.SetIni("XEngine", "Enabled", "False") Then Return True
-                    If INI.SetIni("YEngine", "Enabled", "False") Then Return True
-                End If
-
 
                 ' not a standard only use by the Dreamers
                 If RegionEnabled(uuid) Then
