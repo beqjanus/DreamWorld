@@ -18,6 +18,8 @@
 \OutworldzFiles\Opensim\bin\Ionic.Zip.dll
 \OutworldzFiles\Opensim\bin\log4net.dll
 \OutworldzFiles\Opensim\bin\LukeSkywalker.IPNetwork.dll
+\OutworldzFiles\Opensim\bin\Microsoft.VisualStudio.HostingProcess.Utilities.dll
+\OutworldzFiles\Opensim\bin\Microsoft.VisualStudio.HostingProcess.Utilities.Sync.dll
 \OutworldzFiles\Opensim\bin\Mono.Addins.CecilReflector.dll
 \OutworldzFiles\Opensim\bin\Mono.Addins.dll
 \OutworldzFiles\Opensim\bin\Mono.Addins.Setup.dll

@@ -321,7 +321,7 @@ Use VDir "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Apache/htdocs"
 
 <VirtualHost  *:80>
 #two minutes for wp to install
-TimeOut 120
+TimeOut 240
 #
 # DirectoryIndex: sets the file that Apache will serve if a directory
 # is requested.
@@ -395,39 +395,37 @@ CustomLog "|bin/rotatelogs.exe -l \"C:/Opensim/Outworldz_Dreamgrid/OutworldzFile
 
 <IfModule alias_module>
 
-
-    # map the map images into the web space
-    AliasMatch "Stats/map/(.+)"  "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Opensim/bin/maptiles/00000000-0000-0000-0000-000000000000/$1"
-
-
-    #
-    # Redirect: Allows you to tell clients about documents that used to
-    # exist in your server's namespace, but do not anymore. The client
-    # will make a new request for the document at its new location.
-    # Example:
-    # Redirect permanent /foo http://www.example.com/bar
+# map the map images into the web space
+AliasMatch "Stats/map/(.+)" "C:/Opensim/Outworldz_Dreamgrid/OutworldzFiles/Opensim/bin/maptiles/00000000-0000-0000-0000-000000000000/$1"
 
 
-    #
-    # Alias: Maps web paths into filesystem paths and is used to
-    # access content that does not live under the DocumentRoot.
-    # Example:
-    # Alias /webpath /full/filesystem/path
-    #
-    # If you include a trailing / on /webpath then the server will
-    # require it to be present in the URL.  You will also likely
-    # need to provide a <Directory> section to allow access to
-    # the filesystem path.
+#
+# Redirect: Allows you to tell clients about documents that used to
+# exist in your server's namespace, but do not anymore. The client
+# will make a new request for the document at its new location.
+# Example:
+# Redirect permanent /foo http://www.example.com/bar
 
-    #
-    # ScriptAlias: This controls which directories contain server scripts.
-    # ScriptAliases are essentially the same as Aliases, except that
-    # documents in the target directory are treated as applications and
-    # run by the server when requested rather than as documents sent to the
-    # client.  The same rules about trailing "/" apply to ScriptAlias
-    # directives as to Alias.
-    #
-    #ScriptAlias /cgi-bin/ "c:/Apache24/cgi-bin/"
+
+#
+# Alias: Maps web paths into filesystem paths and is used to
+# access content that does not live under the DocumentRoot.
+# Example:
+# Alias /webpath /full/filesystem/path
+# If you include a trailing / on /webpath then the server will
+# require it to be present in the URL.  You will also likely
+# need to provide a <Directory> section to allow access to
+# the filesystem path.
+
+#
+# ScriptAlias: This controls which directories contain server scripts.
+# ScriptAliases are essentially the same as Aliases, except that
+# documents in the target directory are treated as applications and
+# run by the server when requested rather than as documents sent to the
+# client.  The same rules about trailing "/" apply to ScriptAlias
+# directives as to Alias.
+#
+#ScriptAlias /cgi-bin/ "c:/Apache24/cgi-bin/"
 
 </IfModule>
 

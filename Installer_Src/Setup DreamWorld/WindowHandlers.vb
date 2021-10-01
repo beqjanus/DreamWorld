@@ -382,7 +382,9 @@ Module WindowHandlers
 
     Public Function WaitForPID(myProcess As Process) As Integer
 
-        If myProcess Is Nothing Then Return 0
+        If myProcess Is Nothing Then
+            Return 0
+        End If
 
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing

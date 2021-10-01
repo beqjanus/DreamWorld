@@ -738,18 +738,6 @@ Public Class FormRegion
 
 #Region "Events"
 
-    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles GodLevel.CheckedChanged
-
-        If GodLevel.Checked Then
-            Gods_Use_Default.Checked = False
-            Log(My.Resources.Info_word, "Region " + Name + " Is allowing Gods")
-        Else
-            Log(My.Resources.Info_word, "Region " + Name + " is not allowing Region Gods")
-        End If
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
 
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
@@ -1764,7 +1752,37 @@ Public Class FormRegion
 
     End Sub
 
+    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
 
+        If Gods_Use_Default.Checked Then
+            GodLevel.Checked = False
+            GodManager.Checked = False
+            GodEstate.Checked = False
+        End If
+
+    End Sub
+
+    Private Sub GodEstate_CheckedChanged(sender As Object, e As EventArgs) Handles GodEstate.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+        If GodEstate.Checked Then Gods_Use_Default.Checked = False
+
+    End Sub
+
+    Private Sub GodManager_CheckedChanged(sender As Object, e As EventArgs) Handles GodManager.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+        If GodManager.Checked Then Gods_Use_Default.Checked = False
+
+    End Sub
+
+
+    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles GodLevel.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+        If GodLevel.Checked Then Gods_Use_Default.Checked = False
+
+    End Sub
 
 
 #End Region

@@ -34,8 +34,7 @@ Module FileStuff
             "How_to_Start_and_Login.txt",
             "How_to_Compile.txt",
             "PRIVACYNOTICE.txt",
-            "Revisions.txt",
-            "ReadMe"
+            "Revisions.txt"
         }
 
         For Each N As String In ToDrop
@@ -43,6 +42,7 @@ Module FileStuff
         Next
 
         Dim files As New List(Of String) From {
+        "\ReadMe",
         "\Shoutcast", ' deprecated
         "\Icecast",   ' moved to OutworldzFiles
         "\OutworldzFiles\Opensim\bin\addins",' moved to OutworldzFiles

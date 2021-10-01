@@ -457,7 +457,6 @@ Public Module MysqlInterface
 
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -709,7 +708,6 @@ Public Module MysqlInterface
                     End Using
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -875,7 +873,6 @@ Public Module MysqlInterface
                     v = Convert.ToString(cmd.ExecuteScalar(), Globalization.CultureInfo.InvariantCulture)
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
