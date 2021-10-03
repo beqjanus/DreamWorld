@@ -55,8 +55,13 @@ form
 	width: 900px;
 	margin: 0 auto;
 }
+#daily{
+	width: 900px;
+	margin: 0 auto;
+}
 #people li {
-	margin-left: 20px;
+	width: 900px;
+	margin: 0 auto;
 }
 </style>
 <script src="https://code.highcharts.com/highcharts.src.js"></script>
@@ -189,7 +194,7 @@ $(document).ready(function () {
 
         $("#people").flexigrid({
             width: 900,
-            height: 500
+            height: 250
         });
 	
 
@@ -199,11 +204,11 @@ $(document).ready(function () {
                 marginLeft: 50,				
                 defaultSeriesType: 'scatter',
                 zoomType: 'xy',
-                height: 1000,
-                width: 1000,
+                height: 900,
+                width: 900,
                 events: {
                     load: function () {
-                        this.renderer.image(mapimage, 50, 75, 800, 825).add();
+                        this.renderer.image(mapimage, 50, 75, 825, 765).add();
                     }
                 }
             },
@@ -216,7 +221,7 @@ $(document).ready(function () {
                 enabled: false
             },
             title: {
-                text: ''
+                text: 'XXXXXX'
             },
             subtitle: {
                 text: ''
@@ -447,18 +452,17 @@ $(document).ready(function () {
 
 	
 <div id="container" style="margin-left: auto;margin-right: auto">		
-	
-		
-		<br clear="all">
-		<div id="container1"  style="height:900px; width:900px; margin-left: auto;margin-right: auto">
-			<div class="spacer"></div>
-				<br clear="all">
-				<img style="display: block;margin-left: auto;margin-right: auto" src="images/spinner.gif" width="100">
-		</div>
-		<div id="daily"></div>
-		<div id="stats"></div>
-		<div id="people"></div>
-	</div>	
-</div>
+	<div id="container1"  style="height:900px; width:900px; margin-left: auto;margin-right: auto">			
+			<img style="display: block;margin-left: auto;margin-right: auto" src="images/spinner.gif" width="100">
+	</div>
+	<br clear="all">
+	<div id="daily"></div>
+	<br clear="all">
+	<div id="stats"></div>
+	<br clear="all">
+	<div id="people"></div>
+	<br clear="all">
+</div>	
+
 </body>
 </html>
