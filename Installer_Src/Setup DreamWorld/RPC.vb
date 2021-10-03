@@ -289,7 +289,6 @@ Module RPC
                     Debug.Print("Teleport Sent")
                     Return True
                 End If
-                If s.Key = "error" Then BreakPoint.Show(s.Value)
             Next
 #Enable Warning BC42016 ' Implicit conversion
         Catch ex As Exception
