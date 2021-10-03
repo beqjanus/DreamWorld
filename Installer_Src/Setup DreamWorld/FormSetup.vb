@@ -2657,30 +2657,23 @@ Public Class FormSetup
         Bench.Print("Teleport Agents")
         TeleportAgents()
 
-        If SecondsTicker > 0 Then
-
-            Chat2Speech()
-
-            Try
-                ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
-            Catch ex As Exception
-                ErrorLog(ex.Message)
-            End Try
-
-        End If
 
         ' only at boot
         If SecondsTicker = 0 Then
             Bench.Print("At boot worker")
             CalcDiskFree()
-            ScanAgents() ' update agent count seconds
-            VisitorCount()
+            ScanAgents() ' update agent count seconds            
         End If
 
         ' 5 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             Bench.Print("5 second worker")
-
+            Chat2Speech()
+            Try
+                ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+            Catch ex As Exception
+                ErrorLog(ex.Message)
+            End Try
             ' print how many backups are running
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
@@ -2715,7 +2708,6 @@ Public Class FormSetup
             ScanOpenSimWorld(True)
             GetEvents()
             RunParser()
-
         End If
 
         ' print hourly marks on console, after boot
