@@ -1743,7 +1743,6 @@ Public Class FormSetup
 
     Private Sub SetupPerl()
 
-        Return
         Dim Perl = "C:/Strawberry"
         Dim exe = "msiexec.exe"
         Dim path = $"/i {Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi /qn"
@@ -2450,7 +2449,7 @@ Public Class FormSetup
         End Try
 
         For Each RegionUUID In PropRegionClass.RegionUuids
-
+            Application.DoEvents()
             Dim MapPath = IO.Path.Combine(Settings.OpensimBinPath, "maptiles\00000000-0000-0000-0000-000000000000")
 
             Dim Name = PropRegionClass.RegionName(RegionUUID)
@@ -2474,7 +2473,7 @@ Public Class FormSetup
 
                 X = 0
                 For Xstep = 0 To XS - 1
-                    Y = SimSize - (SimSize / XS)
+                    Y = CInt(SimSize - (SimSize / XS))
                     For Ystep = 0 To XS - 1
                         Dim MapImage = $"map-1-{PropRegionClass.CoordX(RegionUUID) + Xstep }-{PropRegionClass.CoordY(RegionUUID) + Ystep  }-objects.jpg"
                         Diagnostics.Debug.Print(Name)
@@ -2512,7 +2511,6 @@ Public Class FormSetup
     End Sub
 
 #End Region
-
 
 #Region "Things"
 

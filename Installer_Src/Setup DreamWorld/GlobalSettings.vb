@@ -19,6 +19,7 @@ Module GlobalSettings
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
     Public MySqlRev As String = "5.6.50"
+    Public ApacheRevision As String = "2.4.46"
 
 #End Region
 

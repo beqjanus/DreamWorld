@@ -14,10 +14,10 @@
    
    [% FOREACH item IN sims  %]
       <p>
-   	  <a href="[% item.link %]" target="_blank">[% item.regionname %]</a>  Size: [% item.regionsize  %]
+   	  <a href="[% item.link %]>" [% item.regionname %]</a>  Size: [% item.regionsize  %]
       </p>
       
-      <img src="[% item.map %]" width="[% item.width %]">	
+      <a href="[% item.link %]"><img src="[% item.map %]" width="[% item.width %]">	</a>
    
    [% END %]
    

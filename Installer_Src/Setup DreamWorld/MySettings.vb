@@ -758,6 +758,14 @@ Public Class MySettings
             SetMySetting("DiagnosticPort", CStr(Value))
         End Set
     End Property
+    Public Property ApacheRev() As String
+        Get
+            Return GetMySetting("ApacheRev", "")
+        End Get
+        Set
+            SetMySetting("ApacheRev", Value)
+        End Set
+    End Property
 
     Public Property DNSName() As String
         Get

@@ -33,7 +33,7 @@ BEGIN
     my $Slurl;
     my $totalvisits;
     
-	my $q  = uri_unescape($Input->param('q')) || '3x3';
+	my $q  = uri_unescape($Input->param('q')) || 'Welcome';
 	my $person  = uri_unescape($Input->param('person')) || '';
 	my $s;
 	my $e;
@@ -170,6 +170,16 @@ BEGIN
 			};
 
 	}
+	
+	if (scalar @response == 0) {
+		my @vectors;
+		push @response,   {
+				name => 'none',
+				visits => 0,
+				vectors => \@vectors,
+		};
+	}
+	
 
 	if ($person)
 	{
