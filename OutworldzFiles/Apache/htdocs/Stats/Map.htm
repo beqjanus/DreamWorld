@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <head>
 <!--  author - Fred Beckhusen -->
 <!--  AGPL3.0  https://opensource.org/licenses/AGPL -->
@@ -31,7 +31,7 @@ div.form
 {
     display: block;
     text-align: center;
-	margin-top:50px;
+	margin-top:10px;
 }
 form
 {
@@ -42,8 +42,14 @@ form
 }
 
 #container {
-	width: 900px;
+	width: 1024px;
+	height:1024px; 
 	margin: 0 auto;
+}
+#status {
+	width:900px;
+	margin-left: auto;
+	margin-right: auto
 }
 #stats{
 	width: 900px;
@@ -121,17 +127,7 @@ $(document).ready(function () {
         person = '';
     }
 
-    $('#submit').click(function () {
-        if ($("#datepicker1").val()) {
-            start = $("#datepicker1").val();
-        }
-        if ($("#datepicker2").val()) {
-            end = $("#datepicker2").val();
-        }
-        var simname = $("#mySelect").val();
-        var url = '/stats/Map.htm?q=' + simname + '&Start=' + escape(start) + '&End=' + escape(end) ;
-        window.location = url;
-    });
+
 
     $.get('/stats/simvisit.plx?q=' + escape(sim) + '&Start=' + escape(start) + '&End=' + escape(end) + '&person=' + person , null, function (tsv, stat, xhr) {
 
@@ -152,7 +148,7 @@ $(document).ready(function () {
         var xsize = tsv.xsize;
         var ysize = tsv.ysize;
 
-		var mapimage = '/Stats/map/map-' + xsize/256 + '-' + tsv.XCoord + '-' + tsv.YCoord + '-objects.jpg' ;
+        var mapimage = '/Stats/maps/' + tsv.sim + '.jpg' ;
 
         jQuery.each(tsv.data, function (name, line) {
 
@@ -175,11 +171,7 @@ $(document).ready(function () {
                 var x = line.Y;
                 var z = line.Z;
 
-                point.name = aname + ' (' + visit + ' min) ';
-
-                //x = x * 255/xsize;
-                //y = y * 255/ysize;
-
+                point.name = aname + ' (' + visit + ' min) ' + '<' + x + ',' + y + ',' + z + '>';
                 point.data.push([x, y]);
             });
 
@@ -204,14 +196,14 @@ $(document).ready(function () {
         var options = {
             chart: {
                 renderTo: 'container1',
-                marginLeft: 50,
+                marginLeft: 50,				
                 defaultSeriesType: 'scatter',
                 zoomType: 'xy',
-                height: 900,
-                width: 900,
+                height: 1000,
+                width: 1000,
                 events: {
                     load: function () {
-                        this.renderer.image(mapimage, 50, 55, 840, 790).add();
+                        this.renderer.image(mapimage, 50, 75, 800, 825).add();
                     }
                 }
             },
@@ -240,12 +232,7 @@ $(document).ready(function () {
                 },
                 startOnTick: false,
                 endOnTick: false,
-                showLastLabel: true,
-                plotLines: [{
-                    value: 0,
-                    width: 1,
-                    color: '#808080'
-                }]
+                showLastLabel: false
             },
             yAxis: {
                 gridLineColor: '#eeeeee',
@@ -258,7 +245,7 @@ $(document).ready(function () {
                 },
                 startOnTick: false,
                 endOnTick: false,
-                showLastLabel: true
+                showLastLabel: false
             },
             tooltip: {
                 formatter: function () {
@@ -447,32 +434,31 @@ $(document).ready(function () {
 		<table>
 			<tr>
 			<td>Start Date: <br><input id="datepicker1" name="Start" type="text" value=""></td>
-			<td>End Date: <br><input id="datepicker2" type="text" name="End" value=""></td>
-			<td> <br><input type="submit" value="Search"></td>	
+			<td>End Date: <br><input id="datepicker2" type="text" name="End" value="">
+			<input type="hidden"  name="q" id="mySelect" >			
+			</td>
+			<td> <br><input id="submit" type="submit" value="Search"></td>	
 			</td>
 			
 		</tr>
 		</table>
 	</form>
 </div>
-<input type="hidden"  name="q" id="mySelect" >
+
 	
-<div id="container" style="height:900px; width:900px; margin-left: auto;margin-right: auto">
-	<p> </p>
-	<div id="status" style="width:900px;margin-left: auto;margin-right: auto">
+<div id="container" style="margin-left: auto;margin-right: auto">		
 	
-	
-	<div class="grid12">
-	<div class="spacer"></div>
-	<br clear="all">
-	<div id="container1"  style="height:900px; width:900px; margin-left: auto;margin-right: auto">
-		<div class="spacer"></div>
+		
 		<br clear="all">
-		<img style="display: block;margin-left: auto;margin-right: auto" src="images/spinner.gif" width="100">
-	</div>
-	<div id="daily"></div>
-	<div id="stats"></div>
-	<div id="people"></div>
+		<div id="container1"  style="height:900px; width:900px; margin-left: auto;margin-right: auto">
+			<div class="spacer"></div>
+				<br clear="all">
+				<img style="display: block;margin-left: auto;margin-right: auto" src="images/spinner.gif" width="100">
+		</div>
+		<div id="daily"></div>
+		<div id="stats"></div>
+		<div id="people"></div>
+	</div>	
 </div>
 </body>
 </html>

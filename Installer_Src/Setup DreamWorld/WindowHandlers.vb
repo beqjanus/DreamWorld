@@ -95,7 +95,7 @@ Module WindowHandlers
         Dim PID As Integer
         If RegionUUID = "Robust" Then
             If IsRobustRunning() Then
-                PID = PropRobustProcID
+                PID = GetPIDofRobust()
             End If
         Else
             PID = PropRegionClass.ProcessID(RegionUUID)
@@ -182,6 +182,19 @@ Module WindowHandlers
     End Function
 
     <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
+    Public Function GetPIDofRobust() As Integer
+
+        For Each pList As Process In Process.GetProcessesByName("Robust")
+            Try
+                If pList.MainWindowTitle = RobustName() Then
+                    Return pList.Id
+                End If
+            Catch
+            End Try
+        Next
+        Return 0
+
+    End Function
     Public Function GetPIDofWindow(GroupName As String) As Integer
 
         Dim PID As Integer

@@ -25,7 +25,7 @@ Log in to <a href="http://<?php echo $CONF_domain.":".$CONF_port ?>">Opensimulat
 
 
 <p>
-      <iframe frameborder="0" height="900" width="1024" src="/Stats/listmaps.plx"></iframe>
+<!--#include virtual="/Stats/listmaps.plx" -->
 </p>      
  
 <a rel="license" href="https://www.outworldz.com">Dreamgrid by Outworldz.com is licensed AGPL 3.0</a>

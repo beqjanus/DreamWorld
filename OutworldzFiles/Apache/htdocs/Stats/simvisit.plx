@@ -33,7 +33,7 @@ BEGIN
     my $Slurl;
     my $totalvisits;
     
-	my $q  = uri_unescape($Input->param('q')) || 'Welcome';
+	my $q  = uri_unescape($Input->param('q')) || '3x3';
 	my $person  = uri_unescape($Input->param('person')) || '';
 	my $s;
 	my $e;

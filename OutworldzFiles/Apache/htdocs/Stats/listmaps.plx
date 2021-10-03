@@ -41,12 +41,11 @@ foreach my $row ($rs->all) {
 	my $Y = $row->locationY;
 	my $S = $row->regionsize/256;
 	
-	
-	my $map = "map-$S-$X-$Y-objects.jpg";
+
 
 	push @sims, {regionname => $row->regionname,				 
 				 regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 
-				 map=> '/Stats/map/' . $map,
+				 map=> '/Stats/maps/' . $row->regionname . '.jpg',
 				 width=>$width,
 				 link=>'/Stats/map.htm?q=' . $row->regionname,				 
 				 };
