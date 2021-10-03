@@ -1189,7 +1189,6 @@ Public Module MysqlInterface
                     cmd.ExecuteNonQuery()
                 End Using
             Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
