@@ -2460,10 +2460,10 @@ Public Class FormSetup
                 Dim Y = 0
 
                 ' Loop through the images pixels to reset color.
-                For x = 0 To bmp.Width - 1
-                    For y = 0 To bmp.Height - 1
+                For X = 0 To bmp.Width - 1
+                    For Y = 0 To bmp.Height - 1
                         Dim newColor = Color.FromArgb(230, 230, 230)
-                        bmp.SetPixel(x, y, newColor)
+                        bmp.SetPixel(X, Y, newColor)
                     Next
                 Next
 
