@@ -137,7 +137,7 @@ Module Apache
 
         End If
 
-        If Settings.CurrentDirectory <> Settings.LastDirectory Or Not ServiceExists("ApacheHTTPServer") Then
+        If Settings.CurrentDirectory <> Settings.LastDirectory Or Not ServiceExists("ApacheHTTPServer") Or ApacheRevision <> Settings.ApacheRev Then
 
             ' Stop MSFT server if we are on port 80 and enabled
             PropApacheUninstalling = True
@@ -192,8 +192,6 @@ Module Apache
                     ApacheIcon(False)
                 Else
                     PropApacheUninstalling = False ' installed now, trap errors
-                    Settings.LastDirectory = Settings.CurrentDirectory
-                    Settings.SaveSettings()
                 End If
 
                 Application.DoEvents()
@@ -203,6 +201,9 @@ Module Apache
 
         TextPrint(My.Resources.Apache_starting)
         DoApache()
+
+        Settings.LastDirectory = Settings.CurrentDirectory
+        Settings.SaveSettings()
 
         Using ApacheProcess As New Process With {
                     .EnableRaisingEvents = False
@@ -229,6 +230,10 @@ Module Apache
             If ApacheProcess.ExitCode <> 0 Then
                 If response.Contains("has already been started") Then
                     ApacheIcon(True)
+
+                    Settings.ApacheRev = ApacheRevision
+                    Settings.SaveSettings()
+
                     Return
                 End If
                 TextPrint(My.Resources.Apache_Failed & ":" & CStr(ApacheProcess.ExitCode))
@@ -276,9 +281,9 @@ Module Apache
         If PropAborting Then Return
         If PropApacheUninstalling Then Return
 
-        If Settings.RestartOnCrash And ApacheCrashCounter < 10 Then
+        If Settings.RestartOnCrash And ApacheCrashCounter <10 Then
             ApacheCrashCounter += 1
-            PropApacheExited = True
+            PropApacheExited= True
             ApacheIcon(False)
             Return
         End If
