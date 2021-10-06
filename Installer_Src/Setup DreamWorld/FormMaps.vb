@@ -309,7 +309,7 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewMapButton.Click
-        Dim webAddress As String = "http://127.0.0.1/Stats"
+        Dim webAddress As String = "http://127.0.0.1" & CStr(Settings.ApachePort) & "/Stats"
         Try
             Process.Start(webAddress)
         Catch ex As Exception
