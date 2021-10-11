@@ -73,7 +73,7 @@ Public Class FormSetup
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
-    Private ReadOnly D As New Dictionary(Of String, String)
+    Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private _Adv As FormSettings
     Private _ContentIAR As FormOAR
@@ -553,6 +553,8 @@ Public Class FormSetup
     Public Function StartOpensimulator() As Boolean
 
         Bench.Start()
+
+        PropRegionClass.Init()
 
         If Settings.SafeShutdown And Not Settings.DeregisteredOnce Then
             DeregisterRegions(True)
@@ -2326,14 +2328,14 @@ Public Class FormSetup
 
         Try
             ' Scan all the regions
-            Dim A = GetAgentList()
-            Dim B = GetHGAgentList()
+            Dim Agents = GetAgentList()
+            Dim HGAgents = GetHGAgentList()
 
-            Dim C As Dictionary(Of String, String) = Nothing
+            Dim Combined As Dictionary(Of String, String) = Nothing
 
-            C = A.Union(B).ToDictionary(Function(p) p.Key, Function(p) p.Value)
+            Combined = Agents.Union(HGAgents).ToDictionary(Function(p) p.Key, Function(p) p.Value)
 
-            If C IsNot Nothing Then BuildLand(C)
+            If Combined IsNot Nothing Then BuildLand(Combined)
 
             '; start with zero avatars
             For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -2342,56 +2344,61 @@ Public Class FormSetup
 
             AvatarLabel.Text = ""
 
-            For Each NameValue In C
+            For Each NameValue In Combined
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
-                If D.ContainsKey(Avatar) Then
-                    If D.Item(Avatar) <> RegionName Then
-                        TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                        SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                        D.Item(Avatar) = RegionName
-                    End If
-                End If
 
-                If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
-                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                    SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                    D.Add(Avatar, RegionName)
-                    If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
-                End If
-
-            Next
-
-            For Each NameValue In C
-                Dim Avatar = NameValue.Key
-                Dim RegionName = NameValue.Value
+                If RegionName.Length = 0 Then Continue For
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
-                If RegionUUID.Length > 0 And RegionName.Length > 0 Then
+                ' not seen before
+                If Not CurrentLocation.ContainsKey(Avatar) Then
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    CurrentLocation.Add(Avatar, RegionName)
                     PropRegionClass.AvatarCount(RegionUUID) += 1
-                    If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
+
+                    ' Seen visitor before, check the region to see if it moved
+                ElseIf Not CurrentLocation.Item(Avatar) = RegionName Then
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    CurrentLocation.Item(Avatar) = RegionName
+
+                    PropRegionClass.AvatarCount(RegionUUID) += 1
+                    AddorUpdateVisitor(Avatar, RegionName)
                 End If
             Next
+            'CurrentLocation has an accurate list of all visitors
 
-            Dim E As New List(Of String)
-            For Each NameValue In D
+            ' For Each NameValue In Combined
+            'Dim Avatar = NameValue.Key
+            'Dim RegionName = NameValue.Value
+            'Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+            'If RegionUUID.Length > 0 And RegionName.Length > 0 Then
+            'PropRegionClass.AvatarCount(RegionUUID) += 1
+            'AddorUpdateVisitor(Avatar, RegionName)
+            'End If
+            'Next
+
+            Dim Remove As New List(Of String)
+            For Each NameValue In CurrentLocation
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
 
-                If Not C.ContainsKey(Avatar) Then
-                    TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                    SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                    E.Add(Avatar)
-                    If Visitor.ContainsKey(Avatar) Then
-                        Visitor.Remove(Avatar)
-                    End If
+                If Not Combined.ContainsKey(Avatar) Then
+                    'TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
+                    'SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
+                    Remove.Add(Avatar)
                 End If
             Next
-            For Each F In E
-                D.Remove(F)
+            For Each Avi In Remove
+                CurrentLocation.Remove(Avi)
+                If Visitor.ContainsKey(Avi) Then
+                    Visitor.Remove(Avi)
+                End If
             Next
 
-            Dim total As Integer = C.Count
+            Dim total As Integer = Combined.Count
             AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -2400,7 +2407,15 @@ Public Class FormSetup
         Return sbttl
 
     End Function
+    Private Sub AddorUpdateVisitor(Avatar As String, RegionName As String)
 
+        If Not Visitor.ContainsKey(Avatar) Then
+            Visitor.Add(Avatar, RegionName)
+        Else
+            Visitor.Item(Avatar) = RegionName
+        End If
+
+    End Sub
     Private Sub ScriptsResumeToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScriptsResumeToolStripMenuItem.Click
 
         SendScriptCmd("scripts resume")

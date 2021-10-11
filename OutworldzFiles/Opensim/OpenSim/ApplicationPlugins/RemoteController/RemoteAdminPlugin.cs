@@ -2366,7 +2366,7 @@ namespace OpenSim.ApplicationPlugins.RemoteController
         }
         private void XmlRpcGetAvatarCount(XmlRpcRequest request, XmlRpcResponse response, IPEndPoint remoteClient)
         {
-            m_log.Debug("[RADMIN]: Received Get Avatar Count Request");
+           // m_log.Debug("[RADMIN]: Received Get Avatar Count Request");
 
             Hashtable responseData = (Hashtable)response.Value;
             Hashtable requestData = (Hashtable)request.Params[0];
@@ -2386,7 +2386,7 @@ namespace OpenSim.ApplicationPlugins.RemoteController
                 responseData["success"] = true;
             }
 
-            m_log.Debug("[RADMIN]: Get Avatar Count Request complete");
+            //m_log.Debug("[RADMIN]: Get Avatar Count Request complete");
         }
         private void XmlRpcGetAgentCount(XmlRpcRequest request, XmlRpcResponse response, IPEndPoint remoteClient)
         {

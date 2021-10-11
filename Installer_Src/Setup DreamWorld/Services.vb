@@ -91,7 +91,6 @@
             Catch
             End Try
         End Using
-        Sleep(1000)
         MySQLIcon(False)
         If MysqlInterface.IsMySqlRunning() Then
             MySQLIcon(True)
