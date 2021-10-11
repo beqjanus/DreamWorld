@@ -3363,4 +3363,22 @@
   <data name="Finished_word" xml:space="preserve">
     <value>تم الانتهاء من</value>
   </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>زمن الإقلاع</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>خريطة التمهيد TIme</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>المعيار</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>اغلاق الشبكة؟</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>إعداد لغة Perl</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>عرض خرائط الزوار</value>
+  </data>
 </root>

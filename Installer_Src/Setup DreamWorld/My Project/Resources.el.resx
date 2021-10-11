@@ -3363,4 +3363,22 @@
   <data name="Finished_word" xml:space="preserve">
     <value>Πεπερασμένος</value>
   </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Χρόνο εκκίνησης</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Map Boot TIme</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Σημείο αναφοράς</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Να κλείσει το πλέγμα;</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Ρύθμιση Perl Language</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Προβολή Χαρτών Επισκεπτών</value>
+  </data>
 </root>

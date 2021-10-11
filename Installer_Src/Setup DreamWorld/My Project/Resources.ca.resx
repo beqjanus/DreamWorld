@@ -3364,4 +3364,22 @@
   <data name="Finished_word" xml:space="preserve">
     <value>Acabat</value>
   </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Temps d’arrencada</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>TIme d'arrencada del mapa</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Punt de referència</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Tancar la graella?</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Configuració de l'idioma Perl</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Veure mapes de visitants</value>
+  </data>
 </root>
