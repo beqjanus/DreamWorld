@@ -2345,18 +2345,28 @@ Public Class FormSetup
             For Each NameValue In C
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
+                If D.ContainsKey(Avatar) Then
+                    If D.Item(Avatar) <> RegionName Then
+                        TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                        SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                        D.Item(Avatar) = RegionName
+                    End If
+                End If
+
                 If Not D.ContainsKey(Avatar) And RegionName.Length > 0 Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     D.Add(Avatar, RegionName)
                     If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
                 End If
+
             Next
 
             For Each NameValue In C
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
+
                 If RegionUUID.Length > 0 And RegionName.Length > 0 Then
                     PropRegionClass.AvatarCount(RegionUUID) += 1
                     If Not Visitor.ContainsKey(Avatar) Then Visitor.Add(Avatar, RegionName)
@@ -2483,7 +2493,7 @@ Public Class FormSetup
                         ' for a 2X2 this is the value
                         'X:Y = 0:256
                         'X:Y = 0:0
-                        'X:Y = 56:256
+                        'X:Y = 256:256
                         'X:Y = 256:0
 
                         Dim RegionSrc = IO.Path.Combine(MapPath, MapImage)
