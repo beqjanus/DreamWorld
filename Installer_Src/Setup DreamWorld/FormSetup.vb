@@ -2324,8 +2324,7 @@ Public Class FormSetup
     Private Function ScanAgents() As Integer
 
         If Not MysqlInterface.IsMySqlRunning() Then Return 0
-        Dim sbttl As Integer = 0
-
+        Dim total As Integer
         Try
             ' Scan all the regions
             Dim Agents = GetAgentList()
@@ -2337,7 +2336,7 @@ Public Class FormSetup
 
             If Combined IsNot Nothing Then BuildLand(Combined)
 
-            '; start with zero avatars
+            ' start with zero avatars
             For Each RegionUUID As String In PropRegionClass.RegionUuids
                 PropRegionClass.AvatarCount(RegionUUID) = 0
             Next
@@ -2380,6 +2379,8 @@ Public Class FormSetup
             'End If
             'Next
 
+            ' remove anyone who has left for good
+
             Dim Remove As New List(Of String)
             For Each NameValue In CurrentLocation
                 Dim Avatar = NameValue.Key
@@ -2391,6 +2392,7 @@ Public Class FormSetup
                     Remove.Add(Avatar)
                 End If
             Next
+
             For Each Avi In Remove
                 CurrentLocation.Remove(Avi)
                 If Visitor.ContainsKey(Avi) Then
@@ -2398,13 +2400,13 @@ Public Class FormSetup
                 End If
             Next
 
-            Dim total As Integer = Combined.Count
+            total = Combined.Count
             AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
 
-        Return sbttl
+        Return total
 
     End Function
     Private Sub AddorUpdateVisitor(Avatar As String, RegionName As String)
