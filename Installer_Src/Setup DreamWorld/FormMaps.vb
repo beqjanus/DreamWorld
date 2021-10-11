@@ -146,7 +146,7 @@ Public Class FormMaps
         ToolTip1.SetToolTip(RenderMaxH, Global.Outworldz.My.Resources.Max4096)
         ToolTip1.SetToolTip(ViewMap, Global.Outworldz.My.Resources.Regen_Map)
         ViewMap.Text = Global.Outworldz.My.Resources.DelMaps
-        VieweAllMaps.Text = Global.Outworldz.My.Resources.ViewAllMaps
+        VieweAllMaps.Text = Global.Outworldz.My.Resources.ViewVisitorMaps
         ExportAllMaps.Text = Global.Outworldz.My.Resources.ExportAllMaps
 
         If Settings.MapType = "None" Then
@@ -309,7 +309,7 @@ Public Class FormMaps
     End Sub
 
     Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewMapButton.Click
-        Dim webAddress As String = "http://127.0.0.1/Stats"
+        Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
         Try
             Process.Start(webAddress)
         Catch ex As Exception

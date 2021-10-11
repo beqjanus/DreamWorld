@@ -3363,4 +3363,22 @@
   <data name="Finished_word" xml:space="preserve">
     <value>Fertig</value>
   </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Bootzeit</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Bootzeit zuordnen</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Benchmark</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Das Netz herunterfahren?</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Perl-Sprache einrichten</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>Besucherkarten anzeigen</value>
+  </data>
 </root>

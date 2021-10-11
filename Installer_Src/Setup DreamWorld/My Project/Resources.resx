@@ -3899,4 +3899,7 @@
   <data name="Setup_Perl" xml:space="preserve">
     <value>Setup Perl Language</value>
   </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>View Visitor Maps</value>
+  </data>
 </root>
