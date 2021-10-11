@@ -443,7 +443,8 @@ Module Robust
             }
             Try
                 Up = TimedCLient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
-            Catch
+            Catch ex As exception
+
             End Try
 
         End Using
