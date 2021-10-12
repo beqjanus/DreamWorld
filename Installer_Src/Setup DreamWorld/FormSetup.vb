@@ -2347,6 +2347,7 @@ Public Class FormSetup
             For Each NameValue In Combined
                 Dim Avatar = NameValue.Key
                 Dim RegionName = NameValue.Value
+
                 If RegionName.Length = 0 Then Continue For
                 Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
@@ -2362,6 +2363,7 @@ Public Class FormSetup
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     CurrentLocation.Item(Avatar) = RegionName
+
                     PropRegionClass.AvatarCount(RegionUUID) += 1
                     AddorUpdateVisitor(Avatar, RegionName)
                 End If
@@ -2506,7 +2508,7 @@ Public Class FormSetup
                         ' for a 2X2 this is the value
                         'X:Y = 0:256
                         'X:Y = 0:0
-                        'X:Y = 56:256
+                        'X:Y = 256:256
                         'X:Y = 256:0
 
                         Dim RegionSrc = IO.Path.Combine(MapPath, MapImage)

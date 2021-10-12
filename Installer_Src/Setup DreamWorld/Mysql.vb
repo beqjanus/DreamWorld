@@ -1303,10 +1303,7 @@ Public Module MysqlInterface
     ''' <param name="LocY"></param>
     Public Sub VisitorCount()
 
-        ' TODO Add clear vistor database at some TBD interval
-
         If FormSetup.Visitor.Count > 0 Then
-
             Using MysqlConn1 As New MySqlConnection(Settings.RobustMysqlConnection)
                 Try
                     Dim stm1 = "insert into visitor (name, regionname, locationX, locationY) values (@NAME, @REGIONNAME, @LOCX, @LOCY)"
@@ -1323,6 +1320,7 @@ Public Module MysqlInterface
                                 cmd1.Parameters.AddWithValue("@LOCX", Avi.X)
                                 cmd1.Parameters.AddWithValue("@LOCY", Avi.Y)
                                 cmd1.ExecuteNonQuery()
+                                Statrecord(RegionName)
                             End Using
                         Next
                     Next
@@ -1332,8 +1330,75 @@ Public Module MysqlInterface
                     BreakPoint.Show(ex.Message)
                 End Try
             End Using
-
         End If
+
+    End Sub
+
+    Private Sub Statrecord(RegionName As String)
+
+        Dim UUID = PropRegionClass.FindRegionByName(RegionName)
+        Dim val As String = ""
+        Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                Dim stm = "select regionname from stats where UUID=@UUID;"
+                MysqlConn.Open()
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", UUID)
+
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then
+                            val = reader.GetString(0)
+                        End If
+                    End Using
+                End Using
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+        If val.Length > 0 Then
+            Try
+                Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                    Dim stm = "update stats set regionname=@REGIONNAME,regionsize=@REGIONSIZE,locationx=@LOCX,locationy=@LOCY where UUID=@UUID"
+
+                    MysqlConn.Open()
+                    Using cmd = New MySqlCommand(stm, MysqlConn)
+                        cmd.Parameters.AddWithValue("@UUID", UUID)
+                        cmd.Parameters.AddWithValue("@REGIONNAME", RegionName)
+                        cmd.Parameters.AddWithValue("@REGIONSIZE", PropRegionClass.SizeX(UUID))
+                        cmd.Parameters.AddWithValue("@LOCX", PropRegionClass.CoordX(UUID))
+                        cmd.Parameters.AddWithValue("@LOCY", PropRegionClass.CoordY(UUID))
+                        cmd.ExecuteNonQuery()
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Show(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        Else
+            Try
+                Using MysqlConn As New MySqlConnection(Settings.RobustMysqlConnection)
+                    Dim stm = "insert into stats (regionname,regionsize,locationx,locationy,UUID) values (@REGIONNAME,@REGIONSIZE,@LOCX,@LOCY,@UUID)"
+
+                    MysqlConn.Open()
+                    Using cmd = New MySqlCommand(stm, MysqlConn)
+                        cmd.Parameters.AddWithValue("@UUID", UUID)
+                        cmd.Parameters.AddWithValue("@REGIONNAME", RegionName)
+                        cmd.Parameters.AddWithValue("@REGIONSIZE", PropRegionClass.SizeX(UUID))
+                        cmd.Parameters.AddWithValue("@LOCX", PropRegionClass.CoordX(UUID))
+                        cmd.Parameters.AddWithValue("@LOCY", PropRegionClass.CoordY(UUID))
+                        cmd.ExecuteNonQuery()
+                    End Using
+                End Using
+                '{"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'regionname , regionsize,locationx, locationy, dateupdated, UUID) " & vbCrLf & "             ' at line 1"}
+            Catch ex As MySqlException
+                BreakPoint.Show(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End If
+
     End Sub
 
 #End Region
