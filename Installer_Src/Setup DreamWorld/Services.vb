@@ -91,8 +91,15 @@
             Catch
             End Try
         End Using
-        MySQLIcon(False)
-        If MysqlInterface.IsMySqlRunning() Then
+
+        Dim ctr = 5
+
+        While MysqlInterface.IsMySqlRunning() And ctr >= 0
+            Sleep(1000)
+            ctr -= 1
+        End While
+
+        If ctr <= 0 Then
             MySQLIcon(True)
             MsgBox(My.Resources.MySQLDidNotStop, vbCritical Or vbMsgBoxSetForeground)
             Return False

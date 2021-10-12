@@ -1,7 +1,15 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
-V4.69 (In process, not in beta code)
+V4.7
+Fixes to Visitor Maps. Was not following people around.
+Remove remote admin message from Debug Menu.
+Moar Help.
+Detect Mysql not shutting down and retry.
+Six more translations.
+
+
+V4.69 
 Adding a visitor map to Setup->Map. This requires you to install Strawberry Perl which it will prompt on first boot.
 
 V4.68
