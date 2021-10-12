@@ -2367,17 +2367,7 @@ Public Class FormSetup
                     AddorUpdateVisitor(Avatar, RegionName)
                 End If
             Next
-            'CurrentLocation has an accurate list of all visitors
 
-            ' For Each NameValue In Combined
-            'Dim Avatar = NameValue.Key
-            'Dim RegionName = NameValue.Value
-            'Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
-            'If RegionUUID.Length > 0 And RegionName.Length > 0 Then
-            'PropRegionClass.AvatarCount(RegionUUID) += 1
-            'AddorUpdateVisitor(Avatar, RegionName)
-            'End If
-            'Next
 
             ' remove anyone who has left for good
 

@@ -769,7 +769,7 @@ Public Module MysqlInterface
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return False
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then Return False
 
-        Return CBool(RPC_admin_get_agent_count(RegionUUID))
+        Return CBool(RPC_admin_get_agent_list(RegionUUID).Count)
 
     End Function
 
