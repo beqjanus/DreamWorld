@@ -33,6 +33,7 @@ Namespace My
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
             Me.MainForm = Global.Outworldz.FormSetup
+
         End Sub
     End Class
 End Namespace
