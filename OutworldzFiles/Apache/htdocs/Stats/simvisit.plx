@@ -25,15 +25,15 @@ BEGIN
 	use lib qw(lib .);
 	use MYSQL;
 	
-	my  $Data = new MYSQL('visitor.log');
-	my  $Data1 = new MYSQL('visitor.log');	
+	my  $Data = new MYSQL();
+	my  $Data1 = new MYSQL();	
 
 	my  $Input = CGI->new();
-    my $sim;
-    my $Slurl;
-    my $totalvisits;
+	my $sim;
+	my $Slurl;
+	my $totalvisits;
     
-	my $q  = uri_unescape($Input->param('q')) || 'Welcome';
+	my $q  = uri_unescape($Input->param('q')) || '';
 	my $person  = uri_unescape($Input->param('person')) || '';
 	my $s;
 	my $e;
@@ -45,6 +45,10 @@ BEGIN
 	my $start  = uri_unescape($Input->param('Start')) || '';
 	my $end  = uri_unescape($Input->param('End')) || '';
 	
+	if ($debug) {
+		$q = 'Virunga';
+		$start = '01/09/2021';
+	}
 	
 	$s = $start;
 	$e = $end;
@@ -69,18 +73,21 @@ BEGIN
 	
 	
 	
-	my $sql = qq!select regionname  from Visitor
-				group by regionname
-				order by regionname
-				!;
-
-	if ($Data->Prepare($sql))	{&Print_ODBC_Error($Data,__FILE__,__LINE__);	};
-	if ($Data->Execute())		{&Print_ODBC_Error($Data,__FILE__,__LINE__);	};
-	while ($Data->FetchRow())
-	{
-		my %Data = $Data->DataHash();
-		push @sims, $Data{regionname} ;
-	}
+	my $sql;
+	
+	#my $sql= qq!select regionname  from Visitor where regionname = ?
+	#			group by regionname
+	#			order by regionname
+	#			
+	#			!;
+	#
+	#if ($Data->Prepare($sql))	{&Print_ODBC_Error($Data,__FILE__,__LINE__);	};
+	#if ($Data->Execute($q))		{&Print_ODBC_Error($Data,__FILE__,__LINE__);	};
+	#while ($Data->FetchRow())
+	#{
+	#	my %Data = $Data->DataHash();
+	#	push @sims, $Data{regionname} ;
+	#}
 
 	if ($person)
 	{
