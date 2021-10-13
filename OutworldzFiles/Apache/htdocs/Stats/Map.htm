@@ -170,14 +170,21 @@ $(document).ready(function () {
             var aname = line.name;
             var apoint = line.vectors;
             var visit = line.visits;
+	    var ctr = 1;
+            jQuery.each(apoint, function (i, lines) {
+                var y = lines.X;
+                var x = lines.Y;
+                var z = lines.Z;
 
-            jQuery.each(apoint, function (i, line) {
-                var y = line.X;
-                var x = line.Y;
-                var z = line.Z;
-
-                point.name = aname + ' (' + visit + ' min) ' + '<' + x + ',' + y + ',' + z + '>';
-                point.data.push([x, y]);
+		var list = {
+			x: x,
+			y: y,
+			name: aname + ' (' + visit + ' min) ' + '<' + x + ',' + y + ',' + z + '>, #' + ctr
+		}
+			               
+		point.data.push (list);		
+		
+		ctr ++;
             });
 
             allVisits.push(point);
@@ -221,7 +228,7 @@ $(document).ready(function () {
                 enabled: false
             },
             title: {
-                text: 'XXXXXX'
+                text: ''
             },
             subtitle: {
                 text: ''
@@ -253,8 +260,8 @@ $(document).ready(function () {
                 showLastLabel: false
             },
             tooltip: {
-                formatter: function () {
-                    return '<b>' + this.series.name + '</b>'
+                formatter: function (i) {
+                    return '<b>' + this.point.name + '</b>'
 
                 }
             },
