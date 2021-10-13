@@ -1,12 +1,10 @@
 package	MYSQL;
 
-# Revisions:
-# 11/15/2010 Lynx Server System 11
 
 use warnings;
 use strict;
 
-my $LOG = 'Visitor.log';
+my $LOG = '';
 use DBI;
 my $connect_line;
 sub new
