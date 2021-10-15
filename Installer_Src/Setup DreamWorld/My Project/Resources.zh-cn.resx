@@ -144,6 +144,9 @@
   <data name="Admin_Web_Page_word" xml:space="preserve">
     <value>管理Web页</value>
   </data>
+  <data name="Age" xml:space="preserve">
+    <value>年龄</value>
+  </data>
   <data name="Agents_word" xml:space="preserve">
     <value>代理</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="AlphaNum" xml:space="preserve">
     <value>字母数字正负号和空格字符</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>分析日志</value>
   </data>
   <data name="Announce_visitors" xml:space="preserve">
     <value>宣布参观者</value>
@@ -231,14 +237,26 @@
   <data name="Appexception" xml:space="preserve">
     <value>发生了一个应用程序异常。你想尝试继续，或中止/退出？</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>申请</value>
+  </data>
   <data name="Apply_word" xml:space="preserve">
     <value>申请</value>
+  </data>
+  <data name="Arabic_Saudi" xml:space="preserve">
+    <value>阿拉伯文（沙特）</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
     <value>你确定吗？您的数据库将从备份加载和所有现有的内容所取代。化身，SIMS，库存，everyting将被覆盖。</value>
   </data>
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
     <value>你确定要删除这个区域？</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>到达断电的 sims 被重定向到</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>到达</value>
   </data>
   <data name="Assets_as_Files_word" xml:space="preserve">
     <value>资产档案</value>
@@ -248,6 +266,9 @@
   </data>
   <data name="Autobackup_cannot_be_located" xml:space="preserve">
     <value>自动备份文件夹无法找到，因此该文件夹已被重置为默认值。</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>无尽的陆地和海洋</value>
   </data>
   <data name="Automatic_restart_word" xml:space="preserve">
     <value>自动重新启动</value>
@@ -269,6 +290,12 @@
   </data>
   <data name="Auto_Startup_word" xml:space="preserve">
     <value>自动启动</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>可用的</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>头像仍在</value>
   </data>
   <data name="Avatars_in_World" xml:space="preserve">
     <value>头像是在世界上！你真的要离开吗？</value>
@@ -333,6 +360,12 @@
   <data name="Backup_word" xml:space="preserve">
     <value>备用</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>坐标不正确</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>烤</value>
+  </data>
   <data name="BanList_string" xml:space="preserve">
     <value>点击设置网格，MAC地址和IP禁令</value>
   </data>
@@ -344,6 +377,12 @@
   </data>
   <data name="Basque_word" xml:space="preserve">
     <value>巴斯克</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>海滩草</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>海滩草1</value>
   </data>
   <data name="Best_Prims" xml:space="preserve">
     <value>最佳（Prims +网，很慢）</value>
@@ -366,8 +405,14 @@
   <data name="Bird_Settings_word" xml:space="preserve">
     <value>鸟设置</value>
   </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>生日</value>
+  </data>
   <data name="Black_word" xml:space="preserve">
     <value>黑色的</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>正在启动</value>
   </data>
   <data name="Border_Size" xml:space="preserve">
     <value>边框大小（默认值= 25.0）</value>
@@ -375,11 +420,17 @@
   <data name="BP" xml:space="preserve">
     <value>在单独的线程Bullet物理</value>
   </data>
+  <data name="Brazilian" xml:space="preserve">
+    <value>巴西文（葡萄牙语）</value>
+  </data>
   <data name="Broadcast_Tide_Chat" xml:space="preserve">
     <value>聊天浪潮信息的区域，以便脚本可以随潮动？</value>
   </data>
   <data name="Broadcast_Tide_Info" xml:space="preserve">
     <value>广播潮资讯</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>批量加载区域</value>
   </data>
   <data name="Bullet_Physics_word" xml:space="preserve">
     <value>Bullet物理</value>
@@ -441,6 +492,12 @@
   <data name="Category_word" xml:space="preserve">
     <value>类别</value>
   </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>警告！这会将150多个OARS和区域加载到您的系统中。这将花费很长时间。</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>警告！</value>
+  </data>
   <data name="CenterMap" xml:space="preserve">
     <value>在地图的中心坐标</value>
   </data>
@@ -473,6 +530,9 @@
   </data>
   <data name="Checking_Router_word" xml:space="preserve">
     <value>检查路由器</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>检查</value>
   </data>
   <data name="Check_and_Repair_Database_word" xml:space="preserve">
     <value>检查和修复数据库</value>
@@ -543,8 +603,14 @@
   <data name="Clear_Cache_word" xml:space="preserve">
     <value>清除缓存</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>清除所有正方形中的所有对象并加载OAR</value>
+  </data>
   <data name="Clear_Selected_Caches_word" xml:space="preserve">
     <value>清除缓存选择</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>不要覆盖现有区域的地形。</value>
   </data>
   <data name="ClickStartStop" xml:space="preserve">
     <value>点击启动或停止稳健</value>
@@ -729,6 +795,18 @@
   <data name="Cycle_time_text" xml:space="preserve">
     <value>多久为一个完整周期的时间秒。低 - &gt;高 - &gt;低</value>
   </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>柏树1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>柏树2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>柏树1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>柏树2</value>
+  </data>
   <data name="Czech" xml:space="preserve">
     <value>捷克</value>
   </data>
@@ -777,11 +855,29 @@
   <data name="Default_Welcome" xml:space="preserve">
     <value>默认的“欢迎”区域未在系统中找到。继续？</value>
   </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>区域就绪延迟</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>等待之前的秒数</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>按年龄删除</value>
+  </data>
   <data name="Deleted_word" xml:space="preserve">
     <value>已删除</value>
   </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** 这将删除“SimSurround”庄园中的所有区域！</value>
+  </data>
   <data name="DeleteTmp_word" xml:space="preserve">
     <value>删除文件夹TMP</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>删除所有</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>删除然后应用</value>
   </data>
   <data name="Delete_word" xml:space="preserve">
     <value>删除</value>
@@ -849,6 +945,9 @@
   <data name="Discard_Exit" xml:space="preserve">
     <value>放弃所有更改并退出？</value>
   </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>磁盘空间严重不足，还不到50 M！所有区域均被冻结。请释放磁盘空间，这些区域将解冻。</value>
+  </data>
   <data name="Diva_Panel_word" xml:space="preserve">
     <value>女神面板</value>
   </data>
@@ -858,11 +957,20 @@
   <data name="DNSAlt" xml:space="preserve">
     <value>别名如www.outworldz.com与outworldz.com。可你想continute使用旧的网格名称。</value>
   </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>供Apache或Jopensim使用的备用名称</value>
+  </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>DNS名称或SomeName.Outworldz.net或IP</value>
   </data>
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>DNS名称和Hypergrid</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>萸</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>不再显示</value>
   </data>
   <data name="DosBoxRunning" xml:space="preserve">
     <value>DOS框名为稳健已经运行</value>
@@ -894,11 +1002,17 @@
   <data name="DynDNS_password_word" xml:space="preserve">
     <value>DynDNS的密码</value>
   </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>编辑</value>
+  </data>
   <data name="EditRegion" xml:space="preserve">
     <value>编辑区域</value>
   </data>
   <data name="Edit_word" xml:space="preserve">
     <value>编辑</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>鳗草</value>
   </data>
   <data name="Emails_Selected" xml:space="preserve">
     <value>选择电子邮件</value>
@@ -948,8 +1062,14 @@
   <data name="Enable_word" xml:space="preserve">
     <value>使能够</value>
   </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>端部尺寸XYZ</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>英语</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>在DOS框中设置遗产名称。</value>
   </data>
   <data name="EnterName" xml:space="preserve">
     <value>为您的备份输入一个名称</value>
@@ -965,6 +1085,9 @@
   </data>
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
     <value>输入电网所有者信息</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>这将清除整个SIM卡并加载新的SIM卡。你确定吗？</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>错误：无法启动DreamGridInstaller.exe。</value>
@@ -996,8 +1119,14 @@
   <data name="Estate_word" xml:space="preserve">
     <value>财产</value>
   </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>桉树</value>
+  </data>
   <data name="Exit__word" xml:space="preserve">
     <value>出口</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>导出所有地图</value>
   </data>
   <data name="Export_Backup_file_word" xml:space="preserve">
     <value>导出备份文件</value>
@@ -1020,20 +1149,38 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>无法连接到网站。</value>
   </data>
+  <data name="False_word" xml:space="preserve">
+    <value>错误的</value>
+  </data>
+  <data name="Farsi" xml:space="preserve">
+    <value>波斯（伊朗）</value>
+  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>致命的</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>蕨类</value>
   </data>
   <data name="File_word" xml:space="preserve">
     <value>文件</value>
   </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>区域填充大小</value>
+  </data>
   <data name="Finished_with_backup_word" xml:space="preserve">
     <value>完成了备份：</value>
+  </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>已完成</value>
   </data>
   <data name="Finnish" xml:space="preserve">
     <value>芬兰</value>
   </data>
   <data name="First_name_word" xml:space="preserve">
     <value>名</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>平坦的</value>
   </data>
   <data name="Float" xml:space="preserve">
     <value>漂浮</value>
@@ -1082,6 +1229,9 @@
   </data>
   <data name="GBoids" xml:space="preserve">
     <value>全球禽流设置将适用于本地区</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>产生的</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>德语</value>
@@ -1148,6 +1298,24 @@
   </data>
   <data name="Hebrew" xml:space="preserve">
     <value>希伯来语</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>高度</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>您好，欢迎来到文本转语音应用程序的测试。随意环顾四周并探索您的网格。</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>帮助美化</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>帮助工厂编辑</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>帮助智能启动</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>帮助地形</value>
   </data>
   <data name="Help_Console" xml:space="preserve">
     <value>帮助在控制台命令</value>
@@ -1221,8 +1389,14 @@
   <data name="High_Water_Level_text" xml:space="preserve">
     <value>在米多高的水痕</value>
   </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>回家停止</value>
+  </data>
   <data name="Home_word" xml:space="preserve">
     <value>家</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>小时</value>
   </data>
   <data name="Hours_word" xml:space="preserve">
     <value>小时</value>
@@ -1302,6 +1476,9 @@
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
     <value>的OpenSim会长时间运行之后保存桨</value>
   </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>忽略新的宗地数据。</value>
+  </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>忽略包裹</value>
   </data>
@@ -1344,6 +1521,9 @@
   <data name="InstallJoomla_word" xml:space="preserve">
     <value>安装</value>
   </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>现在安装</value>
+  </data>
   <data name="InstallOpensim" xml:space="preserve">
     <value>这将安装JOpensim。你想继续吗？</value>
   </data>
@@ -1370,6 +1550,9 @@
   </data>
   <data name="Irish" xml:space="preserve">
     <value>爱尔兰的</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>仍在启动</value>
   </data>
   <data name="isLoading" xml:space="preserve">
     <value>的OpenSim载入您的项目。你会发现它在</value>
@@ -1401,14 +1584,35 @@
   <data name="JOpensim_word" xml:space="preserve">
     <value>JOpensim</value>
   </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>公正的选择</value>
+  </data>
   <data name="Just_one_region_word" xml:space="preserve">
     <value>只是一个区域</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>始终保持</value>
   </data>
   <data name="KeepOnTop_word" xml:space="preserve">
     <value>保持在最前</value>
   </data>
   <data name="Keep_for_Days_word" xml:space="preserve">
     <value>保留了天</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>海带1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>海带2</value>
+  </data>
+  <data name="Khazak" xml:space="preserve">
+    <value>哈萨克斯坦</value>
+  </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>土地制造商</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>美化环境</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>语言</value>
@@ -1422,11 +1626,26 @@
   <data name="Last_Name_Word" xml:space="preserve">
     <value>姓</value>
   </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>离开</value>
+  </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>层级</value>
+  </data>
   <data name="ListAvatars" xml:space="preserve">
     <value>化身的视图列表</value>
   </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>已加载。</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>加载所有免费桨</value>
+  </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>加载的Settings.ini</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>负载地形</value>
   </data>
   <data name="Load_Bird_IAR_word" xml:space="preserve">
     <value>加载鸟IAR</value>
@@ -1466,6 +1685,9 @@
   </data>
   <data name="Load_Terrain" xml:space="preserve">
     <value>负载地形</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>强制在--merge上加载地形。通常，-merge不会覆盖现有区域的地形。</value>
   </data>
   <data name="Local" xml:space="preserve">
     <value>当地的</value>
@@ -1563,8 +1785,14 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>最大速度（缺省值= 1.0）</value>
   </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>覆盖现有区域的宗地数据。</value>
+  </data>
   <data name="Merge_OAR_word" xml:space="preserve">
     <value>合并OAR</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>合并OAR而不清除任何对象</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
     <value>合并对象</value>
@@ -1578,8 +1806,20 @@
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org地区服务器</value>
   </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>最短时间为 0 秒。默认值为 60 秒。</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>分钟</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>分钟</value>
+  </data>
   <data name="Minutes_word" xml:space="preserve">
     <value>分钟</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>最短时间为 0 秒。默认值为 15 秒。</value>
   </data>
   <data name="Mode_word" xml:space="preserve">
     <value>模式</value>
@@ -1613,6 +1853,9 @@
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>必须是一个PNG文件</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>当命令停止时 MySQL 没有停止</value>
   </data>
   <data name="MySqlPort_word" xml:space="preserve">
     <value>MySQL端口</value>
@@ -1680,7 +1923,16 @@
   <data name="Nobody_Online" xml:space="preserve">
     <value>任何人在线</value>
   </data>
+  <data name="Noise" xml:space="preserve">
+    <value>噪音</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>没有登录</value>
+  </data>
   <data name="None" xml:space="preserve">
+    <value>没有</value>
+  </data>
+  <data name="None1" xml:space="preserve">
     <value>没有</value>
   </data>
   <data name="Nonphysical_Prim" xml:space="preserve">
@@ -1731,11 +1983,17 @@
   <data name="No_Emails_Selected" xml:space="preserve">
     <value>未选择电子邮件</value>
   </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>没有庄园</value>
+  </data>
   <data name="No_HG" xml:space="preserve">
     <value>没有Hypergrid游客将在这一地区被允许</value>
   </data>
   <data name="No_Locate_FSassets" xml:space="preserve">
     <value>无法找到FSasset文件夹：</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>没有重叠区域</value>
   </data>
   <data name="No_Publish_Items" xml:space="preserve">
     <value>不要发布这个区域</value>
@@ -1764,6 +2022,9 @@
   <data name="NVPhysPrim" xml:space="preserve">
     <value>不是有效的物理的Prim最大值。必须大于0。</value>
   </data>
+  <data name="Oak" xml:space="preserve">
+    <value>橡木</value>
+  </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>OAR文件是整个群岛的备份</value>
   </data>
@@ -1775,6 +2036,9 @@
   </data>
   <data name="OAuth_Key" xml:space="preserve">
     <value>钥匙</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>对象</value>
   </data>
   <data name="Object_Path" xml:space="preserve">
     <value>对象路径和名称</value>
@@ -1827,11 +2091,35 @@
   <data name="OverridesMap" xml:space="preserve">
     <value>覆盖全球的地图设置为一个地区的</value>
   </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>周边地区的所有者</value>
+  </data>
   <data name="Owner_God" xml:space="preserve">
     <value>业主神</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>所有者名称</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>棕榈1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>棕榈1</value>
+  </data>
   <data name="Parcels" xml:space="preserve">
     <value>包裹</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>停车区</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>停车区</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>停车模拟</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>停车模拟</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
     <value>通过网络环回测试</value>
@@ -1847,6 +2135,9 @@
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>PDF手册</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>待办的</value>
   </data>
   <data name="people_are_in" xml:space="preserve">
     <value>人在</value>
@@ -1869,6 +2160,27 @@
   <data name="picfilter" xml:space="preserve">
     <value>PNG（*。PNG，* PNG）| *。PNG; |所有文件（*。*）| *。</value>
   </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>松树1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>松树1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>松2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>松2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>松2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>植物</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>请等待Robust完全启动。这可能需要几分钟。</value>
+  </data>
   <data name="Please_enter" xml:space="preserve">
     <value>请输入有效的DNS名称，如“name.outworldz.net”，或在http://www.noip.com注册一个</value>
   </data>
@@ -1877,6 +2189,9 @@
   </data>
   <data name="Please_type" xml:space="preserve">
     <value>请输入电网用户头像名字进入乐百氏窗口。按&lt;回车&gt;的UUID和型号名称。然后按这个OK按钮</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>鸡蛋花</value>
   </data>
   <data name="Polish" xml:space="preserve">
     <value>抛光</value>
@@ -1898,6 +2213,9 @@
   </data>
   <data name="Port_Forwarding_Help" xml:space="preserve">
     <value>端口转发帮助</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>潜在的重叠区域</value>
   </data>
   <data name="Preview_in_Browser" xml:space="preserve">
     <value>浏览器预览</value>
@@ -1938,6 +2256,12 @@
   <data name="Publish_Items" xml:space="preserve">
     <value>发布标志着搜索项目</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>数量</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>戒烟</value>
+  </data>
   <data name="Quit_Message0" xml:space="preserve">
     <value>该系统和其他applictions没有受到影响。报告已创建，您可以发送到Outworldz，LLC，以帮助确定这个问题。</value>
   </data>
@@ -1950,8 +2274,14 @@
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>意外退出。</value>
   </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>半径</value>
+  </data>
   <data name="RAM_Word" xml:space="preserve">
     <value>内存</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>随机地形</value>
   </data>
   <data name="Reading_Region_files" xml:space="preserve">
     <value>读取区域文件</value>
@@ -1965,6 +2295,12 @@
   <data name="Recycle1" xml:space="preserve">
     <value>回收</value>
   </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>回收再利用</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>回收</value>
+  </data>
   <data name="RefreshingIAR" xml:space="preserve">
     <value>清爽无内容（IAR）</value>
   </data>
@@ -1974,11 +2310,20 @@
   <data name="Refresh_word" xml:space="preserve">
     <value>刷新</value>
   </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>雷根地形</value>
+  </data>
   <data name="Regen_Map" xml:space="preserve">
     <value>如果删除了所有的地图，你用的地图设置重新启动需要重新地图</value>
   </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>区域制造商</value>
+  </data>
   <data name="Regions_Are_Running" xml:space="preserve">
     <value>地区仍在运行</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>删除的地区</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>地区</value>
@@ -2064,6 +2409,9 @@
   <data name="Reload" xml:space="preserve">
     <value>刷新网格</value>
   </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>稍后提醒我</value>
+  </data>
   <data name="Remote_Admin_word" xml:space="preserve">
     <value>REMOTEADMIN</value>
   </data>
@@ -2087,6 +2435,9 @@
   </data>
   <data name="resolved" xml:space="preserve">
     <value>解决</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>立即重启</value>
   </data>
   <data name="Restarting_word" xml:space="preserve">
     <value>重新启动</value>
@@ -2148,6 +2499,9 @@
   <data name="Resuming_word" xml:space="preserve">
     <value>恢复</value>
   </data>
+  <data name="Revert" xml:space="preserve">
+    <value>恢复</value>
+  </data>
   <data name="Revision_History_word" xml:space="preserve">
     <value>修订记录</value>
   </data>
@@ -2169,6 +2523,12 @@
   <data name="Row" xml:space="preserve">
     <value>点击实现的行启动或停止的区域。单击禁用行编辑区域。</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>单击一行以控制区域。选中该框以启用/禁用。</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>如果未作为上述服务运行:</value>
+  </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>运行的地区服务器</value>
   </data>
@@ -2189,6 +2549,9 @@
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>沙盒模式</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>保存地形</value>
   </data>
   <data name="Save_All_Regions" xml:space="preserve">
     <value>保存所有正在运行区域危及器官</value>
@@ -2250,6 +2613,21 @@
   <data name="Search_grids" xml:space="preserve">
     <value>搜索网格（WWW）</value>
   </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>海剑</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>头像离开后正在运行的区域将保持多长时间</value>
+  </data>
+  <data name="Seconds_word" xml:space="preserve">
+    <value>秒</value>
+  </data>
   <data name="Secret_word" xml:space="preserve">
     <value>秘密</value>
   </data>
@@ -2267,6 +2645,9 @@
   </data>
   <data name="Select_word" xml:space="preserve">
     <value>选择</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>发送警报</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>发送警报信息</value>
@@ -2310,6 +2691,9 @@
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>设置端口</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>设置搜索数据库</value>
+  </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>点击设置您的服务条款</value>
   </data>
@@ -2324,6 +2708,9 @@
   </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>设置调试级别</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>您可以选择将它们提供给一个人。默认值为房地产所有者。</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
     <value>设置所有者</value>
@@ -2376,11 +2763,17 @@
   <data name="Small_Map" xml:space="preserve">
     <value>小地铁地图</value>
   </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>智能启动（字母代码）设置</value>
+  </data>
   <data name="Smart_Start_Enable_word" xml:space="preserve">
     <value>聪明的开始启用</value>
   </data>
   <data name="Smart_Start_word" xml:space="preserve">
     <value>智能启动</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>光滑的</value>
   </data>
   <data name="SMTP" xml:space="preserve">
     <value>SMTP发送电子邮件帐户</value>
@@ -2406,6 +2799,15 @@
   <data name="Spanish" xml:space="preserve">
     <value>西班牙语</value>
   </data>
+  <data name="Spanish_Mexico" xml:space="preserve">
+    <value>西班牙语（墨西哥）</value>
+  </data>
+  <data name="Spanish_Spain" xml:space="preserve">
+    <value>西班牙语（西班牙）</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>说话</value>
+  </data>
   <data name="Splash" xml:space="preserve">
     <value>浏览器闪屏网址：</value>
   </data>
@@ -2415,8 +2817,23 @@
   <data name="SQL_Database_Backup_Restore" xml:space="preserve">
     <value>SQL数据库备份/恢复</value>
   </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>关机秒数</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>“设置”-&gt;“智能启动”中的“智能启动（字母代码）”已禁用。</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>启用了“设置”-&gt;“智能启动”中的“智能启动（Alpha）”代码。</value>
+  </data>
   <data name="StartAll" xml:space="preserve">
     <value>启动所有检查区</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>出发地点？</value>
+  </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>从附近的头像开始</value>
   </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
     <value>启动诊断端口网络服务器</value>
@@ -2435,6 +2852,9 @@
   </data>
   <data name="StartSequentially" xml:space="preserve">
     <value>起点区域按顺序</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>起始尺寸XYZ</value>
   </data>
   <data name="StartUPNP" xml:space="preserve">
     <value>启动控制面板</value>
@@ -2487,6 +2907,9 @@
   <data name="Suitcase_enable" xml:space="preserve">
     <value>允许库存旅行箱</value>
   </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>暂停</value>
+  </data>
   <data name="Suspending_word" xml:space="preserve">
     <value>暂停</value>
   </data>
@@ -2502,8 +2925,14 @@
   <data name="Take_time" xml:space="preserve">
     <value>这可能需要时间来加载</value>
   </data>
+  <data name="Taper" xml:space="preserve">
+    <value>锥度</value>
+  </data>
   <data name="TechInfo" xml:space="preserve">
     <value>技术信息</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>传送API</value>
   </data>
   <data name="Teleporter_Enable_word" xml:space="preserve">
     <value>传送师启用</value>
@@ -2517,6 +2946,9 @@
   <data name="Teleport_word" xml:space="preserve">
     <value>瞬移</value>
   </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>使用临时区域</value>
+  </data>
   <data name="Terms_of_Service" xml:space="preserve">
     <value>服务条款</value>
   </data>
@@ -2528,6 +2960,9 @@
   </data>
   <data name="Theme_Black" xml:space="preserve">
     <value>主题设置为黑色</value>
+  </data>
+  <data name="Theme_Custom" xml:space="preserve">
+    <value>主题设置为自定义</value>
   </data>
   <data name="Theme_White" xml:space="preserve">
     <value>主题设置为白色</value>
@@ -2562,11 +2997,35 @@
   <data name="TOS" xml:space="preserve">
     <value>该TOS模块显示您的用户和/或访问者此HTML文本。</value>
   </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>总面积(&amp;A):</value>
+  </data>
   <data name="Transfer_word" xml:space="preserve">
     <value>转移</value>
   </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>树线高</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>树线低</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>使树成为XML文件</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>树木和植物</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>热带灌木丛1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>热带丛林2</value>
+  </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>故障排除</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>真的</value>
   </data>
   <data name="tt_Apache_Enable" xml:space="preserve">
     <value>启用Apache Web服务器作为服务运行。</value>
@@ -2643,6 +3102,9 @@
   <data name="UnassignedPerson" xml:space="preserve">
     <value>输入联系人的姓氏和名字谁将会拥有任何未分配的对象</value>
   </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>不变</value>
+  </data>
   <data name="Unrecognized" xml:space="preserve">
     <value>无法识别的文件类型</value>
   </data>
@@ -2697,6 +3159,9 @@
   <data name="Version_word" xml:space="preserve">
     <value>版本</value>
   </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>查看所有地图</value>
+  </data>
   <data name="Viewer_Cache_text" xml:space="preserve">
     <value>默认值：启用。用户可根据需要，以减少观众的带宽，如果一些prims或地形部分未能苏亚雷斯。更改为false，如果你需要使用不支持此功能的老观众</value>
   </data>
@@ -2712,6 +3177,9 @@
   <data name="ViewJoomla_word" xml:space="preserve">
     <value>看法</value>
   </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>查看地形文件夹</value>
+  </data>
   <data name="View_as_Icons" xml:space="preserve">
     <value>查看图标</value>
   </data>
@@ -2720,6 +3188,9 @@
   </data>
   <data name="View_Details" xml:space="preserve">
     <value>查看详细资料区</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>查看文件夹</value>
   </data>
   <data name="View_Icecast" xml:space="preserve">
     <value>查看的Icecast网页</value>
@@ -2763,14 +3234,23 @@
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>语音设置</value>
   </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>等待</value>
+  </data>
   <data name="Waiting_on_Robust" xml:space="preserve">
     <value>等待稳健开始</value>
   </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>等待所有地区的出口</value>
   </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>等待脚本</value>
+  </data>
   <data name="Warn_word" xml:space="preserve">
     <value>警告</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>水</value>
   </data>
   <data name="Web" xml:space="preserve">
     <value>网络控制面板</value>
@@ -2790,11 +3270,20 @@
   <data name="Web_UI" xml:space="preserve">
     <value>在Web UI可以让你对任何头像添加或视图设置。</value>
   </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>什么庄园？</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>您想要什么屋名？空白=您必须输入150多次以上！</value>
+  </data>
   <data name="What_2_say_To_all" xml:space="preserve">
     <value>你想要什么要说到大家对线？</value>
   </data>
   <data name="What_to_say_2_region" xml:space="preserve">
     <value>你想要什么要说到这个区域？</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>从哪儿开始？ （区域向右上方）</value>
   </data>
   <data name="Which_Channel" xml:space="preserve">
     <value>这道鸟儿听在世界的命令。负数不能被人类使用</value>
@@ -2816,6 +3305,24 @@
   </data>
   <data name="Window_Word" xml:space="preserve">
     <value>窗户</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>冬季白杨</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>冬季白杨</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>冬松1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>冬松1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>冬松2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>冬松2</value>
   </data>
   <data name="WordPress_Word" xml:space="preserve">
     <value>WordPress的</value>
@@ -2852,512 +3359,5 @@
   </data>
   <data name="_0" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="Theme_Custom" xml:space="preserve">
-    <value>主题设置为自定义</value>
-  </data>
-  <data name="Arabic_Saudi" xml:space="preserve">
-    <value>阿拉伯文（沙特）</value>
-  </data>
-  <data name="Farsi" xml:space="preserve">
-    <value>波斯（伊朗）</value>
-  </data>
-  <data name="Brazilian" xml:space="preserve">
-    <value>巴西文（葡萄牙语）</value>
-  </data>
-  <data name="Khazak" xml:space="preserve">
-    <value>哈萨克斯坦</value>
-  </data>
-  <data name="Spanish_Mexico" xml:space="preserve">
-    <value>西班牙语（墨西哥）</value>
-  </data>
-  <data name="Spanish_Spain" xml:space="preserve">
-    <value>西班牙语（西班牙）</value>
-  </data>
-  <data name="Seconds_word" xml:space="preserve">
-    <value>秒</value>
-  </data>
-  <data name="Pending_word" xml:space="preserve">
-    <value>待办的</value>
-  </data>
-  <data name="Suspended_word" xml:space="preserve">
-    <value>暂停</value>
-  </data>
-  <data name="NoLogin_word" xml:space="preserve">
-    <value>没有登录</value>
-  </data>
-  <data name="Waiting" xml:space="preserve">
-    <value>等待</value>
-  </data>
-  <data name="Restarting_Now_word" xml:space="preserve">
-    <value>立即重启</value>
-  </data>
-  <data name="Quitting_word" xml:space="preserve">
-    <value>戒烟</value>
-  </data>
-  <data name="Booting_word" xml:space="preserve">
-    <value>正在启动</value>
-  </data>
-  <data name="SSDelay" xml:space="preserve">
-    <value>关机秒数</value>
-  </data>
-  <data name="Recycling_Up_word" xml:space="preserve">
-    <value>回收</value>
-  </data>
-  <data name="ViewAllMaps" xml:space="preserve">
-    <value>查看所有地图</value>
-  </data>
-  <data name="Wait_For_scripts" xml:space="preserve">
-    <value>等待脚本</value>
-  </data>
-  <data name="SecondsTips" xml:space="preserve">
-    <value>头像离开后正在运行的区域将保持多长时间</value>
-  </data>
-  <data name="Home_Stopped" xml:space="preserve">
-    <value>回家停止</value>
-  </data>
-  <data name="Recycling_Down_word" xml:space="preserve">
-    <value>回收再利用</value>
-  </data>
-  <data name="BadCoordinates" xml:space="preserve">
-    <value>坐标不正确</value>
-  </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>警告！这会将150多个OARS和区域加载到您的系统中。这将花费很长时间。</value>
-  </data>
-  <data name="Caution_word" xml:space="preserve">
-    <value>警告！</value>
-  </data>
-  <data name="Diskspacelow" xml:space="preserve">
-    <value>磁盘空间严重不足，还不到50 M！所有区域均被冻结。请释放磁盘空间，这些区域将解冻。</value>
-  </data>
-  <data name="EnterEstateName" xml:space="preserve">
-    <value>在DOS框中设置遗产名称。</value>
-  </data>
-  <data name="Loaded_word" xml:space="preserve">
-    <value>已加载。</value>
-  </data>
-  <data name="LoadFreeOars" xml:space="preserve">
-    <value>加载所有免费桨</value>
-  </data>
-  <data name="SmartStartEnable" xml:space="preserve">
-    <value>智能启动（字母代码）设置</value>
-  </data>
-  <data name="SSisDisabled" xml:space="preserve">
-    <value>“设置”-&gt;“智能启动”中的“智能启动（字母代码）”已禁用。</value>
-  </data>
-  <data name="SSisEnabled" xml:space="preserve">
-    <value>启用了“设置”-&gt;“智能启动”中的“智能启动（Alpha）”代码。</value>
-  </data>
-  <data name="StartingLocation" xml:space="preserve">
-    <value>出发地点？</value>
-  </data>
-  <data name="WhatEstate" xml:space="preserve">
-    <value>什么庄园？</value>
-  </data>
-  <data name="WhatEstateName" xml:space="preserve">
-    <value>您想要什么屋名？空白=您必须输入150多次以上！</value>
-  </data>
-  <data name="WheretoStart" xml:space="preserve">
-    <value>从哪儿开始？ （区域向右上方）</value>
-  </data>
-  <data name="Available" xml:space="preserve">
-    <value>可用的</value>
-  </data>
-  <data name="Clear_objects_tooltip" xml:space="preserve">
-    <value>清除所有正方形中的所有对象并加载OAR</value>
-  </data>
-  <data name="Clear_Terrain_tooltip" xml:space="preserve">
-    <value>不要覆盖现有区域的地形。</value>
-  </data>
-  <data name="IgnoreParcels_tooltip" xml:space="preserve">
-    <value>忽略新的宗地数据。</value>
-  </data>
-  <data name="Load_Terrain_tooltip" xml:space="preserve">
-    <value>强制在--merge上加载地形。通常，-merge不会覆盖现有区域的地形。</value>
-  </data>
-  <data name="MergeParcels_tooltip" xml:space="preserve">
-    <value>覆盖现有区域的宗地数据。</value>
-  </data>
-  <data name="Merge_objectstooltip" xml:space="preserve">
-    <value>合并OAR而不清除任何对象</value>
-  </data>
-  <data name="Objects_word" xml:space="preserve">
-    <value>对象</value>
-  </data>
-  <data name="Set_Owner_tooltip" xml:space="preserve">
-    <value>您可以选择将它们提供给一个人。默认值为房地产所有者。</value>
-  </data>
-  <data name="Erase_all" xml:space="preserve">
-    <value>这将清除整个SIM卡并加载新的SIM卡。你确定吗？</value>
-  </data>
-  <data name="checking_word" xml:space="preserve">
-    <value>检查</value>
-  </data>
-  <data name="No_Overlaps" xml:space="preserve">
-    <value>没有重叠区域</value>
-  </data>
-  <data name="potential_overlap" xml:space="preserve">
-    <value>潜在的重叠区域</value>
-  </data>
-  <data name="AutoFill" xml:space="preserve">
-    <value>无尽的陆地和海洋</value>
-  </data>
-  <data name="False_word" xml:space="preserve">
-    <value>错误的</value>
-  </data>
-  <data name="Trees" xml:space="preserve">
-    <value>使树成为XML文件</value>
-  </data>
-  <data name="True_word" xml:space="preserve">
-    <value>真的</value>
-  </data>
-  <data name="ExportAllMaps" xml:space="preserve">
-    <value>导出所有地图</value>
-  </data>
-  <data name="LandMaker" xml:space="preserve">
-    <value>土地制造商</value>
-  </data>
-  <data name="Landscaping" xml:space="preserve">
-    <value>美化环境</value>
-  </data>
-  <data name="DeletebyAge" xml:space="preserve">
-    <value>按年龄删除</value>
-  </data>
-  <data name="KeepAlways" xml:space="preserve">
-    <value>始终保持</value>
-  </data>
-  <data name="AnalyzeLogButton" xml:space="preserve">
-    <value>分析日志</value>
-  </data>
-  <data name="TreesAndPlants" xml:space="preserve">
-    <value>树木和植物</value>
-  </data>
-  <data name="Quantity_word" xml:space="preserve">
-    <value>数量</value>
-  </data>
-  <data name="Radius_Word" xml:space="preserve">
-    <value>半径</value>
-  </data>
-  <data name="Level_word" xml:space="preserve">
-    <value>层级</value>
-  </data>
-  <data name="Age" xml:space="preserve">
-    <value>年龄</value>
-  </data>
-  <data name="Birthday_word" xml:space="preserve">
-    <value>生日</value>
-  </data>
-  <data name="PleaseWait" xml:space="preserve">
-    <value>请等待Robust完全启动。这可能需要几分钟。</value>
-  </data>
-  <data name="Owner_Name" xml:space="preserve">
-    <value>所有者名称</value>
-  </data>
-  <data name="DNSAltWords" xml:space="preserve">
-    <value>供Apache或Jopensim使用的备用名称</value>
-  </data>
-  <data name="Apply" xml:space="preserve">
-    <value>申请</value>
-  </data>
-  <data name="None1" xml:space="preserve">
-    <value>没有</value>
-  </data>
-  <data name="Arriving_word" xml:space="preserve">
-    <value>到达</value>
-  </data>
-  <data name="Avatars_are_in" xml:space="preserve">
-    <value>头像仍在</value>
-  </data>
-  <data name="Bakeword" xml:space="preserve">
-    <value>烤</value>
-  </data>
-  <data name="BeachGrass" xml:space="preserve">
-    <value>海滩草</value>
-  </data>
-  <data name="BeachGrass1" xml:space="preserve">
-    <value>海滩草1</value>
-  </data>
-  <data name="BulkLoad" xml:space="preserve">
-    <value>批量加载区域</value>
-  </data>
-  <data name="Cypress1" xml:space="preserve">
-    <value>柏树1</value>
-  </data>
-  <data name="Cypress2" xml:space="preserve">
-    <value>柏树2</value>
-  </data>
-  <data name="Cypress_1" xml:space="preserve">
-    <value>柏树1</value>
-  </data>
-  <data name="Cypress_2" xml:space="preserve">
-    <value>柏树2</value>
-  </data>
-  <data name="DelayBeforeExit" xml:space="preserve">
-    <value>等待之前的秒数</value>
-  </data>
-  <data name="Delete_All" xml:space="preserve">
-    <value>删除所有</value>
-  </data>
-  <data name="Delete_and_then_Apply" xml:space="preserve">
-    <value>删除然后应用</value>
-  </data>
-  <data name="Dogwood" xml:space="preserve">
-    <value>萸</value>
-  </data>
-  <data name="EditorWord" xml:space="preserve">
-    <value>编辑</value>
-  </data>
-  <data name="Eelgrass" xml:space="preserve">
-    <value>鳗草</value>
-  </data>
-  <data name="EndSizeXYZ" xml:space="preserve">
-    <value>端部尺寸XYZ</value>
-  </data>
-  <data name="Eucalyptus" xml:space="preserve">
-    <value>桉树</value>
-  </data>
-  <data name="Fern" xml:space="preserve">
-    <value>蕨类</value>
-  </data>
-  <data name="FillSizeLabel" xml:space="preserve">
-    <value>区域填充大小</value>
-  </data>
-  <data name="Flat" xml:space="preserve">
-    <value>平坦的</value>
-  </data>
-  <data name="Generated_word" xml:space="preserve">
-    <value>产生的</value>
-  </data>
-  <data name="Height" xml:space="preserve">
-    <value>高度</value>
-  </data>
-  <data name="HelpLandcaping" xml:space="preserve">
-    <value>帮助美化</value>
-  </data>
-  <data name="HelpPlantEditor" xml:space="preserve">
-    <value>帮助工厂编辑</value>
-  </data>
-  <data name="HelpSmartStart" xml:space="preserve">
-    <value>帮助智能启动</value>
-  </data>
-  <data name="HelpTerrains" xml:space="preserve">
-    <value>帮助地形</value>
-  </data>
-  <data name="JustOptions" xml:space="preserve">
-    <value>公正的选择</value>
-  </data>
-  <data name="Kelp1" xml:space="preserve">
-    <value>海带1</value>
-  </data>
-  <data name="Kelp2" xml:space="preserve">
-    <value>海带2</value>
-  </data>
-  <data name="leaving_word" xml:space="preserve">
-    <value>离开</value>
-  </data>
-  <data name="LoadTerrain" xml:space="preserve">
-    <value>负载地形</value>
-  </data>
-  <data name="Noise" xml:space="preserve">
-    <value>噪音</value>
-  </data>
-  <data name="Oak" xml:space="preserve">
-    <value>橡木</value>
-  </data>
-  <data name="OwnerOfRegions" xml:space="preserve">
-    <value>周边地区的所有者</value>
-  </data>
-  <data name="Palm1" xml:space="preserve">
-    <value>棕榈1</value>
-  </data>
-  <data name="Palm11" xml:space="preserve">
-    <value>棕榈1</value>
-  </data>
-  <data name="ParkingRegion" xml:space="preserve">
-    <value>停车区</value>
-  </data>
-  <data name="Parking_Spot" xml:space="preserve">
-    <value>停车模拟</value>
-  </data>
-  <data name="Parking_Spot1" xml:space="preserve">
-    <value>停车模拟</value>
-  </data>
-  <data name="Pine1" xml:space="preserve">
-    <value>松树1</value>
-  </data>
-  <data name="Pine11" xml:space="preserve">
-    <value>松树1</value>
-  </data>
-  <data name="Pine2" xml:space="preserve">
-    <value>松2</value>
-  </data>
-  <data name="Pine21" xml:space="preserve">
-    <value>松2</value>
-  </data>
-  <data name="Pine22" xml:space="preserve">
-    <value>松2</value>
-  </data>
-  <data name="Plants" xml:space="preserve">
-    <value>植物</value>
-  </data>
-  <data name="Plumeria" xml:space="preserve">
-    <value>鸡蛋花</value>
-  </data>
-  <data name="RandomTerrain" xml:space="preserve">
-    <value>随机地形</value>
-  </data>
-  <data name="RegenTerrains" xml:space="preserve">
-    <value>雷根地形</value>
-  </data>
-  <data name="RegionMaker" xml:space="preserve">
-    <value>区域制造商</value>
-  </data>
-  <data name="Revert" xml:space="preserve">
-    <value>恢复</value>
-  </data>
-  <data name="SaveTerrain" xml:space="preserve">
-    <value>保存地形</value>
-  </data>
-  <data name="SeaSword" xml:space="preserve">
-    <value>海剑</value>
-  </data>
-  <data name="Seconds" xml:space="preserve">
-    <value>秒</value>
-  </data>
-  <data name="Smooth" xml:space="preserve">
-    <value>光滑的</value>
-  </data>
-  <data name="StartSizeXYZ" xml:space="preserve">
-    <value>起始尺寸XYZ</value>
-  </data>
-  <data name="Taper" xml:space="preserve">
-    <value>锥度</value>
-  </data>
-  <data name="Temporary_Regions" xml:space="preserve">
-    <value>使用临时区域</value>
-  </data>
-  <data name="TreelineHigh" xml:space="preserve">
-    <value>树线高</value>
-  </data>
-  <data name="TreeLineLow" xml:space="preserve">
-    <value>树线低</value>
-  </data>
-  <data name="TropicalBush1" xml:space="preserve">
-    <value>热带灌木丛1</value>
-  </data>
-  <data name="TropicalBush2" xml:space="preserve">
-    <value>热带丛林2</value>
-  </data>
-  <data name="ViewTerrainFolder" xml:space="preserve">
-    <value>查看地形文件夹</value>
-  </data>
-  <data name="WaterWord" xml:space="preserve">
-    <value>水</value>
-  </data>
-  <data name="WinterAspen" xml:space="preserve">
-    <value>冬季白杨</value>
-  </data>
-  <data name="WinterAspen1" xml:space="preserve">
-    <value>冬季白杨</value>
-  </data>
-  <data name="WinterPine1" xml:space="preserve">
-    <value>冬松1</value>
-  </data>
-  <data name="WinterPine11" xml:space="preserve">
-    <value>冬松1</value>
-  </data>
-  <data name="WinterPine2" xml:space="preserve">
-    <value>冬松2</value>
-  </data>
-  <data name="WinterPine21" xml:space="preserve">
-    <value>冬松2</value>
-  </data>
-  <data name="RunasaService_word" xml:space="preserve">
-    <value>如果未作为上述服务运行:</value>
-  </data>
-  <data name="ParkingRegion1" xml:space="preserve">
-    <value>停车区</value>
-  </data>
-  <data name="MySQLDidNotStop" xml:space="preserve">
-    <value>当命令停止时 MySQL 没有停止</value>
-  </data>
-  <data name="No_Estate_Word" xml:space="preserve">
-    <value>没有庄园</value>
-  </data>
-  <data name="isBooting" xml:space="preserve">
-    <value>仍在启动</value>
-  </data>
-  <data name="TotalArea_word" xml:space="preserve">
-    <value>总面积(&amp;A):</value>
-  </data>
-  <data name="Row_note" xml:space="preserve">
-    <value>单击一行以控制区域。选中该框以启用/禁用。</value>
-  </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>搜索</value>
-  </data>
-  <data name="DelayAfterRegionReady" xml:space="preserve">
-    <value>区域就绪延迟</value>
-  </data>
-  <data name="minkeepalive" xml:space="preserve">
-    <value>最短时间为 0 秒。默认值为 60 秒。</value>
-  </data>
-  <data name="StartingNearby" xml:space="preserve">
-    <value>从附近的头像开始</value>
-  </data>
-  <data name="DoNotShowAgain" xml:space="preserve">
-    <value>不再显示</value>
-  </data>
-  <data name="InstallNow" xml:space="preserve">
-    <value>现在安装</value>
-  </data>
-  <data name="RemindMeLater" xml:space="preserve">
-    <value>稍后提醒我</value>
-  </data>
-  <data name="Hours" xml:space="preserve">
-    <value>小时</value>
-  </data>
-  <data name="Minutes" xml:space="preserve">
-    <value>分钟</value>
-  </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>设置搜索数据库</value>
-  </data>
-  <data name="View_Folder" xml:space="preserve">
-    <value>查看文件夹</value>
-  </data>
-  <data name="arrivals" xml:space="preserve">
-    <value>到达断电的 sims 被重定向到</value>
-  </data>
-  <data name="DeleteSims" xml:space="preserve">
-    <value>*** 这将删除“SimSurround”庄园中的所有区域！</value>
-  </data>
-  <data name="Min_time" xml:space="preserve">
-    <value>最短时间为 0 秒。默认值为 15 秒。</value>
-  </data>
-  <data name="Regions_Deleted" xml:space="preserve">
-    <value>删除的地区</value>
-  </data>
-  <data name="HelloToSpeech" xml:space="preserve">
-    <value>您好，欢迎来到文本转语音应用程序的测试。随意环顾四周并探索您的网格。</value>
-  </data>
-  <data name="Speak" xml:space="preserve">
-    <value>说话</value>
-  </data>
-  <data name="Minute" xml:space="preserve">
-    <value>分钟</value>
-  </data>
-  <data name="Send_alert" xml:space="preserve">
-    <value>发送警报</value>
-  </data>
-  <data name="TeleportAPI" xml:space="preserve">
-    <value>传送API</value>
-  </data>
-  <data name="Unchanged" xml:space="preserve">
-    <value>不变</value>
-  </data>
-  <data name="Finished_word" xml:space="preserve">
-    <value>已完成</value>
   </data>
 </root>

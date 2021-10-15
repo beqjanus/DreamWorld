@@ -252,6 +252,9 @@
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
     <value>¿Está seguro de que desea eliminar esta región?</value>
   </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Las llegadas a los sims apagados se redirigen a</value>
+  </data>
   <data name="Arriving_word" xml:space="preserve">
     <value>llegando</value>
   </data>
@@ -852,6 +855,9 @@
   <data name="Default_Welcome" xml:space="preserve">
     <value>La región predeterminada de 'Bienvenida' no se encuentra en el sistema. ¿Continuar?</value>
   </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Retraso de región lista</value>
+  </data>
   <data name="DelayBeforeExit" xml:space="preserve">
     <value>Segundos antes de esperar</value>
   </data>
@@ -860,6 +866,9 @@
   </data>
   <data name="Deleted_word" xml:space="preserve">
     <value>Eliminado</value>
+  </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>Esto eliminará todas las regiones en el Patrimonio 'SimSurround' !</value>
   </data>
   <data name="DeleteTmp_word" xml:space="preserve">
     <value>Eliminar carpeta tmp</value>
@@ -959,6 +968,9 @@
   </data>
   <data name="Dogwood" xml:space="preserve">
     <value>Madera del perro</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>No mostrar de nuevo</value>
   </data>
   <data name="DosBoxRunning" xml:space="preserve">
     <value>Ya se está ejecutando un cuadro de DOS llamado Robust</value>
@@ -1158,6 +1170,9 @@
   <data name="Finished_with_backup_word" xml:space="preserve">
     <value>Terminado con respaldo:</value>
   </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Finalizado</value>
+  </data>
   <data name="Finnish" xml:space="preserve">
     <value>finlandés</value>
   </data>
@@ -1287,6 +1302,9 @@
   <data name="Height" xml:space="preserve">
     <value>Altura</value>
   </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Hola y bienvenidos a esta prueba del texto a la aplicación de voz.  Siéntase libre de mirar a su alrededor y explorar su cuadrícula.</value>
+  </data>
   <data name="HelpLandcaping" xml:space="preserve">
     <value>Ayuda al paisajismo</value>
   </data>
@@ -1376,6 +1394,9 @@
   </data>
   <data name="Home_word" xml:space="preserve">
     <value>Casa</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Horas</value>
   </data>
   <data name="Hours_word" xml:space="preserve">
     <value>Horas</value>
@@ -1500,6 +1521,9 @@
   <data name="InstallJoomla_word" xml:space="preserve">
     <value>Instalar en pc</value>
   </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Instalar ahora</value>
+  </data>
   <data name="InstallOpensim" xml:space="preserve">
     <value>Esto instalará JOpensim. ¿Desea continuar?</value>
   </data>
@@ -1526,6 +1550,9 @@
   </data>
   <data name="Irish" xml:space="preserve">
     <value>irlandesa</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>todavía está arrancando!</value>
   </data>
   <data name="isLoading" xml:space="preserve">
     <value>Opensim está cargando tu artículo. Lo encontrarás en</value>
@@ -1779,8 +1806,20 @@
   <data name="MetroOrg" xml:space="preserve">
     <value>Servidor de la región Metro.land</value>
   </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>El tiempo mínimo es de 0 segundos. El valor predeterminado es 60 segundos.</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuto</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutos</value>
+  </data>
   <data name="Minutes_word" xml:space="preserve">
     <value>Minutos</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>El tiempo mínimo es de 0 segundos. El valor predeterminado es 15 segundos.</value>
   </data>
   <data name="Mode_word" xml:space="preserve">
     <value>Modo</value>
@@ -1814,6 +1853,9 @@
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Debe ser un archivo PNG</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL no se detuvo cuando se le ordenó detenerse!</value>
   </data>
   <data name="MySqlPort_word" xml:space="preserve">
     <value>Puerto MySQL</value>
@@ -1941,6 +1983,9 @@
   <data name="No_Emails_Selected" xml:space="preserve">
     <value>No se seleccionaron correos electrónicos</value>
   </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>No Estate!</value>
+  </data>
   <data name="No_HG" xml:space="preserve">
     <value>No se permitirán visitantes de Hypergrid en esta región</value>
   </data>
@@ -2066,6 +2111,9 @@
   </data>
   <data name="ParkingRegion" xml:space="preserve">
     <value>Región de estacionamiento</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Región de estacionamiento!</value>
   </data>
   <data name="Parking_Spot" xml:space="preserve">
     <value>Sim de estacionamiento</value>
@@ -2274,6 +2322,9 @@
   <data name="Regions_Are_Running" xml:space="preserve">
     <value>las regiones todavía se están ejecutando</value>
   </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Regiones eliminadas</value>
+  </data>
   <data name="Regions_word" xml:space="preserve">
     <value>Regiones</value>
   </data>
@@ -2357,6 +2408,9 @@
   </data>
   <data name="Reload" xml:space="preserve">
     <value>Recargar la cuadrícula</value>
+  </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Recuérdame más tarde</value>
   </data>
   <data name="Remote_Admin_word" xml:space="preserve">
     <value>RemoteAdmin</value>
@@ -2469,6 +2523,12 @@
   <data name="Row" xml:space="preserve">
     <value>Haga clic en una fila habilitada para iniciar o detener la región. Haga clic en una fila deshabilitada para editar la región.</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Haga clic en una fila para controlar la región. Marque la casilla para activar/desactivar.</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>as a Service</value>
+  </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Ejecutando como servidor de región</value>
   </data>
@@ -2553,6 +2613,9 @@
   <data name="Search_grids" xml:space="preserve">
     <value>Búsqueda de cuadrículas (www)</value>
   </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>buscar</value>
+  </data>
   <data name="SeaSword" xml:space="preserve">
     <value>Espada de mar</value>
   </data>
@@ -2582,6 +2645,9 @@
   </data>
   <data name="Select_word" xml:space="preserve">
     <value>Seleccione</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Enviar alerta</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Enviar mensaje de alerta</value>
@@ -2624,6 +2690,9 @@
   </data>
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>Puertos de configuración</value>
+  </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Configurar base de datos de búsqueda</value>
   </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>Haga clic para configurar sus Condiciones de servicio</value>
@@ -2736,6 +2805,9 @@
   <data name="Spanish_Spain" xml:space="preserve">
     <value>Español (España)</value>
   </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Hablar</value>
+  </data>
   <data name="Splash" xml:space="preserve">
     <value>URL de la pantalla de presentación del visor:</value>
   </data>
@@ -2759,6 +2831,9 @@
   </data>
   <data name="StartingLocation" xml:space="preserve">
     <value>¿Ubicación inicial?</value>
+  </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>comenzando como un Avatar está cerca</value>
   </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
     <value>Inicio del servidor web del puerto de diagnóstico</value>
@@ -2856,6 +2931,9 @@
   <data name="TechInfo" xml:space="preserve">
     <value>Información técnica</value>
   </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API de teletransporte</value>
+  </data>
   <data name="Teleporter_Enable_word" xml:space="preserve">
     <value>Habilitar señal de teletransporte</value>
   </data>
@@ -2918,6 +2996,9 @@
   </data>
   <data name="TOS" xml:space="preserve">
     <value>El módulo TOS muestra a sus usuarios y / o visitantes este texto HTML.</value>
+  </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Áre&amp;a total:</value>
   </data>
   <data name="Transfer_word" xml:space="preserve">
     <value>Transferir</value>
@@ -3021,6 +3102,9 @@
   <data name="UnassignedPerson" xml:space="preserve">
     <value>Ingrese el nombre y apellido de la persona que será propietaria de los objetos no asignados</value>
   </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Inalterado</value>
+  </data>
   <data name="Unrecognized" xml:space="preserve">
     <value>Tipo de archivo no reconocido</value>
   </data>
@@ -3104,6 +3188,9 @@
   </data>
   <data name="View_Details" xml:space="preserve">
     <value>Ver detalles de la región</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Ver carpeta</value>
   </data>
   <data name="View_Icecast" xml:space="preserve">
     <value>Ver la página web de Icecast</value>
@@ -3272,92 +3359,5 @@
   </data>
   <data name="_0" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="ParkingRegion1" xml:space="preserve">
-    <value>Región de estacionamiento!</value>
-  </data>
-  <data name="RunasaService_word" xml:space="preserve">
-    <value>as a Service</value>
-  </data>
-  <data name="MySQLDidNotStop" xml:space="preserve">
-    <value>MySQL no se detuvo cuando se le ordenó detenerse!</value>
-  </data>
-  <data name="No_Estate_Word" xml:space="preserve">
-    <value>No Estate!</value>
-  </data>
-  <data name="isBooting" xml:space="preserve">
-    <value>todavía está arrancando!</value>
-  </data>
-  <data name="TotalArea_word" xml:space="preserve">
-    <value>Áre&amp;a total:</value>
-  </data>
-  <data name="Row_note" xml:space="preserve">
-    <value>Haga clic en una fila para controlar la región. Marque la casilla para activar/desactivar.</value>
-  </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>buscar</value>
-  </data>
-  <data name="DelayAfterRegionReady" xml:space="preserve">
-    <value>Retraso de región lista</value>
-  </data>
-  <data name="minkeepalive" xml:space="preserve">
-    <value>El tiempo mínimo es de 0 segundos. El valor predeterminado es 60 segundos.</value>
-  </data>
-  <data name="StartingNearby" xml:space="preserve">
-    <value>comenzando como un Avatar está cerca</value>
-  </data>
-  <data name="DoNotShowAgain" xml:space="preserve">
-    <value>No mostrar de nuevo</value>
-  </data>
-  <data name="InstallNow" xml:space="preserve">
-    <value>Instalar ahora</value>
-  </data>
-  <data name="RemindMeLater" xml:space="preserve">
-    <value>Recuérdame más tarde</value>
-  </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>Configurar base de datos de búsqueda</value>
-  </data>
-  <data name="View_Folder" xml:space="preserve">
-    <value>Ver carpeta</value>
-  </data>
-  <data name="arrivals" xml:space="preserve">
-    <value>Las llegadas a los sims apagados se redirigen a</value>
-  </data>
-  <data name="DeleteSims" xml:space="preserve">
-    <value>Esto eliminará todas las regiones en el Patrimonio 'SimSurround' !</value>
-  </data>
-  <data name="Min_time" xml:space="preserve">
-    <value>El tiempo mínimo es de 0 segundos. El valor predeterminado es 15 segundos.</value>
-  </data>
-  <data name="Regions_Deleted" xml:space="preserve">
-    <value>Regiones eliminadas</value>
-  </data>
-  <data name="Hours" xml:space="preserve">
-    <value>Horas</value>
-  </data>
-  <data name="Minutes" xml:space="preserve">
-    <value>Minutos</value>
-  </data>
-  <data name="HelloToSpeech" xml:space="preserve">
-    <value>Hola y bienvenidos a esta prueba del texto a la aplicación de voz.  Siéntase libre de mirar a su alrededor y explorar su cuadrícula.</value>
-  </data>
-  <data name="Speak" xml:space="preserve">
-    <value>Hablar</value>
-  </data>
-  <data name="Minute" xml:space="preserve">
-    <value>Minuto</value>
-  </data>
-  <data name="Send_alert" xml:space="preserve">
-    <value>Enviar alerta</value>
-  </data>
-  <data name="TeleportAPI" xml:space="preserve">
-    <value>API de teletransporte</value>
-  </data>
-  <data name="Unchanged" xml:space="preserve">
-    <value>Inalterado</value>
-  </data>
-  <data name="Finished_word" xml:space="preserve">
-    <value>Finalizado</value>
   </data>
 </root>

@@ -33,6 +33,28 @@ Module Runtimes
             End Try
 
         End Using
+        TextPrint(My.Resources.Update_word & " Dot Net 4.8")
+        Using UpgradeProcess As New Process()
+
+            Dim pi As ProcessStartInfo = New ProcessStartInfo With {
+              .Arguments = "",
+              .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "MSFT_Runtimes\ndp48-web.exe") & """"
+            }
+
+            pi.WindowStyle = ProcessWindowStyle.Normal
+            UpgradeProcess.StartInfo = pi
+
+            Try
+                UpgradeProcess.Start()
+                UpgradeProcess.WaitForExit()
+                Settings.DotnetUpgraded() = True
+                Settings.SaveSettings()
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+                TextPrint(My.Resources.Error_word)
+            End Try
+
+        End Using
 
     End Sub
 

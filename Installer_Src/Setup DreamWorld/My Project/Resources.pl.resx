@@ -144,6 +144,9 @@
   <data name="Admin_Web_Page_word" xml:space="preserve">
     <value>Administrator strony WWW</value>
   </data>
+  <data name="Age" xml:space="preserve">
+    <value>Wiek</value>
+  </data>
   <data name="Agents_word" xml:space="preserve">
     <value>Agencje</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="AlphaNum" xml:space="preserve">
     <value>Alfanumeryczny Plus minus i spacja</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>Analizuj dziennik</value>
   </data>
   <data name="Announce_visitors" xml:space="preserve">
     <value>ogłosić odwiedzili</value>
@@ -231,14 +237,26 @@
   <data name="Appexception" xml:space="preserve">
     <value>Wyjątek stosowanie miało miejsce. Czy chcesz spróbować, aby kontynuować lub Abort / wyjścia?</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Zastosować</value>
+  </data>
   <data name="Apply_word" xml:space="preserve">
     <value>Zastosować</value>
+  </data>
+  <data name="Arabic_Saudi" xml:space="preserve">
+    <value>Arabski (Saudyjski)</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
     <value>Jesteś pewny? Baza danych będzie ładowany z kopii zapasowej, a wszystkie istniejące treści wymienić. Awatary, Sims, wyposażenie, everyting będą nadpisywane.</value>
   </data>
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
     <value>Czy na pewno chcesz usunąć ten region?</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>Przyjazdy do wyłączonych simów są przekierowywane do</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>przyjazd</value>
   </data>
   <data name="Assets_as_Files_word" xml:space="preserve">
     <value>Aktywa w postaci plików</value>
@@ -248,6 +266,9 @@
   </data>
   <data name="Autobackup_cannot_be_located" xml:space="preserve">
     <value>Folder Autobackup nie można zlokalizować, więc folder został zresetowany do ustawień domyślnych.</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>Bezkresna kraina i morze</value>
   </data>
   <data name="Automatic_restart_word" xml:space="preserve">
     <value>automatyczny restart</value>
@@ -269,6 +290,12 @@
   </data>
   <data name="Auto_Startup_word" xml:space="preserve">
     <value>automatyczne uruchamianie</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Dostępny</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>Awatary wciąż są dostępne</value>
   </data>
   <data name="Avatars_in_World" xml:space="preserve">
     <value>Awatary są na świecie! Czy na pewno chcesz zakończyć?</value>
@@ -333,6 +360,12 @@
   <data name="Backup_word" xml:space="preserve">
     <value>Utworzyć kopię zapasową</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>Złe współrzędne</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>Piec</value>
+  </data>
   <data name="BanList_string" xml:space="preserve">
     <value>Kliknij, aby utworzyć siatkę, adres MAC i IP zakazy</value>
   </data>
@@ -344,6 +377,12 @@
   </data>
   <data name="Basque_word" xml:space="preserve">
     <value>baskijski</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>Trawa plażowa</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
   </data>
   <data name="Best_Prims" xml:space="preserve">
     <value>Najlepszy (Prims + Mesh, bardzo wolno)</value>
@@ -366,8 +405,14 @@
   <data name="Bird_Settings_word" xml:space="preserve">
     <value>Ustawienia ptaków</value>
   </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>Urodziny</value>
+  </data>
   <data name="Black_word" xml:space="preserve">
     <value>czarny</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>Uruchamianie</value>
   </data>
   <data name="Border_Size" xml:space="preserve">
     <value>Granica Rozmiar (default = 25.0)</value>
@@ -375,11 +420,17 @@
   <data name="BP" xml:space="preserve">
     <value>Physics pocisk w oddzielnych nici</value>
   </data>
+  <data name="Brazilian" xml:space="preserve">
+    <value>Brazylijski (Portguese)</value>
+  </data>
   <data name="Broadcast_Tide_Chat" xml:space="preserve">
     <value>Czat informacji przypływ regionie tak skrypty mogą przejść z prądem?</value>
   </data>
   <data name="Broadcast_Tide_Info" xml:space="preserve">
     <value>Broadcast Tide Info</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>Regiony ładowania zbiorczego</value>
   </data>
   <data name="Bullet_Physics_word" xml:space="preserve">
     <value>Bullet Physics</value>
@@ -441,6 +492,12 @@
   <data name="Category_word" xml:space="preserve">
     <value>Kategoria</value>
   </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>Uwaga! Spowoduje to załadowanie 150+ OARS i regionów do twojego systemu. To zajmie dużo czasu.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>Uwaga!</value>
+  </data>
   <data name="CenterMap" xml:space="preserve">
     <value>Centrum mapie koordynować</value>
   </data>
@@ -473,6 +530,9 @@
   </data>
   <data name="Checking_Router_word" xml:space="preserve">
     <value>Sprawdzanie routera</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>kontrola</value>
   </data>
   <data name="Check_and_Repair_Database_word" xml:space="preserve">
     <value>Sprawdź i napraw Database</value>
@@ -543,8 +603,14 @@
   <data name="Clear_Cache_word" xml:space="preserve">
     <value>Wyczyść pamięć podręczną</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>Czyści wszystkie obiekty we wszystkich polach i ładuje OAR</value>
+  </data>
   <data name="Clear_Selected_Caches_word" xml:space="preserve">
     <value>Jasne Wybrane Skrytki</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>Nie nadpisuj terenu istniejącego regionu.</value>
   </data>
   <data name="ClickStartStop" xml:space="preserve">
     <value>Kliknij, aby rozpocząć lub zatrzymać Robust</value>
@@ -729,6 +795,18 @@
   <data name="Cycle_time_text" xml:space="preserve">
     <value>Jak długo w sekundach dla pełnego czasu cyklu. nisko-&gt; wysokiej&gt; niska</value>
   </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>Cyprys 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>Cyprys 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>Cyprys 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>Cyprys 2</value>
+  </data>
   <data name="Czech" xml:space="preserve">
     <value>Czech</value>
   </data>
@@ -777,11 +855,29 @@
   <data name="Default_Welcome" xml:space="preserve">
     <value>Domyślną „Welcome” region nie znajduje się w systemie. Kontyntynuj?</value>
   </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>Opóźnienie gotowości regionu</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>Sekundy przed czekaniem</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>Usuń według wieku</value>
+  </data>
   <data name="Deleted_word" xml:space="preserve">
     <value>Usunięte</value>
   </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** Spowoduje to usunięcie wszystkich regionów w posiadłości „SimSurround”!</value>
+  </data>
   <data name="DeleteTmp_word" xml:space="preserve">
     <value>Usuwanie folderu tmp</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>Usuń wszystko</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>Usuń, a następnie Zastosuj</value>
   </data>
   <data name="Delete_word" xml:space="preserve">
     <value>Kasować</value>
@@ -849,6 +945,9 @@
   <data name="Discard_Exit" xml:space="preserve">
     <value>Odrzucić wszystkie zmiany i wyjść?</value>
   </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>Miejsce na dysku jest krytycznie małe, pozostało mniej niż 50 MB! Wszystkie regiony są zamrożone. Zwolnij miejsce na dysku, a regiony ulegną rozmrożeniu.</value>
+  </data>
   <data name="Diva_Panel_word" xml:space="preserve">
     <value>Diva panel</value>
   </data>
@@ -858,11 +957,20 @@
   <data name="DNSAlt" xml:space="preserve">
     <value>Alternatywna nazwa takich jak www.outworldz.com vs. outworldz.com. Może być stara nazwa siatki chcesz continute do użytku.</value>
   </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>Alternatywna nazwa do użytku przez Apache lub Jopensim</value>
+  </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>Nazwa DNS lub IP lub SomeName.Outworldz.net</value>
   </data>
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>Nazwa DNS i Hypergrid</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>Dereń</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>Nie pokazuj ponownie</value>
   </data>
   <data name="DosBoxRunning" xml:space="preserve">
     <value>DOS Box nazwie Solidna już działa</value>
@@ -894,11 +1002,17 @@
   <data name="DynDNS_password_word" xml:space="preserve">
     <value>hasło DynDNS</value>
   </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>Redaktor</value>
+  </data>
   <data name="EditRegion" xml:space="preserve">
     <value>Edycja Region</value>
   </data>
   <data name="Edit_word" xml:space="preserve">
     <value>Edytować</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>Eelgrass</value>
   </data>
   <data name="Emails_Selected" xml:space="preserve">
     <value>wybrane e-maile</value>
@@ -948,8 +1062,14 @@
   <data name="Enable_word" xml:space="preserve">
     <value>Włączyć</value>
   </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>Rozmiar końcowy XYZ</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>język angielski</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>Ustaw nazwę Estate w polu DOS.</value>
   </data>
   <data name="EnterName" xml:space="preserve">
     <value>Wprowadź nazwę kopii zapasowej</value>
@@ -965,6 +1085,9 @@
   </data>
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
     <value>Wprowadź siatki Informacje o właścicielu</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>Spowoduje to wymazanie CAŁEJ karty SIM i załadowanie nowej karty SIM. Jesteś pewny?</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>Błąd: Nie można uruchomić DreamGridInstaller.exe.</value>
@@ -996,8 +1119,14 @@
   <data name="Estate_word" xml:space="preserve">
     <value>Osiedle</value>
   </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>Eukaliptus</value>
+  </data>
   <data name="Exit__word" xml:space="preserve">
     <value>Wyjście</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>Eksportuj wszystkie mapy</value>
   </data>
   <data name="Export_Backup_file_word" xml:space="preserve">
     <value>Eksport pliku kopii zapasowej</value>
@@ -1020,20 +1149,38 @@
   <data name="Failed_LAN" xml:space="preserve">
     <value>Nie udało się podłączyć do witryny internetowej.</value>
   </data>
+  <data name="False_word" xml:space="preserve">
+    <value>Fałszywe</value>
+  </data>
+  <data name="Farsi" xml:space="preserve">
+    <value>Farsi (Iran)</value>
+  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>Fatalny</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>Paproć</value>
   </data>
   <data name="File_word" xml:space="preserve">
     <value>Plik</value>
   </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>Rozmiar wypełnienia w regionach</value>
+  </data>
   <data name="Finished_with_backup_word" xml:space="preserve">
     <value>Zakończone z kopii zapasowej:</value>
+  </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>Zakończono</value>
   </data>
   <data name="Finnish" xml:space="preserve">
     <value>fiński</value>
   </data>
   <data name="First_name_word" xml:space="preserve">
     <value>Imię</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>Mieszkanie</value>
   </data>
   <data name="Float" xml:space="preserve">
     <value>Pływak</value>
@@ -1082,6 +1229,9 @@
   </data>
   <data name="GBoids" xml:space="preserve">
     <value>Globalne ustawienia ptaków będą miały zastosowanie do tego regionu</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>Wygenerowano</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>Niemiecki</value>
@@ -1148,6 +1298,24 @@
   </data>
   <data name="Hebrew" xml:space="preserve">
     <value>hebrajski</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Wysokość</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>Witam w tym teście aplikacji tekstowej na mowę. Rozejrzyj się i zbadaj swoją siatkę.</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>Pomoc w kształtowaniu krajobrazu</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>Help Plant Editor</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>Pomóż Smart Start</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>Tereny pomocy</value>
   </data>
   <data name="Help_Console" xml:space="preserve">
     <value>Pomoc w konsoli poleceń</value>
@@ -1221,8 +1389,14 @@
   <data name="High_Water_Level_text" xml:space="preserve">
     <value>Wysokie noty wody w metrach</value>
   </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>Strona główna zatrzymana</value>
+  </data>
   <data name="Home_word" xml:space="preserve">
     <value>Dom</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>godziny</value>
   </data>
   <data name="Hours_word" xml:space="preserve">
     <value>godziny</value>
@@ -1302,6 +1476,9 @@
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
     <value>Opensim uratuje wioseł po uruchomieniu tak długo</value>
   </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>Zignoruj nowe dane działki.</value>
+  </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>Ignoruj ​​Parcel</value>
   </data>
@@ -1344,6 +1521,9 @@
   <data name="InstallJoomla_word" xml:space="preserve">
     <value>zainstalować</value>
   </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>Zainstaluj teraz</value>
+  </data>
   <data name="InstallOpensim" xml:space="preserve">
     <value>Spowoduje to zainstalowanie JOpensim. Czy chcesz kontynuować?</value>
   </data>
@@ -1370,6 +1550,9 @@
   </data>
   <data name="Irish" xml:space="preserve">
     <value>Irlandczyk</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>nadal się uruchamia</value>
   </data>
   <data name="isLoading" xml:space="preserve">
     <value>Opensim się ładuje swój przedmiot. Znajdziesz go w</value>
@@ -1401,14 +1584,35 @@
   <data name="JOpensim_word" xml:space="preserve">
     <value>JOpensim</value>
   </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>Tylko opcje</value>
+  </data>
   <data name="Just_one_region_word" xml:space="preserve">
     <value>Tylko jeden region</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>Zachowaj zawsze</value>
   </data>
   <data name="KeepOnTop_word" xml:space="preserve">
     <value>Utrzymać na szczycie</value>
   </data>
   <data name="Keep_for_Days_word" xml:space="preserve">
     <value>Utrzymać przez kilka dni</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>Wodorosty 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>Wodorosty 2</value>
+  </data>
+  <data name="Khazak" xml:space="preserve">
+    <value>Khazakistan</value>
+  </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>Land Maker</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>Architektura krajobrazu</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Język</value>
@@ -1422,11 +1626,26 @@
   <data name="Last_Name_Word" xml:space="preserve">
     <value>Nazwisko</value>
   </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>odejście</value>
+  </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>Poziom</value>
+  </data>
   <data name="ListAvatars" xml:space="preserve">
     <value>Lista awatarów</value>
   </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>załadowany.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>Załaduj wszystkie wolne wiosła</value>
+  </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>Ładowanie settings.ini</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
   </data>
   <data name="Load_Bird_IAR_word" xml:space="preserve">
     <value>Załaduj ptak IAR</value>
@@ -1466,6 +1685,9 @@
   </data>
   <data name="Load_Terrain" xml:space="preserve">
     <value>Teren obciążenie</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>Wymuś włączenie ładowania terenu - merge. Zwykle --merge nie zastępuje terenu istniejącego regionu.</value>
   </data>
   <data name="Local" xml:space="preserve">
     <value>Lokalny</value>
@@ -1563,8 +1785,14 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>Prędkość maksymalna (default = 1.0)</value>
   </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>Nadpisz dane działek w istniejącym regionie.</value>
+  </data>
   <data name="Merge_OAR_word" xml:space="preserve">
     <value>Merge OAR</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>Łączy wiosło, nie usuwając żadnych obiektów</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
     <value>scalić obiekty</value>
@@ -1578,8 +1806,20 @@
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org Region Server</value>
   </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>Minimalny czas to 0 sekund. Wartość domyślna to 60 sekund.</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minuta</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minuty</value>
+  </data>
   <data name="Minutes_word" xml:space="preserve">
     <value>Minuty</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>Minimalny czas to 0 sekund. Wartość domyślna to 15 sekund.</value>
   </data>
   <data name="Mode_word" xml:space="preserve">
     <value>Tryb</value>
@@ -1613,6 +1853,9 @@
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>Musi być plik PNG</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL nie zatrzymał się, gdy nakazano mu się zatrzymać</value>
   </data>
   <data name="MySqlPort_word" xml:space="preserve">
     <value>MySQL Port</value>
@@ -1680,7 +1923,16 @@
   <data name="Nobody_Online" xml:space="preserve">
     <value>Żadna osoba jest online</value>
   </data>
+  <data name="Noise" xml:space="preserve">
+    <value>Hałas</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>Brak logowania</value>
+  </data>
   <data name="None" xml:space="preserve">
+    <value>Żaden</value>
+  </data>
+  <data name="None1" xml:space="preserve">
     <value>Żaden</value>
   </data>
   <data name="Nonphysical_Prim" xml:space="preserve">
@@ -1731,11 +1983,17 @@
   <data name="No_Emails_Selected" xml:space="preserve">
     <value>zostały wybrane żadne e-maile</value>
   </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>Brak majątku</value>
+  </data>
   <data name="No_HG" xml:space="preserve">
     <value>Nie Hypergrid odwiedzający będą mogli w tym regionie</value>
   </data>
   <data name="No_Locate_FSassets" xml:space="preserve">
     <value>nie może zlokalizować folderu FSasset:</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>Brak pokrywających się regionów</value>
   </data>
   <data name="No_Publish_Items" xml:space="preserve">
     <value>Nie publikuj tego regionu</value>
@@ -1764,6 +2022,9 @@
   <data name="NVPhysPrim" xml:space="preserve">
     <value>Nieprawidłowy fizyczny Prim Maksymalna wartość. Musi być większa niż 0.</value>
   </data>
+  <data name="Oak" xml:space="preserve">
+    <value>Dąb</value>
+  </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>Pliki wiosło są kopie zapasowe całych Wyspach</value>
   </data>
@@ -1775,6 +2036,9 @@
   </data>
   <data name="OAuth_Key" xml:space="preserve">
     <value>Klucz</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>Obiekty</value>
   </data>
   <data name="Object_Path" xml:space="preserve">
     <value>Ścieżka i nazwa obiektu</value>
@@ -1827,11 +2091,35 @@
   <data name="OverridesMap" xml:space="preserve">
     <value>Zastępuje mapie globalnej ustawień dla tego jednego regionu</value>
   </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>Właściciel okolicznych regionów</value>
+  </data>
   <data name="Owner_God" xml:space="preserve">
     <value>Właściciel Bóg</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>Imię właściciela</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>Dłoń 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>Dłoń 1</value>
+  </data>
   <data name="Parcels" xml:space="preserve">
     <value>paczki</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>ParkingRegion</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>Region parkingowy</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>Parking Sim</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>Parking Sim</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
     <value>Przekazywana LAN testująca</value>
@@ -1847,6 +2135,9 @@
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>Instrukcja PDF</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>W oczekiwaniu</value>
   </data>
   <data name="people_are_in" xml:space="preserve">
     <value>ludzie są w</value>
@@ -1869,6 +2160,27 @@
   <data name="picfilter" xml:space="preserve">
     <value>PNG (* .png, * png.) | * .Png; | Wszystkie pliki (*. *) | *. *</value>
   </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>Sosna 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>Sosna 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>Sosna 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>Sosna 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>Sosna 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>Rośliny</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Poczekaj, aż Robust całkowicie się uruchomi. Może to zająć kilka minut.</value>
+  </data>
   <data name="Please_enter" xml:space="preserve">
     <value>Proszę podać poprawną nazwę DNS, takich jak „name.outworldz.net”, lub założyć jeden na http://www.noip.com</value>
   </data>
@@ -1877,6 +2189,9 @@
   </data>
   <data name="Please_type" xml:space="preserve">
     <value>Proszę wpisać siatki Instrukcja nazwę awatara w Solidne okna. Naciśnij &lt;Enter&gt; na UUID i nazwy modelu. Następnie nacisnąć ten przycisk OK</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>Plumeria</value>
   </data>
   <data name="Polish" xml:space="preserve">
     <value>Polskie</value>
@@ -1898,6 +2213,9 @@
   </data>
   <data name="Port_Forwarding_Help" xml:space="preserve">
     <value>Port Forwarding Pomoc</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>potencjalne zachodzące na siebie regiony</value>
   </data>
   <data name="Preview_in_Browser" xml:space="preserve">
     <value>Podgląd w przeglądarce</value>
@@ -1938,6 +2256,12 @@
   <data name="Publish_Items" xml:space="preserve">
     <value>Publikowanie elementów oznaczonych poszukiwaniu</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>Ilość</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>Rezygnacja</value>
+  </data>
   <data name="Quit_Message0" xml:space="preserve">
     <value>System i inne applictions nie zostały naruszone. Raport został stworzony, które można wysłać do Outworldz, LLC, aby zidentyfikować ten problem.</value>
   </data>
@@ -1950,8 +2274,14 @@
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>nieoczekiwanie zamknięty.</value>
   </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>RADIUS</value>
+  </data>
   <data name="RAM_Word" xml:space="preserve">
     <value>Baran</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>Losowy teren</value>
   </data>
   <data name="Reading_Region_files" xml:space="preserve">
     <value>Pliki Reading Region</value>
@@ -1965,6 +2295,12 @@
   <data name="Recycle1" xml:space="preserve">
     <value>Recykling</value>
   </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>Recykling w dół</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>Recykling w górę</value>
+  </data>
   <data name="RefreshingIAR" xml:space="preserve">
     <value>Odświeżanie bezpłatny Zawartość (IAR)</value>
   </data>
@@ -1974,11 +2310,20 @@
   <data name="Refresh_word" xml:space="preserve">
     <value>Odświeżać</value>
   </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
   <data name="Regen_Map" xml:space="preserve">
     <value>Jeśli usuniesz wszystkie mapy, trzeba regenerować map przez ponowne uruchomienie z ustawieniem mapy</value>
   </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>Region Maker</value>
+  </data>
   <data name="Regions_Are_Running" xml:space="preserve">
     <value>regiony są nadal działa</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>Usunięto regiony</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>regiony</value>
@@ -2064,6 +2409,9 @@
   <data name="Reload" xml:space="preserve">
     <value>Odśwież siatkę</value>
   </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>Przypomnij mi później</value>
+  </data>
   <data name="Remote_Admin_word" xml:space="preserve">
     <value>RemoteAdmin</value>
   </data>
@@ -2087,6 +2435,9 @@
   </data>
   <data name="resolved" xml:space="preserve">
     <value>zdecydowany</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>Ponownie uruchamiam teraz</value>
   </data>
   <data name="Restarting_word" xml:space="preserve">
     <value>Ponowne uruchomienie</value>
@@ -2148,6 +2499,9 @@
   <data name="Resuming_word" xml:space="preserve">
     <value>wznawianie</value>
   </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Odwracać</value>
+  </data>
   <data name="Revision_History_word" xml:space="preserve">
     <value>Historia zmian</value>
   </data>
@@ -2169,6 +2523,12 @@
   <data name="Row" xml:space="preserve">
     <value>Kliknij włączoną wiersz włączenie lub wyłączenie regionu. Kliknij niepełnosprawnego wiersz edytować region.</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>Kliknij wiersz, aby kontrolować region. Zaznacz pole, aby włączyć/wyłączyć.</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>Jeśli nie użyto opcji uruchomienia jako usługi powyżej:</value>
+  </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>Uruchamianie jako region Server</value>
   </data>
@@ -2189,6 +2549,9 @@
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>Tryb piaskownicy</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>Zapisz teren</value>
   </data>
   <data name="Save_All_Regions" xml:space="preserve">
     <value>Zapisz wszystkie uruchomione Regions do wioseł</value>
@@ -2250,6 +2613,21 @@
   <data name="Search_grids" xml:space="preserve">
     <value>Szukaj Grids (www)</value>
   </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>Szukaj</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>Miecz Morski</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>sekundy</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>Jak długo działający region będzie się utrzymywał po odejściu awatara</value>
+  </data>
+  <data name="Seconds_word" xml:space="preserve">
+    <value>s</value>
+  </data>
   <data name="Secret_word" xml:space="preserve">
     <value>Sekret</value>
   </data>
@@ -2267,6 +2645,9 @@
   </data>
   <data name="Select_word" xml:space="preserve">
     <value>Wybierz</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>Wyślij alert</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Wyślij komunikat ostrzegawczy</value>
@@ -2310,6 +2691,9 @@
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>Porty konfiguracji</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>Konfiguracja bazy danych wyszukiwania</value>
+  </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>Kliknij, aby skonfigurować Warunki korzystania z usługi</value>
   </data>
@@ -2324,6 +2708,9 @@
   </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>Set Debug Level</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>Możesz je przekazać innej osobie. Domyślnie jest to właściciel nieruchomości.</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
     <value>Set Owner</value>
@@ -2376,11 +2763,17 @@
   <data name="Small_Map" xml:space="preserve">
     <value>mapa mały Metro</value>
   </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>Ustawienie Smart Start (kod alfa)</value>
+  </data>
   <data name="Smart_Start_Enable_word" xml:space="preserve">
     <value>Smart Start Enable</value>
   </data>
   <data name="Smart_Start_word" xml:space="preserve">
     <value>Smart start</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>Gładki</value>
   </data>
   <data name="SMTP" xml:space="preserve">
     <value>SMTP Account Wyślij e-maila</value>
@@ -2406,6 +2799,15 @@
   <data name="Spanish" xml:space="preserve">
     <value>hiszpański</value>
   </data>
+  <data name="Spanish_Mexico" xml:space="preserve">
+    <value>Hiszpański (Meksyk)</value>
+  </data>
+  <data name="Spanish_Spain" xml:space="preserve">
+    <value>Hiszpański (Hiszpania)</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>Mówić</value>
+  </data>
   <data name="Splash" xml:space="preserve">
     <value>Przeglądarka Splash URL ekranu:</value>
   </data>
@@ -2415,8 +2817,23 @@
   <data name="SQL_Database_Backup_Restore" xml:space="preserve">
     <value>SQL Database Backup / Restore</value>
   </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>Wyłączanie w kilka sekund</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>Smart Start (kod alfa) w Ustawienia-&gt; Smart Start jest wyłączony.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>Kod Smart Start (Alpha) w Ustawienia-&gt; Smart Start jest włączony.</value>
+  </data>
   <data name="StartAll" xml:space="preserve">
     <value>Zacznij wszystkich sprawdzonych regionów</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>Lokalizacja początkowa?</value>
+  </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>zaczynasz jako Avatar jest w pobliżu</value>
   </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
     <value>Uruchamianie diagnostyczne Port Webserver</value>
@@ -2435,6 +2852,9 @@
   </data>
   <data name="StartSequentially" xml:space="preserve">
     <value>Rozpocznij Regiony Kolejno</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>Rozmiar początkowy XYZ</value>
   </data>
   <data name="StartUPNP" xml:space="preserve">
     <value>Uruchomienie centrali</value>
@@ -2487,6 +2907,9 @@
   <data name="Suitcase_enable" xml:space="preserve">
     <value>Włącz Inventory Suitcase</value>
   </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>Zawieszony</value>
+  </data>
   <data name="Suspending_word" xml:space="preserve">
     <value>zawieszanie</value>
   </data>
@@ -2502,8 +2925,14 @@
   <data name="Take_time" xml:space="preserve">
     <value>Może to zająć trochę czasu, aby obciążenia</value>
   </data>
+  <data name="Taper" xml:space="preserve">
+    <value>Stożek</value>
+  </data>
   <data name="TechInfo" xml:space="preserve">
     <value>Specyfikacja</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>Teleportuj API</value>
   </data>
   <data name="Teleporter_Enable_word" xml:space="preserve">
     <value>Włącz teleporter</value>
@@ -2517,6 +2946,9 @@
   <data name="Teleport_word" xml:space="preserve">
     <value>teleport</value>
   </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>Użyj regionów tymczasowych</value>
+  </data>
   <data name="Terms_of_Service" xml:space="preserve">
     <value>Warunki usługi</value>
   </data>
@@ -2528,6 +2960,9 @@
   </data>
   <data name="Theme_Black" xml:space="preserve">
     <value>Motyw zestaw do czerni</value>
+  </data>
+  <data name="Theme_Custom" xml:space="preserve">
+    <value>Motyw ustawiony na Niestandardowy</value>
   </data>
   <data name="Theme_White" xml:space="preserve">
     <value>Motyw zestaw do Białej</value>
@@ -2562,11 +2997,35 @@
   <data name="TOS" xml:space="preserve">
     <value>Moduł TOS pokazuje użytkownikom i / lub odwiedzających ten tekst HTML.</value>
   </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>Całkowita p&amp;owierzchnia:</value>
+  </data>
   <data name="Transfer_word" xml:space="preserve">
     <value>Transfer</value>
   </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine Low</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Utwórz drzewa jako pliki XML</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>Drzewa i rośliny</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>Tropikalny krzew 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>Tropikalny krzew 2</value>
+  </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>Rozwiązywanie problemów</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>Prawdziwe</value>
   </data>
   <data name="tt_Apache_Enable" xml:space="preserve">
     <value>Włącza serwer WWW Apache, aby działać jako usługa.</value>
@@ -2643,6 +3102,9 @@
   <data name="UnassignedPerson" xml:space="preserve">
     <value>Wpisz nazwę pierwszy i ostatni osoby, która będzie posiadał żadnych nieprzypisanych obiektów</value>
   </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Bez zmian</value>
+  </data>
   <data name="Unrecognized" xml:space="preserve">
     <value>Nierozpoznany typ pliku</value>
   </data>
@@ -2697,6 +3159,9 @@
   <data name="Version_word" xml:space="preserve">
     <value>Wersja</value>
   </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>Wyświetl wszystkie mapy</value>
+  </data>
   <data name="Viewer_Cache_text" xml:space="preserve">
     <value>Ustawienie domyślne: Enabled. Użytkowników może zmniejszyć przepustowość widza jeśli niektóre Prims lub części terenu nie rez. Zmiana na false, jeśli chcesz używać starych widzów, które nie obsługują tej funkcji</value>
   </data>
@@ -2712,6 +3177,9 @@
   <data name="ViewJoomla_word" xml:space="preserve">
     <value>Widok</value>
   </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>Wyświetl folder terenu</value>
+  </data>
   <data name="View_as_Icons" xml:space="preserve">
     <value>Zobacz jako ikony</value>
   </data>
@@ -2720,6 +3188,9 @@
   </data>
   <data name="View_Details" xml:space="preserve">
     <value>Zobacz Region Szczegóły</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>Wyświetl folder</value>
   </data>
   <data name="View_Icecast" xml:space="preserve">
     <value>Zobacz Icecast Web Page</value>
@@ -2763,14 +3234,23 @@
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>Ustawienia głosowe</value>
   </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Czekanie</value>
+  </data>
   <data name="Waiting_on_Robust" xml:space="preserve">
     <value>Oczekiwanie na Mocna zacząć</value>
   </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>Oczekiwanie na wszystkich regionach, aby wyjść</value>
   </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>Poczekaj na skrypty</value>
+  </data>
   <data name="Warn_word" xml:space="preserve">
     <value>Ostrzec</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>woda</value>
   </data>
   <data name="Web" xml:space="preserve">
     <value>Panel sterowania Web</value>
@@ -2790,11 +3270,20 @@
   <data name="Web_UI" xml:space="preserve">
     <value>Web UI pozwala dodać lub zobaczyć ustawienia dla każdego awatara.</value>
   </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>Jaka posiadłość?</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>Jaką nazwę posiadłości chcesz? Puste = musisz wprowadzić to ponad 150 razy!</value>
+  </data>
   <data name="What_2_say_To_all" xml:space="preserve">
     <value>Co chcesz powiedzieć wszystkim na linii?</value>
   </data>
   <data name="What_to_say_2_region" xml:space="preserve">
     <value>Co chcesz powiedzieć do tego regionu?</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>Gdzie zacząć? (Regiony rosną w prawo i do góry)</value>
   </data>
   <data name="Which_Channel" xml:space="preserve">
     <value>Który kanał ma ptaków słuchać poleceń w-świecie. Liczby ujemne nie mogą być wykorzystane przez ludzi</value>
@@ -2816,6 +3305,24 @@
   </data>
   <data name="Window_Word" xml:space="preserve">
     <value>Okno</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>Winter Aspen</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>Winter Aspen</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>Sosna Zimowa 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>Sosna Zimowa 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>Sosna Zimowa 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>Sosna Zimowa 2</value>
   </data>
   <data name="WordPress_Word" xml:space="preserve">
     <value>WordPress</value>
@@ -2852,512 +3359,5 @@
   </data>
   <data name="_0" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="Theme_Custom" xml:space="preserve">
-    <value>Motyw ustawiony na Niestandardowy</value>
-  </data>
-  <data name="Arabic_Saudi" xml:space="preserve">
-    <value>Arabski (Saudyjski)</value>
-  </data>
-  <data name="Farsi" xml:space="preserve">
-    <value>Farsi (Iran)</value>
-  </data>
-  <data name="Brazilian" xml:space="preserve">
-    <value>Brazylijski (Portguese)</value>
-  </data>
-  <data name="Khazak" xml:space="preserve">
-    <value>Khazakistan</value>
-  </data>
-  <data name="Spanish_Mexico" xml:space="preserve">
-    <value>Hiszpański (Meksyk)</value>
-  </data>
-  <data name="Spanish_Spain" xml:space="preserve">
-    <value>Hiszpański (Hiszpania)</value>
-  </data>
-  <data name="Seconds_word" xml:space="preserve">
-    <value>s</value>
-  </data>
-  <data name="Pending_word" xml:space="preserve">
-    <value>W oczekiwaniu</value>
-  </data>
-  <data name="Suspended_word" xml:space="preserve">
-    <value>Zawieszony</value>
-  </data>
-  <data name="NoLogin_word" xml:space="preserve">
-    <value>Brak logowania</value>
-  </data>
-  <data name="Waiting" xml:space="preserve">
-    <value>Czekanie</value>
-  </data>
-  <data name="Restarting_Now_word" xml:space="preserve">
-    <value>Ponownie uruchamiam teraz</value>
-  </data>
-  <data name="Quitting_word" xml:space="preserve">
-    <value>Rezygnacja</value>
-  </data>
-  <data name="Booting_word" xml:space="preserve">
-    <value>Uruchamianie</value>
-  </data>
-  <data name="SSDelay" xml:space="preserve">
-    <value>Wyłączanie w kilka sekund</value>
-  </data>
-  <data name="Recycling_Up_word" xml:space="preserve">
-    <value>Recykling w górę</value>
-  </data>
-  <data name="ViewAllMaps" xml:space="preserve">
-    <value>Wyświetl wszystkie mapy</value>
-  </data>
-  <data name="Wait_For_scripts" xml:space="preserve">
-    <value>Poczekaj na skrypty</value>
-  </data>
-  <data name="SecondsTips" xml:space="preserve">
-    <value>Jak długo działający region będzie się utrzymywał po odejściu awatara</value>
-  </data>
-  <data name="Home_Stopped" xml:space="preserve">
-    <value>Strona główna zatrzymana</value>
-  </data>
-  <data name="Recycling_Down_word" xml:space="preserve">
-    <value>Recykling w dół</value>
-  </data>
-  <data name="BadCoordinates" xml:space="preserve">
-    <value>Złe współrzędne</value>
-  </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>Uwaga! Spowoduje to załadowanie 150+ OARS i regionów do twojego systemu. To zajmie dużo czasu.</value>
-  </data>
-  <data name="Caution_word" xml:space="preserve">
-    <value>Uwaga!</value>
-  </data>
-  <data name="Diskspacelow" xml:space="preserve">
-    <value>Miejsce na dysku jest krytycznie małe, pozostało mniej niż 50 MB! Wszystkie regiony są zamrożone. Zwolnij miejsce na dysku, a regiony ulegną rozmrożeniu.</value>
-  </data>
-  <data name="EnterEstateName" xml:space="preserve">
-    <value>Ustaw nazwę Estate w polu DOS.</value>
-  </data>
-  <data name="Loaded_word" xml:space="preserve">
-    <value>załadowany.</value>
-  </data>
-  <data name="LoadFreeOars" xml:space="preserve">
-    <value>Załaduj wszystkie wolne wiosła</value>
-  </data>
-  <data name="SmartStartEnable" xml:space="preserve">
-    <value>Ustawienie Smart Start (kod alfa)</value>
-  </data>
-  <data name="SSisDisabled" xml:space="preserve">
-    <value>Smart Start (kod alfa) w Ustawienia-&gt; Smart Start jest wyłączony.</value>
-  </data>
-  <data name="SSisEnabled" xml:space="preserve">
-    <value>Kod Smart Start (Alpha) w Ustawienia-&gt; Smart Start jest włączony.</value>
-  </data>
-  <data name="StartingLocation" xml:space="preserve">
-    <value>Lokalizacja początkowa?</value>
-  </data>
-  <data name="WhatEstate" xml:space="preserve">
-    <value>Jaka posiadłość?</value>
-  </data>
-  <data name="WhatEstateName" xml:space="preserve">
-    <value>Jaką nazwę posiadłości chcesz? Puste = musisz wprowadzić to ponad 150 razy!</value>
-  </data>
-  <data name="WheretoStart" xml:space="preserve">
-    <value>Gdzie zacząć? (Regiony rosną w prawo i do góry)</value>
-  </data>
-  <data name="Available" xml:space="preserve">
-    <value>Dostępny</value>
-  </data>
-  <data name="Clear_objects_tooltip" xml:space="preserve">
-    <value>Czyści wszystkie obiekty we wszystkich polach i ładuje OAR</value>
-  </data>
-  <data name="Clear_Terrain_tooltip" xml:space="preserve">
-    <value>Nie nadpisuj terenu istniejącego regionu.</value>
-  </data>
-  <data name="IgnoreParcels_tooltip" xml:space="preserve">
-    <value>Zignoruj nowe dane działki.</value>
-  </data>
-  <data name="Load_Terrain_tooltip" xml:space="preserve">
-    <value>Wymuś włączenie ładowania terenu - merge. Zwykle --merge nie zastępuje terenu istniejącego regionu.</value>
-  </data>
-  <data name="MergeParcels_tooltip" xml:space="preserve">
-    <value>Nadpisz dane działek w istniejącym regionie.</value>
-  </data>
-  <data name="Merge_objectstooltip" xml:space="preserve">
-    <value>Łączy wiosło, nie usuwając żadnych obiektów</value>
-  </data>
-  <data name="Objects_word" xml:space="preserve">
-    <value>Obiekty</value>
-  </data>
-  <data name="Set_Owner_tooltip" xml:space="preserve">
-    <value>Możesz je przekazać innej osobie. Domyślnie jest to właściciel nieruchomości.</value>
-  </data>
-  <data name="Erase_all" xml:space="preserve">
-    <value>Spowoduje to wymazanie CAŁEJ karty SIM i załadowanie nowej karty SIM. Jesteś pewny?</value>
-  </data>
-  <data name="checking_word" xml:space="preserve">
-    <value>kontrola</value>
-  </data>
-  <data name="No_Overlaps" xml:space="preserve">
-    <value>Brak pokrywających się regionów</value>
-  </data>
-  <data name="potential_overlap" xml:space="preserve">
-    <value>potencjalne zachodzące na siebie regiony</value>
-  </data>
-  <data name="AutoFill" xml:space="preserve">
-    <value>Bezkresna kraina i morze</value>
-  </data>
-  <data name="False_word" xml:space="preserve">
-    <value>Fałszywe</value>
-  </data>
-  <data name="Trees" xml:space="preserve">
-    <value>Utwórz drzewa jako pliki XML</value>
-  </data>
-  <data name="True_word" xml:space="preserve">
-    <value>Prawdziwe</value>
-  </data>
-  <data name="ExportAllMaps" xml:space="preserve">
-    <value>Eksportuj wszystkie mapy</value>
-  </data>
-  <data name="LandMaker" xml:space="preserve">
-    <value>Land Maker</value>
-  </data>
-  <data name="Landscaping" xml:space="preserve">
-    <value>Architektura krajobrazu</value>
-  </data>
-  <data name="DeletebyAge" xml:space="preserve">
-    <value>Usuń według wieku</value>
-  </data>
-  <data name="KeepAlways" xml:space="preserve">
-    <value>Zachowaj zawsze</value>
-  </data>
-  <data name="AnalyzeLogButton" xml:space="preserve">
-    <value>Analizuj dziennik</value>
-  </data>
-  <data name="TreesAndPlants" xml:space="preserve">
-    <value>Drzewa i rośliny</value>
-  </data>
-  <data name="Quantity_word" xml:space="preserve">
-    <value>Ilość</value>
-  </data>
-  <data name="Radius_Word" xml:space="preserve">
-    <value>RADIUS</value>
-  </data>
-  <data name="Level_word" xml:space="preserve">
-    <value>Poziom</value>
-  </data>
-  <data name="Age" xml:space="preserve">
-    <value>Wiek</value>
-  </data>
-  <data name="Birthday_word" xml:space="preserve">
-    <value>Urodziny</value>
-  </data>
-  <data name="PleaseWait" xml:space="preserve">
-    <value>Poczekaj, aż Robust całkowicie się uruchomi. Może to zająć kilka minut.</value>
-  </data>
-  <data name="Owner_Name" xml:space="preserve">
-    <value>Imię właściciela</value>
-  </data>
-  <data name="DNSAltWords" xml:space="preserve">
-    <value>Alternatywna nazwa do użytku przez Apache lub Jopensim</value>
-  </data>
-  <data name="Apply" xml:space="preserve">
-    <value>Zastosować</value>
-  </data>
-  <data name="None1" xml:space="preserve">
-    <value>Żaden</value>
-  </data>
-  <data name="Arriving_word" xml:space="preserve">
-    <value>przyjazd</value>
-  </data>
-  <data name="Avatars_are_in" xml:space="preserve">
-    <value>Awatary wciąż są dostępne</value>
-  </data>
-  <data name="Bakeword" xml:space="preserve">
-    <value>Piec</value>
-  </data>
-  <data name="BeachGrass" xml:space="preserve">
-    <value>Trawa plażowa</value>
-  </data>
-  <data name="BeachGrass1" xml:space="preserve">
-    <value>BeachGrass 1</value>
-  </data>
-  <data name="BulkLoad" xml:space="preserve">
-    <value>Regiony ładowania zbiorczego</value>
-  </data>
-  <data name="Cypress1" xml:space="preserve">
-    <value>Cyprys 1</value>
-  </data>
-  <data name="Cypress2" xml:space="preserve">
-    <value>Cyprys 2</value>
-  </data>
-  <data name="Cypress_1" xml:space="preserve">
-    <value>Cyprys 1</value>
-  </data>
-  <data name="Cypress_2" xml:space="preserve">
-    <value>Cyprys 2</value>
-  </data>
-  <data name="DelayBeforeExit" xml:space="preserve">
-    <value>Sekundy przed czekaniem</value>
-  </data>
-  <data name="Delete_All" xml:space="preserve">
-    <value>Usuń wszystko</value>
-  </data>
-  <data name="Delete_and_then_Apply" xml:space="preserve">
-    <value>Usuń, a następnie Zastosuj</value>
-  </data>
-  <data name="Dogwood" xml:space="preserve">
-    <value>Dereń</value>
-  </data>
-  <data name="EditorWord" xml:space="preserve">
-    <value>Redaktor</value>
-  </data>
-  <data name="Eelgrass" xml:space="preserve">
-    <value>Eelgrass</value>
-  </data>
-  <data name="EndSizeXYZ" xml:space="preserve">
-    <value>Rozmiar końcowy XYZ</value>
-  </data>
-  <data name="Eucalyptus" xml:space="preserve">
-    <value>Eukaliptus</value>
-  </data>
-  <data name="Fern" xml:space="preserve">
-    <value>Paproć</value>
-  </data>
-  <data name="FillSizeLabel" xml:space="preserve">
-    <value>Rozmiar wypełnienia w regionach</value>
-  </data>
-  <data name="Flat" xml:space="preserve">
-    <value>Mieszkanie</value>
-  </data>
-  <data name="Generated_word" xml:space="preserve">
-    <value>Wygenerowano</value>
-  </data>
-  <data name="Height" xml:space="preserve">
-    <value>Wysokość</value>
-  </data>
-  <data name="HelpLandcaping" xml:space="preserve">
-    <value>Pomoc w kształtowaniu krajobrazu</value>
-  </data>
-  <data name="HelpPlantEditor" xml:space="preserve">
-    <value>Help Plant Editor</value>
-  </data>
-  <data name="HelpSmartStart" xml:space="preserve">
-    <value>Pomóż Smart Start</value>
-  </data>
-  <data name="HelpTerrains" xml:space="preserve">
-    <value>Tereny pomocy</value>
-  </data>
-  <data name="JustOptions" xml:space="preserve">
-    <value>Tylko opcje</value>
-  </data>
-  <data name="Kelp1" xml:space="preserve">
-    <value>Wodorosty 1</value>
-  </data>
-  <data name="Kelp2" xml:space="preserve">
-    <value>Wodorosty 2</value>
-  </data>
-  <data name="leaving_word" xml:space="preserve">
-    <value>odejście</value>
-  </data>
-  <data name="LoadTerrain" xml:space="preserve">
-    <value>LoadTerrain</value>
-  </data>
-  <data name="Noise" xml:space="preserve">
-    <value>Hałas</value>
-  </data>
-  <data name="Oak" xml:space="preserve">
-    <value>Dąb</value>
-  </data>
-  <data name="OwnerOfRegions" xml:space="preserve">
-    <value>Właściciel okolicznych regionów</value>
-  </data>
-  <data name="Palm1" xml:space="preserve">
-    <value>Dłoń 1</value>
-  </data>
-  <data name="Palm11" xml:space="preserve">
-    <value>Dłoń 1</value>
-  </data>
-  <data name="ParkingRegion" xml:space="preserve">
-    <value>ParkingRegion</value>
-  </data>
-  <data name="Parking_Spot" xml:space="preserve">
-    <value>Parking Sim</value>
-  </data>
-  <data name="Parking_Spot1" xml:space="preserve">
-    <value>Parking Sim</value>
-  </data>
-  <data name="Pine1" xml:space="preserve">
-    <value>Sosna 1</value>
-  </data>
-  <data name="Pine11" xml:space="preserve">
-    <value>Sosna 1</value>
-  </data>
-  <data name="Pine2" xml:space="preserve">
-    <value>Sosna 2</value>
-  </data>
-  <data name="Pine21" xml:space="preserve">
-    <value>Sosna 2</value>
-  </data>
-  <data name="Pine22" xml:space="preserve">
-    <value>Sosna 2</value>
-  </data>
-  <data name="Plants" xml:space="preserve">
-    <value>Rośliny</value>
-  </data>
-  <data name="Plumeria" xml:space="preserve">
-    <value>Plumeria</value>
-  </data>
-  <data name="RandomTerrain" xml:space="preserve">
-    <value>Losowy teren</value>
-  </data>
-  <data name="RegenTerrains" xml:space="preserve">
-    <value>Regen Terrains</value>
-  </data>
-  <data name="RegionMaker" xml:space="preserve">
-    <value>Region Maker</value>
-  </data>
-  <data name="Revert" xml:space="preserve">
-    <value>Odwracać</value>
-  </data>
-  <data name="SaveTerrain" xml:space="preserve">
-    <value>Zapisz teren</value>
-  </data>
-  <data name="SeaSword" xml:space="preserve">
-    <value>Miecz Morski</value>
-  </data>
-  <data name="Seconds" xml:space="preserve">
-    <value>sekundy</value>
-  </data>
-  <data name="Smooth" xml:space="preserve">
-    <value>Gładki</value>
-  </data>
-  <data name="StartSizeXYZ" xml:space="preserve">
-    <value>Rozmiar początkowy XYZ</value>
-  </data>
-  <data name="Taper" xml:space="preserve">
-    <value>Stożek</value>
-  </data>
-  <data name="Temporary_Regions" xml:space="preserve">
-    <value>Użyj regionów tymczasowych</value>
-  </data>
-  <data name="TreelineHigh" xml:space="preserve">
-    <value>Treeline High</value>
-  </data>
-  <data name="TreeLineLow" xml:space="preserve">
-    <value>TreeLine Low</value>
-  </data>
-  <data name="TropicalBush1" xml:space="preserve">
-    <value>Tropikalny krzew 1</value>
-  </data>
-  <data name="TropicalBush2" xml:space="preserve">
-    <value>Tropikalny krzew 2</value>
-  </data>
-  <data name="ViewTerrainFolder" xml:space="preserve">
-    <value>Wyświetl folder terenu</value>
-  </data>
-  <data name="WaterWord" xml:space="preserve">
-    <value>woda</value>
-  </data>
-  <data name="WinterAspen" xml:space="preserve">
-    <value>Winter Aspen</value>
-  </data>
-  <data name="WinterAspen1" xml:space="preserve">
-    <value>Winter Aspen</value>
-  </data>
-  <data name="WinterPine1" xml:space="preserve">
-    <value>Sosna Zimowa 1</value>
-  </data>
-  <data name="WinterPine11" xml:space="preserve">
-    <value>Sosna Zimowa 1</value>
-  </data>
-  <data name="WinterPine2" xml:space="preserve">
-    <value>Sosna Zimowa 2</value>
-  </data>
-  <data name="WinterPine21" xml:space="preserve">
-    <value>Sosna Zimowa 2</value>
-  </data>
-  <data name="RunasaService_word" xml:space="preserve">
-    <value>Jeśli nie użyto opcji uruchomienia jako usługi powyżej:</value>
-  </data>
-  <data name="ParkingRegion1" xml:space="preserve">
-    <value>Region parkingowy</value>
-  </data>
-  <data name="MySQLDidNotStop" xml:space="preserve">
-    <value>MySQL nie zatrzymał się, gdy nakazano mu się zatrzymać</value>
-  </data>
-  <data name="No_Estate_Word" xml:space="preserve">
-    <value>Brak majątku</value>
-  </data>
-  <data name="isBooting" xml:space="preserve">
-    <value>nadal się uruchamia</value>
-  </data>
-  <data name="TotalArea_word" xml:space="preserve">
-    <value>Całkowita p&amp;owierzchnia:</value>
-  </data>
-  <data name="Row_note" xml:space="preserve">
-    <value>Kliknij wiersz, aby kontrolować region. Zaznacz pole, aby włączyć/wyłączyć.</value>
-  </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>Szukaj</value>
-  </data>
-  <data name="DelayAfterRegionReady" xml:space="preserve">
-    <value>Opóźnienie gotowości regionu</value>
-  </data>
-  <data name="minkeepalive" xml:space="preserve">
-    <value>Minimalny czas to 0 sekund. Wartość domyślna to 60 sekund.</value>
-  </data>
-  <data name="StartingNearby" xml:space="preserve">
-    <value>zaczynasz jako Avatar jest w pobliżu</value>
-  </data>
-  <data name="DoNotShowAgain" xml:space="preserve">
-    <value>Nie pokazuj ponownie</value>
-  </data>
-  <data name="InstallNow" xml:space="preserve">
-    <value>Zainstaluj teraz</value>
-  </data>
-  <data name="RemindMeLater" xml:space="preserve">
-    <value>Przypomnij mi później</value>
-  </data>
-  <data name="Hours" xml:space="preserve">
-    <value>godziny</value>
-  </data>
-  <data name="Minutes" xml:space="preserve">
-    <value>Minuty</value>
-  </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>Konfiguracja bazy danych wyszukiwania</value>
-  </data>
-  <data name="View_Folder" xml:space="preserve">
-    <value>Wyświetl folder</value>
-  </data>
-  <data name="arrivals" xml:space="preserve">
-    <value>Przyjazdy do wyłączonych simów są przekierowywane do</value>
-  </data>
-  <data name="DeleteSims" xml:space="preserve">
-    <value>*** Spowoduje to usunięcie wszystkich regionów w posiadłości „SimSurround”!</value>
-  </data>
-  <data name="Min_time" xml:space="preserve">
-    <value>Minimalny czas to 0 sekund. Wartość domyślna to 15 sekund.</value>
-  </data>
-  <data name="Regions_Deleted" xml:space="preserve">
-    <value>Usunięto regiony</value>
-  </data>
-  <data name="HelloToSpeech" xml:space="preserve">
-    <value>Witam w tym teście aplikacji tekstowej na mowę. Rozejrzyj się i zbadaj swoją siatkę.</value>
-  </data>
-  <data name="Speak" xml:space="preserve">
-    <value>Mówić</value>
-  </data>
-  <data name="Minute" xml:space="preserve">
-    <value>Minuta</value>
-  </data>
-  <data name="Send_alert" xml:space="preserve">
-    <value>Wyślij alert</value>
-  </data>
-  <data name="TeleportAPI" xml:space="preserve">
-    <value>Teleportuj API</value>
-  </data>
-  <data name="Unchanged" xml:space="preserve">
-    <value>Bez zmian</value>
-  </data>
-  <data name="Finished_word" xml:space="preserve">
-    <value>Zakończono</value>
   </data>
 </root>
