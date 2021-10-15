@@ -134,18 +134,21 @@ Module Clear_Cache
         If Not PropOpensimIsRunning() Or now Then
             Dim ctr As Integer = 0
             Dim folders() = Nothing
-            If Directory.Exists(Settings.OpensimBinPath & "ScriptEngines\") Then
-                folders = Directory.GetFiles(Settings.OpensimBinPath & "ScriptEngines\", "*", SearchOption.AllDirectories)
+            Dim src As String = Path.Combine(Settings.OpensimBinPath, "ScriptEngines")
+            If Directory.Exists(src) Then
+                folders = IO.Directory.GetFiles(src, "*", SearchOption.AllDirectories)
                 If folders IsNot Nothing Then
                     TextPrint(My.Resources.Clearing_Script)
 
                     For Each script As String In folders
+                        If script.EndsWith("Yengine", StringComparison.InvariantCultureIgnoreCase) Then Continue For
+
                         Dim ext = Path.GetExtension(script)
+
                         If ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".STATE" And ext.ToUpper(Globalization.CultureInfo.InvariantCulture) <> ".KEEP" Then
                             DeleteFile(script)
                             ctr += 1
                             If ctr Mod 100 = 0 Then TextPrint(My.Resources.Updated_word & " " & CStr(ctr) & " scripts")
-
                             Application.DoEvents()
                         End If
                     Next

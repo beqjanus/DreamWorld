@@ -42,7 +42,8 @@ Module FileStuff
         Next
 
         Dim files As New List(Of String) From {
-        "\ReadMe",
+         "\ReadMe",
+        "\OutworldzFiles\Opensim\eZombie", ' never worked
         "\Shoutcast", ' deprecated
         "\Icecast",   ' moved to OutworldzFiles
         "\OutworldzFiles\Opensim\bin\addins",' moved to OutworldzFiles
