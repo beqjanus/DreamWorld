@@ -1745,30 +1745,27 @@ Public Class FormSetup
 
     Private Sub SetupPerl()
 
-        Dim Perl = "C:/Strawberry"
-        Dim exe = "msiexec.exe"
-        Dim path = $"/i {Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi /qn"
 
-        If Not IO.Directory.Exists(Perl) Then
+        Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
+
+        If Settings.VisitorsEnabled = False Then
             TextPrint(My.Resources.Setup_Perl)
             Using pPerl As New Process()
                 Dim pi = New ProcessStartInfo With {
-                        .Arguments = path,
-                        .FileName = exe
+                        .Arguments = "",
+                        .FileName = path
                     }
                 pPerl.StartInfo = pi
                 Try
                     pPerl.Start()
                     pPerl.WaitForExit()
                     Settings.VisitorsEnabled = True
+                    Settings.SaveSettings()
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
             End Using
-        Else
-            Settings.VisitorsEnabled = True
         End If
-
 
     End Sub
 
