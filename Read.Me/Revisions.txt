@@ -1,10 +1,15 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.71
+Changed Perl so it can be relocated off C drive.
+Clear Cache does not delete YEngine script cache, thus retaining YEngine state
+Fix Map.htm hover data point to show proper coordinates for each minute
+
 V4.7
 Fixes to Visitor Maps. Was not following people around.
 Remove remote admin message from Debug Menu.
-Moar Help.
+Moar! Help.
 Detect Mysql not shutting down and retry.
 Six more translations.
 
