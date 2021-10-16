@@ -31,7 +31,7 @@ Public Class FormMaps
 
 #Region "Private Methods"
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewMap.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles DelMapButton.Click
 
         TextPrint(My.Resources.Clearing_Map_tiles_word)
         Dim f As String = Settings.OpensimBinPath & "Maptiles\00000000-0000-0000-0000-000000000000"
@@ -131,7 +131,7 @@ Public Class FormMaps
         MapBetter.Text = Global.Outworldz.My.Resources.Better_Prims
         MapBox.Text = Global.Outworldz.My.Resources.Maps_word
         MapGood.Text = Global.Outworldz.My.Resources.Good_Warp3D_word
-        ViewMapButton.Text = Global.Outworldz.My.Resources.ViewAllMaps
+        ViewVisitorMapButton.Text = Global.Outworldz.My.Resources.ViewVisitorMaps
         K4Days.Text = Global.Outworldz.My.Resources.Keep_for_Days_word
         MapNone.Text = Global.Outworldz.My.Resources.None
         MapSimple.Text = Global.Outworldz.My.Resources.Simple_but_Fast_word
@@ -144,9 +144,9 @@ Public Class FormMaps
         ToolTip1.SetToolTip(MapXStart, Global.Outworldz.My.Resources.CenterMap)
         ToolTip1.SetToolTip(MapYStart, Global.Outworldz.My.Resources.CenterMap)
         ToolTip1.SetToolTip(RenderMaxH, Global.Outworldz.My.Resources.Max4096)
-        ToolTip1.SetToolTip(ViewMap, Global.Outworldz.My.Resources.Regen_Map)
-        ViewMap.Text = Global.Outworldz.My.Resources.DelMaps
-        VieweAllMaps.Text = Global.Outworldz.My.Resources.ViewVisitorMaps
+        ToolTip1.SetToolTip(DelMapButton, Global.Outworldz.My.Resources.Regen_Map)
+        DelMapButton.Text = Global.Outworldz.My.Resources.DelMaps
+        VieweAllMaps.Text = Global.Outworldz.My.Resources.ViewAllMaps
         ExportAllMaps.Text = Global.Outworldz.My.Resources.ExportAllMaps
 
         If Settings.MapType = "None" Then
@@ -195,9 +195,9 @@ Public Class FormMaps
         Days2KeepBox.Text = CStr(Settings.KeepVisits)
 
         If Settings.VisitorsEnabled Then
-            ViewMap.Visible = True
+            DelMapButton.Visible = True
         Else
-            ViewMap.Visible = False
+            DelMapButton.Visible = False
         End If
 
 
@@ -308,7 +308,7 @@ Public Class FormMaps
 
     End Sub
 
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewMapButton.Click
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewVisitorMapButton.Click
         Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
         Try
             Process.Start(webAddress)

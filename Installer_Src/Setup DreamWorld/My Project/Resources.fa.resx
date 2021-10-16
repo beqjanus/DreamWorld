@@ -144,6 +144,9 @@
   <data name="Admin_Web_Page_word" xml:space="preserve">
     <value>محیط مدیریت وب سایت صفحه</value>
   </data>
+  <data name="Age" xml:space="preserve">
+    <value>سن</value>
+  </data>
   <data name="Agents_word" xml:space="preserve">
     <value>عوامل</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="AlphaNum" xml:space="preserve">
     <value>آلفا عددی به علاوه علامت منفی و کاراکتر فاصله</value>
+  </data>
+  <data name="AnalyzeLogButton" xml:space="preserve">
+    <value>تجزیه و تحلیل ورود به سیستم</value>
   </data>
   <data name="Announce_visitors" xml:space="preserve">
     <value>اعلام آخرین بازدید</value>
@@ -231,14 +237,26 @@
   <data name="Appexception" xml:space="preserve">
     <value>یک استثنا برنامه رخ داده است. آیا شما می خواهید به تلاش برای ادامه یا لغو / خروج؟</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>درخواست دادن</value>
+  </data>
   <data name="Apply_word" xml:space="preserve">
     <value>درخواست دادن</value>
+  </data>
+  <data name="Arabic_Saudi" xml:space="preserve">
+    <value>عربی (سعودی)</value>
   </data>
   <data name="Are_You_Sure" xml:space="preserve">
     <value>مطمئنی؟ پایگاه داده شما از نسخه پشتیبان تهیه بارگذاری شده و تمام محتوای موجود جایگزین شده است. آواتار ها، سیمز، موجودی، همه چیز خواهد شد بیش از نوشته شده است.</value>
   </data>
   <data name="Are_you_Sure_Delete_Region" xml:space="preserve">
     <value>آیا شما مطمئن هستید که میخواهید حذف این منطقه؟</value>
+  </data>
+  <data name="arrivals" xml:space="preserve">
+    <value>ورود به سیم کارتهای خاموش به این قسمت هدایت می شود</value>
+  </data>
+  <data name="Arriving_word" xml:space="preserve">
+    <value>رسیدن</value>
   </data>
   <data name="Assets_as_Files_word" xml:space="preserve">
     <value>دارایی ها به عنوان فایل</value>
@@ -248,6 +266,9 @@
   </data>
   <data name="Autobackup_cannot_be_located" xml:space="preserve">
     <value>پوشه AutoBackup می نمی تواند واقع شود، به طوری که پوشه ای به مقدار پیشفرض بازنشانی بوده است.</value>
+  </data>
+  <data name="AutoFill" xml:space="preserve">
+    <value>زمین و دریا بی پایان</value>
   </data>
   <data name="Automatic_restart_word" xml:space="preserve">
     <value>راه اندازی مجدد به صورت خودکار</value>
@@ -269,6 +290,12 @@
   </data>
   <data name="Auto_Startup_word" xml:space="preserve">
     <value>راه اندازی به صورت خودکار</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>در دسترس</value>
+  </data>
+  <data name="Avatars_are_in" xml:space="preserve">
+    <value>آواتارها هنوز هم هستند</value>
   </data>
   <data name="Avatars_in_World" xml:space="preserve">
     <value>آواتار ها در جهان هستند! آیا شما واقعا مایل به ترک؟</value>
@@ -333,6 +360,12 @@
   <data name="Backup_word" xml:space="preserve">
     <value>پشتیبان گیری</value>
   </data>
+  <data name="BadCoordinates" xml:space="preserve">
+    <value>مختصات بد</value>
+  </data>
+  <data name="Bakeword" xml:space="preserve">
+    <value>پخت</value>
+  </data>
   <data name="BanList_string" xml:space="preserve">
     <value>برای راه اندازی شبکه، آدرس MAC و IP ممنوعیت کلیک کنید</value>
   </data>
@@ -344,6 +377,12 @@
   </data>
   <data name="Basque_word" xml:space="preserve">
     <value>باسک</value>
+  </data>
+  <data name="BeachGrass" xml:space="preserve">
+    <value>چمن ساحلی</value>
+  </data>
+  <data name="BeachGrass1" xml:space="preserve">
+    <value>BeachGrass 1</value>
   </data>
   <data name="Best_Prims" xml:space="preserve">
     <value>بهترین (Prims + مش، بسیار کند)</value>
@@ -366,8 +405,14 @@
   <data name="Bird_Settings_word" xml:space="preserve">
     <value>تنظیمات پرنده</value>
   </data>
+  <data name="Birthday_word" xml:space="preserve">
+    <value>روز تولد</value>
+  </data>
   <data name="Black_word" xml:space="preserve">
     <value>سیاه</value>
+  </data>
+  <data name="Booting_word" xml:space="preserve">
+    <value>راه اندازی</value>
   </data>
   <data name="Border_Size" xml:space="preserve">
     <value>اندازه مرز (به طور پیش فرض = 25.0)</value>
@@ -375,11 +420,17 @@
   <data name="BP" xml:space="preserve">
     <value>فیزیک گلوله در تاپیک جداگانه</value>
   </data>
+  <data name="Brazilian" xml:space="preserve">
+    <value>برزیلی (Portguese)</value>
+  </data>
   <data name="Broadcast_Tide_Chat" xml:space="preserve">
     <value>چت اطلاعات جزر و مد به منطقه تا اسکریپت می توانید با جزر و مد حرکت می کند؟</value>
   </data>
   <data name="Broadcast_Tide_Info" xml:space="preserve">
     <value>پخش جزر و مد اطلاعات</value>
+  </data>
+  <data name="BulkLoad" xml:space="preserve">
+    <value>مناطق بار فله</value>
   </data>
   <data name="Bullet_Physics_word" xml:space="preserve">
     <value>فیزیک گلوله</value>
@@ -441,6 +492,12 @@
   <data name="Category_word" xml:space="preserve">
     <value>دسته بندی</value>
   </data>
+  <data name="CautionOAR" xml:space="preserve">
+    <value>احتیاط! با این کار 150+ OARS و مناطق در سیستم شما بارگیری می شود. این مدت زمان زیادی طول خواهد کشید.</value>
+  </data>
+  <data name="Caution_word" xml:space="preserve">
+    <value>احتیاط!</value>
+  </data>
   <data name="CenterMap" xml:space="preserve">
     <value>مرکز نقشه مختصات</value>
   </data>
@@ -473,6 +530,9 @@
   </data>
   <data name="Checking_Router_word" xml:space="preserve">
     <value>چک کردن روتر</value>
+  </data>
+  <data name="checking_word" xml:space="preserve">
+    <value>چک کردن</value>
   </data>
   <data name="Check_and_Repair_Database_word" xml:space="preserve">
     <value>بررسی و تعمیر پایگاه</value>
@@ -543,8 +603,14 @@
   <data name="Clear_Cache_word" xml:space="preserve">
     <value>پاک کردن حافظه پنهان</value>
   </data>
+  <data name="Clear_objects_tooltip" xml:space="preserve">
+    <value>همه اشیا in را در همه مربع ها پاک می کند و OAR را بارگیری می کند</value>
+  </data>
   <data name="Clear_Selected_Caches_word" xml:space="preserve">
     <value>انبارهای روشن انتخاب</value>
+  </data>
+  <data name="Clear_Terrain_tooltip" xml:space="preserve">
+    <value>زمین منطقه موجود را دوباره نویسی نکنید.</value>
   </data>
   <data name="ClickStartStop" xml:space="preserve">
     <value>برای شروع یا توقف مقاوم کلیک کنید</value>
@@ -729,6 +795,18 @@
   <data name="Cycle_time_text" xml:space="preserve">
     <value>چه مدت در ثانیه برای یک زمان چرخه کامل است. کم&gt; بالا&gt; پایین</value>
   </data>
+  <data name="Cypress1" xml:space="preserve">
+    <value>سرو 1</value>
+  </data>
+  <data name="Cypress2" xml:space="preserve">
+    <value>سرو 2</value>
+  </data>
+  <data name="Cypress_1" xml:space="preserve">
+    <value>سرو 1</value>
+  </data>
+  <data name="Cypress_2" xml:space="preserve">
+    <value>سرو 2</value>
+  </data>
   <data name="Czech" xml:space="preserve">
     <value>کشور چک</value>
   </data>
@@ -777,11 +855,29 @@
   <data name="Default_Welcome" xml:space="preserve">
     <value>به طور پیش فرض 'خوش آمدید' منطقه در سیستم یافت نشد. ادامه هید؟</value>
   </data>
+  <data name="DelayAfterRegionReady" xml:space="preserve">
+    <value>تأخیر آماده منطقه</value>
+  </data>
+  <data name="DelayBeforeExit" xml:space="preserve">
+    <value>ثانیه قبل از انتظار</value>
+  </data>
+  <data name="DeletebyAge" xml:space="preserve">
+    <value>حذف براساس سن</value>
+  </data>
   <data name="Deleted_word" xml:space="preserve">
     <value>حذف شده</value>
   </data>
+  <data name="DeleteSims" xml:space="preserve">
+    <value>*** با این کار همه مناطق موجود در "SimSurround" املاک حذف می شود!</value>
+  </data>
   <data name="DeleteTmp_word" xml:space="preserve">
     <value>پوشه tmp حذف</value>
+  </data>
+  <data name="Delete_All" xml:space="preserve">
+    <value>حذف همه</value>
+  </data>
+  <data name="Delete_and_then_Apply" xml:space="preserve">
+    <value>حذف و سپس اعمال کنید</value>
   </data>
   <data name="Delete_word" xml:space="preserve">
     <value>حذف</value>
@@ -849,6 +945,9 @@
   <data name="Discard_Exit" xml:space="preserve">
     <value>دور انداختن تمام تغییرات و خروج؟</value>
   </data>
+  <data name="Diskspacelow" xml:space="preserve">
+    <value>فضای دیسک بسیار کم است و کمتر از 50 متر باقی مانده است! همه مناطق یخ زده است. لطفاً فضای دیسک را آزاد کنید و مناطق ذوب می شوند.</value>
+  </data>
   <data name="Diva_Panel_word" xml:space="preserve">
     <value>سردستهزنان خواننده اپرا پنل</value>
   </data>
@@ -858,11 +957,20 @@
   <data name="DNSAlt" xml:space="preserve">
     <value>نام جایگزین مانند www.outworldz.com در مقابل outworldz.com. می تواند یک نام شبکه های قدیمی شما را به continute مایل به استفاده از.</value>
   </data>
+  <data name="DNSAltWords" xml:space="preserve">
+    <value>نام جایگزین برای استفاده توسط Apache یا Jopensim</value>
+  </data>
   <data name="DNSNameText" xml:space="preserve">
     <value>نام DNS یا SomeName.Outworldz.net یا IP</value>
   </data>
   <data name="DNS_HG_Name" xml:space="preserve">
     <value>نام DNS و Hypergrid</value>
+  </data>
+  <data name="Dogwood" xml:space="preserve">
+    <value>چوب سگ</value>
+  </data>
+  <data name="DoNotShowAgain" xml:space="preserve">
+    <value>دوباره نشان نده</value>
   </data>
   <data name="DosBoxRunning" xml:space="preserve">
     <value>یک حمله انکار سرویس جعبه به نام مقاوم در حال اجرا است</value>
@@ -894,11 +1002,17 @@
   <data name="DynDNS_password_word" xml:space="preserve">
     <value>رمز عبور DynDNS به</value>
   </data>
+  <data name="EditorWord" xml:space="preserve">
+    <value>ویرایشگر</value>
+  </data>
   <data name="EditRegion" xml:space="preserve">
     <value>ویرایش منطقه</value>
   </data>
   <data name="Edit_word" xml:space="preserve">
     <value>ویرایش</value>
+  </data>
+  <data name="Eelgrass" xml:space="preserve">
+    <value>گل مرغ</value>
   </data>
   <data name="Emails_Selected" xml:space="preserve">
     <value>ایمیل های انتخاب شده</value>
@@ -948,8 +1062,14 @@
   <data name="Enable_word" xml:space="preserve">
     <value>قادر ساختن</value>
   </data>
+  <data name="EndSizeXYZ" xml:space="preserve">
+    <value>اندازه نهایی XYZ</value>
+  </data>
   <data name="English" xml:space="preserve">
     <value>انگلیسی</value>
+  </data>
+  <data name="EnterEstateName" xml:space="preserve">
+    <value>نام Estate را در کادر DOS تنظیم کنید.</value>
   </data>
   <data name="EnterName" xml:space="preserve">
     <value>یک نام وارد کنید برای تهیه پشتیبان خود</value>
@@ -965,6 +1085,9 @@
   </data>
   <data name="Enter_the_Grid_Owner_Information_word" xml:space="preserve">
     <value>وارد شبکه اطلاعات مالک</value>
+  </data>
+  <data name="Erase_all" xml:space="preserve">
+    <value>با این کار کل سیم کارت پاک می شود و سیم کارت جدید بارگیری می شود. مطمئنی؟</value>
   </data>
   <data name="ErrInstall" xml:space="preserve">
     <value>خطا: DreamGridInstaller.exe نیست راه اندازی.</value>
@@ -996,8 +1119,14 @@
   <data name="Estate_word" xml:space="preserve">
     <value>ملک</value>
   </data>
+  <data name="Eucalyptus" xml:space="preserve">
+    <value>اکالیپتوس</value>
+  </data>
   <data name="Exit__word" xml:space="preserve">
     <value>خروج</value>
+  </data>
+  <data name="ExportAllMaps" xml:space="preserve">
+    <value>صادر کردن همه نقشه ها</value>
   </data>
   <data name="Export_Backup_file_word" xml:space="preserve">
     <value>صادرات فایل پشتیبان</value>
@@ -1023,20 +1152,38 @@
   <data name="Failed_to_load_Settings_INI_word" xml:space="preserve">
     <value>برای بارگذاری تنظیمات INI شکست خورده</value>
   </data>
+  <data name="False_word" xml:space="preserve">
+    <value>نادرست</value>
+  </data>
+  <data name="Farsi" xml:space="preserve">
+    <value>فارسی (ایران)</value>
+  </data>
   <data name="Fatal_word" xml:space="preserve">
     <value>کشنده</value>
+  </data>
+  <data name="Fern" xml:space="preserve">
+    <value>سرخس</value>
   </data>
   <data name="File_word" xml:space="preserve">
     <value>فایل</value>
   </data>
+  <data name="FillSizeLabel" xml:space="preserve">
+    <value>اندازه را در مناطق پر کنید</value>
+  </data>
   <data name="Finished_with_backup_word" xml:space="preserve">
     <value>در دست اجرا با پشتیبان:</value>
+  </data>
+  <data name="Finished_word" xml:space="preserve">
+    <value>تمام شد</value>
   </data>
   <data name="Finnish" xml:space="preserve">
     <value>فنلاندی</value>
   </data>
   <data name="First_name_word" xml:space="preserve">
     <value>نام کوچک</value>
+  </data>
+  <data name="Flat" xml:space="preserve">
+    <value>تخت</value>
   </data>
   <data name="Float" xml:space="preserve">
     <value>شناور</value>
@@ -1085,6 +1232,9 @@
   </data>
   <data name="GBoids" xml:space="preserve">
     <value>تنظیمات کلی پرنده به این منطقه اعمال خواهد شد</value>
+  </data>
+  <data name="Generated_word" xml:space="preserve">
+    <value>تولید شده</value>
   </data>
   <data name="German" xml:space="preserve">
     <value>آلمانی</value>
@@ -1151,6 +1301,24 @@
   </data>
   <data name="Hebrew" xml:space="preserve">
     <value>عبری</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>قد</value>
+  </data>
+  <data name="HelloToSpeech" xml:space="preserve">
+    <value>با سلام و خوش آمدید به این آزمون برنامه کاربردی To To Speech. با خیال راحت به اطراف خود نگاه کنید و شبکه خود را کاوش کنید.</value>
+  </data>
+  <data name="HelpLandcaping" xml:space="preserve">
+    <value>به محوطه سازی کمک کنید</value>
+  </data>
+  <data name="HelpPlantEditor" xml:space="preserve">
+    <value>به ویرایشگر گیاه کمک کنید</value>
+  </data>
+  <data name="HelpSmartStart" xml:space="preserve">
+    <value>به شروع هوشمند کمک کنید</value>
+  </data>
+  <data name="HelpTerrains" xml:space="preserve">
+    <value>به زمین ها کمک کنید</value>
   </data>
   <data name="Help_Console" xml:space="preserve">
     <value>راهنما بر روی کنسول دستورات</value>
@@ -1224,8 +1392,14 @@
   <data name="High_Water_Level_text" xml:space="preserve">
     <value>بالای آب در متر</value>
   </data>
+  <data name="Home_Stopped" xml:space="preserve">
+    <value>خانه متوقف شد</value>
+  </data>
   <data name="Home_word" xml:space="preserve">
     <value>خانه</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>ساعت ها</value>
   </data>
   <data name="Hours_word" xml:space="preserve">
     <value>ساعت ها</value>
@@ -1305,6 +1479,9 @@
   <data name="If_Enabled_Save_Oars" xml:space="preserve">
     <value>Opensim خواهد بدلس پس از اجرای این مدت را نجات دهد</value>
   </data>
+  <data name="IgnoreParcels_tooltip" xml:space="preserve">
+    <value>داده های بسته جدید را نادیده بگیرید.</value>
+  </data>
   <data name="Ignore_Parcel_word" xml:space="preserve">
     <value>نادیده گرفتن بسته</value>
   </data>
@@ -1347,6 +1524,9 @@
   <data name="InstallJoomla_word" xml:space="preserve">
     <value>نصب</value>
   </data>
+  <data name="InstallNow" xml:space="preserve">
+    <value>الآن نصب کن</value>
+  </data>
   <data name="InstallOpensim" xml:space="preserve">
     <value>این JOpensim نصب کنید. آیا مایل هستید ادامه دهید؟</value>
   </data>
@@ -1373,6 +1553,9 @@
   </data>
   <data name="Irish" xml:space="preserve">
     <value>ایرلندی</value>
+  </data>
+  <data name="isBooting" xml:space="preserve">
+    <value>هنوز داره بوت ميشه!</value>
   </data>
   <data name="isLoading" xml:space="preserve">
     <value>Opensim در حال بارگذاری است مورد شما. شما آن را در پیدا</value>
@@ -1404,14 +1587,35 @@
   <data name="JOpensim_word" xml:space="preserve">
     <value>JOpensim</value>
   </data>
+  <data name="JustOptions" xml:space="preserve">
+    <value>فقط گزینه ها</value>
+  </data>
   <data name="Just_one_region_word" xml:space="preserve">
     <value>فقط یک منطقه</value>
+  </data>
+  <data name="KeepAlways" xml:space="preserve">
+    <value>همیشه نگه دارید</value>
   </data>
   <data name="KeepOnTop_word" xml:space="preserve">
     <value>نگه داشتن در بالای</value>
   </data>
   <data name="Keep_for_Days_word" xml:space="preserve">
     <value>برای روز نگه دارید</value>
+  </data>
+  <data name="Kelp1" xml:space="preserve">
+    <value>کلپ 1</value>
+  </data>
+  <data name="Kelp2" xml:space="preserve">
+    <value>کلپ 2</value>
+  </data>
+  <data name="Khazak" xml:space="preserve">
+    <value>خزاکستان</value>
+  </data>
+  <data name="LandMaker" xml:space="preserve">
+    <value>زمین ساز</value>
+  </data>
+  <data name="Landscaping" xml:space="preserve">
+    <value>محوطه سازی</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>زبان</value>
@@ -1425,11 +1629,26 @@
   <data name="Last_Name_Word" xml:space="preserve">
     <value>نام خانوادگی</value>
   </data>
+  <data name="leaving_word" xml:space="preserve">
+    <value>ترک</value>
+  </data>
+  <data name="Level_word" xml:space="preserve">
+    <value>مرحله</value>
+  </data>
   <data name="ListAvatars" xml:space="preserve">
     <value>مشاهده لیستی از آواتار ها</value>
   </data>
+  <data name="Loaded_word" xml:space="preserve">
+    <value>لود شده.</value>
+  </data>
+  <data name="LoadFreeOars" xml:space="preserve">
+    <value>همه پاروهای رایگان را بارگیری کنید</value>
+  </data>
   <data name="Loading_Settings" xml:space="preserve">
     <value>در حال بارگذاری Settings.ini</value>
+  </data>
+  <data name="LoadTerrain" xml:space="preserve">
+    <value>LoadTerrain</value>
   </data>
   <data name="Load_Bird_IAR_word" xml:space="preserve">
     <value>بار پرنده IAR</value>
@@ -1469,6 +1688,9 @@
   </data>
   <data name="Load_Terrain" xml:space="preserve">
     <value>عوارض زمین بار</value>
+  </data>
+  <data name="Load_Terrain_tooltip" xml:space="preserve">
+    <value>بارگیری زمین را در --merge مجبور کنید. به طور معمول ، --merge زمین موجود را دوباره نویسی نمی کند.</value>
   </data>
   <data name="Local" xml:space="preserve">
     <value>محلی</value>
@@ -1566,8 +1788,14 @@
   <data name="Max_Speed" xml:space="preserve">
     <value>حداکثر سرعت (به طور پیش فرض = 1.0)</value>
   </data>
+  <data name="MergeParcels_tooltip" xml:space="preserve">
+    <value>اطلاعات بسته موجود منطقه را دوباره بنویسید.</value>
+  </data>
   <data name="Merge_OAR_word" xml:space="preserve">
     <value>پارو ادغام</value>
+  </data>
+  <data name="Merge_objectstooltip" xml:space="preserve">
+    <value>OAR را بدون پاکسازی اشیا ادغام می کند</value>
   </data>
   <data name="Merge_Objects_word" xml:space="preserve">
     <value>اشیاء ادغام</value>
@@ -1581,8 +1809,20 @@
   <data name="MetroOrg" xml:space="preserve">
     <value>Hypergrid.org منطقه سرور</value>
   </data>
+  <data name="minkeepalive" xml:space="preserve">
+    <value>حداقل زمان 0 ثانیه است. پیش فرض 60 ثانیه است.</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>دقیقه</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>دقایق</value>
+  </data>
   <data name="Minutes_word" xml:space="preserve">
     <value>دقایق</value>
+  </data>
+  <data name="Min_time" xml:space="preserve">
+    <value>حداقل زمان 0 ثانیه است. پیش فرض 15 ثانیه است.</value>
   </data>
   <data name="Mode_word" xml:space="preserve">
     <value>حالت</value>
@@ -1616,6 +1856,9 @@
   </data>
   <data name="Must_PNG" xml:space="preserve">
     <value>باید یک فایل PNG می باشد</value>
+  </data>
+  <data name="MySQLDidNotStop" xml:space="preserve">
+    <value>MySQL متوقف نشد زمانی که دستور توقف!</value>
   </data>
   <data name="MySqlPort_word" xml:space="preserve">
     <value>خروجی بندر</value>
@@ -1683,7 +1926,16 @@
   <data name="Nobody_Online" xml:space="preserve">
     <value>هیچ شخص آنلاین است</value>
   </data>
+  <data name="Noise" xml:space="preserve">
+    <value>سر و صدا</value>
+  </data>
+  <data name="NoLogin_word" xml:space="preserve">
+    <value>ورود به سیستم</value>
+  </data>
   <data name="None" xml:space="preserve">
+    <value>هیچ یک</value>
+  </data>
+  <data name="None1" xml:space="preserve">
     <value>هیچ یک</value>
   </data>
   <data name="Nonphysical_Prim" xml:space="preserve">
@@ -1734,11 +1986,17 @@
   <data name="No_Emails_Selected" xml:space="preserve">
     <value>هیچ ایمیل انتخاب شدند</value>
   </data>
+  <data name="No_Estate_Word" xml:space="preserve">
+    <value>بدون املاک!</value>
+  </data>
   <data name="No_HG" xml:space="preserve">
     <value>بازدید کنندگان بدون Hypergrid خواهد شد در این منطقه اجازه</value>
   </data>
   <data name="No_Locate_FSassets" xml:space="preserve">
     <value>می توانید پوشه FSasset یافت نشد:</value>
+  </data>
+  <data name="No_Overlaps" xml:space="preserve">
+    <value>هیچ منطقه ای با هم تداخل ندارد</value>
   </data>
   <data name="No_Publish_Items" xml:space="preserve">
     <value>هنوز این منطقه منتشر نمی</value>
@@ -1767,6 +2025,9 @@
   <data name="NVPhysPrim" xml:space="preserve">
     <value>معتبر رسمی و خشک فیزیکی حداکثر ارزش. باید بیشتر از 0 باشد.</value>
   </data>
+  <data name="Oak" xml:space="preserve">
+    <value>بلوط</value>
+  </data>
   <data name="Oar_Files_text" xml:space="preserve">
     <value>فایل های پشتیبان گیری از پارو کل جزایر هستند</value>
   </data>
@@ -1778,6 +2039,9 @@
   </data>
   <data name="OAuth_Key" xml:space="preserve">
     <value>کلید</value>
+  </data>
+  <data name="Objects_word" xml:space="preserve">
+    <value>اشیاء</value>
   </data>
   <data name="Object_Path" xml:space="preserve">
     <value>مسیر شی و نام</value>
@@ -1830,11 +2094,35 @@
   <data name="OverridesMap" xml:space="preserve">
     <value>باطل نقشه تنظیمات جهانی برای این منطقه</value>
   </data>
+  <data name="OwnerOfRegions" xml:space="preserve">
+    <value>مالک مناطق اطراف</value>
+  </data>
   <data name="Owner_God" xml:space="preserve">
     <value>صاحب خدا</value>
   </data>
+  <data name="Owner_Name" xml:space="preserve">
+    <value>نام مالک</value>
+  </data>
+  <data name="Palm1" xml:space="preserve">
+    <value>کف دست 1</value>
+  </data>
+  <data name="Palm11" xml:space="preserve">
+    <value>کف دست 1</value>
+  </data>
   <data name="Parcels" xml:space="preserve">
     <value>بسته</value>
+  </data>
+  <data name="ParkingRegion" xml:space="preserve">
+    <value>پارکینگ منطقه</value>
+  </data>
+  <data name="ParkingRegion1" xml:space="preserve">
+    <value>منطقه پارکینگ!</value>
+  </data>
+  <data name="Parking_Spot" xml:space="preserve">
+    <value>سیم کارت پارکینگ</value>
+  </data>
+  <data name="Parking_Spot1" xml:space="preserve">
+    <value>سیم کارت پارکینگ</value>
   </data>
   <data name="Passed_LAN" xml:space="preserve">
     <value>گذشت آزمون پرونده های شبکه</value>
@@ -1850,6 +2138,9 @@
   </data>
   <data name="PDF_Manual_word" xml:space="preserve">
     <value>PDF دفترچه راهنما</value>
+  </data>
+  <data name="Pending_word" xml:space="preserve">
+    <value>در انتظار</value>
   </data>
   <data name="people_are_in" xml:space="preserve">
     <value>مردم در</value>
@@ -1872,6 +2163,27 @@
   <data name="picfilter" xml:space="preserve">
     <value>PNG (* فعلی، * PNG.) | *. فعلی؛ | همه فایلها (*. *) | * * * *.</value>
   </data>
+  <data name="Pine1" xml:space="preserve">
+    <value>کاج 1</value>
+  </data>
+  <data name="Pine11" xml:space="preserve">
+    <value>کاج 1</value>
+  </data>
+  <data name="Pine2" xml:space="preserve">
+    <value>کاج 2</value>
+  </data>
+  <data name="Pine21" xml:space="preserve">
+    <value>کاج 2</value>
+  </data>
+  <data name="Pine22" xml:space="preserve">
+    <value>کاج 2</value>
+  </data>
+  <data name="Plants" xml:space="preserve">
+    <value>گیاهان</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>لطفا منتظر بمانید تا Robust کاملاً بوت شود. این ممکن است چند دقیقه طول بکشد.</value>
+  </data>
   <data name="Please_enter" xml:space="preserve">
     <value>لطفا یک نام DNS معتبر مانند "name.outworldz.net را وارد کنید، و یا برای ثبت نام اینجا در یکی از http://www.noip.com</value>
   </data>
@@ -1880,6 +2192,9 @@
   </data>
   <data name="Please_type" xml:space="preserve">
     <value>لطفا نام نماد شبکه مالک را به پنجره مقاوم تایپ کنید. مطبوعات &lt;وارد کنید&gt; برای UUID و مدل نام. سپس این دکمه OK را فشار دهید</value>
+  </data>
+  <data name="Plumeria" xml:space="preserve">
+    <value>پلامریا</value>
   </data>
   <data name="Polish" xml:space="preserve">
     <value>لهستانی</value>
@@ -1901,6 +2216,9 @@
   </data>
   <data name="Port_Forwarding_Help" xml:space="preserve">
     <value>بندر حمل و نقل راهنما</value>
+  </data>
+  <data name="potential_overlap" xml:space="preserve">
+    <value>مناطق بالقوه همپوشانی</value>
   </data>
   <data name="Preview_in_Browser" xml:space="preserve">
     <value>پیش نمایش در مرورگر</value>
@@ -1941,6 +2259,12 @@
   <data name="Publish_Items" xml:space="preserve">
     <value>انتشار موارد مشخص شده برای جستجو</value>
   </data>
+  <data name="Quantity_word" xml:space="preserve">
+    <value>تعداد</value>
+  </data>
+  <data name="Quitting_word" xml:space="preserve">
+    <value>ترک کردن</value>
+  </data>
   <data name="Quit_Message0" xml:space="preserve">
     <value>سیستم و applictions دیگر را تحت تاثیر قرار نگرفته است. گزارش ایجاد شده است که شما می توانید به Outworldz، LLC برای کمک به ارسال شناسایی این مشکل است.</value>
   </data>
@@ -1953,8 +2277,14 @@
   <data name="Quit_unexpectedly" xml:space="preserve">
     <value>ترک غیر منتظره.</value>
   </data>
+  <data name="Radius_Word" xml:space="preserve">
+    <value>شعاع</value>
+  </data>
   <data name="RAM_Word" xml:space="preserve">
     <value>رم</value>
+  </data>
+  <data name="RandomTerrain" xml:space="preserve">
+    <value>زمین تصادفی</value>
   </data>
   <data name="Reading_Region_files" xml:space="preserve">
     <value>خواندن فایل منطقه</value>
@@ -1968,6 +2298,12 @@
   <data name="Recycle1" xml:space="preserve">
     <value>بازیافت</value>
   </data>
+  <data name="Recycling_Down_word" xml:space="preserve">
+    <value>بازیافت پایین</value>
+  </data>
+  <data name="Recycling_Up_word" xml:space="preserve">
+    <value>بازیافت</value>
+  </data>
   <data name="RefreshingIAR" xml:space="preserve">
     <value>محتوا و طراوت رایگان (IAR)</value>
   </data>
@@ -1977,11 +2313,20 @@
   <data name="Refresh_word" xml:space="preserve">
     <value>تازه کردن</value>
   </data>
+  <data name="RegenTerrains" xml:space="preserve">
+    <value>Regen Terrains</value>
+  </data>
   <data name="Regen_Map" xml:space="preserve">
     <value>اگر شما تمامی نقشه ها را حذف کنید، شما را به نقشه های بازسازی نیاز با راه اندازی مجدد با یک تنظیم نقشه</value>
   </data>
+  <data name="RegionMaker" xml:space="preserve">
+    <value>منطقه ساز</value>
+  </data>
   <data name="Regions_Are_Running" xml:space="preserve">
     <value>مناطق هنوز در حال اجرا</value>
+  </data>
+  <data name="Regions_Deleted" xml:space="preserve">
+    <value>مناطق حذف شده است</value>
   </data>
   <data name="Regions_word" xml:space="preserve">
     <value>مناطق</value>
@@ -2067,6 +2412,9 @@
   <data name="Reload" xml:space="preserve">
     <value>بازنگری شبکه</value>
   </data>
+  <data name="RemindMeLater" xml:space="preserve">
+    <value>بعدا به من یادآوری کن</value>
+  </data>
   <data name="Remote_Admin_word" xml:space="preserve">
     <value>RemoteAdmin</value>
   </data>
@@ -2090,6 +2438,9 @@
   </data>
   <data name="resolved" xml:space="preserve">
     <value>مصمم</value>
+  </data>
+  <data name="Restarting_Now_word" xml:space="preserve">
+    <value>اکنون دوباره راه اندازی می شود</value>
   </data>
   <data name="Restarting_word" xml:space="preserve">
     <value>راه اندازی مجدد</value>
@@ -2151,6 +2502,9 @@
   <data name="Resuming_word" xml:space="preserve">
     <value>از سرگیری</value>
   </data>
+  <data name="Revert" xml:space="preserve">
+    <value>برگرداندن</value>
+  </data>
   <data name="Revision_History_word" xml:space="preserve">
     <value>تاریخچه ویرایشهای</value>
   </data>
@@ -2172,6 +2526,12 @@
   <data name="Row" xml:space="preserve">
     <value>کلیک کنید یک ردیف را قادر به شروع و یا متوقف منطقه است. کلیک کنید یک ردیف معلول برای ویرایش این منطقه است.</value>
   </data>
+  <data name="Row_note" xml:space="preserve">
+    <value>برای کنترل منطقه روی یک ردیف کلیک کنید. برای فعال / غیرفعال کردن کادر را علامت بزنید.</value>
+  </data>
+  <data name="RunasaService_word" xml:space="preserve">
+    <value>اجرا به عنوان یک سرویس!</value>
+  </data>
   <data name="Running_as_a_Region_Server_word" xml:space="preserve">
     <value>در حال اجرا به عنوان یک منطقه سرور</value>
   </data>
@@ -2192,6 +2552,9 @@
   </data>
   <data name="Sandbox_Mode_word" xml:space="preserve">
     <value>حالت گودال ماسهبازی</value>
+  </data>
+  <data name="SaveTerrain" xml:space="preserve">
+    <value>زمین را نجات دهید</value>
   </data>
   <data name="Save_All_Regions" xml:space="preserve">
     <value>ذخیره همه در حال اجرا مناطق به بدلس</value>
@@ -2253,6 +2616,21 @@
   <data name="Search_grids" xml:space="preserve">
     <value>جستجو برای شبکه های (WWW)</value>
   </data>
+  <data name="Search_word" xml:space="preserve">
+    <value>جستجو کردن</value>
+  </data>
+  <data name="SeaSword" xml:space="preserve">
+    <value>شمشیر دریایی</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>ثانیه ها</value>
+  </data>
+  <data name="SecondsTips" xml:space="preserve">
+    <value>چه مدت یک منطقه در حال اجرا پس از رفتن یک آواتار بیدار خواهد ماند</value>
+  </data>
+  <data name="Seconds_word" xml:space="preserve">
+    <value>ثانیه</value>
+  </data>
   <data name="Secret_word" xml:space="preserve">
     <value>راز</value>
   </data>
@@ -2270,6 +2648,9 @@
   </data>
   <data name="Select_word" xml:space="preserve">
     <value>انتخاب کنید</value>
+  </data>
+  <data name="Send_alert" xml:space="preserve">
+    <value>ارسال هشدار</value>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>ارسال هشدار پیام</value>
@@ -2313,6 +2694,9 @@
   <data name="Setup_Ports_word" xml:space="preserve">
     <value>بنادر راه اندازی</value>
   </data>
+  <data name="Setup_search" xml:space="preserve">
+    <value>راه اندازی پایگاه داده جستجو</value>
+  </data>
   <data name="Setup_TOS" xml:space="preserve">
     <value>به راه اندازی شرایط خود را از خدمات را کلیک کنید</value>
   </data>
@@ -2327,6 +2711,9 @@
   </data>
   <data name="Set_Debug_Level_word" xml:space="preserve">
     <value>تنظیم سطح اشکال زدایی</value>
+  </data>
+  <data name="Set_Owner_tooltip" xml:space="preserve">
+    <value>می توانید این موارد را به یک شخص بدهید. پیش فرض مالک املاک است.</value>
   </data>
   <data name="Set_Owner_word" xml:space="preserve">
     <value>مجموعه ای مالک</value>
@@ -2379,11 +2766,17 @@
   <data name="Small_Map" xml:space="preserve">
     <value>نقشه مترو کوچک</value>
   </data>
+  <data name="SmartStartEnable" xml:space="preserve">
+    <value>تنظیم Smart Start (کد آلفا)</value>
+  </data>
   <data name="Smart_Start_Enable_word" xml:space="preserve">
     <value>شروع هوشمند فعال</value>
   </data>
   <data name="Smart_Start_word" xml:space="preserve">
     <value>شروع هوشمند</value>
+  </data>
+  <data name="Smooth" xml:space="preserve">
+    <value>صاف</value>
   </data>
   <data name="SMTP" xml:space="preserve">
     <value>SMTP حساب ارسال ایمیل</value>
@@ -2409,6 +2802,15 @@
   <data name="Spanish" xml:space="preserve">
     <value>اسپانیایی</value>
   </data>
+  <data name="Spanish_Mexico" xml:space="preserve">
+    <value>اسپانیایی (مکزیک)</value>
+  </data>
+  <data name="Spanish_Spain" xml:space="preserve">
+    <value>اسپانیایی (اسپانیا)</value>
+  </data>
+  <data name="Speak" xml:space="preserve">
+    <value>صحبت</value>
+  </data>
   <data name="Splash" xml:space="preserve">
     <value>نمایشگر چلپ چلوپ URL صفحه نمایش:</value>
   </data>
@@ -2418,8 +2820,23 @@
   <data name="SQL_Database_Backup_Restore" xml:space="preserve">
     <value>پایگاه داده SQL تهیه پشتیبان / بازیابی</value>
   </data>
+  <data name="SSDelay" xml:space="preserve">
+    <value>خاموش شدن در چند ثانیه</value>
+  </data>
+  <data name="SSisDisabled" xml:space="preserve">
+    <value>شروع هوشمند (کد آلفا) در تنظیمات -&gt; شروع هوشمند غیرفعال است.</value>
+  </data>
+  <data name="SSisEnabled" xml:space="preserve">
+    <value>کد Smart Start (Alpha) در تنظیمات -&gt; Smart Start فعال است.</value>
+  </data>
   <data name="StartAll" xml:space="preserve">
     <value>شروع مناطق به طور کامل بررسی می شود</value>
+  </data>
+  <data name="StartingLocation" xml:space="preserve">
+    <value>مکان را شروع می کنید؟</value>
+  </data>
+  <data name="StartingNearby" xml:space="preserve">
+    <value>شروع به عنوان یک آواتار در این نزدیکی هست</value>
   </data>
   <data name="Starting_DiagPort_Webserver" xml:space="preserve">
     <value>شروع تشخیصی بندر سرور وب</value>
@@ -2438,6 +2855,9 @@
   </data>
   <data name="StartSequentially" xml:space="preserve">
     <value>شروع مناطق پی در پی</value>
+  </data>
+  <data name="StartSizeXYZ" xml:space="preserve">
+    <value>اندازه XYZ را شروع کنید</value>
   </data>
   <data name="StartUPNP" xml:space="preserve">
     <value>شروع به کنترل پنل</value>
@@ -2490,6 +2910,9 @@
   <data name="Suitcase_enable" xml:space="preserve">
     <value>فعال کردن چمدان پرسشنامه</value>
   </data>
+  <data name="Suspended_word" xml:space="preserve">
+    <value>معلق</value>
+  </data>
   <data name="Suspending_word" xml:space="preserve">
     <value>تعلیق</value>
   </data>
@@ -2505,8 +2928,14 @@
   <data name="Take_time" xml:space="preserve">
     <value>این ممکن است زمان برای بارگذاری</value>
   </data>
+  <data name="Taper" xml:space="preserve">
+    <value>مخروطی</value>
+  </data>
   <data name="TechInfo" xml:space="preserve">
     <value>اطلاعات فنی</value>
+  </data>
+  <data name="TeleportAPI" xml:space="preserve">
+    <value>API Teleport</value>
   </data>
   <data name="Teleporter_Enable_word" xml:space="preserve">
     <value>تلهپورتر فعال</value>
@@ -2520,6 +2949,9 @@
   <data name="Teleport_word" xml:space="preserve">
     <value>دوربری</value>
   </data>
+  <data name="Temporary_Regions" xml:space="preserve">
+    <value>از مناطق موقت استفاده کنید</value>
+  </data>
   <data name="Terms_of_Service" xml:space="preserve">
     <value>شرایط استفاده از خدمات</value>
   </data>
@@ -2531,6 +2963,9 @@
   </data>
   <data name="Theme_Black" xml:space="preserve">
     <value>مجموعه تم برای سیاه</value>
+  </data>
+  <data name="Theme_Custom" xml:space="preserve">
+    <value>طرح زمینه به صورت سفارشی تنظیم شده است</value>
   </data>
   <data name="Theme_White" xml:space="preserve">
     <value>مجموعه تم برای سفید</value>
@@ -2565,11 +3000,35 @@
   <data name="TOS" xml:space="preserve">
     <value>ماژول TOS کاربران و / یا بازدید کنندگان خود را از این متن HTML را نشان می دهد.</value>
   </data>
+  <data name="TotalArea_word" xml:space="preserve">
+    <value>مساحت کل</value>
+  </data>
   <data name="Transfer_word" xml:space="preserve">
     <value>منتقل کردن</value>
   </data>
+  <data name="TreelineHigh" xml:space="preserve">
+    <value>Treeline High</value>
+  </data>
+  <data name="TreeLineLow" xml:space="preserve">
+    <value>TreeLine کم است</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Trees را به عنوان پرونده های XML ایجاد کنید</value>
+  </data>
+  <data name="TreesAndPlants" xml:space="preserve">
+    <value>درختان و گیاهان</value>
+  </data>
+  <data name="TropicalBush1" xml:space="preserve">
+    <value>بوش گرمسیری 1</value>
+  </data>
+  <data name="TropicalBush2" xml:space="preserve">
+    <value>بوش گرمسیری 2</value>
+  </data>
   <data name="Troubleshooting_word" xml:space="preserve">
     <value>عیب یابی</value>
+  </data>
+  <data name="True_word" xml:space="preserve">
+    <value>درست است، واقعی</value>
   </data>
   <data name="tt_Apache_Enable" xml:space="preserve">
     <value>را قادر می سازد وب سرور آپاچی به عنوان یک سرویس اجرا.</value>
@@ -2646,6 +3105,9 @@
   <data name="UnassignedPerson" xml:space="preserve">
     <value>اولین و آخرین نام فردی است که در هر نوع اشیاء اختصاص داده نشده خود را وارد کنید</value>
   </data>
+  <data name="Unchanged" xml:space="preserve">
+    <value>بدون تغییر</value>
+  </data>
   <data name="Unrecognized" xml:space="preserve">
     <value>نوع فایل شناخته شده</value>
   </data>
@@ -2700,6 +3162,9 @@
   <data name="Version_word" xml:space="preserve">
     <value>نسخه</value>
   </data>
+  <data name="ViewAllMaps" xml:space="preserve">
+    <value>مشاهده همه نقشه ها</value>
+  </data>
   <data name="Viewer_Cache_text" xml:space="preserve">
     <value>پیش فرض: فعال شده است. کاربران ممکن است نیاز به کاهش پهنای باند بیننده اگر برخی از prims یا قطعات زمین به rez شکست. تغییر به false اگر شما نیاز به استفاده از بینندگان قدیمی که این ویژگی پشتیبانی نمی</value>
   </data>
@@ -2715,6 +3180,9 @@
   <data name="ViewJoomla_word" xml:space="preserve">
     <value>چشم انداز</value>
   </data>
+  <data name="ViewTerrainFolder" xml:space="preserve">
+    <value>پوشه Terrain را مشاهده کنید</value>
+  </data>
   <data name="View_as_Icons" xml:space="preserve">
     <value>مشاهده به عنوان آیکن</value>
   </data>
@@ -2723,6 +3191,9 @@
   </data>
   <data name="View_Details" xml:space="preserve">
     <value>مشاهده جزئیات منطقه</value>
+  </data>
+  <data name="View_Folder" xml:space="preserve">
+    <value>مشاهده پوشه</value>
   </data>
   <data name="View_Icecast" xml:space="preserve">
     <value>نمایش IceCast به صفحه وب</value>
@@ -2766,14 +3237,23 @@
   <data name="Voice_Settings_Word" xml:space="preserve">
     <value>تنظیمات Voice</value>
   </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>در انتظار</value>
+  </data>
   <data name="Waiting_on_Robust" xml:space="preserve">
     <value>انتظار در مقاوم به شروع</value>
   </data>
   <data name="Waiting_text" xml:space="preserve">
     <value>در حال انتظار برای مناطق به خروج</value>
   </data>
+  <data name="Wait_For_scripts" xml:space="preserve">
+    <value>منتظر اسکریپت ها باشید</value>
+  </data>
   <data name="Warn_word" xml:space="preserve">
     <value>هشدار دادن</value>
+  </data>
+  <data name="WaterWord" xml:space="preserve">
+    <value>اب</value>
   </data>
   <data name="Web" xml:space="preserve">
     <value>کنترل پنل وب</value>
@@ -2793,11 +3273,20 @@
   <data name="Web_UI" xml:space="preserve">
     <value>UI وب شما اجازه اضافه کردن و یا تنظیمات نظر برای هر نماد.</value>
   </data>
+  <data name="WhatEstate" xml:space="preserve">
+    <value>چه املاکی؟</value>
+  </data>
+  <data name="WhatEstateName" xml:space="preserve">
+    <value>چه نام املاک می خواهید؟ خالی = Outworldz</value>
+  </data>
   <data name="What_2_say_To_all" xml:space="preserve">
     <value>چه چیزی شما را می خواهم بگویم به هر کس در خط؟</value>
   </data>
   <data name="What_to_say_2_region" xml:space="preserve">
     <value>چه چیزی شما را می خواهم بگویم به این منطقه؟</value>
+  </data>
+  <data name="WheretoStart" xml:space="preserve">
+    <value>از کجا شروع کنیم؟ (مناطق به سمت راست و بالا رشد می کنند)</value>
   </data>
   <data name="Which_Channel" xml:space="preserve">
     <value>کدام کانال پرندگان گوش دادن به دستورات در جهان است. اعداد منفی می تواند توسط انسان مورد استفاده قرار گیرد</value>
@@ -2819,6 +3308,24 @@
   </data>
   <data name="Window_Word" xml:space="preserve">
     <value>پنجره</value>
+  </data>
+  <data name="WinterAspen" xml:space="preserve">
+    <value>زمستان آسپن</value>
+  </data>
+  <data name="WinterAspen1" xml:space="preserve">
+    <value>زمستان آسپن</value>
+  </data>
+  <data name="WinterPine1" xml:space="preserve">
+    <value>کاج زمستانی 1</value>
+  </data>
+  <data name="WinterPine11" xml:space="preserve">
+    <value>کاج زمستانی 1</value>
+  </data>
+  <data name="WinterPine2" xml:space="preserve">
+    <value>کاج زمستانی 2</value>
+  </data>
+  <data name="WinterPine21" xml:space="preserve">
+    <value>کاج زمستانی 2</value>
   </data>
   <data name="WordPress_Word" xml:space="preserve">
     <value>وردپرس</value>
@@ -2853,514 +3360,7 @@
   <data name="Z" xml:space="preserve">
     <value>Z</value>
   </data>
-  <data name="Available" xml:space="preserve">
-    <value>در دسترس</value>
-  </data>
-  <data name="Pending_word" xml:space="preserve">
-    <value>در انتظار</value>
-  </data>
-  <data name="WhatEstate" xml:space="preserve">
-    <value>چه املاکی؟</value>
-  </data>
-  <data name="WhatEstateName" xml:space="preserve">
-    <value>چه نام املاک می خواهید؟ خالی = Outworldz</value>
-  </data>
-  <data name="Suspended_word" xml:space="preserve">
-    <value>معلق</value>
-  </data>
-  <data name="SmartStartEnable" xml:space="preserve">
-    <value>تنظیم Smart Start (کد آلفا)</value>
-  </data>
-  <data name="NoLogin_word" xml:space="preserve">
-    <value>ورود به سیستم</value>
-  </data>
-  <data name="Recycling_Down_word" xml:space="preserve">
-    <value>بازیافت پایین</value>
-  </data>
-  <data name="Brazilian" xml:space="preserve">
-    <value>برزیلی (Portguese)</value>
-  </data>
-  <data name="Waiting" xml:space="preserve">
-    <value>در انتظار</value>
-  </data>
-  <data name="Theme_Custom" xml:space="preserve">
-    <value>طرح زمینه به صورت سفارشی تنظیم شده است</value>
-  </data>
-  <data name="Khazak" xml:space="preserve">
-    <value>خزاکستان</value>
-  </data>
-  <data name="Restarting_Now_word" xml:space="preserve">
-    <value>اکنون دوباره راه اندازی می شود</value>
-  </data>
-  <data name="Quitting_word" xml:space="preserve">
-    <value>ترک کردن</value>
-  </data>
-  <data name="Booting_word" xml:space="preserve">
-    <value>راه اندازی</value>
-  </data>
-  <data name="LoadFreeOars" xml:space="preserve">
-    <value>همه پاروهای رایگان را بارگیری کنید</value>
-  </data>
-  <data name="SecondsTips" xml:space="preserve">
-    <value>چه مدت یک منطقه در حال اجرا پس از رفتن یک آواتار بیدار خواهد ماند</value>
-  </data>
-  <data name="SSDelay" xml:space="preserve">
-    <value>خاموش شدن در چند ثانیه</value>
-  </data>
-  <data name="Farsi" xml:space="preserve">
-    <value>فارسی (ایران)</value>
-  </data>
-  <data name="EnterEstateName" xml:space="preserve">
-    <value>نام Estate را در کادر DOS تنظیم کنید.</value>
-  </data>
-  <data name="SSisEnabled" xml:space="preserve">
-    <value>کد Smart Start (Alpha) در تنظیمات -&gt; Smart Start فعال است.</value>
-  </data>
-  <data name="Recycling_Up_word" xml:space="preserve">
-    <value>بازیافت</value>
-  </data>
-  <data name="BadCoordinates" xml:space="preserve">
-    <value>مختصات بد</value>
-  </data>
-  <data name="ViewAllMaps" xml:space="preserve">
-    <value>مشاهده همه نقشه ها</value>
-  </data>
-  <data name="Wait_For_scripts" xml:space="preserve">
-    <value>منتظر اسکریپت ها باشید</value>
-  </data>
-  <data name="CautionOAR" xml:space="preserve">
-    <value>احتیاط! با این کار 150+ OARS و مناطق در سیستم شما بارگیری می شود. این مدت زمان زیادی طول خواهد کشید.</value>
-  </data>
-  <data name="WheretoStart" xml:space="preserve">
-    <value>از کجا شروع کنیم؟ (مناطق به سمت راست و بالا رشد می کنند)</value>
-  </data>
-  <data name="Caution_word" xml:space="preserve">
-    <value>احتیاط!</value>
-  </data>
-  <data name="Spanish_Spain" xml:space="preserve">
-    <value>اسپانیایی (اسپانیا)</value>
-  </data>
-  <data name="Arabic_Saudi" xml:space="preserve">
-    <value>عربی (سعودی)</value>
-  </data>
-  <data name="SSisDisabled" xml:space="preserve">
-    <value>شروع هوشمند (کد آلفا) در تنظیمات -&gt; شروع هوشمند غیرفعال است.</value>
-  </data>
-  <data name="Home_Stopped" xml:space="preserve">
-    <value>خانه متوقف شد</value>
-  </data>
-  <data name="Diskspacelow" xml:space="preserve">
-    <value>فضای دیسک بسیار کم است و کمتر از 50 متر باقی مانده است! همه مناطق یخ زده است. لطفاً فضای دیسک را آزاد کنید و مناطق ذوب می شوند.</value>
-  </data>
-  <data name="Spanish_Mexico" xml:space="preserve">
-    <value>اسپانیایی (مکزیک)</value>
-  </data>
-  <data name="Seconds_word" xml:space="preserve">
-    <value>ثانیه</value>
-  </data>
-  <data name="StartingLocation" xml:space="preserve">
-    <value>مکان را شروع می کنید؟</value>
-  </data>
-  <data name="Loaded_word" xml:space="preserve">
-    <value>لود شده.</value>
-  </data>
-  <data name="Clear_objects_tooltip" xml:space="preserve">
-    <value>همه اشیا in را در همه مربع ها پاک می کند و OAR را بارگیری می کند</value>
-  </data>
-  <data name="Clear_Terrain_tooltip" xml:space="preserve">
-    <value>زمین منطقه موجود را دوباره نویسی نکنید.</value>
-  </data>
-  <data name="IgnoreParcels_tooltip" xml:space="preserve">
-    <value>داده های بسته جدید را نادیده بگیرید.</value>
-  </data>
-  <data name="Load_Terrain_tooltip" xml:space="preserve">
-    <value>بارگیری زمین را در --merge مجبور کنید. به طور معمول ، --merge زمین موجود را دوباره نویسی نمی کند.</value>
-  </data>
-  <data name="MergeParcels_tooltip" xml:space="preserve">
-    <value>اطلاعات بسته موجود منطقه را دوباره بنویسید.</value>
-  </data>
-  <data name="Merge_objectstooltip" xml:space="preserve">
-    <value>OAR را بدون پاکسازی اشیا ادغام می کند</value>
-  </data>
-  <data name="Objects_word" xml:space="preserve">
-    <value>اشیاء</value>
-  </data>
-  <data name="Set_Owner_tooltip" xml:space="preserve">
-    <value>می توانید این موارد را به یک شخص بدهید. پیش فرض مالک املاک است.</value>
-  </data>
-  <data name="Erase_all" xml:space="preserve">
-    <value>با این کار کل سیم کارت پاک می شود و سیم کارت جدید بارگیری می شود. مطمئنی؟</value>
-  </data>
-  <data name="checking_word" xml:space="preserve">
-    <value>چک کردن</value>
-  </data>
-  <data name="No_Overlaps" xml:space="preserve">
-    <value>هیچ منطقه ای با هم تداخل ندارد</value>
-  </data>
-  <data name="potential_overlap" xml:space="preserve">
-    <value>مناطق بالقوه همپوشانی</value>
-  </data>
-  <data name="AutoFill" xml:space="preserve">
-    <value>زمین و دریا بی پایان</value>
-  </data>
-  <data name="False_word" xml:space="preserve">
-    <value>نادرست</value>
-  </data>
-  <data name="Trees" xml:space="preserve">
-    <value>Trees را به عنوان پرونده های XML ایجاد کنید</value>
-  </data>
-  <data name="True_word" xml:space="preserve">
-    <value>درست است، واقعی</value>
-  </data>
   <data name="_0" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="ExportAllMaps" xml:space="preserve">
-    <value>صادر کردن همه نقشه ها</value>
-  </data>
-  <data name="LandMaker" xml:space="preserve">
-    <value>زمین ساز</value>
-  </data>
-  <data name="Landscaping" xml:space="preserve">
-    <value>محوطه سازی</value>
-  </data>
-  <data name="DeletebyAge" xml:space="preserve">
-    <value>حذف براساس سن</value>
-  </data>
-  <data name="KeepAlways" xml:space="preserve">
-    <value>همیشه نگه دارید</value>
-  </data>
-  <data name="AnalyzeLogButton" xml:space="preserve">
-    <value>تجزیه و تحلیل ورود به سیستم</value>
-  </data>
-  <data name="TreesAndPlants" xml:space="preserve">
-    <value>درختان و گیاهان</value>
-  </data>
-  <data name="Quantity_word" xml:space="preserve">
-    <value>تعداد</value>
-  </data>
-  <data name="Radius_Word" xml:space="preserve">
-    <value>شعاع</value>
-  </data>
-  <data name="Level_word" xml:space="preserve">
-    <value>مرحله</value>
-  </data>
-  <data name="Age" xml:space="preserve">
-    <value>سن</value>
-  </data>
-  <data name="Birthday_word" xml:space="preserve">
-    <value>روز تولد</value>
-  </data>
-  <data name="PleaseWait" xml:space="preserve">
-    <value>لطفا منتظر بمانید تا Robust کاملاً بوت شود. این ممکن است چند دقیقه طول بکشد.</value>
-  </data>
-  <data name="Owner_Name" xml:space="preserve">
-    <value>نام مالک</value>
-  </data>
-  <data name="DNSAltWords" xml:space="preserve">
-    <value>نام جایگزین برای استفاده توسط Apache یا Jopensim</value>
-  </data>
-  <data name="Apply" xml:space="preserve">
-    <value>درخواست دادن</value>
-  </data>
-  <data name="Arriving_word" xml:space="preserve">
-    <value>رسیدن</value>
-  </data>
-  <data name="Avatars_are_in" xml:space="preserve">
-    <value>آواتارها هنوز هم هستند</value>
-  </data>
-  <data name="Bakeword" xml:space="preserve">
-    <value>پخت</value>
-  </data>
-  <data name="BeachGrass" xml:space="preserve">
-    <value>چمن ساحلی</value>
-  </data>
-  <data name="BeachGrass1" xml:space="preserve">
-    <value>BeachGrass 1</value>
-  </data>
-  <data name="BulkLoad" xml:space="preserve">
-    <value>مناطق بار فله</value>
-  </data>
-  <data name="Cypress1" xml:space="preserve">
-    <value>سرو 1</value>
-  </data>
-  <data name="Cypress2" xml:space="preserve">
-    <value>سرو 2</value>
-  </data>
-  <data name="Cypress_1" xml:space="preserve">
-    <value>سرو 1</value>
-  </data>
-  <data name="Cypress_2" xml:space="preserve">
-    <value>سرو 2</value>
-  </data>
-  <data name="DelayBeforeExit" xml:space="preserve">
-    <value>ثانیه قبل از انتظار</value>
-  </data>
-  <data name="Delete_All" xml:space="preserve">
-    <value>حذف همه</value>
-  </data>
-  <data name="Delete_and_then_Apply" xml:space="preserve">
-    <value>حذف و سپس اعمال کنید</value>
-  </data>
-  <data name="Dogwood" xml:space="preserve">
-    <value>چوب سگ</value>
-  </data>
-  <data name="EditorWord" xml:space="preserve">
-    <value>ویرایشگر</value>
-  </data>
-  <data name="Eelgrass" xml:space="preserve">
-    <value>گل مرغ</value>
-  </data>
-  <data name="EndSizeXYZ" xml:space="preserve">
-    <value>اندازه نهایی XYZ</value>
-  </data>
-  <data name="Eucalyptus" xml:space="preserve">
-    <value>اکالیپتوس</value>
-  </data>
-  <data name="Fern" xml:space="preserve">
-    <value>سرخس</value>
-  </data>
-  <data name="FillSizeLabel" xml:space="preserve">
-    <value>اندازه را در مناطق پر کنید</value>
-  </data>
-  <data name="Flat" xml:space="preserve">
-    <value>تخت</value>
-  </data>
-  <data name="Generated_word" xml:space="preserve">
-    <value>تولید شده</value>
-  </data>
-  <data name="Height" xml:space="preserve">
-    <value>قد</value>
-  </data>
-  <data name="HelpLandcaping" xml:space="preserve">
-    <value>به محوطه سازی کمک کنید</value>
-  </data>
-  <data name="HelpPlantEditor" xml:space="preserve">
-    <value>به ویرایشگر گیاه کمک کنید</value>
-  </data>
-  <data name="HelpSmartStart" xml:space="preserve">
-    <value>به شروع هوشمند کمک کنید</value>
-  </data>
-  <data name="HelpTerrains" xml:space="preserve">
-    <value>به زمین ها کمک کنید</value>
-  </data>
-  <data name="JustOptions" xml:space="preserve">
-    <value>فقط گزینه ها</value>
-  </data>
-  <data name="Kelp1" xml:space="preserve">
-    <value>کلپ 1</value>
-  </data>
-  <data name="Kelp2" xml:space="preserve">
-    <value>کلپ 2</value>
-  </data>
-  <data name="leaving_word" xml:space="preserve">
-    <value>ترک</value>
-  </data>
-  <data name="LoadTerrain" xml:space="preserve">
-    <value>LoadTerrain</value>
-  </data>
-  <data name="Noise" xml:space="preserve">
-    <value>سر و صدا</value>
-  </data>
-  <data name="None1" xml:space="preserve">
-    <value>هیچ یک</value>
-  </data>
-  <data name="Oak" xml:space="preserve">
-    <value>بلوط</value>
-  </data>
-  <data name="OwnerOfRegions" xml:space="preserve">
-    <value>مالک مناطق اطراف</value>
-  </data>
-  <data name="Palm1" xml:space="preserve">
-    <value>کف دست 1</value>
-  </data>
-  <data name="Palm11" xml:space="preserve">
-    <value>کف دست 1</value>
-  </data>
-  <data name="ParkingRegion" xml:space="preserve">
-    <value>پارکینگ منطقه</value>
-  </data>
-  <data name="Parking_Spot" xml:space="preserve">
-    <value>سیم کارت پارکینگ</value>
-  </data>
-  <data name="Parking_Spot1" xml:space="preserve">
-    <value>سیم کارت پارکینگ</value>
-  </data>
-  <data name="Pine1" xml:space="preserve">
-    <value>کاج 1</value>
-  </data>
-  <data name="Pine11" xml:space="preserve">
-    <value>کاج 1</value>
-  </data>
-  <data name="Pine2" xml:space="preserve">
-    <value>کاج 2</value>
-  </data>
-  <data name="Pine21" xml:space="preserve">
-    <value>کاج 2</value>
-  </data>
-  <data name="Pine22" xml:space="preserve">
-    <value>کاج 2</value>
-  </data>
-  <data name="Plants" xml:space="preserve">
-    <value>گیاهان</value>
-  </data>
-  <data name="Plumeria" xml:space="preserve">
-    <value>پلامریا</value>
-  </data>
-  <data name="RandomTerrain" xml:space="preserve">
-    <value>زمین تصادفی</value>
-  </data>
-  <data name="RegenTerrains" xml:space="preserve">
-    <value>Regen Terrains</value>
-  </data>
-  <data name="RegionMaker" xml:space="preserve">
-    <value>منطقه ساز</value>
-  </data>
-  <data name="Revert" xml:space="preserve">
-    <value>برگرداندن</value>
-  </data>
-  <data name="SaveTerrain" xml:space="preserve">
-    <value>زمین را نجات دهید</value>
-  </data>
-  <data name="SeaSword" xml:space="preserve">
-    <value>شمشیر دریایی</value>
-  </data>
-  <data name="Seconds" xml:space="preserve">
-    <value>ثانیه ها</value>
-  </data>
-  <data name="Smooth" xml:space="preserve">
-    <value>صاف</value>
-  </data>
-  <data name="StartSizeXYZ" xml:space="preserve">
-    <value>اندازه XYZ را شروع کنید</value>
-  </data>
-  <data name="Taper" xml:space="preserve">
-    <value>مخروطی</value>
-  </data>
-  <data name="Temporary_Regions" xml:space="preserve">
-    <value>از مناطق موقت استفاده کنید</value>
-  </data>
-  <data name="TreelineHigh" xml:space="preserve">
-    <value>Treeline High</value>
-  </data>
-  <data name="TreeLineLow" xml:space="preserve">
-    <value>TreeLine کم است</value>
-  </data>
-  <data name="TropicalBush1" xml:space="preserve">
-    <value>بوش گرمسیری 1</value>
-  </data>
-  <data name="TropicalBush2" xml:space="preserve">
-    <value>بوش گرمسیری 2</value>
-  </data>
-  <data name="ViewTerrainFolder" xml:space="preserve">
-    <value>پوشه Terrain را مشاهده کنید</value>
-  </data>
-  <data name="WaterWord" xml:space="preserve">
-    <value>اب</value>
-  </data>
-  <data name="WinterAspen" xml:space="preserve">
-    <value>زمستان آسپن</value>
-  </data>
-  <data name="WinterAspen1" xml:space="preserve">
-    <value>زمستان آسپن</value>
-  </data>
-  <data name="WinterPine1" xml:space="preserve">
-    <value>کاج زمستانی 1</value>
-  </data>
-  <data name="WinterPine11" xml:space="preserve">
-    <value>کاج زمستانی 1</value>
-  </data>
-  <data name="WinterPine2" xml:space="preserve">
-    <value>کاج زمستانی 2</value>
-  </data>
-  <data name="WinterPine21" xml:space="preserve">
-    <value>کاج زمستانی 2</value>
-  </data>
-  <data name="ParkingRegion1" xml:space="preserve">
-    <value>منطقه پارکینگ!</value>
-  </data>
-  <data name="RunasaService_word" xml:space="preserve">
-    <value>اجرا به عنوان یک سرویس!</value>
-  </data>
-  <data name="MySQLDidNotStop" xml:space="preserve">
-    <value>MySQL متوقف نشد زمانی که دستور توقف!</value>
-  </data>
-  <data name="No_Estate_Word" xml:space="preserve">
-    <value>بدون املاک!</value>
-  </data>
-  <data name="isBooting" xml:space="preserve">
-    <value>هنوز داره بوت ميشه!</value>
-  </data>
-  <data name="Row_note" xml:space="preserve">
-    <value>برای کنترل منطقه روی یک ردیف کلیک کنید. برای فعال / غیرفعال کردن کادر را علامت بزنید.</value>
-  </data>
-  <data name="Search_word" xml:space="preserve">
-    <value>جستجو کردن</value>
-  </data>
-  <data name="TotalArea_word" xml:space="preserve">
-    <value>مساحت کل</value>
-  </data>
-  <data name="DelayAfterRegionReady" xml:space="preserve">
-    <value>تأخیر آماده منطقه</value>
-  </data>
-  <data name="minkeepalive" xml:space="preserve">
-    <value>حداقل زمان 0 ثانیه است. پیش فرض 60 ثانیه است.</value>
-  </data>
-  <data name="StartingNearby" xml:space="preserve">
-    <value>شروع به عنوان یک آواتار در این نزدیکی هست</value>
-  </data>
-  <data name="DoNotShowAgain" xml:space="preserve">
-    <value>دوباره نشان نده</value>
-  </data>
-  <data name="InstallNow" xml:space="preserve">
-    <value>الآن نصب کن</value>
-  </data>
-  <data name="RemindMeLater" xml:space="preserve">
-    <value>بعدا به من یادآوری کن</value>
-  </data>
-  <data name="Hours" xml:space="preserve">
-    <value>ساعت ها</value>
-  </data>
-  <data name="Minutes" xml:space="preserve">
-    <value>دقایق</value>
-  </data>
-  <data name="Setup_search" xml:space="preserve">
-    <value>راه اندازی پایگاه داده جستجو</value>
-  </data>
-  <data name="View_Folder" xml:space="preserve">
-    <value>مشاهده پوشه</value>
-  </data>
-  <data name="arrivals" xml:space="preserve">
-    <value>ورود به سیم کارتهای خاموش به این قسمت هدایت می شود</value>
-  </data>
-  <data name="DeleteSims" xml:space="preserve">
-    <value>*** با این کار همه مناطق موجود در "SimSurround" املاک حذف می شود!</value>
-  </data>
-  <data name="Min_time" xml:space="preserve">
-    <value>حداقل زمان 0 ثانیه است. پیش فرض 15 ثانیه است.</value>
-  </data>
-  <data name="Regions_Deleted" xml:space="preserve">
-    <value>مناطق حذف شده است</value>
-  </data>
-  <data name="HelloToSpeech" xml:space="preserve">
-    <value>با سلام و خوش آمدید به این آزمون برنامه کاربردی To To Speech. با خیال راحت به اطراف خود نگاه کنید و شبکه خود را کاوش کنید.</value>
-  </data>
-  <data name="Speak" xml:space="preserve">
-    <value>صحبت</value>
-  </data>
-  <data name="Minute" xml:space="preserve">
-    <value>دقیقه</value>
-  </data>
-  <data name="Send_alert" xml:space="preserve">
-    <value>ارسال هشدار</value>
-  </data>
-  <data name="TeleportAPI" xml:space="preserve">
-    <value>API Teleport</value>
-  </data>
-  <data name="Unchanged" xml:space="preserve">
-    <value>بدون تغییر</value>
-  </data>
-  <data name="Finished_word" xml:space="preserve">
-    <value>تمام شد</value>
   </data>
 </root>

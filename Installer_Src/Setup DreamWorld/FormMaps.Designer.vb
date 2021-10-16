@@ -26,7 +26,7 @@ Partial Class FormMaps
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMaps))
         Me.MapBox = New System.Windows.Forms.GroupBox()
-        Me.ViewMap = New System.Windows.Forms.Button()
+        Me.DelMapButton = New System.Windows.Forms.Button()
         Me.MapPicture = New System.Windows.Forms.PictureBox()
         Me.MapNone = New System.Windows.Forms.RadioButton()
         Me.MapSimple = New System.Windows.Forms.RadioButton()
@@ -49,7 +49,7 @@ Partial Class FormMaps
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ViewMapButton = New System.Windows.Forms.Button()
+        Me.ViewVisitorMapButton = New System.Windows.Forms.Button()
         Me.Days2KeepBox = New System.Windows.Forms.TextBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.ToolStripMenuItem30 = New System.Windows.Forms.ToolStripMenuItem()
@@ -64,7 +64,7 @@ Partial Class FormMaps
         '
         'MapBox
         '
-        Me.MapBox.Controls.Add(Me.ViewMap)
+        Me.MapBox.Controls.Add(Me.DelMapButton)
         Me.MapBox.Controls.Add(Me.MapPicture)
         Me.MapBox.Controls.Add(Me.MapNone)
         Me.MapBox.Controls.Add(Me.MapSimple)
@@ -78,15 +78,15 @@ Partial Class FormMaps
         Me.MapBox.TabStop = False
         Me.MapBox.Text = "Maps"
         '
-        'ViewMap
+        'DelMapButton
         '
-        Me.ViewMap.Location = New System.Drawing.Point(7, 259)
-        Me.ViewMap.Name = "ViewMap"
-        Me.ViewMap.Size = New System.Drawing.Size(143, 23)
-        Me.ViewMap.TabIndex = 0
-        Me.ViewMap.Text = Global.Outworldz.My.Resources.Resources.DelMaps
-        Me.ToolTip1.SetToolTip(Me.ViewMap, Global.Outworldz.My.Resources.Resources.Regen_Map)
-        Me.ViewMap.UseVisualStyleBackColor = True
+        Me.DelMapButton.Location = New System.Drawing.Point(7, 259)
+        Me.DelMapButton.Name = "DelMapButton"
+        Me.DelMapButton.Size = New System.Drawing.Size(143, 23)
+        Me.DelMapButton.TabIndex = 0
+        Me.DelMapButton.Text = Global.Outworldz.My.Resources.Resources.DelMaps
+        Me.ToolTip1.SetToolTip(Me.DelMapButton, Global.Outworldz.My.Resources.Resources.Regen_Map)
+        Me.DelMapButton.UseVisualStyleBackColor = True
         '
         'MapPicture
         '
@@ -300,15 +300,15 @@ Partial Class FormMaps
         Me.Label1.TabIndex = 9
         Me.Label1.Text = "Map Center Location:"
         '
-        'ViewMapButton
+        'ViewVisitorMapButton
         '
-        Me.ViewMapButton.Location = New System.Drawing.Point(15, 21)
-        Me.ViewMapButton.Name = "ViewMapButton"
-        Me.ViewMapButton.Size = New System.Drawing.Size(141, 23)
-        Me.ViewMapButton.TabIndex = 1
-        Me.ViewMapButton.Text = "View Visitor Maps"
-        Me.ToolTip1.SetToolTip(Me.ViewMapButton, Global.Outworldz.My.Resources.Resources.WifiMap)
-        Me.ViewMapButton.UseVisualStyleBackColor = True
+        Me.ViewVisitorMapButton.Location = New System.Drawing.Point(15, 21)
+        Me.ViewVisitorMapButton.Name = "ViewVisitorMapButton"
+        Me.ViewVisitorMapButton.Size = New System.Drawing.Size(141, 23)
+        Me.ViewVisitorMapButton.TabIndex = 1
+        Me.ViewVisitorMapButton.Text = "View Visitor Maps"
+        Me.ToolTip1.SetToolTip(Me.ViewVisitorMapButton, Global.Outworldz.My.Resources.Resources.WifiMap)
+        Me.ViewVisitorMapButton.UseVisualStyleBackColor = True
         '
         'Days2KeepBox
         '
@@ -339,7 +339,7 @@ Partial Class FormMaps
         '
         Me.Visitor.Controls.Add(Me.K4Days)
         Me.Visitor.Controls.Add(Me.Days2KeepBox)
-        Me.Visitor.Controls.Add(Me.ViewMapButton)
+        Me.Visitor.Controls.Add(Me.ViewVisitorMapButton)
         Me.Visitor.Location = New System.Drawing.Point(395, 34)
         Me.Visitor.Name = "Visitor"
         Me.Visitor.Size = New System.Drawing.Size(171, 120)
@@ -391,7 +391,7 @@ Partial Class FormMaps
     Friend WithEvents MapBetter As RadioButton
     Friend WithEvents MapBest As RadioButton
     Friend WithEvents MapGood As RadioButton
-    Friend WithEvents ViewMap As Button
+    Friend WithEvents DelMapButton As Button
     Friend WithEvents ViewRegionMapsButton As Button
     Friend WithEvents LargeMapButton As Button
     Friend WithEvents SmallMapButton As Button
@@ -413,5 +413,5 @@ Partial Class FormMaps
     Friend WithEvents Visitor As GroupBox
     Friend WithEvents K4Days As Label
     Friend WithEvents Days2KeepBox As TextBox
-    Friend WithEvents ViewMapButton As Button
+    Friend WithEvents ViewVisitorMapButton As Button
 End Class

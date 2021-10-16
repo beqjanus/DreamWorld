@@ -139,9 +139,6 @@
     <Reference Include="EmailValidation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=60f3df2f38e92638, processorArchitecture=MSIL">
       <HintPath>..\packages\EmailValidation.1.0.6\lib\net45\EmailValidation.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.18.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.18.1\lib\net45\Google.Protobuf.dll</HintPath>
-    </Reference>
     <Reference Include="Humanizer, Version=2.11.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.11.10\lib\netstandard2.0\Humanizer.dll</HintPath>
     </Reference>
@@ -154,7 +151,7 @@
       <HintPath>..\..\LiveSwitch.TextControl.exe</HintPath>
     </Reference>
     <Reference Include="MailKit, Version=2.15.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
-      <HintPath>..\packages\MailKit.2.15.0\lib\net47\MailKit.dll</HintPath>
+      <HintPath>..\packages\MailKit.2.15.0\lib\net48\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -1324,7 +1321,6 @@
     <None Include="Resources\welcome_toolbox.png" />
     <None Include="Resources\cubes_blue.png" />
     <None Include="Resources\1253433.png" />
-    <None Include="Resources\12534331.png" />
     <Content Include="Resources\exit.png" />
     <Content Include="Resources\jar.ico" />
     <Content Include="Resources\mail.ico" />
