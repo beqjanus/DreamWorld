@@ -1759,13 +1759,14 @@ Public Class FormSetup
                 Try
                     pPerl.Start()
                     pPerl.WaitForExit()
-                    Settings.VisitorsEnabled = True
-                    Settings.SaveSettings()
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
             End Using
+            Settings.VisitorsEnabled = True
+            Settings.SaveSettings()
         End If
+
 
     End Sub
 

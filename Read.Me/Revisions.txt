@@ -1,6 +1,9 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. 
 
+V4.72
+Slight tweak to Perl installer to ensure it asks only once, even if a fatal Perl launch error occurs.
+
 V4.71
 Changed Perl so it can be relocated off C drive.
 Clear Cache does not delete YEngine script cache, thus retaining YEngine state
