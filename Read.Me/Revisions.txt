@@ -3,6 +3,7 @@ This is a high-level view of major changes. for detailed commit history, checkou
 
 V4.72
 Slight tweak to Perl installer to handle if a fatal Perl launch error occurs.
+Region Name missing from Visitor Maps
 
 V4.71
 Changed Perl so it can be relocated off C drive.
