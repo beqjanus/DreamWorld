@@ -42,7 +42,7 @@ Public Class FormLogging
     End Sub
 
     Private Sub SetScreen()
-        Me.Show()
+
         ScreenPosition = New ClassScreenpos(Me.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()

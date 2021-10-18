@@ -357,7 +357,7 @@ Public Class FormOAR
     Public Sub Init(type As String)
 
         _type = type
-        Me.Hide()
+
 
         Thread.Sleep(15)
         InitiateThread()
@@ -365,7 +365,7 @@ Public Class FormOAR
 
     Public Sub ShowForm()
         TextBox1.Text = ""
-        Me.Show()
+
         Search()
         'Redraw(SearchArray)
         If _type = "OAR" Then HelpOnce("Load OAR")
@@ -391,8 +391,6 @@ Public Class FormOAR
         RefreshToolStripMenuItem.Text = Global.Outworldz.My.Resources.Refresh_word
         ToolStripMenuItem30.Image = Global.Outworldz.My.Resources.question_and_answer
         ToolStripMenuItem30.Text = Global.Outworldz.My.Resources.Help_word
-
-        Me.Hide()
         SetScreen()
 
     End Sub

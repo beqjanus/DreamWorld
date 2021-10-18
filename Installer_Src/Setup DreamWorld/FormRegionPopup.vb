@@ -35,7 +35,7 @@ Public Class FormRegionPopup
     End Sub
 
     Private Sub SetScreen()
-        Me.Show()
+
         ScreenPosition = New ClassScreenpos(MyBase.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()

@@ -88,7 +88,6 @@ Public Class FormRegion
 
     Private Sub RestartRobustIfNeeded(RegionUUID As String)
 
-        Me.Hide()
 
         If Not _NotSmarttStart And SmartStartCheckBox.Checked And IsRobustRunning() Then
 
@@ -144,7 +143,7 @@ Public Class FormRegion
     End Sub
 
     Private Sub SetScreen()
-        Me.Show()
+
         ScreenPosition = New ClassScreenpos(Me.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()

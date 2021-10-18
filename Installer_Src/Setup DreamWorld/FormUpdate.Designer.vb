@@ -59,7 +59,7 @@ Partial Class FormUpdate
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(181, 37)
         Me.Button3.TabIndex = 1
-        Me.Button3.Text = "Instal Now"
+        Me.Button3.Text = "Install Now"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'PictureBox1

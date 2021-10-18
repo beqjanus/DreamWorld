@@ -585,7 +585,6 @@ Public Class FormSetup
 
         PropRegionClass.CheckOverLap()
 
-
         StartThreads()
         Application.DoEvents()
         Dim l = PropRegionClass.RegionUuids()

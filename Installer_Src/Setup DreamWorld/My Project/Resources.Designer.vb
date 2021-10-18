@@ -10755,6 +10755,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Update Now.
+        '''</summary>
+        Friend ReadOnly Property UpdateNow() As String
+            Get
+                Return ResourceManager.GetString("UpdateNow", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Updating Ports.
         '''</summary>
         Friend ReadOnly Property Updating_Ports_word() As String

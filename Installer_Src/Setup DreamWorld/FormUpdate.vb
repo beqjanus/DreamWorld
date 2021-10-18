@@ -2,7 +2,7 @@
 
     Public Sub Init(str As String)
 
-        Button3.Text = My.Resources.InstallNow
+        Button3.Text = My.Resources.UpdateNow
         Button2.Text = My.Resources.RemindMeLater
         Button1.Text = My.Resources.DoNotShowAgain
         RichTextBox3.SelectAll()
@@ -22,6 +22,7 @@
                 Return
             End Try
         End Using
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -35,5 +36,6 @@
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         DialogResult = DialogResult.Yes
     End Sub
+
 
 End Class

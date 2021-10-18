@@ -3593,6 +3593,9 @@
   <data name="Updated_word" xml:space="preserve">
     <value>Updated</value>
   </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Update Now</value>
+  </data>
   <data name="Update_is_available" xml:space="preserve">
     <value>Update is available. Do you wish to update?</value>
   </data>
