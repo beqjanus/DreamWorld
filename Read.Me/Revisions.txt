@@ -1,6 +1,11 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. for detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
 
+V4.73
+Possible crash is AVatra name is mangled in Smart Start
+Add auto-incrementing Assembly Version and Date of build to crash dumps
+
+
 V4.72
 Slight tweak to Perl installer to handle if a fatal Perl launch error occurs.
 Region Name missing from Visitor Maps

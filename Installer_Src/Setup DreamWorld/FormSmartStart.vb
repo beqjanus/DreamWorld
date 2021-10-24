@@ -1701,9 +1701,12 @@ Public Class FormSmartStart
             Settings.SaveSettings()
 
             If IsMySqlRunning() Then
-                Dim AvatarUUID As String = GetAviUUUD(AviName.Text)
+                Dim AvatarUUID As String = ""
+                Try
+                    AvatarUUID = GetAviUUUD(AviName.Text)
+                Catch
+                End Try
                 If AvatarUUID.Length > 0 Then
-
                     Dim INI = New LoadIni(IO.Path.Combine(Settings.OpensimBinPath, "Estates\Estates.ini"), ";", System.Text.Encoding.UTF8)
                     INI.SetIni("SimSurround", "Owner", AvatarUUID)
                     INI.SaveINI()

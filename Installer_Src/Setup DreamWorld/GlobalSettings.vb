@@ -20,6 +20,7 @@ Module GlobalSettings
     Public Const jRev As String = "3.9.23"
     Public MySqlRev As String = "5.6.50"
     Public ApacheRevision As String = "2.4.46"
+    Public AssemblyV As String      ' holds "Assembly version (inc. build date) = " + displayableVersion
 
 #End Region
 

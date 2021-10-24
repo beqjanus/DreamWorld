@@ -18,15 +18,17 @@
             Dim path = IO.Path.Combine(CurDir(), "OutworldzFiles\Logs\Error.log")
 
             Using outputFile As New IO.StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Error.log"), True)
+                outputFile.WriteLine("********START*************")
                 outputFile.WriteLine("[Reason]" & vbCrLf)
                 outputFile.WriteLine(ReasonText.Text & vbCrLf)
                 If (EmailTextBox.Text.Length > 0) Then
                     outputFile.WriteLine("[Email]" & vbCrLf)
                     outputFile.WriteLine(EmailTextBox.Text & vbCrLf)
                 End If
+                outputFile.WriteLine("********END*************")
             End Using
 
-            Dim CGI = New Uri("https://outworldz.com/cgi/uploadcrash.plx")
+            Dim CGI = New Uri(_Domain & "/cgi/uploadcrash.plx")
             PostContentUploadFile(path, CGI)
             DeleteFile(path)
         Catch
@@ -57,5 +59,6 @@
             BreakPoint.Show(ex.Message)
         End Try
     End Sub
+
 
 End Class
