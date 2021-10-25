@@ -585,7 +585,6 @@ Public Class FormSetup
 
         PropRegionClass.CheckOverLap()
 
-
         StartThreads()
         Application.DoEvents()
         Dim l = PropRegionClass.RegionUuids()
@@ -1591,6 +1590,14 @@ Public Class FormSetup
         Adv1 = New FormSettings
 
         Me.Show()
+
+
+        Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
+        Dim buildDate = New DateTime(2000, 1, 1).AddDays(V.Build).AddSeconds(V.Revision * 2)
+        Dim displayableVersion = $"{v} ({buildDate})"
+        AssemblyV = "Assembly version (inc. build date) = " + displayableVersion
+        TextPrint(AssemblyV)
+
 
         SetupPerl()
 

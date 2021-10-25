@@ -17,6 +17,11 @@ use File::Basename;
 use File::Find;
 use File::Copy::Recursive qw(dircopy);
 
+# This requires a Authenticode Certificate to sign the files. The thumbprint comes from the cert. It is not the cert, which is privat and is saved in the windows store.
+# convert the Cert to a pfx file:  .\bin\openssl pkcs12 -export -out cert.pfx -inkey 2021.key -in 2021.cer
+# import the PK and the 
+my $thumbprint = '6f50813b6d0e1989ec44dc90714269f8404e7ab1'; # 2021
+
 my $contents = io->file('C:/Opensim/Outworldz_Dreamgrid/Installer_Src/Setup DreamWorld/GlobalSettings.vb')->slurp;
 $contents =~ s/\n//;
 $contents =~ /_MyVersion As String = "(.*?)"/;
@@ -151,7 +156,7 @@ if ($publish =~ /c|p/ ) {
 	say("Mysql");
 	chdir(qq!$dir/OutworldzFiles/mysql/bin/!);
 	print `mysqladmin.exe --port 3306 -u root shutdown`;
-	sleep(2);
+	sleep(5);
 	chdir ($dir);
 	DeleteandKeep("$dir/OutworldzFiles/mysql/data");
 	say ("Cleaned");	
@@ -462,12 +467,22 @@ sub sign
 			};
 			
 			
-			my $f = qq!../Certs/digicertutil.exe sign /noInput /sha1 "d7ea8e5f8e6d27b138ecd93811daa6b02b0ba333" "$name"!;
+			my $f = qq!../Certs/digicertutil.exe sign /noInput /sha1 $thumbprint "$name"!;
 			print $f . "\n";
 			my $result = `$f`;
 			print $result. "\n";
 			$result =~ s/\n/|/g;
 			
+			$r = qq!../Certs/sigcheck64.exe "$name"!;
+			print $r. "\n";
+      $result1 = `$r`;
+			
+			print $result1;
+			
+			if ($result1 !~ /Verified:	Signed/) {
+				say ("***** Failed to sign!");
+				die;
+			}
 			
 			if ($result !~ /success/) {
 				say ("***** Failed to sign!");

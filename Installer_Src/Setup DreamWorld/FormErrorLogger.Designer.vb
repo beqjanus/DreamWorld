@@ -153,8 +153,8 @@ Partial Class FormErrorLogger
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(373, 56)
         Me.TextBox2.TabIndex = 15
-        Me.TextBox2.Text = "The system and other applications have not been affected. A report has been create" &
-    "d that you can send to help identify this problem."
+        Me.TextBox2.Text = "The system and other applications have not been affected. A report has been creat" &
+    "ed that you can send to help identify this problem."
         '
         'Button1
         '

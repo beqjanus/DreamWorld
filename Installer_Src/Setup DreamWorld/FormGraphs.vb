@@ -25,7 +25,7 @@
 
     Private Sub SetScreen()
 
-        Me.Show()
+
 
         ScreenPosition = New ClassScreenpos(MyBase.Name)
         AddHandler ResizeEnd, Handler

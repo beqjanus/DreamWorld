@@ -112,7 +112,6 @@ Public Class FormRegionlist
 
     Private Sub SetScreen(View As Integer)
 
-        Me.Show()
         Try
             ScreenPosition = New ClassScreenpos(MyBase.Name & "_View_" & CStr(View))
             AddHandler ResizeEnd, Handler

@@ -3381,4 +3381,7 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Jetzt aktualisieren</value>
+  </data>
 </root>

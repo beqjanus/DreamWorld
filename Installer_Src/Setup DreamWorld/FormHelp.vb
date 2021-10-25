@@ -34,7 +34,7 @@ Public Class FormHelp
 
     Private Sub SetScreen(Webpage As String)
 
-        Me.Show()
+
         Document = Webpage
         Me.Name = Webpage
         ScreenPosition = New ClassScreenpos(Me.Name)
