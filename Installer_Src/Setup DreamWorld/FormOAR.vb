@@ -357,15 +357,13 @@ Public Class FormOAR
     Public Sub Init(type As String)
 
         _type = type
-
-
         Thread.Sleep(15)
         InitiateThread()
     End Sub
 
     Public Sub ShowForm()
         TextBox1.Text = ""
-
+        Me.Show()
         Search()
         'Redraw(SearchArray)
         If _type = "OAR" Then HelpOnce("Load OAR")
