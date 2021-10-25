@@ -114,46 +114,51 @@ Module SmartStart
             If PropRegionClass.SmartStart(RegionUUID) = "True" Then
 
                 ' smart, and up
-                If PropRegionClass.RegionEnabled(RegionUUID) And PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-
-                    If AgentName.ToUpperInvariant = "UUID" Then
-                        'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
-                        Return RegionUUID
-                    ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-                        'Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
-                        Return Name
-                    Else ' Its a sign!
-                        ' Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
-                        Return Name & "|0"
-                    End If
-                Else  ' requires booting
-
-                    If AgentName.ToUpperInvariant = "UUID" Then
-                        'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
-                        AddEm(RegionUUID, AgentID)
-                        'RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. Please wait in this region.")
-                        Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
-                        Return u
-                    ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
-                        Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
-                        AddEm(RegionUUID, AgentID)
-                        'RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. Please wait in this region.")
-                        Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
-                        Return u
-                    Else ' Its a v4 sign
-
-                        If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
-                            time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)
-                        Else
-                            time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + Settings.TeleportSleepTime)
+                If PropRegionClass.RegionEnabled(RegionUUID) Then
+                    If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+                        If AgentName.ToUpperInvariant = "UUID" Then
+                            'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
+                            Return RegionUUID
+                        ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                            'Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
+                            Return Name
+                        Else ' Its a sign!
+                            ' Logger("Teleport Sign Booted", Name & ":" & AgentID, "Teleport")
+                            Return Name & "|0"
                         End If
-                        ' RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime + 5)} seconds. {vbCrLf}Please wait in this region.")
-                        Logger("Agent ", Name & ":" & AgentID, "Teleport")
-                        AddEm(RegionUUID, AgentID)
-                        Return Settings.WelcomeRegion
-                    End If
+                    Else  ' requires booting
 
+                        If AgentName.ToUpperInvariant = "UUID" Then
+                            'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
+                            AddEm(RegionUUID, AgentID)
+                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
+                            Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                            Return u
+                        ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
+                            Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
+                            AddEm(RegionUUID, AgentID)
+                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
+                            Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                            Return u
+                        Else ' Its a v4 sign
+
+                            If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
+                                time = "|" & CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)
+                            Else
+                                time = "|" & CStr(PropRegionClass.MapTime(RegionUUID) + Settings.TeleportSleepTime)
+                            End If
+                            RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. {vbCrLf}Please wait in the Welcome region.")
+                            Logger("Agent ", Name & ":" & AgentID, "Teleport")
+                            AddEm(RegionUUID, AgentID)
+                            Return Settings.WelcomeRegion
+                        End If
+
+                    End If
+                Else
+                    ' not enabled
+                    RPC_admin_dialog(AgentID, $"Your region {PropRegionClass.RegionName(RegionUUID)} is disabled.")
                 End If
+
             Else ' Non Smart Start
 
                 If AgentName.ToUpperInvariant = "UUID" Then
@@ -167,9 +172,7 @@ Module SmartStart
                     AddEm(RegionUUID, AgentID)
                     Return Name
                 End If
-
             End If
-
         End If
 
         Return PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
