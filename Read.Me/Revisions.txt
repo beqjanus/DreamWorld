@@ -3,10 +3,12 @@ This is a high-level view of major changes. For detailed commit history, checkou
 
 V4.74
 A missing me.show in Load OAR and Load IAR made it impossible to load web OAR and IAR content. Oops.
+Added better messages for Smart Start region booting.
+It is possible to try to teleport to a disabled Smart Start Region.  Now you get a message the region is disabled.
 Authenticode digital signature from Digicert RSA4096/SHA384 updated for 2022. 
-	An Outworldz, LLC digital certificate is used to signed DLLS and EXE files in this code. Microsoft learns to build trust in code thats signed.
-	This ensures this software is compiled and came from me, and no one else. It protects software from alteration after publication.
-	No other Opensim does this.
+The Outworldz digital certificate signs the DLLS and EXE files. Microsoft learns to trust code that is signed.
+This ensures this software is compiled and came from me, and no one else. It protects software from alteration after publication.
+Only use code you trust!
 
 V4.73
 Possible crash if Avatar name is mangled in Smart Start.
