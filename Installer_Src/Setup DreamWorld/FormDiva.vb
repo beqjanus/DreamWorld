@@ -407,7 +407,7 @@ Public Class FormDiva
 
         If Not initted Then Return
 
-        If Not SplashPage.Text.Contains("http://") Then
+        If Not SplashPage.Text.StartsWith("http://", System.StringComparison.InvariantCultureIgnoreCase) And Not SplashPage.Text.StartsWith("https://", System.StringComparison.InvariantCultureIgnoreCase) Then
             SplashPage.Text = "http://" & SplashPage.Text
         End If
         Settings.SplashPage = SplashPage.Text
@@ -428,6 +428,8 @@ Public Class FormDiva
         End If
 
     End Sub
+
+
 
 #End Region
 

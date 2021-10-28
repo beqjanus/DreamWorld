@@ -3356,6 +3356,9 @@
   <data name="Stop_word" xml:space="preserve">
     <value>Stop</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value>Boot Time</value>
+  </data>
   <data name="Subject_word" xml:space="preserve">
     <value>Subject</value>
   </data>

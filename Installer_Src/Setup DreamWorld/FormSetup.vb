@@ -1016,7 +1016,7 @@ Public Class FormSetup
 
             ' see how long it has been since we booted
             Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
-            TextPrint($"{RegionName} {My.Resources.Running_word}: {CStr(seconds)} {My.Resources.Seconds_word}")
+            TextPrint($"{RegionName} {My.Resources.Boot_Time}: {CStr(seconds)} {My.Resources.Seconds_word}")
             PokeRegionTimer(Ruuid)
             Dim status = PropRegionClass.Status(Ruuid)
 

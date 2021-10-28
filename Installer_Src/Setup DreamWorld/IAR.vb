@@ -203,14 +203,14 @@ Module IAR
         Dim s As Long
         Dim oldsize As Long = 0
         Dim same As Integer = 0
-        While same < 5
+        While same < 10
             Dim fi = New System.IO.FileInfo(BackupName)
             Try
                 s = fi.Length
             Catch ex As Exception
                 'BreakPoint.Show(ex.Message)
             End Try
-            If s = oldsize Then
+            If s = oldsize And s > 0 Then
                 same += 1
             Else
                 same = 0
