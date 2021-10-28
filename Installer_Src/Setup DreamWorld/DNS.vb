@@ -4,13 +4,13 @@ Module DNS
 
     Public Function GetNewDnsName() As String
 
+        Dim Checkname As String
         Using client As New WebClient
-            Dim Checkname As String
             Try
-                Checkname = client.DownloadString("http://ns1.outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
+                Checkname = client.DownloadString("http://ns1.outworldz.com/getnewname.plx/?r=" & RandomNumber.Random)
             Catch ex As Exception
                 Try
-                    Checkname = client.DownloadString("http://ns2.outworldz.net/getnewname.plx/?r=" & RandomNumber.Random)
+                    Checkname = client.DownloadString("http://ns2.outworldz.com/getnewname.plx/?r=" & RandomNumber.Random)
                 Catch ex1 As Exception
                     ErrorLog("Warn: Cannot get new name:" & ex1.Message)
                     Return ""
@@ -21,7 +21,7 @@ Module DNS
             End Try
         End Using
 
-        Return ""
+        Return Checkname
 
     End Function
 
@@ -58,11 +58,11 @@ Module DNS
 
         Using client As New WebClient ' download client for web pages
             Try
-                Checkname = client.DownloadString("http://ns1.outworldz.net/dns.plx" & GetPostData(DNSName))
+                Checkname = client.DownloadString("http://ns1.outworldz.com/dns.plx" & GetPostData(DNSName))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
                 Try
-                    Checkname = client.DownloadString("http://ns2.outworldz.net/dns.plx" & GetPostData(DNSName))
+                    Checkname = client.DownloadString("http://ns2.outworldz.com/dns.plx" & GetPostData(DNSName))
                 Catch ex1 As Exception
                     ErrorLog("Warn: Cannot register this DNS Name " & ex1.Message)
                     Return False
