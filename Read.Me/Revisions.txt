@@ -1,6 +1,12 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
 
+V4.75
+Announce in voice Avatars that leave
+Fixed a bug in Visitor maps lists where some visitors may not be counted
+Tell Smart Start avatars when region is almost ready
+Allow both http and https URLS in the splash screen
+
 V4.74
 A missing me.show in Load OAR and Load IAR made it impossible to load web OAR and IAR content. Oops.
 Added better messages for Smart Start region booting.
