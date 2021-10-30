@@ -2361,13 +2361,12 @@ Public Class FormSetup
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     CurrentLocation.Add(Avatar, RegionName)
                     PropRegionClass.AvatarCount(RegionUUID) += 1
-
+                    AddorUpdateVisitor(Avatar, RegionName)
                     ' Seen visitor before, check the region to see if it moved
                 ElseIf Not CurrentLocation.Item(Avatar) = RegionName Then
                     TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
                     CurrentLocation.Item(Avatar) = RegionName
-
                     PropRegionClass.AvatarCount(RegionUUID) += 1
                     AddorUpdateVisitor(Avatar, RegionName)
                 End If
@@ -2382,8 +2381,8 @@ Public Class FormSetup
                 Dim RegionName = NameValue.Value
 
                 If Not Combined.ContainsKey(Avatar) Then
-                    'TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                    'SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
+                    TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
                     Remove.Add(Avatar)
                 End If
             Next
