@@ -1594,7 +1594,7 @@ Public Class FormSetup
         Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
         Dim displayableVersion = $"{v} ({buildDate})"
-        AssemblyV = "Assembly version:" + displayableVersion
+        AssemblyV = "Assembly version: " + displayableVersion
         TextPrint(AssemblyV)
 
         SetupPerl()
