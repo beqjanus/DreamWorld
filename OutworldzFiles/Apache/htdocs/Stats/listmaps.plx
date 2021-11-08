@@ -40,8 +40,7 @@ foreach my $row ($rs->all) {
 	my $X = $row->locationX;
 	my $Y = $row->locationY;
 	my $S = $row->regionsize/256;
-	
-
+	  
 
 	push @sims, {regionname => $row->regionname,				 
 				 regionsize =>  $row->regionsize  . " X " . $row->regionsize  ,				 

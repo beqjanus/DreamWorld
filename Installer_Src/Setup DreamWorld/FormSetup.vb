@@ -1591,13 +1591,11 @@ Public Class FormSetup
 
         Me.Show()
 
-
         Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
         Dim displayableVersion = $"{v} ({buildDate})"
-        AssemblyV = "Assembly version (inc. build date) = " + displayableVersion
+        AssemblyV = "Assembly version:" + displayableVersion
         TextPrint(AssemblyV)
-
 
         SetupPerl()
 
@@ -1753,10 +1751,11 @@ Public Class FormSetup
     Private Sub SetupPerl()
 
 
-        Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
+
 
         If Settings.VisitorsEnabled = False Then
             TextPrint(My.Resources.Setup_Perl)
+            Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
             Using pPerl As New Process()
                 Dim pi = New ProcessStartInfo With {
                         .Arguments = "",
@@ -1770,7 +1769,39 @@ Public Class FormSetup
                     BreakPoint.Show(ex.Message)
                 End Try
             End Using
-            Settings.VisitorsEnabled = True
+        End If
+
+        ' needed for DBIX::Class in util.pm
+        If Settings.VisitorsEnabledModules = False Then
+            TextPrint(My.Resources.Setup_Perl)
+            Using pPerl As New Process()
+                Dim pi = New ProcessStartInfo With {
+                    .Arguments = "Config::IniFiles",
+                    .FileName = "cpan"
+                }
+                pPerl.StartInfo = pi
+                Try
+                    pPerl.Start()
+                    pPerl.WaitForExit()
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            End Using
+
+            Using pPerl As New Process()
+                Dim pi = New ProcessStartInfo With {
+                    .Arguments = "File::BOM",
+                    .FileName = "cpan"
+                }
+                pPerl.StartInfo = pi
+                Try
+                    pPerl.Start()
+                    pPerl.WaitForExit()
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            End Using
+            Settings.VisitorsEnabledModules = True
             Settings.SaveSettings()
         End If
 
@@ -2369,6 +2400,8 @@ Public Class FormSetup
                     CurrentLocation.Item(Avatar) = RegionName
                     PropRegionClass.AvatarCount(RegionUUID) += 1
                     AddorUpdateVisitor(Avatar, RegionName)
+                Else
+                    PropRegionClass.AvatarCount(RegionUUID) += 1
                 End If
             Next
 
@@ -2443,91 +2476,6 @@ Public Class FormSetup
                 BreakPoint.Show(ex.Message)
             End Try
         End Using
-
-    End Sub
-
-#End Region
-
-#Region "MapMaking"
-
-    Public Sub MakeMaps()
-
-        Dim Mapthread As Thread
-        Mapthread = New Thread(AddressOf BuildMap)
-        Mapthread.SetApartmentState(ApartmentState.STA)
-        Mapthread.Priority = ThreadPriority.BelowNormal
-        Mapthread.Start()
-
-    End Sub
-
-    Private Sub BuildMap()
-
-        Dim SavePath = IO.Path.Combine(Settings.CurrentDirectory, "Outworldzfiles\Apache\htdocs\Stats\Maps")
-        Try
-            FileIO.FileSystem.CreateDirectory(SavePath)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-        For Each RegionUUID In PropRegionClass.RegionUuids
-            Application.DoEvents()
-            Dim MapPath = IO.Path.Combine(Settings.OpensimBinPath, "maptiles\00000000-0000-0000-0000-000000000000")
-
-            Dim Name = PropRegionClass.RegionName(RegionUUID)
-            Dim SimSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID))
-            Using bmp As New Bitmap(SimSize, SimSize)
-                Dim X = 0
-                Dim Y = 0
-
-                ' Loop through the images pixels to reset color.
-                For X = 0 To bmp.Width - 1
-                    For Y = 0 To bmp.Height - 1
-                        Dim newColor = Color.FromArgb(230, 230, 230)
-                        bmp.SetPixel(X, Y, newColor)
-                    Next
-                Next
-
-                Dim Out As Image = bmp
-                Dim Src As Image = bmp
-                Dim XS = SimSize / 256
-
-
-                X = 0
-                For Xstep = 0 To XS - 1
-                    Y = CInt(SimSize - (SimSize / XS))
-                    For Ystep = 0 To XS - 1
-                        Dim MapImage = $"map-1-{PropRegionClass.CoordX(RegionUUID) + Xstep }-{PropRegionClass.CoordY(RegionUUID) + Ystep  }-objects.jpg"
-                        Diagnostics.Debug.Print(Name)
-                        Diagnostics.Debug.Print(MapImage)
-
-                        ' images plot at up[per left, Opensim is lower left
-                        ' for a 2X2 this is the value
-                        'X:Y = 0:256
-                        'X:Y = 0:0
-                        'X:Y = 256:256
-                        'X:Y = 256:0
-
-                        Dim RegionSrc = IO.Path.Combine(MapPath, MapImage)
-                        If IO.File.Exists(RegionSrc) Then
-                            Src = Image.FromFile(RegionSrc)
-                            Using g As Graphics = Graphics.FromImage(Out)
-                                Diagnostics.Debug.Print(CStr(X) & ":" & CStr(Y))
-                                g.DrawImage(Src, New System.Drawing.Rectangle(X, Y, 256, 256))
-                                Out.Save(IO.Path.Combine(SavePath, $"{Name}.jpg"))
-                            End Using
-                        End If
-                        Y -= 256
-                    Next
-                    X += 256
-                Next
-                'If Src IsNot Nothing Then
-                'Src.Save(IO.Path.Combine(SavePath, $"{Name}.jpg"))
-                'End If
-            End Using
-
-
-
-        Next
 
     End Sub
 

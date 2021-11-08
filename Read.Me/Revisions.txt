@@ -1,6 +1,16 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
 
+V4.76
+Visitor Map fixes:
+	The visitor maps did not work when the database settings were not default.  This requires some additional Perl modules which will install automatically when you update.
+	New modules are Config::IniFiles and File::BOM
+	Visitor counts were always zero in the Region List.
+	Reorganized Map maker to make the region map for VIsitors Mapping when the first visitor arrives in a region.
+	Visitor maps with no start date show from the first day of the month to the current date.
+	Added a back button 
+	FLoats added to list maps for compactness.
+
 V4.75
 Announce in voice Avatars that leave
 Fixed a bug in Visitor maps lists where some visitors may not be counted

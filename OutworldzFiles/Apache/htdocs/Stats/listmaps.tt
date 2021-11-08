@@ -9,16 +9,16 @@
 
   <!-- Begin  Toolkit -->
 
-   <h1 class="videotitle">Visitors</h1>
-   
-   
-   [% FOREACH item IN sims  %]
-      <p>
-   	  <a href="[% item.link %]">[% item.regionname %]</a>  Size: [% item.regionsize  %]
-      </p>
+   <h1>Visitors</h1>
       
-      <a href="[% item.link %]"><img src="[% item.map %]" width="[% item.width %]">	</a>
-   
+   [% FOREACH item IN sims  %]
+      <div style="float:left;">
+   	  <a href="[% item.link %]">[% item.regionname %]</a>  Size: [% item.regionsize  %]</a>
+      <br clear="all">
+      <a href="[% item.link %]"><img src="[% item.map %]" width="[% item.width %]">
+			&nbsp;
+			</div>
+			 
    [% END %]
    
   </body
