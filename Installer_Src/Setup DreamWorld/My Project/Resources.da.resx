@@ -3384,4 +3384,7 @@
   <data name="UpdateNow" xml:space="preserve">
     <value>Opdatere nu</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value>Boot Time</value>
+  </data>
 </root>

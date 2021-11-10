@@ -3384,4 +3384,7 @@
   <data name="UpdateNow" xml:space="preserve">
     <value>Ενημέρωση τώρα</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value>Χρόνο εκκίνησης</value>
+  </data>
 </root>

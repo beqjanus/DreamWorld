@@ -1093,7 +1093,6 @@ Public Module MysqlInterface
                 BreakPoint.Show(ex.Message)
                 ErrorLog("Could not create SimStats Database: " & ex.Message)
                 FileIO.FileSystem.CurrentDirectory = Settings.CurrentDirectory
-                Return
             End Try
         End Using
 
@@ -1390,6 +1389,9 @@ Public Module MysqlInterface
                         cmd.Parameters.AddWithValue("@LOCY", PropRegionClass.CoordY(UUID))
                         cmd.ExecuteNonQuery()
                     End Using
+
+                    MakeMaps()
+
                 End Using
                 '{"You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'regionname , regionsize,locationx, locationy, dateupdated, UUID) " & vbCrLf & "             ' at line 1"}
             Catch ex As MySqlException

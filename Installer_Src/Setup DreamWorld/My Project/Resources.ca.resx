@@ -3385,4 +3385,7 @@
   <data name="UpdateNow" xml:space="preserve">
     <value>Actualitzar ara</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value>Temps d’arrencada</value>
+  </data>
 </root>

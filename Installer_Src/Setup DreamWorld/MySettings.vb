@@ -1009,6 +1009,15 @@ Public Class MySettings
             SetMySetting("HttpPort", CStr(Value))
         End Set
     End Property
+    Public Property VisitorsEnabledModules() As Boolean
+        Get
+            Return CType(GetMySetting("VisitorsEnabledModules", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("VisitorsEnabledModules", CStr(Value))
+        End Set
+
+    End Property
 
 
     Public Property VisitorsEnabled() As Boolean

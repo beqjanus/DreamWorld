@@ -3384,4 +3384,7 @@
   <data name="UpdateNow" xml:space="preserve">
     <value>Nyní aktualizovat</value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value>Doba potřebná ke spuštění</value>
+  </data>
 </root>

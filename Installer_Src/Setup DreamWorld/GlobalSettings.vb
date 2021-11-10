@@ -14,13 +14,13 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "4.74"
+    Public Const _MyVersion As String = "4.76"
     Public Const _SimVersion As String = "#d0e41f747b9054 there should be no need..."
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
     Public MySqlRev As String = "5.6.50"
     Public ApacheRevision As String = "2.4.46"
-    Public AssemblyV As String      ' holds "Assembly version (inc. build date) = " + displayableVersion
+    Public AssemblyV As String      ' holds "Assembly version: " + displayableVersion
 
 #End Region
 

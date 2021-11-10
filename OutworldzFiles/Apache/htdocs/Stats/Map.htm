@@ -114,7 +114,9 @@ $(document).ready(function () {
     if (what.length > 0) {
         start = what;
     } else {
-        start = '';
+		var date = new Date();
+		start = new Date(date.getFullYear(), date.getMonth(), 1);
+		start = start.toLocaleDateString("en-US", { month: 'numeric' }) + '/' +  start.toLocaleDateString("en-US", { day: 'numeric' }) + "/" + start.toLocaleDateString("en-US", { year: 'numeric' }) 
     }
 
     var end;
@@ -442,6 +444,7 @@ $(document).ready(function () {
 
 <body>
 <div class="form">
+	
 	<form action="/stats/Map.htm">
 		<table>
 			<tr>
@@ -449,7 +452,7 @@ $(document).ready(function () {
 			<td>End Date: <br><input id="datepicker2" type="text" name="End" value="">
 			<input type="hidden"  name="q" id="mySelect" >			
 			</td>
-			<td> <br><input id="submit" type="submit" value="Search"></td>	
+			<td> <br><input id="submit" type="submit" value="Search"> <input type="button" value="Back" onclick="window.history.back()" /> </td>	
 			</td>
 			
 		</tr>
