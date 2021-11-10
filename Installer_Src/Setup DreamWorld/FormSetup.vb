@@ -561,6 +561,9 @@ Public Class FormSetup
             Settings.DeregisteredOnce = True
         End If
 
+        'Redo all the region ports
+        PropRegionClass.UpdateAllRegionPorts()
+
         PropExitHandlerIsBusy = False
         PropAborting = False
 
