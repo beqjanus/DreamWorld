@@ -395,7 +395,7 @@ Module Robust
         INI.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
         INI.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
 
-        INI.SetIni("SmartStart", "Enabled", CStr(Settings.SmartStart))  ' FKB
+
         INI.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
 
         If Settings.CMS = JOpensim Then
@@ -417,6 +417,18 @@ Module Robust
         End If
 
         INI.SetIni("DatabaseService", "ConnectionString", Settings.RobustDBConnection)
+
+        ' SmartStart. Add own entries for DreamGrid host and port
+        ' In future that may need to be more clever, as per machine in a servers cluster
+        If Settings.SmartStart Then
+            INI.SetIni("SmartStart", "Enabled", "True")
+            INI.SetIni("SmartStart", "URL", "http://" & Settings.LANIP() + ":" & CStr(Settings.DiagnosticPort))
+            INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineID))
+        Else
+            INI.SetIni("SmartStart", "Enabled", "False")
+            INI.SetIni("SmartStart", "URL", "")
+            INI.SetIni("SmartStart", "MachineID", "")
+        End If
 
         INI.SaveINI()
 

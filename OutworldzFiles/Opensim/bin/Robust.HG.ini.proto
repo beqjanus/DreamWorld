@@ -895,6 +895,8 @@ SMTP_SERVER_PASSWORD=Gmail password
 ;; Set by Dreamgrid
 [SmartStart]
 Enabled=False
+URL=
+MachineID=
 
 ;; For Joomla/jOpensim
 [CapsService]
