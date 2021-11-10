@@ -561,6 +561,9 @@ Public Class FormSetup
             Settings.DeregisteredOnce = True
         End If
 
+        'Redo all the region ports
+        PropRegionClass.UpdateAllRegionPorts()
+
         PropExitHandlerIsBusy = False
         PropAborting = False
 
@@ -1595,7 +1598,7 @@ Public Class FormSetup
         Dim v = Reflection.Assembly.GetExecutingAssembly().GetName().Version
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
         Dim displayableVersion = $"{v} ({buildDate})"
-        AssemblyV = "Assembly version (inc. build date) = " + displayableVersion
+        AssemblyV = "Assembly version " + displayableVersion
         TextPrint(AssemblyV)
 
 
