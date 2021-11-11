@@ -28,6 +28,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -98,7 +99,7 @@ namespace OpenSim.Services.LLLoginService
         //IConfig m_ClientsConfig;
 
         // SmartStart
-        protected bool m_SmartStartEnabled;
+        protected bool m_SmartStartEnabled = false;
         protected string m_SmartStartUrl = string.Empty;
         protected string m_SmartStartMachineID = string.Empty;
 
@@ -196,25 +197,28 @@ namespace OpenSim.Services.LLLoginService
                 m_UserAgentService = ServerUtils.LoadPlugin<IUserAgentService>(agentService, args);
 
             // SmartStart
-            IConfig SmartStartConfig = config.Configs["SmartStart"];    // get data from
-            m_SmartStartEnabled = SmartStartConfig.GetBoolean("Enabled", m_SmartStartEnabled);
-            if (m_SmartStartEnabled)
+            IConfig SmartStartConfig = config.Configs["SmartStart"];
+            if(SmartStartConfig != null)
             {
-                m_SmartStartUrl = SmartStartConfig.GetString("URL", m_SmartStartUrl);
-                if(string.IsNullOrEmpty(m_SmartStartUrl))
-                    m_SmartStartEnabled = false;
-                else
+                m_SmartStartEnabled = SmartStartConfig.GetBoolean("Enabled", m_SmartStartEnabled);
+                if (m_SmartStartEnabled)
                 {
-                    OSHHTPHost tmpSmartStartURL = new OSHHTPHost(m_SmartStartUrl, true);
-                    if (!tmpSmartStartURL.IsResolvedHost)
+                    m_SmartStartUrl = SmartStartConfig.GetString("URL", m_SmartStartUrl);
+                    if(string.IsNullOrEmpty(m_SmartStartUrl))
+                        m_SmartStartEnabled = false;
+                    else
                     {
-                        m_log.Error("[LLOGIN SERVICE]: Could not parse or resolve SmartStart URI");
-                        throw new Exception("LLOGIN SERVICE init error: SmartStart URI");
-                    }
-                    m_SmartStartUrl = tmpSmartStartURL.URI;
-                    m_log.Info("[LLOGIN SERVICE]: SmartStartUlr " + m_SmartStartUrl);
+                        OSHHTPHost tmpSmartStartURL = new OSHHTPHost(m_SmartStartUrl, true);
+                        if (!tmpSmartStartURL.IsResolvedHost)
+                        {
+                            m_log.Error("[LLOGIN SERVICE]: Could not parse or resolve SmartStart URI");
+                            throw new Exception("LLOGIN SERVICE init error: SmartStart URI");
+                        }
+                        m_SmartStartUrl = tmpSmartStartURL.URI;
+                        m_log.Info("[LLOGIN SERVICE]: SmartStartUlr " + m_SmartStartUrl);
 
-                    m_SmartStartMachineID = SmartStartConfig.GetString("MachineID", m_SmartStartMachineID);
+                        m_SmartStartMachineID = SmartStartConfig.GetString("MachineID", m_SmartStartMachineID);
+                    }
                 }
             }
             m_log.Info("[LLOGIN SERVICE]: SmartStart " + (m_SmartStartEnabled ? "Enabled" : "Disabled"));
@@ -265,37 +269,50 @@ namespace OpenSim.Services.LLLoginService
         }
 
         //DreamGrid SmartStart
-        public UUID GetALTRegion(UUID regionID, UUID agentID)
+        public UUID GetSmartStartALTRegion(UUID regionID, UUID agentID)
         {
             // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
             // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
             if (m_SmartStartEnabled)
             {
                 string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
-                m_log.DebugFormat("[SMARTSTART]: {0}", url);
+                m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
 
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebRequest webRequest;
+                try
+                {
+                    webRequest = (HttpWebRequest)WebRequest.Create(url);
+                }
+                catch
+                {
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion failed to create url");
+                    return UUID.Zero;
+                }
 
                 webRequest.Timeout = 30000; //30 Second Timeout
-                m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
+                webRequest.AllowWriteStreamBuffering = false;
 
                 try
                 {
-                    HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-                    System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
-                    string Result = String.Empty;
-                    string tempStr = reader.ReadLine();
-                    while (tempStr != null)
+                    string tempStr;
+                    using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
                     {
-                        Result = Result + tempStr;
-                        tempStr = reader.ReadLine();
+                        using(StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
+                            tempStr = reader.ReadToEnd();
                     }
-                    m_log.Debug("[SMARTSTART]: Destination is " + Result);
-                    regionID = UUID.Parse(Result);
+
+                    if (string.IsNullOrEmpty(tempStr))
+                    {
+                        m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned null");
+                        return UUID.Zero;
+                    }
+
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned " + tempStr);
+                    regionID = UUID.Parse(tempStr);
                 }
-                catch (WebException ex)
+                catch (Exception ex)
                 {
-                    m_log.Warn("[SMARTSTART]: " + ex.Message);
+                    m_log.Warn("[LLoginService]: GetSmartStartALTRegion exception: " + ex.Message);
                 }
             }
             return regionID;
@@ -689,7 +706,7 @@ namespace OpenSim.Services.LLLoginService
             if ((dest.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) != 0)
                 return dest;
 
-            UUID rid = GetALTRegion(dest.RegionID, account.PrincipalID);
+            UUID rid = GetSmartStartALTRegion(dest.RegionID, account.PrincipalID);
             if (rid == dest.RegionID)
                 return dest;
 
