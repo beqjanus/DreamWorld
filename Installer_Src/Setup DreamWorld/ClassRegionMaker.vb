@@ -2424,7 +2424,13 @@ Public Class ClassRegionMaker
             End If
 
             If Settings.SmartStart Then
-                If INI.SetIni("Startup", "SmartStart", SmartStart(uuid)) Then Return True
+                INI.SetIni("SmartStart", "Enabled", "True")
+                INI.SetIni("SmartStart", "URL", "http://" & Settings.LANIP() + ":" & CStr(Settings.DiagnosticPort))
+                INI.SetIni("SmartStart", "MachineID", CStr(Settings.MachineID))
+            Else
+                INI.SetIni("SmartStart", "Enabled", "False")
+                INI.SetIni("SmartStart", "URL", "")
+                INI.SetIni("SmartStart", "MachineID", "")
             End If
 
             If INI.SetIni("Estates", "DefaultEstateName", gEstateName) Then Return True

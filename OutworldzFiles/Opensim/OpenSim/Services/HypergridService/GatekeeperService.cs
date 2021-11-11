@@ -54,12 +54,10 @@ namespace OpenSim.Services.HypergridService
 
         private static string m_AllowedClients = string.Empty;
         private static bool m_AllowTeleportsToAnyRegion;
-        private static bool m_ALT_Enabled = false;
         private static IBansService m_BansService;
         private static GridRegion m_DefaultGatewayRegion;
         private static string m_DeniedClients = string.Empty;
         private static string m_DeniedMacs = string.Empty;
-        private static Int32 m_DiagnosticsPort;
         private static bool m_ForeignAgentsAllowed = true;
         private static List<string> m_ForeignsAllowedExceptions = new List<string>();
         private static List<string> m_ForeignsDisallowedExceptions = new List<string>();
@@ -70,7 +68,6 @@ namespace OpenSim.Services.HypergridService
         private static bool m_Initialized = false;
         private static string m_messageKey;
         private static IPresenceService m_PresenceService;
-        private static string m_PrivURL;
         private static UUID m_ScopeID;
         private static ISimulationService m_SimulationService;
         private static IUserAccountService m_UserAccountService;

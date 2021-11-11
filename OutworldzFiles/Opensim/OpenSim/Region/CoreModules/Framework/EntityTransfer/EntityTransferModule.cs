@@ -736,23 +736,26 @@ namespace OpenSim.Region.CoreModules.Framework.EntityTransfer
             // this possible should only be called if query fails with a limites set of errors like connection refused.
             if (reg.RegionLocY != 0) // not on HG
             {
-                string regionName = sp.Scene.GetALTRegion(finalDestination.RegionName, sp.ControllingClient.AgentId);   // DreamGrid
-                if (!string.IsNullOrWhiteSpace(regionName) && !regionName.Equals(finalDestination.RegionName, StringComparison.InvariantCultureIgnoreCase))
+                if ((finalDestination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
                 {
-                    if(regionName.Equals(sp.Scene.Name, StringComparison.InvariantCultureIgnoreCase))
+                    UUID regID = sp.Scene.GetSmartStartALTRegion(finalDestination.RegionID, sp.ControllingClient.AgentId);
+                    if(regID != UUID.Zero && regID != finalDestination.RegionID)
                     {
-                        sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
-                        return;
-                    }
+                        if(regID == sp.Scene.RegionInfo.RegionID)
+                        {
+                            sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
+                            return;
+                        }
 
-                    finalDestination = sp.Scene.GridService.GetRegionByName(sp.Scene.RegionInfo.ScopeID, regionName);
-                    if(finalDestination == null)
-                    {
-                        sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
-                        return;
-                    }
+                        finalDestination = sp.Scene.GridService.GetRegionByUUID(sp.Scene.RegionInfo.ScopeID, regID);
+                        if(finalDestination == null)
+                        {
+                            sp.ControllingClient.SendTeleportFailed("Destination region Loading. Teleport will happen soon");
+                            return;
+                        }
 
-                    reg = finalDestination;
+                        reg = finalDestination;
+                    }
                 }
             }
 

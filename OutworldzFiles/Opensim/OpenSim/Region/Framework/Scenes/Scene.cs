@@ -837,51 +837,65 @@ namespace OpenSim.Region.Framework.Scenes
 
         public GridInfo SceneGridInfo;
 
-        //SmartStart
-        private static bool m_ALT_Enabled = false;
-        private static Int32 m_DiagnosticsPort;
-        private static string m_PrivURL;
-        private static string m_MachineID;
+        // SmartStart
+        protected bool m_SmartStartEnabled = false;
+        protected string m_SmartStartUrl = string.Empty;
+        protected string m_SmartStartMachineID = string.Empty;
 
         #endregion Properties
+
 
         #region Constructors
 
         //DreamGrid
-        public string GetALTRegion(String regionName, UUID agentID)
+        //DreamGrid SmartStart
+        public UUID GetSmartStartALTRegion(UUID regionID, UUID agentID)
         {
-            // !!!  DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
+            // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
             // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
-            
-            string url = $"{m_PrivURL}:{m_DiagnosticsPort}?alt={regionName}&agent=RegionName&agentid={agentID}&password={m_MachineID}";
-            m_log.DebugFormat("[SMARTSTART]: {0}", url);
-
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-
-            webRequest.Timeout = 2000; //15 Second Timeout
-            m_log.DebugFormat("[SMARTSTART]: Sending request to {0}", url);
-
-            try
+            if (m_SmartStartEnabled)
             {
-                HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-                System.IO.StreamReader reader = new System.IO.StreamReader(webResponse.GetResponseStream());
-                string Result = String.Empty;
-                string tempStr = reader.ReadLine();
-                while (tempStr != null)
+                string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
+                m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
+
+                HttpWebRequest webRequest;
+                try
                 {
-                    Result = Result + tempStr;
-                    tempStr = reader.ReadLine();
+                    webRequest = (HttpWebRequest)WebRequest.Create(url);
                 }
-                m_log.Debug("[SMARTSTART]: Destination is " + Result);
-                regionName = Result;
-            }
-            catch (WebException ex)
-            {
-                m_log.Warn("[SMARTSTART]: " + ex.Message);
-            }
+                catch
+                {
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion failed to create url");
+                    return UUID.Zero;
+                }
 
-            return regionName;
+                webRequest.Timeout = 30000; //30 Second Timeout
+                webRequest.AllowWriteStreamBuffering = false;
 
+                try
+                {
+                    string tempStr;
+                    using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
+                    {
+                        using (StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
+                            tempStr = reader.ReadToEnd();
+                    }
+
+                    if (string.IsNullOrEmpty(tempStr))
+                    {
+                        m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned null");
+                        return UUID.Zero;
+                    }
+
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned " + tempStr);
+                    regionID = UUID.Parse(tempStr);
+                }
+                catch (Exception ex)
+                {
+                    m_log.Warn("[LLoginService]: GetSmartStartALTRegion exception: " + ex.Message);
+                }
+            }
+            return regionID;
         }
 
         public Scene(RegionInfo regInfo, AgentCircuitManager authen,
@@ -1166,19 +1180,34 @@ namespace OpenSim.Region.Framework.Scenes
                 m_update_presences        = startupConfig.GetInt("UpdateAgentsEveryNFrames",          m_update_presences);
                 m_update_terrain          = startupConfig.GetInt("UpdateTerrainEveryNFrames",         m_update_terrain);
                 m_update_temp_cleaning    = startupConfig.GetInt("UpdateTempCleaningEveryNSeconds",   m_update_temp_cleaning);
-
-                m_ALT_Enabled = startupConfig.GetBoolean("SmartStart", m_ALT_Enabled);
-                if (m_ALT_Enabled)
-                    m_log.Info("[SmartStart]: Enabled");
-                else
-                    m_log.Info("[SmartStart]: Disabled");
-
-                // Get the http port to talk to from Const Section
-                IConfig ConstConfig = m_config.Configs["Const"];
-                m_DiagnosticsPort = ConstConfig.GetInt("DiagnosticsPort", 8001);    // listener port for Dreamgrid
-                m_PrivURL = ConstConfig.GetString("PrivURL", "http://localhost");    // private IP
-                m_MachineID = ConstConfig.GetString("MachineID", "");    // private IP
             }
+
+            // SmartStart
+            IConfig SmartStartConfig = config.Configs["SmartStart"];
+            if (SmartStartConfig != null)
+            {
+                m_SmartStartEnabled = SmartStartConfig.GetBoolean("Enabled", m_SmartStartEnabled);
+                if (m_SmartStartEnabled)
+                {
+                    m_SmartStartUrl = SmartStartConfig.GetString("URL", m_SmartStartUrl);
+                    if (string.IsNullOrEmpty(m_SmartStartUrl))
+                        m_SmartStartEnabled = false;
+                    else
+                    {
+                        OSHHTPHost tmpSmartStartURL = new OSHHTPHost(m_SmartStartUrl, true);
+                        if (!tmpSmartStartURL.IsResolvedHost)
+                        {
+                            m_log.Error("[SCENE]: Could not parse or resolve SmartStart URI");
+                            throw new Exception("SCENE init error: SmartStart URI");
+                        }
+                        m_SmartStartUrl = tmpSmartStartURL.URI;
+                        m_log.Info("[SCENE]: SmartStartUlr " + m_SmartStartUrl);
+
+                        m_SmartStartMachineID = SmartStartConfig.GetString("MachineID", m_SmartStartMachineID);
+                    }
+                }
+            }
+            m_log.Info("[SCENE]: SmartStart " + (m_SmartStartEnabled ? "Enabled" : "Disabled"));
 
             #endregion Region Config
 
