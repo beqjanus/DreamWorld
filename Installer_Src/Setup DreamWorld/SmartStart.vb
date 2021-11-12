@@ -390,7 +390,11 @@ Module SmartStart
 
         For Each RegionUUID In Sleeping
             Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-            FreezeThaw(RegionUUID, "-rpid " & PropRegionClass.ProcessID(RegionUUID))
+
+            If PropRegionClass.ProcessID(RegionUUID) > 0 Then
+                FreezeThaw(RegionUUID, "-rpid " & PropRegionClass.ProcessID(RegionUUID))
+            End If
+
             PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
         Next
 
