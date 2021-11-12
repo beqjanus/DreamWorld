@@ -40,6 +40,7 @@ using OpenSim.Region.PhysicsModules.SharedBase;
 using OpenSim.Services.Interfaces;
 
 using GridRegion = OpenSim.Services.Interfaces.GridRegion;
+using RegionFlags = OpenSim.Framework.RegionFlags;
 
 using OpenMetaverse;
 using log4net;

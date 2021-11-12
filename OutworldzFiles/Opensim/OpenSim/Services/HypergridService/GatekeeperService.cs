@@ -30,13 +30,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
 using OpenSim.Framework;
 using OpenSim.Services.Interfaces;
-using GridRegion = OpenSim.Services.Interfaces.GridRegion;
 using OpenSim.Server.Base;
 using OpenSim.Services.Connectors.InstantMessage;
 using OpenSim.Services.Connectors.Hypergrid;
@@ -45,6 +45,9 @@ using OpenSim.Region.Framework;
 
 using Nini.Config;
 using log4net;
+
+using GridRegion = OpenSim.Services.Interfaces.GridRegion;
+using RegionFlags = OpenSim.Framework.RegionFlags;
 
 namespace OpenSim.Services.HypergridService
 {
@@ -72,8 +75,13 @@ namespace OpenSim.Services.HypergridService
         private static ISimulationService m_SimulationService;
         private static IUserAccountService m_UserAccountService;
         private static IUserAgentService m_UserAgentService;
-        private bool m_allowDuplicatePresences = false;
-        private HashSet<OSHHTPHost> m_gateKeeperAlias;
+        private static bool m_allowDuplicatePresences = false;
+        private static HashSet<OSHHTPHost> m_gateKeeperAlias;
+
+        // SmartStart
+        protected static bool m_SmartStartEnabled = false;
+        protected static string m_SmartStartUrl = string.Empty;
+        protected static string m_SmartStartMachineID = string.Empty;
 
         public GatekeeperService(IConfigSource config, ISimulationService simService)
         {
@@ -175,13 +183,89 @@ namespace OpenSim.Services.HypergridService
                 if (messagingConfig != null)
                     m_messageKey = messagingConfig.GetString("MessageKey", String.Empty);
 
-                m_log.Debug("[GATEKEEPER SERVICE]: Starting...");
+                // SmartStart
+                IConfig SmartStartConfig = config.Configs["SmartStart"];
+                if (SmartStartConfig != null)
+                {
+                    m_SmartStartEnabled = SmartStartConfig.GetBoolean("Enabled", m_SmartStartEnabled);
+                    if (m_SmartStartEnabled)
+                    {
+                        m_SmartStartUrl = SmartStartConfig.GetString("URL", m_SmartStartUrl);
+                        if (string.IsNullOrEmpty(m_SmartStartUrl))
+                            m_SmartStartEnabled = false;
+                        else
+                        {
+                            OSHHTPHost tmpSmartStartURL = new OSHHTPHost(m_SmartStartUrl, true);
+                            if (!tmpSmartStartURL.IsResolvedHost)
+                            {
+                                m_log.Error("[GATEKEEPER SERVICE]: Could not parse or resolve SmartStart URI");
+                                throw new Exception("GATEKEEPER SERVICE init error: SmartStart URI");
+                            }
+                            m_SmartStartUrl = tmpSmartStartURL.URI;
+                            m_log.Info("[GATEKEEPER SERVICE]: SmartStartUlr " + m_SmartStartUrl);
+
+                            m_SmartStartMachineID = SmartStartConfig.GetString("MachineID", m_SmartStartMachineID);
+                        }
+                    }
+                }
+                m_log.Info("[GATEKEEPER SERVICE]: SmartStart " + (m_SmartStartEnabled ? "Enabled" : "Disabled"));
             }
+            m_log.Info("[GATEKEEPER SERVICE]: Instance Starting...");
         }
 
         public GatekeeperService(IConfigSource config)
                     : this(config, null)
         {
+        }
+
+        //DreamGrid SmartStart
+        public UUID GetSmartStartALTRegion(UUID regionID, UUID agentID)
+        {
+            // !!! DreamGrid Smart Start sends requested Region UUID to Dreamgrid.
+            // If region is on line, returns same UUID. If Offline, returns UUID for Welcome, brings up the region and teleports you to it.
+            if (m_SmartStartEnabled)
+            {
+                string url = $"{m_SmartStartUrl}?alt={regionID}&agent=UUID&agentid={agentID}&password={m_SmartStartMachineID}";
+                m_log.DebugFormat("[LLoginService]: GetSmartStartALTRegion Sending request {0}", url);
+
+                HttpWebRequest webRequest;
+                try
+                {
+                    webRequest = (HttpWebRequest)WebRequest.Create(url);
+                }
+                catch
+                {
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion failed to create url");
+                    return UUID.Zero;
+                }
+
+                webRequest.Timeout = 30000; //30 Second Timeout
+                webRequest.AllowWriteStreamBuffering = false;
+
+                try
+                {
+                    string tempStr;
+                    using (HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse())
+                    {
+                        using (StreamReader reader = new StreamReader(webResponse.GetResponseStream()))
+                            tempStr = reader.ReadToEnd();
+                    }
+
+                    if (string.IsNullOrEmpty(tempStr))
+                    {
+                        m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned null");
+                        return UUID.Zero;
+                    }
+
+                    m_log.Debug("[LLoginService]: GetSmartStartALTRegion returned " + tempStr);
+                    regionID = UUID.Parse(tempStr);
+                }
+                catch (Exception ex)
+                {
+                    m_log.Warn("[LLoginService]: GetSmartStartALTRegion exception: " + ex.Message);
+                }
+            }
+            return regionID;
         }
 
         public GridRegion GetHyperlinkRegion(UUID regionID, UUID agentID, string agentHomeURI, out string message)
@@ -215,6 +299,29 @@ namespace OpenSim.Services.HypergridService
                 return null;
             }
 
+            if (m_SmartStartEnabled)
+            {
+                if ((region.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
+                {
+                    UUID rid = GetSmartStartALTRegion(region.RegionID, agentID);
+                    if (rid == UUID.Zero)
+                    {
+                        message = "Region redirection check fail";
+                        return null;
+                    }
+
+                    if (rid != region.RegionID)
+                    {
+                        GridRegion r = m_GridService.GetRegionByUUID(m_ScopeID, rid);
+                        if (r == null)
+                        {
+                            message = "Redirect region not found";
+                            return null;
+                        }
+                        region = r;
+                    }
+                }
+            }
             m_log.DebugFormat(
                 "[GATEKEEPER SERVICE]: Returning region {0} {1} @ {2} to user {3}{4}.",
                 region.RegionName,
@@ -473,6 +580,30 @@ namespace OpenSim.Services.HypergridService
             {
                 reason = "Destination region not found";
                 return false;
+            }
+
+            if (m_SmartStartEnabled)
+            {
+                if ((destination.RegionFlags & (RegionFlags.Hyperlink | RegionFlags.DefaultRegion | RegionFlags.FallbackRegion | RegionFlags.DefaultHGRegion)) == 0)
+                {
+                    UUID rid = GetSmartStartALTRegion(destination.RegionID, account.PrincipalID);
+                    if(rid == UUID.Zero)
+                    {
+                        reason = "Region redirection check fail";
+                        return false;
+                    }
+
+                    if (rid != destination.RegionID)
+                    {
+                        GridRegion r = m_GridService.GetRegionByUUID(m_ScopeID, rid);
+                        if(r == null)
+                        {
+                            reason = "Redirect region not found";
+                            return false;
+                        }
+                        destination = r;
+                    }
+                }
             }
 
             m_log.DebugFormat(
