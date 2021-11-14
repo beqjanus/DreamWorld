@@ -264,8 +264,58 @@ Public Module MysqlInterface
 
 #End Region
 
-#Region "Public"
+#Region "DeletePrims"
+    Public Sub DeleteAllContents(regionUUID As String)
 
+        DeleteContent(regionUUID, "primshapes", "uuid")
+        DeleteContent(regionUUID, "bakedterrain", "regionuuid")
+        DeleteContent(regionUUID, "estate_map", "regionid")
+        DeleteContent(regionUUID, "land", "regionuuid")
+        DeleteContent(regionUUID, "prims", "uuid")
+        DeleteContent(regionUUID, "primitems", "primid")
+        DeleteContent(regionUUID, "regionenvironment", "region_id")
+        DeleteContent(regionUUID, "regionextra", "regionid")
+        DeleteContent(regionUUID, "regionsettings", "regionuuid")
+        DeleteContent(regionUUID, "regionwindlight", "region_id")
+        DeleteContent(regionUUID, "spawn_points", "regionid")
+        DeleteContent(regionUUID, "terrain", "regionuuid")
+        Delete_Region_Map(regionUUID)
+        DeleteMaps(regionUUID)
+        DeregisterRegionUUID(regionUUID)
+
+        Dim GroupName = PropRegionClass.GroupName(regionUUID)
+        Dim RegionName = PropRegionClass.RegionName(regionUUID)
+        CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.bak"))
+        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
+        PropRegionClass.DeleteRegion(regionUUID)
+
+
+    End Sub
+
+
+    Private Sub DeleteContent(PrimUUID As String, Tablename As String, UUIDName As String)
+
+        Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = $"delete from {Tablename} WHERE {UUIDName} = @UUID"
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", PrimUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Show(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+
+    End Sub
+#End Region
+
+
+#Region "Public"
     Public Sub DeleteOldVisitors()
 
         Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
@@ -316,27 +366,6 @@ Public Module MysqlInterface
 
     End Sub
 
-    Public Sub DeleteOpensimEstateID(UUID As String)
-
-        Using EstateConnection As New MySqlConnection(Settings.RegionMySqlConnection)
-            Try
-                EstateConnection.Open()
-
-                Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
-
-                Using cmd = New MySqlCommand(stm, EstateConnection)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-                    cmd.ExecuteNonQuery()
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-
-        End Using
-
-    End Sub
 
     Public Sub DeRegisterPosition(X As Integer, Y As Integer)
 
@@ -959,6 +988,7 @@ Public Module MysqlInterface
         If Not IsMySqlRunning() Then Return
         Dim exists As Boolean
 
+
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try
                 MysqlConn.Open()
@@ -987,7 +1017,7 @@ Public Module MysqlInterface
             Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
                 Try
                     MysqlConn1.Open()
-                    Dim stm1 = "insert into EstateMap (RegionID, EstateID) values (@UUID, @EID)"
+                    Dim stm1 = "insert into estate_map (RegionID, EstateID) values (@UUID, @EID)"
                     Try
                         Using cmd1 = New MySqlCommand(stm1, MysqlConn1)
                             cmd1.Parameters.AddWithValue("@UUID", UUID)
@@ -1004,7 +1034,6 @@ Public Module MysqlInterface
                 End Try
             End Using
         End If
-
     End Sub
 
     Public Sub SetupLocalSearch()
