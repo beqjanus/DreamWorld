@@ -220,7 +220,6 @@ Module RPC
             Dim RPC = New XmlRpcRequest(cmd, parameters)
             Return RPC.Invoke(url)
         Catch ex As Exception
-            BreakPoint.Show(ex.Message)
         End Try
         Return Nothing
 
