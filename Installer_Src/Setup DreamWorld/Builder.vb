@@ -222,35 +222,14 @@ Module Build
         Dim UUIDs = PropRegionClass.RegionUuidListByName(GroupName)
 
         For Each RegionUUID As String In UUIDs
-
             ReBoot(RegionUUID)
-
-            ' this mess is need to get the region to join an estate
-            ' There only other way is to append to a file and start Robust again.
-            Dim Group = PropRegionClass.GroupName(RegionUUID)
-            While True
-                For Each UUID In PropRegionClass.RegionUuidListByName(Group)
-                    If EstateName(RegionUUID).Length = 0 Then
-                        SetEstate(RegionUUID, 1999)
-                    End If
-                Next
-            End While
-
             WaitForBooted(RegionUUID)
-
-            'force update - Force the region to send all clients updates about all objects.
-            If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
-
-            For Each UUID In PropRegionClass.RegionUuidListByName(Group)
-                RPC_Region_Command(RegionUUID, $"estate link region 1999 {RegionUUID} ")
-                Try
-                    GenLand(RegionUUID)
-                    GenTrees(RegionUUID)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-
-            Next
+            Try
+                GenLand(RegionUUID)
+                GenTrees(RegionUUID)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
         Next
 
     End Sub
