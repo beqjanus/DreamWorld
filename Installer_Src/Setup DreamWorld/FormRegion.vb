@@ -842,19 +842,7 @@ Public Class FormRegion
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
 
-            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-
-            PropRegionClass.Delete_Region_Map(RegionUUID)
-
-            DeleteMaps(RegionUUID)
-
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.bak"))
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
-
-            DeregisterRegionUUID(RegionUUID)
-
-            PropRegionClass.DeleteRegion(RegionUUID)
+            DeleteAllContents(RegionUUID)
             PropRegionClass.GetAllRegions()
             Changed1 = False
             PropUpdateView = True
