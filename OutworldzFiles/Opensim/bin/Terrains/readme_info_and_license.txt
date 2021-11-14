@@ -1,3 +1,7 @@
+Aneityum by JPVDGIESSEN on Aug 21, 2012
+This work is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported.
+
+http://opensim-creations.com/2012/08/21/aneityum/
 
 Landscape with Rivers by Albrecht Boucher Shaped terrain RAW format (1x1 format) with river and mountainous scenery.
 Harbour	by Albrecht Boucher Shaped terrain RAW format (1x1 format) and Harbour.
