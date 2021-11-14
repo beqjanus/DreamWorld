@@ -29,7 +29,7 @@ Public Class ClassRegionMaker
     Private Shared FInstance As ClassRegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of ClassRegionMaker.Region_data)
-    Private ReadOnly Map As New Dictionary(Of String, String)
+
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
     Private _GetAllRegionsIsBusy As Boolean
     Private _RegionListIsInititalized As Boolean
@@ -295,8 +295,9 @@ Public Class ClassRegionMaker
 
         ' Change estate for Smart Start
 
-        If SmartStart(RegionUUID) = "True" And Estate(RegionUUID) = "" Then
+        If SmartStart(RegionUUID) = "True" And Estate(RegionUUID).Length = 0 Then
             Estate(RegionUUID) = "SimSurround"
+            SetEstate(RegionUUID, 1999)
         End If
 
         Dim proto = "; * Regions configuration file; " & vbCrLf _
@@ -422,13 +423,14 @@ Public Class ClassRegionMaker
     Public Function AvatarsIsInGroup(groupname As String) As Boolean
 
         ' If groupname.Contains("Danger") Then
-        ' BreakPoint.Show("Braak")
+        ' BreakPoint.Show("Break")
         'End If
 
         For Each RegionUUID As String In RegionUuidListByName(groupname)
             If IsAgentInRegion(RegionUUID) Then
                 Return True
             End If
+            Application.doevents
         Next
         Return False
 
@@ -487,24 +489,6 @@ Public Class ClassRegionMaker
 
     End Function
 
-    Public Sub Delete_Region_Map(RegionUUID As String)
-
-        ' add to the global map this entire DOS box
-        Dim Xloc = CoordX(RegionUUID)
-        Dim Yloc = CoordY(RegionUUID)
-
-        ' draw a box at this size plus the pull down size.
-        For Each UUID In RegionUuidListByName(GroupName(RegionUUID))
-            Dim SimSize As Integer = CInt(SizeX(RegionUUID) / 256)
-            For Xstep = 0 To SimSize - 1
-                For Ystep = 0 To SimSize - 1
-                    Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
-                    If Map.ContainsKey(gr) Then Map.Remove(gr)
-                Next
-            Next
-        Next
-
-    End Sub
 
     Public Function FindBackupByName(Name As String) As Integer
 
@@ -1717,22 +1701,38 @@ Public Class ClassRegionMaker
     End Function
 
     ''' <summary>
-    ''' Returns a list if UUIDS of all regions in this group
+    ''' Returns a list of UUIDS of all regions in this group
     ''' </summary>
     ''' <param name="Gname">Group Name</param>
     ''' <returns>List of Region UUID's</returns>
     Public Function RegionUuidListByName(Gname As String) As List(Of String)
 
-        Dim L As New List(Of String)
+        Try
+            Dim L As New List(Of String)
+            Dim pair As KeyValuePair(Of String, Region_data)
+            For Each pair In RegionList
+                If pair.Value._Group = Gname Then
+                    L.Add(pair.Value._UUID)
+                End If
+            Next
+            Return L
+        Catch ex As Exception
+            Try
+                Dim L1 As New List(Of String)
+                Dim pair As KeyValuePair(Of String, Region_data)
+                For Each pair In RegionList
+                    If pair.Value._Group = Gname Or Gname = "*" Then
+                        L1.Add(pair.Value._UUID)
+                    End If
+                Next
+                Return L1
+            Catch ex1 As Exception
+                BreakPoint.Show(ex1.Message)
+            End Try
+        End Try
 
-        Dim pair As KeyValuePair(Of String, Region_data)
-        For Each pair In RegionList
-            If pair.Value._Group = Gname Or Gname = "*" Then
-                L.Add(pair.Value._UUID)
-            End If
-        Next
-
-        Return L
+        Dim L2 As New List(Of String)
+        Return L2
 
     End Function
 
