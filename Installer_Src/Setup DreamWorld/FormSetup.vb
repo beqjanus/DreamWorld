@@ -1773,6 +1773,8 @@ Public Class FormSetup
                 End Try
             End Using
         End If
+        Settings.VisitorsEnabled = True
+        Settings.SaveSettings()
 
         ' needed for DBIX::Class in util.pm
         If Settings.VisitorsEnabledModules = False Then
