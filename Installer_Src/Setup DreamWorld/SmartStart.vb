@@ -34,7 +34,7 @@ Module SmartStart
     Public Function WaitForBooted(RegionUUID As String) As Boolean
 
 
-        Dim c As Integer = 30 ' 1/2 minutes
+        Dim c As Integer = 90 ' 1.5 minutes
         While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted And
             PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped
 
@@ -458,6 +458,9 @@ Module SmartStart
         If PropAborting Then Return True
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
+
+        If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return True
+
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
 
         If String.IsNullOrEmpty(RegionUUID) Then
