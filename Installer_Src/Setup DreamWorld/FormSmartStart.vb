@@ -18,7 +18,6 @@ Public Class FormSmartStart
     Private ReadOnly _TerrainList As New List(Of Image)
     Private ReadOnly _TerrainName As New List(Of String)
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
-    Private ReadOnly Zero As String = "0"
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
