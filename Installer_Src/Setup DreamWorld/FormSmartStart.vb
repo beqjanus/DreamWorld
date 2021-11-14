@@ -1267,7 +1267,6 @@ Public Class FormSmartStart
             If RegionName.Length = 0 Then Return
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
-
             ReBoot(RegionUUID)
             WaitForBooted(RegionUUID)
             Application.DoEvents()
@@ -1286,16 +1285,30 @@ Public Class FormSmartStart
 
     Private Sub SaveAllTerrain_Click(sender As Object, e As EventArgs) Handles SaveAllTerrain.Click
         'Save all
-
-
         Try
-            Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
             For Each RegionUUID In PropRegionClass.RegionUuids
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+                Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
                 ReBoot(RegionUUID)
                 WaitForBooted(RegionUUID)
                 Application.DoEvents()
+
+                Dim S As Double = PropRegionClass.SizeX(RegionUUID)
+                S = S / 256
+                If S > 1 Then
+                    Dim path = $"{Terrainfolder}\{S}x{S}"
+                    ' If the destination folder don't exist then create it
+                    If Not System.IO.Directory.Exists(path) Then
+                        Try
+                            System.IO.Directory.CreateDirectory(path)
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+                    End If
+                    Terrainfolder = path
+                End If
 
                 If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
                     RPC_Region_Command(RegionUUID, $"change region {RegionName}")
@@ -1333,6 +1346,21 @@ Public Class FormSmartStart
         WaitForBooted(RegionUUID)
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
+        Dim S As Double = PropRegionClass.SizeX(RegionUUID)
+        S = S / 256
+        If S > 1 Then
+            Dim path = $"{Terrainfolder}\{S}x{S}"
+            ' If the destination folder don't exist then create it
+            If Not System.IO.Directory.Exists(path) Then
+                Try
+                    System.IO.Directory.CreateDirectory(path)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            End If
+            Terrainfolder = path
+        End If
+
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
         RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
@@ -1750,12 +1778,17 @@ Public Class FormSmartStart
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles DeleteAllRegions.Click
 
         Dim ctr = 0
+        If PropOpensimIsRunning Then
+            Dim msg = MsgBox(My.Resources.Regions_Are_Running, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+            Return
+        End If
         Dim result = MsgBox(My.Resources.DeleteSims, vbOKCancel Or MsgBoxStyle.MsgBoxSetForeground, My.Resources.Caution_word)
         If result = vbOK Then
             Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If msg = vbYes Then
                 For Each RegionUUID In PropRegionClass.RegionUuids
-                    If EstateID(RegionUUID) = 1999 Then
+                    If PropRegionClass.Estate(RegionUUID) = "SimSurround" Or
+                        PropRegionClass.Estate(RegionUUID).Length = 0 Then
                         DeleteAllRegionData(RegionUUID)
                         ctr += 1
                     End If
@@ -1763,6 +1796,8 @@ Public Class FormSmartStart
             Else
                 ProgressPrint(My.Resources.Cancelled_word)
             End If
+            PropRegionClass.GetAllRegions()
+
             ProgressPrint($"{ctr} {My.Resources.Regions_Deleted}")
         Else
             ProgressPrint(My.Resources.Cancelled_word)
@@ -1810,11 +1845,8 @@ Public Class FormSmartStart
 
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
 
-        DeregisterRegionUUID(RegionUUID)
-        DeleteOpensimEstateID(RegionUUID)
-        PropRegionClass.Delete_Region_Map(RegionUUID)
-        DeleteMaps(RegionUUID)
-        PropRegionClass.DeleteRegion(RegionUUID)
+        DeleteAllContents(RegionUUID)
+
         ProgressPrint($"Deleted region {RegionName}")
 
         ' TODO Delete all Opensim data files for this UUID
