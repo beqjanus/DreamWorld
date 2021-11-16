@@ -35,6 +35,7 @@ Module RPC
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return 0
         End If
+
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"region_id", RegionUUID}
@@ -86,6 +87,8 @@ Module RPC
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return 0
         End If
+
+
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"region_id", RegionUUID}
@@ -99,6 +102,7 @@ Module RPC
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return False
         End If
+
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"command", Message}
@@ -114,6 +118,7 @@ Module RPC
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return False
         End If
+
         'http://opensimulator.org/wiki/RemoteAdmin:admin_dialog
 
         Dim ht = New Hashtable From {
@@ -131,6 +136,7 @@ Module RPC
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return False
         End If
+
         'http://opensimulator.org/wiki/RemoteAdmin:admin_broadcast
 
         Dim ht = New Hashtable From {
@@ -212,6 +218,7 @@ Module RPC
         If Not PropRegionClass.Status(FromRegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return Nothing
         End If
+
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
 
@@ -232,6 +239,7 @@ Module RPC
         If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
             Return result
         End If
+
         Dim ht = New Hashtable From {
            {"password", Settings.MachineID},
            {"region_id", RegionUUID}
