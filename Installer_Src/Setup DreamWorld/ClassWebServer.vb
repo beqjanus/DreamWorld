@@ -144,7 +144,7 @@ Public Class NetServer
     Private Shared Sub Log(category As String, message As String)
         Debug.Print(message)
         Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Http.log"), True)
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Logs\Http.log"), False)
                 outputFile.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", Globalization.CultureInfo.InvariantCulture) & ":" & category & ":" & message)
             End Using
         Catch ex As Exception
