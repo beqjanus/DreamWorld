@@ -94,7 +94,7 @@ Public Class FormRegions
                 PropRegionClass.CoordY(UUID) = PropRegionClass.CoordY(UUID) + DeltaY
                 PropRegionClass.WriteRegionObject(PropRegionClass.GroupName(UUID), PropRegionClass.RegionName(UUID))
             Next
-
+            PropRegionClass.GetAllRegions()
         End If
     End Sub
 
