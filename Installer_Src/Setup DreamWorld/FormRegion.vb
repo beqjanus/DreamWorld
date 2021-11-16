@@ -759,7 +759,6 @@ Public Class FormRegion
         Else
             DeregisterRegionUUID(RegionUUID)
             WriteRegion(RegionUUID)
-            PropRegionClass.GetAllRegions()
             Firewall.SetFirewall()
             RestartRobustIfNeeded(RegionUUID)
             PropUpdateView() = True
@@ -1369,46 +1368,46 @@ Public Class FormRegion
                         "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
                         "; Automatically changed by Dreamworld" & vbCrLf &
                         "[" & RegionName.Text & "]" & vbCrLf &
-                        "RegionUUID = " & UUID.Text & vbCrLf &
-                        "Location = " & CoordX.Text & "," & CoordY.Text & vbCrLf &
+                        "RegionUUID=" & UUID.Text & vbCrLf &
+                        "Location=" & CoordX.Text & "," & CoordY.Text & vbCrLf &
                         "InternalAddress = 0.0.0.0" & vbCrLf &
-                        "InternalPort = " & PropRegionClass.RegionPort(RegionUUID) & vbCrLf &
-                        "GroupPort = " & PropRegionClass.GroupPort(RegionUUID) & vbCrLf &
+                        "InternalPort=" & PropRegionClass.RegionPort(RegionUUID) & vbCrLf &
+                        "GroupPort=" & PropRegionClass.GroupPort(RegionUUID) & vbCrLf &
                         "AllowAlternatePorts = False" & vbCrLf &
-                        "ExternalHostName = " & Settings.ExternalHostName & vbCrLf &
-                        "SizeX = " & BoxSize & vbCrLf &
-                        "SizeY = " & BoxSize & vbCrLf &
-                        "Enabled = " & CStr(EnabledCheckBox.Checked) & vbCrLf &
-                        "NonPhysicalPrimMax = " & NonphysicalPrimMax.Text & vbCrLf &
-                        "PhysicalPrimMax = " & PhysicalPrimMax.Text & vbCrLf &
-                        "ClampPrimSize = " & CStr(ClampPrimSize.Checked) & vbCrLf &
+                        "ExternalHostName=" & Settings.ExternalHostName & vbCrLf &
+                        "SizeX=" & BoxSize & vbCrLf &
+                        "SizeY=" & BoxSize & vbCrLf &
+                        "Enabled=" & CStr(EnabledCheckBox.Checked) & vbCrLf &
+                        "NonPhysicalPrimMax=" & NonphysicalPrimMax.Text & vbCrLf &
+                        "PhysicalPrimMax=" & PhysicalPrimMax.Text & vbCrLf &
+                        "ClampPrimSize=" & CStr(ClampPrimSize.Checked) & vbCrLf &
                         "Concierge =  " & CStr(ConciergeCheckBox.Checked) & vbCrLf &
-                        "MaxAgents = " & MaxAgents.Text & vbCrLf &
-                        "MaxPrims = " & MaxPrims.Text & vbCrLf &
+                        "MaxAgents=" & MaxAgents.Text & vbCrLf &
+                        "MaxPrims=" & MaxPrims.Text & vbCrLf &
                         "RegionType = Estate" & vbCrLf & vbCrLf &
                         ";# Extended region properties from Dreamgrid" & vbCrLf &
-                        "MinTimerInterval = " & ScriptTimerTextBox.Text & vbCrLf &
-                        "FrameTime = " & FrametimeBox.Text & vbCrLf &
-                        "RegionSnapShot = " & Snapshot & vbCrLf &
-                        "MapType = " & Map & vbCrLf &
-                        "Physics = " & Phys & vbCrLf &
-                        "GodDefault = " & PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
-                        "AllowGods = " & PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
-                        "RegionGod = " & PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
-                        "ManagerGod = " & PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
-                        "Birds = " & PropRegionClass.Birds(RegionUUID) & vbCrLf &
-                        "Tides = " & PropRegionClass.Tides(RegionUUID) & vbCrLf &
-                        "Teleport = " & PropRegionClass.Teleport(RegionUUID) & vbCrLf &
-                        "DisableGloebits = " & PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
-                        "DisallowForeigners = " & PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
-                        "DisallowResidents = " & PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
-                        "SkipAutoBackup = " & PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
-                        "ScriptEngine = " & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
-                        "Publicity = " & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
-                        "OpensimWorldAPIKey = " & PropRegionClass.OpensimWorldAPIKey(RegionUUID) & vbCrLf &
-                        "Priority = " & PropRegionClass.Priority(RegionUUID) & vbCrLf &
-                        "Cores = " & CStr(PropRegionClass.Cores(RegionUUID)) & vbCrLf &
-                        "SmartStart = " & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
+                        "MinTimerInterval=" & ScriptTimerTextBox.Text & vbCrLf &
+                        "FrameTime=" & FrametimeBox.Text & vbCrLf &
+                        "RegionSnapShot=" & Snapshot & vbCrLf &
+                        "MapType=" & Map & vbCrLf &
+                        "Physics=" & Phys & vbCrLf &
+                        "GodDefault=" & PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
+                        "AllowGods=" & PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
+                        "RegionGod=" & PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
+                        "ManagerGod=" & PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
+                        "Birds=" & PropRegionClass.Birds(RegionUUID) & vbCrLf &
+                        "Tides=" & PropRegionClass.Tides(RegionUUID) & vbCrLf &
+                        "Teleport=" & PropRegionClass.Teleport(RegionUUID) & vbCrLf &
+                        "DisableGloebits=" & PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
+                        "DisallowForeigners=" & PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
+                        "DisallowResidents=" & PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
+                        "SkipAutoBackup=" & PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
+                        "ScriptEngine=" & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
+                        "Publicity=" & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
+                        "OpensimWorldAPIKey=" & PropRegionClass.OpensimWorldAPIKey(RegionUUID) & vbCrLf &
+                        "Priority=" & PropRegionClass.Priority(RegionUUID) & vbCrLf &
+                        "Cores=" & CStr(PropRegionClass.Cores(RegionUUID)) & vbCrLf &
+                        "SmartStart=" & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
 
         'Debug.Print(Region)
 

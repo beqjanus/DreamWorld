@@ -202,7 +202,7 @@ Partial Class FormRegion
         Me.CoordY.Location = New System.Drawing.Point(78, 22)
         Me.CoordY.Name = "CoordY"
         Me.CoordY.Size = New System.Drawing.Size(43, 20)
-        Me.CoordY.TabIndex = 2
+        Me.CoordY.TabIndex = 1
         Me.ToolTip1.SetToolTip(Me.CoordY, Global.Outworldz.My.Resources.Resources.CoordY)
         '
         'CoordX
@@ -328,7 +328,7 @@ Partial Class FormRegion
         Me.NonphysicalPrimMax.Location = New System.Drawing.Point(12, 53)
         Me.NonphysicalPrimMax.Name = "NonphysicalPrimMax"
         Me.NonphysicalPrimMax.Size = New System.Drawing.Size(40, 20)
-        Me.NonphysicalPrimMax.TabIndex = 1
+        Me.NonphysicalPrimMax.TabIndex = 2
         Me.ToolTip1.SetToolTip(Me.NonphysicalPrimMax, Global.Outworldz.My.Resources.Resources.Normal_Prim)
         '
         'MaxMAvatarsLabel
