@@ -33,20 +33,20 @@ Module SmartStart
     ''' <returns>True of region is booted</returns>
     Public Function WaitForBooted(RegionUUID As String) As Boolean
 
-
         Dim c As Integer = 90 ' 1.5 minutes
-        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted And
-            PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted
+
+            If Not WaitForBooting(RegionUUID) Then Return False
 
             c -= 1  ' skip on timeout error
             If c < 0 Then
                 BreakPoint.Show("Timeout")
-                'ShutDown(RegionUUID)
-                'ConsoleCommand(RegionUUID, "q")
                 Return False
             End If
 
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            FormSetup.ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+
+            Debug.Print(GetStateString(PropRegionClass.Status(RegionUUID)))
             Sleep(1000)
 
         End While
@@ -65,7 +65,7 @@ Module SmartStart
                 Return False
             End If
 
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
+            Debug.Print(GetStateString(PropRegionClass.Status(RegionUUID)))
             Sleep(1000)
 
         End While
@@ -269,7 +269,7 @@ Module SmartStart
         DeleteFile(HTMLFILE)
 
         Try
-            Using outputFile As New StreamWriter(HTMLFILE, True)
+            Using outputFile As New StreamWriter(HTMLFILE, False)
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
@@ -479,6 +479,7 @@ Module SmartStart
 
         PropRegionClass.CrashCounter(RegionUUID) = 0
 
+        ' Detect if a region Windows is already running
         If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
 
             If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Then
@@ -504,10 +505,17 @@ Module SmartStart
                 If Not PropInstanceHandles.ContainsKey(PID) Then
                     PropInstanceHandles.Add(PID, GroupName)
                 End If
+
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
-                    PokeRegionTimer(UUID)
-                    SendToOpensimWorld(RegionUUID, 0)
+                    'Must be listening, not just in a window
+                    Application.DoEvents()
+
+                    If CheckPort("127.0.0.1", PropRegionClass.GroupPort(RegionUUID)) Then
+                        PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
+                        PokeRegionTimer(UUID)
+                        SendToOpensimWorld(RegionUUID, 0)
+                    End If
+
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeHideWindow())
@@ -612,14 +620,16 @@ Module SmartStart
                     PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booting
                     PokeRegionTimer(RegionUUID)
                 Next
+
+                AddCPU(PID, GroupName) ' get a list of running opensim processes
+                For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.ProcessID(UUID) = PID
+                Next
+
             Else
                 BreakPoint.Show("No PID for " & GroupName)
             End If
 
-            AddCPU(PID, GroupName) ' get a list of running opensim processes
-            For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                PropRegionClass.ProcessID(UUID) = PID
-            Next
             PropUpdateView = True ' make form refresh
             FormSetup.Buttons(FormSetup.StopButton)
             Return True
@@ -635,6 +645,7 @@ Module SmartStart
 
         If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Or
                 PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
+
 
             Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
 
