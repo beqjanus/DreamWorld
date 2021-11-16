@@ -122,7 +122,12 @@ Module Build
                 If GroupName.Length = 0 Then
                     GroupName = FantasyName()
                 End If
-                MakeTempRegion(GroupName, nX, nY)
+                Try
+                    MakeTempRegion(GroupName, nX, nY)
+                Catch ex As exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+
                 Simcount += 1
             End If
         Next
@@ -223,7 +228,9 @@ Module Build
 
         For Each RegionUUID As String In UUIDs
             ReBoot(RegionUUID)
+            Application.DoEvents()
             WaitForBooted(RegionUUID)
+            Application.DoEvents()
             Try
                 GenLand(RegionUUID)
                 GenTrees(RegionUUID)
@@ -328,7 +335,7 @@ Module Build
 
         '   TODO: delete from disk, use HTTP
         PropRegionClass.WriteRegionObject(Group, shortname)
-
+        PropRegionClass.GetAllRegions()
         Return RegionUUID
 
     End Function
