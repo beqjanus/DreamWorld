@@ -54,7 +54,7 @@ Public Class Backups
             Dim SQLFile = IO.Path.Combine(_folder, _filename)
 
             ' we must write this to the file so it knows what database to use.
-            Using outputFile As New StreamWriter(SQLFile)
+            Using outputFile As New StreamWriter(SQLFile, False)
                 outputFile.Write("use " & Name & ";" + vbCrLf)
             End Using
 

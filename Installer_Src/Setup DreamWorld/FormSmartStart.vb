@@ -1190,7 +1190,7 @@ Public Class FormSmartStart
         Dim output = IO.Path.Combine(Settings.OpensimBinPath, $"Trees/{XMLName}.xml")
 
         Try
-            Using Writer As New StreamWriter(output)
+            Using Writer As New StreamWriter(output, False)
                 Writer.Write(Xml)
             End Using
         Catch ex As Exception

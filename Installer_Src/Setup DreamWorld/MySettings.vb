@@ -2174,7 +2174,7 @@ Public Class MySettings
         ' bug 10627092
         Try
             Dim file As System.IO.StreamWriter
-            file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
+            file = My.Computer.FileSystem.OpenTextFileWriter(ini, False)
             For Each Item As String In Apachein
                 file.WriteLine(Item)
             Next

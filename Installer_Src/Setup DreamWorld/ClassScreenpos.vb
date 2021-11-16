@@ -40,7 +40,7 @@ Public Class ClassScreenpos
             While Retry > 0
                 Dim contents = "[Data]" + vbCrLf
                 Try
-                    Using outputFile As New StreamWriter(XYINI, True)
+                    Using outputFile As New StreamWriter(XYINI, False)
                         outputFile.WriteLine(contents)
                         Retry = 0
                     End Using

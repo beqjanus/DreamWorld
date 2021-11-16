@@ -105,7 +105,7 @@ Public Module MysqlInterface
         DeleteFile(testProgram)
 
         Try
-            Using outputFile As New StreamWriter(testProgram, True)
+            Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
                              & "mysqld.exe --defaults-file=" &
                              """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """"
@@ -496,27 +496,55 @@ Public Module MysqlInterface
 
     End Function
 
+
+    ''' <summary>
+    ''' Gets user count from useraccounts
+    ''' </summary>
+    ''' <returns>integer count of agents in this region</returns>
+    Public Function GetAgentsInRegion(RegionUUID As String) As Integer
+
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        Dim Dict As New Dictionary(Of String, String)
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT count(*) FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where regionid = @UUID "
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then Return (reader.GetInt32(0))
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Show(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+        Return 0
+
+    End Function
     ''' <summary>
     ''' Gets users from useraccounts
     ''' </summary>
-    ''' <returns>dictionary of Firstname + Lastname, Region Name</returns>
+    ''' <returns>dictionary of Firstname + Lastname, Region UUID</returns>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
-        If Settings.ServerType <> RobustServerName Then Return Dict
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
             Try
                 NewSQLConn.Open()
 
-                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
+                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
 
                         While reader.Read()
-                            ' Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
+                            Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
                             Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
                         End While
                     End Using
@@ -911,7 +939,6 @@ Public Module MysqlInterface
 
     End Function
 
-    '' !!! Deprecated
     ''' <summary>
     ''' Returns boolean if a region exists in the regions table
     ''' </summary>
@@ -1181,7 +1208,7 @@ Public Module MysqlInterface
         DeleteFile(testProgram)
 
         Try
-            Using outputFile As New StreamWriter(testProgram, True)
+            Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
             "mysqld.exe --install Mysql --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
             End Using
@@ -1197,7 +1224,7 @@ Public Module MysqlInterface
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StopMySQL.bat")
         DeleteFile(testProgram)
         Try
-            Using outputFile As New StreamWriter(testProgram, True)
+            Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
