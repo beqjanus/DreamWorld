@@ -1258,10 +1258,14 @@ Public Class FormRegionlist
             Else
                 PropRegionClass.RegionEnabled(RegionUUID) = True
             End If
+            If PropRegionClass.RegionIniFilePath(RegionUUID).Length > 0 Then
+                Dim INI = New LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
+                INI.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
+                INI.SaveINI()
+            Else
+                BreakPoint.Show("cannot locate region in group " & GroupName)
+            End If
 
-            Dim INI = New LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
-            INI.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
-            INI.SaveINI()
         Next
 
     End Sub
@@ -1344,7 +1348,7 @@ SetWindowOnTop_Err:
 
             PropAborting = False
 
-            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.RestartPending
+            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Resume
 
             Application.DoEvents()
             FormSetup.Timer1.Interval = 1000
@@ -1555,7 +1559,7 @@ SetWindowOnTop_Err:
 
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
 
-        DoStopActions()
+        FormSetup.DoStopActions()
         PropRegionClass.GetAllRegions()
         LoadMyListView()
 
