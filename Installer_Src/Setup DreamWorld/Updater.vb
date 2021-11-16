@@ -75,7 +75,7 @@ Module Updater
         ElseIf doUpdate = DialogResult.Yes Then
             ' Yes, Update
 
-            If DoStopActions() = False Then Return
+            If FormSetup.DoStopActions() = False Then Return
 
             Dim pi As ProcessStartInfo = New ProcessStartInfo With {
                 .WindowStyle = ProcessWindowStyle.Normal,

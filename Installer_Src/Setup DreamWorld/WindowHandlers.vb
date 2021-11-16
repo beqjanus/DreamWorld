@@ -30,20 +30,6 @@ Module WindowHandlers
 #End Region
 
 
-    Public Function DoStopActions() As Boolean
-
-        TextPrint(My.Resources.Stopping_word)
-        FormSetup.Buttons(FormSetup.BusyButton)
-
-        If Not FormSetup.KillAll() Then Return False
-        FormSetup.Buttons(FormSetup.StartButton)
-        TextPrint(My.Resources.Stopped_word)
-        FormSetup.ToolBar(False)
-
-
-        Return True
-
-    End Function
 
     Public Sub ConsoleCommand(RegionUUID As String, command As String, Optional noChange As Boolean = False)
 
@@ -403,11 +389,10 @@ Module WindowHandlers
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
         ' 2 minutes for old hardware and it to build DB
-        Do While TooMany < 120 And PropOpensimIsRunning
+        Do While TooMany < 10 And PropOpensimIsRunning
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
-                BreakPoint.Show(ex.Message)
             End Try
 
             If p IsNot Nothing Then
