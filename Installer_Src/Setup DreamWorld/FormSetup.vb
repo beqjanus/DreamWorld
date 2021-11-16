@@ -80,7 +80,7 @@ Public Class FormSetup
     Private _ContentOAR As FormOAR
     Private _CurSlashDir As String
     Private _DNSSTimer As Integer
-    Private _ExitHandlerIsBusy As Boolean
+    Private _ExitHandlerIsBusy As Integer
     Private _IcecastCrashCounter As Integer
     Private _IceCastExited As Boolean
     Private _IPv4Address As String
@@ -206,11 +206,11 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public Property PropExitHandlerIsBusy() As Boolean
+    Public Property PropExitHandlerIsBusy() As Integer
         Get
             Return _ExitHandlerIsBusy
         End Get
-        Set(ByVal Value As Boolean)
+        Set(ByVal Value As Integer)
             _ExitHandlerIsBusy = Value
         End Set
     End Property
@@ -361,6 +361,16 @@ Public Class FormSetup
 
     End Sub
 
+    Public Shared Sub ErrorGroup(Groupname As String)
+
+        For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(Groupname)
+            Logger(My.Resources.Info_word, PropRegionClass.RegionName(RegionUUID) & " is in Error State", "Teleport")
+            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Error
+            PokeRegionTimer(RegionUUID)
+        Next
+        Logger("Info", Groupname & " Group is now in Error State", "Teleport")
+
+    End Sub
     Public Shared Sub StopGroup(Groupname As String)
 
         For Each RegionUUID As String In PropRegionClass.RegionUuidListByName(Groupname)
@@ -473,7 +483,10 @@ Public Class FormSetup
                 If CountisRunning.Count = 0 Then
                     counter = 0
                 End If
+
                 ExitHandlerPoll()
+
+
                 Sleep(1000)
             End While
             PropUpdateView = True ' make form refresh
@@ -564,7 +577,7 @@ Public Class FormSetup
         'Redo all the region ports
         PropRegionClass.UpdateAllRegionPorts()
 
-        PropExitHandlerIsBusy = False
+        PropExitHandlerIsBusy = 0
         PropAborting = False
 
         Buttons(BusyButton)
@@ -695,7 +708,7 @@ Public Class FormSetup
 
         TextPrint(My.Resources.Starting_word)
 
-        PropExitHandlerIsBusy = False
+        PropExitHandlerIsBusy = 0
         PropAborting = False  ' suppress exit warning messages
 
         ToolBar(False)
@@ -991,344 +1004,366 @@ Public Class FormSetup
 
     End Sub
 
-    Private Sub ExitHandlerPoll()
+    Public Function DoStopActions() As Boolean
 
-        If PropExitHandlerIsBusy Then
+        TextPrint(My.Resources.Stopping_word)
+        Buttons(BusyButton)
+
+        If Not KillAll() Then Return False
+        Buttons(StartButton)
+        TextPrint(My.Resources.Stopped_word)
+        ToolBar(False)
+        PropExitHandlerIsBusy = 0
+
+        Return True
+
+    End Function
+    Public Sub ExitHandlerPoll()
+
+        If PropExitHandlerIsBusy > 0 Then
             Bench.Print("ExitHandlerPoll BUSY")
+            PropExitHandlerIsBusy += 1
+            If PropExitHandlerIsBusy > 60 Then
+                PropExitHandlerIsBusy = 0
+            End If
             Return
         End If
         Bench.Print("ExitHandlerPoll Begins")
 
-        PropExitHandlerIsBusy = True
+
         Dim GroupName As String = ""
 
-        ' booted regions from web server
-        While BootedList1.Count > 0
-            Dim Ruuid As String = ""
-            Try
-                Ruuid = BootedList1(0)
-                BootedList1.RemoveAt(0)
-            Catch
-            End Try
+        Try
+            ' booted regions from web server
+            Bench.Print("Booted list Start")
+            While BootedList1.Count > 0
 
-            If PropAborting Then Continue While
-            If Not PropOpensimIsRunning() Then Continue While
-            If Not PropRegionClass.RegionEnabled(Ruuid) Then Continue While
+                Dim Ruuid As String = ""
+                Try
+                    Ruuid = BootedList1(0)
+                    BootedList1.RemoveAt(0)
+                Catch
+                End Try
 
-            Dim RegionName = PropRegionClass.RegionName(Ruuid)
+                If PropAborting Then Continue While
+                If Not PropOpensimIsRunning() Then Continue While
+                If Not PropRegionClass.RegionEnabled(Ruuid) Then Continue While
 
-            ' see how long it has been since we booted
-            Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
-            TextPrint($"{RegionName} {My.Resources.Boot_Time}: {CStr(seconds)} {My.Resources.Seconds_word}")
-            PokeRegionTimer(Ruuid)
-            Dim status = PropRegionClass.Status(Ruuid)
+                Dim RegionName = PropRegionClass.RegionName(Ruuid)
 
-            If status = ClassRegionMaker.SIMSTATUSENUM.Booting Or
-                status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-                SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
-            End If
+                ' see how long it has been since we booted
+                Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
+                TextPrint($"{RegionName} {My.Resources.Boot_Time}: {CStr(seconds)} {My.Resources.Seconds_word}")
+                PokeRegionTimer(Ruuid)
 
-            PropRegionClass.Status(Ruuid) = ClassRegionMaker.SIMSTATUSENUM.Booted
-            ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
+                SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.            
 
-            'force update - Force the region to send all clients updates about all objects.
-            If Not RPC_Region_Command(Ruuid, "force update") Then BreakPoint.Show("No RPC")
+                PropRegionClass.Status(Ruuid) = ClassRegionMaker.SIMSTATUSENUM.Booted
+                ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
 
-            If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid).Length = 0 Then
-                PropRegionClass.BootTime(Ruuid) = CInt(seconds)
-            Else
-                PropRegionClass.MapTime(Ruuid) = CInt(seconds)
-            End If
+                'force update - Force the region to send all clients updates about all objects.
+                ' Not needed?  If Not RPC_Region_Command(Ruuid, "force update") Then BreakPoint.Show("No RPC")
 
-
-            TeleportAgents()
-            PropUpdateView = True
-
-        End While
-
-        Bench.Print("Booted list Start")
-
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            Application.DoEvents()
-            If PropAborting Then Continue For
-            If Not PropOpensimIsRunning() Then Continue For
-            If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
-
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-            GroupName = PropRegionClass.GroupName(RegionUUID)
-            'Diagnostics.Debug.Print(GroupName)
-            Dim status = PropRegionClass.Status(RegionUUID)
-
-            ' if anyone is in home stay alive
-            If PropRegionClass.AvatarsIsInGroup(GroupName) Then
-                PokeGroupTimer(GroupName)
-            End If
-
-            ' Find any regions touching this region.
-            ' add them to the area to stay alive.
-
-            If Settings.SmartStart Then
-                If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
-                    If PropRegionClass.AvatarIsNearby(RegionUUID) Then
-                        TextPrint($"{GroupName} {My.Resources.StartingNearby}")
-                        ReBoot(RegionUUID)
-                        Continue For
-                    End If
+                If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid).Length = 0 Then
+                    PropRegionClass.BootTime(Ruuid) = CInt(seconds)
+                Else
+                    PropRegionClass.MapTime(Ruuid) = CInt(seconds)
                 End If
-            End If
 
-            ' keep smart start regions alive if someone is near
-            If Settings.SmartStart Then
-                If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+
+                TeleportAgents()
+                PropUpdateView = True
+
+            End While
+
+            Bench.Print("Scan Region State")
+
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
+
+                If PropAborting Then Continue For
+                If Not PropOpensimIsRunning() Then Continue For
+                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+                GroupName = PropRegionClass.GroupName(RegionUUID)
+                'Diagnostics.Debug.Print(GroupName)
+                Dim status = PropRegionClass.Status(RegionUUID)
+
+                ' if anyone is in home stay alive
+                If PropRegionClass.AvatarsIsInGroup(GroupName) Then
                     PokeGroupTimer(GroupName)
                 End If
 
-                Application.DoEvents()
+                ' Find any regions touching this region.
+                ' add them to the area to stay alive.
 
-                ' Smart Start Timer
-
-                If PropRegionClass.SmartStart(RegionUUID) = "True" And status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-                    Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
-
-                    If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
-                        'Continue For
-                        Logger("State Changed to ShuttingDown", GroupName, "Teleport")
-                        ShutDown(RegionUUID)
-
-                        For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                            PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-                        Next
-
-                        PropUpdateView = True ' make form refresh
-                        Continue For
-
+                If Settings.SmartStart Then
+                    If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+                        If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+                            TextPrint($"{GroupName} {My.Resources.StartingNearby}")
+                            ReBoot(RegionUUID)
+                            Continue For
+                        End If
                     End If
                 End If
-            End If
 
-            ' auto restart timer
+                ' keep smart start regions alive if someone is near
+                If Settings.SmartStart Then
+                    If PropRegionClass.AvatarIsNearby(RegionUUID) Then
+                        PokeGroupTimer(GroupName)
+                    End If
 
-            Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
-            Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
+                    Application.DoEvents()
 
-            If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted _
+                    ' Smart Start Timer
+
+                    If PropRegionClass.SmartStart(RegionUUID) = "True" And status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+                        Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
+
+                        If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
+                            'Continue For
+                            Logger("State Changed to ShuttingDown", GroupName, "Teleport")
+                            ShutDown(RegionUUID)
+
+                            For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                                PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                            Next
+
+                            PropUpdateView = True ' make form refresh
+                            Continue For
+
+                        End If
+                    End If
+                End If
+
+                ' auto restart timer
+
+                Dim time2restart = PropRegionClass.Timer(RegionUUID).AddMinutes(CDbl(Settings.AutoRestartInterval))
+                Dim Expired As Integer = DateTime.Compare(Date.Now, time2restart)
+
+                If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted _
                 And Expired > 0 _
                 And Settings.AutoRestartInterval() > 0 _
                 And Settings.AutoRestartEnabled Then
 
-                If Not PropRegionClass.AvatarsIsInGroup(GroupName) Then
+                    If Not PropRegionClass.AvatarsIsInGroup(GroupName) Then
 
-                    ' shut down the group when AutoRestartInterval has gone by.
-                    Logger("State is Time Exceeded, shutdown", GroupName, "Teleport")
+                        ' shut down the group when AutoRestartInterval has gone by.
+                        Logger("State is Time Exceeded, shutdown", GroupName, "Teleport")
 
-                    ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
-                    SequentialPause()
-                    ' shut down all regions in the DOS box
-                    ShutDown(RegionUUID)
+                        ShowDOSWindow(GetHwnd(GroupName), MaybeShowWindow())
+                        SequentialPause()
+                        ' shut down all regions in the DOS box
+                        ShutDown(RegionUUID)
+                        Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
+                        For Each UUID As String In GroupList
+                            PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown
+                        Next
+                        Logger("State changed to RecyclingDown", GroupName, "Teleport")
+                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
+                        PropUpdateView = True
+                        Continue For
+                    End If
+                End If
+
+                ' if a RestartPending is signaled, boot it up
+                If status = ClassRegionMaker.SIMSTATUSENUM.RestartPending Then
+
+                    'RestartPending = 6
+                    If PropAborting Then Continue For
+                    If Not PropOpensimIsRunning() Then Continue For
+
+                    Logger("State is RestartPending", GroupName, "Teleport")
                     Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
-                    For Each UUID As String In GroupList
-                        PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown
+                    For Each R As String In GroupList
+                        PokeRegionTimer(RegionUUID)
+                        Boot(RegionName)
                     Next
-                    Logger("State changed to RecyclingDown", GroupName, "Teleport")
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Automatic_restart_word)
+
+                    Logger("State is now Booted", PropRegionClass.RegionName(RegionUUID), "Teleport")
                     PropUpdateView = True
                     Continue For
                 End If
-            End If
 
-            ' if a RestartPending is signaled, boot it up
-            If status = ClassRegionMaker.SIMSTATUSENUM.RestartPending Then
+                If status = ClassRegionMaker.SIMSTATUSENUM.Resume Then
+                    '[Resume] = 8
+                    If PropAborting Then Continue For
+                    If Not PropOpensimIsRunning() Then Continue For
 
-                'RestartPending = 6
-                If PropAborting Then Continue For
-                If Not PropOpensimIsRunning() Then Continue For
-
-                Logger("State is RestartPending", GroupName, "Teleport")
-                Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
-                For Each R As String In GroupList
-                    PokeRegionTimer(RegionUUID)
-                    Boot(RegionName)
-                Next
-
-                Logger("State is now Booted", PropRegionClass.RegionName(RegionUUID), "Teleport")
-                PropUpdateView = True
-                Continue For
-            End If
-
-            If status = ClassRegionMaker.SIMSTATUSENUM.Resume Then
-                '[Resume] = 8
-                If PropAborting Then Continue For
-                If Not PropOpensimIsRunning() Then Continue For
-
-                Logger("State is Resuming", GroupName, "Teleport")
-                Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
-                For Each R As String In GroupList
-                    PokeRegionTimer(RegionUUID)
-                    Boot(RegionName)
-                Next
-                PropUpdateView = True
-                Continue For
-            End If
-
-            If status = ClassRegionMaker.SIMSTATUSENUM.RestartStage2 Then
-                'RestartStage2 = 11
-                If PropAborting Then Continue For
-                If Not PropOpensimIsRunning() Then Continue For
-
-                TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Pending_word)
-                Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
-                For Each R In GroupList
-                    PropRegionClass.Status(R) = ClassRegionMaker.SIMSTATUSENUM.RestartPending
-                    PokeRegionTimer(RegionUUID)
-                    Logger("State changed to RestartPending", PropRegionClass.RegionName(R), "Teleport")
-                Next
-                PropUpdateView = True ' make form refresh
-                Continue For
-            End If
-        Next
-
-        Bench.Print("ExitList Begins")
-
-        DidItDie()
-
-        ' now look at the exit stack
-        While PropExitList.Count > 0
-
-            GroupName = PropExitList.Keys.First
-            Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
-            PropExitList.Remove(GroupName)
-
-            'If GroupName = "Welcome" Then
-            'BreakPoint.Show("Break")
-            'End If
-
-            TextPrint(GroupName & " " & Reason)
-
-            ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
-            Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
-
-            Dim PID As Integer
-            Dim RegionUUID As String = ""
-            If GroupList.Count > 0 Then
-                RegionUUID = GroupList(0)
-                ' Already done, just being safe here
-                PID = PropRegionClass.ProcessID(RegionUUID)
-                If PropInstanceHandles.ContainsKey(PID) Then
-                    PropInstanceHandles.Remove(PID)
+                    Logger("State is Resuming", GroupName, "Teleport")
+                    Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
+                    For Each R As String In GroupList
+                        PokeRegionTimer(RegionUUID)
+                        Boot(RegionName)
+                    Next
+                    PropUpdateView = True
+                    Continue For
                 End If
-            Else
-                Logger("No UUID", GroupName, "Teleport")
-                Continue While
-            End If
 
-            If Reason = "NoLogin" Then
-                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.NoLogin
-                PropUpdateView = True
-                Logger("State changed to NoLogin", PropRegionClass.RegionName(RegionUUID), "Teleport")
-                Continue While
-            End If
+                If status = ClassRegionMaker.SIMSTATUSENUM.RestartStage2 Then
+                    'RestartStage2 = 11
+                    If PropAborting Then Continue For
+                    If Not PropOpensimIsRunning() Then Continue For
 
-            Dim Status = PropRegionClass.Status(RegionUUID)
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Pending_word)
+                    Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
+                    For Each R In GroupList
+                        PropRegionClass.Status(R) = ClassRegionMaker.SIMSTATUSENUM.RestartPending
+                        PokeRegionTimer(RegionUUID)
+                        Logger("State changed to RestartPending", PropRegionClass.RegionName(R), "Teleport")
+                    Next
+                    PropUpdateView = True ' make form refresh
+                    Continue For
+                End If
+            Next
 
-            Diagnostics.Debug.Print($"{RegionName} {GetStateString(Status)}")
+            Bench.Print("ExitList Begins")
 
-            If Not PropRegionClass.RegionEnabled(RegionUUID) Then
-                Continue While
-            End If
+            DidItDie()
 
-            If Status = ClassRegionMaker.SIMSTATUSENUM.NoError Then
-                For Each R In GroupList
-                    PropRegionClass.Status(R) = ClassRegionMaker.SIMSTATUSENUM.Stopped
-                Next
-                PropUpdateView = True
-                Continue While
+            ' now look at the exit stack
+            While PropExitList.Count > 0
 
-            ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
-                For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped
-                Next
-                PropUpdateView = True ' make form refresh
-                Continue While
+                GroupName = PropExitList.Keys.First
+                Dim Reason = PropExitList.Item(GroupName) ' NoLogin or Exit
+                PropExitList.Remove(GroupName)
 
-            ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown Then
-                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped
-                StopGroup(GroupName)
-                PropUpdateView = True
-                Logger("State changed to Stopped", PropRegionClass.RegionName(RegionUUID), "Teleport")
+                'If GroupName = "Welcome" Then
+                'BreakPoint.Show("Break")
+                'End If
 
-                Continue While
+                TextPrint(GroupName & " " & Reason)
 
-            ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
-                'RecyclingDown = 4
-                Logger("State is RecyclingDown", GroupName, "Teleport")
-                TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
-                For Each R In GroupList
-                    PropRegionClass.Status(R) = ClassRegionMaker.SIMSTATUSENUM.RestartStage2
-                Next
-                Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Teleport")
-                PropUpdateView = True
-                Continue While
+                ' Need a region number and a Name. Name is either a region or a Group. For groups we need to get a region name from the group
+                Dim GroupList As List(Of String) = PropRegionClass.RegionUuidListByName(GroupName)
 
-            ElseIf (Status = ClassRegionMaker.SIMSTATUSENUM.RecyclingUp Or
-                Status = ClassRegionMaker.SIMSTATUSENUM.Booting Or
-                Status = ClassRegionMaker.SIMSTATUSENUM.Booted) And
-                Not PropAborting Then
-
-                ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
-                Status = ClassRegionMaker.SIMSTATUSENUM.Error
-                PropUpdateView = True
-                Application.DoEvents()
-                Logger("Crash", GroupName & " Crashed", "Teleport")
-                If Settings.RestartOnCrash Then
-
-                    If PropRegionClass.CrashCounter(RegionUUID) > 4 Then
-                        Logger("Crash", GroupName & " Crashed 4 times", "Teleport")
-                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                        StopGroup(GroupName)
-                        PropRegionClass.CrashCounter(RegionUUID) = 0
-                        PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Error
-                        PropUpdateView = True
-                        Continue While
+                Dim PID As Integer
+                Dim RegionUUID As String = ""
+                If GroupList.Count > 0 Then
+                    RegionUUID = GroupList(0)
+                    ' Already done, just being safe here
+                    PID = PropRegionClass.ProcessID(RegionUUID)
+                    If PropInstanceHandles.ContainsKey(PID) Then
+                        PropInstanceHandles.Remove(PID)
                     End If
+                Else
+                    Logger("No UUID", GroupName, "Teleport")
+                    Continue While
+                End If
 
-                    PropRegionClass.CrashCounter(RegionUUID) += 1
+                If Reason = "NoLogin" Then
+                    PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.NoLogin
+                    PropUpdateView = True
+                    Logger("State changed to NoLogin", PropRegionClass.RegionName(RegionUUID), "Teleport")
+                    Continue While
+                End If
 
-                    ' shut down all regions in the DOS box
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                Dim Status = PropRegionClass.Status(RegionUUID)
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+
+                Diagnostics.Debug.Print($"{RegionName} {GetStateString(Status)}")
+
+                If Not PropRegionClass.RegionEnabled(RegionUUID) Then
+                    Continue While
+                End If
+
+                If Status = ClassRegionMaker.SIMSTATUSENUM.NoError Then
+                    For Each R In GroupList
+                        PropRegionClass.Status(R) = ClassRegionMaker.SIMSTATUSENUM.Stopped
+                    Next
+                    PropUpdateView = True
+                    Continue While
+
+                ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+                    For Each UUID In PropRegionClass.RegionUuidListByName(GroupName)
+                        PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped
+                    Next
+                    PropUpdateView = True ' make form refresh
+                    Continue While
+
+                ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown Then
+                    PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped
                     StopGroup(GroupName)
+                    PropUpdateView = True
+                    Logger("State changed to Stopped", PropRegionClass.RegionName(RegionUUID), "Teleport")
+
+                    Continue While
+
+                ElseIf Status = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown And Not PropAborting Then
+                    'RecyclingDown = 4
+                    Logger("State is RecyclingDown", GroupName, "Teleport")
                     TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
                     For Each R In GroupList
                         PropRegionClass.Status(R) = ClassRegionMaker.SIMSTATUSENUM.RestartStage2
                     Next
-                    Logger("Stopped", GroupName & "  was stopped", "Teleport")
+                    Logger("State changed to RestartStage2", PropRegionClass.RegionName(RegionUUID), "Teleport")
                     PropUpdateView = True
                     Continue While
-                Else
-                    If PropAborting Then
-                        PropExitHandlerIsBusy = False
-                        Return ' not if we are aborting
-                    End If
-                    TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
-                    StopGroup(GroupName)
-                    Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
-                    If (yesno = vbYes) Then
-                        Try
-                            System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{PropRegionClass.OpensimIniPath(RegionUUID)}\Opensim.log""")
-                        Catch ex As Exception
-                            BreakPoint.Show(ex.Message)
-                        End Try
-                    End If
 
+                ElseIf (Status = ClassRegionMaker.SIMSTATUSENUM.RecyclingUp Or
+                Status = ClassRegionMaker.SIMSTATUSENUM.Booting Or
+                Status = ClassRegionMaker.SIMSTATUSENUM.Booted) And
+                Not PropAborting Then
+
+                    ' Maybe we crashed during warm up or running. Skip prompt if auto restart on crash and restart the beast
+                    Status = ClassRegionMaker.SIMSTATUSENUM.Error
+                    PropUpdateView = True
+                    Application.DoEvents()
+                    Logger("Crash", GroupName & " Crashed", "Teleport")
+                    If Settings.RestartOnCrash Then
+
+                        If PropRegionClass.CrashCounter(RegionUUID) > 4 Then
+                            Logger("Crash", GroupName & " Crashed 4 times", "Teleport")
+                            TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                            StopGroup(GroupName)
+                            PropRegionClass.CrashCounter(RegionUUID) = 0
+                            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Error
+                            PropUpdateView = True
+                            Continue While
+                        End If
+
+                        PropRegionClass.CrashCounter(RegionUUID) += 1
+
+                        ' shut down all regions in the DOS box
+                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                        StopGroup(GroupName)
+                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Restart_Queued_word)
+                        For Each R In GroupList
+                            PropRegionClass.Status(R) = ClassRegionMaker.SIMSTATUSENUM.RestartStage2
+                        Next
+                        Logger("Stopped", GroupName & "  was stopped", "Teleport")
+                        PropUpdateView = True
+                        Continue While
+                    Else
+                        If PropAborting Then
+                            PropExitHandlerIsBusy = 0
+                            Return ' not if we are aborting
+                        End If
+                        TextPrint(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly)
+                        ErrorGroup(GroupName)
+
+                        Dim yesno = MsgBox(GroupName & " " & Global.Outworldz.My.Resources.Quit_unexpectedly & " " & Global.Outworldz.My.Resources.See_Log, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Critical, Global.Outworldz.My.Resources.Error_word)
+                        If (yesno = vbYes) Then
+                            Try
+                                System.Diagnostics.Process.Start(IO.Path.Combine(Settings.CurrentDirectory, "baretail.exe"), $"""{PropRegionClass.OpensimIniPath(RegionUUID)}\Opensim.log""")
+                            Catch ex As Exception
+                                BreakPoint.Show(ex.Message)
+                            End Try
+                        End If
+
+                    End If
+                Else
+                    StopGroup(GroupName)
                 End If
-            Else
-                StopGroup(GroupName)
-            End If
-            PropUpdateView = True
-        End While
+                PropUpdateView = True
+            End While
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
         Bench.Print("ExitHandler done")
 
-        PropExitHandlerIsBusy = False
+        PropExitHandlerIsBusy = 0
 
     End Sub
 
@@ -1753,9 +1788,6 @@ Public Class FormSetup
 
     Private Sub SetupPerl()
 
-
-
-
         If Settings.VisitorsEnabled = False Then
             TextPrint(My.Resources.Setup_Perl)
             Dim path = $"{Settings.CurrentDirectory}\MSFT_Runtimes\strawberry-perl-5.32.1.1-64bit.msi "
@@ -2018,21 +2050,31 @@ Public Class FormSetup
         For Each Agent In Avatars
             If Agent.Value.Length > 0 Then
 
-                Dim RegionName = Agent.Value
-                Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
-                Dim X = PropRegionClass.CoordX(RegionUUID)
-                Dim Y = PropRegionClass.CoordY(RegionUUID)
-                If X = 0 Or Y = 0 Then Continue For
+                Dim RegionUUID = Agent.Value
+                Dim RegionName As String = ""
+                Try
+                    RegionName = PropRegionClass.RegionName(RegionUUID)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+
+                If RegionName.Length > 0 Then
+                    Dim X = PropRegionClass.CoordX(RegionUUID)
+                    Dim Y = PropRegionClass.CoordY(RegionUUID)
+                    If X = 0 Or Y = 0 Then Continue For
 
 #Disable Warning BC42016 ' Implicit conversion
-                Dim start As ParameterizedThreadStart = AddressOf SurroundingLandMaker
+                    Dim start As ParameterizedThreadStart = AddressOf SurroundingLandMaker
 #Enable Warning BC42016 ' Implicit conversion
 
-                Dim _WebThread1 = New Thread(start)
-                _WebThread1.SetApartmentState(ApartmentState.STA)
-                _WebThread1.Priority = ThreadPriority.Normal
-                _WebThread1.Start(RegionUUID)
+                    Dim _WebThread1 = New Thread(start)
+                    _WebThread1.SetApartmentState(ApartmentState.STA)
+                    _WebThread1.Priority = ThreadPriority.Normal
+                    _WebThread1.Start(RegionUUID)
 
+                End If
+            Else
+                BreakPoint.Show("Region Name cannot be located")
             End If
 
         Next
@@ -2313,7 +2355,7 @@ Public Class FormSetup
 
                     Try
                         Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
-                        Using outputFile As New StreamWriter(filename, True)
+                        Using outputFile As New StreamWriter(filename, False)
                             outputFile.WriteLine("@REM A program to restore Mysql from a backup" & vbCrLf _
                                 & "mysql -u root " & db & " < " & """" & thing & """" _
                                 & vbCrLf & " @pause" & vbCrLf)
@@ -2375,7 +2417,14 @@ Public Class FormSetup
 
             Combined = Agents.Union(HGAgents).ToDictionary(Function(p) p.Key, Function(p) p.Value)
 
-            If Combined IsNot Nothing Then BuildLand(Combined)
+            If Combined IsNot Nothing And Combined.Count > 0 Then
+                Try
+                    BuildLand(Combined)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+
+            End If
 
             ' start with zero avatars
             For Each RegionUUID As String In PropRegionClass.RegionUuids
@@ -2386,10 +2435,9 @@ Public Class FormSetup
 
             For Each NameValue In Combined
                 Dim Avatar = NameValue.Key
-                Dim RegionName = NameValue.Value
-
+                Dim RegionUUID = NameValue.Value
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
                 If RegionName.Length = 0 Then Continue For
-                Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
                 ' not seen before
                 If Not CurrentLocation.ContainsKey(Avatar) Then
@@ -2621,7 +2669,7 @@ Public Class FormSetup
 
         If TimerBusy > 0 And TimerBusy < 60 Then
             TimerBusy += 1
-            'Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
+            Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
             Return
         End If
         Bench.Start()
@@ -2636,18 +2684,15 @@ Public Class FormSetup
         If SecondsTicker = 0 Then
             Bench.Print("At boot worker")
             CalcDiskFree()
-            ScanAgents() ' update agent count seconds            
         End If
 
         ' 5 seconds, not at boot
         If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
             Bench.Print("5 second worker")
             Chat2Speech()
-            Try
-                ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
-            Catch ex As Exception
-                ErrorLog(ex.Message)
-            End Try
+
+            ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
+
             ' print how many backups are running
             Dim thisDate As Date = Now
             Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
