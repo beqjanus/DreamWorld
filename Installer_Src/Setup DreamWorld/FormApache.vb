@@ -55,8 +55,6 @@ Public Class FormApache
 
         Settings.SaveSettings()
 
-        FormSetup.PropChangedRegionSettings = True
-
     End Sub
 
     Private Sub Loaded(sender As Object, e As EventArgs) Handles Me.Load

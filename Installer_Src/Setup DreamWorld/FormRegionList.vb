@@ -23,6 +23,7 @@ Public Class FormRegionlist
     Private SearchBusy As Boolean
     Private TheView As Integer = ViewType.Details
     Private ViewNotBusy As Boolean
+    Private detailsinitted As Boolean
 
     Private Enum ViewType As Integer
         Icons = 1
@@ -228,6 +229,7 @@ Public Class FormRegionlist
 
         ' Set the view to show whatever
         TheView1 = Settings.RegionListView()
+
         If TheView1 = ViewType.Details Then PropRegionClass.GetAllRegions()
 
         SetScreen(TheView1)
@@ -760,6 +762,7 @@ Public Class FormRegionlist
             Return
         End If
 
+        detailsinitted = False
         ListView1.Show()
         ListView1.Visible = True
         IconView.Hide()
@@ -775,7 +778,6 @@ Public Class FormRegionlist
 
         Try
             For Each RegionUUID As String In SearchArray
-                ' Application.DoEvents() ' bad idea
 
                 If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
                 If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
@@ -970,7 +972,7 @@ Public Class FormRegionlist
                 If w > 0 Then col.Width = w
             End Using
         Next
-
+        detailsinitted = True
         ListView1.EndUpdate()
         PropUpdateView() = False
         ViewBusy = False
@@ -1235,6 +1237,8 @@ Public Class FormRegionlist
     End Sub
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
+
+        If Not detailsinitted Then Return
 
         Dim Item As ListViewItem = Nothing
 
@@ -1560,7 +1564,6 @@ SetWindowOnTop_Err:
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
 
         FormSetup.DoStopActions()
-        PropRegionClass.GetAllRegions()
         LoadMyListView()
 
     End Sub
@@ -1704,7 +1707,7 @@ SetWindowOnTop_Err:
                         End If
                     Next
 
-                    PropRegionClass.GetAllRegions()
+                    PropChangedRegionSettings = True
                     LoadMyListView()
                 End If
             End If

@@ -81,14 +81,6 @@ Public Class ClassRegionMaker
 
 #Region "Public Properties"
 
-    Public Property GetAllRegionsIsBusy As Boolean
-        Get
-            Return _GetAllRegionsIsBusy
-        End Get
-        Set(value As Boolean)
-            _GetAllRegionsIsBusy = value
-        End Set
-    End Property
 
 #End Region
 
@@ -106,6 +98,7 @@ Public Class ClassRegionMaker
         If RunningTasks.Length = 0 Then
             Settings.SafeShutdown = True
         End If
+
         GetAllRegions()
 
         If RegionCount() = 0 Then
@@ -113,7 +106,7 @@ Public Class ClassRegionMaker
             Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome", "Welcome")
             Settings.SaveSettings()
-            If GetAllRegions() = -1 Then Return False
+            If GetAllRegions() = 0 Then Return False
         End If
         TextPrint($"Loaded {CStr(RegionCount)} Regions")
 
@@ -356,7 +349,6 @@ Public Class ClassRegionMaker
         Add_To_Region_Map(RegionUUID)
 
 
-
     End Sub
 
 #End Region
@@ -401,14 +393,13 @@ Public Class ClassRegionMaker
                 If XPos <> Xloc And Ypos <> Yloc Then
                     Dim gr As String = $"{XPos},{Ypos}"
                     If Map.ContainsKey(gr) Then
-                        Application.DoEvents()
-
                         If IsAgentInRegion(Map.Item(gr)) Then
                             Return True
                         End If
                     End If
                 End If
             Next
+            Application.DoEvents()
         Next
 
         Return False
@@ -506,17 +497,8 @@ Public Class ClassRegionMaker
 
     Public Function GetAllRegions() As Integer
 
-        '  If PropOpensimIsRunning Then Return 0
-
-        Dim ctr = 5
-
-        While GetAllRegionsIsBusy And ctr > 0
-            Sleep(1000)
-            ctr -= 1
-        End While
-
-        GetAllRegionsIsBusy = True
         Try
+            PropChangedRegionSettings = False
             Backup.Clear()
             Dim pair As KeyValuePair(Of String, Region_data)
             Dim UsedPorts As New List(Of Integer)
@@ -559,8 +541,8 @@ Public Class ClassRegionMaker
                             Dim SomeUUID As New Guid
                             If Not Guid.TryParse(uuid, SomeUUID) Then
                                 MsgBox("Cannot read uuid In INI file For " & fName, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
-                                '  TODO Auto repair this error from a backup
-                                Return -1
+                                '  TODO Auto repair this error from a backup                                
+                                Return 0
                             End If
 
                             CreateRegion(fName, uuid)
@@ -640,6 +622,7 @@ Public Class ClassRegionMaker
                             Else
                                 ThisGroup = ThisGroup
                             End If
+
                             If Settings.SafeShutdown Then
                                 RegionPort(uuid) = LargestPort() + 1
                                 GroupPort(uuid) = ThisGroup
@@ -679,29 +662,24 @@ Public Class ClassRegionMaker
 
                             WriteRegionObject(Group, fName)
 
-                            Application.DoEvents()
                         Next
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                         MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                         ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
-                        GetAllRegionsIsBusy = False
-                        PropUpdateView = True ' make form refresh
-                        Return -1
+
+                        PropUpdateView = True ' make form refresh  
+                        Return 0
                     End Try
-
                 Next
-
             Next
 
             _RegionListIsInititalized = True
+
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
-            GetAllRegionsIsBusy = False
-            PropUpdateView = True ' make form refresh
-            Return -1
         End Try
-        GetAllRegionsIsBusy = False
+
         PropUpdateView = True ' make form refresh
 
         Return RegionList.Count
@@ -1130,8 +1108,12 @@ Public Class ClassRegionMaker
             If uuid Is Nothing Then
                 Return -1
             End If
-
-            Return RegionList(uuid)._Status
+            Try
+                Return RegionList(uuid)._Status
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Return Nothing
         End Get
         Set(ByVal Value As Integer)
             If uuid Is Nothing Then Return
@@ -1236,11 +1218,16 @@ Public Class ClassRegionMaker
     Public Property RegionName(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
-            Return RegionList(uuid)._RegionName
+            Try
+                Return RegionList(uuid)._RegionName
+            Catch
+                BreakPoint.Show("No Region for Name")
+            End Try
+            Return Nothing
         End Get
+
         Set(ByVal Value As String)
             If uuid Is Nothing Then Return
-
             RegionList(uuid)._RegionName = Value
         End Set
     End Property
@@ -1479,7 +1466,6 @@ Public Class ClassRegionMaker
         End Get
         Set(ByVal Value As String)
             If uuid Is Nothing Then Return
-
             RegionList(uuid)._Physics = Value
         End Set
     End Property
@@ -1487,7 +1473,12 @@ Public Class ClassRegionMaker
     Public Property RegionEnabled(uuid As String) As Boolean
         Get
             If uuid Is Nothing Then Return False
-            Return RegionList(uuid)._RegionEnabled
+            Try
+                Return RegionList(uuid)._RegionEnabled
+            Catch ex As exception
+                BreakPoint.Show(ex.message)
+                Return Nothing
+            End Try
         End Get
         Set(ByVal Value As Boolean)
             If uuid Is Nothing Then Return

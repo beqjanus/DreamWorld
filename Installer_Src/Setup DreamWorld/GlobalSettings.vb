@@ -53,6 +53,7 @@ Module GlobalSettings
     Private _SkipSetup As Boolean = True
     Private _UpdateView As Boolean = True
     Private _XYINI As String ' global XY INI
+    Private _RegionFilesChanged As Boolean ' if any region files get written flag them for reloading
 
 #End Region
 
@@ -158,7 +159,16 @@ Module GlobalSettings
             _SkipSetup = Value
         End Set
     End Property
-
+    ' TODO:  Implement PropChangedRegionSettings as a dictionary in a module we can prompt for restart with
+    Public Property PropChangedRegionSettings As Boolean
+        Get
+            Return _RegionFilesChanged
+        End Get
+        Set(value As Boolean)
+            'Diagnostics.Debug.Print("ViewedSettings =" & value)
+            _RegionFilesChanged = value
+        End Set
+    End Property
     Public Property XYData As IniData
         Get
             Return _Data

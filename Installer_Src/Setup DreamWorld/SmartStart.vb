@@ -33,6 +33,7 @@ Module SmartStart
     ''' <returns>True of region is booted</returns>
     Public Function WaitForBooted(RegionUUID As String) As Boolean
 
+        Debug.Print("Waiting for " & PropRegionClass.RegionName(RegionUUID))
         Dim c As Integer = 90 ' 1.5 minutes
         While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted
 
@@ -43,8 +44,6 @@ Module SmartStart
                 BreakPoint.Show("Timeout")
                 Return False
             End If
-
-            FormSetup.ExitHandlerPoll() ' see if any regions have exited and set it up for Region Restart
 
             Debug.Print(GetStateString(PropRegionClass.Status(RegionUUID)))
             Sleep(1000)
@@ -508,7 +507,6 @@ Module SmartStart
 
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     'Must be listening, not just in a window
-                    Application.DoEvents()
 
                     If CheckPort("127.0.0.1", PropRegionClass.GroupPort(RegionUUID)) Then
                         PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
@@ -517,6 +515,7 @@ Module SmartStart
                     End If
 
                     PropRegionClass.ProcessID(UUID) = PID
+                    Application.DoEvents()
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeHideWindow())
 

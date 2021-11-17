@@ -711,7 +711,7 @@ Public Class FormRegion
     Private Sub FormRegion_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         If Changed1 Then
-            FormSetup.PropChangedRegionSettings = True
+
             Dim v = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Save_changes_word)
             If v = vbYes Then
                 Dim message = RegionValidate()
@@ -722,7 +722,7 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(RegionUUID)
-                    PropRegionClass.GetAllRegions()
+                    PropChangedRegionSettings = True
                     Firewall.SetFirewall()
                     RestartRobustIfNeeded(RegionUUID)
                     PropUpdateView() = True
@@ -749,7 +749,7 @@ Public Class FormRegion
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
-        FormSetup.PropChangedRegionSettings = True
+
         Dim message = RegionValidate()
         If Len(message) > 0 Then
             Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
@@ -842,7 +842,7 @@ Public Class FormRegion
         If msg = vbYes Then
 
             DeleteAllContents(RegionUUID)
-            PropRegionClass.GetAllRegions()
+            PropChangedRegionSettings = True
             Changed1 = False
             PropUpdateView = True
         End If
@@ -1423,7 +1423,7 @@ Public Class FormRegion
 
         End Try
 
-        If PropRegionClass.GetAllRegions() = -1 Then Return False
+        PropChangedRegionSettings = True
 
         PropUpdateView = True
         Oldname1 = RegionName.Text

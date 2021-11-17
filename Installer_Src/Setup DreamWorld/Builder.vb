@@ -122,6 +122,7 @@ Module Build
                 If GroupName.Length = 0 Then
                     GroupName = FantasyName()
                 End If
+
                 Try
                     MakeTempRegion(GroupName, nX, nY)
                 Catch ex As exception
@@ -131,6 +132,8 @@ Module Build
                 Simcount += 1
             End If
         Next
+
+        PropRegionClass.GetAllRegions()
 
         If Simcount > 0 Then
             Landscaper(GroupName)
@@ -227,6 +230,7 @@ Module Build
         Dim UUIDs = PropRegionClass.RegionUuidListByName(GroupName)
 
         For Each RegionUUID As String In UUIDs
+            Debug.Print("Landscaping " & PropRegionClass.RegionName(RegionUUID))
             ReBoot(RegionUUID)
             Application.DoEvents()
             WaitForBooted(RegionUUID)
@@ -333,9 +337,8 @@ Module Build
         PropRegionClass.GroupPort(RegionUUID) = port
         PropRegionClass.RegionPort(RegionUUID) = port
 
-        '   TODO: delete from disk, use HTTP
         PropRegionClass.WriteRegionObject(Group, shortname)
-        PropRegionClass.GetAllRegions()
+        PropChangedRegionSettings = True
         Return RegionUUID
 
     End Function

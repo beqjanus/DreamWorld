@@ -900,8 +900,8 @@ Public Class FormSmartStart
                 PropRegionClass.GroupPort(RegionUUID) = port
                 PropRegionClass.RegionPort(RegionUUID) = port
                 PropRegionClass.WriteRegionObject(shortname, shortname)
+                PropChangedRegionSettings = True
 
-                PropRegionClass.GetAllRegions()
                 Firewall.SetFirewall()
 
                 PropUpdateView = True ' make form refresh
@@ -1786,8 +1786,7 @@ Public Class FormSmartStart
             Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
             If msg = vbYes Then
                 For Each RegionUUID In PropRegionClass.RegionUuids
-                    If PropRegionClass.Estate(RegionUUID) = "SimSurround" Or
-                        PropRegionClass.Estate(RegionUUID).Length = 0 Then
+                    If PropRegionClass.Estate(RegionUUID) = "SimSurround" Then
                         DeleteAllRegionData(RegionUUID)
                         ctr += 1
                     End If
@@ -1795,7 +1794,6 @@ Public Class FormSmartStart
             Else
                 ProgressPrint(My.Resources.Cancelled_word)
             End If
-            PropRegionClass.GetAllRegions()
 
             ProgressPrint($"{ctr} {My.Resources.Regions_Deleted}")
         Else
@@ -1845,11 +1843,8 @@ Public Class FormSmartStart
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"{GroupName}\Region\{RegionName}.ini"))
 
         DeleteAllContents(RegionUUID)
-
+        PropChangedRegionSettings = True
         ProgressPrint($"Deleted region {RegionName}")
-
-        ' TODO Delete all Opensim data files for this UUID
-
         PropUpdateView = True
 
     End Sub

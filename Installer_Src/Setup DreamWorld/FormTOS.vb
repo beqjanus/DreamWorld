@@ -45,7 +45,7 @@ Public Class TosForm
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory & "\tos.html").Empty, False)
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory & "\tos.html"), False)
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
