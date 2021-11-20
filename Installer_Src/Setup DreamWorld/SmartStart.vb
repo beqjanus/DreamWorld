@@ -8,8 +8,6 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
 
-
-
 Public Class PRIEnum
 
     Public AboveNormal As ProcessPriorityClass = ProcessPriorityClass.AboveNormal
@@ -22,7 +20,6 @@ End Class
 Module SmartStart
 
     Private ReadOnly Sleeping As New List(Of String)
-
 
 #Region "SmartBegin"
 
@@ -157,7 +154,6 @@ Module SmartStart
                     ' not enabled
                     RPC_admin_dialog(AgentID, $"Your region {PropRegionClass.RegionName(RegionUUID)} is disabled.")
                 End If
-
             Else ' Non Smart Start
 
                 If AgentName.ToUpperInvariant = "UUID" Then
@@ -445,11 +441,11 @@ Module SmartStart
     Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
-        ''' <returns>success = true</returns>        
+        ''' <returns>success = true</returns>
         Bench.Print($"Boot {BootName}")
         If FormSetup.Timer1.Enabled = False Then
             FormSetup.Timer1.Interval = 1000
-            FormSetup.Timer1.Enabled = True  ' Bug report #485227296 timer started but not enabled 
+            FormSetup.Timer1.Enabled = True  ' Bug report #485227296 timer started but not enabled
             FormSetup.Timer1.Start() 'Timer starts functioning
         End If
 
@@ -624,7 +620,6 @@ Module SmartStart
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
                     PropRegionClass.ProcessID(UUID) = PID
                 Next
-
             Else
                 BreakPoint.Show("No PID for " & GroupName)
             End If

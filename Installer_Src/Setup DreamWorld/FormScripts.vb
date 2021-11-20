@@ -63,17 +63,18 @@ Public Class FormScripts
 
     End Sub
 
-    Private Sub XengineButton_CheckedChanged(sender As Object, e As EventArgs) Handles XengineButton.CheckedChanged
-
-        If Not initted Then Return
-        Settings.ScriptEngine() = "XEngine"
-        Settings.SaveSettings()
-
-    End Sub
     Private Sub ScriptsOff_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptsOff.CheckedChanged
 
         If Not initted Then Return
         Settings.ScriptEngine() = "Off"
+        Settings.SaveSettings()
+
+    End Sub
+
+    Private Sub XengineButton_CheckedChanged(sender As Object, e As EventArgs) Handles XengineButton.CheckedChanged
+
+        If Not initted Then Return
+        Settings.ScriptEngine() = "XEngine"
         Settings.SaveSettings()
 
     End Sub
@@ -117,7 +118,6 @@ Public Class FormScripts
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Scripts")
     End Sub
-
 
 #End Region
 

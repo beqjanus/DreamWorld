@@ -8,48 +8,13 @@
 Imports Nwc.XmlRpc
 
 Module RPC
-    Public Class AvatarData
-
-        Public AvatarName As String
-        Public X As Single
-        Public Y As Single
-
-    End Class
-
-
-    Public Function RPC_admin_dialog(agentId As String, text As String) As Boolean
-
-        Dim RegionUUID As String = GetRegionFromAgentID(agentId)
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"message", text}
-        }
-        Return SendRPC(RegionUUID, "admin_broadcast", ht)
-
-    End Function
-
-    ''' http://opensimulator.org/wiki/Remoteadmin:admin_get_agent_count
-    ''' 
-    public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
-
-        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-            Return 0
-        End If
-
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"region_id", RegionUUID}
-        }
-        Return GetRPC(RegionUUID, "admin_get_agent_count", ht)
-
-    End Function
 
     ''' <summary>
     ''' Returns count of ALL agents + NPC in region
     ''' </summary>
     ''' <param name="RegionUUID"></param>
     ''' <returns>Object</returns>
-    ''' 
+    '''
     'http://opensimulator.org/wiki/Remoteadmin:admin_get_agents
     Public Function Admin_get_agents(RegionUUID As String) As Integer
 
@@ -75,116 +40,7 @@ Module RPC
 
     End Function
 
-    'http://opensimulator.org/wiki/RemoteAdmin
-    ' New function only in Dreamgrid's version of Opensimulator
-    ''' <summary>
-    ''' Returns count of avatars in a region less NPCs'
-    ''' </summary>
-    ''' <param name="RegionUUID">RegionUUID</param>
-    ''' <returns>integer</returns>
-    Public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
-
-        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-            Return 0
-        End If
-
-
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"region_id", RegionUUID}
-        }
-        Return GetRPC(RegionUUID, "admin_get_avatar_count", ht)
-
-    End Function
-
-    public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
-
-        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-            Return False
-        End If
-
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"command", Message}
-        }
-        Debug.Print($"admin_console_command {Message}")
-        Application.DoEvents()
-        Return SendRPC(RegionUUID, "admin_console_command", ht)
-
-    End Function
-
-    public Function SendAdminMessage(RegionUUID As String, Message As String) As Boolean
-
-        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-            Return False
-        End If
-
-        'http://opensimulator.org/wiki/RemoteAdmin:admin_dialog
-
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"message", Message}
-        }
-        Log("Info", "Message to " & PropRegionClass.RegionName(RegionUUID) & " of " & Message)
-
-        Return SendRPC(RegionUUID, "admin_dialog", ht)
-
-    End Function
-
-    public Function SendMessage(RegionUUID As String, Message As String) As Boolean
-
-        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-            Return False
-        End If
-
-        'http://opensimulator.org/wiki/RemoteAdmin:admin_broadcast
-
-        Dim ht = New Hashtable From {
-           {"password", Settings.MachineID},
-           {"message", Message}
-       }
-        Log("Info", "Message to " & PropRegionClass.RegionName(RegionUUID) & " of " & Message)
-        Return SendRPC(RegionUUID, "admin_broadcast", ht)
-
-    End Function
-
-    public Function ShutDown(RegionUUID As String) As Boolean
-
-
-        If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
-            Dim ht = New Hashtable From {
-            {"password", Settings.MachineID},
-            {"region_id", RegionUUID}
-        }
-            Return SendRPC(RegionUUID, "admin_shutdown", ht)
-        Else
-            ConsoleCommand(RegionUUID, "q")
-            ConsoleCommand(RegionUUID, "q")
-        End If
-        Return True
-
-    End Function
-
-    public Function TeleportTo(FromRegionUUID As String, ToRegionName As String, AgentID As String) As Boolean
-
-        'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
-
-        Debug.Print("Teleport To:" & ToRegionName)
-
-        Dim ht = New Hashtable From {
-            {"password", Settings.MachineID},
-            {"region_name", ToRegionName},
-            {"agent_id", AgentID}
-        }
-
-        If FromRegionUUID.Length > 0 Then
-            Return SendRPC(FromRegionUUID, "admin_teleport_agent", ht)
-        End If
-        Return False
-
-    End Function
-
-    public Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
+    Public Function GetRPC(FromRegionUUID As String, cmd As String, ht As Hashtable) As Integer
 
         Dim RegionPort = PropRegionClass.GroupPort(FromRegionUUID)
 
@@ -232,6 +88,33 @@ Module RPC
 
     End Function
 
+    Public Function RPC_admin_dialog(agentId As String, text As String) As Boolean
+
+        Dim RegionUUID As String = GetRegionFromAgentID(agentId)
+        Dim ht = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"message", text}
+        }
+        Return SendRPC(RegionUUID, "admin_broadcast", ht)
+
+    End Function
+
+    ''' http://opensimulator.org/wiki/Remoteadmin:admin_get_agent_count
+    '''
+    Public Function RPC_admin_get_agent_count(RegionUUID As String) As Integer
+
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return 0
+        End If
+
+        Dim ht = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"region_id", RegionUUID}
+        }
+        Return GetRPC(RegionUUID, "admin_get_agent_count", ht)
+
+    End Function
+
     Public Function RPC_admin_get_agent_list(RegionUUID As String) As List(Of AvatarData)
 
         Dim result As New List(Of AvatarData)
@@ -268,13 +151,117 @@ Module RPC
                     End If
                 Next
             Next
-
-
-
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
         End Try
         Return result
+
+    End Function
+
+    'http://opensimulator.org/wiki/RemoteAdmin
+    ' New function only in Dreamgrid's version of Opensimulator
+    ''' <summary>
+    ''' Returns count of avatars in a region less NPCs'
+    ''' </summary>
+    ''' <param name="RegionUUID">RegionUUID</param>
+    ''' <returns>integer</returns>
+    Public Function RPC_admin_get_avatar_count(RegionUUID As String) As Integer
+
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return 0
+        End If
+
+        Dim ht = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"region_id", RegionUUID}
+        }
+        Return GetRPC(RegionUUID, "admin_get_avatar_count", ht)
+
+    End Function
+
+    Public Function RPC_Region_Command(RegionUUID As String, Message As String) As Boolean
+
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return False
+        End If
+
+        Dim ht = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"command", Message}
+        }
+        Debug.Print($"admin_console_command {Message}")
+        Application.DoEvents()
+        Return SendRPC(RegionUUID, "admin_console_command", ht)
+
+    End Function
+
+    Public Function SendAdminMessage(RegionUUID As String, Message As String) As Boolean
+
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return False
+        End If
+
+        'http://opensimulator.org/wiki/RemoteAdmin:admin_dialog
+
+        Dim ht = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"message", Message}
+        }
+        Log("Info", "Message to " & PropRegionClass.RegionName(RegionUUID) & " of " & Message)
+
+        Return SendRPC(RegionUUID, "admin_dialog", ht)
+
+    End Function
+
+    Public Function SendMessage(RegionUUID As String, Message As String) As Boolean
+
+        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then
+            Return False
+        End If
+
+        'http://opensimulator.org/wiki/RemoteAdmin:admin_broadcast
+
+        Dim ht = New Hashtable From {
+           {"password", Settings.MachineID},
+           {"message", Message}
+       }
+        Log("Info", "Message to " & PropRegionClass.RegionName(RegionUUID) & " of " & Message)
+        Return SendRPC(RegionUUID, "admin_broadcast", ht)
+
+    End Function
+
+    Public Function ShutDown(RegionUUID As String) As Boolean
+
+        If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
+            Dim ht = New Hashtable From {
+            {"password", Settings.MachineID},
+            {"region_id", RegionUUID}
+        }
+            Return SendRPC(RegionUUID, "admin_shutdown", ht)
+        Else
+            ConsoleCommand(RegionUUID, "q")
+            ConsoleCommand(RegionUUID, "q")
+        End If
+        Return True
+
+    End Function
+
+    Public Function TeleportTo(FromRegionUUID As String, ToRegionName As String, AgentID As String) As Boolean
+
+        'http://opensimulator.org/wiki/Remoteadmin:admin_teleport_agent
+
+        Debug.Print("Teleport To:" & ToRegionName)
+
+        Dim ht = New Hashtable From {
+            {"password", Settings.MachineID},
+            {"region_name", ToRegionName},
+            {"agent_id", AgentID}
+        }
+
+        If FromRegionUUID.Length > 0 Then
+            Return SendRPC(FromRegionUUID, "admin_teleport_agent", ht)
+        End If
+        Return False
 
     End Function
 
@@ -306,6 +293,12 @@ Module RPC
 
     End Function
 
+    Public Class AvatarData
 
+        Public AvatarName As String
+        Public X As Single
+        Public Y As Single
+
+    End Class
 
 End Module

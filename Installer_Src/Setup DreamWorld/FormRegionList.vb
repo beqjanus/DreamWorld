@@ -18,12 +18,12 @@ Public Class FormRegionlist
     Private ReadOnly SearchArray As New List(Of String)
     Private _ImageListSmall As New ImageList
 #Enable Warning CA2213
+    Private detailsinitted As Boolean
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
     Private SearchBusy As Boolean
     Private TheView As Integer = ViewType.Details
     Private ViewNotBusy As Boolean
-    Private detailsinitted As Boolean
 
     Private Enum ViewType As Integer
         Icons = 1
@@ -226,14 +226,12 @@ Public Class FormRegionlist
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-
         ' Set the view to show whatever
         TheView1 = Settings.RegionListView()
 
         If TheView1 = ViewType.Details Then PropRegionClass.GetAllRegions()
 
         SetScreen(TheView1)
-
 
         AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
         AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
@@ -433,7 +431,6 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.Map_Time, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
 
-
         'Avatars
         ctr = 0
         AvatarView.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
@@ -444,8 +441,6 @@ Public Class FormRegionlist
         ctr += 1
         AvatarView.Columns.Add(My.Resources.Type_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
         AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
-
-
 
         'Users
         ctr = 0
@@ -499,7 +494,6 @@ Public Class FormRegionlist
         End If
 
         ViewBusy = False
-
 
         Timer1.Start()
         LoadMyListView()
@@ -1754,7 +1748,6 @@ SetWindowOnTop_Err:
         Next
         SearchBusy = False
         Search()
-
 
     End Sub
 

@@ -14,7 +14,6 @@ Module Apache
     Private _ApacheExited As Boolean
     Private _ApacheUninstalling As Boolean
 
-
 #Region "Properties"
 
     Public Property ApacheCrashCounter As Integer
@@ -281,9 +280,9 @@ Module Apache
         If PropAborting Then Return
         If PropApacheUninstalling Then Return
 
-        If Settings.RestartOnCrash And ApacheCrashCounter <10 Then
+        If Settings.RestartOnCrash And ApacheCrashCounter < 10 Then
             ApacheCrashCounter += 1
-            PropApacheExited= True
+            PropApacheExited = True
             ApacheIcon(False)
             Return
         End If

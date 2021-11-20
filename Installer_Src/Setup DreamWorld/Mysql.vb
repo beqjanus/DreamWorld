@@ -46,7 +46,6 @@ Public Module MysqlInterface
         End Set
     End Property
 
-
 #End Region
 
 #Region "StartMysql"
@@ -265,6 +264,7 @@ Public Module MysqlInterface
 #End Region
 
 #Region "DeletePrims"
+
     Public Sub DeleteAllContents(regionUUID As String)
 
         DeleteContent(regionUUID, "primshapes", "uuid")
@@ -289,9 +289,7 @@ Public Module MysqlInterface
         DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
         PropRegionClass.DeleteRegion(regionUUID)
 
-
     End Sub
-
 
     Private Sub DeleteContent(PrimUUID As String, Tablename As String, UUIDName As String)
 
@@ -310,18 +308,11 @@ Public Module MysqlInterface
             End Try
         End Using
 
-
     End Sub
+
 #End Region
 
-
 #Region "Public"
-    Public Sub DeleteOldVisitors()
-
-        Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
-        QueryString(stm)
-
-    End Sub
 
     Public Function AssetCount(UUID As String) As Integer
 
@@ -352,6 +343,13 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Sub DeleteOldVisitors()
+
+        Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
+        QueryString(stm)
+
+    End Sub
+
     Public Sub DeleteOnlineUsers()
 
         If PropOpensimIsRunning Then
@@ -365,7 +363,6 @@ Public Module MysqlInterface
         End If
 
     End Sub
-
 
     Public Sub DeRegisterPosition(X As Integer, Y As Integer)
 
@@ -496,35 +493,6 @@ Public Module MysqlInterface
 
     End Function
 
-
-    ''' <summary>
-    ''' Gets user count from useraccounts
-    ''' </summary>
-    ''' <returns>integer count of agents in this region</returns>
-    Public Function GetAgentsInRegion(RegionUUID As String) As Integer
-
-        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-        Dim Dict As New Dictionary(Of String, String)
-        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
-            Try
-                NewSQLConn.Open()
-                Dim stm As String = "SELECT count(*) FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where regionid = @UUID "
-                Using cmd As New MySqlCommand(stm, NewSQLConn)
-                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
-                    Using reader As MySqlDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then Return (reader.GetInt32(0))
-                    End Using
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-        End Using
-
-        Return 0
-
-    End Function
     ''' <summary>
     ''' Gets users from useraccounts
     ''' </summary>
@@ -565,6 +533,35 @@ Public Module MysqlInterface
         End Using
 
         Return Dict
+
+    End Function
+
+    ''' <summary>
+    ''' Gets user count from useraccounts
+    ''' </summary>
+    ''' <returns>integer count of agents in this region</returns>
+    Public Function GetAgentsInRegion(RegionUUID As String) As Integer
+
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        Dim Dict As New Dictionary(Of String, String)
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT count(*) FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where regionid = @UUID "
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then Return (reader.GetInt32(0))
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Show(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+        Return 0
 
     End Function
 
@@ -772,7 +769,6 @@ Public Module MysqlInterface
             End Try
 
         End Using
-
 
         Return count
 
@@ -1016,7 +1012,6 @@ Public Module MysqlInterface
 
         If Not IsMySqlRunning() Then Return
         Dim exists As Boolean
-
 
         Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
             Try

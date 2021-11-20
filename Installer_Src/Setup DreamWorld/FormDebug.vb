@@ -88,6 +88,14 @@ Public Class FormDebug
 
 #Region "Set"
 
+    Private Sub Benchmark()
+
+        ProgressPrint($"{My.Resources.Benchmark} = {CStr(Value)}")
+        Settings.LogBenchmarks = Value
+        Settings.SaveSettings()
+
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         If Command = My.Resources.Benchmark Then
@@ -115,7 +123,7 @@ Public Class FormDebug
                 RPC_admin_dialog(UserID, "Pop up Alert Test")
             End If
 
-            ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
+        ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
 
             If Value Then
                 Settings.StatusInterval = 0
@@ -173,12 +181,6 @@ Public Class FormDebug
 
     End Sub
 
-    Private Sub Speechtest()
-
-        ProgressPrint(Speach(My.Resources.HelloToSpeech, Value))
-
-    End Sub
-
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
 
         Command = CStr(ComboBox1.SelectedItem)
@@ -186,16 +188,7 @@ Public Class FormDebug
 
     End Sub
 
-    Private Sub Benchmark()
-
-        ProgressPrint($"{My.Resources.Benchmark} = {CStr(Value)}")
-        Settings.LogBenchmarks = Value
-        Settings.SaveSettings()
-
-    End Sub
-
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-
 
         RadioTrue.Checked = False
         RadioFalse.Checked = True
@@ -238,6 +231,12 @@ Public Class FormDebug
         End If
     End Sub
 
+    Private Sub Speechtest()
+
+        ProgressPrint(Speach(My.Resources.HelloToSpeech, Value))
+
+    End Sub
+
     Private Sub TPAPITest()
 
         If Value Then
@@ -273,14 +272,14 @@ Public Class FormDebug
 
 #Region "Radio"
 
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        HelpManual("Debug")
+    End Sub
+
     Private Sub RadioTrue_CheckedChanged(sender As Object, e As EventArgs) Handles RadioTrue.CheckedChanged
 
         Value = RadioTrue.Checked
 
-    End Sub
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        HelpManual("Debug")
     End Sub
 
 #End Region

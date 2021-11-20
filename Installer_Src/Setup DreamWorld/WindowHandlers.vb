@@ -29,8 +29,6 @@ Module WindowHandlers
 
 #End Region
 
-
-
     Public Sub ConsoleCommand(RegionUUID As String, command As String, Optional noChange As Boolean = False)
 
         ''' <summary>Sends keystrokes to Opensim. Always sends and enter button before to clear and use keys</summary>
@@ -181,6 +179,7 @@ Module WindowHandlers
         Return 0
 
     End Function
+
     <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
     Public Function GetPIDofWindow(GroupName As String) As Integer
 

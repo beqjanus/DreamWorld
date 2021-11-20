@@ -137,7 +137,6 @@ Module Robust
             Return True
         End If
 
-
         RobustIsStarting = True
         SetServerType()
         PropRobustProcID = 0
@@ -395,7 +394,6 @@ Module Robust
         INI.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
         INI.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
 
-
         INI.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
 
         If Settings.CMS = JOpensim Then
@@ -455,7 +453,7 @@ Module Robust
             }
             Try
                 Up = TimedCLient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
-            Catch ex As exception
+            Catch ex As Exception
 
             End Try
 
