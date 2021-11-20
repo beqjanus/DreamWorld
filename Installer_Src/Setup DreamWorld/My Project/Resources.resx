@@ -3087,7 +3087,8 @@
     <value>Select</value>
   </data>
   <data name="Send_alert" xml:space="preserve">
-    <value>Send Alert</value>
+    <value>Send Alert to a User</value>
+    <comment>Changed</comment>
   </data>
   <data name="Send_Alert_Message_word" xml:space="preserve">
     <value>Send Alert Message</value>

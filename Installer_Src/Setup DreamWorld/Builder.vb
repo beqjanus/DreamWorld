@@ -125,7 +125,7 @@ Module Build
 
                 Try
                     MakeTempRegion(GroupName, nX, nY)
-                Catch ex As exception
+                Catch ex As Exception
                     BreakPoint.Show(ex.Message)
                 End Try
 
@@ -138,7 +138,6 @@ Module Build
         If Simcount > 0 Then
             Landscaper(GroupName)
         End If
-
 
     End Sub
 

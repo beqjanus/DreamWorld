@@ -241,6 +241,23 @@ Public Class FormRegions
 
     End Sub
 
+    Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
+
+        Dim selected = SpeechBox.SelectedItem.ToString
+        Settings.VoiceName = selected
+        Settings.SaveSettings()
+        If selected = "No Speech" Then Return
+        Try
+            s1.SelectVoice(selected)
+            Dim SaveWave As Boolean = False
+
+            Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", SaveWave)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+
+    End Sub
+
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles X.TextChanged
         Dim digitsOnly = New Regex("[^\d]")
         X.Text = digitsOnly.Replace(X.Text, "")
@@ -263,20 +280,4 @@ Public Class FormRegions
         Settings.HomeVectorZ = Z.Text
     End Sub
 
-    Private Sub SpeechBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SpeechBox.SelectedIndexChanged
-
-        Dim selected = SpeechBox.SelectedItem.ToString
-        Settings.VoiceName = selected
-        Settings.SaveSettings()
-        If selected = "No Speech" Then Return
-        Try
-            s1.SelectVoice(selected)
-            Dim SaveWave As Boolean = False
-
-            Speach($"This is {selected}. I will speak the region name and visitor name when I am selected.", SaveWave)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-
-    End Sub
 End Class

@@ -1,6 +1,8 @@
 ﻿Imports System.Threading
+
 Module Maps
     Public ReadOnly Map As New Dictionary(Of String, String)
+
 #Region "MapMaking"
 
     Public Sub Delete_Region_Map(RegionUUID As String)
@@ -21,6 +23,7 @@ Module Maps
         Next
 
     End Sub
+
     Public Sub MakeMaps()
 
         Dim Mapthread As Thread
@@ -61,7 +64,6 @@ Module Maps
                 Dim Out As Image = bmp
                 Dim Src As Image = bmp
                 Dim XS = SimSize / 256
-
 
                 X = 0
                 For Xstep = 0 To XS - 1

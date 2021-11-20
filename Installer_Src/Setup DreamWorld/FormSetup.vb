@@ -2039,7 +2039,7 @@ Public Class FormSetup
 
         For Each Agent In Avatars
             If Agent.Value.Length > 0 Then
-                Dim err As Boolean
+
                 Dim RegionUUID = Agent.Value
                 Dim RegionName As String = ""
 
@@ -2051,16 +2051,15 @@ Public Class FormSetup
                     Dim Y = PropRegionClass.CoordY(RegionUUID)
                     If X = 0 Or Y = 0 Then Continue For
 
-                    SurroundingLandMaker(RegionUUID)
 
 #Disable Warning BC42016 ' Implicit conversion
-                    '  Dim start As ParameterizedThreadStart = AddressOf SurroundingLandMaker
+                    Dim start As ParameterizedThreadStart = AddressOf SurroundingLandMaker
 #Enable Warning BC42016 ' Implicit conversion
 
-                    ' Dim _WebThread1 = New Thread(start)
-                    '_WebThread1.SetApartmentState(ApartmentState.STA)
-                    '_WebThread1.Priority = ThreadPriority.Normal
-                    '_WebThread1.Start(RegionUUID)
+                    Dim _WebThread1 = New Thread(start)
+                    _WebThread1.SetApartmentState(ApartmentState.STA)
+                    _WebThread1.Priority = ThreadPriority.Normal
+                    _WebThread1.Start(RegionUUID)
 
                 End If
             Else

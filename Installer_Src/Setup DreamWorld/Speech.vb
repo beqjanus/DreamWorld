@@ -1,7 +1,9 @@
 ﻿Imports System.Threading
+
 Module ChatToSpeech
 
     Public SpeechList As New Queue(Of String)
+
     Public Sub Chat2Speech()
 
         If SpeechList.Count = 0 Then Return
@@ -10,6 +12,7 @@ Module ChatToSpeech
         WebThread.Start()
 
     End Sub
+
     Private Sub SpeakArrival()
 
         While SpeechList.Count > 0

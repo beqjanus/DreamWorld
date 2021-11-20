@@ -614,6 +614,8 @@ Public Module MysqlInterface
     ''' <returns>Avatar UUID</returns>
     Public Function GetAviUUUD(AvatarName As String) As String
 
+        StartMySQL()
+
         If AvatarName.Length = 0 Then Return ""
         Dim Val As String = ""
 

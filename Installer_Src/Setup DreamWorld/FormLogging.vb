@@ -332,7 +332,6 @@ Public Class FormLogging
 
     End Function
 
-
     Private Function LookatYengine(line As String, outputfile As StreamWriter, GroupName As String) As Integer
         ToolStripStatusLabel1.Text = $"{CStr(_Err)} Errors,  {CStr(_LineCounter)} Lines  {CStr(_FileCounter)} Files"
         Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)|^(.*?)(\[YEngine\]\:.*)")
@@ -358,9 +357,8 @@ Public Class FormLogging
         End If
         Return 0
 
-
-
     End Function
+
 #End Region
 
 End Class

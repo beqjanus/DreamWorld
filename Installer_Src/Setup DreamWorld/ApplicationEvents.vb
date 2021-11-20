@@ -40,7 +40,6 @@ Namespace My
                 End If
             Next
 
-
             Logger("Error", AssemblyV, "Error")
             Logger("Error", "Git Version: #" & GitVersion(), "Error")
             Logger("Error", "Version: " & PropMyVersion(), "Error")

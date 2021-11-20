@@ -55,6 +55,15 @@ Public Class FormMaps
         End Try
     End Sub
 
+    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewVisitorMapButton.Click
+        Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
+        Try
+            Process.Start(webAddress)
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
+        End Try
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ViewRegionMapsButton.Click
 
         Dim X As Integer = Settings.MapCenterX
@@ -200,7 +209,6 @@ Public Class FormMaps
             DelMapButton.Visible = False
         End If
 
-
         HelpOnce("Maps")
         SetScreen()
 
@@ -295,6 +303,16 @@ Public Class FormMaps
         Me.Top = xy.Item(1)
     End Sub
 
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles Days2KeepBox.TextChanged
+        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Days2KeepBox.Text = digitsOnly.Replace(Days2KeepBox.Text, "")
+
+        If Not Integer.TryParse(Days2KeepBox.Text, Settings.KeepVisits) Then
+            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+            Settings.SaveSettings()
+        End If
+    End Sub
+
     Private Sub ToolStripMenuItem30_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem30.Click
         HelpManual("Maps")
     End Sub
@@ -306,25 +324,6 @@ Public Class FormMaps
             Application.DoEvents()
         Next
 
-    End Sub
-
-    Private Sub Button1_Click_2(sender As Object, e As EventArgs) Handles ViewVisitorMapButton.Click
-        Dim webAddress As String = "http://127.0.0.1:" & CStr(Settings.ApachePort) & "/Stats"
-        Try
-            Process.Start(webAddress)
-        Catch ex As Exception
-            BreakPoint.Show(ex.Message)
-        End Try
-    End Sub
-
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles Days2KeepBox.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
-        Days2KeepBox.Text = digitsOnly.Replace(Days2KeepBox.Text, "")
-
-        If Not Integer.TryParse(Days2KeepBox.Text, Settings.KeepVisits) Then
-            MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-            Settings.SaveSettings()
-        End If
     End Sub
 
 #End Region

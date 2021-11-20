@@ -7,10 +7,9 @@
 
 Public Class FormIARSave
 
-
-
 #Region "Private Fields"
 
+    Private _All As Boolean
     Private _gAvatarName As String = ""
     Private _gBackupName As String = ""
     Private _gBackupPath As String = ""
@@ -18,7 +17,6 @@ Public Class FormIARSave
     Private _GModify As Boolean
     Private _gObject As String = "/"
     Private _GTransfer As Boolean
-    Private _All As Boolean
 
 #End Region
 

@@ -81,7 +81,6 @@ Public Class ClassRegionMaker
 
 #Region "Public Properties"
 
-
 #End Region
 
 #Region "Start/Stop"
@@ -348,12 +347,19 @@ Public Class ClassRegionMaker
 
         Add_To_Region_Map(RegionUUID)
 
-
     End Sub
 
 #End Region
 
 #Region "Functions"
+
+    Private PortLock As New Object
+
+    Private RegionLock As New Object
+
+    ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
+    '''
+    Private UpdatePortLock As New Object
 
     Public Sub Add_To_Region_Map(RegionUUID As String)
 
@@ -421,7 +427,7 @@ Public Class ClassRegionMaker
             If IsAgentInRegion(RegionUUID) Then
                 Return True
             End If
-            Application.doevents
+            Application.DoEvents()
         Next
         Return False
 
@@ -480,7 +486,6 @@ Public Class ClassRegionMaker
 
     End Function
 
-
     Public Function FindBackupByName(Name As String) As Integer
 
         Dim i As Integer = 0
@@ -494,7 +499,7 @@ Public Class ClassRegionMaker
         Return -1
 
     End Function
-    Private RegionLock As New Object
+
     Public Function GetAllRegions() As Integer
 
         SyncLock RegionLock
@@ -546,7 +551,6 @@ Public Class ClassRegionMaker
                                     MsgBox("Cannot read UUID In INI file For " & fName, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
                                     '  TODO Auto repair this error from a backup
                                     Exit For
-
                                 Else
 
                                     CreateRegion(fName, uuid)
@@ -666,22 +670,18 @@ Public Class ClassRegionMaker
                                     WriteRegionObject(Group, fName)
                                 End If
                             Next
-
-
-
                         Catch ex As Exception
                             BreakPoint.Show(ex.Message)
                             MsgBox(My.Resources.Error_Region + fName + " : " + ex.Message, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Error_word)
                             ErrorLog("Err:Parse file " + fName + ":" + ex.Message)
 
-                            PropUpdateView = True ' make form refresh  
+                            PropUpdateView = True ' make form refresh
                             Return 0
                         End Try
                     Next
                 Next
 
                 _RegionListIsInititalized = True
-
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -694,9 +694,6 @@ Public Class ClassRegionMaker
 
     End Function
 
-
-    Private PortLock As New Object
-
     Public Function LargestPort() As Integer
 
         Dim Maxnum As Integer
@@ -707,17 +704,17 @@ Public Class ClassRegionMaker
             Dim pair As KeyValuePair(Of String, Region_data)
 
             For Each pair In RegionList
-                If pair.Value._RegionPort > MaxNum Then
-                    MaxNum = pair.Value._RegionPort
+                If pair.Value._RegionPort > Maxnum Then
+                    Maxnum = pair.Value._RegionPort
                 End If
-                If pair.Value._GroupPort > MaxNum Then
-                    MaxNum = pair.Value._GroupPort
+                If pair.Value._GroupPort > Maxnum Then
+                    Maxnum = pair.Value._GroupPort
                 End If
             Next
 
         End SyncLock
 
-        Return MaxNum
+        Return Maxnum
 
     End Function
 
@@ -779,9 +776,6 @@ Public Class ClassRegionMaker
 
     End Sub
 
-    ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
-    ''' 
-    Private UpdatePortLock As New Object
     Public Sub UpdateAllRegionPorts()
 
         SyncLock UpdatePortLock
@@ -1651,7 +1645,6 @@ Public Class ClassRegionMaker
 
     End Function
 
-
     Public Function IsBooted(uuid As String) As Boolean
 
         If uuid Is Nothing Then Return False
@@ -2071,7 +2064,7 @@ Public Class ClassRegionMaker
                 If INI.SetIni("Startup", "FrameTime", CStr(FrameTime(uuid))) Then Return True
             End If
 
-            ' God 
+            ' God
             Select Case Settings.AllowGridGods
                 Case True
                     If INI.SetIni("Permissions", "allow_grid_gods", "True") Then Return True
@@ -2109,7 +2102,6 @@ Public Class ClassRegionMaker
                     If INI.SetIni("Permissions", "region_manager_is_god", "True") Then Return True
             End Select
 
-
             ' all grids requires these setting in Opensim.ini
             If INI.SetIni("Const", "DiagnosticsPort", CStr(Settings.DiagnosticPort)) Then Return True
 
@@ -2137,7 +2129,6 @@ Public Class ClassRegionMaker
                 If INI.SetIni("Startup", "economymodule", "BetaGridLikeMoneyModule") Then Return True
                 If INI.SetIni("Economy", "CurrencyURL", "") Then Return True
             End If
-
 
             ' LSL emails
             If INI.SetIni("SMTP", "SMTP_SERVER_HOSTNAME", Settings.SmtpHost) Then Return True
@@ -2405,7 +2396,6 @@ Public Class ClassRegionMaker
             If INI.SetIni("Estates", "DefaultEstateOwnerName", gEstateOwner) Then Return True
 
             INI.SaveINI()
-
 
             '============== Region.ini =====================
             ' Region.ini in Region Folder specific to this region

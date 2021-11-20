@@ -10,11 +10,10 @@ Imports System.Threading
 Module IAR
 
     Public Class Params
-        Public RegionName As String
-        Public opt As String
         Public itemName As String
+        Public opt As String
+        Public RegionName As String
     End Class
-
 
 #Region "Load"
 
@@ -104,123 +103,6 @@ Module IAR
 
     End Function
 
-    Public Sub SaveIARTaskAll()
-
-        If PropOpensimIsRunning() Then
-
-            Dim RegionName = ChooseRegion(False)
-            If RegionName.Length = 0 Then Return
-
-            Using SaveIAR As New FormIARSaveAll
-                SaveIAR.ShowDialog()
-
-                Dim chosen = SaveIAR.DialogResult()
-                If chosen = DialogResult.OK Then
-                    Dim itemName = SaveIAR.GObject
-                    If itemName = "/=everything, /Objects/Folder, etc." Then
-                        itemName = "/"
-                    End If
-
-                    If itemName.Length = 0 Then
-                        MsgBox(My.Resources.MustHaveName, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
-                        Return
-                    End If
-
-                    Dim opt As String = "  "
-                    If Settings.DNSName.Length > 0 Then
-                        opt += " -h " & Settings.DNSName & ":" & Settings.HttpPort & " "
-                    End If
-
-                    Dim Perm As String = ""
-                    If Not SaveIAR.GCopy Then
-                        Perm += "C"
-                    End If
-
-                    If Not SaveIAR.GTransfer Then
-                        Perm += "T"
-                    End If
-
-                    If Not SaveIAR.GModify Then
-                        Perm += "M"
-                    End If
-
-                    If Perm.Length > 0 Then
-                        opt += " --perm=" & Perm & " "
-                    End If
-
-                    Dim p As New Params With {
-                        .RegionName = RegionName,
-                        .opt = opt,
-                        .itemName = itemName
-                    }
-
-                    ' start a thread to see if a region has crashed, if so, add it to an exit list
-#Disable Warning BC42016 ' Implicit conversion
-                    Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
-#Enable Warning BC42016 ' Implicit conversion
-                    Dim SaveIARThread = New Thread(start)
-                    SaveIARThread.SetApartmentState(ApartmentState.STA)
-                    SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
-                    SaveIARThread.Start(p)
-                End If
-            End Using
-        Else
-            TextPrint(My.Resources.Not_Running)
-        End If
-    End Sub
-    Private Function DoIARBackground(o As params) As Boolean
-
-        Dim RegionName As String = o.RegionName
-        Dim opt As String = o.opt
-        Dim itemName As String = o.itemName
-
-        Dim ToBackup As String
-        Dim UserList = GetAvatarList()
-
-        Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
-        If Not PropRegionClass.IsBooted(RegionUUID) Then Return False
-        For Each k As String In UserList
-            Dim newname = k.Replace(" ", "_")
-            Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
-            If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
-                Try
-                    System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                End Try
-            End If
-
-            ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
-            ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
-            WaitforComplete(ToBackup)
-        Next
-        Return True
-
-    End Function
-
-    Private Sub WaitforComplete(BackupName As String)
-
-        Dim s As Long
-        Dim oldsize As Long = 0
-        Dim same As Integer = 0
-        While same < 10
-            Dim fi = New System.IO.FileInfo(BackupName)
-            Try
-                s = fi.Length
-            Catch ex As Exception
-                'BreakPoint.Show(ex.Message)
-            End Try
-            If s = oldsize And s > 0 Then
-                same += 1
-            Else
-                same = 0
-            End If
-            Sleep(1000)
-            oldsize = s
-        End While
-
-
-    End Sub
     Public Sub SaveIARTask()
 
         If PropOpensimIsRunning() Then
@@ -293,6 +175,125 @@ Module IAR
             TextPrint(My.Resources.Not_Running)
         End If
     End Sub
+
+    Public Sub SaveIARTaskAll()
+
+        If PropOpensimIsRunning() Then
+
+            Dim RegionName = ChooseRegion(False)
+            If RegionName.Length = 0 Then Return
+
+            Using SaveIAR As New FormIARSaveAll
+                SaveIAR.ShowDialog()
+
+                Dim chosen = SaveIAR.DialogResult()
+                If chosen = DialogResult.OK Then
+                    Dim itemName = SaveIAR.GObject
+                    If itemName = "/=everything, /Objects/Folder, etc." Then
+                        itemName = "/"
+                    End If
+
+                    If itemName.Length = 0 Then
+                        MsgBox(My.Resources.MustHaveName, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+                        Return
+                    End If
+
+                    Dim opt As String = "  "
+                    If Settings.DNSName.Length > 0 Then
+                        opt += " -h " & Settings.DNSName & ":" & Settings.HttpPort & " "
+                    End If
+
+                    Dim Perm As String = ""
+                    If Not SaveIAR.GCopy Then
+                        Perm += "C"
+                    End If
+
+                    If Not SaveIAR.GTransfer Then
+                        Perm += "T"
+                    End If
+
+                    If Not SaveIAR.GModify Then
+                        Perm += "M"
+                    End If
+
+                    If Perm.Length > 0 Then
+                        opt += " --perm=" & Perm & " "
+                    End If
+
+                    Dim p As New Params With {
+                        .RegionName = RegionName,
+                        .opt = opt,
+                        .itemName = itemName
+                    }
+
+                    ' start a thread to see if a region has crashed, if so, add it to an exit list
+#Disable Warning BC42016 ' Implicit conversion
+                    Dim start As ParameterizedThreadStart = AddressOf DoIARBackground
+#Enable Warning BC42016 ' Implicit conversion
+                    Dim SaveIARThread = New Thread(start)
+                    SaveIARThread.SetApartmentState(ApartmentState.STA)
+                    SaveIARThread.Priority = ThreadPriority.Lowest ' UI gets priority
+                    SaveIARThread.Start(p)
+                End If
+            End Using
+        Else
+            TextPrint(My.Resources.Not_Running)
+        End If
+    End Sub
+
+    Private Function DoIARBackground(o As Params) As Boolean
+
+        Dim RegionName As String = o.RegionName
+        Dim opt As String = o.opt
+        Dim itemName As String = o.itemName
+
+        Dim ToBackup As String
+        Dim UserList = GetAvatarList()
+
+        Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
+        If Not PropRegionClass.IsBooted(RegionUUID) Then Return False
+        For Each k As String In UserList
+            Dim newname = k.Replace(" ", "_")
+            Dim BackupName = $"{newname}_{DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture)}.iar"
+            If Not System.IO.Directory.Exists(BackupPath() & "/IAR") Then
+                Try
+                    System.IO.Directory.CreateDirectory(BackupPath() & "/IAR")
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            End If
+
+            ToBackup = IO.Path.Combine(BackupPath() & "/IAR", BackupName)
+            ConsoleCommand(RegionUUID, $"save iar {opt} {k} / ""{ToBackup}""")
+            WaitforComplete(ToBackup)
+        Next
+        Return True
+
+    End Function
+
+    Private Sub WaitforComplete(BackupName As String)
+
+        Dim s As Long
+        Dim oldsize As Long = 0
+        Dim same As Integer = 0
+        While same < 10
+            Dim fi = New System.IO.FileInfo(BackupName)
+            Try
+                s = fi.Length
+            Catch ex As Exception
+                'BreakPoint.Show(ex.Message)
+            End Try
+            If s = oldsize And s > 0 Then
+                same += 1
+            Else
+                same = 0
+            End If
+            Sleep(1000)
+            oldsize = s
+        End While
+
+    End Sub
+
 #End Region
 
 End Module

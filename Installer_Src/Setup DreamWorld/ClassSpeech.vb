@@ -4,14 +4,6 @@ Public Module Speech
 
     Dim WithEvents Spk As New SpeechSynthesizer()
     Dim B As Integer
-    Private Sub EventHandler() Handles Spk.SpeakCompleted
-        B = 0
-    End Sub
-    Public Function SpeechBusy() As Integer
-
-        Return B
-
-    End Function
 
     ''' <summary>
     ''' Speaks the chosen voice (if any) on the server
@@ -53,7 +45,14 @@ Public Module Speech
 
     End Function
 
+    Public Function SpeechBusy() As Integer
 
+        Return B
 
+    End Function
+
+    Private Sub EventHandler() Handles Spk.SpeakCompleted
+        B = 0
+    End Sub
 
 End Module

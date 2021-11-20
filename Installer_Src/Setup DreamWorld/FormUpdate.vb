@@ -37,5 +37,4 @@
         DialogResult = DialogResult.Yes
     End Sub
 
-
 End Class
