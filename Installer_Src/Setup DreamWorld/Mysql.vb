@@ -1366,7 +1366,7 @@ Public Module MysqlInterface
                     For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
                         Application.DoEvents()
                         Dim RegionName = Visit.Value
-                        Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(RegionName)
+                        Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
                         Dim result As List(Of AvatarData) = RPC_admin_get_agent_list(RegionUUID)
                         For Each Avi In result
                             Using cmd1 = New MySqlCommand(stm1, MysqlConn1)

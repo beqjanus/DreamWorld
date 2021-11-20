@@ -55,7 +55,7 @@ Module SmartStart
 
     Public Function WaitForBooting(RegionUUID As String) As Boolean
 
-        Dim c As Integer = 20 ' 20 seconds
+        Dim c As Integer = 30 ' 20 seconds
         While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting
 
             c -= 1  ' skip on timeout error
@@ -100,7 +100,7 @@ Module SmartStart
             Dim time As String
 
             ' Region may be a name or a Region UUID
-            Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(Name)
+            Dim RegionUUID = PropRegionClass.FindRegionByName(Name)
             If RegionUUID.Length = 0 Then
                 RegionUUID = Name ' Its a UUID
             Else
@@ -131,13 +131,13 @@ Module SmartStart
                             'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
-                            Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                            Dim u = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
                             Return u
                         ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
                             Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
-                            Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                            Dim u = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
                             Return u
                         Else ' Its a v4 sign
 
@@ -644,7 +644,6 @@ Module SmartStart
 
         If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Or
                 PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
-
 
             Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
 
