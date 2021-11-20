@@ -2039,15 +2039,12 @@ Public Class FormSetup
 
         For Each Agent In Avatars
             If Agent.Value.Length > 0 Then
-
+                Dim err As Boolean
                 Dim RegionUUID = Agent.Value
                 Dim RegionName As String = ""
-                Try
-                    RegionName = PropRegionClass.RegionName(RegionUUID)
-                Catch ex As Exception
-                    BreakPoint.Show(ex.Message)
-                    Continue For
-                End Try
+
+                RegionName = PropRegionClass.RegionName(RegionUUID)
+                If RegionName Is Nothing Then Continue For
 
                 If RegionName.Length > 0 Then
                     Dim X = PropRegionClass.CoordX(RegionUUID)
@@ -2429,7 +2426,7 @@ Public Class FormSetup
                 Dim Avatar = NameValue.Key
                 Dim RegionUUID = NameValue.Value
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-                If RegionName.Length = 0 Then Continue For
+                If RegionName Is Nothing Then Continue For
 
                 ' not seen before
                 If Not CurrentLocation.ContainsKey(Avatar) Then
@@ -2644,6 +2641,7 @@ Public Class FormSetup
 
 #Region "Timer"
 
+    Private TimerLock As New Object
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
     ''' </summary>
@@ -2657,44 +2655,46 @@ Public Class FormSetup
             Return
         End If
 
+        SyncLock TimerLock ' stop other threads from firing this
 
+            Chart() ' do charts collection each second
 
-        Chart() ' do charts collection each second
+            If TimerBusy > 0 And TimerBusy < 10 Then
+                TimerBusy += 1
+                Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
+                Return
+            End If
 
-        If TimerBusy > 0 And TimerBusy < 60 Then
-            TimerBusy += 1
-            Diagnostics.Debug.Print("Timer Is Now at " & CStr(TimerBusy) & " seconds")
-            Return
-        End If
-        Bench.Start()
-        TimerBusy = 1
-        PropRegionClass.CheckPost() ' get the stack filled ASAP
+            Bench.Start()
+            TimerBusy = 1
 
-        ' Reload
-        If PropChangedRegionSettings Then
-            PropRegionClass.GetAllRegions()
-        End If
+            PropRegionClass.CheckPost() ' see if anything arrived in the web server
 
-        Bench.Print("Teleport Agents")
-        TeleportAgents()
+            ' Reload
+            If PropChangedRegionSettings Then
+                PropRegionClass.GetAllRegions()
+            End If
 
-        ProcessQuit()   '  check if any processes exited
+            Bench.Print("Teleport Agents")
+            TeleportAgents()
 
-        ' only at boot
-        If SecondsTicker = 0 Then
-            Bench.Print("At boot worker")
-            CalcDiskFree()
-        End If
+            ProcessQuit()   '  check if any processes exited
 
-        ' 5 seconds, not at boot
-        If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
-            Bench.Print("5 second worker")
-            Chat2Speech()
+            ' only at boot
+            If SecondsTicker = 0 Then
+                Bench.Print("At boot worker")
+                CalcDiskFree()
+            End If
 
-            CheckForBootedRegions()
+            ' 5 seconds, not at boot
+            If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
+                Bench.Print("5 second worker")
+                Chat2Speech()
 
-            ' print how many backups are running
-            Dim thisDate As Date = Now
+                CheckForBootedRegions()
+
+                ' print how many backups are running
+                Dim thisDate As Date = Now
                 Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
                 Dim t = BackupsRunning(dt)
                 If t.Length > 0 Then
@@ -2705,6 +2705,7 @@ Public Class FormSetup
                 CalcDiskFree()
                 ScanAgents() ' update agent count seconds
                 Bench.Print("5 second work done")
+
             End If
 
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
@@ -2743,7 +2744,9 @@ Public Class FormSetup
             SecondsTicker += 1
             TimerBusy = 0
 
-        End Sub
+        End SyncLock
+
+    End Sub
 
 #End Region
 
