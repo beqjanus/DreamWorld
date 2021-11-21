@@ -92,7 +92,7 @@ Public Class FormRegions
             For Each UUID As String In PropRegionClass.RegionUuids
                 PropRegionClass.CoordX(UUID) = PropRegionClass.CoordX(UUID) + DeltaX
                 PropRegionClass.CoordY(UUID) = PropRegionClass.CoordY(UUID) + DeltaY
-                PropRegionClass.WriteRegionObject(PropRegionClass.GroupName(UUID), PropRegionClass.RegionName(UUID))
+                PropRegionClass.WriteRegionObject(PropRegionClass.GroupName(UUID), PropRegionClass.RegionName(UUID), True)
             Next
             PropChangedRegionSettings = True
         End If

@@ -54,12 +54,12 @@ Public Module MysqlInterface
 
         PropAborting = False
 
-        Log("INFO", "Checking Mysql")
+        Log("INFO", "Checking MySQL")
         If MysqlInterface.IsMySqlRunning() Then
             Return True
         End If
 
-        Log("INFO", "Mysql is not running")
+        Log("INFO", "MySQL is not running")
         ' Build data folder if it does not exist
         MakeMysql()
 
@@ -92,20 +92,20 @@ Public Module MysqlInterface
             INI.SetIni("mysqld", "innodb_flush_log_at_trx_commit", "1")
         End If
 
-        INI.SetIni("mysqld", "basedir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql""")
-        INI.SetIni("mysqld", "datadir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/Mysql/Data""")
+        INI.SetIni("mysqld", "basedir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/MySQL""")
+        INI.SetIni("mysqld", "datadir", $"""{FormSetup.PropCurSlashDir}/OutworldzFiles/MySQL/Data""")
         INI.SetIni("mysqld", "port", CStr(Settings.MySqlRobustDBPort))
         INI.SetIni("client", "port", CStr(Settings.MySqlRobustDBPort))
 
         INI.SaveINI()
 
         ' create test program slants the other way:
-        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StartManually.bat")
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\StartManually.bat")
         DeleteFile(testProgram)
 
         Try
             Using outputFile As New StreamWriter(testProgram, False)
-                outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
+                outputFile.WriteLine("@REM A program to run MySQL manually for troubleshooting." & vbCrLf _
                              & "mysqld.exe --defaults-file=" &
                              """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """"
                              )
@@ -124,10 +124,10 @@ Public Module MysqlInterface
                 .EnableRaisingEvents = False
             }
                     MysqlProcess.StartInfo.UseShellExecute = True ' so we can redirect streams
-                    MysqlProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\mysqld.exe")
+                    MysqlProcess.StartInfo.FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\mysqld.exe")
                     MysqlProcess.StartInfo.Arguments = $"--install MySQLDreamGrid --defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini"""
                     MysqlProcess.StartInfo.CreateNoWindow = True
-                    MysqlProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\")
+                    MysqlProcess.StartInfo.WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\")
                     MysqlProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
 
                     Try
@@ -195,7 +195,7 @@ Public Module MysqlInterface
         Else
 
             Application.DoEvents()
-            ' Mysql was not running, so lets start it up.
+            ' MySQL was not running, so lets start it up.
             Dim pi = New ProcessStartInfo With {
                 .Arguments = $"--defaults-file=""{FormSetup.PropCurSlashDir}/OutworldzFiles/mysql/my.ini""",
                 .WindowStyle = ProcessWindowStyle.Hidden,
@@ -358,8 +358,8 @@ Public Module MysqlInterface
             Return
         End If
 
-        Dim Mysql = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
-        If Mysql Then
+        Dim MySQL = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
+        If MySQL Then
             QueryString("delete from presence;")
             QueryString("update robust.griduser set online = 'false';")
         End If
@@ -397,8 +397,8 @@ Public Module MysqlInterface
             Return
         End If
 
-        Dim Mysql = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
-        If Mysql Then
+        Dim MySQL = CheckPort("127.0.0.1", CType(Settings.MySqlRobustDBPort, Integer))
+        If MySQL Then
             QueryString("delete from robust.regions;")
             TextPrint(My.Resources.Deregister_All)
         End If
@@ -1199,13 +1199,13 @@ Public Module MysqlInterface
     Private Sub CreateService()
 
         ' create test program slants the other way:
-        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\InstallAsAService.bat")
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\InstallAsAService.bat")
         DeleteFile(testProgram)
 
         Try
             Using outputFile As New StreamWriter(testProgram, False)
-                outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
-            "mysqld.exe --install Mysql --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
+                outputFile.WriteLine("@REM Program to run MySQL as a Service" & vbCrLf +
+            "mysqld.exe --install MySQL --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start MySQL" & vbCrLf)
             End Using
         Catch ex As Exception
             BreakPoint.Show(ex.Message)
@@ -1216,11 +1216,11 @@ Public Module MysqlInterface
     Private Sub CreateStopMySql()
 
         ' create test program slants the other way:
-        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StopMySQL.bat")
+        Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\StopMySQL.bat")
         DeleteFile(testProgram)
         Try
             Using outputFile As New StreamWriter(testProgram, False)
-                outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
+                outputFile.WriteLine("@REM Program to stop MySQL" & vbCrLf +
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
         Catch ex As Exception
@@ -1279,13 +1279,13 @@ Public Module MysqlInterface
     Private Sub MakeMysql()
 
         Dim fname As String = ""
-        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql")
+        Dim m As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL")
         If Not System.IO.File.Exists(IO.Path.Combine(m, "Data\ibdata1")) Then
             TextPrint(My.Resources.Create_DB)
             Try
-                Using zip = New ZipFile(IO.Path.Combine(m, "Blank-Mysql-Data-folder.zip"))
+                Using zip = New ZipFile(IO.Path.Combine(m, "Blank-MySQL-Data-folder.zip"))
                     zip.UseZip64WhenSaving = Zip64Option.AsNecessary
-                    Dim extractPath = $"{Path.GetFullPath(Settings.CurrentDirectory)}\OutworldzFiles\Mysql"
+                    Dim extractPath = $"{Path.GetFullPath(Settings.CurrentDirectory)}\OutworldzFiles\MySQL"
                     If (Not extractPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal)) Then
                         extractPath += Path.DirectorySeparatorChar
                     End If

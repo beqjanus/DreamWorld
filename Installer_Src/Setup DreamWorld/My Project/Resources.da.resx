@@ -340,7 +340,7 @@
     <value>Backup FSAssets-mappe</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>Backup Mysql Data-mappe</value>
+    <value>Backup MySQL Data-mappe</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Sikkerhedskopiering af MySql \ Data Folder. Vent venligst. Skærmen vises frossen.</value>
@@ -1894,7 +1894,7 @@
     <value>MySQL kørte, da jeg blev startet, så jeg forlader MySQL.</value>
   </data>
   <data name="Mysql_Word" xml:space="preserve">
-    <value>Mysql</value>
+    <value>MySQL</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Navn</value>

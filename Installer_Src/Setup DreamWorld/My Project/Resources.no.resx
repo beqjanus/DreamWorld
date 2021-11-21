@@ -337,7 +337,7 @@
     <value>Backup FSAssets mappe</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>Backup-mappen Mysql data</value>
+    <value>Backup-mappen MySQL data</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Sikkerhetskopiering av MySQL \ Data mappe. Vennligst vent. Skjermbildet vises frosset.</value>

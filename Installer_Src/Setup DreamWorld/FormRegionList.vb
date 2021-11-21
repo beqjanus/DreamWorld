@@ -1620,7 +1620,7 @@ SetWindowOnTop_Err:
 
 #End Region
 
-#Region "Mysql"
+#Region "MySQL"
 
     Private Shared Function GetRegionsName(Region As String) As String
 

@@ -340,7 +340,7 @@
     <value>مجلد النسخ الاحتياطي FSAssets</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>مجلد النسخ الاحتياطي Mysql البيانات</value>
+    <value>مجلد النسخ الاحتياطي MySQL البيانات</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>نسخ مجلد MySql \ Data احتياطيًا. انتظر من فضلك. ستظهر الشاشة مجمدة.</value>

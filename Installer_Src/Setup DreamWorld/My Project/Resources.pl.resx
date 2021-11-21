@@ -337,7 +337,7 @@
     <value>Folder FSAssets zapasowych</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>Folder kopii zapasowej danych Mysql</value>
+    <value>Folder kopii zapasowej danych MySQL</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Tworzenie kopii zapasowych danych MySQL \ Folder. Proszę czekać. Ekran pojawi zamrożone.</value>

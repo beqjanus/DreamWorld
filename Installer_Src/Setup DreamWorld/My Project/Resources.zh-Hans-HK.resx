@@ -337,7 +337,7 @@
     <value>备份FSAssets文件夹</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>备份Mysql数据文件夹</value>
+    <value>备份MySQL数据文件夹</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>备份MySql \ Data文件夹。请稍等。屏幕将显示为冻结。</value>

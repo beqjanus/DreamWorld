@@ -337,7 +337,7 @@
     <value>Backup FSAssets kansio</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>Backup Mysql Data-kansio</value>
+    <value>Backup MySQL Data-kansio</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Varmuuskopiointiin MySQL \ Datakansion. Odota. Näyttö tulee näkyviin jäädytetty.</value>

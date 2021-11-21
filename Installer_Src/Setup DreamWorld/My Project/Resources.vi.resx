@@ -337,7 +337,7 @@
     <value>Sao lưu thư mục FSAssets</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>Sao lưu thư mục Dữ liệu Mysql</value>
+    <value>Sao lưu thư mục Dữ liệu MySQL</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Sao lưu MySql \ Data Folder. Vui lòng đợi. Màn hình sẽ xuất hiện bị đóng băng.</value>
@@ -1879,7 +1879,7 @@
     <value>MySQL đang chạy khi tôi khởi động, vì vậy tôi đang bật MySQL.</value>
   </data>
   <data name="Mysql_Word" xml:space="preserve">
-    <value>Mysql</value>
+    <value>MySQL</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Tên</value>

@@ -337,7 +337,7 @@
     <value>pasta FSAssets de backup</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>pasta Mysql Data Backup</value>
+    <value>pasta MySQL Data Backup</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Fazer o backup MySql \ pasta de dados. Por favor, aguarde. Tela aparecerá congelada.</value>
@@ -1879,7 +1879,7 @@
     <value>MySQL estava correndo quando eu foi iniciado, por isso estou deixando MySQL diante.</value>
   </data>
   <data name="Mysql_Word" xml:space="preserve">
-    <value>Mysql</value>
+    <value>MySQL</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nome</value>
