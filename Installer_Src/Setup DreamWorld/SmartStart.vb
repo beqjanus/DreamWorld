@@ -32,9 +32,12 @@ Module SmartStart
 
         Debug.Print("Waiting for " & PropRegionClass.RegionName(RegionUUID))
         Dim c As Integer = 90 ' 1.5 minutes
-        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted And
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
 
-            If Not WaitForBooting(RegionUUID) Then Return False
+            If Not WaitForBooting(RegionUUID) Then
+                Return False
+            End If
 
             c -= 1  ' skip on timeout error
             If c < 0 Then
@@ -42,7 +45,6 @@ Module SmartStart
                 Return False
             End If
 
-            Debug.Print(GetStateString(PropRegionClass.Status(RegionUUID)))
             Sleep(1000)
 
         End While
@@ -52,8 +54,9 @@ Module SmartStart
 
     Public Function WaitForBooting(RegionUUID As String) As Boolean
 
-        Dim c As Integer = 30 ' 20 seconds
-        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting
+        Dim c As Integer = 30 ' 30 seconds for a region to change state sounds like a lot
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting And
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
 
             c -= 1  ' skip on timeout error
             If c < 0 Then
@@ -61,7 +64,6 @@ Module SmartStart
                 Return False
             End If
 
-            Debug.Print(GetStateString(PropRegionClass.Status(RegionUUID)))
             Sleep(1000)
 
         End While
@@ -74,8 +76,6 @@ Module SmartStart
         ' Smart Start AutoStart Region mode
         Debug.Print("Smart Start:" + post)
 
-        Bench.Start()
-        Bench.Print("Tp Request")
         'Smart Start:http://192.168.2.140:8999/?alt=Deliverance_of_JarJar_Binks__Fred_Beckhusen_1X1&agent=Ferd%20Frederix&AgentID=6f285c43-e656-42d9-b0e9-a78684fee15d&password=XYZZY
 
         Dim pattern = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*)", RegexOptions.IgnoreCase)
@@ -638,7 +638,9 @@ Module SmartStart
     Public Sub ReBoot(RegionUUID As String)
 
         If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Or
-                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Or
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+
 
             Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
 
@@ -649,7 +651,6 @@ Module SmartStart
             Next
             PropUpdateView = True ' make form refresh
         End If
-        Application.DoEvents()
     End Sub
 
 #End Region

@@ -297,10 +297,12 @@ Public Module MysqlInterface
             Try
                 MysqlConn.Open()
                 Dim stm = $"delete from {Tablename} WHERE {UUIDName} = @UUID"
+#Disable Warning CA2100
                 Using cmd = New MySqlCommand(stm, MysqlConn)
                     cmd.Parameters.AddWithValue("@UUID", PrimUUID)
                     cmd.ExecuteNonQuery()
                 End Using
+#Enable Warning CA2100
             Catch ex As MySqlException
                 BreakPoint.Show(ex.Message)
             Catch ex As Exception
@@ -376,8 +378,6 @@ Public Module MysqlInterface
                     cmd.Parameters.AddWithValue("@Y", Y * 256)
                     cmd.ExecuteNonQuery()
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -512,7 +512,6 @@ Public Module MysqlInterface
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
 
                         While reader.Read()
-                            Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
                             Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
                         End While
                     End Using
@@ -526,9 +525,6 @@ Public Module MysqlInterface
                 Return Dict
             End Try
 
-            'If Debugger.IsAttached Then
-            'Dict.Add("Ferd Frederix", "SS")
-            'End If
 
         End Using
 
@@ -822,9 +818,11 @@ Public Module MysqlInterface
 
         If Settings.ServerType <> RobustServerName Then Return False
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return False
-        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then Return False
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-        Return CBool(RPC_admin_get_agent_list(RegionUUID).Count)
+        Dim l = GetAgentList()
+        Return l.ContainsValue(RegionUUID)
+
 
     End Function
 

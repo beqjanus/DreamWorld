@@ -229,7 +229,9 @@ Public Class FormRegionlist
         ' Set the view to show whatever
         TheView1 = Settings.RegionListView()
 
-        If TheView1 = ViewType.Details Then PropRegionClass.GetAllRegions()
+        If TheView1 = ViewType.Details Then
+            PropChangedRegionSettings = True
+        End If
 
         SetScreen(TheView1)
 
@@ -1141,7 +1143,7 @@ Public Class FormRegionlist
             Dim RegionName = item.SubItems(1).Text
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                ' TODO: Needs to be HGV3
+                ' TODO: Needs to be HGV3?
                 Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
@@ -1156,7 +1158,10 @@ Public Class FormRegionlist
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
-        PropRegionClass.GetAllRegions()
+        PropChangedRegionSettings = True
+        While PropChangedRegionSettings
+            Sleep(100)
+        End While
         LoadMyListView()
 
     End Sub

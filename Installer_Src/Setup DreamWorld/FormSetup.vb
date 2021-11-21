@@ -72,6 +72,7 @@ Public Class FormSetup
     Private ReadOnly _exitList As New Dictionary(Of String, String)
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
+    Private ReadOnly _LandscapeList As New List(Of String)
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private _Adv As FormSettings
@@ -135,6 +136,13 @@ Public Class FormSetup
             _Adv = value
         End Set
     End Property
+
+    Public ReadOnly Property LandScapeList As List(Of String)
+        Get
+            Return _LandscapeList
+        End Get
+    End Property
+
 
     Public ReadOnly Property BootedList1 As List(Of String)
         Get
@@ -798,6 +806,8 @@ Public Class FormSetup
         Buttons(StopButton)
         TextPrint(My.Resources.Ready)
 
+        Bench.StopW() ' stop the benchmark timer
+
         Return True
 
     End Function
@@ -929,7 +939,7 @@ Public Class FormSetup
         Dim DeathThread = New Thread(start)
         DeathThread.SetApartmentState(ApartmentState.STA)
         DeathThread.Priority = ThreadPriority.Lowest ' UI gets priority
-        DeathThread.Start(PropExitList)
+        DeathThread.Start()
 
 #Disable Warning BC42016 ' Implicit conversion
         Dim start1 As ParameterizedThreadStart = AddressOf CalcCPU
@@ -967,15 +977,16 @@ Public Class FormSetup
             BreakPoint.Show("CheckForBootedRegions timeout")
         End If
 
+        ' booted regions from web server
+        Bench.Print("Booted list Start")
         Try
             Dim GroupName As String = ""
-            ' booted regions from web server
-            Bench.Print("Booted list Start")
+
             While BootedList1.Count > 0
 
-                Dim Ruuid As String = ""
+                Dim RegionUUID As String = ""
                 Try
-                    Ruuid = BootedList1(0)
+                    RegionUUID = BootedList1(0)
                     BootedList1.RemoveAt(0)
                 Catch ex As Exception
                     BreakPoint.Show(ex.Message)
@@ -983,27 +994,31 @@ Public Class FormSetup
 
                 If PropAborting Then Continue While
                 If Not PropOpensimIsRunning() Then Continue While
-                If Not PropRegionClass.RegionEnabled(Ruuid) Then Continue While
+                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue While
 
-                Dim RegionName = PropRegionClass.RegionName(Ruuid)
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+
+                If LandScapeList.Contains(RegionUUID) Then
+                    LandScapeList.Remove(RegionUUID)
+                    Diagnostics.Debug.Print("Landscaping " & RegionName)
+                    Landscape(RegionUUID)
+                End If
+
 
                 ' see how long it has been since we booted
-                Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(Ruuid), DateTime.Now)
-                TextPrint($"{RegionName} {My.Resources.Boot_Time}: {CStr(seconds)} {My.Resources.Seconds_word}")
-                PokeRegionTimer(Ruuid)
+                Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), DateTime.Now)
+                TextPrint($"{RegionName} {My.Resources.Boot_Time}:  {CStr(seconds)} {My.Resources.Seconds_word}")
+                PokeRegionTimer(RegionUUID)
 
-                SendToOpensimWorld(Ruuid, 0) ' let opensim world know we are up.
+                SendToOpensimWorld(RegionUUID, 0) ' let opensim world know we are up.
 
-                PropRegionClass.Status(Ruuid) = ClassRegionMaker.SIMSTATUSENUM.Booted
-                ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(Ruuid)), MaybeHideWindow())
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
+                ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeHideWindow())
 
-                'force update - Force the region to send all clients updates about all objects.
-                ' Not needed?  If Not RPC_Region_Command(Ruuid, "force update") Then BreakPoint.Show("No RPC")
-
-                If Settings.MapType = "None" AndAlso PropRegionClass.MapType(Ruuid).Length = 0 Then
-                    PropRegionClass.BootTime(Ruuid) = CInt(seconds)
+                If Settings.MapType = "None" AndAlso PropRegionClass.MapType(RegionUUID).Length = 0 Then
+                    PropRegionClass.BootTime(RegionUUID) = CInt(seconds)
                 Else
-                    PropRegionClass.MapTime(Ruuid) = CInt(seconds)
+                    PropRegionClass.MapTime(RegionUUID) = CInt(seconds)
                 End If
 
                 TeleportAgents()
@@ -1015,15 +1030,17 @@ Public Class FormSetup
         End Try
 
         Try
-
             Bench.Print("Scan Region State")
-
             For Each RegionUUID As String In PropRegionClass.RegionUuids
+                Application.DoEvents()
                 If PropAborting Then Continue For
                 If Not PropOpensimIsRunning() Then Continue For
                 If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+
+
+
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
                 'Diagnostics.Debug.Print(GroupName)
                 Dim status = PropRegionClass.Status(RegionUUID)
@@ -1038,11 +1055,14 @@ Public Class FormSetup
 
                 If Settings.SmartStart Then
                     If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+
                         If PropRegionClass.AvatarIsNearby(RegionUUID) Then
                             TextPrint($"{GroupName} {My.Resources.StartingNearby}")
                             ReBoot(RegionUUID)
+                            Application.DoEvents()
                             Continue For
                         End If
+
                     End If
                 End If
 
@@ -1052,10 +1072,7 @@ Public Class FormSetup
                         PokeGroupTimer(GroupName)
                     End If
 
-                    Application.DoEvents()
-
                     ' Smart Start Timer
-
                     If PropRegionClass.SmartStart(RegionUUID) = "True" And status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
                         Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
 
@@ -1073,6 +1090,7 @@ Public Class FormSetup
 
                         End If
                     End If
+
                 End If
 
                 ' auto restart timer
@@ -1162,7 +1180,7 @@ Public Class FormSetup
         Bench.Print("CheckForBootedRegions done")
 
         PropBootScanIsBusy = 0
-
+        Application.DoEvents()
     End Sub
 
     Public Function DoStopActions() As Boolean
@@ -2045,14 +2063,7 @@ Public Class FormSetup
                     Dim Y = PropRegionClass.CoordY(RegionUUID)
                     If X = 0 Or Y = 0 Then Continue For
 
-#Disable Warning BC42016 ' Implicit conversion
-                    Dim start As ParameterizedThreadStart = AddressOf SurroundingLandMaker
-#Enable Warning BC42016 ' Implicit conversion
-
-                    Dim _WebThread1 = New Thread(start)
-                    _WebThread1.SetApartmentState(ApartmentState.STA)
-                    _WebThread1.Priority = ThreadPriority.Normal
-                    _WebThread1.Start(RegionUUID)
+                    SurroundingLandMaker(RegionUUID)
 
                 End If
             Else
@@ -2649,9 +2660,9 @@ Public Class FormSetup
             Return
         End If
 
-        SyncLock TimerLock ' stop other threads from firing this
+        Bench.Start()
 
-            Chart() ' do charts collection each second
+        SyncLock TimerLock ' stop other threads from firing this
 
             If TimerBusy > 0 And TimerBusy < 10 Then
                 TimerBusy += 1
@@ -2659,53 +2670,39 @@ Public Class FormSetup
                 Return
             End If
 
-            Bench.Start()
             TimerBusy = 1
 
-            PropRegionClass.CheckPost() ' see if anything arrived in the web server
-
-            ' Reload
+            ' Reload regions from disk
             If PropChangedRegionSettings Then
                 PropRegionClass.GetAllRegions()
             End If
 
-            Bench.Print("Teleport Agents")
-            TeleportAgents()
-
-            ProcessQuit()   '  check if any processes exited
-
             ' only at boot
             If SecondsTicker = 0 Then
-                Bench.Print("At boot worker")
                 CalcDiskFree()
             End If
 
-            ' 5 seconds, not at boot
-            If SecondsTicker Mod 5 = 0 And SecondsTicker > 0 Then
-                Bench.Print("5 second worker")
-                Chat2Speech()
+            Chart() ' do charts collection each second
+            PropRegionClass.CheckPost() ' see if anything arrived in the web server
+            TeleportAgents()            ' send them onward
+            Chat2Speech()               ' speak of the devil
+            ProcessQuit()               ' check if any processes exited
+            CheckForBootedRegions()     ' And see if any booted up
+            ScanAgents() ' update agent count 
 
-                CheckForBootedRegions()
 
-                ' print how many backups are running
-                Dim thisDate As Date = Now
-                Dim dt As String = thisDate.ToString(Globalization.CultureInfo.CurrentCulture)
-                Dim t = BackupsRunning(dt)
-                If t.Length > 0 Then
-                    TextPrint(t)
-                End If
+            If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
+                Bench.Print("60 second worker")
 
                 RestartDOSboxes()
                 CalcDiskFree()
-                ScanAgents() ' update agent count seconds
-                Bench.Print("5 second work done")
-
-            End If
-
-            If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
                 ScanOpenSimWorld(False)
-                Bench.Print("60 second worker")
+
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
+                ' print how many backups are running                                
+                Dim t = BackupsRunning(Now.ToString(Globalization.CultureInfo.CurrentCulture))
+                If t.Length > 0 Then TextPrint(t)
+
                 RegionListHTML(Settings, PropRegionClass, "Name") ' create HTML for teleport boards
                 VisitorCount()
                 Bench.Print("60 second work done")
@@ -2724,7 +2721,7 @@ Public Class FormSetup
                 RunParser()
             End If
 
-            ' print hourly marks on console, after boot
+            ' print hourly marks on console
             If SecondsTicker Mod 3600 = 0 Then
                 Dim dt As String = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
                 TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
@@ -2737,6 +2734,9 @@ Public Class FormSetup
 
             SecondsTicker += 1
             TimerBusy = 0
+
+            Bench.StopW()
+
 
         End SyncLock
 

@@ -196,6 +196,7 @@ Public Class ClassRegionMaker
 #End Region
 
 #Region "Create Region"
+    Dim CreateRegionLock As New Object
 
     Public Function CreateRegion(name As String, Optional UUID As String = "") As String
 
@@ -245,9 +246,16 @@ Public Class ClassRegionMaker
             ._UUID = UUID
         }
 
-        RegionList.Add(r._UUID, r)
-        'RegionDump()
-        Debug.Print("Region count is " & CStr(RegionList.Count - 1))
+        SyncLock CreateRegionLock
+            If Not RegionList.ContainsKey(r._UUID) Then
+                RegionList.Add(r._UUID, r)
+            Else
+                BreakPoint.Show("Region List error! " & r._UUID)
+                RegionDump()
+            End If
+        End SyncLock
+
+        Debug.Print("Region count is " & CStr(RegionList.Count))
         Return r._UUID
 
     End Function
@@ -383,6 +391,7 @@ Public Class ClassRegionMaker
 
     Public Function AvatarIsNearby(RegionUUID As String) As Boolean
 
+
         Dim Xloc = CoordX(RegionUUID)
         Dim Yloc = CoordY(RegionUUID)
 
@@ -405,7 +414,6 @@ Public Class ClassRegionMaker
                     End If
                 End If
             Next
-            Application.DoEvents()
         Next
 
         Return False
@@ -418,10 +426,6 @@ Public Class ClassRegionMaker
     ''' <param name="groupname">Pass it the DOS box name</param>
     ''' <returns>true if avatar is present</returns>
     Public Function AvatarsIsInGroup(groupname As String) As Boolean
-
-        ' If groupname.Contains("Danger") Then
-        ' BreakPoint.Show("Break")
-        'End If
 
         For Each RegionUUID As String In RegionUuidListByName(groupname)
             If IsAgentInRegion(RegionUUID) Then
@@ -547,12 +551,10 @@ Public Class ClassRegionMaker
 
                                 Dim SomeUUID As New Guid
                                 If Not Guid.TryParse(uuid, SomeUUID) Then
-
                                     MsgBox("Cannot read UUID In INI file For " & fName, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
                                     '  TODO Auto repair this error from a backup
                                     Exit For
                                 Else
-
                                     CreateRegion(fName, uuid)
                                     RegionEnabled(uuid) = CBool(INI.GetIni(fName, "Enabled", "True", "Boolean"))
 
@@ -1627,8 +1629,8 @@ Public Class ClassRegionMaker
             " Region:" & RegionList(region)._RegionName & vbCrLf &
             " Status=" & CStr(RegionList(region)._Status) & vbCrLf &
             " Crashes=" & CStr(RegionList(region)._CrashCounter) & vbCrLf &
-           " RegionEnabled=" & RegionList(region)._RegionEnabled & vbCrLf &
-           " Timer=" & CStr(RegionList(region)._Timer))
+            " RegionEnabled=" & RegionList(region)._RegionEnabled & vbCrLf &
+            " Timer=" & CStr(RegionList(region)._Timer))
 
     End Sub
 

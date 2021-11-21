@@ -267,7 +267,7 @@ Module RPC
 
     Private Function SendRPC(RegionUUID As String, cmd As String, ht As Hashtable) As Boolean
 
-        If Not RegionUUID.Length Then Return False
+        If RegionUUID.Length = 0 Then Return False
 
         Dim RegionPort = PropRegionClass.GroupPort(RegionUUID)
         Dim url = $"http://{Settings.LANIP}:{RegionPort}"
