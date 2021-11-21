@@ -159,7 +159,7 @@ Module Build
 
 #Region "Landscaper"
 
-    Dim TreeLock As Object
+    Dim TreeLock As New Object
     Public Sub GenTrees(RegionUUID As String)
 
         SyncLock TreeLock
