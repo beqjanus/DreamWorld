@@ -146,7 +146,7 @@ Public Class LoadIni
                 Sleep(100)
                 FileStuff.DeleteFile(_filename)
                 Sleep(100)
-                Using Writer As New StreamWriter(_filename)
+                Using Writer As New StreamWriter(_filename, False)
                     Writer.Write(RepairedLine)
                 End Using
             End If

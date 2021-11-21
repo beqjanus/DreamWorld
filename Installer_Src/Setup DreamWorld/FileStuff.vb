@@ -332,7 +332,7 @@ Module FileStuff
 
         While Retry > 0
             Try
-                Using file As New System.IO.StreamWriter(INI & ".bak")
+                Using file As New System.IO.StreamWriter(INI & ".bak", False)
                     Using Reader As New StreamReader(INI & ".proto", System.Text.Encoding.UTF8)
                         While Not Reader.EndOfStream
                             Dim line As String = Reader.ReadLine

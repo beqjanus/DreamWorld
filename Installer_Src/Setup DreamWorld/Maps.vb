@@ -1,7 +1,28 @@
 ﻿Imports System.Threading
+
 Module Maps
+    Public ReadOnly Map As New Dictionary(Of String, String)
 
 #Region "MapMaking"
+
+    Public Sub Delete_Region_Map(RegionUUID As String)
+
+        ' add to the global map this entire DOS box
+        Dim Xloc = PropRegionClass.CoordX(RegionUUID)
+        Dim Yloc = PropRegionClass.CoordY(RegionUUID)
+
+        ' draw a box at this size plus the pull down size.
+        For Each UUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+            Dim SimSize As Integer = CInt(PropRegionClass.SizeX(RegionUUID) / 256)
+            For Xstep = 0 To SimSize - 1
+                For Ystep = 0 To SimSize - 1
+                    Dim gr As String = $"{Xloc + Xstep},{Yloc + Ystep}"
+                    If Map.ContainsKey(gr) Then Map.Remove(gr)
+                Next
+            Next
+        Next
+
+    End Sub
 
     Public Sub MakeMaps()
 
@@ -43,7 +64,6 @@ Module Maps
                 Dim Out As Image = bmp
                 Dim Src As Image = bmp
                 Dim XS = SimSize / 256
-
 
                 X = 0
                 For Xstep = 0 To XS - 1

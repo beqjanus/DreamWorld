@@ -88,7 +88,6 @@ Public Class FormRegion
 
     Private Sub RestartRobustIfNeeded(RegionUUID As String)
 
-
         If Not _NotSmarttStart And SmartStartCheckBox.Checked And IsRobustRunning() Then
 
             PropAborting = True
@@ -116,15 +115,6 @@ Public Class FormRegion
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
     Private _screenPosition As ClassScreenpos
 
-    Public Property ScreenPosition As ClassScreenpos
-        Get
-            Return _screenPosition
-        End Get
-        Set(value As ClassScreenpos)
-            _screenPosition = value
-        End Set
-    End Property
-
     Public Property Initted2 As Boolean
         Get
             Return Initted3
@@ -135,6 +125,15 @@ Public Class FormRegion
     End Property
 
     Public Property Initted3 As Boolean
+
+    Public Property ScreenPosition As ClassScreenpos
+        Get
+            Return _screenPosition
+        End Get
+        Set(value As ClassScreenpos)
+            _screenPosition = value
+        End Set
+    End Property
 
     'The following detects  the location of the form in screen coordinates
     Private Sub Resize_page(ByVal sender As Object, ByVal e As System.EventArgs)
@@ -274,7 +273,6 @@ Public Class FormRegion
         'Scripting
         XEngineButton.Text = Global.Outworldz.My.Resources.XEngine_word
         YEngineButton.Text = Global.Outworldz.My.Resources.YEngine_word
-
 
     End Sub
 
@@ -667,7 +665,6 @@ Public Class FormRegion
                 YEngineButton.Checked = True
         End Select
 
-
         Select Case PropRegionClass.Concierge(RegionUUID)
             Case ""
                 ConciergeCheckBox.Checked = False
@@ -708,10 +705,11 @@ Public Class FormRegion
         End If
 
     End Sub
+
     Private Sub FormRegion_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
 
         If Changed1 Then
-            FormSetup.PropChangedRegionSettings = True
+
             Dim v = MsgBox(My.Resources.Save_changes_word, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Save_changes_word)
             If v = vbYes Then
                 Dim message = RegionValidate()
@@ -722,7 +720,7 @@ Public Class FormRegion
                     End If
                 Else
                     WriteRegion(RegionUUID)
-                    PropRegionClass.GetAllRegions()
+                    PropChangedRegionSettings = True
                     Firewall.SetFirewall()
                     RestartRobustIfNeeded(RegionUUID)
                     PropUpdateView() = True
@@ -737,7 +735,6 @@ Public Class FormRegion
 
 #Region "Events"
 
-
     Private Sub BirdsCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles BirdsCheckBox.CheckedChanged
 
         If BirdsCheckBox.Checked Then
@@ -749,7 +746,6 @@ Public Class FormRegion
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
-        FormSetup.PropChangedRegionSettings = True
         Dim message = RegionValidate()
         If Len(message) > 0 Then
             Dim v = MsgBox(message + vbCrLf + Global.Outworldz.My.Resources.Discard_Exit, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
@@ -759,7 +755,6 @@ Public Class FormRegion
         Else
             DeregisterRegionUUID(RegionUUID)
             WriteRegion(RegionUUID)
-            PropRegionClass.GetAllRegions()
             Firewall.SetFirewall()
             RestartRobustIfNeeded(RegionUUID)
             PropUpdateView() = True
@@ -842,20 +837,8 @@ Public Class FormRegion
         Dim msg = MsgBox(My.Resources.Are_you_Sure_Delete_Region, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
         If msg = vbYes Then
 
-            Dim GroupName = PropRegionClass.GroupName(RegionUUID)
-            Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-
-            PropRegionClass.Delete_Region_Map(RegionUUID)
-
-            DeleteMaps(RegionUUID)
-
-            CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.bak"))
-            DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
-
-            DeregisterRegionUUID(RegionUUID)
-
-            PropRegionClass.DeleteRegion(RegionUUID)
-            PropRegionClass.GetAllRegions()
+            DeleteAllContents(RegionUUID)
+            PropChangedRegionSettings = True
             Changed1 = False
             PropUpdateView = True
         End If
@@ -877,7 +860,7 @@ Public Class FormRegion
     End Sub
 
     Private Sub RLost(sender As Object, e As EventArgs) Handles RegionName.LostFocus
-        RegionName.Text = RegionName.Text.Trim() ' remove spaces        
+        RegionName.Text = RegionName.Text.Trim() ' remove spaces
     End Sub
 
     Private Sub ScriptDefaultButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptDefaultButton.CheckedChanged
@@ -1381,46 +1364,46 @@ Public Class FormRegion
                         "; * This Is Your World. See Common Settings->[Region Settings]." & vbCrLf &
                         "; Automatically changed by Dreamworld" & vbCrLf &
                         "[" & RegionName.Text & "]" & vbCrLf &
-                        "RegionUUID = " & UUID.Text & vbCrLf &
-                        "Location = " & CoordX.Text & "," & CoordY.Text & vbCrLf &
+                        "RegionUUID=" & UUID.Text & vbCrLf &
+                        "Location=" & CoordX.Text & "," & CoordY.Text & vbCrLf &
                         "InternalAddress = 0.0.0.0" & vbCrLf &
-                        "InternalPort = " & PropRegionClass.RegionPort(RegionUUID) & vbCrLf &
-                        "GroupPort = " & PropRegionClass.GroupPort(RegionUUID) & vbCrLf &
+                        "InternalPort=" & PropRegionClass.RegionPort(RegionUUID) & vbCrLf &
+                        "GroupPort=" & PropRegionClass.GroupPort(RegionUUID) & vbCrLf &
                         "AllowAlternatePorts = False" & vbCrLf &
-                        "ExternalHostName = " & Settings.ExternalHostName & vbCrLf &
-                        "SizeX = " & BoxSize & vbCrLf &
-                        "SizeY = " & BoxSize & vbCrLf &
-                        "Enabled = " & CStr(EnabledCheckBox.Checked) & vbCrLf &
-                        "NonPhysicalPrimMax = " & NonphysicalPrimMax.Text & vbCrLf &
-                        "PhysicalPrimMax = " & PhysicalPrimMax.Text & vbCrLf &
-                        "ClampPrimSize = " & CStr(ClampPrimSize.Checked) & vbCrLf &
+                        "ExternalHostName=" & Settings.ExternalHostName & vbCrLf &
+                        "SizeX=" & BoxSize & vbCrLf &
+                        "SizeY=" & BoxSize & vbCrLf &
+                        "Enabled=" & CStr(EnabledCheckBox.Checked) & vbCrLf &
+                        "NonPhysicalPrimMax=" & NonphysicalPrimMax.Text & vbCrLf &
+                        "PhysicalPrimMax=" & PhysicalPrimMax.Text & vbCrLf &
+                        "ClampPrimSize=" & CStr(ClampPrimSize.Checked) & vbCrLf &
                         "Concierge =  " & CStr(ConciergeCheckBox.Checked) & vbCrLf &
-                        "MaxAgents = " & MaxAgents.Text & vbCrLf &
-                        "MaxPrims = " & MaxPrims.Text & vbCrLf &
+                        "MaxAgents=" & MaxAgents.Text & vbCrLf &
+                        "MaxPrims=" & MaxPrims.Text & vbCrLf &
                         "RegionType = Estate" & vbCrLf & vbCrLf &
                         ";# Extended region properties from Dreamgrid" & vbCrLf &
-                        "MinTimerInterval = " & ScriptTimerTextBox.Text & vbCrLf &
-                        "FrameTime = " & FrametimeBox.Text & vbCrLf &
-                        "RegionSnapShot = " & Snapshot & vbCrLf &
-                        "MapType = " & Map & vbCrLf &
-                        "Physics = " & Phys & vbCrLf &
-                        "GodDefault = " & PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
-                        "AllowGods = " & PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
-                        "RegionGod = " & PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
-                        "ManagerGod = " & PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
-                        "Birds = " & PropRegionClass.Birds(RegionUUID) & vbCrLf &
-                        "Tides = " & PropRegionClass.Tides(RegionUUID) & vbCrLf &
-                        "Teleport = " & PropRegionClass.Teleport(RegionUUID) & vbCrLf &
-                        "DisableGloebits = " & PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
-                        "DisallowForeigners = " & PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
-                        "DisallowResidents = " & PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
-                        "SkipAutoBackup = " & PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
-                        "ScriptEngine = " & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
-                        "Publicity = " & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
-                        "OpensimWorldAPIKey = " & PropRegionClass.OpensimWorldAPIKey(RegionUUID) & vbCrLf &
-                        "Priority = " & PropRegionClass.Priority(RegionUUID) & vbCrLf &
-                        "Cores = " & CStr(PropRegionClass.Cores(RegionUUID)) & vbCrLf &
-                        "SmartStart = " & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
+                        "MinTimerInterval=" & ScriptTimerTextBox.Text & vbCrLf &
+                        "FrameTime=" & FrametimeBox.Text & vbCrLf &
+                        "RegionSnapShot=" & Snapshot & vbCrLf &
+                        "MapType=" & Map & vbCrLf &
+                        "Physics=" & Phys & vbCrLf &
+                        "GodDefault=" & PropRegionClass.GodDefault(RegionUUID) & vbCrLf &
+                        "AllowGods=" & PropRegionClass.AllowGods(RegionUUID) & vbCrLf &
+                        "RegionGod=" & PropRegionClass.RegionGod(RegionUUID) & vbCrLf &
+                        "ManagerGod=" & PropRegionClass.ManagerGod(RegionUUID) & vbCrLf &
+                        "Birds=" & PropRegionClass.Birds(RegionUUID) & vbCrLf &
+                        "Tides=" & PropRegionClass.Tides(RegionUUID) & vbCrLf &
+                        "Teleport=" & PropRegionClass.Teleport(RegionUUID) & vbCrLf &
+                        "DisableGloebits=" & PropRegionClass.DisableGloebits(RegionUUID) & vbCrLf &
+                        "DisallowForeigners=" & PropRegionClass.DisallowForeigners(RegionUUID) & vbCrLf &
+                        "DisallowResidents=" & PropRegionClass.DisallowResidents(RegionUUID) & vbCrLf &
+                        "SkipAutoBackup=" & PropRegionClass.SkipAutobackup(RegionUUID) & vbCrLf &
+                        "ScriptEngine=" & PropRegionClass.ScriptEngine(RegionUUID) & vbCrLf &
+                        "Publicity=" & PropRegionClass.GDPR(RegionUUID) & vbCrLf &
+                        "OpensimWorldAPIKey=" & PropRegionClass.OpensimWorldAPIKey(RegionUUID) & vbCrLf &
+                        "Priority=" & PropRegionClass.Priority(RegionUUID) & vbCrLf &
+                        "Cores=" & CStr(PropRegionClass.Cores(RegionUUID)) & vbCrLf &
+                        "SmartStart=" & PropRegionClass.SmartStart(RegionUUID) & vbCrLf
 
         'Debug.Print(Region)
 
@@ -1436,7 +1419,7 @@ Public Class FormRegion
 
         End Try
 
-        If PropRegionClass.GetAllRegions() = -1 Then Return False
+        PropChangedRegionSettings = True
 
         PropUpdateView = True
         Oldname1 = RegionName.Text
@@ -1451,6 +1434,13 @@ Public Class FormRegion
 
     Private Sub AboveNormal_CheckedChanged(sender As Object, e As EventArgs) Handles AboveNormal.CheckedChanged
         If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles GodLevel.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+        If GodLevel.Checked Then Gods_Use_Default.Checked = False
+
     End Sub
 
     Private Sub APIKey_TextChanged(sender As Object, e As EventArgs) Handles APIKey.TextChanged
@@ -1532,6 +1522,30 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
+    Private Sub GodEstate_CheckedChanged(sender As Object, e As EventArgs) Handles GodEstate.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+        If GodEstate.Checked Then Gods_Use_Default.Checked = False
+
+    End Sub
+
+    Private Sub GodManager_CheckedChanged(sender As Object, e As EventArgs) Handles GodManager.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+        If GodManager.Checked Then Gods_Use_Default.Checked = False
+
+    End Sub
+
+    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
+
+        If Gods_Use_Default.Checked Then
+            GodLevel.Checked = False
+            GodManager.Checked = False
+            GodEstate.Checked = False
+        End If
+
+    End Sub
+
     Private Sub High_CheckedChanged(sender As Object, e As EventArgs) Handles High.CheckedChanged
         If Initted1 Then Changed1 = True
     End Sub
@@ -1563,6 +1577,13 @@ Public Class FormRegion
     Private Sub MapNone_CheckedChanged(sender As Object, e As EventArgs) Handles MapNone.CheckedChanged
         If Initted1 Then Changed1 = True
         MapPicture.Image = Global.Outworldz.My.Resources.blankbox
+    End Sub
+
+    Private Sub Maps_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+        DefaultMap()
+
     End Sub
 
     Private Sub MapSimple_CheckedChanged(sender As Object, e As EventArgs) Handles MapSimple.CheckedChanged
@@ -1597,6 +1618,30 @@ Public Class FormRegion
 
     Private Sub PermissionsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PermissionsToolStripMenuItem.Click
         HelpManual("Permission Overrides")
+    End Sub
+
+    Private Sub Physics_Bullet_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_ODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ODE.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_Separate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
+        If Initted1 Then Changed1 = True
+    End Sub
+
+    Private Sub Physics_ubODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
+        If Initted1 Then Changed1 = True
     End Sub
 
     Private Sub PhysicsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PhysicsToolStripMenuItem.Click
@@ -1691,6 +1736,17 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
     End Sub
 
+    Private Sub RegionName_TextChanged(sender As Object, e As EventArgs) Handles RegionName.Click
+
+        RegionName.Text = RegionName.Text.Replace("Name of Region", "")
+
+    End Sub
+
+    Private Sub ScriptsOffButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptOffButton.CheckedChanged
+
+        If Initted1 Then Changed1 = True
+
+    End Sub
 
     Private Sub ScriptsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ScriptsToolStripMenuItem.Click
         HelpManual("Script Overrides")
@@ -1707,82 +1763,6 @@ Public Class FormRegion
         If Initted1 Then Changed1 = True
 
     End Sub
-
-    Private Sub Physics_ODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ODE.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Default.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_ubODE_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_ubODE.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_Bullet_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Bullet.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_Separate_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Separate.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub Physics_Hybrid_CheckedChanged(sender As Object, e As EventArgs) Handles Physics_Hybrid.CheckedChanged
-        If Initted1 Then Changed1 = True
-    End Sub
-
-    Private Sub RegionName_TextChanged(sender As Object, e As EventArgs) Handles RegionName.Click
-
-        RegionName.Text = RegionName.Text.Replace("Name of Region", "")
-
-    End Sub
-
-    Private Sub Maps_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Maps_Use_Default.CheckedChanged
-
-        If Initted1 Then Changed1 = True
-        DefaultMap()
-
-    End Sub
-
-    Private Sub ScriptsOffButton_CheckedChanged(sender As Object, e As EventArgs) Handles ScriptOffButton.CheckedChanged
-
-        If Initted1 Then Changed1 = True
-
-    End Sub
-
-    Private Sub Gods_Use_Default_CheckedChanged(sender As Object, e As EventArgs) Handles Gods_Use_Default.CheckedChanged
-
-        If Gods_Use_Default.Checked Then
-            GodLevel.Checked = False
-            GodManager.Checked = False
-            GodEstate.Checked = False
-        End If
-
-    End Sub
-
-    Private Sub GodEstate_CheckedChanged(sender As Object, e As EventArgs) Handles GodEstate.CheckedChanged
-
-        If Initted1 Then Changed1 = True
-        If GodEstate.Checked Then Gods_Use_Default.Checked = False
-
-    End Sub
-
-    Private Sub GodManager_CheckedChanged(sender As Object, e As EventArgs) Handles GodManager.CheckedChanged
-
-        If Initted1 Then Changed1 = True
-        If GodManager.Checked Then Gods_Use_Default.Checked = False
-
-    End Sub
-
-
-    Private Sub AllowGods_CheckedChanged(sender As Object, e As EventArgs) Handles GodLevel.CheckedChanged
-
-        If Initted1 Then Changed1 = True
-        If GodLevel.Checked Then Gods_Use_Default.Checked = False
-
-    End Sub
-
 
 #End Region
 

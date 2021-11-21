@@ -9203,7 +9203,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Send Alert.
+        '''  Looks up a localized string similar to Send Alert to a User.
         '''</summary>
         Friend ReadOnly Property Send_alert() As String
             Get

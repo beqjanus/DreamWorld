@@ -14,13 +14,14 @@ Module GlobalSettings
 #Region "Const"
 
     Public Const _Domain As String = "http://outworldz.com"
-    Public Const _MyVersion As String = "4.77"
+    Public Const _MyVersion As String = "4.78"
     Public Const _SimVersion As String = "#d0e41f747b9054 there should be no need..."
     Public Const jOpensimRev As String = "Joomla_3.9.23-Stable-Full_Package"
     Public Const jRev As String = "3.9.23"
-    Public MySqlRev As String = "5.6.50"
     Public ApacheRevision As String = "2.4.46"
-    Public AssemblyV As String      ' holds "Assembly version: " + displayableVersion
+    Public AssemblyV As String
+    Public MySqlRev As String = "5.6.50"
+    ' holds "Assembly version: " + displayableVersion
 
 #End Region
 
@@ -49,10 +50,12 @@ Module GlobalSettings
     Private _mySetting As MySettings
     Private _PropAborting As Boolean
     Private _regionClass As ClassRegionMaker
+    Private _RegionFilesChanged As Boolean
     Private _SelectedBox As String = ""
     Private _SkipSetup As Boolean = True
     Private _UpdateView As Boolean = True
     Private _XYINI As String ' global XY INI
+    ' if any region files get written flag them for reloading
 
 #End Region
 
@@ -82,6 +85,17 @@ Module GlobalSettings
         End Get
         Set(ByVal Value As Boolean)
             _PropAborting = Value
+        End Set
+    End Property
+
+    ' TODO:  Implement PropChangedRegionSettings as a dictionary in a module we can prompt for restart with
+    Public Property PropChangedRegionSettings As Boolean
+        Get
+            Return _RegionFilesChanged
+        End Get
+        Set(value As Boolean)
+            'Diagnostics.Debug.Print("ViewedSettings =" & value)
+            _RegionFilesChanged = value
         End Set
     End Property
 

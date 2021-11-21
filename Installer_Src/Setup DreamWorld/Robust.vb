@@ -106,11 +106,6 @@ Module Robust
         If Not StartMySQL() Then Return False ' prerequsite
         PropOpensimIsRunning = True
         ' prevent recursion
-        Dim ctr = 30
-        While RobustIsStarting And ctr > 0
-            Sleep(1000)
-            ctr -= 1
-        End While
 
         For Each p In Process.GetProcessesByName("Robust")
             Try
@@ -136,7 +131,6 @@ Module Robust
             RobustIcon(True)
             Return True
         End If
-
 
         RobustIsStarting = True
         SetServerType()
@@ -395,7 +389,6 @@ Module Robust
         INI.SetIni("AssetService", "SpoolDirectory", Settings.BaseDirectory & "/tmp")
         INI.SetIni("AssetService", "ShowConsoleStats", Settings.ShowConsoleStats)
 
-
         INI.SetIni("ServiceList", "GetTextureConnector", """" & "${Const|PublicPort}/Opensim.Capabilities.Handlers.dll:GetTextureServerConnector" & """")
 
         If Settings.CMS = JOpensim Then
@@ -455,7 +448,7 @@ Module Robust
             }
             Try
                 Up = TimedCLient.DownloadString("http://" & Settings.PublicIP & ":" & Settings.HttpPort & "/index.php?version")
-            Catch ex As exception
+            Catch ex As Exception
 
             End Try
 

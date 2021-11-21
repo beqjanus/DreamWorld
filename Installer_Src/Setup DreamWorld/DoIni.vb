@@ -220,7 +220,7 @@ Module DoIni
                 End If
             Next
 
-            Using outputFile As New StreamWriter(d)
+            Using outputFile As New StreamWriter(d, False)
                 reader = System.IO.File.OpenText(s)
                 'now loop through each line
                 While reader.Peek <> -1
@@ -438,7 +438,7 @@ Module DoIni
 
             Next
 
-            Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini")
+            Using outputFile As New StreamWriter(Settings.OpensimBinPath & "Robust.HG.ini", False)
                 reader = System.IO.File.OpenText(Settings.OpensimBinPath & "Robust.HG.ini.proto")
                 'now loop through each line
                 While reader.Peek <> -1
@@ -619,7 +619,7 @@ Module DoIni
             End While
             reader.Close()
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\WifiPages\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory + "\OutworldzFiles\Opensim\bin\WifiPages\tos.html"), False)
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception

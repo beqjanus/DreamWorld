@@ -38,7 +38,6 @@ Public Class FormBanList
 
     Private Sub SetScreen()
 
-
         ScreenPosition = New ClassScreenpos(MyBase.Name)
         AddHandler ResizeEnd, Handler
         Dim xy As List(Of Integer) = ScreenPosition.GetXY()

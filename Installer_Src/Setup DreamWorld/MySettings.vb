@@ -99,15 +99,6 @@ Public Class MySettings
 
 #Region "Properties"
 
-    Public Property LogBenchmarks() As Boolean
-        Get
-            Return CType(GetMySetting("LogBenchmarks", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("LogBenchmarks", CStr(Value))
-        End Set
-    End Property
-
     Public Property AccountConfirmationRequired() As Boolean
         Get
             Return CType(GetMySetting("AccountConfirmationRequired", "False"), Boolean)
@@ -188,6 +179,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("ApachePort", CType(Value, String))
+        End Set
+    End Property
+
+    Public Property ApacheRev() As String
+        Get
+            Return GetMySetting("ApacheRev", "")
+        End Get
+        Set
+            SetMySetting("ApacheRev", Value)
         End Set
     End Property
 
@@ -584,14 +584,6 @@ Public Class MySettings
         End Set
     End Property
 
-    Public Property VoiceName() As String
-        Get
-            Return GetMySetting("VoiceName", "No Speech")
-        End Get
-        Set
-            SetMySetting("VoiceName", Value)
-        End Set
-    End Property
     Public Property Concierge() As Boolean
         Get
             Return CType(GetMySetting("Concierge", "True"), Boolean)
@@ -756,14 +748,6 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("DiagnosticPort", CStr(Value))
-        End Set
-    End Property
-    Public Property ApacheRev() As String
-        Get
-            Return GetMySetting("ApacheRev", "")
-        End Get
-        Set
-            SetMySetting("ApacheRev", Value)
         End Set
     End Property
 
@@ -1009,26 +993,6 @@ Public Class MySettings
             SetMySetting("HttpPort", CStr(Value))
         End Set
     End Property
-    Public Property VisitorsEnabledModules() As Boolean
-        Get
-            Return CType(GetMySetting("VisitorsEnabledModules", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("VisitorsEnabledModules", CStr(Value))
-        End Set
-
-    End Property
-
-
-    Public Property VisitorsEnabled() As Boolean
-        Get
-            Return CType(GetMySetting("VisitorsEnabled", "False"), Boolean)
-        End Get
-        Set
-            SetMySetting("VisitorsEnabled", CStr(Value))
-        End Set
-
-    End Property
 
     Public Property InstalledRuntime() As Boolean
         Get
@@ -1038,15 +1002,6 @@ Public Class MySettings
             SetMySetting("InstalledRuntime", CStr(Value))
         End Set
 
-    End Property
-
-    Public Property KeepVisits() As Integer
-        Get
-            Return CInt("0" & GetMySetting("KeepVisits", "90"))
-        End Get
-        Set
-            SetMySetting("KeepVisits", CStr(Value))
-        End Set
     End Property
 
     Public Property KeepForDays() As Integer
@@ -1076,6 +1031,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property KeepVisits() As Integer
+        Get
+            Return CInt("0" & GetMySetting("KeepVisits", "90"))
+        End Get
+        Set
+            SetMySetting("KeepVisits", CStr(Value))
+        End Set
+    End Property
+
     Public Property LandNoise() As Boolean
         Get
             Return CType(GetMySetting("LandNoise", "False"), Boolean)
@@ -1097,14 +1061,15 @@ Public Class MySettings
     Public Property LandSmoothValue() As Double
         Get
             Try
-                Return CDbl(GetMySetting("LandSmooth", "0.5"))
+
+                Return CDbl(GetMySetting("LandSmoothValue", "0.5"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 0.5
         End Get
         Set
-            SetMySetting("LandSmooth", CStr(Value))
+            SetMySetting("LandSmoothValue", CStr(Value))
         End Set
     End Property
 
@@ -1170,6 +1135,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("LocalServiceModule", Value)
+        End Set
+    End Property
+
+    Public Property LogBenchmarks() As Boolean
+        Get
+            Return CType(GetMySetting("LogBenchmarks", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("LogBenchmarks", CStr(Value))
         End Set
     End Property
 
@@ -2070,6 +2044,26 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property VisitorsEnabled() As Boolean
+        Get
+            Return CType(GetMySetting("VisitorsEnabled", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("VisitorsEnabled", CStr(Value))
+        End Set
+
+    End Property
+
+    Public Property VisitorsEnabledModules() As Boolean
+        Get
+            Return CType(GetMySetting("VisitorsEnabledModules", "False"), Boolean)
+        End Get
+        Set
+            SetMySetting("VisitorsEnabledModules", CStr(Value))
+        End Set
+
+    End Property
+
     Public Property VivoxEnabled() As Boolean
         Get
             Return CType(GetMySetting("VivoxEnabled", "False"), Boolean)
@@ -2094,6 +2088,15 @@ Public Class MySettings
         End Get
         Set
             SetMySetting("Vivox_username", Value)
+        End Set
+    End Property
+
+    Public Property VoiceName() As String
+        Get
+            Return GetMySetting("VoiceName", "No Speech")
+        End Get
+        Set
+            SetMySetting("VoiceName", Value)
         End Set
     End Property
 
@@ -2174,7 +2177,7 @@ Public Class MySettings
         ' bug 10627092
         Try
             Dim file As System.IO.StreamWriter
-            file = My.Computer.FileSystem.OpenTextFileWriter(ini, True)
+            file = My.Computer.FileSystem.OpenTextFileWriter(ini, False)
             For Each Item As String In Apachein
                 file.WriteLine(Item)
             Next

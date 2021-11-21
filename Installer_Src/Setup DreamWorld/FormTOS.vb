@@ -45,11 +45,11 @@ Public Class TosForm
     Private Sub ApplyButton_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory & "\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory & "\tos.html"), False)
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\opensim\bin\WifiPages\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\opensim\bin\WifiPages\tos.html"), False)
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception
@@ -98,11 +98,11 @@ Public Class TosForm
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
 
         Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "tos.html"), False)
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
 
-            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\opensim\bin\WifiPages\tos.html"))
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\opensim\bin\WifiPages\tos.html"), False)
                 outputFile.WriteLine(Editor1.BodyHtml)
             End Using
         Catch ex As Exception

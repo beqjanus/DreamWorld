@@ -88,6 +88,14 @@ Public Class FormDebug
 
 #Region "Set"
 
+    Private Sub Benchmark()
+
+        ProgressPrint($"{My.Resources.Benchmark} = {CStr(Value)}")
+        Settings.LogBenchmarks = Value
+        Settings.SaveSettings()
+
+    End Sub
+
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles ApplyButton.Click
 
         If Command = My.Resources.Benchmark Then
@@ -96,19 +104,23 @@ Public Class FormDebug
         ElseIf Command = My.Resources.Speak Then
             Speechtest()
 
-        ElseIf Command = My.Resources.SmartStartEnable Then
-            EnableSS()
-
         ElseIf Command = My.Resources.TeleportAPI Then
 
             TPAPITest()
 
         ElseIf Command = My.Resources.Send_alert Then
             If Value Then
-                Dim UserId = InputBox("Agent UUID?")
-                RPC_admin_dialog(UserId, "Pop up Alert Test")
-            Else
-                MsgBox("Needs an avatar UUID", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+
+                Dim UserName = InputBox("Online Agent Name?")
+
+                Dim parts As String() = UserName.Split(" ".ToCharArray())
+                If parts.Length <> 2 Then
+                    MsgBox("Please use an avatar First and Last name", vbInformation Or MsgBoxStyle.MsgBoxSetForeground)
+                    Return
+                End If
+
+                Dim UserID = GetAviUUUD(UserName)
+                RPC_admin_dialog(UserID, "Pop up Alert Test")
             End If
 
         ElseIf Command = $"{My.Resources.Debug_word} {My.Resources.Off}" Then
@@ -169,12 +181,6 @@ Public Class FormDebug
 
     End Sub
 
-    Private Sub Speechtest()
-
-        ProgressPrint(Speach(My.Resources.HelloToSpeech, Value))
-
-    End Sub
-
     Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox1.SelectedIndexChanged
 
         Command = CStr(ComboBox1.SelectedItem)
@@ -182,36 +188,14 @@ Public Class FormDebug
 
     End Sub
 
-    Private Sub Benchmark()
-
-        ProgressPrint($"{My.Resources.Benchmark} = {CStr(Value)}")
-        Settings.LogBenchmarks = Value
-        Settings.SaveSettings()
-
-    End Sub
-    Private Sub EnableSS()
-        If Value Then
-            ProgressPrint(My.Resources.SSisEnabled)
-            Settings.SSVisible = True
-            Settings.SmartStart = True
-            HelpManual("SmartStart")
-        Else
-            ProgressPrint(My.Resources.SSisDisabled)
-            Settings.SSVisible = False
-            Settings.SmartStart = False
-        End If
-        Settings.SaveSettings()
-    End Sub
-
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-
-        ComboBox1.Items.Add(My.Resources.SmartStartEnable)
 
         RadioTrue.Checked = False
         RadioFalse.Checked = True
 
         RadioTrue.Text = My.Resources.True_word
         RadioFalse.Text = My.Resources.False_word
+
         ComboBox1.Items.Add(My.Resources.Benchmark)
         ComboBox1.Items.Add(My.Resources.Speak)
         ComboBox1.Items.Add(My.Resources.Send_alert)
@@ -224,6 +208,8 @@ Public Class FormDebug
         ComboBox1.Items.Add($"{My.Resources.Debug_word} 24 {My.Resources.Hours}")
 
         SetScreen()
+
+        HelpOnce("Debug")
 
     End Sub
 
@@ -243,6 +229,12 @@ Public Class FormDebug
                 ProgressPrint(r)
             End Using
         End If
+    End Sub
+
+    Private Sub Speechtest()
+
+        ProgressPrint(Speach(My.Resources.HelloToSpeech, Value))
+
     End Sub
 
     Private Sub TPAPITest()
@@ -279,6 +271,10 @@ Public Class FormDebug
 #End Region
 
 #Region "Radio"
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+        HelpManual("Debug")
+    End Sub
 
     Private Sub RadioTrue_CheckedChanged(sender As Object, e As EventArgs) Handles RadioTrue.CheckedChanged
 

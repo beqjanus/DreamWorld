@@ -8,8 +8,6 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
 
-
-
 Public Class PRIEnum
 
     Public AboveNormal As ProcessPriorityClass = ProcessPriorityClass.AboveNormal
@@ -23,7 +21,6 @@ Module SmartStart
 
     Private ReadOnly Sleeping As New List(Of String)
 
-
 #Region "SmartBegin"
 
     ''' <summary>
@@ -33,20 +30,21 @@ Module SmartStart
     ''' <returns>True of region is booted</returns>
     Public Function WaitForBooted(RegionUUID As String) As Boolean
 
-
-        Dim c As Integer = 30 ' 1/2 minutes
+        Debug.Print("Waiting for " & PropRegionClass.RegionName(RegionUUID))
+        Dim c As Integer = 90 ' 1.5 minutes
         While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted And
-            PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Stopped
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+
+            If Not WaitForBooting(RegionUUID) Then
+                Return False
+            End If
 
             c -= 1  ' skip on timeout error
             If c < 0 Then
                 BreakPoint.Show("Timeout")
-                'ShutDown(RegionUUID)
-                'ConsoleCommand(RegionUUID, "q")
                 Return False
             End If
 
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
             Sleep(1000)
 
         End While
@@ -56,8 +54,9 @@ Module SmartStart
 
     Public Function WaitForBooting(RegionUUID As String) As Boolean
 
-        Dim c As Integer = 20 ' 20 seconds
-        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting
+        Dim c As Integer = 30 ' 30 seconds for a region to change state sounds like a lot
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting And
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
 
             c -= 1  ' skip on timeout error
             If c < 0 Then
@@ -65,7 +64,6 @@ Module SmartStart
                 Return False
             End If
 
-            Debug.Print($"{GetStateString(PropRegionClass.Status(RegionUUID))} {PropRegionClass.RegionName(RegionUUID)}")
             Sleep(1000)
 
         End While
@@ -78,8 +76,6 @@ Module SmartStart
         ' Smart Start AutoStart Region mode
         Debug.Print("Smart Start:" + post)
 
-        Bench.Start()
-        Bench.Print("Tp Request")
         'Smart Start:http://192.168.2.140:8999/?alt=Deliverance_of_JarJar_Binks__Fred_Beckhusen_1X1&agent=Ferd%20Frederix&AgentID=6f285c43-e656-42d9-b0e9-a78684fee15d&password=XYZZY
 
         Dim pattern = New Regex("alt=(.*?)&agent=(.*?)&agentid=(.*?)&password=(.*)", RegexOptions.IgnoreCase)
@@ -101,7 +97,7 @@ Module SmartStart
             Dim time As String
 
             ' Region may be a name or a Region UUID
-            Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(Name)
+            Dim RegionUUID = PropRegionClass.FindRegionByName(Name)
             If RegionUUID.Length = 0 Then
                 RegionUUID = Name ' Its a UUID
             Else
@@ -132,13 +128,13 @@ Module SmartStart
                             'Logger("UUID Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
-                            Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                            Dim u = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
                             Return u
                         ElseIf AgentName.ToUpperInvariant = "REGIONNAME" Then
                             Logger("Named Teleport", Name & ":" & AgentID, "Teleport")
                             AddEm(RegionUUID, AgentID)
                             RPC_admin_dialog(AgentID, $"Booting your region {PropRegionClass.RegionName(RegionUUID)}.{vbCrLf}Region will be ready in {CStr(PropRegionClass.BootTime(RegionUUID) + Settings.TeleportSleepTime)} seconds. Please wait in this region.")
-                            Dim u = PropRegionClass.FindRegionUUIDByName(Settings.WelcomeRegion)
+                            Dim u = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
                             Return u
                         Else ' Its a v4 sign
 
@@ -158,7 +154,6 @@ Module SmartStart
                     ' not enabled
                     RPC_admin_dialog(AgentID, $"Your region {PropRegionClass.RegionName(RegionUUID)} is disabled.")
                 End If
-
             Else ' Non Smart Start
 
                 If AgentName.ToUpperInvariant = "UUID" Then
@@ -269,7 +264,7 @@ Module SmartStart
         DeleteFile(HTMLFILE)
 
         Try
-            Using outputFile As New StreamWriter(HTMLFILE, True)
+            Using outputFile As New StreamWriter(HTMLFILE, False)
                 outputFile.WriteLine(HTML)
             End Using
         Catch ex As Exception
@@ -446,11 +441,11 @@ Module SmartStart
     Public Function Boot(BootName As String) As Boolean
         ''' <summary>Starts Opensim for a given name</summary>
         ''' <param name="BootName">Name of region to start</param>
-        ''' <returns>success = true</returns>        
+        ''' <returns>success = true</returns>
         Bench.Print($"Boot {BootName}")
         If FormSetup.Timer1.Enabled = False Then
             FormSetup.Timer1.Interval = 1000
-            FormSetup.Timer1.Enabled = True  ' Bug report #485227296 timer started but not enabled 
+            FormSetup.Timer1.Enabled = True  ' Bug report #485227296 timer started but not enabled
             FormSetup.Timer1.Start() 'Timer starts functioning
         End If
 
@@ -458,6 +453,9 @@ Module SmartStart
         If PropAborting Then Return True
 
         Dim RegionUUID As String = PropRegionClass.FindRegionByName(BootName)
+
+        If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return True
+
         Dim GroupName = PropRegionClass.GroupName(RegionUUID)
 
         If String.IsNullOrEmpty(RegionUUID) Then
@@ -476,6 +474,7 @@ Module SmartStart
 
         PropRegionClass.CrashCounter(RegionUUID) = 0
 
+        ' Detect if a region Windows is already running
         If CBool(GetHwnd(PropRegionClass.GroupName(RegionUUID))) Then
 
             If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Then
@@ -501,11 +500,18 @@ Module SmartStart
                 If Not PropInstanceHandles.ContainsKey(PID) Then
                     PropInstanceHandles.Add(PID, GroupName)
                 End If
+
                 For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                    PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
-                    PokeRegionTimer(UUID)
-                    SendToOpensimWorld(RegionUUID, 0)
+                    'Must be listening, not just in a window
+
+                    If CheckPort("127.0.0.1", PropRegionClass.GroupPort(RegionUUID)) Then
+                        PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booted
+                        PokeRegionTimer(UUID)
+                        SendToOpensimWorld(RegionUUID, 0)
+                    End If
+
                     PropRegionClass.ProcessID(UUID) = PID
+                    Application.DoEvents()
                 Next
                 ShowDOSWindow(GetHwnd(PropRegionClass.GroupName(RegionUUID)), MaybeHideWindow())
 
@@ -609,14 +615,15 @@ Module SmartStart
                     PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Booting
                     PokeRegionTimer(RegionUUID)
                 Next
+
+                AddCPU(PID, GroupName) ' get a list of running opensim processes
+                For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
+                    PropRegionClass.ProcessID(UUID) = PID
+                Next
             Else
                 BreakPoint.Show("No PID for " & GroupName)
             End If
 
-            AddCPU(PID, GroupName) ' get a list of running opensim processes
-            For Each UUID As String In PropRegionClass.RegionUuidListByName(GroupName)
-                PropRegionClass.ProcessID(UUID) = PID
-            Next
             PropUpdateView = True ' make form refresh
             FormSetup.Buttons(FormSetup.StopButton)
             Return True
@@ -631,7 +638,9 @@ Module SmartStart
     Public Sub ReBoot(RegionUUID As String)
 
         If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Or
-                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Or
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
+
 
             Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
 
@@ -642,7 +651,6 @@ Module SmartStart
             Next
             PropUpdateView = True ' make form refresh
         End If
-        Application.DoEvents()
     End Sub
 
 #End Region

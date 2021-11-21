@@ -88,6 +88,8 @@ Module CPUCounter
                                 Dim b = (a / Environment.ProcessorCount)
                                 O.CPUValues.Item(Gname) = Math.Round(b, 3)
                             End If
+                        Else
+                            PropInstanceHandles.Add(p.Id, p.MainWindowTitle)
                         End If
                         Thread.Sleep(100)
                     Next
@@ -97,7 +99,7 @@ Module CPUCounter
                     O.CPUValues.Clear()
                 End Try
             End If
-            Thread.Sleep(1000)
+            Thread.Sleep(10000)
 
         End While
 

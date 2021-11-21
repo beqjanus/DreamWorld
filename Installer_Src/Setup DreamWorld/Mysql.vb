@@ -46,7 +46,6 @@ Public Module MysqlInterface
         End Set
     End Property
 
-
 #End Region
 
 #Region "StartMysql"
@@ -105,7 +104,7 @@ Public Module MysqlInterface
         DeleteFile(testProgram)
 
         Try
-            Using outputFile As New StreamWriter(testProgram, True)
+            Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM A program to run Mysql manually for troubleshooting." & vbCrLf _
                              & "mysqld.exe --defaults-file=" &
                              """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """"
@@ -264,14 +263,58 @@ Public Module MysqlInterface
 
 #End Region
 
-#Region "Public"
+#Region "DeletePrims"
 
-    Public Sub DeleteOldVisitors()
+    Public Sub DeleteAllContents(regionUUID As String)
 
-        Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
-        QueryString(stm)
+        DeleteContent(regionUUID, "primshapes", "uuid")
+        DeleteContent(regionUUID, "bakedterrain", "regionuuid")
+        DeleteContent(regionUUID, "estate_map", "regionid")
+        DeleteContent(regionUUID, "land", "regionuuid")
+        DeleteContent(regionUUID, "prims", "uuid")
+        DeleteContent(regionUUID, "primitems", "primid")
+        DeleteContent(regionUUID, "regionenvironment", "region_id")
+        DeleteContent(regionUUID, "regionextra", "regionid")
+        DeleteContent(regionUUID, "regionsettings", "regionuuid")
+        DeleteContent(regionUUID, "regionwindlight", "region_id")
+        DeleteContent(regionUUID, "spawn_points", "regionid")
+        DeleteContent(regionUUID, "terrain", "regionuuid")
+        Delete_Region_Map(regionUUID)
+        DeleteMaps(regionUUID)
+        DeregisterRegionUUID(regionUUID)
+
+        Dim GroupName = PropRegionClass.GroupName(regionUUID)
+        Dim RegionName = PropRegionClass.RegionName(regionUUID)
+        CopyFileFast(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"), IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.bak"))
+        DeleteFile(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{GroupName}\Region\{RegionName}.ini"))
+        PropRegionClass.DeleteRegion(regionUUID)
 
     End Sub
+
+    Private Sub DeleteContent(PrimUUID As String, Tablename As String, UUIDName As String)
+
+        Using MysqlConn As New MySqlConnection(Settings.RegionMySqlConnection)
+            Try
+                MysqlConn.Open()
+                Dim stm = $"delete from {Tablename} WHERE {UUIDName} = @UUID"
+#Disable Warning CA2100
+                Using cmd = New MySqlCommand(stm, MysqlConn)
+                    cmd.Parameters.AddWithValue("@UUID", PrimUUID)
+                    cmd.ExecuteNonQuery()
+                End Using
+#Enable Warning CA2100
+            Catch ex As MySqlException
+                BreakPoint.Show(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+    End Sub
+
+#End Region
+
+#Region "Public"
 
     Public Function AssetCount(UUID As String) As Integer
 
@@ -302,6 +345,13 @@ Public Module MysqlInterface
 
     End Function
 
+    Public Sub DeleteOldVisitors()
+
+        Dim stm = "delete from visitor WHERE dateupdated < NOW() - INTERVAL " & Settings.KeepVisits & " DAY "
+        QueryString(stm)
+
+    End Sub
+
     Public Sub DeleteOnlineUsers()
 
         If PropOpensimIsRunning Then
@@ -313,28 +363,6 @@ Public Module MysqlInterface
             QueryString("delete from presence;")
             QueryString("update robust.griduser set online = 'false';")
         End If
-
-    End Sub
-
-    Public Sub DeleteOpensimEstateID(UUID As String)
-
-        Using EstateConnection As New MySqlConnection(Settings.RegionMySqlConnection)
-            Try
-                EstateConnection.Open()
-
-                Dim stm = "delete from opensim.estate_map where RegionID=@UUID"
-
-                Using cmd = New MySqlCommand(stm, EstateConnection)
-                    cmd.Parameters.AddWithValue("@UUID", UUID)
-                    cmd.ExecuteNonQuery()
-                End Using
-            Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
-            End Try
-
-        End Using
 
     End Sub
 
@@ -350,8 +378,6 @@ Public Module MysqlInterface
                     cmd.Parameters.AddWithValue("@Y", Y * 256)
                     cmd.ExecuteNonQuery()
                 End Using
-            Catch ex As MySqlException
-                BreakPoint.Show(ex.Message)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
@@ -470,24 +496,22 @@ Public Module MysqlInterface
     ''' <summary>
     ''' Gets users from useraccounts
     ''' </summary>
-    ''' <returns>dictionary of Firstname + Lastname, Region Name</returns>
+    ''' <returns>dictionary of Firstname + Lastname, Region UUID</returns>
     Public Function GetAgentList() As Dictionary(Of String, String)
 
         Dim Dict As New Dictionary(Of String, String)
-        If Settings.ServerType <> RobustServerName Then Return Dict
 
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
 
             Try
                 NewSQLConn.Open()
 
-                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, regions.regionName FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) INNER JOIN regions  ON presence.RegionID = regions.uuid;"
+                Dim stm As String = "SELECT useraccounts.FirstName, useraccounts.LastName, RegionID FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) "
                 Using cmd As New MySqlCommand(stm, NewSQLConn)
 
                     Using reader As MySqlDataReader = cmd.ExecuteReader()
 
                         While reader.Read()
-                            ' Debug.Print(reader.GetString(0) & " " & reader.GetString(1) & " in region " & reader.GetString(2))
                             Dict.Add(reader.GetString(0) & " " & reader.GetString(1), reader.GetString(2))
                         End While
                     End Using
@@ -501,13 +525,39 @@ Public Module MysqlInterface
                 Return Dict
             End Try
 
-            'If Debugger.IsAttached Then
-            'Dict.Add("Ferd Frederix", "SS")
-            'End If
 
         End Using
 
         Return Dict
+
+    End Function
+
+    ''' <summary>
+    ''' Gets user count from useraccounts
+    ''' </summary>
+    ''' <returns>integer count of agents in this region</returns>
+    Public Function GetAgentsInRegion(RegionUUID As String) As Integer
+
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+        Dim Dict As New Dictionary(Of String, String)
+        Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
+            Try
+                NewSQLConn.Open()
+                Dim stm As String = "SELECT count(*) FROM (presence INNER JOIN useraccounts ON presence.UserID = useraccounts.PrincipalID) where regionid = @UUID "
+                Using cmd As New MySqlCommand(stm, NewSQLConn)
+                    cmd.Parameters.AddWithValue("@UUID", RegionUUID)
+                    Using reader As MySqlDataReader = cmd.ExecuteReader()
+                        If reader.Read() Then Return (reader.GetInt32(0))
+                    End Using
+                End Using
+            Catch ex As MySqlException
+                BreakPoint.Show(ex.Message)
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+        End Using
+
+        Return 0
 
     End Function
 
@@ -556,6 +606,8 @@ Public Module MysqlInterface
     ''' <param name="avatarName"></param>
     ''' <returns>Avatar UUID</returns>
     Public Function GetAviUUUD(AvatarName As String) As String
+
+        StartMySQL()
 
         If AvatarName.Length = 0 Then Return ""
         Dim Val As String = ""
@@ -714,7 +766,6 @@ Public Module MysqlInterface
 
         End Using
 
-
         Return count
 
     End Function
@@ -767,9 +818,11 @@ Public Module MysqlInterface
 
         If Settings.ServerType <> RobustServerName Then Return False
         If Not PropRegionClass.RegionEnabled(RegionUUID) Then Return False
-        If Not PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Booted Then Return False
+        Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-        Return CBool(RPC_admin_get_agent_list(RegionUUID).Count)
+        Dim l = GetAgentList()
+        Return l.ContainsValue(RegionUUID)
+
 
     End Function
 
@@ -882,7 +935,6 @@ Public Module MysqlInterface
 
     End Function
 
-    '' !!! Deprecated
     ''' <summary>
     ''' Returns boolean if a region exists in the regions table
     ''' </summary>
@@ -987,7 +1039,7 @@ Public Module MysqlInterface
             Using MysqlConn1 As New MySqlConnection(Settings.RegionMySqlConnection)
                 Try
                     MysqlConn1.Open()
-                    Dim stm1 = "insert into EstateMap (RegionID, EstateID) values (@UUID, @EID)"
+                    Dim stm1 = "insert into estate_map (RegionID, EstateID) values (@UUID, @EID)"
                     Try
                         Using cmd1 = New MySqlCommand(stm1, MysqlConn1)
                             cmd1.Parameters.AddWithValue("@UUID", UUID)
@@ -1004,7 +1056,6 @@ Public Module MysqlInterface
                 End Try
             End Using
         End If
-
     End Sub
 
     Public Sub SetupLocalSearch()
@@ -1152,7 +1203,7 @@ Public Module MysqlInterface
         DeleteFile(testProgram)
 
         Try
-            Using outputFile As New StreamWriter(testProgram, True)
+            Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM Program to run Mysql as a Service" & vbCrLf +
             "mysqld.exe --install Mysql --defaults-file=" & """" & FormSetup.PropCurSlashDir & "/OutworldzFiles/mysql/my.ini" & """" & vbCrLf & "net start Mysql" & vbCrLf)
             End Using
@@ -1168,7 +1219,7 @@ Public Module MysqlInterface
         Dim testProgram As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\StopMySQL.bat")
         DeleteFile(testProgram)
         Try
-            Using outputFile As New StreamWriter(testProgram, True)
+            Using outputFile As New StreamWriter(testProgram, False)
                 outputFile.WriteLine("@REM Program to stop Mysql" & vbCrLf +
             "mysqladmin.exe -u root --port " & CStr(Settings.MySqlRobustDBPort) & " shutdown" & vbCrLf & "@pause" & vbCrLf)
             End Using
@@ -1310,7 +1361,7 @@ Public Module MysqlInterface
                     For Each Visit As KeyValuePair(Of String, String) In FormSetup.Visitor
                         Application.DoEvents()
                         Dim RegionName = Visit.Value
-                        Dim RegionUUID = PropRegionClass.FindRegionUUIDByName(RegionName)
+                        Dim RegionUUID = PropRegionClass.FindRegionByName(RegionName)
                         Dim result As List(Of AvatarData) = RPC_admin_get_agent_list(RegionUUID)
                         For Each Avi In result
                             Using cmd1 = New MySqlCommand(stm1, MysqlConn1)

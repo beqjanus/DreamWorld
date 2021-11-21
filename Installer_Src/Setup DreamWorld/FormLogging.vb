@@ -189,9 +189,9 @@ Public Class FormLogging
         Out = IO.Path.Combine(TMPFolder, "Regions.htm")
         DeleteFile(Out)
         _Err = 0
-        ' bug bfd
+
         Try
-            Using outputFile As New StreamWriter(Out, True)
+            Using outputFile As New StreamWriter(Out, False)
                 outputFile.WriteLine("<style>table, th, td {border: 1px solid black; padding: 5px; text-align: left;border-spacing: 0px;border-collapse: collapse;}</style>")
                 outputFile.WriteLine("<style>#t01 tr:nth-child(even) {  background-color: #eee;}#t01 tr:nth-child(odd) { background-color: #fff;}#t01 th {  background-color: black;  color: white;}</style>")
                 outputFile.WriteLine("<table id=""t01"">")
@@ -332,7 +332,6 @@ Public Class FormLogging
 
     End Function
 
-
     Private Function LookatYengine(line As String, outputfile As StreamWriter, GroupName As String) As Integer
         ToolStripStatusLabel1.Text = $"{CStr(_Err)} Errors,  {CStr(_LineCounter)} Lines  {CStr(_FileCounter)} Files"
         Dim pattern = New Regex("^(.*?)(\[YEngine\]\:.*)|^(.*?)(\[YEngine\]\:.*)")
@@ -358,9 +357,8 @@ Public Class FormLogging
         End If
         Return 0
 
-
-
     End Function
+
 #End Region
 
 End Class

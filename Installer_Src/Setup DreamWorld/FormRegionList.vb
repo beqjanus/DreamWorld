@@ -18,6 +18,7 @@ Public Class FormRegionlist
     Private ReadOnly SearchArray As New List(Of String)
     Private _ImageListSmall As New ImageList
 #Enable Warning CA2213
+    Private detailsinitted As Boolean
     Private initted As Boolean
     Private ItemsAreChecked As Boolean
     Private SearchBusy As Boolean
@@ -225,13 +226,14 @@ Public Class FormRegionlist
 
     Private Sub LoadForm(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-
         ' Set the view to show whatever
         TheView1 = Settings.RegionListView()
-        If TheView1 = ViewType.Details Then PropRegionClass.GetAllRegions()
+
+        If TheView1 = ViewType.Details Then
+            PropChangedRegionSettings = True
+        End If
 
         SetScreen(TheView1)
-
 
         AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word
         AllNone.Text = Global.Outworldz.My.Resources.AllNone_word
@@ -431,7 +433,6 @@ Public Class FormRegionlist
         ListView1.Columns.Add(My.Resources.Map_Time, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
         ListView1.Columns(ctr).Name = "Column" & ctr & "_" & CStr(ViewType.Details)
 
-
         'Avatars
         ctr = 0
         AvatarView.Columns.Add(My.Resources.Agents_word, colsize.ColumnWidth("Avatar" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
@@ -442,8 +443,6 @@ Public Class FormRegionlist
         ctr += 1
         AvatarView.Columns.Add(My.Resources.Type_word, colsize.ColumnWidth("Column" & ctr & "_" & CStr(ViewType.Details), 150), HorizontalAlignment.Center)
         AvatarView.Columns(ctr).Name = "Avatars" & ctr & "_" & CStr(ViewType.Avatars)
-
-
 
         'Users
         ctr = 0
@@ -497,7 +496,6 @@ Public Class FormRegionlist
         End If
 
         ViewBusy = False
-
 
         Timer1.Start()
         LoadMyListView()
@@ -760,6 +758,7 @@ Public Class FormRegionlist
             Return
         End If
 
+        detailsinitted = False
         ListView1.Show()
         ListView1.Visible = True
         IconView.Hide()
@@ -775,7 +774,6 @@ Public Class FormRegionlist
 
         Try
             For Each RegionUUID As String In SearchArray
-                ' Application.DoEvents() ' bad idea
 
                 If OnButton.Checked And Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
                 If OffButton.Checked And PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
@@ -970,7 +968,7 @@ Public Class FormRegionlist
                 If w > 0 Then col.Width = w
             End Using
         Next
-
+        detailsinitted = True
         ListView1.EndUpdate()
         PropUpdateView() = False
         ViewBusy = False
@@ -1145,7 +1143,7 @@ Public Class FormRegionlist
             Dim RegionName = item.SubItems(1).Text
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
             If RegionUUID.Length > 0 Then
-                ' TODO: Needs to be HGV3
+                ' TODO: Needs to be HGV3?
                 Dim webAddress As String = "hop://" & Settings.DNSName & ":" & Settings.HttpPort & "/" & RegionName
                 Try
                     Dim result = Process.Start(webAddress)
@@ -1160,7 +1158,10 @@ Public Class FormRegionlist
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles RefreshButton.Click
 
-        PropRegionClass.GetAllRegions()
+        PropChangedRegionSettings = True
+        While PropChangedRegionSettings
+            Sleep(100)
+        End While
         LoadMyListView()
 
     End Sub
@@ -1236,6 +1237,8 @@ Public Class FormRegionlist
 
     Private Sub ListView1_ItemCheck1(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles ListView1.ItemCheck
 
+        If Not detailsinitted Then Return
+
         Dim Item As ListViewItem = Nothing
 
         Try
@@ -1258,10 +1261,14 @@ Public Class FormRegionlist
             Else
                 PropRegionClass.RegionEnabled(RegionUUID) = True
             End If
+            If PropRegionClass.RegionIniFilePath(RegionUUID).Length > 0 Then
+                Dim INI = New LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
+                INI.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
+                INI.SaveINI()
+            Else
+                BreakPoint.Show("cannot locate region in group " & GroupName)
+            End If
 
-            Dim INI = New LoadIni(PropRegionClass.RegionIniFilePath(RegionUUID), ";", System.Text.Encoding.UTF8)
-            INI.SetIni(PropRegionClass.RegionName(RegionUUID), "Enabled", CStr(PropRegionClass.RegionEnabled(RegionUUID)))
-            INI.SaveINI()
         Next
 
     End Sub
@@ -1344,7 +1351,7 @@ SetWindowOnTop_Err:
 
             PropAborting = False
 
-            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.RestartPending
+            PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Resume
 
             Application.DoEvents()
             FormSetup.Timer1.Interval = 1000
@@ -1555,8 +1562,7 @@ SetWindowOnTop_Err:
 
     Private Sub StopAllButton_Click(sender As Object, e As EventArgs) Handles StopAllButton.Click
 
-        DoStopActions()
-        PropRegionClass.GetAllRegions()
+        FormSetup.DoStopActions()
         LoadMyListView()
 
     End Sub
@@ -1700,7 +1706,7 @@ SetWindowOnTop_Err:
                         End If
                     Next
 
-                    PropRegionClass.GetAllRegions()
+                    PropChangedRegionSettings = True
                     LoadMyListView()
                 End If
             End If
@@ -1747,7 +1753,6 @@ SetWindowOnTop_Err:
         Next
         SearchBusy = False
         Search()
-
 
     End Sub
 
