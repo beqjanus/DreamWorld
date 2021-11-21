@@ -1061,14 +1061,15 @@ Public Class MySettings
     Public Property LandSmoothValue() As Double
         Get
             Try
-                Return CDbl(GetMySetting("LandSmooth", "0.5"))
+
+                Return CDbl(GetMySetting("LandSmoothValue", "0.5"))
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
             Return 0.5
         End Get
         Set
-            SetMySetting("LandSmooth", CStr(Value))
+            SetMySetting("LandSmoothValue", CStr(Value))
         End Set
     End Property
 
