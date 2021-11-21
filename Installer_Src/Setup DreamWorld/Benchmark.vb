@@ -28,4 +28,9 @@
 
     End Sub
 
+    Public Sub StopW()
+        _stopWatch.Stop()
+    End Sub
+
+
 End Class
