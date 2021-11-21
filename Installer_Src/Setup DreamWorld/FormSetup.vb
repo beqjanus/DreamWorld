@@ -1086,12 +1086,14 @@ Public Class FormSetup
                 Application.DoEvents()
 
                 ' Smart Start Timer
-
                 If PropRegionClass.SmartStart(RegionUUID) = "True" And status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
                     Dim diff = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), Date.Now)
 
-                    If diff > Settings.SmartStartTimeout And RegionName <> Settings.WelcomeRegion Then
-                        'Continue For
+                    ' Do not shut down if we pending Teleport
+                    If diff > Settings.SmartStartTimeout And
+                        RegionName <> Settings.WelcomeRegion And
+                        Not TeleportAvatarDict.ContainsValue(RegionUUID) Then
+
                         Logger("State Changed to ShuttingDown", GroupName, "Teleport")
                         ShutDown(RegionUUID)
 
@@ -1101,7 +1103,8 @@ Public Class FormSetup
 
                         PropUpdateView = True ' make form refresh
                         Continue For
-
+                    Else
+                        PokeGroupTimer(GroupName)
                     End If
                 End If
             End If
