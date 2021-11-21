@@ -933,6 +933,7 @@ Public Class FormSetup
     ''' </summary>
     Private Sub StartThreads()
 
+
         ' start a thread to see if a region has crashed, if so, add it to an exit list
         Dim start As ParameterizedThreadStart = AddressOf DidItDie
 
@@ -1338,36 +1339,39 @@ Public Class FormSetup
 
         Bench.Print("DidItDie Begins")
 
-        ' check to see if a handle to all regions exists. If not, then it died.
-        For Each RegionUUID As String In PropRegionClass.RegionUuids
-            Application.DoEvents()
+        While PropOpensimIsRunning
+            ' check to see if a handle to all regions exists. If not, then it died.
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
+                Application.DoEvents()
 
-            If Not PropOpensimIsRunning() Then Return
-            If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
+                If Not PropOpensimIsRunning() Then Return
+                If Not PropRegionClass.RegionEnabled(RegionUUID) Then Continue For
 
-            Dim status = PropRegionClass.Status(RegionUUID)
-            If CBool((status = ClassRegionMaker.SIMSTATUSENUM.Booted) _
-                    Or (status = ClassRegionMaker.SIMSTATUSENUM.Booting) _
-                    Or (status = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown) _
-                    Or (status = ClassRegionMaker.SIMSTATUSENUM.NoError) _
-                    Or (status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown) _
-                    Or (status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
-                    Or (status = ClassRegionMaker.SIMSTATUSENUM.Suspended)) Then
+                Dim status = PropRegionClass.Status(RegionUUID)
+                If CBool((status = ClassRegionMaker.SIMSTATUSENUM.Booted) _
+                        Or (status = ClassRegionMaker.SIMSTATUSENUM.Booting) _
+                        Or (status = ClassRegionMaker.SIMSTATUSENUM.RecyclingDown) _
+                        Or (status = ClassRegionMaker.SIMSTATUSENUM.NoError) _
+                        Or (status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown) _
+                        Or (status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood) _
+                        Or (status = ClassRegionMaker.SIMSTATUSENUM.Suspended)) Then
 
-                Dim G = PropRegionClass.GroupName(RegionUUID)
+                    Dim G = PropRegionClass.GroupName(RegionUUID)
 
-                If GetHwnd(G) = IntPtr.Zero Then
-                    Try
-                        If Not PropExitList.ContainsKey(G) Then
-                            PropExitList.Add(G, "Exit")
-                        End If
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                    End Try
+                    If GetHwnd(G) = IntPtr.Zero Then
+                        Try
+                            If Not PropExitList.ContainsKey(G) Then
+                                PropExitList.Add(G, "Exit")
+                            End If
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+                    End If
                 End If
-            End If
 
-        Next
+            Next
+            Sleep(1000)
+        End While
 
     End Sub
 
