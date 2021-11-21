@@ -106,11 +106,6 @@ Module Robust
         If Not StartMySQL() Then Return False ' prerequsite
         PropOpensimIsRunning = True
         ' prevent recursion
-        Dim ctr = 30
-        While RobustIsStarting And ctr > 0
-            Sleep(1000)
-            ctr -= 1
-        End While
 
         For Each p In Process.GetProcessesByName("Robust")
             Try
