@@ -87,6 +87,7 @@ Module CPUCounter
 
                                 Dim b = (a / Environment.ProcessorCount)
                                 O.CPUValues.Item(Gname) = Math.Round(b, 3)
+
                             End If
                         Else
                             PropInstanceHandles.Add(p.Id, p.MainWindowTitle)
@@ -119,7 +120,6 @@ Module CPUCounter
                     If val = processId Then
                         Return instance
                     End If
-                    Application.DoEvents()
                 End Using
             Next
         Catch

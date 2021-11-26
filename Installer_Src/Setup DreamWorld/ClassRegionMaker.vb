@@ -969,12 +969,15 @@ Public Class ClassRegionMaker
     Public Property CoordY(uuid As String) As Integer
         Get
             If uuid Is Nothing Then Return 0
-
-            Return RegionList(uuid)._CoordY
+            Try
+                Return RegionList(uuid)._CoordY
+            Catch
+                BreakPoint.Show("Cannot read Coordx")
+                Return 100
+            End Try
         End Get
         Set(ByVal Value As Integer)
             If uuid Is Nothing Then Return
-
             RegionList(uuid)._CoordY = Value
         End Set
     End Property
