@@ -56,7 +56,8 @@ Module SmartStart
 
         Dim c As Integer = 30 ' 30 seconds for a region to change state sounds like a lot
         While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting And
-                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood And
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted
 
             c -= 1  ' skip on timeout error
             If c < 0 Then

@@ -2721,6 +2721,7 @@ Public Class FormSetup
                 ScanOpenSimWorld(True)
                 GetEvents()
                 RunParser()
+                MakeMaps()
             End If
 
             ' print hourly marks on console
@@ -2731,7 +2732,6 @@ Public Class FormSetup
                 ExpireLogsByAge()
                 DeleteDirectoryTmp()
                 DeleteOldVisitors()
-                MakeMaps()
             End If
 
             SecondsTicker += 1
