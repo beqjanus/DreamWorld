@@ -699,7 +699,7 @@ Public Class FormSetup
 
         Bench.Start()
 
-        PropRegionClass.Init()
+        PropRegionClass.Init(False)
 
         If Settings.SafeShutdown And Not Settings.DeregisteredOnce Then
             DeregisterRegions(True)
@@ -714,7 +714,7 @@ Public Class FormSetup
 
         Buttons(BusyButton)
 
-        DoEstates() ' has to be done after Mysql starts up.
+        DoEstates() ' has to be done after MySQL starts up.
         PropOpensimIsRunning = True
 
         If Not StartRobust() Then
@@ -1292,7 +1292,6 @@ Public Class FormSetup
                 Dim value As Double = (CDbl(result("TotalVisibleMemorySize").ToString) - CDbl(result("FreePhysicalMemory").ToString)) / CDbl(result("TotalVisibleMemorySize").ToString) * 100
                 MyRAMCollection.Add(value)
                 If MyRAMCollection.Count > 180 Then MyRAMCollection.RemoveAt(0)
-
                 value = Math.Round(value)
                 Settings.Ramused = value
                 PercentRAM.Text = $"RAM: {value / 100:p1}"
@@ -1641,14 +1640,13 @@ Public Class FormSetup
         Dim buildDate = New DateTime(2000, 1, 1).AddDays(v.Build).AddSeconds(v.Revision * 2)
         Dim displayableVersion = $"{v} ({buildDate})"
         AssemblyV = "Assembly version: " + displayableVersion
-        TextPrint(AssemblyV)
 
         SetupPerl()
 
         TextPrint(My.Resources.Getting_regions_word)
         PropRegionClass = ClassRegionMaker.Instance()
 
-        PropRegionClass.Init()
+        PropRegionClass.Init(True)
 
         UpgradeDotNet()
         Application.DoEvents()
@@ -2363,7 +2361,7 @@ Public Class FormSetup
                     Try
                         Dim filename As String = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
                         Using outputFile As New StreamWriter(filename, False)
-                            outputFile.WriteLine("@REM A program to restore Mysql from a backup" & vbCrLf _
+                            outputFile.WriteLine("@REM A program to restore MySQL from a backup" & vbCrLf _
                             & "mysql -u root " & db & " < " & """" & thing & """" _
                             & vbCrLf & " @pause" & vbCrLf)
                         End Using
@@ -2678,7 +2676,7 @@ Public Class FormSetup
 
             ' Reload regions from disk
             If PropChangedRegionSettings Then
-                PropRegionClass.GetAllRegions()
+                PropRegionClass.GetAllRegions(False)
             End If
 
             ' only at boot

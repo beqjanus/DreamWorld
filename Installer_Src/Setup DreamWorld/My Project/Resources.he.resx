@@ -337,7 +337,7 @@
     <value>תיקיית FSAssets הגיבוי</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>תיקיית Mysql גיבוי נתונים</value>
+    <value>תיקיית MySQL גיבוי נתונים</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>גיבוי תיקיות הנתונים MySQL \. המתן בבקשה. יופיע מסך קפוא.</value>
@@ -1879,7 +1879,7 @@
     <value>MySQL רץ כשאני החלתי, כך אני עוזב MySQL על.</value>
   </data>
   <data name="Mysql_Word" xml:space="preserve">
-    <value>Mysql</value>
+    <value>MySQL</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>שֵׁם</value>

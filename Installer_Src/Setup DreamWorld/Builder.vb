@@ -355,7 +355,7 @@ Module Build
         PropRegionClass.GroupPort(RegionUUID) = port
         PropRegionClass.RegionPort(RegionUUID) = port
 
-        PropRegionClass.WriteRegionObject(Group, shortname)
+        PropRegionClass.WriteRegionObject(Group, shortname, False)
 
         FormSetup.LandScapeList.Add(RegionUUID)
         PropChangedRegionSettings = True

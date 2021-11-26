@@ -796,7 +796,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup Mysql Data folder.
+        '''  Looks up a localized string similar to Backup MySQL Data folder.
         '''</summary>
         Friend ReadOnly Property Backup_Mysql() As String
             Get
@@ -6462,7 +6462,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Mysql.
+        '''  Looks up a localized string similar to MySQL.
         '''</summary>
         Friend ReadOnly Property Mysql_Word() As String
             Get

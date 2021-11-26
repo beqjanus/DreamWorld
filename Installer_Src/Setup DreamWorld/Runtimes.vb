@@ -69,7 +69,7 @@ Module Runtimes
                   .Arguments = "",
                   .CreateNoWindow = True,
                   .WindowStyle = ProcessWindowStyle.Hidden,
-                  .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Mysql\bin\mysql_upgrade.exe") & """"
+                  .FileName = """" & IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\MySQL\bin\mysql_upgrade.exe") & """"
             }
 
             UpgradeProcess.StartInfo = pi

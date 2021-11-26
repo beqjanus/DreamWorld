@@ -337,7 +337,7 @@
     <value>folder Backup FSAssets</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>Backup folder Mysql gegevens</value>
+    <value>Backup folder MySQL gegevens</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Een back-up MySql \ Data Folder. Even geduld aub. Scherm verschijnt bevroren.</value>

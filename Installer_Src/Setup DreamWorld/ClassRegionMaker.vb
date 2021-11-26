@@ -91,21 +91,21 @@ Public Class ClassRegionMaker
 
     End Sub
 
-    Public Function Init() As Boolean
+    Public Function Init(Verbose As Boolean) As Boolean
 
         Dim RunningTasks As Process() = Process.GetProcessesByName("Opensim")
         If RunningTasks.Length = 0 Then
             Settings.SafeShutdown = True
         End If
 
-        GetAllRegions()
+        GetAllRegions(Verbose)
 
         If RegionCount() = 0 Then
             CreateRegion("Welcome")
             Settings.WelcomeRegion = "Welcome"
-            WriteRegionObject("Welcome", "Welcome")
+            WriteRegionObject("Welcome", "Welcome", True)
             Settings.SaveSettings()
-            If GetAllRegions() = 0 Then Return False
+            If GetAllRegions(Verbose) = 0 Then Return False
         End If
         TextPrint($"Loaded {CStr(RegionCount)} Regions")
 
@@ -275,14 +275,14 @@ Public Class ClassRegionMaker
     ''' <param name="Newname">New Name</param>
     ''' <param name="OldName">Old Name to change</param>
     ''' <param name="Estate">Optional Estate Name</param>
-    Public Sub WriteRegionObject(DosBoxName As String, RegionName As String)
+    Public Sub WriteRegionObject(DosBoxName As String, RegionName As String, Verbose As Boolean)
 
         Dim pathtoWelcome As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{DosBoxName}\Region\")
         Dim RegionUUID As String = FindRegionByName(RegionName)
         CopyFileFast(IO.Path.Combine(pathtoWelcome, $"{RegionName}.ini"), IO.Path.Combine(pathtoWelcome, $"{RegionName}.bak"))
-        Sleep(100)
+        'Sleep(10)
         DeleteFile(IO.Path.Combine(pathtoWelcome, $"{RegionName}.ini"))
-        Sleep(100)
+        ' Sleep(10)
         If Not Directory.Exists(pathtoWelcome) Then
             Try
                 Directory.CreateDirectory(pathtoWelcome)
@@ -291,9 +291,11 @@ Public Class ClassRegionMaker
             End Try
         End If
 
-        ' Change estate for Smart Start
 
-        If SmartStart(RegionUUID) = "True" And Estate(RegionUUID).Length = 0 Then
+        ' Change estate for Smart Start
+        If SmartStart(RegionUUID) = "True" And
+            Estate(RegionUUID).Length = 0 And
+            Not Verbose Then
             Estate(RegionUUID) = "SimSurround"
             SetEstate(RegionUUID, 1999)
         End If
@@ -334,15 +336,15 @@ Public Class ClassRegionMaker
         & "DisableGloebits=" & DisableGloebits(RegionUUID) & vbCrLf _
         & "DisallowForeigners=" & DisallowForeigners(RegionUUID) & vbCrLf _
         & "DisallowResidents=" & DisallowResidents(RegionUUID) & vbCrLf _
-        & "MinTimerInterval =" & MinTimerInterval(RegionUUID) & vbCrLf _
-        & "Frametime =" & FrameTime(RegionUUID) & vbCrLf _
-        & "ScriptEngine =" & ScriptEngine(RegionUUID) & vbCrLf _
-        & "Publicity =" & GDPR(RegionUUID) & vbCrLf _
-        & "Concierge =" & Concierge(RegionUUID) & vbCrLf _
-        & "SmartStart =" & SmartStart(RegionUUID) & vbCrLf _
-        & "LandingSpot =" & LandingSpot(RegionUUID) & vbCrLf _
-        & "Cores =" & Cores(RegionUUID) & vbCrLf _
-        & "Priority =" & Priority(RegionUUID) & vbCrLf _
+        & "MinTimerInterval=" & MinTimerInterval(RegionUUID) & vbCrLf _
+        & "Frametime=" & FrameTime(RegionUUID) & vbCrLf _
+        & "ScriptEngine=" & ScriptEngine(RegionUUID) & vbCrLf _
+        & "Publicity=" & GDPR(RegionUUID) & vbCrLf _
+        & "Concierge=" & Concierge(RegionUUID) & vbCrLf _
+        & "SmartStart=" & SmartStart(RegionUUID) & vbCrLf _
+        & "LandingSpot=" & LandingSpot(RegionUUID) & vbCrLf _
+        & "Cores=" & Cores(RegionUUID) & vbCrLf _
+        & "Priority=" & Priority(RegionUUID) & vbCrLf _
         & "OpenSimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf
 
         Try
@@ -504,7 +506,7 @@ Public Class ClassRegionMaker
 
     End Function
 
-    Public Function GetAllRegions() As Integer
+    Public Function GetAllRegions(Verbose As Boolean) As Integer
 
         SyncLock RegionLock
 
@@ -518,6 +520,7 @@ Public Class ClassRegionMaker
                     Backup.Add(pair.Value)
                 Next
 
+                Dim RegionListNew As New Dictionary(Of String, Region_data)
                 RegionList.Clear()
 
                 Dim uuid As String = ""
@@ -555,6 +558,7 @@ Public Class ClassRegionMaker
                                     '  TODO Auto repair this error from a backup
                                     Exit For
                                 Else
+                                    If Verbose Then TextPrint("-> " & fName)
                                     CreateRegion(fName, uuid)
                                     RegionEnabled(uuid) = CBool(INI.GetIni(fName, "Enabled", "True", "Boolean"))
 
@@ -635,7 +639,7 @@ Public Class ClassRegionMaker
                                     If Settings.SafeShutdown Then
                                         RegionPort(uuid) = LargestPort() + 1
                                         GroupPort(uuid) = ThisGroup
-                                        Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
+                                        'Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
                                     Else
                                         RegionPort(uuid) = CInt("0" + INI.GetIni(fName, "InternalPort", "", "Integer"))
                                         If RegionPort(uuid) = 0 Then RegionPort(uuid) = LargestPort() + 1
@@ -669,7 +673,7 @@ Public Class ClassRegionMaker
                                     INI.SaveINI()
                                     Add_To_Region_Map(uuid)
 
-                                    WriteRegionObject(Group, fName)
+                                    WriteRegionObject(Group, fName, Verbose)
                                 End If
                             Next
                         Catch ex As Exception

@@ -596,7 +596,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Looks up a localized string similar to Backup folder Mysql gegevens.
+        '''  Looks up a localized string similar to Backup folder MySQL gegevens.
         '''</summary>
         Friend Shared ReadOnly Property Backup_Mysql() As String
             Get

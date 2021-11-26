@@ -337,7 +337,7 @@
     <value>dossier de sauvegarde FSAssets</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>dossier de sauvegarde de données Mysql</value>
+    <value>dossier de sauvegarde de données MySQL</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Sauvegarde MySql \ Data. S'il vous plaît, attendez. Écran apparaît congelé.</value>
@@ -1879,7 +1879,7 @@
     <value>MySQL est en cours d'exécution quand je commencé, donc je quitte MySQL.</value>
   </data>
   <data name="Mysql_Word" xml:space="preserve">
-    <value>Mysql</value>
+    <value>MySQL</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>

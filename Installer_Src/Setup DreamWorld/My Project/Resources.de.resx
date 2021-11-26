@@ -340,7 +340,7 @@
     <value>Backup FSAssets Ordner</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>Backup Mysql Data-Ordner</value>
+    <value>Backup MySQL Data-Ordner</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Sichern MySql \ Data-Ordner. Warten Sie mal. Bildschirm erscheint eingefroren.</value>

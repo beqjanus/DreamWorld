@@ -310,7 +310,7 @@
     <value>záložní složky FSAssets</value>
   </data>
   <data name="Backup_Mysql" xml:space="preserve">
-    <value>Záložní složka Mysql dat</value>
+    <value>Záložní složka MySQL dat</value>
   </data>
   <data name="Backup_MySQL_Phrase" xml:space="preserve">
     <value>Zálohování MySQL \ Data. Prosím, čekejte. Na obrazovce se objeví ve zmrazeném stavu.</value>

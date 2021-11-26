@@ -899,7 +899,7 @@ Public Class FormSmartStart
                 Dim port = PropRegionClass.LargestPort + 1
                 PropRegionClass.GroupPort(RegionUUID) = port
                 PropRegionClass.RegionPort(RegionUUID) = port
-                PropRegionClass.WriteRegionObject(shortname, shortname)
+                PropRegionClass.WriteRegionObject(shortname, shortname, False)
                 PropChangedRegionSettings = True
 
                 Firewall.SetFirewall()
