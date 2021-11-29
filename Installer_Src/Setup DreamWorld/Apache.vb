@@ -14,6 +14,11 @@ Module Apache
     Private _ApacheExited As Boolean
     Private _ApacheUninstalling As Boolean
 
+
+    Private Const DreamGrid As String = "DreamGrid"
+    Private Const JOpensim As String = "JOpensim"
+    Private Const WordPress As String = "WordPress"
+
 #Region "Properties"
 
     Public Property ApacheCrashCounter As Integer
@@ -91,16 +96,14 @@ Module Apache
             SiteMapContents += "<url>" & vbCrLf
             SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & "</loc>" & vbCrLf
 
-            If Settings.CMS = JOpensim Then
-                SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/jOpensim" & "</loc>" & vbCrLf
-            End If
-
-            If Settings.CMS = "WordPress" Then
+            If Settings.CMS = Dreamgrid Then
                 SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/DreamGrid" & "</loc>" & vbCrLf
-            End If
-
-            If Settings.CMS = "Other" Then
-                SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/Other" & "</loc>" & vbCrLf
+            ElseIf Settings.CMS = JOpensim Then
+                SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/jOpensim" & "</loc>" & vbCrLf
+            ElseIf Settings.CMS = WordPress Then
+                SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/WordPress" & "</loc>" & vbCrLf
+            Else
+                SiteMapContents += "<loc>http://" & Settings.PublicIP & ":" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture) & "/" & Settings.CMS & "</loc>" & vbCrLf
             End If
 
             SiteMapContents += "<changefreq>daily</changefreq>" & vbCrLf

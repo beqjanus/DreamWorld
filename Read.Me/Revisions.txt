@@ -1,11 +1,13 @@
 REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
 
+
 V4.78 
 More changes to Smart Start in Opensim.
-	clean up robust Smart Start code a bit more, add needed stream close( with using) etc.
-	change region Smart Start code so it is identical to robust one
-	Save 2X2 and larger terrains in their own folder so Region Building will not mess up with wrong size of terrain
+Change region Smart Start code so it is identical to robust code, Many thanks to Ubit Umarov
+Save 2X2 and larger terrains in their own folder so Region Building will not mess up with wrong size of terrain
+Regenerate all terrains starts with .r32, then tries raw, Terragen, and PNG to get the highest possible resolution saved in Opensim\bin\terrains. 
+Still only works on 1X1 regions
 
 V4.77
 Logging into "parked" Smart Boot regions was formerly impossible, except via Hypergrid.  Local users could not log in except to an online regions. This is now fixed.

@@ -1598,7 +1598,6 @@ Public Class FormSetup
 
         ' OAR AND IAR MENU
         SearchForObjectsMenuItem.Text = Global.Outworldz.My.Resources.Search_Events
-        SearchForGridsMenuItem.Text = Global.Outworldz.My.Resources.Search_grids
         LoadInventoryIARToolStripMenuItem1.Text = Global.Outworldz.My.Resources.Load_Inventory_IAR
         SaveAllRunningRegiondsAsOARSToolStripMenuItem.Text = Global.Outworldz.My.Resources.Save_All_Regions
         LoadRegionOARToolStripMenuItem.Text = Global.Outworldz.My.Resources.Load_Region_OAR
@@ -3567,6 +3566,8 @@ Public Class FormSetup
     Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
         StopMysql()
     End Sub
+
+
 
 #End Region
 

@@ -100,7 +100,6 @@ Public Class FormApache
             EnableJOpensim.Checked = True
         Else
             EnableOther.Checked = True
-
         End If
 
         Sitemap.Checked = Settings.SiteMap
