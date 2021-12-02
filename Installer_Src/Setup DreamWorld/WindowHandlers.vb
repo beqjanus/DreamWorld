@@ -38,6 +38,8 @@ Module WindowHandlers
         If command Is Nothing Then Return
         If command.Length > 0 Then
 
+            command = ToLowercaseKeys(command)
+
             Dim PID As Integer
             If RegionUUID <> RobustName() And RegionUUID <> "Robust" Then
 
@@ -180,7 +182,7 @@ Module WindowHandlers
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
+
     Public Function GetPIDofWindow(GroupName As String) As Integer
 
         Dim PID As Integer
@@ -408,6 +410,7 @@ Module WindowHandlers
 
     End Function
 
+    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Logging.Log(System.String,System.String)")>
     Public Sub Zap(processName As String)
 
         ''' <summary>Kill processes by name</summary>

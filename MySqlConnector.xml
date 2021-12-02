@@ -352,7 +352,7 @@
             The collection of commands that will be executed in the batch.
             </summary>
         </member>
-        <member name="M:MySqlConnector.MySqlBatch.ExecuteReader">
+        <member name="M:MySqlConnector.MySqlBatch.ExecuteReader(System.Data.CommandBehavior)">
             <summary>
             Executes all the commands in the batch, returning a <see cref="T:MySqlConnector.MySqlDataReader"/> that can iterate
             over the result sets. If multiple resultsets are returned, use <see cref="M:MySqlConnector.MySqlDataReader.NextResult"/>
@@ -387,19 +387,13 @@
              using var connection = new MySqlConnection("...;AllowLoadLocalInfile=True");
              await connection.OpenAsync();
             
-             // attach an event handler to retrieve warnings/errors
-             IReadOnlyList&lt;MySqlError> errors = Array.Empty&lt;MySqlError>();
-             void InfoMessageHandler(object sender, MySqlInfoMessageEventArgs args) => errors = args.Errors;
-             connection.InfoMessage += InfoMessageHandler;
-            
              // bulk copy the data
              var bulkCopy = new MySqlBulkCopy(connection);
              bulkCopy.DestinationTableName = "some_table_name";
-             await bulkCopy.WriteToServerAsync(dataTable);
+             var result = await bulkCopy.WriteToServerAsync(dataTable);
             
-             // check for errors
-             connection.InfoMessage -= InfoMessageHandler;
-             if (errors.Count != 0) { /* handle errors */ }
+             // check for problems
+             if (result.Warnings.Count != 0) { /* handle potential data loss warnings */ }
              </code>
              </summary>
              <remarks><para><strong>Note:</strong> This API is a unique feature of MySqlConnector; you must
@@ -458,14 +452,17 @@
             Copies all rows in the supplied <see cref="T:System.Data.DataTable"/> to the destination table specified by the
             <see cref="P:MySqlConnector.MySqlBulkCopy.DestinationTableName"/> property of the <see cref="T:MySqlConnector.MySqlBulkCopy"/> object.
             </summary>
-            <remarks>This method is not available on <c>netstandard1.3</c>.</remarks>
+            <param name="dataTable">The <see cref="T:System.Data.DataTable"/> to copy.</param>
+            <returns>A <see cref="T:MySqlConnector.MySqlBulkCopyResult"/> with the result of the bulk copy operation.</returns>
         </member>
         <member name="M:MySqlConnector.MySqlBulkCopy.WriteToServerAsync(System.Data.DataTable,System.Threading.CancellationToken)">
             <summary>
             Asynchronously copies all rows in the supplied <see cref="T:System.Data.DataTable"/> to the destination table specified by the
             <see cref="P:MySqlConnector.MySqlBulkCopy.DestinationTableName"/> property of the <see cref="T:MySqlConnector.MySqlBulkCopy"/> object.
             </summary>
-            <remarks>This method is not available on <c>netstandard1.3</c>.</remarks>
+            <param name="dataTable">The <see cref="T:System.Data.DataTable"/> to copy.</param>
+            <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
+            <returns>A <see cref="T:MySqlConnector.MySqlBulkCopyResult"/> with the result of the bulk copy operation.</returns>
         </member>
         <member name="M:MySqlConnector.MySqlBulkCopy.WriteToServer(System.Collections.Generic.IEnumerable{System.Data.DataRow},System.Int32)">
             <summary>
@@ -475,7 +472,7 @@
             </summary>
             <param name="dataRows">The collection of <see cref="T:System.Data.DataRow"/> objects.</param>
             <param name="columnCount">The number of columns to copy (in each row).</param>
-            <remarks>This method is not available on <c>netstandard1.3</c>.</remarks>
+            <returns>A <see cref="T:MySqlConnector.MySqlBulkCopyResult"/> with the result of the bulk copy operation.</returns>
         </member>
         <member name="M:MySqlConnector.MySqlBulkCopy.WriteToServerAsync(System.Collections.Generic.IEnumerable{System.Data.DataRow},System.Int32,System.Threading.CancellationToken)">
             <summary>
@@ -486,7 +483,7 @@
             <param name="dataRows">The collection of <see cref="T:System.Data.DataRow"/> objects.</param>
             <param name="columnCount">The number of columns to copy (in each row).</param>
             <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
-            <remarks>This method is not available on <c>netstandard1.3</c>.</remarks>
+            <returns>A <see cref="T:MySqlConnector.MySqlBulkCopyResult"/> with the result of the bulk copy operation.</returns>
         </member>
         <member name="M:MySqlConnector.MySqlBulkCopy.WriteToServer(System.Data.IDataReader)">
             <summary>
@@ -494,6 +491,7 @@
             <see cref="P:MySqlConnector.MySqlBulkCopy.DestinationTableName"/> property of the <see cref="T:MySqlConnector.MySqlBulkCopy"/> object.
             </summary>
             <param name="dataReader">The <see cref="T:System.Data.IDataReader"/> to copy from.</param>
+            <returns>A <see cref="T:MySqlConnector.MySqlBulkCopyResult"/> with the result of the bulk copy operation.</returns>
         </member>
         <member name="M:MySqlConnector.MySqlBulkCopy.WriteToServerAsync(System.Data.IDataReader,System.Threading.CancellationToken)">
             <summary>
@@ -502,6 +500,7 @@
             </summary>
             <param name="dataReader">The <see cref="T:System.Data.IDataReader"/> to copy from.</param>
             <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
+            <returns>A <see cref="T:MySqlConnector.MySqlBulkCopyResult"/> with the result of the bulk copy operation.</returns>
         </member>
         <member name="T:MySqlConnector.MySqlBulkCopyColumnMapping">
             <summary>
@@ -563,6 +562,22 @@
             </summary>
             <remarks>To populate a binary column, you must set <see cref="P:MySqlConnector.MySqlBulkCopyColumnMapping.DestinationColumn"/> to a variable name, and <see cref="P:MySqlConnector.MySqlBulkCopyColumnMapping.Expression"/> to an
             expression that uses <code>UNHEX</code> to set the column value, e.g., <code>`destColumn` = UNHEX(@variableName)</code>.</remarks>
+        </member>
+        <member name="T:MySqlConnector.MySqlBulkCopyResult">
+            <summary>
+            Represents the result of a <see cref="T:MySqlConnector.MySqlBulkCopy"/> operation.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlBulkCopyResult.Warnings">
+            <summary>
+            The warnings, if any. Users of <see cref="T:MySqlConnector.MySqlBulkCopy"/> should check that this collection is empty to avoid
+            potential data loss from failed data type conversions.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlBulkCopyResult.RowsInserted">
+            <summary>
+            The number of rows that were inserted during the bulk copy operation.
+            </summary>
         </member>
         <member name="T:MySqlConnector.MySqlBulkLoader">
             <summary>
@@ -892,6 +907,35 @@
             The connection ID from MySQL Server.
             </summary>
         </member>
+        <member name="P:MySqlConnector.MySqlConnection.ProvideClientCertificatesCallback">
+            <summary>
+            Gets or sets the delegate used to provide client certificates for connecting to a server.
+            </summary>
+            <remarks>The provided <see cref="T:System.Security.Cryptography.X509Certificates.X509CertificateCollection"/> should be filled with the client certificate(s) needed to connect to the server.</remarks>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnection.ProvidePasswordCallback">
+            <summary>
+            Gets or sets the delegate used to generate a password for new database connections.
+            </summary>
+            <remarks>
+            <para>This delegate is executed when a new database connection is opened that requires a password. Due to
+            connection pooling, this delegate is only executed when a new physical connection is established with a database
+            server, not when a connection is retrieved from the pool.</para>
+            <para>The <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.Password"/> option takes precedence over this
+            delegate if it is specified.</para>
+            <para>Using this delegate can make more efficient use of connection pooling for servers that require
+            frequently-changing passwords or authentication tokens. Changing the password in the connection string
+            will create unique connection pools; this delegate allows a single connection pool to use multiple passwords.</para>
+            </remarks>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnection.RemoteCertificateValidationCallback">
+            <summary>
+            Gets or sets the delegate used to verify that the server's certificate is valid.
+            </summary>
+            <remarks><see cref="P:MySqlConnector.MySqlConnectionStringBuilder.SslMode"/> must be set to <see cref="F:MySqlConnector.MySqlSslMode.Preferred"/>
+            or <see cref="F:MySqlConnector.MySqlSslMode.Required"/> in order for this delegate to be invoked. See the documentation for
+            <see cref="P:MySqlConnector.MySqlConnection.RemoteCertificateValidationCallback"/> for more information on the values passed to this delegate.</remarks>
+        </member>
         <member name="M:MySqlConnector.MySqlConnection.ClearPool(MySqlConnector.MySqlConnection)">
             <summary>
             Clears the connection pool that <paramref name="connection"/> belongs to.
@@ -980,12 +1024,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:MySqlConnector.MySqlConnection.CreateBatchCommand">
-            <summary>
-            Creates a <see cref="T:MySqlConnector.MySqlBatchCommand"/> object (that can be used with <see cref="P:MySqlConnector.MySqlBatch.BatchCommands"/>).
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:MySqlConnector.MySqlConnection.CloneWith(System.String)">
             <summary>
             Returns an unopened copy of this connection with a new connection string. If the <c>Password</c>
@@ -1022,11 +1060,326 @@
             Shared memory connection. Not currently supported.
             </summary>
         </member>
+        <member name="T:MySqlConnector.MySqlConnectionStringBuilder">
+            <summary>
+            <see cref="T:MySqlConnector.MySqlConnectionStringBuilder"/> allows you to construct a MySQL connection string by setting properties on the builder then reading the <see cref="P:System.Data.Common.DbConnectionStringBuilder.ConnectionString"/> property.
+            </summary>
+            <remarks>See <a href="https://mysqlconnector.net/connection-options/">Connection String Options</a> for more documentation on the options.</remarks>
+        </member>
+        <member name="M:MySqlConnector.MySqlConnectionStringBuilder.#ctor">
+            <summary>
+            Initializes a new <see cref="T:MySqlConnector.MySqlConnectionStringBuilder"/>.
+            </summary>
+        </member>
+        <member name="M:MySqlConnector.MySqlConnectionStringBuilder.#ctor(System.String)">
+            <summary>
+            Initializes a new <see cref="T:MySqlConnector.MySqlConnectionStringBuilder"/> with properties set from the specified connection string.
+            </summary>
+            <param name="connectionString">The connection string to use to set property values on this object.</param>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Server">
+            <summary>
+            <para>The host name or network address of the MySQL Server to which to connect. Multiple hosts can be specified in a comma-delimited list.</para>
+            <para>On Unix-like systems, this can be a fully qualified path to a MySQL socket file, which will cause a Unix socket to be used instead of a TCP/IP socket. Only a single socket name can be specified.</para>
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Port">
+            <summary>
+            The TCP port on which MySQL Server is listening for connections.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.UserID">
+            <summary>
+            The MySQL user ID.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Password">
+            <summary>
+            The password for the MySQL user.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Database">
+            <summary>
+            (Optional) The case-sensitive name of the initial database to use. This may be required if the MySQL user account only has access rights to particular databases on the server.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.LoadBalance">
+            <summary>
+            Specifies how load is distributed across backend servers.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionProtocol">
+            <summary>
+            The protocol to use to connect to the MySQL Server.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.PipeName">
+            <summary>
+            The name of the Windows named pipe to use to connect to the server. You must also set <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionProtocol"/> to <see cref="F:MySqlConnector.MySqlConnectionProtocol.NamedPipe"/> to used named pipes.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.SslMode">
+            <summary>
+            Whether to use SSL/TLS when connecting to the MySQL server.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateFile">
+            <summary>
+            The path to a certificate file in PKCS #12 (.pfx) format containing a bundled Certificate and Private Key used for mutual authentication.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CertificatePassword">
+            <summary>
+            The password for the certificate specified using the <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateFile"/> option. Not required if the certificate file is not password protected.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.SslCert">
+            <summary>
+            The path to the client’s SSL certificate file in PEM format. <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.SslKey"/> must also be specified, and <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateFile"/> should not be.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.SslKey">
+            <summary>
+            The path to the client’s SSL private key in PEM format. <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.SslCert"/> must also be specified, and <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateFile"/> should not be.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CACertificateFile">
+            <summary>
+            Use <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.SslCa"/> instead.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.SslCa">
+            <summary>
+            The path to a CA certificate file in a PEM Encoded (.pem) format. This should be used with a value for the <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.SslMode"/> property of <see cref="F:MySqlConnector.MySqlSslMode.VerifyCA"/> or <see cref="F:MySqlConnector.MySqlSslMode.VerifyFull"/> to enable verification of a CA certificate that is not trusted by the operating system’s certificate store.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateStoreLocation">
+            <summary>
+            Uses a certificate from the specified Certificate Store on the machine. The default value of <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.None"/> means the certificate store is not used; a value of <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.CurrentUser"/> or <see cref="F:MySqlConnector.MySqlCertificateStoreLocation.LocalMachine"/> uses the specified store.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateThumbprint">
+            <summary>
+            Specifies which certificate should be used from the Certificate Store specified in <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.CertificateStoreLocation"/>. This option must be used to indicate which certificate in the store should be used for authentication.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.TlsVersion">
+            <summary>
+            The TLS versions which may be used during TLS negotiation, or empty to use OS defaults.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.TlsCipherSuites">
+            <summary>
+            The TLS cipher suites which may be used during TLS negotiation. The default value (the empty string) allows the OS to determine the TLS cipher suites to use; this is the recommended setting.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Pooling">
+            <summary>
+            Enables connection pooling.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionLifeTime">
+            <summary>
+            The maximum lifetime (in seconds) for any connection, or <c>0</c> for no lifetime limit.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionReset">
+            <summary>
+            Whether connections are reset when being retrieved from the pool.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionIdlePingTime">
+            <summary>
+            This option is no longer supported.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionIdleTimeout">
+            <summary>
+            The amount of time (in seconds) that a connection can remain idle in the pool.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.DeferConnectionReset">
+            <summary>
+            This option is no longer supported.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.MinimumPoolSize">
+            <summary>
+            The minimum number of connections to leave in the pool if <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionIdleTimeout"/> is reached.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.MaximumPoolSize">
+            <summary>
+            The maximum number of connections allowed in the pool.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.AllowLoadLocalInfile">
+            <summary>
+            Allows the <c>LOAD DATA LOCAL</c> command to request files from the client.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.AllowPublicKeyRetrieval">
+            <summary>
+            Allows the client to automatically request the RSA public key from the server.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.AllowUserVariables">
+            <summary>
+            Allows user-defined variables (prefixed with <c>@</c>) to be used in SQL statements.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.AllowZeroDateTime">
+            <summary>
+            Returns <c>DATETIME</c> fields as <see cref="T:MySqlConnector.MySqlDateTime"/> objects instead of <see cref="T:System.DateTime"/> objects.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ApplicationName">
+            <summary>
+            Sets the <c>program_name</c> connection attribute passed to MySQL Server.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.AutoEnlist">
+            <summary>
+            Automatically enlists this connection in any active <see cref="T:System.Transactions.TransactionScope"/>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CharacterSet">
+            <summary>
+            Supported for backwards compatibility; MySqlConnector always uses <c>utf8mb4</c>.
+            </summary>
+        </member>
         <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ConnectionTimeout">
             <summary>
             The length of time (in seconds) to wait for a connection to the server before terminating the attempt and generating an error.
             The default value is 15.
             </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ConvertZeroDateTime">
+            <summary>
+            Whether invalid <c>DATETIME</c> fields should be converted to <see cref="F:System.DateTime.MinValue"/>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.DateTimeKind">
+            <summary>
+            The <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.DateTimeKind"/> to use when deserializing <c>DATETIME</c> values.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.DefaultCommandTimeout">
+            <summary>
+            The length of time (in seconds) each command can execute before the query is cancelled on the server, or zero to disable timeouts.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.CancellationTimeout">
+            <summary>
+            The length of time (in seconds) to wait for a query to be canceled when <see cref="P:MySqlConnector.MySqlCommand.CommandTimeout"/> expires, or zero for no timeout.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ForceSynchronous">
+            <summary>
+            Forces all async methods to execute synchronously. This can be useful for debugging.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.GuidFormat">
+            <summary>
+            Determines which column type (if any) should be read as a <see cref="T:System.Guid"/>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.IgnoreCommandTransaction">
+            <summary>
+            Does not check the <see cref="P:MySqlConnector.MySqlCommand.Transaction"/> property for validity when executing a command.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.IgnorePrepare">
+            <summary>
+            Ignores calls to <see cref="M:MySqlConnector.MySqlCommand.Prepare"/> and <c>PrepareAsync</c>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.InteractiveSession">
+            <summary>
+            Instructs the MySQL server that this is an interactive session.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Keepalive">
+            <summary>
+            TCP Keepalive idle time (in seconds), or 0 to use OS defaults.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.NoBackslashEscapes">
+            <summary>
+            Doesn't escape backslashes in string parameters. For use with the <c>NO_BACKSLASH_ESCAPES</c> MySQL server mode.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.OldGuids">
+            <summary>
+            Use the <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.GuidFormat"/> property instead.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.PersistSecurityInfo">
+            <summary>
+            If true, preserves security-sensitive information in the connection string retrieved from any open <see cref="T:MySqlConnector.MySqlConnection"/>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ServerRedirectionMode">
+            <summary>
+            Whether to use server redirection.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ServerRsaPublicKeyFile">
+            <summary>
+            The path to a file containing the server's RSA public key.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.ServerSPN">
+            <summary>
+            The server’s Service Principal Name (for <c>auth_gssapi_client</c> authentication).
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.TreatTinyAsBoolean">
+            <summary>
+            Returns <c>TINYINT(1)</c> fields as <see cref="T:System.Boolean"/> values.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.UseAffectedRows">
+            <summary>
+            Report changed rows instead of found rows.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.UseCompression">
+            <summary>
+            Compress packets sent to and from the server.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.UseXaTransactions">
+            <summary>
+            Use XA transactions to implement <see cref="T:System.Transactions.TransactionScope"/> distributed transactions.
+            </summary>
+        </member>
+        <member name="M:MySqlConnector.MySqlConnectionStringBuilder.ContainsKey(System.String)">
+            <summary>
+            Whether this <see cref="T:MySqlConnector.MySqlConnectionStringBuilder"/> contains a set option with the specified name.
+            </summary>
+            <param name="keyword">The option name.</param>
+            <returns><c>true</c> if an option with that name is set; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:MySqlConnector.MySqlConnectionStringBuilder.Remove(System.String)">
+            <summary>
+            Removes the option with the specified name.
+            </summary>
+            <param name="keyword">The option name.</param>
+            <returns></returns>
+        </member>
+        <member name="P:MySqlConnector.MySqlConnectionStringBuilder.Item(System.String)">
+            <summary>
+            Retrieves an option value by name.
+            </summary>
+            <param name="key">The option name.</param>
+            <returns>That option's value, if set.</returns>
+        </member>
+        <member name="M:MySqlConnector.MySqlConnectionStringBuilder.GetProperties(System.Collections.Hashtable)">
+            <summary>
+            Fills in <paramref name="propertyDescriptors"/> with information about the available properties on this object.
+            </summary>
+            <param name="propertyDescriptors">The collection of <see cref="T:System.ComponentModel.PropertyDescriptor"/> objects to populate.</param>
         </member>
         <member name="T:MySqlConnector.MySqlConnectorFactory">
             <summary>
@@ -1299,7 +1652,12 @@
         </member>
         <member name="T:MySqlConnector.MySqlErrorCode">
             <summary>
-            MySQL Server error codes. Taken from <a href="https://dev.mysql.com/doc/refman/5.7/en/error-messages-server.html">Server Error Codes and Messages</a>.
+            MySQL Server error codes. Taken from <a href="https://dev.mysql.com/doc/mysql-errors/8.0/en/server-error-reference.html">Server Error Codes and Messages</a>.
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.ProvidePasswordCallbackFailed">
+            <summary>
+            The delegate provided to <see cref="P:MySqlConnector.MySqlConnection.ProvidePasswordCallback"/> failed.
             </summary>
         </member>
         <member name="F:MySqlConnector.MySqlErrorCode.BulkCopyFailed">
@@ -2637,12 +2995,12 @@
             ER_WARN_DATA_OUT_OF_RANGE
             </summary>
         </member>
-        <member name="F:MySqlConnector.MySqlErrorCode.WaningDataTruncated">
+        <member name="F:MySqlConnector.MySqlErrorCode.WarningDataTruncated">
             <summary>
             WARN_DATA_TRUNCATED
             </summary>
         </member>
-        <member name="F:MySqlConnector.MySqlErrorCode.WaningUsingOtherHandler">
+        <member name="F:MySqlConnector.MySqlErrorCode.WarningUsingOtherHandler">
             <summary>
             ER_WARN_USING_OTHER_HANDLER
             </summary>
@@ -2692,7 +3050,7 @@
             ER_SERVER_IS_IN_SECURE_AUTH_MODE
             </summary>
         </member>
-        <member name="F:MySqlConnector.MySqlErrorCode.WaningFieldResolved">
+        <member name="F:MySqlConnector.MySqlErrorCode.WarningFieldResolved">
             <summary>
             ER_WARN_FIELD_RESOLVED
             </summary>
@@ -2747,7 +3105,7 @@
             ER_UNKNOWN_STORAGE_ENGINE
             </summary>
         </member>
-        <member name="F:MySqlConnector.MySqlErrorCode.WaningDeprecatedSyntax">
+        <member name="F:MySqlConnector.MySqlErrorCode.WarningDeprecatedSyntax">
             <summary>
             ER_WARN_DEPRECATED_SYNTAX
             </summary>
@@ -4517,9 +4875,204 @@
             ER_DEBUG_SYNC_HIT_LIMIT
             </summary>
         </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.WarnDeprecatedSyntaxNoReplacement">
+            <summary>
+            ER_WARN_DEPRECATED_SYNTAX_NO_REPLACEMENT
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.TooLongIndexComment">
+            <summary>
+            ER_TOO_LONG_INDEX_COMMENT
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.LockAborted">
+            <summary>
+            ER_LOCK_ABORTED
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.DataOutOfRange">
+            <summary>
+            ER_DATA_OUT_OF_RANGE
+            </summary>
+        </member>
         <member name="F:MySqlConnector.MySqlErrorCode.CannotExecuteInReadOnlyTransaction">
             <summary>
             ER_CANT_EXECUTE_IN_READ_ONLY_TRANSACTION
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InnodbReadOnly">
+            <summary>
+            ER_INNODB_READ_ONLY
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.TableCorrupt">
+            <summary>
+            ER_TABLE_CORRUPT
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.TempFileWriteFailure">
+            <summary>
+            ER_TEMP_FILE_WRITE_FAILURE
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.ExplainNotSupported">
+            <summary>
+            ER_EXPLAIN_NOT_SUPPORTED
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidFieldSize">
+            <summary>
+            ER_INVALID_FIELD_SIZE
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.QueryTimeout">
+            <summary>
+            ER_QUERY_TIMEOUT
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.UserLockWrongName">
+            <summary>
+            ER_USER_LOCK_WRONG_NAME
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.UserLockDeadlock">
+            <summary>
+            ER_USER_LOCK_DEADLOCK
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonData">
+            <summary>
+            ER_INVALID_JSON_DATA
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonText">
+            <summary>
+            ER_INVALID_JSON_TEXT
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonTextInParam">
+            <summary>
+            ER_INVALID_JSON_TEXT_IN_PARAM
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonBinaryData">
+            <summary>
+            ER_INVALID_JSON_BINARY_DATA
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonPath">
+            <summary>
+            ER_INVALID_JSON_PATH
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonCharset">
+            <summary>
+            ER_INVALID_JSON_CHARSET
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonCharsetInFunction">
+            <summary>
+            ER_INVALID_JSON_CHARSET_IN_FUNCTION
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidTypeForJson">
+            <summary>
+            ER_INVALID_TYPE_FOR_JSON
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidCastToJson">
+            <summary>
+            ER_INVALID_CAST_TO_JSON
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonPathCharset">
+            <summary>
+            ER_INVALID_JSON_PATH_CHARSET
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonPathWildcard">
+            <summary>
+            ER_INVALID_JSON_PATH_WILDCARD
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonValueTooBig">
+            <summary>
+            ER_JSON_VALUE_TOO_BIG
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonKeyTooBig">
+            <summary>
+            ER_JSON_KEY_TOO_BIG
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonUsedAsKey">
+            <summary>
+            ER_JSON_USED_AS_KEY
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonVacuousPath">
+            <summary>
+            ER_JSON_VACUOUS_PATH
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonBadOneOrAllArg">
+            <summary>
+            ER_JSON_BAD_ONE_OR_ALL_ARG
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.NumericJsonValueOutOfRange">
+            <summary>
+            ER_NUMERIC_JSON_VALUE_OUT_OF_RANGE
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonValueForCast">
+            <summary>
+            ER_INVALID_JSON_VALUE_FOR_CAST
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonDocumentTooDeep">
+            <summary>
+            ER_JSON_DOCUMENT_TOO_DEEP
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonDocumentNullKey">
+            <summary>
+            ER_JSON_DOCUMENT_NULL_KEY
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonPathArrayCell">
+            <summary>
+            ER_INVALID_JSON_PATH_ARRAY_CELL
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.NoSuchDb">
+            <summary>
+            ER_NO_SUCH_DB
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.MissingJsonTableValue">
+            <summary>
+            ER_MISSING_JSON_TABLE_VALUE
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.WrongJsonTableValue">
+            <summary>
+            ER_WRONG_JSON_TABLE_VALUE
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonTableValueOutOfRange">
+            <summary>
+            ER_JT_VALUE_OUT_OF_RANGE
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.JsonTableMaxNestedPath">
+            <summary>
+            ER_JT_MAX_NESTED_PATH
+            </summary>
+        </member>
+        <member name="F:MySqlConnector.MySqlErrorCode.InvalidJsonType">
+            <summary>
+            ER_INVALID_JSON_TYPE
             </summary>
         </member>
         <member name="F:MySqlConnector.MySqlErrorCode.CannotConvertString">
@@ -4705,6 +5258,31 @@
             <param name="expectedSequenceNumber">The expected packet sequence number.</param>
             <param name="packetSequenceNumber">The actual packet sequence number.</param>
             <returns>A new <see cref="T:MySqlConnector.MySqlProtocolException"/>.</returns>
+        </member>
+        <member name="T:MySqlConnector.MySqlProvidePasswordContext">
+            <summary>
+            Provides context for the <see cref="P:MySqlConnector.MySqlConnection.ProvidePasswordCallback"/> delegate.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlProvidePasswordContext.Server">
+            <summary>
+            The server to which MySqlConnector is connecting. This is a host name from the <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.Server"/> option.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlProvidePasswordContext.Port">
+            <summary>
+            The server port. This corresponds to <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.Port"/>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlProvidePasswordContext.UserId">
+            <summary>
+            The user ID being used for authentication. This corresponds to <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.UserID"/>.
+            </summary>
+        </member>
+        <member name="P:MySqlConnector.MySqlProvidePasswordContext.Database">
+            <summary>
+            The optional initial database; this value may be the empty string. This corresponds to <see cref="P:MySqlConnector.MySqlConnectionStringBuilder.Database"/>.
+            </summary>
         </member>
         <member name="P:MySqlConnector.MySqlRowsCopiedEventArgs.Abort">
             <summary>
