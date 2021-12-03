@@ -213,7 +213,9 @@ Module GlobalSettings
     Public Sub TextPrint(Value As String)
 
         Log(My.Resources.Info_word, Value)
-        FormSetup.TextBox1.Text += Value & vbCrLf
+        Dim dt As String = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
+
+        FormSetup.TextBox1.Text += $"{dt} {Value}{vbCrLf}"
         If FormSetup.TextBox1.Text.Length > FormSetup.TextBox1.MaxLength - 1000 Then
             FormSetup.TextBox1.Text = Mid(FormSetup.TextBox1.Text, 1000)
         End If

@@ -2738,8 +2738,8 @@ Public Class FormSetup
 
             ' print hourly marks on console
             If SecondsTicker Mod 3600 = 0 Then
-                Dim dt As String = Date.Now.ToString(Globalization.CultureInfo.CurrentCulture)
-                TextPrint($"{dt} {Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
+
+                TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
                 SetPublicIP()
                 ExpireLogsByAge()
                 DeleteDirectoryTmp()
@@ -2782,9 +2782,12 @@ Public Class FormSetup
 
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
 
+
         If PropOpensimIsRunning() Then
+
             If Settings.ApacheEnable Then
-                Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+                Dim webAddress As String = "http://127.0.0.1:" &
+                    Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
@@ -2803,6 +2806,7 @@ Public Class FormSetup
         Else
             If Settings.ApacheEnable Then
                 Dim webAddress As String = "http://127.0.0.1:" & Convert.ToString(Settings.ApachePort, Globalization.CultureInfo.InvariantCulture)
+
                 Try
                     Process.Start(webAddress)
                 Catch ex As Exception
@@ -3575,6 +3579,25 @@ Public Class FormSetup
 
     Private Sub StopToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles StopToolStripMenuItem1.Click
         StopMysql()
+    End Sub
+
+    Private Sub ViewGoogleMapToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ViewGoogleMapToolStripMenuItem.Click
+
+        Dim WelcomeUUID = PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+        Dim Str = "/wifi/map.html?X=" & CStr(PropRegionClass.CoordX(WelcomeUUID) - 15) &
+                    "&Y=" & CStr(PropRegionClass.CoordY(WelcomeUUID) + 5)
+
+        If Settings.ApacheEnable Then
+            Dim webAddress As String = $"http://{Settings.PublicIP}:{Settings.HttpPort}{Str}"
+
+            Try
+                Process.Start(webAddress)
+            Catch ex As Exception
+            End Try
+        Else
+            TextPrint(My.Resources.Not_Running)
+        End If
+
     End Sub
 
 
