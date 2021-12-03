@@ -62,7 +62,9 @@ Public Class ClassScreenpos
 
 #Region "Public Methods"
 
-    Public Shared Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
+#Disable Warning CA1822 ' Mark members as static
+    Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
+#Enable Warning CA1822 ' Mark members as static
 
         If name Is Nothing Then Return size
 
@@ -157,7 +159,7 @@ Public Class ClassScreenpos
         Dim waiting As Integer = 50 ' 5 sec
         While waiting > 0
             Try
-                XYData = ReadINIFile(XYINI)
+                XYData = ReadIniFile(XYINI)
                 waiting = 0
             Catch ex As Exception
                 waiting -= 1
@@ -167,7 +169,9 @@ Public Class ClassScreenpos
 
     End Sub
 
-    Public Shared Sub PutSize(name As String, size As Integer)
+#Disable Warning CA1822 ' Mark members as static
+    Public Sub PutSize(name As String, size As Integer)
+#Enable Warning CA1822 ' Mark members as static
 
         If name Is Nothing Then Return
         name = name.Replace("\n", "")

@@ -2435,70 +2435,70 @@ Public Class FormSetup
 
 
             If Combined IsNot Nothing And Combined.Count > 0 Then
-                    Try
-                        BuildLand(Combined)
-                    Catch ex As Exception
-                        BreakPoint.Show(ex.Message)
-                    End Try
+                Try
+                    BuildLand(Combined)
+                Catch ex As Exception
+                    BreakPoint.Show(ex.Message)
+                End Try
+            End If
+
+            ' start with zero avatars
+            For Each RegionUUID As String In PropRegionClass.RegionUuids
+                PropRegionClass.AvatarCount(RegionUUID) = 0
+            Next
+
+            AvatarLabel.Text = ""
+
+            For Each NameValue In Combined
+                Dim Avatar = NameValue.Key
+                Dim RegionUUID = NameValue.Value
+                Dim RegionName = PropRegionClass.RegionName(RegionUUID)
+                If RegionName Is Nothing Then Continue For
+
+                ' not seen before
+                If Not CurrentLocation.ContainsKey(Avatar) Then
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    CurrentLocation.Add(Avatar, RegionName)
+                    PropRegionClass.AvatarCount(RegionUUID) += 1
+                    AddorUpdateVisitor(Avatar, RegionName)
+                    ' Seen visitor before, check the region to see if it moved
+                ElseIf Not CurrentLocation.Item(Avatar) = RegionName Then
+                    TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
+                    CurrentLocation.Item(Avatar) = RegionName
+                    PropRegionClass.AvatarCount(RegionUUID) += 1
+                    AddorUpdateVisitor(Avatar, RegionName)
+                Else
+                    PropRegionClass.AvatarCount(RegionUUID) += 1
                 End If
+            Next
 
-                ' start with zero avatars
-                For Each RegionUUID As String In PropRegionClass.RegionUuids
-                    PropRegionClass.AvatarCount(RegionUUID) = 0
-                Next
+            ' remove anyone who has left for good
 
-                AvatarLabel.Text = ""
+            Dim Remove As New List(Of String)
+            For Each NameValue In CurrentLocation
+                Dim Avatar = NameValue.Key
+                Dim RegionName = NameValue.Value
 
-                For Each NameValue In Combined
-                    Dim Avatar = NameValue.Key
-                    Dim RegionUUID = NameValue.Value
-                    Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-                    If RegionName Is Nothing Then Continue For
+                If Not Combined.ContainsKey(Avatar) Then
+                    TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
+                    SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
+                    Remove.Add(Avatar)
+                End If
+            Next
 
-                    ' not seen before
-                    If Not CurrentLocation.ContainsKey(Avatar) Then
-                        TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                        SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                        CurrentLocation.Add(Avatar, RegionName)
-                        PropRegionClass.AvatarCount(RegionUUID) += 1
-                        AddorUpdateVisitor(Avatar, RegionName)
-                        ' Seen visitor before, check the region to see if it moved
-                    ElseIf Not CurrentLocation.Item(Avatar) = RegionName Then
-                        TextPrint($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                        SpeechList.Enqueue($"{Avatar} {My.Resources.Arriving_word} {RegionName}")
-                        CurrentLocation.Item(Avatar) = RegionName
-                        PropRegionClass.AvatarCount(RegionUUID) += 1
-                        AddorUpdateVisitor(Avatar, RegionName)
-                    Else
-                        PropRegionClass.AvatarCount(RegionUUID) += 1
-                    End If
-                Next
+            For Each Avi In Remove
+                CurrentLocation.Remove(Avi)
+                If Visitor.ContainsKey(Avi) Then
+                    Visitor.Remove(Avi)
+                End If
+            Next
 
-                ' remove anyone who has left for good
-
-                Dim Remove As New List(Of String)
-                For Each NameValue In CurrentLocation
-                    Dim Avatar = NameValue.Key
-                    Dim RegionName = NameValue.Value
-
-                    If Not Combined.ContainsKey(Avatar) Then
-                        TextPrint($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                        SpeechList.Enqueue($"{Avatar} {My.Resources.leaving_word} {RegionName}")
-                        Remove.Add(Avatar)
-                    End If
-                Next
-
-                For Each Avi In Remove
-                    CurrentLocation.Remove(Avi)
-                    If Visitor.ContainsKey(Avi) Then
-                        Visitor.Remove(Avi)
-                    End If
-                Next
-
-                total = Combined.Count
-                AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
-            Catch ex As Exception
-                BreakPoint.Show(ex.Message)
+            total = Combined.Count
+            AvatarLabel.Text = $"{CStr(total)} {My.Resources.Avatars_word}"
+        Catch ex As Exception
+            BreakPoint.Show(ex.Message)
         End Try
 
         Return total
