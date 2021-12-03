@@ -83,6 +83,16 @@ form
         return results[1];
 }
 
+function addMonths(date, months) {
+    var d = date.getDate();
+    date.setMonth(date.getMonth() + +months);
+    if (date.getDate() != d) {
+      date.setDate(0);
+    }
+    return date;
+}
+
+
 var chart;
 var chart2;
 var chart3;
@@ -114,8 +124,7 @@ $(document).ready(function () {
     if (what.length > 0) {
         start = what;
     } else {
-		var date = new Date();
-		start = new Date(date.getFullYear(), date.getMonth(), 1);
+		start = (addMonths(new Date(date.getFullYear()),-1).toString());
 		start = start.toLocaleDateString("en-US", { month: 'numeric' }) + '/' +  start.toLocaleDateString("en-US", { day: 'numeric' }) + "/" + start.toLocaleDateString("en-US", { year: 'numeric' }) 
     }
 
