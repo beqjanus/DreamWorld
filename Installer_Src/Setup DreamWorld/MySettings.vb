@@ -1033,7 +1033,7 @@ Public Class MySettings
 
     Public Property KeepVisits() As Integer
         Get
-            Return CInt("0" & GetMySetting("KeepVisits", "90"))
+            Return CInt("0" & GetMySetting("KeepVisits", "365"))
         End Get
         Set
             SetMySetting("KeepVisits", CStr(Value))
