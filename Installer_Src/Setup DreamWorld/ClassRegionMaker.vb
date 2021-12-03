@@ -1801,14 +1801,7 @@ Public Class ClassRegionMaker
         ' we want region name, UUID and server_startup could also be a probe from the outworldz to check if ports are open.
 
         ' WarmingUp(0) = True ShuttingDown(1) = True
-
-        ' alerts need to be fast so we stash them on a list and process them on a 10 second timer.
-
-        If post.Contains("/broker/") Then
-            '{0} avatar name, {1} region name, {2} number of avatars
-            'http://127.0.0.1:${Const|DiagnosticsPort}/broker/{0}/{1}/{2}"
-            'SpeechList.Enqueue(post)
-        ElseIf post.Contains("""alert"":""region_ready""") Then
+        If post.Contains("""alert"":""region_ready""") Then
             WebserverList.Add(post)
         ElseIf post.ToUpperInvariant.Contains("ALT=") Then
             Return SmartStartParse(post)
