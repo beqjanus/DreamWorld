@@ -26,7 +26,7 @@
             WaitForBooted(RegionUUID)
 
             ConsoleCommand(RegionUUID, "change region " & """" & PropRegionClass.RegionName(RegionUUID) & """")
-            ConsoleCommand(RegionUUID, "save oar  " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
+            ConsoleCommand(RegionUUID, "save oar " & """" & BackupPath() & "/" & PropRegionClass.RegionName(RegionUUID) & "_" &
                                DateTime.Now.ToString("yyyy-MM-dd_HH_mm_ss", Globalization.CultureInfo.InvariantCulture) & ".oar" & """")
         Next
 
