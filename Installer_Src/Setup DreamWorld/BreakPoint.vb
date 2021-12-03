@@ -7,9 +7,9 @@
 
 Module BreakPoint
 
-    Public Sub Show(message As String)
+    Public Sub Show(m As String)
 
-        Diagnostics.Debug.Print(message)
+        Diagnostics.Debug.Print(m)
 
     End Sub
 

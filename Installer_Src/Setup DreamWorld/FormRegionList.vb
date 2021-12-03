@@ -487,7 +487,7 @@ Public Class FormRegionlist
         ImageListSmall.Images.Add(My.Resources.ResourceManager.GetObject("navigate_minus", Globalization.CultureInfo.InvariantCulture))  '  17 - NoEstate
 
         If TheView1 = ViewType.Details Or TheView1 = ViewType.Icons Then
-            Timer1.Interval = 250 ' check for Form1.PropUpdateView immediately
+            Timer1.Interval = 1 ' check for Form1.PropUpdateView immediately
             Timer1.Start() 'Timer starts functioning
         End If
 
@@ -725,8 +725,8 @@ Public Class FormRegionlist
             End If
 
             For Each col In AvatarView.Columns
-                Using colsize As New ClassScreenpos(MyBase.Name & "ColumnSize")
-                    Dim w = colsize.ColumnWidth(CStr(col.name))
+                Using csize As New ClassScreenpos(MyBase.Name & "ColumnSize")
+                    Dim w = csize.ColumnWidth(CStr(col.name))
                     If w > 0 Then col.Width = w
                 End Using
             Next
@@ -959,8 +959,8 @@ Public Class FormRegionlist
         End Try
 
         For Each col In ListView1.Columns
-            Using colsize As New ClassScreenpos(MyBase.Name & "ColumnSize")
-                Dim w = colsize.ColumnWidth(CStr(col.name))
+            Using csize As New ClassScreenpos(MyBase.Name & "ColumnSize")
+                Dim w = csize.ColumnWidth(CStr(col.name))
                 If w > 0 Then col.Width = w
             End Using
         Next
@@ -1095,8 +1095,8 @@ Public Class FormRegionlist
             End If
 
             For Each col In UserView.Columns
-                Using colsize As New ClassScreenpos(MyBase.Name & "ColumnSize")
-                    Dim w = colsize.ColumnWidth(CStr(col.Name))
+                Using csize As New ClassScreenpos(MyBase.Name & "ColumnSize")
+                    Dim w = csize.ColumnWidth(CStr(col.Name))
                     If w > 0 Then
                         col.Width = w
                     End If
@@ -1376,13 +1376,13 @@ SetWindowOnTop_Err:
             Next
 
             If (StopIt) Then
-                PropRegionClass.StopRegion(RegionUUID)
+                ClassRegionMaker.StopRegion(RegionUUID)
             End If
 
         ElseIf chosen = "Console" Then
 
-            'ReBoot(RegionUUID)
-            'WaitForBooting(RegionUUID)
+            ReBoot(RegionUUID)
+            WaitForBooted(RegionUUID)
 
             Dim hwnd = GetHwnd(PropRegionClass.GroupName(RegionUUID))
 

@@ -2193,7 +2193,7 @@ Public Class MySettings
         Apacheout.Clear()
         Dim found As Boolean = False
         For Each Item As String In Apachein
-            If Item.StartsWith(Name, StringComparison.InvariantCultureIgnoreCase) Then
+            If Item.StartsWith(Name, StringComparison.OrdinalIgnoreCase) Then
                 Apacheout.Add(value)
                 found = True
             Else

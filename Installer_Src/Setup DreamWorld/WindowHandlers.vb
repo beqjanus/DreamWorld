@@ -136,7 +136,7 @@ Module WindowHandlers
         Dim PID As Integer
         Dim INI = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Groupname}\PID.pid")
         If IO.File.Exists(INI) Then
-
+            Dim Plist As Process = Nothing
             Try
                 Using F = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
                     Using S = New StreamReader(F)
@@ -144,15 +144,14 @@ Module WindowHandlers
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
                             If Int32.TryParse(sPID, PID) Then
-                                Dim Plist = Process.GetProcessById(PID)
-                                Return Plist.MainWindowHandle
+                                Plist = Process.GetProcessById(PID)
                             End If
                         End While
                     End Using
                 End Using
             Catch
             End Try
-
+            If Plist IsNot Nothing Then Return Plist.MainWindowHandle
         End If
 
         ' file may be gone or locked so as a last resort, so look at window name which is somewhat unreliable
@@ -194,15 +193,14 @@ Module WindowHandlers
                         'now loop through each line
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
-                            If Int32.TryParse(sPID, PID) Then
-                                Return PID
-                            End If
+                            Int32.TryParse(sPID, PID)
                         End While
                     End Using
                 End Using
             End If
         Catch
         End Try
+        If PID > 0 Then Return PID
 
         For Each pList As Process In Process.GetProcessesByName("Opensim")
             Try

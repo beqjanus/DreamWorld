@@ -195,7 +195,7 @@ Public Class FormDiva
             If ofd.ShowDialog = DialogResult.OK Then
                 If ofd.FileName.Length > 0 Then
 
-                    Dim pattern As Regex = New Regex("PNG$", RegexOptions.IgnoreCase)
+                    Dim pattern = New Regex("PNG$", RegexOptions.IgnoreCase)
                     Dim match As Match = pattern.Match(ofd.FileName)
                     If Not match.Success Then
                         MsgBox(My.Resources.Must_PNG, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -337,7 +337,7 @@ Public Class FormDiva
 
     Private Sub SmtpPort_TextChanged(sender As Object, e As EventArgs) Handles SmtpPort.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         SmtpPort.Text = digitsOnly.Replace(SmtpPort.Text, "")
         If Not initted Then Return
         Settings.SmtpPort = CInt("0" & SmtpPort.Text)
@@ -407,7 +407,7 @@ Public Class FormDiva
 
         If Not initted Then Return
 
-        If Not SplashPage.Text.StartsWith("http://", System.StringComparison.InvariantCultureIgnoreCase) And Not SplashPage.Text.StartsWith("https://", System.StringComparison.InvariantCultureIgnoreCase) Then
+        If Not SplashPage.Text.StartsWith("http://", System.StringComparison.OrdinalIgnoreCase) And Not SplashPage.Text.StartsWith("https://", System.StringComparison.OrdinalIgnoreCase) Then
             SplashPage.Text = "http://" & SplashPage.Text
         End If
         Settings.SplashPage = SplashPage.Text

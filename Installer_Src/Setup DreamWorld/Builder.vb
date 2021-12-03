@@ -16,7 +16,7 @@ Module Build
 
 #Region "Land"
 
-    Dim GenLandLock As New Object
+    ReadOnly GenLandLock As New Object
     Public Sub GenLand(RegionUUID As String)
 
 
@@ -87,7 +87,7 @@ Module Build
 
     End Sub
 
-    Dim LandLock As New Object
+    ReadOnly LandLock As New Object
     Public Sub SurroundingLandMaker(RegionUUID As String)
 
         SyncLock LandLock
@@ -123,7 +123,7 @@ Module Build
 
             Dim GroupName As String = ""
             Dim Simcount As Integer
-            Dim l As New List(Of String)
+
             For Each possible As String In xy
                 If RegionXY.ContainsKey(possible) Then
                     'If Debugger.IsAttached Then Diagnostics.Debug.Print("Region exists: " & PropRegionClass.RegionName(RegionXY.Item(possible)))
@@ -159,7 +159,7 @@ Module Build
 
 #Region "Landscaper"
 
-    Dim TreeLock As New Object
+    ReadOnly TreeLock As New Object
     Public Sub GenTrees(RegionUUID As String)
 
         SyncLock TreeLock
@@ -213,7 +213,7 @@ Module Build
             Dim TreeDirectoryInfo As New System.IO.DirectoryInfo(IO.Path.Combine(Settings.OpensimBinPath, "Trees"))
             For Each fileSystemInfo In TreeDirectoryInfo.GetFileSystemInfos
                 Dim n = fileSystemInfo.Name
-                If n.EndsWith(".xml", StringComparison.InvariantCultureIgnoreCase) Then
+                If n.EndsWith(".xml", StringComparison.OrdinalIgnoreCase) Then
                     Dim part = IO.Path.GetFileName(n)
                     part = part.Replace(".xml", "")
                     TreeList.Add(part)
@@ -274,7 +274,7 @@ Module Build
             Dim fileSystemInfo As System.IO.FileSystemInfo
             For Each fileSystemInfo In TerrainDirectoryInfo.GetFileSystemInfos
                 Dim n = fileSystemInfo.Name
-                If n.EndsWith(".r32", StringComparison.InvariantCultureIgnoreCase) Then
+                If n.EndsWith(".r32", StringComparison.OrdinalIgnoreCase) Then
                     Terrains.Add(fileSystemInfo.FullName)
                 End If
             Next

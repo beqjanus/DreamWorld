@@ -14,8 +14,8 @@ Imports System.Threading
 Imports IWshRuntimeLibrary
 
 Public Class FormSetup
-    Public ReadOnly MyCPUCollection As New List(Of Double)
-    Public ReadOnly MyRAMCollection As New List(Of Double)
+    Public MyCPUCollection As New List(Of Double)
+    Public MyRAMCollection As New List(Of Double)
     Public Visitor As New Dictionary(Of String, String)
 
 #Region "Resize"
@@ -324,7 +324,7 @@ Public Class FormSetup
 
 #Region "Public Function"
 
-    Public Sub Buttons(b As Button)
+    Public Sub Buttons(b As Control)
 
         If b Is Nothing Then Return
         ' Turns off all 3 stacked buttons, then enables one of them
@@ -2009,7 +2009,7 @@ Public Class FormSetup
         Try
             folders = Directory.GetFiles(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Help"))
             For Each aline As String In folders
-                If aline.EndsWith(".htm", StringComparison.InvariantCultureIgnoreCase) Then
+                If aline.EndsWith(".htm", StringComparison.OrdinalIgnoreCase) Then
                     aline = System.IO.Path.GetFileNameWithoutExtension(aline)
                     Dim HelpMenu As New ToolStripMenuItem With {
                     .Text = aline,

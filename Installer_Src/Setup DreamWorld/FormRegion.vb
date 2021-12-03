@@ -92,7 +92,7 @@ Public Class FormRegion
 
             PropAborting = True
             Dim loopctr = 60 ' wait 1 minute
-            PropRegionClass.StopRegion(RegionUUID)
+            ClassRegionMaker.StopRegion(RegionUUID)
             While CheckPort(Settings.PublicIP(), PropRegionClass.GroupPort(RegionUUID)) And loopctr > 0
                 loopctr -= 1
                 Sleep(1000)
@@ -1152,7 +1152,7 @@ Public Class FormRegion
             PropRegionClass.RegionIniFolderPath(RegionUUID) = System.IO.Path.GetDirectoryName(PropRegionClass.RegionIniFilePath(RegionUUID))
             PropRegionClass.GroupName(RegionUUID) = NewGroup
 
-            Dim theEnd As Integer = PropRegionClass.RegionIniFolderPath(RegionUUID).LastIndexOf("\", StringComparison.InvariantCulture)
+            Dim theEnd As Integer = PropRegionClass.RegionIniFolderPath(RegionUUID).LastIndexOf("\", StringComparison.OrdinalIgnoreCase)
             PropRegionClass.OpensimIniPath(RegionUUID) = PropRegionClass.RegionIniFolderPath(RegionUUID).Substring(0, theEnd + 1)
 
         End If

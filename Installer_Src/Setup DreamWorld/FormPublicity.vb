@@ -158,7 +158,7 @@ Public Class FormPublicity
             If ofd.ShowDialog = DialogResult.OK Then
                 If ofd.FileName.Length > 0 Then
 
-                    Dim pattern As Regex = New Regex("PNG$", RegexOptions.IgnoreCase)
+                    Dim pattern = New Regex("PNG$", RegexOptions.IgnoreCase)
                     Dim match As Match = pattern.Match(ofd.FileName)
                     If Not match.Success Then
                         MsgBox(My.Resources.Must_PNG, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)

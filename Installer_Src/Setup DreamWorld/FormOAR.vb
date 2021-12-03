@@ -17,7 +17,9 @@ Public Class FormOAR
 
 #Region "JSON"
 
+#Disable Warning CA1034 ' Nested types should not be visible
     Public Class JSONresult
+#Enable Warning CA1034 ' Nested types should not be visible
 
         Private _cache As Image
         Private _date As String
@@ -128,7 +130,7 @@ Public Class FormOAR
 
 #Region "Draw"
 
-    Public Sub Redraw(json As JSONresult())
+    Public Sub Redraw(jsonresult As JSONresult())
 
         Dim gdImageColumn As New DataGridViewImageColumn
         DataGridView.Columns.Add(gdImageColumn)
@@ -177,11 +179,11 @@ Public Class FormOAR
         Next
         Dim column = 0
         Dim rowcounter = 0
-        If json IsNot Nothing Then
-            Dim cnt = json.Length
+        If jsonresult IsNot Nothing Then
+            Dim cnt = jsonresult.Length
             Me.Text = CStr(cnt) & " " & Global.Outworldz.My.Resources.Items_word
 
-            For Each item In json
+            For Each item In jsonresult
                 Application.DoEvents()
                 Debug.Print("Item:" & item.Name)
 
@@ -220,12 +222,12 @@ Public Class FormOAR
         Try
             Dim File As String = SearchArray(e.ColumnIndex + (NumColumns * e.RowIndex)).Name
             File = PropDomain & "/Outworldz_Installer/" & _type & "/" & File 'make a real URL
-            If File.EndsWith(".oar", StringComparison.InvariantCultureIgnoreCase) Or
-                File.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase) Or
-                File.EndsWith(".tgz", StringComparison.InvariantCultureIgnoreCase) Then
+            If File.EndsWith(".oar", StringComparison.OrdinalIgnoreCase) Or
+                File.EndsWith(".gz", StringComparison.OrdinalIgnoreCase) Or
+                File.EndsWith(".tgz", StringComparison.OrdinalIgnoreCase) Then
                 Me.Hide()
                 LoadOARContent(File)
-            ElseIf File.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
+            ElseIf File.EndsWith(".iar", StringComparison.OrdinalIgnoreCase) Then
                 LoadIARContent(File)
             End If
         Catch ex As Exception
@@ -259,7 +261,7 @@ Public Class FormOAR
     Private Shared Function GetTextFromURL(ByVal url As Uri) As String
 
         Try
-            Using client As WebClient = New WebClient()
+            Using client = New WebClient()
                 Return client.DownloadString(url)
             End Using
         Catch ex As Exception
@@ -449,12 +451,12 @@ Public Class FormOAR
     Private Shared Function DrawTextOnImage(item As String, photo As Image) As Image
 
         ' Create solid brush.
-        Using blueBrush As SolidBrush = New SolidBrush(Color.DarkCyan)
+        Using blueBrush = New SolidBrush(Color.DarkCyan)
             ' Create rectangle.
-            Dim rect As Rectangle = New Rectangle(0, 0, 256, 30)
+            Dim rect = New Rectangle(0, 0, 256, 30)
             Dim bmp = photo
             Dim newImage As New Bitmap(256, 256)
-            Using drawFont As Font = New Font("Arial", 7)
+            Using drawFont = New Font("Arial", 7)
                 Using gr As Graphics = Graphics.FromImage(newImage)
                     gr.DrawImageUnscaled(bmp, 0, 0)
                     gr.FillRectangle(blueBrush, rect)
@@ -471,7 +473,7 @@ Public Class FormOAR
     Private Shared Function NoImage(item As JSONresult) As Image
 
         Dim bmp = Global.Outworldz.My.Resources.Blank256
-        Using drawFont As Font = New Font("Arial", 12)
+        Using drawFont = New Font("Arial", 12)
             Dim newImage = New Bitmap(256, 256)
             Try
                 Dim gr = Graphics.FromImage(newImage)
@@ -486,15 +488,15 @@ Public Class FormOAR
 
     End Function
 
-    Private Function ImageToJson(ByVal json() As JSONresult) As JSONresult()
+    Private Function ImageToJson(ByVal jsonarray() As JSONresult) As JSONresult()
 
-        If json IsNot Nothing Then
+        If jsonarray IsNot Nothing Then
 
-            For Each item In json
+            For Each item In jsonarray
                 Application.DoEvents()
                 Debug.Print("Item:" & item.Name)
 
-                Dim bmp As Bitmap = New Bitmap(imgSize, imgSize)
+                Dim bmp = New Bitmap(imgSize, imgSize)
                 If item.Cache IsNot Nothing Then
                     Using g As Graphics = Graphics.FromImage(bmp)
                         g.DrawImage(item.Cache, 0, 0, bmp.Width, bmp.Height)
@@ -502,7 +504,7 @@ Public Class FormOAR
                 Else
                     Dim img As Image = Nothing
                     If item.Photo.Length > 0 Then
-                        Dim link As Uri = New Uri(PropDomain & "/Outworldz_installer/" & _type & "/" & item.Photo)
+                        Dim link As New Uri(PropDomain & "/Outworldz_installer/" & _type & "/" & item.Photo)
 #Disable Warning CA2000
                         img = GetImageFromURL(link)
 #Enable Warning CA2000
@@ -550,7 +552,7 @@ Public Class FormOAR
 
     Private Sub RefreshToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RefreshToolStripMenuItem.Click
 
-        Timer1.Interval = 1
+        Timer1.Interval = 10
         Timer1.Start()
 
     End Sub

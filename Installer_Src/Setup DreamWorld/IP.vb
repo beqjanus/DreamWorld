@@ -62,8 +62,8 @@ Public Module IPCheck
         Dim Quad1, Quad2 As Integer
 
         Try
-            Quad1 = CInt("0" & CheckIP.Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
-            Quad2 = CInt("0" & CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.InvariantCulture) + 1).Substring(0, CheckIP.IndexOf(".", StringComparison.InvariantCulture)))
+            Quad1 = CInt("0" & CheckIP.Substring(0, CheckIP.IndexOf(".", StringComparison.OrdinalIgnoreCase)))
+            Quad2 = CInt("0" & CheckIP.Substring(CheckIP.IndexOf(".", StringComparison.OrdinalIgnoreCase) + 1).Substring(0, CheckIP.IndexOf(".", StringComparison.OrdinalIgnoreCase)))
         Catch ex As Exception
         End Try
 

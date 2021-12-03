@@ -87,7 +87,7 @@ Public Class FormCaches
 
     Private Sub CacheTimeout_TextChanged(sender As Object, e As EventArgs)
         If Not gInitted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d\.]")
+        Dim digitsOnly = New Regex("[^\d\.]")
         CacheTimeout.Text = digitsOnly.Replace(CacheTimeout.Text, "")
 
     End Sub
@@ -182,7 +182,7 @@ Public Class FormCaches
     Private Sub PictureBox1_Click_1(sender As Object, e As EventArgs) Handles PictureBox1.Click
 
         'Create an instance of the open file dialog box.
-        Dim openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+        Dim openFileDialog1 = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
             .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
         }

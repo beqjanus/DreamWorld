@@ -227,7 +227,7 @@ Module DoIni
                     line = reader.ReadLine()
                     Dim Output As String = Nothing
                     'Diagnostics.Debug.Print(line)
-                    If line.StartsWith("; START", StringComparison.InvariantCulture) Then
+                    If line.StartsWith("; START", StringComparison.OrdinalIgnoreCase) Then
                         Output += line & vbLf ' add back on the ; START
                         Output += Authorizationlist
                     Else
@@ -459,7 +459,7 @@ Module DoIni
                     line = reader.ReadLine()
                     Dim Output As String = Nothing
                     'Diagnostics.Debug.Print(line)
-                    If line.StartsWith("; START", StringComparison.InvariantCulture) Then
+                    If line.StartsWith("; START", StringComparison.OrdinalIgnoreCase) Then
                         Output += line & vbCrLf ' add back on the ; START
                         Output += RegionSetting
                     Else

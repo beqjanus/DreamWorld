@@ -125,7 +125,7 @@ Module IAR
                     Dim ToBackup As String
                     Dim BackupName = SaveIAR.GBackupName
 
-                    If Not BackupName.EndsWith(".iar", StringComparison.InvariantCultureIgnoreCase) Then
+                    If Not BackupName.EndsWith(".iar", StringComparison.OrdinalIgnoreCase) Then
                         BackupName += ".iar"
                     End If
 

@@ -23,7 +23,7 @@ Public Class FormSmartStart
     Private _initialized As Boolean
     Private _initted As Boolean
     Private _SelectedPlant As String
-    Private SavedAlready As New List(Of String)
+    Private ReadOnly SavedAlready As New List(Of String)
 
 #Region "ScreenSize"
 
@@ -703,7 +703,7 @@ Public Class FormSmartStart
             Dim File1 As System.IO.FileInfo
 
             For Each File1 In File
-                If File1.Name.EndsWith(".jpg", StringComparison.InvariantCultureIgnoreCase) Then
+                If File1.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) Then
                     Dim pic = Bitmap.FromFile(File1.FullName)
                     Dim newImage = New Bitmap(256, 256)
                     Dim gr = Graphics.FromImage(newImage)
@@ -1274,11 +1274,12 @@ Public Class FormSmartStart
             WaitForBooted(RegionUUID)
             Application.DoEvents()
             Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-            Dim exts As New List(Of String)
-            exts.Add("*.r32")
-            exts.Add("*.raw")
-            exts.Add("*.ter")
-            exts.Add("*.png")
+            Dim exts As New List(Of String) From {
+                "*.r32",
+                "*.raw",
+                "*.ter",
+                "*.png"
+            }
 
             For Each extension In exts
                 Dim Files = System.IO.Directory.EnumerateFiles(Terrainfolder, extension, SearchOption.TopDirectoryOnly)
@@ -1307,7 +1308,7 @@ Public Class FormSmartStart
                 Application.DoEvents()
 
                 Dim S As Double = PropRegionClass.SizeX(RegionUUID)
-                S = S / 256
+                S /= 256
                 If S > 1 Then
                     Dim path = $"{Terrainfolder}\{S}x{S}"
                     ' If the destination folder don't exist then create it
@@ -1358,7 +1359,7 @@ Public Class FormSmartStart
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
         Dim S As Double = PropRegionClass.SizeX(RegionUUID)
-        S = S / 256
+        S /= 256
         If S > 1 Then
             Dim path = $"{Terrainfolder}\{S}x{S}"
             ' If the destination folder don't exist then create it

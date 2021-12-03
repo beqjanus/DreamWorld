@@ -62,7 +62,7 @@ Module OAR
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
 
             ' Create an instance of the open file dialog box. Set filter options and filter index.
-            Using openFileDialog1 As OpenFileDialog = New OpenFileDialog With {
+            Using openFileDialog1 = New OpenFileDialog With {
                 .InitialDirectory = BackupPath(),
                 .Filter = Global.Outworldz.My.Resources.OAR_Load_and_Save & "(*.OAR,*.GZ,*.TGZ)|*.oar;*.gz;*.tgz;*.OAR;*.GZ;*.TGZ|All Files (*.*)|*.*",
                 .FilterIndex = 1,
@@ -185,7 +185,10 @@ Module OAR
 
             If RegionName.Length = 0 Then
                 RegionName = ChooseRegion(False)
-                If RegionName.Length = 0 Then Return
+                If RegionName.Length = 0 Then
+                    TextPrint(My.Resources.Cancelled_word)
+                    Return
+                End If
             End If
 
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
@@ -202,7 +205,7 @@ Module OAR
             ' If user has clicked Cancel, set myValue to defaultValue
             If myValue.Length = 0 Then Return
 
-            If myValue.EndsWith(".OAR", StringComparison.InvariantCulture) Or myValue.EndsWith(".oar", StringComparison.InvariantCulture) Then
+            If myValue.EndsWith(".OAR", StringComparison.OrdinalIgnoreCase) Or myValue.EndsWith(".oar", StringComparison.OrdinalIgnoreCase) Then
                 ' nothing
             Else
                 myValue += ".oar"

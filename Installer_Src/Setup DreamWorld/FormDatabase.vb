@@ -188,7 +188,7 @@ Public Class FormDatabase
     Private Sub RobustDbPort_TextChanged(sender As Object, e As EventArgs) Handles RobustDbPort.TextChanged
 
         If Not Initted1 Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         RobustDbPort.Text = digitsOnly.Replace(RobustDbPort.Text, "")
         Settings.MySqlRobustDBPort = CInt("0" & RobustDbPort.Text)
         Settings.SaveSettings()
@@ -243,7 +243,7 @@ Public Class FormDatabase
     Private Sub TextBox1_TextChanged_2(sender As Object, e As EventArgs) Handles MysqlRegionPort.TextChanged
 
         If Not Initted1 Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         MysqlRegionPort.Text = digitsOnly.Replace(MysqlRegionPort.Text, "")
 
         Settings.MySqlRegionDBPort = CInt("0" & MysqlRegionPort.Text)

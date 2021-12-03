@@ -539,7 +539,7 @@ Public Module MysqlInterface
     Public Function GetAgentsInRegion(RegionUUID As String) As Integer
 
         Dim RegionName = PropRegionClass.RegionName(RegionUUID)
-        Dim Dict As New Dictionary(Of String, String)
+
         Using NewSQLConn As New MySqlConnection(Settings.RobustMysqlConnection)
             Try
                 NewSQLConn.Open()

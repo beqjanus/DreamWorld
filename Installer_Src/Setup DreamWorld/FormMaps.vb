@@ -87,7 +87,7 @@ Public Class FormMaps
         'export-map [<path>] - Save an image of the world map (default name is exportmap.jpg)
 
         'Create an instance of the open file dialog box.
-        Using openFileDialog1 As FolderBrowserDialog = New FolderBrowserDialog With {
+        Using openFileDialog1 = New FolderBrowserDialog With {
             .ShowNewFolderButton = True,
             .Description = Global.Outworldz.My.Resources.Choose_a_Folder_word
         }
@@ -251,7 +251,7 @@ Public Class FormMaps
 
     Private Sub MapXStart_TextChanged(sender As Object, e As EventArgs) Handles MapXStart.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         MapXStart.Text = digitsOnly.Replace(MapXStart.Text, "")
         If Not Integer.TryParse(MapXStart.Text, Settings.MapCenterX) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -261,7 +261,7 @@ Public Class FormMaps
 
     Private Sub MapYStart_TextChanged(sender As Object, e As EventArgs) Handles MapYStart.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         MapYStart.Text = digitsOnly.Replace(MapYStart.Text, "")
         If Not Integer.TryParse(MapYStart.Text, Settings.MapCenterY) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -271,7 +271,7 @@ Public Class FormMaps
 
     Private Sub RenderMaxH_TextChanged(sender As Object, e As EventArgs) Handles RenderMaxH.TextChanged
 
-        Dim digitsOnly As Regex = New Regex("[^-\d]")
+        Dim digitsOnly = New Regex("[^-\d]")
         RenderMaxH.Text = digitsOnly.Replace(RenderMaxH.Text, "")
         If Not Double.TryParse(RenderMaxH.Text, Settings.RenderMaxHeight) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -280,7 +280,7 @@ Public Class FormMaps
     End Sub
 
     Private Sub RenderMinH_TextChanged(sender As Object, e As EventArgs) Handles RenderMinH.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^-\d]")
+        Dim digitsOnly = New Regex("[^-\d]")
         RenderMinH.Text = digitsOnly.Replace(RenderMinH.Text, "")
         If Not Integer.TryParse(RenderMinH.Text, Settings.RenderMinHeight) Then
             MsgBox(My.Resources.Must_be_A_Number, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
@@ -304,7 +304,7 @@ Public Class FormMaps
     End Sub
 
     Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles Days2KeepBox.TextChanged
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         Days2KeepBox.Text = digitsOnly.Replace(Days2KeepBox.Text, "")
 
         If Not Integer.TryParse(Days2KeepBox.Text, Settings.KeepVisits) Then

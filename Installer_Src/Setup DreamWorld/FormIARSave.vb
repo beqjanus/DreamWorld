@@ -9,7 +9,7 @@ Public Class FormIARSave
 
 #Region "Private Fields"
 
-    Private _All As Boolean
+
     Private _gAvatarName As String = ""
     Private _gBackupName As String = ""
     Private _gBackupPath As String = ""
@@ -57,9 +57,8 @@ Public Class FormIARSave
         End With
     End Sub
 
-    Public Sub init(All As Boolean)
+    Public Sub Init()
 
-        _All = All
         ObjectNameBox.Text = My.Resources.Slash
         BackupNameTextBox.Visible = False
         Label2.Visible = False

@@ -8,7 +8,7 @@ Imports System.IO
 Imports System.Text.RegularExpressions
 Imports System.Threading
 
-Public Class PRIEnum
+Public Class PRIEnumClass
 
     Public AboveNormal As ProcessPriorityClass = ProcessPriorityClass.AboveNormal
     Public BelowNormal As ProcessPriorityClass = ProcessPriorityClass.BelowNormal
@@ -581,7 +581,7 @@ Module SmartStart
                 Try
                     Dim Priority = PropRegionClass.Priority(RegionUUID)
 
-                    Dim E = New PRIEnum
+                    Dim E = New PRIEnumClass
                     Dim P As ProcessPriorityClass
                     If Priority = "RealTime" Then
                         P = E.RealTime

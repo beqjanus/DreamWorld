@@ -125,7 +125,7 @@ Public Class FormRestart
     Private Sub AutoRestartBox_TextChanged(sender As Object, e As EventArgs) Handles AutoRestartBox.TextChanged
 
         If Not initted Then Return
-        Dim digitsOnly As Regex = New Regex("[^\d]")
+        Dim digitsOnly = New Regex("[^\d]")
         AutoRestartBox.Text = digitsOnly.Replace(AutoRestartBox.Text, "")
 
     End Sub

@@ -15,9 +15,9 @@ Public Class ClassRegionMaker
 #Region "Public Fields"
 
     Private Class JSONresult
-        Public alert As String
+        ' Public alert As String
         Public login As String
-        Public region_id As String
+        'Public region_id As String
         Public region_name As String
     End Class
 
@@ -25,13 +25,12 @@ Public Class ClassRegionMaker
 
 #Region "Declarations"
 
-    Public WebserverList As New List(Of String)
+    Private ReadOnly _webserverList As New List(Of String)
     Private Shared FInstance As ClassRegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
     ReadOnly Backup As New List(Of ClassRegionMaker.Region_data)
 
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
-    Private _GetAllRegionsIsBusy As Boolean
     Private _RegionListIsInititalized As Boolean
     Dim json As New JSONresult
 
@@ -130,8 +129,8 @@ Public Class ClassRegionMaker
 
                 ' This search returns the substring between two strings, so the first index Is moved to the character just after the first string.
                 Dim POST As String = Uri.UnescapeDataString(ProcessString)
-                Dim first As Integer = POST.IndexOf("{", StringComparison.InvariantCulture)
-                Dim last As Integer = POST.LastIndexOf("}", StringComparison.InvariantCulture)
+                Dim first As Integer = POST.IndexOf("{", StringComparison.OrdinalIgnoreCase)
+                Dim last As Integer = POST.LastIndexOf("}", StringComparison.OrdinalIgnoreCase)
 
                 Dim rawJSON As String = ""
                 If first > -1 And last > -1 Then
@@ -197,7 +196,7 @@ Public Class ClassRegionMaker
 #End Region
 
 #Region "Create Region"
-    Dim CreateRegionLock As New Object
+    ReadOnly CreateRegionLock As New Object
 
     Public Function CreateRegion(name As String, Optional UUID As String = "") As String
 
@@ -356,7 +355,7 @@ Public Class ClassRegionMaker
             BreakPoint.Show(ex.Message)
         End Try
 
-        Add_To_Region_Map(RegionUUID)
+        AddToRegionMap(RegionUUID)
 
     End Sub
 
@@ -364,15 +363,15 @@ Public Class ClassRegionMaker
 
 #Region "Functions"
 
-    Private PortLock As New Object
+    Private ReadOnly PortLock As New Object
 
-    Private RegionLock As New Object
+    Private ReadOnly RegionLock As New Object
 
     ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     '''
-    Private UpdatePortLock As New Object
+    Private ReadOnly UpdatePortLock As New Object
 
-    Public Sub Add_To_Region_Map(RegionUUID As String)
+    Public Sub AddToRegionMap(RegionUUID As String)
 
         ' add to the global map this entire DOS box
         Dim Xloc = CoordX(RegionUUID)
@@ -519,13 +518,11 @@ Public Class ClassRegionMaker
                 PropChangedRegionSettings = False
                 Backup.Clear()
                 Dim pair As KeyValuePair(Of String, Region_data)
-                Dim UsedPorts As New List(Of Integer)
 
                 For Each pair In RegionList
                     Backup.Add(pair.Value)
                 Next
 
-                Dim RegionListNew As New Dictionary(Of String, Region_data)
                 RegionList.Clear()
 
                 Dim uuid As String = ""
@@ -539,7 +536,7 @@ Public Class ClassRegionMaker
                     Dim regionfolders = Directory.GetDirectories(FolderName)
                     For Each FileName As String In regionfolders
 
-                        If FileName.EndsWith("DataSnapshot", StringComparison.InvariantCulture) Then Continue For
+                        If FileName.EndsWith("DataSnapshot", StringComparison.OrdinalIgnoreCase) Then Continue For
 
                         Dim fName = ""
                         Try
@@ -570,7 +567,7 @@ Public Class ClassRegionMaker
                                     RegionIniFilePath(uuid) = file ' save the path
                                     RegionIniFolderPath(uuid) = System.IO.Path.GetDirectoryName(file)
 
-                                    Dim theEnd As Integer = RegionIniFolderPath(uuid).LastIndexOf("\", StringComparison.InvariantCulture)
+                                    Dim theEnd As Integer = RegionIniFolderPath(uuid).LastIndexOf("\", StringComparison.OrdinalIgnoreCase)
                                     OpensimIniPath(uuid) = RegionIniFolderPath(uuid).Substring(0, theEnd + 1)
 
                                     Dim M As Match = Regex.Match(FolderName, ".*\\(.*)$")
@@ -676,7 +673,7 @@ Public Class ClassRegionMaker
 
                                     End If
                                     INI.SaveINI()
-                                    Add_To_Region_Map(uuid)
+                                    AddToRegionMap(uuid)
 
                                     WriteRegionObject(Group, fName, Verbose)
                                 End If
@@ -763,7 +760,7 @@ Public Class ClassRegionMaker
 
     End Function
 
-    Public Sub StopRegion(RegionUUID As String)
+    Public Shared Sub StopRegion(RegionUUID As String)
 
         Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
         If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
@@ -862,7 +859,7 @@ Public Class ClassRegionMaker
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer
-        Public _SimName As String = ""
+        
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
         Public _Status As Integer
@@ -1634,6 +1631,13 @@ Public Class ClassRegionMaker
 
             RegionList(uuid)._Tides = Value
         End Set
+    End Property
+
+    Public ReadOnly Property WebserverList As List(Of String)
+        Get
+            Return _webserverList
+        End Get
+
     End Property
 
 #End Region
