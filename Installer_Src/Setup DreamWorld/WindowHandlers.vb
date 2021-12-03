@@ -64,7 +64,7 @@ Module WindowHandlers
                 End Try
             Else ' Robust
                 Try
-                    Sleep(1000)
+                    'Sleep(1000)
                     If Not noChange Then ShowDOSWindow(Process.GetProcessById(PropRobustProcID).MainWindowHandle, MaybeShowWindow())
                 Catch ex As Exception
                     'BreakPoint.Show(ex.Message)
@@ -116,7 +116,7 @@ Module WindowHandlers
     ''' </summary>
     ''' <param name="Groupname">Name of the DOS box</param>
     ''' <returns>Handle to a window to Intptr.zero</returns>
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
+
     Public Function GetHwnd(Groupname As String) As IntPtr
 
         If Groupname = RobustName() Then
@@ -138,8 +138,8 @@ Module WindowHandlers
         If IO.File.Exists(INI) Then
 
             Try
-                Using F As FileStream = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
-                    Using S As StreamReader = New StreamReader(F)
+                Using F = New FileStream(INI, FileMode.Open, FileAccess.Read, FileShare.Read)
+                    Using S = New StreamReader(F)
                         'now loop through each line
                         While S.Peek <> -1
                             Dim sPID As String = S.ReadLine
@@ -167,7 +167,7 @@ Module WindowHandlers
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")>
+
     Public Function GetPIDofRobust() As Integer
 
         For Each pList As Process In Process.GetProcessesByName("Robust")
@@ -410,7 +410,7 @@ Module WindowHandlers
 
     End Function
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId:="Outworldz.Logging.Log(System.String,System.String)")>
+
     Public Sub Zap(processName As String)
 
         ''' <summary>Kill processes by name</summary>

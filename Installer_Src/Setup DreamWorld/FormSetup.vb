@@ -901,9 +901,7 @@ Public Class FormSetup
                 ' Read the chosen sim name
 
                 ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email)
-                ConsoleCommand(RobustName, "{ENTER}")
-                ConsoleCommand(RobustName, "{ENTER}")
-                ConsoleCommand(RobustName, "{ENTER}")
+
                 Settings.RunOnce = True
                 Settings.SaveSettings()
 
@@ -1645,6 +1643,7 @@ Public Class FormSetup
         TextPrint(My.Resources.Getting_regions_word)
         PropRegionClass = ClassRegionMaker.Instance()
 
+        PropChangedRegionSettings = True
         PropRegionClass.Init(True)
 
         UpgradeDotNet()
@@ -2054,7 +2053,7 @@ Public Class FormSetup
             If Agent.Value.Length > 0 Then
 
                 Dim RegionUUID = Agent.Value
-                Dim RegionName As String = ""
+                Dim RegionName As String
 
                 RegionName = PropRegionClass.RegionName(RegionUUID)
                 If RegionName Is Nothing Then Continue For
@@ -2646,7 +2645,7 @@ Public Class FormSetup
 
 #Region "Timer"
 
-    Private TimerLock As New Object
+    Private ReadOnly TimerLock As New Object
 
     ''' <summary>
     ''' Timer runs every second registers DNS,looks for web server stuff that arrives, restarts any sims , updates lists of agents builds teleports.html for older teleport checks for crashed regions
@@ -2964,12 +2963,9 @@ Public Class FormSetup
     ''' <summary>The main startup - done this way so languages can reload the entire form</summary>
     Private Sub JustQuitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles JustQuitToolStripMenuItem.Click
 
-        Dim result = MsgBox(My.Resources.AreYouSure, MsgBoxStyle.YesNo Or MsgBoxStyle.MsgBoxSetForeground Or MsgBoxStyle.Exclamation, My.Resources.Quit_Now_Word)
-        If result = vbYes Then
-            TextPrint("Zzzz...")
-            Thread.Sleep(100)
-            End
-        End If
+        TextPrint("Zzzz...")
+        Thread.Sleep(100)
+        End
 
     End Sub
 

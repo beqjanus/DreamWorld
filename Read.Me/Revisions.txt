@@ -2,7 +2,8 @@ REVISIONS FOR DREAMGRID
 This is a high-level view of major changes. For detailed commit history, checkout with git and run gitk or navigate to https://github.com/Outworldz/DreamWorld, Click to open the file whose line history you want to view. In the upper-right corner of the file view, click Blame to open the blame view. To see earlier revisions of a specific line, or reblame, click until you've found the changes you're interested in viewing.
 
 
-V4.78 Terrain changes
+V4.78 
+Faster booting because of much less Region Saving
 Opensim changed region Smart Start code so it is identical to robust code, thanks to Ubit Umarov.
 Terrains:  2X2 and larger terrains save in their own folder so Region Building will not mess up with wrong size of terrain.
 Regenerate all terrains starts with .r32, then tries raw, Terragen, and PNG to get the highest possible resolution saved in Opensim\bin\terrains. 

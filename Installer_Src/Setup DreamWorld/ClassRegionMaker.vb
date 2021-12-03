@@ -98,6 +98,7 @@ Public Class ClassRegionMaker
             Settings.SafeShutdown = True
         End If
 
+
         GetAllRegions(Verbose)
 
         If RegionCount() = 0 Then
@@ -507,6 +508,10 @@ Public Class ClassRegionMaker
     End Function
 
     Public Function GetAllRegions(Verbose As Boolean) As Integer
+
+        If PropChangedRegionSettings = False Then
+            Return 0
+        End If
 
         SyncLock RegionLock
 

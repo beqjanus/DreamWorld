@@ -245,7 +245,7 @@ Module Build
 
     Sub Landscape(RegionUUID As String)
 
-        'TODO Make a thread of this
+        '
         ' start a thread to see if a region has crashed, if so, add it to an exit list
         Dim start As ParameterizedThreadStart = AddressOf MakeLand
 

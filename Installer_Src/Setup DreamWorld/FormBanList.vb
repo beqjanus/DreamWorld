@@ -171,10 +171,10 @@ Public Class FormBanList
         Try
 
             ' Populate a New data table And bind it to the BindingSource.
-            Dim table As DataTable = New DataTable
+            Dim table = New DataTable
 
             'Create column.
-            Dim column1 As DataColumn = New DataColumn With {
+            Dim column1 = New DataColumn With {
                 .DataType = System.Type.GetType("System.String"),
                 .ColumnName = Global.Outworldz.My.Resources.Banned_word,
                 .AutoIncrement = False,
@@ -185,7 +185,7 @@ Public Class FormBanList
             ' Add the column to the table.
             table.Columns.Add(column1)
 
-            Dim column2 As DataColumn = New DataColumn With {
+            Dim column2 = New DataColumn With {
                 .DataType = System.Type.GetType("System.String"),
                 .ColumnName = Global.Outworldz.My.Resources.Comment_or_Notes_Word,
                 .AutoIncrement = False,

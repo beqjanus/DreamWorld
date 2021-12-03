@@ -272,6 +272,7 @@ Public Class FormOAR
 
     Private Sub Save(item As JSONresult, row As Integer, col As Integer)
         Try
+            If item Is Nothing Then Return
             If item.Cache.Width > 0 Then
                 DataGridView.Rows(row).Cells(col).Value = item.Cache
                 DataGridView.Rows(row).Cells(col).ToolTipText = item.Str

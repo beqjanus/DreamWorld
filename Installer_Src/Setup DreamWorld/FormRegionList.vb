@@ -229,10 +229,6 @@ Public Class FormRegionlist
         ' Set the view to show whatever
         TheView1 = Settings.RegionListView()
 
-        If TheView1 = ViewType.Details Then
-            PropChangedRegionSettings = True
-        End If
-
         SetScreen(TheView1)
 
         AddRegionButton.Text = Global.Outworldz.My.Resources.Add_word

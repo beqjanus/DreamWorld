@@ -62,7 +62,7 @@ Public Class ClassScreenpos
 
 #Region "Public Methods"
 
-    Public Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
+    Public Shared Function ColumnWidth(name As String, Optional size As Integer = 0) As Integer
 
         If name Is Nothing Then Return size
 
@@ -167,7 +167,7 @@ Public Class ClassScreenpos
 
     End Sub
 
-    Public Sub PutSize(name As String, size As Integer)
+    Public Shared Sub PutSize(name As String, size As Integer)
 
         If name Is Nothing Then Return
         name = name.Replace("\n", "")
