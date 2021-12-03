@@ -23,6 +23,7 @@ Public Class FormSmartStart
     Private _initialized As Boolean
     Private _initted As Boolean
     Private _SelectedPlant As String
+    Private SavedAlready As New List(Of String)
 
 #Region "ScreenSize"
 
@@ -1198,36 +1199,38 @@ Public Class FormSmartStart
         End Try
     End Sub
 
-    Private Sub Maketypes(FileName As System.IO.FileInfo, RegionUUID As String)
+    Private Sub Maketypes(startWith As String, Filename As String, RegionUUID As String)
 
         Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-        Dim extension = IO.Path.GetExtension(FileName.Name)
-        Select Case extension
-            Case "raw"
-            Case "r32"
-            Case "jpg"
-            Case "png"
-            Case "ter"
-            Case Else
-                Return
-        End Select
+        Dim extension = IO.Path.GetExtension(Filename)
 
         Dim Rname = PropRegionClass.RegionName(RegionUUID)
         RPC_Region_Command(RegionUUID, $"change region ""{Rname}""")
 
-        Dim RegionName = FileName.Name
-        RPC_Region_Command(RegionUUID, $"terrain load ""{Terrainfolder}\{FileName}""")
+        Dim RegionName = Filename
+        RegionName = RegionName.Replace($"{extension}", startWith)
+        RegionName = RegionName.Replace("*", "")
+        RPC_Region_Command(RegionUUID, $"terrain load ""{Filename}""")
 
         RegionName = RegionName.Replace($"{extension}", "")
 
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.r32""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.raw""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.jpg""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.png""")
-        RPC_Region_Command(RegionUUID, $"terrain save ""{Terrainfolder}\{RegionName}.ter""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.r32""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.raw""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.jpg""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.png""")
+        Save(RegionUUID, $"terrain save ""{RegionName}.ter""")
 
     End Sub
 
+    Private Sub Save(RegionUUID As String, S As String)
+
+        If SavedAlready.Contains(S) Then
+            Return
+        End If
+        RPC_Region_Command(RegionUUID, S)
+        SavedAlready.Add(S)
+
+    End Sub
 #End Region
 
 #Region "4Choices"
@@ -1262,6 +1265,7 @@ Public Class FormSmartStart
     Private Sub RebuildTerrainsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RebuildTerrainsToolStripMenuItem.Click
 
         Try
+            SavedAlready.Clear()
             Dim RegionName = ChooseRegion(False)
             If RegionName.Length = 0 Then Return
             Dim RegionUUID As String = PropRegionClass.FindRegionByName(RegionName)
@@ -1269,14 +1273,22 @@ Public Class FormSmartStart
             ReBoot(RegionUUID)
             WaitForBooted(RegionUUID)
             Application.DoEvents()
-
             Dim Terrainfolder = IO.Path.Combine(Settings.OpensimBinPath, "Terrains")
-            Dim directory As New System.IO.DirectoryInfo(Terrainfolder)
-            Dim File As System.IO.FileInfo() = directory.GetFiles()
-            Dim File1 As System.IO.FileInfo
-            For Each File1 In File
-                Maketypes(File1, RegionUUID)
+            Dim exts As New List(Of String)
+            exts.Add("*.r32")
+            exts.Add("*.raw")
+            exts.Add("*.ter")
+            exts.Add("*.png")
+
+            For Each extension In exts
+                Dim Files = System.IO.Directory.EnumerateFiles(Terrainfolder, extension, SearchOption.TopDirectoryOnly)
+                For Each File In Files
+                    Maketypes(extension, File, RegionUUID)
+                Next
             Next
+
+
+
         Catch
         End Try
 

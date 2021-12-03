@@ -334,10 +334,24 @@ Module DoIni
         Return False
 
     End Function
+    Public Function DoPerlDBSetup() As Boolean
+
+        Try
+            Dim perltext = $"DSN={Settings.RobustDataBaseName}:localhost:{Settings.MySqlRobustDBPort};UID={Settings.RobustUsername};PWD={Settings.RobustPassword};"
+            Using outputFile As New StreamWriter(IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\Apache\MySQL.txt"), False)
+                outputFile.WriteLine(perltext)
+            End Using
+        Catch ex As Exception
+            MsgBox(ex.Message, vbCritical Or MsgBoxStyle.MsgBoxSetForeground)
+        End Try
+
+        Return False
+
+    End Function
 
     Public Function DoPHPDBSetup() As Boolean
 
-        TextPrint("->Set Maps")
+        TextPrint("->Set PHP")
         Dim phptext = "<?php " & vbCrLf &
 "/* General Domain */" & vbCrLf &
 "$CONF_domain        = " & """" & Settings.PublicIP & """" & "; " & vbCrLf &
@@ -509,6 +523,7 @@ Module DoIni
         If DoBirds() Then Return True       ' birds
         If DoPHPDBSetup() Then Return True  ' PHP Database
         If DoPHP() Then Return True         ' PHP.ini
+        If DoPerlDBSetup() Then Return True  ' Perl
         If DoApache() Then Return True      ' Apache.conf
         If DoIceCast() Then Return True     ' Icecast
 

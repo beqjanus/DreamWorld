@@ -3360,4 +3360,28 @@
   <data name="_0" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>Shut down the Grid?</value>
+  </data>
+  <data name="Benchmark" xml:space="preserve">
+    <value>Benchmark</value>
+  </data>
+  <data name="Boot_Time" xml:space="preserve">
+    <value>Boot Time</value>
+  </data>
+  <data name="Map_Time" xml:space="preserve">
+    <value>Map Boot TIme</value>
+  </data>
+  <data name="Setup_Perl" xml:space="preserve">
+    <value>Setup Perl Language</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Boot Time</value>
+  </data>
+  <data name="UpdateNow" xml:space="preserve">
+    <value>Update Now</value>
+  </data>
+  <data name="ViewVisitorMaps" xml:space="preserve">
+    <value>View Visitor Maps</value>
+  </data>
 </root>

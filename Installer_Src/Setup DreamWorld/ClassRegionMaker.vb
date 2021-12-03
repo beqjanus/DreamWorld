@@ -948,9 +948,16 @@ Public Class ClassRegionMaker
 
     Public Property CoordX(uuid As String) As Integer
         Get
-            If uuid Is Nothing Then Return 0
-
-            Return RegionList(uuid)._CoordX
+            If uuid Is Nothing Then
+                BreakPoint.Show("UUID  is nothing!")
+                Return 0
+            End If
+            Try
+                Return RegionList(uuid)._CoordX
+            Catch ex As Exception
+                BreakPoint.Show(ex.Message)
+            End Try
+            Return 0
         End Get
         Set(ByVal Value As Integer)
             If uuid Is Nothing Then Return
@@ -962,12 +969,15 @@ Public Class ClassRegionMaker
     Public Property CoordY(uuid As String) As Integer
         Get
             If uuid Is Nothing Then Return 0
-
-            Return RegionList(uuid)._CoordY
+            Try
+                Return RegionList(uuid)._CoordY
+            Catch
+                BreakPoint.Show("Cannot read Coordx")
+                Return 100
+            End Try
         End Get
         Set(ByVal Value As Integer)
             If uuid Is Nothing Then Return
-
             RegionList(uuid)._CoordY = Value
         End Set
     End Property
@@ -1104,7 +1114,12 @@ Public Class ClassRegionMaker
     Public Property SizeX(uuid As String) As Integer
         Get
             If uuid Is Nothing Then Return 256
-            Return RegionList(uuid)._SizeX
+            Try
+                Return RegionList(uuid)._SizeX
+            Catch
+                BreakPoint.Show("Cannot read size")
+                Return 256
+            End Try
         End Get
         Set(ByVal Value As Integer)
             If uuid Is Nothing Then Return
@@ -1115,7 +1130,12 @@ Public Class ClassRegionMaker
     Public Property SizeY(uuid As String) As Integer
         Get
             If uuid Is Nothing Then Return 256
-            Return RegionList(uuid)._SizeY
+            Try
+                Return RegionList(uuid)._SizeY
+            Catch
+                BreakPoint.Show("Cannot read size")
+                Return 256
+            End Try
         End Get
         Set(ByVal Value As Integer)
             If uuid Is Nothing Then Return
@@ -1138,9 +1158,7 @@ Public Class ClassRegionMaker
         End Get
         Set(ByVal Value As Integer)
             If uuid Is Nothing Then Return
-
             RegionList(uuid)._Status = Value
-
         End Set
     End Property
 

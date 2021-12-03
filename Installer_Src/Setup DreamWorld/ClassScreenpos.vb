@@ -185,11 +185,11 @@ Public Class ClassScreenpos
 
     End Sub
 
-    Public Function ReadINIFile(MyIni As String) As IniData
+    Public Function ReadIniFile(myIni As String) As IniData
         Dim waiting As Integer = 50 ' 5 sec
         While waiting > 0
             Try
-                Dim Data As IniData = parser.ReadFile(MyIni, System.Text.Encoding.UTF8)
+                Dim Data As IniData = parser.ReadFile(myIni, System.Text.Encoding.UTF8)
                 Return Data
             Catch ex As Exception
                 waiting -= 1
