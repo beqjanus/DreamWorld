@@ -411,6 +411,8 @@ Public Class ClassRegionMaker
                     Dim gr As String = $"{XPos},{Ypos}"
                     If Map.ContainsKey(gr) Then
                         If IsAgentInRegion(Map.Item(gr)) Then
+                            Dim Name = RegionName(RegionUUID)
+                            Diagnostics.Debug.Print("Avatar is detected in region " & Name)
                             Return True
                         End If
                     End If
@@ -701,6 +703,8 @@ Public Class ClassRegionMaker
         Return RegionList.Count
 
     End Function
+
+    ' TODO:  Fill in blank areas instead of appending to end
 
     Public Function LargestPort() As Integer
 
