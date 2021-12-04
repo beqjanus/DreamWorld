@@ -70,9 +70,9 @@ Public Class FormSetup
 #Region "Private Declarations"
 
     Private ReadOnly _exitList As New Dictionary(Of String, String)
+    Private ReadOnly _LandscapeList As New List(Of String)
     ReadOnly BackupThread As New Backups
     Private ReadOnly BootedList As New List(Of String)
-    Private ReadOnly _LandscapeList As New List(Of String)
     Private ReadOnly CurrentLocation As New Dictionary(Of String, String)
     Private ReadOnly HandlerSetup As New EventHandler(AddressOf Resize_page)
     Private _Adv As FormSettings
@@ -137,13 +137,6 @@ Public Class FormSetup
         End Set
     End Property
 
-    Public ReadOnly Property LandScapeList As List(Of String)
-        Get
-            Return _LandscapeList
-        End Get
-    End Property
-
-
     Public ReadOnly Property BootedList1 As List(Of String)
         Get
             Return BootedList
@@ -193,6 +186,12 @@ Public Class FormSetup
         Set(value As Integer)
             _IcecastCrashCounter = value
         End Set
+    End Property
+
+    Public ReadOnly Property LandScapeList As List(Of String)
+        Get
+            Return _LandscapeList
+        End Get
     End Property
 
     Public Property PropBootScanIsBusy() As Integer
@@ -627,6 +626,7 @@ Public Class FormSetup
 
         ClearAllRegions()
         StopRobust()
+        Zap("baretail")
 
         Timer1.Stop()
         TimerBusy = 0
@@ -900,7 +900,7 @@ Public Class FormSetup
 
                 ' Read the chosen sim name
 
-                ConsoleCommand(RobustName, "create user " & InitialSetup.FirstName & " " & InitialSetup.LastName & " " & InitialSetup.Password & " " & InitialSetup.Email)
+                ConsoleCommand(RobustName, $"create user {InitialSetup.FirstName} {InitialSetup.LastName} {InitialSetup.Password} {InitialSetup.Email}{vbCrLf}{vbCrLf}")
 
                 Settings.RunOnce = True
                 Settings.SaveSettings()
@@ -930,7 +930,6 @@ Public Class FormSetup
     ''' Checks if a region died, and calculates CPU counters, which is a very time consuming process
     ''' </summary>
     Private Sub StartThreads()
-
 
         ' start a thread to see if a region has crashed, if so, add it to an exit list
         Dim start As ParameterizedThreadStart = AddressOf DidItDie
@@ -1003,7 +1002,6 @@ Public Class FormSetup
                     Landscape(RegionUUID)
                 End If
 
-
                 ' see how long it has been since we booted
                 Dim seconds = DateAndTime.DateDiff(DateInterval.Second, PropRegionClass.Timer(RegionUUID), DateTime.Now)
                 TextPrint($"{RegionName} {My.Resources.Boot_Time}:  {CStr(seconds)} {My.Resources.Seconds_word}")
@@ -1038,8 +1036,6 @@ Public Class FormSetup
 
                 Dim RegionName = PropRegionClass.RegionName(RegionUUID)
 
-
-
                 Dim GroupName = PropRegionClass.GroupName(RegionUUID)
                 'Diagnostics.Debug.Print(GroupName)
                 Dim status = PropRegionClass.Status(RegionUUID)
@@ -1051,7 +1047,10 @@ Public Class FormSetup
 
                 ' Find any regions touching this region.
                 ' add them to the area to stay alive.
-
+                Diagnostics.Debug.Print("Checking " & RegionName)
+                If RegionName.Contains("Jewel") Then
+                    BreakPoint.Show("Stopped")
+                End If
                 If Settings.SmartStart Then
                     If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
 
@@ -1610,9 +1609,11 @@ Public Class FormSetup
         If Settings.KeepOnTopMain Then
             Me.TopMost = True
             KeepOnTopToolStripMenuItem.Image = My.Resources.tables
+            OnTopToolStripMenuItem.Image = My.Resources.table
         Else
             Me.TopMost = False
             KeepOnTopToolStripMenuItem.Image = My.Resources.table
+            OnTopToolStripMenuItem.Image = My.Resources.tables
         End If
 
         TextBox1.BackColor = Me.BackColor
@@ -2364,7 +2365,6 @@ Public Class FormSetup
                             & vbCrLf & " @pause" & vbCrLf)
                         End Using
                     Catch ex As Exception
-
                         ErrorLog(" Failed to create restore file:" & ex.Message)
                         Return
                     End Try
@@ -2372,10 +2372,10 @@ Public Class FormSetup
                     Using pMySqlRestore = New Process()
                         ' pi.Arguments = thing
                         Dim pi = New ProcessStartInfo With {
-                        .WindowStyle = ProcessWindowStyle.Normal,
-                        .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
-                        .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
-                    }
+                            .WindowStyle = ProcessWindowStyle.Normal,
+                            .WorkingDirectory = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\"),
+                            .FileName = IO.Path.Combine(Settings.CurrentDirectory, "OutworldzFiles\mysql\bin\RestoreMysql.bat")
+                        }
                         pMySqlRestore.StartInfo = pi
                         TextPrint(My.Resources.Do_Not_Interrupt_word)
                         Try
@@ -2426,13 +2426,8 @@ Public Class FormSetup
                     If Not Combined.ContainsKey(item.Key) Then
                         Combined.Add(item.Key, item.Value)
                     End If
-
                 Next
-
             End Try
-
-
-
 
             If Combined IsNot Nothing And Combined.Count > 0 Then
                 Try
@@ -2702,8 +2697,7 @@ Public Class FormSetup
             Chat2Speech()               ' speak of the devil
             ProcessQuit()               ' check if any processes exited
             CheckForBootedRegions()     ' And see if any booted up
-            ScanAgents() ' update agent count 
-
+            ScanAgents() ' update agent count
 
             If SecondsTicker Mod 60 = 0 And SecondsTicker > 0 Then
                 Bench.Print("60 second worker")
@@ -2713,7 +2707,7 @@ Public Class FormSetup
                 ScanOpenSimWorld(False)
 
                 BackupThread.RunAllBackups(False) ' run background based on time of day = false
-                ' print how many backups are running                                
+                ' print how many backups are running
                 Dim t = BackupsRunning(Now.ToString(Globalization.CultureInfo.CurrentCulture))
                 If t.Length > 0 Then TextPrint(t)
 
@@ -2726,6 +2720,7 @@ Public Class FormSetup
             If SecondsTicker = 300 Then
                 RunParser()
                 GetEvents()
+                MakeMaps()
             End If
 
             ' half hour
@@ -2750,7 +2745,6 @@ Public Class FormSetup
             TimerBusy = 0
 
             Bench.StopW()
-
 
         End SyncLock
 
@@ -2781,7 +2775,6 @@ Public Class FormSetup
     End Sub
 
     Private Sub AdminUIToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ViewWebUI.Click
-
 
         If PropOpensimIsRunning() Then
 
@@ -3599,8 +3592,6 @@ Public Class FormSetup
         End If
 
     End Sub
-
-
 
 #End Region
 
