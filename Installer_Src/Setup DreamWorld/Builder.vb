@@ -7,6 +7,7 @@
 
 Imports System.IO
 Imports System.Threading
+
 Module Build
 
     Public NameList As New List(Of String)
@@ -17,14 +18,14 @@ Module Build
 #Region "Land"
 
     ReadOnly GenLandLock As New Object
-    Public Sub GenLand(RegionUUID As String)
+    ReadOnly LandLock As New Object
 
+    Public Sub GenLand(RegionUUID As String)
 
         ReBoot(RegionUUID)
         WaitForBooted(RegionUUID)
 
         SyncLock GenLandLock
-
 
             If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
             If Settings.TerrainType = "Flat" Then
@@ -87,7 +88,6 @@ Module Build
 
     End Sub
 
-    ReadOnly LandLock As New Object
     Public Sub SurroundingLandMaker(RegionUUID As String)
 
         SyncLock LandLock
@@ -122,11 +122,12 @@ Module Build
             Next
 
             Dim GroupName As String = ""
-            Dim Simcount As Integer
+
+            Dim Bootable As New List(Of String)
 
             For Each possible As String In xy
                 If RegionXY.ContainsKey(possible) Then
-                    'If Debugger.IsAttached Then Diagnostics.Debug.Print("Region exists: " & PropRegionClass.RegionName(RegionXY.Item(possible)))
+                    If Debugger.IsAttached Then Diagnostics.Debug.Print("Region exists: " & PropRegionClass.RegionName(RegionXY.Item(possible)))
                 Else
                     Dim parts As String() = possible.Split(New Char() {":"c}) ' split at the space
                     Dim nX = CInt(CStr(parts(0).Trim))
@@ -138,17 +139,22 @@ Module Build
                     End If
 
                     Try
-                        MakeTempRegion(GroupName, nX, nY)
+                        Bootable.Add(MakeTempRegion(GroupName, nX, nY)) ' at least one region will have this name
                     Catch ex As Exception
                         BreakPoint.Show(ex.Message)
                     End Try
 
-                    Simcount += 1
                 End If
             Next
 
-            If Simcount > 0 Then
+            If Bootable.Count > 0 Then
                 PropChangedRegionSettings = True
+                PropRegionClass.GetAllRegions(False)
+                For Each Name In Bootable
+                    If Name.Length > 0 Then
+                        ReBoot(PropRegionClass.FindRegionByName(Name))
+                    End If
+                Next
             End If
 
         End SyncLock
@@ -160,50 +166,47 @@ Module Build
 #Region "Landscaper"
 
     ReadOnly TreeLock As New Object
+
     Public Sub GenTrees(RegionUUID As String)
 
-        SyncLock TreeLock
-
-            Dim UseTree As New List(Of String)
-            For Each t As String In TreeList
-                If GetSetting(t) Then
-                    UseTree.Add(t)
-                End If
-            Next
-
-            If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
-            If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
-
-            If Settings.DeleteTreesFirst Then
-                For Each TT As String In TreeList
-                    If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
-                Next
+        Dim UseTree As New List(Of String)
+        For Each t As String In TreeList
+            If GetSetting(t) Then
+                UseTree.Add(t)
             End If
+        Next
 
-            If UseTree.Count = 0 Then
-                If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
-                Return
-            End If
+        If Not RPC_Region_Command(RegionUUID, $"change region {PropRegionClass.RegionName(RegionUUID)}") Then Return
+        If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
 
-            Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
-
-            For Each NewType In UseTree
-                If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
-                If Not RPC_Region_Command(RegionUUID, $"tree plant {NewType}") Then Return
-                If Not RPC_Region_Command(RegionUUID, $"tree rate 1000") Then Return
-                If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
-                Sleep(1500)
-                If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
-                If Not RPC_Region_Command(RegionUUID, "force update") Then Return
+        If Settings.DeleteTreesFirst Then
+            For Each TT As String In TreeList
+                If Not RPC_Region_Command(RegionUUID, $"tree remove {TT}") Then Return
             Next
+        End If
 
+        If UseTree.Count = 0 Then
             If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
+            Return
+        End If
 
-            'If Not RPC_Region_Command(RegionUUID, $"tree statistics") Then Return
-            'force update - Force the region to send all clients updates about all objects.
-            If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
+        Debug.Print($"Planting {PropRegionClass.RegionName(RegionUUID)}")
 
-        End SyncLock
+        For Each NewType In UseTree
+            If Not RPC_Region_Command(RegionUUID, $"tree load Trees/{NewType}.xml") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"tree plant {NewType}") Then Return
+            If Not RPC_Region_Command(RegionUUID, $"tree rate 1000") Then Return
+            If Not RPC_Region_Command(RegionUUID, "tree active true") Then Return
+            Sleep(1500)
+            If Not RPC_Region_Command(RegionUUID, $"tree freeze {NewType} true") Then Return
+            If Not RPC_Region_Command(RegionUUID, "force update") Then Return
+        Next
+
+        If Not RPC_Region_Command(RegionUUID, "tree active false") Then Return
+
+        'If Not RPC_Region_Command(RegionUUID, $"tree statistics") Then Return
+        'force update - Force the region to send all clients updates about all objects.
+        If Not RPC_Region_Command(RegionUUID, "force update") Then BreakPoint.Show("No RPC")
 
     End Sub
 
@@ -225,6 +228,19 @@ Module Build
 
     End Sub
 
+    Sub Landscape(RegionUUID As String)
+
+        '
+        ' start a thread to see if a region has crashed, if so, add it to an exit list
+        Dim start As ParameterizedThreadStart = AddressOf MakeLand
+
+        Dim MakeLandthread = New Thread(start)
+        MakeLandthread.SetApartmentState(ApartmentState.STA)
+        MakeLandthread.Priority = ThreadPriority.Lowest ' UI gets priority
+        MakeLandthread.Start(RegionUUID)
+
+    End Sub
+
     Private Function GetSetting(Box As String) As Boolean
         Dim b As Boolean
         Select Case Settings.GetMySetting(Box)
@@ -242,19 +258,6 @@ Module Build
 
     End Function
 
-
-    Sub Landscape(RegionUUID As String)
-
-        '
-        ' start a thread to see if a region has crashed, if so, add it to an exit list
-        Dim start As ParameterizedThreadStart = AddressOf MakeLand
-
-        Dim MakeLandthread = New Thread(start)
-        MakeLandthread.SetApartmentState(ApartmentState.STA)
-        MakeLandthread.Priority = ThreadPriority.Lowest ' UI gets priority
-        MakeLandthread.Start(RegionUUID)
-
-    End Sub
     Private Sub MakeLand(R As Object)
 
         Dim regionUUID = R.ToString
@@ -324,12 +327,12 @@ Module Build
 
     End Function
 
-    Private Sub MakeTempRegion(Group As String, X As Integer, Y As Integer)
+    Private Function MakeTempRegion(Group As String, X As Integer, Y As Integer) As String
 
         Dim shortname = FantasyName()
 
         If IO.File.Exists(IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\{shortname}.ini")) Then
-            Return
+            Return ""
         End If
 
         'kill it
@@ -360,7 +363,9 @@ Module Build
         FormSetup.LandScapeList.Add(RegionUUID)
         PropChangedRegionSettings = True
 
-    End Sub
+        Return shortname
+
+    End Function
 
     Private Sub Modifiers(RegionUUID As String)
 
