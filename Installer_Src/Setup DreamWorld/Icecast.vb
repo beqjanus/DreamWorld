@@ -72,6 +72,8 @@ Module Icecast
 
         PropIcecastProcID = WaitForPID(IcecastProcess)
         If PropIcecastProcID = 0 Then
+            BreakPoint.Show(My.Resources.Icecast_failed)
+            TextPrint(My.Resources.Icecast_failed)
             IceCastIcon(False)
             Return False
         End If
