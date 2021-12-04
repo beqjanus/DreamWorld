@@ -88,6 +88,18 @@ Module Build
 
     End Sub
 
+    Public Sub SetCores(RegionUUID As String)
+        ' bug 171036640
+        Try
+            If PropRegionClass.Cores(RegionUUID) = 0 Or PropRegionClass.Cores(RegionUUID) > Environment.ProcessorCount Then
+                PropRegionClass.Cores(RegionUUID) = CInt(2 ^ Environment.ProcessorCount - 1)
+            End If
+        Catch
+            PropRegionClass.Cores(RegionUUID) = &HFFFF
+        End Try
+
+    End Sub
+
     Public Sub SurroundingLandMaker(RegionUUID As String)
 
         SyncLock LandLock
@@ -339,8 +351,8 @@ Module Build
         DeRegisterPosition(X, Y)
 
         ' build it
-        Dim RegionUUID = PropRegionClass.CreateRegion(shortname, "")
-
+        Dim RegionUUID = PropRegionClass.CreateRegionStruct(shortname, "")
+        ' Set the defaults for a Landfill
         PropRegionClass.CrashCounter(RegionUUID) = 0
         PropRegionClass.CoordX(RegionUUID) = X
         PropRegionClass.CoordY(RegionUUID) = Y
@@ -350,9 +362,9 @@ Module Build
         PropRegionClass.SizeY(RegionUUID) = 256
         PropRegionClass.GroupName(RegionUUID) = Group
 
-        PropRegionClass.RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\{shortname}.ini")
-        PropRegionClass.RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region")
-        PropRegionClass.OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}")
+        SetCores(RegionUUID)
+
+        PropRegionClass.GDPR(RegionUUID) = CStr(Settings.GDPR)
 
         Dim port = PropRegionClass.LargestPort + 1
         PropRegionClass.GroupPort(RegionUUID) = port

@@ -6390,6 +6390,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Must set the owner of the Sim Surrounds first!.
+        '''</summary>
+        Friend ReadOnly Property MustSetSS() As String
+            Get
+                Return ResourceManager.GetString("MustSetSS", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Must be the same as X.
         '''</summary>
         Friend ReadOnly Property MustX() As String

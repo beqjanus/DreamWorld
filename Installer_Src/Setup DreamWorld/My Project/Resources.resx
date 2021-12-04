@@ -2168,6 +2168,9 @@
   <data name="MustHaveName" xml:space="preserve">
     <value>Must have a name of an inventory item</value>
   </data>
+  <data name="MustSetSS" xml:space="preserve">
+    <value>Must set the owner of the Sim Surrounds first!</value>
+  </data>
   <data name="MustX" xml:space="preserve">
     <value>Must be the same as X</value>
   </data>

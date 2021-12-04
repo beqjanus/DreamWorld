@@ -18,12 +18,12 @@ Public Class FormSmartStart
     Private ReadOnly _TerrainList As New List(Of Image)
     Private ReadOnly _TerrainName As New List(Of String)
     Private ReadOnly Handler As New EventHandler(AddressOf Resize_page)
+    Private ReadOnly SavedAlready As New List(Of String)
     Private _abort As Boolean
     Private _Index As Integer
     Private _initialized As Boolean
     Private _initted As Boolean
     Private _SelectedPlant As String
-    Private ReadOnly SavedAlready As New List(Of String)
 
 #Region "ScreenSize"
 
@@ -676,6 +676,7 @@ Public Class FormSmartStart
         Dim n = 0
         Dim s As Boolean
         For Each RegionUUID In PropRegionClass.RegionUuids
+            If PropRegionClass.SmartStart(RegionUUID) = "True" Then Continue For
             Dim name = PropRegionClass.RegionName(RegionUUID)
             ParkingSpot.Items.Add(name)
             If name = Settings.ParkingLot Then
@@ -855,7 +856,7 @@ Public Class FormSmartStart
 
                 If Not IO.File.Exists(p) Then
                     ProgressPrint($"{My.Resources.Add_Region_word} {J.Name} ")
-                    RegionUUID = PropRegionClass.CreateRegion(shortname)
+                    RegionUUID = PropRegionClass.CreateRegionStruct(shortname)
                 Else
                     RegionUUID = PropRegionClass.FindRegionByName(shortname)
                     If GetPrimCount(RegionUUID) > 0 Then
@@ -1231,6 +1232,7 @@ Public Class FormSmartStart
         SavedAlready.Add(S)
 
     End Sub
+
 #End Region
 
 #Region "4Choices"
@@ -1287,9 +1289,6 @@ Public Class FormSmartStart
                     Maketypes(extension, File, RegionUUID)
                 Next
             Next
-
-
-
         Catch
         End Try
 
@@ -1604,8 +1603,15 @@ Public Class FormSmartStart
 
     Private Sub RegionMakerEnableCHeckbox_CheckedChanged(sender As Object, e As EventArgs) Handles AutoFillEnable.CheckedChanged
         If Not _initialized Then Return
-        Settings.AutoFill = AutoFillEnable.Checked
-        Settings.SaveSettings()
+        If AutoFillEnable.Checked Then
+            If AviName.Text.Length > 0 Then
+                Settings.AutoFill = AutoFillEnable.Checked
+                Settings.SaveSettings()
+            Else
+                MsgBox(My.Resources.MustSetSS, MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground, Global.Outworldz.My.Resources.Info_word)
+            End If
+        End If
+
     End Sub
 
     Private Sub Smooth_CheckedChanged(sender As Object, e As EventArgs) Handles Smooth.CheckedChanged

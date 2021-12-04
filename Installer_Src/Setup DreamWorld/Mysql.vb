@@ -525,6 +525,10 @@ Public Module MysqlInterface
                 Return Dict
             End Try
 
+            If Debugger.IsAttached Then
+                Dict.Add("test user", PropRegionClass.FindRegionByName(Settings.WelcomeRegion))
+                Dict.Add("test user2", PropRegionClass.FindRegionByName("Smart"))
+            End If
 
         End Using
 

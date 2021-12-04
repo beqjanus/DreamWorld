@@ -15,19 +15,22 @@ Public Class ClassRegionMaker
 #Region "Public Fields"
 
     Private Class JSONresult
+
         ' Public alert As String
         Public login As String
+
         'Public region_id As String
         Public region_name As String
+
     End Class
 
 #End Region
 
 #Region "Declarations"
 
-    Private ReadOnly _webserverList As New List(Of String)
     Private Shared FInstance As ClassRegionMaker
     Private ReadOnly _Grouplist As New Dictionary(Of String, Integer)
+    Private ReadOnly _webserverList As New List(Of String)
     ReadOnly Backup As New List(Of ClassRegionMaker.Region_data)
 
     Private ReadOnly RegionList As New Dictionary(Of String, Region_data)
@@ -97,11 +100,10 @@ Public Class ClassRegionMaker
             Settings.SafeShutdown = True
         End If
 
-
         GetAllRegions(Verbose)
 
         If RegionCount() = 0 Then
-            CreateRegion("Welcome")
+            CreateRegionStruct("Welcome")
             Settings.WelcomeRegion = "Welcome"
             WriteRegionObject("Welcome", "Welcome", True)
             Settings.SaveSettings()
@@ -196,9 +198,10 @@ Public Class ClassRegionMaker
 #End Region
 
 #Region "Create Region"
+
     ReadOnly CreateRegionLock As New Object
 
-    Public Function CreateRegion(name As String, Optional UUID As String = "") As String
+    Public Function CreateRegionStruct(name As String, Optional UUID As String = "") As String
 
         If String.IsNullOrEmpty(UUID) Then UUID = Guid.NewGuid().ToString
 
@@ -272,37 +275,39 @@ Public Class ClassRegionMaker
     ''' Saves Region class to disk file
     ''' </summary>
     ''' <param name="Group">Dos Box name</param>
-    ''' <param name="Newname">New Name</param>
-    ''' <param name="OldName">Old Name to change</param>
-    ''' <param name="Estate">Optional Estate Name</param>
-    Public Sub WriteRegionObject(DosBoxName As String, RegionName As String, Verbose As Boolean)
+    ''' <param name="RegionName">Region Name</param>
+    ''' <param name="Verbose">Be chatty on the console</param>
+    Public Sub WriteRegionObject(Group As String, RegionName As String, Verbose As Boolean)
 
-        Dim pathtoWelcome As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{DosBoxName}\Region\")
+        Dim pathtoRegion As String = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\")
         Dim RegionUUID As String = FindRegionByName(RegionName)
-        CopyFileFast(IO.Path.Combine(pathtoWelcome, $"{RegionName}.ini"), IO.Path.Combine(pathtoWelcome, $"{RegionName}.bak"))
-        'Sleep(10)
-        DeleteFile(IO.Path.Combine(pathtoWelcome, $"{RegionName}.ini"))
-        ' Sleep(10)
-        If Not Directory.Exists(pathtoWelcome) Then
+        ' file paths
+        RegionIniFilePath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region\{RegionName}.ini")
+        RegionIniFolderPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}\Region")
+        OpensimIniPath(RegionUUID) = IO.Path.Combine(Settings.OpensimBinPath, $"Regions\{Group}")
+
+        CopyFileFast(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"), IO.Path.Combine(pathtoRegion, $"{RegionName}.bak"))
+        DeleteFile(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"))
+        If Not Directory.Exists(pathtoRegion) Then
             Try
-                Directory.CreateDirectory(pathtoWelcome)
+                Directory.CreateDirectory(pathtoRegion)
             Catch ex As Exception
                 BreakPoint.Show(ex.Message)
             End Try
         End If
 
+        ' Change estate for Endless Land, assuming its on
+        Dim out As Integer
+        Integer.TryParse(Estate(RegionUUID), out)
 
-        ' Change estate for Smart Start
-        If SmartStart(RegionUUID) = "True" And
-            Estate(RegionUUID).Length = 0 And
-            Not Verbose Then
+        If Settings.AutoFill And SmartStart(RegionUUID) = "True" And out = 0 Then
             Estate(RegionUUID) = "SimSurround"
             SetEstate(RegionUUID, 1999)
         End If
 
         Dim proto = "; * Regions configuration file; " & vbCrLf _
-        & "; Automatically changed and read by Dreamworld. Edits are allowed" & vbCrLf _
-        & "; Rule1: The File name must match the RegionName" & vbCrLf _
+        & "; Automatically changed and read by Dreamworld. Edits here are allowed and take effect on restart" & vbCrLf _
+        & "; Rule1: The File name must match the RegionName in brackets exactly." & vbCrLf _
         & "; Rule2: Only one region per INI file." & vbCrLf _
         & ";" & vbCrLf _
         & "[" & RegionName & "]" & vbCrLf _
@@ -345,10 +350,11 @@ Public Class ClassRegionMaker
         & "LandingSpot=" & LandingSpot(RegionUUID) & vbCrLf _
         & "Cores=" & Cores(RegionUUID) & vbCrLf _
         & "Priority=" & Priority(RegionUUID) & vbCrLf _
-        & "OpenSimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf
+        & "OpenSimWorldAPIKey=" & OpensimWorldAPIKey(RegionUUID) & vbCrLf _
+        & "SkipAutoBackup=" & SkipAutobackup(RegionUUID) & vbCrLf
 
         Try
-            Using outputFile As New StreamWriter(IO.Path.Combine(pathtoWelcome, $"{RegionName}.ini"), False)
+            Using outputFile As New StreamWriter(IO.Path.Combine(pathtoRegion, $"{RegionName}.ini"), False)
                 outputFile.WriteLine(proto)
             End Using
         Catch ex As Exception
@@ -370,6 +376,30 @@ Public Class ClassRegionMaker
     ''' <summary>Self setting Region Ports Iterate over all regions and set the ports from the starting value</summary>
     '''
     Private ReadOnly UpdatePortLock As New Object
+
+    Public Shared Sub StopRegion(RegionUUID As String)
+
+        Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
+        If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
+            FormSetup.SequentialPause()
+
+            TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
+            ShutDown(RegionUUID)
+
+            ' shut down all regions in the DOS box
+            For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
+            Next
+        Else
+            ' shut down all regions in the DOS box
+            For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
+                PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
+            Next
+        End If
+
+        PropUpdateView = True ' make form refresh
+
+    End Sub
 
     Public Sub AddToRegionMap(RegionUUID As String)
 
@@ -393,7 +423,7 @@ Public Class ClassRegionMaker
 
     Public Function AvatarIsNearby(RegionUUID As String) As Boolean
 
-
+        Dim NameRegion = RegionName(RegionUUID)
         Dim Xloc = CoordX(RegionUUID)
         Dim Yloc = CoordY(RegionUUID)
 
@@ -407,14 +437,13 @@ Public Class ClassRegionMaker
 
         For XPos As Integer = X1 To X2 Step 1
             For Ypos As Integer = Y1 To Y2 Step 1
-                If XPos <> Xloc And Ypos <> Yloc Then
-                    Dim gr As String = $"{XPos},{Ypos}"
-                    If Map.ContainsKey(gr) Then
-                        If IsAgentInRegion(Map.Item(gr)) Then
-                            Dim Name = RegionName(RegionUUID)
-                            Diagnostics.Debug.Print("Avatar is detected in region " & Name)
-                            Return True
-                        End If
+                If XPos = Xloc And Ypos = Yloc Then Continue For
+                Dim gr As String = $"{XPos},{Ypos}"
+                If Map.ContainsKey(gr) Then
+                    If IsAgentInRegion(Map.Item(gr)) Then
+                        Dim Name = RegionName(RegionUUID)
+                        Diagnostics.Debug.Print("Avatar is detected near region " & NameRegion)
+                        Return True
                     End If
                 End If
             Next
@@ -563,7 +592,7 @@ Public Class ClassRegionMaker
                                     Exit For
                                 Else
                                     If Verbose Then TextPrint("-> " & fName)
-                                    CreateRegion(fName, uuid)
+                                    CreateRegionStruct(fName, uuid)
                                     RegionEnabled(uuid) = CBool(INI.GetIni(fName, "Enabled", "True", "Boolean"))
 
                                     RegionIniFilePath(uuid) = file ' save the path
@@ -589,7 +618,6 @@ Public Class ClassRegionMaker
                                     NonPhysicalPrimMax(uuid) = CStr(INI.GetIni(fName, "NonPhysicalPrimMax", "1024", "Integer"))
                                     PhysicalPrimMax(uuid) = CStr(INI.GetIni(fName, "PhysicalPrimMax", "64", "Integer"))
                                     ClampPrimSize(uuid) = CBool(INI.GetIni(fName, "ClampPrimSize", "False", "Boolean"))
-                                    MaxPrims(uuid) = CStr(INI.GetIni(fName, "MaxPrims", "15000", "Integer"))
                                     MaxAgents(uuid) = CStr(INI.GetIni(fName, "MaxAgents", "100", "Integer"))
 
                                     ' Location is int,int format.
@@ -643,7 +671,7 @@ Public Class ClassRegionMaker
                                     If Settings.SafeShutdown Then
                                         RegionPort(uuid) = LargestPort() + 1
                                         GroupPort(uuid) = ThisGroup
-                                        'Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
+                                        Diagnostics.Debug.Print("Assign Port:" & CStr(GroupPort(uuid)))
                                     Else
                                         RegionPort(uuid) = CInt("0" + INI.GetIni(fName, "InternalPort", "", "Integer"))
                                         If RegionPort(uuid) = 0 Then RegionPort(uuid) = LargestPort() + 1
@@ -677,7 +705,8 @@ Public Class ClassRegionMaker
                                     INI.SaveINI()
                                     AddToRegionMap(uuid)
 
-                                    WriteRegionObject(Group, fName, Verbose)
+                                    ' !!!! TODO TEST THIS REMOVAL
+                                    ' WriteRegionObject(Group, fName, Verbose)
                                 End If
                             Next
                         Catch ex As Exception
@@ -764,30 +793,6 @@ Public Class ClassRegionMaker
 
     End Function
 
-    Public Shared Sub StopRegion(RegionUUID As String)
-
-        Dim hwnd As IntPtr = GetHwnd(PropRegionClass.GroupName(RegionUUID))
-        If ShowDOSWindow(hwnd, SHOWWINDOWENUM.SWRESTORE) Then
-            FormSetup.SequentialPause()
-
-            TextPrint(My.Resources.Not_Running & " " & Global.Outworldz.My.Resources.Stopping_word)
-            ShutDown(RegionUUID)
-
-            ' shut down all regions in the DOS box
-            For Each RegionUUID In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDown ' request a Stop
-            Next
-        Else
-            ' shut down all regions in the DOS box
-            For Each UUID As String In PropRegionClass.RegionUuidListByName(PropRegionClass.GroupName(RegionUUID))
-                PropRegionClass.Status(UUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped ' already shutting down
-            Next
-        End If
-
-        PropUpdateView = True ' make form refresh
-
-    End Sub
-
     Public Sub UpdateAllRegionPorts()
 
         SyncLock UpdatePortLock
@@ -863,7 +868,7 @@ Public Class ClassRegionMaker
         Public _RegionName As String = ""
         Public _RegionPath As String = ""  ' The full path to the region ini file
         Public _RegionPort As Integer
-        
+
         Public _SizeX As Integer = 256
         Public _SizeY As Integer = 256
         Public _Status As Integer
@@ -1291,6 +1296,13 @@ Public Class ClassRegionMaker
 
 #Region "Options"
 
+    Public ReadOnly Property WebserverList As List(Of String)
+        Get
+            Return _webserverList
+        End Get
+
+    End Property
+
     Public Property AllowGods(uuid As String) As String
         Get
             If uuid Is Nothing Then Return ""
@@ -1520,13 +1532,12 @@ Public Class ClassRegionMaker
             Try
                 Return RegionList(uuid)._RegionEnabled
             Catch ex As Exception
-                'BreakPoint.Show(ex.message)
+                BreakPoint.Show(ex.Message)
                 Return Nothing
             End Try
         End Get
         Set(ByVal Value As Boolean)
             If uuid Is Nothing Then Return
-
             RegionList(uuid)._RegionEnabled = Value
         End Set
     End Property
@@ -1635,13 +1646,6 @@ Public Class ClassRegionMaker
 
             RegionList(uuid)._Tides = Value
         End Set
-    End Property
-
-    Public ReadOnly Property WebserverList As List(Of String)
-        Get
-            Return _webserverList
-        End Get
-
     End Property
 
 #End Region

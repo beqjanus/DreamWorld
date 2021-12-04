@@ -19,58 +19,9 @@ End Class
 
 Module SmartStart
 
-    Private ReadOnly Sleeping As New List(Of String)
-
 #Region "SmartBegin"
 
-    ''' <summary>
-    ''' Waits for a restarted region to be fully up
-    ''' </summary>
-    ''' <param name="RegionUUID">Region UUID</param>
-    ''' <returns>True of region is booted</returns>
-    Public Function WaitForBooted(RegionUUID As String) As Boolean
-
-        Debug.Print("Waiting for " & PropRegionClass.RegionName(RegionUUID))
-        Dim c As Integer = 90 ' 1.5 minutes
-        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted And
-                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
-
-            If Not WaitForBooting(RegionUUID) Then
-                Return False
-            End If
-
-            c -= 1  ' skip on timeout error
-            If c < 0 Then
-                BreakPoint.Show("Timeout")
-                Return False
-            End If
-
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
-
-    Public Function WaitForBooting(RegionUUID As String) As Boolean
-
-        Dim c As Integer = 30 ' 30 seconds for a region to change state sounds like a lot
-        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting And
-                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood And
-                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted
-
-            c -= 1  ' skip on timeout error
-            If c < 0 Then
-                BreakPoint.Show("Timeout")
-                Return False
-            End If
-
-            Sleep(1000)
-
-        End While
-        Return True
-
-    End Function
+    Private ReadOnly Sleeping As New List(Of String)
 
     Public Function SmartStartParse(post As String) As String
 
@@ -172,6 +123,55 @@ Module SmartStart
         End If
 
         Return PropRegionClass.FindRegionByName(Settings.WelcomeRegion)
+
+    End Function
+
+    ''' <summary>
+    ''' Waits for a restarted region to be fully up
+    ''' </summary>
+    ''' <param name="RegionUUID">Region UUID</param>
+    ''' <returns>True of region is booted</returns>
+    Public Function WaitForBooted(RegionUUID As String) As Boolean
+
+        Debug.Print("Waiting for " & PropRegionClass.RegionName(RegionUUID))
+        Dim c As Integer = 90 ' 1.5 minutes
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted And
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood
+
+            If Not WaitForBooting(RegionUUID) Then
+                Return False
+            End If
+
+            c -= 1  ' skip on timeout error
+            If c < 0 Then
+                BreakPoint.Show("Timeout")
+                Return False
+            End If
+
+            Sleep(1000)
+
+        End While
+        Return True
+
+    End Function
+
+    Public Function WaitForBooting(RegionUUID As String) As Boolean
+
+        Dim c As Integer = 30 ' 30 seconds for a region to change state sounds like a lot
+        While PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booting And
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood And
+                PropRegionClass.Status(RegionUUID) <> ClassRegionMaker.SIMSTATUSENUM.Booted
+
+            c -= 1  ' skip on timeout error
+            If c < 0 Then
+                BreakPoint.Show("Timeout")
+                Return False
+            End If
+
+            Sleep(1000)
+
+        End While
+        Return True
 
     End Function
 
@@ -464,14 +464,7 @@ Module SmartStart
             Return False
         End If
 
-        ' bug 171036640
-        Try
-            If PropRegionClass.Cores(RegionUUID) = 0 Or PropRegionClass.Cores(RegionUUID) > Environment.ProcessorCount Then
-                PropRegionClass.Cores(RegionUUID) = CInt(2 ^ Environment.ProcessorCount - 1)
-            End If
-        Catch
-            PropRegionClass.Cores(RegionUUID) = &HFFFF
-        End Try
+        SetCores(RegionUUID)
 
         PropRegionClass.CrashCounter(RegionUUID) = 0
 
@@ -641,7 +634,6 @@ Module SmartStart
         If PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Suspended Or
                 PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.Stopped Or
                 PropRegionClass.Status(RegionUUID) = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
-
 
             Bench.Print($"Reboot {PropRegionClass.RegionName(RegionUUID)}")
 

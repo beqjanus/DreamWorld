@@ -301,7 +301,7 @@ Public Class FormRegion
             ConciergeCheckBox.Checked = False
             MaxPrims.Text = 45000.ToString(Globalization.CultureInfo.InvariantCulture)
             MaxAgents.Text = 100.ToString(Globalization.CultureInfo.InvariantCulture)
-            RegionUUID = PropRegionClass.CreateRegion("New Region")
+            RegionUUID = PropRegionClass.CreateRegionStruct("New Region")
             UUID.Text = RegionUUID
             Gods_Use_Default.Checked = True
 

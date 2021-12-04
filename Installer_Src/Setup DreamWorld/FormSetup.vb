@@ -627,6 +627,7 @@ Public Class FormSetup
         ClearAllRegions()
         StopRobust()
         Zap("baretail")
+        Zap("cports")
 
         Timer1.Stop()
         TimerBusy = 0
@@ -1051,6 +1052,8 @@ Public Class FormSetup
                 If RegionName.Contains("Jewel") Then
                     BreakPoint.Show("Stopped")
                 End If
+
+
                 If Settings.SmartStart Then
                     If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Or status = ClassRegionMaker.SIMSTATUSENUM.ShuttingDownForGood Then
 
@@ -1062,10 +1065,8 @@ Public Class FormSetup
                         End If
 
                     End If
-                End If
 
-                ' keep smart start regions alive if someone is near
-                If Settings.SmartStart Then
+                    ' keep smart start regions alive if someone is near
                     If PropRegionClass.AvatarIsNearby(RegionUUID) Then
                         PokeGroupTimer(GroupName)
                     End If
@@ -2733,7 +2734,6 @@ Public Class FormSetup
 
             ' print hourly marks on console
             If SecondsTicker Mod 3600 = 0 Then
-
                 TextPrint($"{Global.Outworldz.My.Resources.Running_word} {CInt((SecondsTicker / 3600)).ToString(Globalization.CultureInfo.InvariantCulture)} {Global.Outworldz.My.Resources.Hours_word}")
                 SetPublicIP()
                 ExpireLogsByAge()

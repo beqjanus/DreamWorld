@@ -804,6 +804,7 @@ Public Class FormRegionlist
                         Dim PID = PropRegionClass.ProcessID(RegionUUID)
                         Dim component1 As Process = Process.GetProcessById(PID)
                         Dim Memory As Double = (component1.WorkingSet64 / 1024) / 1024
+
                         item1.SubItems.Add(Memory.ToString("0.0", Globalization.CultureInfo.CurrentCulture))
                     Catch ex As Exception
                         item1.SubItems.Add("0")
