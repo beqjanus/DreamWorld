@@ -9493,6 +9493,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Show Date and Time in Logs.
+        '''</summary>
+        Friend ReadOnly Property ShowDateTime() As String
+            Get
+                Return ResourceManager.GetString("ShowDateTime", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Shutdown.
         '''</summary>
         Friend ReadOnly Property Shutdown_word() As String

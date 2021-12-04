@@ -1726,6 +1726,15 @@ Public Class MySettings
         End Set
     End Property
 
+    Public Property ShowDateandTimeinLogs() As Boolean
+        Get
+            Return CType(GetMySetting("ShowDateandTimeinLogs", "True"), Boolean)
+        End Get
+        Set
+            SetMySetting("ShowDateandTimeinLogs", CStr(Value))
+        End Set
+    End Property
+
     Public Property ShowToForeignUsers() As Boolean
         Get
             Return CType(GetMySetting("ShowToForeignUsers", "False"), Boolean)

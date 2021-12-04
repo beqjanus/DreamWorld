@@ -3168,6 +3168,9 @@
   <data name="Shoutcast_Disabled" xml:space="preserve">
     <value>Shoutcast is not Enabled.</value>
   </data>
+  <data name="ShowDateTime" xml:space="preserve">
+    <value>Show Date and Time in Logs</value>
+  </data>
   <data name="Show_Grid_Address" xml:space="preserve">
     <value>Show Grid Address</value>
   </data>
