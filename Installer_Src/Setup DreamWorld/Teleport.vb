@@ -19,64 +19,56 @@ Module Teleport
         Return up
 
     End Function
-    ''' <summary>
-    '''  TODO re-entrant lock needed
-    '''  
-    ''' </summary>
-    ''' 
+
     Dim TPLock As New Object
     Public Sub TeleportAgents()
 
 
-        SyncLock TPLock
+        Try
+            For Each Keypair In TeleportAvatarDict
+                Dim AgentID = Keypair.Key
+                Dim RegionToUUID = Keypair.Value
+                Dim status = PropRegionClass.Status(RegionToUUID)
+                Dim Port As Integer = PropRegionClass.GroupPort(RegionToUUID)
 
-            'If Not Settings.SmartStart Then Return
-            Try
-                For Each Keypair In TeleportAvatarDict
-                    Dim AgentID = Keypair.Key
-                    Dim RegionToUUID = Keypair.Value
-                    Dim status = PropRegionClass.Status(RegionToUUID)
-                    Dim Port As Integer = PropRegionClass.GroupPort(RegionToUUID)
+                If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
+                    Fin.Add(AgentID) ' cancel this, the region went away
 
-                    If status = ClassRegionMaker.SIMSTATUSENUM.Stopped Then
-                        Fin.Add(AgentID) ' cancel this, the region went away
+                ElseIf status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
 
-                    ElseIf status = ClassRegionMaker.SIMSTATUSENUM.Booted Then
-
-                        If IsRegionReady(Port) And RegionIsRegisteredOnline(RegionToUUID) Then
-                            Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
-                            Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
-                            Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
-                            If fromName.Length > 0 Then
-                                Bench.Print("Teleport Initiated")
-                                RPC_admin_dialog(AgentID, $"{PropRegionClass.RegionName(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
-                                Threading.Thread.Sleep(Settings.TeleportSleepTime * 1000)
-                                If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
-                                    Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
-                                Else
-                                    Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
-                                    BreakPoint.Show("Unable to locate region " & RegionToUUID)
-                                    RPC_admin_dialog(AgentID, $"Unable to locate region {PropRegionClass.RegionName(RegionToUUID)}.")
-                                End If
-                                Fin.Add(AgentID)
+                    If IsRegionReady(Port) And RegionIsRegisteredOnline(RegionToUUID) Then
+                        Dim DestinationName = PropRegionClass.RegionName(RegionToUUID)
+                        Dim FromRegionUUID As String = GetRegionFromAgentID(AgentID)
+                        Dim fromName = PropRegionClass.RegionName(FromRegionUUID)
+                        If fromName.Length > 0 Then
+                            Bench.Print("Teleport Initiated")
+                            RPC_admin_dialog(AgentID, $"{PropRegionClass.RegionName(RegionToUUID)} will be ready in {CStr(Settings.TeleportSleepTime)} seconds.")
+                            Threading.Thread.Sleep(Settings.TeleportSleepTime * 1000)
+                            If TeleportTo(FromRegionUUID, DestinationName, AgentID) Then
+                                Logger("Teleport", $"{DestinationName} teleport command sent", "Teleport")
                             Else
-                                Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
+                                Logger("Teleport", $"{DestinationName} failed to receive teleport", "Teleport")
+                                BreakPoint.Show("Unable to locate region " & RegionToUUID)
+                                RPC_admin_dialog(AgentID, $"Unable to locate region {PropRegionClass.RegionName(RegionToUUID)}.")
                             End If
+                            Fin.Add(AgentID)
+                        Else
+                            Fin.Add(AgentID) ' cancel this, the agent is not anywhere  we can get to
                         End If
                     End If
+                End If
 
-                Next
-            Catch
-            End Try
-            ' rem from the to list as they have moved on
-            For Each str As String In Fin
-                Logger("Teleport Done", str, "Teleport")
-                TeleportAvatarDict.Remove(str)
-                Bench.Print("Teleport Finished")
             Next
-            Fin.Clear()
+        Catch
+        End Try
+        ' rem from the to list as they have moved on
+        For Each str As String In Fin
+            Logger("Teleport Done", str, "Teleport")
+            TeleportAvatarDict.Remove(str)
+            Bench.Print("Teleport Finished")
+        Next
+        Fin.Clear()
 
-        End SyncLock
 
     End Sub
 
