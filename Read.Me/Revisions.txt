@@ -3,38 +3,39 @@ This is a high-level view of major changes. For detailed commit history, checkou
 
 
 V4.78 
+Logs will be saved with a Date/time stamp.  Disable this in Settings->logs if you prefer the original no timestamp method.
 Added a link to Google Map in Help. This map has nice images, but doesn't cover much area. It centers on your Welcome Region.
 Now that its the first of the month,  I set the Visitor maps show the last 30 days by default, instead of from the 1st of the month. doh
 The Visitor maps now default to 365 day storage instead of 90 days. It is safe for you to change the setting (Setup-Settings->Maps, on the right side). Opensimmers can set this number of days to very large, as we have few people.
-On SL, you can get 500 visitors a day and this fills up Mysql disk space FAST as it adds a record per person per minute.
-Faster getting around to booting of regions.  
+On SL, you can get 500 visitors a day and this fills up Mysql disk space as it adds a record per person per minute.
+You should notice a speed speedup from clicking Start to boot of regions.  
 In Opensim, changed region Smart Start code so it is identical to robust code, thanks to Ubit Umarov.
 Terrains:  2X2 and larger terrains save in their own folder so Region Building will not mess up with wrong size of terrain.
-Regenerate all terrains goes over the library and re=saves the textures.  It starts with .r32, then tries raw, Terragen, and then PNG to get the highest possible resolution saved in Opensim\bin\terrains. 
+Regenerate all terrains goes over the library and re-saves the textures.  It starts with .r32, then tries raw, Terragen, and then PNG to get the highest possible resolution saved in Opensim\bin\terrains. 
+
 Many issues remain with endless land and sea:
  Still only works on 1X1 regions. (uncoded)
- Can cause port conflicts. (long running difficult yo fix bug)
- Trees and plant cluster around the center of the sim (Opensim bug)
+ Can cause port conflicts. (long running difficult to fix bug)
+ Trees and plant cluster around the center of the sim (Opensim bug, this module is very old)
 
 V4.77
 Logging into "parked" Smart Boot regions was formerly impossible, except via Hypergrid.  Local users could not log in except to an online regions. This is now fixed.
 
-
 V4.76
 Visitor Map fixes:
 	The visitor maps did not work when the database settings were not default.  This requires some additional Perl modules which will install automatically when you update.
-	New modules are Config::IniFiles and File::BOM
+	New Perl modules are Config::IniFiles and File::BOM
 	Visitor counts were always zero in the Region List.
 	Reorganized Map maker to make the region map for VIsitors Mapping when the first visitor arrives in a region.
 	Visitor maps with no start date show from the first day of the month to the current date.
 	Added a back button 
-	FLoats added to list maps for compactness.
+	Floats added to list maps for compactness.
 
 V4.75
 Announce in voice Avatars that leave
 Fixed a bug in Visitor maps lists where some visitors may not be counted
 Tell Smart Start avatars when region is almost ready
-Allow both http and https URLS in the splash screen
+Allow both http:// and https:// URLS in the splash screen
 
 V4.74
 A missing me.show in Load OAR and Load IAR made it impossible to load web OAR and IAR content. Oops.

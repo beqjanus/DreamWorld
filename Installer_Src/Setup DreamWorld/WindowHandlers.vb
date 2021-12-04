@@ -166,7 +166,6 @@ Module WindowHandlers
 
     End Function
 
-
     Public Function GetPIDofRobust() As Integer
 
         For Each pList As Process In Process.GetProcessesByName("Robust")
@@ -180,7 +179,6 @@ Module WindowHandlers
         Return 0
 
     End Function
-
 
     Public Function GetPIDofWindow(GroupName As String) As Integer
 
@@ -382,13 +380,14 @@ Module WindowHandlers
     Public Function WaitForPID(myProcess As Process) As Integer
 
         If myProcess Is Nothing Then
+            BreakPoint.Show("No Process!")
             Return 0
         End If
 
         Dim TooMany As Integer = 0
         Dim p As Process = Nothing
         ' 2 minutes for old hardware and it to build DB
-        Do While TooMany < 10 And PropOpensimIsRunning
+        Do While TooMany < 10
             Try
                 p = Process.GetProcessById(myProcess.Id)
             Catch ex As Exception
@@ -403,11 +402,10 @@ Module WindowHandlers
             Sleep(1000)
             TooMany += 1
         Loop
-        'BreakPoint.Show("No Pid")
+        BreakPoint.Show("No Pid")
         Return 0
 
     End Function
-
 
     Public Sub Zap(processName As String)
 
