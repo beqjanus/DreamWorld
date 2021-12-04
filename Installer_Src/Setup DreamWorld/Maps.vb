@@ -57,7 +57,12 @@ Module Maps
                 For X = 0 To bmp.Width - 1
                     For Y = 0 To bmp.Height - 1
                         Dim newColor = Color.FromArgb(230, 230, 230)
-                        bmp.SetPixel(X, Y, newColor)
+                        Try
+                            bmp.SetPixel(X, Y, newColor)
+                        Catch ex As Exception
+                            BreakPoint.Show(ex.Message)
+                        End Try
+
                     Next
                 Next
 
@@ -85,8 +90,13 @@ Module Maps
                             Src = Image.FromFile(RegionSrc)
                             Using g As Graphics = Graphics.FromImage(Out)
                                 Diagnostics.Debug.Print(CStr(X) & ":" & CStr(Y))
-                                g.DrawImage(Src, New System.Drawing.Rectangle(X, Y, 256, 256))
-                                Out.Save(IO.Path.Combine(SavePath, $"{Name}.jpg"))
+                                Try
+                                    g.DrawImage(Src, New System.Drawing.Rectangle(X, Y, 256, 256))
+                                    Out.Save(IO.Path.Combine(SavePath, $"{Name}.jpg"))
+                                Catch ex As Exception
+                                    BreakPoint.Show(ex.Message)
+                                End Try
+
                             End Using
                         End If
                         Y -= 256
