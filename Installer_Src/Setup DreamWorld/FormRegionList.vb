@@ -236,15 +236,13 @@ Public Class FormRegionlist
         AvatarsButton.Text = Global.Outworldz.My.Resources.Avatars_word
         Bootedbutton.Text = Global.Outworldz.My.Resources.Running_word
         DetailsButton.Text = Global.Outworldz.My.Resources.Details_word
+        ExportButton.Text = Global.Outworldz.My.Resources.Export_word
         FloatToolStripMenuItem.Text = Global.Outworldz.My.Resources.Float
         HelpToolStripMenuItem.Image = Global.Outworldz.My.Resources.question_and_answer
         HelpToolStripMenuItem.Text = Global.Outworldz.My.Resources.Help_word
         IconsButton.Text = Global.Outworldz.My.Resources.Icons_word
-        IconView.SmallImageList = ImageListSmall
-        ImageListSmall.ImageSize = New Drawing.Size(16, 16)
         ImportButton.Text = Global.Outworldz.My.Resources.Import_word
         KOT.Text = Global.Outworldz.My.Resources.Window_Word
-        ListView1.SmallImageList = ImageListSmall
         OnTopToolStripMenuItem.Text = Global.Outworldz.My.Resources.On_Top
         RefreshButton.Text = Global.Outworldz.My.Resources.Refresh_word
         RestartButton.Text = Global.Outworldz.My.Resources.Restart_word
@@ -252,10 +250,17 @@ Public Class FormRegionlist
         SearchBox.Text = Global.Outworldz.My.Resources.Search_word
         StopAllButton.Text = Global.Outworldz.My.Resources.Stop_All_word
         StoppedButton.Text = Global.Outworldz.My.Resources.Stopped_word
+        Users.Text = Global.Outworldz.My.Resources.Users_word
+
+        IconView.SmallImageList = ImageListSmall
+        ImageListSmall.ImageSize = New Drawing.Size(16, 16)
+        ListView1.SmallImageList = ImageListSmall
+
         ToolTip1.SetToolTip(AddRegionButton, Global.Outworldz.My.Resources.Add_Region_word)
         ToolTip1.SetToolTip(AllNone, Global.Outworldz.My.Resources.Selectallnone)
         ToolTip1.SetToolTip(AvatarsButton, Global.Outworldz.My.Resources.ListAvatars)
         ToolTip1.SetToolTip(DetailsButton, Global.Outworldz.My.Resources.View_Details)
+        ToolTip1.SetToolTip(ExportButton, Global.Outworldz.My.Resources.Export_list)
         ToolTip1.SetToolTip(IconsButton, Global.Outworldz.My.Resources.View_as_Icons)
         ToolTip1.SetToolTip(ImportButton, Global.Outworldz.My.Resources.Importtext)
         ToolTip1.SetToolTip(ListView1, Global.Outworldz.My.Resources.ClickStartStoptxt)
@@ -264,7 +269,6 @@ Public Class FormRegionlist
         ToolTip1.SetToolTip(RunAllButton, Global.Outworldz.My.Resources.StartAll)
         ToolTip1.SetToolTip(StopAllButton, Global.Outworldz.My.Resources.Stopsall)
         ToolTip1.ToolTipTitle = Global.Outworldz.My.Resources.Row_note
-        Users.Text = Global.Outworldz.My.Resources.Users_word
 
         ViewBusy = True
 
@@ -1723,6 +1727,101 @@ SetWindowOnTop_Err:
         EmailForm.Select()
     End Sub
 
+    Private Sub ExportButton_Click(sender As Object, e As EventArgs) Handles ExportButton.Click
+
+        Dim BaseFolder As String
+        Dim f = Settings.BackupFolder.Replace("/", "\")
+        'Create an instance of the open file dialog box.
+        Using openFileDialog1 = New FolderBrowserDialog With {
+            .ShowNewFolderButton = True,
+            .Description = Global.Outworldz.My.Resources.Choose_folder,
+            .SelectedPath = f
+        }
+            Dim UserClickedOK As DialogResult = openFileDialog1.ShowDialog
+            ' Process input if the user clicked OK.
+            If UserClickedOK = DialogResult.OK Then
+                Dim thing = openFileDialog1.SelectedPath
+                If thing.Length > 0 Then
+                    BaseFolder = thing
+                    Dim sourceTable As DataTable = New DataTable()
+
+                    sourceTable.Columns.AddRange(New DataColumn() {
+                    New DataColumn("Name", GetType(String)),
+                    New DataColumn("Dos Box", GetType(String)),
+                    New DataColumn("Agents", GetType(Integer)),
+                    New DataColumn("Status", GetType(String)),
+                    New DataColumn("RAM", GetType(String)),
+                    New DataColumn("CPU %", GetType(String)),
+                    New DataColumn("X", GetType(String)),
+                    New DataColumn("Y", GetType(String)),
+                    New DataColumn("Size", GetType(String)),
+                    New DataColumn("Estate", GetType(String)),
+                    New DataColumn("Prims", GetType(String)),
+                    New DataColumn("Region Port", GetType(String)),
+                    New DataColumn("Group Port", GetType(String)),
+                    New DataColumn("Scripts", GetType(String)),
+                    New DataColumn("Maps", GetType(String)),
+                    New DataColumn("Physics", GetType(String)),
+                    New DataColumn("Birds", GetType(String)),
+                    New DataColumn("Tides", GetType(String)),
+                    New DataColumn("Teleport", GetType(String)),
+                    New DataColumn("Smart Start", GetType(String)),
+                    New DataColumn("Level Gods", GetType(String)),
+                    New DataColumn("Owner Gods", GetType(String)),
+                    New DataColumn("Manager Gods", GetType(String)),
+                    New DataColumn("OAR Backup", GetType(String)),
+                    New DataColumn("Publicity", GetType(String)),
+                    New DataColumn("Frame Rate", GetType(String)),
+                    New DataColumn("Script Rate", GetType(String)),
+                    New DataColumn("Boot Time", GetType(String)),
+                    New DataColumn("Map Boot Time", GetType(String))
+                })
+
+                    For Each i In ListView1.Items
+
+                        sourceTable.Rows.Add(i.SubItems(0).Text.Trim,
+                                    i.SubItems(1).Text.Trim,
+                                    i.SubItems(2).Text.Trim,
+                                    i.SubItems(3).Text.Trim,
+                                    i.SubItems(4).Text.Trim,
+                                    i.SubItems(5).Text.Trim,
+                                    i.SubItems(6).Text.Trim,
+                                    i.SubItems(7).Text.Trim,
+                                    i.SubItems(8).Text.Trim,
+                                    i.SubItems(9).Text.Trim,
+                                    i.SubItems(10).Text.Trim,
+                                    i.SubItems(11).Text.Trim,
+                                    i.SubItems(12).Text.Trim,
+                                    i.SubItems(13).Text.Trim,
+                                    i.SubItems(14).Text.Trim,
+                                    i.SubItems(15).Text.Trim,
+                                    i.SubItems(16).Text.Trim,
+                                    i.SubItems(17).Text.Trim,
+                                    i.SubItems(18).Text.Trim,
+                                    i.SubItems(19).Text.Trim,
+                                    i.SubItems(20).Text.Trim,
+                                    i.SubItems(21).Text.Trim,
+                                    i.SubItems(22).Text.Trim,
+                                    i.SubItems(23).Text.Trim,
+                                    i.SubItems(24).Text.Trim,
+                                    i.SubItems(25).Text.Trim,
+                                    i.SubItems(26).Text.Trim,
+                                    i.SubItems(27).Text.Trim,
+                                    i.SubItems(28).Text.Trim)
+                    Next
+                    DeleteFile(IO.Path.Combine($"{BaseFolder}, RegionList.csv"))
+                    Sleep(100)
+                    Using writer As StreamWriter = New StreamWriter(IO.Path.Combine(BaseFolder, "RegionList.csv"))
+                        Rfc4180Writer.WriteDataTable(sourceTable, writer, True)
+                    End Using
+                    sourceTable.Dispose()
+                    MsgBox($"RegionList.csv ==> {BaseFolder}", MsgBoxStyle.Information Or MsgBoxStyle.MsgBoxSetForeground)
+                End If
+            End If
+        End Using
+
+    End Sub
+
     Private Sub FloatToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FloatToolStripMenuItem.Click
 
         FloatToolStripMenuItem.Checked = True
@@ -1822,5 +1921,30 @@ SetWindowOnTop_Err:
     End Sub
 
 #End Region
+
+End Class
+
+Public Class Rfc4180Writer
+
+    Public Shared Sub WriteDataTable(ByVal sourceTable As DataTable,
+        ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
+        If (includeHeaders) Then
+            Dim headerValues As IEnumerable(Of String) = sourceTable.Columns.OfType(Of DataColumn).Select(Function(column) QuoteValue(column.ColumnName))
+
+            writer.WriteLine(String.Join(",", headerValues))
+        End If
+
+        Dim items As IEnumerable(Of String) = Nothing
+        For Each row As DataRow In sourceTable.Rows
+            items = row.ItemArray.Select(Function(obj) QuoteValue(If(obj?.ToString(), String.Empty)))
+            writer.WriteLine(String.Join(",", items))
+        Next
+
+        writer.Flush()
+    End Sub
+
+    Private Shared Function QuoteValue(ByVal value As String) As String
+        Return String.Concat("""", value.Replace("""", """"""), """")
+    End Function
 
 End Class

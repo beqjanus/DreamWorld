@@ -1601,6 +1601,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Choose folder.
+        '''</summary>
+        Friend ReadOnly Property Choose_folder() As String
+            Get
+                Return ResourceManager.GetString("Choose_folder", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Choose a  folder.
         '''</summary>
         Friend ReadOnly Property Choose_folder_for_backups() As String
@@ -3591,6 +3600,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Export this list.
+        '''</summary>
+        Friend ReadOnly Property Export_list() As String
+            Get
+                Return ResourceManager.GetString("Export_list", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Export Permission.
         '''</summary>
         Friend ReadOnly Property Export_Permission_word() As String
@@ -3605,6 +3623,15 @@ Namespace My.Resources
         Friend ReadOnly Property Export_SQL_file_word() As String
             Get
                 Return ResourceManager.GetString("Export_SQL_file_word", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Export.
+        '''</summary>
+        Friend ReadOnly Property Export_word() As String
+            Get
+                Return ResourceManager.GetString("Export_word", resourceCulture)
             End Get
         End Property
         

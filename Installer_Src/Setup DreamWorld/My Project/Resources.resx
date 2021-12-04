@@ -613,6 +613,9 @@
   <data name="Choose_Cache" xml:space="preserve">
     <value>Choose which cache to empty</value>
   </data>
+  <data name="Choose_folder" xml:space="preserve">
+    <value>Choose folder</value>
+  </data>
   <data name="Choose_folder_for_backups" xml:space="preserve">
     <value>Choose a  folder</value>
   </data>
@@ -1271,11 +1274,17 @@
   <data name="Export_Backup_file_word" xml:space="preserve">
     <value>Export backup file</value>
   </data>
+  <data name="Export_list" xml:space="preserve">
+    <value>Export this list</value>
+  </data>
   <data name="Export_Permission_word" xml:space="preserve">
     <value>Export Permission</value>
   </data>
   <data name="Export_SQL_file_word" xml:space="preserve">
     <value>Export SQL file</value>
+  </data>
+  <data name="Export_word" xml:space="preserve">
+    <value>Export</value>
   </data>
   <data name="External" xml:space="preserve">
     <value>External HostName For Region Servers</value>
